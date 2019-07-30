@@ -108,7 +108,7 @@ namespace ReinSniperRework
                 field2?.SetValue(box2, typeof(EntityStates.ReinSniperRework.SniperWeapon.SniperSecondary)?.AssemblyQualifiedName);
                 Sniper2.activationState = (EntityStates.SerializableEntityStateType)box2;
 
-                Sniper3.baseRechargeInterval = 3f;
+                Sniper3.baseRechargeInterval = 8f;
                 Sniper3.baseMaxStock = 1;
                 Sniper3.rechargeStock = 1;
                 Sniper3.isBullets = false;
