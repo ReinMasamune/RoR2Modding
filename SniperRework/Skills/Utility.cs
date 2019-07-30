@@ -17,6 +17,7 @@ namespace EntityStates.ReinSniperRework.SniperWeapon
         {
             base.OnEnter();
             data = base.GetComponent<ReinDataLibrary>();
+            base.characterBody.AddBuff(BuffIndex.Cloak);
             Util.PlaySound(data.u_beginSoundString, base.gameObject);
             this.modelTransform = base.GetModelTransform();
             if (this.modelTransform)
@@ -34,7 +35,7 @@ namespace EntityStates.ReinSniperRework.SniperWeapon
                 int hurtBoxesDeactivatorCounter = hurtBoxGroup.hurtBoxesDeactivatorCounter + 1;
                 hurtBoxGroup.hurtBoxesDeactivatorCounter = hurtBoxesDeactivatorCounter;
             }
-            this.blinkVector = base.characterMotor.velocity.normalized;
+            this.blinkVector = base.characterMotor.velocity.normalized * -1f;
             this.CreateBlinkEffect(Util.GetCorePosition(base.gameObject));
             base.characterMotor.Motor.SafeMovement = true;
         }
@@ -102,6 +103,7 @@ namespace EntityStates.ReinSniperRework.SniperWeapon
                 hurtBoxGroup.hurtBoxesDeactivatorCounter = hurtBoxesDeactivatorCounter;
             }
             base.characterMotor.Motor.SafeMovement = false;
+            base.characterBody.RemoveBuff(BuffIndex.Cloak);
             base.OnExit();
         }
 
