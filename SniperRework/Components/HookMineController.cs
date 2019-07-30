@@ -26,7 +26,6 @@ namespace ReinSniperRework
         public string activationSound;
         public TeamIndex teamFriendly;
         public TeamIndex teamHostile;
-        public Collider trigger;
         public GameObject wardPrefab;
 
         private float timer = 0f;
