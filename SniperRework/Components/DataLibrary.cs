@@ -95,18 +95,24 @@ namespace ReinSniperRework
 
         //SniperSpecial values
         //floats
-        public float r_baseDuration = 1.0f;
-        private float i_minePrimeDelay = 5.0f;
-        private float i_wardRadius = 10.0f;
+        public float r_baseDuration = 0.25f;
+        private float i_mineThrowVelocity = 15f;
+        private float i_minePrimeDelay = 2.5f;
+        private float i_wardRadius = 7.5f;
         private float i_wardBuffDuration = 1.0f;
         private float i_wardInterval = 0.5f;
         private float i_wardDuration = 10.0f;
         private float i_triggerRadiusMod = 1.0f;
-        private float i_mineHookInterval = 1.0f;
+        private float i_mineHookInterval = 0.5f;
         private float i_mineHookDuration = 10.0f;
-        private float i_mineHookRadiusMod = 5.0f;
+        private float i_mineHookRadiusMod = 3.0f;
+        private float i_mineForceRadiusMod = 1.25f;
+        private float i_mineForceDamping = 0.05f;
+        private float i_mineForceStrength = 2.5f;
+        private float i_mineForceFalloff = 0.0f;
         //ints
-        private int i_mineHooksPerTick = 3;
+        private int i_mineHooksPerTick = 2;
+        //private int i_mineHooksPerTarget = 3;
         //bools
         private bool i_wardFloorWard = true;
         private bool i_wardExpires = true;
@@ -120,10 +126,7 @@ namespace ReinSniperRework
         //load requests
         private ResourceRequest req_r_mineProj = Resources.LoadAsync<GameObject>("Prefabs/projectiles/engimine");
         private ResourceRequest req_i_mineWard = Resources.LoadAsync<GameObject>("prefabs/networkedobjects/engimineward");
-
-
-
-
+        private ResourceRequest req_i_mineForceTetherPrefab = Resources.LoadAsync<GameObject>("prefabs/effects/gravspheretether");
 
         public void FixedUpdate()
         {
@@ -147,11 +150,12 @@ namespace ReinSniperRework
             {
                 u_blinkPrefab = Get_u_blinkPrefab(req_u_blinkPrefab);
             }
-            if (!r_mineProj && req_r_mineProj.isDone && req_i_mineWard.isDone)
+            if (!r_mineProj && req_r_mineProj.isDone && req_i_mineWard.isDone && req_i_mineForceTetherPrefab.isDone )
             {
-                r_mineProj = Get_r_mineProj(req_r_mineProj, req_i_mineWard);
+                r_mineProj = Get_r_mineProj(req_r_mineProj, req_i_mineWard, req_i_mineForceTetherPrefab);
             }
         }
+
 
         private GameObject Get_p_effectPrefab(ResourceRequest r)
         {
@@ -183,10 +187,11 @@ namespace ReinSniperRework
         {
             return (Material)r.asset;
         }
-        private GameObject Get_r_mineProj(ResourceRequest r1, ResourceRequest r2)
+        private GameObject Get_r_mineProj(ResourceRequest r1, ResourceRequest r2, ResourceRequest r3 )
         {
             GameObject mine = (GameObject)r1.asset;
             GameObject mineWard = (GameObject)r2.asset;
+            GameObject tetherPrefab = (GameObject)r3.asset;
 
             BuffWard ward = mineWard.GetComponent<BuffWard>();
 
@@ -201,6 +206,14 @@ namespace ReinSniperRework
             ward.expireDuration = i_wardDuration;
             //ward.animateRadius = ;
             //ward.radiusCoefficientCurve = ;
+
+            RadialForce force = mineWard.AddComponent<RadialForce>();
+
+            force.tetherPrefab = tetherPrefab;
+            force.radius = i_wardRadius * i_mineForceRadiusMod;
+            force.damping = i_mineForceDamping;
+            force.forceMagnitude = i_mineForceStrength;
+            force.forceCoefficientAtEdge = i_mineForceFalloff;
 
             Collider col = mine.AddComponent<SphereCollider>();
             ((SphereCollider)col).radius = i_triggerRadiusMod * i_wardRadius;
@@ -219,7 +232,8 @@ namespace ReinSniperRework
             hookControl.teamHostile = TeamIndex.Monster;
             hookControl.teamFriendly = TeamIndex.Player;
 
-            mine.GetComponent<EngiMineController>().enabled = false;
+            mine.GetComponent<ProjectileSimple>().velocity = i_mineThrowVelocity;
+
             Destroy(mine.GetComponent<ProjectileController>().ghostPrefab.GetComponent<EngiMineAnimator>());
             Destroy(mine.GetComponent<EngiMineController>());
 

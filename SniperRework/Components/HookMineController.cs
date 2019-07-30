@@ -185,10 +185,10 @@ namespace ReinSniperRework
                         CharacterBody target = HB.healthComponent.body;
                         if (target)
                         {
-                            if (!targets.Contains(target))
-                            {
+                            //if (!targets.Contains(target))
+                            //{
                                 targets.Add(target);
-                            }
+                            //}
                         }
                     }
                 }

@@ -126,8 +126,8 @@ namespace ReinSniperRework
                 field3?.SetValue(box3, typeof(EntityStates.ReinSniperRework.SniperWeapon.SniperUtility)?.AssemblyQualifiedName);
                 Sniper3.activationState = (EntityStates.SerializableEntityStateType)box3;
 
-                Sniper4.baseRechargeInterval = 4f;
-                Sniper4.baseMaxStock = 3;
+                Sniper4.baseRechargeInterval = 30f;
+                Sniper4.baseMaxStock = 1;
                 Sniper4.rechargeStock = 1;
                 Sniper4.isBullets = false;
                 Sniper4.shootDelay = 0.1f;
@@ -136,7 +136,7 @@ namespace ReinSniperRework
                 Sniper4.noSprint = true;
                 Sniper4.mustKeyPress = true;
                 Sniper4.requiredStock = 1;
-                Sniper4.stockToConsume = 0;
+                Sniper4.stockToConsume = 1;
                 Sniper4.icon = refSL2.primary.icon;
                 Sniper4.activationState = new EntityStates.SerializableEntityStateType(typeof(EntityStates.ReinSniperRework.SniperWeapon.SniperSpecial));
                 object box4 = Sniper4.activationState;

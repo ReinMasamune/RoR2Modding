@@ -70,6 +70,11 @@ namespace EntityStates.ReinSniperRework.SniperWeapon
             data.g_charge.AddCharge(Time.fixedDeltaTime * this.attackSpeedStat);
             UpdateSlowTier(data.g_charge.GetChargeTier() + 1);
 
+            if( base.cameraTargetParams.aimMode != CameraTargetParams.AimType.FirstPerson )
+            {
+                base.cameraTargetParams.aimMode = CameraTargetParams.AimType.FirstPerson;
+            }
+
             if (Input.mouseScrollDelta.y != 0f)
             {
                 curZoom = Mathf.Clamp(curZoom + Input.mouseScrollDelta.y * data.s_scrollScale, data.s_minZoom, data.s_maxZoom);
