@@ -33,7 +33,10 @@ namespace ReinSniperRework
         public float p_interruptInterval = 0.01f;
         public float p_recoilForceMult = 750.0f;
         public float p_reloadForceMult = 500.0f;
-        public float p_shotRadius = 0.025f;
+        public float p_ntShotRadius = 0.025f;
+        public float p_t0ShotRadius = 0.25f;
+        public float p_t1ShotRadius = 0.5f;
+        public float p_t2ShotRadius = 1.0f;
         public float p_maxRange = 1000.0f;
         public float p_reloadT0Mod = 0.75f;
         public float p_reloadT1Mod = 1.45f;
@@ -100,18 +103,18 @@ namespace ReinSniperRework
         private float i_minePrimeDelay = 2.5f;
         private float i_wardRadius = 7.5f;
         private float i_wardBuffDuration = 1.0f;
-        private float i_wardInterval = 0.5f;
+        private float i_wardInterval = 1.0f;
         private float i_wardDuration = 10.0f;
         private float i_triggerRadiusMod = 1.0f;
-        private float i_mineHookInterval = 0.5f;
+        private float i_mineHookInterval = 0.9f;
         private float i_mineHookDuration = 10.0f;
         private float i_mineHookRadiusMod = 3.0f;
         private float i_mineForceRadiusMod = 1.25f;
         private float i_mineForceDamping = 0.05f;
-        private float i_mineForceStrength = 2.5f;
+        private float i_mineForceStrength = 2.0f;
         private float i_mineForceFalloff = 0.0f;
         //ints
-        private int i_mineHooksPerTick = 2;
+        private int i_mineHooksPerTick = 4;
         //private int i_mineHooksPerTarget = 3;
         //bools
         private bool i_wardFloorWard = true;
@@ -207,7 +210,12 @@ namespace ReinSniperRework
             //ward.animateRadius = ;
             //ward.radiusCoefficientCurve = ;
 
-            RadialForce force = mineWard.AddComponent<RadialForce>();
+            RadialForce force = mineWard.GetComponent<RadialForce>();
+            if( !force )
+            {
+                force = mineWard.AddComponent<RadialForce>();
+            }
+            
 
             force.tetherPrefab = tetherPrefab;
             force.radius = i_wardRadius * i_mineForceRadiusMod;
@@ -215,12 +223,17 @@ namespace ReinSniperRework
             force.forceMagnitude = i_mineForceStrength;
             force.forceCoefficientAtEdge = i_mineForceFalloff;
 
+            //This might be getting duplicated, w/e.
             Collider col = mine.AddComponent<SphereCollider>();
             ((SphereCollider)col).radius = i_triggerRadiusMod * i_wardRadius;
             col.isTrigger = true;
 
             //EngiMineController control = mine.GetComponent<EngiMineController>();
-            HookMineController hookControl = mine.AddComponent<HookMineController>();
+            HookMineController hookControl = mine.GetComponent<HookMineController>();
+            if( !hookControl )
+            {
+                hookControl = mine.AddComponent<HookMineController>();
+            }
 
             hookControl.wardPrefab = mineWard;
             hookControl.primingDelay = i_minePrimeDelay;

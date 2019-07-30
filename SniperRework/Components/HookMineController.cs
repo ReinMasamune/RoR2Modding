@@ -184,10 +184,10 @@ namespace ReinSniperRework
                         CharacterBody target = HB.healthComponent.body;
                         if (target)
                         {
-                            //if (!targets.Contains(target))
-                            //{
+                            if (!(targets.Contains(target)))
+                            {
                                 targets.Add(target);
-                            //}
+                            }
                         }
                     }
                 }
@@ -204,6 +204,8 @@ namespace ReinSniperRework
                         HurtBox HB = target.mainHurtBox;
                         if( HB )
                         {
+                            Debug.Log("Yonk");
+                            Debug.Log(i);
                             BounceOrb yonk = new BounceOrb();
                             yonk.origin = gameObject.transform.position;
                             yonk.damageValue = 0f;

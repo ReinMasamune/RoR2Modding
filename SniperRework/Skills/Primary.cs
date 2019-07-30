@@ -20,6 +20,7 @@ namespace EntityStates.ReinSniperRework.SniperWeapon
         private float shotCharge;
         private float shotTotalDamage;
         private float duration;
+        private float shotRad;
 
         private int reloadTier;
         private int chargeTier;
@@ -85,20 +86,29 @@ namespace EntityStates.ReinSniperRework.SniperWeapon
                     {
                         case 0:
                             chargeMod *= data.p_chargeT0Mod;
+                            shotRad = data.p_t0ShotRadius;
                             chargeMod *= 1f + data.p_chargeT0Scale * shotCharge;
                             break;
                         case 1:
                             chargeMod *= data.p_chargeT1Mod;
+                            shotRad = data.p_t1ShotRadius;
                             chargeMod *= 1f + data.p_chargeT1Scale * shotCharge;
                             break;
                         case 2:
                             chargeMod *= data.p_chargeT2Mod;
+                            shotRad = data.p_t2ShotRadius;
                             chargeMod *= 1f + data.p_chargeT2Scale * shotCharge;
                             break;
                         default:
                             chargeMod *= 1f;
+                            shotRad = data.p_ntShotRadius;
                             Debug.Log("Charge tier is invalid");
                             break;
+                    }
+
+                    if( data.g_charge.charging )
+                    {
+                        shotRad = data.p_ntShotRadius;
                     }
 
                     if (consumeChargeAfterShot)
@@ -128,7 +138,7 @@ namespace EntityStates.ReinSniperRework.SniperWeapon
                     bul.maxSpread = 0f;
                     bul.bulletCount = 1;
                     bul.muzzleName = data.p_muzzleName;
-                    bul.radius = data.p_shotRadius;
+                    bul.radius = shotRad;
                     bul.maxDistance = data.p_maxRange;
                     bul.smartCollision = data.p_shotSmartCollision;
                     if (data.g_charge.charging)
