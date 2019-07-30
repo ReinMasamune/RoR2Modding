@@ -97,11 +97,16 @@ namespace ReinSniperRework
         //floats
         public float r_baseDuration = 1.0f;
         private float i_minePrimeDelay = 5.0f;
-        private float i_wardRadius = 8.0f;
+        private float i_wardRadius = 10.0f;
         private float i_wardBuffDuration = 1.0f;
         private float i_wardInterval = 0.5f;
         private float i_wardDuration = 10.0f;
+        private float i_triggerRadiusMod = 1.0f;
+        private float i_mineHookInterval = 1.0f;
+        private float i_mineHookDuration = 10.0f;
+        private float i_mineHookRadiusMod = 5.0f;
         //ints
+        private int i_mineHooksPerTick = 3;
         //bools
         private bool i_wardFloorWard = true;
         private bool i_wardExpires = true;
@@ -146,11 +151,6 @@ namespace ReinSniperRework
             {
                 r_mineProj = Get_r_mineProj(req_r_mineProj, req_i_mineWard);
             }
-
-
-
-
-
         }
 
         private GameObject Get_p_effectPrefab(ResourceRequest r)
@@ -193,7 +193,7 @@ namespace ReinSniperRework
             ward.radius = i_wardRadius;
             ward.interval = i_wardInterval;
             //ward.RangeIndicator = ;
-            ward.buffType = BuffIndex.Cripple;
+            ward.buffType = i_wardBuff;
             ward.buffDuration = i_wardBuffDuration;
             ward.floorWard = i_wardFloorWard;
             ward.expires = i_wardExpires;
@@ -202,11 +202,26 @@ namespace ReinSniperRework
             //ward.animateRadius = ;
             //ward.radiusCoefficientCurve = ;
 
+            Collider col = mine.AddComponent<SphereCollider>();
+            ((SphereCollider)col).radius = i_triggerRadiusMod * i_wardRadius;
+            col.isTrigger = true;
+
             //EngiMineController control = mine.GetComponent<EngiMineController>();
             HookMineController hookControl = mine.AddComponent<HookMineController>();
 
             hookControl.wardPrefab = mineWard;
             hookControl.primingDelay = i_minePrimeDelay;
+            //hookControl.trigger = col;
+            hookControl.hookDuration = i_mineHookDuration;
+            hookControl.hookInterval = i_mineHookInterval;
+            hookControl.hooksPerTick = i_mineHooksPerTick;
+            hookControl.hookRadius = i_mineHookRadiusMod * i_wardRadius;
+            hookControl.teamHostile = TeamIndex.Monster;
+            hookControl.teamFriendly = TeamIndex.Player;
+
+            mine.GetComponent<EngiMineController>().enabled = false;
+            Destroy(mine.GetComponent<ProjectileController>().ghostPrefab.GetComponent<EngiMineAnimator>());
+            Destroy(mine.GetComponent<EngiMineController>());
 
             return mine;
         }
