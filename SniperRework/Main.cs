@@ -43,11 +43,7 @@ namespace ReinSniperRework
                 //Color debug = new Color(0.3f, 0.3f, 0.3f, 1f);
                 //model.baseRendererInfos[0].defaultMaterial.color = debug;
 
-
-
                 ReinDataLibrary data = body.AddComponent<ReinDataLibrary>();
-
-
 
                 //body.name = "NewSniperBody";
 
@@ -65,10 +61,9 @@ namespace ReinSniperRework
                 charbody.baseDamage = 16f;
                 charbody.baseMaxHealth = 110f;
                 charbody.baseRegen = 0.6f;
-                charbody.bodyIndex = 6;
+                charbody.crosshairPrefab = Resources.Load<GameObject>("prefabs/crosshair/banditcrosshairrevolver");
 
-                SniperReloadTracker rel = body.AddComponent<SniperReloadTracker>();
-                data.g_reload = rel;
+                data.g_reload = body.AddComponent<SniperReloadTracker>();
                 data.g_charge = body.AddComponent<SniperChargeTracker>();
 
                 //EntityStateMachine ScopeStateMachine = body.AddComponent<EntityStateMachine>();
@@ -93,13 +88,14 @@ namespace ReinSniperRework
                 //}
 
                 //ScopeStateMachine.commonComponents = Sniper1.stateMachine.commonComponents;
+                
 
                 //Config skill1
-                Sniper1.baseRechargeInterval = 0.1f;
+                Sniper1.baseRechargeInterval = 0.001f;
                 Sniper1.baseMaxStock = 1;
                 Sniper1.rechargeStock = 1;
                 Sniper1.isBullets = false;
-                Sniper1.shootDelay = 0.75f;
+                Sniper1.shootDelay = 0f;
                 Sniper1.beginSkillCooldownOnSkillEnd = false;
                 Sniper1.isCombatSkill = true;
                 Sniper1.noSprint = true;
