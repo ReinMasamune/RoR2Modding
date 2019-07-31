@@ -80,8 +80,8 @@ namespace ReinSniperRework
 
         //SniperUtility values
         //floats
-        public float u_duration = 0.3f;
-        public float u_speedCoef = 5.0f;
+        public float u_duration = 0.15f;
+        public float u_speedCoef = 12.5f;
         //ints
         //bools
         //strings

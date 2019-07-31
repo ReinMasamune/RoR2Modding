@@ -35,8 +35,8 @@ namespace EntityStates.ReinSniperRework.SniperWeapon
                 int hurtBoxesDeactivatorCounter = hurtBoxGroup.hurtBoxesDeactivatorCounter + 1;
                 hurtBoxGroup.hurtBoxesDeactivatorCounter = hurtBoxesDeactivatorCounter;
             }
-            Vector3 tempVec = base.inputBank.aimDirection;
-            this.blinkVector = tempVec.normalized * -1f;
+            Vector3 tempVec = base.characterMotor.velocity;
+            this.blinkVector = tempVec.normalized * 1f;
             this.CreateBlinkEffect(Util.GetCorePosition(base.gameObject));
             base.characterMotor.Motor.SafeMovement = true;
         }
@@ -104,7 +104,7 @@ namespace EntityStates.ReinSniperRework.SniperWeapon
                 hurtBoxGroup.hurtBoxesDeactivatorCounter = hurtBoxesDeactivatorCounter;
             }
             base.characterMotor.Motor.SafeMovement = false;
-            base.characterBody.AddTimedBuff(BuffIndex.Cloak,data.u_duration * 2f);
+            base.characterBody.AddTimedBuff(BuffIndex.Cloak,data.u_duration * 4f);
             base.OnExit();
         }
 
