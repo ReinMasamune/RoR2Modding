@@ -1,0 +1,156 @@
+YoungTeleporter
+
+> transform = p:(-12.2, -213.1, -164.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> UnityEngine.Networking.NetworkIdentity
+>v clientAuthorityCallback = 
+
+> UnityEngine.Networking.NetworkTransform
+
+> RoR2.ModelLocator
+>v modelTransform = mdlYoungTeleporter (UnityEngine.Transform)
+>v modelBaseTransform = Base (UnityEngine.Transform)
+>v dontReleaseModelOnDeath = False
+>v autoUpdateModelTransform = True
+>v dontDetatchFromParent = False
+>v noCorpse = False
+>v normalizeToFloor = False
+>v preserveModel = False
+
+> RoR2.Highlight
+>v pickupIndex = ItemIndex.Syringe
+>v targetRenderer = mdlYoungTeleporter (UnityEngine.MeshRenderer)
+>v strength = 1
+>v highlightColor = interactive
+>v isOn = False
+
+> RoR2.PurchaseInteraction
+>v displayNameToken = YOUNG_TELEPORTER_NAME
+>v contextToken = YOUNG_TELEPORTER_CONTEXT
+>v costType = None
+>v available = True
+>v cost = 0
+>v automaticallyScaleCostWithDifficulty = False
+>v requiredUnlockable = 
+>v ignoreSpherecastForInteractability = False
+>v purchaseStatNames = System.String[]
+>v lastActivator = 
+>v lockGameObject = 
+>v onPurchase = RoR2.PurchaseEvent RoR2.PurchaseEvent
+
+> RoR2.GenericDisplayNameProvider
+>v displayToken = YOUNG_TELEPORTER_NAME
+
+> RoR2.CombatDirector
+>v monsterCredit = 200
+>v expRewardCoefficient = 0.02
+>v minSeriesSpawnInterval = 0.1
+>v maxSeriesSpawnInterval = 1
+>v minRerollSpawnInterval = 0.1
+>v maxRerollSpawnInterval = 0.1
+>v combatSquadPrefab = 
+>v shouldSpawnOneWave = True
+>v targetPlayers = False
+>v skipSpawnIfTooCheap = True
+>v moneyWaveIntervals = RoR2.RangeFloat[]
+>v instancesList = System.Collections.Generic.List`1[RoR2.CombatDirector]
+>v creditMultiplier = 1
+>v spawnDistanceMultiplier = 1
+>v dropPosition = 
+>v spawnEffectPrefab = 
+>v currentSpawnTarget = YoungTeleporter (UnityEngine.GameObject)
+>v maximumNumberToSpawnBeforeSkipping = 6
+>v eliteMultiplierCost = 6
+>c Base
+
+>> transform = p:(0.0, -1.9, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>c mdlYoungTeleporter
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 0.0, 0.0) s:(0.7, 0.7, 0.7)
+
+>>> UnityEngine.MeshFilter
+
+>>> UnityEngine.MeshRenderer
+
+>>> RoR2.EntityLocator
+>>>v entity = YoungTeleporter (UnityEngine.GameObject)
+
+>>> UnityEngine.BoxCollider
+>>c ActivateEffect
+
+>>> transform = p:(0.0, 0.0, 3.2) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> RoR2.ShakeEmitter
+>>>v shakeOnStart = True
+>>>v wave = Wave
+>>>v duration = 0.2
+>>>v radius = 100
+>>>v scaleShakeRadiusWithLocalScale = False
+>>>v amplitudeTimeDecay = True
+
+>>> RoR2.RTPCController
+>>>v akSoundString = Play_golem_laser_fire
+>>>v rtpcString = attackSPeed
+>>>v rtpcValue = 130
+>>>v useCurveInstead = False
+>>>v rtpcValueCurve = UnityEngine.AnimationCurve
+>>>c Ring
+
+>>>> transform = p:(0.0, 0.2, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.ParticleSystem
+
+>>>> UnityEngine.ParticleSystemRenderer
+>>>c BetweenProngs
+
+>>>> transform = p:(0.0, 1.8, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>c InitialBurst
+
+>>>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>>> RoR2.ShakeEmitter
+>>>>>v shakeOnStart = True
+>>>>>v wave = Wave
+>>>>>v duration = 0.2
+>>>>>v radius = 90
+>>>>>v scaleShakeRadiusWithLocalScale = False
+>>>>>v amplitudeTimeDecay = True
+>>>>>c Point light
+
+>>>>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.7, 1.7, 1.7)
+
+>>>>>> UnityEngine.Light
+
+>>>>>> LightIntensityCurve
+>>>>>>v curve = UnityEngine.AnimationCurve
+>>>>>>v timeMax = 0.5
+>>>>>>v loop = False
+>>>>>>v randomStart = False
+>>>>>c Flash
+
+>>>>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>>>> UnityEngine.ParticleSystem
+
+>>>>>> UnityEngine.ParticleSystemRenderer
+>>>>>c Distortion
+
+>>>>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>>>> UnityEngine.ParticleSystem
+
+>>>>>> UnityEngine.ParticleSystemRenderer
+>>>>>c Flash Lines
+
+>>>>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>>>> UnityEngine.ParticleSystem
+
+>>>>>> UnityEngine.ParticleSystemRenderer
+>>>>>c Flash Lines, Vertical
+
+>>>>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>>>> UnityEngine.ParticleSystem
+
+>>>>>> UnityEngine.ParticleSystemRenderer

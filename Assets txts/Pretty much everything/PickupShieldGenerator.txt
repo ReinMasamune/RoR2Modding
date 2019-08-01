@@ -1,0 +1,10 @@
+PickupShieldGenerator
+
+> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>c Model
+
+>> transform = p:(0.0, 0.0, 0.0) r:(62.6, 304.1, 193.8) s:(1.0, 1.0, 1.0)
+
+>> UnityEngine.MeshFilter
+
+>> UnityEngine.MeshRenderer

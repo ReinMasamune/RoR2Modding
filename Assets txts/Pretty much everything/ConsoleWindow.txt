@@ -1,0 +1,186 @@
+ConsoleWindow
+
+> UnityEngine.RectTransform
+
+> UnityEngine.Canvas
+
+> UnityEngine.UI.CanvasScaler
+
+> UnityEngine.UI.GraphicRaycaster
+
+> RoR2.UI.ConsoleWindow
+>v inputField = InputField (TMPro.TMP_InputField)
+>v outputField = Output (TMPro.TMP_InputField)
+
+> RoR2.SetDontDestroyOnLoad
+
+> RoR2.EventFunctions
+
+> RoR2.UI.MPEventSystemLocator
+
+> RoR2.UI.MPEventSystemProvider
+>v eventSystem = 
+>v fallBackToMainEventSystem = True
+
+> RoR2.UI.CursorOpener
+>c MainPanel
+
+>> UnityEngine.RectTransform
+
+>> UnityEngine.CanvasRenderer
+
+>> UnityEngine.UI.Image
+>>c TitleBar
+
+>>> UnityEngine.RectTransform
+
+>>> UnityEngine.CanvasRenderer
+
+>>> UnityEngine.UI.Image
+
+>>> RoR2.UI.DragMove
+>>>v targetTransform = MainPanel (UnityEngine.RectTransform)
+>>>c TitleLabel
+
+>>>> UnityEngine.RectTransform
+
+>>>> UnityEngine.CanvasRenderer
+
+>>>> RoR2.UI.HGTextMeshProUGUI
+>>>>v useLanguageDefaultFont = True
+>>>>v defaultLanguageFont = tmpBombDropshadow (TMPro.TMP_FontAsset)
+>>>c CloseButton
+
+>>>> UnityEngine.RectTransform
+
+>>>> UnityEngine.CanvasRenderer
+
+>>>> UnityEngine.UI.Image
+
+>>>> UnityEngine.UI.Button
+>>>>c Text
+
+>>>>> UnityEngine.RectTransform
+
+>>>>> UnityEngine.CanvasRenderer
+
+>>>>> UnityEngine.UI.Text
+>>c Footer
+
+>>> UnityEngine.RectTransform
+
+>>> UnityEngine.CanvasRenderer
+
+>>> UnityEngine.UI.Image
+>>>c InputField
+
+>>>> UnityEngine.RectTransform
+
+>>>> UnityEngine.CanvasRenderer
+
+>>>> UnityEngine.UI.Image
+
+>>>> TMPro.TMP_InputField
+>>>>c Text Area
+
+>>>>> UnityEngine.RectTransform
+
+>>>>> UnityEngine.UI.RectMask2D
+>>>>>c Placeholder
+
+>>>>>> UnityEngine.RectTransform
+
+>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>> RoR2.UI.HGTextMeshProUGUI
+>>>>>>v useLanguageDefaultFont = True
+>>>>>>v defaultLanguageFont = tmpBombDropshadow (TMPro.TMP_FontAsset)
+>>>>>c Text
+
+>>>>>> UnityEngine.RectTransform
+
+>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>> RoR2.UI.HGTextMeshProUGUI
+>>>>>>v useLanguageDefaultFont = True
+>>>>>>v defaultLanguageFont = tmpBombDropshadow (TMPro.TMP_FontAsset)
+>>>c SubmitButton
+
+>>>> UnityEngine.RectTransform
+
+>>>> UnityEngine.CanvasRenderer
+
+>>>> UnityEngine.UI.Image
+
+>>>> UnityEngine.UI.Button
+>>>>c Text
+
+>>>>> UnityEngine.RectTransform
+
+>>>>> UnityEngine.CanvasRenderer
+
+>>>>> RoR2.UI.HGTextMeshProUGUI
+>>>>>v useLanguageDefaultFont = True
+>>>>>v defaultLanguageFont = tmpBombDropshadow (TMPro.TMP_FontAsset)
+>>>c ResizeHandle
+
+>>>> UnityEngine.RectTransform
+
+>>>> UnityEngine.CanvasRenderer
+
+>>>> UnityEngine.UI.RawImage
+
+>>>> RoR2.UI.DragResize
+>>>>v targetTransform = MainPanel (UnityEngine.RectTransform)
+>>>>v minSize = (192.0, 96.0)
+>>c Output
+
+>>> UnityEngine.RectTransform
+
+>>> UnityEngine.CanvasRenderer
+
+>>> UnityEngine.UI.Image
+
+>>> TMPro.TMP_InputField
+>>>c Text Area
+
+>>>> UnityEngine.RectTransform
+
+>>>> UnityEngine.UI.RectMask2D
+>>>>c Placeholder
+
+>>>>> UnityEngine.RectTransform
+
+>>>>> UnityEngine.CanvasRenderer
+
+>>>>> RoR2.UI.HGTextMeshProUGUI
+>>>>>v useLanguageDefaultFont = True
+>>>>>v defaultLanguageFont = tmpBombDropshadow (TMPro.TMP_FontAsset)
+>>>>c Text
+
+>>>>> UnityEngine.RectTransform
+
+>>>>> UnityEngine.CanvasRenderer
+
+>>>>> RoR2.UI.HGTextMeshProUGUI
+>>>>>v useLanguageDefaultFont = True
+>>>>>v defaultLanguageFont = tmpBombDropshadow (TMPro.TMP_FontAsset)
+>>>c Scrollbar
+
+>>>> UnityEngine.RectTransform
+
+>>>> UnityEngine.CanvasRenderer
+
+>>>> UnityEngine.UI.Image
+
+>>>> UnityEngine.UI.Scrollbar
+>>>>c Sliding Area
+
+>>>>> UnityEngine.RectTransform
+>>>>>c Handle
+
+>>>>>> UnityEngine.RectTransform
+
+>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>> UnityEngine.UI.Image

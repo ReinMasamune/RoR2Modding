@@ -1,0 +1,94 @@
+ClayBossMulcher
+
+> transform = p:(148.3, -78.8, -80.7) r:(270.0, 359.9, 0.0) s:(1.0, 1.0, 1.0)
+
+> DestroyOnParticleEnd
+
+> RoR2.ShakeEmitter
+>v shakeOnStart = True
+>v wave = Wave
+>v duration = 9999
+>v radius = 40
+>v scaleShakeRadiusWithLocalScale = False
+>v amplitudeTimeDecay = True
+
+> RoR2.DetachParticleOnDestroyAndEndEmission
+>v particleSystem = Single Floating Particle (UnityEngine.ParticleSystem)
+
+> RoR2.DetachParticleOnDestroyAndEndEmission
+>v particleSystem = Goo (UnityEngine.ParticleSystem)
+
+> RoR2.DetachParticleOnDestroyAndEndEmission
+>v particleSystem = Donut (UnityEngine.ParticleSystem)
+
+> RoR2.VFXAttributes
+>v vfxPriority = Low
+>v vfxIntensity = Low
+>v optionalLights = UnityEngine.Light[]
+>v secondaryParticleSystem = UnityEngine.ParticleSystem[]
+
+> ChildLocator
+
+> RoR2.DetachParticleOnDestroyAndEndEmission
+>v particleSystem = Trail (UnityEngine.ParticleSystem)
+
+> RoR2.DetachParticleOnDestroyAndEndEmission
+>v particleSystem = Bubbles, 2D (UnityEngine.ParticleSystem)
+>c Single Floating Particle
+
+>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 359.9, 0.0) s:(5.2, 5.2, 5.2)
+
+>> UnityEngine.ParticleSystem
+
+>> UnityEngine.ParticleSystemRenderer
+>c Goo
+
+>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 359.9, 0.0) s:(1.0, 1.0, 1.0)
+
+>> UnityEngine.ParticleSystem
+
+>> UnityEngine.ParticleSystemRenderer
+>c Donut
+
+>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 359.9, 0.0) s:(1.0, 1.0, 1.0)
+
+>> UnityEngine.ParticleSystem
+
+>> UnityEngine.ParticleSystemRenderer
+>c Sphere
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 359.9, 0.0) s:(2.0, 2.0, 2.0)
+
+>> UnityEngine.MeshFilter
+
+>> UnityEngine.MeshRenderer
+
+>> RoR2.AnimateShaderAlpha
+>>v alphaCurve = UnityEngine.AnimationCurve
+>>v timeMax = 0.3
+>>v decal = 
+>>v destroyOnEnd = False
+>>v disableOnEnd = False
+>>v time = 0
+
+>> ObjectScaleCurve
+>>v curveX = UnityEngine.AnimationCurve
+>>v curveY = UnityEngine.AnimationCurve
+>>v curveZ = UnityEngine.AnimationCurve
+>>v overallCurve = UnityEngine.AnimationCurve
+>>v timeMax = 0.5
+>>v time = 0
+>c Trail
+
+>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 359.9, 0.0) s:(1.0, 1.0, 1.0)
+
+>> UnityEngine.ParticleSystem
+
+>> UnityEngine.ParticleSystemRenderer
+>c Bubbles, 2D
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 179.9, 180.0) s:(1.0, 1.0, 1.0)
+
+>> UnityEngine.ParticleSystem
+
+>> UnityEngine.ParticleSystemRenderer

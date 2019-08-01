@@ -1,0 +1,32 @@
+TracerBarrage2
+
+> transform = p:(-102.3, 611.6, -132.6) r:(319.7, 175.6, 30.5) s:(2.7, 2.7, 2.7)
+
+> RoR2.EffectComponent
+>v effectData = 
+>v positionAtReferencedTransform = False
+>v parentToReferencedTransform = False
+>v applyScale = False
+
+> RoR2.Tracer
+>v startTransform = 
+>v beamObject = 
+>v beamDensity = 10
+>v speed = 350
+>v headTransform = TracerHead (UnityEngine.Transform)
+>v tailTransform = TracerTail (UnityEngine.Transform)
+>v length = 10
+>v onTailReachedDestination = UnityEngine.Events.UnityEvent UnityEngine.Events.UnityEvent
+
+> UnityEngine.LineRenderer
+
+> BeamPointsFromTransforms
+>v target = TracerBarrage2 (UnityEngine.LineRenderer)
+
+> RoR2.EventFunctions
+>c TracerHead
+
+>> transform = p:(0.0, 0.0, 0.0) r:(337.2, 286.5, 315.5) s:(1.0, 1.0, 1.0)
+>c TracerTail
+
+>> transform = p:(0.0, 0.0, 0.0) r:(319.7, 175.6, 30.5) s:(1.0, 1.0, 1.0)

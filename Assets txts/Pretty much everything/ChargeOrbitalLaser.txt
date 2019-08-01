@@ -1,0 +1,91 @@
+ChargeOrbitalLaser
+
+> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(10.0, 1.0, 10.0)
+
+> RoR2.VFXAttributes
+>v vfxPriority = Medium
+>v vfxIntensity = High
+>v optionalLights = UnityEngine.Light[]
+>v secondaryParticleSystem = UnityEngine.ParticleSystem[]
+>c LaserClusterHolder
+
+>> transform = p:(0.0, 300.0, 0.0) r:(90.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> RotateObject
+>>v rotationSpeed = (0.0, 0.0, 20.0)
+>>c LaserPointerHolder (2)
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(90.0, 120.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>c LaserPointer
+
+>>>> transform = p:(5.0, 0.0, 0.0) r:(90.0, 120.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.LineRenderer
+
+>>>> RoR2.LaserPointer
+>>>>v laserDistance = 1000
+
+>>>> RoR2.AnimateShaderAlpha
+>>>>v alphaCurve = UnityEngine.AnimationCurve
+>>>>v timeMax = 2
+>>>>v decal = 
+>>>>v destroyOnEnd = False
+>>>>v disableOnEnd = False
+>>>>v time = 0
+>>c LaserPointerHolder (1)
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(90.0, 240.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>c LaserPointer
+
+>>>> transform = p:(5.0, 0.0, 0.0) r:(90.0, 240.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.LineRenderer
+
+>>>> RoR2.LaserPointer
+>>>>v laserDistance = 1000
+
+>>>> RoR2.AnimateShaderAlpha
+>>>>v alphaCurve = UnityEngine.AnimationCurve
+>>>>v timeMax = 2
+>>>>v decal = 
+>>>>v destroyOnEnd = False
+>>>>v disableOnEnd = False
+>>>>v time = 0
+>>c LaserPointerHolder
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(90.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>c LaserPointer
+
+>>>> transform = p:(5.0, 0.0, 0.0) r:(90.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.LineRenderer
+
+>>>> RoR2.LaserPointer
+>>>>v laserDistance = 1000
+
+>>>> RoR2.AnimateShaderAlpha
+>>>>v alphaCurve = UnityEngine.AnimationCurve
+>>>>v timeMax = 2
+>>>>v decal = 
+>>>>v destroyOnEnd = False
+>>>>v disableOnEnd = False
+>>>>v time = 0
+>>c LaserPointerHolder, Center
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(90.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>c LaserPointer, Center
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(90.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.LineRenderer
+
+>>>> RoR2.LaserPointer
+>>>>v laserDistance = 1000
+
+>>>> RoR2.AnimateShaderAlpha
+>>>>v alphaCurve = UnityEngine.AnimationCurve
+>>>>v timeMax = 1
+>>>>v decal = 
+>>>>v destroyOnEnd = False
+>>>>v disableOnEnd = False
+>>>>v time = 0

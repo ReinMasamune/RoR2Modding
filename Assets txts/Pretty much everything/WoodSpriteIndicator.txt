@@ -1,0 +1,41 @@
+WoodSpriteIndicator
+
+> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(0.1, 0.1, 0.1)
+
+> RoR2.UI.MPEventSystemProvider
+>v eventSystem = 
+>v fallBackToMainEventSystem = True
+>c Holder
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 45.0) s:(0.4, 0.4, 0.4)
+
+>> UnityEngine.SpriteRenderer
+
+>> Rewired.ComponentControls.Effects.RotateAroundAxis
+
+>> ObjectScaleCurve
+>>v curveX = UnityEngine.AnimationCurve
+>>v curveY = UnityEngine.AnimationCurve
+>>v curveZ = UnityEngine.AnimationCurve
+>>v overallCurve = UnityEngine.AnimationCurve
+>>v timeMax = 0.3
+>>v time = 0
+>c TextMeshPro
+
+>> UnityEngine.RectTransform
+
+>> UnityEngine.MeshRenderer
+
+>> UnityEngine.MeshFilter
+
+>> UnityEngine.CanvasRenderer
+
+>> TMPro.TextMeshPro
+
+>> RoR2.UI.MPEventSystemLocator
+
+>> RoR2.InputBindingDisplayController
+>>v actionName = Equipment
+>>v axisRange = Full
+>>v useExplicitInputSource = False
+>>v explicitInputSource = Keyboard

@@ -1,0 +1,28 @@
+StoneImpact
+
+> transform = p:(9.6, -15.6, -3.3) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> RoR2.EffectComponent
+>v effectData = 
+>v positionAtReferencedTransform = False
+>v parentToReferencedTransform = False
+>v applyScale = False
+
+> UnityEngine.ParticleSystem
+
+> UnityEngine.ParticleSystemRenderer
+
+> DestroyOnParticleEnd
+
+> RoR2.VFXAttributes
+>v vfxPriority = Medium
+>v vfxIntensity = Low
+>v optionalLights = UnityEngine.Light[]
+>v secondaryParticleSystem = UnityEngine.ParticleSystem[]
+>c DustCloud
+
+>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> UnityEngine.ParticleSystem
+
+>> UnityEngine.ParticleSystemRenderer

@@ -1,0 +1,48 @@
+MageIcePillarGhost
+
+> transform = p:(87.7, -229.6, -136.9) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> RoR2.Projectile.ProjectileGhostController
+>v authorityTransform = 
+>v predictionTransform = 
+
+> RoR2.VFXAttributes
+>v vfxPriority = Always
+>v vfxIntensity = Low
+>v optionalLights = UnityEngine.Light[]
+>v secondaryParticleSystem = UnityEngine.ParticleSystem[]
+>c Flash, White
+
+>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> UnityEngine.ParticleSystem
+
+>> UnityEngine.ParticleSystemRenderer
+>c Mesh
+
+>> transform = p:(0.0, 0.0, -1.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> UnityEngine.ParticleSystem
+
+>> UnityEngine.ParticleSystemRenderer
+>c Flash, Blue
+
+>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> UnityEngine.ParticleSystem
+
+>> UnityEngine.ParticleSystemRenderer
+>c Matrix, Dynamic
+
+>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> UnityEngine.ParticleSystem
+
+>> UnityEngine.ParticleSystemRenderer
+>c Flash, Directional
+
+>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> UnityEngine.ParticleSystem
+
+>> UnityEngine.ParticleSystemRenderer

@@ -1,0 +1,94 @@
+ArchWispPreDeathEffect
+
+> transform = p:(0.0, 0.0, 0.0) r:(0.0, 359.9, 0.0) s:(1.0, 1.0, 1.0)
+
+> RoR2.ScaleParticleSystemDuration
+>v initialDuration = 3
+>v particleSystems = UnityEngine.ParticleSystem[]
+
+> RoR2.ShakeEmitter
+>v shakeOnStart = True
+>v wave = Wave
+>v duration = 100
+>v radius = 40
+>v scaleShakeRadiusWithLocalScale = False
+>v amplitudeTimeDecay = True
+
+> RoR2.EffectComponent
+>v effectData = 
+>v positionAtReferencedTransform = False
+>v parentToReferencedTransform = False
+>v applyScale = False
+
+> RoR2.VFXAttributes
+>v vfxPriority = Always
+>v vfxIntensity = High
+>v optionalLights = UnityEngine.Light[]
+>v secondaryParticleSystem = UnityEngine.ParticleSystem[]
+>c Reference Light
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 359.9, 0.0) s:(1.0, 1.0, 1.0)
+
+>> UnityEngine.Light
+>c Running Particles
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 359.9, 0.0) s:(1.0, 1.0, 1.0)
+>>c LightShafts
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 359.9, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.ParticleSystem
+
+>>> UnityEngine.ParticleSystemRenderer
+>>c Chunks
+
+>>> transform = p:(0.0, 0.8, 0.0) r:(270.0, 359.9, 0.0) s:(1.0, 1.0, 1.0)
+>>c Flames
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 359.9, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.ParticleSystem
+
+>>> UnityEngine.ParticleSystemRenderer
+>>c Goo
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 359.9, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.ParticleSystem
+
+>>> UnityEngine.ParticleSystemRenderer
+>c Initial Particles
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 359.9, 0.0) s:(1.0, 1.0, 1.0)
+>>c Point light
+
+>>> transform = p:(0.0, 0.6, 0.0) r:(0.0, 359.9, 0.0) s:(1.7, 1.7, 1.7)
+
+>>> UnityEngine.Light
+
+>>> LightIntensityCurve
+>>>v curve = UnityEngine.AnimationCurve
+>>>v timeMax = 0.2
+>>>v loop = False
+>>>v randomStart = False
+>>c Flames (1)
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 359.9, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.ParticleSystem
+
+>>> UnityEngine.ParticleSystemRenderer
+>>c Flames, Radial
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 179.9, 180.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.ParticleSystem
+
+>>> UnityEngine.ParticleSystemRenderer
+>>c Flash
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 359.9, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.ParticleSystem
+
+>>> UnityEngine.ParticleSystemRenderer

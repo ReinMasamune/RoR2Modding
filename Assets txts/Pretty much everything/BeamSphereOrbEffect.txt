@@ -1,0 +1,73 @@
+BeamSphereOrbEffect
+
+> transform = p:(52.5, 8.2, -39.2) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> RoR2.EffectComponent
+>v effectData = 
+>v positionAtReferencedTransform = False
+>v parentToReferencedTransform = False
+>v applyScale = True
+
+> RoR2.Orbs.OrbEffect
+>v startVelocity1 = (-20.0, -20.0, -20.0)
+>v startVelocity2 = (20.0, 20.0, 20.0)
+>v endVelocity1 = (-20.0, -20.0, -20.0)
+>v endVelocity2 = (20.0, 20.0, 20.0)
+>v movementCurve = UnityEngine.AnimationCurve
+>v bezierCurveLine = Bezier (BezierCurveLine)
+>v faceMovement = True
+>v callArrivalIfTargetIsGone = False
+>v startEffect = 
+>v startEffectScale = 1
+>v startEffectCopiesRotation = False
+>v endEffect = 
+>v endEffectScale = 1
+>v endEffectCopiesRotation = False
+>v onArrival = UnityEngine.Events.UnityEvent UnityEngine.Events.UnityEvent
+
+> AkGameObj
+>v isEnvironmentAware = True
+>v m_positionOffsetData = AkGameObjPositionOffsetData
+
+> AkEvent
+>v actionOnEventType = AkActionOnEventType_Stop
+>v curveInterpolation = AkCurveInterpolation_Linear
+>v enableActionOnEvent = False
+>v data = Play_item_use_BFG_zaps
+>v m_callbackData = 
+>v playingId = 0
+>v soundEmitterObject = 
+>v transitionDuration = 0
+>v triggerList = System.Collections.Generic.List`1[System.Int32]
+>v useOtherObject = False
+
+> UnityEngine.Rigidbody
+
+> RoR2.VFXAttributes
+>v vfxPriority = Medium
+>v vfxIntensity = Medium
+>v optionalLights = UnityEngine.Light[]
+>v secondaryParticleSystem = UnityEngine.ParticleSystem[]
+>c Bezier
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> UnityEngine.LineRenderer
+
+>> BezierCurveLine
+>>v v0 = (0.0, 0.0, 0.0)
+>>v p1 = (0.0, 0.0, 0.0)
+>>v v1 = (0.0, 0.0, 0.0)
+>>v endTransform = 
+>>v animateBezierWind = False
+>>v windMagnitude = (0.0, 0.0, 0.0)
+>>v windFrequency = (0.0, 0.0, 0.0)
+>>v lineRenderer = 
+
+>> RoR2.AnimateShaderAlpha
+>>v alphaCurve = UnityEngine.AnimationCurve
+>>v timeMax = 0.33
+>>v decal = 
+>>v destroyOnEnd = True
+>>v disableOnEnd = False
+>>v time = 0

@@ -1,0 +1,91 @@
+ShopTerminal
+
+> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> UnityEngine.Networking.NetworkIdentity
+>v clientAuthorityCallback = 
+
+> RoR2.PurchaseInteraction
+>v displayNameToken = 
+>v contextToken = 
+>v costType = Money
+>v available = True
+>v cost = 25
+>v automaticallyScaleCostWithDifficulty = False
+>v requiredUnlockable = 
+>v ignoreSpherecastForInteractability = False
+>v purchaseStatNames = System.String[]
+>v lastActivator = 
+>v lockGameObject = 
+>v onPurchase = RoR2.PurchaseEvent RoR2.PurchaseEvent
+
+> RoR2.ShopTerminalBehavior
+>v pickupDisplay = PickupDisplay (RoR2.PickupDisplay)
+>v dropTransform = HologramPivot (UnityEngine.Transform)
+>v selfGeneratePickup = False
+>v itemTier = Tier1
+>v dropVelocity = (0.0, 20.0, 3.0)
+>v animator = 
+
+> RoR2.Highlight
+>v pickupIndex = ItemIndex.Syringe
+>v targetRenderer = Display (UnityEngine.MeshRenderer)
+>v strength = 1
+>v highlightColor = interactive
+>v isOn = False
+
+> RoR2.Hologram.HologramProjector
+>v displayDistance = 15
+>v hologramPivot = HologramPivot (UnityEngine.Transform)
+>v disableHologramRotation = False
+>c Display
+
+>> transform = p:(0.0, 1.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> UnityEngine.MeshFilter
+
+>> UnityEngine.MeshRenderer
+
+>> UnityEngine.CapsuleCollider
+
+>> RoR2.EntityLocator
+>>v entity = ShopTerminal (UnityEngine.GameObject)
+>>c Cylinder (2)
+
+>>> transform = p:(0.0, 3.1, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 0.1, 1.0)
+
+>>> UnityEngine.MeshFilter
+
+>>> UnityEngine.MeshRenderer
+>>c Cylinder (5)
+
+>>> transform = p:(0.0, 2.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.MeshFilter
+
+>>> UnityEngine.MeshRenderer
+>>>c PickupDisplay
+
+>>>> transform = p:(0.0, -0.5, 0.0) r:(0.0, 0.0, 0.0) s:(0.5, 0.5, 0.5)
+
+>>>> RoR2.PickupDisplay
+>>>>v verticalWave = Wave
+>>>>v spinSpeed = 0
+>>>>v tier1ParticleEffect = 
+>>>>v tier2ParticleEffect = 
+>>>>v tier3ParticleEffect = 
+>>>>v equipmentParticleEffect = 
+>>>>v lunarParticleEffect = 
+>>>>v bossParticleEffect = 
+>>>>v coloredParticleSystems = UnityEngine.ParticleSystem[]
+>>>>v highlight = PickupDisplay (RoR2.Highlight)
+
+>>>> RoR2.Highlight
+>>>>v pickupIndex = ItemIndex.Syringe
+>>>>v targetRenderer = 
+>>>>v strength = 1
+>>>>v highlightColor = pickup
+>>>>v isOn = False
+>>c HologramPivot
+
+>>> transform = p:(0.0, 4.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)

@@ -1,0 +1,38 @@
+Critspark
+
+> transform = p:(97.9, -153.0, -75.4) r:(0.0, 0.0, 0.0) s:(3.0, 3.0, 3.0)
+
+> RoR2.EffectComponent
+>v effectData = 
+>v positionAtReferencedTransform = False
+>v parentToReferencedTransform = False
+>v applyScale = False
+
+> DestroyOnParticleEnd
+
+> RoR2.VFXAttributes
+>v vfxPriority = Low
+>v vfxIntensity = Low
+>v optionalLights = UnityEngine.Light[]
+>v secondaryParticleSystem = UnityEngine.ParticleSystem[]
+>c Flash,White
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> UnityEngine.ParticleSystem
+
+>> UnityEngine.ParticleSystemRenderer
+>c Beams
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> UnityEngine.ParticleSystem
+
+>> UnityEngine.ParticleSystemRenderer
+>c Shockwave
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> UnityEngine.ParticleSystem
+
+>> UnityEngine.ParticleSystemRenderer

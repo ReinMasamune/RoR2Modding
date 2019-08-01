@@ -1,0 +1,21 @@
+GatewayProjectile
+
+> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> UnityEngine.Networking.NetworkIdentity
+>v clientAuthorityCallback = 
+
+> RoR2.TeamFilter
+
+> RoR2.Projectile.ProjectileController
+>v ghostPrefab = GatewayProjectileGhost (UnityEngine.GameObject)
+>v ghost = 
+>v isPrediction = False
+>v allowPrediction = False
+>v predictionId = 0
+>v owner = 
+>v procChainMask = RoR2.ProcChainMask
+>v procCoefficient = 1
+>v target = 
+>v authorityEffect = 
+>v predictionEffect = 

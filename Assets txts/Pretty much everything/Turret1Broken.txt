@@ -1,0 +1,177 @@
+Turret1Broken
+
+> transform = p:(-19.4, -214.9, -154.6) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> UnityEngine.Networking.NetworkIdentity
+>v clientAuthorityCallback = 
+
+> RoR2.Highlight
+>v pickupIndex = ItemIndex.Syringe
+>v targetRenderer = Turret1Mesh (UnityEngine.SkinnedMeshRenderer)
+>v strength = 1
+>v highlightColor = interactive
+>v isOn = False
+
+> RoR2.SummonMasterBehavior
+>v masterPrefab = Turret1Master (UnityEngine.GameObject)
+>v callOnEquipmentSpentOnPurchase = False
+>v destroyAfterSummoning = True
+
+> RoR2.PurchaseInteraction
+>v displayNameToken = TURRET1_INTERACTABLE_NAME
+>v contextToken = TURRET1_CONTEXT
+>v costType = Money
+>v available = True
+>v cost = 35
+>v automaticallyScaleCostWithDifficulty = False
+>v requiredUnlockable = 
+>v ignoreSpherecastForInteractability = False
+>v purchaseStatNames = System.String[]
+>v lastActivator = 
+>v lockGameObject = 
+>v onPurchase = RoR2.PurchaseEvent RoR2.PurchaseEvent
+
+> RoR2.EventFunctions
+
+> RoR2.Hologram.HologramProjector
+>v displayDistance = 15
+>v hologramPivot = HologramPivot (UnityEngine.Transform)
+>v disableHologramRotation = False
+
+> RoR2.GenericDisplayNameProvider
+>v displayToken = TURRET1_NAME
+
+> RoR2.DitherModel
+>v fade = 0
+>v bounds = Turret1Mesh (UnityEngine.SphereCollider)
+>v renderers = UnityEngine.Renderer[]
+>c mdlTurret1
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(0.2, 0.2, 0.2)
+>>c Turret1Armature
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>c Base
+
+>>>> transform = p:(0.0, 2.6, 4.0) r:(276.8, 180.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>c Bottom
+
+>>>>> transform = p:(0.0, 2.4, 0.0) r:(6.8, 180.0, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>c Thigh.1
+
+>>>>>> transform = p:(0.0, 4.3, 0.0) r:(300.6, 314.9, 249.6) s:(1.0, 1.0, 1.0)
+>>>>>>c Calf.1
+
+>>>>>>> transform = p:(0.0, 2.6, 0.0) r:(338.3, 214.1, 329.1) s:(1.0, 1.0, 1.0)
+>>>>>>>c Foot.1
+
+>>>>>>>> transform = p:(0.0, 2.1, 0.0) r:(332.1, 4.9, 212.7) s:(1.0, 1.0, 1.0)
+>>>>>>>>c Foot.1_end
+
+>>>>>>>>> transform = p:(0.0, 2.8, 0.0) r:(332.1, 4.9, 212.7) s:(1.0, 1.0, 1.0)
+>>>>>c Thigh.2
+
+>>>>>> transform = p:(0.0, 4.3, 0.0) r:(296.4, 324.3, 127.8) s:(1.0, 1.0, 1.0)
+>>>>>>c Calf.2
+
+>>>>>>> transform = p:(0.0, 2.6, 0.0) r:(300.7, 150.0, 301.8) s:(1.0, 1.0, 1.0)
+>>>>>>>c Foot.2
+
+>>>>>>>> transform = p:(0.0, 2.1, 0.0) r:(345.8, 355.2, 104.8) s:(1.0, 1.0, 1.0)
+>>>>>>>>c Foot.2_end
+
+>>>>>>>>> transform = p:(0.0, 2.8, 0.0) r:(345.8, 355.2, 104.8) s:(1.0, 1.0, 1.0)
+>>>>>c Thigh.3
+
+>>>>>> transform = p:(0.0, 4.3, 0.0) r:(52.8, 329.1, 239.9) s:(1.0, 1.0, 1.0)
+>>>>>>c Calf.3
+
+>>>>>>> transform = p:(0.0, 2.6, 0.0) r:(48.1, 114.2, 14.4) s:(1.0, 1.0, 1.0)
+>>>>>>>c Foot.3
+
+>>>>>>>> transform = p:(0.0, 2.1, 0.0) r:(1.6, 350.1, 238.9) s:(1.0, 1.0, 1.0)
+>>>>>>>>c Foot.3_end
+
+>>>>>>>>> transform = p:(0.0, 2.8, 0.0) r:(1.6, 350.1, 238.9) s:(1.0, 1.0, 1.0)
+>>>>>c Thigh.4
+
+>>>>>> transform = p:(0.0, 4.3, 0.0) r:(71.0, 25.4, 213.3) s:(1.0, 1.0, 1.0)
+>>>>>>c Calf.4
+
+>>>>>>> transform = p:(0.0, 2.6, 0.0) r:(37.8, 165.6, 347.0) s:(1.0, 1.0, 1.0)
+>>>>>>>c Foot.4
+
+>>>>>>>> transform = p:(0.0, 2.1, 0.0) r:(48.6, 5.5, 195.6) s:(1.0, 1.0, 1.0)
+>>>>>>>>c Foot.4_end
+
+>>>>>>>>> transform = p:(0.0, 2.8, 0.0) r:(48.6, 5.5, 195.6) s:(1.0, 1.0, 1.0)
+>>>>c Top
+
+>>>>> transform = p:(0.0, 2.4, 0.0) r:(19.8, 324.6, 4.3) s:(1.0, 1.0, 1.0)
+>>>>>c Barrel
+
+>>>>>> transform = p:(0.0, 1.2, 0.0) r:(308.0, 27.2, 123.4) s:(1.0, 1.0, 1.0)
+>>>>>>c Barrel_end
+
+>>>>>>> transform = p:(0.0, 12.9, 0.0) r:(308.0, 27.2, 123.4) s:(1.0, 1.0, 1.0)
+>>>c FootIKPole.1
+
+>>>> transform = p:(0.0, -4.6, 3.1) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>c FootIKPole.1_end
+
+>>>>> transform = p:(0.0, 1.3, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>c FootIKPole.2
+
+>>>> transform = p:(-4.6, 0.0, 3.1) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>c FootIKPole.2_end
+
+>>>>> transform = p:(0.0, 1.3, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>c FootIKPole.3
+
+>>>> transform = p:(4.6, 0.0, 3.1) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>c FootIKPole.3_end
+
+>>>>> transform = p:(0.0, 1.3, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>c FootIKPole.4
+
+>>>> transform = p:(0.0, 4.6, 3.1) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>c FootIKPole.4_end
+
+>>>>> transform = p:(0.0, 1.3, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>c FootIKTarget.1
+
+>>>> transform = p:(2.2, -4.6, -0.8) r:(270.0, 180.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>c FootIKTarget.1_end
+
+>>>>> transform = p:(0.0, 1.0, 0.0) r:(270.0, 180.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>c FootIKTarget.2
+
+>>>> transform = p:(-7.2, -0.1, -0.7) r:(270.0, 90.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>c FootIKTarget.2_end
+
+>>>>> transform = p:(0.0, 1.0, 0.0) r:(270.0, 90.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>c FootIKTarget.3
+
+>>>> transform = p:(6.4, -0.7, -0.8) r:(270.0, 270.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>c FootIKTarget.3_end
+
+>>>>> transform = p:(0.0, 1.0, 0.0) r:(270.0, 270.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>c FootIKTarget.4
+
+>>>> transform = p:(0.8, 5.6, -0.8) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>c FootIKTarget.4_end
+
+>>>>> transform = p:(0.0, 1.0, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>c Turret1Mesh
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.SkinnedMeshRenderer
+
+>>> UnityEngine.SphereCollider
+
+>>> RoR2.EntityLocator
+>>>v entity = Turret1Broken (UnityEngine.GameObject)
+>c HologramPivot
+
+>> transform = p:(0.0, 2.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)

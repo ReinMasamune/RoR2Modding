@@ -1,0 +1,54 @@
+PaladinRocketGhost
+
+> transform = p:(16.3, 8.6, -9.1) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> RoR2.Projectile.ProjectileGhostController
+>v authorityTransform = 
+>v predictionTransform = 
+
+> RoR2.VFXAttributes
+>v vfxPriority = Always
+>v vfxIntensity = Low
+>v optionalLights = UnityEngine.Light[]
+>v secondaryParticleSystem = UnityEngine.ParticleSystem[]
+
+> RoR2.DetachParticleOnDestroyAndEndEmission
+>v particleSystem = Smoke (UnityEngine.ParticleSystem)
+>c Particles
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>c Flames
+
+>>> transform = p:(0.0, 0.0, 0.3) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.ParticleSystem
+
+>>> UnityEngine.ParticleSystemRenderer
+>>c Smoke
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.ParticleSystem
+
+>>> UnityEngine.ParticleSystemRenderer
+>c Helix
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> RotateObject
+>>v rotationSpeed = (0.0, 0.0, 360.0)
+>>c GameObject
+
+>>> transform = p:(-0.3, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.TrailRenderer
+>>c GameObject (1)
+
+>>> transform = p:(0.3, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.TrailRenderer
+>c Point light
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> UnityEngine.Light

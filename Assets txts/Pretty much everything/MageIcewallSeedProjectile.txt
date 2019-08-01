@@ -1,0 +1,47 @@
+MageIcewallSeedProjectile
+
+> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> UnityEngine.Networking.NetworkIdentity
+>v clientAuthorityCallback = 
+
+> RoR2.TeamFilter
+
+> RoR2.Projectile.ProjectileController
+>v ghostPrefab = 
+>v ghost = 
+>v isPrediction = False
+>v allowPrediction = True
+>v predictionId = 0
+>v owner = 
+>v procChainMask = RoR2.ProcChainMask
+>v procCoefficient = 1
+>v target = 
+>v authorityEffect = 
+>v predictionEffect = 
+
+> RoR2.Projectile.ProjectileNetworkTransform
+>v positionTransmitInterval = 0.03333334
+>v interpolationFactor = 1
+>v allowClientsideCollision = False
+
+> RoR2.Projectile.ProjectileDamage
+>v damage = 0
+>v crit = False
+>v force = 0
+>v damageColorIndex = Default
+>v damageType = Generic
+
+> RoR2.Projectile.ProjectileMageFirewallController
+>v walkerPrefab = MageIcewallWalkerProjectile (UnityEngine.GameObject)
+
+> RoR2.Projectile.ProjectileSimple
+>v velocity = 0
+>v lifetime = 5
+>v updateAfterFiring = False
+>v enableVelocityOverLifetime = False
+>v velocityOverLifetime = UnityEngine.AnimationCurve
+
+> UnityEngine.Rigidbody
+
+> UnityEngine.BoxCollider

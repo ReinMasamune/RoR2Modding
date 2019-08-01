@@ -1,0 +1,27 @@
+JetpackController
+
+> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> UnityEngine.Networking.NetworkIdentity
+>v clientAuthorityCallback = 
+
+> RoR2.JetpackController
+>v targetObject = 
+>v duration = 15
+>v acceleration = 200
+
+> AkGameObj
+>v isEnvironmentAware = True
+>v m_positionOffsetData = AkGameObjPositionOffsetData
+
+> AkEvent
+>v actionOnEventType = AkActionOnEventType_Stop
+>v curveInterpolation = AkCurveInterpolation_Linear
+>v enableActionOnEvent = False
+>v data = Stop_item_use_bugWingFlapLoop
+>v m_callbackData = 
+>v playingId = 0
+>v soundEmitterObject = 
+>v transitionDuration = 0
+>v triggerList = System.Collections.Generic.List`1[System.Int32]
+>v useOtherObject = False

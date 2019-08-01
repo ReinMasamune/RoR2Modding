@@ -1,0 +1,69 @@
+PlayerPositionIndicator
+
+> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(0.1, 0.1, 0.1)
+
+> RoR2.PositionIndicator
+>v targetTransform = 
+>v insideViewObject = InsideFrameObject (UnityEngine.GameObject)
+>v outsideViewObject = OutsideFrameArrow (UnityEngine.GameObject)
+>v alwaysVisibleObject = Nametag (UnityEngine.GameObject)
+>v shouldRotateOutsideViewObject = True
+>v outsideViewRotationOffset = 90
+
+> RoR2.UI.Nameplate
+>v label = Nametag (TMPro.TextMeshPro)
+>v aliveObject = AliveIcon (UnityEngine.GameObject)
+>v deadObject = DeadIcon (UnityEngine.GameObject)
+>v criticallyHurtSpriteRenderer = CriticallyHurtIcon (UnityEngine.SpriteRenderer)
+>v coloredSprites = UnityEngine.SpriteRenderer[]
+>v baseColor = RGBA(0.478, 0.875, 0.890, 1.000)
+>v combatColor = RGBA(0.779, 0.747, 0.309, 1.000)
+>c DeadIcon
+
+>> transform = p:(0.0, -0.1, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> UnityEngine.SpriteRenderer
+>c Nametag
+
+>> UnityEngine.RectTransform
+
+>> UnityEngine.MeshFilter
+
+>> UnityEngine.MeshRenderer
+
+>> UnityEngine.CanvasRenderer
+
+>> TMPro.TextMeshPro
+>>c CriticallyHurtIcon
+
+>>> transform = p:(0.0, 0.3, 0.0) r:(0.0, 0.0, 0.0) s:(0.2, 0.2, 0.2)
+
+>>> UnityEngine.SpriteRenderer
+>c Backdrop
+
+>> UnityEngine.RectTransform
+
+>> UnityEngine.CanvasRenderer
+
+>> UnityEngine.SpriteRenderer
+>c InsideFrameObject
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>c AliveIcon
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(0.7, 0.7, 0.7)
+
+>>> UnityEngine.SpriteRenderer
+>c OutsideFrameArrow
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>c Sprite
+
+>>> transform = p:(0.0, -0.1, 0.0) r:(0.0, 0.0, 0.0) s:(0.5, 0.9, 0.5)
+
+>>> UnityEngine.SpriteRenderer
+>>>c Sprite
+
+>>>> transform = p:(0.0, 0.1, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.SpriteRenderer

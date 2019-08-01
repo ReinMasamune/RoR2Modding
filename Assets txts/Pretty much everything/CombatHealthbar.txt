@@ -1,0 +1,85 @@
+CombatHealthbar
+
+> UnityEngine.RectTransform
+
+> RoR2.UI.HealthBar
+>v style = CombatHealthBar (RoR2.UI.HealthBarStyle)
+>v barContainer = CombatHealthbar (UnityEngine.RectTransform)
+>v eliteBackdropRectTransform = Backdrop,Elite (UnityEngine.RectTransform)
+>v criticallyHurtImage = 
+>v deadImage = 
+>v maxLastHitTimer = 0.2
+>v scaleHealthbarWidth = True
+>v minHealthbarWidth = 50
+>v maxHealthbarWidth = 250
+>v minHealthbarHealth = 100
+>v maxHealthbarHealth = 2000
+>v viewerBody = 
+>v criticallyHurtThreshold = 0.3
+>v currentHealthText = 
+>v fullHealthText = 
+
+> RoR2.UI.LevelText
+>v source = 
+>v targetText = ValueText (RoR2.UI.HGTextMeshProUGUI)
+>c Backdrop,Elite
+
+>> UnityEngine.RectTransform
+
+>> UnityEngine.CanvasRenderer
+
+>> UnityEngine.UI.Image
+>>c Arrow,EliteBackdrop
+
+>>> UnityEngine.RectTransform
+
+>>> UnityEngine.CanvasRenderer
+
+>>> UnityEngine.UI.Image
+>c Arrow
+
+>> UnityEngine.RectTransform
+
+>> UnityEngine.CanvasRenderer
+
+>> UnityEngine.UI.Image
+>c Backdrop
+
+>> UnityEngine.RectTransform
+
+>> UnityEngine.CanvasRenderer
+
+>> UnityEngine.UI.Image
+>c EmptyHealthPanel
+
+>> UnityEngine.RectTransform
+
+>> UnityEngine.CanvasRenderer
+
+>> UnityEngine.UI.Image
+>c BuffBar
+
+>> UnityEngine.RectTransform
+
+>> RoR2.UI.BuffDisplay
+>>v source = 
+>>v buffIconPrefab = BuffIcon (UnityEngine.GameObject)
+>>v iconWidth = 48
+
+>> UnityEngine.UI.HorizontalLayoutGroup
+>c LevelRoot
+
+>> UnityEngine.RectTransform
+
+>> UnityEngine.CanvasRenderer
+
+>> UnityEngine.UI.Image
+>>c ValueText
+
+>>> UnityEngine.RectTransform
+
+>>> UnityEngine.CanvasRenderer
+
+>>> RoR2.UI.HGTextMeshProUGUI
+>>>v useLanguageDefaultFont = True
+>>>v defaultLanguageFont = tmpBombDropshadow (TMPro.TMP_FontAsset)

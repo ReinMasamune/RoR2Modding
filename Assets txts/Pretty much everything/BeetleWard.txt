@@ -1,0 +1,275 @@
+BeetleWard
+
+> transform = p:(-161.6, -152.2, -181.4) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> ChildLocator
+
+> UnityEngine.Networking.NetworkIdentity
+>v clientAuthorityCallback = 
+
+> RoR2.TeamFilter
+
+> RoR2.BuffWard
+>v radius = 5
+>v interval = 1
+>v rangeIndicator = Indicator (UnityEngine.Transform)
+>v buffType = BeetleJuice
+>v buffDuration = 2
+>v floorWard = False
+>v expires = True
+>v invertTeamFilter = False
+>v expireDuration = 20
+>v animateRadius = True
+>v radiusCoefficientCurve = UnityEngine.AnimationCurve
+
+> RoR2.SkillLocator
+>v primary = 
+>v secondary = 
+>v utility = 
+>v special = 
+>v passiveSkill = RoR2.SkillLocator+PassiveSkill
+
+> RoR2.TeamComponent
+>v hideAllyCardDisplay = False
+
+> RoR2.CharacterBody
+>v bodyIndex = -1
+>v baseNameToken = 
+>v subtitleNameToken = 
+>v pendingTonicAfflictionCount = 0
+>v bodyFlags = Masterless
+>v readOnlyInstancesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.CharacterBody]
+>v rootMotionInMainState = False
+>v mainRootSpeed = 0
+>v baseMaxHealth = 80
+>v baseRegen = 0
+>v baseMaxShield = 0
+>v baseMoveSpeed = 0
+>v baseAcceleration = 0
+>v baseJumpPower = 0
+>v baseDamage = 0
+>v baseAttackSpeed = 0
+>v baseCrit = 0
+>v baseArmor = 30
+>v baseJumpCount = 1
+>v autoCalculateLevelStats = True
+>v levelMaxHealth = 24
+>v levelRegen = 0
+>v levelMaxShield = 0
+>v levelMoveSpeed = 0
+>v levelJumpPower = 0
+>v levelDamage = 0
+>v levelAttackSpeed = 0
+>v levelCrit = 0
+>v levelArmor = 0
+>v killCount = 0
+>v wasLucky = False
+>v spreadBloomDecayTime = 0.45
+>v spreadBloomCurve = UnityEngine.AnimationCurve
+>v crosshairPrefab = StandardCrosshair (UnityEngine.GameObject)
+>v hideCrosshair = False
+>v aimOriginTransform = 
+>v hullClassification = Human
+>v portraitIcon = texNullIcon (UnityEngine.Texture2D)
+>v isChampion = False
+>v currentVehicle = 
+>v preferredPodPrefab = 
+
+> RoR2.HealthComponent
+>v health = 100
+>v shield = 0
+>v barrier = 0
+>v body = BeetleWard (RoR2.CharacterBody)
+>v dontShowHealthbar = False
+>v globalDeathEventChanceCoefficient = 1
+>v medkitActivationDelay = 1.1
+>v frozenExecuteThreshold = 0.3
+
+> RoR2.EntityStateMachine
+>v customName = Body
+>v initialStateType = EntityStates.SerializableEntityStateType
+>v mainStateType = EntityStates.SerializableEntityStateType
+>v commonComponents = RoR2.EntityStateMachine+CommonComponentCache
+>v networkIndex = -1
+
+> RoR2.CharacterDeathBehavior
+>v deathStateMachine = BeetleWard (RoR2.EntityStateMachine)
+>v deathState = EntityStates.SerializableEntityStateType
+>v idleStateMachine = RoR2.EntityStateMachine[]
+
+> RoR2.ModelLocator
+>v modelTransform = mdlBeetleWard (UnityEngine.Transform)
+>v modelBaseTransform = 
+>v dontReleaseModelOnDeath = False
+>v autoUpdateModelTransform = False
+>v dontDetatchFromParent = True
+>v noCorpse = True
+>v normalizeToFloor = False
+>v preserveModel = False
+>c mdlBeetleWard
+
+>> transform = p:(0.0, 2.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> UnityEngine.Animator
+
+>> RoR2.DestroyOnTimer
+>>v duration = 1
+>>v resetAgeOnDisable = False
+
+>> RoR2.HurtBoxGroup
+>>v hurtBoxes = RoR2.HurtBox[]
+>>v mainHurtBox = Hurtbox (RoR2.HurtBox)
+>>v bullseyeCount = 1
+>>c BeetleQueenWardArmature
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>c Base
+
+>>>> transform = p:(-0.2, 0.4, 0.4) r:(0.0, 270.0, 270.0) s:(1.0, 1.0, 1.0)
+>>>>c Hurtbox
+
+>>>>> transform = p:(0.3, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>>> UnityEngine.CapsuleCollider
+
+>>>>> RoR2.HurtBox
+>>>>>v healthComponent = BeetleWard (RoR2.HealthComponent)
+>>>>>v isBullseye = True
+>>>>>v damageModifier = Normal
+>>>>>v teamIndex = None
+>>>>>v hurtBoxGroup = mdlBeetleWard (RoR2.HurtBoxGroup)
+>>>>>v indexInGroup = 0
+>>>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+
+>>>>> SurfaceDefProvider
+>>>>>v surfaceDef = sdBeetleWorker (SurfaceDef)
+>>>>c Chest
+
+>>>>> transform = p:(0.0, 0.3, 0.0) r:(43.3, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>c Head
+
+>>>>>> transform = p:(0.0, 0.7, 0.0) r:(297.3, 0.0, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>c Head_end
+
+>>>>>>> transform = p:(0.0, 0.5, 0.0) r:(297.3, 0.0, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>c WingMain.l
+
+>>>>>> transform = p:(-0.1, 0.5, -0.1) r:(53.5, 289.0, 50.3) s:(1.0, 1.0, 1.0)
+>>>>>>c WingMain.l_end
+
+>>>>>>> transform = p:(0.0, 1.6, 0.0) r:(53.5, 289.0, 50.3) s:(1.0, 1.0, 1.0)
+>>>>>c WingMain.r
+
+>>>>>> transform = p:(0.1, 0.5, -0.1) r:(301.3, 343.9, 334.0) s:(1.0, 1.0, 1.0)
+>>>>>>c WingMain.r_end
+
+>>>>>>> transform = p:(0.0, 1.6, 0.0) r:(301.3, 343.9, 334.0) s:(1.0, 1.0, 1.0)
+>>>>>c WingSmall.l
+
+>>>>>> transform = p:(-0.1, 0.4, -0.3) r:(340.8, 305.8, 93.2) s:(1.0, 1.0, 1.0)
+>>>>>>c WingSmall.l_end
+
+>>>>>>> transform = p:(0.0, 1.3, 0.0) r:(340.8, 305.8, 93.2) s:(1.0, 1.0, 1.0)
+>>>>>c WingSmall.r
+
+>>>>>> transform = p:(0.1, 0.4, -0.3) r:(344.9, 57.9, 262.5) s:(1.0, 1.0, 1.0)
+>>>>>>c WingSmall.r_end
+
+>>>>>>> transform = p:(0.0, 1.3, 0.0) r:(344.9, 57.9, 262.5) s:(1.0, 1.0, 1.0)
+>>>>c Hip1
+
+>>>>> transform = p:(0.0, 0.3, 0.0) r:(358.4, 180.0, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>c Hip2
+
+>>>>>> transform = p:(0.0, 0.7, 0.0) r:(329.2, 0.0, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>c Hip3
+
+>>>>>>> transform = p:(0.0, 0.5, 0.0) r:(279.9, 0.0, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>c Hip3_end
+
+>>>>>>>> transform = p:(0.0, 0.5, 0.0) r:(279.9, 0.0, 180.0) s:(1.0, 1.0, 1.0)
+>>c BeetleQueenWardMesh
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.SkinnedMeshRenderer
+
+>>> RoR2.AnimateShaderAlpha
+>>>v alphaCurve = UnityEngine.AnimationCurve
+>>>v timeMax = 1
+>>>v decal = 
+>>>v destroyOnEnd = False
+>>>v disableOnEnd = False
+>>>v time = 0
+
+>>> AkGameObj
+>>>v isEnvironmentAware = True
+>>>v m_positionOffsetData = AkGameObjPositionOffsetData
+
+>>> AkEvent
+>>>v actionOnEventType = AkActionOnEventType_Stop
+>>>v curveInterpolation = AkCurveInterpolation_Linear
+>>>v enableActionOnEvent = False
+>>>v data = Play_item_use_bugWingFlapLoop
+>>>v m_callbackData = 
+>>>v playingId = 0
+>>>v soundEmitterObject = 
+>>>v transitionDuration = 0
+>>>v triggerList = System.Collections.Generic.List`1[System.Int32]
+>>>v useOtherObject = False
+
+>>> AkEvent
+>>>v actionOnEventType = AkActionOnEventType_Stop
+>>>v curveInterpolation = AkCurveInterpolation_Linear
+>>>v enableActionOnEvent = False
+>>>v data = Stop_item_use_bugWingFlapLoop
+>>>v m_callbackData = 
+>>>v playingId = 0
+>>>v soundEmitterObject = 
+>>>v transitionDuration = 0
+>>>v triggerList = System.Collections.Generic.List`1[System.Int32]
+>>>v useOtherObject = False
+>>c Indicator
+
+>>> transform = p:(0.0, -2.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>c Ring, Mesh
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 0.0, 0.0) s:(0.6, 0.6, 0.6)
+
+>>>> UnityEngine.ParticleSystem
+
+>>>> UnityEngine.ParticleSystemRenderer
+>>>c Bugs
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.ParticleSystem
+
+>>>> UnityEngine.ParticleSystemRenderer
+>>>c RefSphere
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(2.0, 2.0, 2.0)
+
+>>>> UnityEngine.MeshFilter
+
+>>>> UnityEngine.MeshRenderer
+>>>c AreaSphere
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(2.0, 2.0, 2.0)
+
+>>>> UnityEngine.MeshFilter
+
+>>>> UnityEngine.MeshRenderer
+>>>c Point Light
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.Light
+
+>>>> RoR2.LightScaleFromParent
+
+>>>> LightIntensityCurve
+>>>>v curve = UnityEngine.AnimationCurve
+>>>>v timeMax = 3
+>>>>v loop = True
+>>>>v randomStart = True

@@ -1,0 +1,38 @@
+ShieldBreakEffect
+
+> transform = p:(79.9, 64.3, 48.9) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> RoR2.EffectComponent
+>v effectData = 
+>v positionAtReferencedTransform = False
+>v parentToReferencedTransform = False
+>v applyScale = True
+
+> DestroyOnParticleEnd
+
+> RoR2.VFXAttributes
+>v vfxPriority = Medium
+>v vfxIntensity = Medium
+>v optionalLights = UnityEngine.Light[]
+>v secondaryParticleSystem = UnityEngine.ParticleSystem[]
+>c Lightning
+
+>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> UnityEngine.ParticleSystem
+
+>> UnityEngine.ParticleSystemRenderer
+>c Shards
+
+>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> UnityEngine.ParticleSystem
+
+>> UnityEngine.ParticleSystemRenderer
+>c Flash
+
+>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> UnityEngine.ParticleSystem
+
+>> UnityEngine.ParticleSystemRenderer

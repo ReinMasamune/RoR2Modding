@@ -1,0 +1,14 @@
+DefaultLabel
+
+> UnityEngine.RectTransform
+
+> UnityEngine.CanvasRenderer
+
+> RoR2.UI.HGTextMeshProUGUI
+>v useLanguageDefaultFont = True
+>v defaultLanguageFont = tmpBombDropshadow (TMPro.TMP_FontAsset)
+
+> RoR2.UI.SkinControllers.LabelSkinController
+>v labelType = Default
+>v useRecommendedAlignment = True
+>v skinData = skinWarning (RoR2.UI.UISkinData)

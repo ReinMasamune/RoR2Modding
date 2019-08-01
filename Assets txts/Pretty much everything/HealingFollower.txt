@@ -1,0 +1,133 @@
+HealingFollower
+
+> transform = p:(58.0, -99.5, -31.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> UnityEngine.Networking.NetworkIdentity
+>v clientAuthorityCallback = 
+
+> RoR2.HealingFollowerController
+>v fractionHealthHealing = 0.015
+>v fractionHealthBurst = 0.1
+>v healingInterval = 1
+>v rotationAngularVelocity = 30
+>v acceleration = 30
+>v damping = 0.3
+>v enableSpringMotion = False
+>v ownerBodyObject = 
+>v targetBodyObject = 
+>v burstHealEffect = WoodSpriteHeal (UnityEngine.GameObject)
+>v indicator = Indicator (UnityEngine.GameObject)
+>c Indicator
+
+>> transform = p:(-15.2, -207.9, -178.3) r:(0.0, 0.0, 0.0) s:(3.0, 3.0, 3.0)
+
+>> RoR2.ScaleSpriteByCamDistance
+>>v scaleFactor = 0.02
+>>v scalingMode = Direct
+
+>> RoR2.Billboard
+>>c Holder
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 45.0) s:(0.4, 0.4, 0.4)
+
+>>> UnityEngine.SpriteRenderer
+
+>>> Rewired.ComponentControls.Effects.RotateAroundAxis
+
+>>> ObjectScaleCurve
+>>>v curveX = UnityEngine.AnimationCurve
+>>>v curveY = UnityEngine.AnimationCurve
+>>>v curveZ = UnityEngine.AnimationCurve
+>>>v overallCurve = UnityEngine.AnimationCurve
+>>>v timeMax = 0.3
+>>>v time = 0
+>c Offset
+
+>> transform = p:(1.0, 1.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>c Effect
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(0.8, 0.8, 0.8)
+
+>>> RotateItem
+>>>v spinSpeed = 30
+>>>v bobHeight = 0.3
+>>>v offsetVector = (0.0, 0.0, 0.0)
+>>>c mdlWoodSprite
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 0.0, 0.0) s:(0.1, 0.1, 0.1)
+
+>>>> UnityEngine.MeshFilter
+
+>>>> UnityEngine.MeshRenderer
+
+>>>> Rewired.ComponentControls.Effects.RotateAroundAxis
+>>>>c Branches
+
+>>>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>>> UnityEngine.MeshFilter
+
+>>>>> UnityEngine.MeshRenderer
+>>>>c Trail
+
+>>>>> transform = p:(0.0, 0.0, 1.9) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>>> UnityEngine.TrailRenderer
+
+>>>>> RoR2.AnimateShaderAlpha
+>>>>>v alphaCurve = UnityEngine.AnimationCurve
+>>>>>v timeMax = 0.2
+>>>>>v decal = 
+>>>>>v destroyOnEnd = True
+>>>>>v disableOnEnd = False
+>>>>>v time = 0
+>>>>c Trail (1)
+
+>>>>> transform = p:(-1.7, 0.0, 0.3) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>>> UnityEngine.TrailRenderer
+
+>>>>> RoR2.AnimateShaderAlpha
+>>>>>v alphaCurve = UnityEngine.AnimationCurve
+>>>>>v timeMax = 0.2
+>>>>>v decal = 
+>>>>>v destroyOnEnd = True
+>>>>>v disableOnEnd = False
+>>>>>v time = 0
+>>>c Cloud
+
+>>>> transform = p:(0.0, -0.2, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.ParticleSystem
+
+>>>> UnityEngine.ParticleSystemRenderer
+>>>c Flare
+
+>>>> transform = p:(-0.1, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(0.4, 0.4, 0.4)
+
+>>>> UnityEngine.ParticleSystem
+
+>>>> UnityEngine.ParticleSystemRenderer
+>>>c Sparkles
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.ParticleSystem
+
+>>>> UnityEngine.ParticleSystemRenderer
+>>>c Point Light
+
+>>>> transform = p:(-0.1, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.Light
+
+>>>> RoR2.FlickerLight
+>>>>v light = Point Light (UnityEngine.Light)
+>>>>v sinWaves = Wave[]
+>>>c PineNeedleParticles
+
+>>>> transform = p:(0.0, 0.1, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.ParticleSystem
+
+>>>> UnityEngine.ParticleSystemRenderer

@@ -1,0 +1,34 @@
+AncientWispCannonGhost
+
+> transform = p:(277.5, 19.1, 161.7) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> RoR2.Projectile.ProjectileGhostController
+>v authorityTransform = 
+>v predictionTransform = 
+
+> RoR2.VFXAttributes
+>v vfxPriority = Always
+>v vfxIntensity = Low
+>v optionalLights = UnityEngine.Light[]
+>v secondaryParticleSystem = UnityEngine.ParticleSystem[]
+>c Point light
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> UnityEngine.Light
+
+>> LightIntensityCurve
+>>v curve = UnityEngine.AnimationCurve
+>>v timeMax = 1
+>>v loop = False
+>>v randomStart = False
+>c Particles
+
+>> transform = p:(0.0, 0.0, 2.8) r:(0.0, 180.0, 180.0) s:(0.6, 0.6, 0.6)
+>>c FireSphere
+
+>>> transform = p:(0.0, 0.0, 3.7) r:(0.0, 180.0, 180.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.ParticleSystem
+
+>>> UnityEngine.ParticleSystemRenderer

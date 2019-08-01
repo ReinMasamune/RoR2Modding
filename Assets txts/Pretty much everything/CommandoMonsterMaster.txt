@@ -1,0 +1,216 @@
+CommandoMonsterMaster
+
+> transform = p:(34.3, -14.1, -17.1) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> UnityEngine.Networking.NetworkIdentity
+>v clientAuthorityCallback = 
+
+> RoR2.CharacterMaster
+>v bodyPrefab = CommandoBody (UnityEngine.GameObject)
+>v spawnOnStart = False
+>v onBodyDeath = UnityEngine.Events.UnityEvent UnityEngine.Events.UnityEvent
+>v destroyOnBodyDeath = True
+>v isBoss = False
+>v preventGameOver = True
+
+> RoR2.Inventory
+>v itemAcquisitionOrder = System.Collections.Generic.List`1[RoR2.ItemIndex]
+
+> RoR2.CharacterAI.BaseAI
+>v fullVision = False
+>v minDistanceFromEnemy = 8
+>v enemyAttentionDuration = 5
+>v navigationType = Nodegraph
+>v nodegraphType = Ground
+>v stateMachine = CommandoMonsterMaster (RoR2.EntityStateMachine)
+>v scanState = EntityStates.SerializableEntityStateType
+>v isHealer = False
+>v enemyAttention = 0
+>v aimVectorDampTime = 0.1
+>v aimVectorMaxSpeed = 360
+>v desiredAimDirection = (0.0, 0.0, 1.0)
+>v pathFollower = RoR2.PathFollower
+>v localNavigator = RoR2.LocalNavigator
+>v navMeshPath = 
+>v drawAIPath = False
+>v selectedSkilldriverName = 
+>v debugEnemyHurtBox = 
+>v leader = 
+>v skillDriverEvaluation = RoR2.CharacterAI.BaseAI+SkillDriverEvaluation
+
+> RoR2.EntityStateMachine
+>v customName = AI
+>v initialStateType = EntityStates.SerializableEntityStateType
+>v mainStateType = EntityStates.SerializableEntityStateType
+>v commonComponents = RoR2.EntityStateMachine+CommonComponentCache
+>v networkIndex = -1
+
+> UnityEngine.AI.NavMeshAgent
+
+> RoR2.CharacterAI.AISkillDriver
+>v customName = 
+>v skillSlot = Special
+>v requireSkillReady = True
+>v moveTargetType = CurrentEnemy
+>v minUserHealthFraction = -Infinity
+>v maxUserHealthFraction = Infinity
+>v minTargetHealthFraction = -Infinity
+>v maxTargetHealthFraction = Infinity
+>v minDistance = 0
+>v maxDistance = 15
+>v selectionRequiresTargetLoS = True
+>v activationRequiresTargetLoS = False
+>v activationRequiresAimConfirmation = False
+>v movementType = Stop
+>v moveInputScale = 1
+>v aimType = AtMoveTarget
+>v ignoreNodeGraph = False
+>v driverUpdateTimerOverride = 0.5
+>v resetCurrentEnemyOnNextDriverSelection = False
+>v noRepeat = False
+>v shouldSprint = False
+>v shouldFireEquipment = False
+
+> RoR2.CharacterAI.AISkillDriver
+>v customName = 
+>v skillSlot = Utility
+>v requireSkillReady = True
+>v moveTargetType = CurrentEnemy
+>v minUserHealthFraction = -Infinity
+>v maxUserHealthFraction = Infinity
+>v minTargetHealthFraction = -Infinity
+>v maxTargetHealthFraction = Infinity
+>v minDistance = 0
+>v maxDistance = 15
+>v selectionRequiresTargetLoS = True
+>v activationRequiresTargetLoS = False
+>v activationRequiresAimConfirmation = False
+>v movementType = StrafeMovetarget
+>v moveInputScale = 1
+>v aimType = AtMoveTarget
+>v ignoreNodeGraph = False
+>v driverUpdateTimerOverride = 0
+>v resetCurrentEnemyOnNextDriverSelection = False
+>v noRepeat = False
+>v shouldSprint = False
+>v shouldFireEquipment = False
+
+> RoR2.CharacterAI.AISkillDriver
+>v customName = 
+>v skillSlot = None
+>v requireSkillReady = False
+>v moveTargetType = CurrentEnemy
+>v minUserHealthFraction = -Infinity
+>v maxUserHealthFraction = Infinity
+>v minTargetHealthFraction = -Infinity
+>v maxTargetHealthFraction = Infinity
+>v minDistance = 0
+>v maxDistance = 15
+>v selectionRequiresTargetLoS = True
+>v activationRequiresTargetLoS = False
+>v activationRequiresAimConfirmation = False
+>v movementType = FleeMoveTarget
+>v moveInputScale = 1
+>v aimType = AtMoveTarget
+>v ignoreNodeGraph = False
+>v driverUpdateTimerOverride = 0.5
+>v resetCurrentEnemyOnNextDriverSelection = False
+>v noRepeat = False
+>v shouldSprint = False
+>v shouldFireEquipment = False
+
+> RoR2.CharacterAI.AISkillDriver
+>v customName = 
+>v skillSlot = Primary
+>v requireSkillReady = False
+>v moveTargetType = CurrentEnemy
+>v minUserHealthFraction = -Infinity
+>v maxUserHealthFraction = Infinity
+>v minTargetHealthFraction = -Infinity
+>v maxTargetHealthFraction = Infinity
+>v minDistance = 8
+>v maxDistance = 19
+>v selectionRequiresTargetLoS = True
+>v activationRequiresTargetLoS = False
+>v activationRequiresAimConfirmation = False
+>v movementType = StrafeMovetarget
+>v moveInputScale = 1
+>v aimType = AtMoveTarget
+>v ignoreNodeGraph = False
+>v driverUpdateTimerOverride = 0.5
+>v resetCurrentEnemyOnNextDriverSelection = False
+>v noRepeat = False
+>v shouldSprint = False
+>v shouldFireEquipment = False
+
+> RoR2.CharacterAI.AISkillDriver
+>v customName = 
+>v skillSlot = None
+>v requireSkillReady = False
+>v moveTargetType = CurrentEnemy
+>v minUserHealthFraction = -Infinity
+>v maxUserHealthFraction = Infinity
+>v minTargetHealthFraction = -Infinity
+>v maxTargetHealthFraction = Infinity
+>v minDistance = 0
+>v maxDistance = Infinity
+>v selectionRequiresTargetLoS = False
+>v activationRequiresTargetLoS = False
+>v activationRequiresAimConfirmation = False
+>v movementType = ChaseMoveTarget
+>v moveInputScale = 1
+>v aimType = MoveDirection
+>v ignoreNodeGraph = False
+>v driverUpdateTimerOverride = -1
+>v resetCurrentEnemyOnNextDriverSelection = False
+>v noRepeat = False
+>v shouldSprint = False
+>v shouldFireEquipment = False
+
+> RoR2.CharacterAI.AISkillDriver
+>v customName = 
+>v skillSlot = None
+>v requireSkillReady = False
+>v moveTargetType = CurrentEnemy
+>v minUserHealthFraction = -Infinity
+>v maxUserHealthFraction = Infinity
+>v minTargetHealthFraction = -Infinity
+>v maxTargetHealthFraction = Infinity
+>v minDistance = 0
+>v maxDistance = 40
+>v selectionRequiresTargetLoS = True
+>v activationRequiresTargetLoS = False
+>v activationRequiresAimConfirmation = False
+>v movementType = ChaseMoveTarget
+>v moveInputScale = 1
+>v aimType = AtMoveTarget
+>v ignoreNodeGraph = False
+>v driverUpdateTimerOverride = -1
+>v resetCurrentEnemyOnNextDriverSelection = False
+>v noRepeat = False
+>v shouldSprint = False
+>v shouldFireEquipment = False
+
+> RoR2.CharacterAI.AISkillDriver
+>v customName = 
+>v skillSlot = Secondary
+>v requireSkillReady = False
+>v moveTargetType = CurrentEnemy
+>v minUserHealthFraction = -Infinity
+>v maxUserHealthFraction = Infinity
+>v minTargetHealthFraction = -Infinity
+>v maxTargetHealthFraction = Infinity
+>v minDistance = 0
+>v maxDistance = 6
+>v selectionRequiresTargetLoS = True
+>v activationRequiresTargetLoS = False
+>v activationRequiresAimConfirmation = False
+>v movementType = ChaseMoveTarget
+>v moveInputScale = 1
+>v aimType = AtMoveTarget
+>v ignoreNodeGraph = False
+>v driverUpdateTimerOverride = 0.5
+>v resetCurrentEnemyOnNextDriverSelection = False
+>v noRepeat = False
+>v shouldSprint = False
+>v shouldFireEquipment = False

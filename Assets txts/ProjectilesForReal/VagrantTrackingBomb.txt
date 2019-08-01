@@ -1,0 +1,241 @@
+VagrantTrackingBomb
+
+> transform = p:(5.2, -141.2, -29.3) r:(0.0, 0.0, 0.0) s:(0.1, 0.1, 1.0)
+
+> UnityEngine.Networking.NetworkIdentity
+>v clientAuthorityCallback = 
+
+> RoR2.DisableCollisionsBetweenColliders
+>v collidersA = UnityEngine.Collider[]
+>v collidersB = UnityEngine.Collider[]
+
+> RoR2.Projectile.ProjectileController
+>v ghostPrefab = VagrantTrackingBombGhost (UnityEngine.GameObject)
+>v ghost = 
+>v isPrediction = False
+>v allowPrediction = True
+>v predictionId = 0
+>v owner = 
+>v procChainMask = RoR2.ProcChainMask
+>v procCoefficient = 1
+>v target = 
+>v authorityEffect = AuthorityEffect (UnityEngine.GameObject)
+>v predictionEffect = PredictionEffect (UnityEngine.GameObject)
+
+> UnityEngine.Rigidbody
+
+> RoR2.Projectile.ProjectileNetworkTransform
+>v positionTransmitInterval = 0.03333334
+>v interpolationFactor = 1
+>v allowClientsideCollision = False
+
+> RoR2.Projectile.ProjectileSimple
+>v velocity = 10
+>v lifetime = 99
+>v updateAfterFiring = True
+>v enableVelocityOverLifetime = False
+>v velocityOverLifetime = UnityEngine.AnimationCurve
+
+> UnityEngine.SphereCollider
+
+> RoR2.Projectile.ProjectileDamage
+>v damage = 0
+>v crit = False
+>v force = 0
+>v damageColorIndex = Default
+>v damageType = Generic
+
+> RoR2.TeamFilter
+
+> RoR2.Projectile.ProjectileImpactExplosion
+>v impactEffect = VagrantCannonExplosion (UnityEngine.GameObject)
+>v explosionSoundString = Play_vagrant_attack2_explode
+>v lifetimeExpiredSoundString = 
+>v offsetForLifetimeExpiredSound = 0
+>v destroyOnEnemy = True
+>v destroyOnWorld = True
+>v timerAfterImpact = False
+>v falloffModel = SweetSpot
+>v lifetime = 12
+>v lifetimeAfterImpact = 0
+>v lifetimeRandomOffset = 0
+>v blastRadius = 15
+>v blastDamageCoefficient = 1
+>v blastProcCoefficient = 1
+>v bonusBlastForce = (0.0, 750.0, 0.0)
+>v fireChildren = False
+>v childrenProjectilePrefab = 
+>v childrenCount = 0
+>v childrenDamageCoefficient = 0
+>v minAngleOffset = (0.0, 0.0, 0.0)
+>v maxAngleOffset = (0.0, 0.0, 0.0)
+>v transformSpace = World
+>v projectileHealthComponent = VagrantTrackingBomb (RoR2.HealthComponent)
+
+> AkGameObj
+>v isEnvironmentAware = True
+>v m_positionOffsetData = AkGameObjPositionOffsetData
+
+> AkEvent
+>v actionOnEventType = AkActionOnEventType_Stop
+>v curveInterpolation = AkCurveInterpolation_Linear
+>v enableActionOnEvent = False
+>v data = Play_vagrant_attack2_shoot
+>v m_callbackData = 
+>v playingId = 0
+>v soundEmitterObject = 
+>v transitionDuration = 0
+>v triggerList = System.Collections.Generic.List`1[System.Int32]
+>v useOtherObject = False
+
+> AkEvent
+>v actionOnEventType = AkActionOnEventType_Stop
+>v curveInterpolation = AkCurveInterpolation_Linear
+>v enableActionOnEvent = False
+>v data = Stop_vagrant_attack2_fly_loop
+>v m_callbackData = 
+>v playingId = 0
+>v soundEmitterObject = 
+>v transitionDuration = 0
+>v triggerList = System.Collections.Generic.List`1[System.Int32]
+>v useOtherObject = False
+
+> RoR2.Projectile.ProjectileTargetComponent
+>v target = 
+
+> RoR2.Projectile.ProjectileDirectionalTargetFinder
+>v lookRange = 600
+>v lookCone = 180
+>v targetSearchInterval = 1
+>v onlySearchIfNoTarget = True
+>v allowTargetLoss = False
+>v testLoS = True
+>v ignoreAir = False
+>v onNewTargetFound = UnityEngine.Events.UnityEvent UnityEngine.Events.UnityEvent
+>v ontargetLost = UnityEngine.Events.UnityEvent UnityEngine.Events.UnityEvent
+
+> RoR2.Projectile.ProjectileSteerTowardTarget
+>v yAxisOnly = False
+>v rotationSpeed = 60
+
+> RoR2.Projectile.AssignTeamFilterToTeamComponent
+
+> RoR2.TeamComponent
+>v hideAllyCardDisplay = True
+
+> RoR2.SkillLocator
+>v primary = 
+>v secondary = 
+>v utility = 
+>v special = 
+>v passiveSkill = RoR2.SkillLocator+PassiveSkill
+
+> RoR2.CharacterBody
+>v bodyIndex = -1
+>v baseNameToken = 
+>v subtitleNameToken = 
+>v pendingTonicAfflictionCount = 0
+>v bodyFlags = Masterless
+>v readOnlyInstancesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.CharacterBody]
+>v rootMotionInMainState = False
+>v mainRootSpeed = 0
+>v baseMaxHealth = 75
+>v baseRegen = 0
+>v baseMaxShield = 0
+>v baseMoveSpeed = 0
+>v baseAcceleration = 0
+>v baseJumpPower = 0
+>v baseDamage = 0
+>v baseAttackSpeed = 0
+>v baseCrit = 0
+>v baseArmor = 0
+>v baseJumpCount = 0
+>v autoCalculateLevelStats = True
+>v levelMaxHealth = 22
+>v levelRegen = 0
+>v levelMaxShield = 0
+>v levelMoveSpeed = 0
+>v levelJumpPower = 0
+>v levelDamage = 0
+>v levelAttackSpeed = 0
+>v levelCrit = 0
+>v levelArmor = 0
+>v killCount = 0
+>v wasLucky = False
+>v spreadBloomDecayTime = 0.45
+>v spreadBloomCurve = UnityEngine.AnimationCurve
+>v crosshairPrefab = StandardCrosshair (UnityEngine.GameObject)
+>v hideCrosshair = False
+>v aimOriginTransform = 
+>v hullClassification = Human
+>v portraitIcon = texNullIcon (UnityEngine.Texture2D)
+>v isChampion = False
+>v currentVehicle = 
+>v preferredPodPrefab = 
+
+> RoR2.HealthComponent
+>v health = 1000
+>v shield = 0
+>v barrier = 0
+>v body = VagrantTrackingBomb (RoR2.CharacterBody)
+>v dontShowHealthbar = False
+>v globalDeathEventChanceCoefficient = 1
+>v medkitActivationDelay = 1.1
+>v frozenExecuteThreshold = 0.3
+
+> RoR2.ModelLocator
+>v modelTransform = Model (UnityEngine.Transform)
+>v modelBaseTransform = 
+>v dontReleaseModelOnDeath = True
+>v autoUpdateModelTransform = False
+>v dontDetatchFromParent = True
+>v noCorpse = True
+>v normalizeToFloor = False
+>v preserveModel = False
+>c Model
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> RoR2.HurtBoxGroup
+>>v hurtBoxes = RoR2.HurtBox[]
+>>v mainHurtBox = Hurtbox (RoR2.HurtBox)
+>>v bullseyeCount = 1
+>>c Hurtbox
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.SphereCollider
+
+>>> RoR2.HurtBox
+>>>v healthComponent = VagrantTrackingBomb (RoR2.HealthComponent)
+>>>v isBullseye = True
+>>>v damageModifier = Normal
+>>>v teamIndex = None
+>>>v hurtBoxGroup = Model (RoR2.HurtBoxGroup)
+>>>v indexInGroup = 0
+>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+
+>>> UnityEngine.Rigidbody
+>c ProximityDetonator
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> UnityEngine.SphereCollider
+
+>> RoR2.Projectile.MineProximityDetonator
+>>v myTeamFilter = VagrantTrackingBomb (RoR2.TeamFilter)
+>>v triggerEvents = UnityEngine.Events.UnityEvent UnityEngine.Events.UnityEvent
+>c AuthorityEffect
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(20.0, 20.0, 1.0)
+
+>> UnityEngine.MeshFilter
+
+>> UnityEngine.MeshRenderer
+>c PredictionEffect
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(20.0, 20.0, 1.0)
+
+>> UnityEngine.MeshFilter
+
+>> UnityEngine.MeshRenderer

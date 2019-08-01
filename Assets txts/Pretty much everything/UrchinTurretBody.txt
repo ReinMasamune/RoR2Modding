@@ -1,0 +1,322 @@
+UrchinTurretBody
+
+> transform = p:(-156.4, -150.4, -188.2) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> RoR2.TeamComponent
+>v hideAllyCardDisplay = False
+
+> UnityEngine.Networking.NetworkIdentity
+>v clientAuthorityCallback = 
+
+> RoR2.CharacterBody
+>v bodyIndex = 64
+>v baseNameToken = URCHINTURRET_BODY_NAME
+>v subtitleNameToken = 
+>v pendingTonicAfflictionCount = 0
+>v bodyFlags = None
+>v readOnlyInstancesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.CharacterBody]
+>v rootMotionInMainState = False
+>v mainRootSpeed = 0
+>v baseMaxHealth = 250
+>v baseRegen = 0
+>v baseMaxShield = 0
+>v baseMoveSpeed = 0
+>v baseAcceleration = 0
+>v baseJumpPower = 0
+>v baseDamage = 18
+>v baseAttackSpeed = 1
+>v baseCrit = 0
+>v baseArmor = 100
+>v baseJumpCount = 1
+>v autoCalculateLevelStats = True
+>v levelMaxHealth = 75
+>v levelRegen = 0
+>v levelMaxShield = 0
+>v levelMoveSpeed = 0
+>v levelJumpPower = 0
+>v levelDamage = 3.6
+>v levelAttackSpeed = 0
+>v levelCrit = 0
+>v levelArmor = 0
+>v killCount = 0
+>v wasLucky = False
+>v spreadBloomDecayTime = 0.45
+>v spreadBloomCurve = UnityEngine.AnimationCurve
+>v crosshairPrefab = 
+>v hideCrosshair = False
+>v aimOriginTransform = AimOrigin (UnityEngine.Transform)
+>v hullClassification = Human
+>v portraitIcon = UrchinTurretBody (UnityEngine.Texture2D)
+>v isChampion = False
+>v currentVehicle = 
+>v preferredPodPrefab = 
+
+> RoR2.HealthComponent
+>v health = 100
+>v shield = 0
+>v barrier = 0
+>v body = 
+>v dontShowHealthbar = False
+>v globalDeathEventChanceCoefficient = 1
+>v medkitActivationDelay = 1.1
+>v frozenExecuteThreshold = 0.3
+
+> RoR2.InputBankTest
+>v lookPitch = 0
+>v lookYaw = 0
+>v moveVector = (0.0, 0.0, 0.0)
+>v skill1 = RoR2.InputBankTest+ButtonState
+>v skill2 = RoR2.InputBankTest+ButtonState
+>v skill3 = RoR2.InputBankTest+ButtonState
+>v skill4 = RoR2.InputBankTest+ButtonState
+>v interact = RoR2.InputBankTest+ButtonState
+>v jump = RoR2.InputBankTest+ButtonState
+>v sprint = RoR2.InputBankTest+ButtonState
+>v activateEquipment = RoR2.InputBankTest+ButtonState
+>v ping = RoR2.InputBankTest+ButtonState
+>v emoteRequest = -1
+
+> RoR2.CameraTargetParams
+>v cameraParams = ccpStandard (RoR2.CharacterCameraParams)
+>v cameraPivotTransform = 
+>v aimMode = Standard
+>v recoil = (0.0, 0.0)
+>v idealLocalCameraPos = (0.0, 0.0, 0.0)
+>v fovOverride = -1
+>v dontRaycastToPivot = False
+
+> RoR2.ModelLocator
+>v modelTransform = mdlUrchinTurret (UnityEngine.Transform)
+>v modelBaseTransform = Model Base (UnityEngine.Transform)
+>v dontReleaseModelOnDeath = False
+>v autoUpdateModelTransform = False
+>v dontDetatchFromParent = True
+>v noCorpse = True
+>v normalizeToFloor = False
+>v preserveModel = False
+
+> RoR2.EntityStateMachine
+>v customName = Body
+>v initialStateType = EntityStates.SerializableEntityStateType
+>v mainStateType = EntityStates.SerializableEntityStateType
+>v commonComponents = RoR2.EntityStateMachine+CommonComponentCache
+>v networkIndex = -1
+
+> RoR2.EntityStateMachine
+>v customName = Weapon
+>v initialStateType = EntityStates.SerializableEntityStateType
+>v mainStateType = EntityStates.SerializableEntityStateType
+>v commonComponents = RoR2.EntityStateMachine+CommonComponentCache
+>v networkIndex = -1
+
+> RoR2.GenericSkill
+>v skillName = Turret
+>v skillNameToken = 
+>v skillDescriptionToken = 
+>v baseRechargeInterval = 2
+>v baseMaxStock = 1
+>v rechargeStock = 1
+>v isBullets = True
+>v shootDelay = 0.1
+>v beginSkillCooldownOnSkillEnd = False
+>v stateMachine = UrchinTurretBody (RoR2.EntityStateMachine)
+>v activationState = EntityStates.SerializableEntityStateType
+>v interruptPriority = Any
+>v isCombatSkill = True
+>v noSprint = True
+>v canceledFromSprinting = False
+>v mustKeyPress = False
+>v icon = 
+>v requiredStock = 1
+>v stockToConsume = 1
+>v hasExecutedSuccessfully = False
+
+> RoR2.SkillLocator
+>v primary = UrchinTurretBody (RoR2.GenericSkill)
+>v secondary = 
+>v utility = 
+>v special = 
+>v passiveSkill = RoR2.SkillLocator+PassiveSkill
+
+> RoR2.CharacterDeathBehavior
+>v deathStateMachine = UrchinTurretBody (RoR2.EntityStateMachine)
+>v deathState = EntityStates.SerializableEntityStateType
+>v idleStateMachine = RoR2.EntityStateMachine[]
+
+> RoR2.Networking.CharacterNetworkTransform
+>v positionTransmitInterval = 0.1
+>v lastPositionTransmitTime = -Infinity
+>v interpolationFactor = 2
+>v newestNetSnapshot = RoR2.Networking.CharacterNetworkTransform+Snapshot
+>v debugDuplicatePositions = False
+>v debugSnapshotReceived = False
+
+> RoR2.NetworkStateMachine
+>c Model Base
+
+>> transform = p:(0.0, 1.7, 0.0) r:(0.0, 0.0, 0.0) s:(0.8, 0.8, 0.8)
+>>c mdlUrchinTurret
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.Animator
+
+>>> RoR2.HurtBoxGroup
+>>>v hurtBoxes = RoR2.HurtBox[]
+>>>v mainHurtBox = Hurtbox (RoR2.HurtBox)
+>>>v bullseyeCount = 1
+
+>>> RoR2.CharacterModel
+>>>v body = UrchinTurretBody (RoR2.CharacterBody)
+>>>v itemDisplayRuleSet = idrsUrchinTurret (RoR2.ItemDisplayRuleSet)
+>>>v autoPopulateLightInfos = True
+>>>v autoPopulateParticleSystemInfos = True
+>>>v baseParticleSystemInfos = RoR2.CharacterModel+ParticleSystemInfo[]
+>>>v baseRendererInfos = RoR2.CharacterModel+RendererInfo[]
+>>>v baseLightInfos = RoR2.CharacterModel+LightInfo[]
+>>>v invisibilityCount = 0
+>>>v temporaryOverlays = System.Collections.Generic.List`1[RoR2.TemporaryOverlay]
+>>>v revealedMaterial = matRevealedEffect (UnityEngine.Material)
+>>>v cloakedMaterial = matCloakedEffect (UnityEngine.Material)
+>>>v ghostMaterial = matGhostEffect (UnityEngine.Material)
+>>>v bellBuffMaterial = matBellBuff (UnityEngine.Material)
+>>>v wolfhatMaterial = matWolfhatOverlay (UnityEngine.Material)
+>>>v energyShieldMaterial = matEnergyShield (UnityEngine.Material)
+>>>v fullCritMaterial = matFullCrit (UnityEngine.Material)
+>>>v beetleJuiceMaterial = matBeetleJuice (UnityEngine.Material)
+>>>v brittleMaterial = matBrittle (UnityEngine.Material)
+>>>v clayGooMaterial = matClayGooDebuff (UnityEngine.Material)
+>>>v slow80Material = matSlow80Debuff (UnityEngine.Material)
+>>>v immuneMaterial = matImmune (UnityEngine.Material)
+>>>v elitePoisonOverlayMaterial = matElitePoisonOverlay (UnityEngine.Material)
+>>>v elitePoisonParticleReplacementMaterial = matElitePoisonParticleReplacement (UnityEngine.Material)
+>>>v weakMaterial = matWeakOverlay (UnityEngine.Material)
+
+>>> ChildLocator
+
+>>> RoR2.AimAnimator
+>>>v inputBank = UrchinTurretBody (RoR2.InputBankTest)
+>>>v directionComponent = 
+>>>v pitchRangeMin = -90
+>>>v pitchRangeMax = 90
+>>>v yawRangeMin = -180
+>>>v yawRangeMax = 180
+>>>v pitchGiveupRange = 20
+>>>v yawGiveupRange = 20
+>>>v giveupDuration = 5
+>>>v raisedApproachSpeed = 720
+>>>v loweredApproachSpeed = 360
+>>>v smoothTime = 0.1
+>>>v fullYaw = True
+>>>v aimType = Direct
+>>>v enableAimWeight = False
+>>>c UrchinTurretArmature
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>c ROOT
+
+>>>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>c Base
+
+>>>>>> transform = p:(0.0, 4.2, 0.0) r:(0.0, 180.0, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>c Eye
+
+>>>>>>> transform = p:(0.0, 0.7, 0.0) r:(0.0, 304.3, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>c Eye_end
+
+>>>>>>>> transform = p:(0.0, 0.7, 0.0) r:(0.0, 304.3, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>c Muzzle
+
+>>>>>>>> transform = p:(0.0, 0.4, 0.0) r:(90.0, 124.3, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>c AimOrigin
+
+>>>>>>>>> transform = p:(0.0, 0.0, 0.0) r:(90.0, 124.3, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>c EyeGlow
+
+>>>>>>>> transform = p:(0.0, 0.5, 0.0) r:(0.0, 304.3, 180.0) s:(1.0, 1.0, 1.0)
+
+>>>>>>>> UnityEngine.ParticleSystem
+
+>>>>>>>> UnityEngine.ParticleSystemRenderer
+>>>>>>c Limb.001
+
+>>>>>>> transform = p:(-0.5, 0.2, -0.9) r:(0.0, 256.1, 270.0) s:(1.0, 1.0, 1.0)
+>>>>>>>c Limb.001_end
+
+>>>>>>>> transform = p:(0.0, 2.9, 0.0) r:(0.0, 256.1, 270.0) s:(1.0, 1.0, 1.0)
+>>>>>>c Limb.002
+
+>>>>>>> transform = p:(-1.1, 0.2, -0.7) r:(0.0, 219.6, 270.0) s:(1.0, 1.0, 1.0)
+>>>>>>>c Limb.002_end
+
+>>>>>>>> transform = p:(0.0, 2.2, 0.0) r:(0.0, 219.6, 270.0) s:(1.0, 1.0, 1.0)
+>>>>>>c Limb.003
+
+>>>>>>> transform = p:(-1.0, 0.2, -0.1) r:(0.0, 178.7, 270.0) s:(1.0, 1.0, 1.0)
+>>>>>>>c Limb.003_end
+
+>>>>>>>> transform = p:(0.0, 3.3, 0.0) r:(0.0, 178.7, 270.0) s:(1.0, 1.0, 1.0)
+>>>>>>c Limb.004
+
+>>>>>>> transform = p:(-1.0, 0.2, 0.4) r:(0.0, 156.3, 270.0) s:(1.0, 1.0, 1.0)
+>>>>>>>c Limb.004_end
+
+>>>>>>>> transform = p:(0.0, 2.9, 0.0) r:(0.0, 156.3, 270.0) s:(1.0, 1.0, 1.0)
+>>>>>>c Limb.005
+
+>>>>>>> transform = p:(-0.5, 0.2, 0.9) r:(0.0, 119.6, 270.0) s:(1.0, 1.0, 1.0)
+>>>>>>>c Limb.005_end
+
+>>>>>>>> transform = p:(0.0, 2.4, 0.0) r:(0.0, 119.6, 270.0) s:(1.0, 1.0, 1.0)
+>>>>>>c Limb.006
+
+>>>>>>> transform = p:(0.5, 0.2, 0.9) r:(0.0, 57.1, 270.0) s:(1.0, 1.0, 1.0)
+>>>>>>>c Limb.006_end
+
+>>>>>>>> transform = p:(0.0, 3.0, 0.0) r:(0.0, 57.1, 270.0) s:(1.0, 1.0, 1.0)
+>>>>>>c Limb.007
+
+>>>>>>> transform = p:(0.9, 0.2, 0.4) r:(0.0, 31.5, 270.0) s:(1.0, 1.0, 1.0)
+>>>>>>>c Limb.007_end
+
+>>>>>>>> transform = p:(0.0, 2.5, 0.0) r:(0.0, 31.5, 270.0) s:(1.0, 1.0, 1.0)
+>>>>>>c Limb.008
+
+>>>>>>> transform = p:(1.2, 0.2, -0.2) r:(0.0, 357.4, 270.0) s:(1.0, 1.0, 1.0)
+>>>>>>>c Limb.008_end
+
+>>>>>>>> transform = p:(0.0, 2.5, 0.0) r:(0.0, 357.4, 270.0) s:(1.0, 1.0, 1.0)
+>>>>>>c Limb.009
+
+>>>>>>> transform = p:(0.8, 0.2, -0.8) r:(0.0, 324.0, 270.0) s:(1.0, 1.0, 1.0)
+>>>>>>>c Limb.009_end
+
+>>>>>>>> transform = p:(0.0, 3.0, 0.0) r:(0.0, 324.0, 270.0) s:(1.0, 1.0, 1.0)
+>>>>>>c Limb.010
+
+>>>>>>> transform = p:(0.3, 0.2, -1.1) r:(0.0, 300.3, 270.0) s:(1.0, 1.0, 1.0)
+>>>>>>>c Limb.010_end
+
+>>>>>>>> transform = p:(0.0, 2.9, 0.0) r:(0.0, 300.3, 270.0) s:(1.0, 1.0, 1.0)
+>>>>>>c Hurtbox
+
+>>>>>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 180.0, 180.0) s:(1.0, 1.0, 1.0)
+
+>>>>>>> UnityEngine.SphereCollider
+
+>>>>>>> RoR2.HurtBox
+>>>>>>>v healthComponent = UrchinTurretBody (RoR2.HealthComponent)
+>>>>>>>v isBullseye = True
+>>>>>>>v damageModifier = Normal
+>>>>>>>v teamIndex = None
+>>>>>>>v hurtBoxGroup = mdlUrchinTurret (RoR2.HurtBoxGroup)
+>>>>>>>v indexInGroup = 0
+>>>>>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+>>>>>c HealthBarOrigin
+
+>>>>>> transform = p:(0.0, 6.7, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>c UrchinTurretMesh
+
+>>>> transform = p:(0.0, 2.2, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.SkinnedMeshRenderer

@@ -1,0 +1,176 @@
+ImpBossGroundSlam
+
+> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> UnityEngine.Rigidbody
+
+> RoR2.EffectComponent
+>v effectData = 
+>v positionAtReferencedTransform = True
+>v parentToReferencedTransform = False
+>v applyScale = False
+
+> RoR2.VFXAttributes
+>v vfxPriority = Always
+>v vfxIntensity = High
+>v optionalLights = UnityEngine.Light[]
+>v secondaryParticleSystem = UnityEngine.ParticleSystem[]
+
+> DestroyOnParticleEnd
+
+> RoR2.ShakeEmitter
+>v shakeOnStart = True
+>v wave = Wave
+>v duration = 0.1
+>v radius = 70
+>v scaleShakeRadiusWithLocalScale = False
+>v amplitudeTimeDecay = True
+
+> RoR2.ShakeEmitter
+>v shakeOnStart = True
+>v wave = Wave
+>v duration = 0.2
+>v radius = 90
+>v scaleShakeRadiusWithLocalScale = False
+>v amplitudeTimeDecay = True
+
+> RoR2.AlignToNormal
+>v maxDistance = 2
+>v offsetDistance = 0
+>v changePositionOnly = False
+
+> AkGameObj
+>v isEnvironmentAware = True
+>v m_positionOffsetData = AkGameObjPositionOffsetData
+
+> AkEvent
+>v actionOnEventType = AkActionOnEventType_Stop
+>v curveInterpolation = AkCurveInterpolation_Linear
+>v enableActionOnEvent = False
+>v data = Play_imp_overlord_attack2_smash
+>v m_callbackData = 
+>v playingId = 0
+>v soundEmitterObject = 
+>v transitionDuration = 0
+>v triggerList = System.Collections.Generic.List`1[System.Int32]
+>v useOtherObject = False
+>c Particles
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.4, 1.4, 1.4)
+>>c ClawMesh
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.ParticleSystem
+
+>>> UnityEngine.ParticleSystemRenderer
+>>c LongLifeNoiseTrails
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.ParticleSystem
+
+>>> UnityEngine.ParticleSystemRenderer
+>>c Flash, Red
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.ParticleSystem
+
+>>> UnityEngine.ParticleSystemRenderer
+>>c Flash, White
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.ParticleSystem
+
+>>> UnityEngine.ParticleSystemRenderer
+>>c Dust, Directional
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.ParticleSystem
+
+>>> UnityEngine.ParticleSystemRenderer
+>>c Dust, Billboard
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.ParticleSystem
+
+>>> UnityEngine.ParticleSystemRenderer
+>>c Debris
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.ParticleSystem
+
+>>> UnityEngine.ParticleSystemRenderer
+>>c Point light
+
+>>> transform = p:(0.0, 0.3, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.Light
+
+>>> LightIntensityCurve
+>>>v curve = UnityEngine.AnimationCurve
+>>>v timeMax = 0.5
+>>>v loop = False
+>>>v randomStart = False
+
+>>> RoR2.FlickerLight
+>>>v light = Point light (UnityEngine.Light)
+>>>v sinWaves = Wave[]
+>>c Dash
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.ParticleSystem
+
+>>> UnityEngine.ParticleSystemRenderer
+>>c Dash, Bright
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.ParticleSystem
+
+>>> UnityEngine.ParticleSystemRenderer
+>>c DashRings
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.ParticleSystem
+
+>>> UnityEngine.ParticleSystemRenderer
+>>c Sphere
+
+>>> transform = p:(0.0, 0.0, -0.6) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.ParticleSystem
+
+>>> UnityEngine.ParticleSystemRenderer
+>>c Distortion
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.ParticleSystem
+
+>>> UnityEngine.ParticleSystemRenderer
+>c PP
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> RoR2.PostProcessDuration
+>>v ppVolume = PP (UnityEngine.Rendering.PostProcessing.PostProcessVolume)
+>>v ppWeightCurve = UnityEngine.AnimationCurve
+>>v maxDuration = 1
+>>v destroyOnEnd = True
+
+>> UnityEngine.Rendering.PostProcessing.PostProcessVolume
+>>v sharedProfile = ppLocalImpBoss (UnityEngine.Rendering.PostProcessing.PostProcessProfile)
+>>v isGlobal = False
+>>v blendDistance = 20
+>>v weight = 0.3
+>>v priority = 6
+
+>> UnityEngine.SphereCollider

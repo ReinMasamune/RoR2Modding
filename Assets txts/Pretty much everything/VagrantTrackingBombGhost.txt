@@ -1,0 +1,83 @@
+VagrantTrackingBombGhost
+
+> transform = p:(3.4, 0.0, 9.0) r:(0.0, 0.0, 0.0) s:(0.6, 0.6, 0.6)
+
+> RoR2.Projectile.ProjectileGhostController
+>v authorityTransform = 
+>v predictionTransform = 
+
+> RoR2.VFXAttributes
+>v vfxPriority = Always
+>v vfxIntensity = High
+>v optionalLights = UnityEngine.Light[]
+>v secondaryParticleSystem = UnityEngine.ParticleSystem[]
+>c Spit, World
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> UnityEngine.ParticleSystem
+
+>> UnityEngine.ParticleSystemRenderer
+>c Lightning, Radial
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(4.4, 4.4, 4.4)
+
+>> UnityEngine.ParticleSystem
+
+>> UnityEngine.ParticleSystemRenderer
+>c LightningSphere
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(6.0, 6.0, 6.0)
+
+>> UnityEngine.MeshFilter
+
+>> UnityEngine.MeshRenderer
+
+>> Rewired.ComponentControls.Effects.RotateAroundAxis
+
+>> ObjectScaleCurve
+>>v curveX = UnityEngine.AnimationCurve
+>>v curveY = UnityEngine.AnimationCurve
+>>v curveZ = UnityEngine.AnimationCurve
+>>v overallCurve = UnityEngine.AnimationCurve
+>>v timeMax = 2
+>>v time = 0
+>>c Point Light
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(0.2, 0.2, 0.2)
+
+>>> UnityEngine.Light
+
+>>> RoR2.FlickerLight
+>>>v light = Point Light (UnityEngine.Light)
+>>>v sinWaves = Wave[]
+>>c Normal
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(0.8, 0.8, 0.8)
+
+>>> UnityEngine.MeshFilter
+
+>>> UnityEngine.MeshRenderer
+
+>>> Rewired.ComponentControls.Effects.RotateAroundAxis
+>>>c Orbs, Blue
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(0.2, 0.2, 0.2)
+
+>>>> UnityEngine.ParticleSystem
+
+>>>> UnityEngine.ParticleSystemRenderer
+>>>c Orbs, Red
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(0.2, 0.2, 0.2)
+
+>>>> UnityEngine.ParticleSystem
+
+>>>> UnityEngine.ParticleSystemRenderer
+>>>c Orbs, Green
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(0.2, 0.2, 0.2)
+
+>>>> UnityEngine.ParticleSystem
+
+>>>> UnityEngine.ParticleSystemRenderer

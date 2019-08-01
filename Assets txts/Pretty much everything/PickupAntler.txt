@@ -1,0 +1,10 @@
+PickupAntler
+
+> transform = p:(-2.8, 399.0, -4.3) r:(0.0, 0.0, 0.0) s:(0.6, 0.6, 0.6)
+>c AntlerMeshDual
+
+>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 0.0, 0.0) s:(0.6, 0.6, 0.6)
+
+>> UnityEngine.MeshFilter
+
+>> UnityEngine.MeshRenderer

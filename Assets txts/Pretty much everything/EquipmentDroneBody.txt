@@ -1,0 +1,344 @@
+EquipmentDroneBody
+
+> transform = p:(39.4, -209.8, -45.6) r:(0.0, 225.2, 0.0) s:(1.0, 1.0, 1.0)
+
+> UnityEngine.Networking.NetworkIdentity
+>v clientAuthorityCallback = 
+
+> RoR2.CharacterBody
+>v bodyIndex = 27
+>v baseNameToken = EQUIPMENTDRONE_BODY_NAME
+>v subtitleNameToken = 
+>v pendingTonicAfflictionCount = 0
+>v bodyFlags = None
+>v readOnlyInstancesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.CharacterBody]
+>v rootMotionInMainState = False
+>v mainRootSpeed = 0
+>v baseMaxHealth = 250
+>v baseRegen = 2
+>v baseMaxShield = 0
+>v baseMoveSpeed = 10
+>v baseAcceleration = 17
+>v baseJumpPower = 0
+>v baseDamage = 10
+>v baseAttackSpeed = 1
+>v baseCrit = 0
+>v baseArmor = 0
+>v baseJumpCount = 1
+>v autoCalculateLevelStats = True
+>v levelMaxHealth = 75
+>v levelRegen = 0.4
+>v levelMaxShield = 0
+>v levelMoveSpeed = 0
+>v levelJumpPower = 0
+>v levelDamage = 2
+>v levelAttackSpeed = 0
+>v levelCrit = 0
+>v levelArmor = 0
+>v killCount = 0
+>v wasLucky = False
+>v spreadBloomDecayTime = 0.45
+>v spreadBloomCurve = UnityEngine.AnimationCurve
+>v crosshairPrefab = 
+>v hideCrosshair = False
+>v aimOriginTransform = 
+>v hullClassification = Human
+>v portraitIcon = EquipmentDroneBody (UnityEngine.Texture2D)
+>v isChampion = False
+>v currentVehicle = 
+>v preferredPodPrefab = 
+
+> RoR2.HealthComponent
+>v health = 100
+>v shield = 0
+>v barrier = 0
+>v body = 
+>v dontShowHealthbar = False
+>v globalDeathEventChanceCoefficient = 1
+>v medkitActivationDelay = 1.1
+>v frozenExecuteThreshold = 0.3
+
+> RoR2.InputBankTest
+>v lookPitch = 0
+>v lookYaw = 0
+>v moveVector = (0.0, 0.0, 0.0)
+>v skill1 = RoR2.InputBankTest+ButtonState
+>v skill2 = RoR2.InputBankTest+ButtonState
+>v skill3 = RoR2.InputBankTest+ButtonState
+>v skill4 = RoR2.InputBankTest+ButtonState
+>v interact = RoR2.InputBankTest+ButtonState
+>v jump = RoR2.InputBankTest+ButtonState
+>v sprint = RoR2.InputBankTest+ButtonState
+>v activateEquipment = RoR2.InputBankTest+ButtonState
+>v ping = RoR2.InputBankTest+ButtonState
+>v emoteRequest = -1
+
+> RoR2.CameraTargetParams
+>v cameraParams = ccpStandard (RoR2.CharacterCameraParams)
+>v cameraPivotTransform = 
+>v aimMode = Standard
+>v recoil = (0.0, 0.0)
+>v idealLocalCameraPos = (0.0, 1.2, -3.7)
+>v fovOverride = -1
+>v dontRaycastToPivot = False
+
+> RoR2.Networking.CharacterNetworkTransform
+>v positionTransmitInterval = 0.1
+>v lastPositionTransmitTime = -Infinity
+>v interpolationFactor = 2
+>v newestNetSnapshot = RoR2.Networking.CharacterNetworkTransform+Snapshot
+>v debugDuplicatePositions = False
+>v debugSnapshotReceived = False
+
+> RoR2.RigidbodyDirection
+>v aimDirection = (1.0, 1.0, 1.0)
+>v rigid = EquipmentDroneBody (UnityEngine.Rigidbody)
+>v angularVelocityPID = EquipmentDroneBody (QuaternionPID)
+>v torquePID = EquipmentDroneBody (VectorPID)
+>v freezeXRotation = False
+>v freezeYRotation = False
+>v freezeZRotation = False
+>v animatorXCycle = 
+>v animatorYCycle = 
+>v animatorZCycle = 
+>v animatorTorqueScale = 0
+
+> RoR2.RigidbodyMotor
+>v moveVector = (0.0, 0.0, 0.0)
+>v rigid = EquipmentDroneBody (UnityEngine.Rigidbody)
+>v forcePID = EquipmentDroneBody (VectorPID)
+>v centerOfMassOffset = (0.0, 0.0, 0.0)
+>v animatorForward = 
+>v animatorRight = 
+>v animatorUp = 
+>v enableOverrideMoveVectorInLocalSpace = False
+>v canTakeImpactDamage = True
+>v overrideMoveVectorInLocalSpace = (0.0, 0.0, 0.0)
+
+> QuaternionPID
+>v customName = Angular Velocity PID
+>v PID = (3.0, 0.1, 0.0)
+>v inputQuat = (0.0, 0.0, 0.0, 1.0)
+>v targetQuat = (0.0, 0.0, 0.0, 1.0)
+>v outputVector = (0.0, 0.0, 0.0)
+>v gain = 1
+
+> VectorPID
+>v customName = torquePID
+>v PID = (3.0, 0.1, 0.0)
+>v inputVector = (0.0, 0.0, 0.0)
+>v targetVector = (0.0, 0.0, 0.0)
+>v outputVector = (0.0, 0.0, 0.0)
+>v isAngle = True
+>v gain = 1
+
+> VectorPID
+>v customName = Force PID
+>v PID = (3.0, 0.0, 0.0)
+>v inputVector = (0.0, 0.0, 0.0)
+>v targetVector = (0.0, 0.0, 0.0)
+>v outputVector = (0.0, 0.0, 0.0)
+>v isAngle = False
+>v gain = 1
+
+> RoR2.TeamComponent
+>v hideAllyCardDisplay = False
+
+> RoR2.EntityStateMachine
+>v customName = Body
+>v initialStateType = EntityStates.SerializableEntityStateType
+>v mainStateType = EntityStates.SerializableEntityStateType
+>v commonComponents = RoR2.EntityStateMachine+CommonComponentCache
+>v networkIndex = -1
+
+> RoR2.SkillLocator
+>v primary = 
+>v secondary = 
+>v utility = 
+>v special = 
+>v passiveSkill = RoR2.SkillLocator+PassiveSkill
+
+> UnityEngine.Rigidbody
+
+> RoR2.ModelLocator
+>v modelTransform = mdlEquipmentDrone (UnityEngine.Transform)
+>v modelBaseTransform = Model Base (UnityEngine.Transform)
+>v dontReleaseModelOnDeath = False
+>v autoUpdateModelTransform = True
+>v dontDetatchFromParent = True
+>v noCorpse = False
+>v normalizeToFloor = False
+>v preserveModel = False
+
+> RoR2.NetworkStateMachine
+
+> UnityEngine.CapsuleCollider
+
+> RoR2.CharacterDeathBehavior
+>v deathStateMachine = EquipmentDroneBody (RoR2.EntityStateMachine)
+>v deathState = EntityStates.SerializableEntityStateType
+>v idleStateMachine = RoR2.EntityStateMachine[]
+
+> AkEvent
+>v actionOnEventType = AkActionOnEventType_Stop
+>v curveInterpolation = AkCurveInterpolation_Linear
+>v enableActionOnEvent = False
+>v data = Play_drone_active_loop
+>v m_callbackData = 
+>v playingId = 0
+>v soundEmitterObject = 
+>v transitionDuration = 0
+>v triggerList = System.Collections.Generic.List`1[System.Int32]
+>v useOtherObject = False
+
+> AkEvent
+>v actionOnEventType = AkActionOnEventType_Stop
+>v curveInterpolation = AkCurveInterpolation_Linear
+>v enableActionOnEvent = False
+>v data = Play_drone_repair
+>v m_callbackData = 
+>v playingId = 0
+>v soundEmitterObject = 
+>v transitionDuration = 0
+>v triggerList = System.Collections.Generic.List`1[System.Int32]
+>v useOtherObject = False
+
+> AkEvent
+>v actionOnEventType = AkActionOnEventType_Stop
+>v curveInterpolation = AkCurveInterpolation_Linear
+>v enableActionOnEvent = False
+>v data = Stop_drone_active_loop
+>v m_callbackData = 
+>v playingId = 0
+>v soundEmitterObject = 
+>v transitionDuration = 0
+>v triggerList = System.Collections.Generic.List`1[System.Int32]
+>v useOtherObject = False
+
+> RoR2.EquipmentSlot
+>v equipmentActivateString = Play_UI_equipment_activate
+>c Model Base
+
+>> transform = p:(0.0, 0.4, 0.0) r:(0.0, 225.2, 0.0) s:(1.0, 1.0, 1.0)
+>>c mdlEquipmentDrone
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 225.2, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.Animator
+
+>>> RoR2.HurtBoxGroup
+>>>v hurtBoxes = RoR2.HurtBox[]
+>>>v mainHurtBox = Hurtbox (RoR2.HurtBox)
+>>>v bullseyeCount = 1
+
+>>> RoR2.AimAnimator
+>>>v inputBank = EquipmentDroneBody (RoR2.InputBankTest)
+>>>v directionComponent = 
+>>>v pitchRangeMin = -90
+>>>v pitchRangeMax = 90
+>>>v yawRangeMin = -180
+>>>v yawRangeMax = 180
+>>>v pitchGiveupRange = 10
+>>>v yawGiveupRange = 10
+>>>v giveupDuration = 3
+>>>v raisedApproachSpeed = 100
+>>>v loweredApproachSpeed = 100
+>>>v smoothTime = 0.1
+>>>v fullYaw = True
+>>>v aimType = Direct
+>>>v enableAimWeight = False
+
+>>> RoR2.CharacterModel
+>>>v body = EquipmentDroneBody (RoR2.CharacterBody)
+>>>v itemDisplayRuleSet = idrsEquipmentDrone (RoR2.ItemDisplayRuleSet)
+>>>v autoPopulateLightInfos = True
+>>>v autoPopulateParticleSystemInfos = True
+>>>v baseParticleSystemInfos = RoR2.CharacterModel+ParticleSystemInfo[]
+>>>v baseRendererInfos = RoR2.CharacterModel+RendererInfo[]
+>>>v baseLightInfos = RoR2.CharacterModel+LightInfo[]
+>>>v invisibilityCount = 0
+>>>v temporaryOverlays = System.Collections.Generic.List`1[RoR2.TemporaryOverlay]
+>>>v revealedMaterial = matRevealedEffect (UnityEngine.Material)
+>>>v cloakedMaterial = matCloakedEffect (UnityEngine.Material)
+>>>v ghostMaterial = matGhostEffect (UnityEngine.Material)
+>>>v bellBuffMaterial = matBellBuff (UnityEngine.Material)
+>>>v wolfhatMaterial = matWolfhatOverlay (UnityEngine.Material)
+>>>v energyShieldMaterial = matEnergyShield (UnityEngine.Material)
+>>>v fullCritMaterial = matFullCrit (UnityEngine.Material)
+>>>v beetleJuiceMaterial = matBeetleJuice (UnityEngine.Material)
+>>>v brittleMaterial = matBrittle (UnityEngine.Material)
+>>>v clayGooMaterial = matClayGooDebuff (UnityEngine.Material)
+>>>v slow80Material = matSlow80Debuff (UnityEngine.Material)
+>>>v immuneMaterial = matImmune (UnityEngine.Material)
+>>>v elitePoisonOverlayMaterial = matElitePoisonOverlay (UnityEngine.Material)
+>>>v elitePoisonParticleReplacementMaterial = matElitePoisonParticleReplacement (UnityEngine.Material)
+>>>v weakMaterial = matWeakOverlay (UnityEngine.Material)
+
+>>> ChildLocator
+>>>c EquipmentDroneArmature
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 225.2, 0.0) s:(1.0, 1.0, 1.0)
+>>>>c gun axis
+
+>>>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 45.2, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>c gunBarrelBase
+
+>>>>>> transform = p:(0.0, 0.6, 0.0) r:(90.0, 45.2, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>c gunBarrelCylinder
+
+>>>>>>> transform = p:(0.0, 0.3, 0.2) r:(270.0, 225.2, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>c gunBarrelCylinder_end
+
+>>>>>>>> transform = p:(0.0, 0.2, 0.0) r:(270.0, 225.2, 0.0) s:(1.0, 1.0, 1.0)
+>>>>c Hurtbox
+
+>>>>> transform = p:(0.0, 0.0, -0.4) r:(270.0, 225.2, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>>> UnityEngine.SphereCollider
+
+>>>>> RoR2.HurtBox
+>>>>>v healthComponent = EquipmentDroneBody (RoR2.HealthComponent)
+>>>>>v isBullseye = True
+>>>>>v damageModifier = Normal
+>>>>>v teamIndex = None
+>>>>>v hurtBoxGroup = mdlEquipmentDrone (RoR2.HurtBoxGroup)
+>>>>>v indexInGroup = 0
+>>>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+>>>>c BladeOn
+
+>>>>> transform = p:(-0.2, 0.3, 0.8) r:(308.9, 76.6, 164.2) s:(1.0, 1.0, 1.0)
+>>>>>c DroneBladeActive
+
+>>>>>> transform = p:(0.0, 0.0, 0.0) r:(308.9, 76.6, 164.2) s:(1.0, 1.0, 1.0)
+
+>>>>>> UnityEngine.MeshFilter
+
+>>>>>> UnityEngine.MeshRenderer
+
+>>>>>> RotateObject
+>>>>>>v rotationSpeed = (0.0, 0.0, 900.0)
+>>>>>c DroneBladeActive
+
+>>>>>> transform = p:(-0.2, -0.5, -0.4) r:(306.2, 183.4, 86.3) s:(1.0, 1.0, 1.0)
+
+>>>>>> UnityEngine.MeshFilter
+
+>>>>>> UnityEngine.MeshRenderer
+
+>>>>>> RotateObject
+>>>>>>v rotationSpeed = (0.0, 0.0, 900.0)
+>>>>>c DroneBladeActive
+
+>>>>>> transform = p:(0.4, -0.3, -0.4) r:(303.4, 322.7, 354.5) s:(1.0, 1.0, 1.0)
+
+>>>>>> UnityEngine.MeshFilter
+
+>>>>>> UnityEngine.MeshRenderer
+
+>>>>>> RotateObject
+>>>>>>v rotationSpeed = (0.0, 0.0, 900.0)
+>>>c EquipmentDroneMesh
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 225.2, 0.0) s:(0.3, 0.3, 0.3)
+
+>>>> UnityEngine.SkinnedMeshRenderer

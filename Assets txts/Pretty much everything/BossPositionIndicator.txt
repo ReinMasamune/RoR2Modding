@@ -1,0 +1,29 @@
+BossPositionIndicator
+
+> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(0.2, 0.2, 0.2)
+
+> RoR2.PositionIndicator
+>v targetTransform = 
+>v insideViewObject = 
+>v outsideViewObject = OutsideFrameArrow (UnityEngine.GameObject)
+>v alwaysVisibleObject = 
+>v shouldRotateOutsideViewObject = True
+>v outsideViewRotationOffset = 90
+>c BossIcon
+
+>> transform = p:(0.0, 0.2, 0.0) r:(0.0, 0.0, 0.0) s:(0.1, 0.1, 0.1)
+
+>> UnityEngine.SpriteRenderer
+>c OutsideFrameArrow
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(0.4, 0.4, 0.4)
+>>c Sprite
+
+>>> transform = p:(0.0, 0.1, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 3.3, 1.0)
+
+>>> UnityEngine.SpriteRenderer
+>>>c Sprite
+
+>>>> transform = p:(0.0, 0.1, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.SpriteRenderer

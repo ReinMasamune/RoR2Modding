@@ -1,0 +1,12 @@
+GoldAffixEffect
+
+> transform = p:(-25.4, -211.6, -173.3) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> UnityEngine.ParticleSystem
+
+> UnityEngine.ParticleSystemRenderer
+>c Point light
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> UnityEngine.Light

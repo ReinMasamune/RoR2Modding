@@ -1,0 +1,41 @@
+BeetleAcidImpact
+
+> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> RoR2.EffectComponent
+>v effectData = 
+>v positionAtReferencedTransform = False
+>v parentToReferencedTransform = False
+>v applyScale = True
+
+> DestroyOnParticleEnd
+
+> RoR2.VFXAttributes
+>v vfxPriority = Medium
+>v vfxIntensity = Medium
+>v optionalLights = UnityEngine.Light[]
+>v secondaryParticleSystem = UnityEngine.ParticleSystem[]
+>c Particles
+
+>> transform = p:(0.0, 0.0, 0.0) r:(90.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>c Bugs
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(90.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.ParticleSystem
+
+>>> UnityEngine.ParticleSystemRenderer
+>>c Flames
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.ParticleSystem
+
+>>> UnityEngine.ParticleSystemRenderer
+>>c Ring, Mesh
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(90.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.ParticleSystem
+
+>>> UnityEngine.ParticleSystemRenderer

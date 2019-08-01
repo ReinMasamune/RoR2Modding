@@ -1,0 +1,134 @@
+MageUnlockPreExplosion
+
+> transform = p:(126.3, -81.4, -89.8) r:(0.0, 359.9, 0.0) s:(1.0, 1.0, 1.0)
+
+> RoR2.ScaleParticleSystemDuration
+>v initialDuration = 3
+>v particleSystems = UnityEngine.ParticleSystem[]
+
+> RoR2.ShakeEmitter
+>v shakeOnStart = True
+>v wave = Wave
+>v duration = 0.5
+>v radius = 40
+>v scaleShakeRadiusWithLocalScale = False
+>v amplitudeTimeDecay = True
+
+> RoR2.ShakeEmitter
+>v shakeOnStart = True
+>v wave = Wave
+>v duration = 100
+>v radius = 40
+>v scaleShakeRadiusWithLocalScale = False
+>v amplitudeTimeDecay = False
+
+> RoR2.EffectComponent
+>v effectData = 
+>v positionAtReferencedTransform = False
+>v parentToReferencedTransform = False
+>v applyScale = False
+
+> RoR2.VFXAttributes
+>v vfxPriority = Always
+>v vfxIntensity = High
+>v optionalLights = UnityEngine.Light[]
+>v secondaryParticleSystem = UnityEngine.ParticleSystem[]
+
+> RoR2.LoopSound
+>v akSoundString = Play_item_use_BFG_zaps
+>v repeatInterval = 0.1
+>v soundOwner = MageUnlockPreExplosion (UnityEngine.Transform)
+
+> RoR2.DestroyOnTimer
+>v duration = 3
+>v resetAgeOnDisable = False
+
+> AkGameObj
+>v isEnvironmentAware = True
+>v m_positionOffsetData = AkGameObjPositionOffsetData
+
+> AkEvent
+>v actionOnEventType = AkActionOnEventType_Stop
+>v curveInterpolation = AkCurveInterpolation_Linear
+>v enableActionOnEvent = False
+>v data = Play_mage_m2_shoot
+>v m_callbackData = 
+>v playingId = 0
+>v soundEmitterObject = 
+>v transitionDuration = 0
+>v triggerList = System.Collections.Generic.List`1[System.Int32]
+>v useOtherObject = False
+
+> UnityEngine.Rigidbody
+>c Running Particles
+
+>> transform = p:(0.0, 0.6, -0.6) r:(90.0, 359.9, 0.0) s:(1.0, 1.0, 1.0)
+>>c LightShafts
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 359.9, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.ParticleSystem
+
+>>> UnityEngine.ParticleSystemRenderer
+>>c Chunks
+
+>>> transform = p:(0.0, 0.8, 0.0) r:(0.0, 359.9, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.ParticleSystem
+
+>>> UnityEngine.ParticleSystemRenderer
+>>c Flames
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 359.9, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.ParticleSystem
+
+>>> UnityEngine.ParticleSystemRenderer
+>>c Goo
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(90.0, 359.9, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.ParticleSystem
+
+>>> UnityEngine.ParticleSystemRenderer
+>>c Point light, Scale
+
+>>> transform = p:(0.0, 0.6, 0.0) r:(90.0, 359.9, 0.0) s:(1.7, 1.7, 1.7)
+
+>>> UnityEngine.Light
+
+>>> LightIntensityCurve
+>>>v curve = UnityEngine.AnimationCurve
+>>>v timeMax = 3
+>>>v loop = False
+>>>v randomStart = False
+>>c Point light, Flicker
+
+>>> transform = p:(0.0, 0.6, 0.0) r:(90.0, 359.9, 0.0) s:(1.7, 1.7, 1.7)
+
+>>> UnityEngine.Light
+
+>>> RoR2.FlickerLight
+>>>v light = Point light, Flicker (UnityEngine.Light)
+>>>v sinWaves = Wave[]
+>>c Flames, Radial
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 359.9, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.ParticleSystem
+
+>>> UnityEngine.ParticleSystemRenderer
+>c Initial Particles
+
+>> transform = p:(0.0, 0.6, -0.6) r:(90.0, 359.9, 0.0) s:(1.0, 1.0, 1.0)
+>>c Point light
+
+>>> transform = p:(0.0, 0.6, 0.0) r:(90.0, 359.9, 0.0) s:(1.7, 1.7, 1.7)
+
+>>> UnityEngine.Light
+
+>>> LightIntensityCurve
+>>>v curve = UnityEngine.AnimationCurve
+>>>v timeMax = 0.2
+>>>v loop = False
+>>>v randomStart = False

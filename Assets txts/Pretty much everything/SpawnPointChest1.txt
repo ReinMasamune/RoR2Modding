@@ -1,0 +1,13 @@
+SpawnPointChest1
+
+> transform = p:(-32.4, -16.4, -63.7) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> RoR2.Networking.GenericSceneSpawnPoint
+>v networkedObjectPrefab = Chest1 (UnityEngine.GameObject)
+>c Mesh
+
+>> transform = p:(0.0, 0.7, 0.0) r:(270.0, 0.0, 0.0) s:(0.5, 0.5, 0.5)
+
+>> UnityEngine.MeshFilter
+
+>> UnityEngine.MeshRenderer

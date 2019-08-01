@@ -1,0 +1,11 @@
+DotController
+
+> transform = p:(79.2, 18.7, 324.2) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> UnityEngine.Networking.NetworkIdentity
+>v clientAuthorityCallback = 
+
+> RoR2.DotController
+>v readOnlyInstancesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.DotController]
+
+> UnityEngine.Rigidbody

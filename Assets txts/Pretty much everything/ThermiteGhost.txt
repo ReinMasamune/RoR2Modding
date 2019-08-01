@@ -1,0 +1,48 @@
+ThermiteGhost
+
+> transform = p:(0.0, 0.0, 2.1) r:(358.4, 60.1, 357.2) s:(1.0, 1.0, 1.0)
+
+> RoR2.Projectile.ProjectileGhostController
+>v authorityTransform = 
+>v predictionTransform = 
+
+> RoR2.VFXAttributes
+>v vfxPriority = Always
+>v vfxIntensity = Low
+>v optionalLights = UnityEngine.Light[]
+>v secondaryParticleSystem = UnityEngine.ParticleSystem[]
+>c Sparks
+
+>> transform = p:(0.0, 0.0, 0.0) r:(358.4, 60.1, 357.2) s:(1.0, 1.0, 1.0)
+
+>> UnityEngine.ParticleSystem
+
+>> UnityEngine.ParticleSystemRenderer
+>c Clouds
+
+>> transform = p:(0.0, 0.0, -0.2) r:(358.4, 60.1, 357.2) s:(1.0, 1.0, 1.0)
+
+>> UnityEngine.ParticleSystem
+
+>> UnityEngine.ParticleSystemRenderer
+>c Flare
+
+>> transform = p:(0.0, 0.0, -0.2) r:(358.4, 60.1, 357.2) s:(1.0, 1.0, 1.0)
+
+>> UnityEngine.ParticleSystem
+
+>> UnityEngine.ParticleSystemRenderer
+>c Jet
+
+>> transform = p:(0.0, 0.0, 0.0) r:(358.4, 60.1, 357.2) s:(1.0, 1.0, 1.0)
+
+>> UnityEngine.ParticleSystem
+
+>> UnityEngine.ParticleSystemRenderer
+>c Clouds (1)
+
+>> transform = p:(0.0, 0.0, -0.2) r:(358.4, 60.1, 357.2) s:(1.0, 1.0, 1.0)
+
+>> UnityEngine.ParticleSystem
+
+>> UnityEngine.ParticleSystemRenderer

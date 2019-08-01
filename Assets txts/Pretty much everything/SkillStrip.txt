@@ -1,0 +1,41 @@
+SkillStrip
+
+> UnityEngine.RectTransform
+
+> UnityEngine.CanvasRenderer
+
+> UnityEngine.UI.Image
+>c Icon
+
+>> UnityEngine.RectTransform
+
+>> UnityEngine.CanvasRenderer
+
+>> UnityEngine.UI.Image
+
+>> UnityEngine.UI.AspectRatioFitter
+>c SkillDescriptionPanel
+
+>> UnityEngine.RectTransform
+
+>> UnityEngine.CanvasRenderer
+
+>> UnityEngine.UI.Image
+>>c SkillName
+
+>>> UnityEngine.RectTransform
+
+>>> UnityEngine.CanvasRenderer
+
+>>> RoR2.UI.HGTextMeshProUGUI
+>>>v useLanguageDefaultFont = True
+>>>v defaultLanguageFont = tmpBombDropshadow (TMPro.TMP_FontAsset)
+>>c SkillDescription
+
+>>> UnityEngine.RectTransform
+
+>>> UnityEngine.CanvasRenderer
+
+>>> RoR2.UI.HGTextMeshProUGUI
+>>>v useLanguageDefaultFont = True
+>>>v defaultLanguageFont = tmpBombDropshadow (TMPro.TMP_FontAsset)

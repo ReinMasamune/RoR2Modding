@@ -1,0 +1,78 @@
+Glaive
+
+> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(0.1, 0.1, 1.0)
+
+> UnityEngine.MeshFilter
+
+> UnityEngine.Networking.NetworkIdentity
+>v clientAuthorityCallback = 
+
+> RoR2.Projectile.ProjectileController
+>v ghostPrefab = GlaiveGhost (UnityEngine.GameObject)
+>v ghost = 
+>v isPrediction = False
+>v allowPrediction = True
+>v predictionId = 0
+>v owner = 
+>v procChainMask = RoR2.ProcChainMask
+>v procCoefficient = 1
+>v target = 
+>v authorityEffect = AuthorityEffect (UnityEngine.GameObject)
+>v predictionEffect = PredictionEffect (UnityEngine.GameObject)
+
+> UnityEngine.Rigidbody
+
+> RoR2.Projectile.ProjectileNetworkTransform
+>v positionTransmitInterval = 0.03333334
+>v interpolationFactor = 1
+>v allowClientsideCollision = False
+
+> UnityEngine.SphereCollider
+
+> RoR2.ChainController
+>v currentTarget = 
+>v pastTargetList = System.Collections.Generic.List`1[UnityEngine.Transform]
+>v impactEffect = ImpactHuntress (UnityEngine.GameObject)
+>v maxVelocity = 95
+>v maxBounceCount = 8
+>v maxChainDistance = 60
+>v lifeTime = 5
+>v damageMultiplier = 1.1
+>v assignFirstTarget = False
+>v ignoreFirstTarget = False
+>v destroyOnWorldIfNoTarget = False
+>v canBounceToSameTarget = True
+>v canHitNonTarget = True
+>v smartSeeking = True
+>v searchAfterFirstFailure = False
+>v destroyOnFailure = False
+
+> RoR2.Projectile.ProjectileDamage
+>v damage = 0
+>v crit = False
+>v force = 0
+>v damageColorIndex = Default
+>v damageType = Generic
+
+> RoR2.TeamFilter
+
+> RoR2.Projectile.ProjectileSimple
+>v velocity = 70
+>v lifetime = 5
+>v updateAfterFiring = False
+>v enableVelocityOverLifetime = False
+>v velocityOverLifetime = UnityEngine.AnimationCurve
+>c AuthorityEffect
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(20.0, 20.0, 1.0)
+
+>> UnityEngine.MeshFilter
+
+>> UnityEngine.MeshRenderer
+>c PredictionEffect
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(20.0, 20.0, 1.0)
+
+>> UnityEngine.MeshFilter
+
+>> UnityEngine.MeshRenderer

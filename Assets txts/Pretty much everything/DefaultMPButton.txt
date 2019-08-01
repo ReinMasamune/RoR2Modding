@@ -1,0 +1,31 @@
+DefaultMPButton
+
+> UnityEngine.RectTransform
+
+> UnityEngine.CanvasRenderer
+
+> UnityEngine.UI.Image
+
+> RoR2.UI.MPEventSystemLocator
+
+> RoR2.UI.MPButton
+>v allowAllEventSystems = False
+>v pointerClickOnly = True
+
+> RoR2.UI.SkinControllers.ButtonSkinController
+>v useRecommendedButtonWidth = True
+>v useRecommendedButtonHeight = True
+>v useRecommendedImage = True
+>v useRecommendedMaterial = True
+>v useRecommendedAlignment = True
+>v useRecommendedLabel = True
+>v skinData = skinWarning (RoR2.UI.UISkinData)
+>c TextMeshPro Text
+
+>> UnityEngine.RectTransform
+
+>> UnityEngine.CanvasRenderer
+
+>> RoR2.UI.HGTextMeshProUGUI
+>>v useLanguageDefaultFont = True
+>>v defaultLanguageFont = tmpBombDropshadow (TMPro.TMP_FontAsset)

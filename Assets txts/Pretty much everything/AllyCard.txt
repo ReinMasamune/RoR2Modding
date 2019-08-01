@@ -1,0 +1,108 @@
+AllyCard
+
+> UnityEngine.RectTransform
+
+> UnityEngine.CanvasRenderer
+
+> UnityEngine.UI.Image
+
+> RoR2.UI.AllyCardController
+>v healthBar = Healthbar (RoR2.UI.HealthBar)
+>v nameLabel = NameLabel (RoR2.UI.HGTextMeshProUGUI)
+>v portraitIconImage = Portrait (UnityEngine.UI.RawImage)
+>v sourceGameObject = 
+
+> UnityEngine.UI.LayoutElement
+
+> UnityEngine.UI.HorizontalLayoutGroup
+>c Portrait
+
+>> UnityEngine.RectTransform
+
+>> UnityEngine.CanvasRenderer
+
+>> UnityEngine.UI.RawImage
+
+>> UnityEngine.UI.AspectRatioFitter
+
+>> UnityEngine.UI.LayoutElement
+>>c CriticallyHurt
+
+>>> UnityEngine.RectTransform
+
+>>> UnityEngine.CanvasRenderer
+
+>>> UnityEngine.UI.Image
+
+>>> UnityEngine.UI.ContentSizeFitter
+>>c Dead
+
+>>> UnityEngine.RectTransform
+
+>>> UnityEngine.CanvasRenderer
+
+>>> UnityEngine.UI.Image
+
+>>> ObjectScaleCurve
+>>>v curveX = UnityEngine.AnimationCurve
+>>>v curveY = UnityEngine.AnimationCurve
+>>>v curveZ = UnityEngine.AnimationCurve
+>>>v overallCurve = UnityEngine.AnimationCurve
+>>>v timeMax = 1
+>>>v time = 0
+>c Bars
+
+>> UnityEngine.RectTransform
+
+>> UnityEngine.UI.VerticalLayoutGroup
+
+>> UnityEngine.UI.LayoutElement
+
+>> UnityEngine.CanvasRenderer
+
+>> UnityEngine.UI.Image
+>>c NameLabel
+
+>>> UnityEngine.RectTransform
+
+>>> UnityEngine.CanvasRenderer
+
+>>> RoR2.UI.HGTextMeshProUGUI
+>>>v useLanguageDefaultFont = True
+>>>v defaultLanguageFont = tmpBombDropshadow (TMPro.TMP_FontAsset)
+>>c Healthbar
+
+>>> UnityEngine.RectTransform
+
+>>> RoR2.UI.HealthBar
+>>>v style = HUDHealthBar (RoR2.UI.HealthBarStyle)
+>>>v barContainer = BackgroundPanel (UnityEngine.RectTransform)
+>>>v eliteBackdropRectTransform = 
+>>>v criticallyHurtImage = CriticallyHurt (UnityEngine.UI.Image)
+>>>v deadImage = Dead (UnityEngine.UI.Image)
+>>>v maxLastHitTimer = 0.2
+>>>v scaleHealthbarWidth = False
+>>>v minHealthbarWidth = 0
+>>>v maxHealthbarWidth = 0
+>>>v minHealthbarHealth = 0
+>>>v maxHealthbarHealth = 0
+>>>v viewerBody = 
+>>>v criticallyHurtThreshold = 0.3
+>>>v currentHealthText = 
+>>>v fullHealthText = 
+
+>>> UnityEngine.UI.LayoutElement
+>>>c BackgroundPanel
+
+>>>> UnityEngine.RectTransform
+
+>>>> UnityEngine.CanvasRenderer
+
+>>>> UnityEngine.UI.Image
+>>>>c OutlinePanel
+
+>>>>> UnityEngine.RectTransform
+
+>>>>> UnityEngine.CanvasRenderer
+
+>>>>> UnityEngine.UI.Image

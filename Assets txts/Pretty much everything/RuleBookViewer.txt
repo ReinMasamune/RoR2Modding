@@ -1,0 +1,197 @@
+RuleBookViewer
+
+> UnityEngine.RectTransform
+
+> UnityEngine.CanvasRenderer
+
+> UnityEngine.UI.Image
+
+> RoR2.UI.SkinControllers.PanelSkinController
+>v panelType = Default
+>v skinData = skinMenu (RoR2.UI.UISkinData)
+
+> RoR2.UI.RuleBookViewer
+>v stripPrefab = Strip (UnityEngine.GameObject)
+>v categoryPrefab = 
+>v categoryContainer = 
+
+> UnityEngine.UI.LayoutElement
+>c Choice
+
+>> UnityEngine.RectTransform
+
+>> UnityEngine.CanvasRenderer
+
+>> UnityEngine.UI.Image
+
+>> RoR2.UI.SkinControllers.PanelSkinController
+>>v panelType = Default
+>>v skinData = skinRuleStrip (RoR2.UI.UISkinData)
+
+>> UnityEngine.UI.LayoutElement
+>>c Button
+
+>>> UnityEngine.RectTransform
+
+>>> UnityEngine.UI.Image
+
+>>> UnityEngine.CanvasRenderer
+
+>>> RoR2.UI.MPEventSystemLocator
+
+>>> RoR2.UI.MPButton
+>>>v allowAllEventSystems = False
+>>>v pointerClickOnly = True
+
+>>> RoR2.UI.SkinControllers.ButtonSkinController
+>>>v useRecommendedButtonWidth = False
+>>>v useRecommendedButtonHeight = False
+>>>v useRecommendedImage = False
+>>>v useRecommendedMaterial = True
+>>>v useRecommendedAlignment = True
+>>>v useRecommendedLabel = True
+>>>v skinData = skinRuleStrip (RoR2.UI.UISkinData)
+
+>>> RoR2.UI.TooltipProvider
+>>>v titleToken = 
+>>>v titleColor = RGBA(1.000, 1.000, 1.000, 1.000)
+>>>v bodyToken = 
+>>>v bodyColor = RGBA(1.000, 1.000, 1.000, 1.000)
+>>>v overrideTitleText = 
+>>>v overrideBodyText = 
+>>>v disableTitleRichText = False
+>>>v disableBodyRichText = False
+>>>v userCount = 0
+>c Strip
+
+>> UnityEngine.RectTransform
+
+>> UnityEngine.CanvasRenderer
+
+>> UnityEngine.UI.Image
+
+>> RoR2.UI.SkinControllers.PanelSkinController
+>>v panelType = Default
+>>v skinData = skinRuleStrip (RoR2.UI.UISkinData)
+
+>> UnityEngine.UI.LayoutElement
+
+>> RoR2.UI.RuleBookViewerStrip
+>>v choicePrefab = Choice (UnityEngine.GameObject)
+>>v choiceContainer = Strip (UnityEngine.RectTransform)
+>>v movementAxis = Vertical
+>>v movementDuration = 0.1
+>>v choiceControllers = System.Collections.Generic.List`1[RoR2.UI.RuleChoiceController]
+>>v currentDisplayChoiceIndex = 0
+
+>> UnityEngine.UI.VerticalLayoutGroup
+
+>> UnityEngine.UI.ContentSizeFitter
+>c ScrollView
+
+>> UnityEngine.RectTransform
+
+>> UnityEngine.UI.ScrollRect
+
+>> UnityEngine.CanvasRenderer
+
+>> UnityEngine.UI.Image
+
+>> RoR2.UI.SkinControllers.ScrollRectSkinController
+>>v skinData = skinMenu (RoR2.UI.UISkinData)
+>>c Viewport
+
+>>> UnityEngine.RectTransform
+
+>>> UnityEngine.UI.Mask
+
+>>> UnityEngine.CanvasRenderer
+
+>>> UnityEngine.UI.Image
+>>>c StripContainer
+
+>>>> UnityEngine.RectTransform
+
+>>>> UnityEngine.CanvasRenderer
+
+>>>> UnityEngine.UI.Image
+
+>>>> RoR2.UI.SkinControllers.PanelSkinController
+>>>>v panelType = Default
+>>>>v skinData = skinMenu (RoR2.UI.UISkinData)
+
+>>>> UnityEngine.UI.HorizontalLayoutGroup
+
+>>>> UnityEngine.UI.ContentSizeFitter
+>>>>c FrameContainer
+
+>>>>> UnityEngine.RectTransform
+
+>>>>> UnityEngine.CanvasRenderer
+
+>>>>> UnityEngine.UI.LayoutElement
+>>>>>c Frame
+
+>>>>>> UnityEngine.RectTransform
+
+>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>> UnityEngine.UI.Image
+
+>>>>>> UnityEngine.UI.LayoutElement
+>>>>>c FrameBottom
+
+>>>>>> UnityEngine.RectTransform
+
+>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>> UnityEngine.UI.Image
+
+>>>>>> UnityEngine.UI.LayoutElement
+>>>>>c FrameTop
+
+>>>>>> UnityEngine.RectTransform
+
+>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>> UnityEngine.UI.Image
+
+>>>>>> UnityEngine.UI.LayoutElement
+>>c Scrollbar Horizontal
+
+>>> UnityEngine.RectTransform
+
+>>> UnityEngine.CanvasRenderer
+
+>>> UnityEngine.UI.Image
+
+>>> UnityEngine.UI.Scrollbar
+>>>c Sliding Area
+
+>>>> UnityEngine.RectTransform
+>>>>c Handle
+
+>>>>> UnityEngine.RectTransform
+
+>>>>> UnityEngine.CanvasRenderer
+
+>>>>> UnityEngine.UI.Image
+>>c Scrollbar Vertical
+
+>>> UnityEngine.RectTransform
+
+>>> UnityEngine.CanvasRenderer
+
+>>> UnityEngine.UI.Image
+
+>>> UnityEngine.UI.Scrollbar
+>>>c Sliding Area
+
+>>>> UnityEngine.RectTransform
+>>>>c Handle
+
+>>>>> UnityEngine.RectTransform
+
+>>>>> UnityEngine.CanvasRenderer
+
+>>>>> UnityEngine.UI.Image

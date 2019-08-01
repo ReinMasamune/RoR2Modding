@@ -1,0 +1,656 @@
+BisonBody
+
+> transform = p:(-326.0, -384.7, -945.2) r:(0.0, 0.0, 355.9) s:(1.0, 1.0, 1.0)
+
+> UnityEngine.Networking.NetworkIdentity
+>v clientAuthorityCallback = 
+
+> RoR2.CharacterMotor
+>v instancesList = System.Collections.Generic.List`1[RoR2.CharacterMotor]
+>v walkSpeedPenaltyCoefficient = 1
+>v characterDirection = 
+>v muteWalkMotion = False
+>v mass = 300
+>v airControl = 0.25
+>v disableAirControlUntilCollision = False
+>v generateParametersOnAwake = True
+>v slipStartAngle = 70
+>v slipEndAngle = 55
+>v jumpCount = 0
+>v netIsGrounded = False
+>v netGroundNormal = (0.0, 0.0, 0.0)
+>v velocity = (0.0, 0.0, 0.0)
+>v rootMotion = (0.0, 0.0, 0.0)
+
+> RoR2.InputBankTest
+>v lookPitch = 0
+>v lookYaw = 0
+>v moveVector = (0.0, 0.0, 0.0)
+>v skill1 = RoR2.InputBankTest+ButtonState
+>v skill2 = RoR2.InputBankTest+ButtonState
+>v skill3 = RoR2.InputBankTest+ButtonState
+>v skill4 = RoR2.InputBankTest+ButtonState
+>v interact = RoR2.InputBankTest+ButtonState
+>v jump = RoR2.InputBankTest+ButtonState
+>v sprint = RoR2.InputBankTest+ButtonState
+>v activateEquipment = RoR2.InputBankTest+ButtonState
+>v ping = RoR2.InputBankTest+ButtonState
+>v emoteRequest = -1
+
+> RoR2.CharacterBody
+>v bodyIndex = 13
+>v baseNameToken = BISON_BODY_NAME
+>v subtitleNameToken = 
+>v pendingTonicAfflictionCount = 0
+>v bodyFlags = None
+>v readOnlyInstancesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.CharacterBody]
+>v rootMotionInMainState = False
+>v mainRootSpeed = 20
+>v baseMaxHealth = 600
+>v baseRegen = 0
+>v baseMaxShield = 0
+>v baseMoveSpeed = 3
+>v baseAcceleration = 60
+>v baseJumpPower = 5
+>v baseDamage = 12
+>v baseAttackSpeed = 1
+>v baseCrit = 0
+>v baseArmor = 0
+>v baseJumpCount = 1
+>v autoCalculateLevelStats = True
+>v levelMaxHealth = 180
+>v levelRegen = 0
+>v levelMaxShield = 0
+>v levelMoveSpeed = 0
+>v levelJumpPower = 0
+>v levelDamage = 2.4
+>v levelAttackSpeed = 0
+>v levelCrit = 0
+>v levelArmor = 0
+>v killCount = 0
+>v wasLucky = False
+>v spreadBloomDecayTime = 0.45
+>v spreadBloomCurve = UnityEngine.AnimationCurve
+>v crosshairPrefab = GlaiveCrosshair (UnityEngine.GameObject)
+>v hideCrosshair = False
+>v aimOriginTransform = AimOrigin (UnityEngine.Transform)
+>v hullClassification = Golem
+>v portraitIcon = BisonBody (UnityEngine.Texture2D)
+>v isChampion = False
+>v currentVehicle = 
+>v preferredPodPrefab = 
+
+> RoR2.CameraTargetParams
+>v cameraParams = ccpStandardTall (RoR2.CharacterCameraParams)
+>v cameraPivotTransform = 
+>v aimMode = Standard
+>v recoil = (0.0, 0.0)
+>v idealLocalCameraPos = (0.0, 3.6, -13.8)
+>v fovOverride = -1
+>v dontRaycastToPivot = False
+
+> RoR2.ModelLocator
+>v modelTransform = mdlBison (UnityEngine.Transform)
+>v modelBaseTransform = ModelBase (UnityEngine.Transform)
+>v dontReleaseModelOnDeath = False
+>v autoUpdateModelTransform = True
+>v dontDetatchFromParent = False
+>v noCorpse = False
+>v normalizeToFloor = True
+>v preserveModel = False
+
+> RoR2.EntityStateMachine
+>v customName = Body
+>v initialStateType = EntityStates.SerializableEntityStateType
+>v mainStateType = EntityStates.SerializableEntityStateType
+>v commonComponents = RoR2.EntityStateMachine+CommonComponentCache
+>v networkIndex = -1
+
+> RoR2.CharacterDirection
+>v moveVector = (0.0, 0.0, 0.0)
+>v targetTransform = ModelBase (UnityEngine.Transform)
+>v overrideAnimatorForwardTransform = 
+>v rootMotionAccumulator = 
+>v modelAnimator = 
+>v driveFromRootRotation = False
+>v turnSpeed = 100
+
+> RoR2.SkillLocator
+>v primary = BisonBody (RoR2.GenericSkill)
+>v secondary = 
+>v utility = BisonBody (RoR2.GenericSkill)
+>v special = 
+>v passiveSkill = RoR2.SkillLocator+PassiveSkill
+
+> RoR2.GenericSkill
+>v skillName = Headbutt
+>v skillNameToken = 
+>v skillDescriptionToken = 
+>v baseRechargeInterval = 3
+>v baseMaxStock = 1
+>v rechargeStock = 1
+>v isBullets = False
+>v shootDelay = 0.3
+>v beginSkillCooldownOnSkillEnd = False
+>v stateMachine = BisonBody (RoR2.EntityStateMachine)
+>v activationState = EntityStates.SerializableEntityStateType
+>v interruptPriority = Skill
+>v isCombatSkill = True
+>v noSprint = True
+>v canceledFromSprinting = False
+>v mustKeyPress = False
+>v icon = 
+>v requiredStock = 1
+>v stockToConsume = 1
+>v hasExecutedSuccessfully = False
+
+> RoR2.GenericSkill
+>v skillName = Charge
+>v skillNameToken = 
+>v skillDescriptionToken = 
+>v baseRechargeInterval = 8
+>v baseMaxStock = 1
+>v rechargeStock = 1
+>v isBullets = False
+>v shootDelay = 0.3
+>v beginSkillCooldownOnSkillEnd = False
+>v stateMachine = BisonBody (RoR2.EntityStateMachine)
+>v activationState = EntityStates.SerializableEntityStateType
+>v interruptPriority = Skill
+>v isCombatSkill = True
+>v noSprint = True
+>v canceledFromSprinting = False
+>v mustKeyPress = False
+>v icon = 
+>v requiredStock = 1
+>v stockToConsume = 1
+>v hasExecutedSuccessfully = False
+
+> RoR2.TeamComponent
+>v hideAllyCardDisplay = False
+
+> RoR2.HealthComponent
+>v health = 100
+>v shield = 0
+>v barrier = 0
+>v body = 
+>v dontShowHealthbar = False
+>v globalDeathEventChanceCoefficient = 1
+>v medkitActivationDelay = 1.1
+>v frozenExecuteThreshold = 0.3
+
+> RoR2.Interactor
+>v maxInteractionDistance = 3
+
+> RoR2.InteractionDriver
+>v highlightInteractor = False
+>v interactableOverride = 
+
+> RoR2.CharacterDeathBehavior
+>v deathStateMachine = BisonBody (RoR2.EntityStateMachine)
+>v deathState = EntityStates.SerializableEntityStateType
+>v idleStateMachine = RoR2.EntityStateMachine[]
+
+> RoR2.SetStateOnHurt
+>v hitThreshold = 0.15
+>v targetStateMachine = BisonBody (RoR2.EntityStateMachine)
+>v idleStateMachine = RoR2.EntityStateMachine[]
+>v hurtState = EntityStates.SerializableEntityStateType
+>v canBeHitStunned = True
+>v canBeStunned = True
+>v canBeFrozen = True
+
+> RoR2.DeathRewards
+>v expReward = 0
+>v logUnlockableName = Logs.BisonBody.0
+>v bossPickup = RoR2.SerializablePickupIndex
+
+> RoR2.Networking.CharacterNetworkTransform
+>v positionTransmitInterval = 0.1
+>v lastPositionTransmitTime = -Infinity
+>v interpolationFactor = 2
+>v newestNetSnapshot = RoR2.Networking.CharacterNetworkTransform+Snapshot
+>v debugDuplicatePositions = False
+>v debugSnapshotReceived = False
+
+> RoR2.NetworkStateMachine
+
+> RoR2.EquipmentSlot
+>v equipmentActivateString = Play_UI_equipment_activate
+
+> RoR2.SfxLocator
+>v deathSound = Play_bison_death
+>v barkSound = Play_bison_idle_VO
+>v openSound = 
+>v landingSound = 
+>v fallDamageSound = 
+
+> UnityEngine.Rigidbody
+
+> UnityEngine.CapsuleCollider
+
+> KinematicCharacterController.KinematicCharacterMotor
+>v CharacterController = BisonBody (RoR2.CharacterMotor)
+>v Capsule = BisonBody (UnityEngine.CapsuleCollider)
+>v Rigidbody = BisonBody (UnityEngine.Rigidbody)
+>v DetectDiscreteCollisions = False
+>v GroundDetectionExtraDistance = 0
+>v MaxStepHeight = 0.2
+>v MinRequiredStepDepth = 0.1
+>v MaxStableSlopeAngle = 55
+>v MaxStableDistanceFromLedge = 0.5
+>v PreventSnappingOnLedges = False
+>v MaxStableDenivelationAngle = 55
+>v RigidbodyInteractionType = None
+>v PreserveAttachedRigidbodyMomentum = True
+>v HasPlanarConstraint = False
+>v PlanarConstraintAxis = (0.0, 0.0, 1.0)
+>v StepHandling = Standard
+>v LedgeHandling = True
+>v InteractiveRigidbodyHandling = True
+>v SafeMovement = False
+>v GroundingStatus = KinematicCharacterController.CharacterGroundingReport
+>v LastGroundingStatus = KinematicCharacterController.CharacterTransientGroundingReport
+>v CollidableLayers = UnityEngine.LayerMask
+>v MaxHitsBudget = 16
+>v MaxCollisionBudget = 16
+>v MaxGroundingSweepIterations = 2
+>v MaxMovementSweepIterations = 6
+>v MaxSteppingSweepIterations = 3
+>v MaxRigidbodyOverlapsCount = 16
+>v MaxDiscreteCollisionIterations = 3
+>v CollisionOffset = 0.001
+>v GroundProbeReboundDistance = 0.02
+>v MinimumGroundProbingDistance = 0.005
+>v GroundProbingBackstepDistance = 0.1
+>v SweepProbingBackstepDistance = 0.002
+>v SecondaryProbesVertical = 0.02
+>v SecondaryProbesHorizontal = 0.001
+>v MinVelocityMagnitude = 0.01
+>v SteppingForwardDistance = 0.03
+>v MinDistanceForLedge = 0.05
+>v CorrelationForVerticalObstruction = 0.01
+>v ExtraSteppingForwardDistance = 0.01
+>v ExtraStepHeightPadding = 0.01
+>c ModelBase
+
+>> transform = p:(0.0, -2.7, -0.3) r:(0.0, 0.0, 355.9) s:(1.0, 1.0, 1.0)
+>>c mdlBison
+
+>>> transform = p:(0.0, 0.2, 0.0) r:(0.0, 0.0, 355.9) s:(1.4, 1.4, 1.4)
+
+>>> UnityEngine.Animator
+
+>>> RoR2.AimAnimator
+>>>v inputBank = BisonBody (RoR2.InputBankTest)
+>>>v directionComponent = BisonBody (RoR2.CharacterDirection)
+>>>v pitchRangeMin = -30
+>>>v pitchRangeMax = 30
+>>>v yawRangeMin = -50
+>>>v yawRangeMax = 50
+>>>v pitchGiveupRange = 20
+>>>v yawGiveupRange = 20
+>>>v giveupDuration = 3
+>>>v raisedApproachSpeed = 180
+>>>v loweredApproachSpeed = 180
+>>>v smoothTime = 0.6
+>>>v fullYaw = False
+>>>v aimType = Direct
+>>>v enableAimWeight = False
+
+>>> ChildLocator
+
+>>> RoR2.CharacterModel
+>>>v body = BisonBody (RoR2.CharacterBody)
+>>>v itemDisplayRuleSet = idrsBison (RoR2.ItemDisplayRuleSet)
+>>>v autoPopulateLightInfos = True
+>>>v autoPopulateParticleSystemInfos = True
+>>>v baseParticleSystemInfos = RoR2.CharacterModel+ParticleSystemInfo[]
+>>>v baseRendererInfos = RoR2.CharacterModel+RendererInfo[]
+>>>v baseLightInfos = RoR2.CharacterModel+LightInfo[]
+>>>v invisibilityCount = 0
+>>>v temporaryOverlays = System.Collections.Generic.List`1[RoR2.TemporaryOverlay]
+>>>v revealedMaterial = matRevealedEffect (UnityEngine.Material)
+>>>v cloakedMaterial = matCloakedEffect (UnityEngine.Material)
+>>>v ghostMaterial = matGhostEffect (UnityEngine.Material)
+>>>v bellBuffMaterial = matBellBuff (UnityEngine.Material)
+>>>v wolfhatMaterial = matWolfhatOverlay (UnityEngine.Material)
+>>>v energyShieldMaterial = matEnergyShield (UnityEngine.Material)
+>>>v fullCritMaterial = matFullCrit (UnityEngine.Material)
+>>>v beetleJuiceMaterial = matBeetleJuice (UnityEngine.Material)
+>>>v brittleMaterial = matBrittle (UnityEngine.Material)
+>>>v clayGooMaterial = matClayGooDebuff (UnityEngine.Material)
+>>>v slow80Material = matSlow80Debuff (UnityEngine.Material)
+>>>v immuneMaterial = matImmune (UnityEngine.Material)
+>>>v elitePoisonOverlayMaterial = matElitePoisonOverlay (UnityEngine.Material)
+>>>v elitePoisonParticleReplacementMaterial = matElitePoisonParticleReplacement (UnityEngine.Material)
+>>>v weakMaterial = matWeakOverlay (UnityEngine.Material)
+
+>>> RoR2.HitBoxGroup
+>>>v groupName = Headbutt
+>>>v hitBoxes = RoR2.HitBox[]
+
+>>> RoR2.HitBoxGroup
+>>>v groupName = Charge
+>>>v hitBoxes = RoR2.HitBox[]
+
+>>> RoR2.HurtBoxGroup
+>>>v hurtBoxes = RoR2.HurtBox[]
+>>>v mainHurtBox = TempHurtbox (RoR2.HurtBox)
+>>>v bullseyeCount = 1
+
+>>> RoR2.AnimationEvents
+>>>v soundCenter = 
+
+>>> RoR2.FootstepHandler
+>>>v baseFootstepString = Play_bison_step
+>>>v enableFootstepDust = True
+>>>v footstepDustPrefab = GenericFootstepDust (UnityEngine.GameObject)
+>>>c BisonArmature
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(274.1, 90.0, 270.0) s:(1.0, 1.0, 1.0)
+>>>>c ROOT
+
+>>>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 355.9) s:(1.0, 1.0, 1.0)
+>>>>>c SprintEffect
+
+>>>>>> transform = p:(0.0, 1.9, 2.3) r:(0.0, 0.0, 355.9) s:(0.6, 0.6, 0.6)
+
+>>>>>> UnityEngine.ParticleSystem
+
+>>>>>> UnityEngine.ParticleSystemRenderer
+>>>>>>c SmokeRings
+
+>>>>>>> transform = p:(0.0, -0.3, 0.3) r:(0.0, 0.0, 355.9) s:(0.4, 0.4, 0.4)
+
+>>>>>>> UnityEngine.ParticleSystemRenderer
+
+>>>>>>> UnityEngine.ParticleSystem
+>>>>>>c Glow
+
+>>>>>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 355.9) s:(1.0, 1.0, 1.0)
+
+>>>>>>> UnityEngine.ParticleSystem
+
+>>>>>>> UnityEngine.ParticleSystemRenderer
+>>>>>c Base
+
+>>>>>> transform = p:(0.0, 2.0, -0.1) r:(0.0, 180.0, 184.1) s:(1.0, 1.0, 1.0)
+>>>>>>c pelvis
+
+>>>>>>> transform = p:(0.0, 0.2, 0.0) r:(285.3, 118.8, 240.1) s:(1.0, 1.0, 1.0)
+>>>>>>>c Tail.1
+
+>>>>>>>> transform = p:(0.0, 1.2, 0.2) r:(310.3, 160.8, 197.7) s:(1.0, 1.0, 1.0)
+>>>>>>>>c Tail.2
+
+>>>>>>>>> transform = p:(0.0, 0.3, 0.0) r:(343.6, 168.7, 195.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c Tail.3
+
+>>>>>>>>>> transform = p:(0.0, 0.3, 0.0) r:(0.1, 173.2, 198.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c Tail.4
+
+>>>>>>>>>>> transform = p:(0.0, 0.3, 0.0) r:(3.1, 174.7, 196.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c Tail.4_end
+
+>>>>>>>>>>>> transform = p:(0.0, 0.3, 0.0) r:(3.1, 174.7, 196.0) s:(1.0, 1.0, 1.0)
+>>>>>>>c thigh.b.l
+
+>>>>>>>> transform = p:(-0.6, 0.7, 0.0) r:(340.1, 172.3, 173.6) s:(1.0, 1.0, 1.0)
+>>>>>>>>c calf.b.l
+
+>>>>>>>>> transform = p:(0.0, 0.8, 0.0) r:(318.4, 175.6, 172.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c foot.b.l
+
+>>>>>>>>>> transform = p:(0.0, 0.3, 0.0) r:(307.3, 342.0, 190.4) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c toe.b.l
+
+>>>>>>>>>>> transform = p:(0.0, 0.6, 0.0) r:(328.9, 344.5, 184.7) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c toe.b.l_end
+
+>>>>>>>>>>>> transform = p:(0.0, 0.4, 0.0) r:(328.9, 344.5, 184.7) s:(1.0, 1.0, 1.0)
+>>>>>>>c thigh.b.r
+
+>>>>>>>> transform = p:(0.6, 0.7, 0.0) r:(333.6, 177.0, 194.3) s:(1.0, 1.0, 1.0)
+>>>>>>>>c calf.b.r
+
+>>>>>>>>> transform = p:(0.0, 0.8, 0.0) r:(304.8, 164.3, 202.7) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c foot.b.r
+
+>>>>>>>>>> transform = p:(0.0, 0.3, 0.0) r:(349.8, 5.8, 166.9) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c toe.b.r
+
+>>>>>>>>>>> transform = p:(0.0, 0.6, 0.0) r:(307.3, 20.2, 161.4) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c toe.b.r_end
+
+>>>>>>>>>>>> transform = p:(0.0, 0.4, 0.0) r:(307.3, 20.2, 161.4) s:(1.0, 1.0, 1.0)
+>>>>>>c stomach
+
+>>>>>>> transform = p:(0.0, 0.2, 0.0) r:(299.5, 172.7, 8.4) s:(1.0, 1.0, 1.0)
+>>>>>>>c chest
+
+>>>>>>>> transform = p:(0.0, 0.7, 0.0) r:(295.8, 6.0, 172.8) s:(1.0, 1.0, 1.0)
+>>>>>>>>c JiggleMane1.l
+
+>>>>>>>>> transform = p:(0.4, 1.2, -0.5) r:(19.3, 89.8, 181.1) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c JiggleMane1.l_end
+
+>>>>>>>>>> transform = p:(0.0, 0.2, 0.0) r:(19.3, 89.8, 181.1) s:(1.0, 1.0, 1.0)
+>>>>>>>>c JiggleMane1.r
+
+>>>>>>>>> transform = p:(-0.4, 1.2, -0.5) r:(13.1, 269.2, 178.9) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c JiggleMane1.r_end
+
+>>>>>>>>>> transform = p:(0.0, 0.2, 0.0) r:(13.1, 269.2, 178.9) s:(1.0, 1.0, 1.0)
+>>>>>>>>c JiggleMane2.l
+
+>>>>>>>>> transform = p:(0.2, 1.4, -0.9) r:(5.1, 89.5, 181.1) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c JiggleMane2.l_end
+
+>>>>>>>>>> transform = p:(0.0, 0.3, 0.0) r:(5.1, 89.5, 181.1) s:(1.0, 1.0, 1.0)
+>>>>>>>>c JiggleMane2.r
+
+>>>>>>>>> transform = p:(-0.2, 1.4, -0.9) r:(358.8, 269.4, 178.9) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c JiggleMane2.r_end
+
+>>>>>>>>>> transform = p:(0.0, 0.3, 0.0) r:(358.8, 269.4, 178.9) s:(1.0, 1.0, 1.0)
+>>>>>>>>c neck
+
+>>>>>>>>> transform = p:(0.0, 1.0, 0.0) r:(279.2, 159.8, 19.9) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c head
+
+>>>>>>>>>> transform = p:(0.0, 0.3, 0.0) r:(274.3, 348.8, 187.8) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c HeadbuttHitbox
+
+>>>>>>>>>>> transform = p:(0.0, 0.4, 0.4) r:(274.3, 348.8, 187.8) s:(2.3, 1.9, 2.2)
+
+>>>>>>>>>>> RoR2.HitBox
+>>>>>>>>>>c head_end
+
+>>>>>>>>>>> transform = p:(0.0, 0.6, 0.0) r:(274.3, 348.8, 187.8) s:(1.0, 1.0, 1.0)
+>>>>>>>>c thigh.f.l
+
+>>>>>>>>> transform = p:(0.6, 0.3, 0.1) r:(354.5, 175.4, 180.8) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c calf.f.l
+
+>>>>>>>>>> transform = p:(0.0, 1.1, 0.0) r:(12.2, 174.7, 172.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c foot.f.l
+
+>>>>>>>>>>> transform = p:(0.0, 0.4, 0.0) r:(322.4, 349.6, 194.5) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c toe.f.l
+
+>>>>>>>>>>>> transform = p:(0.0, 0.6, 0.0) r:(318.0, 344.4, 187.5) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c toe.f.l_end
+
+>>>>>>>>>>>>> transform = p:(0.0, 0.3, 0.0) r:(318.0, 344.4, 187.5) s:(1.0, 1.0, 1.0)
+>>>>>>>>c thigh.f.r
+
+>>>>>>>>> transform = p:(-0.6, 0.3, 0.1) r:(321.7, 198.3, 184.2) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c calf.f.r
+
+>>>>>>>>>> transform = p:(0.0, 1.1, 0.0) r:(0.7, 205.2, 198.4) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c foot.f.r
+
+>>>>>>>>>>> transform = p:(0.0, 0.4, 0.0) r:(316.2, 49.2, 140.7) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c toe.f.r
+
+>>>>>>>>>>>> transform = p:(0.0, 0.6, 0.0) r:(3.6, 41.0, 177.6) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c toe.f.r_end
+
+>>>>>>>>>>>>> transform = p:(0.0, 0.3, 0.0) r:(3.6, 41.0, 177.6) s:(1.0, 1.0, 1.0)
+>>>>>>>c JiggleStomach.1.l
+
+>>>>>>>> transform = p:(0.4, 0.0, -0.3) r:(2.4, 90.0, 180.5) s:(1.0, 1.0, 1.0)
+>>>>>>>>c JiggleStomach.1.l_end
+
+>>>>>>>>> transform = p:(0.0, 0.8, 0.0) r:(2.4, 90.0, 180.5) s:(1.0, 1.0, 1.0)
+>>>>>>>c JiggleStomach.1.r
+
+>>>>>>>> transform = p:(-0.4, 0.0, -0.3) r:(354.2, 270.0, 179.5) s:(1.0, 1.0, 1.0)
+>>>>>>>>c JiggleStomach.1.r_end
+
+>>>>>>>>> transform = p:(0.0, 0.8, 0.0) r:(354.2, 270.0, 179.5) s:(1.0, 1.0, 1.0)
+>>>>>c SphereCheckTransform
+
+>>>>>> transform = p:(0.0, 2.3, 2.2) r:(0.0, 0.0, 355.9) s:(1.0, 1.0, 1.0)
+>>>>>c ChargeIndicator
+
+>>>>>> transform = p:(0.0, 1.7, 2.3) r:(0.0, 0.0, 355.9) s:(1.0, 1.0, 1.0)
+>>>>>c FootControl.b.l
+
+>>>>>> transform = p:(-0.3, 0.3, -0.9) r:(293.1, 9.7, 169.5) s:(1.0, 1.0, 1.0)
+>>>>>>c HelperToe.b.l
+
+>>>>>>> transform = p:(0.0, 0.2, 0.0) r:(22.7, 358.3, 355.5) s:(1.0, 1.0, 1.0)
+>>>>>>>c HelperToe.b.l_end
+
+>>>>>>>> transform = p:(0.0, 0.0, 0.0) r:(22.7, 358.3, 355.5) s:(1.0, 1.0, 1.0)
+
+>>>>>>>> UnityEngine.MeshRenderer
+
+>>>>>>>> UnityEngine.MeshFilter
+>>>>>>c IKToeTarget.b.l
+
+>>>>>>> transform = p:(0.0, -0.1, 0.2) r:(359.8, 0.0, 175.9) s:(1.0, 1.0, 1.0)
+>>>>>>>c IKToePole.b.l
+
+>>>>>>>> transform = p:(0.0, -0.9, -1.0) r:(293.1, 9.7, 349.5) s:(1.0, 1.0, 1.0)
+>>>>>>>>c IKToePole.b.l_end
+
+>>>>>>>>> transform = p:(0.0, 0.2, 0.0) r:(293.1, 9.7, 349.5) s:(1.0, 1.0, 1.0)
+>>>>>c FootControl.b.r
+
+>>>>>> transform = p:(0.3, 0.0, -1.2) r:(274.1, 87.4, 92.6) s:(1.0, 1.0, 1.0)
+>>>>>>c HelperToe.b.r
+
+>>>>>>> transform = p:(0.0, 0.2, 0.0) r:(0.2, 360.0, 355.9) s:(1.0, 1.0, 1.0)
+>>>>>>>c HelperToe.b.r_end
+
+>>>>>>>> transform = p:(0.0, 0.0, 0.0) r:(0.2, 360.0, 355.9) s:(1.0, 1.0, 1.0)
+
+>>>>>>>> UnityEngine.MeshRenderer
+
+>>>>>>>> UnityEngine.MeshFilter
+>>>>>>c IKToeTarget.b.r
+
+>>>>>>> transform = p:(0.0, -0.1, 0.2) r:(337.3, 1.7, 175.5) s:(1.0, 1.0, 1.0)
+>>>>>>>c IKToePole.b.r
+
+>>>>>>>> transform = p:(0.0, -0.9, -1.0) r:(274.1, 87.4, 272.6) s:(1.0, 1.0, 1.0)
+>>>>>>>>c IKToePole.b.r_end
+
+>>>>>>>>> transform = p:(0.0, 0.2, 0.0) r:(274.1, 87.4, 272.6) s:(1.0, 1.0, 1.0)
+>>>>>c FootControl.f.l
+
+>>>>>> transform = p:(-0.4, 0.0, 1.2) r:(274.1, 90.0, 90.0) s:(1.0, 1.0, 1.0)
+>>>>>>c HelperToe.f.l
+
+>>>>>>> transform = p:(0.0, 0.2, 0.0) r:(357.4, 294.6, 356.6) s:(1.0, 1.0, 1.0)
+>>>>>>>c HelperToe.f.l_end
+
+>>>>>>>> transform = p:(0.0, 0.0, 0.0) r:(357.4, 294.6, 356.6) s:(1.0, 1.0, 1.0)
+
+>>>>>>>> UnityEngine.MeshFilter
+
+>>>>>>>> UnityEngine.MeshRenderer
+>>>>>>c IKToeTarget.f.l
+
+>>>>>>> transform = p:(0.0, 0.0, 0.3) r:(359.8, 0.0, 175.9) s:(1.0, 1.0, 1.0)
+>>>>>>>c IKToePole.f.l
+
+>>>>>>>> transform = p:(0.0, -0.6, -1.1) r:(274.1, 90.0, 270.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>c IKToePole.f.l_end
+
+>>>>>>>>> transform = p:(0.0, 0.2, 0.0) r:(274.1, 90.0, 270.0) s:(1.0, 1.0, 1.0)
+>>>>>c FootControl.f.r
+
+>>>>>> transform = p:(0.3, 0.4, 0.6) r:(314.1, 4.2, 174.1) s:(1.0, 1.0, 1.0)
+>>>>>>c HelperToe.f.r
+
+>>>>>>> transform = p:(0.0, 0.2, 0.0) r:(21.5, 72.1, 41.8) s:(1.0, 1.0, 1.0)
+>>>>>>>c HelperToe.f.r_end
+
+>>>>>>>> transform = p:(0.0, 0.0, 0.0) r:(21.5, 72.1, 41.8) s:(1.0, 1.0, 1.0)
+
+>>>>>>>> UnityEngine.MeshRenderer
+
+>>>>>>>> UnityEngine.MeshFilter
+>>>>>>c IKToeTarget.f.r
+
+>>>>>>> transform = p:(0.0, 0.0, 0.3) r:(43.6, 356.1, 174.3) s:(1.0, 1.0, 1.0)
+>>>>>>>c IKToePole.f.r
+
+>>>>>>>> transform = p:(0.0, -0.6, -1.1) r:(314.1, 4.2, 354.1) s:(1.0, 1.0, 1.0)
+>>>>>>>>c IKToePole.f.r_end
+
+>>>>>>>>> transform = p:(0.0, 0.2, 0.0) r:(314.1, 4.2, 354.1) s:(1.0, 1.0, 1.0)
+>>>c BisonMesh
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(274.1, 90.0, 90.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.SkinnedMeshRenderer
+>>>c BisonHairMesh
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(274.1, 90.0, 90.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.SkinnedMeshRenderer
+>>>c ChargeHitbox
+
+>>>> transform = p:(0.0, 1.4, 1.6) r:(0.0, 0.0, 355.9) s:(2.3, 2.3, 2.3)
+
+>>>> RoR2.HitBox
+>>>c TempHurtbox
+
+>>>> transform = p:(0.0, 1.5, 0.0) r:(274.1, 90.0, 270.0) s:(1.7, 1.7, 1.7)
+
+>>>> UnityEngine.CapsuleCollider
+
+>>>> RoR2.HurtBox
+>>>>v healthComponent = BisonBody (RoR2.HealthComponent)
+>>>>v isBullseye = True
+>>>>v damageModifier = Normal
+>>>>v teamIndex = None
+>>>>v hurtBoxGroup = mdlBison (RoR2.HurtBoxGroup)
+>>>>v indexInGroup = 0
+>>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+
+>>>> SurfaceDefProvider
+>>>>v surfaceDef = sdBison (SurfaceDef)
+>>>c AimAssist
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 355.9) s:(1.0, 1.0, 1.0)
+
+>>>> RoR2.AimAssistTarget
+>>>>v point0 = pelvis (UnityEngine.Transform)
+>>>>v point1 = head (UnityEngine.Transform)
+>>>>v assistScale = 1
+>>>>v healthComponent = BisonBody (RoR2.HealthComponent)
+>>>>v teamComponent = BisonBody (RoR2.TeamComponent)
+>>>>v instancesList = System.Collections.Generic.List`1[RoR2.AimAssistTarget]
+>>>>v debugAimAssistVisualCoefficient = RoR2.ConVar.FloatConVar
+>c CameraPivot
+
+>> transform = p:(0.0, 0.8, 0.0) r:(0.0, 0.0, 355.9) s:(1.0, 1.0, 1.0)
+>c AimOrigin
+
+>> transform = p:(0.0, 0.5, 0.0) r:(0.0, 0.0, 355.9) s:(1.0, 1.0, 1.0)

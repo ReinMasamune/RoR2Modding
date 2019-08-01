@@ -1,0 +1,304 @@
+CrippleWard
+
+> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> UnityEngine.Networking.NetworkIdentity
+>v clientAuthorityCallback = 
+
+> RoR2.TeamFilter
+
+> RoR2.BuffWard
+>v radius = 15
+>v interval = 0.2
+>v rangeIndicator = Indicator (UnityEngine.Transform)
+>v buffType = Cripple
+>v buffDuration = 1.5
+>v floorWard = True
+>v expires = False
+>v invertTeamFilter = True
+>v expireDuration = 0
+>v animateRadius = False
+>v radiusCoefficientCurve = UnityEngine.AnimationCurve
+
+> RoR2.GenericPickupController
+>v pickupDisplay = PickupDisplay (RoR2.PickupDisplay)
+>v pickupIndex = None
+>v selfDestructIfPickupIndexIsNotIdeal = True
+>v idealPickupIndex = RoR2.SerializablePickupIndex
+>v waitDuration = 0.5
+>v pickupSoundString = Play_UI_item_pickup
+
+> RoR2.AwakeEvent
+>v action = UnityEngine.Events.UnityEvent UnityEngine.Events.UnityEvent
+
+> AkEvent
+>v actionOnEventType = AkActionOnEventType_Stop
+>v curveInterpolation = AkCurveInterpolation_Linear
+>v enableActionOnEvent = False
+>v data = Play_item_proc_warbanner
+>v m_callbackData = 
+>v playingId = 0
+>v soundEmitterObject = 
+>v transitionDuration = 0
+>v triggerList = System.Collections.Generic.List`1[System.Int32]
+>v useOtherObject = False
+
+> UnityEngine.Rigidbody
+
+> RoR2.Highlight
+>v pickupIndex = ItemIndex.Syringe
+>v targetRenderer = Mesh (UnityEngine.MeshRenderer)
+>v strength = 1
+>v highlightColor = interactive
+>v isOn = False
+>c Totem
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(0.9, 0.9, 0.9)
+>>c Mesh
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(280.7, 133.3, 219.2) s:(0.3, 0.3, 0.7)
+
+>>> UnityEngine.MeshRenderer
+
+>>> UnityEngine.MeshFilter
+
+>>> UnityEngine.MeshCollider
+
+>>> ObjectScaleCurve
+>>>v curveX = UnityEngine.AnimationCurve
+>>>v curveY = UnityEngine.AnimationCurve
+>>>v curveZ = UnityEngine.AnimationCurve
+>>>v overallCurve = UnityEngine.AnimationCurve
+>>>v timeMax = 0.2
+>>>v time = 0
+
+>>> RoR2.DitherModel
+>>>v fade = 0
+>>>v bounds = Mesh (UnityEngine.MeshCollider)
+>>>v renderers = UnityEngine.Renderer[]
+>>c PickupDisplay
+
+>>> transform = p:(0.0, -0.4, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> RoR2.PickupDisplay
+>>>v verticalWave = Wave
+>>>v spinSpeed = 0
+>>>v tier1ParticleEffect = 
+>>>v tier2ParticleEffect = 
+>>>v tier3ParticleEffect = 
+>>>v equipmentParticleEffect = 
+>>>v lunarParticleEffect = 
+>>>v bossParticleEffect = 
+>>>v coloredParticleSystems = UnityEngine.ParticleSystem[]
+>>>v highlight = 
+>>c PickupTrigger
+
+>>> transform = p:(0.0, -1.9, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> RoR2.EntityLocator
+>>>v entity = CrippleWard (UnityEngine.GameObject)
+
+>>> UnityEngine.SphereCollider
+>>c Infection
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(280.7, 133.3, 219.2) s:(0.3, 0.3, 0.7)
+
+>>> UnityEngine.ParticleSystem
+
+>>> UnityEngine.ParticleSystemRenderer
+>>c Point Light
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.Light
+
+>>> RoR2.FlickerLight
+>>>v light = Point Light (UnityEngine.Light)
+>>>v sinWaves = Wave[]
+>>c ColoredLightShafts
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.ParticleSystem
+
+>>> UnityEngine.ParticleSystemRenderer
+>c Decal
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(5.7, 5.7, 5.7)
+
+>> UnityEngine.MeshFilter
+
+>> UnityEngine.MeshRenderer
+
+>> ThreeEyedGames.Decal
+>>v RenderMode = Deferred
+>>v Material = matLunarWardDecal (UnityEngine.Material)
+>>v Fade = 1
+>>v LimitTo = 
+>>v DrawAlbedo = True
+>>v UseLightProbes = True
+>>v DrawNormalAndGloss = True
+>>v HighQualityBlending = False
+
+>> RoR2.AnimateShaderAlpha
+>>v alphaCurve = UnityEngine.AnimationCurve
+>>v timeMax = 2
+>>v decal = Decal (ThreeEyedGames.Decal)
+>>v destroyOnEnd = False
+>>v disableOnEnd = True
+>>v time = 0
+>c Indicator
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(6.0, 6.0, 6.0)
+>>c IndicatorSphere
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(2.0, 2.0, 2.0)
+
+>>> UnityEngine.MeshFilter
+
+>>> UnityEngine.MeshRenderer
+>>>c Drips
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.ParticleSystem
+
+>>>> UnityEngine.ParticleSystemRenderer
+>c mdlWarbanner
+
+>> transform = p:(0.0, 1.4, 0.0) r:(0.0, 0.0, 0.0) s:(0.3, 0.3, 0.3)
+
+>> ObjectScaleCurve
+>>v curveX = UnityEngine.AnimationCurve
+>>v curveY = UnityEngine.AnimationCurve
+>>v curveZ = UnityEngine.AnimationCurve
+>>v overallCurve = UnityEngine.AnimationCurve
+>>v timeMax = 0.5
+>>v time = 0
+>>c Cylinder
+
+>>> transform = p:(0.0, 0.0, -0.2) r:(270.0, 90.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.MeshFilter
+
+>>> UnityEngine.MeshRenderer
+>>c Plane
+
+>>> transform = p:(0.0, 0.0, 0.2) r:(0.0, 0.0, 90.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.MeshFilter
+
+>>> UnityEngine.Cloth
+
+>>> UnityEngine.SkinnedMeshRenderer
+>c MeteorStrikeImpact
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> RoR2.ShakeEmitter
+>>v shakeOnStart = True
+>>v wave = Wave
+>>v duration = 0.08
+>>v radius = 70
+>>v scaleShakeRadiusWithLocalScale = False
+>>v amplitudeTimeDecay = True
+
+>> RoR2.VFXAttributes
+>>v vfxPriority = Always
+>>v vfxIntensity = Medium
+>>v optionalLights = UnityEngine.Light[]
+>>v secondaryParticleSystem = UnityEngine.ParticleSystem[]
+
+>> DestroyOnParticleEnd
+
+>> AkGameObj
+>>v isEnvironmentAware = True
+>>v m_positionOffsetData = AkGameObjPositionOffsetData
+
+>> AkEvent
+>>v actionOnEventType = AkActionOnEventType_Stop
+>>v curveInterpolation = AkCurveInterpolation_Linear
+>>v enableActionOnEvent = False
+>>v data = Play_item_use_meteor_impact
+>>v m_callbackData = 
+>>v playingId = 0
+>>v soundEmitterObject = 
+>>v transitionDuration = 0
+>>v triggerList = System.Collections.Generic.List`1[System.Int32]
+>>v useOtherObject = False
+
+>> UnityEngine.Rigidbody
+>>c Debris
+
+>>> transform = p:(0.0, 1.0, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.ParticleSystem
+
+>>> UnityEngine.ParticleSystemRenderer
+>>c Dust
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.ParticleSystem
+
+>>> UnityEngine.ParticleSystemRenderer
+>>c Dust, Directional
+
+>>> transform = p:(0.0, 1.0, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.ParticleSystem
+
+>>> UnityEngine.ParticleSystemRenderer
+>>c Flash
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.ParticleSystem
+
+>>> UnityEngine.ParticleSystemRenderer
+>>c Sparks
+
+>>> transform = p:(0.0, 1.0, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.ParticleSystem
+
+>>> UnityEngine.ParticleSystemRenderer
+>>c Point light
+
+>>> transform = p:(0.0, 0.1, 0.0) r:(0.0, 0.0, 0.0) s:(1.7, 1.7, 1.7)
+
+>>> UnityEngine.Light
+
+>>> LightIntensityCurve
+>>>v curve = UnityEngine.AnimationCurve
+>>>v timeMax = 0.6
+>>>v loop = False
+>>>v randomStart = False
+>>c Flash
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.ParticleSystem
+
+>>> UnityEngine.ParticleSystemRenderer
+>>c Flash Lines
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.ParticleSystem
+
+>>> UnityEngine.ParticleSystemRenderer
+>>c Flash Lines, Fire
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.ParticleSystem
+
+>>> UnityEngine.ParticleSystemRenderer
+>>c Fire
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.ParticleSystem
+
+>>> UnityEngine.ParticleSystemRenderer

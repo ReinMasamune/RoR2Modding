@@ -1,0 +1,38 @@
+PickupBeetleGland
+
+> transform = p:(-34.5, -208.3, -185.6) r:(0.0, 0.0, 0.0) s:(0.5, 0.5, 0.5)
+>c mdlBeetleGland
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>c BeetleGlandArmature
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>c GlandBone.001
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(347.9, 350.0, 34.3) s:(1.0, 1.0, 1.0)
+>>>>c GlandBone.002
+
+>>>>> transform = p:(0.0, 1.0, 0.0) r:(309.7, 90.0, 5.2) s:(1.0, 1.0, 1.0)
+>>>>>c GlandBone.003
+
+>>>>>> transform = p:(0.0, 0.5, 0.0) r:(271.0, 89.1, 25.6) s:(1.0, 1.0, 1.0)
+>>>>>>c GlandBone.004
+
+>>>>>>> transform = p:(0.0, 0.4, 0.0) r:(330.4, 270.7, 187.6) s:(1.0, 1.0, 1.0)
+>>>>>>>c GlandBone.004_end
+
+>>>>>>>> transform = p:(0.0, 0.5, 0.0) r:(330.4, 270.7, 187.6) s:(1.0, 1.0, 1.0)
+>>>c GlandBone.005
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(328.8, 90.0, 180.0) s:(1.0, 1.0, 1.0)
+>>>>c GlandBone.006
+
+>>>>> transform = p:(0.0, 0.9, 0.0) r:(356.9, 90.0, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>c GlandBone.006_end
+
+>>>>>> transform = p:(0.0, 0.4, 0.0) r:(356.9, 90.0, 180.0) s:(1.0, 1.0, 1.0)
+>>c BeetleGlandMesh
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.SkinnedMeshRenderer

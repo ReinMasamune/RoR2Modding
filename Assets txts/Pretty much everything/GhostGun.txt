@@ -1,0 +1,24 @@
+GhostGun
+
+> transform = p:(0.0, -1.0, -2.3) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> UnityEngine.Networking.NetworkIdentity
+>v clientAuthorityCallback = 
+
+> RoR2.GhostGunController
+>v owner = 
+>v interval = 0.25
+>v maxRange = 30
+>v turnSpeed = 180
+>v localOffset = (1.0, 0.5, 2.0)
+>v positionSmoothTime = 0.05
+>v timeout = 2
+
+> UnityEngine.Networking.NetworkTransform
+>c Mesh
+
+>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 0.0, 0.0) s:(0.1, 0.1, 0.1)
+
+>> UnityEngine.MeshFilter
+
+>> UnityEngine.MeshRenderer

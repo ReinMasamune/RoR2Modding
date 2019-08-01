@@ -1,0 +1,109 @@
+ShrineBlood
+
+> transform = p:(-21.1, -211.0, -168.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> UnityEngine.Networking.NetworkIdentity
+>v clientAuthorityCallback = 
+
+> UnityEngine.Networking.NetworkTransform
+
+> RoR2.ModelLocator
+>v modelTransform = mdlShrineHealing (UnityEngine.Transform)
+>v modelBaseTransform = Base (UnityEngine.Transform)
+>v dontReleaseModelOnDeath = False
+>v autoUpdateModelTransform = True
+>v dontDetatchFromParent = False
+>v noCorpse = False
+>v normalizeToFloor = False
+>v preserveModel = False
+
+> RoR2.Highlight
+>v pickupIndex = ItemIndex.Syringe
+>v targetRenderer = mdlShrineHealing (UnityEngine.MeshRenderer)
+>v strength = 1
+>v highlightColor = interactive
+>v isOn = False
+
+> RoR2.PurchaseInteraction
+>v displayNameToken = SHRINE_BLOOD_NAME
+>v contextToken = SHRINE_BLOOD_CONTEXT
+>v costType = PercentHealth
+>v available = True
+>v cost = 50
+>v automaticallyScaleCostWithDifficulty = False
+>v requiredUnlockable = 
+>v ignoreSpherecastForInteractability = False
+>v purchaseStatNames = System.String[]
+>v lastActivator = 
+>v lockGameObject = 
+>v onPurchase = RoR2.PurchaseEvent RoR2.PurchaseEvent
+
+> RoR2.Hologram.HologramProjector
+>v displayDistance = 15
+>v hologramPivot = HologramPivot (UnityEngine.Transform)
+>v disableHologramRotation = False
+
+> RoR2.GenericDisplayNameProvider
+>v displayToken = SHRINE_BLOOD_NAME
+
+> RoR2.ShrineBloodBehavior
+>v maxPurchaseCount = 3
+>v goldToPaidHpRatio = 0.5
+>v costMultiplierPerPurchase = 2
+>v symbolTransform = Symbol (UnityEngine.Transform)
+
+> RoR2.PurchaseAvailabilityIndicator
+>v indicatorObject = Symbol (UnityEngine.GameObject)
+>v animator = 
+>v mecanimBool = 
+
+> RoR2.DitherModel
+>v fade = 0
+>v bounds = mdlShrineHealing (UnityEngine.BoxCollider)
+>v renderers = UnityEngine.Renderer[]
+>c Base
+
+>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>c mdlShrineHealing
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.MeshFilter
+
+>>> UnityEngine.MeshRenderer
+
+>>> RoR2.EntityLocator
+>>>v entity = ShrineBlood (UnityEngine.GameObject)
+
+>>> ChildLocator
+
+>>> UnityEngine.BoxCollider
+>>c Decal
+
+>>> transform = p:(0.0, 0.0, -0.6) r:(0.0, 0.0, 0.0) s:(3.9, 3.9, 3.9)
+
+>>> UnityEngine.MeshRenderer
+
+>>> UnityEngine.MeshFilter
+
+>>> ThreeEyedGames.Decal
+>>>v RenderMode = Deferred
+>>>v Material = matBloodDecal (UnityEngine.Material)
+>>>v Fade = 1
+>>>v LimitTo = 
+>>>v DrawAlbedo = True
+>>>v UseLightProbes = True
+>>>v DrawNormalAndGloss = True
+>>>v HighQualityBlending = False
+>c HologramPivot
+
+>> transform = p:(0.0, 0.8, 1.7) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>c Symbol
+
+>> transform = p:(0.0, 6.6, 0.0) r:(0.0, 180.0, 0.0) s:(1.5, 1.5, 1.5)
+
+>> UnityEngine.MeshRenderer
+
+>> UnityEngine.MeshFilter
+
+>> RoR2.Billboard

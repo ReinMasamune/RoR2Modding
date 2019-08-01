@@ -1,0 +1,10 @@
+PickupScythe
+
+> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>c mdlScytheMesh
+
+>> transform = p:(0.0, 0.0, 0.0) r:(289.2, 169.0, 246.2) s:(1.0, 1.0, 1.0)
+
+>> UnityEngine.MeshFilter
+
+>> UnityEngine.MeshRenderer

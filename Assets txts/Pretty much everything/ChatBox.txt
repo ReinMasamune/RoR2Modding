@@ -1,0 +1,152 @@
+ChatBox
+
+> UnityEngine.RectTransform
+
+> UnityEngine.CanvasRenderer
+
+> UnityEngine.UI.Image
+
+> RoR2.UI.ChatBox
+>v messagesText = MessageArea (TMPro.TMP_InputField)
+>v inputField = Input Field (TMPro.TMP_InputField)
+>v sendButton = 
+>v gameplayHiddenGraphics = UnityEngine.UI.Graphic[]
+>v fadeGroup = ChatBox (UnityEngine.CanvasGroup)
+
+> RoR2.UI.MPEventSystemLocator
+
+> UnityEngine.CanvasGroup
+>c Input Field
+
+>> UnityEngine.RectTransform
+
+>> UnityEngine.CanvasRenderer
+
+>> UnityEngine.UI.Image
+
+>> TMPro.TMP_InputField
+
+>> RoR2.UI.MPEventSystemLocator
+
+>> RoR2.UI.CursorOpener
+>>c Text Area
+
+>>> UnityEngine.RectTransform
+
+>>> UnityEngine.UI.RectMask2D
+>>>c Placeholder
+
+>>>> UnityEngine.RectTransform
+
+>>>> UnityEngine.CanvasRenderer
+
+>>>> RoR2.UI.HGTextMeshProUGUI
+>>>>v useLanguageDefaultFont = True
+>>>>v defaultLanguageFont = tmpBombDropshadow (TMPro.TMP_FontAsset)
+>>>c Text
+
+>>>> UnityEngine.RectTransform
+
+>>>> UnityEngine.CanvasRenderer
+
+>>>> RoR2.UI.HGTextMeshProUGUI
+>>>>v useLanguageDefaultFont = True
+>>>>v defaultLanguageFont = tmpBombDropshadow (TMPro.TMP_FontAsset)
+>c Scroll View
+
+>> UnityEngine.RectTransform
+
+>> UnityEngine.UI.ScrollRect
+
+>> UnityEngine.CanvasRenderer
+
+>> UnityEngine.UI.Image
+>>c Viewport
+
+>>> UnityEngine.RectTransform
+
+>>> UnityEngine.UI.Mask
+
+>>> UnityEngine.CanvasRenderer
+
+>>> UnityEngine.UI.Image
+>>>c MessageArea
+
+>>>> UnityEngine.RectTransform
+
+>>>> UnityEngine.CanvasRenderer
+
+>>>> UnityEngine.UI.Image
+
+>>>> TMPro.TMP_InputField
+>>>>c Text Area
+
+>>>>> UnityEngine.RectTransform
+
+>>>>> UnityEngine.UI.RectMask2D
+>>>>>c Text
+
+>>>>>> UnityEngine.RectTransform
+
+>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>> RoR2.UI.HGTextMeshProUGUI
+>>>>>>v useLanguageDefaultFont = True
+>>>>>>v defaultLanguageFont = tmpBombDropshadow (TMPro.TMP_FontAsset)
+>>>c Content
+
+>>>> UnityEngine.RectTransform
+>>c Scrollbar Horizontal
+
+>>> UnityEngine.RectTransform
+
+>>> UnityEngine.CanvasRenderer
+
+>>> UnityEngine.UI.Image
+
+>>> UnityEngine.UI.Scrollbar
+>>>c Sliding Area
+
+>>>> UnityEngine.RectTransform
+>>>>c Handle
+
+>>>>> UnityEngine.RectTransform
+
+>>>>> UnityEngine.CanvasRenderer
+
+>>>>> UnityEngine.UI.Image
+>>c Scrollbar Vertical
+
+>>> UnityEngine.RectTransform
+
+>>> UnityEngine.CanvasRenderer
+
+>>> UnityEngine.UI.Image
+
+>>> UnityEngine.UI.Scrollbar
+>>>c Sliding Area
+
+>>>> UnityEngine.RectTransform
+>>>>c Handle
+
+>>>>> UnityEngine.RectTransform
+
+>>>>> UnityEngine.CanvasRenderer
+
+>>>>> UnityEngine.UI.Image
+>c SendButton
+
+>> UnityEngine.RectTransform
+
+>> UnityEngine.CanvasRenderer
+
+>> UnityEngine.UI.Image
+
+>> UnityEngine.UI.Button
+>>c Text
+
+>>> UnityEngine.RectTransform
+
+>>> UnityEngine.CanvasRenderer
+
+>>> UnityEngine.UI.Text

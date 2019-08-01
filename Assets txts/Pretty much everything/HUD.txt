@@ -1,0 +1,1160 @@
+HUD
+
+> UnityEngine.RectTransform
+
+> UnityEngine.Canvas
+
+> UnityEngine.UI.CanvasScaler
+
+> UnityEngine.UI.GraphicRaycaster
+
+> RoR2.UI.HUD
+>v mainContainer = 
+>v cameraRigController = 
+>v healthBar = HealthBarRoot (RoR2.UI.HealthBar)
+>v expBar = ExpBarRoot (RoR2.UI.ExpBar)
+>v levelText = LevelDisplayRoot (RoR2.UI.LevelText)
+>v moneyText = MoneyRoot (RoR2.UI.MoneyText)
+>v lunarCoinContainer = 
+>v lunarCoinText = 
+>v skillIcons = RoR2.UI.SkillIcon[]
+>v equipmentIcons = RoR2.UI.EquipmentIcon[]
+>v itemInventoryDisplay = ItemInventoryDisplay (RoR2.UI.ItemInventoryDisplay)
+>v buffDisplay = BuffDisplayRoot (RoR2.UI.BuffDisplay)
+>v allyCardManager = AllyCardContainer (RoR2.UI.AllyCardManager)
+>v contextManager = ContextNotification (RoR2.UI.ContextManager)
+>v scoreboardPanel = 
+>v mainUIPanel = 
+>v cinematicPanel = 
+>v speedometer = 
+>v objectivePanelController = 
+>v combatHealthBarViewer = 
+
+> RoR2.UI.CrosshairManager
+>v container = 
+>v cameraRigController = 
+>v hitmarker = 
+
+> AkEvent
+>v actionOnEventType = AkActionOnEventType_Stop
+>v curveInterpolation = AkCurveInterpolation_Linear
+>v enableActionOnEvent = False
+>v data = Play_UI_HUD_unfold
+>v m_callbackData = 
+>v playingId = 0
+>v soundEmitterObject = 
+>v transitionDuration = 0
+>v triggerList = System.Collections.Generic.List`1[System.Int32]
+>v useOtherObject = False
+
+> UnityEngine.Rigidbody
+
+> RoR2.UI.MPEventSystemProvider
+>v eventSystem = 
+>v fallBackToMainEventSystem = True
+>c CursorCapture
+
+>> UnityEngine.RectTransform
+
+>> UnityEngine.CanvasRenderer
+
+>> UnityEngine.UI.Image
+
+>> RoR2.UI.CursorCapture
+>c MainUIArea
+
+>> UnityEngine.RectTransform
+
+>> UnityEngine.CanvasRenderer
+
+>> UnityEngine.UI.Image
+>>c BottomLeftCluster
+
+>>> UnityEngine.RectTransform
+
+>>> UnityEngine.CanvasRenderer
+>>>c mdlHPBar
+
+>>>> transform = p:(-85.0, -260.0, 8.0) r:(0.0, 180.0, 0.0) s:(100.0, 100.0, 100.0)
+
+>>>> UnityEngine.Animation
+>>>>c HPBarArmature
+
+>>>>> transform = p:(3.2, 0.0, -3.0) r:(270.0, 180.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>c Base
+
+>>>>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 180.0, 53.9) s:(1.0, 1.0, 1.0)
+>>>>>>c Arm
+
+>>>>>>> transform = p:(0.6, 2.3, 0.0) r:(270.0, 270.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>c Head
+
+>>>>>>>> transform = p:(0.0, 1.3, 0.2) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>c ChatBox
+
+>>>>>>>>> UnityEngine.RectTransform
+
+>>>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>>>> UnityEngine.UI.Image
+
+>>>>>>>>> RoR2.UI.ChatBox
+>>>>>>>>>v messagesText = MessageArea (TMPro.TMP_InputField)
+>>>>>>>>>v inputField = Input Field (TMPro.TMP_InputField)
+>>>>>>>>>v sendButton = 
+>>>>>>>>>v gameplayHiddenGraphics = UnityEngine.UI.Graphic[]
+>>>>>>>>>v fadeGroup = 
+
+>>>>>>>>> RoR2.UI.MPEventSystemLocator
+>>>>>>>>>c Input Field
+
+>>>>>>>>>> UnityEngine.RectTransform
+
+>>>>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>>>>> UnityEngine.UI.Image
+
+>>>>>>>>>> TMPro.TMP_InputField
+
+>>>>>>>>>> RoR2.UI.MPEventSystemLocator
+
+>>>>>>>>>> RoR2.UI.CursorOpener
+>>>>>>>>>>c Text Area
+
+>>>>>>>>>>> UnityEngine.RectTransform
+
+>>>>>>>>>>> UnityEngine.UI.RectMask2D
+>>>>>>>>>>>c Placeholder
+
+>>>>>>>>>>>> UnityEngine.RectTransform
+
+>>>>>>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>>>>>>> RoR2.UI.HGTextMeshProUGUI
+>>>>>>>>>>>>v useLanguageDefaultFont = True
+>>>>>>>>>>>>v defaultLanguageFont = tmpBombDropshadow (TMPro.TMP_FontAsset)
+>>>>>>>>>>>c Text
+
+>>>>>>>>>>>> UnityEngine.RectTransform
+
+>>>>>>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>>>>>>> RoR2.UI.HGTextMeshProUGUI
+>>>>>>>>>>>>v useLanguageDefaultFont = True
+>>>>>>>>>>>>v defaultLanguageFont = tmpBombDropshadow (TMPro.TMP_FontAsset)
+>>>>>>>>>c Scroll View
+
+>>>>>>>>>> UnityEngine.RectTransform
+
+>>>>>>>>>> UnityEngine.UI.ScrollRect
+
+>>>>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>>>>> UnityEngine.UI.Image
+>>>>>>>>>>c Viewport
+
+>>>>>>>>>>> UnityEngine.RectTransform
+
+>>>>>>>>>>> UnityEngine.UI.Mask
+
+>>>>>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>>>>>> UnityEngine.UI.Image
+>>>>>>>>>>>c MessageArea
+
+>>>>>>>>>>>> UnityEngine.RectTransform
+
+>>>>>>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>>>>>>> UnityEngine.UI.Image
+
+>>>>>>>>>>>> TMPro.TMP_InputField
+>>>>>>>>>>>>c Text Area
+
+>>>>>>>>>>>>> UnityEngine.RectTransform
+
+>>>>>>>>>>>>> UnityEngine.UI.RectMask2D
+>>>>>>>>>>>>>c Placeholder
+
+>>>>>>>>>>>>>> UnityEngine.RectTransform
+
+>>>>>>>>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>>>>>>>>> RoR2.UI.HGTextMeshProUGUI
+>>>>>>>>>>>>>>v useLanguageDefaultFont = True
+>>>>>>>>>>>>>>v defaultLanguageFont = tmpBombDropshadow (TMPro.TMP_FontAsset)
+>>>>>>>>>>>>>c Text
+
+>>>>>>>>>>>>>> UnityEngine.RectTransform
+
+>>>>>>>>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>>>>>>>>> RoR2.UI.HGTextMeshProUGUI
+>>>>>>>>>>>>>>v useLanguageDefaultFont = True
+>>>>>>>>>>>>>>v defaultLanguageFont = tmpBombDropshadow (TMPro.TMP_FontAsset)
+>>>>>>>>>>>c Content
+
+>>>>>>>>>>>> UnityEngine.RectTransform
+>>>>>>>>>>c Scrollbar Horizontal
+
+>>>>>>>>>>> UnityEngine.RectTransform
+
+>>>>>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>>>>>> UnityEngine.UI.Image
+
+>>>>>>>>>>> UnityEngine.UI.Scrollbar
+>>>>>>>>>>>c Sliding Area
+
+>>>>>>>>>>>> UnityEngine.RectTransform
+>>>>>>>>>>>>c Handle
+
+>>>>>>>>>>>>> UnityEngine.RectTransform
+
+>>>>>>>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>>>>>>>> UnityEngine.UI.Image
+>>>>>>>>>>c Scrollbar Vertical
+
+>>>>>>>>>>> UnityEngine.RectTransform
+
+>>>>>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>>>>>> UnityEngine.UI.Image
+
+>>>>>>>>>>> UnityEngine.UI.Scrollbar
+>>>>>>>>>>>c Sliding Area
+
+>>>>>>>>>>>> UnityEngine.RectTransform
+>>>>>>>>>>>>c Handle
+
+>>>>>>>>>>>>> UnityEngine.RectTransform
+
+>>>>>>>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>>>>>>>> UnityEngine.UI.Image
+>>>>>>>>>c SendButton
+
+>>>>>>>>>> UnityEngine.RectTransform
+
+>>>>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>>>>> UnityEngine.UI.Image
+
+>>>>>>>>>> UnityEngine.UI.Button
+>>>>>>>>>>c Text
+
+>>>>>>>>>>> UnityEngine.RectTransform
+
+>>>>>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>>>>>> UnityEngine.UI.Text
+>>>>>>>>c Head_end
+
+>>>>>>>>> transform = p:(0.0, 0.5, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>c ExpBarRoot
+
+>>>>>>>>> UnityEngine.RectTransform
+
+>>>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>>>> UnityEngine.UI.Image
+
+>>>>>>>>> RoR2.UI.ExpBar
+>>>>>>>>>v source = 
+>>>>>>>>>v fillRectTransform = FillPanel (UnityEngine.RectTransform)
+>>>>>>>>>c BackgroundPanel
+
+>>>>>>>>>> UnityEngine.RectTransform
+
+>>>>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>>>>> UnityEngine.UI.Image
+>>>>>>>>>>c FillPanel
+
+>>>>>>>>>>> UnityEngine.RectTransform
+
+>>>>>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>>>>>> UnityEngine.UI.Image
+>>>>>>>>c HealthBarRoot
+
+>>>>>>>>> UnityEngine.RectTransform
+
+>>>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>>>> UnityEngine.UI.Image
+
+>>>>>>>>> RoR2.UI.HealthBar
+>>>>>>>>>v style = 
+>>>>>>>>>v barContainer = 
+>>>>>>>>>v eliteBackdropRectTransform = 
+>>>>>>>>>v criticallyHurtImage = 
+>>>>>>>>>v deadImage = 
+>>>>>>>>>v maxLastHitTimer = 1
+>>>>>>>>>v scaleHealthbarWidth = False
+>>>>>>>>>v minHealthbarWidth = 0
+>>>>>>>>>v maxHealthbarWidth = 0
+>>>>>>>>>v minHealthbarHealth = 0
+>>>>>>>>>v maxHealthbarHealth = 0
+>>>>>>>>>v viewerBody = 
+>>>>>>>>>v criticallyHurtThreshold = 0.3
+>>>>>>>>>v currentHealthText = CurrentHealthText (RoR2.UI.HGTextMeshProUGUI)
+>>>>>>>>>v fullHealthText = FullHealthText (RoR2.UI.HGTextMeshProUGUI)
+>>>>>>>>>c BackgroundPanel
+
+>>>>>>>>>> UnityEngine.RectTransform
+
+>>>>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>>>>> UnityEngine.UI.Image
+>>>>>>>>>>c DelayfillPanel
+
+>>>>>>>>>>> UnityEngine.RectTransform
+
+>>>>>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>>>>>> UnityEngine.UI.Image
+>>>>>>>>>>c FlashPanel
+
+>>>>>>>>>>> UnityEngine.RectTransform
+
+>>>>>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>>>>>> UnityEngine.UI.Image
+>>>>>>>>>>c FillPanel
+
+>>>>>>>>>>> UnityEngine.RectTransform
+
+>>>>>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>>>>>> UnityEngine.UI.Image
+>>>>>>>>>>c ShieldFillPanel
+
+>>>>>>>>>>> UnityEngine.RectTransform
+
+>>>>>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>>>>>> UnityEngine.UI.Image
+>>>>>>>>>c Slash
+
+>>>>>>>>>> UnityEngine.RectTransform
+
+>>>>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>>>>> RoR2.UI.HGTextMeshProUGUI
+>>>>>>>>>>v useLanguageDefaultFont = True
+>>>>>>>>>>v defaultLanguageFont = tmpBombDropshadow (TMPro.TMP_FontAsset)
+>>>>>>>>>>c CurrentHealthText
+
+>>>>>>>>>>> UnityEngine.RectTransform
+
+>>>>>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>>>>>> RoR2.UI.HGTextMeshProUGUI
+>>>>>>>>>>>v useLanguageDefaultFont = True
+>>>>>>>>>>>v defaultLanguageFont = tmpBombDropshadow (TMPro.TMP_FontAsset)
+>>>>>>>>>>c TextMeshPro
+
+>>>>>>>>>>> UnityEngine.RectTransform
+
+>>>>>>>>>>> UnityEngine.MeshFilter
+
+>>>>>>>>>>> UnityEngine.MeshRenderer
+
+>>>>>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>>>>>> TMPro.TextMeshPro
+>>>>>>>>>>c FullHealthText
+
+>>>>>>>>>>> UnityEngine.RectTransform
+
+>>>>>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>>>>>> RoR2.UI.HGTextMeshProUGUI
+>>>>>>>>>>>v useLanguageDefaultFont = True
+>>>>>>>>>>>v defaultLanguageFont = tmpBombDropshadow (TMPro.TMP_FontAsset)
+>>>>>>>>c LevelDisplayRoot
+
+>>>>>>>>> UnityEngine.RectTransform
+
+>>>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>>>> UnityEngine.UI.Image
+
+>>>>>>>>> RoR2.UI.LevelText
+>>>>>>>>>v source = 
+>>>>>>>>>v targetText = ValueText (RoR2.UI.HGTextMeshProUGUI)
+>>>>>>>>>c BackgroundPanel
+
+>>>>>>>>>> UnityEngine.RectTransform
+
+>>>>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>>>>> UnityEngine.UI.Image
+>>>>>>>>>c ValueText
+
+>>>>>>>>>> UnityEngine.RectTransform
+
+>>>>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>>>>> RoR2.UI.HGTextMeshProUGUI
+>>>>>>>>>>v useLanguageDefaultFont = True
+>>>>>>>>>>v defaultLanguageFont = tmpBombDropshadow (TMPro.TMP_FontAsset)
+>>>>>>>>>>c PrefixText
+
+>>>>>>>>>>> UnityEngine.RectTransform
+
+>>>>>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>>>>>> RoR2.UI.HGTextMeshProUGUI
+>>>>>>>>>>>v useLanguageDefaultFont = True
+>>>>>>>>>>>v defaultLanguageFont = tmpBombDropshadow (TMPro.TMP_FontAsset)
+>>>>>>>>c BuffDisplayRoot
+
+>>>>>>>>> UnityEngine.RectTransform
+
+>>>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>>>> UnityEngine.UI.Image
+
+>>>>>>>>> RoR2.UI.BuffDisplay
+>>>>>>>>>v source = 
+>>>>>>>>>v buffIconPrefab = BuffIcon (UnityEngine.GameObject)
+>>>>>>>>>v iconWidth = 32
+>>>>c HPBarMesh
+
+>>>>> transform = p:(3.2, 0.0, -3.0) r:(270.0, 180.0, 0.0) s:(0.3, 0.3, 0.3)
+
+>>>>> UnityEngine.SkinnedMeshRenderer
+>>c UpperRightCluster
+
+>>> UnityEngine.RectTransform
+
+>>> UnityEngine.CanvasRenderer
+>>>c TimerRoot
+
+>>>> UnityEngine.RectTransform
+
+>>>> UnityEngine.CanvasRenderer
+
+>>>> UnityEngine.UI.Image
+
+>>>> RoR2.UI.TimerText
+>>>>v targetLabel = TimerText (RoR2.UI.HGTextMeshProUGUI)
+>>>>v showTimerTutorial = False
+>>>>c BackgroundPanel
+
+>>>>> UnityEngine.RectTransform
+
+>>>>> UnityEngine.CanvasRenderer
+
+>>>>> UnityEngine.UI.Image
+>>>>>c TimerText
+
+>>>>>> UnityEngine.RectTransform
+
+>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>> RoR2.UI.HGTextMeshProUGUI
+>>>>>>v useLanguageDefaultFont = True
+>>>>>>v defaultLanguageFont = tmpBombDropshadow (TMPro.TMP_FontAsset)
+>>c BottomRightCluster
+
+>>> UnityEngine.RectTransform
+
+>>> UnityEngine.CanvasRenderer
+>>>c mdlSkillBar
+
+>>>> transform = p:(225.0, -140.0, 68.0) r:(0.0, 180.0, 0.0) s:(100.0, 100.0, 100.0)
+
+>>>> UnityEngine.Animator
+
+>>>> ChildLocator
+
+>>>> RoR2.AnimationEvents
+>>>>v soundCenter = 
+>>>>c SkillBarArmature
+
+>>>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 180.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>c Base
+
+>>>>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 180.0, 306.1) s:(1.0, 1.0, 1.0)
+>>>>>>c Arm
+
+>>>>>>> transform = p:(-0.6, 2.3, 0.0) r:(0.0, 0.0, 90.0) s:(1.0, 1.0, 1.0)
+>>>>>>>c Head
+
+>>>>>>>> transform = p:(0.2, 1.3, 0.0) r:(270.0, 14.6, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>c EquipmentRoot
+
+>>>>>>>>> UnityEngine.RectTransform
+
+>>>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>>>> UnityEngine.UI.Image
+
+>>>>>>>>> RoR2.UI.EquipmentIcon
+>>>>>>>>>v targetInventory = 
+>>>>>>>>>v targetEquipmentSlot = 
+>>>>>>>>>v displayRoot = 
+>>>>>>>>>v playerCharacterMasterController = 
+>>>>>>>>>v iconImage = IconPanel (UnityEngine.UI.RawImage)
+>>>>>>>>>v cooldownText = CooldownText (RoR2.UI.HGTextMeshProUGUI)
+>>>>>>>>>v stockText = StockText (RoR2.UI.HGTextMeshProUGUI)
+>>>>>>>>>v stockFlashPanelObject = 
+>>>>>>>>>v reminderFlashPanelObject = 
+>>>>>>>>>v isReadyPanelObject = 
+>>>>>>>>>v isAutoCastPanelObject = 
+>>>>>>>>>v tooltipProvider = 
+>>>>>>>>>v displayAlternateEquipment = False
+
+>>>>>>>>> RoR2.UI.FlashPanel
+>>>>>>>>>v flashRectTransform = FlashPanel (UnityEngine.RectTransform)
+>>>>>>>>>v strength = 0.5
+>>>>>>>>>v freq = 0.5
+>>>>>>>>>v flashAlpha = 0.4
+>>>>>>>>>v alwaysFlash = False
+>>>>>>>>>c FlashPanel
+
+>>>>>>>>>> UnityEngine.RectTransform
+
+>>>>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>>>>> UnityEngine.UI.Image
+>>>>>>>>>c IconPanel
+
+>>>>>>>>>> UnityEngine.RectTransform
+
+>>>>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>>>>> UnityEngine.UI.RawImage
+>>>>>>>>>c CooldownText
+
+>>>>>>>>>> UnityEngine.RectTransform
+
+>>>>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>>>>> RoR2.UI.HGTextMeshProUGUI
+>>>>>>>>>>v useLanguageDefaultFont = True
+>>>>>>>>>>v defaultLanguageFont = tmpBombDropshadow (TMPro.TMP_FontAsset)
+>>>>>>>>>c EquipmentCenter
+
+>>>>>>>>>> transform = p:(-22.4, 21.8, -4.3) r:(0.0, 180.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>c EquipmentDoor
+
+>>>>>>>>> transform = p:(0.8, 0.1, 0.2) r:(28.2, 180.0, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c EquipmentDoor_end
+
+>>>>>>>>>> transform = p:(0.0, 0.2, 0.0) r:(28.2, 180.0, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>c EquipmentStack
+
+>>>>>>>>> transform = p:(0.2, 0.3, -0.4) r:(270.3, 180.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c EquipmentStockRoot
+
+>>>>>>>>>> UnityEngine.RectTransform
+
+>>>>>>>>>> UnityEngine.CanvasRenderer
+>>>>>>>>>>c StockText
+
+>>>>>>>>>>> UnityEngine.RectTransform
+
+>>>>>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>>>>>> RoR2.UI.HGTextMeshProUGUI
+>>>>>>>>>>>v useLanguageDefaultFont = True
+>>>>>>>>>>>v defaultLanguageFont = tmpBombDropshadow (TMPro.TMP_FontAsset)
+>>>>>>>>>c EquipmentStack_end
+
+>>>>>>>>>> transform = p:(0.0, 0.4, 0.0) r:(270.3, 180.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>c Neck1
+
+>>>>>>>>> transform = p:(0.0, 0.4, 0.0) r:(270.0, 90.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c Skill4Root
+
+>>>>>>>>>> UnityEngine.RectTransform
+
+>>>>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>>>>> UnityEngine.UI.Image
+
+>>>>>>>>>> RoR2.UI.SkillIcon
+>>>>>>>>>>v targetSkillSlot = Primary
+>>>>>>>>>>v playerCharacterMasterController = 
+>>>>>>>>>>v targetSkill = 
+>>>>>>>>>>v iconImage = BackgroundPanel (UnityEngine.UI.Image)
+>>>>>>>>>>v cooldownRemapPanel = CooldownPanel (UnityEngine.UI.RawImage)
+>>>>>>>>>>v cooldownText = CooldownText (RoR2.UI.HGTextMeshProUGUI)
+>>>>>>>>>>v stockText = StockText (RoR2.UI.HGTextMeshProUGUI)
+>>>>>>>>>>v flashPanelObject = 
+>>>>>>>>>>v isReadyPanelObject = 
+>>>>>>>>>>v animator = mdlSkillBar (UnityEngine.Animator)
+>>>>>>>>>>v animatorStackString = hasStack4
+>>>>>>>>>>v wasReady = False
+>>>>>>>>>>v previousStock = 0
+>>>>>>>>>>v tooltipProvider = 
+
+>>>>>>>>>> RoR2.UI.FlashPanel
+>>>>>>>>>>v flashRectTransform = FlashPanel (UnityEngine.RectTransform)
+>>>>>>>>>>v strength = 0.2
+>>>>>>>>>>v freq = 3.5
+>>>>>>>>>>v flashAlpha = 1
+>>>>>>>>>>v alwaysFlash = False
+>>>>>>>>>>c BackgroundPanel
+
+>>>>>>>>>>> UnityEngine.RectTransform
+
+>>>>>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>>>>>> UnityEngine.UI.Image
+>>>>>>>>>>c CooldownText
+
+>>>>>>>>>>> UnityEngine.RectTransform
+
+>>>>>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>>>>>> RoR2.UI.HGTextMeshProUGUI
+>>>>>>>>>>>v useLanguageDefaultFont = True
+>>>>>>>>>>>v defaultLanguageFont = tmpBombDropshadow (TMPro.TMP_FontAsset)
+>>>>>>>>>>c FlashPanel
+
+>>>>>>>>>>> UnityEngine.RectTransform
+
+>>>>>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>>>>>> UnityEngine.UI.Image
+>>>>>>>>>>c CooldownPanel
+
+>>>>>>>>>>> UnityEngine.RectTransform
+
+>>>>>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>>>>>> UnityEngine.UI.RawImage
+>>>>>>>>>c Neck1Stack
+
+>>>>>>>>>> transform = p:(0.0, 0.8, -0.4) r:(270.3, 180.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c Neck1Stack_end
+
+>>>>>>>>>>> transform = p:(0.0, 0.4, 0.0) r:(270.3, 180.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c Skill4StockRoot
+
+>>>>>>>>>>> UnityEngine.RectTransform
+
+>>>>>>>>>>> UnityEngine.CanvasRenderer
+>>>>>>>>>>>c StockText
+
+>>>>>>>>>>>> UnityEngine.RectTransform
+
+>>>>>>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>>>>>>> RoR2.UI.HGTextMeshProUGUI
+>>>>>>>>>>>>v useLanguageDefaultFont = True
+>>>>>>>>>>>>v defaultLanguageFont = tmpBombDropshadow (TMPro.TMP_FontAsset)
+>>>>>>>>>c Neck2
+
+>>>>>>>>>> transform = p:(0.0, 0.9, 0.0) r:(270.0, 90.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c Skill3Root
+
+>>>>>>>>>>> UnityEngine.RectTransform
+
+>>>>>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>>>>>> UnityEngine.UI.Image
+
+>>>>>>>>>>> RoR2.UI.SkillIcon
+>>>>>>>>>>>v targetSkillSlot = Primary
+>>>>>>>>>>>v playerCharacterMasterController = 
+>>>>>>>>>>>v targetSkill = 
+>>>>>>>>>>>v iconImage = BackgroundPanel (UnityEngine.UI.Image)
+>>>>>>>>>>>v cooldownRemapPanel = CooldownPanel (UnityEngine.UI.RawImage)
+>>>>>>>>>>>v cooldownText = CooldownText (RoR2.UI.HGTextMeshProUGUI)
+>>>>>>>>>>>v stockText = StockText (RoR2.UI.HGTextMeshProUGUI)
+>>>>>>>>>>>v flashPanelObject = 
+>>>>>>>>>>>v isReadyPanelObject = 
+>>>>>>>>>>>v animator = mdlSkillBar (UnityEngine.Animator)
+>>>>>>>>>>>v animatorStackString = hasStack3
+>>>>>>>>>>>v wasReady = False
+>>>>>>>>>>>v previousStock = 0
+>>>>>>>>>>>v tooltipProvider = 
+
+>>>>>>>>>>> RoR2.UI.FlashPanel
+>>>>>>>>>>>v flashRectTransform = FlashPanel (UnityEngine.RectTransform)
+>>>>>>>>>>>v strength = 0.2
+>>>>>>>>>>>v freq = 3.5
+>>>>>>>>>>>v flashAlpha = 1
+>>>>>>>>>>>v alwaysFlash = False
+>>>>>>>>>>>c BackgroundPanel
+
+>>>>>>>>>>>> UnityEngine.RectTransform
+
+>>>>>>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>>>>>>> UnityEngine.UI.Image
+>>>>>>>>>>>c CooldownText
+
+>>>>>>>>>>>> UnityEngine.RectTransform
+
+>>>>>>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>>>>>>> RoR2.UI.HGTextMeshProUGUI
+>>>>>>>>>>>>v useLanguageDefaultFont = True
+>>>>>>>>>>>>v defaultLanguageFont = tmpBombDropshadow (TMPro.TMP_FontAsset)
+>>>>>>>>>>>c FlashPanel
+
+>>>>>>>>>>>> UnityEngine.RectTransform
+
+>>>>>>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>>>>>>> UnityEngine.UI.Image
+>>>>>>>>>>>c CooldownPanel
+
+>>>>>>>>>>>> UnityEngine.RectTransform
+
+>>>>>>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>>>>>>> UnityEngine.UI.RawImage
+>>>>>>>>>>c Neck2Stack
+
+>>>>>>>>>>> transform = p:(0.0, 0.8, -0.4) r:(270.3, 180.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c Skill3StockRoot
+
+>>>>>>>>>>>> UnityEngine.RectTransform
+
+>>>>>>>>>>>> UnityEngine.CanvasRenderer
+>>>>>>>>>>>>c StockText
+
+>>>>>>>>>>>>> UnityEngine.RectTransform
+
+>>>>>>>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>>>>>>>> RoR2.UI.HGTextMeshProUGUI
+>>>>>>>>>>>>>v useLanguageDefaultFont = True
+>>>>>>>>>>>>>v defaultLanguageFont = tmpBombDropshadow (TMPro.TMP_FontAsset)
+>>>>>>>>>>>c Neck2Stack_end
+
+>>>>>>>>>>>> transform = p:(0.0, 0.4, 0.0) r:(270.3, 180.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c Neck3
+
+>>>>>>>>>>> transform = p:(0.0, 0.9, 0.0) r:(270.0, 90.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c Skill2Root
+
+>>>>>>>>>>>> UnityEngine.RectTransform
+
+>>>>>>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>>>>>>> UnityEngine.UI.Image
+
+>>>>>>>>>>>> RoR2.UI.SkillIcon
+>>>>>>>>>>>>v targetSkillSlot = Primary
+>>>>>>>>>>>>v playerCharacterMasterController = 
+>>>>>>>>>>>>v targetSkill = 
+>>>>>>>>>>>>v iconImage = BackgroundPanel (UnityEngine.UI.Image)
+>>>>>>>>>>>>v cooldownRemapPanel = CooldownPanel (UnityEngine.UI.RawImage)
+>>>>>>>>>>>>v cooldownText = CooldownText (RoR2.UI.HGTextMeshProUGUI)
+>>>>>>>>>>>>v stockText = StockText (RoR2.UI.HGTextMeshProUGUI)
+>>>>>>>>>>>>v flashPanelObject = 
+>>>>>>>>>>>>v isReadyPanelObject = 
+>>>>>>>>>>>>v animator = mdlSkillBar (UnityEngine.Animator)
+>>>>>>>>>>>>v animatorStackString = hasStack2
+>>>>>>>>>>>>v wasReady = False
+>>>>>>>>>>>>v previousStock = 0
+>>>>>>>>>>>>v tooltipProvider = 
+
+>>>>>>>>>>>> RoR2.UI.FlashPanel
+>>>>>>>>>>>>v flashRectTransform = FlashPanel (UnityEngine.RectTransform)
+>>>>>>>>>>>>v strength = 0.2
+>>>>>>>>>>>>v freq = 3.5
+>>>>>>>>>>>>v flashAlpha = 1
+>>>>>>>>>>>>v alwaysFlash = False
+>>>>>>>>>>>>c BackgroundPanel
+
+>>>>>>>>>>>>> UnityEngine.RectTransform
+
+>>>>>>>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>>>>>>>> UnityEngine.UI.Image
+>>>>>>>>>>>>c CooldownText
+
+>>>>>>>>>>>>> UnityEngine.RectTransform
+
+>>>>>>>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>>>>>>>> RoR2.UI.HGTextMeshProUGUI
+>>>>>>>>>>>>>v useLanguageDefaultFont = True
+>>>>>>>>>>>>>v defaultLanguageFont = tmpBombDropshadow (TMPro.TMP_FontAsset)
+>>>>>>>>>>>>c FlashPanel
+
+>>>>>>>>>>>>> UnityEngine.RectTransform
+
+>>>>>>>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>>>>>>>> UnityEngine.UI.Image
+>>>>>>>>>>>>c CooldownPanel
+
+>>>>>>>>>>>>> UnityEngine.RectTransform
+
+>>>>>>>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>>>>>>>> UnityEngine.UI.RawImage
+>>>>>>>>>>>c Neck3Stack
+
+>>>>>>>>>>>> transform = p:(0.0, 0.8, -0.4) r:(270.3, 180.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c Skill2StockRoot
+
+>>>>>>>>>>>>> UnityEngine.RectTransform
+
+>>>>>>>>>>>>> UnityEngine.CanvasRenderer
+>>>>>>>>>>>>>c StockText
+
+>>>>>>>>>>>>>> UnityEngine.RectTransform
+
+>>>>>>>>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>>>>>>>>> RoR2.UI.HGTextMeshProUGUI
+>>>>>>>>>>>>>>v useLanguageDefaultFont = True
+>>>>>>>>>>>>>>v defaultLanguageFont = tmpBombDropshadow (TMPro.TMP_FontAsset)
+>>>>>>>>>>>>c Neck3Stack_end
+
+>>>>>>>>>>>>> transform = p:(0.0, 0.4, 0.0) r:(270.3, 180.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c Neck4
+
+>>>>>>>>>>>> transform = p:(0.0, 0.9, 0.0) r:(270.0, 90.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c Skill1Root
+
+>>>>>>>>>>>>> UnityEngine.RectTransform
+
+>>>>>>>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>>>>>>>> UnityEngine.UI.Image
+
+>>>>>>>>>>>>> RoR2.UI.SkillIcon
+>>>>>>>>>>>>>v targetSkillSlot = Primary
+>>>>>>>>>>>>>v playerCharacterMasterController = 
+>>>>>>>>>>>>>v targetSkill = 
+>>>>>>>>>>>>>v iconImage = BackgroundPanel (UnityEngine.UI.Image)
+>>>>>>>>>>>>>v cooldownRemapPanel = CooldownPanel (UnityEngine.UI.RawImage)
+>>>>>>>>>>>>>v cooldownText = CooldownText (RoR2.UI.HGTextMeshProUGUI)
+>>>>>>>>>>>>>v stockText = StockText (RoR2.UI.HGTextMeshProUGUI)
+>>>>>>>>>>>>>v flashPanelObject = 
+>>>>>>>>>>>>>v isReadyPanelObject = 
+>>>>>>>>>>>>>v animator = mdlSkillBar (UnityEngine.Animator)
+>>>>>>>>>>>>>v animatorStackString = hasStack1
+>>>>>>>>>>>>>v wasReady = False
+>>>>>>>>>>>>>v previousStock = 0
+>>>>>>>>>>>>>v tooltipProvider = 
+
+>>>>>>>>>>>>> RoR2.UI.FlashPanel
+>>>>>>>>>>>>>v flashRectTransform = FlashPanel (UnityEngine.RectTransform)
+>>>>>>>>>>>>>v strength = 0.2
+>>>>>>>>>>>>>v freq = 3.5
+>>>>>>>>>>>>>v flashAlpha = 1
+>>>>>>>>>>>>>v alwaysFlash = False
+>>>>>>>>>>>>>c BackgroundPanel
+
+>>>>>>>>>>>>>> UnityEngine.RectTransform
+
+>>>>>>>>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>>>>>>>>> UnityEngine.UI.Image
+>>>>>>>>>>>>>c CooldownText
+
+>>>>>>>>>>>>>> UnityEngine.RectTransform
+
+>>>>>>>>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>>>>>>>>> RoR2.UI.HGTextMeshProUGUI
+>>>>>>>>>>>>>>v useLanguageDefaultFont = True
+>>>>>>>>>>>>>>v defaultLanguageFont = tmpBombDropshadow (TMPro.TMP_FontAsset)
+>>>>>>>>>>>>>c FlashPanel
+
+>>>>>>>>>>>>>> UnityEngine.RectTransform
+
+>>>>>>>>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>>>>>>>>> UnityEngine.UI.Image
+>>>>>>>>>>>>>c CooldownPanel
+
+>>>>>>>>>>>>>> UnityEngine.RectTransform
+
+>>>>>>>>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>>>>>>>>> UnityEngine.UI.RawImage
+>>>>>>>>>>>>c Neck4Stack
+
+>>>>>>>>>>>>> transform = p:(0.0, 0.8, -0.4) r:(270.3, 180.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>c Skill1StockRoot
+
+>>>>>>>>>>>>>> UnityEngine.RectTransform
+
+>>>>>>>>>>>>>> UnityEngine.CanvasRenderer
+>>>>>>>>>>>>>>c StockText
+
+>>>>>>>>>>>>>>> UnityEngine.RectTransform
+
+>>>>>>>>>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>>>>>>>>>> RoR2.UI.HGTextMeshProUGUI
+>>>>>>>>>>>>>>>v useLanguageDefaultFont = True
+>>>>>>>>>>>>>>>v defaultLanguageFont = tmpBombDropshadow (TMPro.TMP_FontAsset)
+>>>>>>>>>>>>>c Neck4Stack_end
+
+>>>>>>>>>>>>>> transform = p:(0.0, 0.4, 0.0) r:(270.3, 180.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>c SkillBarMesh
+
+>>>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 180.0, 0.0) s:(0.3, 0.3, 0.3)
+
+>>>>> UnityEngine.SkinnedMeshRenderer
+>>c UpperLeftCluster
+
+>>> UnityEngine.RectTransform
+
+>>> UnityEngine.CanvasRenderer
+>>>c mdlMoneyBar
+
+>>>> transform = p:(-12.0, -192.0, 45.0) r:(0.0, 180.0, 0.0) s:(69.6, 69.6, 69.6)
+
+>>>> UnityEngine.Animation
+>>>>c MoneyBarArmature
+
+>>>>> transform = p:(0.3, 4.6, -0.9) r:(270.0, 180.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>c Base
+
+>>>>>> transform = p:(-0.1, 0.0, 0.0) r:(0.0, 270.0, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>c Arm
+
+>>>>>>> transform = p:(0.0, 1.4, 0.0) r:(0.0, 0.0, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>c Head
+
+>>>>>>>> transform = p:(0.0, 1.4, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>c Head_end
+
+>>>>>>>>> transform = p:(0.0, 0.4, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>c MoneyRoot
+
+>>>>>>>>> UnityEngine.RectTransform
+
+>>>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>>>> RoR2.UI.MoneyText
+>>>>>>>>>v targetText = ValueText (RoR2.UI.HGTextMeshProUGUI)
+>>>>>>>>>v flashPanel = MoneyRoot (RoR2.UI.FlashPanel)
+>>>>>>>>>v targetValue = 0
+>>>>>>>>>v sound = Play_UI_coin
+
+>>>>>>>>> RoR2.UI.FlashPanel
+>>>>>>>>>v flashRectTransform = FlashPanel (UnityEngine.RectTransform)
+>>>>>>>>>v strength = 1
+>>>>>>>>>v freq = 2
+>>>>>>>>>v flashAlpha = 0.03
+>>>>>>>>>v alwaysFlash = False
+>>>>>>>>>c BackgroundPanel
+
+>>>>>>>>>> UnityEngine.RectTransform
+
+>>>>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>>>>> UnityEngine.UI.Image
+>>>>>>>>>c FlashPanel
+
+>>>>>>>>>> UnityEngine.RectTransform
+
+>>>>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>>>>> UnityEngine.UI.Image
+>>>>>>>>>c PrefixText
+
+>>>>>>>>>> UnityEngine.RectTransform
+
+>>>>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>>>>> RoR2.UI.HGTextMeshProUGUI
+>>>>>>>>>>v useLanguageDefaultFont = True
+>>>>>>>>>>v defaultLanguageFont = tmpBombDropshadow (TMPro.TMP_FontAsset)
+>>>>>>>>>>c ValueText
+
+>>>>>>>>>>> UnityEngine.RectTransform
+
+>>>>>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>>>>>> RoR2.UI.HGTextMeshProUGUI
+>>>>>>>>>>>v useLanguageDefaultFont = True
+>>>>>>>>>>>v defaultLanguageFont = tmpBombDropshadow (TMPro.TMP_FontAsset)
+>>>>c MoneyBarMesh
+
+>>>>> transform = p:(0.3, 4.6, -0.9) r:(270.0, 180.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>>> UnityEngine.SkinnedMeshRenderer
+>>c NotificationArea
+
+>>> UnityEngine.RectTransform
+
+>>> UnityEngine.CanvasRenderer
+
+>>> RoR2.UI.NotificationQueue
+>>>v hud = HUD (RoR2.UI.HUD)
+>>c MapNameCluster
+
+>>> UnityEngine.RectTransform
+
+>>> UnityEngine.CanvasRenderer
+
+>>> RoR2.UI.AssignStageToken
+>>>v titleText = MainText (RoR2.UI.HGTextMeshProUGUI)
+>>>v subtitleText = Subtext (RoR2.UI.HGTextMeshProUGUI)
+
+>>> RoR2.UI.TypewriteTextController
+>>>v initialDelay = 1
+>>>v delayBetweenKeys = 0.05
+>>>v delayBetweenTexts = 1
+>>>v textMeshProUGui = TMPro.TextMeshProUGUI[]
+>>>v soundString = Play_UI_xp_gain
+>>>v fadeOutAfterCompletion = True
+>>>v fadeOutDelay = 2
+>>>v fadeOutDuration = 0.6
+>>>c MainText
+
+>>>> UnityEngine.RectTransform
+
+>>>> UnityEngine.CanvasRenderer
+
+>>>> RoR2.UI.HGTextMeshProUGUI
+>>>>v useLanguageDefaultFont = True
+>>>>v defaultLanguageFont = tmpBombDropshadow (TMPro.TMP_FontAsset)
+>>>c Subtext
+
+>>>> UnityEngine.RectTransform
+
+>>>> UnityEngine.CanvasRenderer
+
+>>>> RoR2.UI.HGTextMeshProUGUI
+>>>>v useLanguageDefaultFont = True
+>>>>v defaultLanguageFont = tmpBombDropshadow (TMPro.TMP_FontAsset)
+>>c TopCenterCluster
+
+>>> UnityEngine.RectTransform
+
+>>> UnityEngine.CanvasRenderer
+
+>>> UnityEngine.UI.Image
+>>>c mdlItemBar, Left + Center
+
+>>>> transform = p:(-500.0, 130.0, 2.6) r:(0.0, 0.0, 0.0) s:(59.1, 59.1, 59.1)
+
+>>>> UnityEngine.Animation
+>>>>c ItemBarArmature
+
+>>>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>c Base
+
+>>>>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 143.9) s:(1.0, 1.0, 1.0)
+>>>>>>c Arm
+
+>>>>>>> transform = p:(0.6, 2.3, 0.0) r:(0.0, 270.0, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>c ItemInventoryDisplay
+
+>>>>>>>> UnityEngine.RectTransform
+
+>>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>>> RoR2.UI.ItemInventoryDisplay
+>>>>>>>>v itemIconPrefab = ItemIcon (UnityEngine.GameObject)
+>>>>>>>>v iconWidth = 64
+>>>>>>>>v maxHeight = 128
+
+>>>>>>>> UnityEngine.UI.Image
+
+>>>>>>>> UnityEngine.Canvas
+
+>>>>>>>> UnityEngine.UI.GraphicRaycaster
+>>>>>>>c Arm_end
+
+>>>>>>>> transform = p:(0.0, 1.3, 0.0) r:(0.0, 270.0, 180.0) s:(1.0, 1.0, 1.0)
+>>>>c ItemBarMesh
+
+>>>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 0.0, 0.0) s:(0.3, 0.3, 0.3)
+
+>>>>> UnityEngine.SkinnedMeshRenderer
+>>>c mdlItemBar, Right
+
+>>>> transform = p:(500.0, 130.0, 2.6) r:(0.0, 0.0, 0.0) s:(-59.1, 59.1, 59.1)
+
+>>>> UnityEngine.Animation
+>>>>c ItemBarArmature
+
+>>>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>c Base
+
+>>>>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 216.1) s:(1.0, 1.0, 1.0)
+>>>>>>c Arm
+
+>>>>>>> transform = p:(0.6, 2.3, 0.0) r:(0.0, 90.0, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>c Arm_end
+
+>>>>>>>> transform = p:(0.0, 1.3, 0.0) r:(0.0, 90.0, 180.0) s:(1.0, 1.0, 1.0)
+>>>>c ItemBarMesh
+
+>>>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 0.0, 0.0) s:(0.3, 0.3, 0.3)
+
+>>>>> UnityEngine.SkinnedMeshRenderer
+>>c LeftCluster
+
+>>> UnityEngine.RectTransform
+
+>>> UnityEngine.CanvasRenderer
+
+>>> UnityEngine.UI.Image
+>>>c AllyCardContainer
+
+>>>> UnityEngine.RectTransform
+
+>>>> UnityEngine.CanvasRenderer
+
+>>>> UnityEngine.UI.Image
+
+>>>> UnityEngine.UI.VerticalLayoutGroup
+
+>>>> RoR2.UI.AllyCardManager
+>>>>v sourceGameObject = 
+>>c RightCluster
+
+>>> UnityEngine.RectTransform
+
+>>> UnityEngine.CanvasRenderer
+
+>>> UnityEngine.UI.Image
+>>>c ContextNotification
+
+>>>> UnityEngine.RectTransform
+
+>>>> UnityEngine.CanvasRenderer
+
+>>>> RoR2.UI.ContextManager
+>>>>v glyphTMP = 
+>>>>v descriptionTMP = Description (RoR2.UI.HGTextMeshProUGUI)
+>>>>v contextDisplay = ContextDisplay (UnityEngine.GameObject)
+>>>>v hud = HUD (RoR2.UI.HUD)
+>>>>c RawImage
+
+>>>>> UnityEngine.RectTransform
+
+>>>>> UnityEngine.CanvasRenderer
+
+>>>>> UnityEngine.UI.RawImage
+>>>>c ContextDisplay
+
+>>>>> UnityEngine.RectTransform
+
+>>>>> UnityEngine.CanvasRenderer
+
+>>>>> UnityEngine.UI.RawImage
+>>>>>c Description
+
+>>>>>> UnityEngine.RectTransform
+
+>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>> RoR2.UI.HGTextMeshProUGUI
+>>>>>>v useLanguageDefaultFont = True
+>>>>>>v defaultLanguageFont = tmpBombDropshadow (TMPro.TMP_FontAsset)
+
+>>>>>> RoR2.UI.LanguageTextMeshController

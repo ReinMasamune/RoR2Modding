@@ -1,0 +1,13 @@
+Stage
+
+> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> UnityEngine.Networking.NetworkIdentity
+>v clientAuthorityCallback = 
+
+> RoR2.Stage
+>v startRunTime = 0
+>v usePod = False
+>v stageAdvanceTime = Infinity
+>v stageAdvanceTransitionDuration = 0.5
+>v stageAdvanceTransitionDelay = 0.75

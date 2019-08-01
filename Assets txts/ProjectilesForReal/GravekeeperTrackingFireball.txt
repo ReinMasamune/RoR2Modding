@@ -1,0 +1,278 @@
+GravekeeperTrackingFireball
+
+> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(0.1, 0.1, 1.0)
+
+> UnityEngine.Networking.NetworkIdentity
+>v clientAuthorityCallback = 
+
+> RoR2.Projectile.ProjectileController
+>v ghostPrefab = GravekeeperTrackingFireballGhost (UnityEngine.GameObject)
+>v ghost = 
+>v isPrediction = False
+>v allowPrediction = True
+>v predictionId = 0
+>v owner = 
+>v procChainMask = RoR2.ProcChainMask
+>v procCoefficient = 1
+>v target = 
+>v authorityEffect = 
+>v predictionEffect = 
+
+> UnityEngine.Rigidbody
+
+> RoR2.Projectile.ProjectileNetworkTransform
+>v positionTransmitInterval = 0.03333334
+>v interpolationFactor = 1
+>v allowClientsideCollision = False
+
+> UnityEngine.SphereCollider
+
+> RoR2.Projectile.ProjectileDamage
+>v damage = 0
+>v crit = False
+>v force = 0
+>v damageColorIndex = Default
+>v damageType = Generic
+
+> RoR2.TeamFilter
+
+> AkGameObj
+>v isEnvironmentAware = True
+>v m_positionOffsetData = AkGameObjPositionOffsetData
+
+> AkEvent
+>v actionOnEventType = AkActionOnEventType_Stop
+>v curveInterpolation = AkCurveInterpolation_Linear
+>v enableActionOnEvent = False
+>v data = Play_gravekeeper_attack1_fly_loop
+>v m_callbackData = 
+>v playingId = 0
+>v soundEmitterObject = 
+>v transitionDuration = 0
+>v triggerList = System.Collections.Generic.List`1[System.Int32]
+>v useOtherObject = False
+
+> AkEvent
+>v actionOnEventType = AkActionOnEventType_Stop
+>v curveInterpolation = AkCurveInterpolation_Linear
+>v enableActionOnEvent = False
+>v data = Play_gravekeeper_attack1_explode
+>v m_callbackData = 
+>v playingId = 0
+>v soundEmitterObject = 
+>v transitionDuration = 0
+>v triggerList = System.Collections.Generic.List`1[System.Int32]
+>v useOtherObject = False
+
+> AkEvent
+>v actionOnEventType = AkActionOnEventType_Stop
+>v curveInterpolation = AkCurveInterpolation_Linear
+>v enableActionOnEvent = False
+>v data = Play_gravekeeper_attack1_fire
+>v m_callbackData = 
+>v playingId = 0
+>v soundEmitterObject = 
+>v transitionDuration = 0
+>v triggerList = System.Collections.Generic.List`1[System.Int32]
+>v useOtherObject = False
+
+> RoR2.Projectile.ProjectileTargetComponent
+>v target = 
+
+> RoR2.Projectile.ProjectileSteerTowardTarget
+>v yAxisOnly = False
+>v rotationSpeed = 130
+
+> RoR2.Projectile.ProjectileDirectionalTargetFinder
+>v lookRange = 130
+>v lookCone = 180
+>v targetSearchInterval = 0.5
+>v onlySearchIfNoTarget = True
+>v allowTargetLoss = False
+>v testLoS = False
+>v ignoreAir = False
+>v onNewTargetFound = UnityEngine.Events.UnityEvent UnityEngine.Events.UnityEvent
+>v ontargetLost = UnityEngine.Events.UnityEvent UnityEngine.Events.UnityEvent
+
+> RoR2.Projectile.ProjectileImpactExplosion
+>v impactEffect = OmniExplosionVFXArchWisp (UnityEngine.GameObject)
+>v explosionSoundString = 
+>v lifetimeExpiredSoundString = 
+>v offsetForLifetimeExpiredSound = 0
+>v destroyOnEnemy = False
+>v destroyOnWorld = True
+>v timerAfterImpact = False
+>v falloffModel = None
+>v lifetime = 20
+>v lifetimeAfterImpact = 0
+>v lifetimeRandomOffset = 0
+>v blastRadius = 2
+>v blastDamageCoefficient = 1
+>v blastProcCoefficient = 1
+>v bonusBlastForce = (0.0, 0.0, 0.0)
+>v fireChildren = False
+>v childrenProjectilePrefab = 
+>v childrenCount = 0
+>v childrenDamageCoefficient = 0
+>v minAngleOffset = (0.0, 0.0, 0.0)
+>v maxAngleOffset = (0.0, 0.0, 0.0)
+>v transformSpace = World
+>v projectileHealthComponent = GravekeeperTrackingFireball (RoR2.HealthComponent)
+
+> RoR2.VelocityRandomOnStart
+>v minSpeed = 0
+>v maxSpeed = 3
+>v baseDirection = (0.0, 1.0, 0.0)
+>v localDirection = False
+>v directionMode = Sphere
+>v coneAngle = 360
+>v minAngularSpeed = 140
+>v maxAngularSpeed = 140
+
+> RoR2.TeamComponent
+>v hideAllyCardDisplay = True
+
+> RoR2.SkillLocator
+>v primary = 
+>v secondary = 
+>v utility = 
+>v special = 
+>v passiveSkill = RoR2.SkillLocator+PassiveSkill
+
+> RoR2.CharacterBody
+>v bodyIndex = -1
+>v baseNameToken = 
+>v subtitleNameToken = 
+>v pendingTonicAfflictionCount = 0
+>v bodyFlags = Masterless
+>v readOnlyInstancesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.CharacterBody]
+>v rootMotionInMainState = False
+>v mainRootSpeed = 0
+>v baseMaxHealth = 20
+>v baseRegen = 0
+>v baseMaxShield = 0
+>v baseMoveSpeed = 20
+>v baseAcceleration = 20
+>v baseJumpPower = 0
+>v baseDamage = 0
+>v baseAttackSpeed = 0
+>v baseCrit = 0
+>v baseArmor = 99
+>v baseJumpCount = 1
+>v autoCalculateLevelStats = True
+>v levelMaxHealth = 6
+>v levelRegen = 0
+>v levelMaxShield = 0
+>v levelMoveSpeed = 0
+>v levelJumpPower = 0
+>v levelDamage = 0
+>v levelAttackSpeed = 0
+>v levelCrit = 0
+>v levelArmor = 0
+>v killCount = 0
+>v wasLucky = False
+>v spreadBloomDecayTime = 0.45
+>v spreadBloomCurve = UnityEngine.AnimationCurve
+>v crosshairPrefab = StandardCrosshair (UnityEngine.GameObject)
+>v hideCrosshair = False
+>v aimOriginTransform = 
+>v hullClassification = Human
+>v portraitIcon = texNullIcon (UnityEngine.Texture2D)
+>v isChampion = False
+>v currentVehicle = 
+>v preferredPodPrefab = 
+
+> RoR2.HealthComponent
+>v health = 100
+>v shield = 0
+>v barrier = 0
+>v body = 
+>v dontShowHealthbar = False
+>v globalDeathEventChanceCoefficient = 0.1
+>v medkitActivationDelay = 1.1
+>v frozenExecuteThreshold = 0.3
+
+> RoR2.ModelLocator
+>v modelTransform = Model (UnityEngine.Transform)
+>v modelBaseTransform = 
+>v dontReleaseModelOnDeath = True
+>v autoUpdateModelTransform = False
+>v dontDetatchFromParent = True
+>v noCorpse = True
+>v normalizeToFloor = False
+>v preserveModel = False
+
+> RoR2.DisableCollisionsBetweenColliders
+>v collidersA = UnityEngine.Collider[]
+>v collidersB = UnityEngine.Collider[]
+
+> RoR2.Projectile.AssignTeamFilterToTeamComponent
+
+> RoR2.InputBankTest
+>v lookPitch = 0
+>v lookYaw = 0
+>v moveVector = (0.0, 0.0, 0.0)
+>v skill1 = RoR2.InputBankTest+ButtonState
+>v skill2 = RoR2.InputBankTest+ButtonState
+>v skill3 = RoR2.InputBankTest+ButtonState
+>v skill4 = RoR2.InputBankTest+ButtonState
+>v interact = RoR2.InputBankTest+ButtonState
+>v jump = RoR2.InputBankTest+ButtonState
+>v sprint = RoR2.InputBankTest+ButtonState
+>v activateEquipment = RoR2.InputBankTest+ButtonState
+>v ping = RoR2.InputBankTest+ButtonState
+>v emoteRequest = -1
+
+> VectorPID
+>v customName = ForcePID
+>v PID = (1.0, 0.0, 0.0)
+>v inputVector = (0.0, 0.0, 0.0)
+>v targetVector = (0.0, 0.0, 0.0)
+>v outputVector = (0.0, 0.0, 0.0)
+>v isAngle = False
+>v gain = 5
+
+> RoR2.RigidbodyMotor
+>v moveVector = (0.0, 0.0, 0.0)
+>v rigid = GravekeeperTrackingFireball (UnityEngine.Rigidbody)
+>v forcePID = GravekeeperTrackingFireball (VectorPID)
+>v centerOfMassOffset = (0.0, 0.0, 0.0)
+>v animatorForward = 
+>v animatorRight = 
+>v animatorUp = 
+>v enableOverrideMoveVectorInLocalSpace = True
+>v canTakeImpactDamage = True
+>v overrideMoveVectorInLocalSpace = (0.0, 0.0, 1.0)
+>c Model
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> RoR2.HurtBoxGroup
+>>v hurtBoxes = RoR2.HurtBox[]
+>>v mainHurtBox = Hurtbox (RoR2.HurtBox)
+>>v bullseyeCount = 1
+>>c Hurtbox
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.SphereCollider
+
+>>> RoR2.HurtBox
+>>>v healthComponent = GravekeeperTrackingFireball (RoR2.HealthComponent)
+>>>v isBullseye = True
+>>>v damageModifier = Normal
+>>>v teamIndex = None
+>>>v hurtBoxGroup = Model (RoR2.HurtBoxGroup)
+>>>v indexInGroup = 0
+>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+
+>>> UnityEngine.Rigidbody
+>>c ProximityDetonator
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> RoR2.Projectile.MineProximityDetonator
+>>>v myTeamFilter = GravekeeperTrackingFireball (RoR2.TeamFilter)
+>>>v triggerEvents = UnityEngine.Events.UnityEvent UnityEngine.Events.UnityEvent
+
+>>> UnityEngine.SphereCollider

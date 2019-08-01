@@ -1,0 +1,47 @@
+EngiTurretWristDisplay
+
+> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> RoR2.BlueprintController
+>v ok = False
+>v okMaterial = matBlueprintsOk (UnityEngine.Material)
+>v invalidMaterial = 
+>v renderers = UnityEngine.Renderer[]
+>c Display
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 36.4, 0.0) s:(0.1, 0.1, 0.1)
+
+>> ObjectScaleCurve
+>>v curveX = UnityEngine.AnimationCurve
+>>v curveY = UnityEngine.AnimationCurve
+>>v curveZ = UnityEngine.AnimationCurve
+>>v overallCurve = UnityEngine.AnimationCurve
+>>v timeMax = 1
+>>v time = 0
+
+>> RotateObject
+>>v rotationSpeed = (0.0, 0.0, 90.0)
+>>c Dust
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 36.4, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.ParticleSystem
+
+>>> UnityEngine.ParticleSystemRenderer
+>>c mdlVFXCone
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 36.4, 0.0) s:(0.4, 0.4, 2.1)
+
+>>> UnityEngine.MeshFilter
+
+>>> UnityEngine.MeshRenderer
+>>c mdlEngiTurret (1)
+
+>>> transform = p:(0.0, 0.0, 2.3) r:(90.0, 36.4, 0.0) s:(0.4, 0.4, 0.4)
+>>>c EngiTurretMesh
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 36.4, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.MeshRenderer
+
+>>>> UnityEngine.MeshFilter

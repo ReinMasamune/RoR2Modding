@@ -1,0 +1,19 @@
+RightButton
+
+> UnityEngine.RectTransform
+
+> UnityEngine.CanvasRenderer
+
+> UnityEngine.UI.Image
+
+> RoR2.UI.MPEventSystemLocator
+
+> RoR2.UI.CustomButtonTransition
+>v scaleButtonOnHover = False
+>v showImageOnHover = False
+>v imageOnHover = 
+>v imageOnInteractable = 
+>v allowAllEventSystems = False
+>v pointerClickOnly = False
+
+> UnityEngine.UI.LayoutElement

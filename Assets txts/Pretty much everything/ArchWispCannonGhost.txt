@@ -1,0 +1,68 @@
+ArchWispCannonGhost
+
+> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> RoR2.Projectile.ProjectileGhostController
+>v authorityTransform = 
+>v predictionTransform = 
+
+> RoR2.VFXAttributes
+>v vfxPriority = Always
+>v vfxIntensity = Medium
+>v optionalLights = UnityEngine.Light[]
+>v secondaryParticleSystem = UnityEngine.ParticleSystem[]
+
+> RoR2.FlickerLight
+>v light = Point light (UnityEngine.Light)
+>v sinWaves = Wave[]
+>c Point light
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> UnityEngine.Light
+
+>> LightIntensityCurve
+>>v curve = UnityEngine.AnimationCurve
+>>v timeMax = 1
+>>v loop = False
+>>v randomStart = False
+>c Particles
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 180.0, 180.0) s:(0.6, 0.6, 0.6)
+>>c FireSphere
+
+>>> transform = p:(0.0, 0.0, 3.7) r:(0.0, 180.0, 180.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.ParticleSystem
+
+>>> UnityEngine.ParticleSystemRenderer
+>>c FireTrail
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 180.0, 180.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.ParticleSystem
+
+>>> UnityEngine.ParticleSystemRenderer
+>>c FireSphere (1)
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 180.0, 180.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.ParticleSystem
+
+>>> UnityEngine.ParticleSystemRenderer
+>c Helix
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> RotateObject
+>>v rotationSpeed = (0.0, 0.0, 360.0)
+>>c GameObject
+
+>>> transform = p:(-1.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.TrailRenderer
+>>c GameObject (1)
+
+>>> transform = p:(1.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.TrailRenderer

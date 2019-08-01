@@ -1,0 +1,63 @@
+HighlightInteractable
+
+> UnityEngine.RectTransform
+
+> UnityEngine.Canvas
+
+> RoR2.UI.HighlightRect
+>v curve = UnityEngine.AnimationCurve
+>v highlightColor = RGBA(0.897, 0.858, 0.317, 1.000)
+>v cornerImage = texUICornerSquared (UnityEngine.Sprite)
+>v nametagString = Test STring
+>v targetRenderer = 
+>v cameraTarget = 
+>v nametagRectTransform = Text (UnityEngine.RectTransform)
+>v bottomLeftRectTransform = BottomLeft (UnityEngine.RectTransform)
+>v bottomRightRectTransform = BottomRight (UnityEngine.RectTransform)
+>v topLeftRectTransform = TopLeft (UnityEngine.RectTransform)
+>v topRightRectTransform = TopRight (UnityEngine.RectTransform)
+>v expandTime = 0.25
+>v maxLifeTime = 0
+>v destroyOnLifeEnd = False
+>v highlightState = Expanding
+>c BottomLeft
+
+>> UnityEngine.RectTransform
+
+>> UnityEngine.CanvasRenderer
+
+>> UnityEngine.UI.Image
+>c BottomRight
+
+>> UnityEngine.RectTransform
+
+>> UnityEngine.CanvasRenderer
+
+>> UnityEngine.UI.Image
+>c TopRight
+
+>> UnityEngine.RectTransform
+
+>> UnityEngine.CanvasRenderer
+
+>> UnityEngine.UI.Image
+>c TopLeft
+
+>> UnityEngine.RectTransform
+
+>> UnityEngine.CanvasRenderer
+
+>> UnityEngine.UI.Image
+>c Text
+
+>> UnityEngine.RectTransform
+
+>> UnityEngine.CanvasRenderer
+
+>> UnityEngine.MeshFilter
+
+>> UnityEngine.MeshRenderer
+
+>> RoR2.UI.HGTextMeshProUGUI
+>>v useLanguageDefaultFont = True
+>>v defaultLanguageFont = tmpBombDropshadow (TMPro.TMP_FontAsset)

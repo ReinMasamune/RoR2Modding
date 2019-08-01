@@ -1,0 +1,54 @@
+SMGCrosshair
+
+> UnityEngine.RectTransform
+
+> UnityEngine.CanvasRenderer
+
+> UnityEngine.UI.RawImage
+
+> RoR2.UI.HudElement
+
+> RoR2.UI.CrosshairController
+>v spriteSpreadPositions = RoR2.UI.CrosshairController+SpritePosition[]
+>v remapSprites = UnityEngine.UI.RawImage[]
+>v minSpreadAlpha = 0
+>v maxSpreadAlpha = 0
+>v maxSpreadAngle = 8
+>c Holder
+
+>> UnityEngine.RectTransform
+>>c TL
+
+>>> UnityEngine.RectTransform
+
+>>> UnityEngine.CanvasRenderer
+
+>>> UnityEngine.UI.Image
+>>c TR
+
+>>> UnityEngine.RectTransform
+
+>>> UnityEngine.CanvasRenderer
+
+>>> UnityEngine.UI.Image
+>>c BL
+
+>>> UnityEngine.RectTransform
+
+>>> UnityEngine.CanvasRenderer
+
+>>> UnityEngine.UI.Image
+>>c BR
+
+>>> UnityEngine.RectTransform
+
+>>> UnityEngine.CanvasRenderer
+
+>>> UnityEngine.UI.Image
+>c Center
+
+>> UnityEngine.RectTransform
+
+>> UnityEngine.CanvasRenderer
+
+>> UnityEngine.UI.Image

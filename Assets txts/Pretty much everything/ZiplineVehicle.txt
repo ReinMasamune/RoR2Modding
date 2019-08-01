@@ -1,0 +1,164 @@
+ZiplineVehicle
+
+> transform = p:(78.9, -116.3, -49.5) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> UnityEngine.SphereCollider
+
+> UnityEngine.Networking.NetworkIdentity
+>v clientAuthorityCallback = 
+
+> RoR2.VehicleSeat
+>v passengerState = EntityStates.SerializableEntityStateType
+>v seatPosition = ZiplineVehicle (UnityEngine.Transform)
+>v exitPosition = 
+>v ejectOnCollision = True
+>v hidePassenger = True
+>v exitVelocityFraction = 0.5
+>v onPassengerEnterUnityEvent = UnityEngine.Events.UnityEvent UnityEngine.Events.UnityEvent
+>v onPassengerExitUnityEvent = UnityEngine.Events.UnityEvent UnityEngine.Events.UnityEvent
+>v enterVehicleContextString = ZIPLINE_ENTER_CONTEXT
+>v exitVehicleContextString = ZIPLINE_EXIT_CONTEXT
+>v disablePassengerMotor = False
+>v enterVehicleAllowedCheck = RoR2.CallbackCheck`2[RoR2.Interactability,RoR2.CharacterBody]
+>v exitVehicleAllowedCheck = RoR2.CallbackCheck`2[RoR2.Interactability,RoR2.CharacterBody]
+>v handleVehicleEnterRequestServer = RoR2.CallbackCheck`2[System.Boolean,UnityEngine.GameObject]
+>v handleVehicleExitRequestServer = RoR2.CallbackCheck`2[System.Boolean,UnityEngine.GameObject]
+
+> RoR2.EntityLocator
+>v entity = ZiplineVehicle (UnityEngine.GameObject)
+
+> RoR2.ZiplineVehicle
+>v maxSpeed = 10
+>v acceleration = 20
+>v endPoint = (0.0, 0.0, 0.0)
+
+> UnityEngine.Rigidbody
+
+> RoR2.EventFunctions
+>c ActiveVehicleEffect
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> AkGameObj
+>>v isEnvironmentAware = True
+>>v m_positionOffsetData = AkGameObjPositionOffsetData
+
+>> AkEvent
+>>v actionOnEventType = AkActionOnEventType_Stop
+>>v curveInterpolation = AkCurveInterpolation_Linear
+>>v enableActionOnEvent = False
+>>v data = Play_item_use_gateway_rideStart
+>>v m_callbackData = 
+>>v playingId = 0
+>>v soundEmitterObject = 
+>>v transitionDuration = 0
+>>v triggerList = System.Collections.Generic.List`1[System.Int32]
+>>v useOtherObject = False
+
+>> AkEvent
+>>v actionOnEventType = AkActionOnEventType_Stop
+>>v curveInterpolation = AkCurveInterpolation_Linear
+>>v enableActionOnEvent = False
+>>v data = Play_item_use_gateway_rideEnd
+>>v m_callbackData = 
+>>v playingId = 0
+>>v soundEmitterObject = 
+>>v transitionDuration = 0
+>>v triggerList = System.Collections.Generic.List`1[System.Int32]
+>>v useOtherObject = False
+
+>> AkEvent
+>>v actionOnEventType = AkActionOnEventType_Stop
+>>v curveInterpolation = AkCurveInterpolation_Linear
+>>v enableActionOnEvent = False
+>>v data = Stop_item_use_gateway_rideLoop
+>>v m_callbackData = 
+>>v playingId = 0
+>>v soundEmitterObject = 
+>>v transitionDuration = 0
+>>v triggerList = System.Collections.Generic.List`1[System.Int32]
+>>v useOtherObject = False
+
+>> UnityEngine.Rigidbody
+>>c Core
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.ParticleSystem
+
+>>> UnityEngine.ParticleSystemRenderer
+>>c Blinkers
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.ParticleSystem
+
+>>> UnityEngine.ParticleSystemRenderer
+>>c Sphere
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(90.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.MeshFilter
+
+>>> UnityEngine.MeshRenderer
+
+>>> ObjectScaleCurve
+>>>v curveX = UnityEngine.AnimationCurve
+>>>v curveY = UnityEngine.AnimationCurve
+>>>v curveZ = UnityEngine.AnimationCurve
+>>>v overallCurve = UnityEngine.AnimationCurve
+>>>v timeMax = 1
+>>>v time = 0
+
+>>> Rewired.ComponentControls.Effects.RotateAroundAxis
+>>c Spinner
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 90.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> Rewired.ComponentControls.Effects.RotateAroundAxis
+>>>c Trail
+
+>>>> transform = p:(1.0, 0.0, 0.0) r:(0.0, 90.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.TrailRenderer
+>>>>c Core
+
+>>>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 90.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>>> UnityEngine.ParticleSystem
+
+>>>>> UnityEngine.ParticleSystemRenderer
+>>c Spinner (1)
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(37.3, 127.8, 359.4) s:(1.0, 1.0, 1.0)
+
+>>> Rewired.ComponentControls.Effects.RotateAroundAxis
+>>>c Trail
+
+>>>> transform = p:(0.8, 0.0, 0.0) r:(37.3, 127.8, 359.4) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.TrailRenderer
+>>>>c Core
+
+>>>>> transform = p:(0.0, 0.0, 0.0) r:(37.3, 127.8, 359.4) s:(1.0, 1.0, 1.0)
+
+>>>>> UnityEngine.ParticleSystem
+
+>>>>> UnityEngine.ParticleSystemRenderer
+>>c Spinner (2)
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(339.8, 51.0, 20.9) s:(1.0, 1.0, 1.0)
+
+>>> Rewired.ComponentControls.Effects.RotateAroundAxis
+>>>c Trail
+
+>>>> transform = p:(0.6, 0.0, 0.0) r:(339.8, 51.0, 20.9) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.TrailRenderer
+>>>>c Core
+
+>>>>> transform = p:(0.0, 0.0, 0.0) r:(339.8, 51.0, 20.9) s:(1.0, 1.0, 1.0)
+
+>>>>> UnityEngine.ParticleSystem
+
+>>>>> UnityEngine.ParticleSystemRenderer

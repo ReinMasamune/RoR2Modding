@@ -1,0 +1,34 @@
+NetworkManager
+
+> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> RoR2.Networking.GameNetworkManager
+>v debugServerTime = 0
+>v debugRTT = 0
+>v steamworksServer = 
+>v matchName = default
+>v matchSize = 4
+>v isNetworkActive = False
+>v client = 
+>v matchInfo = 
+>v matchMaker = 
+>v matches = 
+
+> UnityEngine.Networking.NetworkManagerHUD
+>v manager = 
+>v showGUI = True
+>v offsetX = -900
+>v offsetY = 30
+
+> RoR2.Projectile.ProjectileManager
+>v instance = NetworkManager(Clone) (RoR2.Projectile.ProjectileManager)
+
+> RoR2.Networking.CharacterNetworkTransformManager
+
+> RoR2.EffectManager
+
+> RoR2.ExperienceManager
+>v maxOrbTravelTime = 2
+>v orbTimeOffsetSequence = System.Single[]
+
+> RoR2.Orbs.OrbManager

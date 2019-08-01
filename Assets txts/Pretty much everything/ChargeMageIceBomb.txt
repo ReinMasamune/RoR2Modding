@@ -1,0 +1,44 @@
+ChargeMageIceBomb
+
+> transform = p:(28.4, -212.0, -168.7) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> ObjectScaleCurve
+>v curveX = UnityEngine.AnimationCurve
+>v curveY = UnityEngine.AnimationCurve
+>v curveZ = UnityEngine.AnimationCurve
+>v overallCurve = UnityEngine.AnimationCurve
+>v timeMax = 3
+>v time = 0
+
+> RoR2.EffectComponent
+>v effectData = 
+>v positionAtReferencedTransform = True
+>v parentToReferencedTransform = True
+>v applyScale = False
+
+> RoR2.VFXAttributes
+>v vfxPriority = Always
+>v vfxIntensity = Low
+>v optionalLights = UnityEngine.Light[]
+>v secondaryParticleSystem = UnityEngine.ParticleSystem[]
+>c Base
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(0.7, 0.7, 0.7)
+
+>> UnityEngine.ParticleSystem
+
+>> UnityEngine.ParticleSystemRenderer
+>c OrbCore
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(0.3, 0.3, 0.3)
+
+>> UnityEngine.MeshFilter
+
+>> UnityEngine.MeshRenderer
+>c Point light
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> UnityEngine.Light
+
+>> RoR2.LightScaleFromParent

@@ -1,0 +1,1094 @@
+LemurianBruiserBody
+
+> transform = p:(-201.2, -391.9, -890.7) r:(0.0, 329.6, 0.0) s:(1.0, 1.0, 1.0)
+
+> UnityEngine.Networking.NetworkIdentity
+>v clientAuthorityCallback = 
+
+> RoR2.CharacterMotor
+>v instancesList = System.Collections.Generic.List`1[RoR2.CharacterMotor]
+>v walkSpeedPenaltyCoefficient = 1
+>v characterDirection = LemurianBruiserBody (RoR2.CharacterDirection)
+>v muteWalkMotion = False
+>v mass = 300
+>v airControl = 0.25
+>v disableAirControlUntilCollision = False
+>v generateParametersOnAwake = True
+>v slipStartAngle = 70
+>v slipEndAngle = 55
+>v jumpCount = 0
+>v netIsGrounded = False
+>v netGroundNormal = (0.0, 0.0, 0.0)
+>v velocity = (0.0, 0.0, 0.0)
+>v rootMotion = (0.0, 0.0, 0.0)
+
+> RoR2.InputBankTest
+>v lookPitch = 0
+>v lookYaw = 0
+>v moveVector = (0.0, 0.0, 0.0)
+>v skill1 = RoR2.InputBankTest+ButtonState
+>v skill2 = RoR2.InputBankTest+ButtonState
+>v skill3 = RoR2.InputBankTest+ButtonState
+>v skill4 = RoR2.InputBankTest+ButtonState
+>v interact = RoR2.InputBankTest+ButtonState
+>v jump = RoR2.InputBankTest+ButtonState
+>v sprint = RoR2.InputBankTest+ButtonState
+>v activateEquipment = RoR2.InputBankTest+ButtonState
+>v ping = RoR2.InputBankTest+ButtonState
+>v emoteRequest = -1
+
+> RoR2.CharacterBody
+>v bodyIndex = 43
+>v baseNameToken = LEMURIANBRUISER_BODY_NAME
+>v subtitleNameToken = 
+>v pendingTonicAfflictionCount = 0
+>v bodyFlags = None
+>v readOnlyInstancesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.CharacterBody]
+>v rootMotionInMainState = False
+>v mainRootSpeed = 33
+>v baseMaxHealth = 900
+>v baseRegen = 0
+>v baseMaxShield = 0
+>v baseMoveSpeed = 13
+>v baseAcceleration = 45
+>v baseJumpPower = 30
+>v baseDamage = 16
+>v baseAttackSpeed = 1
+>v baseCrit = 0
+>v baseArmor = 0
+>v baseJumpCount = 1
+>v autoCalculateLevelStats = True
+>v levelMaxHealth = 270
+>v levelRegen = 0
+>v levelMaxShield = 0
+>v levelMoveSpeed = 0
+>v levelJumpPower = 0
+>v levelDamage = 3.2
+>v levelAttackSpeed = 0
+>v levelCrit = 0
+>v levelArmor = 0
+>v killCount = 0
+>v wasLucky = False
+>v spreadBloomDecayTime = 0.45
+>v spreadBloomCurve = UnityEngine.AnimationCurve
+>v crosshairPrefab = StandardCrosshair (UnityEngine.GameObject)
+>v hideCrosshair = False
+>v aimOriginTransform = AimOrigin (UnityEngine.Transform)
+>v hullClassification = Golem
+>v portraitIcon = LemurianBruiserBody (UnityEngine.Texture2D)
+>v isChampion = False
+>v currentVehicle = 
+>v preferredPodPrefab = 
+
+> RoR2.CameraTargetParams
+>v cameraParams = ccpStandardTall (RoR2.CharacterCameraParams)
+>v cameraPivotTransform = 
+>v aimMode = Standard
+>v recoil = (0.0, 0.0)
+>v idealLocalCameraPos = (0.0, 2.0, -5.6)
+>v fovOverride = -1
+>v dontRaycastToPivot = False
+
+> RoR2.ModelLocator
+>v modelTransform = mdlLemurianBruiser (UnityEngine.Transform)
+>v modelBaseTransform = ModelBase (UnityEngine.Transform)
+>v dontReleaseModelOnDeath = False
+>v autoUpdateModelTransform = True
+>v dontDetatchFromParent = False
+>v noCorpse = False
+>v normalizeToFloor = False
+>v preserveModel = False
+
+> RoR2.EntityStateMachine
+>v customName = Body
+>v initialStateType = EntityStates.SerializableEntityStateType
+>v mainStateType = EntityStates.SerializableEntityStateType
+>v commonComponents = RoR2.EntityStateMachine+CommonComponentCache
+>v networkIndex = -1
+
+> RoR2.CharacterDirection
+>v moveVector = (0.0, 0.0, 0.0)
+>v targetTransform = ModelBase (UnityEngine.Transform)
+>v overrideAnimatorForwardTransform = 
+>v rootMotionAccumulator = 
+>v modelAnimator = mdlLemurianBruiser (UnityEngine.Animator)
+>v driveFromRootRotation = False
+>v turnSpeed = 120
+
+> RoR2.EntityStateMachine
+>v customName = Weapon
+>v initialStateType = EntityStates.SerializableEntityStateType
+>v mainStateType = EntityStates.SerializableEntityStateType
+>v commonComponents = RoR2.EntityStateMachine+CommonComponentCache
+>v networkIndex = -1
+
+> RoR2.SkillLocator
+>v primary = LemurianBruiserBody (RoR2.GenericSkill)
+>v secondary = LemurianBruiserBody (RoR2.GenericSkill)
+>v utility = 
+>v special = 
+>v passiveSkill = RoR2.SkillLocator+PassiveSkill
+
+> RoR2.GenericSkill
+>v skillName = 
+>v skillNameToken = 
+>v skillDescriptionToken = 
+>v baseRechargeInterval = 4
+>v baseMaxStock = 1
+>v rechargeStock = 1
+>v isBullets = False
+>v shootDelay = 0.3
+>v beginSkillCooldownOnSkillEnd = False
+>v stateMachine = LemurianBruiserBody (RoR2.EntityStateMachine)
+>v activationState = EntityStates.SerializableEntityStateType
+>v interruptPriority = Skill
+>v isCombatSkill = True
+>v noSprint = True
+>v canceledFromSprinting = False
+>v mustKeyPress = False
+>v icon = 
+>v requiredStock = 1
+>v stockToConsume = 1
+>v hasExecutedSuccessfully = False
+
+> RoR2.GenericSkill
+>v skillName = 
+>v skillNameToken = 
+>v skillDescriptionToken = 
+>v baseRechargeInterval = 1
+>v baseMaxStock = 1
+>v rechargeStock = 1
+>v isBullets = False
+>v shootDelay = 0.3
+>v beginSkillCooldownOnSkillEnd = True
+>v stateMachine = LemurianBruiserBody (RoR2.EntityStateMachine)
+>v activationState = EntityStates.SerializableEntityStateType
+>v interruptPriority = Skill
+>v isCombatSkill = True
+>v noSprint = True
+>v canceledFromSprinting = False
+>v mustKeyPress = False
+>v icon = 
+>v requiredStock = 1
+>v stockToConsume = 1
+>v hasExecutedSuccessfully = False
+
+> RoR2.TeamComponent
+>v hideAllyCardDisplay = False
+
+> RoR2.HealthComponent
+>v health = 30000
+>v shield = 0
+>v barrier = 0
+>v body = 
+>v dontShowHealthbar = False
+>v globalDeathEventChanceCoefficient = 1
+>v medkitActivationDelay = 1.1
+>v frozenExecuteThreshold = 0.3
+
+> RoR2.Interactor
+>v maxInteractionDistance = 3
+
+> RoR2.InteractionDriver
+>v highlightInteractor = False
+>v interactableOverride = 
+
+> RoR2.CharacterDeathBehavior
+>v deathStateMachine = LemurianBruiserBody (RoR2.EntityStateMachine)
+>v deathState = EntityStates.SerializableEntityStateType
+>v idleStateMachine = RoR2.EntityStateMachine[]
+
+> RoR2.Networking.CharacterNetworkTransform
+>v positionTransmitInterval = 0.1
+>v lastPositionTransmitTime = -Infinity
+>v interpolationFactor = 2
+>v newestNetSnapshot = RoR2.Networking.CharacterNetworkTransform+Snapshot
+>v debugDuplicatePositions = False
+>v debugSnapshotReceived = False
+
+> RoR2.NetworkStateMachine
+
+> RoR2.SetStateOnHurt
+>v hitThreshold = 0.15
+>v targetStateMachine = LemurianBruiserBody (RoR2.EntityStateMachine)
+>v idleStateMachine = RoR2.EntityStateMachine[]
+>v hurtState = EntityStates.SerializableEntityStateType
+>v canBeHitStunned = True
+>v canBeStunned = True
+>v canBeFrozen = True
+
+> RoR2.DeathRewards
+>v expReward = 0
+>v logUnlockableName = Logs.LemurianBruiserBody.0
+>v bossPickup = RoR2.SerializablePickupIndex
+
+> RoR2.CharacterEmoteDefinitions
+>v emoteDefinitions = RoR2.CharacterEmoteDefinitions+EmoteDef[]
+
+> RoR2.EquipmentSlot
+>v equipmentActivateString = Play_UI_equipment_activate
+
+> RoR2.SfxLocator
+>v deathSound = Play_lemurianBruiser_death_VO
+>v barkSound = Play_lemurianBruiser_idle_VO
+>v openSound = 
+>v landingSound = 
+>v fallDamageSound = 
+
+> RoR2.BodyAnimatorSmoothingParameters
+>v smoothingParameters = RoR2.BodyAnimatorSmoothingParameters+SmoothingParameters
+>v defaultParameters = RoR2.BodyAnimatorSmoothingParameters+SmoothingParameters
+
+> UnityEngine.Rigidbody
+
+> UnityEngine.CapsuleCollider
+
+> KinematicCharacterController.KinematicCharacterMotor
+>v CharacterController = LemurianBruiserBody (RoR2.CharacterMotor)
+>v Capsule = LemurianBruiserBody (UnityEngine.CapsuleCollider)
+>v Rigidbody = LemurianBruiserBody (UnityEngine.Rigidbody)
+>v DetectDiscreteCollisions = False
+>v GroundDetectionExtraDistance = 0
+>v MaxStepHeight = 0.2
+>v MinRequiredStepDepth = 0.1
+>v MaxStableSlopeAngle = 55
+>v MaxStableDistanceFromLedge = 0.5
+>v PreventSnappingOnLedges = False
+>v MaxStableDenivelationAngle = 55
+>v RigidbodyInteractionType = None
+>v PreserveAttachedRigidbodyMomentum = True
+>v HasPlanarConstraint = False
+>v PlanarConstraintAxis = (0.0, 0.0, 1.0)
+>v StepHandling = Standard
+>v LedgeHandling = True
+>v InteractiveRigidbodyHandling = True
+>v SafeMovement = False
+>v GroundingStatus = KinematicCharacterController.CharacterGroundingReport
+>v LastGroundingStatus = KinematicCharacterController.CharacterTransientGroundingReport
+>v CollidableLayers = UnityEngine.LayerMask
+>v MaxHitsBudget = 16
+>v MaxCollisionBudget = 16
+>v MaxGroundingSweepIterations = 2
+>v MaxMovementSweepIterations = 6
+>v MaxSteppingSweepIterations = 3
+>v MaxRigidbodyOverlapsCount = 16
+>v MaxDiscreteCollisionIterations = 3
+>v CollisionOffset = 0.001
+>v GroundProbeReboundDistance = 0.02
+>v MinimumGroundProbingDistance = 0.005
+>v GroundProbingBackstepDistance = 0.1
+>v SweepProbingBackstepDistance = 0.002
+>v SecondaryProbesVertical = 0.02
+>v SecondaryProbesHorizontal = 0.001
+>v MinVelocityMagnitude = 0.01
+>v SteppingForwardDistance = 0.03
+>v MinDistanceForLedge = 0.05
+>v CorrelationForVerticalObstruction = 0.01
+>v ExtraSteppingForwardDistance = 0.01
+>v ExtraStepHeightPadding = 0.01
+>c ModelBase
+
+>> transform = p:(0.0, -4.5, 0.0) r:(0.0, 329.6, 0.0) s:(1.0, 1.0, 1.0)
+>>c mdlLemurianBruiser
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 329.6, 0.0) s:(0.5, 0.5, 0.5)
+
+>>> UnityEngine.Animator
+
+>>> RoR2.AimAnimator
+>>>v inputBank = LemurianBruiserBody (RoR2.InputBankTest)
+>>>v directionComponent = LemurianBruiserBody (RoR2.CharacterDirection)
+>>>v pitchRangeMin = -60
+>>>v pitchRangeMax = 60
+>>>v yawRangeMin = -65
+>>>v yawRangeMax = 65
+>>>v pitchGiveupRange = 20
+>>>v yawGiveupRange = 20
+>>>v giveupDuration = 3
+>>>v raisedApproachSpeed = 100
+>>>v loweredApproachSpeed = 140
+>>>v smoothTime = 0.1
+>>>v fullYaw = False
+>>>v aimType = Direct
+>>>v enableAimWeight = False
+
+>>> RoR2.CharacterModel
+>>>v body = LemurianBruiserBody (RoR2.CharacterBody)
+>>>v itemDisplayRuleSet = idrsLemurianBruiser (RoR2.ItemDisplayRuleSet)
+>>>v autoPopulateLightInfos = True
+>>>v autoPopulateParticleSystemInfos = True
+>>>v baseParticleSystemInfos = RoR2.CharacterModel+ParticleSystemInfo[]
+>>>v baseRendererInfos = RoR2.CharacterModel+RendererInfo[]
+>>>v baseLightInfos = RoR2.CharacterModel+LightInfo[]
+>>>v invisibilityCount = 0
+>>>v temporaryOverlays = System.Collections.Generic.List`1[RoR2.TemporaryOverlay]
+>>>v revealedMaterial = matRevealedEffect (UnityEngine.Material)
+>>>v cloakedMaterial = matCloakedEffect (UnityEngine.Material)
+>>>v ghostMaterial = matGhostEffect (UnityEngine.Material)
+>>>v bellBuffMaterial = matBellBuff (UnityEngine.Material)
+>>>v wolfhatMaterial = matWolfhatOverlay (UnityEngine.Material)
+>>>v energyShieldMaterial = matEnergyShield (UnityEngine.Material)
+>>>v fullCritMaterial = matFullCrit (UnityEngine.Material)
+>>>v beetleJuiceMaterial = matBeetleJuice (UnityEngine.Material)
+>>>v brittleMaterial = matBrittle (UnityEngine.Material)
+>>>v clayGooMaterial = matClayGooDebuff (UnityEngine.Material)
+>>>v slow80Material = matSlow80Debuff (UnityEngine.Material)
+>>>v immuneMaterial = matImmune (UnityEngine.Material)
+>>>v elitePoisonOverlayMaterial = matElitePoisonOverlay (UnityEngine.Material)
+>>>v elitePoisonParticleReplacementMaterial = matElitePoisonParticleReplacement (UnityEngine.Material)
+>>>v weakMaterial = matWeakOverlay (UnityEngine.Material)
+
+>>> Generics.Dynamics.InverseKinematics
+>>>v solver = CyclicDescend
+>>>v rArm = Generics.Dynamics.Core+Chain
+>>>v lArm = Generics.Dynamics.Core+Chain
+>>>v rLeg = Generics.Dynamics.Core+Chain
+>>>v lLeg = Generics.Dynamics.Core+Chain
+>>>v otherChains = Generics.Dynamics.Core+Chain[]
+>>>v otherKChains = Generics.Dynamics.Core+KinematicChain[]
+>>>v rigReader = 
+>>>v animator = mdlLemurianBruiser (UnityEngine.Animator)
+
+>>> ChildLocator
+
+>>> RoR2.FootstepHandler
+>>>v baseFootstepString = Play_beetle_queen_step
+>>>v enableFootstepDust = True
+>>>v footstepDustPrefab = GenericHugeFootstepDust (UnityEngine.GameObject)
+
+>>> RoR2.HurtBoxGroup
+>>>v hurtBoxes = RoR2.HurtBox[]
+>>>v mainHurtBox = HURTBOX, Lemmy Bruiser (RoR2.HurtBox)
+>>>v bullseyeCount = 1
+
+>>> RoR2.AnimationEvents
+>>>v soundCenter = 
+>>>c LemurianBruiserArmature
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 329.6, 0.0) s:(1.0, 1.0, 1.0)
+>>>>c ROOT
+
+>>>>> transform = p:(0.0, 2.3, 0.0) r:(0.0, 329.6, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>c IKPassive.l
+
+>>>>>> transform = p:(-3.0, 0.3, -0.2) r:(0.0, 329.6, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>>>> RoR2.IKTargetPassive
+>>>>>>v minHeight = -3
+>>>>>>v maxHeight = 1
+>>>>>>v dampTime = 0.1
+>>>>>>v baseOffset = 0
+>>>>>>v animatorIKWeightFloat = 
+>>>>>>v animator = 
+>>>>>>v selfPlant = True
+>>>>>>v selfPlantFrequency = 5
+>>>>>>v cacheFirstPosition = True
+>>>>>c IKPassive.r
+
+>>>>>> transform = p:(3.0, 0.3, -0.2) r:(0.0, 329.6, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>>>> RoR2.IKTargetPassive
+>>>>>>v minHeight = -3
+>>>>>>v maxHeight = 1
+>>>>>>v dampTime = 0.1
+>>>>>>v baseOffset = 0
+>>>>>>v animatorIKWeightFloat = 
+>>>>>>v animator = 
+>>>>>>v selfPlant = True
+>>>>>>v selfPlantFrequency = 5
+>>>>>>v cacheFirstPosition = True
+>>>>>c base
+
+>>>>>> transform = p:(0.0, 11.9, -0.4) r:(271.7, 149.6, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>c hip
+
+>>>>>>> transform = p:(0.0, 0.0, 0.0) r:(22.7, 149.6, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>c tail1
+
+>>>>>>>> transform = p:(0.0, 1.4, 1.5) r:(320.0, 149.6, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>c HURTBOX, Lemmy Bruiser
+
+>>>>>>>>> transform = p:(0.0, 0.3, 0.0) r:(320.0, 149.6, 180.0) s:(1.0, 1.0, 1.0)
+
+>>>>>>>>> UnityEngine.CapsuleCollider
+
+>>>>>>>>> RoR2.HurtBox
+>>>>>>>>>v healthComponent = LemurianBruiserBody (RoR2.HealthComponent)
+>>>>>>>>>v isBullseye = False
+>>>>>>>>>v damageModifier = Normal
+>>>>>>>>>v teamIndex = None
+>>>>>>>>>v hurtBoxGroup = mdlLemurianBruiser (RoR2.HurtBoxGroup)
+>>>>>>>>>v indexInGroup = 0
+>>>>>>>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+
+>>>>>>>>> SurfaceDefProvider
+>>>>>>>>>v surfaceDef = sdLemurianBruiser (SurfaceDef)
+>>>>>>>>c tail2
+
+>>>>>>>>> transform = p:(0.0, 3.5, 0.0) r:(309.5, 149.6, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c HURTBOX, Lemmy Bruiser
+
+>>>>>>>>>> transform = p:(0.0, 0.0, 0.0) r:(309.5, 149.6, 180.0) s:(1.0, 1.0, 1.0)
+
+>>>>>>>>>> UnityEngine.CapsuleCollider
+
+>>>>>>>>>> RoR2.HurtBox
+>>>>>>>>>>v healthComponent = LemurianBruiserBody (RoR2.HealthComponent)
+>>>>>>>>>>v isBullseye = False
+>>>>>>>>>>v damageModifier = Normal
+>>>>>>>>>>v teamIndex = None
+>>>>>>>>>>v hurtBoxGroup = mdlLemurianBruiser (RoR2.HurtBoxGroup)
+>>>>>>>>>>v indexInGroup = 1
+>>>>>>>>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+
+>>>>>>>>>> SurfaceDefProvider
+>>>>>>>>>>v surfaceDef = sdLemurianBruiser (SurfaceDef)
+>>>>>>>>>c tail3
+
+>>>>>>>>>> transform = p:(0.0, 3.1, 0.0) r:(301.3, 149.6, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c HURTBOX, Lemmy Bruiser
+
+>>>>>>>>>>> transform = p:(0.0, 0.0, 0.0) r:(301.3, 149.6, 180.0) s:(1.0, 1.0, 1.0)
+
+>>>>>>>>>>> UnityEngine.CapsuleCollider
+
+>>>>>>>>>>> RoR2.HurtBox
+>>>>>>>>>>>v healthComponent = LemurianBruiserBody (RoR2.HealthComponent)
+>>>>>>>>>>>v isBullseye = False
+>>>>>>>>>>>v damageModifier = Normal
+>>>>>>>>>>>v teamIndex = None
+>>>>>>>>>>>v hurtBoxGroup = mdlLemurianBruiser (RoR2.HurtBoxGroup)
+>>>>>>>>>>>v indexInGroup = 2
+>>>>>>>>>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+
+>>>>>>>>>>> SurfaceDefProvider
+>>>>>>>>>>>v surfaceDef = sdLemurianBruiser (SurfaceDef)
+>>>>>>>>>>c tail4
+
+>>>>>>>>>>> transform = p:(0.0, 2.5, 0.0) r:(298.2, 149.6, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c HURTBOX, Lemmy Bruiser
+
+>>>>>>>>>>>> transform = p:(0.0, 0.0, 0.0) r:(298.2, 149.6, 180.0) s:(1.0, 1.0, 1.0)
+
+>>>>>>>>>>>> UnityEngine.CapsuleCollider
+
+>>>>>>>>>>>> RoR2.HurtBox
+>>>>>>>>>>>>v healthComponent = LemurianBruiserBody (RoR2.HealthComponent)
+>>>>>>>>>>>>v isBullseye = False
+>>>>>>>>>>>>v damageModifier = Normal
+>>>>>>>>>>>>v teamIndex = None
+>>>>>>>>>>>>v hurtBoxGroup = mdlLemurianBruiser (RoR2.HurtBoxGroup)
+>>>>>>>>>>>>v indexInGroup = 3
+>>>>>>>>>>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+
+>>>>>>>>>>>> SurfaceDefProvider
+>>>>>>>>>>>>v surfaceDef = sdLemurianBruiser (SurfaceDef)
+>>>>>>>>>>>c tail5
+
+>>>>>>>>>>>> transform = p:(0.0, 1.9, 0.0) r:(289.0, 149.6, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c HURTBOX, Lemmy Bruiser
+
+>>>>>>>>>>>>> transform = p:(0.0, 0.0, 0.0) r:(289.0, 149.6, 180.0) s:(1.0, 1.0, 1.0)
+
+>>>>>>>>>>>>> UnityEngine.CapsuleCollider
+
+>>>>>>>>>>>>> RoR2.HurtBox
+>>>>>>>>>>>>>v healthComponent = LemurianBruiserBody (RoR2.HealthComponent)
+>>>>>>>>>>>>>v isBullseye = False
+>>>>>>>>>>>>>v damageModifier = Normal
+>>>>>>>>>>>>>v teamIndex = None
+>>>>>>>>>>>>>v hurtBoxGroup = mdlLemurianBruiser (RoR2.HurtBoxGroup)
+>>>>>>>>>>>>>v indexInGroup = 4
+>>>>>>>>>>>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+
+>>>>>>>>>>>>> SurfaceDefProvider
+>>>>>>>>>>>>>v surfaceDef = sdLemurianBruiser (SurfaceDef)
+>>>>>>>>>>>>c tail5_end
+
+>>>>>>>>>>>>> transform = p:(0.0, 2.2, 0.0) r:(289.0, 149.6, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>c thigh.l
+
+>>>>>>>> transform = p:(-1.9, 2.3, -0.1) r:(331.7, 321.4, 170.1) s:(1.0, 1.0, 1.0)
+>>>>>>>>c calf.l
+
+>>>>>>>>> transform = p:(0.0, 5.2, 0.0) r:(324.3, 139.6, 185.9) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c foot.l
+
+>>>>>>>>>> transform = p:(0.0, 5.3, 0.0) r:(9.5, 147.8, 175.4) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c heelToBall.l
+
+>>>>>>>>>>> transform = p:(0.0, 0.8, 0.0) r:(275.1, 281.5, 235.8) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c ballToToe.l
+
+>>>>>>>>>>>> transform = p:(0.0, 1.4, 0.0) r:(274.2, 239.6, 270.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c toe1.l
+
+>>>>>>>>>>>>> transform = p:(0.2, 0.3, 0.0) r:(84.4, 100.0, 135.4) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>c toe1.l_end
+
+>>>>>>>>>>>>>> transform = p:(0.0, 1.3, 0.0) r:(84.4, 100.0, 135.4) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c toe2.l
+
+>>>>>>>>>>>>> transform = p:(-0.6, 0.1, 0.0) r:(84.8, 92.2, 113.8) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>c toe2.l_end
+
+>>>>>>>>>>>>>> transform = p:(0.0, 1.7, 0.0) r:(84.8, 92.2, 113.8) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c toe3.l
+
+>>>>>>>>>>>>> transform = p:(0.7, 0.0, 0.0) r:(84.1, 101.9, 158.7) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>c toe3.l_end
+
+>>>>>>>>>>>>>> transform = p:(0.0, 1.3, 0.0) r:(84.1, 101.9, 158.7) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c thumbtoe.l
+
+>>>>>>>>>>> transform = p:(0.9, 0.8, -0.1) r:(85.6, 103.4, 67.8) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c thumbtoe.l_end
+
+>>>>>>>>>>>> transform = p:(0.0, 1.3, 0.0) r:(85.6, 103.4, 67.8) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c HURTBOX, Lemmy Bruiser
+
+>>>>>>>>>> transform = p:(0.0, 3.0, 0.0) r:(324.3, 139.6, 185.9) s:(1.0, 1.0, 1.0)
+
+>>>>>>>>>> UnityEngine.CapsuleCollider
+
+>>>>>>>>>> RoR2.HurtBox
+>>>>>>>>>>v healthComponent = LemurianBruiserBody (RoR2.HealthComponent)
+>>>>>>>>>>v isBullseye = False
+>>>>>>>>>>v damageModifier = Normal
+>>>>>>>>>>v teamIndex = None
+>>>>>>>>>>v hurtBoxGroup = mdlLemurianBruiser (RoR2.HurtBoxGroup)
+>>>>>>>>>>v indexInGroup = 5
+>>>>>>>>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+
+>>>>>>>>>> SurfaceDefProvider
+>>>>>>>>>>v surfaceDef = sdLemurianBruiser (SurfaceDef)
+>>>>>>>>c HURTBOX, Lemmy Bruiser
+
+>>>>>>>>> transform = p:(0.0, 1.9, 0.0) r:(331.7, 321.4, 170.1) s:(1.0, 1.0, 1.0)
+
+>>>>>>>>> UnityEngine.CapsuleCollider
+
+>>>>>>>>> RoR2.HurtBox
+>>>>>>>>>v healthComponent = LemurianBruiserBody (RoR2.HealthComponent)
+>>>>>>>>>v isBullseye = False
+>>>>>>>>>v damageModifier = Normal
+>>>>>>>>>v teamIndex = None
+>>>>>>>>>v hurtBoxGroup = mdlLemurianBruiser (RoR2.HurtBoxGroup)
+>>>>>>>>>v indexInGroup = 6
+>>>>>>>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+
+>>>>>>>>> SurfaceDefProvider
+>>>>>>>>>v surfaceDef = sdLemurianBruiser (SurfaceDef)
+>>>>>>>c thigh.r
+
+>>>>>>>> transform = p:(1.9, 2.3, -0.1) r:(329.7, 350.1, 190.8) s:(1.0, 1.0, 1.0)
+>>>>>>>>c calf.r
+
+>>>>>>>>> transform = p:(0.0, 5.2, 0.0) r:(326.4, 172.7, 173.3) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c HURTBOX, Lemmy Bruiser
+
+>>>>>>>>>> transform = p:(0.0, 3.0, 0.0) r:(326.4, 172.7, 173.3) s:(1.0, 1.0, 1.0)
+
+>>>>>>>>>> UnityEngine.CapsuleCollider
+
+>>>>>>>>>> RoR2.HurtBox
+>>>>>>>>>>v healthComponent = LemurianBruiserBody (RoR2.HealthComponent)
+>>>>>>>>>>v isBullseye = False
+>>>>>>>>>>v damageModifier = Normal
+>>>>>>>>>>v teamIndex = None
+>>>>>>>>>>v hurtBoxGroup = mdlLemurianBruiser (RoR2.HurtBoxGroup)
+>>>>>>>>>>v indexInGroup = 7
+>>>>>>>>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+
+>>>>>>>>>> SurfaceDefProvider
+>>>>>>>>>>v surfaceDef = sdLemurianBruiser (SurfaceDef)
+>>>>>>>>>c foot.r
+
+>>>>>>>>>> transform = p:(0.0, 5.3, 0.0) r:(8.3, 158.8, 187.8) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c heelToBall.r
+
+>>>>>>>>>>> transform = p:(0.0, 0.8, 0.0) r:(277.4, 29.7, 113.7) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c ballToToe.r
+
+>>>>>>>>>>>> transform = p:(0.0, 1.4, 0.0) r:(276.7, 59.6, 90.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c toe1.r
+
+>>>>>>>>>>>>> transform = p:(-0.2, 0.3, 0.0) r:(82.3, 211.5, 236.9) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>c toe1.r_end
+
+>>>>>>>>>>>>>> transform = p:(0.0, 1.3, 0.0) r:(82.3, 211.5, 236.9) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c toe2.r
+
+>>>>>>>>>>>>> transform = p:(0.6, 0.1, 0.0) r:(82.5, 217.5, 256.7) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>c toe2.r_end
+
+>>>>>>>>>>>>>> transform = p:(0.0, 1.7, 0.0) r:(82.5, 217.5, 256.7) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c toe3.r
+
+>>>>>>>>>>>>> transform = p:(-0.7, 0.0, 0.0) r:(82.0, 209.7, 213.8) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>c toe3.r_end
+
+>>>>>>>>>>>>>> transform = p:(0.0, 1.3, 0.0) r:(82.0, 209.7, 213.8) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c thumbtoe.r
+
+>>>>>>>>>>> transform = p:(-0.9, 0.8, -0.1) r:(82.4, 213.4, 303.1) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c thumbtoe.r_end
+
+>>>>>>>>>>>> transform = p:(0.0, 1.3, 0.0) r:(82.4, 213.4, 303.1) s:(1.0, 1.0, 1.0)
+>>>>>>>>c HURTBOX, Lemmy Bruiser
+
+>>>>>>>>> transform = p:(0.0, 1.9, 0.0) r:(329.7, 350.1, 190.8) s:(1.0, 1.0, 1.0)
+
+>>>>>>>>> UnityEngine.CapsuleCollider
+
+>>>>>>>>> RoR2.HurtBox
+>>>>>>>>>v healthComponent = LemurianBruiserBody (RoR2.HealthComponent)
+>>>>>>>>>v isBullseye = False
+>>>>>>>>>v damageModifier = Normal
+>>>>>>>>>v teamIndex = None
+>>>>>>>>>v hurtBoxGroup = mdlLemurianBruiser (RoR2.HurtBoxGroup)
+>>>>>>>>>v indexInGroup = 8
+>>>>>>>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+
+>>>>>>>>> SurfaceDefProvider
+>>>>>>>>>v surfaceDef = sdLemurianBruiser (SurfaceDef)
+>>>>>>c IKHandTarget.l
+
+>>>>>>> transform = p:(-10.3, -1.6, 3.5) r:(0.0, 60.8, 270.5) s:(1.0, 1.0, 1.0)
+>>>>>>>c IKHandPole.l
+
+>>>>>>>> transform = p:(1.6, 4.3, 3.9) r:(270.0, 329.6, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>c IKHandPole.l_end
+
+>>>>>>>>> transform = p:(0.0, 3.0, 0.0) r:(270.0, 329.6, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>c IKHandTarget.r
+
+>>>>>>> transform = p:(10.3, -1.6, 3.5) r:(0.0, 238.5, 89.5) s:(1.0, 1.0, 1.0)
+>>>>>>>c IKHandPole.r
+
+>>>>>>>> transform = p:(-1.6, 4.3, 3.9) r:(270.0, 329.6, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>c IKHandPole.r_end
+
+>>>>>>>>> transform = p:(0.0, 3.0, 0.0) r:(270.0, 329.6, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>c IKNeckTarget
+
+>>>>>>> transform = p:(0.0, -6.5, 5.5) r:(355.3, 149.6, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>c IKNeckPole
+
+>>>>>>>> transform = p:(0.0, 3.1, 1.7) r:(357.6, 149.6, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>c IKNeckPole_end
+
+>>>>>>>>> transform = p:(0.0, 0.8, 0.0) r:(357.6, 149.6, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>c stomach
+
+>>>>>>> transform = p:(0.0, 0.0, 0.0) r:(342.4, 149.6, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>c HURTBOX, Lemmy Bruiser
+
+>>>>>>>> transform = p:(0.0, -1.7, -0.4) r:(342.4, 149.6, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>>>>>> UnityEngine.CapsuleCollider
+
+>>>>>>>> RoR2.HurtBox
+>>>>>>>>v healthComponent = LemurianBruiserBody (RoR2.HealthComponent)
+>>>>>>>>v isBullseye = False
+>>>>>>>>v damageModifier = Normal
+>>>>>>>>v teamIndex = None
+>>>>>>>>v hurtBoxGroup = mdlLemurianBruiser (RoR2.HurtBoxGroup)
+>>>>>>>>v indexInGroup = 9
+>>>>>>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+
+>>>>>>>> SurfaceDefProvider
+>>>>>>>>v surfaceDef = sdLemurianBruiser (SurfaceDef)
+>>>>>>>c chest
+
+>>>>>>>> transform = p:(0.0, 2.4, 0.0) r:(332.0, 149.6, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>c clavicle.l
+
+>>>>>>>>> transform = p:(0.0, 2.0, 0.0) r:(284.5, 234.5, 176.4) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c pauldron.l
+
+>>>>>>>>>> transform = p:(0.1, 2.5, 1.3) r:(284.7, 240.1, 179.6) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c pauldron.l_end
+
+>>>>>>>>>>> transform = p:(0.0, 4.5, 0.0) r:(284.7, 240.1, 179.6) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c upper_arm.l
+
+>>>>>>>>>> transform = p:(0.0, 2.9, 0.0) r:(18.5, 147.6, 269.4) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c lower_arm.l
+
+>>>>>>>>>>> transform = p:(0.0, 4.1, 0.0) r:(17.0, 156.8, 274.1) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c hand.l
+
+>>>>>>>>>>>> transform = p:(0.0, 3.4, 0.0) r:(18.0, 150.0, 270.5) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c finger1.l
+
+>>>>>>>>>>>>> transform = p:(0.0, 2.2, -0.6) r:(10.8, 165.9, 268.5) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>c finger1.l_end
+
+>>>>>>>>>>>>>> transform = p:(0.0, 2.5, 0.0) r:(10.8, 165.9, 268.5) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c finger2.l
+
+>>>>>>>>>>>>> transform = p:(0.0, 2.3, 0.0) r:(9.8, 151.0, 263.2) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>c finger2.l_end
+
+>>>>>>>>>>>>>> transform = p:(0.0, 2.2, 0.0) r:(9.8, 151.0, 263.2) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c finger3.l
+
+>>>>>>>>>>>>> transform = p:(0.0, 2.3, 0.6) r:(7.1, 134.9, 257.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>c finger3.l_end
+
+>>>>>>>>>>>>>> transform = p:(0.0, 1.9, 0.0) r:(7.1, 134.9, 257.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c thumb.l
+
+>>>>>>>>>>>>> transform = p:(0.2, 1.2, -0.9) r:(30.7, 170.1, 226.6) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>c thumb.l_end
+
+>>>>>>>>>>>>>> transform = p:(0.0, 0.8, 0.0) r:(30.7, 170.1, 226.6) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c HURTBOX, Lemmy Bruiser
+
+>>>>>>>>>>>> transform = p:(-0.1, 4.0, 0.6) r:(16.4, 147.6, 273.3) s:(1.0, 1.0, 1.0)
+
+>>>>>>>>>>>> UnityEngine.CapsuleCollider
+
+>>>>>>>>>>>> RoR2.HurtBox
+>>>>>>>>>>>>v healthComponent = LemurianBruiserBody (RoR2.HealthComponent)
+>>>>>>>>>>>>v isBullseye = False
+>>>>>>>>>>>>v damageModifier = Normal
+>>>>>>>>>>>>v teamIndex = None
+>>>>>>>>>>>>v hurtBoxGroup = mdlLemurianBruiser (RoR2.HurtBoxGroup)
+>>>>>>>>>>>>v indexInGroup = 10
+>>>>>>>>>>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+
+>>>>>>>>>>>> SurfaceDefProvider
+>>>>>>>>>>>>v surfaceDef = sdLemurianBruiser (SurfaceDef)
+>>>>>>>>>>c HURTBOX, Lemmy Bruiser
+
+>>>>>>>>>>> transform = p:(0.0, 1.9, 0.0) r:(18.5, 147.6, 269.4) s:(1.0, 1.0, 1.0)
+
+>>>>>>>>>>> UnityEngine.CapsuleCollider
+
+>>>>>>>>>>> RoR2.HurtBox
+>>>>>>>>>>>v healthComponent = LemurianBruiserBody (RoR2.HealthComponent)
+>>>>>>>>>>>v isBullseye = False
+>>>>>>>>>>>v damageModifier = Normal
+>>>>>>>>>>>v teamIndex = None
+>>>>>>>>>>>v hurtBoxGroup = mdlLemurianBruiser (RoR2.HurtBoxGroup)
+>>>>>>>>>>>v indexInGroup = 11
+>>>>>>>>>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+
+>>>>>>>>>>> SurfaceDefProvider
+>>>>>>>>>>>v surfaceDef = sdLemurianBruiser (SurfaceDef)
+>>>>>>>>c clavicle.r
+
+>>>>>>>>> transform = p:(0.0, 2.0, 0.0) r:(284.5, 64.8, 183.6) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c pauldron.r
+
+>>>>>>>>>> transform = p:(-0.1, 2.5, 1.3) r:(284.7, 59.2, 180.4) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c pauldron.r_end
+
+>>>>>>>>>>> transform = p:(0.0, 4.5, 0.0) r:(284.7, 59.2, 180.4) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c upper_arm.r
+
+>>>>>>>>>> transform = p:(0.0, 2.9, 0.0) r:(18.5, 151.6, 90.6) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c lower_arm.r
+
+>>>>>>>>>>> transform = p:(0.0, 4.1, 0.0) r:(17.0, 142.5, 85.9) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c hand.r
+
+>>>>>>>>>>>> transform = p:(0.0, 3.4, 0.0) r:(18.0, 149.2, 89.5) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c finger1.r
+
+>>>>>>>>>>>>> transform = p:(0.0, 2.2, -0.6) r:(10.8, 133.3, 91.5) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>c finger1.r_end
+
+>>>>>>>>>>>>>> transform = p:(0.0, 2.5, 0.0) r:(10.8, 133.3, 91.5) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c finger2.r
+
+>>>>>>>>>>>>> transform = p:(0.0, 2.3, 0.0) r:(9.8, 148.2, 96.8) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>c finger2.r_end
+
+>>>>>>>>>>>>>> transform = p:(0.0, 2.2, 0.0) r:(9.8, 148.2, 96.8) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c finger3.r
+
+>>>>>>>>>>>>> transform = p:(0.0, 2.3, 0.6) r:(7.1, 164.3, 103.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>c finger3.r_end
+
+>>>>>>>>>>>>>> transform = p:(0.0, 1.9, 0.0) r:(7.1, 164.3, 103.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c thumb.r
+
+>>>>>>>>>>>>> transform = p:(-0.2, 1.2, -0.9) r:(30.7, 129.1, 133.4) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>c thumb.r_end
+
+>>>>>>>>>>>>>> transform = p:(0.0, 0.8, 0.0) r:(30.7, 129.1, 133.4) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c HURTBOX, Lemmy Bruiser
+
+>>>>>>>>>>>> transform = p:(-0.1, 4.0, 0.6) r:(18.5, 151.6, 90.6) s:(1.0, 1.0, 1.0)
+
+>>>>>>>>>>>> UnityEngine.CapsuleCollider
+
+>>>>>>>>>>>> RoR2.HurtBox
+>>>>>>>>>>>>v healthComponent = LemurianBruiserBody (RoR2.HealthComponent)
+>>>>>>>>>>>>v isBullseye = False
+>>>>>>>>>>>>v damageModifier = Normal
+>>>>>>>>>>>>v teamIndex = None
+>>>>>>>>>>>>v hurtBoxGroup = mdlLemurianBruiser (RoR2.HurtBoxGroup)
+>>>>>>>>>>>>v indexInGroup = 12
+>>>>>>>>>>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+
+>>>>>>>>>>>> SurfaceDefProvider
+>>>>>>>>>>>>v surfaceDef = sdLemurianBruiser (SurfaceDef)
+>>>>>>>>>>c HURTBOX, Lemmy Bruiser
+
+>>>>>>>>>>> transform = p:(0.0, 1.9, 0.0) r:(18.5, 151.6, 90.6) s:(1.0, 1.0, 1.0)
+
+>>>>>>>>>>> UnityEngine.CapsuleCollider
+
+>>>>>>>>>>> RoR2.HurtBox
+>>>>>>>>>>>v healthComponent = LemurianBruiserBody (RoR2.HealthComponent)
+>>>>>>>>>>>v isBullseye = False
+>>>>>>>>>>>v damageModifier = Normal
+>>>>>>>>>>>v teamIndex = None
+>>>>>>>>>>>v hurtBoxGroup = mdlLemurianBruiser (RoR2.HurtBoxGroup)
+>>>>>>>>>>>v indexInGroup = 13
+>>>>>>>>>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+
+>>>>>>>>>>> SurfaceDefProvider
+>>>>>>>>>>>v surfaceDef = sdLemurianBruiser (SurfaceDef)
+>>>>>>>>c neck.1
+
+>>>>>>>>> transform = p:(0.0, 2.0, 0.0) r:(289.9, 149.6, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c HURTBOX, Lemmy Bruiser
+
+>>>>>>>>>> transform = p:(0.0, 0.0, -0.1) r:(289.9, 149.6, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>>>>>>>> UnityEngine.CapsuleCollider
+
+>>>>>>>>>> RoR2.HurtBox
+>>>>>>>>>>v healthComponent = LemurianBruiserBody (RoR2.HealthComponent)
+>>>>>>>>>>v isBullseye = False
+>>>>>>>>>>v damageModifier = Normal
+>>>>>>>>>>v teamIndex = None
+>>>>>>>>>>v hurtBoxGroup = mdlLemurianBruiser (RoR2.HurtBoxGroup)
+>>>>>>>>>>v indexInGroup = 14
+>>>>>>>>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+
+>>>>>>>>>> SurfaceDefProvider
+>>>>>>>>>>v surfaceDef = sdLemurianBruiser (SurfaceDef)
+>>>>>>>>>c neck.2
+
+>>>>>>>>>> transform = p:(0.0, 1.4, 0.0) r:(289.2, 149.6, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c HURTBOX, Lemmy Bruiser
+
+>>>>>>>>>>> transform = p:(0.0, 0.0, -0.1) r:(289.2, 149.6, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>>>>>>>>> UnityEngine.CapsuleCollider
+
+>>>>>>>>>>> RoR2.HurtBox
+>>>>>>>>>>>v healthComponent = LemurianBruiserBody (RoR2.HealthComponent)
+>>>>>>>>>>>v isBullseye = False
+>>>>>>>>>>>v damageModifier = Normal
+>>>>>>>>>>>v teamIndex = None
+>>>>>>>>>>>v hurtBoxGroup = mdlLemurianBruiser (RoR2.HurtBoxGroup)
+>>>>>>>>>>>v indexInGroup = 15
+>>>>>>>>>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+
+>>>>>>>>>>> SurfaceDefProvider
+>>>>>>>>>>>v surfaceDef = sdLemurianBruiser (SurfaceDef)
+>>>>>>>>>>c neck.3
+
+>>>>>>>>>>> transform = p:(0.0, 1.5, 0.0) r:(70.5, 329.6, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c HURTBOX, Lemmy Bruiser
+
+>>>>>>>>>>>> transform = p:(0.0, 0.0, 0.1) r:(70.5, 329.6, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>>>>>>>>>> UnityEngine.CapsuleCollider
+
+>>>>>>>>>>>> RoR2.HurtBox
+>>>>>>>>>>>>v healthComponent = LemurianBruiserBody (RoR2.HealthComponent)
+>>>>>>>>>>>>v isBullseye = False
+>>>>>>>>>>>>v damageModifier = Normal
+>>>>>>>>>>>>v teamIndex = None
+>>>>>>>>>>>>v hurtBoxGroup = mdlLemurianBruiser (RoR2.HurtBoxGroup)
+>>>>>>>>>>>>v indexInGroup = 16
+>>>>>>>>>>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+
+>>>>>>>>>>>> SurfaceDefProvider
+>>>>>>>>>>>>v surfaceDef = sdLemurianBruiser (SurfaceDef)
+>>>>>>>>>>>c head
+
+>>>>>>>>>>>> transform = p:(0.0, 1.9, 0.0) r:(277.2, 329.6, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c Eyeball.l
+
+>>>>>>>>>>>>> transform = p:(1.1, 2.1, 0.2) r:(3.1, 329.3, 74.8) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>c Eyeball.l_end
+
+>>>>>>>>>>>>>> transform = p:(0.0, 0.6, 0.0) r:(3.1, 329.3, 74.8) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c Eyeball.r
+
+>>>>>>>>>>>>> transform = p:(-1.1, 2.1, 0.2) r:(3.1, 330.0, 285.2) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>c Eyeball.r_end
+
+>>>>>>>>>>>>>> transform = p:(0.0, 0.6, 0.0) r:(3.1, 330.0, 285.2) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c EyelidLower.l
+
+>>>>>>>>>>>>> transform = p:(1.0, 2.1, 0.2) r:(1.1, 326.3, 108.6) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>c EyelidLower.l_end
+
+>>>>>>>>>>>>>> transform = p:(0.0, 0.8, 0.0) r:(1.1, 326.3, 108.6) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c EyelidLower.r
+
+>>>>>>>>>>>>> transform = p:(-1.0, 2.1, 0.2) r:(1.1, 333.0, 251.4) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>c EyelidLower.r_end
+
+>>>>>>>>>>>>>> transform = p:(0.0, 0.8, 0.0) r:(1.1, 333.0, 251.4) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c EyelidUpper.l
+
+>>>>>>>>>>>>> transform = p:(1.0, 2.1, 0.2) r:(3.7, 334.8, 54.6) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>c EyelidUpper.l_end
+
+>>>>>>>>>>>>>> transform = p:(0.0, 0.8, 0.0) r:(3.7, 334.8, 54.6) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c EyelidUpper.r
+
+>>>>>>>>>>>>> transform = p:(-1.0, 2.1, 0.2) r:(3.7, 324.5, 305.4) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>c EyelidUpper.r_end
+
+>>>>>>>>>>>>>> transform = p:(0.0, 0.8, 0.0) r:(3.7, 324.5, 305.4) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c jaw
+
+>>>>>>>>>>>>> transform = p:(0.0, 0.5, -1.2) r:(35.5, 149.6, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>c tongue.1
+
+>>>>>>>>>>>>>> transform = p:(0.0, -0.3, -0.1) r:(58.0, 149.6, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>>c tongue.2
+
+>>>>>>>>>>>>>>> transform = p:(0.0, 1.3, 0.0) r:(55.3, 149.6, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>>>c tongue.3
+
+>>>>>>>>>>>>>>>> transform = p:(0.0, 0.9, 0.0) r:(301.5, 329.6, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>>>>c tongue.4
+
+>>>>>>>>>>>>>>>>> transform = p:(0.0, 0.8, 0.0) r:(308.7, 329.6, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>>>>>c tongue.4_end
+
+>>>>>>>>>>>>>>>>>> transform = p:(0.0, 0.7, 0.0) r:(308.7, 329.6, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c MouthMuzzle
+
+>>>>>>>>>>>>> transform = p:(0.0, 1.5, -1.1) r:(52.2, 329.6, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c HURTBOX, Lemmy Bruiser
+
+>>>>>>>>>>>>> transform = p:(0.0, 2.1, -0.5) r:(277.2, 329.6, 180.0) s:(1.0, 1.0, 1.0)
+
+>>>>>>>>>>>>> UnityEngine.CapsuleCollider
+
+>>>>>>>>>>>>> RoR2.HurtBox
+>>>>>>>>>>>>>v healthComponent = LemurianBruiserBody (RoR2.HealthComponent)
+>>>>>>>>>>>>>v isBullseye = False
+>>>>>>>>>>>>>v damageModifier = Normal
+>>>>>>>>>>>>>v teamIndex = None
+>>>>>>>>>>>>>v hurtBoxGroup = mdlLemurianBruiser (RoR2.HurtBoxGroup)
+>>>>>>>>>>>>>v indexInGroup = 17
+>>>>>>>>>>>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+
+>>>>>>>>>>>>> SurfaceDefProvider
+>>>>>>>>>>>>>v surfaceDef = sdLemurianBruiser (SurfaceDef)
+>>>>>>>>c HURTBOX, Lemmy Bruiser
+
+>>>>>>>>> transform = p:(0.0, 0.9, 0.0) r:(332.0, 149.6, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>>>>>>> UnityEngine.CapsuleCollider
+
+>>>>>>>>> RoR2.HurtBox
+>>>>>>>>>v healthComponent = LemurianBruiserBody (RoR2.HealthComponent)
+>>>>>>>>>v isBullseye = True
+>>>>>>>>>v damageModifier = Normal
+>>>>>>>>>v teamIndex = None
+>>>>>>>>>v hurtBoxGroup = mdlLemurianBruiser (RoR2.HurtBoxGroup)
+>>>>>>>>>v indexInGroup = 18
+>>>>>>>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+
+>>>>>>>>> SurfaceDefProvider
+>>>>>>>>>v surfaceDef = sdLemurianBruiser (SurfaceDef)
+>>>>>c ToeControl.l
+
+>>>>>> transform = p:(-2.8, 0.2, 3.3) r:(270.0, 329.6, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>c HeelControl.l
+
+>>>>>>> transform = p:(0.0, 2.1, 0.0) r:(270.0, 329.6, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>c IKFootTarget.l
+
+>>>>>>>> transform = p:(-0.2, 1.5, 0.9) r:(270.0, 329.6, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>>>>>> RoR2.IKTargetPassive
+>>>>>>>>v minHeight = -3
+>>>>>>>>v maxHeight = 1
+>>>>>>>>v dampTime = 0.1
+>>>>>>>>v baseOffset = 0
+>>>>>>>>v animatorIKWeightFloat = 
+>>>>>>>>v animator = 
+>>>>>>>>v selfPlant = True
+>>>>>>>>v selfPlantFrequency = 5
+>>>>>>>>v cacheFirstPosition = True
+>>>>>>>>c IKFootPole.l
+
+>>>>>>>>> transform = p:(-0.1, -12.8, 7.9) r:(90.0, 329.6, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c IKFootPole.l_end
+
+>>>>>>>>>> transform = p:(0.0, 2.6, 0.0) r:(90.0, 329.6, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>c ToeControl.r
+
+>>>>>> transform = p:(2.8, 0.2, 3.3) r:(270.0, 329.6, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>c HeelControl.r
+
+>>>>>>> transform = p:(0.0, 2.1, 0.0) r:(270.0, 329.6, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>c IKFootTarget.r
+
+>>>>>>>> transform = p:(0.2, 1.5, 0.9) r:(270.0, 329.6, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>>>>>> RoR2.IKTargetPassive
+>>>>>>>>v minHeight = -3
+>>>>>>>>v maxHeight = 1
+>>>>>>>>v dampTime = 0.1
+>>>>>>>>v baseOffset = 0
+>>>>>>>>v animatorIKWeightFloat = 
+>>>>>>>>v animator = 
+>>>>>>>>v selfPlant = True
+>>>>>>>>v selfPlantFrequency = 5
+>>>>>>>>v cacheFirstPosition = True
+>>>>>>>>c IKFootPole.r
+
+>>>>>>>>> transform = p:(0.1, -12.8, 7.9) r:(90.0, 329.6, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c IKFootPole.r_end
+
+>>>>>>>>>> transform = p:(0.0, 2.6, 0.0) r:(90.0, 329.6, 0.0) s:(1.0, 1.0, 1.0)
+>>>c LemurianBruiserMesh
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 329.6, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.SkinnedMeshRenderer
+>>>c SpawnEffectOrigin
+
+>>>> transform = p:(0.0, 0.0, -18.8) r:(270.0, 329.6, 0.0) s:(1.0, 1.0, 1.0)
+>>>c DeathEffectOrigin
+
+>>>> transform = p:(0.0, 0.0, -9.5) r:(270.0, 329.6, 0.0) s:(1.0, 1.0, 1.0)
+>>>c HealthBarOrigin
+
+>>>> transform = p:(0.0, 21.1, 0.0) r:(0.0, 329.6, 0.0) s:(1.0, 1.0, 1.0)
+>>>c AimAssist
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 329.6, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>> RoR2.AimAssistTarget
+>>>>v point0 = tail1 (UnityEngine.Transform)
+>>>>v point1 = neck.2 (UnityEngine.Transform)
+>>>>v assistScale = 2.75
+>>>>v healthComponent = LemurianBruiserBody (RoR2.HealthComponent)
+>>>>v teamComponent = LemurianBruiserBody (RoR2.TeamComponent)
+>>>>v instancesList = System.Collections.Generic.List`1[RoR2.AimAssistTarget]
+>>>>v debugAimAssistVisualCoefficient = RoR2.ConVar.FloatConVar
+>c CameraPivot
+
+>> transform = p:(0.0, 3.4, 0.0) r:(0.0, 329.6, 0.0) s:(1.0, 1.0, 1.0)
+>c AimOrigin
+
+>> transform = p:(0.0, 3.5, 0.3) r:(0.0, 329.6, 0.0) s:(1.0, 1.0, 1.0)

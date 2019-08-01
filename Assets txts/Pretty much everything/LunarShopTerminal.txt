@@ -1,0 +1,177 @@
+LunarShopTerminal
+
+> transform = p:(2.1, 0.0, 1.2) r:(34.0, 90.0, 90.0) s:(0.5, 0.5, 0.5)
+
+> UnityEngine.Networking.NetworkIdentity
+>v clientAuthorityCallback = 
+
+> RoR2.PurchaseInteraction
+>v displayNameToken = LUNAR_TERMINAL_NAME
+>v contextToken = LUNAR_TERMINAL_CONTEXT
+>v costType = Lunar
+>v available = True
+>v cost = 1
+>v automaticallyScaleCostWithDifficulty = False
+>v requiredUnlockable = 
+>v ignoreSpherecastForInteractability = False
+>v purchaseStatNames = System.String[]
+>v lastActivator = 
+>v lockGameObject = 
+>v onPurchase = RoR2.PurchaseEvent RoR2.PurchaseEvent
+
+> RoR2.ShopTerminalBehavior
+>v pickupDisplay = PickupDisplay (RoR2.PickupDisplay)
+>v dropTransform = DropCenter (UnityEngine.Transform)
+>v selfGeneratePickup = True
+>v itemTier = Lunar
+>v dropVelocity = (0.0, 20.0, 7.0)
+>v animator = mdlBazaarBabyFlower (UnityEngine.Animator)
+
+> RoR2.Highlight
+>v pickupIndex = ItemIndex.Syringe
+>v targetRenderer = BabyFlowerMesh (UnityEngine.SkinnedMeshRenderer)
+>v strength = 1
+>v highlightColor = interactive
+>v isOn = False
+
+> RoR2.Hologram.HologramProjector
+>v displayDistance = 15
+>v hologramPivot = HologramPivot (UnityEngine.Transform)
+>v disableHologramRotation = True
+
+> RoR2.SfxLocator
+>v deathSound = 
+>v barkSound = 
+>v openSound = Play_UI_lunarCache_open
+>v landingSound = 
+>v fallDamageSound = 
+>c Display
+
+>> transform = p:(0.0, 0.0, 0.0) r:(34.0, 90.0, 90.0) s:(0.6, 0.6, 0.6)
+
+>> RoR2.EntityLocator
+>>v entity = LunarShopTerminal (UnityEngine.GameObject)
+
+>> UnityEngine.SphereCollider
+>>c mdlBazaarBabyFlower
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(34.0, 90.0, 90.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.Animator
+
+>>> RoR2.EntityLocator
+>>>v entity = LunarShopTerminal (UnityEngine.GameObject)
+
+>>> RoR2.AnimationEvents
+>>>v soundCenter = 
+
+>>> ChildLocator
+>>>c BabyFlowerArmature
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 56.0) s:(1.0, 1.0, 1.0)
+>>>>c ROOT
+
+>>>>> transform = p:(0.0, 0.0, 0.0) r:(34.0, 90.0, 90.0) s:(1.0, 1.0, 1.0)
+>>>>>c Petal1.1
+
+>>>>>> transform = p:(0.0, 0.0, -0.8) r:(33.8, 96.1, 93.4) s:(1.0, 1.0, 1.0)
+>>>>>>c Petal1.2
+
+>>>>>>> transform = p:(0.0, 1.0, 0.0) r:(339.4, 326.2, 242.3) s:(1.0, 1.0, 1.0)
+>>>>>>>c Petal1.2_end
+
+>>>>>>>> transform = p:(0.0, 0.7, 0.0) r:(339.4, 326.2, 242.3) s:(1.0, 1.0, 1.0)
+>>>>>c Petal2.1
+
+>>>>>> transform = p:(-0.7, 0.0, 0.4) r:(33.7, 87.0, 83.9) s:(1.0, 1.0, 1.0)
+>>>>>>c Petal2.2
+
+>>>>>>> transform = p:(0.0, 1.0, 0.0) r:(4.9, 279.8, 317.8) s:(1.0, 1.0, 1.0)
+>>>>>>>c Petal2.2_end
+
+>>>>>>>> transform = p:(0.0, 0.7, 0.0) r:(4.9, 279.8, 317.8) s:(1.0, 1.0, 1.0)
+>>>>>c Petal3.1
+
+>>>>>> transform = p:(0.7, 0.0, 0.4) r:(33.7, 86.9, 92.7) s:(1.0, 1.0, 1.0)
+>>>>>>c Petal3.2
+
+>>>>>>> transform = p:(0.0, 1.0, 0.0) r:(38.3, 208.2, 242.7) s:(1.0, 1.0, 1.0)
+>>>>>>>c Petal3.2_end
+
+>>>>>>>> transform = p:(0.0, 0.7, 0.0) r:(38.3, 208.2, 242.7) s:(1.0, 1.0, 1.0)
+>>>c BabyFlowerMesh
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 56.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.SkinnedMeshRenderer
+>>>c DropCenter
+
+>>>> transform = p:(0.0, 1.6, 0.0) r:(34.0, 90.0, 90.0) s:(1.0, 1.0, 1.0)
+>>>c PickupDisplay
+
+>>>> transform = p:(0.0, 3.0, 0.0) r:(34.0, 90.0, 90.0) s:(1.5, 1.5, 1.5)
+
+>>>> RoR2.PickupDisplay
+>>>>v verticalWave = Wave
+>>>>v spinSpeed = 75
+>>>>v tier1ParticleEffect = 
+>>>>v tier2ParticleEffect = 
+>>>>v tier3ParticleEffect = 
+>>>>v equipmentParticleEffect = 
+>>>>v lunarParticleEffect = 
+>>>>v bossParticleEffect = 
+>>>>v coloredParticleSystems = UnityEngine.ParticleSystem[]
+>>>>v highlight = PickupDisplay (RoR2.Highlight)
+
+>>>> RoR2.Highlight
+>>>>v pickupIndex = ItemIndex.Syringe
+>>>>v targetRenderer = 
+>>>>v strength = 1
+>>>>v highlightColor = pickup
+>>>>v isOn = False
+>>c HologramPivot
+
+>>> transform = p:(0.0, 0.8, 1.9) r:(326.0, 270.0, 270.0) s:(1.0, 1.0, 1.0)
+>c StartParticles
+
+>> transform = p:(0.0, 0.3, 0.0) r:(34.0, 90.0, 90.0) s:(1.0, 1.0, 1.0)
+
+>> RoR2.ShakeEmitter
+>>v shakeOnStart = True
+>>v wave = Wave
+>>v duration = 0.4
+>>v radius = 20
+>>v scaleShakeRadiusWithLocalScale = False
+>>v amplitudeTimeDecay = True
+>>c Dust
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 56.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.ParticleSystem
+
+>>> UnityEngine.ParticleSystemRenderer
+>>c 3DDebris
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 56.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.ParticleSystem
+
+>>> UnityEngine.ParticleSystemRenderer
+>>c Beams
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(34.0, 90.0, 90.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.ParticleSystem
+
+>>> UnityEngine.ParticleSystemRenderer
+>>c BurstLight
+
+>>> transform = p:(0.0, 0.7, 0.0) r:(34.0, 90.0, 90.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.Light
+
+>>> LightIntensityCurve
+>>>v curve = UnityEngine.AnimationCurve
+>>>v timeMax = 1
+>>>v loop = False
+>>>v randomStart = False

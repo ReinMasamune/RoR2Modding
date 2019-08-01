@@ -1,0 +1,92 @@
+MissileDroneBroken
+
+> transform = p:(209.9, -116.2, 110.3) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> UnityEngine.Networking.NetworkIdentity
+>v clientAuthorityCallback = 
+
+> RoR2.Highlight
+>v pickupIndex = ItemIndex.Syringe
+>v targetRenderer = MissileDroneMesh (UnityEngine.SkinnedMeshRenderer)
+>v strength = 1
+>v highlightColor = interactive
+>v isOn = False
+
+> RoR2.SummonMasterBehavior
+>v masterPrefab = DroneMissileMaster (UnityEngine.GameObject)
+>v callOnEquipmentSpentOnPurchase = False
+>v destroyAfterSummoning = True
+
+> RoR2.PurchaseInteraction
+>v displayNameToken = DRONE_MISSILE_INTERACTABLE_NAME
+>v contextToken = DRONE_MISSILE_CONTEXT
+>v costType = Money
+>v available = True
+>v cost = 60
+>v automaticallyScaleCostWithDifficulty = False
+>v requiredUnlockable = 
+>v ignoreSpherecastForInteractability = False
+>v purchaseStatNames = System.String[]
+>v lastActivator = 
+>v lockGameObject = 
+>v onPurchase = RoR2.PurchaseEvent RoR2.PurchaseEvent
+
+> RoR2.EventFunctions
+
+> RoR2.Hologram.HologramProjector
+>v displayDistance = 15
+>v hologramPivot = HologramPivot (UnityEngine.Transform)
+>v disableHologramRotation = False
+
+> RoR2.GenericDisplayNameProvider
+>v displayToken = DRONE_MISSILE_NAME
+
+> RoR2.ModelLocator
+>v modelTransform = mdlMissileDrone (UnityEngine.Transform)
+>v modelBaseTransform = 
+>v dontReleaseModelOnDeath = False
+>v autoUpdateModelTransform = True
+>v dontDetatchFromParent = False
+>v noCorpse = False
+>v normalizeToFloor = False
+>v preserveModel = False
+>c mdlMissileDrone
+
+>> transform = p:(0.0, 0.0, 0.0) r:(346.2, 306.1, 90.0) s:(3.7, 3.7, 3.7)
+
+>> RoR2.EntityLocator
+>>v entity = MissileDroneBroken (UnityEngine.GameObject)
+>>c MissileDroneArmature
+
+>>> transform = p:(0.0, 0.1, 0.0) r:(0.0, 216.1, 103.8) s:(0.1, 0.1, 0.1)
+>>>c ROOT
+
+>>>> transform = p:(0.0, 0.9, 0.0) r:(0.0, 36.1, 76.2) s:(1.0, 1.0, 1.0)
+>>>>c Arm
+
+>>>>> transform = p:(0.0, 0.9, 0.0) r:(13.8, 126.1, 90.0) s:(1.0, 1.0, 1.0)
+>>>>>c MissilePack
+
+>>>>>> transform = p:(0.0, 1.2, 0.0) r:(350.3, 260.2, 279.9) s:(1.0, 1.0, 1.0)
+>>>>>>c MissilePack_end
+
+>>>>>>> transform = p:(0.0, 0.9, 0.0) r:(350.3, 260.2, 279.9) s:(1.0, 1.0, 1.0)
+>>>>c Body
+
+>>>>> transform = p:(0.0, 0.9, 0.0) r:(346.2, 306.1, 90.0) s:(1.0, 1.0, 1.0)
+>>>>>c Body_end
+
+>>>>>> transform = p:(0.0, 1.5, 0.0) r:(346.2, 306.1, 90.0) s:(1.0, 1.0, 1.0)
+>>c MissileDroneMesh
+
+>>> transform = p:(0.0, 0.1, 0.0) r:(0.0, 216.1, 103.8) s:(0.1, 0.1, 0.1)
+
+>>> UnityEngine.SkinnedMeshRenderer
+
+>>> UnityEngine.SphereCollider
+
+>>> RoR2.EntityLocator
+>>>v entity = MissileDroneBroken (UnityEngine.GameObject)
+>c HologramPivot
+
+>> transform = p:(0.0, 1.5, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)

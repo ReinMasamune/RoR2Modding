@@ -1,0 +1,96 @@
+ConsoleAutoCompleteDropdown
+
+> UnityEngine.RectTransform
+
+> UnityEngine.CanvasRenderer
+
+> UnityEngine.UI.Image
+
+> TMPro.TMP_Dropdown
+>c Label
+
+>> UnityEngine.RectTransform
+
+>> UnityEngine.CanvasRenderer
+
+>> RoR2.UI.HGTextMeshProUGUI
+>>v useLanguageDefaultFont = True
+>>v defaultLanguageFont = tmpBombDropshadow (TMPro.TMP_FontAsset)
+>c Arrow
+
+>> UnityEngine.RectTransform
+
+>> UnityEngine.CanvasRenderer
+
+>> UnityEngine.UI.Image
+>c Template
+
+>> UnityEngine.RectTransform
+
+>> UnityEngine.CanvasRenderer
+
+>> UnityEngine.UI.Image
+
+>> UnityEngine.UI.ScrollRect
+>>c Viewport
+
+>>> UnityEngine.RectTransform
+
+>>> UnityEngine.UI.Mask
+
+>>> UnityEngine.CanvasRenderer
+
+>>> UnityEngine.UI.Image
+>>>c Content
+
+>>>> UnityEngine.RectTransform
+>>>>c Item
+
+>>>>> UnityEngine.RectTransform
+
+>>>>> UnityEngine.UI.Toggle
+>>>>>v toggleTransition = Fade
+>>>>>v graphic = Item Checkmark (UnityEngine.UI.Image)
+>>>>>v onValueChanged = UnityEngine.UI.Toggle+ToggleEvent UnityEngine.UI.Toggle+ToggleEvent
+>>>>>c Item Background
+
+>>>>>> UnityEngine.RectTransform
+
+>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>> UnityEngine.UI.Image
+>>>>>c Item Checkmark
+
+>>>>>> UnityEngine.RectTransform
+
+>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>> UnityEngine.UI.Image
+>>>>>c Item Label
+
+>>>>>> UnityEngine.RectTransform
+
+>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>> RoR2.UI.HGTextMeshProUGUI
+>>>>>>v useLanguageDefaultFont = True
+>>>>>>v defaultLanguageFont = tmpBombDropshadow (TMPro.TMP_FontAsset)
+>>c Scrollbar
+
+>>> UnityEngine.RectTransform
+
+>>> UnityEngine.CanvasRenderer
+
+>>> UnityEngine.UI.Image
+
+>>> UnityEngine.UI.Scrollbar
+>>>c Sliding Area
+
+>>>> UnityEngine.RectTransform
+>>>>c Handle
+
+>>>>> UnityEngine.RectTransform
+
+>>>>> UnityEngine.CanvasRenderer
+
+>>>>> UnityEngine.UI.Image

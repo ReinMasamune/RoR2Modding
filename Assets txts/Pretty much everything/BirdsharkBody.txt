@@ -1,0 +1,202 @@
+BirdsharkBody
+
+> transform = p:(-70.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> UnityEngine.Networking.NetworkIdentity
+>v clientAuthorityCallback = 
+
+> RoR2.SkillLocator
+>v primary = 
+>v secondary = 
+>v utility = 
+>v special = 
+>v passiveSkill = RoR2.SkillLocator+PassiveSkill
+
+> RoR2.TeamComponent
+>v hideAllyCardDisplay = False
+
+> RoR2.CharacterBody
+>v bodyIndex = 12
+>v baseNameToken = 
+>v subtitleNameToken = 
+>v pendingTonicAfflictionCount = 0
+>v bodyFlags = Masterless
+>v readOnlyInstancesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.CharacterBody]
+>v rootMotionInMainState = False
+>v mainRootSpeed = 0
+>v baseMaxHealth = 1
+>v baseRegen = 0
+>v baseMaxShield = 0
+>v baseMoveSpeed = 0
+>v baseAcceleration = 0
+>v baseJumpPower = 0
+>v baseDamage = 0
+>v baseAttackSpeed = 0
+>v baseCrit = 0
+>v baseArmor = 0
+>v baseJumpCount = 1
+>v autoCalculateLevelStats = False
+>v levelMaxHealth = 0
+>v levelRegen = 0
+>v levelMaxShield = 0
+>v levelMoveSpeed = 0
+>v levelJumpPower = 0
+>v levelDamage = 0
+>v levelAttackSpeed = 0
+>v levelCrit = 0
+>v levelArmor = 0
+>v killCount = 0
+>v wasLucky = False
+>v spreadBloomDecayTime = 0.45
+>v spreadBloomCurve = UnityEngine.AnimationCurve
+>v crosshairPrefab = StandardCrosshair (UnityEngine.GameObject)
+>v hideCrosshair = False
+>v aimOriginTransform = 
+>v hullClassification = Human
+>v portraitIcon = texNullIcon (UnityEngine.Texture2D)
+>v isChampion = False
+>v currentVehicle = 
+>v preferredPodPrefab = 
+
+> RoR2.HealthComponent
+>v health = 1
+>v shield = 0
+>v barrier = 0
+>v body = 
+>v dontShowHealthbar = True
+>v globalDeathEventChanceCoefficient = 1
+>v medkitActivationDelay = 1.1
+>v frozenExecuteThreshold = 0.3
+
+> RoR2.EntityStateMachine
+>v customName = Body
+>v initialStateType = EntityStates.SerializableEntityStateType
+>v mainStateType = EntityStates.SerializableEntityStateType
+>v commonComponents = RoR2.EntityStateMachine+CommonComponentCache
+>v networkIndex = -1
+
+> RoR2.CharacterDeathBehavior
+>v deathStateMachine = BirdsharkBody (RoR2.EntityStateMachine)
+>v deathState = EntityStates.SerializableEntityStateType
+>v idleStateMachine = RoR2.EntityStateMachine[]
+
+> RoR2.NetworkStateMachine
+>c mdlBirdshark
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(0.6, 0.6, 0.6)
+
+>> UnityEngine.Animator
+
+>> RoR2.HurtBoxGroup
+>>v hurtBoxes = RoR2.HurtBox[]
+>>v mainHurtBox = Hurtbox (RoR2.HurtBox)
+>>v bullseyeCount = 0
+>>c Armature
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 0.0, 0.0) s:(100.0, 100.0, 100.0)
+>>>c Bone
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(272.6, 6.3, 358.0) s:(1.0, 1.0, 1.0)
+>>>>c Bone.001
+
+>>>>> transform = p:(0.0, 0.0, 0.0) r:(289.6, 198.1, 178.5) s:(1.0, 1.0, 1.0)
+>>>>>c Bone.001_end
+
+>>>>>> transform = p:(0.0, 0.0, 0.0) r:(289.6, 198.1, 178.5) s:(1.0, 1.0, 1.0)
+>>>c Bone.002
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(283.7, 183.3, 1.8) s:(1.0, 1.0, 1.0)
+>>>>c Bone.003
+
+>>>>> transform = p:(0.0, 0.1, 0.0) r:(280.8, 5.0, 175.8) s:(1.0, 1.0, 1.0)
+>>>>>c Bone.004
+
+>>>>>> transform = p:(0.0, 0.1, 0.0) r:(274.5, 331.5, 192.3) s:(1.0, 1.0, 1.0)
+>>>>>>c Bone.004_end
+
+>>>>>>> transform = p:(0.0, 0.0, 0.0) r:(274.5, 331.5, 192.3) s:(1.0, 1.0, 1.0)
+>>>c wing1.1.l
+
+>>>> transform = p:(0.0, -0.1, 0.0) r:(353.4, 38.7, 109.2) s:(1.0, 1.0, 1.0)
+>>>>c wing1.2.l
+
+>>>>> transform = p:(0.0, 0.0, 0.0) r:(299.8, 271.4, 181.1) s:(1.0, 1.0, 1.0)
+>>>>>c wing1.3.l
+
+>>>>>> transform = p:(0.0, 0.0, 0.0) r:(278.7, 264.2, 179.8) s:(1.0, 1.0, 1.0)
+>>>>>>c wing1.3.l_end
+
+>>>>>>> transform = p:(0.0, 0.0, 0.0) r:(278.7, 264.2, 179.8) s:(1.0, 1.0, 1.0)
+>>>c wing1.1.r
+
+>>>> transform = p:(0.0, -0.1, 0.0) r:(338.4, 133.0, 107.7) s:(1.0, 1.0, 1.0)
+>>>>c wing1.2.r
+
+>>>>> transform = p:(0.0, 0.0, 0.0) r:(62.8, 307.4, 216.6) s:(1.0, 1.0, 1.0)
+>>>>>c wing1.3.r
+
+>>>>>> transform = p:(0.0, 0.0, 0.0) r:(20.9, 184.8, 87.0) s:(1.0, 1.0, 1.0)
+>>>>>>c wing1.3.r_end
+
+>>>>>>> transform = p:(0.0, 0.0, 0.0) r:(20.9, 184.8, 87.0) s:(1.0, 1.0, 1.0)
+>>>c wing2.1.l
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(11.9, 25.2, 66.1) s:(1.0, 1.0, 1.0)
+>>>>c wing2.2.l
+
+>>>>> transform = p:(0.0, 0.1, 0.0) r:(291.0, 90.0, 356.2) s:(1.0, 1.0, 1.0)
+>>>>>c wing2.3.l
+
+>>>>>> transform = p:(0.0, 0.0, 0.0) r:(281.8, 90.0, 351.3) s:(1.0, 1.0, 1.0)
+>>>>>>c wing2.3.l_end
+
+>>>>>>> transform = p:(0.0, 0.0, 0.0) r:(281.8, 90.0, 351.3) s:(1.0, 1.0, 1.0)
+>>>c wing2.1.r
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(350.7, 153.8, 72.6) s:(1.0, 1.0, 1.0)
+>>>>c wing2.2.r
+
+>>>>> transform = p:(0.0, 0.1, 0.0) r:(292.3, 270.0, 3.8) s:(1.0, 1.0, 1.0)
+>>>>>c wing2.3.r
+
+>>>>>> transform = p:(0.0, 0.0, 0.0) r:(275.2, 90.0, 188.7) s:(1.0, 1.0, 1.0)
+>>>>>>c wing2.3.r_end
+
+>>>>>>> transform = p:(0.0, 0.0, 0.0) r:(275.2, 90.0, 188.7) s:(1.0, 1.0, 1.0)
+>>>c wing3.1.l
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(10.7, 352.1, 106.2) s:(1.0, 1.0, 1.0)
+>>>>c wing3.2.l
+
+>>>>> transform = p:(0.0, 0.0, 0.0) r:(296.2, 267.5, 161.3) s:(1.0, 1.0, 1.0)
+>>>>>c wing3.2.l_end
+
+>>>>>> transform = p:(0.0, 0.0, 0.0) r:(296.2, 267.5, 161.3) s:(1.0, 1.0, 1.0)
+>>>c wing3.1.r
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(68.8, 301.4, 198.8) s:(1.0, 1.0, 1.0)
+>>>>c wing3.2.r
+
+>>>>> transform = p:(0.0, 0.0, 0.0) r:(359.2, 203.2, 116.8) s:(1.0, 1.0, 1.0)
+>>>>>c wing3.2.r_end
+
+>>>>>> transform = p:(0.0, 0.0, 0.0) r:(359.2, 203.2, 116.8) s:(1.0, 1.0, 1.0)
+>>c BirdsharkMesh
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 180.0, 180.0) s:(100.0, 100.0, 100.0)
+
+>>> UnityEngine.SkinnedMeshRenderer
+>>c Hurtbox
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.SphereCollider
+
+>>> RoR2.HurtBox
+>>>v healthComponent = BirdsharkBody (RoR2.HealthComponent)
+>>>v isBullseye = False
+>>>v damageModifier = Normal
+>>>v teamIndex = None
+>>>v hurtBoxGroup = mdlBirdshark (RoR2.HurtBoxGroup)
+>>>v indexInGroup = 0
+>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]

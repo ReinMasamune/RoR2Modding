@@ -1,0 +1,40 @@
+ShrineHealingWard
+
+> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> RoR2.TeamFilter
+
+> RoR2.HealingWard
+>v radius = 8
+>v interval = 0.25
+>v healPoints = 0
+>v healFraction = 0.015
+>v rangeIndicator = Indicator (UnityEngine.Transform)
+>v floorWard = False
+
+> UnityEngine.Networking.NetworkIdentity
+>v clientAuthorityCallback = 
+>c Indicator
+
+>> transform = p:(0.0, 0.1, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>c IndicatorSphere
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(2.0, 2.0, 2.0)
+
+>>> UnityEngine.MeshFilter
+
+>>> UnityEngine.MeshRenderer
+>>c HealingSymbols
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.ParticleSystem
+
+>>> UnityEngine.ParticleSystemRenderer
+>>c IndicatorSphere (2)
+
+>>> transform = p:(0.0, 0.0, -0.1) r:(0.0, 0.0, 0.0) s:(0.5, 0.5, 0.4)
+
+>>> UnityEngine.MeshFilter
+
+>>> UnityEngine.MeshRenderer

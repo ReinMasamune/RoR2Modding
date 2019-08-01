@@ -1,0 +1,80 @@
+FlameDroneBroken
+
+> transform = p:(78.2, -115.3, 6.7) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> UnityEngine.Networking.NetworkIdentity
+>v clientAuthorityCallback = 
+
+> RoR2.Highlight
+>v pickupIndex = ItemIndex.Syringe
+>v targetRenderer = DroneMesh (UnityEngine.MeshRenderer)
+>v strength = 1
+>v highlightColor = interactive
+>v isOn = False
+
+> RoR2.SummonMasterBehavior
+>v masterPrefab = FlameDroneMaster (UnityEngine.GameObject)
+>v callOnEquipmentSpentOnPurchase = False
+>v destroyAfterSummoning = True
+
+> RoR2.PurchaseInteraction
+>v displayNameToken = FLAMEDRONE_INTERACTABLE_NAME
+>v contextToken = FLAMEDRONE_CONTEXT
+>v costType = Money
+>v available = True
+>v cost = 100
+>v automaticallyScaleCostWithDifficulty = False
+>v requiredUnlockable = 
+>v ignoreSpherecastForInteractability = False
+>v purchaseStatNames = System.String[]
+>v lastActivator = 
+>v lockGameObject = 
+>v onPurchase = RoR2.PurchaseEvent RoR2.PurchaseEvent
+
+> RoR2.EventFunctions
+
+> RoR2.Hologram.HologramProjector
+>v displayDistance = 15
+>v hologramPivot = HologramPivot (UnityEngine.Transform)
+>v disableHologramRotation = False
+
+> RoR2.GenericDisplayNameProvider
+>v displayToken = FLAMEDRONE_NAME
+
+> RoR2.ModelLocator
+>v modelTransform = mdlEquipmentDrone (UnityEngine.Transform)
+>v modelBaseTransform = 
+>v dontReleaseModelOnDeath = False
+>v autoUpdateModelTransform = True
+>v dontDetatchFromParent = True
+>v noCorpse = False
+>v normalizeToFloor = False
+>v preserveModel = False
+>c mdlEquipmentDrone
+
+>> transform = p:(0.8, 0.4, 0.1) r:(17.4, 51.1, 76.7) s:(0.2, 0.2, 0.2)
+
+>> RoR2.EntityLocator
+>>v entity = FlameDroneBroken (UnityEngine.GameObject)
+>>c DroneMesh
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(17.4, 51.1, 76.7) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.SphereCollider
+
+>>> RoR2.EntityLocator
+>>>v entity = FlameDroneBroken (UnityEngine.GameObject)
+
+>>> UnityEngine.MeshRenderer
+
+>>> UnityEngine.MeshFilter
+>>c DroneBladeMesh
+
+>>> transform = p:(0.0, 0.0, 1.9) r:(17.4, 51.1, 76.7) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.MeshFilter
+
+>>> UnityEngine.MeshRenderer
+>c HologramPivot
+
+>> transform = p:(0.0, 1.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)

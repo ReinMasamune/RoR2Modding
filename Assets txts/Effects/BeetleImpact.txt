@@ -1,0 +1,9 @@
+BeetleImpact
+
+> transform = p:(110.0, 0.5, 262.1) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> RoR2.VFXAttributes
+>v vfxPriority = Low
+>v vfxIntensity = Low
+>v optionalLights = UnityEngine.Light[]
+>v secondaryParticleSystem = UnityEngine.ParticleSystem[]

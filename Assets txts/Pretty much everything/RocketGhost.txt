@@ -1,0 +1,31 @@
+RocketGhost
+
+> transform = p:(263.8, 22.1, 165.9) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> RoR2.Projectile.ProjectileGhostController
+>v authorityTransform = 
+>v predictionTransform = 
+
+> RoR2.ShakeEmitter
+>v shakeOnStart = True
+>v wave = Wave
+>v duration = 0.1
+>v radius = 15
+>v scaleShakeRadiusWithLocalScale = False
+>v amplitudeTimeDecay = True
+
+> UnityEngine.Light
+>c Capsule
+
+>> transform = p:(0.0, 0.0, 0.0) r:(90.0, 0.0, 0.0) s:(0.5, 0.5, 0.5)
+
+>> UnityEngine.MeshFilter
+
+>> UnityEngine.MeshRenderer
+>>c Particle System (1)
+
+>>> transform = p:(0.0, -1.2, 0.0) r:(90.0, 0.0, 0.0) s:(2.0, 2.0, 2.0)
+
+>>> UnityEngine.ParticleSystem
+
+>>> UnityEngine.ParticleSystemRenderer

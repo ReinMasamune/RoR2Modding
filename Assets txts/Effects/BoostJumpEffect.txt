@@ -1,0 +1,40 @@
+BoostJumpEffect
+
+> transform = p:(11.0, -5.7, 8.5) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> RoR2.EffectComponent
+>v effectData = 
+>v positionAtReferencedTransform = False
+>v parentToReferencedTransform = False
+>v applyScale = False
+
+> DestroyOnParticleEnd
+
+> RoR2.VFXAttributes
+>v vfxPriority = Medium
+>v vfxIntensity = Low
+>v optionalLights = UnityEngine.Light[]
+>v secondaryParticleSystem = UnityEngine.ParticleSystem[]
+
+> UnityEngine.Rigidbody
+
+> RoR2.RTPCController
+>v akSoundString = Play_item_proc_wisp_explo
+>v rtpcString = explosionSize
+>v rtpcValue = 1
+>v useCurveInstead = False
+>v rtpcValueCurve = UnityEngine.AnimationCurve
+>c Feather, Radial
+
+>> transform = p:(0.0, 0.0, 0.3) r:(90.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> UnityEngine.ParticleSystem
+
+>> UnityEngine.ParticleSystemRenderer
+>c Feather, Directional
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(0.3, 0.3, 0.3)
+
+>> UnityEngine.ParticleSystem
+
+>> UnityEngine.ParticleSystemRenderer

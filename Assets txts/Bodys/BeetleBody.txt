@@ -1,0 +1,670 @@
+BeetleBody
+
+> transform = p:(-13.9, -212.5, -175.8) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> UnityEngine.Networking.NetworkIdentity
+>v clientAuthorityCallback = 
+
+> RoR2.CharacterMotor
+>v instancesList = System.Collections.Generic.List`1[RoR2.CharacterMotor]
+>v walkSpeedPenaltyCoefficient = 1
+>v characterDirection = 
+>v muteWalkMotion = False
+>v mass = 100
+>v airControl = 0.25
+>v disableAirControlUntilCollision = False
+>v generateParametersOnAwake = True
+>v slipStartAngle = 70
+>v slipEndAngle = 55
+>v jumpCount = 0
+>v netIsGrounded = False
+>v netGroundNormal = (0.0, 0.0, 0.0)
+>v velocity = (0.0, 0.0, 0.0)
+>v rootMotion = (0.0, 0.0, 0.0)
+
+> RoR2.InputBankTest
+>v lookPitch = 0
+>v lookYaw = 0
+>v moveVector = (0.0, 0.0, 0.0)
+>v skill1 = RoR2.InputBankTest+ButtonState
+>v skill2 = RoR2.InputBankTest+ButtonState
+>v skill3 = RoR2.InputBankTest+ButtonState
+>v skill4 = RoR2.InputBankTest+ButtonState
+>v interact = RoR2.InputBankTest+ButtonState
+>v jump = RoR2.InputBankTest+ButtonState
+>v sprint = RoR2.InputBankTest+ButtonState
+>v activateEquipment = RoR2.InputBankTest+ButtonState
+>v ping = RoR2.InputBankTest+ButtonState
+>v emoteRequest = -1
+
+> RoR2.CharacterBody
+>v bodyIndex = 7
+>v baseNameToken = BEETLE_BODY_NAME
+>v subtitleNameToken = 
+>v pendingTonicAfflictionCount = 0
+>v bodyFlags = None
+>v readOnlyInstancesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.CharacterBody]
+>v rootMotionInMainState = True
+>v mainRootSpeed = 5.34
+>v baseMaxHealth = 80
+>v baseRegen = 0
+>v baseMaxShield = 0
+>v baseMoveSpeed = 6
+>v baseAcceleration = 40
+>v baseJumpPower = 15
+>v baseDamage = 12
+>v baseAttackSpeed = 1
+>v baseCrit = 0
+>v baseArmor = 0
+>v baseJumpCount = 1
+>v autoCalculateLevelStats = True
+>v levelMaxHealth = 24
+>v levelRegen = 0
+>v levelMaxShield = 0
+>v levelMoveSpeed = 0
+>v levelJumpPower = 0
+>v levelDamage = 2.4
+>v levelAttackSpeed = 0
+>v levelCrit = 0
+>v levelArmor = 0
+>v killCount = 0
+>v wasLucky = False
+>v spreadBloomDecayTime = 0.45
+>v spreadBloomCurve = UnityEngine.AnimationCurve
+>v crosshairPrefab = 
+>v hideCrosshair = False
+>v aimOriginTransform = AimOrigin (UnityEngine.Transform)
+>v hullClassification = Human
+>v portraitIcon = BeetleBody (UnityEngine.Texture2D)
+>v isChampion = False
+>v currentVehicle = 
+>v preferredPodPrefab = 
+
+> RoR2.CameraTargetParams
+>v cameraParams = ccpStandard (RoR2.CharacterCameraParams)
+>v cameraPivotTransform = 
+>v aimMode = Standard
+>v recoil = (0.0, 0.0)
+>v idealLocalCameraPos = (0.0, 1.0, -6.0)
+>v fovOverride = -1
+>v dontRaycastToPivot = False
+
+> RoR2.ModelLocator
+>v modelTransform = mdlBeetle (UnityEngine.Transform)
+>v modelBaseTransform = ModelBase (UnityEngine.Transform)
+>v dontReleaseModelOnDeath = False
+>v autoUpdateModelTransform = True
+>v dontDetatchFromParent = False
+>v noCorpse = False
+>v normalizeToFloor = False
+>v preserveModel = False
+
+> RoR2.EntityStateMachine
+>v customName = Body
+>v initialStateType = EntityStates.SerializableEntityStateType
+>v mainStateType = EntityStates.SerializableEntityStateType
+>v commonComponents = RoR2.EntityStateMachine+CommonComponentCache
+>v networkIndex = -1
+
+> RoR2.CharacterDirection
+>v moveVector = (0.0, 0.0, 0.0)
+>v targetTransform = ModelBase (UnityEngine.Transform)
+>v overrideAnimatorForwardTransform = 
+>v rootMotionAccumulator = 
+>v modelAnimator = 
+>v driveFromRootRotation = False
+>v turnSpeed = 720
+
+> RoR2.GenericSkill
+>v skillName = Headbutt
+>v skillNameToken = 
+>v skillDescriptionToken = 
+>v baseRechargeInterval = 0
+>v baseMaxStock = 1
+>v rechargeStock = 1
+>v isBullets = False
+>v shootDelay = 0.1
+>v beginSkillCooldownOnSkillEnd = False
+>v stateMachine = BeetleBody (RoR2.EntityStateMachine)
+>v activationState = EntityStates.SerializableEntityStateType
+>v interruptPriority = Skill
+>v isCombatSkill = True
+>v noSprint = True
+>v canceledFromSprinting = False
+>v mustKeyPress = False
+>v icon = 
+>v requiredStock = 1
+>v stockToConsume = 1
+>v hasExecutedSuccessfully = False
+
+> RoR2.SkillLocator
+>v primary = BeetleBody (RoR2.GenericSkill)
+>v secondary = BeetleBody (RoR2.GenericSkill)
+>v utility = 
+>v special = 
+>v passiveSkill = RoR2.SkillLocator+PassiveSkill
+
+> RoR2.TeamComponent
+>v hideAllyCardDisplay = False
+
+> RoR2.HealthComponent
+>v health = 100
+>v shield = 0
+>v barrier = 0
+>v body = 
+>v dontShowHealthbar = False
+>v globalDeathEventChanceCoefficient = 1
+>v medkitActivationDelay = 1.1
+>v frozenExecuteThreshold = 0.3
+
+> RoR2.Interactor
+>v maxInteractionDistance = 3
+
+> RoR2.InteractionDriver
+>v highlightInteractor = False
+>v interactableOverride = 
+
+> RoR2.CharacterDeathBehavior
+>v deathStateMachine = BeetleBody (RoR2.EntityStateMachine)
+>v deathState = EntityStates.SerializableEntityStateType
+>v idleStateMachine = RoR2.EntityStateMachine[]
+
+> RoR2.SetStateOnHurt
+>v hitThreshold = 0.2
+>v targetStateMachine = BeetleBody (RoR2.EntityStateMachine)
+>v idleStateMachine = RoR2.EntityStateMachine[]
+>v hurtState = EntityStates.SerializableEntityStateType
+>v canBeHitStunned = True
+>v canBeStunned = True
+>v canBeFrozen = True
+
+> RoR2.DeathRewards
+>v expReward = 0
+>v logUnlockableName = Logs.BeetleBody.0
+>v bossPickup = RoR2.SerializablePickupIndex
+
+> RoR2.Networking.CharacterNetworkTransform
+>v positionTransmitInterval = 0.1
+>v lastPositionTransmitTime = -Infinity
+>v interpolationFactor = 2
+>v newestNetSnapshot = RoR2.Networking.CharacterNetworkTransform+Snapshot
+>v debugDuplicatePositions = False
+>v debugSnapshotReceived = False
+
+> RoR2.NetworkStateMachine
+
+> RoR2.GenericSkill
+>v skillName = Sleep
+>v skillNameToken = 
+>v skillDescriptionToken = 
+>v baseRechargeInterval = 1
+>v baseMaxStock = 1
+>v rechargeStock = 1
+>v isBullets = False
+>v shootDelay = 0.3
+>v beginSkillCooldownOnSkillEnd = False
+>v stateMachine = BeetleBody (RoR2.EntityStateMachine)
+>v activationState = EntityStates.SerializableEntityStateType
+>v interruptPriority = Any
+>v isCombatSkill = True
+>v noSprint = True
+>v canceledFromSprinting = False
+>v mustKeyPress = False
+>v icon = 
+>v requiredStock = 1
+>v stockToConsume = 1
+>v hasExecutedSuccessfully = False
+
+> RoR2.CharacterEmoteDefinitions
+>v emoteDefinitions = RoR2.CharacterEmoteDefinitions+EmoteDef[]
+
+> RoR2.EquipmentSlot
+>v equipmentActivateString = Play_UI_equipment_activate
+
+> UnityEngine.Rigidbody
+
+> RoR2.SfxLocator
+>v deathSound = Play_beetle_worker_death
+>v barkSound = Play_beetle_worker_idle
+>v openSound = 
+>v landingSound = 
+>v fallDamageSound = 
+
+> UnityEngine.CapsuleCollider
+
+> KinematicCharacterController.KinematicCharacterMotor
+>v CharacterController = BeetleBody (RoR2.CharacterMotor)
+>v Capsule = BeetleBody (UnityEngine.CapsuleCollider)
+>v Rigidbody = BeetleBody (UnityEngine.Rigidbody)
+>v DetectDiscreteCollisions = False
+>v GroundDetectionExtraDistance = 0
+>v MaxStepHeight = 0.2
+>v MinRequiredStepDepth = 0.1
+>v MaxStableSlopeAngle = 55
+>v MaxStableDistanceFromLedge = 0.5
+>v PreventSnappingOnLedges = False
+>v MaxStableDenivelationAngle = 55
+>v RigidbodyInteractionType = None
+>v PreserveAttachedRigidbodyMomentum = True
+>v HasPlanarConstraint = False
+>v PlanarConstraintAxis = (0.0, 0.0, 1.0)
+>v StepHandling = Standard
+>v LedgeHandling = True
+>v InteractiveRigidbodyHandling = True
+>v SafeMovement = False
+>v GroundingStatus = KinematicCharacterController.CharacterGroundingReport
+>v LastGroundingStatus = KinematicCharacterController.CharacterTransientGroundingReport
+>v CollidableLayers = UnityEngine.LayerMask
+>v MaxHitsBudget = 16
+>v MaxCollisionBudget = 16
+>v MaxGroundingSweepIterations = 2
+>v MaxMovementSweepIterations = 6
+>v MaxSteppingSweepIterations = 3
+>v MaxRigidbodyOverlapsCount = 16
+>v MaxDiscreteCollisionIterations = 3
+>v CollisionOffset = 0.001
+>v GroundProbeReboundDistance = 0.02
+>v MinimumGroundProbingDistance = 0.005
+>v GroundProbingBackstepDistance = 0.1
+>v SweepProbingBackstepDistance = 0.002
+>v SecondaryProbesVertical = 0.02
+>v SecondaryProbesHorizontal = 0.001
+>v MinVelocityMagnitude = 0.01
+>v SteppingForwardDistance = 0.03
+>v MinDistanceForLedge = 0.05
+>v CorrelationForVerticalObstruction = 0.01
+>v ExtraSteppingForwardDistance = 0.01
+>v ExtraStepHeightPadding = 0.01
+>c ModelBase
+
+>> transform = p:(0.0, -0.9, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>c mdlBeetle
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.Animator
+
+>>> RootMotionAccumulator
+>>>v accumulatedRootMotion = (0.0, 0.0, 0.0)
+>>>v accumulatedRootRotation = (0.0, 0.0, 0.0, 0.0)
+>>>v accumulateRotation = False
+
+>>> RoR2.HurtBoxGroup
+>>>v hurtBoxes = RoR2.HurtBox[]
+>>>v mainHurtBox = Hurtbox (Face) (RoR2.HurtBox)
+>>>v bullseyeCount = 1
+
+>>> RoR2.HitBoxGroup
+>>>v groupName = Headbutt
+>>>v hitBoxes = RoR2.HitBox[]
+
+>>> UnityEngine.Rigidbody
+
+>>> RoR2.DestroyOnUnseen
+>>>v cull = False
+
+>>> RoR2.AimAnimator
+>>>v inputBank = BeetleBody (RoR2.InputBankTest)
+>>>v directionComponent = BeetleBody (RoR2.CharacterDirection)
+>>>v pitchRangeMin = -25
+>>>v pitchRangeMax = 25
+>>>v yawRangeMin = -70
+>>>v yawRangeMax = 70
+>>>v pitchGiveupRange = 20
+>>>v yawGiveupRange = 20
+>>>v giveupDuration = 2
+>>>v raisedApproachSpeed = 720
+>>>v loweredApproachSpeed = 360
+>>>v smoothTime = 0.1
+>>>v fullYaw = False
+>>>v aimType = Direct
+>>>v enableAimWeight = False
+
+>>> ChildLocator
+
+>>> RoR2.CharacterModel
+>>>v body = BeetleBody (RoR2.CharacterBody)
+>>>v itemDisplayRuleSet = idrsBeetle (RoR2.ItemDisplayRuleSet)
+>>>v autoPopulateLightInfos = True
+>>>v autoPopulateParticleSystemInfos = True
+>>>v baseParticleSystemInfos = RoR2.CharacterModel+ParticleSystemInfo[]
+>>>v baseRendererInfos = RoR2.CharacterModel+RendererInfo[]
+>>>v baseLightInfos = RoR2.CharacterModel+LightInfo[]
+>>>v invisibilityCount = 0
+>>>v temporaryOverlays = System.Collections.Generic.List`1[RoR2.TemporaryOverlay]
+>>>v revealedMaterial = matRevealedEffect (UnityEngine.Material)
+>>>v cloakedMaterial = matCloakedEffect (UnityEngine.Material)
+>>>v ghostMaterial = matGhostEffect (UnityEngine.Material)
+>>>v bellBuffMaterial = matBellBuff (UnityEngine.Material)
+>>>v wolfhatMaterial = matWolfhatOverlay (UnityEngine.Material)
+>>>v energyShieldMaterial = matEnergyShield (UnityEngine.Material)
+>>>v fullCritMaterial = matFullCrit (UnityEngine.Material)
+>>>v beetleJuiceMaterial = matBeetleJuice (UnityEngine.Material)
+>>>v brittleMaterial = matBrittle (UnityEngine.Material)
+>>>v clayGooMaterial = matClayGooDebuff (UnityEngine.Material)
+>>>v slow80Material = matSlow80Debuff (UnityEngine.Material)
+>>>v immuneMaterial = matImmune (UnityEngine.Material)
+>>>v elitePoisonOverlayMaterial = matElitePoisonOverlay (UnityEngine.Material)
+>>>v elitePoisonParticleReplacementMaterial = matElitePoisonParticleReplacement (UnityEngine.Material)
+>>>v weakMaterial = matWeakOverlay (UnityEngine.Material)
+
+>>> RoR2.FootstepHandler
+>>>v baseFootstepString = Play_beetle_worker_step
+>>>v enableFootstepDust = False
+>>>v footstepDustPrefab = 
+
+>>> RoR2.AnimationEvents
+>>>v soundCenter = 
+>>>c Mesh
+
+>>>> transform = p:(0.0, 0.5, 0.0) r:(0.0, 0.0, 180.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.SkinnedMeshRenderer
+>>>c chest
+
+>>>> transform = p:(0.0, 1.6, -0.1) r:(15.8, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>c Hurtbox
+
+>>>>> transform = p:(0.0, 0.0, 0.0) r:(15.8, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>>> UnityEngine.BoxCollider
+
+>>>>> RoR2.HurtBox
+>>>>>v healthComponent = BeetleBody (RoR2.HealthComponent)
+>>>>>v isBullseye = True
+>>>>>v damageModifier = Normal
+>>>>>v teamIndex = None
+>>>>>v hurtBoxGroup = mdlBeetle (RoR2.HurtBoxGroup)
+>>>>>v indexInGroup = 0
+>>>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+
+>>>>> UnityEngine.BoxCollider
+
+>>>>> UnityEngine.BoxCollider
+
+>>>>> SurfaceDefProvider
+>>>>>v surfaceDef = sdBeetleWorker (SurfaceDef)
+
+>>>>> UnityEngine.Rigidbody
+>>>c Head
+
+>>>> transform = p:(0.0, 2.4, 0.1) r:(331.8, 180.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>c Hurtbox (Head Shell)
+
+>>>>> transform = p:(0.0, 0.0, 0.0) r:(358.0, 180.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>>> RoR2.HurtBox
+>>>>>v healthComponent = BeetleBody (RoR2.HealthComponent)
+>>>>>v isBullseye = False
+>>>>>v damageModifier = Normal
+>>>>>v teamIndex = None
+>>>>>v hurtBoxGroup = mdlBeetle (RoR2.HurtBoxGroup)
+>>>>>v indexInGroup = 1
+>>>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+
+>>>>> UnityEngine.BoxCollider
+
+>>>>> SurfaceDefProvider
+>>>>>v surfaceDef = sdBeetleWorker (SurfaceDef)
+
+>>>>> UnityEngine.Rigidbody
+>>>>c HeadbuttHitbox
+
+>>>>> transform = p:(0.0, 0.3, 0.2) r:(354.4, 180.0, 0.0) s:(1.0, 1.0, 1.7)
+
+>>>>> RoR2.HitBox
+>>>>c Hurtbox (Face)
+
+>>>>> transform = p:(0.0, 0.0, 0.0) r:(358.0, 180.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>>> RoR2.HurtBox
+>>>>>v healthComponent = BeetleBody (RoR2.HealthComponent)
+>>>>>v isBullseye = False
+>>>>>v damageModifier = SniperTarget
+>>>>>v teamIndex = None
+>>>>>v hurtBoxGroup = mdlBeetle (RoR2.HurtBoxGroup)
+>>>>>v indexInGroup = 2
+>>>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+
+>>>>> UnityEngine.BoxCollider
+
+>>>>> SurfaceDefProvider
+>>>>>v surfaceDef = sdBeetleWorker (SurfaceDef)
+
+>>>>> UnityEngine.Rigidbody
+>>>c upper_arm.l
+
+>>>> transform = p:(-0.5, 1.9, 0.0) r:(299.7, 199.0, 245.8) s:(1.0, 1.0, 1.0)
+>>>>c Hurtbox
+
+>>>>> transform = p:(0.0, 0.6, 0.0) r:(295.2, 331.6, 118.4) s:(1.0, 1.0, 1.0)
+
+>>>>> RoR2.HurtBox
+>>>>>v healthComponent = BeetleBody (RoR2.HealthComponent)
+>>>>>v isBullseye = False
+>>>>>v damageModifier = Normal
+>>>>>v teamIndex = None
+>>>>>v hurtBoxGroup = mdlBeetle (RoR2.HurtBoxGroup)
+>>>>>v indexInGroup = 3
+>>>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+
+>>>>> UnityEngine.BoxCollider
+
+>>>>> SurfaceDefProvider
+>>>>>v surfaceDef = sdBeetleWorker (SurfaceDef)
+
+>>>>> UnityEngine.Rigidbody
+>>>c lower_arm.l
+
+>>>> transform = p:(-1.7, 1.7, 0.0) r:(286.1, 324.6, 159.2) s:(1.0, 1.0, 1.0)
+>>>>c Hurtbox
+
+>>>>> transform = p:(0.0, 0.6, 0.0) r:(308.2, 13.1, 110.2) s:(1.0, 1.0, 1.0)
+
+>>>>> RoR2.HurtBox
+>>>>>v healthComponent = BeetleBody (RoR2.HealthComponent)
+>>>>>v isBullseye = False
+>>>>>v damageModifier = Normal
+>>>>>v teamIndex = None
+>>>>>v hurtBoxGroup = mdlBeetle (RoR2.HurtBoxGroup)
+>>>>>v indexInGroup = 4
+>>>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+
+>>>>> UnityEngine.BoxCollider
+
+>>>>> SurfaceDefProvider
+>>>>>v surfaceDef = sdBeetleWorker (SurfaceDef)
+
+>>>>> UnityEngine.Rigidbody
+>>>>c HandL
+
+>>>>> transform = p:(0.0, 1.2, 0.0) r:(286.1, 324.6, 159.2) s:(1.0, 1.0, 1.0)
+
+>>>>> UnityEngine.Rigidbody
+>>>c upper_arm.r
+
+>>>> transform = p:(0.5, 1.9, 0.0) r:(314.2, 165.6, 112.9) s:(1.0, 1.0, 1.0)
+>>>>c Hurtbox
+
+>>>>> transform = p:(0.0, 0.7, 0.0) r:(295.3, 39.1, 224.7) s:(1.0, 1.0, 1.0)
+
+>>>>> RoR2.HurtBox
+>>>>>v healthComponent = BeetleBody (RoR2.HealthComponent)
+>>>>>v isBullseye = False
+>>>>>v damageModifier = Normal
+>>>>>v teamIndex = None
+>>>>>v hurtBoxGroup = mdlBeetle (RoR2.HurtBoxGroup)
+>>>>>v indexInGroup = 5
+>>>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+
+>>>>> UnityEngine.BoxCollider
+
+>>>>> SurfaceDefProvider
+>>>>>v surfaceDef = sdBeetleWorker (SurfaceDef)
+
+>>>>> UnityEngine.Rigidbody
+>>>c lower_arm.r
+
+>>>> transform = p:(1.7, 1.6, 0.0) r:(283.1, 96.5, 141.7) s:(1.0, 1.0, 1.0)
+>>>>c Hurtbox
+
+>>>>> transform = p:(0.1, 0.6, 0.0) r:(283.1, 96.5, 141.7) s:(1.0, 1.0, 1.0)
+
+>>>>> RoR2.HurtBox
+>>>>>v healthComponent = BeetleBody (RoR2.HealthComponent)
+>>>>>v isBullseye = False
+>>>>>v damageModifier = Normal
+>>>>>v teamIndex = None
+>>>>>v hurtBoxGroup = mdlBeetle (RoR2.HurtBoxGroup)
+>>>>>v indexInGroup = 6
+>>>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+
+>>>>> UnityEngine.BoxCollider
+
+>>>>> SurfaceDefProvider
+>>>>>v surfaceDef = sdBeetleWorker (SurfaceDef)
+
+>>>>> UnityEngine.Rigidbody
+>>>>c HandR
+
+>>>>> transform = p:(0.0, 1.1, 0.0) r:(283.1, 96.5, 141.7) s:(1.0, 1.0, 1.0)
+
+>>>>> UnityEngine.Rigidbody
+>>>c hip
+
+>>>> transform = p:(0.0, 1.6, -0.1) r:(351.4, 180.0, 180.0) s:(1.0, 1.0, 1.0)
+>>>>c Hurtbox
+
+>>>>> transform = p:(0.1, 0.1, 0.2) r:(274.7, 20.4, 138.7) s:(1.0, 1.0, 1.0)
+
+>>>>> UnityEngine.BoxCollider
+
+>>>>> RoR2.HurtBox
+>>>>>v healthComponent = BeetleBody (RoR2.HealthComponent)
+>>>>>v isBullseye = False
+>>>>>v damageModifier = Normal
+>>>>>v teamIndex = None
+>>>>>v hurtBoxGroup = mdlBeetle (RoR2.HurtBoxGroup)
+>>>>>v indexInGroup = 7
+>>>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+
+>>>>> SurfaceDefProvider
+>>>>>v surfaceDef = sdBeetleWorker (SurfaceDef)
+
+>>>>> UnityEngine.Rigidbody
+>>>c thigh.l
+
+>>>> transform = p:(-0.2, 1.3, -0.1) r:(338.9, 163.3, 202.7) s:(1.0, 1.0, 1.0)
+>>>>c Hurtbox
+
+>>>>> transform = p:(0.0, 0.0, 0.0) r:(338.9, 163.3, 202.7) s:(1.0, 1.0, 1.0)
+
+>>>>> UnityEngine.BoxCollider
+
+>>>>> RoR2.HurtBox
+>>>>>v healthComponent = BeetleBody (RoR2.HealthComponent)
+>>>>>v isBullseye = False
+>>>>>v damageModifier = Normal
+>>>>>v teamIndex = None
+>>>>>v hurtBoxGroup = mdlBeetle (RoR2.HurtBoxGroup)
+>>>>>v indexInGroup = 8
+>>>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+
+>>>>> SurfaceDefProvider
+>>>>>v surfaceDef = sdBeetleWorker (SurfaceDef)
+
+>>>>> UnityEngine.Rigidbody
+>>>c calf.l
+
+>>>> transform = p:(-0.4, 0.8, -0.4) r:(351.7, 349.4, 178.8) s:(1.0, 1.0, 1.0)
+>>>>c Hurtbox
+
+>>>>> transform = p:(0.0, 0.0, 0.0) r:(351.7, 349.4, 178.8) s:(1.0, 1.0, 1.0)
+
+>>>>> UnityEngine.BoxCollider
+
+>>>>> RoR2.HurtBox
+>>>>>v healthComponent = BeetleBody (RoR2.HealthComponent)
+>>>>>v isBullseye = False
+>>>>>v damageModifier = Normal
+>>>>>v teamIndex = None
+>>>>>v hurtBoxGroup = mdlBeetle (RoR2.HurtBoxGroup)
+>>>>>v indexInGroup = 9
+>>>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+
+>>>>> SurfaceDefProvider
+>>>>>v surfaceDef = sdBeetleWorker (SurfaceDef)
+
+>>>>> UnityEngine.Rigidbody
+>>>>c FootL
+
+>>>>> transform = p:(0.0, 0.6, 0.0) r:(351.7, 349.4, 178.8) s:(1.0, 1.0, 1.0)
+
+>>>>> UnityEngine.Rigidbody
+>>>c thigh.r
+
+>>>> transform = p:(0.2, 1.3, -0.1) r:(340.1, 203.2, 156.8) s:(1.0, 1.0, 1.0)
+>>>>c Hurtbox
+
+>>>>> transform = p:(0.0, 0.0, 0.0) r:(340.1, 203.2, 156.8) s:(1.0, 1.0, 1.0)
+
+>>>>> UnityEngine.BoxCollider
+
+>>>>> RoR2.HurtBox
+>>>>>v healthComponent = BeetleBody (RoR2.HealthComponent)
+>>>>>v isBullseye = False
+>>>>>v damageModifier = Normal
+>>>>>v teamIndex = None
+>>>>>v hurtBoxGroup = mdlBeetle (RoR2.HurtBoxGroup)
+>>>>>v indexInGroup = 10
+>>>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+
+>>>>> SurfaceDefProvider
+>>>>>v surfaceDef = sdBeetleWorker (SurfaceDef)
+
+>>>>> UnityEngine.Rigidbody
+>>>c calf.r
+
+>>>> transform = p:(0.4, 0.8, -0.4) r:(350.5, 16.8, 181.7) s:(1.0, 1.0, 1.0)
+>>>>c Hurtbox
+
+>>>>> transform = p:(0.0, 0.0, 0.0) r:(350.5, 16.8, 181.7) s:(1.0, 1.0, 1.0)
+
+>>>>> UnityEngine.BoxCollider
+
+>>>>> RoR2.HurtBox
+>>>>>v healthComponent = BeetleBody (RoR2.HealthComponent)
+>>>>>v isBullseye = False
+>>>>>v damageModifier = Normal
+>>>>>v teamIndex = None
+>>>>>v hurtBoxGroup = mdlBeetle (RoR2.HurtBoxGroup)
+>>>>>v indexInGroup = 11
+>>>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+
+>>>>> SurfaceDefProvider
+>>>>>v surfaceDef = sdBeetleWorker (SurfaceDef)
+
+>>>>> UnityEngine.Rigidbody
+>>>>c FootR
+
+>>>>> transform = p:(0.0, 0.6, 0.0) r:(350.5, 16.8, 181.7) s:(1.0, 1.0, 1.0)
+
+>>>>> UnityEngine.Rigidbody
+>>>c AimAssist
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>> RoR2.AimAssistTarget
+>>>>v point0 = Head (UnityEngine.Transform)
+>>>>v point1 = Hurtbox (UnityEngine.Transform)
+>>>>v assistScale = 1
+>>>>v healthComponent = BeetleBody (RoR2.HealthComponent)
+>>>>v teamComponent = BeetleBody (RoR2.TeamComponent)
+>>>>v instancesList = System.Collections.Generic.List`1[RoR2.AimAssistTarget]
+>>>>v debugAimAssistVisualCoefficient = RoR2.ConVar.FloatConVar
+>c CameraPivot
+
+>> transform = p:(0.0, 0.8, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>c AimOrigin
+
+>> transform = p:(0.0, 0.5, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)

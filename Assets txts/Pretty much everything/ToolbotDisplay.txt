@@ -1,0 +1,802 @@
+ToolbotDisplay
+
+> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> RoR2.ShakeEmitter
+>v shakeOnStart = True
+>v wave = Wave
+>v duration = 0.1
+>v radius = 40
+>v scaleShakeRadiusWithLocalScale = False
+>v amplitudeTimeDecay = True
+>c mdlCommandoDualies
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> UnityEngine.Animator
+>>c CommandoArmature
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>c ROOT
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.3) s:(1.0, 1.0, 1.0)
+>>>>c base
+
+>>>>> transform = p:(0.0, 1.0, -0.3) r:(90.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>c IKArmTarget.l
+
+>>>>>> transform = p:(-0.3, 0.9, -0.4) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>c IKArmPole.l
+
+>>>>>>> transform = p:(-1.0, 1.5, -0.2) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>c IKArmPole.l_end
+
+>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>c IKArmTarget.r
+
+>>>>>> transform = p:(0.3, 0.9, -0.4) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>c IKArmPole.r
+
+>>>>>>> transform = p:(1.0, 2.3, 0.1) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>c IKArmPole.r_end
+
+>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>c pelvis
+
+>>>>>> transform = p:(0.0, 0.3, 0.0) r:(0.0, 180.0, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>c thigh.l
+
+>>>>>>> transform = p:(-0.1, 0.1, 0.0) r:(357.2, 317.7, 171.6) s:(1.0, 1.0, 1.0)
+>>>>>>>c calf.l
+
+>>>>>>>> transform = p:(0.0, 0.5, 0.0) r:(346.7, 136.3, 188.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>c foot.l
+
+>>>>>>>>> transform = p:(0.0, 0.5, 0.0) r:(89.1, 317.7, 360.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c toe.l
+
+>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(270.0, 137.7, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c toe.l_end
+
+>>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(270.0, 137.7, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>c thigh.r
+
+>>>>>>> transform = p:(0.1, 0.1, 0.0) r:(348.7, 14.1, 183.3) s:(1.0, 1.0, 1.0)
+>>>>>>>c calf.r
+
+>>>>>>>> transform = p:(0.0, 0.5, 0.0) r:(346.6, 194.4, 177.5) s:(1.0, 1.0, 1.0)
+>>>>>>>>c foot.r
+
+>>>>>>>>> transform = p:(0.0, 0.5, 0.0) r:(89.1, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c toe.r
+
+>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(270.0, 180.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c toe.r_end
+
+>>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(270.0, 180.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>c stomach
+
+>>>>>> transform = p:(0.0, 0.3, 0.0) r:(353.2, 0.4, 0.3) s:(1.0, 1.0, 1.0)
+>>>>>>c chest
+
+>>>>>>> transform = p:(0.0, 0.2, 0.0) r:(2.0, 0.4, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>c head
+
+>>>>>>>> transform = p:(0.0, 0.4, 0.0) r:(23.2, 359.9, 359.7) s:(1.0, 1.0, 1.0)
+>>>>>>>>c head_end
+
+>>>>>>>>> transform = p:(0.0, 0.3, 0.0) r:(23.2, 359.9, 359.7) s:(1.0, 1.0, 1.0)
+>>>>>>>c upper_arm.l
+
+>>>>>>>> transform = p:(-0.2, 0.4, 0.0) r:(16.1, 351.6, 163.8) s:(1.0, 1.0, 1.0)
+>>>>>>>>c lower_arm.l
+
+>>>>>>>>> transform = p:(0.0, 0.4, 0.0) r:(3.1, 90.5, 172.4) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c hand.l
+
+>>>>>>>>>> transform = p:(0.0, 0.3, 0.0) r:(358.7, 281.0, 192.8) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c finger1.1.l
+
+>>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(352.7, 279.7, 185.6) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c finger1.2.l
+
+>>>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(281.0, 102.9, 172.2) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c finger1.3.l
+
+>>>>>>>>>>>>> transform = p:(0.0, 0.0, 0.0) r:(307.0, 274.6, 3.6) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>c finger1.3.l_end
+
+>>>>>>>>>>>>>> transform = p:(0.0, 0.0, 0.0) r:(307.0, 274.6, 3.6) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c finger1IKBender.l
+
+>>>>>>>>>>> transform = p:(0.0, 0.2, 0.0) r:(349.9, 65.6, 0.8) s:(0.7, 0.7, 0.7)
+>>>>>>>>>>>c finger1IKTarget.l
+
+>>>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(359.5, 4.1, 5.6) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c finger1IKTarget.l_end
+
+>>>>>>>>>>>>> transform = p:(0.0, 0.0, 0.0) r:(359.5, 4.1, 5.6) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c finger2.1.l
+
+>>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(4.7, 280.5, 186.9) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c finger2.2.l
+
+>>>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(293.3, 273.9, 4.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c finger2.3.l
+
+>>>>>>>>>>>>> transform = p:(0.0, 0.0, 0.0) r:(350.3, 278.8, 4.3) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>c finger2.3.l_end
+
+>>>>>>>>>>>>>> transform = p:(0.0, 0.0, 0.0) r:(350.3, 278.8, 4.3) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c finger2IKBender.l
+
+>>>>>>>>>>> transform = p:(0.0, 0.2, 0.0) r:(349.9, 65.6, 0.8) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c finger2IKTarget.l
+
+>>>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(359.5, 4.1, 5.6) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c finger2IKTarget.l_end
+
+>>>>>>>>>>>>> transform = p:(0.0, 0.0, 0.0) r:(359.5, 4.1, 5.6) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c finger3.1.l
+
+>>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(354.6, 279.5, 186.7) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c finger3.2.l
+
+>>>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(272.1, 149.8, 126.1) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c finger3.3.l
+
+>>>>>>>>>>>>> transform = p:(0.0, 0.0, 0.0) r:(320.6, 276.2, 4.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>c finger3.3.l_end
+
+>>>>>>>>>>>>>> transform = p:(0.0, 0.0, 0.0) r:(320.6, 276.2, 4.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c finger3IKBender.l
+
+>>>>>>>>>>> transform = p:(0.0, 0.2, 0.0) r:(349.5, 65.5, 0.0) s:(0.8, 0.8, 0.8)
+>>>>>>>>>>>c finger3IKTarget.l
+
+>>>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(358.6, 4.0, 5.6) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c finger3IKTarget.l_end
+
+>>>>>>>>>>>>> transform = p:(0.0, 0.0, 0.0) r:(358.6, 4.0, 5.6) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c finger4.1.l
+
+>>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(352.2, 277.8, 191.3) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c finger4.2.l
+
+>>>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(283.4, 113.6, 160.3) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c finger4.3.l
+
+>>>>>>>>>>>>> transform = p:(0.0, 0.0, 0.0) r:(304.2, 271.5, 9.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>c finger4.3.l_end
+
+>>>>>>>>>>>>>> transform = p:(0.0, 0.0, 0.0) r:(304.2, 271.5, 9.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c finger4IKBender.l
+
+>>>>>>>>>>> transform = p:(0.0, 0.2, 0.0) r:(347.1, 65.6, 355.7) s:(0.7, 0.7, 0.7)
+>>>>>>>>>>>c finger4IKTarget.l
+
+>>>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(353.7, 3.5, 5.7) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c finger4IKTarget.l_end
+
+>>>>>>>>>>>>> transform = p:(0.0, 0.0, 0.0) r:(353.7, 3.5, 5.7) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c gun.l
+
+>>>>>>>>>>> transform = p:(-0.2, 0.1, 0.0) r:(355.6, 96.3, 259.7) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c gun.l_end
+
+>>>>>>>>>>>> transform = p:(0.0, 0.2, 0.0) r:(355.6, 96.3, 259.7) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c GunMesh.001
+
+>>>>>>>>>>>> transform = p:(0.0, 0.2, 0.0) r:(349.7, 5.5, 94.5) s:(1.0, 1.0, 1.0)
+
+>>>>>>>>>>>> UnityEngine.MeshFilter
+
+>>>>>>>>>>>> UnityEngine.MeshRenderer
+>>>>>>>>>>c thumb.1.l
+
+>>>>>>>>>>> transform = p:(-0.1, 0.1, 0.0) r:(18.0, 274.4, 161.2) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c thumb.2.l
+
+>>>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(58.8, 142.6, 240.7) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c thumb.2.l_end
+
+>>>>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(58.8, 142.6, 240.7) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c thumbIKBender.l
+
+>>>>>>>>>>> transform = p:(0.0, 0.2, -0.1) r:(311.8, 48.3, 14.4) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c thumbIKTarget.l
+
+>>>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(336.7, 0.7, 8.6) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c thumbIKTarget.l_end
+
+>>>>>>>>>>>>> transform = p:(0.0, 0.0, 0.0) r:(336.7, 0.7, 8.6) s:(1.0, 1.0, 1.0)
+>>>>>>>c upper_arm.r
+
+>>>>>>>> transform = p:(0.2, 0.4, 0.0) r:(3.8, 8.0, 197.4) s:(1.0, 1.0, 1.0)
+>>>>>>>>c lower_arm.r
+
+>>>>>>>>> transform = p:(0.0, 0.4, 0.0) r:(4.7, 269.3, 203.3) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c hand.r
+
+>>>>>>>>>> transform = p:(0.0, 0.3, 0.0) r:(357.6, 84.8, 151.6) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c finger1.1.r
+
+>>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(355.9, 275.5, 194.1) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c finger1.2.r
+
+>>>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(71.6, 68.0, 168.3) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c finger1.3.r
+
+>>>>>>>>>>>>> transform = p:(0.0, 0.0, 0.0) r:(69.9, 263.2, 11.9) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>c finger1.3.r_end
+
+>>>>>>>>>>>>>> transform = p:(0.0, 0.0, 0.0) r:(69.9, 263.2, 11.9) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c finger1IKBender.r
+
+>>>>>>>>>>> transform = p:(0.0, 0.2, -0.1) r:(359.1, 61.8, 337.9) s:(0.7, 0.7, 0.7)
+>>>>>>>>>>>c finger1IKTarget.r
+
+>>>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(343.8, 1.4, 353.6) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c finger1IKTarget.r_end
+
+>>>>>>>>>>>>> transform = p:(0.0, 0.0, 0.0) r:(343.8, 1.4, 353.6) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c finger2.1.r
+
+>>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(345.0, 273.0, 192.8) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c finger2.2.r
+
+>>>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(71.5, 282.7, 28.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c finger2.3.r
+
+>>>>>>>>>>>>> transform = p:(0.0, 0.0, 0.0) r:(23.6, 257.0, 14.8) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>c finger2.3.r_end
+
+>>>>>>>>>>>>>> transform = p:(0.0, 0.0, 0.0) r:(23.6, 257.0, 14.8) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c finger2IKBender.r
+
+>>>>>>>>>>> transform = p:(0.0, 0.2, -0.1) r:(359.1, 61.9, 337.9) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c finger2IKTarget.r
+
+>>>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(343.8, 1.4, 353.6) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c finger2IKTarget.r_end
+
+>>>>>>>>>>>>> transform = p:(0.0, 0.0, 0.0) r:(343.8, 1.4, 353.6) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c finger3.1.r
+
+>>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(347.2, 273.1, 193.6) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c finger3.2.r
+
+>>>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(77.1, 295.5, 40.4) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c finger3.3.r
+
+>>>>>>>>>>>>> transform = p:(0.0, 0.0, 0.0) r:(31.9, 258.3, 14.9) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>c finger3.3.r_end
+
+>>>>>>>>>>>>>> transform = p:(0.0, 0.0, 0.0) r:(31.9, 258.3, 14.9) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c finger3IKBender.r
+
+>>>>>>>>>>> transform = p:(0.0, 0.2, -0.1) r:(358.7, 61.9, 337.2) s:(0.8, 0.8, 0.8)
+>>>>>>>>>>>c finger3IKTarget.r
+
+>>>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(343.0, 1.5, 353.6) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c finger3IKTarget.r_end
+
+>>>>>>>>>>>>> transform = p:(0.0, 0.0, 0.0) r:(343.0, 1.5, 353.6) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c finger4.1.r
+
+>>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(352.4, 275.8, 202.6) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c finger4.2.r
+
+>>>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(71.4, 358.9, 96.1) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c finger4.3.r
+
+>>>>>>>>>>>>> transform = p:(0.0, 0.0, 0.0) r:(42.8, 279.6, 28.2) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>c finger4.3.r_end
+
+>>>>>>>>>>>>>> transform = p:(0.0, 0.0, 0.0) r:(42.8, 279.6, 28.2) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c finger4IKBender.r
+
+>>>>>>>>>>> transform = p:(-0.1, 0.2, -0.1) r:(356.3, 62.3, 332.8) s:(0.7, 0.7, 0.7)
+>>>>>>>>>>>c finger4IKTarget.r
+
+>>>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(338.0, 2.1, 353.4) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c finger4IKTarget.r_end
+
+>>>>>>>>>>>>> transform = p:(0.0, 0.0, 0.0) r:(338.0, 2.1, 353.4) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c gun.r
+
+>>>>>>>>>>> transform = p:(0.2, 0.1, 0.0) r:(357.4, 261.7, 106.9) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c gun.r_end
+
+>>>>>>>>>>>> transform = p:(0.0, 0.2, 0.0) r:(357.4, 261.7, 106.9) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c GunMesh
+
+>>>>>>>>>>>> transform = p:(0.0, 0.2, 0.0) r:(343.1, 352.5, 87.3) s:(1.0, 1.0, 1.0)
+
+>>>>>>>>>>>> UnityEngine.MeshFilter
+
+>>>>>>>>>>>> UnityEngine.MeshRenderer
+>>>>>>>>>>c thumb.1.r
+
+>>>>>>>>>>> transform = p:(0.1, 0.1, 0.0) r:(343.4, 282.7, 172.8) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c thumb.2.r
+
+>>>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(292.6, 68.7, 211.8) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c thumb.2.r_end
+
+>>>>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(292.6, 68.7, 211.8) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c thumbIKBender.r
+
+>>>>>>>>>>> transform = p:(0.0, 0.2, -0.1) r:(353.2, 33.4, 301.5) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c thumbIKTarget.r
+
+>>>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(320.8, 3.6, 350.6) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c thumbIKTarget.r_end
+
+>>>>>>>>>>>>> transform = p:(0.0, 0.0, 0.0) r:(320.8, 3.6, 350.6) s:(1.0, 1.0, 1.0)
+>>>>c IKLegTarget.l
+
+>>>>> transform = p:(-0.1, 0.0, -0.2) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>c IKLegPole.l
+
+>>>>>> transform = p:(-0.3, -0.6, 0.0) r:(279.7, 351.1, 139.7) s:(1.0, 1.0, 1.0)
+>>>>>>c IKLegPole.l_end
+
+>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(279.7, 351.1, 139.7) s:(1.0, 1.0, 1.0)
+>>>>c IKLegTarget.r
+
+>>>>> transform = p:(0.2, 0.0, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>c IKLegPole.r
+
+>>>>>> transform = p:(0.0, -0.7, 0.0) r:(284.4, 80.3, 100.0) s:(1.0, 1.0, 1.0)
+>>>>>>c IKLegPole.r_end
+
+>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(284.4, 80.3, 100.0) s:(1.0, 1.0, 1.0)
+>>c CommandoMesh
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.SkinnedMeshRenderer
+>c Base
+
+>> transform = p:(0.0, 0.1, 0.0) r:(0.0, 10.5, 0.0) s:(0.2, 0.2, 0.2)
+>>c mdlToolbot
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 10.5, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.Animator
+
+>>> RoR2.AnimationEvents
+>>>v soundCenter = mdlToolbot (UnityEngine.GameObject)
+>>>c ToolbotArmature
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 10.5, 0.0) s:(1.0, 1.0, 1.0)
+>>>>c ROOT
+
+>>>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 10.5, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>c base
+
+>>>>>> transform = p:(0.0, 6.2, -1.9) r:(270.0, 190.5, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>c hip
+
+>>>>>>> transform = p:(0.0, 0.6, 0.0) r:(0.0, 100.5, 180.0) s:(1.0, 1.0, 1.0)
+
+>>>>>>> UnityEngine.CapsuleCollider
+
+>>>>>>> UnityEngine.Rigidbody
+>>>>>>>c JiggleHandle.Hip
+
+>>>>>>>> transform = p:(0.8, 2.3, 0.0) r:(0.0, 100.5, 25.2) s:(1.0, 1.0, 1.0)
+>>>>>>>>c JiggleHandle.Hip_end
+
+>>>>>>>>> transform = p:(0.0, 2.7, 0.0) r:(0.0, 100.5, 25.2) s:(1.0, 1.0, 1.0)
+>>>>>>>c thigh.l
+
+>>>>>>>> transform = p:(0.0, 0.9, -2.6) r:(348.2, 280.9, 115.4) s:(1.0, 1.0, 1.0)
+
+>>>>>>>> UnityEngine.Rigidbody
+
+>>>>>>>> UnityEngine.CharacterJoint
+>>>>>>>>v targetRotation = (0.0, 0.0, 0.0, 0.0)
+>>>>>>>>v targetAngularVelocity = (0.0, 0.0, 0.0)
+>>>>>>>>v rotationDrive = UnityEngine.JointDrive
+
+>>>>>>>> UnityEngine.CapsuleCollider
+>>>>>>>>c calf.l
+
+>>>>>>>>> transform = p:(0.0, 3.9, 0.0) r:(50.8, 205.5, 198.4) s:(1.0, 1.0, 1.0)
+
+>>>>>>>>> UnityEngine.Rigidbody
+
+>>>>>>>>> UnityEngine.CharacterJoint
+>>>>>>>>>v targetRotation = (0.0, 0.0, 0.0, 0.0)
+>>>>>>>>>v targetAngularVelocity = (0.0, 0.0, 0.0)
+>>>>>>>>>v rotationDrive = UnityEngine.JointDrive
+
+>>>>>>>>> UnityEngine.CapsuleCollider
+>>>>>>>>>c JiggleHandle.Leg.l
+
+>>>>>>>>>> transform = p:(0.0, 3.2, -0.5) r:(75.2, 241.5, 231.4) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c JiggleHandle.Leg.l_end
+
+>>>>>>>>>>> transform = p:(0.0, 2.4, 0.0) r:(75.2, 241.5, 231.4) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c mainWheel.l
+
+>>>>>>>>>> transform = p:(0.0, 5.5, 0.0) r:(33.5, 3.3, 346.2) s:(1.0, 1.0, 1.0)
+
+>>>>>>>>>> UnityEngine.Rigidbody
+
+>>>>>>>>>> UnityEngine.CharacterJoint
+>>>>>>>>>>v targetRotation = (0.0, 0.0, 0.0, 0.0)
+>>>>>>>>>>v targetAngularVelocity = (0.0, 0.0, 0.0)
+>>>>>>>>>>v rotationDrive = UnityEngine.JointDrive
+
+>>>>>>>>>> UnityEngine.CapsuleCollider
+>>>>>>>>>>c mainWheel.l_end
+
+>>>>>>>>>>> transform = p:(0.0, 0.8, 0.0) r:(33.5, 3.3, 346.2) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c GenericFootstepDust
+
+>>>>>>>>>>> transform = p:(0.0, 0.0, 0.0) r:(33.5, 3.3, 346.2) s:(1.0, 1.0, 1.0)
+
+>>>>>>>>>>> UnityEngine.ParticleSystem
+
+>>>>>>>>>>> UnityEngine.ParticleSystemRenderer
+>>>>>>>>c extraCalf.l
+
+>>>>>>>>> transform = p:(0.0, 3.9, 0.0) r:(36.3, 0.9, 346.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c extraWheel.l
+
+>>>>>>>>>> transform = p:(0.0, 2.8, 0.0) r:(52.8, 205.2, 19.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c extraWheel.l_end
+
+>>>>>>>>>>> transform = p:(0.0, 0.8, 0.0) r:(52.8, 205.2, 19.0) s:(1.0, 1.0, 1.0)
+>>>>>>>c thigh.r
+
+>>>>>>>> transform = p:(0.0, 0.9, 2.6) r:(348.2, 100.0, 244.6) s:(1.0, 1.0, 1.0)
+
+>>>>>>>> UnityEngine.Rigidbody
+
+>>>>>>>> UnityEngine.CharacterJoint
+>>>>>>>>v targetRotation = (0.0, 0.0, 0.0, 0.0)
+>>>>>>>>v targetAngularVelocity = (0.0, 0.0, 0.0)
+>>>>>>>>v rotationDrive = UnityEngine.JointDrive
+
+>>>>>>>> UnityEngine.CapsuleCollider
+>>>>>>>>c calf.r
+
+>>>>>>>>> transform = p:(0.0, 3.9, 0.0) r:(50.8, 175.4, 161.6) s:(1.0, 1.0, 1.0)
+
+>>>>>>>>> UnityEngine.Rigidbody
+
+>>>>>>>>> UnityEngine.CharacterJoint
+>>>>>>>>>v targetRotation = (0.0, 0.0, 0.0, 0.0)
+>>>>>>>>>v targetAngularVelocity = (0.0, 0.0, 0.0)
+>>>>>>>>>v rotationDrive = UnityEngine.JointDrive
+
+>>>>>>>>> UnityEngine.CapsuleCollider
+>>>>>>>>>c JiggleHandle.Leg.r
+
+>>>>>>>>>> transform = p:(0.0, 3.2, -0.5) r:(75.2, 139.4, 128.6) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c JiggleHandle.Leg.r_end
+
+>>>>>>>>>>> transform = p:(0.0, 2.4, 0.0) r:(75.2, 139.4, 128.6) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c mainWheel.r
+
+>>>>>>>>>> transform = p:(0.0, 5.5, 0.0) r:(33.5, 17.6, 13.8) s:(1.0, 1.0, 1.0)
+
+>>>>>>>>>> UnityEngine.Rigidbody
+
+>>>>>>>>>> UnityEngine.CharacterJoint
+>>>>>>>>>>v targetRotation = (0.0, 0.0, 0.0, 0.0)
+>>>>>>>>>>v targetAngularVelocity = (0.0, 0.0, 0.0)
+>>>>>>>>>>v rotationDrive = UnityEngine.JointDrive
+
+>>>>>>>>>> UnityEngine.CapsuleCollider
+>>>>>>>>>>c GenericFootstepDust
+
+>>>>>>>>>>> transform = p:(0.0, 0.0, 0.0) r:(33.5, 17.6, 13.8) s:(1.0, 1.0, 1.0)
+
+>>>>>>>>>>> UnityEngine.ParticleSystem
+
+>>>>>>>>>>> UnityEngine.ParticleSystemRenderer
+>>>>>>>>>>c mainWheel.r_end
+
+>>>>>>>>>>> transform = p:(0.0, 0.8, 0.0) r:(33.5, 17.6, 13.8) s:(1.0, 1.0, 1.0)
+>>>>>>>>c extraCalf.r
+
+>>>>>>>>> transform = p:(0.0, 3.9, 0.0) r:(36.3, 20.0, 14.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c extraWheel.r
+
+>>>>>>>>>> transform = p:(0.0, 2.8, 0.0) r:(52.8, 175.7, 341.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c extraWheel.r_end
+
+>>>>>>>>>>> transform = p:(0.0, 0.8, 0.0) r:(52.8, 175.7, 341.0) s:(1.0, 1.0, 1.0)
+>>>>>>c IKArmTarget.l
+
+>>>>>>> transform = p:(4.7, 5.3, 0.6) r:(270.0, 220.8, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>c IKArmPole.l
+
+>>>>>>>> transform = p:(-7.5, -17.0, -2.4) r:(270.0, 40.8, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>c IKArmPole.l_end
+
+>>>>>>>>> transform = p:(0.0, 0.3, 0.0) r:(270.0, 40.8, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>c IKArmTarget.r
+
+>>>>>>> transform = p:(-5.5, 0.5, -2.5) r:(270.0, 190.5, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>c IKArmPole.r
+
+>>>>>>>> transform = p:(0.1, -14.2, 0.0) r:(270.0, 10.5, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>c IKArmPole.r_end
+
+>>>>>>>>> transform = p:(0.0, 0.3, 0.0) r:(270.0, 10.5, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>c IKHeadTarget
+
+>>>>>>> transform = p:(0.0, 0.9, 5.0) r:(270.0, 190.5, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>c IKHeadPole
+
+>>>>>>>> transform = p:(0.0, -1.3, -0.3) r:(270.0, 190.5, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>c IKHeadPole_end
+
+>>>>>>>>> transform = p:(0.0, 0.5, 0.0) r:(270.0, 190.5, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>c stomach
+
+>>>>>>> transform = p:(0.0, 0.6, 0.0) r:(0.0, 21.6, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>>>>> UnityEngine.Rigidbody
+
+>>>>>>> UnityEngine.CharacterJoint
+>>>>>>>v targetRotation = (0.0, 0.0, 0.0, 0.0)
+>>>>>>>v targetAngularVelocity = (0.0, 0.0, 0.0)
+>>>>>>>v rotationDrive = UnityEngine.JointDrive
+
+>>>>>>> UnityEngine.CapsuleCollider
+>>>>>>>c chest
+
+>>>>>>>> transform = p:(0.0, 1.6, 0.0) r:(0.0, 21.6, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>>>>>> UnityEngine.Rigidbody
+
+>>>>>>>> UnityEngine.CharacterJoint
+>>>>>>>>v targetRotation = (0.0, 0.0, 0.0, 0.0)
+>>>>>>>>v targetAngularVelocity = (0.0, 0.0, 0.0)
+>>>>>>>>v rotationDrive = UnityEngine.JointDrive
+
+>>>>>>>> UnityEngine.CapsuleCollider
+>>>>>>>>c JiggleDrawer
+
+>>>>>>>>> transform = p:(-1.9, 0.6, -0.5) r:(270.0, 21.6, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c JiggleDrawer_end
+
+>>>>>>>>>> transform = p:(0.0, 1.0, 0.0) r:(270.0, 21.6, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>c neckSpin
+
+>>>>>>>>> transform = p:(0.0, 1.1, 0.6) r:(0.0, 21.6, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c neckJoint.1
+
+>>>>>>>>>> transform = p:(0.0, 0.7, 0.0) r:(27.8, 13.4, 4.5) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c neckJoint.2
+
+>>>>>>>>>>> transform = p:(0.0, 1.4, 0.0) r:(293.9, 2.3, 9.9) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c head
+
+>>>>>>>>>>>> transform = p:(0.0, 1.0, 0.0) r:(303.9, 190.5, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>>>>>>>>>> UnityEngine.Rigidbody
+
+>>>>>>>>>>>> UnityEngine.CharacterJoint
+>>>>>>>>>>>>v targetRotation = (0.0, 0.0, 0.0, 0.0)
+>>>>>>>>>>>>v targetAngularVelocity = (0.0, 0.0, 0.0)
+>>>>>>>>>>>>v rotationDrive = UnityEngine.JointDrive
+
+>>>>>>>>>>>> UnityEngine.CapsuleCollider
+>>>>>>>>>>>>c JiggleHandle.Head
+
+>>>>>>>>>>>>> transform = p:(0.0, 3.2, 0.0) r:(295.1, 10.5, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>c JiggleHandle.Head_end
+
+>>>>>>>>>>>>>> transform = p:(0.0, 2.7, 0.0) r:(295.1, 10.5, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c JiggleHat
+
+>>>>>>>>>>>>> transform = p:(1.5, 2.3, 0.7) r:(339.9, 10.5, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>c JiggleHat_end
+
+>>>>>>>>>>>>>> transform = p:(0.0, 1.3, 0.0) r:(339.9, 10.5, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>c upper_arm.l
+
+>>>>>>>>> transform = p:(-3.9, 1.9, 0.0) r:(25.0, 204.6, 203.8) s:(1.0, 1.0, 1.0)
+
+>>>>>>>>> UnityEngine.Rigidbody
+
+>>>>>>>>> UnityEngine.CharacterJoint
+>>>>>>>>>v targetRotation = (0.0, 0.0, 0.0, 0.0)
+>>>>>>>>>v targetAngularVelocity = (0.0, 0.0, 0.0)
+>>>>>>>>>v rotationDrive = UnityEngine.JointDrive
+
+>>>>>>>>> UnityEngine.CapsuleCollider
+>>>>>>>>>c JiggleHandle.ToolArm
+
+>>>>>>>>>> transform = p:(0.0, 0.4, -0.1) r:(301.1, 54.1, 135.5) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c JiggleHandle.ToolArm_end
+
+>>>>>>>>>>> transform = p:(0.0, 2.4, 0.0) r:(301.1, 54.1, 135.5) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c lower_arm.l
+
+>>>>>>>>>> transform = p:(0.0, 4.1, 0.0) r:(339.0, 284.7, 282.2) s:(1.0, 1.0, 1.0)
+
+>>>>>>>>>> UnityEngine.Rigidbody
+
+>>>>>>>>>> UnityEngine.CharacterJoint
+>>>>>>>>>>v targetRotation = (0.0, 0.0, 0.0, 0.0)
+>>>>>>>>>>v targetAngularVelocity = (0.0, 0.0, 0.0)
+>>>>>>>>>>v rotationDrive = UnityEngine.JointDrive
+
+>>>>>>>>>> UnityEngine.CapsuleCollider
+>>>>>>>>>>c toolbase
+
+>>>>>>>>>>> transform = p:(0.0, 1.1, -0.1) r:(339.0, 284.7, 281.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c nailgun.base
+
+>>>>>>>>>>>> transform = p:(0.0, 1.2, 0.0) r:(339.0, 284.7, 281.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c JiggleHandle.Nailgun
+
+>>>>>>>>>>>>> transform = p:(0.1, 1.1, -0.1) r:(293.6, 133.2, 333.6) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>c JiggleHandle.Nailgun_end
+
+>>>>>>>>>>>>>> transform = p:(0.0, 1.0, 0.0) r:(293.6, 133.2, 333.6) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c nailgun.barrel
+
+>>>>>>>>>>>>> transform = p:(0.2, 2.3, 0.1) r:(339.0, 284.7, 281.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>c nailgun.barrel_end
+
+>>>>>>>>>>>>>> transform = p:(0.0, 3.9, 0.0) r:(339.0, 284.7, 281.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c nailgun.spinner
+
+>>>>>>>>>>>>> transform = p:(0.2, 3.1, 0.1) r:(293.6, 133.2, 333.6) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>c nailgun.spinner_end
+
+>>>>>>>>>>>>>> transform = p:(0.0, 1.0, 0.0) r:(293.6, 133.2, 333.6) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>c MuzzleNailgun
+
+>>>>>>>>>>>>>> transform = p:(-2.8, 0.0, 0.0) r:(293.6, 133.2, 333.6) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c speargun.base
+
+>>>>>>>>>>>> transform = p:(0.9, -0.2, 9.2) r:(293.6, 133.2, 63.6) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c speargun.arm.1.1
+
+>>>>>>>>>>>>> transform = p:(0.4, 2.6, 0.0) r:(293.6, 133.2, 333.6) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>c speargun.arm.1.2
+
+>>>>>>>>>>>>>> transform = p:(0.0, 2.3, 0.0) r:(339.0, 284.7, 281.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>>c speargun.arm.1.2_end
+
+>>>>>>>>>>>>>>> transform = p:(0.0, 3.1, 0.0) r:(339.0, 284.7, 281.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c speargun.arm.2.1
+
+>>>>>>>>>>>>> transform = p:(-0.4, 2.6, 0.0) r:(66.4, 313.2, 206.4) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>c speargun.arm.2.2
+
+>>>>>>>>>>>>>> transform = p:(0.0, 2.3, 0.0) r:(339.0, 284.7, 281.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>>c speargun.arm.2.2_end
+
+>>>>>>>>>>>>>>> transform = p:(0.0, 3.1, 0.0) r:(339.0, 284.7, 281.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c speargun.spear
+
+>>>>>>>>>>>>> transform = p:(0.0, 2.7, 0.0) r:(339.0, 284.7, 281.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>c MuzzleSpear
+
+>>>>>>>>>>>>>> transform = p:(0.0, 2.6, 0.0) r:(339.0, 284.7, 281.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>c speargun.spear_end
+
+>>>>>>>>>>>>>> transform = p:(0.0, 2.4, 0.0) r:(339.0, 284.7, 281.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>c RebarMesh
+
+>>>>>>>>>>>>>> transform = p:(0.0, -2.3, 0.0) r:(339.0, 284.7, 281.0) s:(2.2, 2.2, 2.2)
+
+>>>>>>>>>>>>>> UnityEngine.MeshFilter
+
+>>>>>>>>>>>>>> UnityEngine.MeshRenderer
+>>>>>>>>c upper_arm.r
+
+>>>>>>>>> transform = p:(3.9, 1.9, 0.0) r:(329.9, 200.2, 161.7) s:(1.0, 1.0, 1.0)
+
+>>>>>>>>> UnityEngine.Rigidbody
+
+>>>>>>>>> UnityEngine.CharacterJoint
+>>>>>>>>>v targetRotation = (0.0, 0.0, 0.0, 0.0)
+>>>>>>>>>v targetAngularVelocity = (0.0, 0.0, 0.0)
+>>>>>>>>>v rotationDrive = UnityEngine.JointDrive
+
+>>>>>>>>> UnityEngine.CapsuleCollider
+>>>>>>>>>c lower_arm.r
+
+>>>>>>>>>> transform = p:(0.0, 4.1, 0.0) r:(345.0, 100.8, 135.6) s:(1.0, 1.0, 1.0)
+
+>>>>>>>>>> UnityEngine.Rigidbody
+
+>>>>>>>>>> UnityEngine.CharacterJoint
+>>>>>>>>>>v targetRotation = (0.0, 0.0, 0.0, 0.0)
+>>>>>>>>>>v targetAngularVelocity = (0.0, 0.0, 0.0)
+>>>>>>>>>>v rotationDrive = UnityEngine.JointDrive
+
+>>>>>>>>>> UnityEngine.CapsuleCollider
+>>>>>>>>>>c hand.r
+
+>>>>>>>>>>> transform = p:(0.0, 4.3, 0.0) r:(317.3, 359.6, 198.5) s:(1.0, 1.0, 1.0)
+
+>>>>>>>>>>> UnityEngine.Rigidbody
+
+>>>>>>>>>>> UnityEngine.CharacterJoint
+>>>>>>>>>>>v targetRotation = (0.0, 0.0, 0.0, 0.0)
+>>>>>>>>>>>v targetAngularVelocity = (0.0, 0.0, 0.0)
+>>>>>>>>>>>v rotationDrive = UnityEngine.JointDrive
+
+>>>>>>>>>>> UnityEngine.CapsuleCollider
+>>>>>>>>>>>c finger.1.1.r
+
+>>>>>>>>>>>> transform = p:(-0.4, 1.2, 0.2) r:(317.4, 3.6, 141.8) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c finger.1.2.r
+
+>>>>>>>>>>>>> transform = p:(0.0, 0.9, 0.0) r:(319.8, 5.6, 86.4) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>c finger.1.2.r_end
+
+>>>>>>>>>>>>>> transform = p:(0.0, 0.9, 0.0) r:(319.8, 5.6, 86.4) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c finger.2.1.r
+
+>>>>>>>>>>>> transform = p:(-0.4, 1.2, -0.3) r:(317.4, 3.6, 141.8) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c finger.2.2.r
+
+>>>>>>>>>>>>> transform = p:(0.0, 0.9, 0.0) r:(321.6, 5.2, 53.1) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>c finger.2.2.r_end
+
+>>>>>>>>>>>>>> transform = p:(0.0, 0.9, 0.0) r:(321.6, 5.2, 53.1) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c thumb.1.r
+
+>>>>>>>>>>>> transform = p:(0.3, 0.2, 0.4) r:(317.3, 359.6, 198.5) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c thumb.2.r
+
+>>>>>>>>>>>>> transform = p:(0.0, 0.9, 0.0) r:(42.1, 315.5, 148.3) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>c thumb.2.r_end
+
+>>>>>>>>>>>>>> transform = p:(0.0, 0.7, 0.0) r:(42.1, 315.5, 148.3) s:(1.0, 1.0, 1.0)
+>>>>>>>c RackandPinion
+
+>>>>>>>> transform = p:(0.0, 1.6, 0.0) r:(270.0, 21.6, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>c RackandPinion_end
+
+>>>>>>>>> transform = p:(0.0, 0.6, 0.0) r:(270.0, 21.6, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>c IKFootTarget.l
+
+>>>>>> transform = p:(-3.6, 0.4, -0.5) r:(90.0, 10.5, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>c IKFootPole.l
+
+>>>>>>> transform = p:(0.0, -7.3, 0.0) r:(90.0, 10.5, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>c IKFootPole.l_end
+
+>>>>>>>> transform = p:(0.0, 0.3, 0.0) r:(90.0, 10.5, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>c IKFootTarget.r
+
+>>>>>> transform = p:(3.6, 0.4, -0.5) r:(90.0, 10.5, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>c IKFootPole.r
+
+>>>>>>> transform = p:(0.0, -7.3, 0.0) r:(90.0, 10.5, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>c IKFootPole.r_end
+
+>>>>>>>> transform = p:(0.0, 0.3, 0.0) r:(90.0, 10.5, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>c IKTargetExtraWheel.l
+
+>>>>>> transform = p:(-2.6, 0.0, -4.7) r:(0.0, 190.5, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>c IKTargetExtraWheel.l_end
+
+>>>>>>> transform = p:(0.0, 0.3, 0.0) r:(0.0, 190.5, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>c IKTargetExtraWheel.r
+
+>>>>>> transform = p:(2.6, 0.0, -4.7) r:(0.0, 190.5, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>c IKTargetExtraWheel.r_end
+
+>>>>>>> transform = p:(0.0, 0.3, 0.0) r:(0.0, 190.5, 180.0) s:(1.0, 1.0, 1.0)
+>>>c ToolbotMesh
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 10.5, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.SkinnedMeshRenderer

@@ -1,0 +1,377 @@
+SurvivorPod
+
+> transform = p:(-32.3, -214.3, -182.1) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> UnityEngine.Networking.NetworkIdentity
+>v clientAuthorityCallback = 
+
+> RoR2.SurvivorPodController
+>v cameraBone = CameraForward (UnityEngine.Transform)
+>v holdingPosition = HoldingPosition (UnityEngine.Transform)
+>v exitPosition = ExitPosition (UnityEngine.Transform)
+>v animator = mdlEscapePod (UnityEngine.Animator)
+>v exitAllowed = False
+
+> RoR2.ModelLocator
+>v modelTransform = mdlEscapePod (UnityEngine.Transform)
+>v modelBaseTransform = mdlEscapePod (UnityEngine.Transform)
+>v dontReleaseModelOnDeath = False
+>v autoUpdateModelTransform = True
+>v dontDetatchFromParent = False
+>v noCorpse = False
+>v normalizeToFloor = False
+>v preserveModel = False
+
+> RoR2.EntityStateMachine
+>v customName = Main
+>v initialStateType = EntityStates.SerializableEntityStateType
+>v mainStateType = EntityStates.SerializableEntityStateType
+>v commonComponents = RoR2.EntityStateMachine+CommonComponentCache
+>v networkIndex = -1
+
+> RoR2.NetworkStateMachine
+
+> RoR2.Highlight
+>v pickupIndex = ItemIndex.Syringe
+>v targetRenderer = EscapePodDoorMesh (UnityEngine.MeshRenderer)
+>v strength = 1
+>v highlightColor = interactive
+>v isOn = False
+
+> RoR2.EntityLocator
+>v entity = SurvivorPod (UnityEngine.GameObject)
+
+> RoR2.VehicleSeat
+>v passengerState = EntityStates.SerializableEntityStateType
+>v seatPosition = HoldingPosition (UnityEngine.Transform)
+>v exitPosition = ExitPosition (UnityEngine.Transform)
+>v ejectOnCollision = False
+>v hidePassenger = True
+>v exitVelocityFraction = 1
+>v onPassengerEnterUnityEvent = UnityEngine.Events.UnityEvent UnityEngine.Events.UnityEvent
+>v onPassengerExitUnityEvent = UnityEngine.Events.UnityEvent UnityEngine.Events.UnityEvent
+>v enterVehicleContextString = 
+>v exitVehicleContextString = SURVIVOR_POD_HATCH_OPEN_CONTEXT
+>v disablePassengerMotor = True
+>v enterVehicleAllowedCheck = RoR2.CallbackCheck`2[RoR2.Interactability,RoR2.CharacterBody]
+>v exitVehicleAllowedCheck = RoR2.CallbackCheck`2[RoR2.Interactability,RoR2.CharacterBody]
+>v handleVehicleEnterRequestServer = RoR2.CallbackCheck`2[System.Boolean,UnityEngine.GameObject]
+>v handleVehicleExitRequestServer = RoR2.CallbackCheck`2[System.Boolean,UnityEngine.GameObject]
+
+> RoR2.InstantiatePrefabOnStart
+>v prefab = SurvivorPodBatteryPanel (UnityEngine.GameObject)
+>v targetTransform = RotatingPanel (UnityEngine.Transform)
+>v copyTargetRotation = True
+>v parentToTarget = True
+>v networkedPrefab = True
+
+> RoR2.InstantiatePrefabOnStart
+>v prefab = QuestVolatileBatteryWorldPickup (UnityEngine.GameObject)
+>v targetTransform = BatteryAttachmentPoint (UnityEngine.Transform)
+>v copyTargetRotation = True
+>v parentToTarget = True
+>v networkedPrefab = True
+>c Base
+
+>> transform = p:(0.0, 0.8, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>c mdlEscapePod
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.Animator
+
+>>> ChildLocator
+
+>>> RoR2.AnimationEvents
+>>>v soundCenter = Base (UnityEngine.GameObject)
+
+>>> UnityEngine.Rigidbody
+>>>c EscapePodArmature
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>c Base
+
+>>>>> transform = p:(0.0, 0.0, -1.3) r:(2.0, 0.0, 348.4) s:(1.0, 1.0, 1.0)
+
+>>>>> UnityEngine.CapsuleCollider
+>>>>>c Door
+
+>>>>>> transform = p:(0.0, 1.6, 1.2) r:(281.7, 80.4, 99.8) s:(1.0, 1.0, 1.0)
+>>>>>>c Door_end
+
+>>>>>>> transform = p:(0.0, 0.3, 0.0) r:(281.7, 80.4, 99.8) s:(1.0, 1.0, 1.0)
+>>>>>>c EscapePodDoorMesh
+
+>>>>>>> transform = p:(0.0, 0.3, 0.0) r:(281.7, 80.4, 279.8) s:(1.0, 1.0, 1.0)
+
+>>>>>>> UnityEngine.MeshFilter
+
+>>>>>>> UnityEngine.MeshRenderer
+>>>>>c EscapePodMesh
+
+>>>>>> transform = p:(0.0, 0.8, 0.0) r:(281.7, 80.4, 279.8) s:(1.0, 1.0, 1.0)
+
+>>>>>> UnityEngine.MeshFilter
+
+>>>>>> UnityEngine.MeshRenderer
+>>>>>c Flames
+
+>>>>>> transform = p:(0.0, 5.0, 0.0) r:(78.3, 260.4, 80.2) s:(1.0, 1.0, 1.0)
+
+>>>>>> UnityEngine.ParticleSystem
+
+>>>>>> UnityEngine.ParticleSystemRenderer
+>>>>>>c Point light
+
+>>>>>>> transform = p:(0.0, 0.0, 1.0) r:(281.7, 80.4, 99.8) s:(1.5, 1.5, 1.5)
+
+>>>>>>> UnityEngine.Light
+>>>>>c TravelParent
+
+>>>>>> transform = p:(0.0, 0.0, 0.0) r:(2.0, 0.0, 348.4) s:(1.0, 1.0, 1.0)
+>>>>>c Decal
+
+>>>>>> transform = p:(0.0, 0.0, 0.0) r:(2.0, 0.0, 348.4) s:(7.8, 7.8, 7.8)
+
+>>>>>> UnityEngine.MeshRenderer
+
+>>>>>> UnityEngine.MeshFilter
+
+>>>>>> ThreeEyedGames.Decal
+>>>>>>v RenderMode = Deferred
+>>>>>>v Material = matPodImpactDecal (UnityEngine.Material)
+>>>>>>v Fade = 1
+>>>>>>v LimitTo = 
+>>>>>>v DrawAlbedo = True
+>>>>>>v UseLightProbes = True
+>>>>>>v DrawNormalAndGloss = False
+>>>>>>v HighQualityBlending = False
+>>>>>c HoldingPosition
+
+>>>>>> transform = p:(0.0, 1.8, 0.0) r:(2.0, 0.0, 348.4) s:(1.0, 1.0, 1.0)
+>>>>>c DebrisParent
+
+>>>>>> transform = p:(-0.1, 0.6, 0.0) r:(2.0, 0.0, 348.4) s:(1.0, 1.0, 1.0)
+>>>>>>c mdlRockModular3
+
+>>>>>>> transform = p:(-1.1, -0.4, 0.1) r:(281.7, 80.4, 279.8) s:(0.5, 0.5, 0.5)
+
+>>>>>>> UnityEngine.MeshFilter
+
+>>>>>>> UnityEngine.MeshRenderer
+
+>>>>>>> RoR2.AlignToNormal
+>>>>>>>v maxDistance = 7
+>>>>>>>v offsetDistance = -3
+>>>>>>>v changePositionOnly = False
+>>>>>>c mdlRockModular3 (1)
+
+>>>>>>> transform = p:(0.0, -0.4, 1.1) r:(298.7, 136.8, 203.6) s:(0.4, 0.4, 0.4)
+
+>>>>>>> UnityEngine.MeshFilter
+
+>>>>>>> UnityEngine.MeshRenderer
+
+>>>>>>> RoR2.AlignToNormal
+>>>>>>>v maxDistance = 7
+>>>>>>>v offsetDistance = -3
+>>>>>>>v changePositionOnly = False
+>>>>>>c mdlRockModular3 (2)
+
+>>>>>>> transform = p:(1.0, -0.2, 1.2) r:(298.7, 136.8, 203.6) s:(0.5, 0.5, 0.5)
+
+>>>>>>> UnityEngine.MeshFilter
+
+>>>>>>> UnityEngine.MeshRenderer
+
+>>>>>>> RoR2.AlignToNormal
+>>>>>>>v maxDistance = 7
+>>>>>>>v offsetDistance = -3
+>>>>>>>v changePositionOnly = False
+>>>>>>c mdlRockModular3 (3)
+
+>>>>>>> transform = p:(2.0, 0.5, 0.9) r:(288.6, 30.2, 295.0) s:(0.5, 0.5, 0.5)
+
+>>>>>>> UnityEngine.MeshFilter
+
+>>>>>>> UnityEngine.MeshRenderer
+
+>>>>>>> RoR2.AlignToNormal
+>>>>>>>v maxDistance = 7
+>>>>>>>v offsetDistance = -3
+>>>>>>>v changePositionOnly = False
+>>>>>>c mdlRockModular3 (4)
+
+>>>>>>> transform = p:(2.2, 0.5, 0.0) r:(298.7, 118.1, 250.7) s:(0.5, 0.5, 0.5)
+
+>>>>>>> UnityEngine.MeshFilter
+
+>>>>>>> UnityEngine.MeshRenderer
+
+>>>>>>> RoR2.AlignToNormal
+>>>>>>>v maxDistance = 7
+>>>>>>>v offsetDistance = -3
+>>>>>>>v changePositionOnly = False
+>>>>>>c mdlRockModular3 (5)
+
+>>>>>>> transform = p:(-1.1, -0.2, -1.3) r:(300.7, 122.3, 202.7) s:(0.4, 0.4, 0.4)
+
+>>>>>>> UnityEngine.MeshFilter
+
+>>>>>>> UnityEngine.MeshRenderer
+
+>>>>>>> RoR2.AlignToNormal
+>>>>>>>v maxDistance = 7
+>>>>>>>v offsetDistance = -3
+>>>>>>>v changePositionOnly = False
+>>>>>>c mdlRockModular3 (6)
+
+>>>>>>> transform = p:(0.0, 0.0, -1.6) r:(292.8, 155.6, 148.7) s:(0.4, 0.4, 0.4)
+
+>>>>>>> UnityEngine.MeshFilter
+
+>>>>>>> UnityEngine.MeshRenderer
+
+>>>>>>> RoR2.AlignToNormal
+>>>>>>>v maxDistance = 7
+>>>>>>>v offsetDistance = -3
+>>>>>>>v changePositionOnly = False
+>>>>>>c mdlRockModular3 (7)
+
+>>>>>>> transform = p:(1.0, 0.2, -1.5) r:(292.8, 155.6, 148.7) s:(0.4, 0.4, 0.4)
+
+>>>>>>> UnityEngine.MeshFilter
+
+>>>>>>> UnityEngine.MeshRenderer
+
+>>>>>>> RoR2.AlignToNormal
+>>>>>>>v maxDistance = 7
+>>>>>>>v offsetDistance = -3
+>>>>>>>v changePositionOnly = False
+>>>>>>c mdlRockModular3 (8)
+
+>>>>>>> transform = p:(1.6, 0.6, -1.0) r:(304.9, 184.7, 126.8) s:(0.4, 0.4, 0.4)
+
+>>>>>>> UnityEngine.MeshFilter
+
+>>>>>>> UnityEngine.MeshRenderer
+
+>>>>>>> RoR2.AlignToNormal
+>>>>>>>v maxDistance = 7
+>>>>>>>v offsetDistance = -3
+>>>>>>>v changePositionOnly = False
+>>>>>c FireDonut
+
+>>>>>> transform = p:(0.0, 0.5, 0.0) r:(78.3, 260.4, 260.2) s:(1.5, 1.5, 1.5)
+
+>>>>>> UnityEngine.MeshFilter
+
+>>>>>> UnityEngine.MeshRenderer
+>>>>>c InitialExhaustFX
+
+>>>>>> transform = p:(0.0, 1.6, 1.2) r:(281.7, 80.4, 279.8) s:(1.0, 1.0, 1.0)
+
+>>>>>> UnityEngine.MeshFilter
+
+>>>>>> UnityEngine.MeshRenderer
+
+>>>>>> RoR2.AnimateShaderAlpha
+>>>>>>v alphaCurve = UnityEngine.AnimationCurve
+>>>>>>v timeMax = 2
+>>>>>>v decal = 
+>>>>>>v destroyOnEnd = False
+>>>>>>v disableOnEnd = False
+>>>>>>v time = 0
+
+>>>>>> RoR2.ShakeEmitter
+>>>>>>v shakeOnStart = True
+>>>>>>v wave = Wave
+>>>>>>v duration = 0.3
+>>>>>>v radius = 30
+>>>>>>v scaleShakeRadiusWithLocalScale = False
+>>>>>>v amplitudeTimeDecay = True
+>>>>>>c Dust, Directional
+
+>>>>>>> transform = p:(0.0, -1.7, 0.0) r:(2.0, 0.0, 348.4) s:(1.0, 1.0, 1.0)
+
+>>>>>>> UnityEngine.ParticleSystem
+
+>>>>>>> UnityEngine.ParticleSystemRenderer
+>>>>>>c GameObject
+
+>>>>>>> transform = p:(0.0, 0.0, 0.0) r:(281.7, 80.4, 279.8) s:(1.0, 1.0, 1.0)
+>>>>>c ReleaseExhaustFX
+
+>>>>>> transform = p:(0.0, 1.6, 1.2) r:(281.7, 80.4, 279.8) s:(1.0, 1.0, 1.0)
+
+>>>>>> UnityEngine.MeshFilter
+
+>>>>>> UnityEngine.MeshRenderer
+
+>>>>>> RoR2.AnimateShaderAlpha
+>>>>>>v alphaCurve = UnityEngine.AnimationCurve
+>>>>>>v timeMax = 2
+>>>>>>v decal = 
+>>>>>>v destroyOnEnd = False
+>>>>>>v disableOnEnd = False
+>>>>>>v time = 0
+
+>>>>>> RoR2.ShakeEmitter
+>>>>>>v shakeOnStart = True
+>>>>>>v wave = Wave
+>>>>>>v duration = 0.3
+>>>>>>v radius = 30
+>>>>>>v scaleShakeRadiusWithLocalScale = False
+>>>>>>v amplitudeTimeDecay = True
+>>>>>>c Dust, Directional
+
+>>>>>>> transform = p:(0.0, -1.7, 0.0) r:(2.0, 0.0, 348.4) s:(1.0, 1.0, 1.0)
+
+>>>>>>> UnityEngine.ParticleSystem
+
+>>>>>>> UnityEngine.ParticleSystemRenderer
+>>>>>>c GameObject
+
+>>>>>>> transform = p:(0.0, 0.0, 0.0) r:(281.7, 80.4, 279.8) s:(1.0, 1.0, 1.0)
+>>>>>>c Door,Physics
+
+>>>>>>> transform = p:(0.0, -0.3, 0.0) r:(281.7, 80.4, 279.8) s:(1.0, 1.0, 1.0)
+
+>>>>>>> UnityEngine.MeshFilter
+
+>>>>>>> UnityEngine.MeshRenderer
+
+>>>>>>> UnityEngine.MeshCollider
+
+>>>>>>> UnityEngine.Rigidbody
+
+>>>>>>> RoR2.ApplyForceOnStart
+>>>>>>>v localForce = (0.0, -10000.0, 0.0)
+>>>>>c RotatingPanel
+
+>>>>>> transform = p:(0.0, 0.8, 0.0) r:(2.0, 0.0, 348.4) s:(1.0, 1.0, 1.0)
+>>>>>>c EscapePodMesh.002
+
+>>>>>>> transform = p:(0.0, 0.0, 0.0) r:(281.7, 80.4, 279.8) s:(1.0, 1.0, 1.0)
+
+>>>>>>> UnityEngine.MeshFilter
+
+>>>>>>> UnityEngine.MeshRenderer
+>>>>>>c RotatingPanel_end
+
+>>>>>>> transform = p:(0.0, 1.0, 0.0) r:(2.0, 0.0, 348.4) s:(1.0, 1.0, 1.0)
+>>>>>c BatteryAttachmentPoint
+
+>>>>>> transform = p:(0.0, 2.3, -1.1) r:(281.7, 80.4, 279.8) s:(1.0, 1.0, 1.0)
+>>>>c Camera
+
+>>>>> transform = p:(0.0, -15.5, 8.8) r:(300.9, 179.8, 179.1) s:(1.0, 1.0, 1.0)
+>>>>>c Camera_end
+
+>>>>>> transform = p:(0.0, 0.4, 0.0) r:(300.9, 179.8, 179.1) s:(1.0, 1.0, 1.0)
+>>>>>c CameraForward
+
+>>>>>> transform = p:(0.0, 0.0, 0.0) r:(30.9, 178.7, 359.4) s:(1.0, 1.0, 1.0)
+>>>>c ExitPosition
+
+>>>>> transform = p:(0.0, -2.3, -0.9) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)

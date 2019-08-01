@@ -1,0 +1,47 @@
+Funball
+
+> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> UnityEngine.SphereCollider
+
+> UnityEngine.Networking.NetworkIdentity
+>v clientAuthorityCallback = 
+
+> UnityEngine.Rigidbody
+
+> RoR2.Projectile.ProjectileController
+>v ghostPrefab = FunballGhost (UnityEngine.GameObject)
+>v ghost = 
+>v isPrediction = False
+>v allowPrediction = True
+>v predictionId = 0
+>v owner = 
+>v procChainMask = RoR2.ProcChainMask
+>v procCoefficient = 1
+>v target = 
+>v authorityEffect = 
+>v predictionEffect = 
+
+> RoR2.Projectile.ProjectileNetworkTransform
+>v positionTransmitInterval = 0.03333334
+>v interpolationFactor = 1
+>v allowClientsideCollision = False
+
+> RoR2.TeamFilter
+
+> RoR2.Projectile.ProjectileFunballBehavior
+>v explosionPrefab = FunballExplosion (UnityEngine.GameObject)
+>v duration = 2
+>v blastRadius = 4
+>v blastDamage = 20
+>v blastForce = 1600
+
+> RoR2.VelocityRandomOnStart
+>v minSpeed = 16
+>v maxSpeed = 16
+>v baseDirection = (0.0, 1.0, 0.0)
+>v localDirection = False
+>v directionMode = Hemisphere
+>v coneAngle = 30
+>v minAngularSpeed = 0
+>v maxAngularSpeed = 0

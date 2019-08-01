@@ -1,0 +1,13 @@
+PickupWarHorn
+
+> transform = p:(131.1, -118.2, -29.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> RoR2.ItemDisplay
+>v rendererInfos = RoR2.CharacterModel+RendererInfo[]
+>c mdlWarHorn
+
+>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 0.0, 0.0) s:(0.3, 0.3, 0.3)
+
+>> UnityEngine.MeshFilter
+
+>> UnityEngine.MeshRenderer

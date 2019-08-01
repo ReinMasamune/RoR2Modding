@@ -1,0 +1,47 @@
+MedkitCharge
+
+> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> RoR2.Billboard
+
+> RoR2.VFXAttributes
+>v vfxPriority = Medium
+>v vfxIntensity = Low
+>v optionalLights = UnityEngine.Light[]
+>v secondaryParticleSystem = UnityEngine.ParticleSystem[]
+
+> DestroyOnParticleEnd
+>c Quad
+
+>> transform = p:(-0.9, 2.0, 0.0) r:(0.0, 0.0, 0.0) s:(0.3, 0.3, 0.3)
+
+>> UnityEngine.MeshFilter
+
+>> UnityEngine.MeshRenderer
+
+>> RoR2.AnimateShaderAlpha
+>>v alphaCurve = UnityEngine.AnimationCurve
+>>v timeMax = 1.1
+>>v decal = 
+>>v destroyOnEnd = False
+>>v disableOnEnd = False
+>>v time = 0
+
+>> RoR2.ScaleSpriteByCamDistance
+>>v scaleFactor = 0.3
+>>v scalingMode = CubeRoot
+
+>> ObjectScaleCurve
+>>v curveX = UnityEngine.AnimationCurve
+>>v curveY = UnityEngine.AnimationCurve
+>>v curveZ = UnityEngine.AnimationCurve
+>>v overallCurve = UnityEngine.AnimationCurve
+>>v timeMax = 2.2
+>>v time = 0
+>c GameObject
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> UnityEngine.ParticleSystem
+
+>> UnityEngine.ParticleSystemRenderer

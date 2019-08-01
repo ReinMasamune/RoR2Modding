@@ -1,0 +1,159 @@
+BearProc
+
+> transform = p:(3.2, -150.3, 5.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> RoR2.EffectComponent
+>v effectData = 
+>v positionAtReferencedTransform = True
+>v parentToReferencedTransform = True
+>v applyScale = False
+
+> AkGameObj
+>v isEnvironmentAware = True
+>v m_positionOffsetData = AkGameObjPositionOffsetData
+
+> AkEvent
+>v actionOnEventType = AkActionOnEventType_Stop
+>v curveInterpolation = AkCurveInterpolation_Linear
+>v enableActionOnEvent = False
+>v data = Play_item_proc_bear
+>v m_callbackData = 
+>v playingId = 0
+>v soundEmitterObject = 
+>v transitionDuration = 0
+>v triggerList = System.Collections.Generic.List`1[System.Int32]
+>v useOtherObject = False
+
+> UnityEngine.Rigidbody
+
+> RoR2.DestroyOnTimer
+>v duration = 1.5
+>v resetAgeOnDisable = False
+
+> RoR2.VFXAttributes
+>v vfxPriority = Medium
+>v vfxIntensity = Medium
+>v optionalLights = UnityEngine.Light[]
+>v secondaryParticleSystem = UnityEngine.ParticleSystem[]
+>c Particles
+
+>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>c Fluff
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.ParticleSystemRenderer
+
+>>> UnityEngine.ParticleSystem
+>c TextCamScaler
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> RoR2.ScaleSpriteByCamDistance
+>>v scaleFactor = 1
+>>v scalingMode = CubeRoot
+>>c TextRiser
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> ObjectScaleCurve
+>>>v curveX = UnityEngine.AnimationCurve
+>>>v curveY = UnityEngine.AnimationCurve
+>>>v curveZ = UnityEngine.AnimationCurve
+>>>v overallCurve = UnityEngine.AnimationCurve
+>>>v timeMax = 1.5
+>>>v time = 0
+>>>c TextMeshPro
+
+>>>> UnityEngine.RectTransform
+
+>>>> UnityEngine.MeshFilter
+
+>>>> UnityEngine.MeshRenderer
+
+>>>> UnityEngine.CanvasRenderer
+
+>>>> TMPro.TextMeshPro
+
+>>>> RoR2.Billboard
+>c mdlBear
+
+>> transform = p:(0.0, 0.0, 0.0) r:(338.1, 0.0, 0.0) s:(0.2, 0.2, 0.2)
+
+>> UnityEngine.Animator
+
+>> UnityEngine.CapsuleCollider
+
+>> DynamicBone
+>>v m_Root = Armature (UnityEngine.Transform)
+>>v m_UpdateRate = 60
+>>v m_UpdateMode = Normal
+>>v m_Damping = 0.23
+>>v m_DampingDistrib = UnityEngine.AnimationCurve
+>>v m_Elasticity = 0.1
+>>v m_ElasticityDistrib = UnityEngine.AnimationCurve
+>>v m_Stiffness = 0.1
+>>v m_StiffnessDistrib = UnityEngine.AnimationCurve
+>>v m_Inert = 0
+>>v m_InertDistrib = UnityEngine.AnimationCurve
+>>v m_Radius = 0
+>>v m_RadiusDistrib = UnityEngine.AnimationCurve
+>>v m_EndLength = 0
+>>v m_EndOffset = (0.0, 0.0, 0.0)
+>>v m_Gravity = (0.0, 0.0, 0.0)
+>>v m_Force = (0.0, 0.0, 0.0)
+>>v m_Colliders = System.Collections.Generic.List`1[DynamicBoneCollider]
+>>v m_Exclusions = System.Collections.Generic.List`1[UnityEngine.Transform]
+>>v m_FreezeAxis = None
+>>v m_DistantDisable = False
+>>v m_ReferenceObject = 
+>>v m_DistanceToObject = 20
+
+>> UnityEngine.Rigidbody
+
+>> RoR2.ApplyForceOnStart
+>>v localForce = (0.0, 0.0, 1000.0)
+>>c Armature
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(291.9, 180.0, 180.0) s:(1.0, 1.0, 1.0)
+>>>c Root
+
+>>>> transform = p:(0.0, 1.0, 0.3) r:(68.1, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>c Body
+
+>>>>> transform = p:(0.0, 1.0, 0.0) r:(28.2, 180.0, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>c Arm.L
+
+>>>>>> transform = p:(-0.8, 0.3, -0.2) r:(321.7, 251.5, 208.4) s:(1.0, 1.0, 1.0)
+>>>>>>c Arm.L_end
+
+>>>>>>> transform = p:(0.0, 0.9, 0.0) r:(321.7, 251.5, 208.4) s:(1.0, 1.0, 1.0)
+>>>>>c Arm.R
+
+>>>>>> transform = p:(0.8, 0.3, -0.2) r:(38.3, 288.5, 208.4) s:(1.0, 1.0, 1.0)
+>>>>>>c Arm.R_end
+
+>>>>>>> transform = p:(0.0, 0.9, 0.0) r:(38.3, 288.5, 208.4) s:(1.0, 1.0, 1.0)
+>>>>>c Foot.L
+
+>>>>>> transform = p:(-0.4, 1.5, 0.0) r:(351.4, 266.5, 202.2) s:(1.0, 1.0, 1.0)
+>>>>>>c Foot.L_end
+
+>>>>>>> transform = p:(0.0, 0.9, 0.0) r:(351.4, 266.5, 202.2) s:(1.0, 1.0, 1.0)
+>>>>>c Foot.R
+
+>>>>>> transform = p:(0.4, 1.5, 0.0) r:(8.6, 273.5, 202.2) s:(1.0, 1.0, 1.0)
+>>>>>>c Foot.R_end
+
+>>>>>>> transform = p:(0.0, 0.9, 0.0) r:(8.6, 273.5, 202.2) s:(1.0, 1.0, 1.0)
+>>>>c Head.002
+
+>>>>> transform = p:(0.0, 1.0, 0.0) r:(338.1, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>c Head.002_end
+
+>>>>>> transform = p:(0.0, 1.4, 0.0) r:(338.1, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>c Sphere
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(291.9, 180.0, 180.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.SkinnedMeshRenderer

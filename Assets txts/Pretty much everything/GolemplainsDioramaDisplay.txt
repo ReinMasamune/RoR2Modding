@@ -1,0 +1,594 @@
+GolemplainsDioramaDisplay
+
+> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>c Ruins
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>c GPRuinedRing1Shattered1 (1)
+
+>>> transform = p:(-7.1, 0.0, -1.4) r:(341.5, 223.1, 114.2) s:(7.8, 7.8, 7.8)
+
+>>> UnityEngine.MeshFilter
+
+>>> UnityEngine.MeshRenderer
+
+>>> UnityEngine.MeshCollider
+
+>>> SurfaceDefProvider
+>>>v surfaceDef = sdStone (SurfaceDef)
+>>c GPRuinedRing1Half (3)
+
+>>> transform = p:(-1.8, 0.0, -9.4) r:(282.5, 203.9, 260.9) s:(11.7, 18.7, 18.7)
+
+>>> UnityEngine.MeshFilter
+
+>>> UnityEngine.MeshRenderer
+
+>>> UnityEngine.MeshCollider
+
+>>> SurfaceDefProvider
+>>>v surfaceDef = sdStone (SurfaceDef)
+>c Foliage
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>c spmGPFlower
+
+>>> transform = p:(0.0, 3.4, 0.0) r:(0.0, 0.0, 0.0) s:(1.4, 1.4, 1.4)
+
+>>> UnityEngine.LODGroup
+>>>c spmGPFlower_Billboard
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.BillboardRenderer
+
+>>>> UnityEngine.Tree
+>>>c spmGPFlower_LOD0
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.MeshFilter
+
+>>>> UnityEngine.MeshRenderer
+
+>>>> UnityEngine.Tree
+>>>c spmGPFlower_LOD1
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.MeshFilter
+
+>>>> UnityEngine.MeshRenderer
+
+>>>> UnityEngine.Tree
+>>>c spmGPFlower_LOD2
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.MeshFilter
+
+>>>> UnityEngine.MeshRenderer
+
+>>>> UnityEngine.Tree
+>>c spmBbDryBush
+
+>>> transform = p:(-12.7, 1.2, -7.3) r:(357.7, 325.3, 356.6) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.LODGroup
+>>>c spmBbDryBush_Billboard
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(357.7, 325.3, 356.6) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.BillboardRenderer
+
+>>>> UnityEngine.Tree
+>>>c spmBbDryBush_LOD0
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(357.7, 325.3, 356.6) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.MeshFilter
+
+>>>> UnityEngine.MeshRenderer
+
+>>>> UnityEngine.Tree
+>>c spmGPGrass
+
+>>> transform = p:(-8.4, 2.4, 5.4) r:(355.3, 273.3, 5.6) s:(0.8, 0.6, 0.8)
+
+>>> UnityEngine.LODGroup
+>>>c spmGPGrass_LOD0
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(355.3, 273.3, 5.6) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.MeshFilter
+
+>>>> UnityEngine.MeshRenderer
+
+>>>> UnityEngine.Tree
+>>c spmGPGrass (1)
+
+>>> transform = p:(-8.3, 2.4, 6.7) r:(355.3, 273.3, 5.6) s:(0.8, 0.6, 0.8)
+
+>>> UnityEngine.LODGroup
+>>>c spmGPGrass_LOD0
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(355.3, 273.3, 5.6) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.MeshFilter
+
+>>>> UnityEngine.MeshRenderer
+
+>>>> UnityEngine.Tree
+>>c spmGPGrass (2)
+
+>>> transform = p:(-5.5, 2.4, 2.1) r:(355.3, 273.3, 5.6) s:(0.9, 0.7, 0.9)
+
+>>> UnityEngine.LODGroup
+>>>c spmGPGrass_LOD0
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(355.3, 273.3, 5.6) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.MeshFilter
+
+>>>> UnityEngine.MeshRenderer
+
+>>>> UnityEngine.Tree
+>>c spmGPGrass (3)
+
+>>> transform = p:(-6.0, 2.4, -3.8) r:(355.3, 218.0, 5.6) s:(0.8, 0.6, 0.8)
+
+>>> UnityEngine.LODGroup
+>>>c spmGPGrass_LOD0
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(355.3, 218.0, 5.6) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.MeshFilter
+
+>>>> UnityEngine.MeshRenderer
+
+>>>> UnityEngine.Tree
+>>c spmGPGrass (4)
+
+>>> transform = p:(-5.9, 2.4, -2.5) r:(355.3, 218.0, 5.6) s:(0.8, 0.6, 0.8)
+
+>>> UnityEngine.LODGroup
+>>>c spmGPGrass_LOD0
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(355.3, 218.0, 5.6) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.MeshFilter
+
+>>>> UnityEngine.MeshRenderer
+
+>>>> UnityEngine.Tree
+>>c spmGPGrass (5)
+
+>>> transform = p:(-3.1, 2.4, -7.0) r:(355.3, 218.0, 5.6) s:(0.9, 0.7, 0.9)
+
+>>> UnityEngine.LODGroup
+>>>c spmGPGrass_LOD0
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(355.3, 218.0, 5.6) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.MeshFilter
+
+>>>> UnityEngine.MeshRenderer
+
+>>>> UnityEngine.Tree
+>>c spmGPGrass (6)
+
+>>> transform = p:(-12.9, 2.4, -5.1) r:(355.3, 218.0, 5.6) s:(0.8, 0.6, 0.8)
+
+>>> UnityEngine.LODGroup
+>>>c spmGPGrass_LOD0
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(355.3, 218.0, 5.6) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.MeshFilter
+
+>>>> UnityEngine.MeshRenderer
+
+>>>> UnityEngine.Tree
+>>c spmGPGrass (7)
+
+>>> transform = p:(-12.8, 2.4, -3.8) r:(355.3, 218.0, 5.6) s:(0.8, 0.6, 0.8)
+
+>>> UnityEngine.LODGroup
+>>>c spmGPGrass_LOD0
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(355.3, 218.0, 5.6) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.MeshFilter
+
+>>>> UnityEngine.MeshRenderer
+
+>>>> UnityEngine.Tree
+>>c spmGPGrass (8)
+
+>>> transform = p:(-10.0, 2.7, -8.3) r:(355.3, 218.0, 5.6) s:(0.9, 0.7, 0.9)
+
+>>> UnityEngine.LODGroup
+>>>c spmGPGrass_LOD0
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(355.3, 218.0, 5.6) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.MeshFilter
+
+>>>> UnityEngine.MeshRenderer
+
+>>>> UnityEngine.Tree
+>>c spmGPGrass (9)
+
+>>> transform = p:(3.7, 2.7, 17.4) r:(355.3, 218.0, 5.6) s:(0.8, 0.6, 0.8)
+
+>>> UnityEngine.LODGroup
+>>>c spmGPGrass_LOD0
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(355.3, 218.0, 5.6) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.MeshFilter
+
+>>>> UnityEngine.MeshRenderer
+
+>>>> UnityEngine.Tree
+>>c spmGPGrass (10)
+
+>>> transform = p:(6.8, 2.7, 18.4) r:(355.3, 218.0, 5.6) s:(0.8, 0.6, 0.8)
+
+>>> UnityEngine.LODGroup
+>>>c spmGPGrass_LOD0
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(355.3, 218.0, 5.6) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.MeshFilter
+
+>>>> UnityEngine.MeshRenderer
+
+>>>> UnityEngine.Tree
+>>c spmGPGrass (11)
+
+>>> transform = p:(6.6, 2.7, 14.2) r:(355.3, 218.0, 5.6) s:(0.9, 0.7, 0.9)
+
+>>> UnityEngine.LODGroup
+>>>c spmGPGrass_LOD0
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(355.3, 218.0, 5.6) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.MeshFilter
+
+>>>> UnityEngine.MeshRenderer
+
+>>>> UnityEngine.Tree
+>>c spmBbDryBush (1)
+
+>>> transform = p:(1.0, 1.2, 12.9) r:(357.7, 302.0, 356.6) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.LODGroup
+>>>c spmBbDryBush_Billboard
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(357.7, 302.0, 356.6) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.BillboardRenderer
+
+>>>> UnityEngine.Tree
+>>>c spmBbDryBush_LOD0
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(357.7, 302.0, 356.6) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.MeshFilter
+
+>>>> UnityEngine.MeshRenderer
+
+>>>> UnityEngine.Tree
+>>c spmGPFlower (1)
+
+>>> transform = p:(9.3, 2.4, 12.4) r:(0.0, 323.4, 0.0) s:(1.4, 1.4, 1.4)
+
+>>> UnityEngine.LODGroup
+>>>c spmGPFlower_Billboard
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 323.4, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.BillboardRenderer
+
+>>>> UnityEngine.Tree
+>>>c spmGPFlower_LOD0
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 323.4, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.MeshFilter
+
+>>>> UnityEngine.MeshRenderer
+
+>>>> UnityEngine.Tree
+>>>c spmGPFlower_LOD1
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 323.4, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.MeshFilter
+
+>>>> UnityEngine.MeshRenderer
+
+>>>> UnityEngine.Tree
+>>>c spmGPFlower_LOD2
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 323.4, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.MeshFilter
+
+>>>> UnityEngine.MeshRenderer
+
+>>>> UnityEngine.Tree
+>>c spmGPFlower (2)
+
+>>> transform = p:(-9.4, 2.6, 4.5) r:(0.0, 323.4, 0.0) s:(1.4, 1.4, 1.4)
+
+>>> UnityEngine.LODGroup
+>>>c spmGPFlower_Billboard
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 323.4, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.BillboardRenderer
+
+>>>> UnityEngine.Tree
+>>>c spmGPFlower_LOD0
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 323.4, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.MeshFilter
+
+>>>> UnityEngine.MeshRenderer
+
+>>>> UnityEngine.Tree
+>>>c spmGPFlower_LOD1
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 323.4, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.MeshFilter
+
+>>>> UnityEngine.MeshRenderer
+
+>>>> UnityEngine.Tree
+>>>c spmGPFlower_LOD2
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 323.4, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.MeshFilter
+
+>>>> UnityEngine.MeshRenderer
+
+>>>> UnityEngine.Tree
+>>c spmGPFlower (3)
+
+>>> transform = p:(-17.1, 2.4, 5.5) r:(354.6, 318.8, 8.1) s:(1.4, 1.4, 1.4)
+
+>>> UnityEngine.LODGroup
+>>>c spmGPFlower_Billboard
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(354.6, 318.8, 8.1) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.BillboardRenderer
+
+>>>> UnityEngine.Tree
+>>>c spmGPFlower_LOD0
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(354.6, 318.8, 8.1) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.MeshFilter
+
+>>>> UnityEngine.MeshRenderer
+
+>>>> UnityEngine.Tree
+>>>c spmGPFlower_LOD1
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(354.6, 318.8, 8.1) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.MeshFilter
+
+>>>> UnityEngine.MeshRenderer
+
+>>>> UnityEngine.Tree
+>>>c spmGPFlower_LOD2
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(354.6, 318.8, 8.1) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.MeshFilter
+
+>>>> UnityEngine.MeshRenderer
+
+>>>> UnityEngine.Tree
+>>c spmGPFlower (4)
+
+>>> transform = p:(-16.6, 2.4, 6.4) r:(352.0, 327.6, 357.8) s:(1.4, 1.4, 1.4)
+
+>>> UnityEngine.LODGroup
+>>>c spmGPFlower_Billboard
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(352.0, 327.6, 357.8) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.BillboardRenderer
+
+>>>> UnityEngine.Tree
+>>>c spmGPFlower_LOD0
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(352.0, 327.6, 357.8) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.MeshFilter
+
+>>>> UnityEngine.MeshRenderer
+
+>>>> UnityEngine.Tree
+>>>c spmGPFlower_LOD1
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(352.0, 327.6, 357.8) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.MeshFilter
+
+>>>> UnityEngine.MeshRenderer
+
+>>>> UnityEngine.Tree
+>>>c spmGPFlower_LOD2
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(352.0, 327.6, 357.8) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.MeshFilter
+
+>>>> UnityEngine.MeshRenderer
+
+>>>> UnityEngine.Tree
+>>c spmGPFlower (5)
+
+>>> transform = p:(10.5, 2.4, 12.9) r:(0.0, 267.2, 0.0) s:(1.4, 1.4, 1.4)
+
+>>> UnityEngine.LODGroup
+>>>c spmGPFlower_Billboard
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 267.2, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.BillboardRenderer
+
+>>>> UnityEngine.Tree
+>>>c spmGPFlower_LOD0
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 267.2, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.MeshFilter
+
+>>>> UnityEngine.MeshRenderer
+
+>>>> UnityEngine.Tree
+>>>c spmGPFlower_LOD1
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 267.2, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.MeshFilter
+
+>>>> UnityEngine.MeshRenderer
+
+>>>> UnityEngine.Tree
+>>>c spmGPFlower_LOD2
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 267.2, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.MeshFilter
+
+>>>> UnityEngine.MeshRenderer
+
+>>>> UnityEngine.Tree
+>c Terrain
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>c BBBoulderMediumRound1 (22)
+
+>>> transform = p:(-18.4, 3.2, -0.2) r:(35.9, 40.3, 342.3) s:(0.8, 0.8, 0.8)
+
+>>> UnityEngine.MeshFilter
+
+>>> UnityEngine.MeshRenderer
+
+>>> SurfaceDefProvider
+>>>v surfaceDef = sdStone (SurfaceDef)
+>>c GPGiantRockSlab (1)
+
+>>> transform = p:(13.1, 3.9, 3.4) r:(297.5, 260.0, 191.7) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.MeshFilter
+
+>>> UnityEngine.MeshRenderer
+>>c BBBoulderMediumRound1 (23)
+
+>>> transform = p:(-11.5, 2.6, -10.3) r:(0.0, 318.5, 0.0) s:(1.1, 1.1, 1.1)
+
+>>> UnityEngine.MeshFilter
+
+>>> UnityEngine.MeshRenderer
+
+>>> SurfaceDefProvider
+>>>v surfaceDef = sdStone (SurfaceDef)
+>>c Terrain (2)
+
+>>> transform = p:(-7.9, 2.5, 6.2) r:(273.3, 107.7, 242.1) s:(11.1, 14.9, 6.2)
+
+>>> UnityEngine.MeshFilter
+
+>>> UnityEngine.MeshRenderer
+
+>>> SurfaceDefProvider
+>>>v surfaceDef = sdStone (SurfaceDef)
+>>c Terrain (3)
+
+>>> transform = p:(-17.7, 2.6, -7.1) r:(275.5, 144.7, 205.0) s:(6.0, 8.1, 3.4)
+
+>>> UnityEngine.MeshFilter
+
+>>> UnityEngine.MeshRenderer
+
+>>> SurfaceDefProvider
+>>>v surfaceDef = sdStone (SurfaceDef)
+>>c Terrain (4)
+
+>>> transform = p:(14.3, 2.8, -14.7) r:(275.5, 144.7, 205.0) s:(6.0, 8.1, 3.7)
+
+>>> UnityEngine.MeshFilter
+
+>>> UnityEngine.MeshRenderer
+
+>>> SurfaceDefProvider
+>>>v surfaceDef = sdStone (SurfaceDef)
+>>c BBBoulderMediumRound1 (24)
+
+>>> transform = p:(-1.1, 2.6, 16.8) r:(330.1, 265.1, 38.0) s:(1.6, 1.6, 1.6)
+
+>>> UnityEngine.MeshFilter
+
+>>> UnityEngine.MeshRenderer
+
+>>> SurfaceDefProvider
+>>>v surfaceDef = sdStone (SurfaceDef)
+>>c BBBoulderMediumRound1 (25)
+
+>>> transform = p:(15.6, 2.6, 10.7) r:(335.1, 233.5, 76.4) s:(1.6, 1.6, 1.6)
+
+>>> UnityEngine.MeshFilter
+
+>>> UnityEngine.MeshRenderer
+
+>>> SurfaceDefProvider
+>>>v surfaceDef = sdStone (SurfaceDef)
+>>c BBBoulderMediumRound1 (26)
+
+>>> transform = p:(-7.3, 2.1, 0.9) r:(346.8, 333.2, 20.2) s:(0.6, 0.6, 0.6)
+
+>>> UnityEngine.MeshFilter
+
+>>> UnityEngine.MeshRenderer
+
+>>> SurfaceDefProvider
+>>>v surfaceDef = sdStone (SurfaceDef)
+>>c Dune
+
+>>> transform = p:(-1.0, 2.3, -15.0) r:(274.9, 207.5, 128.1) s:(6.0, 8.1, 5.1)
+
+>>> UnityEngine.MeshFilter
+
+>>> UnityEngine.MeshRenderer
+
+>>> SurfaceDefProvider
+>>>v surfaceDef = sdStone (SurfaceDef)
+>>c Dune (1)
+
+>>> transform = p:(-0.1, 2.3, 3.1) r:(274.9, 188.5, 128.1) s:(6.0, 8.1, 5.1)
+
+>>> UnityEngine.MeshFilter
+
+>>> UnityEngine.MeshRenderer
+
+>>> SurfaceDefProvider
+>>>v surfaceDef = sdStone (SurfaceDef)
+>c Ring
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 90.0) s:(13.0, 26.0, 26.0)
+
+>> UnityEngine.MeshFilter
+
+>> UnityEngine.MeshRenderer

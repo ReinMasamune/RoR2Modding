@@ -1,0 +1,39 @@
+EngiSeekerGrenadeGhost
+
+> transform = p:(29.6, 11.1, 31.9) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> RoR2.Projectile.ProjectileGhostController
+>v authorityTransform = 
+>v predictionTransform = 
+
+> RoR2.VFXAttributes
+>v vfxPriority = Always
+>v vfxIntensity = Low
+>v optionalLights = UnityEngine.Light[]
+>v secondaryParticleSystem = UnityEngine.ParticleSystem[]
+>c Holder
+
+>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> Rewired.ComponentControls.Effects.RotateAroundAxis
+>>c mdlEngiGrenade
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 0.0, 0.0) s:(0.2, 0.2, 0.5)
+
+>>> UnityEngine.MeshFilter
+
+>>> UnityEngine.MeshRenderer
+>>c mdlEngiGrenade
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(0.2, 0.2, 0.5)
+
+>>> UnityEngine.MeshFilter
+
+>>> UnityEngine.MeshRenderer
+>>c mdlEngiGrenade
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 90.0, 0.0) s:(0.2, 0.2, 0.5)
+
+>>> UnityEngine.MeshFilter
+
+>>> UnityEngine.MeshRenderer

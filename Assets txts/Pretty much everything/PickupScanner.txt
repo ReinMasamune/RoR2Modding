@@ -1,0 +1,10 @@
+PickupScanner
+
+> transform = p:(-52.7, -177.0, -244.5) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>c Mesh
+
+>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> UnityEngine.MeshFilter
+
+>> UnityEngine.MeshRenderer

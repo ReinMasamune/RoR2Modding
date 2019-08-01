@@ -1,0 +1,38 @@
+BeetleGuardDefenseUp
+
+> transform = p:(113.2, 11.5, 11.9) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> RotateObject
+>v rotationSpeed = (0.0, 100.0, 0.0)
+
+> RoR2.ScaleParticleSystemDuration
+>v initialDuration = 4
+>v particleSystems = UnityEngine.ParticleSystem[]
+
+> ObjectScaleCurve
+>v curveX = UnityEngine.AnimationCurve
+>v curveY = UnityEngine.AnimationCurve
+>v curveZ = UnityEngine.AnimationCurve
+>v overallCurve = UnityEngine.AnimationCurve
+>v timeMax = 0.5
+>v time = 0
+
+> RoR2.VFXAttributes
+>v vfxPriority = Medium
+>v vfxIntensity = Medium
+>v optionalLights = UnityEngine.Light[]
+>v secondaryParticleSystem = UnityEngine.ParticleSystem[]
+>c Pulse
+
+>> transform = p:(0.0, 0.0, 0.0) r:(90.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> UnityEngine.ParticleSystem
+
+>> UnityEngine.ParticleSystemRenderer
+>c Shields
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> UnityEngine.ParticleSystem
+
+>> UnityEngine.ParticleSystemRenderer

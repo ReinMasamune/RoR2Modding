@@ -1,0 +1,10 @@
+PickupAegis
+
+> transform = p:(-0.6, -153.8, -99.2) r:(0.0, 0.0, 0.0) s:(0.5, 0.5, 0.5)
+>c mdlAegis
+
+>> transform = p:(0.0, 0.0, 0.0) r:(298.6, 104.6, 206.7) s:(1.0, 1.0, 1.0)
+
+>> UnityEngine.MeshFilter
+
+>> UnityEngine.MeshRenderer

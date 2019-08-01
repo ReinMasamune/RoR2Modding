@@ -1,0 +1,91 @@
+Tooltip
+
+> UnityEngine.RectTransform
+
+> UnityEngine.Canvas
+
+> UnityEngine.UI.CanvasScaler
+
+> RoR2.UI.TooltipController
+>v owner = 
+>v tooltipCenterTransform = TooltipOffset (UnityEngine.RectTransform)
+>v tooltipFlipTransform = Panel (UnityEngine.RectTransform)
+>v colorHighlightImage = TitleRect (UnityEngine.UI.Image)
+>v titleLabel = TitleLabel (RoR2.UI.HGTextMeshProUGUI)
+>v bodyLabel = BodyLabel (RoR2.UI.HGTextMeshProUGUI)
+
+> UnityEngine.CanvasGroup
+
+> RoR2.AwakeEvent
+>v action = UnityEngine.Events.UnityEvent UnityEngine.Events.UnityEvent
+
+> RoR2.DelayedEvent
+>v action = UnityEngine.Events.UnityEvent UnityEngine.Events.UnityEvent
+>v timeStepType = UnscaledTime
+>c TooltipOffset
+
+>> UnityEngine.RectTransform
+>>c Panel
+
+>>> UnityEngine.RectTransform
+
+>>> UnityEngine.CanvasRenderer
+
+>>> UnityEngine.UI.Image
+
+>>> UnityEngine.UI.VerticalLayoutGroup
+
+>>> RoR2.UI.UIJuice
+>>>v canvasGroup = Tooltip (UnityEngine.CanvasGroup)
+>>>v panningRect = 
+>>>v transitionDuration = 0.1
+>>>v panningMagnitude = 0
+>>>v destroyOnEndOfTransition = False
+
+>>> UnityEngine.UI.ContentSizeFitter
+>>>c TitleRect
+
+>>>> UnityEngine.RectTransform
+
+>>>> UnityEngine.CanvasRenderer
+
+>>>> UnityEngine.UI.Image
+
+>>>> UnityEngine.UI.ContentSizeFitter
+
+>>>> UnityEngine.UI.HorizontalLayoutGroup
+
+>>>> UnityEngine.UI.LayoutElement
+>>>>c TitleLabel
+
+>>>>> UnityEngine.RectTransform
+
+>>>>> UnityEngine.CanvasRenderer
+
+>>>>> RoR2.UI.HGTextMeshProUGUI
+>>>>>v useLanguageDefaultFont = True
+>>>>>v defaultLanguageFont = tmpBombDropshadow (TMPro.TMP_FontAsset)
+>>>c BodyRect
+
+>>>> UnityEngine.RectTransform
+
+>>>> UnityEngine.CanvasRenderer
+
+>>>> UnityEngine.UI.ContentSizeFitter
+
+>>>> UnityEngine.UI.HorizontalLayoutGroup
+
+>>>> UnityEngine.UI.LayoutElement
+
+>>>> LeTai.Asset.TranslucentImage.TranslucentImage
+>>>>v source = 
+>>>>v spriteBlending = 0
+>>>>c BodyLabel
+
+>>>>> UnityEngine.RectTransform
+
+>>>>> UnityEngine.CanvasRenderer
+
+>>>>> RoR2.UI.HGTextMeshProUGUI
+>>>>>v useLanguageDefaultFont = True
+>>>>>v defaultLanguageFont = tmpBombDropshadow (TMPro.TMP_FontAsset)

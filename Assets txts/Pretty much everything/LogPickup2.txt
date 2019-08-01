@@ -1,0 +1,40 @@
+LogPickup2
+
+> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> UnityEngine.Networking.NetworkIdentity
+>v clientAuthorityCallback = 
+
+> UnityEngine.Networking.NetworkTransform
+
+> UnityEngine.Rigidbody
+
+> UnityEngine.BoxCollider
+
+> RoR2.UnlockPickup
+>v itemPickupSoundString = Play_UI_item_pickup
+>v waitDuration = 0.5
+>v displayNameToken = LOG_PICKUP_NAME
+>v unlockableName = 
+
+> RoR2.EntityLocator
+>v entity = LogPickup2 (UnityEngine.GameObject)
+
+> RoR2.Highlight
+>v pickupIndex = ItemIndex.Syringe
+>v targetRenderer = mdlLogBook (UnityEngine.MeshRenderer)
+>v strength = 1
+>v highlightColor = interactive
+>v isOn = False
+>c mdlLogBook
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> UnityEngine.MeshFilter
+
+>> UnityEngine.MeshRenderer
+>c Point light
+
+>> transform = p:(0.0, 0.0, 0.3) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> UnityEngine.Light

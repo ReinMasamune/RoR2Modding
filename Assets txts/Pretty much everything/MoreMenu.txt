@@ -1,0 +1,779 @@
+MoreMenu
+
+> UnityEngine.RectTransform
+
+> UnityEngine.Canvas
+
+> UnityEngine.UI.CanvasScaler
+
+> UnityEngine.UI.GraphicRaycaster
+
+> RoR2.UI.MainMenu.BaseMainMenuScreen
+>v desiredCameraTransform = 
+>v shouldDisplay = False
+>v onEnter = UnityEngine.Events.UnityEvent UnityEngine.Events.UnityEvent
+>v onExit = UnityEngine.Events.UnityEvent UnityEngine.Events.UnityEvent
+
+> RoR2.UI.MPEventSystemProvider
+>v eventSystem = 
+>v fallBackToMainEventSystem = True
+
+> RoR2.UI.MPEventSystemLocator
+
+> RoR2.UI.CursorOpener
+
+> UnityEngine.CanvasGroup
+>c Main Panel
+
+>> UnityEngine.RectTransform
+
+>> UnityEngine.CanvasRenderer
+
+>> UnityEngine.UI.Image
+>>c Left Panel
+
+>>> UnityEngine.RectTransform
+
+>>> UnityEngine.CanvasRenderer
+
+>>> UnityEngine.UI.Image
+>>>c InfoPanel + Blur (JUICED)
+
+>>>> UnityEngine.RectTransform
+
+>>>> UnityEngine.CanvasRenderer
+
+>>>> UnityEngine.UI.Image
+
+>>>> RoR2.UI.UIJuice
+>>>>v canvasGroup = InfoPanel + Blur (JUICED) (UnityEngine.CanvasGroup)
+>>>>v panningRect = InfoPanel + Blur (JUICED) (UnityEngine.RectTransform)
+>>>>v transitionDuration = 0.5
+>>>>v panningMagnitude = 20
+>>>>v destroyOnEndOfTransition = False
+
+>>>> UnityEngine.CanvasGroup
+>>>>c BG + Layout Group
+
+>>>>> UnityEngine.RectTransform
+
+>>>>> UnityEngine.CanvasRenderer
+
+>>>>> UnityEngine.UI.Image
+
+>>>>> UnityEngine.UI.VerticalLayoutGroup
+>>>>>c Title
+
+>>>>>> UnityEngine.RectTransform
+
+>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>> RoR2.UI.HGTextMeshProUGUI
+>>>>>>v useLanguageDefaultFont = True
+>>>>>>v defaultLanguageFont = tmpBombDropshadow (TMPro.TMP_FontAsset)
+
+>>>>>> RoR2.UI.LanguageTextMeshController
+>>>c Bar, Title
+
+>>>> UnityEngine.RectTransform
+
+>>>> UnityEngine.CanvasRenderer
+
+>>>> UnityEngine.UI.Image
+>>>c ButtonPanel (JUICED)
+
+>>>> UnityEngine.RectTransform
+
+>>>> UnityEngine.UI.VerticalLayoutGroup
+
+>>>> RoR2.UI.UIJuice
+>>>>v canvasGroup = ButtonPanel (JUICED) (UnityEngine.CanvasGroup)
+>>>>v panningRect = ButtonPanel (JUICED) (UnityEngine.RectTransform)
+>>>>v transitionDuration = 0.5
+>>>>v panningMagnitude = 30
+>>>>v destroyOnEndOfTransition = False
+
+>>>> UnityEngine.CanvasGroup
+>>>>c Button, Return
+
+>>>>> UnityEngine.RectTransform
+
+>>>>> UnityEngine.CanvasRenderer
+
+>>>>> UnityEngine.UI.Image
+
+>>>>> RoR2.UI.MPEventSystemLocator
+
+>>>>> RoR2.UI.CustomButtonTransition
+>>>>>v scaleButtonOnHover = False
+>>>>>v showImageOnHover = True
+>>>>>v imageOnHover = HoverOutline (UnityEngine.UI.Image)
+>>>>>v imageOnInteractable = BaseOutline (UnityEngine.UI.Image)
+>>>>>v allowAllEventSystems = True
+>>>>>v pointerClickOnly = True
+
+>>>>> RoR2.UI.SkinControllers.ButtonSkinController
+>>>>>v useRecommendedButtonWidth = True
+>>>>>v useRecommendedButtonHeight = True
+>>>>>v useRecommendedImage = True
+>>>>>v useRecommendedMaterial = True
+>>>>>v useRecommendedAlignment = False
+>>>>>v useRecommendedLabel = True
+>>>>>v skinData = skinCleanButton (RoR2.UI.UISkinData)
+>>>>>c ButtonText
+
+>>>>>> UnityEngine.RectTransform
+
+>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>> RoR2.UI.HGTextMeshProUGUI
+>>>>>>v useLanguageDefaultFont = True
+>>>>>>v defaultLanguageFont = tmpBombDropshadow (TMPro.TMP_FontAsset)
+
+>>>>>> RoR2.UI.LanguageTextMeshController
+>>>>>c BaseOutline
+
+>>>>>> UnityEngine.RectTransform
+
+>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>> UnityEngine.UI.Image
+>>>>>c HoverOutline
+
+>>>>>> UnityEngine.RectTransform
+
+>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>> UnityEngine.UI.Image
+>>c RightPanel
+
+>>> UnityEngine.RectTransform
+
+>>> UnityEngine.CanvasRenderer
+
+>>> UnityEngine.UI.Image
+
+>>> RoR2.UI.SkinControllers.PanelSkinController
+>>>v panelType = Default
+>>>v skinData = skinCleanButton (RoR2.UI.UISkinData)
+>>>c RectOutline
+
+>>>> UnityEngine.RectTransform
+
+>>>> UnityEngine.CanvasRenderer
+
+>>>> UnityEngine.UI.Image
+>>>c BlurPanel
+
+>>>> UnityEngine.RectTransform
+
+>>>> UnityEngine.CanvasRenderer
+
+>>>> LeTai.Asset.TranslucentImage.TranslucentImage
+>>>>v source = 
+>>>>v spriteBlending = 0.65
+>>>c HeaderContainer
+
+>>>> UnityEngine.RectTransform
+
+>>>> RoR2.UI.HeaderNavigationController
+>>>>v headers = RoR2.UI.HeaderNavigationController+Header[]
+>>>>v buttonSelectionRoot = ButtonSelection (UnityEngine.GameObject)
+>>>>v currentHeaderIndex = 0
+>>>>c Header (JUICED)
+
+>>>>> UnityEngine.RectTransform
+
+>>>>> UnityEngine.CanvasRenderer
+
+>>>>> UnityEngine.UI.Image
+
+>>>>> UnityEngine.UI.HorizontalLayoutGroup
+
+>>>>> RoR2.UI.UIJuice
+>>>>>v canvasGroup = Header (JUICED) (UnityEngine.CanvasGroup)
+>>>>>v panningRect = Header (JUICED) (UnityEngine.RectTransform)
+>>>>>v transitionDuration = 0.2
+>>>>>v panningMagnitude = 40
+>>>>>v destroyOnEndOfTransition = False
+
+>>>>> UnityEngine.CanvasGroup
+
+>>>>> RoR2.AwakeEvent
+>>>>>v action = UnityEngine.Events.UnityEvent UnityEngine.Events.UnityEvent
+
+>>>>> UnityEngine.Canvas
+
+>>>>> UnityEngine.UI.GraphicRaycaster
+>>>>>c Button, Music
+
+>>>>>> UnityEngine.RectTransform
+
+>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>> UnityEngine.UI.Image
+
+>>>>>> RoR2.UI.MPEventSystemLocator
+
+>>>>>> RoR2.UI.CustomButtonTransition
+>>>>>>v scaleButtonOnHover = False
+>>>>>>v showImageOnHover = True
+>>>>>>v imageOnHover = HoverOutline (UnityEngine.UI.Image)
+>>>>>>v imageOnInteractable = InteractableOutline (UnityEngine.UI.Image)
+>>>>>>v allowAllEventSystems = True
+>>>>>>v pointerClickOnly = True
+
+>>>>>> RoR2.UI.SkinControllers.ButtonSkinController
+>>>>>>v useRecommendedButtonWidth = False
+>>>>>>v useRecommendedButtonHeight = False
+>>>>>>v useRecommendedImage = True
+>>>>>>v useRecommendedMaterial = True
+>>>>>>v useRecommendedAlignment = True
+>>>>>>v useRecommendedLabel = True
+>>>>>>v skinData = skinCleanButton (RoR2.UI.UISkinData)
+
+>>>>>> UnityEngine.UI.LayoutElement
+>>>>>>c Text
+
+>>>>>>> UnityEngine.RectTransform
+
+>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>> RoR2.UI.LanguageTextMeshController
+
+>>>>>>> RoR2.UI.HGTextMeshProUGUI
+>>>>>>>v useLanguageDefaultFont = True
+>>>>>>>v defaultLanguageFont = tmpBombDropshadow (TMPro.TMP_FontAsset)
+>>>>>>c InteractableOutline
+
+>>>>>>> UnityEngine.RectTransform
+
+>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>> UnityEngine.UI.Image
+>>>>>>c HoverOutline
+
+>>>>>>> UnityEngine.RectTransform
+
+>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>> UnityEngine.UI.Image
+>>>>>c Button, Contact
+
+>>>>>> UnityEngine.RectTransform
+
+>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>> UnityEngine.UI.Image
+
+>>>>>> RoR2.UI.MPEventSystemLocator
+
+>>>>>> RoR2.UI.CustomButtonTransition
+>>>>>>v scaleButtonOnHover = False
+>>>>>>v showImageOnHover = True
+>>>>>>v imageOnHover = HoverOutline (UnityEngine.UI.Image)
+>>>>>>v imageOnInteractable = InteractableOutline (UnityEngine.UI.Image)
+>>>>>>v allowAllEventSystems = True
+>>>>>>v pointerClickOnly = True
+
+>>>>>> RoR2.UI.SkinControllers.ButtonSkinController
+>>>>>>v useRecommendedButtonWidth = False
+>>>>>>v useRecommendedButtonHeight = False
+>>>>>>v useRecommendedImage = True
+>>>>>>v useRecommendedMaterial = True
+>>>>>>v useRecommendedAlignment = True
+>>>>>>v useRecommendedLabel = True
+>>>>>>v skinData = skinCleanButton (RoR2.UI.UISkinData)
+
+>>>>>> UnityEngine.UI.LayoutElement
+>>>>>>c Text
+
+>>>>>>> UnityEngine.RectTransform
+
+>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>> RoR2.UI.LanguageTextMeshController
+
+>>>>>>> RoR2.UI.HGTextMeshProUGUI
+>>>>>>>v useLanguageDefaultFont = True
+>>>>>>>v defaultLanguageFont = tmpBombDropshadow (TMPro.TMP_FontAsset)
+>>>>>>c InteractableOutline
+
+>>>>>>> UnityEngine.RectTransform
+
+>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>> UnityEngine.UI.Image
+>>>>>>c HoverOutline
+
+>>>>>>> UnityEngine.RectTransform
+
+>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>> UnityEngine.UI.Image
+>>>>>c Button, License
+
+>>>>>> UnityEngine.RectTransform
+
+>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>> UnityEngine.UI.Image
+
+>>>>>> RoR2.UI.MPEventSystemLocator
+
+>>>>>> RoR2.UI.CustomButtonTransition
+>>>>>>v scaleButtonOnHover = False
+>>>>>>v showImageOnHover = True
+>>>>>>v imageOnHover = HoverOutline (UnityEngine.UI.Image)
+>>>>>>v imageOnInteractable = InteractableOutline (UnityEngine.UI.Image)
+>>>>>>v allowAllEventSystems = True
+>>>>>>v pointerClickOnly = True
+
+>>>>>> RoR2.UI.SkinControllers.ButtonSkinController
+>>>>>>v useRecommendedButtonWidth = False
+>>>>>>v useRecommendedButtonHeight = False
+>>>>>>v useRecommendedImage = True
+>>>>>>v useRecommendedMaterial = True
+>>>>>>v useRecommendedAlignment = True
+>>>>>>v useRecommendedLabel = True
+>>>>>>v skinData = skinCleanButton (RoR2.UI.UISkinData)
+
+>>>>>> UnityEngine.UI.LayoutElement
+>>>>>>c Text
+
+>>>>>>> UnityEngine.RectTransform
+
+>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>> RoR2.UI.LanguageTextMeshController
+
+>>>>>>> RoR2.UI.HGTextMeshProUGUI
+>>>>>>>v useLanguageDefaultFont = True
+>>>>>>>v defaultLanguageFont = tmpBombDropshadow (TMPro.TMP_FontAsset)
+>>>>>>c InteractableOutline
+
+>>>>>>> UnityEngine.RectTransform
+
+>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>> UnityEngine.UI.Image
+>>>>>>c HoverOutline
+
+>>>>>>> UnityEngine.RectTransform
+
+>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>> UnityEngine.UI.Image
+>>>>c ButtonSelection
+
+>>>>> UnityEngine.RectTransform
+>>>>>c ButtonFlashPanel
+
+>>>>>> UnityEngine.RectTransform
+
+>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>> UnityEngine.UI.Image
+
+>>>>>> RoR2.AnimateImageAlpha
+>>>>>>v alphaCurve = UnityEngine.AnimationCurve
+>>>>>>v images = UnityEngine.UI.Image[]
+>>>>>>v timeMax = 0.2
+>>>>>>v delayBetweenElements = 0
+>>>>>>v stopwatch = 0
+>>>>>c Highlight
+
+>>>>>> UnityEngine.RectTransform
+
+>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>> UnityEngine.UI.Image
+>>>>>c HighlightCorners
+
+>>>>>> UnityEngine.RectTransform
+
+>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>> UnityEngine.UI.Image
+>>>c Contents, Music
+
+>>>> UnityEngine.RectTransform
+
+>>>> UnityEngine.CanvasRenderer
+
+>>>> UnityEngine.UI.Image
+
+>>>> UnityEngine.UI.VerticalLayoutGroup
+
+>>>> UnityEngine.UI.ContentSizeFitter
+>>>>c TMPText
+
+>>>>> UnityEngine.RectTransform
+
+>>>>> UnityEngine.CanvasRenderer
+
+>>>>> RoR2.UI.HGTextMeshProUGUI
+>>>>>v useLanguageDefaultFont = True
+>>>>>v defaultLanguageFont = tmpBombDropshadow (TMPro.TMP_FontAsset)
+
+>>>>> RoR2.UI.LanguageTextMeshController
+>>>>c Button, Music
+
+>>>>> UnityEngine.RectTransform
+
+>>>>> UnityEngine.CanvasRenderer
+
+>>>>> UnityEngine.UI.Image
+
+>>>>> RoR2.UI.MPEventSystemLocator
+
+>>>>> RoR2.UI.CustomButtonTransition
+>>>>>v scaleButtonOnHover = False
+>>>>>v showImageOnHover = True
+>>>>>v imageOnHover = HoverOutline (UnityEngine.UI.Image)
+>>>>>v imageOnInteractable = InteractableOutline (UnityEngine.UI.Image)
+>>>>>v allowAllEventSystems = True
+>>>>>v pointerClickOnly = True
+
+>>>>> RoR2.UI.SkinControllers.ButtonSkinController
+>>>>>v useRecommendedButtonWidth = False
+>>>>>v useRecommendedButtonHeight = False
+>>>>>v useRecommendedImage = True
+>>>>>v useRecommendedMaterial = True
+>>>>>v useRecommendedAlignment = True
+>>>>>v useRecommendedLabel = True
+>>>>>v skinData = skinCleanButton (RoR2.UI.UISkinData)
+
+>>>>> UnityEngine.UI.LayoutElement
+
+>>>>> RoR2.EventFunctions
+>>>>>c Text
+
+>>>>>> UnityEngine.RectTransform
+
+>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>> RoR2.UI.LanguageTextMeshController
+
+>>>>>> RoR2.UI.HGTextMeshProUGUI
+>>>>>>v useLanguageDefaultFont = True
+>>>>>>v defaultLanguageFont = tmpBombDropshadow (TMPro.TMP_FontAsset)
+>>>>>c InteractableOutline
+
+>>>>>> UnityEngine.RectTransform
+
+>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>> UnityEngine.UI.Image
+>>>>>c HoverOutline
+
+>>>>>> UnityEngine.RectTransform
+
+>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>> UnityEngine.UI.Image
+>>>c Contents, Contact
+
+>>>> UnityEngine.RectTransform
+
+>>>> UnityEngine.CanvasRenderer
+
+>>>> UnityEngine.UI.Image
+
+>>>> UnityEngine.UI.VerticalLayoutGroup
+>>>>c TMPText
+
+>>>>> UnityEngine.RectTransform
+
+>>>>> UnityEngine.CanvasRenderer
+
+>>>>> RoR2.UI.HGTextMeshProUGUI
+>>>>>v useLanguageDefaultFont = True
+>>>>>v defaultLanguageFont = tmpBombDropshadow (TMPro.TMP_FontAsset)
+
+>>>>> RoR2.UI.LanguageTextMeshController
+>>>>c Strip
+
+>>>>> UnityEngine.RectTransform
+
+>>>>> UnityEngine.UI.LayoutElement
+>>>>>c SSButton
+
+>>>>>> UnityEngine.RectTransform
+
+>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>> UnityEngine.UI.Image
+
+>>>>>> RoR2.UI.MPEventSystemLocator
+
+>>>>>> RoR2.UI.CustomButtonTransition
+>>>>>>v scaleButtonOnHover = False
+>>>>>>v showImageOnHover = True
+>>>>>>v imageOnHover = HoverOutline (UnityEngine.UI.Image)
+>>>>>>v imageOnInteractable = InteractableOutline (UnityEngine.UI.Image)
+>>>>>>v allowAllEventSystems = True
+>>>>>>v pointerClickOnly = True
+
+>>>>>> RoR2.UI.SkinControllers.ButtonSkinController
+>>>>>>v useRecommendedButtonWidth = False
+>>>>>>v useRecommendedButtonHeight = False
+>>>>>>v useRecommendedImage = True
+>>>>>>v useRecommendedMaterial = True
+>>>>>>v useRecommendedAlignment = True
+>>>>>>v useRecommendedLabel = True
+>>>>>>v skinData = skinCleanButton (RoR2.UI.UISkinData)
+
+>>>>>> UnityEngine.UI.LayoutElement
+
+>>>>>> RoR2.EventFunctions
+>>>>>>c Image
+
+>>>>>>> UnityEngine.RectTransform
+
+>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>> UnityEngine.UI.Image
+>>>>>>c InteractableOutline
+
+>>>>>>> UnityEngine.RectTransform
+
+>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>> UnityEngine.UI.Image
+>>>>>>c HoverOutline
+
+>>>>>>> UnityEngine.RectTransform
+
+>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>> UnityEngine.UI.Image
+>>>>>c SSText
+
+>>>>>> UnityEngine.RectTransform
+
+>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>> RoR2.UI.HGTextMeshProUGUI
+>>>>>>v useLanguageDefaultFont = True
+>>>>>>v defaultLanguageFont = tmpBombDropshadow (TMPro.TMP_FontAsset)
+>>>>c Strip
+
+>>>>> UnityEngine.RectTransform
+
+>>>>> UnityEngine.UI.LayoutElement
+>>>>>c SSButton
+
+>>>>>> UnityEngine.RectTransform
+
+>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>> UnityEngine.UI.Image
+
+>>>>>> RoR2.UI.MPEventSystemLocator
+
+>>>>>> RoR2.UI.CustomButtonTransition
+>>>>>>v scaleButtonOnHover = False
+>>>>>>v showImageOnHover = True
+>>>>>>v imageOnHover = HoverOutline (UnityEngine.UI.Image)
+>>>>>>v imageOnInteractable = InteractableOutline (UnityEngine.UI.Image)
+>>>>>>v allowAllEventSystems = True
+>>>>>>v pointerClickOnly = True
+
+>>>>>> RoR2.UI.SkinControllers.ButtonSkinController
+>>>>>>v useRecommendedButtonWidth = False
+>>>>>>v useRecommendedButtonHeight = False
+>>>>>>v useRecommendedImage = True
+>>>>>>v useRecommendedMaterial = True
+>>>>>>v useRecommendedAlignment = True
+>>>>>>v useRecommendedLabel = True
+>>>>>>v skinData = skinCleanButton (RoR2.UI.UISkinData)
+
+>>>>>> UnityEngine.UI.LayoutElement
+
+>>>>>> RoR2.EventFunctions
+>>>>>>c Image
+
+>>>>>>> UnityEngine.RectTransform
+
+>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>> UnityEngine.UI.Image
+>>>>>>c InteractableOutline
+
+>>>>>>> UnityEngine.RectTransform
+
+>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>> UnityEngine.UI.Image
+>>>>>>c HoverOutline
+
+>>>>>>> UnityEngine.RectTransform
+
+>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>> UnityEngine.UI.Image
+>>>>>c SSText
+
+>>>>>> UnityEngine.RectTransform
+
+>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>> RoR2.UI.HGTextMeshProUGUI
+>>>>>>v useLanguageDefaultFont = True
+>>>>>>v defaultLanguageFont = tmpBombDropshadow (TMPro.TMP_FontAsset)
+>>>>c Strip
+
+>>>>> UnityEngine.RectTransform
+
+>>>>> UnityEngine.UI.LayoutElement
+>>>>>c SSButton
+
+>>>>>> UnityEngine.RectTransform
+
+>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>> UnityEngine.UI.Image
+
+>>>>>> RoR2.UI.MPEventSystemLocator
+
+>>>>>> RoR2.UI.CustomButtonTransition
+>>>>>>v scaleButtonOnHover = False
+>>>>>>v showImageOnHover = True
+>>>>>>v imageOnHover = HoverOutline (UnityEngine.UI.Image)
+>>>>>>v imageOnInteractable = InteractableOutline (UnityEngine.UI.Image)
+>>>>>>v allowAllEventSystems = True
+>>>>>>v pointerClickOnly = True
+
+>>>>>> RoR2.UI.SkinControllers.ButtonSkinController
+>>>>>>v useRecommendedButtonWidth = False
+>>>>>>v useRecommendedButtonHeight = False
+>>>>>>v useRecommendedImage = True
+>>>>>>v useRecommendedMaterial = True
+>>>>>>v useRecommendedAlignment = True
+>>>>>>v useRecommendedLabel = True
+>>>>>>v skinData = skinCleanButton (RoR2.UI.UISkinData)
+
+>>>>>> UnityEngine.UI.LayoutElement
+
+>>>>>> RoR2.EventFunctions
+>>>>>>c Image
+
+>>>>>>> UnityEngine.RectTransform
+
+>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>> UnityEngine.UI.Image
+>>>>>>c InteractableOutline
+
+>>>>>>> UnityEngine.RectTransform
+
+>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>> UnityEngine.UI.Image
+>>>>>>c HoverOutline
+
+>>>>>>> UnityEngine.RectTransform
+
+>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>> UnityEngine.UI.Image
+>>>>>c SSText
+
+>>>>>> UnityEngine.RectTransform
+
+>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>> RoR2.UI.HGTextMeshProUGUI
+>>>>>>v useLanguageDefaultFont = True
+>>>>>>v defaultLanguageFont = tmpBombDropshadow (TMPro.TMP_FontAsset)
+>>>>c Strip
+
+>>>>> UnityEngine.RectTransform
+
+>>>>> UnityEngine.UI.LayoutElement
+>>>>>c SSButton
+
+>>>>>> UnityEngine.RectTransform
+
+>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>> UnityEngine.UI.Image
+
+>>>>>> RoR2.UI.MPEventSystemLocator
+
+>>>>>> RoR2.UI.CustomButtonTransition
+>>>>>>v scaleButtonOnHover = False
+>>>>>>v showImageOnHover = True
+>>>>>>v imageOnHover = HoverOutline (UnityEngine.UI.Image)
+>>>>>>v imageOnInteractable = InteractableOutline (UnityEngine.UI.Image)
+>>>>>>v allowAllEventSystems = True
+>>>>>>v pointerClickOnly = True
+
+>>>>>> RoR2.UI.SkinControllers.ButtonSkinController
+>>>>>>v useRecommendedButtonWidth = False
+>>>>>>v useRecommendedButtonHeight = False
+>>>>>>v useRecommendedImage = True
+>>>>>>v useRecommendedMaterial = True
+>>>>>>v useRecommendedAlignment = True
+>>>>>>v useRecommendedLabel = True
+>>>>>>v skinData = skinCleanButton (RoR2.UI.UISkinData)
+
+>>>>>> UnityEngine.UI.LayoutElement
+
+>>>>>> RoR2.EventFunctions
+>>>>>>c Image
+
+>>>>>>> UnityEngine.RectTransform
+
+>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>> UnityEngine.UI.Image
+>>>>>>c InteractableOutline
+
+>>>>>>> UnityEngine.RectTransform
+
+>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>> UnityEngine.UI.Image
+>>>>>>c HoverOutline
+
+>>>>>>> UnityEngine.RectTransform
+
+>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>> UnityEngine.UI.Image
+>>>>>c SSText
+
+>>>>>> UnityEngine.RectTransform
+
+>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>> RoR2.UI.HGTextMeshProUGUI
+>>>>>>v useLanguageDefaultFont = True
+>>>>>>v defaultLanguageFont = tmpBombDropshadow (TMPro.TMP_FontAsset)
+>>>c Contents, Licensing
+
+>>>> UnityEngine.RectTransform
+
+>>>> UnityEngine.CanvasRenderer
+
+>>>> UnityEngine.UI.Image
+>>>>c TMPText
+
+>>>>> UnityEngine.RectTransform
+
+>>>>> UnityEngine.CanvasRenderer
+
+>>>>> RoR2.UI.HGTextMeshProUGUI
+>>>>>v useLanguageDefaultFont = True
+>>>>>v defaultLanguageFont = tmpBombDropshadow (TMPro.TMP_FontAsset)
+
+>>>>> RoR2.UI.LanguageTextMeshController
+>c FadePanel
+
+>> UnityEngine.RectTransform
+
+>> UnityEngine.CanvasRenderer
+
+>> UnityEngine.UI.Image

@@ -1,0 +1,46 @@
+SurvivorPodBatteryPanel
+
+> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> UnityEngine.Networking.NetworkIdentity
+>v clientAuthorityCallback = 
+
+> RoR2.Highlight
+>v pickupIndex = ItemIndex.Syringe
+>v targetRenderer = EscapePodMesh.002 (UnityEngine.MeshRenderer)
+>v strength = 1
+>v highlightColor = interactive
+>v isOn = False
+
+> RoR2.NetworkParent
+
+> RoR2.EntityStateMachine
+>v customName = Main
+>v initialStateType = EntityStates.SerializableEntityStateType
+>v mainStateType = EntityStates.SerializableEntityStateType
+>v commonComponents = RoR2.EntityStateMachine+CommonComponentCache
+>v networkIndex = -1
+
+> RoR2.NetworkStateMachine
+
+> RoR2.GenericInteraction
+>v interactability = Available
+>v shouldIgnoreSpherecastForInteractibility = True
+>v contextToken = SURVIVOR_POD_OPEN_PANEL_CONTEXT
+>v onActivation = RoR2.GenericInteraction+InteractorUnityEvent RoR2.GenericInteraction+InteractorUnityEvent
+>v shouldShowOnScanner = True
+>c Interactibility
+
+>> transform = p:(0.0, 1.5, -1.8) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> RoR2.EntityLocator
+>>v entity = SurvivorPodBatteryPanel (UnityEngine.GameObject)
+
+>> UnityEngine.BoxCollider
+>c EscapePodMesh.002
+
+>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> UnityEngine.MeshFilter
+
+>> UnityEngine.MeshRenderer

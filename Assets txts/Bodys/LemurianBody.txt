@@ -1,0 +1,932 @@
+LemurianBody
+
+> transform = p:(17.2, -2.4, 27.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> UnityEngine.Networking.NetworkIdentity
+>v clientAuthorityCallback = 
+
+> RoR2.CharacterMotor
+>v instancesList = System.Collections.Generic.List`1[RoR2.CharacterMotor]
+>v walkSpeedPenaltyCoefficient = 1
+>v characterDirection = LemurianBody (RoR2.CharacterDirection)
+>v muteWalkMotion = False
+>v mass = 100
+>v airControl = 0.25
+>v disableAirControlUntilCollision = False
+>v generateParametersOnAwake = True
+>v slipStartAngle = 70
+>v slipEndAngle = 55
+>v jumpCount = 0
+>v netIsGrounded = False
+>v netGroundNormal = (0.0, 0.0, 0.0)
+>v velocity = (0.0, 0.0, 0.0)
+>v rootMotion = (0.0, 0.0, 0.0)
+
+> RoR2.InputBankTest
+>v lookPitch = 0
+>v lookYaw = 0
+>v moveVector = (0.0, 0.0, 0.0)
+>v skill1 = RoR2.InputBankTest+ButtonState
+>v skill2 = RoR2.InputBankTest+ButtonState
+>v skill3 = RoR2.InputBankTest+ButtonState
+>v skill4 = RoR2.InputBankTest+ButtonState
+>v interact = RoR2.InputBankTest+ButtonState
+>v jump = RoR2.InputBankTest+ButtonState
+>v sprint = RoR2.InputBankTest+ButtonState
+>v activateEquipment = RoR2.InputBankTest+ButtonState
+>v ping = RoR2.InputBankTest+ButtonState
+>v emoteRequest = -1
+
+> RoR2.CharacterBody
+>v bodyIndex = 42
+>v baseNameToken = LEMURIAN_BODY_NAME
+>v subtitleNameToken = 
+>v pendingTonicAfflictionCount = 0
+>v bodyFlags = None
+>v readOnlyInstancesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.CharacterBody]
+>v rootMotionInMainState = False
+>v mainRootSpeed = 33
+>v baseMaxHealth = 80
+>v baseRegen = 0
+>v baseMaxShield = 0
+>v baseMoveSpeed = 7
+>v baseAcceleration = 30
+>v baseJumpPower = 22
+>v baseDamage = 12
+>v baseAttackSpeed = 1
+>v baseCrit = 0
+>v baseArmor = 0
+>v baseJumpCount = 1
+>v autoCalculateLevelStats = True
+>v levelMaxHealth = 24
+>v levelRegen = 0
+>v levelMaxShield = 0
+>v levelMoveSpeed = 0
+>v levelJumpPower = 0
+>v levelDamage = 2.4
+>v levelAttackSpeed = 0
+>v levelCrit = 0
+>v levelArmor = 0
+>v killCount = 0
+>v wasLucky = False
+>v spreadBloomDecayTime = 0.45
+>v spreadBloomCurve = UnityEngine.AnimationCurve
+>v crosshairPrefab = StandardCrosshair (UnityEngine.GameObject)
+>v hideCrosshair = False
+>v aimOriginTransform = AimOrigin (UnityEngine.Transform)
+>v hullClassification = Human
+>v portraitIcon = LemurianBody (UnityEngine.Texture2D)
+>v isChampion = False
+>v currentVehicle = 
+>v preferredPodPrefab = 
+
+> RoR2.CameraTargetParams
+>v cameraParams = ccpStandard (RoR2.CharacterCameraParams)
+>v cameraPivotTransform = 
+>v aimMode = Standard
+>v recoil = (0.0, 0.0)
+>v idealLocalCameraPos = (0.0, 2.0, -5.6)
+>v fovOverride = -1
+>v dontRaycastToPivot = False
+
+> RoR2.ModelLocator
+>v modelTransform = mdlLemurian (UnityEngine.Transform)
+>v modelBaseTransform = ModelBase (UnityEngine.Transform)
+>v dontReleaseModelOnDeath = False
+>v autoUpdateModelTransform = True
+>v dontDetatchFromParent = False
+>v noCorpse = False
+>v normalizeToFloor = False
+>v preserveModel = False
+
+> RoR2.EntityStateMachine
+>v customName = Body
+>v initialStateType = EntityStates.SerializableEntityStateType
+>v mainStateType = EntityStates.SerializableEntityStateType
+>v commonComponents = RoR2.EntityStateMachine+CommonComponentCache
+>v networkIndex = -1
+
+> RoR2.CharacterDirection
+>v moveVector = (0.0, 0.0, 0.0)
+>v targetTransform = ModelBase (UnityEngine.Transform)
+>v overrideAnimatorForwardTransform = 
+>v rootMotionAccumulator = 
+>v modelAnimator = 
+>v driveFromRootRotation = False
+>v turnSpeed = 720
+
+> RoR2.EntityStateMachine
+>v customName = Weapon
+>v initialStateType = EntityStates.SerializableEntityStateType
+>v mainStateType = EntityStates.SerializableEntityStateType
+>v commonComponents = RoR2.EntityStateMachine+CommonComponentCache
+>v networkIndex = -1
+
+> RoR2.SkillLocator
+>v primary = LemurianBody (RoR2.GenericSkill)
+>v secondary = LemurianBody (RoR2.GenericSkill)
+>v utility = 
+>v special = 
+>v passiveSkill = RoR2.SkillLocator+PassiveSkill
+
+> RoR2.TeamComponent
+>v hideAllyCardDisplay = False
+
+> RoR2.HealthComponent
+>v health = 30000
+>v shield = 0
+>v barrier = 0
+>v body = 
+>v dontShowHealthbar = False
+>v globalDeathEventChanceCoefficient = 1
+>v medkitActivationDelay = 1.1
+>v frozenExecuteThreshold = 0.3
+
+> RoR2.Interactor
+>v maxInteractionDistance = 3
+
+> RoR2.InteractionDriver
+>v highlightInteractor = False
+>v interactableOverride = 
+
+> RoR2.CharacterDeathBehavior
+>v deathStateMachine = LemurianBody (RoR2.EntityStateMachine)
+>v deathState = EntityStates.SerializableEntityStateType
+>v idleStateMachine = RoR2.EntityStateMachine[]
+
+> RoR2.Networking.CharacterNetworkTransform
+>v positionTransmitInterval = 0.1
+>v lastPositionTransmitTime = -Infinity
+>v interpolationFactor = 2
+>v newestNetSnapshot = RoR2.Networking.CharacterNetworkTransform+Snapshot
+>v debugDuplicatePositions = False
+>v debugSnapshotReceived = False
+
+> RoR2.NetworkStateMachine
+
+> RoR2.GenericSkill
+>v skillName = Fireball
+>v skillNameToken = 
+>v skillDescriptionToken = 
+>v baseRechargeInterval = 0
+>v baseMaxStock = 1
+>v rechargeStock = 1
+>v isBullets = False
+>v shootDelay = 0.3
+>v beginSkillCooldownOnSkillEnd = False
+>v stateMachine = LemurianBody (RoR2.EntityStateMachine)
+>v activationState = EntityStates.SerializableEntityStateType
+>v interruptPriority = Any
+>v isCombatSkill = True
+>v noSprint = True
+>v canceledFromSprinting = False
+>v mustKeyPress = False
+>v icon = 
+>v requiredStock = 1
+>v stockToConsume = 1
+>v hasExecutedSuccessfully = False
+
+> RoR2.SetStateOnHurt
+>v hitThreshold = 0.15
+>v targetStateMachine = LemurianBody (RoR2.EntityStateMachine)
+>v idleStateMachine = RoR2.EntityStateMachine[]
+>v hurtState = EntityStates.SerializableEntityStateType
+>v canBeHitStunned = True
+>v canBeStunned = True
+>v canBeFrozen = True
+
+> RoR2.GenericSkill
+>v skillName = Bite
+>v skillNameToken = 
+>v skillDescriptionToken = 
+>v baseRechargeInterval = 1
+>v baseMaxStock = 1
+>v rechargeStock = 1
+>v isBullets = False
+>v shootDelay = 0.3
+>v beginSkillCooldownOnSkillEnd = False
+>v stateMachine = LemurianBody (RoR2.EntityStateMachine)
+>v activationState = EntityStates.SerializableEntityStateType
+>v interruptPriority = Skill
+>v isCombatSkill = True
+>v noSprint = True
+>v canceledFromSprinting = False
+>v mustKeyPress = False
+>v icon = 
+>v requiredStock = 1
+>v stockToConsume = 1
+>v hasExecutedSuccessfully = False
+
+> RoR2.DeathRewards
+>v expReward = 0
+>v logUnlockableName = Logs.LemurianBody.0
+>v bossPickup = RoR2.SerializablePickupIndex
+
+> RoR2.CharacterEmoteDefinitions
+>v emoteDefinitions = RoR2.CharacterEmoteDefinitions+EmoteDef[]
+
+> RoR2.EquipmentSlot
+>v equipmentActivateString = Play_UI_equipment_activate
+
+> RoR2.SfxLocator
+>v deathSound = Play_lemurian_death
+>v barkSound = Play_lemurian_idle
+>v openSound = 
+>v landingSound = 
+>v fallDamageSound = 
+
+> UnityEngine.Rigidbody
+
+> UnityEngine.CapsuleCollider
+
+> KinematicCharacterController.KinematicCharacterMotor
+>v CharacterController = LemurianBody (RoR2.CharacterMotor)
+>v Capsule = LemurianBody (UnityEngine.CapsuleCollider)
+>v Rigidbody = LemurianBody (UnityEngine.Rigidbody)
+>v DetectDiscreteCollisions = False
+>v GroundDetectionExtraDistance = 0
+>v MaxStepHeight = 0.2
+>v MinRequiredStepDepth = 0.1
+>v MaxStableSlopeAngle = 55
+>v MaxStableDistanceFromLedge = 0.5
+>v PreventSnappingOnLedges = False
+>v MaxStableDenivelationAngle = 55
+>v RigidbodyInteractionType = None
+>v PreserveAttachedRigidbodyMomentum = True
+>v HasPlanarConstraint = False
+>v PlanarConstraintAxis = (0.0, 0.0, 1.0)
+>v StepHandling = Standard
+>v LedgeHandling = True
+>v InteractiveRigidbodyHandling = True
+>v SafeMovement = False
+>v GroundingStatus = KinematicCharacterController.CharacterGroundingReport
+>v LastGroundingStatus = KinematicCharacterController.CharacterTransientGroundingReport
+>v CollidableLayers = UnityEngine.LayerMask
+>v MaxHitsBudget = 16
+>v MaxCollisionBudget = 16
+>v MaxGroundingSweepIterations = 2
+>v MaxMovementSweepIterations = 6
+>v MaxSteppingSweepIterations = 3
+>v MaxRigidbodyOverlapsCount = 16
+>v MaxDiscreteCollisionIterations = 3
+>v CollisionOffset = 0.001
+>v GroundProbeReboundDistance = 0.02
+>v MinimumGroundProbingDistance = 0.005
+>v GroundProbingBackstepDistance = 0.1
+>v SweepProbingBackstepDistance = 0.002
+>v SecondaryProbesVertical = 0.02
+>v SecondaryProbesHorizontal = 0.001
+>v MinVelocityMagnitude = 0.01
+>v SteppingForwardDistance = 0.03
+>v MinDistanceForLedge = 0.05
+>v CorrelationForVerticalObstruction = 0.01
+>v ExtraSteppingForwardDistance = 0.01
+>v ExtraStepHeightPadding = 0.01
+>c ModelBase
+
+>> transform = p:(0.0, -0.9, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>c mdlLemurian
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(0.2, 0.2, 0.2)
+
+>>> UnityEngine.Animator
+
+>>> RoR2.AimAnimator
+>>>v inputBank = LemurianBody (RoR2.InputBankTest)
+>>>v directionComponent = LemurianBody (RoR2.CharacterDirection)
+>>>v pitchRangeMin = -65
+>>>v pitchRangeMax = 65
+>>>v yawRangeMin = -90
+>>>v yawRangeMax = 90
+>>>v pitchGiveupRange = 40
+>>>v yawGiveupRange = 40
+>>>v giveupDuration = 3
+>>>v raisedApproachSpeed = 720
+>>>v loweredApproachSpeed = 360
+>>>v smoothTime = 0.1
+>>>v fullYaw = False
+>>>v aimType = Direct
+>>>v enableAimWeight = False
+
+>>> ChildLocator
+
+>>> RoR2.HurtBoxGroup
+>>>v hurtBoxes = RoR2.HurtBox[]
+>>>v mainHurtBox = Hurtbox (1) (RoR2.HurtBox)
+>>>v bullseyeCount = 1
+
+>>> RoR2.AnimationEvents
+>>>v soundCenter = 
+
+>>> RoR2.DestroyOnUnseen
+>>>v cull = False
+
+>>> RoR2.CharacterModel
+>>>v body = LemurianBody (RoR2.CharacterBody)
+>>>v itemDisplayRuleSet = idrsLemurian (RoR2.ItemDisplayRuleSet)
+>>>v autoPopulateLightInfos = True
+>>>v autoPopulateParticleSystemInfos = True
+>>>v baseParticleSystemInfos = RoR2.CharacterModel+ParticleSystemInfo[]
+>>>v baseRendererInfos = RoR2.CharacterModel+RendererInfo[]
+>>>v baseLightInfos = RoR2.CharacterModel+LightInfo[]
+>>>v invisibilityCount = 0
+>>>v temporaryOverlays = System.Collections.Generic.List`1[RoR2.TemporaryOverlay]
+>>>v revealedMaterial = matRevealedEffect (UnityEngine.Material)
+>>>v cloakedMaterial = matCloakedEffect (UnityEngine.Material)
+>>>v ghostMaterial = matGhostEffect (UnityEngine.Material)
+>>>v bellBuffMaterial = matBellBuff (UnityEngine.Material)
+>>>v wolfhatMaterial = matWolfhatOverlay (UnityEngine.Material)
+>>>v energyShieldMaterial = matEnergyShield (UnityEngine.Material)
+>>>v fullCritMaterial = matFullCrit (UnityEngine.Material)
+>>>v beetleJuiceMaterial = matBeetleJuice (UnityEngine.Material)
+>>>v brittleMaterial = matBrittle (UnityEngine.Material)
+>>>v clayGooMaterial = matClayGooDebuff (UnityEngine.Material)
+>>>v slow80Material = matSlow80Debuff (UnityEngine.Material)
+>>>v immuneMaterial = matImmune (UnityEngine.Material)
+>>>v elitePoisonOverlayMaterial = matElitePoisonOverlay (UnityEngine.Material)
+>>>v elitePoisonParticleReplacementMaterial = matElitePoisonParticleReplacement (UnityEngine.Material)
+>>>v weakMaterial = matWeakOverlay (UnityEngine.Material)
+
+>>> RoR2.HitBoxGroup
+>>>v groupName = Bite
+>>>v hitBoxes = RoR2.HitBox[]
+
+>>> RoR2.FootstepHandler
+>>>v baseFootstepString = Play_lemurian_step
+>>>v enableFootstepDust = False
+>>>v footstepDustPrefab = 
+>>>c Cube
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.SkinnedMeshRenderer
+>>>c LemurianArm
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>c ROOT
+
+>>>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>c base
+
+>>>>>> transform = p:(0.0, 9.9, 0.0) r:(270.9, 180.0, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>c hand_ik.l
+
+>>>>>>> transform = p:(-8.1, -1.2, 1.3) r:(0.0, 91.3, 270.0) s:(1.0, 1.0, 1.0)
+>>>>>>>c elbow_ik.l
+
+>>>>>>>> transform = p:(-9.5, 0.0, 2.9) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>c elbow_ik.l_end
+
+>>>>>>>>> transform = p:(0.0, 3.0, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>c hand_ik.r
+
+>>>>>>> transform = p:(8.1, -1.2, 1.3) r:(0.0, 268.7, 90.0) s:(1.0, 1.0, 1.0)
+>>>>>>>c elbow_ik.r
+
+>>>>>>>> transform = p:(9.5, 0.0, 2.9) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>c elbow_ik.r_end
+
+>>>>>>>>> transform = p:(0.0, 3.0, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>c hip
+
+>>>>>>> transform = p:(0.0, 0.0, 0.0) r:(14.5, 180.0, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>c tail1
+
+>>>>>>>> transform = p:(0.0, 1.7, 1.6) r:(312.8, 180.0, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>c tail2
+
+>>>>>>>>> transform = p:(0.0, 3.3, 0.0) r:(309.5, 180.0, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c tail3
+
+>>>>>>>>>> transform = p:(0.0, 3.1, 0.0) r:(301.3, 180.0, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c tail4
+
+>>>>>>>>>>> transform = p:(0.0, 2.5, 0.0) r:(291.6, 180.0, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c tail4_end
+
+>>>>>>>>>>>> transform = p:(0.0, 3.9, 0.0) r:(291.6, 180.0, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c Hurtbox (4)
+
+>>>>>>>>>>>> transform = p:(0.0, 1.3, 0.0) r:(291.6, 180.0, 180.0) s:(1.2, 5.1, 1.2)
+
+>>>>>>>>>>>> UnityEngine.BoxCollider
+
+>>>>>>>>>>>> RoR2.HurtBox
+>>>>>>>>>>>>v healthComponent = LemurianBody (RoR2.HealthComponent)
+>>>>>>>>>>>>v isBullseye = False
+>>>>>>>>>>>>v damageModifier = Normal
+>>>>>>>>>>>>v teamIndex = None
+>>>>>>>>>>>>v hurtBoxGroup = mdlLemurian (RoR2.HurtBoxGroup)
+>>>>>>>>>>>>v indexInGroup = 3
+>>>>>>>>>>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+
+>>>>>>>>>>>> SurfaceDefProvider
+>>>>>>>>>>>>v surfaceDef = sdLemurian (SurfaceDef)
+>>>>>>>>>>c Hurtbox (3)
+
+>>>>>>>>>>> transform = p:(0.0, 0.8, 0.0) r:(301.3, 180.0, 180.0) s:(1.2, 3.1, 1.2)
+
+>>>>>>>>>>> UnityEngine.BoxCollider
+
+>>>>>>>>>>> RoR2.HurtBox
+>>>>>>>>>>>v healthComponent = LemurianBody (RoR2.HealthComponent)
+>>>>>>>>>>>v isBullseye = False
+>>>>>>>>>>>v damageModifier = Normal
+>>>>>>>>>>>v teamIndex = None
+>>>>>>>>>>>v hurtBoxGroup = mdlLemurian (RoR2.HurtBoxGroup)
+>>>>>>>>>>>v indexInGroup = 2
+>>>>>>>>>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+
+>>>>>>>>>>> SurfaceDefProvider
+>>>>>>>>>>>v surfaceDef = sdLemurian (SurfaceDef)
+>>>>>>>>>c Hurtbox (2)
+
+>>>>>>>>>> transform = p:(0.0, 1.5, 0.0) r:(309.5, 180.0, 180.0) s:(1.3, 4.2, 2.0)
+
+>>>>>>>>>> UnityEngine.BoxCollider
+
+>>>>>>>>>> RoR2.HurtBox
+>>>>>>>>>>v healthComponent = LemurianBody (RoR2.HealthComponent)
+>>>>>>>>>>v isBullseye = False
+>>>>>>>>>>v damageModifier = Normal
+>>>>>>>>>>v teamIndex = None
+>>>>>>>>>>v hurtBoxGroup = mdlLemurian (RoR2.HurtBoxGroup)
+>>>>>>>>>>v indexInGroup = 1
+>>>>>>>>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+
+>>>>>>>>>> SurfaceDefProvider
+>>>>>>>>>>v surfaceDef = sdLemurian (SurfaceDef)
+>>>>>>>>c Hurtbox (1)
+
+>>>>>>>>> transform = p:(0.0, 1.5, 0.0) r:(312.8, 180.0, 180.0) s:(2.7, 5.8, 3.3)
+
+>>>>>>>>> UnityEngine.BoxCollider
+
+>>>>>>>>> RoR2.HurtBox
+>>>>>>>>>v healthComponent = LemurianBody (RoR2.HealthComponent)
+>>>>>>>>>v isBullseye = False
+>>>>>>>>>v damageModifier = Normal
+>>>>>>>>>v teamIndex = None
+>>>>>>>>>v hurtBoxGroup = mdlLemurian (RoR2.HurtBoxGroup)
+>>>>>>>>>v indexInGroup = 0
+>>>>>>>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+
+>>>>>>>>> SurfaceDefProvider
+>>>>>>>>>v surfaceDef = sdLemurian (SurfaceDef)
+>>>>>>>c thigh.l
+
+>>>>>>>> transform = p:(-2.1, 2.1, 0.0) r:(328.9, 5.4, 177.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>c calf.l
+
+>>>>>>>>> transform = p:(0.0, 4.5, 0.0) r:(313.1, 186.0, 177.4) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c foot.l
+
+>>>>>>>>>> transform = p:(0.0, 3.6, 0.0) r:(24.3, 180.4, 193.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c toe.l
+
+>>>>>>>>>>> transform = p:(0.0, 1.5, 0.0) r:(77.0, 179.2, 194.2) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c toe.l_end
+
+>>>>>>>>>>>> transform = p:(0.0, 0.8, 0.0) r:(77.0, 179.2, 194.2) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c Hurtbox (2)
+
+>>>>>>>>>> transform = p:(0.0, 1.7, 0.0) r:(313.1, 186.0, 177.4) s:(1.5, 5.4, 1.5)
+
+>>>>>>>>>> UnityEngine.BoxCollider
+
+>>>>>>>>>> RoR2.HurtBox
+>>>>>>>>>>v healthComponent = LemurianBody (RoR2.HealthComponent)
+>>>>>>>>>>v isBullseye = False
+>>>>>>>>>>v damageModifier = Normal
+>>>>>>>>>>v teamIndex = None
+>>>>>>>>>>v hurtBoxGroup = mdlLemurian (RoR2.HurtBoxGroup)
+>>>>>>>>>>v indexInGroup = 4
+>>>>>>>>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+
+>>>>>>>>>> SurfaceDefProvider
+>>>>>>>>>>v surfaceDef = sdLemurian (SurfaceDef)
+>>>>>>>>c Hurtbox (1)
+
+>>>>>>>>> transform = p:(0.0, 1.9, 0.0) r:(328.9, 5.4, 177.0) s:(2.9, 7.5, 1.2)
+
+>>>>>>>>> UnityEngine.BoxCollider
+
+>>>>>>>>> RoR2.HurtBox
+>>>>>>>>>v healthComponent = LemurianBody (RoR2.HealthComponent)
+>>>>>>>>>v isBullseye = False
+>>>>>>>>>v damageModifier = Normal
+>>>>>>>>>v teamIndex = None
+>>>>>>>>>v hurtBoxGroup = mdlLemurian (RoR2.HurtBoxGroup)
+>>>>>>>>>v indexInGroup = 5
+>>>>>>>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+
+>>>>>>>>> SurfaceDefProvider
+>>>>>>>>>v surfaceDef = sdLemurian (SurfaceDef)
+>>>>>>>c thigh.r
+
+>>>>>>>> transform = p:(2.1, 2.1, 0.0) r:(328.8, 0.4, 183.3) s:(1.0, 1.0, 1.0)
+>>>>>>>>c calf.r
+
+>>>>>>>>> transform = p:(0.0, 4.5, 0.0) r:(313.2, 180.3, 182.2) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c foot.r
+
+>>>>>>>>>> transform = p:(0.0, 3.6, 0.0) r:(24.4, 180.4, 167.4) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c toe.r
+
+>>>>>>>>>>> transform = p:(0.0, 1.5, 0.0) r:(76.9, 179.2, 164.4) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c toe.r_end
+
+>>>>>>>>>>>> transform = p:(0.0, 0.8, 0.0) r:(76.9, 179.2, 164.4) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c Hurtbox (2)
+
+>>>>>>>>>> transform = p:(0.0, 2.5, 0.0) r:(313.2, 180.3, 182.2) s:(1.5, 5.4, 1.5)
+
+>>>>>>>>>> UnityEngine.BoxCollider
+
+>>>>>>>>>> RoR2.HurtBox
+>>>>>>>>>>v healthComponent = LemurianBody (RoR2.HealthComponent)
+>>>>>>>>>>v isBullseye = False
+>>>>>>>>>>v damageModifier = Normal
+>>>>>>>>>>v teamIndex = None
+>>>>>>>>>>v hurtBoxGroup = mdlLemurian (RoR2.HurtBoxGroup)
+>>>>>>>>>>v indexInGroup = 7
+>>>>>>>>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+
+>>>>>>>>>> SurfaceDefProvider
+>>>>>>>>>>v surfaceDef = sdLemurian (SurfaceDef)
+>>>>>>>>c Hurtbox (1)
+
+>>>>>>>>> transform = p:(0.0, 1.6, 0.0) r:(328.8, 0.4, 183.3) s:(2.9, 7.5, 1.2)
+
+>>>>>>>>> UnityEngine.BoxCollider
+
+>>>>>>>>> RoR2.HurtBox
+>>>>>>>>>v healthComponent = LemurianBody (RoR2.HealthComponent)
+>>>>>>>>>v isBullseye = False
+>>>>>>>>>v damageModifier = Normal
+>>>>>>>>>v teamIndex = None
+>>>>>>>>>v hurtBoxGroup = mdlLemurian (RoR2.HurtBoxGroup)
+>>>>>>>>>v indexInGroup = 6
+>>>>>>>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+
+>>>>>>>>> SurfaceDefProvider
+>>>>>>>>>v surfaceDef = sdLemurian (SurfaceDef)
+>>>>>>>c Hurtbox
+
+>>>>>>>> transform = p:(0.0, 1.5, 0.6) r:(14.5, 180.0, 180.0) s:(5.9, 2.3, 2.5)
+
+>>>>>>>> UnityEngine.BoxCollider
+
+>>>>>>>> RoR2.HurtBox
+>>>>>>>>v healthComponent = LemurianBody (RoR2.HealthComponent)
+>>>>>>>>v isBullseye = False
+>>>>>>>>v damageModifier = Normal
+>>>>>>>>v teamIndex = None
+>>>>>>>>v hurtBoxGroup = mdlLemurian (RoR2.HurtBoxGroup)
+>>>>>>>>v indexInGroup = 8
+>>>>>>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+
+>>>>>>>> SurfaceDefProvider
+>>>>>>>>v surfaceDef = sdLemurian (SurfaceDef)
+>>>>>>c neck_ik
+
+>>>>>>> transform = p:(0.0, -4.0, 5.7) r:(0.0, 180.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>c neck_ik_end
+
+>>>>>>>> transform = p:(0.0, 2.4, 0.0) r:(0.0, 180.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>c stomach
+
+>>>>>>> transform = p:(0.0, 0.0, 0.0) r:(353.2, 180.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>c Hurtbox
+
+>>>>>>>> transform = p:(0.0, 0.5, 0.3) r:(353.2, 180.0, 0.0) s:(3.8, 4.7, 3.2)
+
+>>>>>>>> UnityEngine.BoxCollider
+
+>>>>>>>> RoR2.HurtBox
+>>>>>>>>v healthComponent = LemurianBody (RoR2.HealthComponent)
+>>>>>>>>v isBullseye = False
+>>>>>>>>v damageModifier = Normal
+>>>>>>>>v teamIndex = None
+>>>>>>>>v hurtBoxGroup = mdlLemurian (RoR2.HurtBoxGroup)
+>>>>>>>>v indexInGroup = 9
+>>>>>>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+
+>>>>>>>> SurfaceDefProvider
+>>>>>>>>v surfaceDef = sdLemurian (SurfaceDef)
+>>>>>>>c chest
+
+>>>>>>>> transform = p:(0.0, 2.6, 0.0) r:(332.0, 180.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>c Hurtbox (1)
+
+>>>>>>>>> transform = p:(0.0, 0.5, 0.0) r:(332.0, 180.0, 0.0) s:(6.0, 4.9, 3.4)
+
+>>>>>>>>> UnityEngine.BoxCollider
+
+>>>>>>>>> RoR2.HurtBox
+>>>>>>>>>v healthComponent = LemurianBody (RoR2.HealthComponent)
+>>>>>>>>>v isBullseye = True
+>>>>>>>>>v damageModifier = Normal
+>>>>>>>>>v teamIndex = None
+>>>>>>>>>v hurtBoxGroup = mdlLemurian (RoR2.HurtBoxGroup)
+>>>>>>>>>v indexInGroup = 10
+>>>>>>>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+
+>>>>>>>>> SurfaceDefProvider
+>>>>>>>>>v surfaceDef = sdLemurian (SurfaceDef)
+>>>>>>>>c neck_low
+
+>>>>>>>>> transform = p:(0.0, 2.0, 0.0) r:(305.9, 180.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c Hurtbox (2)
+
+>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(305.9, 180.0, 0.0) s:(1.9, 3.0, 2.0)
+
+>>>>>>>>>> UnityEngine.BoxCollider
+
+>>>>>>>>>> RoR2.HurtBox
+>>>>>>>>>>v healthComponent = LemurianBody (RoR2.HealthComponent)
+>>>>>>>>>>v isBullseye = False
+>>>>>>>>>>v damageModifier = Normal
+>>>>>>>>>>v teamIndex = None
+>>>>>>>>>>v hurtBoxGroup = mdlLemurian (RoR2.HurtBoxGroup)
+>>>>>>>>>>v indexInGroup = 11
+>>>>>>>>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+
+>>>>>>>>>> SurfaceDefProvider
+>>>>>>>>>>v surfaceDef = sdLemurian (SurfaceDef)
+>>>>>>>>>c neck_high
+
+>>>>>>>>>> transform = p:(0.0, 1.4, 0.0) r:(289.8, 180.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c head
+
+>>>>>>>>>>> transform = p:(0.0, 1.7, 0.0) r:(90.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c eyelidLower.l
+
+>>>>>>>>>>>> transform = p:(-0.9, 2.0, -0.1) r:(1.4, 356.7, 190.1) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c eyelidLower.l_end
+
+>>>>>>>>>>>>> transform = p:(0.0, 0.4, 0.0) r:(1.4, 356.7, 190.1) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c eyelidLower.r
+
+>>>>>>>>>>>> transform = p:(0.9, 2.0, -0.1) r:(1.4, 3.3, 165.4) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c eyelidLower.r_end
+
+>>>>>>>>>>>>> transform = p:(0.0, 0.4, 0.0) r:(1.4, 3.3, 165.4) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c eyelidUpper.l
+
+>>>>>>>>>>>> transform = p:(-0.9, 2.0, -0.1) r:(358.5, 354.4, 350.2) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c eyelidUpper.l_end
+
+>>>>>>>>>>>>> transform = p:(0.0, 0.4, 0.0) r:(358.5, 354.4, 350.2) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c eyelidUpper.r
+
+>>>>>>>>>>>> transform = p:(0.9, 2.0, -0.1) r:(358.5, 5.6, 15.1) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c eyelidUpper.r_end
+
+>>>>>>>>>>>>> transform = p:(0.0, 0.4, 0.0) r:(358.5, 5.6, 15.1) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c jaw
+
+>>>>>>>>>>>> transform = p:(0.0, 0.0, 0.7) r:(72.7, 180.0, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c jaw_end
+
+>>>>>>>>>>>>> transform = p:(0.0, 2.8, 0.0) r:(72.7, 180.0, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c MuzzleMouth
+
+>>>>>>>>>>>> transform = p:(0.0, 4.0, 1.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c Hurtbox (4)
+
+>>>>>>>>>>>> transform = p:(0.0, 1.4, 0.3) r:(90.0, 0.0, 0.0) s:(2.7, 5.5, 3.1)
+
+>>>>>>>>>>>> UnityEngine.BoxCollider
+
+>>>>>>>>>>>> RoR2.HurtBox
+>>>>>>>>>>>>v healthComponent = LemurianBody (RoR2.HealthComponent)
+>>>>>>>>>>>>v isBullseye = False
+>>>>>>>>>>>>v damageModifier = SniperTarget
+>>>>>>>>>>>>v teamIndex = None
+>>>>>>>>>>>>v hurtBoxGroup = mdlLemurian (RoR2.HurtBoxGroup)
+>>>>>>>>>>>>v indexInGroup = 13
+>>>>>>>>>>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+
+>>>>>>>>>>>> SurfaceDefProvider
+>>>>>>>>>>>>v surfaceDef = sdLemurian (SurfaceDef)
+>>>>>>>>>>>c Hitbox
+
+>>>>>>>>>>>> transform = p:(0.0, 3.1, 0.6) r:(90.0, 0.0, 0.0) s:(4.0, 11.5, 7.3)
+
+>>>>>>>>>>>> RoR2.HitBox
+>>>>>>>>>>c Hurtbox (3)
+
+>>>>>>>>>>> transform = p:(0.0, 0.8, 0.0) r:(289.8, 180.0, 0.0) s:(2.2, 2.9, 1.9)
+
+>>>>>>>>>>> UnityEngine.BoxCollider
+
+>>>>>>>>>>> RoR2.HurtBox
+>>>>>>>>>>>v healthComponent = LemurianBody (RoR2.HealthComponent)
+>>>>>>>>>>>v isBullseye = False
+>>>>>>>>>>>v damageModifier = Normal
+>>>>>>>>>>>v teamIndex = None
+>>>>>>>>>>>v hurtBoxGroup = mdlLemurian (RoR2.HurtBoxGroup)
+>>>>>>>>>>>v indexInGroup = 12
+>>>>>>>>>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+
+>>>>>>>>>>> SurfaceDefProvider
+>>>>>>>>>>>v surfaceDef = sdLemurian (SurfaceDef)
+>>>>>>>>c shoulder.l
+
+>>>>>>>>> transform = p:(2.2, 1.4, -0.3) r:(0.5, 179.8, 250.8) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c upper_arm.l
+
+>>>>>>>>>> transform = p:(0.0, 3.1, 0.0) r:(0.1, 178.9, 245.5) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c lower_arm.l
+
+>>>>>>>>>>> transform = p:(0.0, 3.2, 0.0) r:(0.5, 179.8, 246.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c finger1.l
+
+>>>>>>>>>>>> transform = p:(-0.2, 2.2, 0.1) r:(353.2, 186.7, 228.7) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c finger1.l_end
+
+>>>>>>>>>>>>> transform = p:(0.0, 1.4, 0.0) r:(353.2, 186.7, 228.7) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c finger2.l
+
+>>>>>>>>>>>> transform = p:(0.0, 2.0, -0.3) r:(350.7, 183.9, 228.5) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c finger2.l_end
+
+>>>>>>>>>>>>> transform = p:(0.0, 1.4, 0.0) r:(350.7, 183.9, 228.5) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c thumb.l
+
+>>>>>>>>>>>> transform = p:(0.2, 1.5, -0.3) r:(17.4, 200.1, 198.8) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c thumb.l_end
+
+>>>>>>>>>>>>> transform = p:(0.0, 0.8, 0.0) r:(17.4, 200.1, 198.8) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c Hurtbox (2)
+
+>>>>>>>>>>>> transform = p:(0.0, 1.3, 0.0) r:(0.5, 179.8, 246.0) s:(1.3, 4.0, 1.3)
+
+>>>>>>>>>>>> UnityEngine.BoxCollider
+
+>>>>>>>>>>>> RoR2.HurtBox
+>>>>>>>>>>>>v healthComponent = LemurianBody (RoR2.HealthComponent)
+>>>>>>>>>>>>v isBullseye = False
+>>>>>>>>>>>>v damageModifier = Normal
+>>>>>>>>>>>>v teamIndex = None
+>>>>>>>>>>>>v hurtBoxGroup = mdlLemurian (RoR2.HurtBoxGroup)
+>>>>>>>>>>>>v indexInGroup = 16
+>>>>>>>>>>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+
+>>>>>>>>>>>> SurfaceDefProvider
+>>>>>>>>>>>>v surfaceDef = sdLemurian (SurfaceDef)
+>>>>>>>>>>c Hurtbox (1)
+
+>>>>>>>>>>> transform = p:(0.0, 1.3, 0.0) r:(0.1, 178.9, 245.5) s:(1.2, 4.1, 1.2)
+
+>>>>>>>>>>> UnityEngine.BoxCollider
+
+>>>>>>>>>>> RoR2.HurtBox
+>>>>>>>>>>>v healthComponent = LemurianBody (RoR2.HealthComponent)
+>>>>>>>>>>>v isBullseye = False
+>>>>>>>>>>>v damageModifier = Normal
+>>>>>>>>>>>v teamIndex = None
+>>>>>>>>>>>v hurtBoxGroup = mdlLemurian (RoR2.HurtBoxGroup)
+>>>>>>>>>>>v indexInGroup = 15
+>>>>>>>>>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+
+>>>>>>>>>>> SurfaceDefProvider
+>>>>>>>>>>>v surfaceDef = sdLemurian (SurfaceDef)
+>>>>>>>>>c Hurtbox
+
+>>>>>>>>>> transform = p:(-0.4, 0.8, 0.0) r:(0.5, 179.8, 250.8) s:(1.9, 5.2, 1.9)
+
+>>>>>>>>>> UnityEngine.BoxCollider
+
+>>>>>>>>>> RoR2.HurtBox
+>>>>>>>>>>v healthComponent = LemurianBody (RoR2.HealthComponent)
+>>>>>>>>>>v isBullseye = False
+>>>>>>>>>>v damageModifier = Normal
+>>>>>>>>>>v teamIndex = None
+>>>>>>>>>>v hurtBoxGroup = mdlLemurian (RoR2.HurtBoxGroup)
+>>>>>>>>>>v indexInGroup = 14
+>>>>>>>>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+
+>>>>>>>>>> SurfaceDefProvider
+>>>>>>>>>>v surfaceDef = sdLemurian (SurfaceDef)
+>>>>>>>>c shoulder.r
+
+>>>>>>>>> transform = p:(-2.2, 1.4, -0.3) r:(0.5, 180.2, 109.2) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c upper_arm.r
+
+>>>>>>>>>> transform = p:(0.0, 3.1, 0.0) r:(356.2, 179.3, 114.6) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c lower_arm.r
+
+>>>>>>>>>>> transform = p:(0.0, 3.2, 0.0) r:(0.5, 180.2, 114.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c Hurtbox (2)
+
+>>>>>>>>>>>> transform = p:(0.0, 1.4, 0.0) r:(0.5, 180.2, 114.0) s:(1.3, 4.0, 1.3)
+
+>>>>>>>>>>>> UnityEngine.BoxCollider
+
+>>>>>>>>>>>> RoR2.HurtBox
+>>>>>>>>>>>>v healthComponent = LemurianBody (RoR2.HealthComponent)
+>>>>>>>>>>>>v isBullseye = False
+>>>>>>>>>>>>v damageModifier = Normal
+>>>>>>>>>>>>v teamIndex = None
+>>>>>>>>>>>>v hurtBoxGroup = mdlLemurian (RoR2.HurtBoxGroup)
+>>>>>>>>>>>>v indexInGroup = 19
+>>>>>>>>>>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+
+>>>>>>>>>>>> SurfaceDefProvider
+>>>>>>>>>>>>v surfaceDef = sdLemurian (SurfaceDef)
+>>>>>>>>>>>c finger1.r
+
+>>>>>>>>>>>> transform = p:(0.2, 2.2, 0.1) r:(8.9, 187.1, 131.5) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c finger1.r_end
+
+>>>>>>>>>>>>> transform = p:(0.0, 1.4, 0.0) r:(8.9, 187.1, 131.5) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c finger2.r
+
+>>>>>>>>>>>> transform = p:(0.0, 2.0, -0.3) r:(0.1, 184.3, 130.9) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c finger2.r_end
+
+>>>>>>>>>>>>> transform = p:(0.0, 1.4, 0.0) r:(0.1, 184.3, 130.9) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c thumb.r
+
+>>>>>>>>>>>> transform = p:(-0.2, 1.5, -0.3) r:(25.2, 201.7, 177.1) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c thumb.r_end
+
+>>>>>>>>>>>>> transform = p:(0.0, 0.8, 0.0) r:(25.2, 201.7, 177.1) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c Hurtbox (1)
+
+>>>>>>>>>>> transform = p:(0.0, 1.7, 0.0) r:(356.2, 179.3, 114.6) s:(1.2, 4.1, 1.2)
+
+>>>>>>>>>>> UnityEngine.BoxCollider
+
+>>>>>>>>>>> RoR2.HurtBox
+>>>>>>>>>>>v healthComponent = LemurianBody (RoR2.HealthComponent)
+>>>>>>>>>>>v isBullseye = False
+>>>>>>>>>>>v damageModifier = Normal
+>>>>>>>>>>>v teamIndex = None
+>>>>>>>>>>>v hurtBoxGroup = mdlLemurian (RoR2.HurtBoxGroup)
+>>>>>>>>>>>v indexInGroup = 18
+>>>>>>>>>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+
+>>>>>>>>>>> SurfaceDefProvider
+>>>>>>>>>>>v surfaceDef = sdLemurian (SurfaceDef)
+>>>>>>>>>c Hurtbox
+
+>>>>>>>>>> transform = p:(0.2, 1.6, 0.0) r:(0.5, 180.2, 109.2) s:(1.9, 5.2, 1.9)
+
+>>>>>>>>>> UnityEngine.BoxCollider
+
+>>>>>>>>>> RoR2.HurtBox
+>>>>>>>>>>v healthComponent = LemurianBody (RoR2.HealthComponent)
+>>>>>>>>>>v isBullseye = False
+>>>>>>>>>>v damageModifier = Normal
+>>>>>>>>>>v teamIndex = None
+>>>>>>>>>>v hurtBoxGroup = mdlLemurian (RoR2.HurtBoxGroup)
+>>>>>>>>>>v indexInGroup = 17
+>>>>>>>>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+
+>>>>>>>>>> SurfaceDefProvider
+>>>>>>>>>>v surfaceDef = sdLemurian (SurfaceDef)
+>>>>>>c tail_ik
+
+>>>>>>> transform = p:(0.0, 11.8, -8.8) r:(11.9, 180.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>c tail_ik_end
+
+>>>>>>>> transform = p:(0.0, 2.7, 0.0) r:(11.9, 180.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>c foot_ik.l
+
+>>>>>> transform = p:(-2.2, 1.5, 0.2) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>c knee_ik.l
+
+>>>>>>> transform = p:(-0.1, -9.8, 2.5) r:(90.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>c knee_ik.l_end
+
+>>>>>>>> transform = p:(0.0, 2.6, 0.0) r:(90.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>c foot_ik.r
+
+>>>>>> transform = p:(2.2, 1.5, 0.2) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>c knee_ik.r
+
+>>>>>>> transform = p:(0.1, -9.8, 2.5) r:(90.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>c knee_ik.r_end
+
+>>>>>>>> transform = p:(0.0, 2.6, 0.0) r:(90.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>c AimAssist
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>> RoR2.AimAssistTarget
+>>>>v point0 = neck_high (UnityEngine.Transform)
+>>>>v point1 = ROOT (UnityEngine.Transform)
+>>>>v assistScale = 1
+>>>>v healthComponent = LemurianBody (RoR2.HealthComponent)
+>>>>v teamComponent = LemurianBody (RoR2.TeamComponent)
+>>>>v instancesList = System.Collections.Generic.List`1[RoR2.AimAssistTarget]
+>>>>v debugAimAssistVisualCoefficient = RoR2.ConVar.FloatConVar
+>c CameraPivot
+
+>> transform = p:(0.0, 0.8, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>c AimOrigin
+
+>> transform = p:(0.0, 1.0, 0.3) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)

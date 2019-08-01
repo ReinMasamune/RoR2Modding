@@ -1,0 +1,64 @@
+RedAffixMissileProjectile
+
+> transform = p:(120.9, 10.3, 62.4) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> UnityEngine.BoxCollider
+
+> UnityEngine.Networking.NetworkIdentity
+>v clientAuthorityCallback = 
+
+> RoR2.Projectile.ProjectileController
+>v ghostPrefab = RedAffixMissileGhost (UnityEngine.GameObject)
+>v ghost = 
+>v isPrediction = False
+>v allowPrediction = True
+>v predictionId = 0
+>v owner = 
+>v procChainMask = RoR2.ProcChainMask
+>v procCoefficient = 1
+>v target = 
+>v authorityEffect = 
+>v predictionEffect = 
+
+> RoR2.Projectile.ProjectileTargetComponent
+>v target = 
+
+> RoR2.Projectile.MissileController
+>v maxVelocity = 1
+>v rollVelocity = 0
+>v acceleration = 2
+>v delayTimer = 0.2
+>v giveupTimer = 8
+>v deathTimer = 15
+>v turbulence = 2
+>v maxSeekDistance = 100
+
+> RoR2.Projectile.ProjectileSingleTargetImpact
+>v destroyOnWorld = True
+>v impactEffect = MissileExplosionVFX (UnityEngine.GameObject)
+>v hitSoundString = 
+>v enemyHitSoundString = 
+
+> UnityEngine.Rigidbody
+
+> RoR2.Projectile.ProjectileNetworkTransform
+>v positionTransmitInterval = 0.03333334
+>v interpolationFactor = 1
+>v allowClientsideCollision = False
+
+> RoR2.TeamFilter
+
+> QuaternionPID
+>v customName = 
+>v PID = (3.0, 0.3, 0.0)
+>v inputQuat = (0.0, 0.0, 0.0, 1.0)
+>v targetQuat = (0.0, 0.0, 0.0, 1.0)
+>v outputVector = (0.0, 0.0, 0.0)
+>v gain = 1
+
+> RoR2.Projectile.ProjectileDamage
+>v damage = 0
+>v crit = False
+>v force = 0
+>v damageColorIndex = Default
+>v damageType = Generic

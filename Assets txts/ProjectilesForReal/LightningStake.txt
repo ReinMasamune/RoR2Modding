@@ -1,0 +1,69 @@
+LightningStake
+
+> transform = p:(129.1, 32.7, 203.5) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> UnityEngine.Networking.NetworkIdentity
+>v clientAuthorityCallback = 
+
+> RoR2.Projectile.ProjectileController
+>v ghostPrefab = LightningStakeGhost (UnityEngine.GameObject)
+>v ghost = 
+>v isPrediction = False
+>v allowPrediction = False
+>v predictionId = 0
+>v owner = 
+>v procChainMask = RoR2.ProcChainMask
+>v procCoefficient = 0
+>v target = 
+>v authorityEffect = 
+>v predictionEffect = 
+
+> UnityEngine.Rigidbody
+
+> RoR2.Projectile.ProjectileNetworkTransform
+>v positionTransmitInterval = 0.03333334
+>v interpolationFactor = 1
+>v allowClientsideCollision = False
+
+> RoR2.Projectile.ProjectileStickOnImpact
+>v stickSoundString = 
+>v stickParticleSystem = UnityEngine.ParticleSystem[]
+>v ignoreCharacters = False
+>v ignoreWorld = False
+>v stickEvent = UnityEngine.Events.UnityEvent UnityEngine.Events.UnityEvent
+
+> RoR2.Projectile.ProjectileDamage
+>v damage = 0
+>v crit = False
+>v force = 0
+>v damageColorIndex = Default
+>v damageType = Generic
+
+> UnityEngine.SphereCollider
+
+> RoR2.TeamFilter
+
+> RoR2.Projectile.ProjectileImpactExplosion
+>v impactEffect = LightningStakeNova (UnityEngine.GameObject)
+>v explosionSoundString = Play_item_use_BFG_zaps
+>v lifetimeExpiredSoundString = 
+>v offsetForLifetimeExpiredSound = 0
+>v destroyOnEnemy = False
+>v destroyOnWorld = False
+>v timerAfterImpact = False
+>v falloffModel = None
+>v lifetime = 1.5
+>v lifetimeAfterImpact = 0
+>v lifetimeRandomOffset = 0
+>v blastRadius = 4
+>v blastDamageCoefficient = 1
+>v blastProcCoefficient = 1
+>v bonusBlastForce = (0.0, 0.0, 0.0)
+>v fireChildren = False
+>v childrenProjectilePrefab = 
+>v childrenCount = 0
+>v childrenDamageCoefficient = 0
+>v minAngleOffset = (0.0, 0.0, 0.0)
+>v maxAngleOffset = (0.0, 0.0, 0.0)
+>v transformSpace = World
+>v projectileHealthComponent = 

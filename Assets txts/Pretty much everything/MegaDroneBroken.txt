@@ -1,0 +1,125 @@
+MegaDroneBroken
+
+> transform = p:(-44.8, 22.0, -94.7) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> UnityEngine.Networking.NetworkIdentity
+>v clientAuthorityCallback = 
+
+> RoR2.Highlight
+>v pickupIndex = ItemIndex.Syringe
+>v targetRenderer = MegaDroneMesh (UnityEngine.SkinnedMeshRenderer)
+>v strength = 1
+>v highlightColor = interactive
+>v isOn = False
+
+> RoR2.SummonMasterBehavior
+>v masterPrefab = MegaDroneMaster (UnityEngine.GameObject)
+>v callOnEquipmentSpentOnPurchase = False
+>v destroyAfterSummoning = True
+
+> RoR2.PurchaseInteraction
+>v displayNameToken = DRONE_MEGA_INTERACTABLE_NAME
+>v contextToken = DRONE_MEGA_CONTEXT
+>v costType = Money
+>v available = True
+>v cost = 500
+>v automaticallyScaleCostWithDifficulty = False
+>v requiredUnlockable = 
+>v ignoreSpherecastForInteractability = False
+>v purchaseStatNames = System.String[]
+>v lastActivator = 
+>v lockGameObject = 
+>v onPurchase = RoR2.PurchaseEvent RoR2.PurchaseEvent
+
+> RoR2.EventFunctions
+
+> RoR2.Hologram.HologramProjector
+>v displayDistance = 15
+>v hologramPivot = HologramPivot (UnityEngine.Transform)
+>v disableHologramRotation = False
+
+> RoR2.GenericDisplayNameProvider
+>v displayToken = DRONE1_NAME
+
+> RoR2.ModelLocator
+>v modelTransform = mdlMegaDrone (UnityEngine.Transform)
+>v modelBaseTransform = 
+>v dontReleaseModelOnDeath = False
+>v autoUpdateModelTransform = True
+>v dontDetatchFromParent = False
+>v noCorpse = False
+>v normalizeToFloor = False
+>v preserveModel = False
+>c mdlMegaDrone
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> RoR2.EntityLocator
+>>v entity = MegaDroneBroken (UnityEngine.GameObject)
+
+>> UnityEngine.SphereCollider
+>>c MegaDroneArmature
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>c Base
+
+>>>> transform = p:(0.0, 0.7, 0.0) r:(67.9, 339.4, 330.8) s:(1.0, 1.0, 1.0)
+>>>>c Head
+
+>>>>> transform = p:(0.0, 0.7, 2.0) r:(10.6, 96.8, 84.2) s:(1.0, 1.0, 1.0)
+>>>>>c Eye
+
+>>>>>> transform = p:(0.0, 0.0, 0.0) r:(10.6, 96.8, 84.2) s:(1.0, 1.0, 1.0)
+>>>>>>c Eye_end
+
+>>>>>>> transform = p:(0.0, 1.8, 0.0) r:(10.6, 96.8, 84.2) s:(1.0, 1.0, 1.0)
+>>>>c Rotor
+
+>>>>> transform = p:(0.0, 0.7, -0.6) r:(338.1, 348.2, 356.7) s:(1.0, 1.0, 1.0)
+>>>>>c WingRoll.l
+
+>>>>>> transform = p:(-0.4, 1.2, 0.0) r:(276.7, 13.9, 62.9) s:(1.0, 1.0, 1.0)
+>>>>>>c WingPitch.l
+
+>>>>>>> transform = p:(0.0, 1.0, 0.6) r:(289.8, 273.5, 162.1) s:(1.0, 1.0, 1.0)
+>>>>>>>c WingPitch.l_end
+
+>>>>>>>> transform = p:(0.0, 5.2, 0.0) r:(289.8, 273.5, 162.1) s:(1.0, 1.0, 1.0)
+>>>>>c WingRoll.r
+
+>>>>>> transform = p:(0.4, 1.2, 0.0) r:(292.2, 159.4, 98.1) s:(1.0, 1.0, 1.0)
+>>>>>>c WingPitch.r
+
+>>>>>>> transform = p:(0.0, 1.0, 0.6) r:(304.1, 114.6, 138.3) s:(1.0, 1.0, 1.0)
+>>>>>>>c WingPitch.r_end
+
+>>>>>>>> transform = p:(0.0, 5.2, 0.0) r:(304.1, 114.6, 138.3) s:(1.0, 1.0, 1.0)
+>>>>c WeaponRing
+
+>>>>> transform = p:(0.0, 0.7, 0.0) r:(67.9, 339.4, 150.8) s:(1.0, 1.0, 1.0)
+>>>>>c GatlingBase.l
+
+>>>>>> transform = p:(2.1, 1.6, 2.7) r:(67.9, 339.4, 330.8) s:(1.0, 1.0, 1.0)
+>>>>>>c GatlingBarrel.l
+
+>>>>>>> transform = p:(0.0, 1.0, 0.0) r:(292.2, 159.4, 29.2) s:(1.0, 1.0, 1.0)
+>>>>>>>c GatlingBarrel.l_end
+
+>>>>>>>> transform = p:(0.0, 2.1, 0.0) r:(292.2, 159.4, 29.2) s:(1.0, 1.0, 1.0)
+>>>>>c GatlingBase.r
+
+>>>>>> transform = p:(-2.1, 1.6, 2.7) r:(67.9, 339.4, 330.8) s:(1.0, 1.0, 1.0)
+>>>>>>c GatlingBarrel.r
+
+>>>>>>> transform = p:(0.0, 1.0, 0.0) r:(292.2, 159.4, 29.2) s:(1.0, 1.0, 1.0)
+>>>>>>>c GatlingBarrel.r_end
+
+>>>>>>>> transform = p:(0.0, 2.1, 0.0) r:(292.2, 159.4, 29.2) s:(1.0, 1.0, 1.0)
+>>c MegaDroneMesh
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.SkinnedMeshRenderer
+>c HologramPivot
+
+>> transform = p:(0.0, 3.3, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)

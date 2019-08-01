@@ -1,0 +1,101 @@
+Pot2Body
+
+> transform = p:(22.3, -16.7, -12.5) r:(270.0, 166.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> RoR2.TeamComponent
+>v hideAllyCardDisplay = False
+
+> UnityEngine.Networking.NetworkIdentity
+>v clientAuthorityCallback = 
+
+> RoR2.CharacterBody
+>v bodyIndex = 50
+>v baseNameToken = POT2_BODY_NAME
+>v subtitleNameToken = 
+>v pendingTonicAfflictionCount = 0
+>v bodyFlags = None
+>v readOnlyInstancesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.CharacterBody]
+>v rootMotionInMainState = False
+>v mainRootSpeed = 0
+>v baseMaxHealth = 0
+>v baseRegen = 0
+>v baseMaxShield = 0
+>v baseMoveSpeed = 0
+>v baseAcceleration = 0
+>v baseJumpPower = 0
+>v baseDamage = 0
+>v baseAttackSpeed = 0
+>v baseCrit = 0
+>v baseArmor = 0
+>v baseJumpCount = 1
+>v autoCalculateLevelStats = True
+>v levelMaxHealth = 0
+>v levelRegen = 0
+>v levelMaxShield = 0
+>v levelMoveSpeed = 0
+>v levelJumpPower = 0
+>v levelDamage = 0
+>v levelAttackSpeed = 0
+>v levelCrit = 0
+>v levelArmor = 0
+>v killCount = 0
+>v wasLucky = False
+>v spreadBloomDecayTime = 0.45
+>v spreadBloomCurve = UnityEngine.AnimationCurve
+>v crosshairPrefab = 
+>v hideCrosshair = False
+>v aimOriginTransform = 
+>v hullClassification = Human
+>v portraitIcon = 
+>v isChampion = False
+>v currentVehicle = 
+>v preferredPodPrefab = 
+
+> RoR2.HealthComponent
+>v health = 100
+>v shield = 0
+>v barrier = 0
+>v body = 
+>v dontShowHealthbar = False
+>v globalDeathEventChanceCoefficient = 1
+>v medkitActivationDelay = 1.1
+>v frozenExecuteThreshold = 0.3
+
+> DestroyOnKill
+>v effectPrefab = Pot2Debris (UnityEngine.GameObject)
+
+> RoR2.ModelLocator
+>v modelTransform = mdlPot2 (UnityEngine.Transform)
+>v modelBaseTransform = 
+>v dontReleaseModelOnDeath = False
+>v autoUpdateModelTransform = True
+>v dontDetatchFromParent = False
+>v noCorpse = False
+>v normalizeToFloor = False
+>v preserveModel = False
+>c mdlPot2
+
+>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 166.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> UnityEngine.MeshFilter
+
+>> UnityEngine.MeshRenderer
+
+>> RoR2.HurtBoxGroup
+>>v hurtBoxes = RoR2.HurtBox[]
+>>v mainHurtBox = Hurtbox (RoR2.HurtBox)
+>>v bullseyeCount = 1
+>>c Hurtbox
+
+>>> transform = p:(0.0, 0.0, 0.4) r:(270.0, 166.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.SphereCollider
+
+>>> RoR2.HurtBox
+>>>v healthComponent = Pot2Body (RoR2.HealthComponent)
+>>>v isBullseye = True
+>>>v damageModifier = Normal
+>>>v teamIndex = None
+>>>v hurtBoxGroup = mdlPot2 (RoR2.HurtBoxGroup)
+>>>v indexInGroup = 0
+>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]

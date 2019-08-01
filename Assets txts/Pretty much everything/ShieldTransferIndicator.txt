@@ -1,0 +1,108 @@
+ShieldTransferIndicator
+
+> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(0.2, 0.2, 0.2)
+
+> RoR2.UI.AnimateUIAlpha
+>v alphaCurve = UnityEngine.AnimationCurve
+>v image = 
+>v rawImage = 
+>v spriteRenderer = Center Circle (UnityEngine.SpriteRenderer)
+>v timeMax = 0.25
+>v destroyOnEnd = False
+>v loopOnEnd = False
+>v disableGameObjectOnEnd = False
+>v time = 0
+
+> RoR2.UI.MPEventSystemProvider
+>v eventSystem = 
+>v fallBackToMainEventSystem = True
+>c Holder
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.2, 1.2, 0.6)
+
+>> Rewired.ComponentControls.Effects.RotateAroundAxis
+>>c Top Arrow
+
+>>> transform = p:(0.0, 0.3, 0.0) r:(0.0, 0.0, 0.0) s:(0.3, 0.3, 0.3)
+
+>>> UnityEngine.SpriteRenderer
+>>c Left Arrow
+
+>>> transform = p:(-0.3, 0.0, 0.0) r:(0.0, 0.0, 90.0) s:(0.3, 0.3, 0.3)
+
+>>> UnityEngine.SpriteRenderer
+>>c Right Arrow
+
+>>> transform = p:(0.3, 0.0, 0.0) r:(0.0, 0.0, 270.0) s:(0.3, 0.3, 0.3)
+
+>>> UnityEngine.SpriteRenderer
+>>c Bottom Arrow
+
+>>> transform = p:(0.0, -0.3, 0.0) r:(0.0, 0.0, 0.0) s:(0.3, 0.3, 0.3)
+
+>>> UnityEngine.SpriteRenderer
+>>c Center Circle
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(0.3, 0.3, 0.3)
+
+>>> UnityEngine.SpriteRenderer
+
+>>> RoR2.AnimateShaderAlpha
+>>>v alphaCurve = UnityEngine.AnimationCurve
+>>>v timeMax = 5
+>>>v decal = 
+>>>v destroyOnEnd = False
+>>>v disableOnEnd = False
+>>>v time = 0
+>>c Left Arrow
+
+>>> transform = p:(-0.2, 0.0, 0.0) r:(0.0, 0.0, 90.0) s:(0.1, 0.1, 0.1)
+
+>>> UnityEngine.SpriteRenderer
+>>c Right Arrow
+
+>>> transform = p:(0.2, 0.0, 0.0) r:(0.0, 0.0, 270.0) s:(0.1, 0.1, 0.1)
+
+>>> UnityEngine.SpriteRenderer
+>>c Top Arrow
+
+>>> transform = p:(0.0, 0.2, 0.0) r:(0.0, 0.0, 0.0) s:(0.1, 0.1, 0.1)
+
+>>> UnityEngine.SpriteRenderer
+>>c Bottom Arrow
+
+>>> transform = p:(0.0, -0.2, 0.0) r:(0.0, 0.0, 180.0) s:(0.1, 0.1, 0.1)
+
+>>> UnityEngine.SpriteRenderer
+>>c Holder
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(0.1, 0.1, 0.2)
+
+>>> UnityEngine.SpriteRenderer
+
+>>> ObjectScaleCurve
+>>>v curveX = UnityEngine.AnimationCurve
+>>>v curveY = UnityEngine.AnimationCurve
+>>>v curveZ = UnityEngine.AnimationCurve
+>>>v overallCurve = UnityEngine.AnimationCurve
+>>>v timeMax = 0.3
+>>>v time = 0
+>c TextMeshPro
+
+>> UnityEngine.RectTransform
+
+>> UnityEngine.MeshRenderer
+
+>> UnityEngine.MeshFilter
+
+>> UnityEngine.CanvasRenderer
+
+>> TMPro.TextMeshPro
+
+>> RoR2.UI.MPEventSystemLocator
+
+>> RoR2.InputBindingDisplayController
+>>v actionName = UtilitySkill
+>>v axisRange = Full
+>>v useExplicitInputSource = False
+>>v explicitInputSource = Keyboard

@@ -1,0 +1,10 @@
+PickupGoldGat
+
+> transform = p:(-63.2, 24.2, -89.0) r:(0.0, 0.0, 0.0) s:(0.4, 0.4, 0.4)
+>c mdlCapacitor
+
+>> transform = p:(0.0, 0.0, 0.0) r:(310.7, 71.5, 336.6) s:(2.0, 2.0, 2.0)
+
+>> UnityEngine.MeshFilter
+
+>> UnityEngine.MeshRenderer

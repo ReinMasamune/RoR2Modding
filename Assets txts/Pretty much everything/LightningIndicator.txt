@@ -1,0 +1,39 @@
+LightningIndicator
+
+> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(0.1, 0.1, 0.1)
+
+> RoR2.UI.MPEventSystemProvider
+>v eventSystem = 
+>v fallBackToMainEventSystem = True
+>c Holder
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 45.0) s:(1.0, 1.0, 1.0)
+>>c Brackets
+
+>>> transform = p:(0.0, 0.1, 0.0) r:(0.0, 0.0, 45.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.SpriteRenderer
+>>c Brackets
+
+>>> transform = p:(0.1, 0.0, 0.0) r:(0.0, 0.0, 315.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.SpriteRenderer
+>c TextMeshPro
+
+>> UnityEngine.RectTransform
+
+>> UnityEngine.MeshRenderer
+
+>> UnityEngine.MeshFilter
+
+>> UnityEngine.CanvasRenderer
+
+>> TMPro.TextMeshPro
+
+>> RoR2.UI.MPEventSystemLocator
+
+>> RoR2.InputBindingDisplayController
+>>v actionName = Equipment
+>>v axisRange = Full
+>>v useExplicitInputSource = False
+>>v explicitInputSource = Keyboard

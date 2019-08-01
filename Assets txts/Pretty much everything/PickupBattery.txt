@@ -1,0 +1,10 @@
+PickupBattery
+
+> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>c mdlBattery
+
+>> transform = p:(0.0, 0.0, 0.0) r:(319.4, 72.3, 311.7) s:(1.0, 1.0, 1.0)
+
+>> UnityEngine.MeshFilter
+
+>> UnityEngine.MeshRenderer

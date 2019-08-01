@@ -1,0 +1,45 @@
+GravekeeperTrackingFireballGhost
+
+> transform = p:(-31.9, 6.1, -33.6) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> RoR2.Projectile.ProjectileGhostController
+>v authorityTransform = 
+>v predictionTransform = 
+
+> RoR2.VFXAttributes
+>v vfxPriority = Always
+>v vfxIntensity = Low
+>v optionalLights = UnityEngine.Light[]
+>v secondaryParticleSystem = UnityEngine.ParticleSystem[]
+
+> RoR2.FlickerLight
+>v light = Point light (UnityEngine.Light)
+>v sinWaves = Wave[]
+>c Point light
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> UnityEngine.Light
+
+>> RoR2.FlickerLight
+>>v light = Point light (UnityEngine.Light)
+>>v sinWaves = Wave[]
+>c Spinner
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> Rewired.ComponentControls.Effects.RotateAroundAxis
+>>c MaskMesh
+
+>>> transform = p:(0.0, -0.5, 0.1) r:(270.0, 0.0, 0.0) s:(0.8, 0.8, 0.6)
+
+>>> UnityEngine.MeshFilter
+
+>>> UnityEngine.MeshRenderer
+>c Flames
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> UnityEngine.ParticleSystem
+
+>> UnityEngine.ParticleSystemRenderer

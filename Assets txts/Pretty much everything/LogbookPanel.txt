@@ -1,0 +1,573 @@
+LogbookPanel
+
+> UnityEngine.RectTransform
+
+> UnityEngine.CanvasRenderer
+
+> UnityEngine.UI.Image
+
+> RoR2.UI.SkinControllers.PanelSkinController
+>v panelType = Default
+>v skinData = skinLogbook (RoR2.UI.UISkinData)
+
+> RoR2.UI.LogBook.LogBookController
+>v navigationPanel = NavigationPanel (UnityEngine.GameObject)
+>v categoryContainer = CategoriesList (UnityEngine.RectTransform)
+>v categorySpaceFiller = SpaceFiller (UnityEngine.GameObject)
+>v categorySpaceFillerCount = 5
+>v spaceFillerColor = RGBA(0.000, 0.000, 0.000, 0.000)
+>v entryPageContainer = Interior (UnityEngine.RectTransform)
+>v entryPagePrefab = EntriesPanel (UnityEngine.GameObject)
+>v navigationPageIndicatorContainer = PageNumberArea (UnityEngine.RectTransform)
+>v navigationPageIndicatorPrefab = PageIndicator (UnityEngine.GameObject)
+>v previousPageButton = LeftButton (RoR2.UI.MPButton)
+>v nextPageButton = RightButton (RoR2.UI.MPButton)
+>v currentCategoryLabel = 
+>v OnViewEntry = UnityEngine.Events.UnityEvent UnityEngine.Events.UnityEvent
+>v pageViewerPanel = LogbookEntryPanel (UnityEngine.GameObject)
+>v pageViewerBackButton = BackButton (RoR2.UI.MPButton)
+>v categories = RoR2.UI.LogBook.CategoryDef[]
+>v availability = ResourceAvailability
+
+> RoR2.UI.MPEventSystemProvider
+>v eventSystem = 
+>v fallBackToMainEventSystem = True
+>c NavigationPanel
+
+>> UnityEngine.RectTransform
+
+>> UnityEngine.CanvasRenderer
+
+>> UnityEngine.UI.Image
+
+>> RoR2.UI.SkinControllers.PanelSkinController
+>>v panelType = Default
+>>v skinData = skinLogbook (RoR2.UI.UISkinData)
+>>c CategorySelectionPanel
+
+>>> UnityEngine.RectTransform
+
+>>> UnityEngine.CanvasRenderer
+
+>>> UnityEngine.UI.Image
+
+>>> RoR2.UI.SkinControllers.PanelSkinController
+>>>v panelType = Default
+>>>v skinData = skinLogbook (RoR2.UI.UISkinData)
+>>>c HeaderPanel
+
+>>>> UnityEngine.RectTransform
+
+>>>> UnityEngine.CanvasRenderer
+
+>>>> UnityEngine.UI.Image
+
+>>>> RoR2.UI.SkinControllers.PanelSkinController
+>>>>v panelType = Default
+>>>>v skinData = skinLogbook (RoR2.UI.UISkinData)
+>>>>c Label
+
+>>>>> UnityEngine.RectTransform
+
+>>>>> UnityEngine.CanvasRenderer
+
+>>>>> RoR2.UI.HGTextMeshProUGUI
+>>>>>v useLanguageDefaultFont = True
+>>>>>v defaultLanguageFont = tmpBombDropshadow (TMPro.TMP_FontAsset)
+
+>>>>> RoR2.UI.SkinControllers.LabelSkinController
+>>>>>v labelType = Header
+>>>>>v useRecommendedAlignment = False
+>>>>>v skinData = skinLogbook (RoR2.UI.UISkinData)
+>>>c CategoriesArea
+
+>>>> UnityEngine.RectTransform
+
+>>>> UnityEngine.CanvasRenderer
+
+>>>> UnityEngine.UI.Image
+
+>>>> RoR2.UI.SkinControllers.PanelSkinController
+>>>>v panelType = Default
+>>>>v skinData = skinLogbook (RoR2.UI.UISkinData)
+>>>>c CategoriesList
+
+>>>>> UnityEngine.RectTransform
+
+>>>>> UnityEngine.CanvasRenderer
+
+>>>>> UnityEngine.UI.Image
+
+>>>>> RoR2.UI.SkinControllers.PanelSkinController
+>>>>>v panelType = Default
+>>>>>v skinData = skinLogbook (RoR2.UI.UISkinData)
+
+>>>>> UnityEngine.UI.VerticalLayoutGroup
+>>>>>c CategoryButton
+
+>>>>>> UnityEngine.RectTransform
+
+>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>> UnityEngine.UI.Image
+
+>>>>>> RoR2.UI.MPEventSystemLocator
+
+>>>>>> RoR2.UI.CustomButtonTransition
+>>>>>>v scaleButtonOnHover = False
+>>>>>>v showImageOnHover = True
+>>>>>>v imageOnHover = 
+>>>>>>v imageOnInteractable = 
+>>>>>>v allowAllEventSystems = False
+>>>>>>v pointerClickOnly = True
+
+>>>>>> RoR2.UI.SkinControllers.ButtonSkinController
+>>>>>>v useRecommendedButtonWidth = True
+>>>>>>v useRecommendedButtonHeight = True
+>>>>>>v useRecommendedImage = True
+>>>>>>v useRecommendedMaterial = True
+>>>>>>v useRecommendedAlignment = False
+>>>>>>v useRecommendedLabel = True
+>>>>>>v skinData = skinCleanButton (RoR2.UI.UISkinData)
+
+>>>>>> UnityEngine.UI.LayoutElement
+>>>>>>c ButtonText
+
+>>>>>>> UnityEngine.RectTransform
+
+>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>> RoR2.UI.HGTextMeshProUGUI
+>>>>>>>v useLanguageDefaultFont = True
+>>>>>>>v defaultLanguageFont = tmpBombDropshadow (TMPro.TMP_FontAsset)
+>>>>>>c InteractableHighlight
+
+>>>>>>> UnityEngine.RectTransform
+
+>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>> UnityEngine.UI.Image
+>>>>>>c HoverHighlight
+
+>>>>>>> UnityEngine.RectTransform
+
+>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>> UnityEngine.UI.Image
+>>>>>c SpaceFiller
+
+>>>>>> UnityEngine.RectTransform
+
+>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>> UnityEngine.UI.Image
+
+>>>>>> UnityEngine.UI.LayoutElement
+>>>c FooterPanel
+
+>>>> UnityEngine.RectTransform
+
+>>>> UnityEngine.CanvasRenderer
+
+>>>> UnityEngine.UI.Image
+
+>>>> RoR2.UI.SkinControllers.PanelSkinController
+>>>>v panelType = Default
+>>>>v skinData = skinLogbook (RoR2.UI.UISkinData)
+>>>>c BackButton
+
+>>>>> UnityEngine.RectTransform
+
+>>>>> UnityEngine.CanvasRenderer
+
+>>>>> UnityEngine.UI.Image
+
+>>>>> RoR2.UI.MPEventSystemLocator
+
+>>>>> RoR2.UI.MPButton
+>>>>>v allowAllEventSystems = False
+>>>>>v pointerClickOnly = True
+
+>>>>> RoR2.UI.SkinControllers.ButtonSkinController
+>>>>>v useRecommendedButtonWidth = True
+>>>>>v useRecommendedButtonHeight = True
+>>>>>v useRecommendedImage = True
+>>>>>v useRecommendedMaterial = True
+>>>>>v useRecommendedAlignment = True
+>>>>>v useRecommendedLabel = True
+>>>>>v skinData = skinNakedButton (RoR2.UI.UISkinData)
+
+>>>>> RoR2.ConsoleFunctions
+>>>>>c TextMeshPro Text
+
+>>>>>> UnityEngine.RectTransform
+
+>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>> RoR2.UI.HGTextMeshProUGUI
+>>>>>>v useLanguageDefaultFont = True
+>>>>>>v defaultLanguageFont = tmpBombDropshadow (TMPro.TMP_FontAsset)
+>>c CategoryContentsPanel
+
+>>> UnityEngine.RectTransform
+
+>>> UnityEngine.CanvasRenderer
+
+>>> UnityEngine.UI.Image
+
+>>> RoR2.UI.SkinControllers.PanelSkinController
+>>>v panelType = Default
+>>>v skinData = skinLogbook (RoR2.UI.UISkinData)
+>>>c HeaderPanel
+
+>>>> UnityEngine.RectTransform
+
+>>>> UnityEngine.CanvasRenderer
+
+>>>> UnityEngine.UI.Image
+
+>>>> RoR2.UI.SkinControllers.PanelSkinController
+>>>>v panelType = Default
+>>>>v skinData = skinLogbook (RoR2.UI.UISkinData)
+>>>>c Label
+
+>>>>> UnityEngine.RectTransform
+
+>>>>> UnityEngine.CanvasRenderer
+
+>>>>> RoR2.UI.HGTextMeshProUGUI
+>>>>>v useLanguageDefaultFont = True
+>>>>>v defaultLanguageFont = tmpBombDropshadow (TMPro.TMP_FontAsset)
+
+>>>>> RoR2.UI.SkinControllers.LabelSkinController
+>>>>>v labelType = Header
+>>>>>v useRecommendedAlignment = False
+>>>>>v skinData = skinLogbook (RoR2.UI.UISkinData)
+>>>c EntrySelectionPanel
+
+>>>> UnityEngine.RectTransform
+
+>>>> UnityEngine.CanvasRenderer
+
+>>>> UnityEngine.UI.Image
+
+>>>> RoR2.UI.SkinControllers.PanelSkinController
+>>>>v panelType = Default
+>>>>v skinData = skinLogbook (RoR2.UI.UISkinData)
+>>>>c PageArea
+
+>>>>> UnityEngine.RectTransform
+
+>>>>> UnityEngine.CanvasRenderer
+
+>>>>> UnityEngine.UI.Image
+
+>>>>> RoR2.UI.SkinControllers.PanelSkinController
+>>>>>v panelType = Default
+>>>>>v skinData = skinLogbook (RoR2.UI.UISkinData)
+>>>>>c EntriesPanel
+
+>>>>>> UnityEngine.RectTransform
+
+>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>> UnityEngine.UI.Image
+
+>>>>>> RoR2.UI.SkinControllers.PanelSkinController
+>>>>>>v panelType = Default
+>>>>>>v skinData = skinLogbook (RoR2.UI.UISkinData)
+
+>>>>>> UnityEngine.UI.GridLayoutGroup
+>>>>>c Interior
+
+>>>>>> UnityEngine.RectTransform
+
+>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>> UnityEngine.UI.Image
+
+>>>>>> RoR2.UI.SkinControllers.PanelSkinController
+>>>>>>v panelType = Default
+>>>>>>v skinData = skinLogbook (RoR2.UI.UISkinData)
+
+>>>>>> UnityEngine.UI.Mask
+>>>>c LeftButton
+
+>>>>> UnityEngine.RectTransform
+
+>>>>> UnityEngine.CanvasRenderer
+
+>>>>> UnityEngine.UI.Image
+
+>>>>> RoR2.UI.MPEventSystemLocator
+
+>>>>> RoR2.UI.MPButton
+>>>>>v allowAllEventSystems = False
+>>>>>v pointerClickOnly = True
+
+>>>>> RoR2.UI.SkinControllers.ButtonSkinController
+>>>>>v useRecommendedButtonWidth = False
+>>>>>v useRecommendedButtonHeight = False
+>>>>>v useRecommendedImage = True
+>>>>>v useRecommendedMaterial = True
+>>>>>v useRecommendedAlignment = True
+>>>>>v useRecommendedLabel = True
+>>>>>v skinData = skinCleanButton (RoR2.UI.UISkinData)
+>>>>>c TextMeshPro Text
+
+>>>>>> UnityEngine.RectTransform
+
+>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>> RoR2.UI.HGTextMeshProUGUI
+>>>>>>v useLanguageDefaultFont = True
+>>>>>>v defaultLanguageFont = tmpBombDropshadow (TMPro.TMP_FontAsset)
+>>>>c RightButton
+
+>>>>> UnityEngine.RectTransform
+
+>>>>> UnityEngine.CanvasRenderer
+
+>>>>> UnityEngine.UI.Image
+
+>>>>> RoR2.UI.MPEventSystemLocator
+
+>>>>> RoR2.UI.MPButton
+>>>>>v allowAllEventSystems = False
+>>>>>v pointerClickOnly = True
+
+>>>>> RoR2.UI.SkinControllers.ButtonSkinController
+>>>>>v useRecommendedButtonWidth = False
+>>>>>v useRecommendedButtonHeight = False
+>>>>>v useRecommendedImage = True
+>>>>>v useRecommendedMaterial = True
+>>>>>v useRecommendedAlignment = True
+>>>>>v useRecommendedLabel = True
+>>>>>v skinData = skinCleanButton (RoR2.UI.UISkinData)
+>>>>>c TextMeshPro Text
+
+>>>>>> UnityEngine.RectTransform
+
+>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>> RoR2.UI.HGTextMeshProUGUI
+>>>>>>v useLanguageDefaultFont = True
+>>>>>>v defaultLanguageFont = tmpBombDropshadow (TMPro.TMP_FontAsset)
+>>>c FooterPanel
+
+>>>> UnityEngine.RectTransform
+
+>>>> UnityEngine.CanvasRenderer
+
+>>>> UnityEngine.UI.Image
+
+>>>> RoR2.UI.SkinControllers.PanelSkinController
+>>>>v panelType = Default
+>>>>v skinData = skinLogbook (RoR2.UI.UISkinData)
+>>>>c PageIndicator
+
+>>>>> UnityEngine.RectTransform
+
+>>>>> UnityEngine.CanvasRenderer
+
+>>>>> UnityEngine.UI.Image
+
+>>>>> UnityEngine.UI.LayoutElement
+
+>>>>> RoR2.UI.MPEventSystemLocator
+
+>>>>> RoR2.UI.MPButton
+>>>>>v allowAllEventSystems = False
+>>>>>v pointerClickOnly = True
+>>>>c PageNumberArea
+
+>>>>> UnityEngine.RectTransform
+
+>>>>> UnityEngine.CanvasRenderer
+
+>>>>> UnityEngine.UI.Image
+
+>>>>> RoR2.UI.SkinControllers.PanelSkinController
+>>>>>v panelType = Default
+>>>>>v skinData = skinLogbook (RoR2.UI.UISkinData)
+
+>>>>> UnityEngine.UI.HorizontalLayoutGroup
+>c LogbookEntryPanel
+
+>> UnityEngine.RectTransform
+
+>> UnityEngine.CanvasRenderer
+
+>> UnityEngine.UI.Image
+
+>> RoR2.UI.LogBook.LogBookPage
+>>v iconImage = RawImage (UnityEngine.UI.RawImage)
+>>v modelPanel = ModelPanel (RoR2.UI.ModelPanel)
+>>v titleText = Title (RoR2.UI.HGTextMeshProUGUI)
+>>v categoryText = 
+>>v pageNumberText = PageCounter (RoR2.UI.HGTextMeshProUGUI)
+>>v contentContainer = 
+>>c ContentArea
+
+>>> UnityEngine.RectTransform
+
+>>> UnityEngine.CanvasRenderer
+
+>>> UnityEngine.UI.Image
+>>>c PrimaryContent
+
+>>>> UnityEngine.RectTransform
+
+>>>> UnityEngine.CanvasRenderer
+
+>>>> UnityEngine.UI.Image
+>>>>c Title
+
+>>>>> UnityEngine.RectTransform
+
+>>>>> UnityEngine.CanvasRenderer
+
+>>>>> RoR2.UI.HGTextMeshProUGUI
+>>>>>v useLanguageDefaultFont = True
+>>>>>v defaultLanguageFont = tmpBombDropshadow (TMPro.TMP_FontAsset)
+>>>>c RawImage
+
+>>>>> UnityEngine.RectTransform
+
+>>>>> UnityEngine.CanvasRenderer
+
+>>>>> UnityEngine.UI.RawImage
+>>>>c Scroll View
+
+>>>>> UnityEngine.RectTransform
+
+>>>>> UnityEngine.UI.ScrollRect
+
+>>>>> UnityEngine.CanvasRenderer
+
+>>>>> UnityEngine.UI.Image
+>>>>>c Viewport
+
+>>>>>> UnityEngine.RectTransform
+
+>>>>>> UnityEngine.UI.Mask
+
+>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>> UnityEngine.UI.Image
+>>>>>>c Content
+
+>>>>>>> UnityEngine.RectTransform
+>>>>>>c LoreText
+
+>>>>>>> UnityEngine.RectTransform
+
+>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>> RoR2.UI.HGTextMeshProUGUI
+>>>>>>>v useLanguageDefaultFont = True
+>>>>>>>v defaultLanguageFont = tmpBombDropshadow (TMPro.TMP_FontAsset)
+>>>>>c Scrollbar Horizontal
+
+>>>>>> UnityEngine.RectTransform
+
+>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>> UnityEngine.UI.Image
+
+>>>>>> UnityEngine.UI.Scrollbar
+>>>>>>c Sliding Area
+
+>>>>>>> UnityEngine.RectTransform
+>>>>>>>c Handle
+
+>>>>>>>> UnityEngine.RectTransform
+
+>>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>>> UnityEngine.UI.Image
+>>>>>c Scrollbar Vertical
+
+>>>>>> UnityEngine.RectTransform
+
+>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>> UnityEngine.UI.Image
+
+>>>>>> UnityEngine.UI.Scrollbar
+>>>>>>c Sliding Area
+
+>>>>>>> UnityEngine.RectTransform
+>>>>>>>c Handle
+
+>>>>>>>> UnityEngine.RectTransform
+
+>>>>>>>> UnityEngine.CanvasRenderer
+
+>>>>>>>> UnityEngine.UI.Image
+>>>c ModelPanel
+
+>>>> UnityEngine.RectTransform
+
+>>>> UnityEngine.CanvasRenderer
+
+>>>> UnityEngine.UI.RawImage
+
+>>>> RoR2.UI.ModelPanel
+>>>>v renderSettings = RenderSettingsState
+>>>>v camBackgroundColor = RGBA(0.000, 0.000, 0.000, 0.000)
+>>>>v disablePostProcessLayer = True
+>>>>v headlightPrefab = 
+>>>>v lightPrefabs = UnityEngine.GameObject[]
+>>>>v fov = 60
+>>>c BackButton
+
+>>>> UnityEngine.RectTransform
+
+>>>> UnityEngine.CanvasRenderer
+
+>>>> UnityEngine.UI.Image
+
+>>>> RoR2.UI.MPEventSystemLocator
+
+>>>> RoR2.UI.MPButton
+>>>>v allowAllEventSystems = False
+>>>>v pointerClickOnly = True
+
+>>>> RoR2.UI.SkinControllers.ButtonSkinController
+>>>>v useRecommendedButtonWidth = True
+>>>>v useRecommendedButtonHeight = True
+>>>>v useRecommendedImage = True
+>>>>v useRecommendedMaterial = True
+>>>>v useRecommendedAlignment = True
+>>>>v useRecommendedLabel = True
+>>>>v skinData = skinNakedButton (RoR2.UI.UISkinData)
+>>>>c TextMeshPro Text
+
+>>>>> UnityEngine.RectTransform
+
+>>>>> UnityEngine.CanvasRenderer
+
+>>>>> RoR2.UI.HGTextMeshProUGUI
+>>>>>v useLanguageDefaultFont = True
+>>>>>v defaultLanguageFont = tmpBombDropshadow (TMPro.TMP_FontAsset)
+
+>>>>> RoR2.UI.LanguageTextMeshController
+>>c LOGBOOK
+
+>>> UnityEngine.RectTransform
+
+>>> UnityEngine.CanvasRenderer
+
+>>> RoR2.UI.HGTextMeshProUGUI
+>>>v useLanguageDefaultFont = True
+>>>v defaultLanguageFont = tmpBombDropshadow (TMPro.TMP_FontAsset)
+>>c PageCounter
+
+>>> UnityEngine.RectTransform
+
+>>> UnityEngine.CanvasRenderer
+
+>>> RoR2.UI.HGTextMeshProUGUI
+>>>v useLanguageDefaultFont = True
+>>>v defaultLanguageFont = tmpBombDropshadow (TMPro.TMP_FontAsset)

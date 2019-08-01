@@ -1,0 +1,39 @@
+HelfireEffect
+
+> transform = p:(-69.9, -154.7, -126.5) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> UnityEngine.ParticleSystem
+
+> UnityEngine.ParticleSystemRenderer
+
+> RoR2.DestroyOnTimer
+>v duration = 1
+>v resetAgeOnDisable = False
+
+> RoR2.NormalizeParticleScale
+>c Point light
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> UnityEngine.Light
+
+>> RoR2.FlickerLight
+>>v light = Point light (UnityEngine.Light)
+>>v sinWaves = Wave[]
+
+>> LightIntensityCurve
+>>v curve = UnityEngine.AnimationCurve
+>>v timeMax = 1
+>>v loop = False
+>>v randomStart = False
+>c Point light Flash
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> UnityEngine.Light
+
+>> LightIntensityCurve
+>>v curve = UnityEngine.AnimationCurve
+>>v timeMax = 0.5
+>>v loop = False
+>>v randomStart = False

@@ -1,0 +1,114 @@
+ShrineCombat
+
+> transform = p:(68.0, -156.1, -212.1) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> UnityEngine.Networking.NetworkIdentity
+>v clientAuthorityCallback = 
+
+> UnityEngine.Networking.NetworkTransform
+
+> RoR2.ModelLocator
+>v modelTransform = mdlShrineCombat (UnityEngine.Transform)
+>v modelBaseTransform = Base (UnityEngine.Transform)
+>v dontReleaseModelOnDeath = False
+>v autoUpdateModelTransform = True
+>v dontDetatchFromParent = False
+>v noCorpse = False
+>v normalizeToFloor = False
+>v preserveModel = False
+
+> RoR2.Highlight
+>v pickupIndex = ItemIndex.Syringe
+>v targetRenderer = mdlShrineCombat (UnityEngine.MeshRenderer)
+>v strength = 1
+>v highlightColor = interactive
+>v isOn = False
+
+> RoR2.PurchaseInteraction
+>v displayNameToken = SHRINE_COMBAT_NAME
+>v contextToken = SHRINE_COMBAT_CONTEXT
+>v costType = None
+>v available = True
+>v cost = 0
+>v automaticallyScaleCostWithDifficulty = False
+>v requiredUnlockable = 
+>v ignoreSpherecastForInteractability = False
+>v purchaseStatNames = System.String[]
+>v lastActivator = 
+>v lockGameObject = 
+>v onPurchase = RoR2.PurchaseEvent RoR2.PurchaseEvent
+
+> RoR2.GenericDisplayNameProvider
+>v displayToken = SHRINE_CHANCE_NAME
+
+> RoR2.ShrineCombatBehavior
+>v shrineEffectColor = RGBA(0.666, 0.533, 0.802, 1.000)
+>v maxPurchaseCount = 1
+>v baseMonsterCredit = 100
+>v monsterCreditCoefficientPerPurchase = 2
+>v symbolTransform = Symbol (UnityEngine.Transform)
+>v spawnPositionEffectPrefab = 
+
+> RoR2.PurchaseAvailabilityIndicator
+>v indicatorObject = Symbol (UnityEngine.GameObject)
+>v animator = 
+>v mecanimBool = 
+
+> RoR2.DitherModel
+>v fade = 0
+>v bounds = mdlShrineCombat (UnityEngine.BoxCollider)
+>v renderers = UnityEngine.Renderer[]
+
+> RoR2.CombatDirector
+>v monsterCredit = 0
+>v expRewardCoefficient = 0.2
+>v minSeriesSpawnInterval = 0.5
+>v maxSeriesSpawnInterval = 0.5
+>v minRerollSpawnInterval = 0.1
+>v maxRerollSpawnInterval = 0.1
+>v combatSquadPrefab = CombatShrineCombatSquad (UnityEngine.GameObject)
+>v shouldSpawnOneWave = True
+>v targetPlayers = False
+>v skipSpawnIfTooCheap = False
+>v moneyWaveIntervals = RoR2.RangeFloat[]
+>v instancesList = System.Collections.Generic.List`1[RoR2.CombatDirector]
+>v creditMultiplier = 1
+>v spawnDistanceMultiplier = 1
+>v dropPosition = 
+>v spawnEffectPrefab = CombatShrineSpawnEffect (UnityEngine.GameObject)
+>v currentSpawnTarget = ShrineCombat (UnityEngine.GameObject)
+>v maximumNumberToSpawnBeforeSkipping = 6
+>v eliteMultiplierCost = 6
+>c Base
+
+>> transform = p:(0.0, -0.5, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>c mdlShrineCombat
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.MeshFilter
+
+>>> UnityEngine.MeshRenderer
+
+>>> RoR2.EntityLocator
+>>>v entity = ShrineCombat (UnityEngine.GameObject)
+
+>>> UnityEngine.BoxCollider
+
+>>> ChildLocator
+>>>c Collision
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.BoxCollider
+
+>>>> UnityEngine.CapsuleCollider
+>c Symbol
+
+>> transform = p:(0.0, 6.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.5, 1.5, 1.5)
+
+>> UnityEngine.MeshRenderer
+
+>> UnityEngine.MeshFilter
+
+>> RoR2.Billboard

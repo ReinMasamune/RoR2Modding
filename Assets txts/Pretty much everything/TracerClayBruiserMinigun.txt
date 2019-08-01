@@ -1,0 +1,69 @@
+TracerClayBruiserMinigun
+
+> transform = p:(118.7, 0.4, 275.9) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> RoR2.EffectComponent
+>v effectData = 
+>v positionAtReferencedTransform = False
+>v parentToReferencedTransform = False
+>v applyScale = False
+
+> RoR2.Tracer
+>v startTransform = TracerStartPos (UnityEngine.Transform)
+>v beamObject = SmokeLine (UnityEngine.GameObject)
+>v beamDensity = 10
+>v speed = 502
+>v headTransform = TracerHead (UnityEngine.Transform)
+>v tailTransform = TracerTail (UnityEngine.Transform)
+>v length = 12
+>v onTailReachedDestination = UnityEngine.Events.UnityEvent UnityEngine.Events.UnityEvent
+
+> UnityEngine.LineRenderer
+
+> BeamPointsFromTransforms
+>v target = TracerClayBruiserMinigun (UnityEngine.LineRenderer)
+
+> RoR2.EventFunctions
+>c TracerHead
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 90.0, 0.0) s:(1.0, 1.0, 1.0)
+>c TracerTail
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>c SmokeLine
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 90.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> UnityEngine.LineRenderer
+
+>> BeamPointsFromTransforms
+>>v target = SmokeLine (UnityEngine.LineRenderer)
+
+>> RoR2.AnimateShaderAlpha
+>>v alphaCurve = UnityEngine.AnimationCurve
+>>v timeMax = 0.6
+>>v decal = 
+>>v destroyOnEnd = True
+>>v disableOnEnd = False
+>>v time = 0
+
+>> AkGameObj
+>>v isEnvironmentAware = True
+>>v m_positionOffsetData = AkGameObjPositionOffsetData
+
+>> AkEvent
+>>v actionOnEventType = AkActionOnEventType_Stop
+>>v curveInterpolation = AkCurveInterpolation_Linear
+>>v enableActionOnEvent = False
+>>v data = Play_clayBruiser_attack1_shoot_flyby
+>>v m_callbackData = 
+>>v playingId = 0
+>>v soundEmitterObject = 
+>>v transitionDuration = 0
+>>v triggerList = System.Collections.Generic.List`1[System.Int32]
+>>v useOtherObject = False
+
+>> UnityEngine.Rigidbody
+>>c TracerStartPos
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 90.0, 0.0) s:(1.0, 1.0, 1.0)

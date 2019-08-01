@@ -1,0 +1,10 @@
+PickupChrysalis
+
+> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>c mdlBugChrysalis
+
+>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 0.0, 0.0) s:(0.2, 0.2, 0.2)
+
+>> UnityEngine.MeshFilter
+
+>> UnityEngine.MeshRenderer

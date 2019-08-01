@@ -1,0 +1,266 @@
+FoggyswampDioramaDisplay
+
+> transform = p:(86.5, -105.4, -76.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>c Ruins
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>c FSRuinPillarCollision (2)
+
+>>> transform = p:(9.7, 0.4, 9.9) r:(0.0, 262.6, 0.0) s:(1.0, 1.0, 1.0)
+>>>c Mesh
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 262.6, 0.0) s:(5.0, 5.0, 5.0)
+
+>>>> UnityEngine.MeshFilter
+
+>>>> UnityEngine.MeshRenderer
+
+>>>> UnityEngine.MeshCollider
+
+>>>> SurfaceDefProvider
+>>>>v surfaceDef = sdStone (SurfaceDef)
+>>>c FSRuinRingCollision
+
+>>>> transform = p:(0.0, -1.6, 0.0) r:(0.0, 307.6, 270.0) s:(16.4, 16.4, 16.4)
+
+>>>> UnityEngine.MeshFilter
+
+>>>> UnityEngine.MeshRenderer
+
+>>>> UnityEngine.MeshCollider
+
+>>>> SurfaceDefProvider
+>>>>v surfaceDef = sdStone (SurfaceDef)
+>c Foliage
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>c spmBbDryBush (1)
+
+>>> transform = p:(10.6, 3.6, -8.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.LODGroup
+>>>c spmBbDryBush_Billboard
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.BillboardRenderer
+
+>>>> UnityEngine.Tree
+>>>c spmBbDryBush_LOD0
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.MeshFilter
+
+>>>> UnityEngine.MeshRenderer
+
+>>>> UnityEngine.Tree
+>>c FSTreeTrunkMediumCollision (6)
+
+>>> transform = p:(-7.7, 4.4, -4.8) r:(11.6, 352.2, 340.5) s:(1.4, 1.4, 1.4)
+>>>c Mesh
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(292.6, 52.7, 301.5) s:(20.0, 20.0, 20.0)
+
+>>>> UnityEngine.MeshFilter
+
+>>>> UnityEngine.MeshRenderer
+
+>>>> UnityEngine.MeshCollider
+
+>>>> SurfaceDefProvider
+>>>>v surfaceDef = sdWood (SurfaceDef)
+>>c FSRootBundleLargeNoCollision (2)
+
+>>> transform = p:(-11.3, 1.8, -6.9) r:(343.5, 164.2, 220.6) s:(0.9, 0.9, 0.9)
+
+>>> UnityEngine.LODGroup
+>>>c RootBundleLarge_LOD0
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(343.5, 164.2, 220.6) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.MeshFilter
+
+>>>> UnityEngine.MeshRenderer
+>>>c RootBundleLarge_LOD1
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(343.5, 164.2, 220.6) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.MeshFilter
+
+>>>> UnityEngine.MeshRenderer
+>>>c RootBundleLarge_LOD2
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(343.5, 164.2, 220.6) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.MeshFilter
+
+>>>> UnityEngine.MeshRenderer
+>>>c RootBundleLargeCards
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(343.5, 164.2, 220.6) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.MeshFilter
+
+>>>> UnityEngine.MeshRenderer
+>>c FSRootBundleSmallNoCollision (1)
+
+>>> transform = p:(-15.6, 0.0, 14.8) r:(328.4, 41.3, 244.5) s:(2.1, 2.1, 2.1)
+
+>>> UnityEngine.LODGroup
+>>>c RootBundleSmall_LOD0
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(328.4, 41.3, 244.5) s:(0.2, 0.2, 0.2)
+
+>>>> UnityEngine.MeshFilter
+
+>>>> UnityEngine.MeshRenderer
+>>>c RootBundleSmall_LOD1
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(328.4, 41.3, 244.5) s:(0.2, 0.2, 0.2)
+
+>>>> UnityEngine.MeshFilter
+
+>>>> UnityEngine.MeshRenderer
+>>>c RootBundleSmall_LOD2
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(328.4, 41.3, 244.5) s:(0.2, 0.2, 0.2)
+
+>>>> UnityEngine.MeshFilter
+
+>>>> UnityEngine.MeshRenderer
+>>c FSRootBundleSmallNoCollision (2)
+
+>>> transform = p:(-19.4, 0.0, -3.7) r:(348.3, 58.3, 169.2) s:(2.1, 2.1, 2.1)
+
+>>> UnityEngine.LODGroup
+>>>c RootBundleSmall_LOD0
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(348.3, 58.3, 169.2) s:(0.2, 0.2, 0.2)
+
+>>>> UnityEngine.MeshFilter
+
+>>>> UnityEngine.MeshRenderer
+>>>c RootBundleSmall_LOD1
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(348.3, 58.3, 169.2) s:(0.2, 0.2, 0.2)
+
+>>>> UnityEngine.MeshFilter
+
+>>>> UnityEngine.MeshRenderer
+>>>c RootBundleSmall_LOD2
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(348.3, 58.3, 169.2) s:(0.2, 0.2, 0.2)
+
+>>>> UnityEngine.MeshFilter
+
+>>>> UnityEngine.MeshRenderer
+>>c spmBbDryBush (2)
+
+>>> transform = p:(5.1, 4.9, 4.7) r:(0.0, 332.6, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.LODGroup
+>>>c spmBbDryBush_Billboard
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 332.6, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.BillboardRenderer
+
+>>>> UnityEngine.Tree
+>>>c spmBbDryBush_LOD0
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 332.6, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.MeshFilter
+
+>>>> UnityEngine.MeshRenderer
+
+>>>> UnityEngine.Tree
+>c Terrain
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>c Terrain (2)
+
+>>> transform = p:(-6.6, 3.3, 7.7) r:(275.5, 144.7, 205.0) s:(11.6, 15.5, 5.7)
+
+>>> UnityEngine.MeshFilter
+
+>>> UnityEngine.MeshRenderer
+>>c Sand
+
+>>> transform = p:(-4.2, 0.7, -1.2) r:(275.5, 86.8, 205.0) s:(17.4, 18.3, 12.8)
+
+>>> UnityEngine.MeshFilter
+
+>>> UnityEngine.MeshRenderer
+>>c Sand
+
+>>> transform = p:(1.9, 0.6, -2.7) r:(272.7, 349.2, 189.5) s:(15.3, 18.3, 17.0)
+
+>>> UnityEngine.MeshFilter
+
+>>> UnityEngine.MeshRenderer
+>>c Sand
+
+>>> transform = p:(9.1, 0.4, 2.4) r:(275.5, 352.6, 205.0) s:(13.7, 14.4, 12.5)
+
+>>> UnityEngine.MeshFilter
+
+>>> UnityEngine.MeshRenderer
+>>c Sand
+
+>>> transform = p:(-5.4, 2.2, -14.8) r:(272.7, 349.2, 189.5) s:(7.0, 8.4, 8.8)
+
+>>> UnityEngine.MeshFilter
+
+>>> UnityEngine.MeshRenderer
+>>c Terrain (4)
+
+>>> transform = p:(5.9, 5.6, 8.8) r:(274.7, 327.4, 294.7) s:(8.6, 11.6, 4.2)
+
+>>> UnityEngine.MeshFilter
+
+>>> UnityEngine.MeshRenderer
+>>c mdlBBBoulderMediumRound1 (20)
+
+>>> transform = p:(-8.4, 3.8, 9.6) r:(69.0, 209.7, 191.9) s:(6.3, 6.3, 6.3)
+
+>>> UnityEngine.MeshFilter
+
+>>> UnityEngine.MeshRenderer
+
+>>> UnityEngine.MeshCollider
+>>c mdlBBBoulderMediumRound1 (21)
+
+>>> transform = p:(-14.0, 0.5, 5.5) r:(19.6, 216.8, 257.2) s:(8.0, 8.0, 8.0)
+
+>>> UnityEngine.MeshFilter
+
+>>> UnityEngine.MeshRenderer
+
+>>> UnityEngine.MeshCollider
+>>c mdlBBBoulderMediumRound1 (22)
+
+>>> transform = p:(11.7, 1.7, -15.6) r:(19.6, 216.8, 257.2) s:(3.7, 3.7, 3.7)
+
+>>> UnityEngine.MeshFilter
+
+>>> UnityEngine.MeshRenderer
+
+>>> UnityEngine.MeshCollider
+>>c mdlBBBoulderMediumRound1 (23)
+
+>>> transform = p:(4.2, 0.4, -14.3) r:(9.4, 199.2, 284.9) s:(5.7, 5.7, 5.7)
+
+>>> UnityEngine.MeshFilter
+
+>>> UnityEngine.MeshRenderer
+
+>>> UnityEngine.MeshCollider
+>c Ring
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 90.0) s:(13.0, 26.0, 26.0)
+
+>> UnityEngine.MeshFilter
+
+>> UnityEngine.MeshRenderer

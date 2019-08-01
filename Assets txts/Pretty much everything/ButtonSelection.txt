@@ -1,0 +1,33 @@
+ButtonSelection
+
+> UnityEngine.RectTransform
+
+> UnityEngine.UI.LayoutElement
+>c ButtonFlashPanel
+
+>> UnityEngine.RectTransform
+
+>> UnityEngine.CanvasRenderer
+
+>> UnityEngine.UI.Image
+
+>> RoR2.AnimateImageAlpha
+>>v alphaCurve = UnityEngine.AnimationCurve
+>>v images = UnityEngine.UI.Image[]
+>>v timeMax = 0.2
+>>v delayBetweenElements = 0
+>>v stopwatch = 0
+>c Highlight
+
+>> UnityEngine.RectTransform
+
+>> UnityEngine.CanvasRenderer
+
+>> UnityEngine.UI.Image
+>c HighlightCorners
+
+>> UnityEngine.RectTransform
+
+>> UnityEngine.CanvasRenderer
+
+>> UnityEngine.UI.Image

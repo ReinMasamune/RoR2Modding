@@ -1,0 +1,182 @@
+OrbitalLaser
+
+> transform = p:(0.0, 55.3, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> UnityEngine.Networking.NetworkIdentity
+>v clientAuthorityCallback = 
+
+> RoR2.OrbitalLaserController
+>v ownerBody = 
+>v smoothDampTime = 0.1
+>v fireFrequency = 5
+>v damageCoefficientInitial = 200
+>v damageCoefficientFinal = 200
+>v procCoefficient = 0.5
+>v force = 900
+>v chargeEffect = ChargeOrbitalLaser (UnityEngine.GameObject)
+>v chargeDuration = 3
+>v chargeMaxVelocity = 40
+>v fireEffect = FireOrbitalLaser (UnityEngine.GameObject)
+>v fireDuration = 6
+>v fireMaxVelocity = 250
+>v tracerEffectPrefab = TracerAncientWisp (UnityEngine.GameObject)
+>v hitEffectPrefab = AncientWispExplosion (UnityEngine.GameObject)
+>v decayDuration = 1.5
+>v laserPointerEffectTransform = LaserEffect (UnityEngine.Transform)
+>v muzzleEffectTransform = MuzzleTransform (UnityEngine.Transform)
+
+> UnityEngine.Networking.NetworkTransform
+
+> RoR2.EntityStateMachine
+>v customName = Main
+>v initialStateType = EntityStates.SerializableEntityStateType
+>v mainStateType = EntityStates.SerializableEntityStateType
+>v commonComponents = RoR2.EntityStateMachine+CommonComponentCache
+>v networkIndex = -1
+
+> RoR2.NetworkStateMachine
+>c ChargeOrbitalLaser
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(10.0, 1.0, 10.0)
+
+>> ObjectScaleCurve
+>>v curveX = UnityEngine.AnimationCurve
+>>v curveY = UnityEngine.AnimationCurve
+>>v curveZ = UnityEngine.AnimationCurve
+>>v overallCurve = UnityEngine.AnimationCurve
+>>v timeMax = 5
+>>v time = 0
+>>c LaserClusterHolder
+
+>>> transform = p:(0.0, 300.0, 0.0) r:(90.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> RotateObject
+>>>v rotationSpeed = (0.0, 0.0, 0.0)
+>>>c LaserPointerHolder (2)
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(90.0, 120.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>c LaserPointer
+
+>>>>> transform = p:(5.0, 0.0, 0.0) r:(90.0, 120.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>>> UnityEngine.LineRenderer
+
+>>>>> RoR2.LaserPointer
+>>>>>v laserDistance = 1000
+
+>>>>> RoR2.AnimateShaderAlpha
+>>>>>v alphaCurve = UnityEngine.AnimationCurve
+>>>>>v timeMax = 2
+>>>>>v decal = 
+>>>>>v destroyOnEnd = False
+>>>>>v disableOnEnd = False
+>>>>>v time = 0
+>>>c LaserPointerHolder (1)
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(90.0, 240.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>c LaserPointer
+
+>>>>> transform = p:(5.0, 0.0, 0.0) r:(90.0, 240.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>>> UnityEngine.LineRenderer
+
+>>>>> RoR2.LaserPointer
+>>>>>v laserDistance = 1000
+
+>>>>> RoR2.AnimateShaderAlpha
+>>>>>v alphaCurve = UnityEngine.AnimationCurve
+>>>>>v timeMax = 2
+>>>>>v decal = 
+>>>>>v destroyOnEnd = False
+>>>>>v disableOnEnd = False
+>>>>>v time = 0
+>>>c LaserPointerHolder
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(90.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>c LaserPointer
+
+>>>>> transform = p:(5.0, 0.0, 0.0) r:(90.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>>> UnityEngine.LineRenderer
+
+>>>>> RoR2.LaserPointer
+>>>>>v laserDistance = 1000
+
+>>>>> RoR2.AnimateShaderAlpha
+>>>>>v alphaCurve = UnityEngine.AnimationCurve
+>>>>>v timeMax = 2
+>>>>>v decal = 
+>>>>>v destroyOnEnd = False
+>>>>>v disableOnEnd = False
+>>>>>v time = 0
+>>>c LaserPointerHolder, Center
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(90.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>c LaserPointer, Center
+
+>>>>> transform = p:(0.0, 0.0, 0.0) r:(90.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>>> UnityEngine.LineRenderer
+
+>>>>> RoR2.LaserPointer
+>>>>>v laserDistance = 1000
+
+>>>>> RoR2.AnimateShaderAlpha
+>>>>>v alphaCurve = UnityEngine.AnimationCurve
+>>>>>v timeMax = 1
+>>>>>v decal = 
+>>>>>v destroyOnEnd = False
+>>>>>v disableOnEnd = False
+>>>>>v time = 0
+>c FireOrbitalLaser
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>c FiringLaserHolder
+
+>>> transform = p:(0.0, 300.0, 0.0) r:(90.0, 0.0, 0.0) s:(10.0, 10.0, 1.0)
+>>>c FiringLaser
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(90.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.LineRenderer
+
+>>>> RoR2.LaserPointer
+>>>>v laserDistance = 1000
+
+>>>> RoR2.AnimateShaderAlpha
+>>>>v alphaCurve = UnityEngine.AnimationCurve
+>>>>v timeMax = 1
+>>>>v decal = 
+>>>>v destroyOnEnd = False
+>>>>v disableOnEnd = False
+>>>>v time = 0
+>c LaserEffect
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>c Flare
+
+>>> transform = p:(0.0, 0.0, 0.2) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.ParticleSystem
+
+>>> UnityEngine.ParticleSystemRenderer
+>c MuzzleTransform
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>c LaserPointerBeam
+
+>> transform = p:(0.0, 0.0, 0.2) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> UnityEngine.LineRenderer
+
+>> LineBetweenTransforms
+>>v vertexList = UnityEngine.Vector3[]
+>>v transformNodes = UnityEngine.Transform[]
+>>v lineRenderer = LaserPointerBeam (UnityEngine.LineRenderer)
+>c Midpoint
+
+>> transform = p:(16.3, 70.8, 25.1) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> RoR2.MidpointBetweenTwoTransforms
+>>v transform1 = MuzzleTransform (UnityEngine.Transform)
+>>v transform2 = LaserEffect (UnityEngine.Transform)

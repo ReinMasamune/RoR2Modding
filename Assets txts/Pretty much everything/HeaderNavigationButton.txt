@@ -1,0 +1,53 @@
+HeaderNavigationButton
+
+> UnityEngine.RectTransform
+
+> UnityEngine.CanvasRenderer
+
+> UnityEngine.UI.Image
+
+> RoR2.UI.MPEventSystemLocator
+
+> RoR2.UI.CustomButtonTransition
+>v scaleButtonOnHover = False
+>v showImageOnHover = True
+>v imageOnHover = HoverOutline (UnityEngine.UI.Image)
+>v imageOnInteractable = InteractableOutline (UnityEngine.UI.Image)
+>v allowAllEventSystems = True
+>v pointerClickOnly = True
+
+> RoR2.UI.SkinControllers.ButtonSkinController
+>v useRecommendedButtonWidth = False
+>v useRecommendedButtonHeight = False
+>v useRecommendedImage = True
+>v useRecommendedMaterial = True
+>v useRecommendedAlignment = True
+>v useRecommendedLabel = True
+>v skinData = skinCleanButton (RoR2.UI.UISkinData)
+
+> UnityEngine.UI.LayoutElement
+>c Label
+
+>> UnityEngine.RectTransform
+
+>> UnityEngine.CanvasRenderer
+
+>> RoR2.UI.LanguageTextMeshController
+
+>> RoR2.UI.HGTextMeshProUGUI
+>>v useLanguageDefaultFont = True
+>>v defaultLanguageFont = tmpBombDropshadow (TMPro.TMP_FontAsset)
+>c InteractableOutline
+
+>> UnityEngine.RectTransform
+
+>> UnityEngine.CanvasRenderer
+
+>> UnityEngine.UI.Image
+>c HoverOutline
+
+>> UnityEngine.RectTransform
+
+>> UnityEngine.CanvasRenderer
+
+>> UnityEngine.UI.Image

@@ -16,79 +16,28 @@ namespace ReinSniperRework
 
     public class ReinSurvivorMod : BaseUnityPlugin
     {
-        //GameObject body;
-
         public void Awake()
         {
-            
-            
-
-
             R2API.SurvivorAPI.SurvivorCatalogReady += delegate (object s, EventArgs e)
             {
-                //body.name = "NewSniperBody";
-                //int i = R2API.AssetAPI.AddToBodyCatalog(body);
-                //GameObject newBody = R2API.AssetAPI.BodyCatalog[i];
-                //newBody.name = "NewSniperBody2";
                 GameObject body = BodyCatalog.FindBodyPrefab("SniperBody");
-                //GameObject refBody1 = BodyCatalog.FindBodyPrefab("SniperBody");
-                //GameObject refBody2 = BodyCatalog.FindBodyPrefab("CommandoBody");
-                //GameObject refBody3 = BodyCatalog.FindBodyPrefab("BanditBody");
-
-
-                //Transform tr = body.GetComponent<ModelLocator>().modelTransform;
-
-                //GameObject md1 = tr.gameObject;
-                //CharacterModel model = md1.GetComponent<CharacterModel>();
-                //Color debug = new Color(0.3f, 0.3f, 0.3f, 1f);
-                //model.baseRendererInfos[0].defaultMaterial.color = debug;
 
                 ReinDataLibrary data = body.AddComponent<ReinDataLibrary>();
+                data.g_reload = body.AddComponent<SniperReloadTracker>();
+                data.g_charge = body.AddComponent<SniperChargeTracker>();
 
-                //body.name = "NewSniperBody";
-
-                //SkillLocator refSL = refBody1.GetComponent<SkillLocator>();
-                //SkillLocator refSL2 = refBody2.GetComponent<SkillLocator>();
                 SkillLocator SL = body.GetComponent<SkillLocator>();
+                CharacterBody charbody = body.GetComponent<CharacterBody>();
 
                 GenericSkill Sniper1 = SL.primary;
                 GenericSkill Sniper2 = SL.secondary;
                 GenericSkill Sniper3 = SL.utility;
                 GenericSkill Sniper4 = SL.special;
 
-                CharacterBody charbody = body.GetComponent<CharacterBody>();
-
                 charbody.baseDamage = 16f;
                 charbody.baseMaxHealth = 110f;
                 charbody.baseRegen = 0.6f;
                 charbody.crosshairPrefab = Resources.Load<GameObject>("prefabs/crosshair/banditcrosshairrevolver");
-
-                data.g_reload = body.AddComponent<SniperReloadTracker>();
-                data.g_charge = body.AddComponent<SniperChargeTracker>();
-
-                //EntityStateMachine ScopeStateMachine = body.AddComponent<EntityStateMachine>();
-                //EntityStateMachine ScopeMachine = new EntityStateMachine();
-
-                //EntityStateMachine[] statesnstuff = refBody1.GetComponents<EntityStateMachine>();
-
-                //foreach (EntityStateMachine st in statesnstuff)
-                //{
-                //    if (st.customName == "Scope")
-                //    {
-                //        ScopeMachine = st;
-                //    }
-                //}
-
-                //if (ScopeMachine)
-                //{
-                //    ScopeStateMachine.customName = ScopeMachine.customName;
-                //    ScopeStateMachine.initialStateType = ScopeMachine.initialStateType;
-                //    ScopeStateMachine.mainStateType = ScopeMachine.mainStateType;
-                //    ScopeStateMachine.networkIndex = ScopeMachine.networkIndex;
-                //}
-
-                //ScopeStateMachine.commonComponents = Sniper1.stateMachine.commonComponents;
-                
 
                 //Config skill1
                 Sniper1.baseRechargeInterval = 0.001f;

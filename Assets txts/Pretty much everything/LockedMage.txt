@@ -1,0 +1,609 @@
+LockedMage
+
+> transform = p:(-35.4, -4.6, -19.9) r:(0.0, 74.7, 0.0) s:(1.0, 1.0, 1.0)
+
+> UnityEngine.Networking.NetworkIdentity
+>v clientAuthorityCallback = 
+
+> RoR2.PurchaseInteraction
+>v displayNameToken = LOCKEDMAGE_NAME
+>v contextToken = LOCKEDMAGE_CONTEXT
+>v costType = Lunar
+>v available = True
+>v cost = 10
+>v automaticallyScaleCostWithDifficulty = False
+>v requiredUnlockable = 
+>v ignoreSpherecastForInteractability = False
+>v purchaseStatNames = System.String[]
+>v lastActivator = 
+>v lockGameObject = 
+>v onPurchase = RoR2.PurchaseEvent RoR2.PurchaseEvent
+
+> RoR2.Highlight
+>v pickupIndex = ItemIndex.Syringe
+>v targetRenderer = IceMesh (UnityEngine.MeshRenderer)
+>v strength = 1
+>v highlightColor = interactive
+>v isOn = False
+
+> RoR2.Hologram.HologramProjector
+>v displayDistance = 15
+>v hologramPivot = HologramPivot (UnityEngine.Transform)
+>v disableHologramRotation = True
+
+> RoR2.ModelLocator
+>v modelTransform = mdlMage (UnityEngine.Transform)
+>v modelBaseTransform = ModelBase (UnityEngine.Transform)
+>v dontReleaseModelOnDeath = False
+>v autoUpdateModelTransform = False
+>v dontDetatchFromParent = True
+>v noCorpse = False
+>v normalizeToFloor = False
+>v preserveModel = False
+
+> RoR2.EntityStateMachine
+>v customName = 
+>v initialStateType = EntityStates.SerializableEntityStateType
+>v mainStateType = EntityStates.SerializableEntityStateType
+>v commonComponents = RoR2.EntityStateMachine+CommonComponentCache
+>v networkIndex = -1
+
+> RoR2.NetworkStateMachine
+
+> RoR2.GameObjectUnlockableFilter
+>v requiredUnlockable = 
+>v forbiddenUnlockable = Characters.Mage
+>c ModelBase
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 74.7, 0.0) s:(1.0, 1.0, 1.0)
+>>c mdlMage
+
+>>> transform = p:(0.2, -0.3, 0.4) r:(0.0, 74.7, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.Animator
+
+>>> ChildLocator
+>>>c MageArmature
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 74.7, 0.0) s:(1.0, 1.0, 1.0)
+>>>>c HeelRoll.l
+
+>>>>> transform = p:(0.0, -0.3, 0.3) r:(90.0, 74.7, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>c IKLegPole.l
+
+>>>>>> transform = p:(0.0, 1.0, -0.6) r:(284.4, 354.4, 260.0) s:(1.0, 1.0, 1.0)
+>>>>>>c IKLegPole.l_end
+
+>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(284.4, 354.4, 260.0) s:(1.0, 1.0, 1.0)
+>>>>>c ToeRoll.l
+
+>>>>>> transform = p:(0.0, 0.2, 0.0) r:(298.7, 74.4, 0.3) s:(1.0, 1.0, 1.0)
+>>>>>>c FootRoll.l
+
+>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(328.9, 76.3, 359.2) s:(1.0, 1.0, 1.0)
+>>>>>>>c IKLegTarget.l
+
+>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(288.4, 74.7, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>c IKLegTarget.l_end
+
+>>>>>>>>> transform = p:(0.0, 0.2, 0.0) r:(288.4, 74.7, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>c IKFoot.l
+
+>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(18.4, 74.7, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>c IKFoot.l_end
+
+>>>>>>>> transform = p:(0.0, 0.0, 0.0) r:(18.4, 74.7, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>c ToeControl.l
+
+>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(288.4, 74.7, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>c IKToe.l
+
+>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(18.4, 74.7, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>c IKToe.l_end
+
+>>>>>>>>> transform = p:(0.0, 0.0, 0.0) r:(18.4, 74.7, 0.0) s:(1.0, 1.0, 1.0)
+>>>>c HeelRoll.r
+
+>>>>> transform = p:(0.3, 0.0, 0.4) r:(90.0, 74.7, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>c IKLegPole.r
+
+>>>>>> transform = p:(0.0, 1.0, -0.6) r:(284.4, 354.4, 260.0) s:(1.0, 1.0, 1.0)
+>>>>>>c IKLegPole.r_end
+
+>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(284.4, 354.4, 260.0) s:(1.0, 1.0, 1.0)
+>>>>>c ToeRoll.r
+
+>>>>>> transform = p:(0.0, 0.2, 0.0) r:(280.2, 73.9, 0.8) s:(1.0, 1.0, 1.0)
+>>>>>>c FootRoll.r
+
+>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(310.4, 76.8, 358.4) s:(1.0, 1.0, 1.0)
+>>>>>>>c IKLegTarget.r
+
+>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(270.0, 74.7, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>c IKLegTarget.r_end
+
+>>>>>>>>> transform = p:(0.0, 0.2, 0.0) r:(270.0, 74.7, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>c IKFoot.r
+
+>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(0.0, 74.7, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>c IKFoot.r_end
+
+>>>>>>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 74.7, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>c ToeControl.r
+
+>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(270.0, 254.7, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>c IKToe.r
+
+>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(0.0, 74.7, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>c IKToe.r_end
+
+>>>>>>>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 74.7, 0.0) s:(1.0, 1.0, 1.0)
+>>>>c ROOT
+
+>>>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 74.7, 0.3) s:(1.0, 1.0, 1.0)
+>>>>>c base
+
+>>>>>> transform = p:(0.0, 1.4, -0.1) r:(90.0, 74.7, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>c IKArmTarget.l
+
+>>>>>>> transform = p:(-0.3, 0.6, -0.3) r:(270.0, 74.7, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>c IKArmPole.l
+
+>>>>>>>> transform = p:(0.2, 1.1, 0.2) r:(270.0, 74.7, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>c IKArmPole.l_end
+
+>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(270.0, 74.7, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>c IKArmTarget.r
+
+>>>>>>> transform = p:(0.1, 0.2, -0.6) r:(270.0, 74.7, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>c IKArmPole.r
+
+>>>>>>>> transform = p:(0.5, 1.1, -0.8) r:(270.0, 74.7, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>c IKArmPole.r_end
+
+>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(270.0, 74.7, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>c pelvis
+
+>>>>>>> transform = p:(0.0, 0.0, 0.0) r:(40.7, 254.7, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>c ClothA.1.l
+
+>>>>>>>> transform = p:(-0.2, 0.1, 0.1) r:(12.5, 252.9, 193.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>c ClothA.2.l
+
+>>>>>>>>> transform = p:(0.0, 0.2, 0.0) r:(1.4, 247.8, 198.6) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c ClothA.3.l
+
+>>>>>>>>>> transform = p:(0.0, 0.2, 0.0) r:(352.2, 239.7, 205.3) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c ClothA.4.l
+
+>>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(345.7, 228.8, 212.9) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c ClothA.4.l_end
+
+>>>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(345.7, 228.8, 212.9) s:(1.0, 1.0, 1.0)
+>>>>>>>c ClothA.1.r
+
+>>>>>>>> transform = p:(0.2, 0.1, 0.1) r:(10.6, 247.9, 142.8) s:(1.0, 1.0, 1.0)
+>>>>>>>>c ClothA.2.r
+
+>>>>>>>>> transform = p:(0.0, 0.2, 0.0) r:(356.2, 250.7, 115.2) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c ClothA.3.r
+
+>>>>>>>>>> transform = p:(0.0, 0.2, 0.0) r:(346.4, 261.6, 85.7) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c ClothA.4.r
+
+>>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(345.1, 277.5, 54.4) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c ClothA.4.r_end
+
+>>>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(345.1, 277.5, 54.4) s:(1.0, 1.0, 1.0)
+>>>>>>>c ClothB.1.l
+
+>>>>>>>> transform = p:(-0.1, 0.1, 0.1) r:(12.1, 251.2, 182.7) s:(1.0, 1.0, 1.0)
+>>>>>>>>c ClothB.2.l
+
+>>>>>>>>> transform = p:(0.0, 0.2, 0.0) r:(359.5, 247.3, 182.3) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c ClothB.3.l
+
+>>>>>>>>>> transform = p:(0.0, 0.2, 0.0) r:(347.1, 242.6, 182.4) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c ClothB.4.l
+
+>>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(335.2, 236.7, 182.2) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c ClothB.4.l_end
+
+>>>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(335.2, 236.7, 182.2) s:(1.0, 1.0, 1.0)
+>>>>>>>c ClothB.1.r
+
+>>>>>>>> transform = p:(0.1, 0.1, 0.1) r:(11.8, 250.2, 156.5) s:(1.0, 1.0, 1.0)
+>>>>>>>>c ClothB.2.r
+
+>>>>>>>>> transform = p:(0.0, 0.2, 0.0) r:(358.0, 250.4, 138.5) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c ClothB.3.r
+
+>>>>>>>>>> transform = p:(0.0, 0.2, 0.0) r:(345.0, 254.8, 120.1) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c ClothB.4.r
+
+>>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(334.1, 263.8, 100.8) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c ClothB.4.r_end
+
+>>>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(334.1, 263.8, 100.8) s:(1.0, 1.0, 1.0)
+>>>>>>>c ClothC.1.l
+
+>>>>>>>> transform = p:(-0.1, 0.1, 0.2) r:(11.8, 250.2, 174.5) s:(1.0, 1.0, 1.0)
+>>>>>>>>c ClothC.2.l
+
+>>>>>>>>> transform = p:(0.0, 0.3, 0.0) r:(358.4, 247.1, 170.2) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c ClothC.3.l
+
+>>>>>>>>>> transform = p:(0.0, 0.2, 0.0) r:(344.8, 245.0, 166.4) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c ClothC.4.l
+
+>>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(331.1, 243.6, 162.8) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c ClothC.4.l_end
+
+>>>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(331.1, 243.6, 162.8) s:(1.0, 1.0, 1.0)
+>>>>>>>c ClothC.1.r
+
+>>>>>>>> transform = p:(0.1, 0.1, 0.2) r:(11.8, 250.2, 167.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>c ClothC.2.r
+
+>>>>>>>>> transform = p:(0.0, 0.3, 0.0) r:(358.1, 248.9, 155.4) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c ClothC.3.r
+
+>>>>>>>>>> transform = p:(0.0, 0.2, 0.0) r:(344.4, 250.3, 143.7) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c ClothC.4.r
+
+>>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(331.4, 255.0, 130.4) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c ClothC.4.r_end
+
+>>>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(331.4, 255.0, 130.4) s:(1.0, 1.0, 1.0)
+>>>>>>>c ClothD.1
+
+>>>>>>>> transform = p:(0.0, 0.0, -0.2) r:(47.1, 234.6, 163.7) s:(1.0, 1.0, 1.0)
+>>>>>>>>c ClothD.2
+
+>>>>>>>>> transform = p:(0.0, 0.3, 0.0) r:(42.8, 234.6, 171.5) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c ClothD.3
+
+>>>>>>>>>> transform = p:(0.0, 0.2, 0.0) r:(40.9, 228.4, 162.4) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c ClothD.4
+
+>>>>>>>>>>> transform = p:(0.0, 0.2, 0.0) r:(38.2, 225.4, 154.7) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c ClothD.5
+
+>>>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(35.6, 225.7, 148.7) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c ClothD.6
+
+>>>>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(33.6, 228.8, 144.3) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>c ClothD.6_end
+
+>>>>>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(33.6, 228.8, 144.3) s:(1.0, 1.0, 1.0)
+>>>>>>>c thigh.l
+
+>>>>>>>> transform = p:(-0.1, 0.0, 0.1) r:(323.6, 73.8, 183.1) s:(1.0, 1.0, 1.0)
+>>>>>>>>c calf.l
+
+>>>>>>>>> transform = p:(0.0, 0.6, 0.0) r:(11.3, 257.3, 171.7) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c foot.l
+
+>>>>>>>>>> transform = p:(0.0, 0.5, 0.0) r:(35.4, 254.7, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c toe.l
+
+>>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(291.6, 74.7, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c toe.l_end
+
+>>>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(291.6, 74.7, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>c thigh.r
+
+>>>>>>>> transform = p:(0.1, 0.0, 0.1) r:(302.3, 59.9, 208.4) s:(1.0, 1.0, 1.0)
+>>>>>>>>c calf.r
+
+>>>>>>>>> transform = p:(0.0, 0.6, 0.0) r:(341.4, 255.9, 180.1) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c foot.r
+
+>>>>>>>>>> transform = p:(0.0, 0.5, 0.0) r:(350.4, 254.7, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c toe.r
+
+>>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(336.6, 74.7, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c toe.r_end
+
+>>>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(336.6, 74.7, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>c stomach
+
+>>>>>>> transform = p:(0.0, 0.0, 0.0) r:(350.4, 100.7, 355.4) s:(1.0, 1.0, 1.0)
+>>>>>>>c chest
+
+>>>>>>>> transform = p:(0.0, 0.2, 0.0) r:(338.5, 129.9, 340.8) s:(1.0, 1.0, 1.0)
+>>>>>>>>c clavicle.l
+
+>>>>>>>>> transform = p:(0.0, 0.3, 0.0) r:(55.1, 154.0, 115.8) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c upper_arm.l
+
+>>>>>>>>>> transform = p:(0.0, 0.2, 0.0) r:(358.8, 130.6, 103.3) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c lower_arm.l
+
+>>>>>>>>>>> transform = p:(0.0, 0.3, 0.0) r:(77.2, 197.8, 120.3) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c hand.l
+
+>>>>>>>>>>>> transform = p:(0.0, 0.3, 0.0) r:(303.7, 274.6, 349.5) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c finger1.1.l
+
+>>>>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(338.6, 254.1, 358.1) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>c finger1.2.l
+
+>>>>>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(67.3, 94.5, 21.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>>c finger1.3.l
+
+>>>>>>>>>>>>>>> transform = p:(0.0, 0.0, 0.0) r:(79.9, 199.7, 126.2) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>>>c finger1.3.l_end
+
+>>>>>>>>>>>>>>>> transform = p:(0.0, 0.0, 0.0) r:(79.9, 199.7, 126.2) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c finger2.1.l
+
+>>>>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(343.1, 253.9, 358.2) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>c finger2.2.l
+
+>>>>>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(64.4, 92.1, 18.5) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>>c finger2.3.l
+
+>>>>>>>>>>>>>>> transform = p:(0.0, 0.0, 0.0) r:(80.8, 190.9, 117.4) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>>>c finger2.3.l_end
+
+>>>>>>>>>>>>>>>> transform = p:(0.0, 0.0, 0.0) r:(80.8, 190.9, 117.4) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c finger3.1.l
+
+>>>>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(330.4, 259.0, 0.5) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>c finger3.2.l
+
+>>>>>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(65.6, 98.7, 22.7) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>>c finger3.3.l
+
+>>>>>>>>>>>>>>> transform = p:(0.0, 0.0, 0.0) r:(79.8, 152.5, 78.9) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>>>c finger3.3.l_end
+
+>>>>>>>>>>>>>>>> transform = p:(0.0, 0.0, 0.0) r:(79.8, 152.5, 78.9) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c finger4.1.l
+
+>>>>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(318.4, 266.2, 355.6) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>c finger4.2.l
+
+>>>>>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(64.6, 110.4, 29.5) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>>c finger4.3.l
+
+>>>>>>>>>>>>>>> transform = p:(0.0, 0.0, 0.0) r:(73.4, 132.3, 52.3) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>>>c finger4.3.l_end
+
+>>>>>>>>>>>>>>>> transform = p:(0.0, 0.0, 0.0) r:(73.4, 132.3, 52.3) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c GripControl.l
+
+>>>>>>>>>>>>> transform = p:(0.0, 0.2, -0.1) r:(27.9, 77.9, 279.1) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>c finger1IKTarget.l
+
+>>>>>>>>>>>>>> transform = p:(-0.1, 0.0, 0.0) r:(336.5, 261.0, 354.4) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>>c finger1IKTarget.l_end
+
+>>>>>>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(336.5, 261.0, 354.4) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>c finger2IKTarget.l
+
+>>>>>>>>>>>>>> transform = p:(-0.1, 0.0, 0.0) r:(336.5, 261.0, 354.4) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>>c finger2IKTarget.l_end
+
+>>>>>>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(336.5, 261.0, 354.4) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>c finger3IKTarget.l
+
+>>>>>>>>>>>>>> transform = p:(-0.1, 0.0, 0.0) r:(336.5, 261.0, 354.4) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>>c finger3IKTarget.l_end
+
+>>>>>>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(336.5, 261.0, 354.4) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>c finger4IKTarget.l
+
+>>>>>>>>>>>>>> transform = p:(-0.1, 0.0, 0.0) r:(336.5, 261.0, 354.4) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>>c finger4IKTarget.l_end
+
+>>>>>>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(336.5, 261.0, 354.4) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>c thumbIKTarget.l
+
+>>>>>>>>>>>>>> transform = p:(0.1, 0.0, 0.0) r:(279.4, 312.5, 300.7) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>>c thumbIKTarget.l_end
+
+>>>>>>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(279.4, 312.5, 300.7) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c thumb.1.l
+
+>>>>>>>>>>>>> transform = p:(-0.1, 0.1, 0.0) r:(285.6, 77.0, 175.9) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>c thumb.2.l
+
+>>>>>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(72.2, 220.8, 149.2) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>>c thumb.2.l_end
+
+>>>>>>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(72.2, 220.8, 149.2) s:(1.0, 1.0, 1.0)
+>>>>>>>>c clavicle.r
+
+>>>>>>>>> transform = p:(0.0, 0.3, 0.0) r:(29.8, 66.4, 209.7) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c upper_arm.r
+
+>>>>>>>>>> transform = p:(0.0, 0.2, 0.0) r:(342.3, 15.0, 298.9) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c lower_arm.r
+
+>>>>>>>>>>> transform = p:(0.0, 0.3, 0.0) r:(304.1, 236.9, 338.9) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c hand.r
+
+>>>>>>>>>>>> transform = p:(0.0, 0.3, 0.0) r:(52.9, 21.9, 0.6) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c finger1.1.r
+
+>>>>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(55.8, 59.4, 18.9) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>c finger1.2.r
+
+>>>>>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(294.9, 278.8, 310.6) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>>c finger1.3.r
+
+>>>>>>>>>>>>>>> transform = p:(0.0, 0.0, 0.0) r:(291.7, 290.2, 300.2) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>>>c finger1.3.r_end
+
+>>>>>>>>>>>>>>>> transform = p:(0.0, 0.0, 0.0) r:(291.7, 290.2, 300.2) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c finger2.1.r
+
+>>>>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(55.8, 59.4, 18.9) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>c finger2.2.r
+
+>>>>>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(294.9, 278.8, 310.6) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>>c finger2.3.r
+
+>>>>>>>>>>>>>>> transform = p:(0.0, 0.0, 0.0) r:(291.7, 290.2, 300.2) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>>>c finger2.3.r_end
+
+>>>>>>>>>>>>>>>> transform = p:(0.0, 0.0, 0.0) r:(291.7, 290.2, 300.2) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c finger3.1.r
+
+>>>>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(58.9, 47.3, 12.2) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>c finger3.2.r
+
+>>>>>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(293.5, 276.2, 310.6) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>>c finger3.3.r
+
+>>>>>>>>>>>>>>> transform = p:(0.0, 0.0, 0.0) r:(290.9, 289.3, 299.1) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>>>c finger3.3.r_end
+
+>>>>>>>>>>>>>>>> transform = p:(0.0, 0.0, 0.0) r:(290.9, 289.3, 299.1) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c finger4.1.r
+
+>>>>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(59.5, 46.4, 13.4) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>c finger4.2.r
+
+>>>>>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(293.9, 277.3, 306.7) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>>c finger4.3.r
+
+>>>>>>>>>>>>>>> transform = p:(0.0, 0.0, 0.0) r:(291.8, 290.6, 294.7) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>>>c finger4.3.r_end
+
+>>>>>>>>>>>>>>>> transform = p:(0.0, 0.0, 0.0) r:(291.8, 290.6, 294.7) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c GripControl.r
+
+>>>>>>>>>>>>> transform = p:(0.0, 0.2, 0.1) r:(13.9, 57.0, 109.3) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>c finger1IKTarget.r
+
+>>>>>>>>>>>>>> transform = p:(0.1, 0.0, 0.0) r:(64.0, 96.2, 47.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>>c finger1IKTarget.r_end
+
+>>>>>>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(64.0, 96.2, 47.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>c finger2IKTarget.r
+
+>>>>>>>>>>>>>> transform = p:(0.1, 0.0, 0.0) r:(64.0, 96.2, 47.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>>c finger2IKTarget.r_end
+
+>>>>>>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(64.0, 96.2, 47.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>c finger3IKTarget.r
+
+>>>>>>>>>>>>>> transform = p:(0.0, 0.0, 0.0) r:(64.0, 96.2, 47.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>>c finger3IKTarget.r_end
+
+>>>>>>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(64.0, 96.2, 47.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>c finger4IKTarget.r
+
+>>>>>>>>>>>>>> transform = p:(0.0, 0.0, 0.0) r:(64.0, 96.2, 47.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>>c finger4IKTarget.r_end
+
+>>>>>>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(64.0, 96.2, 47.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>c thumbIKTarget.r
+
+>>>>>>>>>>>>>> transform = p:(0.0, 0.0, 0.0) r:(64.0, 96.2, 47.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>>c thumbIKTarget.r_end
+
+>>>>>>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(64.0, 96.2, 47.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c thumb.1.r
+
+>>>>>>>>>>>>> transform = p:(0.0, 0.1, 0.1) r:(71.1, 89.8, 38.5) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>c thumb.2.r
+
+>>>>>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(304.8, 257.9, 327.2) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>>c thumb.2.r_end
+
+>>>>>>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(304.8, 257.9, 327.2) s:(1.0, 1.0, 1.0)
+>>>>>>>>c neck
+
+>>>>>>>>> transform = p:(0.0, 0.3, 0.0) r:(14.8, 307.1, 18.3) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c head
+
+>>>>>>>>>> transform = p:(0.0, 0.1, 0.0) r:(0.2, 74.7, 359.7) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c head_end
+
+>>>>>>>>>>> transform = p:(0.0, 0.2, 0.0) r:(0.2, 74.7, 359.7) s:(1.0, 1.0, 1.0)
+>>>c MageCapeMesh
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 74.7, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.SkinnedMeshRenderer
+>>>c MageMesh
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 74.7, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.SkinnedMeshRenderer
+>>>c Particle System
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 74.7, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.ParticleSystem
+
+>>>> UnityEngine.ParticleSystemRenderer
+>>>c Point Light
+
+>>>> transform = p:(0.0, 1.6, 0.3) r:(0.0, 74.7, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.Light
+>>>c Suspension
+
+>>>> transform = p:(-0.2, 0.3, -0.4) r:(0.0, 74.7, 0.0) s:(1.0, 1.0, 1.0)
+>>>>c Suspended
+
+>>>>> transform = p:(0.0, -1.0, 0.0) r:(90.0, 74.7, 0.0) s:(0.7, 0.7, 0.7)
+
+>>>>> UnityEngine.MeshFilter
+
+>>>>> UnityEngine.MeshRenderer
+>>>>c Suspended
+
+>>>>> transform = p:(0.0, 0.5, 0.0) r:(90.0, 44.7, 0.0) s:(0.7, 0.7, 0.7)
+
+>>>>> UnityEngine.MeshFilter
+
+>>>>> UnityEngine.MeshRenderer
+>>>>c Suspended
+
+>>>>> transform = p:(0.0, 2.0, 0.0) r:(90.0, 14.7, 0.0) s:(0.7, 0.7, 0.7)
+
+>>>>> UnityEngine.MeshFilter
+
+>>>>> UnityEngine.MeshRenderer
+>>c HologramPivot
+
+>>> transform = p:(0.1, 0.3, 1.5) r:(0.0, 254.7, 0.0) s:(1.0, 1.0, 1.0)
+>>c IceMesh
+
+>>> transform = p:(0.0, -0.5, 0.0) r:(284.1, 112.9, 281.7) s:(0.8, 0.8, 0.8)
+
+>>> UnityEngine.MeshFilter
+
+>>> UnityEngine.MeshRenderer
+
+>>> UnityEngine.MeshCollider
+
+>>> RoR2.EntityLocator
+>>>v entity = LockedMage (UnityEngine.GameObject)
+>>c IceMesh
+
+>>> transform = p:(-0.9, -1.2, 0.4) r:(287.4, 22.2, 317.5) s:(0.3, 0.3, 0.3)
+
+>>> UnityEngine.MeshFilter
+
+>>> UnityEngine.MeshRenderer
+
+>>> UnityEngine.MeshCollider
+>>c IceMesh (1)
+
+>>> transform = p:(-0.1, -1.1, -0.5) r:(290.0, 48.8, 289.1) s:(0.4, 0.4, 1.1)
+
+>>> UnityEngine.MeshFilter
+
+>>> UnityEngine.MeshRenderer
+
+>>> UnityEngine.MeshCollider
+
+>>> RoR2.EntityLocator
+>>>v entity = LockedMage (UnityEngine.GameObject)

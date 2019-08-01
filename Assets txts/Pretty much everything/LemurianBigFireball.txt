@@ -1,0 +1,125 @@
+LemurianBigFireball
+
+> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(0.1, 0.1, 1.0)
+
+> UnityEngine.MeshFilter
+
+> UnityEngine.Networking.NetworkIdentity
+>v clientAuthorityCallback = 
+
+> RoR2.Projectile.ProjectileController
+>v ghostPrefab = MegaFireballGhost (UnityEngine.GameObject)
+>v ghost = 
+>v isPrediction = False
+>v allowPrediction = True
+>v predictionId = 0
+>v owner = 
+>v procChainMask = RoR2.ProcChainMask
+>v procCoefficient = 1
+>v target = 
+>v authorityEffect = AuthorityEffect (UnityEngine.GameObject)
+>v predictionEffect = PredictionEffect (UnityEngine.GameObject)
+
+> UnityEngine.Rigidbody
+
+> RoR2.Projectile.ProjectileNetworkTransform
+>v positionTransmitInterval = 0.03333334
+>v interpolationFactor = 1
+>v allowClientsideCollision = False
+
+> RoR2.Projectile.ProjectileSimple
+>v velocity = 25
+>v lifetime = 10
+>v updateAfterFiring = False
+>v enableVelocityOverLifetime = False
+>v velocityOverLifetime = UnityEngine.AnimationCurve
+
+> UnityEngine.SphereCollider
+
+> RoR2.Projectile.ProjectileDamage
+>v damage = 0
+>v crit = False
+>v force = 0
+>v damageColorIndex = Default
+>v damageType = Generic
+
+> RoR2.TeamFilter
+
+> RoR2.Projectile.ProjectileImpactExplosion
+>v impactEffect = OmniExplosionVFX (UnityEngine.GameObject)
+>v explosionSoundString = Play_lemurianBruiser_m1_explode
+>v lifetimeExpiredSoundString = 
+>v offsetForLifetimeExpiredSound = 0
+>v destroyOnEnemy = True
+>v destroyOnWorld = True
+>v timerAfterImpact = True
+>v falloffModel = SweetSpot
+>v lifetime = 6
+>v lifetimeAfterImpact = 0
+>v lifetimeRandomOffset = 0
+>v blastRadius = 6
+>v blastDamageCoefficient = 1
+>v blastProcCoefficient = 1
+>v bonusBlastForce = (0.0, 200.0, 0.0)
+>v fireChildren = False
+>v childrenProjectilePrefab = 
+>v childrenCount = 0
+>v childrenDamageCoefficient = 0
+>v minAngleOffset = (0.0, 0.0, 0.0)
+>v maxAngleOffset = (0.0, 0.0, 0.0)
+>v transformSpace = World
+>v projectileHealthComponent = 
+
+> AkGameObj
+>v isEnvironmentAware = True
+>v m_positionOffsetData = AkGameObjPositionOffsetData
+
+> AkEvent
+>v actionOnEventType = AkActionOnEventType_Stop
+>v curveInterpolation = AkCurveInterpolation_Linear
+>v enableActionOnEvent = False
+>v data = Play_lemurianBruiser_m1_fly_loop
+>v m_callbackData = 
+>v playingId = 0
+>v soundEmitterObject = 
+>v transitionDuration = 0
+>v triggerList = System.Collections.Generic.List`1[System.Int32]
+>v useOtherObject = False
+
+> AkEvent
+>v actionOnEventType = AkActionOnEventType_Stop
+>v curveInterpolation = AkCurveInterpolation_Linear
+>v enableActionOnEvent = False
+>v data = Stop_lemurianBruiser_m1_fly_loop
+>v m_callbackData = 
+>v playingId = 0
+>v soundEmitterObject = 
+>v transitionDuration = 0
+>v triggerList = System.Collections.Generic.List`1[System.Int32]
+>v useOtherObject = False
+
+> AkEvent
+>v actionOnEventType = AkActionOnEventType_Stop
+>v curveInterpolation = AkCurveInterpolation_Linear
+>v enableActionOnEvent = False
+>v data = Play_lemurianBruiser_m1_shoot
+>v m_callbackData = 
+>v playingId = 0
+>v soundEmitterObject = 
+>v transitionDuration = 0
+>v triggerList = System.Collections.Generic.List`1[System.Int32]
+>v useOtherObject = False
+>c AuthorityEffect
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(20.0, 20.0, 1.0)
+
+>> UnityEngine.MeshFilter
+
+>> UnityEngine.MeshRenderer
+>c PredictionEffect
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(20.0, 20.0, 1.0)
+
+>> UnityEngine.MeshFilter
+
+>> UnityEngine.MeshRenderer

@@ -1,0 +1,17 @@
+PickupFireRing
+
+> transform = p:(131.3, -117.1, -68.2) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>c RingSetMeshHires
+
+>> transform = p:(0.0, 0.0, 0.0) r:(292.9, 248.4, 352.1) s:(1.0, 1.0, 1.0)
+
+>> UnityEngine.MeshFilter
+
+>> UnityEngine.MeshRenderer
+>>c FireRingGemstoneMesh
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(292.9, 248.4, 82.1) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.MeshFilter
+
+>>> UnityEngine.MeshRenderer

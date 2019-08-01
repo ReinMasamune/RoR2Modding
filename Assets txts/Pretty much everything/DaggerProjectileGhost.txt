@@ -1,0 +1,31 @@
+DaggerProjectileGhost
+
+> transform = p:(70.5, 21.0, 75.1) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> RoR2.Projectile.ProjectileGhostController
+>v authorityTransform = 
+>v predictionTransform = 
+
+> RoR2.VFXAttributes
+>v vfxPriority = Always
+>v vfxIntensity = Low
+>v optionalLights = UnityEngine.Light[]
+>v secondaryParticleSystem = UnityEngine.ParticleSystem[]
+>c Trail
+
+>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> RotateObject
+>>v rotationSpeed = (720.0, 0.0, 0.0)
+>>c mdlDaggerProc
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 180.0, 270.0) s:(0.3, 0.3, 0.3)
+
+>>> UnityEngine.MeshFilter
+
+>>> UnityEngine.MeshRenderer
+>>c Trail1
+
+>>> transform = p:(0.0, 0.0, -0.3) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.TrailRenderer

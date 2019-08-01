@@ -1,0 +1,433 @@
+VagrantDeathExplosion
+
+> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> RoR2.ShakeEmitter
+>v shakeOnStart = True
+>v wave = Wave
+>v duration = 2
+>v radius = 100
+>v scaleShakeRadiusWithLocalScale = False
+>v amplitudeTimeDecay = True
+
+> RoR2.ShakeEmitter
+>v shakeOnStart = True
+>v wave = Wave
+>v duration = 0.6
+>v radius = 90
+>v scaleShakeRadiusWithLocalScale = False
+>v amplitudeTimeDecay = True
+
+> RoR2.EffectComponent
+>v effectData = 
+>v positionAtReferencedTransform = False
+>v parentToReferencedTransform = False
+>v applyScale = False
+
+> RoR2.VFXAttributes
+>v vfxPriority = Always
+>v vfxIntensity = High
+>v optionalLights = UnityEngine.Light[]
+>v secondaryParticleSystem = UnityEngine.ParticleSystem[]
+
+> RoR2.ExplodeRigidbodiesOnStart
+>v bodies = UnityEngine.Rigidbody[]
+>v force = 6000
+>v explosionRadius = 80
+
+> RoR2.AwakeEvent
+>v action = UnityEngine.Events.UnityEvent UnityEngine.Events.UnityEvent
+
+> RoR2.DelayedEvent
+>v action = UnityEngine.Events.UnityEvent UnityEngine.Events.UnityEvent
+>v timeStepType = FixedTime
+
+> RoR2.Corpse
+>c PP
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> UnityEngine.Rendering.PostProcessing.PostProcessVolume
+>>v sharedProfile = ppLocalVagrantExplosion (UnityEngine.Rendering.PostProcessing.PostProcessProfile)
+>>v isGlobal = False
+>>v blendDistance = 30
+>>v weight = 1
+>>v priority = 10
+
+>> UnityEngine.SphereCollider
+
+>> RoR2.PostProcessDuration
+>>v ppVolume = PP (UnityEngine.Rendering.PostProcessing.PostProcessVolume)
+>>v ppWeightCurve = UnityEngine.AnimationCurve
+>>v maxDuration = 2
+>>v destroyOnEnd = True
+>c LongLifeNoiseTrails, Bright
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> UnityEngine.ParticleSystem
+
+>> UnityEngine.ParticleSystemRenderer
+>c Goo, Medium
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> UnityEngine.ParticleSystem
+
+>> UnityEngine.ParticleSystemRenderer
+>c Goo, Enormous
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> UnityEngine.ParticleSystem
+
+>> UnityEngine.ParticleSystemRenderer
+>c Flash, White
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> UnityEngine.ParticleSystem
+
+>> UnityEngine.ParticleSystemRenderer
+>c Flash, Blue
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> UnityEngine.ParticleSystem
+
+>> UnityEngine.ParticleSystemRenderer
+>c Point Light
+
+>> transform = p:(0.0, -15.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> UnityEngine.Light
+
+>> LightIntensityCurve
+>>v curve = UnityEngine.AnimationCurve
+>>v timeMax = 0.3
+>>v loop = False
+>>v randomStart = False
+
+>> RoR2.FlickerLight
+>>v light = Point Light (UnityEngine.Light)
+>>v sinWaves = Wave[]
+>c Dash, Bright
+
+>> transform = p:(0.0, 0.0, 0.8) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> UnityEngine.ParticleSystem
+
+>> UnityEngine.ParticleSystemRenderer
+>c DashRings
+
+>> transform = p:(0.0, 0.0, -0.6) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> UnityEngine.ParticleSystem
+
+>> UnityEngine.ParticleSystemRenderer
+>c VagrantLimb
+
+>> transform = p:(0.5, -5.3, -3.5) r:(0.0, 120.0, 0.0) s:(4.0, 4.0, 4.0)
+>>c VagrantLimbArmature
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 120.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>c Tentacle2.001
+
+>>>> transform = p:(-0.1, 0.1, 1.8) r:(356.2, 179.4, 180.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.Rigidbody
+
+>>>> UnityEngine.CapsuleCollider
+>>>c Tentacle2.005
+
+>>>> transform = p:(-0.1, 0.0, 1.4) r:(356.2, 179.4, 180.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.Rigidbody
+
+>>>> UnityEngine.CharacterJoint
+>>>>v targetRotation = (0.0, 0.0, 0.0, 0.0)
+>>>>v targetAngularVelocity = (0.0, 0.0, 0.0)
+>>>>v rotationDrive = UnityEngine.JointDrive
+
+>>>> UnityEngine.CapsuleCollider
+>>>c Tentacle2.003
+
+>>>> transform = p:(-0.1, 0.0, 0.9) r:(356.2, 179.4, 180.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.Rigidbody
+
+>>>> UnityEngine.CharacterJoint
+>>>>v targetRotation = (0.0, 0.0, 0.0, 0.0)
+>>>>v targetAngularVelocity = (0.0, 0.0, 0.0)
+>>>>v rotationDrive = UnityEngine.JointDrive
+
+>>>> UnityEngine.SphereCollider
+>>>c Tentacle2.007
+
+>>>> transform = p:(0.0, 0.0, 0.5) r:(356.2, 179.4, 180.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.Rigidbody
+
+>>>> UnityEngine.CharacterJoint
+>>>>v targetRotation = (0.0, 0.0, 0.0, 0.0)
+>>>>v targetAngularVelocity = (0.0, 0.0, 0.0)
+>>>>v rotationDrive = UnityEngine.JointDrive
+
+>>>> UnityEngine.SphereCollider
+>>>c Tentacle2.002
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(356.2, 179.4, 180.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.Rigidbody
+
+>>>> UnityEngine.CharacterJoint
+>>>>v targetRotation = (0.0, 0.0, 0.0, 0.0)
+>>>>v targetAngularVelocity = (0.0, 0.0, 0.0)
+>>>>v rotationDrive = UnityEngine.JointDrive
+
+>>>> UnityEngine.SphereCollider
+>>>c Tentacle2.006
+
+>>>> transform = p:(0.0, 0.0, -0.5) r:(356.2, 179.4, 180.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.Rigidbody
+
+>>>> UnityEngine.CharacterJoint
+>>>>v targetRotation = (0.0, 0.0, 0.0, 0.0)
+>>>>v targetAngularVelocity = (0.0, 0.0, 0.0)
+>>>>v rotationDrive = UnityEngine.JointDrive
+
+>>>> UnityEngine.SphereCollider
+>>>c Tentacle2.004
+
+>>>> transform = p:(0.1, 0.0, -0.9) r:(356.2, 179.4, 180.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.Rigidbody
+
+>>>> UnityEngine.CharacterJoint
+>>>>v targetRotation = (0.0, 0.0, 0.0, 0.0)
+>>>>v targetAngularVelocity = (0.0, 0.0, 0.0)
+>>>>v rotationDrive = UnityEngine.JointDrive
+
+>>>> UnityEngine.SphereCollider
+>>>c Tentacle2.008
+
+>>>> transform = p:(0.1, 0.0, -1.4) r:(356.2, 179.4, 180.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.Rigidbody
+
+>>>> UnityEngine.CharacterJoint
+>>>>v targetRotation = (0.0, 0.0, 0.0, 0.0)
+>>>>v targetAngularVelocity = (0.0, 0.0, 0.0)
+>>>>v rotationDrive = UnityEngine.JointDrive
+
+>>>> UnityEngine.SphereCollider
+>>c VagrantLimbMesh
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.SkinnedMeshRenderer
+>c VagrantLimb (1)
+
+>> transform = p:(2.9, -5.3, 1.6) r:(0.0, 357.9, 0.0) s:(4.0, 4.0, 4.0)
+>>c VagrantLimbArmature
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 357.9, 0.0) s:(1.0, 1.0, 1.0)
+>>>c Tentacle2.001
+
+>>>> transform = p:(-0.1, 0.1, 1.8) r:(356.2, 57.2, 180.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.Rigidbody
+
+>>>> UnityEngine.CapsuleCollider
+>>>c Tentacle2.005
+
+>>>> transform = p:(-0.1, 0.0, 1.4) r:(356.2, 57.2, 180.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.Rigidbody
+
+>>>> UnityEngine.CharacterJoint
+>>>>v targetRotation = (0.0, 0.0, 0.0, 0.0)
+>>>>v targetAngularVelocity = (0.0, 0.0, 0.0)
+>>>>v rotationDrive = UnityEngine.JointDrive
+
+>>>> UnityEngine.CapsuleCollider
+>>>c Tentacle2.003
+
+>>>> transform = p:(-0.1, 0.0, 0.9) r:(356.2, 57.2, 180.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.Rigidbody
+
+>>>> UnityEngine.CharacterJoint
+>>>>v targetRotation = (0.0, 0.0, 0.0, 0.0)
+>>>>v targetAngularVelocity = (0.0, 0.0, 0.0)
+>>>>v rotationDrive = UnityEngine.JointDrive
+
+>>>> UnityEngine.SphereCollider
+>>>c Tentacle2.007
+
+>>>> transform = p:(0.0, 0.0, 0.5) r:(356.2, 57.2, 180.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.Rigidbody
+
+>>>> UnityEngine.CharacterJoint
+>>>>v targetRotation = (0.0, 0.0, 0.0, 0.0)
+>>>>v targetAngularVelocity = (0.0, 0.0, 0.0)
+>>>>v rotationDrive = UnityEngine.JointDrive
+
+>>>> UnityEngine.SphereCollider
+>>>c Tentacle2.002
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(356.2, 57.2, 180.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.Rigidbody
+
+>>>> UnityEngine.CharacterJoint
+>>>>v targetRotation = (0.0, 0.0, 0.0, 0.0)
+>>>>v targetAngularVelocity = (0.0, 0.0, 0.0)
+>>>>v rotationDrive = UnityEngine.JointDrive
+
+>>>> UnityEngine.SphereCollider
+>>>c Tentacle2.006
+
+>>>> transform = p:(0.0, 0.0, -0.5) r:(356.2, 57.2, 180.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.Rigidbody
+
+>>>> UnityEngine.CharacterJoint
+>>>>v targetRotation = (0.0, 0.0, 0.0, 0.0)
+>>>>v targetAngularVelocity = (0.0, 0.0, 0.0)
+>>>>v rotationDrive = UnityEngine.JointDrive
+
+>>>> UnityEngine.SphereCollider
+>>>c Tentacle2.004
+
+>>>> transform = p:(0.1, 0.0, -0.9) r:(356.2, 57.2, 180.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.Rigidbody
+
+>>>> UnityEngine.CharacterJoint
+>>>>v targetRotation = (0.0, 0.0, 0.0, 0.0)
+>>>>v targetAngularVelocity = (0.0, 0.0, 0.0)
+>>>>v rotationDrive = UnityEngine.JointDrive
+
+>>>> UnityEngine.SphereCollider
+>>>c Tentacle2.008
+
+>>>> transform = p:(0.1, 0.0, -1.4) r:(356.2, 57.2, 180.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.Rigidbody
+
+>>>> UnityEngine.CharacterJoint
+>>>>v targetRotation = (0.0, 0.0, 0.0, 0.0)
+>>>>v targetAngularVelocity = (0.0, 0.0, 0.0)
+>>>>v rotationDrive = UnityEngine.JointDrive
+
+>>>> UnityEngine.SphereCollider
+>>c VagrantLimbMesh
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 237.9, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.SkinnedMeshRenderer
+>c VagrantLimb (2)
+
+>> transform = p:(-4.0, -5.3, -0.6) r:(0.0, 272.9, 0.0) s:(4.0, 4.0, 4.0)
+>>c VagrantLimbArmature
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 272.9, 0.0) s:(1.0, 1.0, 1.0)
+>>>c Tentacle2.001
+
+>>>> transform = p:(-0.1, 0.1, 1.8) r:(356.2, 332.3, 180.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.Rigidbody
+
+>>>> UnityEngine.CapsuleCollider
+>>>c Tentacle2.005
+
+>>>> transform = p:(-0.1, 0.0, 1.4) r:(356.2, 332.3, 180.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.Rigidbody
+
+>>>> UnityEngine.CharacterJoint
+>>>>v targetRotation = (0.0, 0.0, 0.0, 0.0)
+>>>>v targetAngularVelocity = (0.0, 0.0, 0.0)
+>>>>v rotationDrive = UnityEngine.JointDrive
+
+>>>> UnityEngine.CapsuleCollider
+>>>c Tentacle2.003
+
+>>>> transform = p:(-0.1, 0.0, 0.9) r:(356.2, 332.3, 180.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.Rigidbody
+
+>>>> UnityEngine.CharacterJoint
+>>>>v targetRotation = (0.0, 0.0, 0.0, 0.0)
+>>>>v targetAngularVelocity = (0.0, 0.0, 0.0)
+>>>>v rotationDrive = UnityEngine.JointDrive
+
+>>>> UnityEngine.SphereCollider
+>>>c Tentacle2.007
+
+>>>> transform = p:(0.0, 0.0, 0.5) r:(356.2, 332.3, 180.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.Rigidbody
+
+>>>> UnityEngine.CharacterJoint
+>>>>v targetRotation = (0.0, 0.0, 0.0, 0.0)
+>>>>v targetAngularVelocity = (0.0, 0.0, 0.0)
+>>>>v rotationDrive = UnityEngine.JointDrive
+
+>>>> UnityEngine.SphereCollider
+>>>c Tentacle2.002
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(356.2, 332.3, 180.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.Rigidbody
+
+>>>> UnityEngine.CharacterJoint
+>>>>v targetRotation = (0.0, 0.0, 0.0, 0.0)
+>>>>v targetAngularVelocity = (0.0, 0.0, 0.0)
+>>>>v rotationDrive = UnityEngine.JointDrive
+
+>>>> UnityEngine.SphereCollider
+>>>c Tentacle2.006
+
+>>>> transform = p:(0.0, 0.0, -0.5) r:(356.2, 332.3, 180.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.Rigidbody
+
+>>>> UnityEngine.CharacterJoint
+>>>>v targetRotation = (0.0, 0.0, 0.0, 0.0)
+>>>>v targetAngularVelocity = (0.0, 0.0, 0.0)
+>>>>v rotationDrive = UnityEngine.JointDrive
+
+>>>> UnityEngine.SphereCollider
+>>>c Tentacle2.004
+
+>>>> transform = p:(0.1, 0.0, -0.9) r:(356.2, 332.3, 180.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.Rigidbody
+
+>>>> UnityEngine.CharacterJoint
+>>>>v targetRotation = (0.0, 0.0, 0.0, 0.0)
+>>>>v targetAngularVelocity = (0.0, 0.0, 0.0)
+>>>>v rotationDrive = UnityEngine.JointDrive
+
+>>>> UnityEngine.SphereCollider
+>>>c Tentacle2.008
+
+>>>> transform = p:(0.1, 0.0, -1.4) r:(356.2, 332.3, 180.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.Rigidbody
+
+>>>> UnityEngine.CharacterJoint
+>>>>v targetRotation = (0.0, 0.0, 0.0, 0.0)
+>>>>v targetAngularVelocity = (0.0, 0.0, 0.0)
+>>>>v rotationDrive = UnityEngine.JointDrive
+
+>>>> UnityEngine.SphereCollider
+>>c VagrantLimbMesh
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 152.9, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.SkinnedMeshRenderer

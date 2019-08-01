@@ -1,0 +1,9 @@
+CombatShrineCombatSquad
+
+> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> UnityEngine.Networking.NetworkIdentity
+>v clientAuthorityCallback = 
+
+> RoR2.CombatSquad
+>v awakeTime = RoR2.Run+FixedTimeStamp

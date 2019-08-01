@@ -1,0 +1,131 @@
+ShrineHealing
+
+> transform = p:(-29.1, -214.1, -165.6) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> UnityEngine.Networking.NetworkIdentity
+>v clientAuthorityCallback = 
+
+> UnityEngine.Networking.NetworkTransform
+
+> RoR2.ModelLocator
+>v modelTransform = mdlShrineHealing (UnityEngine.Transform)
+>v modelBaseTransform = Base (UnityEngine.Transform)
+>v dontReleaseModelOnDeath = False
+>v autoUpdateModelTransform = True
+>v dontDetatchFromParent = False
+>v noCorpse = False
+>v normalizeToFloor = False
+>v preserveModel = False
+
+> RoR2.Highlight
+>v pickupIndex = ItemIndex.Syringe
+>v targetRenderer = mdlShrineHealing (UnityEngine.MeshRenderer)
+>v strength = 1
+>v highlightColor = interactive
+>v isOn = False
+
+> RoR2.PurchaseInteraction
+>v displayNameToken = SHRINE_HEALING_NAME
+>v contextToken = SHRINE_HEALING_CONTEXT
+>v costType = Money
+>v available = True
+>v cost = 25
+>v automaticallyScaleCostWithDifficulty = False
+>v requiredUnlockable = 
+>v ignoreSpherecastForInteractability = False
+>v purchaseStatNames = System.String[]
+>v lastActivator = 
+>v lockGameObject = 
+>v onPurchase = RoR2.PurchaseEvent RoR2.PurchaseEvent
+
+> RoR2.Hologram.HologramProjector
+>v displayDistance = 15
+>v hologramPivot = HologramPivot (UnityEngine.Transform)
+>v disableHologramRotation = False
+
+> RoR2.GenericDisplayNameProvider
+>v displayToken = SHRINE_HEALING_NAME
+
+> RoR2.ShrineHealingBehavior
+>v wardPrefab = ShrineHealingWard (UnityEngine.GameObject)
+>v baseRadius = 12
+>v radiusBonusPerPurchase = 8
+>v maxPurchaseCount = 3
+>v costMultiplierPerPurchase = 1.5
+>v symbolTransform = Symbol (UnityEngine.Transform)
+
+> RoR2.PurchaseAvailabilityIndicator
+>v indicatorObject = Symbol (UnityEngine.GameObject)
+>v animator = 
+>v mecanimBool = 
+>c Base
+
+>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>c mdlShrineHealing
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.MeshFilter
+
+>>> UnityEngine.MeshRenderer
+
+>>> RoR2.EntityLocator
+>>>v entity = ShrineHealing (UnityEngine.GameObject)
+
+>>> ChildLocator
+
+>>> UnityEngine.BoxCollider
+>>>c spmBbFern3
+
+>>>> transform = p:(-1.2, -1.4, -0.2) r:(349.0, 106.6, 20.7) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.LODGroup
+>>>>c spmBbFern3_LOD0
+
+>>>>> transform = p:(0.0, 0.0, 0.0) r:(349.0, 106.6, 20.7) s:(1.0, 1.0, 1.0)
+
+>>>>> UnityEngine.MeshFilter
+
+>>>>> UnityEngine.MeshRenderer
+
+>>>>> UnityEngine.Tree
+>>>c spmBbFern2
+
+>>>> transform = p:(0.2, -0.8, 4.4) r:(49.9, 35.9, 25.4) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.LODGroup
+>>>>c spmBbFern2_LOD0
+
+>>>>> transform = p:(0.0, 0.0, 0.0) r:(49.9, 35.9, 25.4) s:(1.0, 1.0, 1.0)
+
+>>>>> UnityEngine.MeshFilter
+
+>>>>> UnityEngine.MeshRenderer
+
+>>>>> UnityEngine.Tree
+>>>c spmBbFern3Directional
+
+>>>> transform = p:(1.0, -0.3, 0.8) r:(355.7, 346.5, 356.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.LODGroup
+>>>>c spmBbFern3Directional_LOD0
+
+>>>>> transform = p:(0.0, 0.0, 0.0) r:(355.7, 346.5, 356.0) s:(1.0, 1.0, 1.0)
+
+>>>>> UnityEngine.MeshFilter
+
+>>>>> UnityEngine.MeshRenderer
+
+>>>>> UnityEngine.Tree
+>c HologramPivot
+
+>> transform = p:(0.0, 2.2, -2.2) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>c Symbol
+
+>> transform = p:(0.0, 9.7, 0.0) r:(0.0, 0.0, 0.0) s:(1.8, 1.8, 1.8)
+
+>> UnityEngine.MeshRenderer
+
+>> UnityEngine.MeshFilter
+
+>> RoR2.Billboard

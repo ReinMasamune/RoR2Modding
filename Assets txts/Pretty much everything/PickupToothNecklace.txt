@@ -1,0 +1,10 @@
+PickupToothNecklace
+
+> transform = p:(-1.2, -19.3, -115.2) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>c mdlToothNecklaceDisplay
+
+>> transform = p:(0.0, 0.8, -0.9) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> UnityEngine.MeshFilter
+
+>> UnityEngine.MeshRenderer

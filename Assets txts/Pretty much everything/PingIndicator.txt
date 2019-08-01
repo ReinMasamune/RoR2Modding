@@ -1,0 +1,133 @@
+PingIndicator
+
+> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> RoR2.UI.PingIndicator
+>v positionIndicator = PositionIndicator (RoR2.PositionIndicator)
+>v pingText = Text (TMPro.TextMeshPro)
+>v pingHighlight = PingIndicator (RoR2.Highlight)
+>v pingObjectScaleCurve = BoingyScaler (ObjectScaleCurve)
+>v positionIndicatorRoot = 
+>v textBaseColor = RGBA(1.000, 1.000, 1.000, 1.000)
+>v defaultPingGameObjects = UnityEngine.GameObject[]
+>v defaultPingColor = RGBA(0.525, 0.961, 0.486, 1.000)
+>v defaultPingDuration = 6
+>v enemyPingGameObjects = UnityEngine.GameObject[]
+>v enemyPingColor = RGBA(0.820, 0.122, 0.122, 1.000)
+>v enemyPingDuration = 8
+>v interactablePingGameObjects = UnityEngine.GameObject[]
+>v interactablePingColor = RGBA(0.886, 0.871, 0.173, 1.000)
+>v interactablePingDuration = 30
+>v instancesList = System.Collections.Generic.List`1[RoR2.UI.PingIndicator]
+>v pingOrigin = (0.0, 0.0, 0.0)
+>v pingNormal = (0.0, 0.0, 0.0)
+>v pingOwner = 
+>v pingTarget = 
+
+> RoR2.Highlight
+>v pickupIndex = ItemIndex.Syringe
+>v targetRenderer = 
+>v strength = 1
+>v highlightColor = interactive
+>v isOn = False
+>c DefaultPositionRings
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 180.0, 180.0) s:(1.0, 1.0, 1.0)
+
+>> UnityEngine.ParticleSystem
+
+>> UnityEngine.ParticleSystemRenderer
+>c InteractablePositionRings
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 180.0, 180.0) s:(1.0, 1.0, 1.0)
+
+>> UnityEngine.ParticleSystem
+
+>> UnityEngine.ParticleSystemRenderer
+>c EnemyPositionRings
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 180.0, 180.0) s:(1.0, 1.0, 1.0)
+
+>> UnityEngine.ParticleSystem
+
+>> UnityEngine.ParticleSystemRenderer
+>c PositionIndicator
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> RoR2.PositionIndicator
+>>v targetTransform = 
+>>v insideViewObject = InsideFrame (UnityEngine.GameObject)
+>>v outsideViewObject = OutsideFrame (UnityEngine.GameObject)
+>>v alwaysVisibleObject = AlwaysVisible (UnityEngine.GameObject)
+>>v shouldRotateOutsideViewObject = True
+>>v outsideViewRotationOffset = 0
+
+>> MaintainRotation
+>>v eulerAngles = (0.0, 0.0, 0.0)
+>>c BoingyScaler
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(0.2, 0.2, 0.2)
+
+>>> ObjectScaleCurve
+>>>v curveX = UnityEngine.AnimationCurve
+>>>v curveY = UnityEngine.AnimationCurve
+>>>v curveZ = UnityEngine.AnimationCurve
+>>>v overallCurve = UnityEngine.AnimationCurve
+>>>v timeMax = 0.2
+>>>v time = 0
+>>>c AlwaysVisible
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>c Default
+
+>>>>> transform = p:(0.0, 0.2, 0.0) r:(0.0, 0.0, 0.0) s:(0.1, 0.1, 0.1)
+
+>>>>> UnityEngine.SpriteRenderer
+>>>>c Enemy
+
+>>>>> transform = p:(0.0, 0.2, 0.0) r:(0.0, 0.0, 0.0) s:(0.1, 0.1, 0.1)
+
+>>>>> UnityEngine.SpriteRenderer
+>>>>c Interactable
+
+>>>>> transform = p:(0.0, 0.2, 0.0) r:(0.0, 0.0, 0.0) s:(0.1, 0.1, 0.1)
+
+>>>>> UnityEngine.SpriteRenderer
+>>>>c Teleporter
+
+>>>>> transform = p:(0.0, 0.2, 0.0) r:(0.0, 0.0, 0.0) s:(0.1, 0.1, 0.1)
+
+>>>>> UnityEngine.SpriteRenderer
+>>>>c Text
+
+>>>>> UnityEngine.RectTransform
+
+>>>>> UnityEngine.MeshFilter
+
+>>>>> UnityEngine.MeshRenderer
+
+>>>>> UnityEngine.CanvasRenderer
+
+>>>>> TMPro.TextMeshPro
+>>>c InsideFrame
+
+>>>> transform = p:(0.0, 0.3, 0.0) r:(0.0, 0.0, 0.0) s:(0.1, 0.1, 0.1)
+>>>>c Arrow
+
+>>>>> transform = p:(0.0, -1.6, 0.0) r:(0.0, 0.0, 0.0) s:(2.0, 2.0, 2.0)
+
+>>>>> UnityEngine.SpriteRenderer
+>>>>>c Arrow
+
+>>>>>> transform = p:(0.0, -0.2, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>>>> UnityEngine.SpriteRenderer
+>>>c OutsideFrame
+
+>>>> transform = p:(0.0, 0.3, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>c Default
+
+>>>>> transform = p:(0.0, -0.3, 0.0) r:(0.0, 0.0, 0.0) s:(0.4, 0.4, 0.4)
+
+>>>>> UnityEngine.SpriteRenderer

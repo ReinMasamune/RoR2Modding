@@ -1,0 +1,210 @@
+GrubPack
+
+> transform = p:(17.3, 24.8, 14.5) r:(0.0, 0.0, 0.0) s:(0.8, 0.8, 0.8)
+
+> UnityEngine.Networking.NetworkIdentity
+>v clientAuthorityCallback = 
+
+> UnityEngine.BoxCollider
+
+> UnityEngine.Rigidbody
+
+> RoR2.TeamFilter
+
+> RoR2.DestroyOnTimer
+>v duration = 15
+>v resetAgeOnDisable = False
+
+> UnityEngine.Networking.NetworkTransform
+
+> RoR2.VelocityRandomOnStart
+>v minSpeed = 20
+>v maxSpeed = 20
+>v baseDirection = (0.0, 1.0, 0.0)
+>v localDirection = True
+>v directionMode = Cone
+>v coneAngle = 30
+>v minAngularSpeed = 720
+>v maxAngularSpeed = 720
+>c PointerHolder
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> MaintainRotation
+>>v eulerAngles = (0.0, 0.0, 0.0)
+>>c Pointer, Pickup
+
+>>> transform = p:(0.0, 2.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.SpriteRenderer
+
+>>> RoR2.Billboard
+
+>>> RoR2.ScaleSpriteByCamDistance
+>>>v scaleFactor = 0.2
+>>>v scalingMode = Direct
+>c InitialEffect
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> DestroyOnParticleEnd
+
+>> RoR2.ShakeEmitter
+>>v shakeOnStart = True
+>>v wave = Wave
+>>v duration = 0.1
+>>v radius = 30
+>>v scaleShakeRadiusWithLocalScale = False
+>>v amplitudeTimeDecay = True
+>>c Particles
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>c Bugs
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.ParticleSystem
+
+>>>> UnityEngine.ParticleSystemRenderer
+>>>c Flames
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.ParticleSystem
+
+>>>> UnityEngine.ParticleSystemRenderer
+>>>c Flash
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.ParticleSystem
+
+>>>> UnityEngine.ParticleSystemRenderer
+>>>c Distortion
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.ParticleSystem
+
+>>>> UnityEngine.ParticleSystemRenderer
+>>>c Ring, Mesh
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.ParticleSystem
+
+>>>> UnityEngine.ParticleSystemRenderer
+>c mdlBeetleGrub
+
+>> transform = p:(0.5, 0.0, 0.0) r:(0.0, 301.4, 90.0) s:(0.5, 0.5, 0.5)
+
+>> DynamicBone
+>>v m_Root = Bone.004 (UnityEngine.Transform)
+>>v m_UpdateRate = 60
+>>v m_UpdateMode = Normal
+>>v m_Damping = 0.399
+>>v m_DampingDistrib = UnityEngine.AnimationCurve
+>>v m_Elasticity = 0.256
+>>v m_ElasticityDistrib = UnityEngine.AnimationCurve
+>>v m_Stiffness = 0.1
+>>v m_StiffnessDistrib = UnityEngine.AnimationCurve
+>>v m_Inert = 0
+>>v m_InertDistrib = UnityEngine.AnimationCurve
+>>v m_Radius = 0
+>>v m_RadiusDistrib = UnityEngine.AnimationCurve
+>>v m_EndLength = 0
+>>v m_EndOffset = (0.0, 0.0, 0.0)
+>>v m_Gravity = (0.0, 0.0, 0.0)
+>>v m_Force = (0.0, 0.0, 0.0)
+>>v m_Colliders = System.Collections.Generic.List`1[DynamicBoneCollider]
+>>v m_Exclusions = System.Collections.Generic.List`1[UnityEngine.Transform]
+>>v m_FreezeAxis = None
+>>v m_DistantDisable = False
+>>v m_ReferenceObject = 
+>>v m_DistanceToObject = 20
+>>c BeetleGrubArmature
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 211.4, 90.0) s:(1.0, 1.0, 1.0)
+>>>c Bone.004
+
+>>>> transform = p:(0.0, 0.8, -0.4) r:(0.3, 337.2, 90.8) s:(1.0, 1.0, 1.0)
+>>>>c Bone.002
+
+>>>>> transform = p:(0.0, 0.6, 0.0) r:(0.5, 320.6, 91.0) s:(1.0, 1.0, 1.0)
+>>>>>c Bone.006
+
+>>>>>> transform = p:(0.0, 0.6, 0.0) r:(0.4, 332.4, 90.9) s:(1.0, 1.0, 1.0)
+>>>>>>c Bone.001
+
+>>>>>>> transform = p:(0.0, 0.6, 0.0) r:(0.0, 11.1, 90.1) s:(1.0, 1.0, 1.0)
+>>>>>>>c Bone.005
+
+>>>>>>>> transform = p:(0.0, 0.6, 0.0) r:(0.4, 66.9, 89.1) s:(1.0, 1.0, 1.0)
+>>>>>>>>c Bone.003
+
+>>>>>>>>> transform = p:(0.0, 0.6, 0.0) r:(1.5, 121.8, 88.8) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c Bone.007
+
+>>>>>>>>>> transform = p:(0.0, 0.6, 0.0) r:(359.8, 163.5, 89.3) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c Bone.007_end
+
+>>>>>>>>>>> transform = p:(0.0, 0.6, 0.0) r:(359.8, 163.5, 89.3) s:(1.0, 1.0, 1.0)
+>>>c ikPole
+
+>>>> transform = p:(0.0, -0.4, 1.6) r:(0.0, 211.4, 270.0) s:(1.0, 1.0, 1.0)
+>>>>c ikPole_end
+
+>>>>> transform = p:(0.0, 0.5, 0.0) r:(0.0, 211.4, 270.0) s:(1.0, 1.0, 1.0)
+>>>c IKTarget
+
+>>>> transform = p:(0.0, -0.8, 0.1) r:(0.0, 211.4, 270.0) s:(1.0, 1.0, 1.0)
+>>>>c IKTarget_end
+
+>>>>> transform = p:(0.0, 0.5, 0.0) r:(0.0, 211.4, 270.0) s:(1.0, 1.0, 1.0)
+>>c BeetleGrubMesh
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 211.4, 90.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.SkinnedMeshRenderer
+>c PickupTrigger
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> UnityEngine.BoxCollider
+
+>> RoR2.BuffPickup
+>>v baseObject = GrubPack (UnityEngine.GameObject)
+>>v teamFilter = GrubPack (RoR2.TeamFilter)
+>>v pickupEffect = BeetleSpitExplosion (UnityEngine.GameObject)
+>>v buffIndex = BeetleJuice
+>>v buffDuration = 10
+>c Particle System
+
+>> transform = p:(0.0, 0.4, -0.3) r:(0.0, 0.0, 0.0) s:(1.0, 0.3, 0.5)
+
+>> UnityEngine.ParticleSystem
+
+>> UnityEngine.ParticleSystemRenderer
+>>c Particle System
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.ParticleSystem
+
+>>> UnityEngine.ParticleSystemRenderer
+>c Trail
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> UnityEngine.TrailRenderer
+>c Point light
+
+>> transform = p:(0.0, 0.6, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> UnityEngine.Light
+
+>> LightIntensityCurve
+>>v curve = UnityEngine.AnimationCurve
+>>v timeMax = 5
+>>v loop = False
+>>v randomStart = False

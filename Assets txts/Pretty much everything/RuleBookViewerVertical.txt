@@ -1,0 +1,337 @@
+RuleBookViewerVertical
+
+> UnityEngine.RectTransform
+
+> UnityEngine.CanvasRenderer
+
+> UnityEngine.UI.Image
+
+> RoR2.UI.SkinControllers.PanelSkinController
+>v panelType = Default
+>v skinData = skinMenu (RoR2.UI.UISkinData)
+
+> RoR2.UI.RuleBookViewer
+>v stripPrefab = Strip (UnityEngine.GameObject)
+>v categoryPrefab = Category (UnityEngine.GameObject)
+>v categoryContainer = CategoryContainer (UnityEngine.RectTransform)
+
+> UnityEngine.UI.LayoutElement
+>c Choice
+
+>> UnityEngine.RectTransform
+
+>> UnityEngine.CanvasRenderer
+
+>> UnityEngine.UI.Image
+
+>> RoR2.UI.SkinControllers.PanelSkinController
+>>v panelType = Default
+>>v skinData = skinRuleStrip (RoR2.UI.UISkinData)
+
+>> UnityEngine.UI.LayoutElement
+
+>> RoR2.UI.MPEventSystemLocator
+
+>> RoR2.UI.RuleChoiceController
+>>v strip = 
+>>v image = Button (UnityEngine.UI.Image)
+>>v tooltipProvider = Button (RoR2.UI.TooltipProvider)
+>>v voteCounter = VoteLabel (RoR2.UI.HGTextMeshProUGUI)
+>>v selectionDisplayPanel = SelectionIndicatorPanel (UnityEngine.UI.Image)
+>>v canVote = False
+>>c Button
+
+>>> UnityEngine.RectTransform
+
+>>> UnityEngine.UI.Image
+
+>>> UnityEngine.CanvasRenderer
+
+>>> RoR2.UI.MPEventSystemLocator
+
+>>> RoR2.UI.MPButton
+>>>v allowAllEventSystems = True
+>>>v pointerClickOnly = True
+
+>>> RoR2.UI.SkinControllers.ButtonSkinController
+>>>v useRecommendedButtonWidth = False
+>>>v useRecommendedButtonHeight = False
+>>>v useRecommendedImage = False
+>>>v useRecommendedMaterial = False
+>>>v useRecommendedAlignment = True
+>>>v useRecommendedLabel = True
+>>>v skinData = skinRuleStrip (RoR2.UI.UISkinData)
+
+>>> RoR2.UI.TooltipProvider
+>>>v titleToken = 
+>>>v titleColor = RGBA(1.000, 1.000, 1.000, 1.000)
+>>>v bodyToken = 
+>>>v bodyColor = RGBA(1.000, 1.000, 1.000, 1.000)
+>>>v overrideTitleText = 
+>>>v overrideBodyText = 
+>>>v disableTitleRichText = False
+>>>v disableBodyRichText = False
+>>>v userCount = 0
+>>c SelectionIndicatorPanel
+
+>>> UnityEngine.RectTransform
+
+>>> UnityEngine.CanvasRenderer
+
+>>> UnityEngine.UI.Image
+>>c VoteLabel
+
+>>> UnityEngine.RectTransform
+
+>>> UnityEngine.CanvasRenderer
+
+>>> RoR2.UI.HGTextMeshProUGUI
+>>>v useLanguageDefaultFont = True
+>>>v defaultLanguageFont = tmpBombDropshadow (TMPro.TMP_FontAsset)
+>c Strip
+
+>> UnityEngine.RectTransform
+
+>> UnityEngine.CanvasRenderer
+
+>> UnityEngine.UI.Image
+
+>> RoR2.UI.SkinControllers.PanelSkinController
+>>v panelType = Default
+>>v skinData = skinRuleStrip (RoR2.UI.UISkinData)
+
+>> UnityEngine.UI.LayoutElement
+
+>> RoR2.UI.RuleBookViewerStrip
+>>v choicePrefab = Choice (UnityEngine.GameObject)
+>>v choiceContainer = ChoiceContainer (UnityEngine.RectTransform)
+>>v movementAxis = Horizontal
+>>v movementDuration = 0.1
+>>v choiceControllers = System.Collections.Generic.List`1[RoR2.UI.RuleChoiceController]
+>>v currentDisplayChoiceIndex = 0
+>>c ChoiceContainer
+
+>>> UnityEngine.RectTransform
+
+>>> UnityEngine.UI.HorizontalLayoutGroup
+>c TipPanel
+
+>> UnityEngine.RectTransform
+
+>> UnityEngine.UI.LayoutElement
+>>c Interior
+
+>>> UnityEngine.RectTransform
+
+>>> UnityEngine.CanvasRenderer
+
+>>> UnityEngine.UI.Image
+
+>>> RoR2.UI.SkinControllers.PanelSkinController
+>>>v panelType = Detail
+>>>v skinData = skinMenu (RoR2.UI.UISkinData)
+>>>c Label
+
+>>>> UnityEngine.RectTransform
+
+>>>> UnityEngine.CanvasRenderer
+
+>>>> RoR2.UI.HGTextMeshProUGUI
+>>>>v useLanguageDefaultFont = True
+>>>>v defaultLanguageFont = tmpBombDropshadow (TMPro.TMP_FontAsset)
+
+>>>> RoR2.UI.SkinControllers.LabelSkinController
+>>>>v labelType = Detail
+>>>>v useRecommendedAlignment = True
+>>>>v skinData = skinMenu (RoR2.UI.UISkinData)
+
+>>>> RoR2.UI.LanguageTextMeshController
+>c Category
+
+>> UnityEngine.RectTransform
+
+>> UnityEngine.CanvasRenderer
+
+>> UnityEngine.UI.Image
+
+>> RoR2.UI.SkinControllers.PanelSkinController
+>>v panelType = Default
+>>v skinData = skinMenu (RoR2.UI.UISkinData)
+
+>> RoR2.UI.RuleCategoryController
+>>v headerObject = Header (UnityEngine.GameObject)
+>>v collapsedIndicator = CollapsedIndicator (UnityEngine.GameObject)
+>>v uncollapsedIndicator = 
+>>v stripPrefab = Strip (UnityEngine.GameObject)
+>>v stripContainer = StripContainer (UnityEngine.RectTransform)
+>>v framePanel = FrameContainer (UnityEngine.RectTransform)
+>>v tipPrefab = TipPanel (UnityEngine.GameObject)
+>>v tipContainer = Category (UnityEngine.RectTransform)
+
+>> UnityEngine.UI.VerticalLayoutGroup
+>>c Header
+
+>>> UnityEngine.RectTransform
+
+>>> UnityEngine.CanvasRenderer
+
+>>> UnityEngine.UI.Image
+
+>>> UnityEngine.UI.LayoutElement
+
+>>> RoR2.UI.MPEventSystemLocator
+
+>>> RoR2.UI.MPButton
+>>>v allowAllEventSystems = True
+>>>v pointerClickOnly = True
+
+>>> RoR2.EventFunctions
+>>>c TextMeshPro Text
+
+>>>> UnityEngine.RectTransform
+
+>>>> UnityEngine.CanvasRenderer
+
+>>>> RoR2.UI.HGTextMeshProUGUI
+>>>>v useLanguageDefaultFont = True
+>>>>v defaultLanguageFont = tmpBombDropshadow (TMPro.TMP_FontAsset)
+
+>>>> RoR2.UI.LanguageTextMeshController
+>>>c CollapseIndicatorContainer
+
+>>>> UnityEngine.RectTransform
+
+>>>> UnityEngine.CanvasRenderer
+
+>>>> UnityEngine.UI.Image
+>>>>c CollapsedIndicator
+
+>>>>> UnityEngine.RectTransform
+
+>>>>> UnityEngine.CanvasRenderer
+
+>>>>> UnityEngine.UI.Image
+>>c StripContainer
+
+>>> UnityEngine.RectTransform
+
+>>> UnityEngine.CanvasRenderer
+
+>>> UnityEngine.UI.Image
+
+>>> RoR2.UI.SkinControllers.PanelSkinController
+>>>v panelType = Default
+>>>v skinData = skinMenu (RoR2.UI.UISkinData)
+
+>>> UnityEngine.UI.VerticalLayoutGroup
+>>>c FrameContainer
+
+>>>> UnityEngine.RectTransform
+
+>>>> UnityEngine.CanvasRenderer
+
+>>>> UnityEngine.UI.LayoutElement
+>>>>c Frame
+
+>>>>> UnityEngine.RectTransform
+
+>>>>> UnityEngine.CanvasRenderer
+
+>>>>> UnityEngine.UI.Image
+
+>>>>> UnityEngine.UI.LayoutElement
+>>>>c FrameLeft
+
+>>>>> UnityEngine.RectTransform
+
+>>>>> UnityEngine.CanvasRenderer
+
+>>>>> UnityEngine.UI.Image
+
+>>>>> UnityEngine.UI.LayoutElement
+>>>>c FrameRight
+
+>>>>> UnityEngine.RectTransform
+
+>>>>> UnityEngine.CanvasRenderer
+
+>>>>> UnityEngine.UI.Image
+
+>>>>> UnityEngine.UI.LayoutElement
+>c ScrollView
+
+>> UnityEngine.RectTransform
+
+>> UnityEngine.UI.ScrollRect
+
+>> UnityEngine.CanvasRenderer
+
+>> UnityEngine.UI.Image
+
+>> RoR2.UI.SkinControllers.ScrollRectSkinController
+>>v skinData = skinMenu (RoR2.UI.UISkinData)
+>>c Viewport
+
+>>> UnityEngine.RectTransform
+
+>>> UnityEngine.UI.Mask
+
+>>> UnityEngine.CanvasRenderer
+
+>>> UnityEngine.UI.Image
+>>>c CategoryContainer
+
+>>>> UnityEngine.RectTransform
+
+>>>> UnityEngine.CanvasRenderer
+
+>>>> UnityEngine.UI.Image
+
+>>>> RoR2.UI.SkinControllers.PanelSkinController
+>>>>v panelType = Default
+>>>>v skinData = skinMenu (RoR2.UI.UISkinData)
+
+>>>> UnityEngine.UI.VerticalLayoutGroup
+
+>>>> UnityEngine.UI.ContentSizeFitter
+>>c Scrollbar Horizontal
+
+>>> UnityEngine.RectTransform
+
+>>> UnityEngine.CanvasRenderer
+
+>>> UnityEngine.UI.Image
+
+>>> UnityEngine.UI.Scrollbar
+>>>c Sliding Area
+
+>>>> UnityEngine.RectTransform
+>>>>c Handle
+
+>>>>> UnityEngine.RectTransform
+
+>>>>> UnityEngine.CanvasRenderer
+
+>>>>> UnityEngine.UI.Image
+>>c Scrollbar Vertical
+
+>>> UnityEngine.RectTransform
+
+>>> UnityEngine.CanvasRenderer
+
+>>> UnityEngine.UI.Image
+
+>>> RoR2.UI.MPEventSystemLocator
+
+>>> RoR2.UI.MPScrollbar
+>>>v allowAllEventSystems = False
+>>>c Sliding Area
+
+>>>> UnityEngine.RectTransform
+>>>>c Handle
+
+>>>>> UnityEngine.RectTransform
+
+>>>>> UnityEngine.CanvasRenderer
+
+>>>>> UnityEngine.UI.Image

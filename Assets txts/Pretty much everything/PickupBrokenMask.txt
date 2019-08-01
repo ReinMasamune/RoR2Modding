@@ -1,0 +1,10 @@
+PickupBrokenMask
+
+> transform = p:(-65.0, -154.1, -122.5) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>c mdlBrokenMask
+
+>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> UnityEngine.MeshFilter
+
+>> UnityEngine.MeshRenderer

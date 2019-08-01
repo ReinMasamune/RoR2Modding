@@ -1,0 +1,152 @@
+BeetleWardOrbEffect
+
+> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> RoR2.EffectComponent
+>v effectData = 
+>v positionAtReferencedTransform = False
+>v parentToReferencedTransform = False
+>v applyScale = False
+
+> RoR2.Orbs.OrbEffect
+>v startVelocity1 = (-2.0, 20.0, 2.0)
+>v startVelocity2 = (2.0, 5.0, 2.0)
+>v endVelocity1 = (0.0, 0.0, 0.0)
+>v endVelocity2 = (0.0, 0.0, 0.0)
+>v movementCurve = UnityEngine.AnimationCurve
+>v bezierCurveLine = 
+>v faceMovement = True
+>v callArrivalIfTargetIsGone = False
+>v startEffect = 
+>v startEffectScale = 1
+>v startEffectCopiesRotation = False
+>v endEffect = 
+>v endEffectScale = 1
+>v endEffectCopiesRotation = False
+>v onArrival = UnityEngine.Events.UnityEvent UnityEngine.Events.UnityEvent
+
+> RoR2.VFXAttributes
+>v vfxPriority = Always
+>v vfxIntensity = Low
+>v optionalLights = UnityEngine.Light[]
+>v secondaryParticleSystem = UnityEngine.ParticleSystem[]
+>c VFX
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(0.6, 0.6, 0.8)
+>>c Helix
+
+>>> transform = p:(0.0, 0.2, -0.5) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> RotateObject
+>>>v rotationSpeed = (0.0, 0.0, 720.0)
+>>>c GameObject
+
+>>>> transform = p:(-0.2, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.TrailRenderer
+>>>c GameObject (1)
+
+>>>> transform = p:(0.2, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.TrailRenderer
+>>c mdlBeetleWard
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(0.6, 0.6, 0.6)
+>>>c mdlBugWingMotion
+
+>>>> transform = p:(-0.4, 0.5, 0.2) r:(4.1, 310.0, 25.6) s:(0.5, 0.5, 0.5)
+
+>>>> UnityEngine.MeshFilter
+
+>>>> UnityEngine.MeshRenderer
+>>>c Point Light
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.Light
+
+>>>> RoR2.LightScaleFromParent
+
+>>>> LightIntensityCurve
+>>>>v curve = UnityEngine.AnimationCurve
+>>>>v timeMax = 3
+>>>>v loop = True
+>>>>v randomStart = True
+>>>c Bugs
+
+>>>> transform = p:(-0.1, 0.0, 0.0) r:(0.0, 180.0, 180.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.ParticleSystem
+
+>>>> UnityEngine.ParticleSystemRenderer
+>>>c BeetleQueenWardArmature
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>c Base
+
+>>>>> transform = p:(-0.2, 0.4, 0.4) r:(0.0, 270.0, 251.6) s:(1.0, 1.0, 1.0)
+>>>>>c Chest
+
+>>>>>> transform = p:(0.0, 0.3, 0.0) r:(76.7, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>c Head
+
+>>>>>>> transform = p:(0.0, 0.7, 0.0) r:(300.7, 0.0, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>c Head_end
+
+>>>>>>>> transform = p:(0.0, 0.5, 0.0) r:(300.7, 0.0, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>c WingMain.l
+
+>>>>>>> transform = p:(-0.1, 0.5, -0.1) r:(51.0, 243.4, 54.4) s:(1.0, 1.0, 1.0)
+>>>>>>>c WingMain.l_end
+
+>>>>>>>> transform = p:(0.0, 1.6, 0.0) r:(51.0, 243.4, 54.4) s:(1.0, 1.0, 1.0)
+>>>>>>c WingMain.r
+
+>>>>>>> transform = p:(0.1, 0.5, -0.1) r:(294.6, 26.6, 330.5) s:(1.0, 1.0, 1.0)
+>>>>>>>c WingMain.r_end
+
+>>>>>>>> transform = p:(0.0, 1.6, 0.0) r:(294.6, 26.6, 330.5) s:(1.0, 1.0, 1.0)
+>>>>>>c WingSmall.l
+
+>>>>>>> transform = p:(-0.1, 0.4, -0.3) r:(1.8, 310.0, 66.7) s:(1.0, 1.0, 1.0)
+>>>>>>>c WingSmall.l_end
+
+>>>>>>>> transform = p:(0.0, 1.3, 0.0) r:(1.8, 310.0, 66.7) s:(1.0, 1.0, 1.0)
+>>>>>>c WingSmall.r
+
+>>>>>>> transform = p:(0.1, 0.4, -0.3) r:(3.7, 55.0, 290.4) s:(1.0, 1.0, 1.0)
+>>>>>>>c WingSmall.r_end
+
+>>>>>>>> transform = p:(0.0, 1.3, 0.0) r:(3.7, 55.0, 290.4) s:(1.0, 1.0, 1.0)
+>>>>>c Hip1
+
+>>>>>> transform = p:(0.0, 0.3, 0.0) r:(275.1, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>c Hip2
+
+>>>>>>> transform = p:(0.0, 0.7, 0.0) r:(77.6, 0.0, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>c Hip3
+
+>>>>>>>> transform = p:(0.0, 0.5, 0.0) r:(58.3, 0.0, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>c Hip3_end
+
+>>>>>>>>> transform = p:(0.0, 0.5, 0.0) r:(58.3, 0.0, 180.0) s:(1.0, 1.0, 1.0)
+>>>c BeetleQueenWardMesh
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.SkinnedMeshRenderer
+
+>>>> RoR2.AnimateShaderAlpha
+>>>>v alphaCurve = UnityEngine.AnimationCurve
+>>>>v timeMax = 1
+>>>>v decal = 
+>>>>v destroyOnEnd = False
+>>>>v disableOnEnd = False
+>>>>v time = 0
+>>>c mdlBugWingMotion (1)
+
+>>>> transform = p:(0.4, 0.5, 0.2) r:(4.1, 50.0, 334.4) s:(-0.5, 0.5, 0.5)
+
+>>>> UnityEngine.MeshFilter
+
+>>>> UnityEngine.MeshRenderer

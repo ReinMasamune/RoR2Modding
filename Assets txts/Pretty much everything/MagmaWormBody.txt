@@ -1,0 +1,1001 @@
+MagmaWormBody
+
+> transform = p:(24.6, -126.0, -29.3) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> UnityEngine.Networking.NetworkIdentity
+>v clientAuthorityCallback = 
+
+> RoR2.CharacterMotor
+>v instancesList = System.Collections.Generic.List`1[RoR2.CharacterMotor]
+>v walkSpeedPenaltyCoefficient = 1
+>v characterDirection = 
+>v muteWalkMotion = False
+>v mass = 500
+>v airControl = 1
+>v disableAirControlUntilCollision = False
+>v generateParametersOnAwake = True
+>v slipStartAngle = 70
+>v slipEndAngle = 55
+>v jumpCount = 0
+>v netIsGrounded = False
+>v netGroundNormal = (0.0, 0.0, 0.0)
+>v velocity = (0.0, 0.0, 0.0)
+>v rootMotion = (0.0, 0.0, 0.0)
+
+> RoR2.InputBankTest
+>v lookPitch = 0
+>v lookYaw = 0
+>v moveVector = (0.0, 0.0, 0.0)
+>v skill1 = RoR2.InputBankTest+ButtonState
+>v skill2 = RoR2.InputBankTest+ButtonState
+>v skill3 = RoR2.InputBankTest+ButtonState
+>v skill4 = RoR2.InputBankTest+ButtonState
+>v interact = RoR2.InputBankTest+ButtonState
+>v jump = RoR2.InputBankTest+ButtonState
+>v sprint = RoR2.InputBankTest+ButtonState
+>v activateEquipment = RoR2.InputBankTest+ButtonState
+>v ping = RoR2.InputBankTest+ButtonState
+>v emoteRequest = -1
+
+> RoR2.CharacterBody
+>v bodyIndex = 45
+>v baseNameToken = MAGMAWORM_BODY_NAME
+>v subtitleNameToken = MAGMAWORM_BODY_SUBTITLE
+>v pendingTonicAfflictionCount = 0
+>v bodyFlags = IgnoreFallDamage, ImmuneToGoo
+>v readOnlyInstancesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.CharacterBody]
+>v rootMotionInMainState = False
+>v mainRootSpeed = 0
+>v baseMaxHealth = 2400
+>v baseRegen = 0
+>v baseMaxShield = 0
+>v baseMoveSpeed = 20
+>v baseAcceleration = 160
+>v baseJumpPower = 25
+>v baseDamage = 10
+>v baseAttackSpeed = 1
+>v baseCrit = 0
+>v baseArmor = 15
+>v baseJumpCount = 1
+>v autoCalculateLevelStats = True
+>v levelMaxHealth = 720
+>v levelRegen = 0
+>v levelMaxShield = 0
+>v levelMoveSpeed = 0
+>v levelJumpPower = 0
+>v levelDamage = 2
+>v levelAttackSpeed = 0
+>v levelCrit = 0
+>v levelArmor = 0
+>v killCount = 0
+>v wasLucky = False
+>v spreadBloomDecayTime = 0.45
+>v spreadBloomCurve = UnityEngine.AnimationCurve
+>v crosshairPrefab = 
+>v hideCrosshair = False
+>v aimOriginTransform = AimOrigin (UnityEngine.Transform)
+>v hullClassification = Human
+>v portraitIcon = MagmaWormBody (UnityEngine.Texture2D)
+>v isChampion = True
+>v currentVehicle = 
+>v preferredPodPrefab = 
+
+> RoR2.CameraTargetParams
+>v cameraParams = ccpStandardHuge (RoR2.CharacterCameraParams)
+>v cameraPivotTransform = 
+>v aimMode = Standard
+>v recoil = (0.0, 0.0)
+>v idealLocalCameraPos = (0.0, 0.0, -25.0)
+>v fovOverride = -1
+>v dontRaycastToPivot = False
+
+> RoR2.ModelLocator
+>v modelTransform = mdlMagmaWorm (UnityEngine.Transform)
+>v modelBaseTransform = ModelBase (UnityEngine.Transform)
+>v dontReleaseModelOnDeath = False
+>v autoUpdateModelTransform = False
+>v dontDetatchFromParent = False
+>v noCorpse = False
+>v normalizeToFloor = False
+>v preserveModel = False
+
+> RoR2.EntityStateMachine
+>v customName = Body
+>v initialStateType = EntityStates.SerializableEntityStateType
+>v mainStateType = EntityStates.SerializableEntityStateType
+>v commonComponents = RoR2.EntityStateMachine+CommonComponentCache
+>v networkIndex = -1
+
+> RoR2.SkillLocator
+>v primary = 
+>v secondary = 
+>v utility = MagmaWormBody (RoR2.GenericSkill)
+>v special = MagmaWormBody (RoR2.GenericSkill)
+>v passiveSkill = RoR2.SkillLocator+PassiveSkill
+
+> RoR2.TeamComponent
+>v hideAllyCardDisplay = False
+
+> RoR2.HealthComponent
+>v health = 100
+>v shield = 0
+>v barrier = 0
+>v body = 
+>v dontShowHealthbar = False
+>v globalDeathEventChanceCoefficient = 1
+>v medkitActivationDelay = 1.1
+>v frozenExecuteThreshold = 0.3
+
+> RoR2.Interactor
+>v maxInteractionDistance = 3
+
+> RoR2.InteractionDriver
+>v highlightInteractor = False
+>v interactableOverride = 
+
+> RoR2.CharacterDeathBehavior
+>v deathStateMachine = MagmaWormBody (RoR2.EntityStateMachine)
+>v deathState = EntityStates.SerializableEntityStateType
+>v idleStateMachine = RoR2.EntityStateMachine[]
+
+> RoR2.DeathRewards
+>v expReward = 0
+>v logUnlockableName = Logs.MagmaWormBody.0
+>v bossPickup = RoR2.SerializablePickupIndex
+
+> RoR2.Networking.CharacterNetworkTransform
+>v positionTransmitInterval = 0.1
+>v lastPositionTransmitTime = -Infinity
+>v interpolationFactor = 2
+>v newestNetSnapshot = RoR2.Networking.CharacterNetworkTransform+Snapshot
+>v debugDuplicatePositions = False
+>v debugSnapshotReceived = False
+
+> RoR2.NetworkStateMachine
+
+> RoR2.EntityStateMachine
+>v customName = Weapon
+>v initialStateType = EntityStates.SerializableEntityStateType
+>v mainStateType = EntityStates.SerializableEntityStateType
+>v commonComponents = RoR2.EntityStateMachine+CommonComponentCache
+>v networkIndex = -1
+
+> RoR2.CharacterDirection
+>v moveVector = (0.0, 0.0, 0.0)
+>v targetTransform = 
+>v overrideAnimatorForwardTransform = 
+>v rootMotionAccumulator = 
+>v modelAnimator = 
+>v driveFromRootRotation = False
+>v turnSpeed = 360
+
+> RoR2.WormBodyPositions2
+>v referenceTransform = ModelBase (UnityEngine.Transform)
+>v bones = UnityEngine.Transform[]
+>v segmentLengths = System.Single[]
+>v followDelay = 2
+>v animateJaws = True
+>v animator = mdlMagmaWorm (UnityEngine.Animator)
+>v jawMecanimCycleParameter = mouthCycle
+>v jawMecanimDampTime = 1
+>v jawClosedDistance = 30
+>v jawOpenDistance = 10
+>v warningEffectPrefab = 
+>v burrowEffectPrefab = MagmaWormBurrow (UnityEngine.GameObject)
+>v maxPainDisplacementMagnitude = 2
+>v painDisplacementRecoverySpeed = 10
+>v shouldFireMeatballsOnImpact = True
+>v shouldFireBlastAttackOnImpact = True
+>v spawnDepth = 30
+>v keyFrameGenerationInterval = 0.05
+>v underground = False
+>v impactCooldownDuration = 0.1
+>v meatballProjectile = MagmaOrbProjectile (UnityEngine.GameObject)
+>v blastAttackEffect = MagmaWormImpactExplosion (UnityEngine.GameObject)
+>v meatballCount = 5
+>v meatballAngle = 30
+>v meatballDamageCoefficient = 1
+>v meatballProcCoefficient = 1
+>v meatballForce = 1000
+>v blastAttackDamageCoefficient = 3
+>v blastAttackProcCoefficient = 1
+>v blastAttackRadius = 13
+>v blastAttackForce = 1000
+>v blastAttackBonusVerticalForce = 1000
+>v chasePositionVisualizer = Sphere (UnityEngine.Transform)
+>v maxTurnSpeed = 360
+>v speedMultiplier = 1
+>v verticalTurnSquashFactor = 100
+>v ySpringConstant = 10
+>v yDamperConstant = 1
+>v allowShoving = False
+>v yShoveVelocityThreshold = 1
+>v yShovePositionThreshold = 4
+>v yShoveForce = 1600
+>v turnRateCoefficientAboveGround = 0.5
+>v wormForceCoefficientAboveGround = 0
+>v undergroundTestYOffset = -40
+
+> RoR2.ContactDamage
+>v damagePerSecondCoefficient = 3
+>v damageInterval = 0.25
+>v pushForcePerSecond = 16000
+>v hitBoxGroup = mdlMagmaWorm (RoR2.HitBoxGroup)
+>v damageType = Generic
+
+> RoR2.SfxLocator
+>v deathSound = 
+>v barkSound = Play_magmaWorm_idle_VO
+>v openSound = 
+>v landingSound = 
+>v fallDamageSound = 
+
+> UnityEngine.Rigidbody
+
+> UnityEngine.CapsuleCollider
+
+> KinematicCharacterController.KinematicCharacterMotor
+>v CharacterController = MagmaWormBody (RoR2.CharacterMotor)
+>v Capsule = MagmaWormBody (UnityEngine.CapsuleCollider)
+>v Rigidbody = MagmaWormBody (UnityEngine.Rigidbody)
+>v DetectDiscreteCollisions = False
+>v GroundDetectionExtraDistance = 0
+>v MaxStepHeight = 1
+>v MinRequiredStepDepth = 0.1
+>v MaxStableSlopeAngle = 55
+>v MaxStableDistanceFromLedge = 0.5
+>v PreventSnappingOnLedges = False
+>v MaxStableDenivelationAngle = 55
+>v RigidbodyInteractionType = None
+>v PreserveAttachedRigidbodyMomentum = True
+>v HasPlanarConstraint = False
+>v PlanarConstraintAxis = (0.0, 0.0, 1.0)
+>v StepHandling = Standard
+>v LedgeHandling = True
+>v InteractiveRigidbodyHandling = True
+>v SafeMovement = False
+>v GroundingStatus = KinematicCharacterController.CharacterGroundingReport
+>v LastGroundingStatus = KinematicCharacterController.CharacterTransientGroundingReport
+>v CollidableLayers = UnityEngine.LayerMask
+>v MaxHitsBudget = 16
+>v MaxCollisionBudget = 16
+>v MaxGroundingSweepIterations = 2
+>v MaxMovementSweepIterations = 6
+>v MaxSteppingSweepIterations = 3
+>v MaxRigidbodyOverlapsCount = 16
+>v MaxDiscreteCollisionIterations = 3
+>v CollisionOffset = 0.001
+>v GroundProbeReboundDistance = 0.02
+>v MinimumGroundProbingDistance = 0.005
+>v GroundProbingBackstepDistance = 0.1
+>v SweepProbingBackstepDistance = 0.002
+>v SecondaryProbesVertical = 0.02
+>v SecondaryProbesHorizontal = 0.001
+>v MinVelocityMagnitude = 0.01
+>v SteppingForwardDistance = 0.03
+>v MinDistanceForLedge = 0.05
+>v CorrelationForVerticalObstruction = 0.01
+>v ExtraSteppingForwardDistance = 0.01
+>v ExtraStepHeightPadding = 0.01
+
+> RoR2.GenericSkill
+>v skillName = Blink
+>v skillNameToken = 
+>v skillDescriptionToken = 
+>v baseRechargeInterval = 10
+>v baseMaxStock = 1
+>v rechargeStock = 1
+>v isBullets = False
+>v shootDelay = 0.3
+>v beginSkillCooldownOnSkillEnd = False
+>v stateMachine = MagmaWormBody (RoR2.EntityStateMachine)
+>v activationState = EntityStates.SerializableEntityStateType
+>v interruptPriority = Skill
+>v isCombatSkill = True
+>v noSprint = True
+>v canceledFromSprinting = False
+>v mustKeyPress = False
+>v icon = 
+>v requiredStock = 1
+>v stockToConsume = 1
+>v hasExecutedSuccessfully = False
+
+> RoR2.GenericSkill
+>v skillName = StanceSwitch
+>v skillNameToken = 
+>v skillDescriptionToken = 
+>v baseRechargeInterval = 30
+>v baseMaxStock = 1
+>v rechargeStock = 1
+>v isBullets = False
+>v shootDelay = 0.3
+>v beginSkillCooldownOnSkillEnd = True
+>v stateMachine = MagmaWormBody (RoR2.EntityStateMachine)
+>v activationState = EntityStates.SerializableEntityStateType
+>v interruptPriority = Skill
+>v isCombatSkill = False
+>v noSprint = False
+>v canceledFromSprinting = False
+>v mustKeyPress = False
+>v icon = 
+>v requiredStock = 1
+>v stockToConsume = 1
+>v hasExecutedSuccessfully = False
+>c ModelBase
+
+>> transform = p:(0.0, 3.0, 0.0) r:(0.0, 0.0, 0.0) s:(3.0, 3.0, 3.0)
+
+>> UnityEngine.Rigidbody
+>>c mdlMagmaWorm
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(0.0, 0.0, 0.0)
+
+>>> RoR2.CharacterModel
+>>>v body = MagmaWormBody (RoR2.CharacterBody)
+>>>v itemDisplayRuleSet = idrsMagmaWorm (RoR2.ItemDisplayRuleSet)
+>>>v autoPopulateLightInfos = True
+>>>v autoPopulateParticleSystemInfos = True
+>>>v baseParticleSystemInfos = RoR2.CharacterModel+ParticleSystemInfo[]
+>>>v baseRendererInfos = RoR2.CharacterModel+RendererInfo[]
+>>>v baseLightInfos = RoR2.CharacterModel+LightInfo[]
+>>>v invisibilityCount = 0
+>>>v temporaryOverlays = System.Collections.Generic.List`1[RoR2.TemporaryOverlay]
+>>>v revealedMaterial = matRevealedEffect (UnityEngine.Material)
+>>>v cloakedMaterial = matCloakedEffect (UnityEngine.Material)
+>>>v ghostMaterial = matGhostEffect (UnityEngine.Material)
+>>>v bellBuffMaterial = matBellBuff (UnityEngine.Material)
+>>>v wolfhatMaterial = matWolfhatOverlay (UnityEngine.Material)
+>>>v energyShieldMaterial = matEnergyShield (UnityEngine.Material)
+>>>v fullCritMaterial = matFullCrit (UnityEngine.Material)
+>>>v beetleJuiceMaterial = matBeetleJuice (UnityEngine.Material)
+>>>v brittleMaterial = matBrittle (UnityEngine.Material)
+>>>v clayGooMaterial = matClayGooDebuff (UnityEngine.Material)
+>>>v slow80Material = matSlow80Debuff (UnityEngine.Material)
+>>>v immuneMaterial = matImmune (UnityEngine.Material)
+>>>v elitePoisonOverlayMaterial = matElitePoisonOverlay (UnityEngine.Material)
+>>>v elitePoisonParticleReplacementMaterial = matElitePoisonParticleReplacement (UnityEngine.Material)
+>>>v weakMaterial = matWeakOverlay (UnityEngine.Material)
+
+>>> RoR2.HurtBoxGroup
+>>>v hurtBoxes = RoR2.HurtBox[]
+>>>v mainHurtBox = WormBox (RoR2.HurtBox)
+>>>v bullseyeCount = 17
+
+>>> RoR2.HitBoxGroup
+>>>v groupName = Body
+>>>v hitBoxes = RoR2.HitBox[]
+
+>>> UnityEngine.Animator
+
+>>> ChildLocator
+>>>c WormArmature
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 0.0, 0.0) s:(100.0, 100.0, 100.0)
+>>>>c Head
+
+>>>>> transform = p:(0.0, -0.7, 0.0) r:(270.5, 180.2, 179.8) s:(1.0, 1.0, 1.0)
+
+>>>>> RoR2.ShakeEmitter
+>>>>>v shakeOnStart = True
+>>>>>v wave = Wave
+>>>>>v duration = 1E+20
+>>>>>v radius = 60
+>>>>>v scaleShakeRadiusWithLocalScale = False
+>>>>>v amplitudeTimeDecay = False
+
+>>>>> AkGameObj
+>>>>>v isEnvironmentAware = True
+>>>>>v m_positionOffsetData = AkGameObjPositionOffsetData
+
+>>>>> UnityEngine.Rigidbody
+
+>>>>> AkEvent
+>>>>>v actionOnEventType = AkActionOnEventType_Stop
+>>>>>v curveInterpolation = AkCurveInterpolation_Linear
+>>>>>v enableActionOnEvent = False
+>>>>>v data = Play_magmaWorm_spawn_VO
+>>>>>v m_callbackData = 
+>>>>>v playingId = 0
+>>>>>v soundEmitterObject = 
+>>>>>v transitionDuration = 0
+>>>>>v triggerList = System.Collections.Generic.List`1[System.Int32]
+>>>>>v useOtherObject = False
+
+>>>>> AkEvent
+>>>>>v actionOnEventType = AkActionOnEventType_Stop
+>>>>>v curveInterpolation = AkCurveInterpolation_Linear
+>>>>>v enableActionOnEvent = False
+>>>>>v data = Play_magmaWorm_idle_burn_loop
+>>>>>v m_callbackData = 
+>>>>>v playingId = 0
+>>>>>v soundEmitterObject = 
+>>>>>v transitionDuration = 0
+>>>>>v triggerList = System.Collections.Generic.List`1[System.Int32]
+>>>>>v useOtherObject = False
+
+>>>>> AkEvent
+>>>>>v actionOnEventType = AkActionOnEventType_Stop
+>>>>>v curveInterpolation = AkCurveInterpolation_Linear
+>>>>>v enableActionOnEvent = False
+>>>>>v data = Stop_magmaWorm_idle_burn_loop
+>>>>>v m_callbackData = 
+>>>>>v playingId = 0
+>>>>>v soundEmitterObject = 
+>>>>>v transitionDuration = 0
+>>>>>v triggerList = System.Collections.Generic.List`1[System.Int32]
+>>>>>v useOtherObject = False
+>>>>>c LowerJaw
+
+>>>>>> transform = p:(0.0, 0.9, 0.2) r:(302.3, 180.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>c LowerJaw_end
+
+>>>>>>> transform = p:(0.0, 1.0, 0.0) r:(302.3, 180.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>c WormBox
+
+>>>>>>> transform = p:(0.0, 0.8, 0.0) r:(307.6, 180.0, 0.0) s:(1.8, 1.6, 0.7)
+
+>>>>>>> RoR2.HitBox
+
+>>>>>>> UnityEngine.BoxCollider
+
+>>>>>>> RoR2.HurtBox
+>>>>>>>v healthComponent = MagmaWormBody (RoR2.HealthComponent)
+>>>>>>>v isBullseye = False
+>>>>>>>v damageModifier = Normal
+>>>>>>>v teamIndex = None
+>>>>>>>v hurtBoxGroup = mdlMagmaWorm (RoR2.HurtBoxGroup)
+>>>>>>>v indexInGroup = 0
+>>>>>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+
+>>>>>>> SurfaceDefProvider
+>>>>>>>v surfaceDef = sdMagmaWorm (SurfaceDef)
+>>>>>>c WormBox
+
+>>>>>>> transform = p:(0.0, 1.9, -0.1) r:(279.3, 180.0, 0.0) s:(1.1, 1.1, 0.5)
+
+>>>>>>> RoR2.HitBox
+
+>>>>>>> UnityEngine.BoxCollider
+
+>>>>>>> RoR2.HurtBox
+>>>>>>>v healthComponent = MagmaWormBody (RoR2.HealthComponent)
+>>>>>>>v isBullseye = False
+>>>>>>>v damageModifier = Normal
+>>>>>>>v teamIndex = None
+>>>>>>>v hurtBoxGroup = mdlMagmaWorm (RoR2.HurtBoxGroup)
+>>>>>>>v indexInGroup = 1
+>>>>>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+
+>>>>>>> SurfaceDefProvider
+>>>>>>>v surfaceDef = sdMagmaWorm (SurfaceDef)
+>>>>>c UpperJaw
+
+>>>>>> transform = p:(0.0, 0.8, -0.9) r:(327.4, 0.0, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>c eye.l
+
+>>>>>>> transform = p:(0.9, 1.1, 0.1) r:(53.2, 0.0, 90.0) s:(0.3, 0.3, 0.3)
+>>>>>>>c eye.l_end
+
+>>>>>>>> transform = p:(0.0, 0.2, 0.0) r:(53.2, 0.0, 90.0) s:(1.0, 1.0, 1.0)
+>>>>>>c eye.r
+
+>>>>>>> transform = p:(-0.9, 1.1, 0.1) r:(323.2, 0.0, 270.0) s:(0.3, 0.3, 0.3)
+>>>>>>>c eye.r_end
+
+>>>>>>>> transform = p:(0.0, 0.2, 0.0) r:(323.2, 0.0, 270.0) s:(1.0, 1.0, 1.0)
+>>>>>>c WormBox
+
+>>>>>>> transform = p:(0.0, -0.3, -0.2) r:(341.8, 0.0, 180.0) s:(1.2, 1.3, 0.7)
+
+>>>>>>> RoR2.HitBox
+
+>>>>>>> UnityEngine.BoxCollider
+
+>>>>>>> RoR2.HurtBox
+>>>>>>>v healthComponent = MagmaWormBody (RoR2.HealthComponent)
+>>>>>>>v isBullseye = False
+>>>>>>>v damageModifier = Normal
+>>>>>>>v teamIndex = None
+>>>>>>>v hurtBoxGroup = mdlMagmaWorm (RoR2.HurtBoxGroup)
+>>>>>>>v indexInGroup = 2
+>>>>>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+
+>>>>>>> SurfaceDefProvider
+>>>>>>>v surfaceDef = sdMagmaWorm (SurfaceDef)
+>>>>>>c WormBox
+
+>>>>>>> transform = p:(0.0, 1.1, 0.0) r:(305.6, 0.0, 180.0) s:(1.2, 2.2, 0.6)
+
+>>>>>>> RoR2.HitBox
+
+>>>>>>> UnityEngine.BoxCollider
+
+>>>>>>> RoR2.HurtBox
+>>>>>>>v healthComponent = MagmaWormBody (RoR2.HealthComponent)
+>>>>>>>v isBullseye = False
+>>>>>>>v damageModifier = Normal
+>>>>>>>v teamIndex = None
+>>>>>>>v hurtBoxGroup = mdlMagmaWorm (RoR2.HurtBoxGroup)
+>>>>>>>v indexInGroup = 3
+>>>>>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+
+>>>>>>> SurfaceDefProvider
+>>>>>>>v surfaceDef = sdMagmaWorm (SurfaceDef)
+>>>>>c WormBox
+
+>>>>>> transform = p:(0.0, 1.2, -0.3) r:(274.7, 0.0, 180.0) s:(1.8, 2.3, 2.0)
+
+>>>>>> RoR2.HitBox
+
+>>>>>> UnityEngine.BoxCollider
+
+>>>>>> RoR2.HurtBox
+>>>>>>v healthComponent = MagmaWormBody (RoR2.HealthComponent)
+>>>>>>v isBullseye = True
+>>>>>>v damageModifier = Normal
+>>>>>>v teamIndex = None
+>>>>>>v hurtBoxGroup = mdlMagmaWorm (RoR2.HurtBoxGroup)
+>>>>>>v indexInGroup = 4
+>>>>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+
+>>>>>> SurfaceDefProvider
+>>>>>>v surfaceDef = sdMagmaWorm (SurfaceDef)
+>>>>>c ShakeEmitter
+
+>>>>>> transform = p:(0.0, -15.0, -0.1) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>>>> RoR2.ShakeEmitter
+>>>>>>v shakeOnStart = True
+>>>>>>v wave = Wave
+>>>>>>v duration = 100000
+>>>>>>v radius = 30
+>>>>>>v scaleShakeRadiusWithLocalScale = False
+>>>>>>v amplitudeTimeDecay = False
+>>>>>c PARTICLE: GooEmitter
+
+>>>>>> transform = p:(0.0, 0.7, -0.2) r:(0.5, 180.0, 180.0) s:(1.0, 1.0, 1.0)
+
+>>>>>> UnityEngine.ParticleSystem
+
+>>>>>> UnityEngine.ParticleSystemRenderer
+>>>>>c PPVolume
+
+>>>>>> transform = p:(0.0, 0.0, 0.0) r:(270.5, 180.2, 179.8) s:(1.0, 1.0, 1.0)
+
+>>>>>> UnityEngine.Rendering.PostProcessing.PostProcessVolume
+>>>>>>v sharedProfile = ppLocalMagmaWorm (UnityEngine.Rendering.PostProcessing.PostProcessProfile)
+>>>>>>v isGlobal = False
+>>>>>>v blendDistance = 60
+>>>>>>v weight = 1
+>>>>>>v priority = 16.36
+
+>>>>>> UnityEngine.SphereCollider
+
+>>>>>> RoR2.PostProcessDuration
+>>>>>>v ppVolume = PPVolume (UnityEngine.Rendering.PostProcessing.PostProcessVolume)
+>>>>>>v ppWeightCurve = UnityEngine.AnimationCurve
+>>>>>>v maxDuration = 1
+>>>>>>v destroyOnEnd = False
+>>>>>c MouthMuzzle
+
+>>>>>> transform = p:(0.0, -1.0, -0.4) r:(359.5, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>c HeadCenter
+
+>>>>>> transform = p:(0.0, 1.1, -0.2) r:(359.5, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>c SFX
+
+>>>>>> transform = p:(0.0, 0.0, 0.0) r:(270.5, 180.2, 179.8) s:(1.0, 1.0, 1.0)
+>>>>c Neck1
+
+>>>>> transform = p:(0.0, 0.4, 0.0) r:(270.5, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>c WormBox + Particle Emitter
+
+>>>>>> transform = p:(0.0, 1.0, -0.3) r:(0.0, 0.0, 0.0) s:(2.0, 1.8, 2.0)
+
+>>>>>> RoR2.HitBox
+
+>>>>>> UnityEngine.BoxCollider
+
+>>>>>> RoR2.HurtBox
+>>>>>>v healthComponent = MagmaWormBody (RoR2.HealthComponent)
+>>>>>>v isBullseye = True
+>>>>>>v damageModifier = Normal
+>>>>>>v teamIndex = None
+>>>>>>v hurtBoxGroup = mdlMagmaWorm (RoR2.HurtBoxGroup)
+>>>>>>v indexInGroup = 5
+>>>>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+
+>>>>>> UnityEngine.ParticleSystemRenderer
+
+>>>>>> UnityEngine.ParticleSystem
+
+>>>>>> SurfaceDefProvider
+>>>>>>v surfaceDef = sdMagmaWorm (SurfaceDef)
+>>>>c Neck2
+
+>>>>> transform = p:(0.0, 2.0, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>c WormBox + Particle Emitter
+
+>>>>>> transform = p:(0.0, 1.0, -0.3) r:(0.0, 0.0, 0.0) s:(2.0, 1.9, 2.0)
+
+>>>>>> RoR2.HitBox
+
+>>>>>> UnityEngine.BoxCollider
+
+>>>>>> RoR2.HurtBox
+>>>>>>v healthComponent = MagmaWormBody (RoR2.HealthComponent)
+>>>>>>v isBullseye = True
+>>>>>>v damageModifier = Normal
+>>>>>>v teamIndex = None
+>>>>>>v hurtBoxGroup = mdlMagmaWorm (RoR2.HurtBoxGroup)
+>>>>>>v indexInGroup = 6
+>>>>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+
+>>>>>> UnityEngine.ParticleSystemRenderer
+
+>>>>>> UnityEngine.ParticleSystem
+
+>>>>>> SurfaceDefProvider
+>>>>>>v surfaceDef = sdMagmaWorm (SurfaceDef)
+>>>>c Neck3
+
+>>>>> transform = p:(0.0, 3.4, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>c WormBox + Particle Emitter
+
+>>>>>> transform = p:(0.0, 1.0, -0.3) r:(0.0, 0.0, 0.0) s:(2.0, 1.9, 2.0)
+
+>>>>>> RoR2.HitBox
+
+>>>>>> UnityEngine.BoxCollider
+
+>>>>>> RoR2.HurtBox
+>>>>>>v healthComponent = MagmaWormBody (RoR2.HealthComponent)
+>>>>>>v isBullseye = True
+>>>>>>v damageModifier = Normal
+>>>>>>v teamIndex = None
+>>>>>>v hurtBoxGroup = mdlMagmaWorm (RoR2.HurtBoxGroup)
+>>>>>>v indexInGroup = 7
+>>>>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+
+>>>>>> UnityEngine.ParticleSystemRenderer
+
+>>>>>> UnityEngine.ParticleSystem
+
+>>>>>> SurfaceDefProvider
+>>>>>>v surfaceDef = sdMagmaWorm (SurfaceDef)
+>>>>c Neck4
+
+>>>>> transform = p:(0.0, 4.9, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>c WormBox + Particle Emitter
+
+>>>>>> transform = p:(0.0, 1.0, -0.3) r:(0.0, 0.0, 0.0) s:(2.0, 1.9, 2.0)
+
+>>>>>> RoR2.HitBox
+
+>>>>>> UnityEngine.BoxCollider
+
+>>>>>> RoR2.HurtBox
+>>>>>>v healthComponent = MagmaWormBody (RoR2.HealthComponent)
+>>>>>>v isBullseye = True
+>>>>>>v damageModifier = Normal
+>>>>>>v teamIndex = None
+>>>>>>v hurtBoxGroup = mdlMagmaWorm (RoR2.HurtBoxGroup)
+>>>>>>v indexInGroup = 8
+>>>>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+
+>>>>>> UnityEngine.ParticleSystemRenderer
+
+>>>>>> UnityEngine.ParticleSystem
+
+>>>>>> SurfaceDefProvider
+>>>>>>v surfaceDef = sdMagmaWorm (SurfaceDef)
+>>>>c Neck5
+
+>>>>> transform = p:(0.0, 6.4, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>c WormBox + Particle Emitter
+
+>>>>>> transform = p:(0.0, 1.0, -0.3) r:(0.0, 0.0, 0.0) s:(1.9, 1.8, 2.0)
+
+>>>>>> RoR2.HitBox
+
+>>>>>> UnityEngine.BoxCollider
+
+>>>>>> RoR2.HurtBox
+>>>>>>v healthComponent = MagmaWormBody (RoR2.HealthComponent)
+>>>>>>v isBullseye = True
+>>>>>>v damageModifier = Normal
+>>>>>>v teamIndex = None
+>>>>>>v hurtBoxGroup = mdlMagmaWorm (RoR2.HurtBoxGroup)
+>>>>>>v indexInGroup = 9
+>>>>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+
+>>>>>> UnityEngine.ParticleSystemRenderer
+
+>>>>>> UnityEngine.ParticleSystem
+
+>>>>>> SurfaceDefProvider
+>>>>>>v surfaceDef = sdMagmaWorm (SurfaceDef)
+>>>>c Neck6
+
+>>>>> transform = p:(0.0, 8.1, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>c WormBox + Particle Emitter
+
+>>>>>> transform = p:(0.0, 1.0, -0.3) r:(0.0, 0.0, 0.0) s:(1.8, 1.7, 2.0)
+
+>>>>>> RoR2.HitBox
+
+>>>>>> UnityEngine.BoxCollider
+
+>>>>>> RoR2.HurtBox
+>>>>>>v healthComponent = MagmaWormBody (RoR2.HealthComponent)
+>>>>>>v isBullseye = True
+>>>>>>v damageModifier = Normal
+>>>>>>v teamIndex = None
+>>>>>>v hurtBoxGroup = mdlMagmaWorm (RoR2.HurtBoxGroup)
+>>>>>>v indexInGroup = 10
+>>>>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+
+>>>>>> UnityEngine.ParticleSystemRenderer
+
+>>>>>> UnityEngine.ParticleSystem
+
+>>>>>> SurfaceDefProvider
+>>>>>>v surfaceDef = sdMagmaWorm (SurfaceDef)
+>>>>c Neck7
+
+>>>>> transform = p:(0.0, 9.6, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>c WormBox + Particle Emitter
+
+>>>>>> transform = p:(0.0, 1.0, -0.3) r:(0.0, 0.0, 0.0) s:(1.7, 1.6, 2.0)
+
+>>>>>> RoR2.HitBox
+
+>>>>>> UnityEngine.BoxCollider
+
+>>>>>> RoR2.HurtBox
+>>>>>>v healthComponent = MagmaWormBody (RoR2.HealthComponent)
+>>>>>>v isBullseye = True
+>>>>>>v damageModifier = Normal
+>>>>>>v teamIndex = None
+>>>>>>v hurtBoxGroup = mdlMagmaWorm (RoR2.HurtBoxGroup)
+>>>>>>v indexInGroup = 11
+>>>>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+
+>>>>>> UnityEngine.ParticleSystemRenderer
+
+>>>>>> UnityEngine.ParticleSystem
+
+>>>>>> SurfaceDefProvider
+>>>>>>v surfaceDef = sdMagmaWorm (SurfaceDef)
+>>>>c Neck8
+
+>>>>> transform = p:(0.0, 11.1, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>c WormBox + Particle Emitter
+
+>>>>>> transform = p:(0.0, 1.0, -0.3) r:(0.0, 0.0, 0.0) s:(1.7, 1.5, 2.0)
+
+>>>>>> RoR2.HitBox
+
+>>>>>> UnityEngine.BoxCollider
+
+>>>>>> RoR2.HurtBox
+>>>>>>v healthComponent = MagmaWormBody (RoR2.HealthComponent)
+>>>>>>v isBullseye = True
+>>>>>>v damageModifier = Normal
+>>>>>>v teamIndex = None
+>>>>>>v hurtBoxGroup = mdlMagmaWorm (RoR2.HurtBoxGroup)
+>>>>>>v indexInGroup = 12
+>>>>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+
+>>>>>> UnityEngine.ParticleSystemRenderer
+
+>>>>>> UnityEngine.ParticleSystem
+
+>>>>>> SurfaceDefProvider
+>>>>>>v surfaceDef = sdMagmaWorm (SurfaceDef)
+>>>>c Neck9
+
+>>>>> transform = p:(0.0, 12.6, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>c WormBox + Particle Emitter
+
+>>>>>> transform = p:(0.0, 1.0, -0.3) r:(0.0, 0.0, 0.0) s:(1.6, 1.4, 2.0)
+
+>>>>>> RoR2.HitBox
+
+>>>>>> UnityEngine.BoxCollider
+
+>>>>>> RoR2.HurtBox
+>>>>>>v healthComponent = MagmaWormBody (RoR2.HealthComponent)
+>>>>>>v isBullseye = True
+>>>>>>v damageModifier = Normal
+>>>>>>v teamIndex = None
+>>>>>>v hurtBoxGroup = mdlMagmaWorm (RoR2.HurtBoxGroup)
+>>>>>>v indexInGroup = 13
+>>>>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+
+>>>>>> UnityEngine.ParticleSystemRenderer
+
+>>>>>> UnityEngine.ParticleSystem
+
+>>>>>> SurfaceDefProvider
+>>>>>>v surfaceDef = sdMagmaWorm (SurfaceDef)
+>>>>c Neck10
+
+>>>>> transform = p:(0.0, 14.1, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>c WormBox
+
+>>>>>> transform = p:(0.0, 1.0, -0.3) r:(0.0, 0.0, 0.0) s:(1.5, 1.3, 2.0)
+
+>>>>>> RoR2.HitBox
+
+>>>>>> UnityEngine.BoxCollider
+
+>>>>>> RoR2.HurtBox
+>>>>>>v healthComponent = MagmaWormBody (RoR2.HealthComponent)
+>>>>>>v isBullseye = True
+>>>>>>v damageModifier = Normal
+>>>>>>v teamIndex = None
+>>>>>>v hurtBoxGroup = mdlMagmaWorm (RoR2.HurtBoxGroup)
+>>>>>>v indexInGroup = 14
+>>>>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+
+>>>>>> SurfaceDefProvider
+>>>>>>v surfaceDef = sdMagmaWorm (SurfaceDef)
+>>>>c Neck11
+
+>>>>> transform = p:(0.0, 15.7, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>c WormBox
+
+>>>>>> transform = p:(0.0, 1.0, -0.3) r:(0.0, 0.0, 0.0) s:(1.4, 1.3, 2.0)
+
+>>>>>> RoR2.HitBox
+
+>>>>>> UnityEngine.BoxCollider
+
+>>>>>> RoR2.HurtBox
+>>>>>>v healthComponent = MagmaWormBody (RoR2.HealthComponent)
+>>>>>>v isBullseye = True
+>>>>>>v damageModifier = Normal
+>>>>>>v teamIndex = None
+>>>>>>v hurtBoxGroup = mdlMagmaWorm (RoR2.HurtBoxGroup)
+>>>>>>v indexInGroup = 15
+>>>>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+
+>>>>>> SurfaceDefProvider
+>>>>>>v surfaceDef = sdMagmaWorm (SurfaceDef)
+>>>>c Neck12
+
+>>>>> transform = p:(0.0, 17.2, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>c WormBox
+
+>>>>>> transform = p:(0.0, 1.0, -0.3) r:(0.0, 0.0, 0.0) s:(1.4, 1.3, 2.0)
+
+>>>>>> RoR2.HitBox
+
+>>>>>> UnityEngine.BoxCollider
+
+>>>>>> RoR2.HurtBox
+>>>>>>v healthComponent = MagmaWormBody (RoR2.HealthComponent)
+>>>>>>v isBullseye = True
+>>>>>>v damageModifier = Normal
+>>>>>>v teamIndex = None
+>>>>>>v hurtBoxGroup = mdlMagmaWorm (RoR2.HurtBoxGroup)
+>>>>>>v indexInGroup = 16
+>>>>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+
+>>>>>> SurfaceDefProvider
+>>>>>>v surfaceDef = sdMagmaWorm (SurfaceDef)
+>>>>c Neck13
+
+>>>>> transform = p:(0.0, 18.6, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>c WormBox
+
+>>>>>> transform = p:(0.0, 1.0, -0.3) r:(0.0, 0.0, 0.0) s:(1.3, 1.2, 2.0)
+
+>>>>>> RoR2.HitBox
+
+>>>>>> UnityEngine.BoxCollider
+
+>>>>>> RoR2.HurtBox
+>>>>>>v healthComponent = MagmaWormBody (RoR2.HealthComponent)
+>>>>>>v isBullseye = True
+>>>>>>v damageModifier = Normal
+>>>>>>v teamIndex = None
+>>>>>>v hurtBoxGroup = mdlMagmaWorm (RoR2.HurtBoxGroup)
+>>>>>>v indexInGroup = 17
+>>>>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+
+>>>>>> SurfaceDefProvider
+>>>>>>v surfaceDef = sdMagmaWorm (SurfaceDef)
+>>>>c Neck14
+
+>>>>> transform = p:(0.0, 20.2, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>c WormBox
+
+>>>>>> transform = p:(0.0, 1.0, -0.3) r:(0.0, 0.0, 0.0) s:(1.3, 1.1, 2.0)
+
+>>>>>> RoR2.HitBox
+
+>>>>>> UnityEngine.BoxCollider
+
+>>>>>> RoR2.HurtBox
+>>>>>>v healthComponent = MagmaWormBody (RoR2.HealthComponent)
+>>>>>>v isBullseye = True
+>>>>>>v damageModifier = Normal
+>>>>>>v teamIndex = None
+>>>>>>v hurtBoxGroup = mdlMagmaWorm (RoR2.HurtBoxGroup)
+>>>>>>v indexInGroup = 18
+>>>>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+
+>>>>>> SurfaceDefProvider
+>>>>>>v surfaceDef = sdMagmaWorm (SurfaceDef)
+>>>>c Neck15
+
+>>>>> transform = p:(0.0, 21.8, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>c WormBox
+
+>>>>>> transform = p:(0.0, 1.0, -0.3) r:(0.0, 0.0, 0.0) s:(1.2, 1.1, 2.0)
+
+>>>>>> RoR2.HitBox
+
+>>>>>> UnityEngine.BoxCollider
+
+>>>>>> RoR2.HurtBox
+>>>>>>v healthComponent = MagmaWormBody (RoR2.HealthComponent)
+>>>>>>v isBullseye = True
+>>>>>>v damageModifier = Normal
+>>>>>>v teamIndex = None
+>>>>>>v hurtBoxGroup = mdlMagmaWorm (RoR2.HurtBoxGroup)
+>>>>>>v indexInGroup = 19
+>>>>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+
+>>>>>> SurfaceDefProvider
+>>>>>>v surfaceDef = sdMagmaWorm (SurfaceDef)
+>>>>c Neck16
+
+>>>>> transform = p:(0.0, 23.2, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>c Neck16_end
+
+>>>>>> transform = p:(0.0, 1.5, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>c WormBox
+
+>>>>>> transform = p:(0.0, 2.0, -0.3) r:(0.0, 0.0, 0.0) s:(1.1, 1.0, 3.1)
+
+>>>>>> RoR2.HitBox
+
+>>>>>> UnityEngine.BoxCollider
+
+>>>>>> RoR2.HurtBox
+>>>>>>v healthComponent = MagmaWormBody (RoR2.HealthComponent)
+>>>>>>v isBullseye = True
+>>>>>>v damageModifier = Normal
+>>>>>>v teamIndex = None
+>>>>>>v hurtBoxGroup = mdlMagmaWorm (RoR2.HurtBoxGroup)
+>>>>>>v indexInGroup = 20
+>>>>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+
+>>>>>> SurfaceDefProvider
+>>>>>>v surfaceDef = sdMagmaWorm (SurfaceDef)
+>>>c WormMesh
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 0.0, 0.0) s:(100.0, 100.0, 100.0)
+
+>>>> UnityEngine.SkinnedMeshRenderer
+>c CameraPivot
+
+>> transform = p:(0.0, 0.8, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>c AimOrigin
+
+>> transform = p:(0.0, 0.5, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>c Chaser
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> UnityEngine.Rigidbody
+>c Sphere
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> UnityEngine.MeshFilter
+
+>> UnityEngine.MeshRenderer

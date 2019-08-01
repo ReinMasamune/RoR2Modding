@@ -1,0 +1,101 @@
+DaggerProjectile
+
+> transform = p:(120.9, 10.3, 62.4) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> UnityEngine.Networking.NetworkIdentity
+>v clientAuthorityCallback = 
+
+> RoR2.Projectile.ProjectileController
+>v ghostPrefab = DaggerProjectileGhost (UnityEngine.GameObject)
+>v ghost = 
+>v isPrediction = False
+>v allowPrediction = False
+>v predictionId = 0
+>v owner = 
+>v procChainMask = RoR2.ProcChainMask
+>v procCoefficient = 1
+>v target = 
+>v authorityEffect = 
+>v predictionEffect = 
+
+> UnityEngine.Rigidbody
+
+> RoR2.Projectile.ProjectileNetworkTransform
+>v positionTransmitInterval = 0.03333334
+>v interpolationFactor = 1
+>v allowClientsideCollision = False
+
+> RoR2.TeamFilter
+
+> UnityEngine.SphereCollider
+
+> RoR2.Projectile.ProjectileSingleTargetImpact
+>v destroyOnWorld = False
+>v impactEffect = DaggerImpact (UnityEngine.GameObject)
+>v hitSoundString = Play_item_proc_dagger_impact
+>v enemyHitSoundString = 
+
+> RoR2.Projectile.ProjectileDamage
+>v damage = 0
+>v crit = False
+>v force = 0
+>v damageColorIndex = Default
+>v damageType = Generic
+
+> AkEvent
+>v actionOnEventType = AkActionOnEventType_Stop
+>v curveInterpolation = AkCurveInterpolation_Linear
+>v enableActionOnEvent = False
+>v data = Play_item_proc_dagger_spawn
+>v m_callbackData = 
+>v playingId = 0
+>v soundEmitterObject = 
+>v transitionDuration = 0
+>v triggerList = System.Collections.Generic.List`1[System.Int32]
+>v useOtherObject = False
+
+> RoR2.Projectile.ProjectileTargetComponent
+>v target = 
+
+> RoR2.Projectile.ProjectileSteerTowardTarget
+>v yAxisOnly = False
+>v rotationSpeed = 720
+
+> RoR2.Projectile.ProjectileSimple
+>v velocity = 100
+>v lifetime = 30
+>v updateAfterFiring = True
+>v enableVelocityOverLifetime = True
+>v velocityOverLifetime = UnityEngine.AnimationCurve
+
+> RoR2.Projectile.ProjectileDirectionalTargetFinder
+>v lookRange = 130
+>v lookCone = 360
+>v targetSearchInterval = 0.5
+>v onlySearchIfNoTarget = True
+>v allowTargetLoss = False
+>v testLoS = False
+>v ignoreAir = False
+>v onNewTargetFound = UnityEngine.Events.UnityEvent UnityEngine.Events.UnityEvent
+>v ontargetLost = UnityEngine.Events.UnityEvent UnityEngine.Events.UnityEvent
+
+> RoR2.DelayedEvent
+>v action = UnityEngine.Events.UnityEvent UnityEngine.Events.UnityEvent
+>v timeStepType = FixedTime
+
+> RoR2.AwakeEvent
+>v action = UnityEngine.Events.UnityEvent UnityEngine.Events.UnityEvent
+
+> RoR2.DestroyOnTimer
+>v duration = 13
+>v resetAgeOnDisable = False
+
+> RoR2.AnimationEvents
+>v soundCenter = DaggerProjectile (UnityEngine.GameObject)
+>c DeactivateDagger
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> RoR2.DelayedEvent
+>>v action = UnityEngine.Events.UnityEvent UnityEngine.Events.UnityEvent
+>>v timeStepType = FixedTime

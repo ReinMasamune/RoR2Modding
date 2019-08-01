@@ -1,0 +1,1073 @@
+TreebotBody
+
+> transform = p:(65.8, -140.5, -237.0) r:(0.0, 359.9, 0.0) s:(1.0, 1.0, 1.0)
+
+> UnityEngine.Networking.NetworkIdentity
+>v clientAuthorityCallback = 
+
+> RoR2.CharacterMotor
+>v instancesList = System.Collections.Generic.List`1[RoR2.CharacterMotor]
+>v walkSpeedPenaltyCoefficient = 1
+>v characterDirection = 
+>v muteWalkMotion = False
+>v mass = 150
+>v airControl = 0.25
+>v disableAirControlUntilCollision = False
+>v generateParametersOnAwake = True
+>v slipStartAngle = 70
+>v slipEndAngle = 55
+>v jumpCount = 0
+>v netIsGrounded = False
+>v netGroundNormal = (0.0, 0.0, 0.0)
+>v velocity = (0.0, 0.0, 0.0)
+>v rootMotion = (0.0, 0.0, 0.0)
+
+> RoR2.InputBankTest
+>v lookPitch = 0
+>v lookYaw = 0
+>v moveVector = (0.0, 0.0, 0.0)
+>v skill1 = RoR2.InputBankTest+ButtonState
+>v skill2 = RoR2.InputBankTest+ButtonState
+>v skill3 = RoR2.InputBankTest+ButtonState
+>v skill4 = RoR2.InputBankTest+ButtonState
+>v interact = RoR2.InputBankTest+ButtonState
+>v jump = RoR2.InputBankTest+ButtonState
+>v sprint = RoR2.InputBankTest+ButtonState
+>v activateEquipment = RoR2.InputBankTest+ButtonState
+>v ping = RoR2.InputBankTest+ButtonState
+>v emoteRequest = -1
+
+> RoR2.CharacterBody
+>v bodyIndex = 62
+>v baseNameToken = TREEBOT_BODY_NAME
+>v subtitleNameToken = 
+>v pendingTonicAfflictionCount = 0
+>v bodyFlags = Mechanical, ImmuneToExecutes
+>v readOnlyInstancesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.CharacterBody]
+>v rootMotionInMainState = False
+>v mainRootSpeed = 0
+>v baseMaxHealth = 130
+>v baseRegen = 0.6
+>v baseMaxShield = 0
+>v baseMoveSpeed = 7
+>v baseAcceleration = 80
+>v baseJumpPower = 15
+>v baseDamage = 12
+>v baseAttackSpeed = 1
+>v baseCrit = 1
+>v baseArmor = 20
+>v baseJumpCount = 1
+>v autoCalculateLevelStats = True
+>v levelMaxHealth = 39
+>v levelRegen = 0.12
+>v levelMaxShield = 0
+>v levelMoveSpeed = 0
+>v levelJumpPower = 0
+>v levelDamage = 2.4
+>v levelAttackSpeed = 0
+>v levelCrit = 0
+>v levelArmor = 0
+>v killCount = 0
+>v wasLucky = False
+>v spreadBloomDecayTime = 1
+>v spreadBloomCurve = UnityEngine.AnimationCurve
+>v crosshairPrefab = TreebotCrosshair (UnityEngine.GameObject)
+>v hideCrosshair = False
+>v aimOriginTransform = AimOriginMortar (UnityEngine.Transform)
+>v hullClassification = Human
+>v portraitIcon = TreebotBody (UnityEngine.Texture2D)
+>v isChampion = False
+>v currentVehicle = 
+>v preferredPodPrefab = SurvivorPod (UnityEngine.GameObject)
+
+> RoR2.CameraTargetParams
+>v cameraParams = ccpTreebot (RoR2.CharacterCameraParams)
+>v cameraPivotTransform = CameraPivot (UnityEngine.Transform)
+>v aimMode = Standard
+>v recoil = (0.0, 0.0)
+>v idealLocalCameraPos = (0.0, 0.0, -4.7)
+>v fovOverride = -1
+>v dontRaycastToPivot = False
+
+> RoR2.ModelLocator
+>v modelTransform = mdlTreebot (UnityEngine.Transform)
+>v modelBaseTransform = ModelBase (UnityEngine.Transform)
+>v dontReleaseModelOnDeath = False
+>v autoUpdateModelTransform = True
+>v dontDetatchFromParent = False
+>v noCorpse = False
+>v normalizeToFloor = True
+>v preserveModel = False
+
+> RoR2.EntityStateMachine
+>v customName = Body
+>v initialStateType = EntityStates.SerializableEntityStateType
+>v mainStateType = EntityStates.SerializableEntityStateType
+>v commonComponents = RoR2.EntityStateMachine+CommonComponentCache
+>v networkIndex = -1
+
+> RoR2.EntityStateMachine
+>v customName = Weapon
+>v initialStateType = EntityStates.SerializableEntityStateType
+>v mainStateType = EntityStates.SerializableEntityStateType
+>v commonComponents = RoR2.EntityStateMachine+CommonComponentCache
+>v networkIndex = -1
+
+> RoR2.CharacterDirection
+>v moveVector = (0.0, 0.0, 0.0)
+>v targetTransform = ModelBase (UnityEngine.Transform)
+>v overrideAnimatorForwardTransform = 
+>v rootMotionAccumulator = 
+>v modelAnimator = 
+>v driveFromRootRotation = False
+>v turnSpeed = 720
+
+> RoR2.GenericSkill
+>v skillName = FireSyringe
+>v skillNameToken = TREEBOT_PRIMARY_NAME
+>v skillDescriptionToken = TREEBOT_PRIMARY_DESCRIPTION
+>v baseRechargeInterval = 0
+>v baseMaxStock = 1
+>v rechargeStock = 1
+>v isBullets = False
+>v shootDelay = 0.08
+>v beginSkillCooldownOnSkillEnd = False
+>v stateMachine = TreebotBody (RoR2.EntityStateMachine)
+>v activationState = EntityStates.SerializableEntityStateType
+>v interruptPriority = Any
+>v isCombatSkill = True
+>v noSprint = True
+>v canceledFromSprinting = False
+>v mustKeyPress = False
+>v icon = texTreebotSkillIcons_0 (UnityEngine.Sprite)
+>v requiredStock = 1
+>v stockToConsume = 1
+>v hasExecutedSuccessfully = False
+
+> RoR2.GenericSkill
+>v skillName = AimMortar2
+>v skillNameToken = TREEBOT_SECONDARY_NAME
+>v skillDescriptionToken = TREEBOT_SECONDARY_DESCRIPTION
+>v baseRechargeInterval = 0.5
+>v baseMaxStock = 1
+>v rechargeStock = 1
+>v isBullets = False
+>v shootDelay = 0.08
+>v beginSkillCooldownOnSkillEnd = True
+>v stateMachine = TreebotBody (RoR2.EntityStateMachine)
+>v activationState = EntityStates.SerializableEntityStateType
+>v interruptPriority = Skill
+>v isCombatSkill = True
+>v noSprint = True
+>v canceledFromSprinting = True
+>v mustKeyPress = True
+>v icon = texTreebotSkillIcons_1 (UnityEngine.Sprite)
+>v requiredStock = 1
+>v stockToConsume = 1
+>v hasExecutedSuccessfully = False
+
+> RoR2.GenericSkill
+>v skillName = SonicBoom
+>v skillNameToken = TREEBOT_UTILITY_NAME
+>v skillDescriptionToken = TREEBOT_UTILITY_DESCRIPTION
+>v baseRechargeInterval = 5.5
+>v baseMaxStock = 1
+>v rechargeStock = 1
+>v isBullets = False
+>v shootDelay = 0.3
+>v beginSkillCooldownOnSkillEnd = False
+>v stateMachine = TreebotBody (RoR2.EntityStateMachine)
+>v activationState = EntityStates.SerializableEntityStateType
+>v interruptPriority = Skill
+>v isCombatSkill = True
+>v noSprint = True
+>v canceledFromSprinting = False
+>v mustKeyPress = False
+>v icon = texTreebotSkillIcons_2 (UnityEngine.Sprite)
+>v requiredStock = 1
+>v stockToConsume = 1
+>v hasExecutedSuccessfully = False
+
+> RoR2.GenericSkill
+>v skillName = FireFlower2
+>v skillNameToken = TREEBOT_SPECIAL_NAME
+>v skillDescriptionToken = TREEBOT_SPECIAL_DESCRIPTION
+>v baseRechargeInterval = 12
+>v baseMaxStock = 1
+>v rechargeStock = 1
+>v isBullets = False
+>v shootDelay = 0.3
+>v beginSkillCooldownOnSkillEnd = True
+>v stateMachine = TreebotBody (RoR2.EntityStateMachine)
+>v activationState = EntityStates.SerializableEntityStateType
+>v interruptPriority = Skill
+>v isCombatSkill = True
+>v noSprint = True
+>v canceledFromSprinting = False
+>v mustKeyPress = False
+>v icon = texTreebotSkillIcons_3 (UnityEngine.Sprite)
+>v requiredStock = 1
+>v stockToConsume = 1
+>v hasExecutedSuccessfully = False
+
+> RoR2.SkillLocator
+>v primary = TreebotBody (RoR2.GenericSkill)
+>v secondary = TreebotBody (RoR2.GenericSkill)
+>v utility = TreebotBody (RoR2.GenericSkill)
+>v special = TreebotBody (RoR2.GenericSkill)
+>v passiveSkill = RoR2.SkillLocator+PassiveSkill
+
+> RoR2.TeamComponent
+>v hideAllyCardDisplay = False
+
+> RoR2.HealthComponent
+>v health = 100
+>v shield = 0
+>v barrier = 0
+>v body = 
+>v dontShowHealthbar = False
+>v globalDeathEventChanceCoefficient = 1
+>v medkitActivationDelay = 1.1
+>v frozenExecuteThreshold = 0.3
+
+> RoR2.Interactor
+>v maxInteractionDistance = 3
+
+> RoR2.InteractionDriver
+>v highlightInteractor = True
+>v interactableOverride = 
+
+> RoR2.CharacterDeathBehavior
+>v deathStateMachine = TreebotBody (RoR2.EntityStateMachine)
+>v deathState = EntityStates.SerializableEntityStateType
+>v idleStateMachine = RoR2.EntityStateMachine[]
+
+> RoR2.Networking.CharacterNetworkTransform
+>v positionTransmitInterval = 0.05
+>v lastPositionTransmitTime = -Infinity
+>v interpolationFactor = 3
+>v newestNetSnapshot = RoR2.Networking.CharacterNetworkTransform+Snapshot
+>v debugDuplicatePositions = False
+>v debugSnapshotReceived = False
+
+> RoR2.NetworkStateMachine
+
+> RoR2.CharacterEmoteDefinitions
+>v emoteDefinitions = RoR2.CharacterEmoteDefinitions+EmoteDef[]
+
+> RoR2.EquipmentSlot
+>v equipmentActivateString = Play_UI_equipment_activate
+
+> RoR2.SfxLocator
+>v deathSound = Play_ui_player_death
+>v barkSound = 
+>v openSound = 
+>v landingSound = Play_char_land
+>v fallDamageSound = Play_char_land_fall_damage
+
+> RoR2.BodyAnimatorSmoothingParameters
+>v smoothingParameters = RoR2.BodyAnimatorSmoothingParameters+SmoothingParameters
+>v defaultParameters = RoR2.BodyAnimatorSmoothingParameters+SmoothingParameters
+
+> UnityEngine.Rigidbody
+
+> UnityEngine.CapsuleCollider
+
+> KinematicCharacterController.KinematicCharacterMotor
+>v CharacterController = TreebotBody (RoR2.CharacterMotor)
+>v Capsule = TreebotBody (UnityEngine.CapsuleCollider)
+>v Rigidbody = TreebotBody (UnityEngine.Rigidbody)
+>v DetectDiscreteCollisions = False
+>v GroundDetectionExtraDistance = 0
+>v MaxStepHeight = 0.2
+>v MinRequiredStepDepth = 0.1
+>v MaxStableSlopeAngle = 55
+>v MaxStableDistanceFromLedge = 0.5
+>v PreventSnappingOnLedges = False
+>v MaxStableDenivelationAngle = 55
+>v RigidbodyInteractionType = None
+>v PreserveAttachedRigidbodyMomentum = True
+>v HasPlanarConstraint = False
+>v PlanarConstraintAxis = (0.0, 0.0, 1.0)
+>v StepHandling = Standard
+>v LedgeHandling = True
+>v InteractiveRigidbodyHandling = True
+>v SafeMovement = False
+>v GroundingStatus = KinematicCharacterController.CharacterGroundingReport
+>v LastGroundingStatus = KinematicCharacterController.CharacterTransientGroundingReport
+>v CollidableLayers = UnityEngine.LayerMask
+>v MaxHitsBudget = 16
+>v MaxCollisionBudget = 16
+>v MaxGroundingSweepIterations = 2
+>v MaxMovementSweepIterations = 6
+>v MaxSteppingSweepIterations = 3
+>v MaxRigidbodyOverlapsCount = 16
+>v MaxDiscreteCollisionIterations = 3
+>v CollisionOffset = 0.001
+>v GroundProbeReboundDistance = 0.02
+>v MinimumGroundProbingDistance = 0.005
+>v GroundProbingBackstepDistance = 0.1
+>v SweepProbingBackstepDistance = 0.002
+>v SecondaryProbesVertical = 0.02
+>v SecondaryProbesHorizontal = 0.001
+>v MinVelocityMagnitude = 0.01
+>v SteppingForwardDistance = 0.03
+>v MinDistanceForLedge = 0.05
+>v CorrelationForVerticalObstruction = 0.01
+>v ExtraSteppingForwardDistance = 0.01
+>v ExtraStepHeightPadding = 0.01
+
+> RoR2.TreebotSunBuffGranter
+>v referenceTransform = SunReference (UnityEngine.Transform)
+>v raycastFrequency = 3
+>v buffIndex = Warbanner
+
+> RoR2.SetStateOnHurt
+>v hitThreshold = 5
+>v targetStateMachine = TreebotBody (RoR2.EntityStateMachine)
+>v idleStateMachine = RoR2.EntityStateMachine[]
+>v hurtState = EntityStates.SerializableEntityStateType
+>v canBeHitStunned = False
+>v canBeStunned = False
+>v canBeFrozen = True
+>c ModelBase
+
+>> transform = p:(0.0, -1.0, 0.0) r:(0.0, 359.9, 0.0) s:(0.8, 0.8, 0.8)
+>>c mdlTreebot
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 359.9, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.Animator
+
+>>> RoR2.AimAnimator
+>>>v inputBank = TreebotBody (RoR2.InputBankTest)
+>>>v directionComponent = TreebotBody (RoR2.CharacterDirection)
+>>>v pitchRangeMin = -45
+>>>v pitchRangeMax = 45
+>>>v yawRangeMin = -90
+>>>v yawRangeMax = 90
+>>>v pitchGiveupRange = 20
+>>>v yawGiveupRange = 10
+>>>v giveupDuration = 3
+>>>v raisedApproachSpeed = 720
+>>>v loweredApproachSpeed = 360
+>>>v smoothTime = 0.2
+>>>v fullYaw = False
+>>>v aimType = Direct
+>>>v enableAimWeight = False
+
+>>> RoR2.HurtBoxGroup
+>>>v hurtBoxes = RoR2.HurtBox[]
+>>>v mainHurtBox = TempHurtbox (RoR2.HurtBox)
+>>>v bullseyeCount = 1
+
+>>> RoR2.CharacterModel
+>>>v body = TreebotBody (RoR2.CharacterBody)
+>>>v itemDisplayRuleSet = idrsTreebot (RoR2.ItemDisplayRuleSet)
+>>>v autoPopulateLightInfos = True
+>>>v autoPopulateParticleSystemInfos = True
+>>>v baseParticleSystemInfos = RoR2.CharacterModel+ParticleSystemInfo[]
+>>>v baseRendererInfos = RoR2.CharacterModel+RendererInfo[]
+>>>v baseLightInfos = RoR2.CharacterModel+LightInfo[]
+>>>v invisibilityCount = 0
+>>>v temporaryOverlays = System.Collections.Generic.List`1[RoR2.TemporaryOverlay]
+>>>v revealedMaterial = matRevealedEffect (UnityEngine.Material)
+>>>v cloakedMaterial = matCloakedEffect (UnityEngine.Material)
+>>>v ghostMaterial = matGhostEffect (UnityEngine.Material)
+>>>v bellBuffMaterial = matBellBuff (UnityEngine.Material)
+>>>v wolfhatMaterial = matWolfhatOverlay (UnityEngine.Material)
+>>>v energyShieldMaterial = matEnergyShield (UnityEngine.Material)
+>>>v fullCritMaterial = matFullCrit (UnityEngine.Material)
+>>>v beetleJuiceMaterial = matBeetleJuice (UnityEngine.Material)
+>>>v brittleMaterial = matBrittle (UnityEngine.Material)
+>>>v clayGooMaterial = matClayGooDebuff (UnityEngine.Material)
+>>>v slow80Material = matSlow80Debuff (UnityEngine.Material)
+>>>v immuneMaterial = matImmune (UnityEngine.Material)
+>>>v elitePoisonOverlayMaterial = matElitePoisonOverlay (UnityEngine.Material)
+>>>v elitePoisonParticleReplacementMaterial = matElitePoisonParticleReplacement (UnityEngine.Material)
+>>>v weakMaterial = matWeakOverlay (UnityEngine.Material)
+
+>>> ChildLocator
+
+>>> RoR2.SprintEffectController
+>>>v loopSystems = UnityEngine.ParticleSystem[]
+>>>v loopRootObject = SprintLoopSound (UnityEngine.GameObject)
+>>>v mustBeGrounded = True
+>>>v characterBody = TreebotBody (RoR2.CharacterBody)
+
+>>> RoR2.AnimationEvents
+>>>v soundCenter = 
+
+>>> DynamicBone
+>>>v m_Root = Antennae.005 (UnityEngine.Transform)
+>>>v m_UpdateRate = 60
+>>>v m_UpdateMode = Normal
+>>>v m_Damping = 0.443
+>>>v m_DampingDistrib = UnityEngine.AnimationCurve
+>>>v m_Elasticity = 0.22
+>>>v m_ElasticityDistrib = UnityEngine.AnimationCurve
+>>>v m_Stiffness = 0.364
+>>>v m_StiffnessDistrib = UnityEngine.AnimationCurve
+>>>v m_Inert = 0
+>>>v m_InertDistrib = UnityEngine.AnimationCurve
+>>>v m_Radius = 0
+>>>v m_RadiusDistrib = UnityEngine.AnimationCurve
+>>>v m_EndLength = 0
+>>>v m_EndOffset = (0.0, 0.0, 0.0)
+>>>v m_Gravity = (0.0, 0.0, 0.0)
+>>>v m_Force = (0.0, 0.0, 0.0)
+>>>v m_Colliders = System.Collections.Generic.List`1[DynamicBoneCollider]
+>>>v m_Exclusions = System.Collections.Generic.List`1[UnityEngine.Transform]
+>>>v m_FreezeAxis = None
+>>>v m_DistantDisable = False
+>>>v m_ReferenceObject = 
+>>>v m_DistanceToObject = 20
+
+>>> RoR2.Mecanim.RandomBlinkController
+>>>v animator = mdlTreebot (UnityEngine.Animator)
+>>>v blinkTriggers = System.String[]
+>>>v blinkChancePerUpdate = 10
+
+>>> RoR2.RagdollController
+>>>v bones = UnityEngine.Transform[]
+>>>v componentsToDisableOnRagdoll = UnityEngine.MonoBehaviour[]
+
+>>> RoR2.FootstepHandler
+>>>v baseFootstepString = Play_treeBot_step
+>>>v enableFootstepDust = False
+>>>v footstepDustPrefab = 
+>>>c TreebotArmature
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 359.9, 0.0) s:(1.0, 1.0, 1.0)
+>>>>c ROOT
+
+>>>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 359.9, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>c Base
+
+>>>>>> transform = p:(0.0, 1.2, -0.3) r:(90.0, 359.9, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>c HeadBase
+
+>>>>>>> transform = p:(0.0, 0.3, 0.0) r:(0.0, 179.9, 180.0) s:(1.0, 1.0, 1.0)
+
+>>>>>>> UnityEngine.CapsuleCollider
+
+>>>>>>> UnityEngine.Rigidbody
+>>>>>>>c Eye
+
+>>>>>>>> transform = p:(0.0, 0.0, 0.0) r:(54.2, 179.9, 180.0) s:(1.0, 1.0, 1.0)
+
+>>>>>>>> UnityEngine.CapsuleCollider
+
+>>>>>>>> UnityEngine.Rigidbody
+
+>>>>>>>> UnityEngine.CharacterJoint
+>>>>>>>>v targetRotation = (0.0, 0.0, 0.0, 0.0)
+>>>>>>>>v targetAngularVelocity = (0.0, 0.0, 0.0)
+>>>>>>>>v rotationDrive = UnityEngine.JointDrive
+>>>>>>>>c EyeControl
+
+>>>>>>>>> transform = p:(0.0, 0.8, 0.0) r:(0.0, 89.9, 135.8) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c EyeControl_end
+
+>>>>>>>>>> transform = p:(0.0, 0.2, 0.0) r:(0.0, 89.9, 135.8) s:(1.0, 1.0, 1.0)
+>>>>>>c PlatformBase
+
+>>>>>>> transform = p:(0.0, 0.3, 0.0) r:(0.0, 359.9, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>>>>> UnityEngine.Rigidbody
+
+>>>>>>> UnityEngine.CharacterJoint
+>>>>>>>v targetRotation = (0.0, 0.0, 0.0, 0.0)
+>>>>>>>v targetAngularVelocity = (0.0, 0.0, 0.0)
+>>>>>>>v rotationDrive = UnityEngine.JointDrive
+
+>>>>>>> UnityEngine.CapsuleCollider
+>>>>>>>c ArmPlatformBase
+
+>>>>>>>> transform = p:(0.0, 0.7, 0.0) r:(0.0, 359.9, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>>>>>> UnityEngine.Rigidbody
+
+>>>>>>>> UnityEngine.CharacterJoint
+>>>>>>>>v targetRotation = (0.0, 0.0, 0.0, 0.0)
+>>>>>>>>v targetAngularVelocity = (0.0, 0.0, 0.0)
+>>>>>>>>v rotationDrive = UnityEngine.JointDrive
+
+>>>>>>>> UnityEngine.CapsuleCollider
+>>>>>>>>c Antennae.1
+
+>>>>>>>>> transform = p:(0.8, 0.7, -0.3) r:(0.0, 359.9, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c Antennae.005
+
+>>>>>>>>>> transform = p:(0.0, 0.2, 0.0) r:(0.0, 359.9, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c Antennae.003
+
+>>>>>>>>>>> transform = p:(0.0, 0.2, 0.0) r:(0.0, 359.9, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c Antennae.007
+
+>>>>>>>>>>>> transform = p:(0.0, 0.2, 0.0) r:(0.0, 359.9, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c Antennae.002
+
+>>>>>>>>>>>>> transform = p:(0.0, 0.2, 0.0) r:(0.0, 359.9, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>c Antennae.006
+
+>>>>>>>>>>>>>> transform = p:(0.0, 0.2, 0.0) r:(0.0, 359.9, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>>c Antennae.004
+
+>>>>>>>>>>>>>>> transform = p:(0.0, 0.2, 0.0) r:(0.0, 359.9, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>>>c Antennae.008
+
+>>>>>>>>>>>>>>>> transform = p:(0.0, 0.2, 0.0) r:(0.0, 359.9, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>>>>c Antennae.008_end
+
+>>>>>>>>>>>>>>>>> transform = p:(0.0, 0.2, 0.0) r:(0.0, 359.9, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>c ArmRotatorJoint
+
+>>>>>>>>> transform = p:(-0.7, 0.7, 0.0) r:(0.0, 104.9, 180.0) s:(1.0, 1.0, 1.0)
+
+>>>>>>>>> UnityEngine.Rigidbody
+
+>>>>>>>>> UnityEngine.CharacterJoint
+>>>>>>>>>v targetRotation = (0.0, 0.0, 0.0, 0.0)
+>>>>>>>>>v targetAngularVelocity = (0.0, 0.0, 0.0)
+>>>>>>>>>v rotationDrive = UnityEngine.JointDrive
+
+>>>>>>>>> UnityEngine.CapsuleCollider
+>>>>>>>>>c clavicle.l
+
+>>>>>>>>>> transform = p:(0.0, 0.3, 0.0) r:(271.7, 194.9, 180.0) s:(1.0, 1.0, 1.0)
+
+>>>>>>>>>> UnityEngine.Rigidbody
+
+>>>>>>>>>> UnityEngine.CharacterJoint
+>>>>>>>>>>v targetRotation = (0.0, 0.0, 0.0, 0.0)
+>>>>>>>>>>v targetAngularVelocity = (0.0, 0.0, 0.0)
+>>>>>>>>>>v rotationDrive = UnityEngine.JointDrive
+
+>>>>>>>>>> UnityEngine.CapsuleCollider
+>>>>>>>>>>c shoulder.l
+
+>>>>>>>>>>> transform = p:(0.0, 0.5, 0.0) r:(1.6, 169.9, 179.3) s:(1.0, 1.0, 1.0)
+
+>>>>>>>>>>> UnityEngine.Rigidbody
+
+>>>>>>>>>>> UnityEngine.CharacterJoint
+>>>>>>>>>>>v targetRotation = (0.0, 0.0, 0.0, 0.0)
+>>>>>>>>>>>v targetAngularVelocity = (0.0, 0.0, 0.0)
+>>>>>>>>>>>v rotationDrive = UnityEngine.JointDrive
+
+>>>>>>>>>>> UnityEngine.CapsuleCollider
+>>>>>>>>>>>c IKTargetArm.l
+
+>>>>>>>>>>>> transform = p:(0.0, 0.8, -2.0) r:(1.6, 169.9, 179.3) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c IKTargetArm.l_end
+
+>>>>>>>>>>>>> transform = p:(0.0, 0.4, 0.0) r:(1.6, 169.9, 179.3) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c upperArm.l
+
+>>>>>>>>>>>> transform = p:(0.0, 0.3, 0.0) r:(50.5, 169.0, 178.9) s:(1.0, 1.0, 1.0)
+
+>>>>>>>>>>>> UnityEngine.Rigidbody
+
+>>>>>>>>>>>> UnityEngine.CharacterJoint
+>>>>>>>>>>>>v targetRotation = (0.0, 0.0, 0.0, 0.0)
+>>>>>>>>>>>>v targetAngularVelocity = (0.0, 0.0, 0.0)
+>>>>>>>>>>>>v rotationDrive = UnityEngine.JointDrive
+
+>>>>>>>>>>>> UnityEngine.CapsuleCollider
+>>>>>>>>>>>>c lowerArm.l
+
+>>>>>>>>>>>>> transform = p:(0.0, 0.8, 0.0) r:(38.5, 350.5, 0.9) s:(1.0, 1.0, 1.0)
+
+>>>>>>>>>>>>> UnityEngine.Rigidbody
+
+>>>>>>>>>>>>> UnityEngine.CharacterJoint
+>>>>>>>>>>>>>v targetRotation = (0.0, 0.0, 0.0, 0.0)
+>>>>>>>>>>>>>v targetAngularVelocity = (0.0, 0.0, 0.0)
+>>>>>>>>>>>>>v rotationDrive = UnityEngine.JointDrive
+
+>>>>>>>>>>>>> UnityEngine.CapsuleCollider
+>>>>>>>>>>>>>c hand.l
+
+>>>>>>>>>>>>>> transform = p:(0.0, 0.9, 0.0) r:(306.5, 348.9, 181.2) s:(1.0, 1.0, 1.0)
+
+>>>>>>>>>>>>>> UnityEngine.Rigidbody
+
+>>>>>>>>>>>>>> UnityEngine.CharacterJoint
+>>>>>>>>>>>>>>v targetRotation = (0.0, 0.0, 0.0, 0.0)
+>>>>>>>>>>>>>>v targetAngularVelocity = (0.0, 0.0, 0.0)
+>>>>>>>>>>>>>>v rotationDrive = UnityEngine.JointDrive
+
+>>>>>>>>>>>>>> UnityEngine.CapsuleCollider
+>>>>>>>>>>>>>>c WeaponPlatform
+
+>>>>>>>>>>>>>>> transform = p:(0.0, 1.0, 0.0) r:(333.3, 359.7, 180.5) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>>>c WeaponPlatform_end
+
+>>>>>>>>>>>>>>>> transform = p:(0.0, 0.5, 0.0) r:(333.3, 359.7, 180.5) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>>>c MuzzleSyringe
+
+>>>>>>>>>>>>>>>> transform = p:(0.0, 0.5, 0.3) r:(63.3, 0.8, 181.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>>>c AimOriginSyringe
+
+>>>>>>>>>>>>>>>> transform = p:(0.0, 0.5, 0.3) r:(63.3, 0.8, 181.0) s:(1.0, 1.0, 1.0)
+>>>>>>>c FlowerBase
+
+>>>>>>>> transform = p:(0.0, 0.7, 0.0) r:(0.0, 359.9, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>>>>>> UnityEngine.Rigidbody
+
+>>>>>>>> UnityEngine.CharacterJoint
+>>>>>>>>v targetRotation = (0.0, 0.0, 0.0, 0.0)
+>>>>>>>>v targetAngularVelocity = (0.0, 0.0, 0.0)
+>>>>>>>>v rotationDrive = UnityEngine.JointDrive
+
+>>>>>>>> UnityEngine.CapsuleCollider
+>>>>>>>>c FlowerPetal1.1
+
+>>>>>>>>> transform = p:(0.0, 0.5, 0.0) r:(281.0, 359.9, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c FlowerPetal1.2
+
+>>>>>>>>>> transform = p:(0.0, 0.6, 0.0) r:(317.1, 179.9, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c FlowerPetal1.3
+
+>>>>>>>>>>> transform = p:(0.0, 0.4, 0.0) r:(53.3, 359.9, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c FlowerPetal1.4
+
+>>>>>>>>>>>> transform = p:(0.0, 0.3, 0.0) r:(51.9, 179.9, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c FlowerPetal1.4_end
+
+>>>>>>>>>>>>> transform = p:(0.0, 0.2, 0.0) r:(51.9, 179.9, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>c FlowerPetal1.002
+
+>>>>>>>>> transform = p:(0.0, 0.5, 0.0) r:(285.5, 135.4, 135.5) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c FlowerPetal1.003
+
+>>>>>>>>>> transform = p:(0.0, 0.6, 0.0) r:(317.1, 269.9, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c FlowerPetal1.004
+
+>>>>>>>>>>> transform = p:(0.0, 0.4, 0.0) r:(53.3, 89.9, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c FlowerPetal1.005
+
+>>>>>>>>>>>> transform = p:(0.0, 0.3, 0.0) r:(51.9, 269.9, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c FlowerPetal1.005_end
+
+>>>>>>>>>>>>> transform = p:(0.0, 0.2, 0.0) r:(51.9, 269.9, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>c FlowerPetal1.006
+
+>>>>>>>>> transform = p:(0.0, 0.5, 0.0) r:(281.0, 179.9, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c FlowerPetal1.007
+
+>>>>>>>>>> transform = p:(0.0, 0.6, 0.0) r:(317.1, 359.9, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c FlowerPetal1.008
+
+>>>>>>>>>>> transform = p:(0.0, 0.4, 0.0) r:(53.3, 179.9, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c FlowerPetal1.009
+
+>>>>>>>>>>>> transform = p:(0.0, 0.3, 0.0) r:(51.9, 359.9, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c FlowerPetal1.009_end
+
+>>>>>>>>>>>>> transform = p:(0.0, 0.2, 0.0) r:(51.9, 359.9, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>c FlowerPetal1.010
+
+>>>>>>>>> transform = p:(0.0, 0.5, 0.0) r:(285.5, 224.4, 224.5) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c FlowerPetal1.011
+
+>>>>>>>>>> transform = p:(0.0, 0.6, 0.0) r:(317.1, 89.9, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c FlowerPetal1.012
+
+>>>>>>>>>>> transform = p:(0.0, 0.4, 0.0) r:(53.3, 269.9, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c FlowerPetal1.013
+
+>>>>>>>>>>>> transform = p:(0.0, 0.3, 0.0) r:(51.9, 89.9, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c FlowerPetal1.013_end
+
+>>>>>>>>>>>>> transform = p:(0.0, 0.2, 0.0) r:(51.9, 89.9, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>c FlowerPetal1.014
+
+>>>>>>>>> transform = p:(0.0, 0.5, 0.0) r:(281.0, 24.9, 184.9) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c FlowerPetal1.015
+
+>>>>>>>>>> transform = p:(0.0, 0.6, 0.0) r:(317.1, 209.9, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c FlowerPetal1.016
+
+>>>>>>>>>>> transform = p:(0.0, 0.4, 0.0) r:(53.3, 29.9, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c FlowerPetal1.017
+
+>>>>>>>>>>>> transform = p:(0.0, 0.3, 0.0) r:(51.9, 209.9, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c FlowerPetal1.017_end
+
+>>>>>>>>>>>>> transform = p:(0.0, 0.2, 0.0) r:(51.9, 209.9, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>c FlowerPetal1.018
+
+>>>>>>>>> transform = p:(0.0, 0.5, 0.0) r:(282.7, 150.2, 150.3) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c FlowerPetal1.019
+
+>>>>>>>>>> transform = p:(0.0, 0.6, 0.0) r:(317.1, 299.9, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c FlowerPetal1.020
+
+>>>>>>>>>>> transform = p:(0.0, 0.4, 0.0) r:(53.3, 119.9, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c FlowerPetal1.021
+
+>>>>>>>>>>>> transform = p:(0.0, 0.3, 0.0) r:(51.9, 299.9, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c FlowerPetal1.021_end
+
+>>>>>>>>>>>>> transform = p:(0.0, 0.2, 0.0) r:(51.9, 299.9, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>c FlowerPetal1.022
+
+>>>>>>>>> transform = p:(0.0, 0.5, 0.0) r:(281.4, 194.8, 194.9) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c FlowerPetal1.023
+
+>>>>>>>>>> transform = p:(0.0, 0.6, 0.0) r:(317.1, 29.9, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c FlowerPetal1.024
+
+>>>>>>>>>>> transform = p:(0.0, 0.4, 0.0) r:(53.3, 209.9, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c FlowerPetal1.025
+
+>>>>>>>>>>>> transform = p:(0.0, 0.3, 0.0) r:(51.9, 29.9, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c FlowerPetal1.025_end
+
+>>>>>>>>>>>>> transform = p:(0.0, 0.2, 0.0) r:(51.9, 29.9, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>c FlowerPetal1.030
+
+>>>>>>>>> transform = p:(0.0, 0.5, 0.0) r:(291.7, 120.8, 120.9) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c FlowerPetal1.031
+
+>>>>>>>>>> transform = p:(0.0, 0.6, 0.0) r:(317.1, 239.9, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c FlowerPetal1.032
+
+>>>>>>>>>>> transform = p:(0.0, 0.4, 0.0) r:(53.3, 59.9, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c FlowerPetal1.033
+
+>>>>>>>>>>>> transform = p:(0.0, 0.3, 0.0) r:(51.9, 239.9, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c FlowerPetal1.033_end
+
+>>>>>>>>>>>>> transform = p:(0.0, 0.2, 0.0) r:(51.9, 239.9, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>c FlowerPetal1.034
+
+>>>>>>>>> transform = p:(0.0, 0.5, 0.0) r:(281.4, 165.1, 165.1) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c FlowerPetal1.035
+
+>>>>>>>>>> transform = p:(0.0, 0.6, 0.0) r:(317.1, 329.9, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c FlowerPetal1.036
+
+>>>>>>>>>>> transform = p:(0.0, 0.4, 0.0) r:(53.3, 149.9, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c FlowerPetal1.037
+
+>>>>>>>>>>>> transform = p:(0.0, 0.3, 0.0) r:(51.9, 329.9, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c FlowerPetal1.037_end
+
+>>>>>>>>>>>>> transform = p:(0.0, 0.2, 0.0) r:(51.9, 329.9, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>c FlowerPetal1.038
+
+>>>>>>>>> transform = p:(0.0, 0.5, 0.0) r:(282.7, 209.6, 209.7) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c FlowerPetal1.039
+
+>>>>>>>>>> transform = p:(0.0, 0.6, 0.0) r:(317.1, 59.9, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c FlowerPetal1.040
+
+>>>>>>>>>>> transform = p:(0.0, 0.4, 0.0) r:(53.3, 239.9, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c FlowerPetal1.041
+
+>>>>>>>>>>>> transform = p:(0.0, 0.3, 0.0) r:(51.9, 59.9, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c FlowerPetal1.041_end
+
+>>>>>>>>>>>>> transform = p:(0.0, 0.2, 0.0) r:(51.9, 59.9, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>c FlowerPetal1.042
+
+>>>>>>>>> transform = p:(0.0, 0.5, 0.0) r:(282.1, 304.2, 205.2) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c FlowerPetal1.043
+
+>>>>>>>>>> transform = p:(0.0, 0.6, 0.0) r:(317.1, 149.9, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c FlowerPetal1.044
+
+>>>>>>>>>>> transform = p:(0.0, 0.4, 0.0) r:(53.3, 329.9, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c FlowerPetal1.045
+
+>>>>>>>>>>>> transform = p:(0.0, 0.3, 0.0) r:(51.9, 149.9, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c FlowerPetal1.045_end
+
+>>>>>>>>>>>>> transform = p:(0.0, 0.2, 0.0) r:(51.9, 149.9, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>c FlowerPetal2.001
+
+>>>>>>>>> transform = p:(0.3, 0.5, 0.0) r:(31.0, 88.4, 355.1) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c FlowerPetal2.001_end
+
+>>>>>>>>>> transform = p:(0.0, 1.2, 0.0) r:(31.0, 88.4, 355.1) s:(1.0, 1.0, 1.0)
+>>>>>>>>c FlowerPetal2.002
+
+>>>>>>>>> transform = p:(0.2, 0.5, -0.3) r:(31.7, 151.7, 0.1) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c FlowerPetal2.002_end
+
+>>>>>>>>>> transform = p:(0.0, 1.2, 0.0) r:(31.7, 151.7, 0.1) s:(1.0, 1.0, 1.0)
+>>>>>>>>c FlowerPetal2.003
+
+>>>>>>>>> transform = p:(-0.1, 0.5, -0.2) r:(33.1, 211.6, 2.2) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c FlowerPetal2.003_end
+
+>>>>>>>>>> transform = p:(0.0, 1.2, 0.0) r:(33.1, 211.6, 2.2) s:(1.0, 1.0, 1.0)
+>>>>>>>>c FlowerPetal2.004
+
+>>>>>>>>> transform = p:(-0.3, 0.5, 0.1) r:(31.8, 280.6, 359.7) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c FlowerPetal2.004_end
+
+>>>>>>>>>> transform = p:(0.0, 1.2, 0.0) r:(31.8, 280.6, 359.7) s:(1.0, 1.0, 1.0)
+>>>>>>>>c FlowerPetal2.005
+
+>>>>>>>>> transform = p:(0.0, 0.5, 0.4) r:(30.0, 2.4, 3.3) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c FlowerPetal2.005_end
+
+>>>>>>>>>> transform = p:(0.0, 1.2, 0.0) r:(30.0, 2.4, 3.3) s:(1.0, 1.0, 1.0)
+>>>>>>>>c FlowerPetal2.006
+
+>>>>>>>>> transform = p:(0.3, 0.5, 0.2) r:(29.8, 40.9, 354.1) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c FlowerPetal2.006_end
+
+>>>>>>>>>> transform = p:(0.0, 1.2, 0.0) r:(29.8, 40.9, 354.1) s:(1.0, 1.0, 1.0)
+>>>>>>>c Thigh.Back.l
+
+>>>>>>>> transform = p:(-0.6, 0.4, -0.6) r:(0.0, 179.9, 180.0) s:(1.0, 1.0, 1.0)
+
+>>>>>>>> UnityEngine.Rigidbody
+
+>>>>>>>> UnityEngine.CharacterJoint
+>>>>>>>>v targetRotation = (0.0, 0.0, 0.0, 0.0)
+>>>>>>>>v targetAngularVelocity = (0.0, 0.0, 0.0)
+>>>>>>>>v rotationDrive = UnityEngine.JointDrive
+
+>>>>>>>> UnityEngine.CapsuleCollider
+>>>>>>>>c Calf.Back.l
+
+>>>>>>>>> transform = p:(0.0, 0.7, 0.0) r:(55.3, 224.9, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>>>>>>> UnityEngine.Rigidbody
+
+>>>>>>>>> UnityEngine.CharacterJoint
+>>>>>>>>>v targetRotation = (0.0, 0.0, 0.0, 0.0)
+>>>>>>>>>v targetAngularVelocity = (0.0, 0.0, 0.0)
+>>>>>>>>>v rotationDrive = UnityEngine.JointDrive
+
+>>>>>>>>> UnityEngine.CapsuleCollider
+>>>>>>>>>c Foot.Back.l
+
+>>>>>>>>>> transform = p:(0.0, 1.0, 0.0) r:(352.5, 44.9, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c Foot.Back.l_end
+
+>>>>>>>>>>> transform = p:(0.0, 1.6, 0.0) r:(352.5, 44.9, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>c Thigh.Back.r
+
+>>>>>>>> transform = p:(0.6, 0.4, -0.6) r:(0.0, 179.9, 180.0) s:(1.0, 1.0, 1.0)
+
+>>>>>>>> UnityEngine.Rigidbody
+
+>>>>>>>> UnityEngine.CharacterJoint
+>>>>>>>>v targetRotation = (0.0, 0.0, 0.0, 0.0)
+>>>>>>>>v targetAngularVelocity = (0.0, 0.0, 0.0)
+>>>>>>>>v rotationDrive = UnityEngine.JointDrive
+
+>>>>>>>> UnityEngine.CapsuleCollider
+>>>>>>>>c Calf.Back.r
+
+>>>>>>>>> transform = p:(0.0, 0.7, 0.0) r:(55.3, 134.9, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>>>>>>> UnityEngine.Rigidbody
+
+>>>>>>>>> UnityEngine.CharacterJoint
+>>>>>>>>>v targetRotation = (0.0, 0.0, 0.0, 0.0)
+>>>>>>>>>v targetAngularVelocity = (0.0, 0.0, 0.0)
+>>>>>>>>>v rotationDrive = UnityEngine.JointDrive
+
+>>>>>>>>> UnityEngine.CapsuleCollider
+>>>>>>>>>c Foot.Back.r
+
+>>>>>>>>>> transform = p:(0.0, 1.0, 0.0) r:(352.5, 314.9, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c Foot.Back.r_end
+
+>>>>>>>>>>> transform = p:(0.0, 1.6, 0.0) r:(352.5, 314.9, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>c Thigh.Front.l
+
+>>>>>>>> transform = p:(-0.6, 0.4, 0.6) r:(0.0, 179.9, 180.0) s:(1.0, 1.0, 1.0)
+
+>>>>>>>> UnityEngine.Rigidbody
+
+>>>>>>>> UnityEngine.CharacterJoint
+>>>>>>>>v targetRotation = (0.0, 0.0, 0.0, 0.0)
+>>>>>>>>v targetAngularVelocity = (0.0, 0.0, 0.0)
+>>>>>>>>v rotationDrive = UnityEngine.JointDrive
+
+>>>>>>>> UnityEngine.CapsuleCollider
+>>>>>>>>c Calf.Front.l
+
+>>>>>>>>> transform = p:(0.0, 0.7, 0.0) r:(55.3, 314.9, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>>>>>>> UnityEngine.Rigidbody
+
+>>>>>>>>> UnityEngine.CharacterJoint
+>>>>>>>>>v targetRotation = (0.0, 0.0, 0.0, 0.0)
+>>>>>>>>>v targetAngularVelocity = (0.0, 0.0, 0.0)
+>>>>>>>>>v rotationDrive = UnityEngine.JointDrive
+
+>>>>>>>>> UnityEngine.CapsuleCollider
+>>>>>>>>>c Foot.Front.l
+
+>>>>>>>>>> transform = p:(0.0, 1.0, 0.0) r:(352.5, 134.9, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c Foot.Front.l_end
+
+>>>>>>>>>>> transform = p:(0.0, 1.6, 0.0) r:(352.5, 134.9, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>c Thigh.Front.r
+
+>>>>>>>> transform = p:(0.6, 0.4, 0.6) r:(0.0, 179.9, 180.0) s:(1.0, 1.0, 1.0)
+
+>>>>>>>> UnityEngine.Rigidbody
+
+>>>>>>>> UnityEngine.CharacterJoint
+>>>>>>>>v targetRotation = (0.0, 0.0, 0.0, 0.0)
+>>>>>>>>v targetAngularVelocity = (0.0, 0.0, 0.0)
+>>>>>>>>v rotationDrive = UnityEngine.JointDrive
+
+>>>>>>>> UnityEngine.CapsuleCollider
+>>>>>>>>c Calf.Front.r
+
+>>>>>>>>> transform = p:(0.0, 0.7, 0.0) r:(55.3, 44.9, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>>>>>>> UnityEngine.Rigidbody
+
+>>>>>>>>> UnityEngine.CharacterJoint
+>>>>>>>>>v targetRotation = (0.0, 0.0, 0.0, 0.0)
+>>>>>>>>>v targetAngularVelocity = (0.0, 0.0, 0.0)
+>>>>>>>>>v rotationDrive = UnityEngine.JointDrive
+
+>>>>>>>>> UnityEngine.CapsuleCollider
+>>>>>>>>>c Foot.Front.r
+
+>>>>>>>>>> transform = p:(0.0, 1.0, 0.0) r:(352.5, 224.9, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c Foot.Front.r_end
+
+>>>>>>>>>>> transform = p:(0.0, 1.6, 0.0) r:(352.5, 224.9, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>c IKTargetLeg.Back.l
+
+>>>>>> transform = p:(-1.0, 0.0, -1.0) r:(270.0, 179.9, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>c IKTargetLeg.Back.l_end
+
+>>>>>>> transform = p:(0.0, 0.2, 0.0) r:(270.0, 179.9, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>c IKTargetLeg.Back.r
+
+>>>>>> transform = p:(1.0, 0.0, -1.0) r:(270.0, 179.9, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>c IKTargetLeg.Back.r_end
+
+>>>>>>> transform = p:(0.0, 0.2, 0.0) r:(270.0, 179.9, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>c IKTargetLeg.Front.l
+
+>>>>>> transform = p:(-1.0, 0.0, 1.0) r:(270.0, 179.9, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>c IKTargetLeg.Front.l_end
+
+>>>>>>> transform = p:(0.0, 0.2, 0.0) r:(270.0, 179.9, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>c IKTargetLeg.Front.r
+
+>>>>>> transform = p:(1.0, 0.0, 1.0) r:(270.0, 179.9, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>c IKTargetLeg.Front.r_end
+
+>>>>>>> transform = p:(0.0, 0.2, 0.0) r:(270.0, 179.9, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>c TempHurtbox
+
+>>>>>> transform = p:(0.0, 1.9, 0.0) r:(0.0, 359.9, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>>>> UnityEngine.CapsuleCollider
+
+>>>>>> RoR2.HurtBox
+>>>>>>v healthComponent = TreebotBody (RoR2.HealthComponent)
+>>>>>>v isBullseye = True
+>>>>>>v damageModifier = Normal
+>>>>>>v teamIndex = None
+>>>>>>v hurtBoxGroup = mdlTreebot (RoR2.HurtBoxGroup)
+>>>>>>v indexInGroup = 0
+>>>>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+>>>>>c AimOriginMortar
+
+>>>>>> transform = p:(0.0, 4.2, 0.0) r:(0.0, 359.9, 0.0) s:(1.0, 1.0, 1.0)
+>>>c TreebotBotMesh
+
+>>>> transform = p:(0.0, 0.8, 0.0) r:(270.0, 359.9, 0.0) s:(0.5, 0.5, 0.5)
+
+>>>> UnityEngine.SkinnedMeshRenderer
+>>>c TreebotFlowerMesh
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 4.9, 0.0) s:(0.5, 0.5, 0.5)
+
+>>>> UnityEngine.SkinnedMeshRenderer
+>>>c TreebotLeafletMesh
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 359.9, 0.0) s:(0.5, 0.5, 0.5)
+
+>>>> UnityEngine.SkinnedMeshRenderer
+>>>c TreebotRootMesh
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 359.9, 0.0) s:(0.5, 0.5, 0.5)
+
+>>>> UnityEngine.SkinnedMeshRenderer
+>>>c BurrowCenter
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 359.9, 0.0) s:(1.0, 1.0, 1.0)
+>>>>c ParticleLoop
+
+>>>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 359.9, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>c Debris
+
+>>>>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 359.9, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>>>> UnityEngine.ParticleSystem
+
+>>>>>> UnityEngine.ParticleSystemRenderer
+>>>>>c Dust
+
+>>>>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 359.9, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>>>> UnityEngine.ParticleSystem
+
+>>>>>> UnityEngine.ParticleSystemRenderer
+>>>>>c Roots
+
+>>>>>> transform = p:(0.0, -1.5, 0.0) r:(270.0, 359.9, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>>>> UnityEngine.ParticleSystem
+
+>>>>>> UnityEngine.ParticleSystemRenderer
+>>>>c SprintLoopSound
+
+>>>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 359.9, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>>> AkGameObj
+>>>>>v isEnvironmentAware = True
+>>>>>v m_positionOffsetData = AkGameObjPositionOffsetData
+
+>>>>> AkEvent
+>>>>>v actionOnEventType = AkActionOnEventType_Stop
+>>>>>v curveInterpolation = AkCurveInterpolation_Linear
+>>>>>v enableActionOnEvent = False
+>>>>>v data = Play_treeBot_sprint_start
+>>>>>v m_callbackData = 
+>>>>>v playingId = 0
+>>>>>v soundEmitterObject = 
+>>>>>v transitionDuration = 0
+>>>>>v triggerList = System.Collections.Generic.List`1[System.Int32]
+>>>>>v useOtherObject = False
+
+>>>>> AkEvent
+>>>>>v actionOnEventType = AkActionOnEventType_Stop
+>>>>>v curveInterpolation = AkCurveInterpolation_Linear
+>>>>>v enableActionOnEvent = False
+>>>>>v data = Play_treeBot_sprint_end
+>>>>>v m_callbackData = 
+>>>>>v playingId = 0
+>>>>>v soundEmitterObject = 
+>>>>>v transitionDuration = 0
+>>>>>v triggerList = System.Collections.Generic.List`1[System.Int32]
+>>>>>v useOtherObject = False
+
+>>>>> UnityEngine.Rigidbody
+>>c SunReference
+
+>>> transform = p:(0.0, 3.2, 0.0) r:(0.0, 359.9, 0.0) s:(1.0, 1.0, 1.0)
+>c CameraPivot
+
+>> transform = p:(0.0, 1.4, 0.0) r:(0.0, 359.9, 0.0) s:(1.0, 1.0, 1.0)

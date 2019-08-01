@@ -1,0 +1,58 @@
+DamageRejected
+
+> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> RoR2.EffectComponent
+>v effectData = 
+>v positionAtReferencedTransform = False
+>v parentToReferencedTransform = False
+>v applyScale = False
+
+> RoR2.DestroyOnTimer
+>v duration = 1
+>v resetAgeOnDisable = False
+
+> RoR2.VFXAttributes
+>v vfxPriority = Always
+>v vfxIntensity = Low
+>v optionalLights = UnityEngine.Light[]
+>v secondaryParticleSystem = UnityEngine.ParticleSystem[]
+
+> ObjectScaleCurve
+>v curveX = UnityEngine.AnimationCurve
+>v curveY = UnityEngine.AnimationCurve
+>v curveZ = UnityEngine.AnimationCurve
+>v overallCurve = UnityEngine.AnimationCurve
+>v timeMax = 1
+>v time = 0
+
+> UnityEngine.Rigidbody
+
+> UnityEngine.ConstantForce
+
+> RoR2.VelocityRandomOnStart
+>v minSpeed = 1
+>v maxSpeed = 1
+>v baseDirection = (0.0, 1.0, 0.0)
+>v localDirection = False
+>v directionMode = Sphere
+>v coneAngle = 30
+>v minAngularSpeed = 0
+>v maxAngularSpeed = 0
+>c TextMeshPro
+
+>> UnityEngine.RectTransform
+
+>> UnityEngine.MeshFilter
+
+>> UnityEngine.MeshRenderer
+
+>> UnityEngine.CanvasRenderer
+
+>> TMPro.TextMeshPro
+
+>> RoR2.ScaleSpriteByCamDistance
+>>v scaleFactor = 0.13
+>>v scalingMode = Direct
+
+>> RoR2.Billboard

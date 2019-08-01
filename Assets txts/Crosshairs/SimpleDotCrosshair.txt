@@ -1,0 +1,23 @@
+SimpleDotCrosshair
+
+> UnityEngine.RectTransform
+
+> UnityEngine.CanvasRenderer
+
+> UnityEngine.UI.RawImage
+
+> RoR2.UI.HudElement
+
+> RoR2.UI.CrosshairController
+>v spriteSpreadPositions = RoR2.UI.CrosshairController+SpritePosition[]
+>v remapSprites = UnityEngine.UI.RawImage[]
+>v minSpreadAlpha = 0
+>v maxSpreadAlpha = 0
+>v maxSpreadAngle = 6
+>c Center
+
+>> UnityEngine.RectTransform
+
+>> UnityEngine.CanvasRenderer
+
+>> UnityEngine.UI.Image

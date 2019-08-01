@@ -1,0 +1,54 @@
+TripleShop
+
+> transform = p:(0.7, -209.5, -181.5) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> UnityEngine.Networking.NetworkIdentity
+>v clientAuthorityCallback = 
+
+> RoR2.MultiShopController
+>v terminalPrefab = MultiShopTerminal (UnityEngine.GameObject)
+>v terminalPositions = UnityEngine.Transform[]
+>v itemTier = Tier1
+>v baseCost = 25
+>v costType = Money
+
+> RoR2.Hologram.HologramProjector
+>v displayDistance = 20
+>v hologramPivot = HologramPivot (UnityEngine.Transform)
+>v disableHologramRotation = False
+>c HologramPivot
+
+>> transform = p:(0.0, 7.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>c TerminalHolder
+
+>> transform = p:(0.0, 1.2, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>c TerminalPosition
+
+>>> transform = p:(1.1, -0.5, 0.0) r:(0.0, 90.0, 0.0) s:(1.0, 1.0, 1.0)
+>c TerminalHolder
+
+>> transform = p:(0.0, 1.2, 0.0) r:(0.0, 120.0, 0.0) s:(1.0, 1.0, 1.0)
+>>c TerminalPosition
+
+>>> transform = p:(1.1, -0.5, 0.0) r:(0.0, 210.0, 0.0) s:(1.0, 1.0, 1.0)
+>c TerminalHolder
+
+>> transform = p:(0.0, 1.2, 0.0) r:(0.0, 240.0, 0.0) s:(1.0, 1.0, 1.0)
+>>c TerminalPosition
+
+>>> transform = p:(1.1, -0.5, 0.0) r:(0.0, 330.0, 0.0) s:(1.0, 1.0, 1.0)
+>c mdlMultiShopTerminalCenter
+
+>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 0.0, 0.0) s:(0.4, 0.4, 0.4)
+
+>> UnityEngine.MeshFilter
+
+>> UnityEngine.MeshRenderer
+
+>> RoR2.RandomizeSplatBias
+>>v minRedBias = 0
+>>v maxRedBias = 0
+>>v minGreenBias = -0.38
+>>v maxGreenBias = 0.71
+>>v minBlueBias = -2
+>>v maxBlueBias = -2

@@ -1,0 +1,50 @@
+MageFirewallWalkerProjectile
+
+> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> UnityEngine.Networking.NetworkIdentity
+>v clientAuthorityCallback = 
+
+> RoR2.TeamFilter
+
+> RoR2.Projectile.ProjectileController
+>v ghostPrefab = ThermiteGhost (UnityEngine.GameObject)
+>v ghost = 
+>v isPrediction = False
+>v allowPrediction = True
+>v predictionId = 0
+>v owner = 
+>v procChainMask = RoR2.ProcChainMask
+>v procCoefficient = 1
+>v target = 
+>v authorityEffect = 
+>v predictionEffect = 
+
+> RoR2.Projectile.ProjectileDamage
+>v damage = 0
+>v crit = False
+>v force = 0
+>v damageColorIndex = Default
+>v damageType = Generic
+
+> UnityEngine.CharacterController
+
+> RoR2.Projectile.ProjectileCharacterController
+>v velocity = 20
+>v lifetime = 0.5
+
+> RoR2.Projectile.ProjectileMageFirewallWalkerController
+>v dropInterval = 0.1
+>v firePillarPrefab = ClayPotProjectile (UnityEngine.GameObject)
+>v pillarAngle = 0
+>v curveToCenter = False
+
+> RoR2.Projectile.ProjectileNetworkTransform
+>v positionTransmitInterval = 0.03333334
+>v interpolationFactor = 1
+>v allowClientsideCollision = False
+
+> RoR2.Projectile.ProjectileDamageTrail
+>v trailPrefab = MageFireTrail (UnityEngine.GameObject)
+>v damageToTrailDpsFactor = 1
+>v trailLifetimeAfterExpiration = 1

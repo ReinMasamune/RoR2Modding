@@ -1,0 +1,142 @@
+HermitCrabMaster
+
+> transform = p:(194.7, -156.6, -231.7) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> UnityEngine.Networking.NetworkIdentity
+>v clientAuthorityCallback = 
+
+> RoR2.CharacterMaster
+>v bodyPrefab = HermitCrabBody (UnityEngine.GameObject)
+>v spawnOnStart = False
+>v onBodyDeath = UnityEngine.Events.UnityEvent UnityEngine.Events.UnityEvent
+>v destroyOnBodyDeath = True
+>v isBoss = False
+>v preventGameOver = True
+
+> RoR2.Inventory
+>v itemAcquisitionOrder = System.Collections.Generic.List`1[RoR2.ItemIndex]
+
+> RoR2.CharacterAI.BaseAI
+>v fullVision = False
+>v minDistanceFromEnemy = 0
+>v enemyAttentionDuration = 5
+>v navigationType = Nodegraph
+>v nodegraphType = Ground
+>v stateMachine = HermitCrabMaster (RoR2.EntityStateMachine)
+>v scanState = EntityStates.SerializableEntityStateType
+>v isHealer = False
+>v enemyAttention = 0
+>v aimVectorDampTime = 0.2
+>v aimVectorMaxSpeed = 180
+>v desiredAimDirection = (0.0, 0.0, 1.0)
+>v pathFollower = RoR2.PathFollower
+>v localNavigator = RoR2.LocalNavigator
+>v navMeshPath = 
+>v drawAIPath = False
+>v selectedSkilldriverName = 
+>v debugEnemyHurtBox = 
+>v leader = 
+>v skillDriverEvaluation = RoR2.CharacterAI.BaseAI+SkillDriverEvaluation
+
+> RoR2.EntityStateMachine
+>v customName = AI
+>v initialStateType = EntityStates.SerializableEntityStateType
+>v mainStateType = EntityStates.SerializableEntityStateType
+>v commonComponents = RoR2.EntityStateMachine+CommonComponentCache
+>v networkIndex = -1
+
+> RoR2.CharacterAI.AISkillDriver
+>v customName = BurrowOutAndFlee
+>v skillSlot = None
+>v requireSkillReady = False
+>v moveTargetType = CurrentEnemy
+>v minUserHealthFraction = -Infinity
+>v maxUserHealthFraction = Infinity
+>v minTargetHealthFraction = -Infinity
+>v maxTargetHealthFraction = Infinity
+>v minDistance = 0
+>v maxDistance = 20
+>v selectionRequiresTargetLoS = False
+>v activationRequiresTargetLoS = False
+>v activationRequiresAimConfirmation = False
+>v movementType = FleeMoveTarget
+>v moveInputScale = 1
+>v aimType = AtMoveTarget
+>v ignoreNodeGraph = True
+>v driverUpdateTimerOverride = 3
+>v resetCurrentEnemyOnNextDriverSelection = False
+>v noRepeat = False
+>v shouldSprint = False
+>v shouldFireEquipment = False
+
+> RoR2.CharacterAI.AISkillDriver
+>v customName = FirePrimaries
+>v skillSlot = Primary
+>v requireSkillReady = False
+>v moveTargetType = CurrentEnemy
+>v minUserHealthFraction = -Infinity
+>v maxUserHealthFraction = Infinity
+>v minTargetHealthFraction = -Infinity
+>v maxTargetHealthFraction = Infinity
+>v minDistance = 20
+>v maxDistance = 120
+>v selectionRequiresTargetLoS = False
+>v activationRequiresTargetLoS = False
+>v activationRequiresAimConfirmation = False
+>v movementType = Stop
+>v moveInputScale = 1
+>v aimType = AtCurrentEnemy
+>v ignoreNodeGraph = False
+>v driverUpdateTimerOverride = -1
+>v resetCurrentEnemyOnNextDriverSelection = False
+>v noRepeat = False
+>v shouldSprint = False
+>v shouldFireEquipment = False
+
+> RoR2.CharacterAI.AISkillDriver
+>v customName = BurrowIn
+>v skillSlot = Primary
+>v requireSkillReady = True
+>v moveTargetType = CurrentEnemy
+>v minUserHealthFraction = -Infinity
+>v maxUserHealthFraction = Infinity
+>v minTargetHealthFraction = -Infinity
+>v maxTargetHealthFraction = Infinity
+>v minDistance = 20
+>v maxDistance = 120
+>v selectionRequiresTargetLoS = False
+>v activationRequiresTargetLoS = True
+>v activationRequiresAimConfirmation = False
+>v movementType = ChaseMoveTarget
+>v moveInputScale = 1
+>v aimType = AtCurrentEnemy
+>v ignoreNodeGraph = True
+>v driverUpdateTimerOverride = -1
+>v resetCurrentEnemyOnNextDriverSelection = False
+>v noRepeat = False
+>v shouldSprint = False
+>v shouldFireEquipment = False
+
+> RoR2.CharacterAI.AISkillDriver
+>v customName = Path
+>v skillSlot = None
+>v requireSkillReady = False
+>v moveTargetType = CurrentEnemy
+>v minUserHealthFraction = -Infinity
+>v maxUserHealthFraction = Infinity
+>v minTargetHealthFraction = -Infinity
+>v maxTargetHealthFraction = Infinity
+>v minDistance = 0
+>v maxDistance = Infinity
+>v selectionRequiresTargetLoS = False
+>v activationRequiresTargetLoS = False
+>v activationRequiresAimConfirmation = False
+>v movementType = ChaseMoveTarget
+>v moveInputScale = 1
+>v aimType = MoveDirection
+>v ignoreNodeGraph = False
+>v driverUpdateTimerOverride = -1
+>v resetCurrentEnemyOnNextDriverSelection = False
+>v noRepeat = False
+>v shouldSprint = False
+>v shouldFireEquipment = False

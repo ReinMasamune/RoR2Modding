@@ -1,0 +1,10 @@
+PickupFeather
+
+> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>c mdlFeatherPickup
+
+>> transform = p:(0.0, -0.8, 0.5) r:(313.5, 49.9, 333.5) s:(0.4, 0.4, 0.4)
+
+>> UnityEngine.MeshFilter
+
+>> UnityEngine.MeshRenderer

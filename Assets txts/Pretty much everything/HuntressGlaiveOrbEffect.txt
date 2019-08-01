@@ -1,0 +1,112 @@
+HuntressGlaiveOrbEffect
+
+> transform = p:(52.5, 8.2, -39.2) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> RoR2.EffectComponent
+>v effectData = 
+>v positionAtReferencedTransform = False
+>v parentToReferencedTransform = False
+>v applyScale = True
+
+> RoR2.Orbs.OrbEffect
+>v startVelocity1 = (-2.0, -2.0, -2.0)
+>v startVelocity2 = (2.0, 2.0, 2.0)
+>v endVelocity1 = (0.0, 0.0, 0.0)
+>v endVelocity2 = (0.0, 0.0, 0.0)
+>v movementCurve = UnityEngine.AnimationCurve
+>v bezierCurveLine = 
+>v faceMovement = True
+>v callArrivalIfTargetIsGone = False
+>v startEffect = 
+>v startEffectScale = 1
+>v startEffectCopiesRotation = False
+>v endEffect = OmniImpactVFXHuntress (UnityEngine.GameObject)
+>v endEffectScale = 2
+>v endEffectCopiesRotation = False
+>v onArrival = UnityEngine.Events.UnityEvent UnityEngine.Events.UnityEvent
+
+> UnityEngine.Rigidbody
+
+> RoR2.VFXAttributes
+>v vfxPriority = Always
+>v vfxIntensity = Low
+>v optionalLights = UnityEngine.Light[]
+>v secondaryParticleSystem = UnityEngine.ParticleSystem[]
+
+> AkGameObj
+>v isEnvironmentAware = True
+>v m_positionOffsetData = AkGameObjPositionOffsetData
+
+> AkEvent
+>v actionOnEventType = AkActionOnEventType_Stop
+>v curveInterpolation = AkCurveInterpolation_Linear
+>v enableActionOnEvent = False
+>v data = Play_huntress_m2_flight_loop
+>v m_callbackData = 
+>v playingId = 0
+>v soundEmitterObject = 
+>v transitionDuration = 0
+>v triggerList = System.Collections.Generic.List`1[System.Int32]
+>v useOtherObject = False
+
+> AkEvent
+>v actionOnEventType = AkActionOnEventType_Stop
+>v curveInterpolation = AkCurveInterpolation_Linear
+>v enableActionOnEvent = False
+>v data = Stop_huntress_m2_flight_loop
+>v m_callbackData = 
+>v playingId = 0
+>v soundEmitterObject = 
+>v transitionDuration = 0
+>v triggerList = System.Collections.Generic.List`1[System.Int32]
+>v useOtherObject = False
+
+> AkEvent
+>v actionOnEventType = AkActionOnEventType_Stop
+>v curveInterpolation = AkCurveInterpolation_Linear
+>v enableActionOnEvent = False
+>v data = Play_huntress_m2_impact
+>v m_callbackData = 
+>v playingId = 0
+>v soundEmitterObject = 
+>v transitionDuration = 0
+>v triggerList = System.Collections.Generic.List`1[System.Int32]
+>v useOtherObject = False
+>c GlaiveGhost
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> RotateObject
+>>v rotationSpeed = (0.0, 360.0, 0.0)
+>>c Mesh
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(90.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.MeshRenderer
+
+>>> UnityEngine.MeshFilter
+
+>>> RotateObject
+>>>v rotationSpeed = (0.0, 0.0, 720.0)
+>>>c Trail
+
+>>>> transform = p:(0.0, -0.8, 0.0) r:(90.0, 0.0, 0.0) s:(0.0, 0.2, 0.0)
+
+>>>> UnityEngine.TrailRenderer
+>>>c Trail (1)
+
+>>>> transform = p:(-0.8, 0.4, 0.0) r:(90.0, 0.0, 0.0) s:(0.0, 0.2, 0.0)
+
+>>>> UnityEngine.TrailRenderer
+>>>c Trail (2)
+
+>>>> transform = p:(0.8, 0.5, 0.0) r:(90.0, 0.0, 0.0) s:(0.0, 0.2, 0.0)
+
+>>>> UnityEngine.TrailRenderer
+>>>c mdlVFXDonut2
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 0.0, 0.0) s:(0.6, 0.6, 0.7)
+
+>>>> UnityEngine.MeshFilter
+
+>>>> UnityEngine.MeshRenderer

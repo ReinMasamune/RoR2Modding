@@ -1,0 +1,14 @@
+TarTrail
+
+> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> RoR2.DamageTrail
+>v updateInterval = 0.1
+>v radius = 0.75
+>v pointLifetime = 10
+>v lineRenderer = 
+>v active = True
+>v segmentPrefab = TarTrailSegment (UnityEngine.GameObject)
+>v destroyTrailSegments = True
+>v damagePerSecond = 0
+>v owner = 

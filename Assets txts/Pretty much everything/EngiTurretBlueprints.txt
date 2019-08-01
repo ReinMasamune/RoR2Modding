@@ -1,0 +1,117 @@
+EngiTurretBlueprints
+
+> transform = p:(29.5, -4.8, 9.2) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> RoR2.BlueprintController
+>v ok = False
+>v okMaterial = matBlueprintsOk (UnityEngine.Material)
+>v invalidMaterial = matBlueprintsInvalid (UnityEngine.Material)
+>v renderers = UnityEngine.Renderer[]
+
+> AkEvent
+>v actionOnEventType = AkActionOnEventType_Stop
+>v curveInterpolation = AkCurveInterpolation_Linear
+>v enableActionOnEvent = False
+>v data = Play_engi_R_activate
+>v m_callbackData = 
+>v playingId = 0
+>v soundEmitterObject = 
+>v transitionDuration = 0
+>v triggerList = System.Collections.Generic.List`1[System.Int32]
+>v useOtherObject = False
+
+> AkEvent
+>v actionOnEventType = AkActionOnEventType_Stop
+>v curveInterpolation = AkCurveInterpolation_Linear
+>v enableActionOnEvent = False
+>v data = Stop_engi_R_hover_loop
+>v m_callbackData = 
+>v playingId = 0
+>v soundEmitterObject = 
+>v transitionDuration = 0
+>v triggerList = System.Collections.Generic.List`1[System.Int32]
+>v useOtherObject = False
+>c BlobLightProjector
+
+>> transform = p:(0.0, 0.8, 0.0) r:(90.0, 0.0, 0.0) s:(0.6, 0.6, 0.6)
+
+>> UnityEngine.Projector
+>c mdlEngiTurret (1)
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(0.5, 0.5, 0.5)
+
+>> UnityEngine.Animator
+>>c EngiTurretArmature
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>c Base
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>c legJoint.1
+
+>>>>> transform = p:(0.0, 0.5, 0.5) r:(315.0, 180.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>c legBar.1
+
+>>>>>> transform = p:(0.0, 0.7, 0.0) r:(295.3, 0.0, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>c toe.1
+
+>>>>>>> transform = p:(0.0, 1.3, 0.0) r:(334.7, 180.0, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>c toe.1_end
+
+>>>>>>>> transform = p:(0.0, 0.4, 0.0) r:(334.7, 180.0, 180.0) s:(1.0, 1.0, 1.0)
+>>>>c legJoint.2
+
+>>>>> transform = p:(-0.5, 0.5, -0.3) r:(312.0, 60.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>c legBar.2
+
+>>>>>> transform = p:(0.0, 0.7, 0.0) r:(293.8, 240.0, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>c toe.2
+
+>>>>>>> transform = p:(0.0, 1.3, 0.0) r:(11.6, 177.8, 159.1) s:(1.0, 1.0, 1.0)
+>>>>>>>c toe.2_end
+
+>>>>>>>> transform = p:(0.0, 0.4, 0.0) r:(11.6, 177.8, 159.1) s:(1.0, 1.0, 1.0)
+>>>>c legJoint.3
+
+>>>>> transform = p:(0.5, 0.5, -0.3) r:(323.7, 300.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>c legBar.3
+
+>>>>>> transform = p:(0.0, 0.7, 0.0) r:(299.6, 120.0, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>c toe.3
+
+>>>>>>> transform = p:(0.0, 1.3, 0.0) r:(14.3, 183.4, 206.2) s:(1.0, 1.0, 1.0)
+>>>>>>>c toe.3_end
+
+>>>>>>>> transform = p:(0.0, 0.4, 0.0) r:(14.3, 183.4, 206.2) s:(1.0, 1.0, 1.0)
+>>>>c Neck
+
+>>>>> transform = p:(0.0, 1.4, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>c Head
+
+>>>>>> transform = p:(0.0, 0.7, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>c Head_end
+
+>>>>>>> transform = p:(0.0, 0.6, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>c footIK.1
+
+>>>> transform = p:(0.0, -2.0, 0.2) r:(270.0, 180.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>c footIK.1_end
+
+>>>>> transform = p:(0.0, 0.3, 0.0) r:(270.0, 180.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>c footIK.2
+
+>>>> transform = p:(-1.8, 1.0, 0.2) r:(270.0, 60.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>c footIK.2_end
+
+>>>>> transform = p:(0.0, 0.3, 0.0) r:(270.0, 60.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>c footIK.3
+
+>>>> transform = p:(1.6, 0.9, 0.2) r:(270.0, 300.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>c footIK.3_end
+
+>>>>> transform = p:(0.0, 0.3, 0.0) r:(270.0, 300.0, 0.0) s:(1.0, 1.0, 1.0)
+>>c EngiTurretMesh
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 240.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.SkinnedMeshRenderer

@@ -1,0 +1,45 @@
+ClassicRun
+
+> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> UnityEngine.Networking.NetworkIdentity
+>v clientAuthorityCallback = 
+
+> RoR2.NetworkRuleBook
+>v ruleBook = RoR2.RuleBook
+
+> RoR2.Run
+>v nameToken = 
+>v startingScenes = SceneField[]
+>v availableItems = RoR2.ItemMask
+>v availableEquipment = RoR2.EquipmentMask
+>v enabledArtifacts = RoR2.ArtifactMask
+>v fixedTime = 0
+>v time = 0
+>v stageClearCount = 0
+>v nextStageScene = SceneField
+>v seed = 0
+>v runRNG = 
+>v nextStageRng = 
+>v stageRngGenerator = 
+>v stageRng = 
+>v bossRewardRng = 
+>v treasureRng = 
+>v spawnRng = 
+>v difficultyCoefficient = 1
+>v compensatedDifficultyCoefficient = 1
+>v shopPortalCount = 0
+>v availableTier1DropList = System.Collections.Generic.List`1[RoR2.PickupIndex]
+>v availableTier2DropList = System.Collections.Generic.List`1[RoR2.PickupIndex]
+>v availableTier3DropList = System.Collections.Generic.List`1[RoR2.PickupIndex]
+>v availableLunarDropList = System.Collections.Generic.List`1[RoR2.PickupIndex]
+>v availableEquipmentDropList = System.Collections.Generic.List`1[RoR2.PickupIndex]
+>v smallChestDropTierSelector = WeightedSelection`1[System.Collections.Generic.List`1[RoR2.PickupIndex]]
+>v mediumChestDropTierSelector = WeightedSelection`1[System.Collections.Generic.List`1[RoR2.PickupIndex]]
+>v largeChestDropTierSelector = WeightedSelection`1[System.Collections.Generic.List`1[RoR2.PickupIndex]]
+
+> RoR2.TeamManager
+>v naturalLevelCap = 94
+>v hardExpCap = 18260608101859069952
+
+> RoR2.RunCameraManager

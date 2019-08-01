@@ -1,0 +1,249 @@
+LunarChest
+
+> transform = p:(-23.2, -214.8, -163.5) r:(11.7, 325.0, 14.8) s:(1.0, 1.0, 1.0)
+
+> UnityEngine.Networking.NetworkIdentity
+>v clientAuthorityCallback = 
+
+> UnityEngine.Networking.NetworkTransform
+
+> RoR2.EntityStateMachine
+>v customName = Main
+>v initialStateType = EntityStates.SerializableEntityStateType
+>v mainStateType = EntityStates.SerializableEntityStateType
+>v commonComponents = RoR2.EntityStateMachine+CommonComponentCache
+>v networkIndex = -1
+
+> RoR2.ModelLocator
+>v modelTransform = mdlLunarChest (UnityEngine.Transform)
+>v modelBaseTransform = 
+>v dontReleaseModelOnDeath = False
+>v autoUpdateModelTransform = True
+>v dontDetatchFromParent = False
+>v noCorpse = False
+>v normalizeToFloor = False
+>v preserveModel = False
+
+> RoR2.NetworkStateMachine
+
+> RoR2.Highlight
+>v pickupIndex = ItemIndex.Syringe
+>v targetRenderer = LunarChestMesh (UnityEngine.SkinnedMeshRenderer)
+>v strength = 1
+>v highlightColor = interactive
+>v isOn = False
+
+> RoR2.ChestBehavior
+>v tier1Chance = 0
+>v tier2Chance = 0
+>v tier3Chance = 0
+>v lunarChance = 1
+>v requiredItemTag = Any
+>v dropRoller = UnityEngine.Events.UnityEvent UnityEngine.Events.UnityEvent
+>v openState = EntityStates.SerializableEntityStateType
+
+> RoR2.PurchaseInteraction
+>v displayNameToken = LUNAR_CHEST_NAME
+>v contextToken = LUNAR_CHEST_CONTEXT
+>v costType = Lunar
+>v available = True
+>v cost = 1
+>v automaticallyScaleCostWithDifficulty = False
+>v requiredUnlockable = 
+>v ignoreSpherecastForInteractability = False
+>v purchaseStatNames = System.String[]
+>v lastActivator = 
+>v lockGameObject = 
+>v onPurchase = RoR2.PurchaseEvent RoR2.PurchaseEvent
+
+> RoR2.GenericDisplayNameProvider
+>v displayToken = LUNAR_CHEST_NAME
+
+> RoR2.SfxLocator
+>v deathSound = 
+>v barkSound = 
+>v openSound = Play_UI_lunarCache_open
+>v landingSound = 
+>v fallDamageSound = 
+
+> RoR2.Hologram.HologramProjector
+>v displayDistance = 15
+>v hologramPivot = HologramPivot (UnityEngine.Transform)
+>v disableHologramRotation = False
+
+> RoR2.DitherModel
+>v fade = 0
+>v bounds = LunarChestMesh (UnityEngine.SphereCollider)
+>v renderers = UnityEngine.Renderer[]
+>c ModelBase
+
+>> transform = p:(0.0, 0.9, 0.0) r:(11.7, 325.0, 14.8) s:(1.0, 1.0, 1.0)
+>>c mdlLunarChest
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(11.7, 325.0, 14.8) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.Animator
+
+>>> RoR2.EntityLocator
+>>>v entity = LunarChest (UnityEngine.GameObject)
+
+>>> ChildLocator
+
+>>> RoR2.AnimationEvents
+>>>v soundCenter = 
+>>>c StarburstCenter
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(11.7, 325.0, 14.8) s:(1.7, 1.7, 1.7)
+>>>c Point light
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(11.7, 325.0, 14.8) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.Light
+>>>c LunarChestArmature
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(288.8, 272.5, 51.0) s:(1.0, 1.0, 1.0)
+>>>>c ROOT
+
+>>>>> transform = p:(0.0, 0.0, -1.0) r:(11.7, 325.0, 14.8) s:(1.0, 1.0, 1.0)
+>>>>>c TravelParticles
+
+>>>>>> transform = p:(0.0, 1.0, 0.0) r:(11.7, 325.0, 14.8) s:(1.0, 1.0, 1.0)
+>>>>>>c Flames
+
+>>>>>>> transform = p:(0.0, -5.2, 0.0) r:(71.2, 92.5, 129.0) s:(1.0, 1.0, 1.0)
+
+>>>>>>> UnityEngine.ParticleSystem
+
+>>>>>>> UnityEngine.ParticleSystemRenderer
+>>>>>>c LargeBillboards
+
+>>>>>>> transform = p:(0.0, 0.0, 0.0) r:(11.7, 325.0, 14.8) s:(1.0, 1.0, 1.0)
+
+>>>>>>> UnityEngine.ParticleSystem
+
+>>>>>>> UnityEngine.ParticleSystemRenderer
+>>>>>>c Point Light
+
+>>>>>>> transform = p:(0.0, 0.0, 0.0) r:(11.7, 325.0, 14.8) s:(1.0, 1.0, 1.0)
+
+>>>>>>> UnityEngine.Light
+
+>>>>>>> RoR2.FlickerLight
+>>>>>>>v light = Point Light (UnityEngine.Light)
+>>>>>>>v sinWaves = Wave[]
+
+>>>>>>> LightIntensityCurve
+>>>>>>>v curve = UnityEngine.AnimationCurve
+>>>>>>>v timeMax = 5
+>>>>>>>v loop = False
+>>>>>>>v randomStart = False
+>>>>>c Petal1.1
+
+>>>>>> transform = p:(0.0, 0.2, 0.3) r:(65.3, 356.1, 36.8) s:(1.0, 1.0, 1.0)
+>>>>>>c Petal1.2
+
+>>>>>>> transform = p:(0.0, 0.4, 0.0) r:(317.5, 155.7, 340.2) s:(1.0, 1.0, 1.0)
+>>>>>>>c Petal1.3
+
+>>>>>>>> transform = p:(0.0, 0.5, 0.0) r:(6.3, 323.6, 14.6) s:(1.0, 1.0, 1.0)
+>>>>>>>>c Petal1.4
+
+>>>>>>>>> transform = p:(0.0, 0.7, 0.0) r:(332.1, 314.1, 16.5) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c Petal1.5
+
+>>>>>>>>>> transform = p:(0.0, 0.5, 0.0) r:(316.7, 307.9, 20.1) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c Petal1.5_end
+
+>>>>>>>>>>> transform = p:(0.0, 0.5, 0.0) r:(316.7, 307.9, 20.1) s:(1.0, 1.0, 1.0)
+>>>>>c Petal2.1
+
+>>>>>> transform = p:(0.3, 0.2, 0.1) r:(42.9, 352.1, 335.4) s:(1.0, 1.0, 1.0)
+>>>>>>c Petal2.2
+
+>>>>>>> transform = p:(0.0, 0.4, 0.0) r:(337.8, 154.2, 13.0) s:(1.0, 1.0, 1.0)
+>>>>>>>c Petal2.3
+
+>>>>>>>> transform = p:(0.0, 0.5, 0.0) r:(10.2, 324.8, 20.1) s:(1.0, 1.0, 1.0)
+>>>>>>>>c Petal2.4
+
+>>>>>>>>> transform = p:(0.0, 0.7, 0.0) r:(351.2, 328.0, 53.3) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c Petal2.5
+
+>>>>>>>>>> transform = p:(0.0, 0.5, 0.0) r:(333.3, 326.8, 66.7) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c Petal2.5_end
+
+>>>>>>>>>>> transform = p:(0.0, 0.5, 0.0) r:(333.3, 326.8, 66.7) s:(1.0, 1.0, 1.0)
+>>>>>c Petal3.1
+
+>>>>>> transform = p:(0.2, 0.2, -0.3) r:(357.6, 21.0, 320.3) s:(1.0, 1.0, 1.0)
+>>>>>>c Petal3.2
+
+>>>>>>> transform = p:(0.0, 0.4, 0.0) r:(12.5, 160.6, 8.1) s:(1.0, 1.0, 1.0)
+>>>>>>>c Petal3.3
+
+>>>>>>>> transform = p:(0.0, 0.5, 0.0) r:(15.9, 326.9, 18.5) s:(1.0, 1.0, 1.0)
+>>>>>>>>c Petal3.4
+
+>>>>>>>>> transform = p:(0.0, 0.7, 0.0) r:(17.1, 4.1, 57.6) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c Petal3.5
+
+>>>>>>>>>> transform = p:(0.0, 0.5, 0.0) r:(351.7, 18.6, 75.2) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c Petal3.5_end
+
+>>>>>>>>>>> transform = p:(0.0, 0.5, 0.0) r:(351.7, 18.6, 75.2) s:(1.0, 1.0, 1.0)
+>>>>>c Petal4.1
+
+>>>>>> transform = p:(-0.2, 0.2, -0.3) r:(313.2, 59.2, 320.2) s:(1.0, 1.0, 1.0)
+>>>>>>c Petal4.2
+
+>>>>>>> transform = p:(0.0, 0.4, 0.0) r:(25.5, 158.5, 334.3) s:(1.0, 1.0, 1.0)
+>>>>>>>c Petal4.3
+
+>>>>>>>> transform = p:(0.0, 0.5, 0.0) r:(16.0, 326.9, 12.1) s:(1.0, 1.0, 1.0)
+>>>>>>>>c Petal4.4
+
+>>>>>>>>> transform = p:(0.0, 0.7, 0.0) r:(35.7, 24.0, 30.4) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c Petal4.5
+
+>>>>>>>>>> transform = p:(0.0, 0.5, 0.0) r:(14.3, 68.9, 59.4) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c Petal4.5_end
+
+>>>>>>>>>>> transform = p:(0.0, 0.5, 0.0) r:(14.3, 68.9, 59.4) s:(1.0, 1.0, 1.0)
+>>>>>c Petal5.1
+
+>>>>>> transform = p:(-0.3, 0.2, 0.1) r:(284.6, 85.1, 351.2) s:(1.0, 1.0, 1.0)
+>>>>>>c Petal5.2
+
+>>>>>>> transform = p:(0.0, 0.4, 0.0) r:(5.7, 174.3, 310.0) s:(1.0, 1.0, 1.0)
+>>>>>>>c Petal5.3
+
+>>>>>>>> transform = p:(0.0, 0.5, 0.0) r:(9.7, 325.7, 9.7) s:(1.0, 1.0, 1.0)
+>>>>>>>>c Petal5.4
+
+>>>>>>>>> transform = p:(0.0, 0.7, 0.0) r:(18.9, 21.4, 345.2) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c Petal5.5
+
+>>>>>>>>>> transform = p:(0.0, 0.5, 0.0) r:(37.9, 87.8, 13.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c Petal5.5_end
+
+>>>>>>>>>>> transform = p:(0.0, 0.5, 0.0) r:(37.9, 87.8, 13.0) s:(1.0, 1.0, 1.0)
+>>>c LunarChestMesh
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(288.8, 272.5, 339.3) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.SkinnedMeshRenderer
+
+>>>> RoR2.EntityLocator
+>>>>v entity = LunarChest (UnityEngine.GameObject)
+
+>>>> UnityEngine.SphereCollider
+>>>c Smoke
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(320.4, 285.9, 49.2) s:(0.8, 0.8, 0.8)
+
+>>>> UnityEngine.ParticleSystem
+
+>>>> UnityEngine.ParticleSystemRenderer
+>c HologramPivot
+
+>> transform = p:(0.0, 2.9, 0.0) r:(11.7, 325.0, 14.8) s:(1.0, 1.0, 1.0)

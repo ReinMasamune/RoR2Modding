@@ -1,0 +1,112 @@
+TracerToolbotRebar
+
+> transform = p:(118.7, 0.4, 275.9) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> RoR2.EffectComponent
+>v effectData = 
+>v positionAtReferencedTransform = False
+>v parentToReferencedTransform = False
+>v applyScale = False
+
+> RoR2.Tracer
+>v startTransform = 
+>v beamObject = BeamObject (UnityEngine.GameObject)
+>v beamDensity = 2
+>v speed = 202
+>v headTransform = TracerHead (UnityEngine.Transform)
+>v tailTransform = TracerTail (UnityEngine.Transform)
+>v length = 6
+>v onTailReachedDestination = UnityEngine.Events.UnityEvent UnityEngine.Events.UnityEvent
+
+> UnityEngine.LineRenderer
+
+> BeamPointsFromTransforms
+>v target = TracerToolbotRebar (UnityEngine.LineRenderer)
+
+> RoR2.EventFunctions
+>c StickEffect
+
+>> transform = p:(0.0, 0.0, -0.6) r:(0.0, 90.0, 270.0) s:(1.4, 1.4, 1.4)
+
+>> RoR2.ShakeEmitter
+>>v shakeOnStart = True
+>>v wave = Wave
+>>v duration = 0.1
+>>v radius = 40
+>>v scaleShakeRadiusWithLocalScale = False
+>>v amplitudeTimeDecay = True
+
+>> ObjectScaleCurve
+>>v curveX = UnityEngine.AnimationCurve
+>>v curveY = UnityEngine.AnimationCurve
+>>v curveZ = UnityEngine.AnimationCurve
+>>v overallCurve = UnityEngine.AnimationCurve
+>>v timeMax = 2
+>>v time = 0
+
+>> RoR2.DestroyOnTimer
+>>v duration = 2
+>>v resetAgeOnDisable = False
+>>c FlickeringPointLight
+
+>>> transform = p:(0.0, -0.1, 0.0) r:(0.0, 90.0, 90.0) s:(0.3, 0.3, 0.3)
+
+>>> UnityEngine.Light
+
+>>> LightIntensityCurve
+>>>v curve = UnityEngine.AnimationCurve
+>>>v timeMax = 2
+>>>v loop = False
+>>>v randomStart = False
+
+>>> RoR2.FlickerLight
+>>>v light = FlickeringPointLight (UnityEngine.Light)
+>>>v sinWaves = Wave[]
+>>c RebarMesh
+
+>>> transform = p:(0.0, 1.4, 0.0) r:(0.0, 90.0, 90.0) s:(0.4, 0.7, 0.2)
+
+>>> UnityEngine.MeshRenderer
+
+>>> UnityEngine.MeshFilter
+>>c Flash
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 180.0, 270.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.ParticleSystem
+
+>>> UnityEngine.ParticleSystemRenderer
+>>c Dust
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 180.0, 270.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.ParticleSystem
+
+>>> UnityEngine.ParticleSystemRenderer
+>>c Dust, Directional
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 180.0, 270.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.ParticleSystem
+
+>>> UnityEngine.ParticleSystemRenderer
+>>c Debris
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 180.0, 270.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.ParticleSystem
+
+>>> UnityEngine.ParticleSystemRenderer
+>c TracerHead
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 90.0, 0.0) s:(1.0, 1.0, 1.0)
+>c TracerTail
+
+>> transform = p:(0.0, 0.0, -0.2) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>c BeamObject
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> UnityEngine.ParticleSystem
+
+>> UnityEngine.ParticleSystemRenderer

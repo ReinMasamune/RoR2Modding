@@ -1,0 +1,70 @@
+StageEntryIcon
+
+> UnityEngine.RectTransform
+
+> UnityEngine.CanvasRenderer
+
+> UnityEngine.UI.Image
+
+> RoR2.UI.MPEventSystemLocator
+
+> RoR2.UI.CustomButtonTransition
+>v scaleButtonOnHover = False
+>v showImageOnHover = True
+>v imageOnHover = HoverHighlight (UnityEngine.UI.Image)
+>v imageOnInteractable = InteractableHighlight (UnityEngine.UI.Image)
+>v allowAllEventSystems = False
+>v pointerClickOnly = True
+
+> RoR2.UI.SkinControllers.ButtonSkinController
+>v useRecommendedButtonWidth = False
+>v useRecommendedButtonHeight = False
+>v useRecommendedImage = True
+>v useRecommendedMaterial = True
+>v useRecommendedAlignment = True
+>v useRecommendedLabel = True
+>v skinData = skinCleanButton (RoR2.UI.UISkinData)
+>c Icon
+
+>> UnityEngine.RectTransform
+
+>> UnityEngine.CanvasRenderer
+
+>> UnityEngine.UI.RawImage
+>c InteractableHighlight
+
+>> UnityEngine.RectTransform
+
+>> UnityEngine.CanvasRenderer
+
+>> UnityEngine.UI.Image
+>c HoverHighlight
+
+>> UnityEngine.RectTransform
+
+>> UnityEngine.CanvasRenderer
+
+>> UnityEngine.UI.Image
+>c NamePanel
+
+>> UnityEngine.RectTransform
+
+>> UnityEngine.CanvasRenderer
+
+>> UnityEngine.UI.Image
+>>c Label
+
+>>> UnityEngine.RectTransform
+
+>>> UnityEngine.CanvasRenderer
+
+>>> RoR2.UI.HGTextMeshProUGUI
+>>>v useLanguageDefaultFont = True
+>>>v defaultLanguageFont = tmpBombDropshadow (TMPro.TMP_FontAsset)
+>>>c TMP SubMeshUI [NotoSans-Regular Atlas Material + NotoSansCJKsc-Regular SDF (Korean) Atlas]
+
+>>>> UnityEngine.RectTransform
+
+>>>> UnityEngine.CanvasRenderer
+
+>>>> TMPro.TMP_SubMeshUI

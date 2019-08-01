@@ -1,0 +1,11 @@
+DamageNumberManager
+
+> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(0.5, 0.5, 0.5)
+
+> UnityEngine.ParticleSystemRenderer
+
+> RoR2.DamageNumberManager
+>v damageValueMin = 1
+>v damageValueMax = 9999
+
+> UnityEngine.ParticleSystem

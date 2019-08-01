@@ -1,0 +1,18 @@
+ChestScanner
+
+> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> UnityEngine.Networking.NetworkIdentity
+>v clientAuthorityCallback = 
+
+> RoR2.ChestRevealer
+>v radius = 500
+>v pulseTravelSpeed = 125
+>v revealDuration = 10
+>v pulseInterval = 10
+>v pulseEffectPrefab = ActivateRadarTowerEffect (UnityEngine.GameObject)
+>v pulseEffectScale = 0.001
+
+> RoR2.DestroyOnTimer
+>v duration = 5
+>v resetAgeOnDisable = False

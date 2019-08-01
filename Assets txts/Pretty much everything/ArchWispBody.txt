@@ -1,0 +1,462 @@
+ArchWispBody
+
+> transform = p:(-21.4, -204.7, -202.2) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> UnityEngine.Networking.NetworkIdentity
+>v clientAuthorityCallback = 
+
+> RoR2.CharacterBody
+>v bodyIndex = 2
+>v baseNameToken = ARCHWISP_BODY_NAME
+>v subtitleNameToken = 
+>v pendingTonicAfflictionCount = 0
+>v bodyFlags = None
+>v readOnlyInstancesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.CharacterBody]
+>v rootMotionInMainState = False
+>v mainRootSpeed = 0
+>v baseMaxHealth = 1500
+>v baseRegen = 0
+>v baseMaxShield = 0
+>v baseMoveSpeed = 7
+>v baseAcceleration = 14
+>v baseJumpPower = 0
+>v baseDamage = 25
+>v baseAttackSpeed = 1
+>v baseCrit = 0
+>v baseArmor = 1
+>v baseJumpCount = 1
+>v autoCalculateLevelStats = True
+>v levelMaxHealth = 450
+>v levelRegen = 0
+>v levelMaxShield = 0
+>v levelMoveSpeed = 0
+>v levelJumpPower = 0
+>v levelDamage = 5
+>v levelAttackSpeed = 0
+>v levelCrit = 0
+>v levelArmor = 0
+>v killCount = 0
+>v wasLucky = False
+>v spreadBloomDecayTime = 0.45
+>v spreadBloomCurve = UnityEngine.AnimationCurve
+>v crosshairPrefab = StandardCrosshair (UnityEngine.GameObject)
+>v hideCrosshair = False
+>v aimOriginTransform = ArchWispBody (UnityEngine.Transform)
+>v hullClassification = Golem
+>v portraitIcon = GreaterWispBody (UnityEngine.Texture2D)
+>v isChampion = False
+>v currentVehicle = 
+>v preferredPodPrefab = 
+
+> RoR2.HealthComponent
+>v health = 100
+>v shield = 0
+>v barrier = 0
+>v body = 
+>v dontShowHealthbar = False
+>v globalDeathEventChanceCoefficient = 1
+>v medkitActivationDelay = 1.1
+>v frozenExecuteThreshold = 0.3
+
+> RoR2.InputBankTest
+>v lookPitch = 0
+>v lookYaw = 0
+>v moveVector = (0.0, 0.0, 0.0)
+>v skill1 = RoR2.InputBankTest+ButtonState
+>v skill2 = RoR2.InputBankTest+ButtonState
+>v skill3 = RoR2.InputBankTest+ButtonState
+>v skill4 = RoR2.InputBankTest+ButtonState
+>v interact = RoR2.InputBankTest+ButtonState
+>v jump = RoR2.InputBankTest+ButtonState
+>v sprint = RoR2.InputBankTest+ButtonState
+>v activateEquipment = RoR2.InputBankTest+ButtonState
+>v ping = RoR2.InputBankTest+ButtonState
+>v emoteRequest = -1
+
+> RoR2.CameraTargetParams
+>v cameraParams = ccpStandardTall (RoR2.CharacterCameraParams)
+>v cameraPivotTransform = 
+>v aimMode = Standard
+>v recoil = (0.0, 0.0)
+>v idealLocalCameraPos = (0.0, 4.0, -14.0)
+>v fovOverride = -1
+>v dontRaycastToPivot = False
+
+> RoR2.Networking.CharacterNetworkTransform
+>v positionTransmitInterval = 0.1
+>v lastPositionTransmitTime = -Infinity
+>v interpolationFactor = 2
+>v newestNetSnapshot = RoR2.Networking.CharacterNetworkTransform+Snapshot
+>v debugDuplicatePositions = False
+>v debugSnapshotReceived = False
+
+> RoR2.RigidbodyDirection
+>v aimDirection = (1.0, 1.0, 1.0)
+>v rigid = ArchWispBody (UnityEngine.Rigidbody)
+>v angularVelocityPID = ArchWispBody (QuaternionPID)
+>v torquePID = ArchWispBody (VectorPID)
+>v freezeXRotation = False
+>v freezeYRotation = False
+>v freezeZRotation = False
+>v animatorXCycle = 
+>v animatorYCycle = 
+>v animatorZCycle = 
+>v animatorTorqueScale = 0
+
+> RoR2.RigidbodyMotor
+>v moveVector = (0.0, 0.0, 0.0)
+>v rigid = ArchWispBody (UnityEngine.Rigidbody)
+>v forcePID = ArchWispBody (VectorPID)
+>v centerOfMassOffset = (0.0, 0.0, 0.0)
+>v animatorForward = 
+>v animatorRight = 
+>v animatorUp = 
+>v enableOverrideMoveVectorInLocalSpace = False
+>v canTakeImpactDamage = True
+>v overrideMoveVectorInLocalSpace = (0.0, 0.0, 0.0)
+
+> QuaternionPID
+>v customName = Angular Velocity PID
+>v PID = (2.0, 1.0, 0.0)
+>v inputQuat = (0.0, 0.0, 0.0, 1.0)
+>v targetQuat = (0.0, 0.0, 0.0, 1.0)
+>v outputVector = (0.0, 0.0, 0.0)
+>v gain = 1
+
+> VectorPID
+>v customName = torquePID
+>v PID = (2.0, 1.0, 0.0)
+>v inputVector = (0.0, 0.0, 0.0)
+>v targetVector = (0.0, 0.0, 0.0)
+>v outputVector = (0.0, 0.0, 0.0)
+>v isAngle = True
+>v gain = 3
+
+> VectorPID
+>v customName = Force PID
+>v PID = (3.0, 0.0, 0.0)
+>v inputVector = (0.0, 0.0, 0.0)
+>v targetVector = (0.0, 0.0, 0.0)
+>v outputVector = (0.0, 0.0, 0.0)
+>v isAngle = False
+>v gain = 1
+
+> RoR2.TeamComponent
+>v hideAllyCardDisplay = False
+
+> RoR2.EntityStateMachine
+>v customName = Body
+>v initialStateType = EntityStates.SerializableEntityStateType
+>v mainStateType = EntityStates.SerializableEntityStateType
+>v commonComponents = RoR2.EntityStateMachine+CommonComponentCache
+>v networkIndex = -1
+
+> RoR2.EntityStateMachine
+>v customName = Weapon
+>v initialStateType = EntityStates.SerializableEntityStateType
+>v mainStateType = EntityStates.SerializableEntityStateType
+>v commonComponents = RoR2.EntityStateMachine+CommonComponentCache
+>v networkIndex = -1
+
+> RoR2.SkillLocator
+>v primary = ArchWispBody (RoR2.GenericSkill)
+>v secondary = 
+>v utility = 
+>v special = 
+>v passiveSkill = RoR2.SkillLocator+PassiveSkill
+
+> RoR2.GenericSkill
+>v skillName = Cannons
+>v skillNameToken = 
+>v skillDescriptionToken = 
+>v baseRechargeInterval = 3
+>v baseMaxStock = 1
+>v rechargeStock = 1
+>v isBullets = False
+>v shootDelay = 0.3
+>v beginSkillCooldownOnSkillEnd = False
+>v stateMachine = ArchWispBody (RoR2.EntityStateMachine)
+>v activationState = EntityStates.SerializableEntityStateType
+>v interruptPriority = Any
+>v isCombatSkill = True
+>v noSprint = True
+>v canceledFromSprinting = False
+>v mustKeyPress = False
+>v icon = 
+>v requiredStock = 1
+>v stockToConsume = 1
+>v hasExecutedSuccessfully = False
+
+> RoR2.Interactor
+>v maxInteractionDistance = 3
+
+> RoR2.InteractionDriver
+>v highlightInteractor = False
+>v interactableOverride = 
+
+> UnityEngine.Rigidbody
+
+> RoR2.ModelLocator
+>v modelTransform = mdlArchWisp (UnityEngine.Transform)
+>v modelBaseTransform = Model Base (UnityEngine.Transform)
+>v dontReleaseModelOnDeath = False
+>v autoUpdateModelTransform = True
+>v dontDetatchFromParent = True
+>v noCorpse = False
+>v normalizeToFloor = False
+>v preserveModel = False
+
+> RoR2.NetworkStateMachine
+
+> RoR2.CharacterDeathBehavior
+>v deathStateMachine = ArchWispBody (RoR2.EntityStateMachine)
+>v deathState = EntityStates.SerializableEntityStateType
+>v idleStateMachine = RoR2.EntityStateMachine[]
+
+> UnityEngine.SphereCollider
+
+> RoR2.DeathRewards
+>v expReward = 0
+>v logUnlockableName = 
+>v bossPickup = RoR2.SerializablePickupIndex
+
+> RoR2.EquipmentSlot
+>v equipmentActivateString = Play_UI_equipment_activate
+
+> AkEvent
+>v actionOnEventType = AkActionOnEventType_Stop
+>v curveInterpolation = AkCurveInterpolation_Linear
+>v enableActionOnEvent = False
+>v data = Play_greater_wisp_active_loop
+>v m_callbackData = 
+>v playingId = 0
+>v soundEmitterObject = 
+>v transitionDuration = 0
+>v triggerList = System.Collections.Generic.List`1[System.Int32]
+>v useOtherObject = False
+
+> AkEvent
+>v actionOnEventType = AkActionOnEventType_Stop
+>v curveInterpolation = AkCurveInterpolation_Linear
+>v enableActionOnEvent = False
+>v data = Stop_greater_wisp_active_loop
+>v m_callbackData = 
+>v playingId = 0
+>v soundEmitterObject = 
+>v transitionDuration = 0
+>v triggerList = System.Collections.Generic.List`1[System.Int32]
+>v useOtherObject = False
+
+> RoR2.SfxLocator
+>v deathSound = Play_greater_wisp_death
+>v barkSound = Play_greater_wisp_idle
+>v openSound = 
+>v landingSound = 
+>v fallDamageSound = 
+>c Model Base
+
+>> transform = p:(0.0, -0.2, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>c mdlArchWisp
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(2.0, 2.0, 2.0)
+
+>>> UnityEngine.Animator
+
+>>> ChildLocator
+
+>>> RoR2.AimAnimator
+>>>v inputBank = ArchWispBody (RoR2.InputBankTest)
+>>>v directionComponent = 
+>>>v pitchRangeMin = -90
+>>>v pitchRangeMax = 90
+>>>v yawRangeMin = -90
+>>>v yawRangeMax = 90
+>>>v pitchGiveupRange = 20
+>>>v yawGiveupRange = 20
+>>>v giveupDuration = 2
+>>>v raisedApproachSpeed = 180
+>>>v loweredApproachSpeed = 180
+>>>v smoothTime = 0.3
+>>>v fullYaw = False
+>>>v aimType = Direct
+>>>v enableAimWeight = False
+
+>>> RoR2.CharacterModel
+>>>v body = ArchWispBody (RoR2.CharacterBody)
+>>>v itemDisplayRuleSet = idrsArchWisp (RoR2.ItemDisplayRuleSet)
+>>>v autoPopulateLightInfos = True
+>>>v autoPopulateParticleSystemInfos = True
+>>>v baseParticleSystemInfos = RoR2.CharacterModel+ParticleSystemInfo[]
+>>>v baseRendererInfos = RoR2.CharacterModel+RendererInfo[]
+>>>v baseLightInfos = RoR2.CharacterModel+LightInfo[]
+>>>v invisibilityCount = 0
+>>>v temporaryOverlays = System.Collections.Generic.List`1[RoR2.TemporaryOverlay]
+>>>v revealedMaterial = matRevealedEffect (UnityEngine.Material)
+>>>v cloakedMaterial = matCloakedEffect (UnityEngine.Material)
+>>>v ghostMaterial = matGhostEffect (UnityEngine.Material)
+>>>v bellBuffMaterial = matBellBuff (UnityEngine.Material)
+>>>v wolfhatMaterial = matWolfhatOverlay (UnityEngine.Material)
+>>>v energyShieldMaterial = matEnergyShield (UnityEngine.Material)
+>>>v fullCritMaterial = matFullCrit (UnityEngine.Material)
+>>>v beetleJuiceMaterial = matBeetleJuice (UnityEngine.Material)
+>>>v brittleMaterial = matBrittle (UnityEngine.Material)
+>>>v clayGooMaterial = matClayGooDebuff (UnityEngine.Material)
+>>>v slow80Material = matSlow80Debuff (UnityEngine.Material)
+>>>v immuneMaterial = matImmune (UnityEngine.Material)
+>>>v elitePoisonOverlayMaterial = matElitePoisonOverlay (UnityEngine.Material)
+>>>v elitePoisonParticleReplacementMaterial = matElitePoisonParticleReplacement (UnityEngine.Material)
+>>>v weakMaterial = matWeakOverlay (UnityEngine.Material)
+
+>>> RoR2.HurtBoxGroup
+>>>v hurtBoxes = RoR2.HurtBox[]
+>>>v mainHurtBox = HurtBox (RoR2.HurtBox)
+>>>v bullseyeCount = 1
+>>>c Point light
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(90.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.Light
+
+>>>> RoR2.FlickerLight
+>>>>v light = Point light (UnityEngine.Light)
+>>>>v sinWaves = Wave[]
+>>>c ArchWispArmature
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>c HurtBox
+
+>>>>> transform = p:(0.0, 0.0, 0.2) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>>> RoR2.HurtBox
+>>>>>v healthComponent = ArchWispBody (RoR2.HealthComponent)
+>>>>>v isBullseye = True
+>>>>>v damageModifier = Normal
+>>>>>v teamIndex = None
+>>>>>v hurtBoxGroup = mdlArchWisp (RoR2.HurtBoxGroup)
+>>>>>v indexInGroup = 0
+>>>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+
+>>>>> UnityEngine.SphereCollider
+
+>>>>> SurfaceDefProvider
+>>>>>v surfaceDef = sdGreaterWisp (SurfaceDef)
+>>>>c ROOT
+
+>>>>> transform = p:(0.0, 1.0, 0.0) r:(90.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>c Hand.l
+
+>>>>>> transform = p:(-0.2, 1.2, 0.6) r:(0.0, 45.0, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>c finger1.l
+
+>>>>>>> transform = p:(0.3, 0.0, -0.1) r:(352.3, 82.5, 181.0) s:(1.0, 1.0, 1.0)
+>>>>>>>c finger1.l_end
+
+>>>>>>>> transform = p:(0.0, 0.7, 0.0) r:(352.3, 82.5, 181.0) s:(1.0, 1.0, 1.0)
+>>>>>>c finger2.l
+
+>>>>>>> transform = p:(-0.1, 0.1, -0.1) r:(352.4, 342.6, 182.4) s:(1.0, 1.0, 1.0)
+>>>>>>>c finger2.l_end
+
+>>>>>>>> transform = p:(0.0, 0.6, 0.0) r:(352.4, 342.6, 182.4) s:(1.0, 1.0, 1.0)
+>>>>>>c finger3.l
+
+>>>>>>> transform = p:(0.1, 0.0, 0.2) r:(5.5, 123.7, 183.6) s:(1.0, 1.0, 1.0)
+>>>>>>>c finger3.l_end
+
+>>>>>>>> transform = p:(0.0, 0.5, 0.0) r:(5.5, 123.7, 183.6) s:(1.0, 1.0, 1.0)
+>>>>>>c MuzzleLeft
+
+>>>>>>> transform = p:(0.0, 0.3, 0.0) r:(90.0, 225.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>c Hand.r
+
+>>>>>> transform = p:(0.2, 1.2, 0.6) r:(0.0, 315.0, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>c finger1.r
+
+>>>>>>> transform = p:(-0.3, 0.0, -0.1) r:(352.3, 277.5, 179.0) s:(1.0, 1.0, 1.0)
+>>>>>>>c finger1.r_end
+
+>>>>>>>> transform = p:(0.0, 0.7, 0.0) r:(352.3, 277.5, 179.0) s:(1.0, 1.0, 1.0)
+>>>>>>c finger2.r
+
+>>>>>>> transform = p:(0.1, 0.1, -0.1) r:(352.4, 17.4, 177.6) s:(1.0, 1.0, 1.0)
+>>>>>>>c finger2.r_end
+
+>>>>>>>> transform = p:(0.0, 0.6, 0.0) r:(352.4, 17.4, 177.6) s:(1.0, 1.0, 1.0)
+>>>>>>c finger3.r
+
+>>>>>>> transform = p:(-0.1, 0.0, 0.2) r:(5.5, 236.3, 176.4) s:(1.0, 1.0, 1.0)
+>>>>>>>c finger3.r_end
+
+>>>>>>>> transform = p:(0.0, 0.5, 0.0) r:(5.5, 236.3, 176.4) s:(1.0, 1.0, 1.0)
+>>>>>>c MuzzleRight
+
+>>>>>>> transform = p:(0.0, 0.2, 0.0) r:(90.0, 135.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>c Mask
+
+>>>>>> transform = p:(0.0, 1.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>c DeathEffect, Overlay
+
+>>>>>>> transform = p:(0.2, 1.2, 0.0) r:(83.1, 14.4, 36.2) s:(1.0, 1.0, 1.0)
+
+>>>>>>> UnityEngine.MeshFilter
+
+>>>>>>> UnityEngine.MeshRenderer
+
+>>>>>>> RoR2.AnimateShaderAlpha
+>>>>>>>v alphaCurve = UnityEngine.AnimationCurve
+>>>>>>>v timeMax = 2
+>>>>>>>v decal = 
+>>>>>>>v destroyOnEnd = False
+>>>>>>>v disableOnEnd = False
+>>>>>>>v time = 0
+>>>>>>c Fire
+
+>>>>>>> transform = p:(0.0, 0.7, 0.5) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>>>>> UnityEngine.ParticleSystem
+
+>>>>>>> UnityEngine.ParticleSystemRenderer
+>>>>>>c Mask_end
+
+>>>>>>> transform = p:(0.0, 0.7, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>c StandableSurfacePosition
+
+>>>>>> transform = p:(0.0, 1.0, -1.1) r:(0.0, 270.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>c StandableSurface
+
+>>>>>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 270.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>>>>> UnityEngine.SphereCollider
+
+>>>>>>> UnityEngine.Rigidbody
+
+>>>>>>> KinematicCharacterController.PhysicsMover
+>>>>>>>v Rigidbody = StandableSurface (UnityEngine.Rigidbody)
+>>>>>>>v MoverController = StandableSurface (KinematicCharacterController.BasicPhysicsMoverController)
+
+>>>>>>> KinematicCharacterController.BasicPhysicsMoverController
+>>>>>>>v referenceTransformPosition = StandableSurfacePosition (UnityEngine.Transform)
+
+>>>>>>> RoR2.DisableCollisionsBetweenColliders
+>>>>>>>v collidersA = UnityEngine.Collider[]
+>>>>>>>v collidersB = UnityEngine.Collider[]
+>>>>c HealthBarOrigin
+
+>>>>> transform = p:(0.0, 0.0, 3.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>c ArchWispMesh
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.SkinnedMeshRenderer
+>>>c AimAssist
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>> RoR2.AimAssistTarget
+>>>>v point0 = mdlArchWisp (UnityEngine.Transform)
+>>>>v point1 = Mask_end (UnityEngine.Transform)
+>>>>v assistScale = 1.72
+>>>>v healthComponent = ArchWispBody (RoR2.HealthComponent)
+>>>>v teamComponent = ArchWispBody (RoR2.TeamComponent)
+>>>>v instancesList = System.Collections.Generic.List`1[RoR2.AimAssistTarget]
+>>>>v debugAimAssistVisualCoefficient = RoR2.ConVar.FloatConVar

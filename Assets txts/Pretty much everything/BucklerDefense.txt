@@ -1,0 +1,134 @@
+BucklerDefense
+
+> transform = p:(-47.1, 26.4, 25.4) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> RoR2.TemporaryVisualEffect
+>v radius = 1
+>v parentTransform = 
+>v visualTransform = MeshHolder (UnityEngine.Transform)
+>v enterComponents = UnityEngine.MonoBehaviour[]
+>v exitComponents = UnityEngine.MonoBehaviour[]
+>v visualState = Enter
+>v healthComponent = 
+
+> ObjectScaleCurve
+>v curveX = UnityEngine.AnimationCurve
+>v curveY = UnityEngine.AnimationCurve
+>v curveZ = UnityEngine.AnimationCurve
+>v overallCurve = UnityEngine.AnimationCurve
+>v timeMax = 0.6
+>v time = 0
+
+> ObjectScaleCurve
+>v curveX = UnityEngine.AnimationCurve
+>v curveY = UnityEngine.AnimationCurve
+>v curveZ = UnityEngine.AnimationCurve
+>v overallCurve = UnityEngine.AnimationCurve
+>v timeMax = 0.6
+>v time = 0
+
+> RoR2.DestroyOnTimer
+>v duration = 0.6
+>v resetAgeOnDisable = True
+
+> AkGameObj
+>v isEnvironmentAware = True
+>v m_positionOffsetData = AkGameObjPositionOffsetData
+
+> AkEvent
+>v actionOnEventType = AkActionOnEventType_Stop
+>v curveInterpolation = AkCurveInterpolation_Linear
+>v enableActionOnEvent = False
+>v data = Play_item_proc_roseBuckler
+>v m_callbackData = 
+>v playingId = 0
+>v soundEmitterObject = 
+>v transitionDuration = 0
+>v triggerList = System.Collections.Generic.List`1[System.Int32]
+>v useOtherObject = False
+
+> UnityEngine.Rigidbody
+>c MeshHolder
+
+>> transform = p:(0.0, 0.3, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> RotateObject
+>>v rotationSpeed = (0.0, 100.0, 0.0)
+
+>> RoR2.ScaleParticleSystemDuration
+>>v initialDuration = 4
+>>v particleSystems = UnityEngine.ParticleSystem[]
+
+>> ObjectScaleCurve
+>>v curveX = UnityEngine.AnimationCurve
+>>v curveY = UnityEngine.AnimationCurve
+>>v curveZ = UnityEngine.AnimationCurve
+>>v overallCurve = UnityEngine.AnimationCurve
+>>v timeMax = 0.5
+>>v time = 0
+
+>> RoR2.VFXAttributes
+>>v vfxPriority = Always
+>>v vfxIntensity = Low
+>>v optionalLights = UnityEngine.Light[]
+>>v secondaryParticleSystem = UnityEngine.ParticleSystem[]
+>>c ShieldMesh
+
+>>> transform = p:(0.0, 0.4, 0.8) r:(270.0, 0.0, 0.0) s:(0.2, 0.2, 0.2)
+
+>>> UnityEngine.MeshFilter
+
+>>> UnityEngine.MeshRenderer
+
+>>> RoR2.AnimateShaderAlpha
+>>>v alphaCurve = UnityEngine.AnimationCurve
+>>>v timeMax = 0.3
+>>>v decal = 
+>>>v destroyOnEnd = False
+>>>v disableOnEnd = False
+>>>v time = 0
+>>c ShieldMesh
+
+>>> transform = p:(-0.8, 0.4, 0.0) r:(270.0, 270.0, 0.0) s:(0.2, 0.2, 0.2)
+
+>>> UnityEngine.MeshFilter
+
+>>> UnityEngine.MeshRenderer
+
+>>> RoR2.AnimateShaderAlpha
+>>>v alphaCurve = UnityEngine.AnimationCurve
+>>>v timeMax = 0.3
+>>>v decal = 
+>>>v destroyOnEnd = False
+>>>v disableOnEnd = False
+>>>v time = 0
+>>c ShieldMesh
+
+>>> transform = p:(0.0, 0.4, -0.8) r:(270.0, 180.0, 0.0) s:(0.2, 0.2, 0.2)
+
+>>> UnityEngine.MeshFilter
+
+>>> UnityEngine.MeshRenderer
+
+>>> RoR2.AnimateShaderAlpha
+>>>v alphaCurve = UnityEngine.AnimationCurve
+>>>v timeMax = 0.3
+>>>v decal = 
+>>>v destroyOnEnd = False
+>>>v disableOnEnd = False
+>>>v time = 0
+>>c ShieldMesh
+
+>>> transform = p:(0.8, 0.4, 0.0) r:(270.0, 90.0, 0.0) s:(0.2, 0.2, 0.2)
+
+>>> UnityEngine.MeshFilter
+
+>>> UnityEngine.MeshRenderer
+
+>>> RoR2.AnimateShaderAlpha
+>>>v alphaCurve = UnityEngine.AnimationCurve
+>>>v timeMax = 0.3
+>>>v decal = 
+>>>v destroyOnEnd = False
+>>>v disableOnEnd = False
+>>>v time = 0

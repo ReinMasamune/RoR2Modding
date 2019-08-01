@@ -1,0 +1,54 @@
+GravSphereTether
+
+> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> UnityEngine.LineRenderer
+
+> BezierCurveLine
+>v v0 = (0.0, 0.0, 0.0)
+>v p1 = (0.0, 0.0, 0.0)
+>v v1 = (0.0, 0.0, 0.0)
+>v endTransform = 
+>v animateBezierWind = False
+>v windMagnitude = (1.0, 1.0, 1.0)
+>v windFrequency = (0.2, 0.2, 0.2)
+>v lineRenderer = GravSphereTether (UnityEngine.LineRenderer)
+
+> RoR2.AnimateShaderAlpha
+>v alphaCurve = UnityEngine.AnimationCurve
+>v timeMax = 1
+>v decal = 
+>v destroyOnEnd = False
+>v disableOnEnd = False
+>v time = 0
+
+> RoR2.AnimateShaderAlpha
+>v alphaCurve = UnityEngine.AnimationCurve
+>v timeMax = 1
+>v decal = 
+>v destroyOnEnd = True
+>v disableOnEnd = False
+>v time = 0
+
+> RoR2.TetherEffect
+>v tetherMaxDistance = 0
+>v tetherEndTransform = 
+>v fadeOut = GravSphereTether (RoR2.AnimateShaderAlpha)
+
+> AkGameObj
+>v isEnvironmentAware = True
+>v m_positionOffsetData = AkGameObjPositionOffsetData
+
+> AkEvent
+>v actionOnEventType = AkActionOnEventType_Stop
+>v curveInterpolation = AkCurveInterpolation_Linear
+>v enableActionOnEvent = False
+>v data = Play_item_use_blackhole_suckin
+>v m_callbackData = 
+>v playingId = 0
+>v soundEmitterObject = 
+>v transitionDuration = 0
+>v triggerList = System.Collections.Generic.List`1[System.Int32]
+>v useOtherObject = False
+
+> UnityEngine.Rigidbody

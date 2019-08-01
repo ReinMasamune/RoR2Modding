@@ -1,0 +1,33 @@
+SimpleTextPanel
+
+> UnityEngine.RectTransform
+
+> UnityEngine.CanvasRenderer
+
+> UnityEngine.UI.Image
+
+> RoR2.UI.SkinControllers.PanelSkinController
+>v panelType = Default
+>v skinData = skinCleanButton (RoR2.UI.UISkinData)
+
+> ChildLocator
+
+> UnityEngine.UI.LayoutElement
+
+> UnityEngine.UI.ContentSizeFitter
+
+> UnityEngine.UI.VerticalLayoutGroup
+>c MainLabel
+
+>> UnityEngine.RectTransform
+
+>> UnityEngine.CanvasRenderer
+
+>> RoR2.UI.HGTextMeshProUGUI
+>>v useLanguageDefaultFont = True
+>>v defaultLanguageFont = tmpBombDropshadow (TMPro.TMP_FontAsset)
+
+>> RoR2.UI.SkinControllers.LabelSkinController
+>>v labelType = Default
+>>v useRecommendedAlignment = True
+>>v skinData = skinCleanButton (RoR2.UI.UISkinData)

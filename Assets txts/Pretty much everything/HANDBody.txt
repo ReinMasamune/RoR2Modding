@@ -1,0 +1,854 @@
+HANDBody
+
+> transform = p:(-193.4, -184.5, -168.4) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> UnityEngine.Networking.NetworkIdentity
+>v clientAuthorityCallback = 
+
+> RoR2.CharacterMotor
+>v instancesList = System.Collections.Generic.List`1[RoR2.CharacterMotor]
+>v walkSpeedPenaltyCoefficient = 1
+>v characterDirection = HANDBody (RoR2.CharacterDirection)
+>v muteWalkMotion = False
+>v mass = 500
+>v airControl = 0.25
+>v disableAirControlUntilCollision = False
+>v generateParametersOnAwake = True
+>v slipStartAngle = 70
+>v slipEndAngle = 55
+>v jumpCount = 0
+>v netIsGrounded = False
+>v netGroundNormal = (0.0, 0.0, 0.0)
+>v velocity = (0.0, 0.0, 0.0)
+>v rootMotion = (0.0, 0.0, 0.0)
+
+> RoR2.InputBankTest
+>v lookPitch = 0
+>v lookYaw = 0
+>v moveVector = (0.0, 0.0, 0.0)
+>v skill1 = RoR2.InputBankTest+ButtonState
+>v skill2 = RoR2.InputBankTest+ButtonState
+>v skill3 = RoR2.InputBankTest+ButtonState
+>v skill4 = RoR2.InputBankTest+ButtonState
+>v interact = RoR2.InputBankTest+ButtonState
+>v jump = RoR2.InputBankTest+ButtonState
+>v sprint = RoR2.InputBankTest+ButtonState
+>v activateEquipment = RoR2.InputBankTest+ButtonState
+>v ping = RoR2.InputBankTest+ButtonState
+>v emoteRequest = -1
+
+> RoR2.CharacterBody
+>v bodyIndex = 35
+>v baseNameToken = HAND_BODY_NAME
+>v subtitleNameToken = 
+>v pendingTonicAfflictionCount = 0
+>v bodyFlags = None
+>v readOnlyInstancesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.CharacterBody]
+>v rootMotionInMainState = False
+>v mainRootSpeed = 0
+>v baseMaxHealth = 300
+>v baseRegen = 1
+>v baseMaxShield = 0
+>v baseMoveSpeed = 8.5
+>v baseAcceleration = 25
+>v baseJumpPower = 15
+>v baseDamage = 20
+>v baseAttackSpeed = 1
+>v baseCrit = 1
+>v baseArmor = 3
+>v baseJumpCount = 1
+>v autoCalculateLevelStats = True
+>v levelMaxHealth = 90
+>v levelRegen = 0.2
+>v levelMaxShield = 0
+>v levelMoveSpeed = 0
+>v levelJumpPower = 0
+>v levelDamage = 4
+>v levelAttackSpeed = 0
+>v levelCrit = 0
+>v levelArmor = 0
+>v killCount = 0
+>v wasLucky = False
+>v spreadBloomDecayTime = 0.45
+>v spreadBloomCurve = UnityEngine.AnimationCurve
+>v crosshairPrefab = 
+>v hideCrosshair = False
+>v aimOriginTransform = AimOrigin (UnityEngine.Transform)
+>v hullClassification = Human
+>v portraitIcon = 
+>v isChampion = False
+>v currentVehicle = 
+>v preferredPodPrefab = 
+
+> RoR2.CameraTargetParams
+>v cameraParams = ccpStandard (RoR2.CharacterCameraParams)
+>v cameraPivotTransform = 
+>v aimMode = Standard
+>v recoil = (0.0, 0.0)
+>v idealLocalCameraPos = (0.0, 1.5, -7.0)
+>v fovOverride = -1
+>v dontRaycastToPivot = False
+
+> RoR2.ModelLocator
+>v modelTransform = mdlHAND (UnityEngine.Transform)
+>v modelBaseTransform = ModelBase (UnityEngine.Transform)
+>v dontReleaseModelOnDeath = False
+>v autoUpdateModelTransform = True
+>v dontDetatchFromParent = False
+>v noCorpse = False
+>v normalizeToFloor = False
+>v preserveModel = False
+
+> RoR2.EntityStateMachine
+>v customName = Body
+>v initialStateType = EntityStates.SerializableEntityStateType
+>v mainStateType = EntityStates.SerializableEntityStateType
+>v commonComponents = RoR2.EntityStateMachine+CommonComponentCache
+>v networkIndex = -1
+
+> RoR2.CharacterDirection
+>v moveVector = (0.0, 0.0, 0.0)
+>v targetTransform = ModelBase (UnityEngine.Transform)
+>v overrideAnimatorForwardTransform = 
+>v rootMotionAccumulator = 
+>v modelAnimator = 
+>v driveFromRootRotation = False
+>v turnSpeed = 720
+
+> RoR2.EntityStateMachine
+>v customName = Weapon
+>v initialStateType = EntityStates.SerializableEntityStateType
+>v mainStateType = EntityStates.SerializableEntityStateType
+>v commonComponents = RoR2.EntityStateMachine+CommonComponentCache
+>v networkIndex = -1
+
+> RoR2.EntityStateMachine
+>v customName = Hook
+>v initialStateType = EntityStates.SerializableEntityStateType
+>v mainStateType = EntityStates.SerializableEntityStateType
+>v commonComponents = RoR2.EntityStateMachine+CommonComponentCache
+>v networkIndex = -1
+
+> RoR2.GenericSkill
+>v skillName = FullSwing
+>v skillNameToken = 
+>v skillDescriptionToken = 
+>v baseRechargeInterval = 0
+>v baseMaxStock = 1
+>v rechargeStock = 1
+>v isBullets = False
+>v shootDelay = 0.1
+>v beginSkillCooldownOnSkillEnd = False
+>v stateMachine = HANDBody (RoR2.EntityStateMachine)
+>v activationState = EntityStates.SerializableEntityStateType
+>v interruptPriority = Skill
+>v isCombatSkill = True
+>v noSprint = True
+>v canceledFromSprinting = False
+>v mustKeyPress = False
+>v icon = texHandSkill1Icon (UnityEngine.Sprite)
+>v requiredStock = 1
+>v stockToConsume = 1
+>v hasExecutedSuccessfully = False
+
+> RoR2.GenericSkill
+>v skillName = Fire Winch
+>v skillNameToken = 
+>v skillDescriptionToken = 
+>v baseRechargeInterval = 3
+>v baseMaxStock = 1
+>v rechargeStock = 1
+>v isBullets = False
+>v shootDelay = 0.3
+>v beginSkillCooldownOnSkillEnd = False
+>v stateMachine = HANDBody (RoR2.EntityStateMachine)
+>v activationState = EntityStates.SerializableEntityStateType
+>v interruptPriority = Any
+>v isCombatSkill = True
+>v noSprint = True
+>v canceledFromSprinting = False
+>v mustKeyPress = False
+>v icon = texHandSkill2Icon (UnityEngine.Sprite)
+>v requiredStock = 1
+>v stockToConsume = 1
+>v hasExecutedSuccessfully = False
+
+> RoR2.GenericSkill
+>v skillName = Overclock
+>v skillNameToken = 
+>v skillDescriptionToken = 
+>v baseRechargeInterval = 7
+>v baseMaxStock = 1
+>v rechargeStock = 1
+>v isBullets = False
+>v shootDelay = 0.08
+>v beginSkillCooldownOnSkillEnd = False
+>v stateMachine = HANDBody (RoR2.EntityStateMachine)
+>v activationState = EntityStates.SerializableEntityStateType
+>v interruptPriority = PrioritySkill
+>v isCombatSkill = True
+>v noSprint = True
+>v canceledFromSprinting = False
+>v mustKeyPress = False
+>v icon = texHandSkill3Icon (UnityEngine.Sprite)
+>v requiredStock = 1
+>v stockToConsume = 1
+>v hasExecutedSuccessfully = False
+
+> RoR2.GenericSkill
+>v skillName = Slam
+>v skillNameToken = 
+>v skillDescriptionToken = 
+>v baseRechargeInterval = 14
+>v baseMaxStock = 1
+>v rechargeStock = 1
+>v isBullets = False
+>v shootDelay = 0.08
+>v beginSkillCooldownOnSkillEnd = False
+>v stateMachine = HANDBody (RoR2.EntityStateMachine)
+>v activationState = EntityStates.SerializableEntityStateType
+>v interruptPriority = PrioritySkill
+>v isCombatSkill = True
+>v noSprint = True
+>v canceledFromSprinting = False
+>v mustKeyPress = False
+>v icon = texHandSkill4Icon (UnityEngine.Sprite)
+>v requiredStock = 1
+>v stockToConsume = 1
+>v hasExecutedSuccessfully = False
+
+> RoR2.SkillLocator
+>v primary = HANDBody (RoR2.GenericSkill)
+>v secondary = HANDBody (RoR2.GenericSkill)
+>v utility = HANDBody (RoR2.GenericSkill)
+>v special = HANDBody (RoR2.GenericSkill)
+>v passiveSkill = RoR2.SkillLocator+PassiveSkill
+
+> RoR2.TeamComponent
+>v hideAllyCardDisplay = False
+
+> RoR2.HealthComponent
+>v health = 100
+>v shield = 0
+>v barrier = 0
+>v body = 
+>v dontShowHealthbar = False
+>v globalDeathEventChanceCoefficient = 1
+>v medkitActivationDelay = 1.1
+>v frozenExecuteThreshold = 0.3
+
+> RoR2.Interactor
+>v maxInteractionDistance = 3
+
+> RoR2.InteractionDriver
+>v highlightInteractor = True
+>v interactableOverride = 
+
+> RoR2.CharacterDeathBehavior
+>v deathStateMachine = HANDBody (RoR2.EntityStateMachine)
+>v deathState = EntityStates.SerializableEntityStateType
+>v idleStateMachine = RoR2.EntityStateMachine[]
+
+> RoR2.Networking.CharacterNetworkTransform
+>v positionTransmitInterval = 0.05
+>v lastPositionTransmitTime = -Infinity
+>v interpolationFactor = 3
+>v newestNetSnapshot = RoR2.Networking.CharacterNetworkTransform+Snapshot
+>v debugDuplicatePositions = False
+>v debugSnapshotReceived = False
+
+> RoR2.NetworkStateMachine
+
+> RoR2.CharacterEmoteDefinitions
+>v emoteDefinitions = RoR2.CharacterEmoteDefinitions+EmoteDef[]
+
+> RoR2.EquipmentSlot
+>v equipmentActivateString = Play_UI_equipment_activate
+
+> RoR2.SfxLocator
+>v deathSound = Play_ui_player_death
+>v barkSound = 
+>v openSound = 
+>v landingSound = 
+>v fallDamageSound = 
+
+> UnityEngine.Rigidbody
+
+> UnityEngine.CapsuleCollider
+
+> KinematicCharacterController.KinematicCharacterMotor
+>v CharacterController = HANDBody (RoR2.CharacterMotor)
+>v Capsule = HANDBody (UnityEngine.CapsuleCollider)
+>v Rigidbody = HANDBody (UnityEngine.Rigidbody)
+>v DetectDiscreteCollisions = False
+>v GroundDetectionExtraDistance = 0
+>v MaxStepHeight = 0.2
+>v MinRequiredStepDepth = 0.1
+>v MaxStableSlopeAngle = 55
+>v MaxStableDistanceFromLedge = 0.5
+>v PreventSnappingOnLedges = False
+>v MaxStableDenivelationAngle = 55
+>v RigidbodyInteractionType = None
+>v PreserveAttachedRigidbodyMomentum = True
+>v HasPlanarConstraint = False
+>v PlanarConstraintAxis = (0.0, 0.0, 1.0)
+>v StepHandling = Standard
+>v LedgeHandling = True
+>v InteractiveRigidbodyHandling = True
+>v SafeMovement = False
+>v GroundingStatus = KinematicCharacterController.CharacterGroundingReport
+>v LastGroundingStatus = KinematicCharacterController.CharacterTransientGroundingReport
+>v CollidableLayers = UnityEngine.LayerMask
+>v MaxHitsBudget = 16
+>v MaxCollisionBudget = 16
+>v MaxGroundingSweepIterations = 2
+>v MaxMovementSweepIterations = 6
+>v MaxSteppingSweepIterations = 3
+>v MaxRigidbodyOverlapsCount = 16
+>v MaxDiscreteCollisionIterations = 3
+>v CollisionOffset = 0.001
+>v GroundProbeReboundDistance = 0.02
+>v MinimumGroundProbingDistance = 0.005
+>v GroundProbingBackstepDistance = 0.1
+>v SweepProbingBackstepDistance = 0.002
+>v SecondaryProbesVertical = 0.02
+>v SecondaryProbesHorizontal = 0.001
+>v MinVelocityMagnitude = 0.01
+>v SteppingForwardDistance = 0.03
+>v MinDistanceForLedge = 0.05
+>v CorrelationForVerticalObstruction = 0.01
+>v ExtraSteppingForwardDistance = 0.01
+>v ExtraStepHeightPadding = 0.01
+>c ModelBase
+
+>> transform = p:(0.0, -1.2, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>c mdlHAND
+
+>>> transform = p:(0.0, 0.0, -0.2) r:(0.0, 0.0, 0.0) s:(0.2, 0.2, 0.2)
+
+>>> UnityEngine.Animator
+
+>>> RoR2.AimAnimator
+>>>v inputBank = HANDBody (RoR2.InputBankTest)
+>>>v directionComponent = HANDBody (RoR2.CharacterDirection)
+>>>v pitchRangeMin = -30
+>>>v pitchRangeMax = 30
+>>>v yawRangeMin = -90
+>>>v yawRangeMax = 90
+>>>v pitchGiveupRange = 40
+>>>v yawGiveupRange = 40
+>>>v giveupDuration = 1.5
+>>>v raisedApproachSpeed = 180
+>>>v loweredApproachSpeed = 180
+>>>v smoothTime = 0.1
+>>>v fullYaw = False
+>>>v aimType = Direct
+>>>v enableAimWeight = False
+
+>>> RoR2.HitBoxGroup
+>>>v groupName = Hammer
+>>>v hitBoxes = RoR2.HitBox[]
+
+>>> ChildLocator
+
+>>> RoR2.CharacterModel
+>>>v body = HANDBody (RoR2.CharacterBody)
+>>>v itemDisplayRuleSet = idrsHand (RoR2.ItemDisplayRuleSet)
+>>>v autoPopulateLightInfos = True
+>>>v autoPopulateParticleSystemInfos = True
+>>>v baseParticleSystemInfos = RoR2.CharacterModel+ParticleSystemInfo[]
+>>>v baseRendererInfos = RoR2.CharacterModel+RendererInfo[]
+>>>v baseLightInfos = RoR2.CharacterModel+LightInfo[]
+>>>v invisibilityCount = 0
+>>>v temporaryOverlays = System.Collections.Generic.List`1[RoR2.TemporaryOverlay]
+>>>v revealedMaterial = matRevealedEffect (UnityEngine.Material)
+>>>v cloakedMaterial = matCloakedEffect (UnityEngine.Material)
+>>>v ghostMaterial = matGhostEffect (UnityEngine.Material)
+>>>v bellBuffMaterial = matBellBuff (UnityEngine.Material)
+>>>v wolfhatMaterial = matWolfhatOverlay (UnityEngine.Material)
+>>>v energyShieldMaterial = matEnergyShield (UnityEngine.Material)
+>>>v fullCritMaterial = matFullCrit (UnityEngine.Material)
+>>>v beetleJuiceMaterial = matBeetleJuice (UnityEngine.Material)
+>>>v brittleMaterial = matBrittle (UnityEngine.Material)
+>>>v clayGooMaterial = matClayGooDebuff (UnityEngine.Material)
+>>>v slow80Material = matSlow80Debuff (UnityEngine.Material)
+>>>v immuneMaterial = matImmune (UnityEngine.Material)
+>>>v elitePoisonOverlayMaterial = matElitePoisonOverlay (UnityEngine.Material)
+>>>v elitePoisonParticleReplacementMaterial = matElitePoisonParticleReplacement (UnityEngine.Material)
+>>>v weakMaterial = matWeakOverlay (UnityEngine.Material)
+
+>>> RoR2.SkateSparks
+>>>v sparkFactor = 240
+>>>v leftParticleSystem = SparkEmitter (UnityEngine.ParticleSystem)
+>>>v rightParticleSystem = SparkEmitter (UnityEngine.ParticleSystem)
+
+>>> RoR2.HurtBoxGroup
+>>>v hurtBoxes = RoR2.HurtBox[]
+>>>v mainHurtBox = TempHurtBox (RoR2.HurtBox)
+>>>v bullseyeCount = 1
+>>>c HAN-DMesh
+
+>>>> transform = p:(0.0, 8.8, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.SkinnedMeshRenderer
+>>>c HANDArmature
+
+>>>> transform = p:(0.0, 8.8, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>c armIKPole.l
+
+>>>>> transform = p:(-6.2, 8.6, -2.4) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>c armIKPole.l_end
+
+>>>>>> transform = p:(0.0, 1.5, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>c armIKPole.r
+
+>>>>> transform = p:(8.6, 9.0, -3.8) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>c armIKPole.r_end
+
+>>>>>> transform = p:(0.0, 1.5, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>c WinchHole
+
+>>>>> transform = p:(0.0, -3.5, -1.7) r:(4.5, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>c Base
+
+>>>>> transform = p:(0.0, 0.6, -3.4) r:(270.0, 180.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>c Chest
+
+>>>>>> transform = p:(0.0, 1.5, 0.0) r:(4.5, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>c neck1
+
+>>>>>>> transform = p:(0.0, 3.2, 0.0) r:(335.4, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>c neck2
+
+>>>>>>>> transform = p:(0.0, 0.3, 0.0) r:(344.1, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>c neck3
+
+>>>>>>>>> transform = p:(0.0, 0.3, 0.0) r:(20.9, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c neck4
+
+>>>>>>>>>> transform = p:(0.0, 0.3, 0.0) r:(45.9, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c head
+
+>>>>>>>>>>> transform = p:(0.0, 0.3, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c Antenna1Bone
+
+>>>>>>>>>>>> transform = p:(-0.6, 1.5, -2.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>>>>>>>>>> DynamicBone
+>>>>>>>>>>>>v m_Root = Antenna1Bone (UnityEngine.Transform)
+>>>>>>>>>>>>v m_UpdateRate = 60
+>>>>>>>>>>>>v m_UpdateMode = AnimatePhysics
+>>>>>>>>>>>>v m_Damping = 0.1
+>>>>>>>>>>>>v m_DampingDistrib = UnityEngine.AnimationCurve
+>>>>>>>>>>>>v m_Elasticity = 0.1
+>>>>>>>>>>>>v m_ElasticityDistrib = UnityEngine.AnimationCurve
+>>>>>>>>>>>>v m_Stiffness = 0.1
+>>>>>>>>>>>>v m_StiffnessDistrib = UnityEngine.AnimationCurve
+>>>>>>>>>>>>v m_Inert = 0
+>>>>>>>>>>>>v m_InertDistrib = UnityEngine.AnimationCurve
+>>>>>>>>>>>>v m_Radius = 0
+>>>>>>>>>>>>v m_RadiusDistrib = UnityEngine.AnimationCurve
+>>>>>>>>>>>>v m_EndLength = 0
+>>>>>>>>>>>>v m_EndOffset = (0.0, 0.0, 0.0)
+>>>>>>>>>>>>v m_Gravity = (0.0, 0.0, 0.0)
+>>>>>>>>>>>>v m_Force = (0.0, 0.0, 0.0)
+>>>>>>>>>>>>v m_Colliders = System.Collections.Generic.List`1[DynamicBoneCollider]
+>>>>>>>>>>>>v m_Exclusions = System.Collections.Generic.List`1[UnityEngine.Transform]
+>>>>>>>>>>>>v m_FreezeAxis = None
+>>>>>>>>>>>>v m_DistantDisable = False
+>>>>>>>>>>>>v m_ReferenceObject = 
+>>>>>>>>>>>>v m_DistanceToObject = 20
+>>>>>>>>>>>>c Antenna1Bone_end
+
+>>>>>>>>>>>>> transform = p:(0.0, 1.4, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c Antenna2Bone
+
+>>>>>>>>>>>> transform = p:(-0.7, 1.0, -2.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>>>>>>>>>> DynamicBone
+>>>>>>>>>>>>v m_Root = Antenna2Bone (UnityEngine.Transform)
+>>>>>>>>>>>>v m_UpdateRate = 60
+>>>>>>>>>>>>v m_UpdateMode = AnimatePhysics
+>>>>>>>>>>>>v m_Damping = 0.1
+>>>>>>>>>>>>v m_DampingDistrib = UnityEngine.AnimationCurve
+>>>>>>>>>>>>v m_Elasticity = 0.1
+>>>>>>>>>>>>v m_ElasticityDistrib = UnityEngine.AnimationCurve
+>>>>>>>>>>>>v m_Stiffness = 0.1
+>>>>>>>>>>>>v m_StiffnessDistrib = UnityEngine.AnimationCurve
+>>>>>>>>>>>>v m_Inert = 0
+>>>>>>>>>>>>v m_InertDistrib = UnityEngine.AnimationCurve
+>>>>>>>>>>>>v m_Radius = 0
+>>>>>>>>>>>>v m_RadiusDistrib = UnityEngine.AnimationCurve
+>>>>>>>>>>>>v m_EndLength = 0
+>>>>>>>>>>>>v m_EndOffset = (0.0, 0.0, 0.0)
+>>>>>>>>>>>>v m_Gravity = (0.0, 0.0, 0.0)
+>>>>>>>>>>>>v m_Force = (0.0, 0.0, 0.0)
+>>>>>>>>>>>>v m_Colliders = System.Collections.Generic.List`1[DynamicBoneCollider]
+>>>>>>>>>>>>v m_Exclusions = System.Collections.Generic.List`1[UnityEngine.Transform]
+>>>>>>>>>>>>v m_FreezeAxis = None
+>>>>>>>>>>>>v m_DistantDisable = False
+>>>>>>>>>>>>v m_ReferenceObject = 
+>>>>>>>>>>>>v m_DistanceToObject = 20
+>>>>>>>>>>>>c Antenna2Bone_end
+
+>>>>>>>>>>>>> transform = p:(0.0, 1.4, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c Antenna3Bone
+
+>>>>>>>>>>>> transform = p:(0.8, 1.2, -1.9) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>>>>>>>>>> DynamicBone
+>>>>>>>>>>>>v m_Root = Antenna3Bone (UnityEngine.Transform)
+>>>>>>>>>>>>v m_UpdateRate = 60
+>>>>>>>>>>>>v m_UpdateMode = AnimatePhysics
+>>>>>>>>>>>>v m_Damping = 0.1
+>>>>>>>>>>>>v m_DampingDistrib = UnityEngine.AnimationCurve
+>>>>>>>>>>>>v m_Elasticity = 0.1
+>>>>>>>>>>>>v m_ElasticityDistrib = UnityEngine.AnimationCurve
+>>>>>>>>>>>>v m_Stiffness = 0.1
+>>>>>>>>>>>>v m_StiffnessDistrib = UnityEngine.AnimationCurve
+>>>>>>>>>>>>v m_Inert = 0
+>>>>>>>>>>>>v m_InertDistrib = UnityEngine.AnimationCurve
+>>>>>>>>>>>>v m_Radius = 0
+>>>>>>>>>>>>v m_RadiusDistrib = UnityEngine.AnimationCurve
+>>>>>>>>>>>>v m_EndLength = 0
+>>>>>>>>>>>>v m_EndOffset = (0.0, 0.0, 0.0)
+>>>>>>>>>>>>v m_Gravity = (0.0, 0.0, 0.0)
+>>>>>>>>>>>>v m_Force = (0.0, 0.0, 0.0)
+>>>>>>>>>>>>v m_Colliders = System.Collections.Generic.List`1[DynamicBoneCollider]
+>>>>>>>>>>>>v m_Exclusions = System.Collections.Generic.List`1[UnityEngine.Transform]
+>>>>>>>>>>>>v m_FreezeAxis = None
+>>>>>>>>>>>>v m_DistantDisable = False
+>>>>>>>>>>>>v m_ReferenceObject = 
+>>>>>>>>>>>>v m_DistanceToObject = 20
+>>>>>>>>>>>>c Antenna3Bone_end
+
+>>>>>>>>>>>>> transform = p:(0.0, 2.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c Hat1Bone
+
+>>>>>>>>>>>> transform = p:(-0.7, 1.5, 0.4) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>>>>>>>>>> DynamicBone
+>>>>>>>>>>>>v m_Root = Hat1Bone (UnityEngine.Transform)
+>>>>>>>>>>>>v m_UpdateRate = 60
+>>>>>>>>>>>>v m_UpdateMode = Normal
+>>>>>>>>>>>>v m_Damping = 0.107
+>>>>>>>>>>>>v m_DampingDistrib = UnityEngine.AnimationCurve
+>>>>>>>>>>>>v m_Elasticity = 0.1
+>>>>>>>>>>>>v m_ElasticityDistrib = UnityEngine.AnimationCurve
+>>>>>>>>>>>>v m_Stiffness = 1
+>>>>>>>>>>>>v m_StiffnessDistrib = UnityEngine.AnimationCurve
+>>>>>>>>>>>>v m_Inert = 0
+>>>>>>>>>>>>v m_InertDistrib = UnityEngine.AnimationCurve
+>>>>>>>>>>>>v m_Radius = 0.48
+>>>>>>>>>>>>v m_RadiusDistrib = UnityEngine.AnimationCurve
+>>>>>>>>>>>>v m_EndLength = 0
+>>>>>>>>>>>>v m_EndOffset = (0.0, 0.0, 0.0)
+>>>>>>>>>>>>v m_Gravity = (0.0, 0.0, 0.0)
+>>>>>>>>>>>>v m_Force = (0.0, 0.0, 0.0)
+>>>>>>>>>>>>v m_Colliders = System.Collections.Generic.List`1[DynamicBoneCollider]
+>>>>>>>>>>>>v m_Exclusions = System.Collections.Generic.List`1[UnityEngine.Transform]
+>>>>>>>>>>>>v m_FreezeAxis = None
+>>>>>>>>>>>>v m_DistantDisable = False
+>>>>>>>>>>>>v m_ReferenceObject = 
+>>>>>>>>>>>>v m_DistanceToObject = 20
+>>>>>>>>>>>>c Hat2Bone
+
+>>>>>>>>>>>>> transform = p:(0.0, 0.6, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>c Hat2Bone_end
+
+>>>>>>>>>>>>>> transform = p:(0.0, 0.6, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>c shoulder1.l
+
+>>>>>>> transform = p:(-2.5, 2.0, 0.0) r:(4.5, 0.0, 90.6) s:(1.0, 1.0, 1.0)
+>>>>>>>c shoulder2.l
+
+>>>>>>>> transform = p:(0.0, 0.5, 0.0) r:(274.5, 351.1, 98.9) s:(1.0, 1.0, 1.0)
+>>>>>>>>c upper_arm.l
+
+>>>>>>>>> transform = p:(0.0, 1.0, 0.0) r:(347.5, 185.0, 199.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c lower_arm.l
+
+>>>>>>>>>> transform = p:(0.0, 3.0, 0.0) r:(283.3, 32.6, 166.1) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c wrist.l
+
+>>>>>>>>>>> transform = p:(0.0, 2.2, 0.0) r:(0.7, 288.3, 257.1) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c finger1.l.1
+
+>>>>>>>>>>>> transform = p:(0.4, 1.8, 0.3) r:(359.7, 106.0, 109.9) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c finger1.l.2
+
+>>>>>>>>>>>>> transform = p:(0.0, 0.8, 0.0) r:(33.5, 29.5, 356.6) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>c finger1.l.3
+
+>>>>>>>>>>>>>> transform = p:(0.0, 0.6, 0.0) r:(332.2, 47.1, 343.3) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>>c finger1IK.l
+
+>>>>>>>>>>>>>>> transform = p:(0.1, 0.3, 0.0) r:(355.7, 298.7, 119.0) s:(2.5, 2.5, 2.5)
+>>>>>>>>>>>>>>>c finger1IK.l_end
+
+>>>>>>>>>>>>>>>> transform = p:(0.0, 0.4, 0.0) r:(355.7, 298.7, 119.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c finger2.l.1
+
+>>>>>>>>>>>> transform = p:(0.4, 1.8, -0.4) r:(359.1, 110.3, 109.1) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c finger2.l.2
+
+>>>>>>>>>>>>> transform = p:(0.0, 0.8, 0.0) r:(35.6, 8.0, 4.9) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>c finger2.l.3
+
+>>>>>>>>>>>>>> transform = p:(0.0, 0.6, 0.0) r:(335.7, 349.8, 17.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>>c finger2IK.l
+
+>>>>>>>>>>>>>>> transform = p:(-0.1, 0.3, 0.0) r:(298.4, 193.2, 172.6) s:(2.6, 2.6, 2.6)
+>>>>>>>>>>>>>>>c finger2IK.l_end
+
+>>>>>>>>>>>>>>>> transform = p:(0.0, 0.4, 0.0) r:(298.4, 193.2, 172.6) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c thumb.l.1
+
+>>>>>>>>>>>> transform = p:(-0.4, 1.7, 0.1) r:(359.3, 108.3, 89.7) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c thumb.l.2
+
+>>>>>>>>>>>>> transform = p:(0.0, 0.8, 0.0) r:(0.5, 198.3, 179.3) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>c thumbIK.l
+
+>>>>>>>>>>>>>> transform = p:(0.0, 0.5, 0.0) r:(359.3, 108.3, 299.3) s:(6.3, 6.3, 6.3)
+>>>>>>>>>>>>>>c thumbIK.l_end
+
+>>>>>>>>>>>>>>> transform = p:(0.0, 0.2, 0.0) r:(359.3, 108.3, 299.3) s:(1.0, 1.0, 1.0)
+>>>>>>c shoulder1.r
+
+>>>>>>> transform = p:(2.5, 2.0, 0.0) r:(4.5, 359.9, 268.9) s:(1.0, 1.0, 1.0)
+>>>>>>>c shoulder2.r
+
+>>>>>>>> transform = p:(0.0, 0.5, 0.0) r:(274.7, 16.7, 253.2) s:(1.0, 1.0, 1.0)
+>>>>>>>>c upper_arm.r
+
+>>>>>>>>> transform = p:(0.0, 1.0, 0.0) r:(327.3, 162.3, 176.7) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c lower_arm.r
+
+>>>>>>>>>> transform = p:(0.0, 3.0, 0.0) r:(295.0, 279.0, 253.4) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>c wrist.r
+
+>>>>>>>>>>> transform = p:(0.0, 2.2, 0.0) r:(20.6, 261.3, 262.6) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c finger1.r.1
+
+>>>>>>>>>>>> transform = p:(-0.4, 1.8, 0.3) r:(339.4, 81.3, 91.8) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c finger1.r.2
+
+>>>>>>>>>>>>> transform = p:(0.0, 0.8, 0.0) r:(9.0, 167.8, 159.3) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>c finger1.r.3
+
+>>>>>>>>>>>>>> transform = p:(0.0, 0.6, 0.0) r:(310.1, 197.3, 147.3) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>>c finger1IK.r
+
+>>>>>>>>>>>>>>> transform = p:(0.0, 0.3, 0.0) r:(26.6, 252.0, 33.9) s:(2.6, 2.6, 2.6)
+>>>>>>>>>>>>>>>c finger1IK.r_end
+
+>>>>>>>>>>>>>>>> transform = p:(0.0, 0.4, 0.0) r:(26.6, 252.0, 33.9) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c finger2.r.1
+
+>>>>>>>>>>>> transform = p:(-0.4, 1.8, -0.4) r:(339.4, 81.3, 91.9) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c finger2.r.2
+
+>>>>>>>>>>>>> transform = p:(0.0, 0.8, 0.0) r:(6.6, 168.8, 159.3) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>c finger2.r.3
+
+>>>>>>>>>>>>>> transform = p:(0.0, 0.6, 0.0) r:(308.6, 199.4, 145.7) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>>c finger2IK.r
+
+>>>>>>>>>>>>>>> transform = p:(0.0, 0.3, 0.0) r:(326.7, 337.0, 24.9) s:(2.6, 2.6, 2.6)
+>>>>>>>>>>>>>>>c finger2IK.r_end
+
+>>>>>>>>>>>>>>>> transform = p:(0.0, 0.4, 0.0) r:(326.7, 337.0, 24.9) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>c thumb.r.1
+
+>>>>>>>>>>>> transform = p:(0.4, 1.7, 0.1) r:(339.4, 81.3, 105.8) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>c thumb.r.2
+
+>>>>>>>>>>>>> transform = p:(0.0, 0.8, 0.0) r:(3.2, 170.1, 339.4) s:(1.0, 1.0, 1.0)
+>>>>>>>>>>>>>c thumbIK.r
+
+>>>>>>>>>>>>>> transform = p:(0.0, 0.5, 0.0) r:(63.1, 39.2, 231.2) s:(5.3, 5.3, 5.3)
+>>>>>>>>>>>>>>c thumbIK.r_end
+
+>>>>>>>>>>>>>>> transform = p:(0.0, 0.2, 0.0) r:(63.1, 39.2, 231.2) s:(1.0, 1.0, 1.0)
+>>>>>>c shoulderIKtarget.l
+
+>>>>>>> transform = p:(-4.0, 2.0, 0.0) r:(274.5, 0.0, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>c shoulderIKtarget.l_end
+
+>>>>>>>> transform = p:(0.0, 1.1, 0.0) r:(274.5, 0.0, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>c shoulderIKtarget.r
+
+>>>>>>> transform = p:(4.0, 2.0, 0.0) r:(274.5, 0.0, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>c shoulderIKtarget.r_end
+
+>>>>>>>> transform = p:(0.0, 1.1, 0.0) r:(274.5, 0.0, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>c hip
+
+>>>>>> transform = p:(0.0, 1.5, 0.0) r:(8.0, 180.0, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>c thigh.l
+
+>>>>>>> transform = p:(-2.6, 1.2, 0.0) r:(319.4, 173.9, 197.0) s:(1.0, 1.0, 1.0)
+>>>>>>>c calf.l
+
+>>>>>>>> transform = p:(0.0, 3.3, 0.0) r:(306.1, 23.4, 157.9) s:(1.0, 1.0, 1.0)
+>>>>>>>>c foot.l
+
+>>>>>>>>> transform = p:(0.0, 1.6, 0.0) r:(0.0, 180.0, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c foot.l_end
+
+>>>>>>>>>> transform = p:(0.0, 0.7, 0.0) r:(0.0, 180.0, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c SparkEmitter
+
+>>>>>>>>>> transform = p:(0.0, 1.0, 0.0) r:(315.0, 180.0, 180.0) s:(1.0, 1.0, 1.0)
+
+>>>>>>>>>> UnityEngine.ParticleSystem
+
+>>>>>>>>>> UnityEngine.ParticleSystemRenderer
+>>>>>>c thigh.r
+
+>>>>>>> transform = p:(2.6, 1.2, 0.0) r:(319.7, 187.5, 158.9) s:(1.0, 1.0, 1.0)
+>>>>>>>c calf.r
+
+>>>>>>>> transform = p:(0.0, 3.3, 0.0) r:(309.7, 333.4, 205.5) s:(1.0, 1.0, 1.0)
+>>>>>>>>c foot.r
+
+>>>>>>>>> transform = p:(0.0, 1.6, 0.0) r:(0.0, 180.0, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c foot.r_end
+
+>>>>>>>>>> transform = p:(0.0, 0.7, 0.0) r:(0.0, 180.0, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>>c SparkEmitter
+
+>>>>>>>>>> transform = p:(0.0, 1.0, 0.0) r:(315.0, 180.0, 180.0) s:(1.0, 1.0, 1.0)
+
+>>>>>>>>>> UnityEngine.ParticleSystem
+
+>>>>>>>>>> UnityEngine.ParticleSystemRenderer
+>>>>>>>>>c GameObject
+
+>>>>>>>>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 180.0, 180.0) s:(1.0, 1.0, 1.0)
+>>>>c hammerBone
+
+>>>>> transform = p:(5.3, -3.9, -4.2) r:(343.7, 3.4, 96.1) s:(1.0, 1.0, 1.0)
+>>>>>c armIKTarget.l
+
+>>>>>> transform = p:(0.0, 9.0, 0.0) r:(343.7, 3.4, 6.1) s:(1.0, 1.0, 1.0)
+>>>>>>c armIKTarget.l_end
+
+>>>>>>> transform = p:(0.0, 1.5, 0.0) r:(343.7, 3.4, 6.1) s:(1.0, 1.0, 1.0)
+>>>>>c armIKTarget.r
+
+>>>>>> transform = p:(-0.1, 1.2, 0.0) r:(343.7, 3.4, 6.1) s:(1.0, 1.0, 1.0)
+>>>>>>c armIKTarget.r_end
+
+>>>>>>> transform = p:(0.0, 1.5, 0.0) r:(343.7, 3.4, 6.1) s:(1.0, 1.0, 1.0)
+>>>>>c Hitbox
+
+>>>>>> transform = p:(0.0, 9.9, 0.0) r:(343.7, 3.4, 96.1) s:(8.0, 18.0, 15.0)
+
+>>>>>> RoR2.HitBox
+>>>>>c SwingCenter
+
+>>>>>> transform = p:(0.0, 0.0, 0.0) r:(315.1, 359.2, 98.3) s:(1.0, 1.0, 1.0)
+>>>>>c HANDHammerMesh
+
+>>>>>> transform = p:(0.0, 0.8, 0.0) r:(353.8, 95.4, 43.8) s:(1.0, 1.0, 1.0)
+
+>>>>>> UnityEngine.MeshFilter
+
+>>>>>> UnityEngine.MeshRenderer
+>>>>c headIKTarget
+
+>>>>> transform = p:(0.0, -1.3, 0.9) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>c headIKPole
+
+>>>>>> transform = p:(0.0, -0.7, -3.8) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>c headIKPole_end
+
+>>>>>>> transform = p:(0.0, 0.5, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>c legIKTarget.l
+
+>>>>> transform = p:(-3.4, -0.3, -7.8) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>>> RoR2.IKTargetPassive
+>>>>>v minHeight = -0.3
+>>>>>v maxHeight = 0.7
+>>>>>v dampTime = 0.1
+>>>>>v baseOffset = 0
+>>>>>v animatorIKWeightFloat = 
+>>>>>v animator = 
+>>>>>v selfPlant = False
+>>>>>v selfPlantFrequency = 5
+>>>>>v cacheFirstPosition = False
+
+>>>>> RoR2.IKSimpleChain
+>>>>>v scale = 1
+>>>>>v maxIterations = 100
+>>>>>v positionAccuracy = 0.001
+>>>>>v bendingLow = 0
+>>>>>v bendingHigh = 0
+>>>>>v chainResolution = 0
+>>>>>v legLength = 0
+>>>>>v poleAngle = 0
+>>>>>v innerAxis = Right
+>>>>>v ikPole = 
+>>>>>v boneList = UnityEngine.Transform[]
+>>>>>c legIKPole.l
+
+>>>>>> transform = p:(0.0, 7.8, 3.1) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>c legIKPole.l_end
+
+>>>>>>> transform = p:(0.0, 1.2, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>c legIKTarget.r
+
+>>>>> transform = p:(3.7, -0.2, -7.8) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>>> RoR2.IKTargetPassive
+>>>>>v minHeight = -0.3
+>>>>>v maxHeight = 0.7
+>>>>>v dampTime = 0.1
+>>>>>v baseOffset = 0
+>>>>>v animatorIKWeightFloat = 
+>>>>>v animator = 
+>>>>>v selfPlant = False
+>>>>>v selfPlantFrequency = 5
+>>>>>v cacheFirstPosition = False
+
+>>>>> RoR2.IKSimpleChain
+>>>>>v scale = 1
+>>>>>v maxIterations = 100
+>>>>>v positionAccuracy = 0.001
+>>>>>v bendingLow = 0
+>>>>>v bendingHigh = 0
+>>>>>v chainResolution = 0
+>>>>>v legLength = 0
+>>>>>v poleAngle = 0
+>>>>>v innerAxis = Right
+>>>>>v ikPole = 
+>>>>>v boneList = UnityEngine.Transform[]
+>>>>>c legIKPole.r
+
+>>>>>> transform = p:(0.0, 7.8, 3.1) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>c legIKPole.r_end
+
+>>>>>>> transform = p:(0.0, 1.2, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>c TempHurtBox
+
+>>>>> transform = p:(0.0, -1.5, -3.6) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>>> UnityEngine.CapsuleCollider
+
+>>>>> RoR2.HurtBox
+>>>>>v healthComponent = HANDBody (RoR2.HealthComponent)
+>>>>>v isBullseye = True
+>>>>>v damageModifier = Normal
+>>>>>v teamIndex = None
+>>>>>v hurtBoxGroup = mdlHAND (RoR2.HurtBoxGroup)
+>>>>>v indexInGroup = 0
+>>>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+>c CameraPivot
+
+>> transform = p:(0.0, 1.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>c AimOrigin
+
+>> transform = p:(0.0, 0.6, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)

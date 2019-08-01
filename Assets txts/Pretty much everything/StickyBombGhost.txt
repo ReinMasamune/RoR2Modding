@@ -1,0 +1,29 @@
+StickyBombGhost
+
+> transform = p:(203.0, -69.7, -28.5) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> RoR2.Projectile.ProjectileGhostController
+>v authorityTransform = 
+>v predictionTransform = 
+>c Cylinder
+
+>> transform = p:(0.0, 0.0, 0.0) r:(56.5, 0.0, 0.0) s:(1.4, 1.4, 1.4)
+
+>> UnityEngine.MeshFilter
+
+>> UnityEngine.MeshRenderer
+
+>> LightIntensityCurve
+>>v curve = UnityEngine.AnimationCurve
+>>v timeMax = 1.5
+>>v loop = False
+>>v randomStart = False
+
+>> UnityEngine.Light
+>c Pulse
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> UnityEngine.ParticleSystem
+
+>> UnityEngine.ParticleSystemRenderer

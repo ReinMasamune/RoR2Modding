@@ -1,0 +1,38 @@
+LocalUserCard
+
+> UnityEngine.RectTransform
+
+> UnityEngine.CanvasRenderer
+
+> UnityEngine.UI.Image
+
+> UnityEngine.UI.LayoutElement
+
+> RoR2.UI.LocalUserSignInCardController
+>v nameLabel = NameField (RoR2.UI.HGTextMeshProUGUI)
+>v promptLabel = PromptField (RoR2.UI.HGTextMeshProUGUI)
+>v cardImage = LocalUserCard (UnityEngine.UI.Image)
+>v playerCardNone = texPlayerCardNone (UnityEngine.Sprite)
+>v playerCardKBM = texPlayerCardKBM (UnityEngine.Sprite)
+>v playerCardController = texPlayerCardController (UnityEngine.Sprite)
+>v unselectedColor = RGBA(1.000, 1.000, 1.000, 0.008)
+>v selectedColor = RGBA(0.639, 0.565, 0.141, 1.000)
+>v userProfileSelectionListPrefab = UserProfileList (UnityEngine.GameObject)
+>c NameField
+
+>> UnityEngine.RectTransform
+
+>> UnityEngine.CanvasRenderer
+
+>> RoR2.UI.HGTextMeshProUGUI
+>>v useLanguageDefaultFont = True
+>>v defaultLanguageFont = tmpBombDropshadow (TMPro.TMP_FontAsset)
+>c PromptField
+
+>> UnityEngine.RectTransform
+
+>> UnityEngine.CanvasRenderer
+
+>> RoR2.UI.HGTextMeshProUGUI
+>>v useLanguageDefaultFont = True
+>>v defaultLanguageFont = tmpBombDropshadow (TMPro.TMP_FontAsset)

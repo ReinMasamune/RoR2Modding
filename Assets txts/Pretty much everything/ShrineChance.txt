@@ -1,0 +1,108 @@
+ShrineChance
+
+> transform = p:(-25.1, -214.2, -171.6) r:(0.0, 0.0, 0.0) s:(1.5, 1.5, 1.5)
+
+> UnityEngine.Networking.NetworkIdentity
+>v clientAuthorityCallback = 
+
+> UnityEngine.Networking.NetworkTransform
+
+> RoR2.ModelLocator
+>v modelTransform = mdlShrineChance (UnityEngine.Transform)
+>v modelBaseTransform = Base (UnityEngine.Transform)
+>v dontReleaseModelOnDeath = False
+>v autoUpdateModelTransform = True
+>v dontDetatchFromParent = False
+>v noCorpse = False
+>v normalizeToFloor = False
+>v preserveModel = False
+
+> RoR2.Highlight
+>v pickupIndex = ItemIndex.Syringe
+>v targetRenderer = mdlShrineChance (UnityEngine.MeshRenderer)
+>v strength = 1
+>v highlightColor = interactive
+>v isOn = False
+
+> RoR2.PurchaseInteraction
+>v displayNameToken = SHRINE_CHANCE_NAME
+>v contextToken = SHRINE_CHANCE_CONTEXT
+>v costType = Money
+>v available = True
+>v cost = 17
+>v automaticallyScaleCostWithDifficulty = False
+>v requiredUnlockable = 
+>v ignoreSpherecastForInteractability = False
+>v purchaseStatNames = System.String[]
+>v lastActivator = 
+>v lockGameObject = 
+>v onPurchase = RoR2.PurchaseEvent RoR2.PurchaseEvent
+
+> RoR2.Hologram.HologramProjector
+>v displayDistance = 15
+>v hologramPivot = HologramPivot (UnityEngine.Transform)
+>v disableHologramRotation = False
+
+> RoR2.GenericDisplayNameProvider
+>v displayToken = SHRINE_CHANCE_NAME
+
+> RoR2.ShrineChanceBehavior
+>v maxPurchaseCount = 2
+>v costMultiplierPerPurchase = 1.4
+>v failureWeight = 10.1
+>v equipmentWeight = 2
+>v tier1Weight = 8
+>v tier2Weight = 2
+>v tier3Weight = 0.2
+>v symbolTransform = Symbol (UnityEngine.Transform)
+>v dropletOrigin = DropletOrigin (UnityEngine.Transform)
+>v shrineColor = RGBA(0.924, 1.000, 0.449, 1.000)
+
+> RoR2.PurchaseAvailabilityIndicator
+>v indicatorObject = Symbol (UnityEngine.GameObject)
+>v animator = 
+>v mecanimBool = 
+
+> RoR2.DitherModel
+>v fade = 0
+>v bounds = mdlShrineChance (UnityEngine.BoxCollider)
+>v renderers = UnityEngine.Renderer[]
+>c Base
+
+>> transform = p:(0.0, -0.4, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>c mdlShrineChance
+
+>>> transform = p:(0.0, 0.0, 0.1) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.MeshFilter
+
+>>> UnityEngine.MeshRenderer
+
+>>> RoR2.EntityLocator
+>>>v entity = ShrineChance (UnityEngine.GameObject)
+
+>>> UnityEngine.BoxCollider
+
+>>> ChildLocator
+>>>c Collision
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.BoxCollider
+
+>>>> UnityEngine.CapsuleCollider
+>c HologramPivot
+
+>> transform = p:(0.0, 1.5, 1.9) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>c Symbol
+
+>> transform = p:(0.0, 6.2, 0.0) r:(0.0, 180.0, 0.0) s:(1.5, 1.5, 1.5)
+
+>> UnityEngine.MeshRenderer
+
+>> UnityEngine.MeshFilter
+
+>> RoR2.Billboard
+>c DropletOrigin
+
+>> transform = p:(0.0, 2.3, 1.2) r:(279.5, 352.7, 10.5) s:(1.0, 1.0, 1.0)

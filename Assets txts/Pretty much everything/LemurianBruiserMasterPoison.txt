@@ -1,0 +1,151 @@
+LemurianBruiserMasterPoison
+
+> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> UnityEngine.Networking.NetworkIdentity
+>v clientAuthorityCallback = 
+
+> RoR2.CharacterMaster
+>v bodyPrefab = LemurianBruiserBody (UnityEngine.GameObject)
+>v spawnOnStart = False
+>v onBodyDeath = UnityEngine.Events.UnityEvent UnityEngine.Events.UnityEvent
+>v destroyOnBodyDeath = True
+>v isBoss = False
+>v preventGameOver = True
+
+> RoR2.Inventory
+>v itemAcquisitionOrder = System.Collections.Generic.List`1[RoR2.ItemIndex]
+
+> RoR2.CharacterAI.BaseAI
+>v fullVision = False
+>v minDistanceFromEnemy = 1
+>v enemyAttentionDuration = 5
+>v navigationType = Nodegraph
+>v nodegraphType = Ground
+>v stateMachine = LemurianBruiserMasterPoison (RoR2.EntityStateMachine)
+>v scanState = EntityStates.SerializableEntityStateType
+>v isHealer = False
+>v enemyAttention = 0
+>v aimVectorDampTime = 0.1
+>v aimVectorMaxSpeed = 180
+>v desiredAimDirection = (0.0, 0.0, 1.0)
+>v pathFollower = RoR2.PathFollower
+>v localNavigator = RoR2.LocalNavigator
+>v navMeshPath = 
+>v drawAIPath = False
+>v selectedSkilldriverName = 
+>v debugEnemyHurtBox = 
+>v leader = 
+>v skillDriverEvaluation = RoR2.CharacterAI.BaseAI+SkillDriverEvaluation
+
+> RoR2.EntityStateMachine
+>v customName = AI
+>v initialStateType = EntityStates.SerializableEntityStateType
+>v mainStateType = EntityStates.SerializableEntityStateType
+>v commonComponents = RoR2.EntityStateMachine+CommonComponentCache
+>v networkIndex = -1
+
+> RoR2.CharacterAI.AISkillDriver
+>v customName = Flamebreath
+>v skillSlot = Secondary
+>v requireSkillReady = True
+>v moveTargetType = CurrentEnemy
+>v minUserHealthFraction = -Infinity
+>v maxUserHealthFraction = Infinity
+>v minTargetHealthFraction = -Infinity
+>v maxTargetHealthFraction = Infinity
+>v minDistance = 0
+>v maxDistance = 15
+>v selectionRequiresTargetLoS = True
+>v activationRequiresTargetLoS = False
+>v activationRequiresAimConfirmation = False
+>v movementType = ChaseMoveTarget
+>v moveInputScale = 1
+>v aimType = AtMoveTarget
+>v ignoreNodeGraph = False
+>v driverUpdateTimerOverride = -1
+>v resetCurrentEnemyOnNextDriverSelection = False
+>v noRepeat = False
+>v shouldSprint = False
+>v shouldFireEquipment = False
+
+> RoR2.CharacterAI.AISkillDriver
+>v customName = RunAndShoot
+>v skillSlot = Primary
+>v requireSkillReady = True
+>v moveTargetType = CurrentEnemy
+>v minUserHealthFraction = -Infinity
+>v maxUserHealthFraction = Infinity
+>v minTargetHealthFraction = -Infinity
+>v maxTargetHealthFraction = Infinity
+>v minDistance = 0
+>v maxDistance = 25
+>v selectionRequiresTargetLoS = True
+>v activationRequiresTargetLoS = False
+>v activationRequiresAimConfirmation = True
+>v movementType = ChaseMoveTarget
+>v moveInputScale = 1
+>v aimType = AtMoveTarget
+>v ignoreNodeGraph = False
+>v driverUpdateTimerOverride = 2
+>v resetCurrentEnemyOnNextDriverSelection = False
+>v noRepeat = False
+>v shouldSprint = False
+>v shouldFireEquipment = False
+
+> RoR2.CharacterAI.AISkillDriver
+>v customName = StopAndShoot
+>v skillSlot = Primary
+>v requireSkillReady = True
+>v moveTargetType = CurrentEnemy
+>v minUserHealthFraction = -Infinity
+>v maxUserHealthFraction = Infinity
+>v minTargetHealthFraction = -Infinity
+>v maxTargetHealthFraction = Infinity
+>v minDistance = 25
+>v maxDistance = 80
+>v selectionRequiresTargetLoS = True
+>v activationRequiresTargetLoS = False
+>v activationRequiresAimConfirmation = True
+>v movementType = Stop
+>v moveInputScale = 1
+>v aimType = AtMoveTarget
+>v ignoreNodeGraph = False
+>v driverUpdateTimerOverride = 2
+>v resetCurrentEnemyOnNextDriverSelection = False
+>v noRepeat = False
+>v shouldSprint = False
+>v shouldFireEquipment = False
+
+> RoR2.CharacterAI.AISkillDriver
+>v customName = ChaseTarget
+>v skillSlot = None
+>v requireSkillReady = False
+>v moveTargetType = CurrentEnemy
+>v minUserHealthFraction = -Infinity
+>v maxUserHealthFraction = Infinity
+>v minTargetHealthFraction = -Infinity
+>v maxTargetHealthFraction = Infinity
+>v minDistance = 0
+>v maxDistance = Infinity
+>v selectionRequiresTargetLoS = False
+>v activationRequiresTargetLoS = False
+>v activationRequiresAimConfirmation = False
+>v movementType = ChaseMoveTarget
+>v moveInputScale = 1
+>v aimType = AtMoveTarget
+>v ignoreNodeGraph = False
+>v driverUpdateTimerOverride = -1
+>v resetCurrentEnemyOnNextDriverSelection = False
+>v noRepeat = False
+>v shouldSprint = False
+>v shouldFireEquipment = False
+
+> RoR2.MasterDropDroplet
+>v pickupsToDrop = RoR2.SerializablePickupIndex[]
+
+> EntityLogic.Repeat
+>v repeatedEvent = UnityEngine.Events.UnityEvent UnityEngine.Events.UnityEvent
+
+> RoR2.AwakeEvent
+>v action = UnityEngine.Events.UnityEvent UnityEngine.Events.UnityEvent

@@ -1,0 +1,18 @@
+ArtifactToggle
+
+> UnityEngine.RectTransform
+
+> UnityEngine.CanvasRenderer
+
+> UnityEngine.UI.Image
+
+> RoR2.UI.ArtifactToggleController
+>v artifactIndex = None
+
+> UnityEngine.UI.LayoutElement
+
+> RoR2.UI.MPEventSystemLocator
+
+> RoR2.UI.MPButton
+>v allowAllEventSystems = False
+>v pointerClickOnly = True

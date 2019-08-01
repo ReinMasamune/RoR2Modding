@@ -1,0 +1,446 @@
+EngiTurretBody
+
+> transform = p:(68.4, -140.4, -241.3) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> RoR2.TeamComponent
+>v hideAllyCardDisplay = False
+
+> UnityEngine.Networking.NetworkIdentity
+>v clientAuthorityCallback = 
+
+> RoR2.CharacterBody
+>v bodyIndex = 26
+>v baseNameToken = ENGITURRET_BODY_NAME
+>v subtitleNameToken = 
+>v pendingTonicAfflictionCount = 0
+>v bodyFlags = ImmuneToExecutes
+>v readOnlyInstancesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.CharacterBody]
+>v rootMotionInMainState = False
+>v mainRootSpeed = 0
+>v baseMaxHealth = 130
+>v baseRegen = 0.6
+>v baseMaxShield = 0
+>v baseMoveSpeed = 0
+>v baseAcceleration = 0
+>v baseJumpPower = 0
+>v baseDamage = 16
+>v baseAttackSpeed = 1
+>v baseCrit = 1
+>v baseArmor = 0
+>v baseJumpCount = 1
+>v autoCalculateLevelStats = True
+>v levelMaxHealth = 39
+>v levelRegen = 0.12
+>v levelMaxShield = 0
+>v levelMoveSpeed = 0
+>v levelJumpPower = 0
+>v levelDamage = 3.2
+>v levelAttackSpeed = 0
+>v levelCrit = 0
+>v levelArmor = 0
+>v killCount = 0
+>v wasLucky = False
+>v spreadBloomDecayTime = 0.45
+>v spreadBloomCurve = UnityEngine.AnimationCurve
+>v crosshairPrefab = 
+>v hideCrosshair = False
+>v aimOriginTransform = AimOrigin (UnityEngine.Transform)
+>v hullClassification = Human
+>v portraitIcon = texEngiTurretIcon (UnityEngine.Texture2D)
+>v isChampion = False
+>v currentVehicle = 
+>v preferredPodPrefab = 
+
+> RoR2.HealthComponent
+>v health = 100
+>v shield = 0
+>v barrier = 0
+>v body = 
+>v dontShowHealthbar = False
+>v globalDeathEventChanceCoefficient = 1
+>v medkitActivationDelay = 1.1
+>v frozenExecuteThreshold = 0.3
+
+> RoR2.InputBankTest
+>v lookPitch = 0
+>v lookYaw = 0
+>v moveVector = (0.0, 0.0, 0.0)
+>v skill1 = RoR2.InputBankTest+ButtonState
+>v skill2 = RoR2.InputBankTest+ButtonState
+>v skill3 = RoR2.InputBankTest+ButtonState
+>v skill4 = RoR2.InputBankTest+ButtonState
+>v interact = RoR2.InputBankTest+ButtonState
+>v jump = RoR2.InputBankTest+ButtonState
+>v sprint = RoR2.InputBankTest+ButtonState
+>v activateEquipment = RoR2.InputBankTest+ButtonState
+>v ping = RoR2.InputBankTest+ButtonState
+>v emoteRequest = -1
+
+> RoR2.CameraTargetParams
+>v cameraParams = ccpStandard (RoR2.CharacterCameraParams)
+>v cameraPivotTransform = 
+>v aimMode = Standard
+>v recoil = (0.0, 0.0)
+>v idealLocalCameraPos = (0.0, 6.7, -4.8)
+>v fovOverride = -1
+>v dontRaycastToPivot = False
+
+> RoR2.ModelLocator
+>v modelTransform = mdlEngiTurret (UnityEngine.Transform)
+>v modelBaseTransform = Model Base (UnityEngine.Transform)
+>v dontReleaseModelOnDeath = False
+>v autoUpdateModelTransform = True
+>v dontDetatchFromParent = False
+>v noCorpse = False
+>v normalizeToFloor = False
+>v preserveModel = False
+
+> RoR2.EntityStateMachine
+>v customName = Body
+>v initialStateType = EntityStates.SerializableEntityStateType
+>v mainStateType = EntityStates.SerializableEntityStateType
+>v commonComponents = RoR2.EntityStateMachine+CommonComponentCache
+>v networkIndex = -1
+
+> RoR2.EntityStateMachine
+>v customName = Weapon
+>v initialStateType = EntityStates.SerializableEntityStateType
+>v mainStateType = EntityStates.SerializableEntityStateType
+>v commonComponents = RoR2.EntityStateMachine+CommonComponentCache
+>v networkIndex = -1
+
+> RoR2.GenericSkill
+>v skillName = Turret
+>v skillNameToken = 
+>v skillDescriptionToken = 
+>v baseRechargeInterval = 0
+>v baseMaxStock = 1
+>v rechargeStock = 1
+>v isBullets = False
+>v shootDelay = 0.1
+>v beginSkillCooldownOnSkillEnd = False
+>v stateMachine = EngiTurretBody (RoR2.EntityStateMachine)
+>v activationState = EntityStates.SerializableEntityStateType
+>v interruptPriority = Any
+>v isCombatSkill = True
+>v noSprint = True
+>v canceledFromSprinting = False
+>v mustKeyPress = False
+>v icon = 
+>v requiredStock = 1
+>v stockToConsume = 1
+>v hasExecutedSuccessfully = False
+
+> RoR2.SkillLocator
+>v primary = EngiTurretBody (RoR2.GenericSkill)
+>v secondary = 
+>v utility = 
+>v special = 
+>v passiveSkill = RoR2.SkillLocator+PassiveSkill
+
+> RoR2.CharacterDeathBehavior
+>v deathStateMachine = EngiTurretBody (RoR2.EntityStateMachine)
+>v deathState = EntityStates.SerializableEntityStateType
+>v idleStateMachine = RoR2.EntityStateMachine[]
+
+> RoR2.Networking.CharacterNetworkTransform
+>v positionTransmitInterval = 0.1
+>v lastPositionTransmitTime = -Infinity
+>v interpolationFactor = 2
+>v newestNetSnapshot = RoR2.Networking.CharacterNetworkTransform+Snapshot
+>v debugDuplicatePositions = False
+>v debugSnapshotReceived = False
+
+> RoR2.NetworkStateMachine
+
+> RoR2.Interactor
+>v maxInteractionDistance = 1
+
+> RoR2.InteractionDriver
+>v highlightInteractor = False
+>v interactableOverride = 
+
+> UnityEngine.CapsuleCollider
+
+> RoR2.Deployable
+>v ownerMaster = 
+>v onUndeploy = UnityEngine.Events.UnityEvent UnityEngine.Events.UnityEvent
+
+> AkEvent
+>v actionOnEventType = AkActionOnEventType_Stop
+>v curveInterpolation = AkCurveInterpolation_Linear
+>v enableActionOnEvent = False
+>v data = Play_engi_R_turret_spawn
+>v m_callbackData = 
+>v playingId = 0
+>v soundEmitterObject = 
+>v transitionDuration = 0
+>v triggerList = System.Collections.Generic.List`1[System.Int32]
+>v useOtherObject = False
+
+> RoR2.SetStateOnHurt
+>v hitThreshold = 5
+>v targetStateMachine = EngiTurretBody (RoR2.EntityStateMachine)
+>v idleStateMachine = RoR2.EntityStateMachine[]
+>v hurtState = EntityStates.SerializableEntityStateType
+>v canBeHitStunned = False
+>v canBeStunned = False
+>v canBeFrozen = True
+>c Model Base
+
+>> transform = p:(0.0, -0.9, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>c mdlEngiTurret
+
+>>> transform = p:(0.0, 1.0, 0.0) r:(0.0, 0.0, 0.0) s:(0.5, 0.5, 0.5)
+
+>>> UnityEngine.Animator
+
+>>> RoR2.AimAnimator
+>>>v inputBank = EngiTurretBody (RoR2.InputBankTest)
+>>>v directionComponent = 
+>>>v pitchRangeMin = -90
+>>>v pitchRangeMax = 90
+>>>v yawRangeMin = -180
+>>>v yawRangeMax = 180
+>>>v pitchGiveupRange = 90
+>>>v yawGiveupRange = 180
+>>>v giveupDuration = 2
+>>>v raisedApproachSpeed = 7200
+>>>v loweredApproachSpeed = 7200
+>>>v smoothTime = 0.05
+>>>v fullYaw = True
+>>>v aimType = Direct
+>>>v enableAimWeight = False
+
+>>> ChildLocator
+
+>>> RoR2.CharacterModel
+>>>v body = EngiTurretBody (RoR2.CharacterBody)
+>>>v itemDisplayRuleSet = idrsEngiTurret (RoR2.ItemDisplayRuleSet)
+>>>v autoPopulateLightInfos = True
+>>>v autoPopulateParticleSystemInfos = True
+>>>v baseParticleSystemInfos = RoR2.CharacterModel+ParticleSystemInfo[]
+>>>v baseRendererInfos = RoR2.CharacterModel+RendererInfo[]
+>>>v baseLightInfos = RoR2.CharacterModel+LightInfo[]
+>>>v invisibilityCount = 0
+>>>v temporaryOverlays = System.Collections.Generic.List`1[RoR2.TemporaryOverlay]
+>>>v revealedMaterial = matRevealedEffect (UnityEngine.Material)
+>>>v cloakedMaterial = matCloakedEffect (UnityEngine.Material)
+>>>v ghostMaterial = matGhostEffect (UnityEngine.Material)
+>>>v bellBuffMaterial = matBellBuff (UnityEngine.Material)
+>>>v wolfhatMaterial = matWolfhatOverlay (UnityEngine.Material)
+>>>v energyShieldMaterial = matEnergyShield (UnityEngine.Material)
+>>>v fullCritMaterial = matFullCrit (UnityEngine.Material)
+>>>v beetleJuiceMaterial = matBeetleJuice (UnityEngine.Material)
+>>>v brittleMaterial = matBrittle (UnityEngine.Material)
+>>>v clayGooMaterial = matClayGooDebuff (UnityEngine.Material)
+>>>v slow80Material = matSlow80Debuff (UnityEngine.Material)
+>>>v immuneMaterial = matImmune (UnityEngine.Material)
+>>>v elitePoisonOverlayMaterial = matElitePoisonOverlay (UnityEngine.Material)
+>>>v elitePoisonParticleReplacementMaterial = matElitePoisonParticleReplacement (UnityEngine.Material)
+>>>v weakMaterial = matWeakOverlay (UnityEngine.Material)
+
+>>> RoR2.HurtBoxGroup
+>>>v hurtBoxes = RoR2.HurtBox[]
+>>>v mainHurtBox = Hurtbox (RoR2.HurtBox)
+>>>v bullseyeCount = 1
+
+>>> RoR2.PrintController
+>>>v printTime = 1
+>>>v printCurve = UnityEngine.AnimationCurve
+>>>v startingPrintHeight = -1
+>>>v maxPrintHeight = 1
+>>>v startingPrintBias = 0
+>>>v maxPrintBias = 0
+>>>v animateFlowmapPower = False
+>>>v startingFlowmapPower = 0
+>>>v maxFlowmapPower = 0
+>>>v disableWhenFinished = True
+>>>v paused = False
+>>>v age = 0
+>>>c AimOrigin
+
+>>>> transform = p:(0.0, 3.0, -0.1) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>c EngiTurretArmature
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>c Base
+
+>>>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>c Hurtbox
+
+>>>>>> transform = p:(0.0, 1.5, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>>>> UnityEngine.CapsuleCollider
+
+>>>>>> RoR2.HurtBox
+>>>>>>v healthComponent = EngiTurretBody (RoR2.HealthComponent)
+>>>>>>v isBullseye = True
+>>>>>>v damageModifier = Normal
+>>>>>>v teamIndex = None
+>>>>>>v hurtBoxGroup = mdlEngiTurret (RoR2.HurtBoxGroup)
+>>>>>>v indexInGroup = 0
+>>>>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+>>>>>c legJoint.1
+
+>>>>>> transform = p:(0.0, 0.5, 0.5) r:(315.0, 180.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>c legBar.1
+
+>>>>>>> transform = p:(0.0, 0.7, 0.0) r:(295.3, 0.0, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>c toe.1
+
+>>>>>>>> transform = p:(0.0, 1.3, 0.0) r:(334.7, 180.0, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>>c toe.1_end
+
+>>>>>>>>> transform = p:(0.0, 0.4, 0.0) r:(334.7, 180.0, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>c legJoint.2
+
+>>>>>> transform = p:(-0.5, 0.5, -0.3) r:(312.0, 60.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>c legBar.2
+
+>>>>>>> transform = p:(0.0, 0.7, 0.0) r:(293.8, 240.0, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>c toe.2
+
+>>>>>>>> transform = p:(0.0, 1.3, 0.0) r:(11.6, 177.8, 159.1) s:(1.0, 1.0, 1.0)
+>>>>>>>>c toe.2_end
+
+>>>>>>>>> transform = p:(0.0, 0.4, 0.0) r:(11.6, 177.8, 159.1) s:(1.0, 1.0, 1.0)
+>>>>>c legJoint.3
+
+>>>>>> transform = p:(0.5, 0.5, -0.3) r:(323.7, 300.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>c legBar.3
+
+>>>>>>> transform = p:(0.0, 0.7, 0.0) r:(299.6, 120.0, 180.0) s:(1.0, 1.0, 1.0)
+>>>>>>>c toe.3
+
+>>>>>>>> transform = p:(0.0, 1.3, 0.0) r:(14.3, 183.4, 206.2) s:(1.0, 1.0, 1.0)
+>>>>>>>>c toe.3_end
+
+>>>>>>>>> transform = p:(0.0, 0.4, 0.0) r:(14.3, 183.4, 206.2) s:(1.0, 1.0, 1.0)
+>>>>>c Neck
+
+>>>>>> transform = p:(0.0, 1.4, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>c Head
+
+>>>>>>> transform = p:(0.0, 0.7, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>c Head_end
+
+>>>>>>>> transform = p:(0.0, 0.6, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>c Muzzle
+
+>>>>>>>> transform = p:(0.0, 0.6, 2.6) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>c Hurtbox
+
+>>>>>>>> transform = p:(0.0, 0.5, 0.4) r:(0.0, 0.0, 0.0) s:(1.7, 0.4, 2.9)
+
+>>>>>>>> UnityEngine.BoxCollider
+
+>>>>>>>> RoR2.HurtBox
+>>>>>>>>v healthComponent = EngiTurretBody (RoR2.HealthComponent)
+>>>>>>>>v isBullseye = False
+>>>>>>>>v damageModifier = Normal
+>>>>>>>>v teamIndex = None
+>>>>>>>>v hurtBoxGroup = mdlEngiTurret (RoR2.HurtBoxGroup)
+>>>>>>>>v indexInGroup = 1
+>>>>>>>>v readOnlyBullseyesList = System.Collections.ObjectModel.ReadOnlyCollection`1[RoR2.HurtBox]
+>>>>>>>c HandL
+
+>>>>>>>> transform = p:(-0.8, 0.6, 2.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>>>c HandR
+
+>>>>>>>> transform = p:(0.8, 0.6, 2.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>c footIK.1
+
+>>>>> transform = p:(0.0, -2.0, 0.2) r:(270.0, 180.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>>> RoR2.IKSimpleChain
+>>>>>v scale = 1
+>>>>>v maxIterations = 5
+>>>>>v positionAccuracy = 0.001
+>>>>>v bendingLow = 0
+>>>>>v bendingHigh = 0
+>>>>>v chainResolution = 0
+>>>>>v legLength = 0
+>>>>>v poleAngle = 0
+>>>>>v innerAxis = Right
+>>>>>v ikPole = 
+>>>>>v boneList = UnityEngine.Transform[]
+
+>>>>> RoR2.IKTargetPassive
+>>>>>v minHeight = -0.3
+>>>>>v maxHeight = 1
+>>>>>v dampTime = 0
+>>>>>v baseOffset = 0
+>>>>>v animatorIKWeightFloat = 
+>>>>>v animator = 
+>>>>>v selfPlant = False
+>>>>>v selfPlantFrequency = 5
+>>>>>v cacheFirstPosition = False
+>>>>>c footIK.1_end
+
+>>>>>> transform = p:(0.0, 0.3, 0.0) r:(270.0, 180.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>c footIK.2
+
+>>>>> transform = p:(-1.8, 1.0, 0.2) r:(270.0, 60.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>>> RoR2.IKSimpleChain
+>>>>>v scale = 1
+>>>>>v maxIterations = 5
+>>>>>v positionAccuracy = 0.001
+>>>>>v bendingLow = 0
+>>>>>v bendingHigh = 0
+>>>>>v chainResolution = 0
+>>>>>v legLength = 0
+>>>>>v poleAngle = 0
+>>>>>v innerAxis = Right
+>>>>>v ikPole = 
+>>>>>v boneList = UnityEngine.Transform[]
+
+>>>>> RoR2.IKTargetPassive
+>>>>>v minHeight = -0.3
+>>>>>v maxHeight = 1
+>>>>>v dampTime = 0
+>>>>>v baseOffset = 0
+>>>>>v animatorIKWeightFloat = 
+>>>>>v animator = 
+>>>>>v selfPlant = False
+>>>>>v selfPlantFrequency = 5
+>>>>>v cacheFirstPosition = False
+>>>>>c footIK.2_end
+
+>>>>>> transform = p:(0.0, 0.3, 0.0) r:(270.0, 60.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>c footIK.3
+
+>>>>> transform = p:(1.6, 0.9, 0.2) r:(270.0, 300.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>>> RoR2.IKSimpleChain
+>>>>>v scale = 1
+>>>>>v maxIterations = 5
+>>>>>v positionAccuracy = 0.001
+>>>>>v bendingLow = 0
+>>>>>v bendingHigh = 0
+>>>>>v chainResolution = 0
+>>>>>v legLength = 0
+>>>>>v poleAngle = 0
+>>>>>v innerAxis = Right
+>>>>>v ikPole = 
+>>>>>v boneList = UnityEngine.Transform[]
+
+>>>>> RoR2.IKTargetPassive
+>>>>>v minHeight = -0.3
+>>>>>v maxHeight = 1
+>>>>>v dampTime = 0
+>>>>>v baseOffset = 0
+>>>>>v animatorIKWeightFloat = 
+>>>>>v animator = 
+>>>>>v selfPlant = False
+>>>>>v selfPlantFrequency = 5
+>>>>>v cacheFirstPosition = False
+>>>>>c footIK.3_end
+
+>>>>>> transform = p:(0.0, 0.3, 0.0) r:(270.0, 300.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>c EngiTurretMesh
+
+>>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 240.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>> UnityEngine.SkinnedMeshRenderer

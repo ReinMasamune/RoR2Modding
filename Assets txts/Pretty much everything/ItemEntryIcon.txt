@@ -1,0 +1,63 @@
+ItemEntryIcon
+
+> UnityEngine.RectTransform
+
+> UnityEngine.CanvasRenderer
+
+> UnityEngine.UI.Image
+
+> RoR2.UI.MPEventSystemLocator
+
+> RoR2.UI.CustomButtonTransition
+>v scaleButtonOnHover = False
+>v showImageOnHover = True
+>v imageOnHover = HoverHighlight (UnityEngine.UI.Image)
+>v imageOnInteractable = InteractableHighlight (UnityEngine.UI.Image)
+>v allowAllEventSystems = False
+>v pointerClickOnly = True
+
+> RoR2.UI.SkinControllers.ButtonSkinController
+>v useRecommendedButtonWidth = False
+>v useRecommendedButtonHeight = False
+>v useRecommendedImage = True
+>v useRecommendedMaterial = True
+>v useRecommendedAlignment = True
+>v useRecommendedLabel = True
+>v skinData = skinCleanButton (RoR2.UI.UISkinData)
+
+> ChildLocator
+>c InteractableHighlight
+
+>> UnityEngine.RectTransform
+
+>> UnityEngine.CanvasRenderer
+
+>> UnityEngine.UI.Image
+>c HoverHighlight
+
+>> UnityEngine.RectTransform
+
+>> UnityEngine.CanvasRenderer
+
+>> UnityEngine.UI.Image
+>c BG Image
+
+>> UnityEngine.RectTransform
+
+>> UnityEngine.CanvasRenderer
+
+>> UnityEngine.UI.RawImage
+>c Icon
+
+>> UnityEngine.RectTransform
+
+>> UnityEngine.CanvasRenderer
+
+>> UnityEngine.UI.RawImage
+>c WIPIcon
+
+>> UnityEngine.RectTransform
+
+>> UnityEngine.CanvasRenderer
+
+>> UnityEngine.UI.RawImage

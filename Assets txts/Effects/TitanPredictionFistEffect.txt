@@ -1,0 +1,110 @@
+TitanPredictionFistEffect
+
+> transform = p:(-111.1, 12.5, -44.6) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> RoR2.EffectComponent
+>v effectData = 
+>v positionAtReferencedTransform = False
+>v parentToReferencedTransform = False
+>v applyScale = False
+
+> RoR2.DestroyOnTimer
+>v duration = 1.5
+>v resetAgeOnDisable = False
+
+> RoR2.VFXAttributes
+>v vfxPriority = Always
+>v vfxIntensity = Medium
+>v optionalLights = UnityEngine.Light[]
+>v secondaryParticleSystem = UnityEngine.ParticleSystem[]
+>c ParticleInitial
+
+>> transform = p:(0.0, 0.6, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>c Sparks, Trail
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.ParticleSystem
+
+>>> UnityEngine.ParticleSystemRenderer
+>>c Dust
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.ParticleSystem
+
+>>> UnityEngine.ParticleSystemRenderer
+>>c Point light
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.Light
+
+>>> LightIntensityCurve
+>>>v curve = UnityEngine.AnimationCurve
+>>>v timeMax = 1.5
+>>>v loop = False
+>>>v randomStart = False
+>c GroundSlamIndicator
+
+>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 0.0, 0.0) s:(3.2, 3.2, 3.2)
+
+>> UnityEngine.MeshFilter
+
+>> UnityEngine.MeshRenderer
+
+>> ObjectScaleCurve
+>>v curveX = UnityEngine.AnimationCurve
+>>v curveY = UnityEngine.AnimationCurve
+>>v curveZ = UnityEngine.AnimationCurve
+>>v overallCurve = UnityEngine.AnimationCurve
+>>v timeMax = 0.4
+>>v time = 0
+
+>> RoR2.AnimateShaderAlpha
+>>v alphaCurve = UnityEngine.AnimationCurve
+>>v timeMax = 1
+>>v decal = 
+>>v destroyOnEnd = False
+>>v disableOnEnd = False
+>>v time = 0
+>>c Arrow Holder
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>c Arrow
+
+>>>> transform = p:(0.0, -1.8, -0.3) r:(270.0, 0.0, 0.0) s:(0.2, 0.2, 0.1)
+
+>>>> UnityEngine.Projector
+
+>>>> ScaleProjector
+>>c Arrow Holder (1)
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 270.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>c Arrow
+
+>>>> transform = p:(0.0, -1.8, -0.3) r:(270.0, 270.0, 0.0) s:(0.2, 0.2, 0.1)
+
+>>>> UnityEngine.Projector
+
+>>>> ScaleProjector
+>>c Arrow Holder (2)
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 180.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>c Arrow
+
+>>>> transform = p:(0.0, -1.8, -0.3) r:(270.0, 180.0, 0.0) s:(0.2, 0.2, 0.1)
+
+>>>> UnityEngine.Projector
+
+>>>> ScaleProjector
+>>c Arrow Holder (3)
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 90.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>c Arrow
+
+>>>> transform = p:(0.0, -1.8, -0.3) r:(270.0, 90.0, 0.0) s:(0.2, 0.2, 0.1)
+
+>>>> UnityEngine.Projector
+
+>>>> ScaleProjector

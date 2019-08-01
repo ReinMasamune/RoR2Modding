@@ -1,0 +1,76 @@
+TonicBuffEffect
+
+> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> RoR2.LocalCameraEffect
+>v targetCharacter = 
+>v effectRoot = CameraEffect (UnityEngine.GameObject)
+
+> RoR2.TemporaryVisualEffect
+>v radius = 1
+>v parentTransform = 
+>v visualTransform = VisualEffect (UnityEngine.Transform)
+>v enterComponents = UnityEngine.MonoBehaviour[]
+>v exitComponents = UnityEngine.MonoBehaviour[]
+>v visualState = Enter
+>v healthComponent = 
+
+> RoR2.DestroyOnTimer
+>v duration = 1
+>v resetAgeOnDisable = True
+
+> RoR2.PostProcessDuration
+>v ppVolume = PP (UnityEngine.Rendering.PostProcessing.PostProcessVolume)
+>v ppWeightCurve = UnityEngine.AnimationCurve
+>v maxDuration = 1
+>v destroyOnEnd = False
+
+> RoR2.DetachParticleOnDestroyAndEndEmission
+>v particleSystem = BleedOverTime (UnityEngine.ParticleSystem)
+
+> AkGameObj
+>v isEnvironmentAware = True
+>v m_positionOffsetData = AkGameObjPositionOffsetData
+
+> AkEvent
+>v actionOnEventType = AkActionOnEventType_Stop
+>v curveInterpolation = AkCurveInterpolation_Linear
+>v enableActionOnEvent = False
+>v data = Play_item_use_tonic
+>v m_callbackData = 
+>v playingId = 0
+>v soundEmitterObject = 
+>v transitionDuration = 0
+>v triggerList = System.Collections.Generic.List`1[System.Int32]
+>v useOtherObject = False
+
+> UnityEngine.Rigidbody
+>c VisualEffect
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>c BleedOverTime
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.ParticleSystemRenderer
+
+>>> UnityEngine.ParticleSystem
+>c CameraEffect
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>c PP
+
+>>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>> UnityEngine.Rendering.PostProcessing.PostProcessVolume
+>>>v sharedProfile = ppLocalTonic (UnityEngine.Rendering.PostProcessing.PostProcessProfile)
+>>>v isGlobal = True
+>>>v blendDistance = 0
+>>>v weight = 1
+>>>v priority = 99
+
+>>> RoR2.PostProcessDuration
+>>>v ppVolume = PP (UnityEngine.Rendering.PostProcessing.PostProcessVolume)
+>>>v ppWeightCurve = UnityEngine.AnimationCurve
+>>>v maxDuration = 0.1
+>>>v destroyOnEnd = False

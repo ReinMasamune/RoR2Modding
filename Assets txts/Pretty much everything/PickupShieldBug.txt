@@ -1,0 +1,10 @@
+PickupShieldBug
+
+> transform = p:(-36.3, -209.9, -174.9) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>c mdlShieldBug
+
+>> transform = p:(0.0, 0.0, 0.5) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> UnityEngine.MeshFilter
+
+>> UnityEngine.MeshRenderer

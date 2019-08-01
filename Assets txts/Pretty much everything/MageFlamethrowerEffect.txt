@@ -1,0 +1,111 @@
+MageFlamethrowerEffect
+
+> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> RoR2.ScaleParticleSystemDuration
+>v initialDuration = 3
+>v particleSystems = UnityEngine.ParticleSystem[]
+
+> RoR2.DestroyOnTimer
+>v duration = 3
+>v resetAgeOnDisable = False
+
+> DynamicBone
+>v m_Root = Bone1 (UnityEngine.Transform)
+>v m_UpdateRate = 60
+>v m_UpdateMode = Normal
+>v m_Damping = 0.437
+>v m_DampingDistrib = UnityEngine.AnimationCurve
+>v m_Elasticity = 0.3
+>v m_ElasticityDistrib = UnityEngine.AnimationCurve
+>v m_Stiffness = 0.9
+>v m_StiffnessDistrib = UnityEngine.AnimationCurve
+>v m_Inert = 0
+>v m_InertDistrib = UnityEngine.AnimationCurve
+>v m_Radius = 0
+>v m_RadiusDistrib = UnityEngine.AnimationCurve
+>v m_EndLength = 0
+>v m_EndOffset = (0.0, 0.0, 0.0)
+>v m_Gravity = (0.0, 0.0, 0.0)
+>v m_Force = (0.0, 0.0, 0.0)
+>v m_Colliders = System.Collections.Generic.List`1[DynamicBoneCollider]
+>v m_Exclusions = System.Collections.Generic.List`1[UnityEngine.Transform]
+>v m_FreezeAxis = None
+>v m_DistantDisable = False
+>v m_ReferenceObject = 
+>v m_DistanceToObject = 20
+
+> RoR2.DetachParticleOnDestroyAndEndEmission
+>v particleSystem = Matrix, Dynamic (UnityEngine.ParticleSystem)
+>c Bone1
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> UnityEngine.LineRenderer
+
+>> RoR2.MultiPointBezierCurveLine
+>>v vertexList = RoR2.MultiPointBezierCurveLine+Vertex[]
+>>v linePositionList = UnityEngine.Vector3[]
+>>v lineRenderer = Bone1 (UnityEngine.LineRenderer)
+
+>> RoR2.AnimateShaderAlpha
+>>v alphaCurve = UnityEngine.AnimationCurve
+>>v timeMax = 3
+>>v decal = 
+>>v destroyOnEnd = False
+>>v disableOnEnd = False
+>>v time = 0
+>>c Bone2
+
+>>> transform = p:(0.0, 0.0, 4.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>c Bone3
+
+>>>> transform = p:(0.0, 0.0, 4.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>c Bone4
+
+>>>>> transform = p:(0.0, 0.0, 4.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>>>>>c FireForward
+
+>>>>>> transform = p:(0.0, 0.0, -0.6) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>>>>>> UnityEngine.ParticleSystem
+
+>>>>>> UnityEngine.ParticleSystemRenderer
+>>>>>c Bone5
+
+>>>>>> transform = p:(0.0, 0.0, 4.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>c Donut
+
+>> transform = p:(0.0, 0.0, -0.1) r:(0.0, 0.0, 0.0) s:(0.2, 0.2, 0.2)
+
+>> UnityEngine.ParticleSystem
+
+>> UnityEngine.ParticleSystemRenderer
+>c FireForward (1)
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> UnityEngine.ParticleSystem
+
+>> UnityEngine.ParticleSystemRenderer
+>c Matrix, Dynamic
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> UnityEngine.ParticleSystem
+
+>> UnityEngine.ParticleSystemRenderer
+>c IcoCharge
+
+>> transform = p:(0.0, 0.0, -0.1) r:(0.0, 0.0, 0.0) s:(0.4, 0.4, 0.4)
+
+>> UnityEngine.ParticleSystem
+
+>> UnityEngine.ParticleSystemRenderer
+>c Billboard
+
+>> transform = p:(0.0, 0.0, -0.1) r:(0.0, 0.0, 0.0) s:(0.4, 0.4, 0.4)
+
+>> UnityEngine.ParticleSystem
+
+>> UnityEngine.ParticleSystemRenderer

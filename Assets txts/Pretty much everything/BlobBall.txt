@@ -1,0 +1,7 @@
+BlobBall
+
+> transform = p:(13.3, 7.3, 33.2) r:(270.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> UnityEngine.ParticleSystem
+
+> UnityEngine.ParticleSystemRenderer

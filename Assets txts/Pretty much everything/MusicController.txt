@@ -1,0 +1,7 @@
+MusicController
+
+> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> RoR2.MusicController
+>v target = 
+>v enableMusicSystem = True

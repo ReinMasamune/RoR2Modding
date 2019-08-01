@@ -1,0 +1,75 @@
+NotificationPanel2
+
+> UnityEngine.RectTransform
+
+> UnityEngine.CanvasRenderer
+
+> RoR2.UI.GenericNotification
+>v titleText = Title (RoR2.UI.LanguageTextMeshController)
+>v titleTMP = Title (RoR2.UI.HGTextMeshProUGUI)
+>v descriptionText = Description (RoR2.UI.LanguageTextMeshController)
+>v iconImage = Icon (UnityEngine.UI.RawImage)
+>v fadeRenderers = UnityEngine.CanvasRenderer[]
+>v duration = 6
+>v fadeTime = 0.5
+>c RawImage
+
+>> UnityEngine.RectTransform
+
+>> UnityEngine.CanvasRenderer
+
+>> UnityEngine.UI.Image
+>c Icon
+
+>> UnityEngine.RectTransform
+
+>> UnityEngine.CanvasRenderer
+
+>> UnityEngine.UI.RawImage
+>c TextArea
+
+>> UnityEngine.RectTransform
+
+>> UnityEngine.CanvasRenderer
+
+>> UnityEngine.UI.RawImage
+>>c Title
+
+>>> UnityEngine.RectTransform
+
+>>> UnityEngine.CanvasRenderer
+
+>>> RoR2.UI.HGTextMeshProUGUI
+>>>v useLanguageDefaultFont = True
+>>>v defaultLanguageFont = tmpBombDropshadow (TMPro.TMP_FontAsset)
+
+>>> RoR2.UI.LanguageTextMeshController
+>>c Description
+
+>>> UnityEngine.RectTransform
+
+>>> UnityEngine.CanvasRenderer
+
+>>> RoR2.UI.HGTextMeshProUGUI
+>>>v useLanguageDefaultFont = True
+>>>v defaultLanguageFont = tmpBombDropshadow (TMPro.TMP_FontAsset)
+
+>>> RoR2.UI.LanguageTextMeshController
+>c Flash
+
+>> UnityEngine.RectTransform
+
+>> UnityEngine.CanvasRenderer
+
+>> UnityEngine.UI.RawImage
+
+>> RoR2.UI.AnimateUIAlpha
+>>v alphaCurve = UnityEngine.AnimationCurve
+>>v image = 
+>>v rawImage = Flash (UnityEngine.UI.RawImage)
+>>v spriteRenderer = 
+>>v timeMax = 0.4
+>>v destroyOnEnd = False
+>>v loopOnEnd = False
+>>v disableGameObjectOnEnd = False
+>>v time = 0

@@ -1,0 +1,46 @@
+TracerGolem
+
+> transform = p:(108.8, 12.3, 57.4) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+
+> RoR2.EffectComponent
+>v effectData = 
+>v positionAtReferencedTransform = False
+>v parentToReferencedTransform = False
+>v applyScale = False
+
+> RoR2.Tracer
+>v startTransform = TracerStartPos (UnityEngine.Transform)
+>v beamObject = SmokeBeam (UnityEngine.GameObject)
+>v beamDensity = 10
+>v speed = 300
+>v headTransform = TracerHead (UnityEngine.Transform)
+>v tailTransform = TracerTail (UnityEngine.Transform)
+>v length = 15
+>v onTailReachedDestination = UnityEngine.Events.UnityEvent UnityEngine.Events.UnityEvent
+
+> UnityEngine.LineRenderer
+
+> BeamPointsFromTransforms
+>v target = TracerGolem (UnityEngine.LineRenderer)
+
+> RoR2.EventFunctions
+>c TracerHead
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>c TracerTail
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 0.0, 0.0) s:(1.0, 1.0, 1.0)
+>c SmokeBeam
+
+>> transform = p:(0.0, 0.0, 0.0) r:(0.0, 90.0, 0.0) s:(1.0, 1.0, 1.0)
+
+>> DestroyOnParticleEnd
+
+>> UnityEngine.ParticleSystem
+
+>> UnityEngine.ParticleSystemRenderer
+
+>> DestroyOnParticleEnd
+>>c TracerStartPos
+
+>>> transform = p:(-0.5, -2.5, 3.8) r:(0.0, 90.0, 0.0) s:(1.0, 1.0, 1.0)
