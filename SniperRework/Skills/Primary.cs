@@ -154,12 +154,12 @@ namespace EntityStates.ReinSniperRework.SniperWeapon
                     base.AddRecoil(-1f * data.p_recoilAmplitude, -2f * data.p_recoilAmplitude, -0.5f * data.p_recoilAmplitude, 0.5f * data.p_recoilAmplitude);
                     base.characterMotor.ApplyForce(base.inputBank.aimDirection * -1f * data.p_recoilForceMult);
 
-                    base.PlayAnimation("Gesture", "FireShotgun", "FireShotgun.playbackRate", this.duration * 1.5f);
-                    base.PlayAnimation("Gesture, Override", "FireShotgun", "FireShotgun.playbackRate", this.duration * 1.5f);
+                    //base.PlayAnimation("Gesture", "FireShotgun", "FireShotgun.playbackRate", this.duration * 1.5f);
+                    //base.PlayAnimation("Gesture, Override", "FireShotgun", "FireShotgun.playbackRate", this.duration * 1.5f);
 
                     if (data.p_effectPrefab)
                     {
-                        EffectManager.instance.SimpleMuzzleFlash(data.p_effectPrefab, base.gameObject, data.p_muzzleName, false);
+                        //EffectManager.instance.SimpleMuzzleFlash(data.p_effectPrefab, base.gameObject, data.p_muzzleName, false);
                     }
                 }
                 else
@@ -170,10 +170,6 @@ namespace EntityStates.ReinSniperRework.SniperWeapon
                         base.characterMotor.ApplyForce(new Vector3(0f, data.p_reloadForceMult, 0f));
                     }
                 }
-            }
-            else
-            {
-                Debug.Log("Missing component on character");
             }
         }
 
@@ -196,13 +192,13 @@ namespace EntityStates.ReinSniperRework.SniperWeapon
             }
         }
 
-        public override InterruptPriority GetMinimumInterruptPriority()
-        {
-            if (this.inputReleased && base.fixedAge >= data.p_interruptInterval / this.attackSpeedStat)
-            {
-                return InterruptPriority.Any;
-            }
-            return InterruptPriority.Skill;
-        }
+        //public override InterruptPriority GetMinimumInterruptPriority()
+        //{
+        //    if (this.inputReleased && base.fixedAge >= data.p_interruptInterval / this.attackSpeedStat)
+        //    {
+        //        return InterruptPriority.Any;
+        //    }
+        //    return InterruptPriority.Skill;
+        //}
     }
 }

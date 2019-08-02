@@ -74,7 +74,7 @@ namespace ReinSniperRework
         public readonly float p_rechargeInterval = 0.001f;
         public readonly float p_shootDelay = 0f;
         public readonly float p_shotDamage = 2.5f;
-        public readonly float p_shotForce = 250.0f;
+        public readonly float p_shotForce = 500.0f;
         public readonly float p_shotCoef = 1.0f;
         public readonly float p_recoilAmplitude = 10.0f;
         public readonly float p_baseDuration = 0.01f;
@@ -195,7 +195,7 @@ namespace ReinSniperRework
 
         //SniperSpecial values
         //floats
-        public readonly float r_rechargeInterval = -0.0f;
+        public readonly float r_rechargeInterval = 30.0f;
         public readonly float r_shootDelay = 0.1f;
         public readonly float r_baseDuration = 0.25f;
         private float i_mineThrowVelocity = 15f;
@@ -205,10 +205,10 @@ namespace ReinSniperRework
         private float i_wardInterval = 1.0f;
         private float i_wardDuration = 10.0f;
         private float i_triggerRadiusMod = 1.0f;
-        private float i_mineHookInterval = 0.9f;
+        private float i_mineHookInterval = 1.25f;
         private float i_mineHookDuration = 10.0f;
-        private float i_mineHookRadiusMod = 3.0f;
-        private float i_mineForceRadiusMod = 1.25f;
+        private float i_mineHookRadiusMod = 3.5f;
+        private float i_mineForceRadiusMod = 1.24f;
         private float i_mineForceDamping = 0.05f;
         private float i_mineForceStrength = 2.0f;
         private float i_mineForceFalloff = 0.0f;

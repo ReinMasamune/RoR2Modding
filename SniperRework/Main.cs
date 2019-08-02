@@ -107,12 +107,31 @@ namespace ReinSniperRework
                 field4?.SetValue(box4, typeof(EntityStates.ReinSniperRework.SniperWeapon.SniperSpecial)?.AssemblyQualifiedName);
                 Sniper4.activationState = (EntityStates.SerializableEntityStateType)box4;
 
+                Sniper1.skillNameToken = "Snipe";
+                Sniper2.skillNameToken = "Steady Aim";
+                Sniper3.skillNameToken = "Military Training";
+                Sniper4.skillNameToken = "Snare trap";
+
+                Sniper1.skillDescriptionToken = "Shoot enemies for 250% damage. Must reload after shooting, good timing increases damage but bad timing decreases damage. Pushes you back slightly when fired.";
+                Sniper2.skillDescriptionToken = "Aim with the scope of your rifle, reducing speed but powering up Snipe to pierce enemies and increase damage with charge." + "\n" + "When fully charged fire a powerful shot with a cooldown." + "\n" + "Scope and normal charged shots can be used while on cooldown.";
+                Sniper3.skillDescriptionToken = "Launch yourself a forward along the direction you are currently moving. Gain very short duration invisibility that causes enemies to lose track of you momentarily";
+                Sniper4.skillDescriptionToken = "Place a trap. When activated the trap pulls nearby enemies in, slows them, and reduces their armor.";
+
+                SL.passiveSkill.enabled = true;
+                SL.passiveSkill.skillNameToken = "Headshot";
+                SL.passiveSkill.skillDescriptionToken = "Some enemies can be shot in the head for 50% bonus damage. [Currently only works on Lemurians, Beetles, and Beetle Guards, more coming hopefully soon]";
+
+
                 var survivor = new SurvivorDef
                 {
                     bodyPrefab = body,
-                    descriptionToken = "But it is really sniper!",
+                    descriptionToken = "Sniper is a high single-target damage survivor with moderate mobility." + "\n\n\n" +
+                    "Snipe is your only source of damage, hitting perfect reloads is essential to keeping a fast pace. " + "\n" + "The recoil can be used to extend time in the air." + "\n" + "Attack speed can make it more difficult to time reloads, but never makes it impossible." + "\n\n\n" +
+                    "Steady Aim is a high-risk high-reward option that takes a very long time to charge, but does incredible damage." + "\n\n\n" +
+                    "Military Training is essential to staying alive. When it is on cooldown you are at your most vulnerable." + "\n\n\n" +
+                    "Snare Trap deals no damage, but can be used for a variety of purposes: Weakening high priority targets, grouping up enemies for Steady Aim, or simply to slow enemies that are chasing you.",
                     displayPrefab = Resources.Load<GameObject>("Prefabs/Characters/SniperDisplay"),
-                    primaryColor = new Color(0.8039216f, 0.482352942f, 0.843137264f),
+                    primaryColor = new Color(0.25f, 0.25f, 0.25f),
                     unlockableName = "",
                     survivorIndex = SurvivorIndex.Count
                 };

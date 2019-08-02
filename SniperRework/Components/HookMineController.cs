@@ -70,6 +70,10 @@ namespace ReinSniperRework
                     }
                     else
                     {
+                        if( !stick.stuck )
+                        {
+                            mineState = HookMineController.MineState.Flying;
+                        }
                         timer += Time.fixedDeltaTime;
                     }
 
