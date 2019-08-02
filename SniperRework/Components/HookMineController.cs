@@ -1,12 +1,7 @@
-﻿using BepInEx;
-using System;
+﻿using System;
 using RoR2;
 using UnityEngine;
 using UnityEngine.Networking;
-using UnityEngine.UI;
-using System.Reflection;
-using ReinSniperRework;
-using RoR2.UI;
 using System.Collections.Generic;
 using RoR2.Orbs;
 using RoR2.Projectile;
@@ -53,6 +48,10 @@ namespace ReinSniperRework
 
         public void FixedUpdate()
         {
+            if( !control.owner )
+            {
+                mineState = MineState.Dying;
+            }
             switch( mineState )
             {
                 case HookMineController.MineState.Flying:
@@ -173,14 +172,15 @@ namespace ReinSniperRework
             search.origin = gameObject.transform.position;
             search.radius = hookRadius;
             search.mask = LayerIndex.entityPrecise.mask;
+            HurtBox[] hurtB = search.RefreshCandidates().FilterCandidatesByHurtBoxTeam(TeamMask.AllExcept(teamFriendly)).OrderCandidatesByDistance().FilterCandidatesByDistinctHurtBoxEntities().GetHurtBoxes();
             List<CharacterBody> targets = new List<CharacterBody>();
-            foreach (HurtBox HB in search.RefreshCandidates().FilterCandidatesByHurtBoxTeam(TeamMask.AllExcept(teamFriendly)).OrderCandidatesByDistance().FilterCandidatesByDistinctHurtBoxEntities().GetHurtBoxes())
+            foreach (HurtBox HB in hurtB)
             {
                 if (HB)
                 {
                     HealthComponent HC = HB.healthComponent;
                     if (HC)
-                    {
+                   {
                         CharacterBody target = HB.healthComponent.body;
                         if (target)
                         {
@@ -204,8 +204,6 @@ namespace ReinSniperRework
                         HurtBox HB = target.mainHurtBox;
                         if( HB )
                         {
-                            Debug.Log("Yonk");
-                            Debug.Log(i);
                             BounceOrb yonk = new BounceOrb();
                             yonk.origin = gameObject.transform.position;
                             yonk.damageValue = 0f;
@@ -220,6 +218,16 @@ namespace ReinSniperRework
                 }
             }
             
+        }
+
+        public struct CheckTarget : Unity.Jobs.IJob
+        {
+
+
+            public void Execute()
+            {
+
+            }
         }
     }
 }

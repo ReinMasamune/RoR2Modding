@@ -1,12 +1,7 @@
-﻿using BepInEx;
-using System;
-using RoR2;
+﻿using RoR2;
 using UnityEngine;
 using UnityEngine.Networking;
-using UnityEngine.UI;
-using System.Reflection;
 using ReinSniperRework;
-using RoR2.UI;
 
 namespace EntityStates.ReinSniperRework.SniperWeapon
 {

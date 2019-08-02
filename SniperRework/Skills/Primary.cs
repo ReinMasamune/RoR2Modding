@@ -1,13 +1,6 @@
-﻿using BepInEx;
-using System;
-using RoR2;
-using RoR2.Projectile;
+﻿using RoR2;
 using UnityEngine;
-using UnityEngine.Networking;
-using UnityEngine.UI;
-using System.Reflection;
 using ReinSniperRework;
-using RoR2.UI;
 
 namespace EntityStates.ReinSniperRework.SniperWeapon
 {
@@ -21,6 +14,7 @@ namespace EntityStates.ReinSniperRework.SniperWeapon
         private float shotTotalDamage;
         private float duration;
         private float shotRad;
+        private float shotCoef;
 
         private int reloadTier;
         private int chargeTier;
@@ -58,7 +52,7 @@ namespace EntityStates.ReinSniperRework.SniperWeapon
                             chargeTier -= 1;
                         }
                     }
-                    consumeChargeAfterShot = chargeTier == 1;
+                    consumeChargeAfterShot = chargeTier < 2;
 
                     reloadMod = 1.0f;
 
@@ -86,21 +80,25 @@ namespace EntityStates.ReinSniperRework.SniperWeapon
                     {
                         case 0:
                             chargeMod *= data.p_chargeT0Mod;
+                            shotCoef = data.p_shotCoef;
                             shotRad = data.p_t0ShotRadius;
                             chargeMod *= 1f + data.p_chargeT0Scale * shotCharge;
                             break;
                         case 1:
                             chargeMod *= data.p_chargeT1Mod;
+                            shotCoef = data.p_chargeT1Coef;
                             shotRad = data.p_t1ShotRadius;
                             chargeMod *= 1f + data.p_chargeT1Scale * shotCharge;
                             break;
                         case 2:
                             chargeMod *= data.p_chargeT2Mod;
+                            shotCoef = data.p_chargeT2Coef;
                             shotRad = data.p_t2ShotRadius;
                             chargeMod *= 1f + data.p_chargeT2Scale * shotCharge;
                             break;
                         default:
                             chargeMod *= 1f;
+                            shotCoef = data.p_shotCoef;
                             shotRad = data.p_ntShotRadius;
                             Debug.Log("Charge tier is invalid");
                             break;
@@ -127,7 +125,7 @@ namespace EntityStates.ReinSniperRework.SniperWeapon
                     bul.damage = shotTotalDamage * this.damageStat;
                     bul.isCrit = base.RollCrit();
                     bul.force = shotTotalDamage * data.p_shotForce / data.p_shotDamage;
-                    bul.procCoefficient = data.p_shotCoef;
+                    bul.procCoefficient = shotCoef;
                     bul.sniper = true;
                     bul.falloffModel = BulletAttack.FalloffModel.None;
                     bul.tracerEffectPrefab = data.p_tracerEffectPrefab;

@@ -1,18 +1,12 @@
-﻿using BepInEx;
-using System;
-using RoR2;
+﻿using RoR2;
 using UnityEngine;
-using UnityEngine.Networking;
-using UnityEngine.UI;
-using System.Reflection;
-using ReinSniperRework;
-using RoR2.UI;
 
 namespace ReinSniperRework
 {
     public class SniperReloadTracker : MonoBehaviour
     {
-        //Move all the config into the datalibrary
+        public ReinDataLibrary data;
+
         private bool canShoot = true;
         private bool isReloading = false;
         private bool pastMinTime = false;
@@ -22,28 +16,6 @@ namespace ReinSniperRework
         private float curMinReload;
         private float curMaxReload;
         private int reloadTier;
-
-        private static int totalBarWidth = 200;
-        private static int totalBarHeight = 12;
-        private static int barHOffset = 0;
-        private static int barVOffset = -100;
-
-        private static int sliderWidth = 3;
-        private static int sliderHeight = 18;
-
-
-        public float baseMinReloadTime = 0.5f;
-        public float baseMaxReloadTime = 2f;
-        public float baseSoftSpotStart = 0.39f;
-        public float baseSoftSpotEnd = 0.6f;
-        public float baseSweetSpotStart = 0.25f;
-        public float baseSweetSpotEnd = 0.40f;
-
-        private static Color borderColor = new Color(0f, 0f, 0f, 1f);
-        private static Color baseColor = new Color(0f, 0f, 0f, 0.5f);
-        private static Color bar1Color = new Color(0.5f, 0.5f, 0.5f, 0.75f);
-        private static Color bar2Color = new Color(0.75f, 0.75f, 0.75f, 0.75f);
-        private static Color sliderColor = new Color(1f, 1f, 1f, 1f);
 
         Texture2D barTexture;
         Texture2D sliderTexture;
@@ -118,11 +90,11 @@ namespace ReinSniperRework
 
                     string reloadFeedback = "";
 
-                    if (reloadTimer > baseSoftSpotStart * curMaxReload && reloadTimer < baseSoftSpotEnd * curMaxReload)
+                    if (reloadTimer > data.sr_baseSoftSpotStart * curMaxReload && reloadTimer < data.sr_baseSoftSpotEnd * curMaxReload)
                     {
                         reloadTier = 1;
                     }
-                    if (reloadTimer > baseSweetSpotStart * curMaxReload && reloadTimer < baseSweetSpotEnd * curMaxReload)
+                    if (reloadTimer > data.sr_baseSweetSpotStart * curMaxReload && reloadTimer < data.sr_baseSweetSpotEnd * curMaxReload)
                     {
                         reloadTier = 2;
                         reloadFeedback = "Play_item_proc_crit_cooldown";
@@ -164,22 +136,22 @@ namespace ReinSniperRework
         {
             attackSpeed = AS;
 
-            curMinReload = baseMinReloadTime / attackSpeed;
+            curMinReload = data.sr_baseMinReloadTime / attackSpeed;
 
-            scaledAttackSpeed = (1f + 3f * (1f - 1f / AS));
+            scaledAttackSpeed = (1f + data.sr_attackSpeedSoft * (1f - 1f / AS));
 
-            curMaxReload = baseMaxReloadTime / Mathf.Min(AS, scaledAttackSpeed);
+            curMaxReload = data.sr_baseMaxReloadTime / Mathf.Min(AS, scaledAttackSpeed);
         }
 
         private void GenerateBar()
         {
-            int bar1Start = (int)(baseSoftSpotStart * totalBarWidth);
-            int bar1End = (int)(baseSoftSpotEnd * totalBarWidth);
+            int bar1Start = (int)(data.sr_baseSoftSpotStart * data.sr_totalBarWidth);
+            int bar1End = (int)(data.sr_baseSoftSpotEnd * data.sr_totalBarWidth);
 
-            int bar2Start = (int)(baseSweetSpotStart * totalBarWidth);
-            int bar2End = (int)(baseSweetSpotEnd * totalBarWidth);
+            int bar2Start = (int)(data.sr_baseSweetSpotStart * data.sr_totalBarWidth);
+            int bar2End = (int)(data.sr_baseSweetSpotEnd * data.sr_totalBarWidth);
 
-            barTexture = new Texture2D(totalBarWidth + 2, totalBarHeight + 2, TextureFormat.ARGB32, false);
+            barTexture = new Texture2D(data.sr_totalBarWidth + 2, data.sr_totalBarHeight + 2, TextureFormat.ARGB32, false);
 
             for (int x = 0; x < barTexture.width; x++)
             {
@@ -187,23 +159,23 @@ namespace ReinSniperRework
                 {
                     if (x == 0 || y == 0 || x == barTexture.width - 1 || y == barTexture.height - 1)
                     {
-                        barTexture.SetPixel(x, y, borderColor);
+                        barTexture.SetPixel(x, y, data.sr_borderColor);
                     }
                     else
                     {
                         if (x > bar2Start + 2 && x < bar2End)
                         {
-                            barTexture.SetPixel(x, y, bar2Color);
+                            barTexture.SetPixel(x, y, data.sr_bar2Color);
                         }
                         else
                         {
                             if (x > bar1Start + 2 && x < bar1End)
                             {
-                                barTexture.SetPixel(x, y, bar1Color);
+                                barTexture.SetPixel(x, y, data.sr_bar1Color);
                             }
                             else
                             {
-                                barTexture.SetPixel(x, y, baseColor);
+                                barTexture.SetPixel(x, y, data.sr_baseColor);
                             }
                         }
                     }
@@ -212,25 +184,25 @@ namespace ReinSniperRework
 
             barTexture.Apply();
 
-            sliderX1 = (int)((width - totalBarWidth) / 2f + barHOffset);
-            sliderX2 = (int)((width + totalBarWidth) / 2f + barHOffset);
-            sliderY = (int)((height - totalBarHeight) / 2f - barVOffset);
+            sliderX1 = (int)((width - data.sr_totalBarWidth) / 2f + data.sr_barHOffset);
+            sliderX2 = (int)((width + data.sr_totalBarWidth) / 2f + data.sr_barHOffset);
+            sliderY = (int)((height - data.sr_totalBarHeight) / 2f - data.sr_barVOffset);
 
             barPos = new Rect(sliderX1 - 1, sliderY - 1, width, width);
 
-            sliderTexture = new Texture2D(sliderWidth, sliderHeight, TextureFormat.ARGB32, false);
+            sliderTexture = new Texture2D(data.sr_sliderWidth, data.sr_sliderHeight, TextureFormat.ARGB32, false);
 
             for (int x = 0; x < sliderTexture.width; x++)
             {
                 for (int y = 0; y < sliderTexture.height; y++)
                 {
-                    sliderTexture.SetPixel(x, y, sliderColor);
+                    sliderTexture.SetPixel(x, y, data.sr_sliderColor);
                 }
             }
 
-            sliderX1 -= Mathf.FloorToInt(sliderWidth / 2f);
-            sliderX2 -= Mathf.FloorToInt(sliderWidth / 2f);
-            sliderY -= Mathf.FloorToInt((sliderHeight - totalBarHeight) / 2f);
+            sliderX1 -= Mathf.FloorToInt(data.sr_sliderWidth / 2f);
+            sliderX2 -= Mathf.FloorToInt(data.sr_sliderWidth / 2f);
+            sliderY -= Mathf.FloorToInt((data.sr_sliderHeight - data.sr_totalBarHeight) / 2f);
 
             sliderTexture.Apply();
         }

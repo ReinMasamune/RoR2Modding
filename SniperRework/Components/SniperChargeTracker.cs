@@ -1,34 +1,10 @@
-﻿using BepInEx;
-using System;
-using RoR2;
-using UnityEngine;
-using UnityEngine.Networking;
-using UnityEngine.UI;
-using System.Reflection;
-using ReinSniperRework;
-using RoR2.UI;
+﻿using UnityEngine;
 
 namespace ReinSniperRework
 {
     public class SniperChargeTracker : MonoBehaviour
     {
-        private static float baseChargeDuration = 10f;
-        private static float anyChargeThreshold = 0.25f;
-        private static float specChargeThreshold = 0.65f;
-
-        private static int totalBarWidth = 200;
-        private static int totalBarHeight = 12;
-        private static int barHOffset = 0;
-        private static int barVOffset = 103;
-
-        private static int sliderWidth = 3;
-        private static int sliderHeight = 18;
-
-        private static Color borderColor = new Color(0f, 0f, 0f, 1f);
-        private static Color baseColor = new Color(0f, 0f, 0f, 0.5f);
-        private static Color bar1Color = new Color(0.25f, 0.75f, 0.75f, 0.75f);
-        private static Color bar2Color = new Color(0.75f, 0.25f, 0.25f, 0.75f);
-        private static Color sliderColor = new Color(1f, 1f, 1f, 1f);
+        public ReinDataLibrary data;
 
         Texture2D barTexture;
         Texture2D sliderTexture;
@@ -41,7 +17,6 @@ namespace ReinSniperRework
         private bool showChargeBar = false;
         private int chargeTier = 0;
         public bool charging = false;
-
 
         int width;
         int height;
@@ -71,20 +46,20 @@ namespace ReinSniperRework
             {
                 if (chargeLevel < 1f)
                 {
-                    chargeLevel += chg / baseChargeDuration;
+                    chargeLevel += chg / data.sc_baseChargeDuration;
                 }
                 else
                 {
                     chargeLevel = 1f;
                 }
 
-                if (chargeLevel > specChargeThreshold)
+                if (chargeLevel > data.sc_specChargeThreshold)
                 {
                     chargeTier = 2;
                 }
                 else
                 {
-                    if (chargeLevel > anyChargeThreshold)
+                    if (chargeLevel > data.sc_anyChargeThreshold)
                     {
                         chargeTier = 1;
                     }
@@ -129,13 +104,13 @@ namespace ReinSniperRework
 
         private void GenerateBar()
         {
-            int bar1Start = (int)(anyChargeThreshold * totalBarWidth);
-            int bar1End = (int)(specChargeThreshold * totalBarWidth);
+            int bar1Start = (int)(data.sc_anyChargeThreshold * data.sc_totalBarWidth);
+            int bar1End = (int)(data.sc_specChargeThreshold * data.sc_totalBarWidth);
 
-            int bar2Start = (int)(specChargeThreshold * totalBarWidth);
-            int bar2End = (int)(totalBarWidth);
+            int bar2Start = (int)(data.sc_specChargeThreshold * data.sc_totalBarWidth);
+            int bar2End = (int)(data.sc_totalBarWidth);
 
-            barTexture = new Texture2D(totalBarWidth + 2, totalBarHeight + 2, TextureFormat.ARGB32, false);
+            barTexture = new Texture2D(data.sc_totalBarWidth + 2, data.sc_totalBarHeight + 2, TextureFormat.ARGB32, false);
 
             for (int x = 0; x < barTexture.width; x++)
             {
@@ -143,23 +118,23 @@ namespace ReinSniperRework
                 {
                     if (x == 0 || y == 0 || x == barTexture.width - 1 || y == barTexture.height - 1)
                     {
-                        barTexture.SetPixel(x, y, borderColor);
+                        barTexture.SetPixel(x, y, data.sc_borderColor);
                     }
                     else
                     {
                         if (x > bar2Start + 2 && x < bar2End)
                         {
-                            barTexture.SetPixel(x, y, bar2Color);
+                            barTexture.SetPixel(x, y, data.sc_bar2Color);
                         }
                         else
                         {
                             if (x > bar1Start + 2 && x < bar1End)
                             {
-                                barTexture.SetPixel(x, y, bar1Color);
+                                barTexture.SetPixel(x, y, data.sc_bar1Color);
                             }
                             else
                             {
-                                barTexture.SetPixel(x, y, baseColor);
+                                barTexture.SetPixel(x, y, data.sc_baseColor);
                             }
                         }
                     }
@@ -168,25 +143,25 @@ namespace ReinSniperRework
 
             barTexture.Apply();
 
-            sliderX1 = (int)((width - totalBarWidth) / 2f + barHOffset);
-            sliderX2 = (int)((width + totalBarWidth) / 2f + barHOffset);
-            sliderY = (int)((height - totalBarHeight) / 2f - barVOffset);
+            sliderX1 = (int)((width - data.sc_totalBarWidth) / 2f + data.sc_barHOffset);
+            sliderX2 = (int)((width + data.sc_totalBarWidth) / 2f + data.sc_barHOffset);
+            sliderY = (int)((height - data.sc_totalBarHeight) / 2f - data.sc_barVOffset);
 
             barPos = new Rect(sliderX1 - 1, sliderY - 1, width, width);
 
-            sliderTexture = new Texture2D(sliderWidth, sliderHeight, TextureFormat.ARGB32, false);
+            sliderTexture = new Texture2D(data.sc_sliderWidth, data.sc_sliderHeight, TextureFormat.ARGB32, false);
 
             for (int x = 0; x < sliderTexture.width; x++)
             {
                 for (int y = 0; y < sliderTexture.height; y++)
                 {
-                    sliderTexture.SetPixel(x, y, sliderColor);
+                    sliderTexture.SetPixel(x, y, data.sc_sliderColor);
                 }
             }
 
-            sliderX1 -= Mathf.FloorToInt(sliderWidth / 2f);
-            sliderX2 -= Mathf.FloorToInt(sliderWidth / 2f);
-            sliderY -= Mathf.FloorToInt((sliderHeight - totalBarHeight) / 2f);
+            sliderX1 -= Mathf.FloorToInt(data.sc_sliderWidth / 2f);
+            sliderX2 -= Mathf.FloorToInt(data.sc_sliderWidth / 2f);
+            sliderY -= Mathf.FloorToInt((data.sc_sliderHeight - data.sc_totalBarHeight) / 2f);
 
             sliderTexture.Apply();
         }
