@@ -131,7 +131,7 @@ namespace ReinSniperRework
         public readonly float s_minZoom = 2.0f;
         public readonly float s_maxZoom = 32.0f;
         public readonly float s_baseFOV = 60.0f;
-        public readonly float s_scrollScale = 1.0f;
+        public readonly float s_scrollScale = 1.5f;
         //ints
         public readonly int s_baseMaxStock = 1;
         public readonly int s_rechargeStock = 1;

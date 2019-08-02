@@ -8,7 +8,7 @@ using System.Reflection;
 namespace ReinSniperRework
 {
     [BepInDependency("com.bepis.r2api")]
-    [BepInPlugin("com.ReinThings.ReinSurvivorMod", "ReinSurvivorMod", "0.0.4")]
+    [BepInPlugin("com.ReinThings.ReinSniperRework", "ReinSniperRework", "1.0.1")]
 
     public class ReinSurvivorMod : BaseUnityPlugin
     {
