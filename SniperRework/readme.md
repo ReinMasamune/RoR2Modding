@@ -1,5 +1,4 @@
-﻿# Sniper Rework
-This mod rebuilds the prototype version of sniper present in the files from the ground up. 
+﻿This mod rebuilds the prototype version of sniper present in the files from the ground up. 
 All four skills are rewritten from scratch and work significantly differently from how they did initially.  
 
 If you have any issues contact me on the modding discord. (@Rein#7551)
@@ -86,7 +85,7 @@ Due to the nature of these changes, it is not possible to avoid this without cir
 ### Eventually
 - Custom texture for the model
 
-### Soon<sup>tm</sup>
+### Soon (tm)
 - A new model
 
 ## Changelog

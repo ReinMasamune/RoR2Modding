@@ -25,17 +25,10 @@ namespace EntityStates.ReinSniperRework.SniperWeapon
                 //Projectile stuff
                 projInfo.crit = false;
                 projInfo.damage = 0f;
-                //projInfo.damageColorIndex
                 projInfo.force = 0f;
                 projInfo.owner = base.gameObject;
                 projInfo.position = aimRay.origin;
-                //projInfo.procChainMask
                 projInfo.rotation = Util.QuaternionSafeLookRotation(aimRay.direction);
-                //projInfo.target
-                //projInfo.useFuseOverride
-                //projInfo.useSpeedOverride
-                //projInfo.fuseOverride
-                //projInfo.speedOverride
                 projInfo.projectilePrefab = data.r_mineProj;
 
                 ProjectileManager.instance.FireProjectile(projInfo);

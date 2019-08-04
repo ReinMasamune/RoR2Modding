@@ -30,20 +30,16 @@ namespace EntityStates.ReinSniperRework.SniperWeapon
                 this.originalCrosshairPrefab = base.characterBody.crosshairPrefab;
                 base.characterBody.crosshairPrefab = data.s_crosshairPrefab;
             }
-            if (data.g_charge)
-            {
-                data.g_charge.ShowBar(true);
-                data.g_charge.UpdateCharge(0f);
-            }
+            data.g_ui.showChargeBar = true;
+            data.g_shotCharge = 0f;
+            data.g_zoomed = true;
         }
 
         public override void OnExit()
         {
-            if (data.g_charge)
-            {
-                data.g_charge.ShowBar(false);
-                data.g_charge.UpdateCharge(0f);
-            }
+            data.g_ui.showChargeBar = false;
+            data.g_shotCharge = 0f;
+            data.g_zoomed = false;
             if (NetworkServer.active && base.characterBody)
             {
                 UpdateSlowTier(0);
@@ -62,8 +58,34 @@ namespace EntityStates.ReinSniperRework.SniperWeapon
 
         public override void FixedUpdate()
         {
-            data.g_charge.AddCharge(Time.fixedDeltaTime * this.attackSpeedStat);
-            UpdateSlowTier(data.g_charge.GetChargeTier() + 1);
+            base.characterBody.isSprinting = false;
+            if( data.g_shotCharge < 1.0f )
+            {
+                float addedCharge = Time.fixedDeltaTime * base.attackSpeedStat / data.s_chargeTime;
+                data.g_shotCharge += addedCharge;
+            }
+            if( data.g_shotCharge >= 1.0f )
+            {
+                data.g_shotCharge = 1.0f;
+            }
+
+            if( data.g_shotCharge >= data.s_boost1Start )
+            {
+                if (data.g_shotCharge >= data.s_boost2Start)
+                {
+                    data.g_chargeTier = 2;
+                }
+                else
+                {
+                    data.g_chargeTier = 1;
+                }
+            }
+            else
+            {
+                data.g_chargeTier = 0;
+            }
+
+            UpdateSlowTier(data.g_chargeTier + 1);
 
             if( base.cameraTargetParams.aimMode != CameraTargetParams.AimType.FirstPerson )
             {
@@ -77,7 +99,7 @@ namespace EntityStates.ReinSniperRework.SniperWeapon
                 base.cameraTargetParams.fovOverride = zoomToFov(curZoom);
             }
 
-            if (base.isAuthority && (!base.inputBank || !base.inputBank.skill2.down || base.characterBody.isSprinting))
+            if (base.isAuthority && (!base.inputBank || !base.inputBank.skill2.down ))
             {
                 this.outer.SetNextStateToMain();
                 return;

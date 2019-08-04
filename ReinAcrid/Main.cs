@@ -5,10 +5,10 @@ using UnityEngine;
 using System.Reflection;
 
 
-namespace ReinSniperRework
+namespace ReinAcrid
 {
     [BepInDependency("com.bepis.r2api")]
-    [BepInPlugin("com.ReinThings.ReinSniperRework", "ReinSniperRework", "1.0.2")]
+    [BepInPlugin("com.ReinThings.ReinSniperRework", "ReinSniperRework", "1.0.1")]
 
     public class ReinSurvivorMod : BaseUnityPlugin
     {
@@ -19,8 +19,11 @@ namespace ReinSniperRework
                 GameObject body = BodyCatalog.FindBodyPrefab("SniperBody");
 
                 ReinDataLibrary data = body.AddComponent<ReinDataLibrary>();
-                data.g_ui = body.AddComponent<SniperUIController>();
-                data.g_ui.data = data;
+                data.g_reload = body.AddComponent<SniperReloadTracker>();
+                data.g_charge = body.AddComponent<SniperChargeTracker>();
+
+                data.g_reload.data = data;
+                data.g_charge.data = data;
 
                 SkillLocator SL = body.GetComponent<SkillLocator>();
                 CharacterBody charbody = body.GetComponent<CharacterBody>();
@@ -34,7 +37,6 @@ namespace ReinSniperRework
                 charbody.baseMaxHealth = data.g_baseHealth;
                 charbody.baseRegen = data.g_baseRegen;
                 charbody.crosshairPrefab = Resources.Load<GameObject>(data.g_crosshairString);
-                charbody.bodyFlags = CharacterBody.BodyFlags.ImmuneToExecutes;
 
                 //Config skill1
                 Sniper1.baseRechargeInterval = data.p_rechargeInterval;
@@ -48,10 +50,10 @@ namespace ReinSniperRework
                 Sniper1.mustKeyPress = data.p_mustKeyPress;
                 Sniper1.requiredStock = data.p_requiredStock;
                 Sniper1.stockToConsume = data.p_stockToConsome;
-                Sniper1.activationState = new EntityStates.SerializableEntityStateType(typeof(EntityStates.ReinSniperRework.SniperWeapon.SniperPrimary));
+                Sniper1.activationState = new EntityStates.SerializableEntityStateType(typeof(EntityStates.ReinSniperRework.SniperWeapon.TestSniperPrimary));
                 object box = Sniper1.activationState;
                 var field = typeof(EntityStates.SerializableEntityStateType)?.GetField("_typeName", BindingFlags.NonPublic | BindingFlags.Instance);
-                field?.SetValue(box, typeof(EntityStates.ReinSniperRework.SniperWeapon.SniperPrimary)?.AssemblyQualifiedName);
+                field?.SetValue(box, typeof(EntityStates.ReinSniperRework.SniperWeapon.TestSniperPrimary)?.AssemblyQualifiedName);
                 Sniper1.activationState = (EntityStates.SerializableEntityStateType)box;
 
                 Sniper2.baseRechargeInterval = data.s_rechargeInterval;

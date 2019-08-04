@@ -12,64 +12,48 @@ namespace ReinSniperRework
         public readonly float g_baseDamage = 16.0f;
         public readonly float g_baseHealth = 100.0f;
         public readonly float g_baseRegen = 0.6f;
+        public float g_shotCharge;
         //ints
+        public int g_reloadTier = 2;
+        public int g_chargeTier = 0;
+        //bools
+        public bool g_zoomed = false;
         //strings
         public readonly string g_crosshairString = "prefabs/crosshair/banditcrosshairrevolver";
         //other
-        public SniperReloadTracker g_reload;
-        public SniperChargeTracker g_charge;
+        public SniperUIController g_ui;
 
-
-        //SniperReloadTracker Values
+        
+                        //UI Controller values
         //floats
-        public readonly float sr_baseMinReloadTime = 0.5f;
-        public readonly float sr_baseMaxReloadTime = 2.0f;
-        public readonly float sr_baseSoftSpotStart = 0.39f;
-        public readonly float sr_baseSoftSpotEnd = 0.6f;
-        public readonly float sr_baseSweetSpotStart = 0.25f;
-        public readonly float sr_baseSweetSpotEnd = 0.4f;
-        public readonly float sr_attackSpeedSoft = 2.5f;
         //ints
-        public readonly int sr_totalBarWidth = 200;
-        public readonly int sr_totalBarHeight = 12;
-        public readonly int sr_barHOffset = 0;
-        public readonly int sr_barVOffset = -100;
-        public readonly int sr_sliderWidth = 3;
-        public readonly int sr_sliderHeight = 18;
-        //bools
+        public readonly int ui_bar1Width = 200;
+        public readonly int ui_bar1Height = 12;
+        public readonly int ui_bar1HOffset = 0;
+        public readonly int ui_bar1VOffset = -100;
+        public readonly int ui_bar1Slider1Width = 3;
+        public readonly int ui_bar1Slider1Height = 18;
+        public readonly int ui_bar2Width = 200;
+        public readonly int ui_bar2Height = 12;
+        public readonly int ui_bar2HOffset = 0;
+        public readonly int ui_bar2VOffset = 103;
+        public readonly int ui_bar2Slider1Width = 3;
+        public readonly int ui_bar2Slider1Height = 18;
         //strings
         //other
-        public readonly Color sr_borderColor = new Color(0.0f, 0.0f, 0.0f, 1.0f);
-        public readonly Color sr_baseColor = new Color(0.0f, 0.0f, 0.0f, 0.5f);
-        public readonly Color sr_bar1Color = new Color(0.5f, 0.5f, 0.5f, 0.75f);
-        public readonly Color sr_bar2Color = new Color(0.75f, 0.75f, 0.75f, 0.75f);
-        public readonly Color sr_sliderColor = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+        public readonly Color ui_bar1BorderColor = new Color(0.0f, 0.0f, 0.0f, 1.0f);
+        public readonly Color ui_bar1BaseColor = new Color(0.0f, 0.0f, 0.0f, 0.5f);
+        public readonly Color ui_bar1FillColor1 = new Color(0.5f, 0.5f, 0.5f, 0.75f);
+        public readonly Color ui_bar1FillColor2 = new Color(0.75f, 0.75f, 0.75f, 0.75f);
+        public readonly Color ui_bar1SliderColor = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+        public readonly Color ui_bar2BorderColor = new Color(0.0f, 0.0f, 0.0f, 1.0f);
+        public readonly Color ui_bar2BaseColor = new Color(0.0f, 0.0f, 0.0f, 0.5f);
+        public readonly Color ui_bar2FillColor1 = new Color(0.25f, 0.75f, 0.75f, 0.75f);
+        public readonly Color ui_bar2FillColor2 = new Color(0.75f, 0.25f, 0.25f, 0.75f);
+        public readonly Color ui_bar2SliderColor = new Color(1.0f, 1.0f, 1.0f, 1.0f);
 
 
-        //SniperChargeTracker Values
-        //floats
-        public readonly float sc_baseChargeDuration = 10.0f;
-        public readonly float sc_anyChargeThreshold = 0.25f;
-        public readonly float sc_specChargeThreshold = 0.65f;
-        //ints
-        public readonly int sc_totalBarWidth = 200;
-        public readonly int sc_totalBarHeight = 12;
-        public readonly int sc_barHOffset = 0;
-        public readonly int sc_barVOffset = 103;
-        public readonly int sc_sliderWidth = 3;
-        public readonly int sc_sliderHeight = 18;
-        //bools
-        //strings
-        //other
-        public readonly Color sc_borderColor = new Color(0.0f, 0.0f, 0.0f, 1.0f);
-        public readonly Color sc_baseColor = new Color(0.0f, 0.0f, 0.0f, 0.5f);
-        public readonly Color sc_bar1Color = new Color(0.25f, 0.75f, 0.75f, 0.75f);
-        public readonly Color sc_bar2Color = new Color(0.75f, 0.25f, 0.25f, 0.75f);
-        public readonly Color sc_sliderColor = new Color(1.0f, 1.0f, 1.0f, 1.0f);
-
-
-
-        //SniperPrimary Values
+                        //SniperPrimary Values
         //floats
         public readonly float p_rechargeInterval = 0.001f;
         public readonly float p_shootDelay = 0f;
@@ -97,6 +81,13 @@ namespace ReinSniperRework
         public readonly float p_chargeT2Scale = 5.0f;
         public readonly float p_chargeT1Coef = 1.0f;
         public readonly float p_chargeT2Coef = 2.0f;
+        public readonly float p_reloadStartDelay = 0.5f;
+        public readonly float p_loadTime = 2.0f;
+        public readonly float p_attackSpeedSoft = 2.5f;
+        public readonly float p_softLoadStart = 0.39f;
+        public readonly float p_softLoadEnd = 0.6f;
+        public readonly float p_sweetLoadStart = 0.25f;
+        public readonly float p_sweetLoadEnd = 0.4f;
         //ints
         public readonly int p_baseMaxStock = 1;
         public readonly int p_rechargeStock = 1;
@@ -111,8 +102,10 @@ namespace ReinSniperRework
         public readonly bool p_shotSmartCollision = true;
         //strings
         public readonly string p_attackSoundString = "Play_bandit_M2_shot";
-        public readonly string p_reloadSoundString = "Play_bandit_M2_load";
         public readonly string p_muzzleName = "MuzzleShotgun";
+        public readonly string p_baseLoadSound = "Play_bandit_M2_load";
+        public readonly string p_softLoadSound = "";
+        public readonly string p_sweetLoadSound = "Play_item_proc_crit_cooldown";
         //other
         public GameObject p_effectPrefab;
         public GameObject p_tracerEffectPrefab;
@@ -123,7 +116,7 @@ namespace ReinSniperRework
         private ResourceRequest req_p_hitEffectPrefab = Resources.LoadAsync<GameObject>("prefabs/effects/impacteffects/impactspear");
 
 
-        //SniperSecondary Values
+                        //SniperSecondary Values
         //floats
         public readonly float s_rechargeInterval = 30.0f;
         public readonly float s_shootDelay = 0.1f;
@@ -132,6 +125,9 @@ namespace ReinSniperRework
         public readonly float s_maxZoom = 32.0f;
         public readonly float s_baseFOV = 60.0f;
         public readonly float s_scrollScale = 1.5f;
+        public readonly float s_chargeTime = 10.0f;
+        public readonly float s_boost1Start = 0.25f;
+        public readonly float s_boost2Start = 0.75f;
         //ints
         public readonly int s_baseMaxStock = 1;
         public readonly int s_rechargeStock = 1;
@@ -150,7 +146,7 @@ namespace ReinSniperRework
         private ResourceRequest req_s_crosshairPrefab = Resources.LoadAsync<GameObject>("prefabs/crosshair/snipercrosshair");
 
 
-        //SniperUtility values
+                        //SniperUtility values
         //floats
         public readonly float u_rechargeInterval = 8.0f;
         public readonly float u_shootDelay = 0.25f;
@@ -175,7 +171,7 @@ namespace ReinSniperRework
         public readonly bool u_beginCDOnEnd = true;
         public readonly bool u_isCombatSkill = false;
         public readonly bool u_noSprint = false;
-        public readonly bool u_mustKeyPress = false;
+        public readonly bool u_mustKeyPress = true;
         //strings
         public readonly string u_beginSoundString = "";
         public readonly string u_endSoundString = "";
@@ -193,7 +189,7 @@ namespace ReinSniperRework
         private ResourceRequest req_u_blinkMat2 = Resources.LoadAsync<Material>("Materials/mathuntressflashexpanded");
 
 
-        //SniperSpecial values
+                        //SniperSpecial values
         //floats
         public readonly float r_rechargeInterval = 30.0f;
         public readonly float r_shootDelay = 0.1f;
@@ -315,15 +311,12 @@ namespace ReinSniperRework
 
             ward.radius = i_wardRadius;
             ward.interval = i_wardInterval;
-            //ward.RangeIndicator = ;
             ward.buffType = i_wardBuff;
             ward.buffDuration = i_wardBuffDuration;
             ward.floorWard = i_wardFloorWard;
             ward.expires = i_wardExpires;
             ward.invertTeamFilter = i_wardInvertTeam;
             ward.expireDuration = i_wardDuration;
-            //ward.animateRadius = ;
-            //ward.radiusCoefficientCurve = ;
 
             RadialForce force = mineWard.GetComponent<RadialForce>();
             if( !force )
@@ -338,12 +331,10 @@ namespace ReinSniperRework
             force.forceMagnitude = i_mineForceStrength;
             force.forceCoefficientAtEdge = i_mineForceFalloff;
 
-            //This might be getting duplicated, w/e.
             Collider col = mine.AddComponent<SphereCollider>();
             ((SphereCollider)col).radius = i_triggerRadiusMod * i_wardRadius;
             col.isTrigger = true;
 
-            //EngiMineController control = mine.GetComponent<EngiMineController>();
             HookMineController hookControl = mine.GetComponent<HookMineController>();
             if( !hookControl )
             {
@@ -352,7 +343,6 @@ namespace ReinSniperRework
 
             hookControl.wardPrefab = mineWard;
             hookControl.primingDelay = i_minePrimeDelay;
-            //hookControl.trigger = col;
             hookControl.hookDuration = i_mineHookDuration;
             hookControl.hookInterval = i_mineHookInterval;
             hookControl.hooksPerTick = i_mineHooksPerTick;

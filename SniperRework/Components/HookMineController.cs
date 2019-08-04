@@ -178,6 +178,7 @@ namespace ReinSniperRework
             search.mask = LayerIndex.entityPrecise.mask;
             HurtBox[] hurtB = search.RefreshCandidates().FilterCandidatesByHurtBoxTeam(TeamMask.AllExcept(teamFriendly)).OrderCandidatesByDistance().FilterCandidatesByDistinctHurtBoxEntities().GetHurtBoxes();
             List<CharacterBody> targets = new List<CharacterBody>();
+
             foreach (HurtBox HB in hurtB)
             {
                 if (HB)
@@ -220,17 +221,6 @@ namespace ReinSniperRework
                         }
                     }
                 }
-            }
-            
-        }
-
-        public struct CheckTarget : Unity.Jobs.IJob
-        {
-
-
-            public void Execute()
-            {
-
             }
         }
     }
