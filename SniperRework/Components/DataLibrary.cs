@@ -2,6 +2,8 @@
 using UnityEngine;
 using RoR2.UI;
 using RoR2.Projectile;
+using R2API.Utils;
+using System.Reflection;
 
 namespace ReinSniperRework
 {
@@ -88,6 +90,14 @@ namespace ReinSniperRework
         public readonly float p_softLoadEnd = 0.6f;
         public readonly float p_sweetLoadStart = 0.25f;
         public readonly float p_sweetLoadEnd = 0.4f;
+        public readonly float p_rStart = 0f;
+        public readonly float p_rEnd = 0f;
+        public readonly float p_gStart = 0f;
+        public readonly float p_gEnd = 0f;
+        public readonly float p_bStart = 100.0f;
+        public readonly float p_bEnd = 100.0f;
+        public readonly float p_aStart = 1.0f;
+        public readonly float p_aEnd = 1.0f;
         //ints
         public readonly int p_baseMaxStock = 1;
         public readonly int p_rechargeStock = 1;
@@ -108,15 +118,17 @@ namespace ReinSniperRework
         public readonly string p_sweetLoadSound = "Play_item_proc_crit_cooldown";
         //other
         public GameObject p_effectPrefab;
-        public GameObject p_tracerEffectPrefab;
         public GameObject p_hitEffectPrefab;
+        public GameObject p_tracerEffectPrefab;
+        public Tracer p_tracer;
+        public ParticleSystem p_tracerPS;
+        public ParticleSystemRenderer p_tracerPSR;
         //load requests
         private ResourceRequest req_p_effectPrefab = Resources.LoadAsync<GameObject>("prefabs/effects/muzzleflashes/muzzleflashmagelightning");
-        private ResourceRequest req_p_tracerEffectPrefab = Resources.LoadAsync<GameObject>("prefabs/effects/tracers/tracerclaybruiserminigun");
         private ResourceRequest req_p_hitEffectPrefab = Resources.LoadAsync<GameObject>("prefabs/effects/impacteffects/impactspear");
+        private ResourceRequest req_p_tracerEffectPrefab = Resources.LoadAsync<GameObject>("prefabs/effects/tracers/tracertoolbotrebar");
 
-
-                        //SniperSecondary Values
+        //SniperSecondary Values
         //floats
         public readonly float s_rechargeInterval = 30.0f;
         public readonly float s_shootDelay = 0.1f;
@@ -273,7 +285,13 @@ namespace ReinSniperRework
         }
         private GameObject Get_p_tracereffectPrefab(ResourceRequest r)
         {
-            return (GameObject)r.asset;
+            GameObject g = (GameObject)r.asset;
+            Destroy(g.GetComponentInChildren<MeshRenderer>());
+            p_tracer = g.GetComponent<Tracer>();
+            p_tracerPS = p_tracer.beamObject.GetComponent<ParticleSystem>();
+            p_tracerPSR = p_tracer.beamObject.GetComponent<ParticleSystemRenderer>();
+
+            return g;
         }
         private GameObject Get_p_hitEffectPrefab(ResourceRequest r)
         {
@@ -356,6 +374,48 @@ namespace ReinSniperRework
             Destroy(mine.GetComponent<EngiMineController>());
 
             return mine;
+        }
+        private Tracer Get_p_testTracer1( ResourceRequest r )
+        {
+            GameObject g = (GameObject) r.asset;
+
+            Destroy(g.GetComponentInChildren<MeshRenderer>());
+            p_testTracerClass1 = g.GetComponent<Tracer>();
+            p_testTracerClass1.beamDensity = 1f;
+            p_testTracerClass1.speed = 10000f;
+            p_testTracerClass1.length = 100.0f;
+
+            p_tracerPart1 = p_testTracerClass1.beamObject.GetComponent<ParticleSystem>();
+            p_tracerPart2 = p_
+
+            foreach( ParticleSystem tracer in g.GetComponentsInChildren<ParticleSystem>() )
+            {
+                bool worthy = false;
+                if( tracer.name == "BeamObject" )
+                {
+                    worthy = true;
+                    p_tracerPart1 = tracer;
+                }
+                if( !worthy )
+                {
+                    //Destroy(tracer);
+                }
+            }
+            foreach( ParticleSystemRenderer tracer in g.GetComponentsInChildren<ParticleSystemRenderer>() )
+            {
+                bool worthy = false;
+                if( tracer.name == "BeamObject" )
+                {
+                    worthy = true;
+                    p_tracerPart2 = tracer;
+                }
+                if( !worthy )
+                {
+                    //Destroy(tracer);
+                }
+            }
+
+            return g;
         }
     }
 }

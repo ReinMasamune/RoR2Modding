@@ -104,6 +104,17 @@ namespace EntityStates.ReinSniperRework.SniperWeapon
                 shotTotalDamage *= reloadMod;
                 shotTotalDamage *= chargeMod;
 
+                float r = Mathf.Lerp(data.p_rStart, data.p_rEnd, data.g_shotCharge);
+                float g = Mathf.Lerp(data.p_gStart, data.p_gEnd, data.g_shotCharge);
+                float b = Mathf.Lerp(data.p_bStart, data.p_gEnd, data.g_shotCharge);
+                float a = Mathf.Lerp(data.p_aStart, data.p_aEnd, data.g_shotCharge);
+
+                //data.p_tracerPart2.trailMaterial.SetColor(5, new Color(r, g, b, a));
+                //data.p_tracerPart2.trailMaterial.SetColor(82, new Color(r, g, b, a));
+                //data.p_tracerPart2.trailMaterial.SetColor(83, new Color(r, g, b, a));
+                data.p_tracerPart2.trailMaterial.SetColor(152, new Color(r, g, b, a));    //Main color  
+
+
                 //Bullet stuff for later, when you feel like fixing this. It was fine before.
                 BulletAttack bul = new BulletAttack();
                 bul.owner = base.gameObject;
@@ -114,7 +125,7 @@ namespace EntityStates.ReinSniperRework.SniperWeapon
                 bul.procCoefficient = shotCoef;
                 bul.sniper = true;
                 bul.falloffModel = BulletAttack.FalloffModel.None;
-                bul.tracerEffectPrefab = data.p_tracerEffectPrefab;
+                bul.tracerEffectPrefab = data.p_testTracer1;
                 bul.hitEffectPrefab = data.p_hitEffectPrefab;
                 bul.origin = aimRay.origin;
                 bul.aimVector = aimRay.direction;
@@ -131,10 +142,16 @@ namespace EntityStates.ReinSniperRework.SniperWeapon
                 }
                 else
                 {
-                    bul.stopperMask = LayerIndex.entityPrecise.mask;
+                    bul.stopperMask = LayerIndex.entityPrecise.mask | LayerIndex.world.mask;
                 }
 
                 bul.Fire();
+
+
+                if (consumeChargeAfterShot)
+                {
+                    data.g_shotCharge = 0f;
+                }
 
                 Util.PlaySound(data.p_attackSoundString, base.gameObject);
 
