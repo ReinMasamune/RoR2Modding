@@ -468,8 +468,8 @@ namespace ReinSniperRework
                             { 
                                 col = par.AddComponent<SphereCollider>();
                             }
-                            col.radius = 0.9f;
-                            col.center = new Vector3(0f, 0.15f, 0f);
+                            col.radius = 0.8f;
+                            col.center = new Vector3(0f, 0.1f, 0f);
                             col.enabled = true;
                             col.isTrigger = false;
 

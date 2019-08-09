@@ -124,7 +124,10 @@ namespace EntityStates.ReinSniperRework.SniperWeapon
                 data.p_tracerPSR.trailMaterial.SetColor(152, col);    //Main color
 
                 data.p_tracerHitL.color = col;
-               
+
+                data.p_hitPSR1.material.SetColor(152, col);
+                data.p_hitPSR2.material.SetColor(152, col);
+
                 //data.p_tracerFL.light.color = new Color(r, g, b);
                 //data.p_tracerFL.light.intensity *= 0.5f;
 
@@ -265,25 +268,6 @@ namespace EntityStates.ReinSniperRework.SniperWeapon
                 r = 1f;
                 g = 0f;
                 b = 0f;
-            }
-
-            if( r > g && r > b )
-            {
-                r *= 25f;
-            }
-            else if( g > r && g > b )
-            {
-                g *= 25f;
-            }
-            else if( b > r && b > g )
-            {
-                b *= 25f;
-            }
-            else
-            {
-                r *= 25f;
-                g *= 25f;
-                b *= 25f;
             }
 
             col.r = r * rScale;

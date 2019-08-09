@@ -75,7 +75,7 @@
       <HintPath>..\libs\R2API.dll</HintPath>
     </Reference>
     <Reference Include="ReinDirectorCardLib">
-      <HintPath>..\libs\ReinDirectorCardLib.dll</HintPath>
+      <HintPath>..\ReinDirectorCardLib\bin\Debug\netstandard2.0\ReinDirectorCardLib.dll</HintPath>
     </Reference>
     <Reference Include="Rewired_Core">
       <HintPath>..\libs\Rewired_Core.dll</HintPath>

@@ -107,7 +107,7 @@ namespace ReinSniperRework
         public readonly bool p_mustKeyPress = true;
         public readonly bool p_shotSmartCollision = true;
         //strings
-        public readonly string p_attackSoundString = "Play_bandit_M2_shot";
+        public readonly string p_attackSoundString = "Play_item_use_lighningArm";
         public readonly string p_muzzleName = "MuzzleShotgun";
         public readonly string p_baseLoadSound = "Play_bandit_M2_load";
         public readonly string p_softLoadSound = "";
@@ -119,10 +119,12 @@ namespace ReinSniperRework
         public Tracer p_tracer;
         public ParticleSystem p_tracerPS;
         public ParticleSystemRenderer p_tracerPSR;
+        public ParticleSystemRenderer p_hitPSR1;
+        public ParticleSystemRenderer p_hitPSR2;
         public Light p_tracerHitL;
         //load requests
         private ResourceRequest req_p_effectPrefab = Resources.LoadAsync<GameObject>("prefabs/effects/muzzleflashes/muzzleflashmagelightning");
-        private ResourceRequest req_p_hitEffectPrefab = Resources.LoadAsync<GameObject>("prefabs/effects/impacteffects/impactspear");
+        private ResourceRequest req_p_hitEffectPrefab = Resources.LoadAsync<GameObject>("prefabs/effects/impacteffects/LightningStrikeImpact");
         private ResourceRequest req_p_tracerEffectPrefab = Resources.LoadAsync<GameObject>("prefabs/effects/tracers/tracertoolbotrebar");
 
         //SniperSecondary Values
@@ -294,6 +296,54 @@ namespace ReinSniperRework
         private GameObject Get_p_hitEffectPrefab(ResourceRequest r)
         {
             GameObject g = (GameObject)r.asset;
+            //Debug.Log("Lightning strike components");
+            //foreach( Component c in g.GetComponents<Component>() )
+            //{
+            //    Debug.Log("---");
+            //    Debug.Log(c.name);
+            //    Debug.Log(c.GetType().ToString());
+            //    Debug.Log("---");
+            //}
+            //Debug.Log("Child Components");
+            //foreach( Component c in g.GetComponentsInChildren<Component>() )
+            //{
+            //    Debug.Log("---");
+            //    Debug.Log(c.gameObject.name);
+            //    Debug.Log(c.name);
+            //    Debug.Log(c.GetType().ToString());
+            //    Debug.Log("---");
+            //}
+            Transform tr = g.transform.Find("LightningRibbon");
+            if( tr )
+            {
+                Destroy(tr.gameObject);
+            }
+            tr = g.transform.Find("Flash");
+            if( tr )
+            {
+                Destroy(tr.gameObject);
+            }
+            tr = g.transform.Find("PostProcess");
+            if( tr )
+            {
+                Destroy(tr.gameObject);
+            }
+            tr = g.transform.Find("Flash Lines");
+            if( tr )
+            {
+                Destroy(tr.gameObject);
+            }
+            tr = g.transform.Find("Ring");
+            if( tr )
+            {
+                p_hitPSR1 = tr.gameObject.GetComponent<ParticleSystemRenderer>();
+            }
+            tr = g.transform.Find("Sphere");
+            if( tr )
+            {
+                p_hitPSR2 = tr.gameObject.GetComponent<ParticleSystemRenderer>();
+            }
+
             p_tracerHitL = g.GetComponent<Light>();
             if( !p_tracerHitL )
             {
