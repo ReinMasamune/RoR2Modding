@@ -1,6 +1,8 @@
 ﻿using RoR2;
 using UnityEngine;
 using ReinSniperRework;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace EntityStates.ReinSniperRework.SniperWeapon
 {
@@ -90,42 +92,68 @@ namespace EntityStates.ReinSniperRework.SniperWeapon
                         break;
                 }
 
+                LayerMask mask = LayerIndex.world.mask | LayerIndex.entityPrecise.mask;
+
                 if (data.g_zoomed)
+                {
+                    //shotRad = data.p_ntShotRadius;
+                    mask = LayerIndex.world.mask;
+                }
+                else
                 {
                     shotRad = data.p_ntShotRadius;
                 }
 
-                if (consumeChargeAfterShot)
-                {
-                    data.g_shotCharge = 0f;
-                }
+                bool crit = base.RollCrit();
 
                 float shotTotalDamage = data.p_shotDamage;
                 shotTotalDamage *= reloadMod;
                 shotTotalDamage *= chargeMod;
 
-                float r = Mathf.Lerp(data.p_rStart, data.p_rEnd, data.g_shotCharge);
-                float g = Mathf.Lerp(data.p_gStart, data.p_gEnd, data.g_shotCharge);
-                float b = Mathf.Lerp(data.p_bStart, data.p_gEnd, data.g_shotCharge);
-                float a = Mathf.Lerp(data.p_aStart, data.p_aEnd, data.g_shotCharge);
+                float wlStart = 680f - 100f*data.g_reloadTier;
+
+                float wavelength = wlStart - ( data.g_shotCharge * 100f );
+                Debug.Log(wavelength);
+
+                Color col = WavelengthToRGB(wavelength);
+                Debug.Log(col);
 
                 //data.p_tracerPart2.trailMaterial.SetColor(5, new Color(r, g, b, a));
                 //data.p_tracerPart2.trailMaterial.SetColor(82, new Color(r, g, b, a));
                 //data.p_tracerPart2.trailMaterial.SetColor(83, new Color(r, g, b, a));
-                data.p_tracerPart2.trailMaterial.SetColor(152, new Color(r, g, b, a));    //Main color  
+                data.p_tracerPSR.trailMaterial.SetColor(152, col);    //Main color
 
+                data.p_tracerHitL.color = col;
+               
+                //data.p_tracerFL.light.color = new Color(r, g, b);
+                //data.p_tracerFL.light.intensity *= 0.5f;
+
+                RaycastHit rh;
+                float dist = data.p_maxRange;
+                if (Util.CharacterRaycast(base.gameObject, aimRay , out rh, dist, mask, QueryTriggerInteraction.UseGlobal ) )
+                {
+                    dist = rh.distance;
+                }
+
+                dist = Mathf.Pow(dist, 0.6f);
+                //Debug.Log(dist);
+                data.p_tracer.beamDensity = 5f / (1f + dist);
+                //Debug.Log(data.p_tracer.beamDensity);
+
+                data.p_tracerHitL.intensity = data.p_hitLIBase * ( 1f + data.g_shotCharge * data.p_hitLIScale);
+                data.p_tracerHitL.range = data.p_hitLRBase * ( 1f + data.g_shotCharge * data.p_hitLRScale );
 
                 //Bullet stuff for later, when you feel like fixing this. It was fine before.
                 BulletAttack bul = new BulletAttack();
                 bul.owner = base.gameObject;
                 bul.weapon = base.gameObject;
                 bul.damage = shotTotalDamage * this.damageStat;
-                bul.isCrit = base.RollCrit();
+                bul.isCrit = crit;
                 bul.force = shotTotalDamage * data.p_shotForce / data.p_shotDamage;
                 bul.procCoefficient = shotCoef;
                 bul.sniper = true;
                 bul.falloffModel = BulletAttack.FalloffModel.None;
-                bul.tracerEffectPrefab = data.p_testTracer1;
+                bul.tracerEffectPrefab = data.p_tracerEffectPrefab;
                 bul.hitEffectPrefab = data.p_hitEffectPrefab;
                 bul.origin = aimRay.origin;
                 bul.aimVector = aimRay.direction;
@@ -136,14 +164,7 @@ namespace EntityStates.ReinSniperRework.SniperWeapon
                 bul.radius = shotRad;
                 bul.maxDistance = data.p_maxRange;
                 bul.smartCollision = data.p_shotSmartCollision;
-                if (data.g_zoomed)
-                {
-                    bul.stopperMask = LayerIndex.world.mask;
-                }
-                else
-                {
-                    bul.stopperMask = LayerIndex.entityPrecise.mask | LayerIndex.world.mask;
-                }
+                bul.stopperMask = mask;
 
                 bul.Fire();
 
@@ -165,10 +186,6 @@ namespace EntityStates.ReinSniperRework.SniperWeapon
                 {
                     //EffectManager.instance.SimpleMuzzleFlash(data.p_effectPrefab, base.gameObject, data.p_muzzleName, false);
                 }
-            }
-            else
-            {
-                Debug.Log("Missing data library you moron");
             }
         }
 
@@ -199,5 +216,83 @@ namespace EntityStates.ReinSniperRework.SniperWeapon
                 return InterruptPriority.Death;
             }
         }
+
+        private Color WavelengthToRGB( float wl )
+        {
+            Color col = new Color();
+
+            float rScale = 1f;
+            float gScale = 1f;
+            float bScale = 1f;
+
+            float r = 0f;
+            float g = 0f;
+            float b = 0f;
+            float a = 1f;
+
+            if( wl >= 380f && wl < 440f )
+            {
+                r = -(wl - 440f) / (440f - 380f);
+                g = 0f;
+                b = 1f;
+            }
+            if( wl >= 440f && wl < 490f )
+            {
+                r = 0f;
+                g = (wl - 440f) / (490f - 440f);
+                b = 1f;
+            }
+            if( wl >= 490f && wl < 510f )
+            {
+                r = 0f;
+                g = 1f;
+                b = -(wl - 510f) / (510f - 490f);
+            }
+            if( wl >= 510f && wl < 580f )
+            {
+                r = (wl - 510f) / (580f - 510f);
+                g = 1f;
+                b = 0f;
+            }
+            if( wl >= 580f && wl < 645f )
+            {
+                r = 1f;
+                g = -(wl - 645f) / (645f - 580f);
+                b = 0f;
+            }
+            if( wl >= 645f && wl <= 780f )
+            {
+                r = 1f;
+                g = 0f;
+                b = 0f;
+            }
+
+            if( r > g && r > b )
+            {
+                r *= 25f;
+            }
+            else if( g > r && g > b )
+            {
+                g *= 25f;
+            }
+            else if( b > r && b > g )
+            {
+                b *= 25f;
+            }
+            else
+            {
+                r *= 25f;
+                g *= 25f;
+                b *= 25f;
+            }
+
+            col.r = r * rScale;
+            col.g = g * gScale;
+            col.b = b * bScale;
+            col.a = a;
+
+            return col;
+        }
+
     }
 }

@@ -39,17 +39,20 @@ namespace ReinSniperRework
 
         public void OnGUI()
         {
-            if ( showReloadBar)
+            if (Time.timeScale != 0f )
             {
-                GUI.Label(bar1Pos, bar1Texture);
-                int curSliderX = (int)((slider1X2 - slider1X1) * reloadFrac + slider1X1);
-                GUI.Label(new Rect(curSliderX, slider1Y, width, width), slider1Texture);
-            }
-            if( showChargeBar )
-            {
-                GUI.Label(bar2Pos, bar2Texture);
-                int curSliderX = (int)((slider2X2 - slider2X1) * data.g_shotCharge + slider2X1);
-                GUI.Label(new Rect(curSliderX, slider2Y, width, width), slider2Texture);
+                if (showReloadBar)
+                {
+                    GUI.Label(bar1Pos, bar1Texture);
+                    int curSliderX = (int)((slider1X2 - slider1X1) * reloadFrac + slider1X1);
+                    GUI.Label(new Rect(curSliderX, slider1Y, width, width), slider1Texture);
+                }
+                if (showChargeBar)
+                {
+                    GUI.Label(bar2Pos, bar2Texture);
+                    int curSliderX = (int)((slider2X2 - slider2X1) * data.g_shotCharge + slider2X1);
+                    GUI.Label(new Rect(curSliderX, slider2Y, width, width), slider2Texture);
+                }
             }
         }
 

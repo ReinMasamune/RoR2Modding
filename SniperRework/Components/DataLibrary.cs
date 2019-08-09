@@ -68,9 +68,9 @@ namespace ReinSniperRework
         public readonly float p_recoilForceMult = 500.0f;
         public readonly float p_reloadForceMult = 500.0f;
         public readonly float p_ntShotRadius = 0.025f;
-        public readonly float p_t0ShotRadius = 0.5f;
-        public readonly float p_t1ShotRadius = 0.75f;
-        public readonly float p_t2ShotRadius = 1.5f;
+        public readonly float p_t0ShotRadius = 0.05f;
+        public readonly float p_t1ShotRadius = 0.1f;
+        public readonly float p_t2ShotRadius = 0.5f;
         public readonly float p_maxRange = 1500.0f;
         public readonly float p_reloadT0Mod = 0.75f;
         public readonly float p_reloadT1Mod = 1.45f;
@@ -81,8 +81,8 @@ namespace ReinSniperRework
         public readonly float p_chargeT0Scale = 0.0f;
         public readonly float p_chargeT1Scale = 1.25f;
         public readonly float p_chargeT2Scale = 5.0f;
-        public readonly float p_chargeT1Coef = 1.0f;
-        public readonly float p_chargeT2Coef = 2.0f;
+        public readonly float p_chargeT1Coef = 1.25f;
+        public readonly float p_chargeT2Coef = 1.69f;
         public readonly float p_reloadStartDelay = 0.5f;
         public readonly float p_loadTime = 2.0f;
         public readonly float p_attackSpeedSoft = 2.5f;
@@ -90,14 +90,10 @@ namespace ReinSniperRework
         public readonly float p_softLoadEnd = 0.6f;
         public readonly float p_sweetLoadStart = 0.25f;
         public readonly float p_sweetLoadEnd = 0.4f;
-        public readonly float p_rStart = 0f;
-        public readonly float p_rEnd = 0f;
-        public readonly float p_gStart = 0f;
-        public readonly float p_gEnd = 0f;
-        public readonly float p_bStart = 100.0f;
-        public readonly float p_bEnd = 100.0f;
-        public readonly float p_aStart = 1.0f;
-        public readonly float p_aEnd = 1.0f;
+        public readonly float p_hitLIBase = 50.0f;
+        public readonly float p_hitLRBase = 1.0f;
+        public readonly float p_hitLIScale = 3.0f;
+        public readonly float p_hitLRScale = 3.0f;
         //ints
         public readonly int p_baseMaxStock = 1;
         public readonly int p_rechargeStock = 1;
@@ -123,6 +119,7 @@ namespace ReinSniperRework
         public Tracer p_tracer;
         public ParticleSystem p_tracerPS;
         public ParticleSystemRenderer p_tracerPSR;
+        public Light p_tracerHitL;
         //load requests
         private ResourceRequest req_p_effectPrefab = Resources.LoadAsync<GameObject>("prefabs/effects/muzzleflashes/muzzleflashmagelightning");
         private ResourceRequest req_p_hitEffectPrefab = Resources.LoadAsync<GameObject>("prefabs/effects/impacteffects/impactspear");
@@ -290,11 +287,32 @@ namespace ReinSniperRework
             p_tracer = g.GetComponent<Tracer>();
             p_tracerPS = p_tracer.beamObject.GetComponent<ParticleSystem>();
             p_tracerPSR = p_tracer.beamObject.GetComponent<ParticleSystemRenderer>();
+            Destroy( g.GetComponentInChildren<FlickerLight>());
 
             return g;
         }
         private GameObject Get_p_hitEffectPrefab(ResourceRequest r)
         {
+            GameObject g = (GameObject)r.asset;
+            p_tracerHitL = g.GetComponent<Light>();
+            if( !p_tracerHitL )
+            {
+                p_tracerHitL = g.AddComponent<Light>();
+            }
+
+            p_tracerHitL.type = LightType.Point;
+            p_tracerHitL.color = new Color(0f, 0f, 0f, 0f);
+            p_tracerHitL.intensity = 40f;
+            p_tracerHitL.range = 1f;
+            FadeLight fl = g.GetComponent<FadeLight>();
+            if( !fl )
+            {
+                fl = g.AddComponent<FadeLight>();
+            }
+            fl.light = p_tracerHitL;
+            fl.time = 0.75f;
+
+
             return (GameObject)r.asset;
         }
         private GameObject Get_s_crosshairPrefab(ResourceRequest r)
@@ -374,48 +392,6 @@ namespace ReinSniperRework
             Destroy(mine.GetComponent<EngiMineController>());
 
             return mine;
-        }
-        private Tracer Get_p_testTracer1( ResourceRequest r )
-        {
-            GameObject g = (GameObject) r.asset;
-
-            Destroy(g.GetComponentInChildren<MeshRenderer>());
-            p_testTracerClass1 = g.GetComponent<Tracer>();
-            p_testTracerClass1.beamDensity = 1f;
-            p_testTracerClass1.speed = 10000f;
-            p_testTracerClass1.length = 100.0f;
-
-            p_tracerPart1 = p_testTracerClass1.beamObject.GetComponent<ParticleSystem>();
-            p_tracerPart2 = p_
-
-            foreach( ParticleSystem tracer in g.GetComponentsInChildren<ParticleSystem>() )
-            {
-                bool worthy = false;
-                if( tracer.name == "BeamObject" )
-                {
-                    worthy = true;
-                    p_tracerPart1 = tracer;
-                }
-                if( !worthy )
-                {
-                    //Destroy(tracer);
-                }
-            }
-            foreach( ParticleSystemRenderer tracer in g.GetComponentsInChildren<ParticleSystemRenderer>() )
-            {
-                bool worthy = false;
-                if( tracer.name == "BeamObject" )
-                {
-                    worthy = true;
-                    p_tracerPart2 = tracer;
-                }
-                if( !worthy )
-                {
-                    //Destroy(tracer);
-                }
-            }
-
-            return g;
         }
     }
 }
