@@ -3,6 +3,7 @@ using UnityEngine;
 using ReinSniperRework;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.Experimental.Rendering;
 
 namespace EntityStates.ReinSniperRework.SniperWeapon
 {
@@ -10,20 +11,19 @@ namespace EntityStates.ReinSniperRework.SniperWeapon
     {
         ReinDataLibrary data;
 
-        private float duration;
+        private float timer = 0f;
         private bool consumeChargeAfterShot;
 
         public override void OnEnter()
         {
             base.OnEnter();
             data = base.GetComponent<ReinDataLibrary>();
-
             if( data )
             {
+                timer = 0f;
                 SkillLocator skills = base.skillLocator;
                 Ray aimRay = base.GetAimRay();
                 base.StartAimMode(aimRay, 2f, false);
-                duration = data.p_reloadStartDelay / this.attackSpeedStat;
 
                 int chargeTier = data.g_chargeTier;
 
@@ -96,7 +96,6 @@ namespace EntityStates.ReinSniperRework.SniperWeapon
 
                 if (data.g_zoomed)
                 {
-                    //shotRad = data.p_ntShotRadius;
                     mask = LayerIndex.world.mask;
                 }
                 else
@@ -111,25 +110,21 @@ namespace EntityStates.ReinSniperRework.SniperWeapon
                 shotTotalDamage *= chargeMod;
 
                 float wlStart = 680f - 100f*data.g_reloadTier;
-
                 float wavelength = wlStart - ( data.g_shotCharge * 100f );
-                Debug.Log(wavelength);
-
                 Color col = WavelengthToRGB(wavelength);
-                Debug.Log(col);
-
-                //data.p_tracerPart2.trailMaterial.SetColor(5, new Color(r, g, b, a));
-                //data.p_tracerPart2.trailMaterial.SetColor(82, new Color(r, g, b, a));
-                //data.p_tracerPart2.trailMaterial.SetColor(83, new Color(r, g, b, a));
-                data.p_tracerPSR.trailMaterial.SetColor(152, col);    //Main color
 
                 data.p_tracerHitL.color = col;
 
-                data.p_hitPSR1.material.SetColor(152, col);
-                data.p_hitPSR2.material.SetColor(152, col);
+                col.r *= 15f;
+                col.g *= 15f;
+                col.b *= 15f;
 
-                //data.p_tracerFL.light.color = new Color(r, g, b);
-                //data.p_tracerFL.light.intensity *= 0.5f;
+                foreach( Material mat in data.p_matsToEdit )
+                {
+                    mat.SetColor("_TintColor", col);
+                    mat.SetColor("_EmissionColor", col);
+                }
+                //data.p_tracerPSR.trailMaterial.SetColor("_TintColor", col);
 
                 RaycastHit rh;
                 float dist = data.p_maxRange;
@@ -137,16 +132,13 @@ namespace EntityStates.ReinSniperRework.SniperWeapon
                 {
                     dist = rh.distance;
                 }
-
-                dist = Mathf.Pow(dist, 0.6f);
-                //Debug.Log(dist);
+                dist = Mathf.Pow(dist, 0.7f);
                 data.p_tracer.beamDensity = 5f / (1f + dist);
-                //Debug.Log(data.p_tracer.beamDensity);
+                data.p_tracer.speed = 10000f;
 
                 data.p_tracerHitL.intensity = data.p_hitLIBase * ( 1f + data.g_shotCharge * data.p_hitLIScale);
                 data.p_tracerHitL.range = data.p_hitLRBase * ( 1f + data.g_shotCharge * data.p_hitLRScale );
 
-                //Bullet stuff for later, when you feel like fixing this. It was fine before.
                 BulletAttack bul = new BulletAttack();
                 bul.owner = base.gameObject;
                 bul.weapon = base.gameObject;
@@ -171,24 +163,13 @@ namespace EntityStates.ReinSniperRework.SniperWeapon
 
                 bul.Fire();
 
-
                 if (consumeChargeAfterShot)
                 {
                     data.g_shotCharge = 0f;
                 }
-
-                Util.PlaySound(data.p_attackSoundString, base.gameObject);
-
+                Util.PlayScaledSound(data.p_attackSound, base.gameObject, 0.65f);
                 base.AddRecoil(-1f * data.p_recoilAmplitude, -2f * data.p_recoilAmplitude, -0.5f * data.p_recoilAmplitude, 0.5f * data.p_recoilAmplitude);
                 base.characterMotor.ApplyForce(base.inputBank.aimDirection * -1f * data.p_recoilForceMult);
-
-                //base.PlayAnimation("Gesture", "FireShotgun", "FireShotgun.playbackRate", this.duration * 1.5f);
-                //base.PlayAnimation("Gesture, Override", "FireShotgun", "FireShotgun.playbackRate", this.duration * 1.5f);
-
-                if (data.p_effectPrefab)
-                {
-                    //EffectManager.instance.SimpleMuzzleFlash(data.p_effectPrefab, base.gameObject, data.p_muzzleName, false);
-                }
             }
         }
 
@@ -200,8 +181,9 @@ namespace EntityStates.ReinSniperRework.SniperWeapon
         public override void FixedUpdate()
         {
             base.FixedUpdate();
+            timer += Time.fixedDeltaTime * base.attackSpeedStat;
             base.characterBody.isSprinting = false;
-            if (base.fixedAge >= duration && base.isAuthority)
+            if (timer >= data.p_reloadStartDelay && base.isAuthority)
             {
                 this.outer.SetNextState(new SniperReload());
                 return;
@@ -210,7 +192,7 @@ namespace EntityStates.ReinSniperRework.SniperWeapon
 
         public override InterruptPriority GetMinimumInterruptPriority()
         {
-            if( base.fixedAge >= ( this.duration ) )
+            if( timer >= ( data.p_reloadStartDelay ) )
             {
                 return InterruptPriority.Any;
             }

@@ -2,6 +2,7 @@
 using RoR2;
 using UnityEngine;
 using R2API.Utils;
+using System.Runtime.CompilerServices;
 
 namespace ReinSniperRework
 {
@@ -119,423 +120,947 @@ namespace ReinSniperRework
             };
             R2API.SurvivorAPI.AddSurvivorOnReady(survivor);
 
-            EditHurtBoxes();
+            AddHurtboxes();
         }
 
-        private void EditHurtBoxes()
+        
+        private Transform FindChildPath(Transform parent, string s, char seperator = '/', [CallerFilePath] string file = null, [CallerMemberName] string name = null, [CallerLineNumber] int lineNumber = 0)
         {
-            EditElderLemurian();
-            EditDunestrider();
-            EditTemplar();
-            EditBrassHole();
-            EditGolem();
-            //EditTitan();
-            //EditGoldie();
-            EditFatImp();
-            //EditBeetleQueen();
-        }
-
-        private void EditElderLemurian()
-        {
-            GameObject target = BodyCatalog.FindBodyPrefab("LemurianBruiserBody");
-            if( target )
+            string pathString = s;
+            if( !pathString.StartsWith(seperator.ToString() ) )
             {
-                Debug.Log("Searching for Elder Lemurian box");
-                foreach (HurtBox hb in target.GetComponentsInChildren<HurtBox>())
+                pathString = seperator + pathString;
+            }
+            string[] path = pathString.Split(seperator);
+
+            Transform temp = parent;
+
+            for (int i = 1; i < path.Length; i++)
+            {
+                temp = temp.Find(path[i]);
+                if( !temp )
                 {
-                    //Debug.Log(hb.name);
-                    //Debug.Log(hb.gameObject.transform.parent.gameObject.name);
-                    if (hb.gameObject.transform.parent.gameObject.name == "head")
-                    {
-                        Debug.Log("Head hitbox found");
-                        hb.damageModifier = HurtBox.DamageModifier.SniperTarget;
-                    }
+                    Debug.Log("Null Transform:" + path[i] );
+                    Debug.Log(file + " -- " + name + " Line: " + lineNumber);
+                    return null;
                 }
             }
-            else
-            {
-                Debug.Log("Elder Lemurians don't exist. I guess you win?");
-            }
+            return temp;
         }
 
-        private void EditDunestrider()
+        private void AddHurtboxes()
         {
-            GameObject target = BodyCatalog.FindBodyPrefab("ClayBossBody");
-            if( target )
+            //Bosses
+            //Debug.Log("Dunestrider");
+            AddDunestriderHurtbox();
+            //Debug.Log("Overlord");
+            AddFatImpHurtbox();
+            //Debug.Log("BeetleQueen");
+            AddBeetleQueenHurtbox();
+            //Debug.Log("StoneTitan");
+            AddTitanHurtbox();
+            //Debug.Log("GoldTitan");
+            AddGoldTitanHurtbox();
+            //Debug.Log("Vagrant");
+            AddVagrantHurtbox();
+            //Debug.Log("GroveBoi");
+            AddGroveBoiHurtbox();
+            //Debug.Log("ZappySnok");
+            AddZappySnokHurtbox();
+            //Debug.Log("SpicySnok");
+            AddSpicySnokHurtbox();
+            //MiniBosses
+            //Debug.Log("Brasshole");
+            AddBrassholeHurtbox();
+            //Debug.Log("Bison");
+            AddBisonHurtbox();
+            //Debug.Log("Templar");
+            AddTemplarHurtbox();
+            //Debug.Log("Golem");
+            AddGolemHurtbox();
+            //Debug.Log("Greater Wisp");
+            //Debug.Log("Elder Lemurian");
+            AddElderLemurianHurtbox();
+            //Debug.Log("Archaic Wisp");
+            //Small bois
+            //Debug.Log("HermitCrab");
+            //Debug.Log("Imp");
+            AddImpHurtbox();
+            //Debug.Log("Jellyfish");
+            //Debug.Log("Urchin");
+            //Debug.Log("Wisp");
+            //Other
+            //Debug.Log("Shopkeeper");
+        }
+
+        private void AddDunestriderHurtbox()
+        {
+            GameObject targetObj = BodyCatalog.FindBodyPrefab("ClayBossBody");
+            if( !targetObj )
             {
-                Debug.Log("Searching for Dunestrider lights");
-                HurtBox sampleHB = target.GetComponentInChildren<HurtBox>();
-                HurtBoxGroup boxes = target.GetComponentInChildren<HurtBoxGroup>();
-                int startLength = boxes.hurtBoxes.Length;
-                HurtBox[] hboxes = new HurtBox[startLength + 2];
+                Debug.Log("No targetObj");
+                return;
+            }
+
+            Transform target = FindChildPath(targetObj.transform, "ModelBase/mdlClayBoss/ClayBossArmature/ROOT/PotBase", '/');
+            if ( !target )
+            {
+                Debug.Log("No Target");
+                return;
+            }
+
+            HurtBoxGroup hbg = targetObj.GetComponent<HurtBoxGroup>();
+            if( !hbg )
+            {
                 
-                for( int i = 0; i < startLength; i++ )
-                {
-                    hboxes[i] = boxes.hurtBoxes[i];
-                }
-
-                foreach( Light l in target.GetComponentsInChildren<Light>() )
-                {
-                    if( l.gameObject.name == "EarLight.r" )
-                    {
-                        Debug.Log("Right ear light found");
-                        l.gameObject.layer = sampleHB.gameObject.layer;
-                        SphereCollider col = l.gameObject.GetComponent<SphereCollider>();
-                        if( !col )
-                        {
-                            col = l.gameObject.AddComponent<SphereCollider>();
-                        }
-                        col.radius = 0.75f;
-                        col.enabled = true;
-                        col.isTrigger = false;
-                        HurtBox hb = l.gameObject.GetComponent<HurtBox>();
-                        if( !hb )
-                        {
-                            hb = l.gameObject.AddComponent<HurtBox>();
-                        }
-                        hb.healthComponent = sampleHB.healthComponent;
-                        hb.isBullseye = false;
-                        hb.damageModifier = HurtBox.DamageModifier.SniperTarget;
-                        hb.teamIndex = sampleHB.teamIndex;
-                        hboxes[startLength] = hb;
-                    }
-                    if (l.gameObject.name == "EarLight.l")
-                    {
-                        Debug.Log("Left ear light found");
-                        l.gameObject.layer = sampleHB.gameObject.layer;
-                        SphereCollider col = l.gameObject.GetComponent<SphereCollider>();
-                        if (!col)
-                        {
-                            col = l.gameObject.AddComponent<SphereCollider>();
-                        }
-                        col.radius = 0.75f;
-                        col.enabled = true;
-                        col.isTrigger = false;
-                        HurtBox hb = l.gameObject.GetComponent<HurtBox>();
-                        if (!hb)
-                        {
-                            hb = l.gameObject.AddComponent<HurtBox>();
-                        }
-                        hb.healthComponent = sampleHB.healthComponent;
-                        hb.isBullseye = false;
-                        hb.damageModifier = HurtBox.DamageModifier.SniperTarget;
-                        hb.teamIndex = sampleHB.teamIndex;
-                        hboxes[startLength + 1] = hb;
-                    }
-                }
-                boxes.hurtBoxes = hboxes;
+                hbg = targetObj.GetComponentInChildren<HurtBoxGroup>();
             }
-        }
-
-        private void EditTemplar()
-        {
-            GameObject target = BodyCatalog.FindBodyPrefab("ClayBruiserBody");
-            if (target)
+            if( !hbg )
             {
-                Debug.Log("Searching for Templar head");
-                HurtBox sampleHB = target.GetComponentInChildren<HurtBox>();
-                HurtBoxGroup boxes = target.GetComponentInChildren<HurtBoxGroup>();
-                int startLength = boxes.hurtBoxes.Length;
-                HurtBox[] hboxes = new HurtBox[startLength + 1];
-                CapsuleCollider col1 = sampleHB.gameObject.GetComponent<CapsuleCollider>();
-                col1.radius = 2.8f;
-                col1.center = new Vector3(0f, -0.25f, 0f);
-
-                for (int i = 0; i < startLength; i++)
-                {
-                    hboxes[i] = boxes.hurtBoxes[i];
-                }
-
-                foreach (SkinnedMeshRenderer smr in target.GetComponentsInChildren<SkinnedMeshRenderer>())
-                {
-                    if (smr.gameObject.name == "ClayBruiserHeadMesh")
-                    {
-                        Debug.Log("Head mesh found");
-                        smr.gameObject.layer = sampleHB.gameObject.layer;
-                        SphereCollider col = smr.gameObject.GetComponent<SphereCollider>();
-                        if (!col)
-                        {
-                            col = smr.gameObject.AddComponent<SphereCollider>();
-                        }
-                        col.radius = 0.4f;
-                        col.center = new Vector3(0f, 0.1f, 0.3f);
-                        col.enabled = true;
-                        col.isTrigger = false;
-                        HurtBox hb = smr.gameObject.GetComponent<HurtBox>();
-                        if (!hb)
-                        {
-                            hb = smr.gameObject.AddComponent<HurtBox>();
-                        }
-                        hb.healthComponent = sampleHB.healthComponent;
-                        hb.isBullseye = false;
-                        hb.damageModifier = HurtBox.DamageModifier.SniperTarget;
-                        hb.teamIndex = sampleHB.teamIndex;
-                        hboxes[startLength] = hb;
-                    }
-                }
-                boxes.hurtBoxes = hboxes;
+                Debug.Log("No hbg");
             }
-        }
 
-        private void EditBrassHole()
-        {
-            GameObject target = BodyCatalog.FindBodyPrefab("BellBody");
-            if (target)
+
+            HurtBox sample = targetObj.GetComponent<HurtBox>();
+            if( !sample )
             {
-                Debug.Log("Searching for BrassHole box");
-                foreach (HurtBox hb in target.GetComponentsInChildren<HurtBox>())
-                {
-                    //Debug.Log(hb.name);
-                    //Debug.Log(hb.gameObject.transform.parent.gameObject.name);
-                    if (hb.gameObject.transform.parent.gameObject.name == "base")
-                    {
-                        Debug.Log("Bell hitbox found");
-                        hb.damageModifier = HurtBox.DamageModifier.SniperTarget;
-                        SphereCollider col = hb.gameObject.GetComponent<SphereCollider>();
-                        col.radius = 0.5f;
-                        col.center = new Vector3(0f, 0.5f, 0f);
-                    }
-                }
+                
+                sample = targetObj.GetComponentInChildren<HurtBox>();
+            }
+            if( !sample )
+            {
+                Debug.Log("No Sample hurtbox found");
+            }
+
+
+            Transform earL = target.Find("EarLight.l");
+            Transform earR = target.Find("EarLight.r");
+
+            if( earL )
+            {
+                GameObject g = earL.gameObject;
+                g.layer = sample.gameObject.layer;
+                SphereCollider col = g.AddComponent<SphereCollider>();
+                col.radius = 0.3f;
+                col.isTrigger = false;
+                col.enabled = true;
+                col.center = new Vector3(0f, 0f, 0f);
+                //col.height = 1f;
+                //col.direction = 2;
+                HurtBox hb = g.AddComponent<HurtBox>();
+                hb.healthComponent = sample.healthComponent;
+                hb.isBullseye = false;
+                hb.damageModifier = HurtBox.DamageModifier.SniperTarget;
+                ReinHurtBoxManager manager = g.AddComponent<ReinHurtBoxManager>();
+                manager.managedHB = hb;
+                manager.refHB = sample;
             }
             else
             {
-                Debug.Log("Elder Lemurians don't exist. I guess you win?");
+                Debug.Log("No EarL");
             }
-        }
-
-        private void EditGolem()
-        {
-            GameObject target = BodyCatalog.FindBodyPrefab("GolemBody");
-            if (target)
+            if( earR )
             {
-                Debug.Log("Searching for Golem lights");
-                HurtBox sampleHB = target.GetComponentInChildren<HurtBox>();
-                HurtBoxGroup boxes = target.GetComponentInChildren<HurtBoxGroup>();
-                int startLength = boxes.hurtBoxes.Length;
-                HurtBox[] hboxes = new HurtBox[startLength + 1];
-
-                for (int i = 0; i < startLength; i++)
-                {
-                    hboxes[i] = boxes.hurtBoxes[i];
-                }
-
-                foreach (Light l in target.GetComponentsInChildren<Light>())
-                {
-                    if (l.gameObject.name == "Eye")
-                    {
-                        Debug.Log("Eye Light found");
-                        l.gameObject.layer = sampleHB.gameObject.layer;
-                        SphereCollider col = l.gameObject.GetComponent<SphereCollider>();
-                        if (!col)
-                        {
-                            col = l.gameObject.AddComponent<SphereCollider>();
-                        }
-                        col.radius = 0.25f;
-                        col.enabled = true;
-                        col.isTrigger = false;
-                        HurtBox hb = l.gameObject.GetComponent<HurtBox>();
-                        if (!hb)
-                        {
-                            hb = l.gameObject.AddComponent<HurtBox>();
-                        }
-                        hb.healthComponent = sampleHB.healthComponent;
-                        hb.isBullseye = false;
-                        hb.damageModifier = HurtBox.DamageModifier.SniperTarget;
-                        hb.teamIndex = sampleHB.teamIndex;
-                        hboxes[startLength] = hb;
-                    }
-                }
-                boxes.hurtBoxes = hboxes;
+                GameObject g = earR.gameObject;
+                g.layer = sample.gameObject.layer;
+                SphereCollider col = g.AddComponent<SphereCollider>();
+                col.radius = 0.25f;
+                col.isTrigger = false;
+                col.enabled = true;
+                col.center = new Vector3(0f, 0f, 0f);
+                //col.height = 1f;
+                //col.direction = 2;
+                HurtBox hb = g.AddComponent<HurtBox>();
+                hb.healthComponent = sample.healthComponent;
+                hb.isBullseye = false;
+                hb.damageModifier = HurtBox.DamageModifier.SniperTarget;
+                ReinHurtBoxManager manager = g.AddComponent<ReinHurtBoxManager>();
+                manager.managedHB = hb;
+                manager.refHB = sample;
             }
-        }
-
-        private void EditTitan()
-        {
-            GameObject target = BodyCatalog.FindBodyPrefab("TitanBody");
-            if (target)
+            else
             {
-                Debug.Log("Searching for Titan lights");
-                HurtBox sampleHB = target.GetComponentInChildren<HurtBox>();
-                HurtBoxGroup boxes = target.GetComponentInChildren<HurtBoxGroup>();
-                int startLength = boxes.hurtBoxes.Length;
-                HurtBox[] hboxes = new HurtBox[startLength + 1];
-
-                for (int i = 0; i < startLength; i++)
-                {
-                    hboxes[i] = boxes.hurtBoxes[i];
-                }
-
-                foreach (Light l in target.GetComponentsInChildren<Light>())
-                {
-                    if (l.gameObject.name == "Point Light")
-                    {
-                        Debug.Log("Eye Light found");
-                        l.gameObject.layer = sampleHB.gameObject.layer;
-                        SphereCollider col = l.gameObject.GetComponent<SphereCollider>();
-                        if (!col)
-                        {
-                            col = l.gameObject.AddComponent<SphereCollider>();
-                        }
-                        col.radius = 0.35f;
-                        col.enabled = true;
-                        col.isTrigger = false;
-                        HurtBox hb = l.gameObject.GetComponent<HurtBox>();
-                        if (!hb)
-                        {
-                            hb = l.gameObject.AddComponent<HurtBox>();
-                        }
-                        hb.healthComponent = sampleHB.healthComponent;
-                        hb.isBullseye = false;
-                        hb.damageModifier = HurtBox.DamageModifier.SniperTarget;
-                        hb.teamIndex = sampleHB.teamIndex;
-                        hboxes[startLength] = hb;
-                    }
-                }
-                boxes.hurtBoxes = hboxes;
+                Debug.Log("No EarR");
             }
+
         }
 
-        private void EditGoldie()
+        private void AddFatImpHurtbox()
         {
-            GameObject target = BodyCatalog.FindBodyPrefab("TitanGoldBody");
-            if (target)
+            GameObject targetObj = BodyCatalog.FindBodyPrefab("ImpBossBody");
+            if (!targetObj)
             {
-                Debug.Log("Searching for Goldie lights");
-                HurtBox sampleHB = target.GetComponentInChildren<HurtBox>();
-                HurtBoxGroup boxes = target.GetComponentInChildren<HurtBoxGroup>();
-                int startLength = boxes.hurtBoxes.Length;
-                HurtBox[] hboxes = new HurtBox[startLength + 1];
-
-                for (int i = 0; i < startLength; i++)
-                {
-                    hboxes[i] = boxes.hurtBoxes[i];
-                }
-
-                foreach (Light l in target.GetComponentsInChildren<Light>())
-                {
-                    if (l.gameObject.name == "Point Light")
-                    {
-                        Debug.Log("Eye Light found");
-                        l.gameObject.layer = sampleHB.gameObject.layer;
-                        SphereCollider col = l.gameObject.GetComponent<SphereCollider>();
-                        if (!col)
-                        {
-                            col = l.gameObject.AddComponent<SphereCollider>();
-                        }
-                        col.radius = 0.35f;
-                        col.enabled = true;
-                        col.isTrigger = false;
-                        HurtBox hb = l.gameObject.GetComponent<HurtBox>();
-                        if (!hb)
-                        {
-                            hb = l.gameObject.AddComponent<HurtBox>();
-                        }
-                        hb.healthComponent = sampleHB.healthComponent;
-                        hb.isBullseye = false;
-                        hb.damageModifier = HurtBox.DamageModifier.SniperTarget;
-                        hb.teamIndex = sampleHB.teamIndex;
-                        hboxes[startLength] = hb;
-                    }
-                }
-                boxes.hurtBoxes = hboxes;
+                Debug.Log("No targetObj");
+                return;
             }
+
+            Transform target = FindChildPath(targetObj.transform, "ModelBase/mdlImpBoss/ImpBossArmature/ROOT/base/stomach/chest/Eyeball.1/Eyeball1.Pupil/Eyeball1.Pupil_end", '/');
+            if (!target)
+            {
+                Debug.Log("No Target");
+                return;
+            }
+
+            HurtBoxGroup hbg = targetObj.GetComponent<HurtBoxGroup>();
+            if (!hbg)
+            {
+                
+                hbg = targetObj.GetComponentInChildren<HurtBoxGroup>();
+            }
+            if (!hbg)
+            {
+                Debug.Log("No hbg");
+                return;
+            }
+
+            HurtBox sample = targetObj.GetComponent<HurtBox>();
+            if (!sample)
+            {
+                
+                sample = targetObj.GetComponentInChildren<HurtBox>();
+            }
+            if (!sample)
+            {
+                Debug.Log("No Sample hurtbox found");
+                return;
+            }
+
+            GameObject g = target.gameObject;
+            g.layer = sample.gameObject.layer;
+            SphereCollider col = g.AddComponent<SphereCollider>();
+            col.radius = 0.65f;
+            col.isTrigger = false;
+            col.enabled = true;
+            col.center = new Vector3(0f, -0.50f, 0f);
+            HurtBox hb = g.AddComponent<HurtBox>();
+            hb.healthComponent = sample.healthComponent;
+            hb.isBullseye = false;
+            hb.damageModifier = HurtBox.DamageModifier.SniperTarget;
+            ReinHurtBoxManager manager = g.AddComponent<ReinHurtBoxManager>();
+            manager.managedHB = hb;
+            manager.refHB = sample;
         }
 
-        private void EditFatImp()
+        private void AddBeetleQueenHurtbox()
         {
-            GameObject target = BodyCatalog.FindBodyPrefab("ImpBossBody");
-            if (target)
+            GameObject targetObj = BodyCatalog.FindBodyPrefab("BeetleQueen2Body");
+            if( !targetObj )
             {
-                CharacterBody body = target.GetComponent<CharacterBody>();
-                //if( !body )
-                //{
-                //    Debug.Log("Body Missing");
-                //}
+                Debug.Log("No targetObj");
+                return;
+            }
 
-                foreach (HurtBox hb in target.GetComponentsInChildren<HurtBox>())
+            Transform target = FindChildPath(targetObj.transform, "ModelBase/mdlBeetleQueen/BeetleQueenArmature/ROOT/Base/Chest/Neck/Head", '/');
+            if ( !target )
+            {
+                Debug.Log("No Target");
+                return;
+            }
+
+            foreach( HurtBox hbb in target.gameObject.GetComponentsInChildren<HurtBox>() )
+            {
+                BoxCollider colb = hbb.gameObject.GetComponent<BoxCollider>();
+                if( colb.transform.localScale.x > 5f )
                 {
-                    Debug.Log(hb.gameObject.name);
-                    Debug.Log(hb.gameObject.transform.parent.gameObject.name);
-                    if (hb.gameObject.transform.parent.gameObject.name == "chest")
-                    {
-                        GameObject par = hb.gameObject.transform.parent.Find("Eyeball.1").gameObject;
-                        if (par)
-                        {
-                            Debug.Log("Step 3/3");
-                            par.layer = hb.gameObject.layer;
-                            SphereCollider col = par.GetComponent<SphereCollider>();
-                            if (!col)
-                            { 
-                                col = par.AddComponent<SphereCollider>();
-                            }
-                            col.radius = 0.8f;
-                            col.center = new Vector3(0f, 0.1f, 0f);
-                            col.enabled = true;
-                            col.isTrigger = false;
-
-                            HurtBox newBox = par.GetComponent<HurtBox>();
-                            if (!newBox)
-                            {
-                                Debug.Log("Added hurtbox");
-                                newBox = par.AddComponent<HurtBox>();
-                            }
-                            newBox.healthComponent = hb.healthComponent;
-                            newBox.isBullseye = false;
-                            newBox.damageModifier = HurtBox.DamageModifier.SniperTarget;
-                        }
-                    }
-
+                    colb.size = new Vector3(1f, 1f, 0.8f);
                 }
             }
+
+            HurtBoxGroup hbg = targetObj.GetComponent<HurtBoxGroup>();
+            if( !hbg )
+            {
+                
+                hbg = targetObj.GetComponentInChildren<HurtBoxGroup>();
+            }
+            if( !hbg )
+            {
+                Debug.Log("No hbg");
+            }
+
+            HurtBox sample = targetObj.GetComponent<HurtBox>();
+            if (!sample)
+            {
+                
+                sample = targetObj.GetComponentInChildren<HurtBox>();
+            }
+            if (!sample)
+            {
+                Debug.Log("No Sample hurtbox found");
+                return;
+            }
+
+            GameObject g = target.gameObject;
+            g.layer = sample.gameObject.layer;
+            CapsuleCollider col = g.AddComponent<CapsuleCollider>();
+            col.radius = 0.5f;
+            col.isTrigger = false;
+            col.enabled = true;
+            col.center = new Vector3(0f, -0.1f, 0f);
+            col.height = 2f;
+            col.direction = 0;
+            HurtBox hb = g.AddComponent<HurtBox>();
+            hb.healthComponent = sample.healthComponent;
+            hb.isBullseye = false;
+            hb.damageModifier = HurtBox.DamageModifier.SniperTarget;
+            ReinHurtBoxManager manager = g.AddComponent<ReinHurtBoxManager>();
+            manager.managedHB = hb;
+            manager.refHB = sample;
+
         }
 
-        private void EditBeetleQueen()
+        private void AddTitanHurtbox()
         {
-            GameObject target = BodyCatalog.FindBodyPrefab("BeetleQueen2Body");
-            if (target)
+            GameObject targetObj = BodyCatalog.FindBodyPrefab("TitanBody");
+            if (!targetObj)
             {
-                Debug.Log("Searching for Beetle Queen Eye lights");
-                HurtBox sampleHB = target.GetComponentInChildren<HurtBox>();
-                HurtBoxGroup boxes = target.GetComponentInChildren<HurtBoxGroup>();
-                int startLength = boxes.hurtBoxes.Length;
-                HurtBox[] hboxes = new HurtBox[startLength + 2];
-
-                for (int i = 0; i < startLength; i++)
-                {
-                    hboxes[i] = boxes.hurtBoxes[i];
-                }
-
-                foreach (Light l in target.GetComponentsInChildren<Light>())
-                {
-                    int i = 0;
-                    if (l.gameObject.name == "Point Light")
-                    {
-                        Debug.Log("Eye Light found");
-                        l.gameObject.layer = sampleHB.gameObject.layer;
-                        SphereCollider col = l.gameObject.GetComponent<SphereCollider>();
-                        if (!col)
-                        {
-                            col = l.gameObject.AddComponent<SphereCollider>();
-                        }
-                        col.radius = 0.5f;
-                        col.enabled = true;
-                        col.isTrigger = false;
-                        HurtBox hb = l.gameObject.GetComponent<HurtBox>();
-                        if (!hb)
-                        {
-                            hb = l.gameObject.AddComponent<HurtBox>();
-                        }
-                        hb.healthComponent = sampleHB.healthComponent;
-                        hb.isBullseye = false;
-                        hb.damageModifier = HurtBox.DamageModifier.SniperTarget;
-                        hb.teamIndex = sampleHB.teamIndex;
-                        hboxes[startLength + i] = hb;
-                        i++;
-                    }
-                }
-                boxes.hurtBoxes = hboxes;
+                Debug.Log("No targetObj");
+                return;
             }
+
+            Transform target = FindChildPath(targetObj.transform, "ModelBase/mdlTitan/TitanArmature/ROOT/base/stomach/chest/Head/MuzzleLaser", '/');
+            if (!target)
+            {
+                Debug.Log("No Target");
+                return;
+            }
+
+            HurtBoxGroup hbg = targetObj.GetComponent<HurtBoxGroup>();
+            if (!hbg)
+            {
+                
+                hbg = targetObj.GetComponentInChildren<HurtBoxGroup>();
+            }
+            if (!hbg)
+            {
+                Debug.Log("No hbg");
+            }
+
+            HurtBox sample = targetObj.GetComponent<HurtBox>();
+            if (!sample)
+            {
+                
+                sample = targetObj.GetComponentInChildren<HurtBox>();
+            }
+            if (!sample)
+            {
+                Debug.Log("No Sample hurtbox found");
+                return;
+            }
+
+            GameObject g = target.gameObject;
+            g.layer = sample.gameObject.layer;
+            SphereCollider col = g.AddComponent<SphereCollider>();
+            col.radius = 0.75f;
+            col.isTrigger = false;
+            col.enabled = true;
+            col.center = new Vector3(0f, -0.2f, -0.3f);
+            //col.height = 2f;
+            //col.direction = 0;
+            HurtBox hb = g.AddComponent<HurtBox>();
+            hb.healthComponent = sample.healthComponent;
+            hb.isBullseye = false;
+            hb.damageModifier = HurtBox.DamageModifier.SniperTarget;
+            ReinHurtBoxManager manager = g.AddComponent<ReinHurtBoxManager>();
+            manager.managedHB = hb;
+            manager.refHB = sample;
         }
+
+        private void AddGoldTitanHurtbox()
+        {
+            GameObject targetObj = BodyCatalog.FindBodyPrefab("TitanGoldBody");
+            if (!targetObj)
+            {
+                Debug.Log("No targetObj");
+                return;
+            }
+
+            Transform target = FindChildPath(targetObj.transform, "ModelBase/mdlTitan/TitanArmature/ROOT/base/stomach/chest/Head/MuzzleLaser", '/');
+            if (!target)
+            {
+                Debug.Log("No Target");
+                return;
+            }
+
+            HurtBoxGroup hbg = targetObj.GetComponent<HurtBoxGroup>();
+            if (!hbg)
+            {
+                
+                hbg = targetObj.GetComponentInChildren<HurtBoxGroup>();
+            }
+            if (!hbg)
+            {
+                Debug.Log("No hbg");
+            }
+
+            HurtBox sample = targetObj.GetComponent<HurtBox>();
+            if (!sample)
+            {
+                
+                sample = targetObj.GetComponentInChildren<HurtBox>();
+            }
+            if (!sample)
+            {
+                Debug.Log("No Sample hurtbox found");
+                return;
+            }
+
+            GameObject g = target.gameObject;
+            g.layer = sample.gameObject.layer;
+            SphereCollider col = g.AddComponent<SphereCollider>();
+            col.radius = 0.75f;
+            col.isTrigger = false;
+            col.enabled = true;
+            col.center = new Vector3(0f, -0.2f, -0.3f);
+            //col.height = 2f;
+            //col.direction = 0;
+            HurtBox hb = g.AddComponent<HurtBox>();
+            hb.healthComponent = sample.healthComponent;
+            hb.isBullseye = false;
+            hb.damageModifier = HurtBox.DamageModifier.SniperTarget;
+            ReinHurtBoxManager manager = g.AddComponent<ReinHurtBoxManager>();
+            manager.managedHB = hb;
+            manager.refHB = sample;
+        }
+
+        private void AddVagrantHurtbox()
+        {
+            GameObject targetObj = BodyCatalog.FindBodyPrefab("VagrantBody");
+            if (!targetObj)
+            {
+                Debug.Log("No targetObj");
+                return;
+            }
+
+            Transform target = FindChildPath(targetObj.transform, "Model Base/mdlVagrant/VagrantArmature/DetatchedHull/Hull.003/Hull.002", '/');
+            if (!target)
+            {
+                Debug.Log("No Target");
+                return;
+            }
+
+            HurtBoxGroup hbg = targetObj.GetComponent<HurtBoxGroup>();
+            if (!hbg)
+            {
+                
+                hbg = targetObj.GetComponentInChildren<HurtBoxGroup>();
+            }
+            if (!hbg)
+            {
+                Debug.Log("No hbg");
+            }
+
+            HurtBox sample = targetObj.GetComponent<HurtBox>();
+            if (!sample)
+            {
+                
+                sample = targetObj.GetComponentInChildren<HurtBox>();
+            }
+            if (!sample)
+            {
+                Debug.Log("No Sample hurtbox found");
+                return;
+            }
+
+            GameObject g = target.gameObject;
+            g.layer = sample.gameObject.layer;
+            SphereCollider col = g.AddComponent<SphereCollider>();
+            col.radius = 0.5f;
+            col.isTrigger = false;
+            col.enabled = true;
+            col.center = new Vector3(0f, -0.9f, 0f);
+            //col.height = 2f;
+            //col.direction = 0;
+            HurtBox hb = g.AddComponent<HurtBox>();
+            hb.healthComponent = sample.healthComponent;
+            hb.isBullseye = false;
+            hb.damageModifier = HurtBox.DamageModifier.SniperTarget;
+            ReinHurtBoxManager manager = g.AddComponent<ReinHurtBoxManager>();
+            manager.managedHB = hb;
+            manager.refHB = sample;
+        }
+
+        private void AddGroveBoiHurtbox()
+        {
+            GameObject targetObj = BodyCatalog.FindBodyPrefab("GravekeeperBody");
+            if (!targetObj)
+            {
+                Debug.Log("No targetObj");
+                return;
+            }
+
+            Transform target = FindChildPath(targetObj.transform, "ModelBase/mdlGravekeeper/GravekeeperArmature/ROOT/base/stomach/chest/neck.1/neck.2/head/mask/mask_end", '/');
+            if (!target)
+            {
+                Debug.Log("No Target");
+                return;
+            }
+
+            HurtBoxGroup hbg = targetObj.GetComponent<HurtBoxGroup>();
+            if (!hbg)
+            {
+                
+                hbg = targetObj.GetComponentInChildren<HurtBoxGroup>();
+            }
+            if (!hbg)
+            {
+                Debug.Log("No hbg");
+            }
+
+            HurtBox sample = targetObj.GetComponent<HurtBox>();
+            if (!sample)
+            {
+                
+                sample = targetObj.GetComponentInChildren<HurtBox>();
+            }
+            if (!sample)
+            {
+                Debug.Log("No Sample hurtbox found");
+                return;
+            }
+
+            GameObject g = target.gameObject;
+            g.layer = sample.gameObject.layer;
+            SphereCollider col = g.AddComponent<SphereCollider>();
+            col.radius = 0.85f;
+            col.isTrigger = false;
+            col.enabled = true;
+            col.center = new Vector3(0f, -0.5f, -0.21f);
+            //col.height = 2f;
+            //col.direction = 0;
+            HurtBox hb = g.AddComponent<HurtBox>();
+            hb.healthComponent = sample.healthComponent;
+            hb.isBullseye = false;
+            hb.damageModifier = HurtBox.DamageModifier.SniperTarget;
+            ReinHurtBoxManager manager = g.AddComponent<ReinHurtBoxManager>();
+            manager.managedHB = hb;
+            manager.refHB = sample;
+        }
+
+        private void AddZappySnokHurtbox()
+        {
+            GameObject targetObj = BodyCatalog.FindBodyPrefab("ElectricWormBody");
+            if (!targetObj)
+            {
+                Debug.Log("No targetObj");
+                return;
+            }
+
+            Transform target = FindChildPath(targetObj.transform, "ModelBase/mdlMagmaWorm/WormArmature/Head/MouthMuzzle", '/');
+            if (!target)
+            {
+                Debug.Log("No Target");
+                return;
+            }
+
+            HurtBoxGroup hbg = targetObj.GetComponent<HurtBoxGroup>();
+            if (!hbg)
+            {
+                
+                hbg = targetObj.GetComponentInChildren<HurtBoxGroup>();
+            }
+            if (!hbg)
+            {
+                Debug.Log("No hbg");
+            }
+
+            HurtBox sample = targetObj.GetComponent<HurtBox>();
+            if (!sample)
+            {
+                
+                sample = targetObj.GetComponentInChildren<HurtBox>();
+            }
+            if (!sample)
+            {
+                Debug.Log("No Sample hurtbox found");
+                return;
+            }
+
+            GameObject g = target.gameObject;
+            g.layer = sample.gameObject.layer;
+            SphereCollider col = g.AddComponent<SphereCollider>();
+            col.radius = 0.85f;
+            col.isTrigger = false;
+            col.enabled = true;
+            col.center = new Vector3(0f, 0f, -1f);
+            //col.height = 2f;
+            //col.direction = 0;
+            HurtBox hb = g.AddComponent<HurtBox>();
+            hb.healthComponent = sample.healthComponent;
+            hb.isBullseye = false;
+            hb.damageModifier = HurtBox.DamageModifier.SniperTarget;
+            ReinHurtBoxManager manager = g.AddComponent<ReinHurtBoxManager>();
+            manager.managedHB = hb;
+            manager.refHB = sample;
+        }
+
+        private void AddSpicySnokHurtbox()
+        {
+            GameObject targetObj = BodyCatalog.FindBodyPrefab("MagmaWormBody");
+            if (!targetObj)
+            {
+                Debug.Log("No targetObj");
+                return;
+            }
+
+            Transform target = FindChildPath(targetObj.transform, "ModelBase/mdlMagmaWorm/WormArmature/Head/MouthMuzzle", '/');
+            if (!target)
+            {
+                Debug.Log("No Target");
+                return;
+            }
+
+            HurtBoxGroup hbg = targetObj.GetComponent<HurtBoxGroup>();
+            if (!hbg)
+            {
+                
+                hbg = targetObj.GetComponentInChildren<HurtBoxGroup>();
+            }
+            if (!hbg)
+            {
+                Debug.Log("No hbg");
+            }
+
+            HurtBox sample = targetObj.GetComponent<HurtBox>();
+            if (!sample)
+            {
+                
+                sample = targetObj.GetComponentInChildren<HurtBox>();
+            }
+            if (!sample)
+            {
+                Debug.Log("No Sample hurtbox found");
+                return;
+            }
+
+            GameObject g = target.gameObject;
+            g.layer = sample.gameObject.layer;
+            SphereCollider col = g.AddComponent<SphereCollider>();
+            col.radius = 0.85f;
+            col.isTrigger = false;
+            col.enabled = true;
+            col.center = new Vector3(0f, 0f, -1f);
+            //col.height = 2f;
+            //col.direction = 0;
+            HurtBox hb = g.AddComponent<HurtBox>();
+            hb.healthComponent = sample.healthComponent;
+            hb.isBullseye = false;
+            hb.damageModifier = HurtBox.DamageModifier.SniperTarget;
+            ReinHurtBoxManager manager = g.AddComponent<ReinHurtBoxManager>();
+            manager.managedHB = hb;
+            manager.refHB = sample;
+        }
+
+        //Minibosses
+        private void AddBrassholeHurtbox()
+        {
+            GameObject targetObj = BodyCatalog.FindBodyPrefab("BellBody");
+            if (!targetObj)
+            {
+                Debug.Log("No targetObj");
+                return;
+            }
+
+            Transform target = FindChildPath(targetObj.transform, "Model Base/mdlBell/BellArmature/ROOT/Base/Chain.1/Chain.2/Chain.3/Chain.4/Bell/Muzzle", '/');
+            if (!target)
+            {
+                Debug.Log("No Target");
+                return;
+            }
+
+            HurtBoxGroup hbg = targetObj.GetComponent<HurtBoxGroup>();
+            if (!hbg)
+            {
+                
+                hbg = targetObj.GetComponentInChildren<HurtBoxGroup>();
+            }
+            if (!hbg)
+            {
+                Debug.Log("No hbg");
+                return;
+            }
+
+            HurtBox sample = targetObj.GetComponent<HurtBox>();
+            if (!sample)
+            {
+                
+                sample = targetObj.GetComponentInChildren<HurtBox>();
+            }
+            if (!sample)
+            {
+                Debug.Log("No Sample hurtbox found");
+                return;
+            }
+
+            GameObject g = target.gameObject;
+            g.layer = sample.gameObject.layer;
+            CapsuleCollider col = g.AddComponent<CapsuleCollider>();
+            col.radius = 0.5f;
+            col.isTrigger = false;
+            col.enabled = true;
+            col.center = new Vector3(0f, 0.30f, 0f);
+            col.height = 3f;
+            col.direction = 2;
+            HurtBox hb = g.AddComponent<HurtBox>();
+            hb.healthComponent = sample.healthComponent;
+            hb.isBullseye = false;
+            hb.damageModifier = HurtBox.DamageModifier.SniperTarget;
+            ReinHurtBoxManager manager = g.AddComponent<ReinHurtBoxManager>();
+            manager.managedHB = hb;
+            manager.refHB = sample;
+        }
+
+        private void AddBisonHurtbox()
+        {
+            GameObject targetObj = BodyCatalog.FindBodyPrefab("BisonBody");
+            if (!targetObj)
+            {
+                Debug.Log("No targetObj");
+                return;
+            }
+
+            Transform target = FindChildPath(targetObj.transform, "ModelBase/mdlBison/BisonArmature/ROOT/Base/stomach/chest/neck/head/head_end", '/');
+            if (!target)
+            {
+                Debug.Log("No Target");
+                return;
+            }
+
+            HurtBoxGroup hbg = targetObj.GetComponent<HurtBoxGroup>();
+            if (!hbg)
+            {
+                
+                hbg = targetObj.GetComponentInChildren<HurtBoxGroup>();
+            }
+            if (!hbg)
+            {
+                Debug.Log("No hbg");
+                return;
+            }
+
+            HurtBox sample = targetObj.GetComponent<HurtBox>();
+            if (!sample)
+            {
+                
+                sample = targetObj.GetComponentInChildren<HurtBox>();
+            }
+            if (!sample)
+            {
+                Debug.Log("No Sample hurtbox found");
+                return;
+            }
+
+            GameObject g = target.gameObject;
+            g.layer = sample.gameObject.layer;
+            CapsuleCollider col = g.AddComponent<CapsuleCollider>();
+            col.radius = 0.25f;
+            col.isTrigger = false;
+            col.enabled = true;
+            col.center = new Vector3(0f, 0f, 0.02f);
+            col.height = 1.2f;
+            col.direction = 2;
+            HurtBox hb = g.AddComponent<HurtBox>();
+            hb.healthComponent = sample.healthComponent;
+            hb.isBullseye = false;
+            hb.damageModifier = HurtBox.DamageModifier.SniperTarget;
+            ReinHurtBoxManager manager = g.AddComponent<ReinHurtBoxManager>();
+            manager.managedHB = hb;
+            manager.refHB = sample;
+        }
+
+        private void AddTemplarHurtbox()
+        {
+            GameObject targetObj = BodyCatalog.FindBodyPrefab("ClayBruiserBody");
+            if (!targetObj)
+            {
+                Debug.Log("No targetObj");
+                return;
+            }
+
+            Transform target = FindChildPath(targetObj.transform, "ModelBase/mdlClayBruiser/ClayBruiserArmature/ROOT/base", '/');
+            if (!target)
+            {
+                Debug.Log("No Target");
+                return;
+            }
+
+            HurtBoxGroup hbg = targetObj.GetComponent<HurtBoxGroup>();
+            if (!hbg)
+            {
+                
+                hbg = targetObj.GetComponentInChildren<HurtBoxGroup>();
+            }
+            if (!hbg)
+            {
+                Debug.Log("No hbg");
+                return;
+            }
+
+            HurtBox sample = targetObj.GetComponent<HurtBox>();
+            if (!sample)
+            {
+                
+                sample = targetObj.GetComponentInChildren<HurtBox>();
+            }
+            if (!sample)
+            {
+                Debug.Log("No Sample hurtbox found");
+                return;
+            }
+
+            GameObject g = target.gameObject;
+            g.layer = sample.gameObject.layer;
+            SphereCollider col = g.AddComponent<SphereCollider>();
+            col.radius = 0.75f;
+            col.isTrigger = false;
+            col.enabled = true;
+            col.center = new Vector3(0.15f, 0.1f, -0.8f);
+            //col.height = 1f;
+            //col.direction = 2;
+            HurtBox hb = g.AddComponent<HurtBox>();
+            hb.healthComponent = sample.healthComponent;
+            hb.isBullseye = false;
+            hb.damageModifier = HurtBox.DamageModifier.SniperTarget;
+            ReinHurtBoxManager manager = g.AddComponent<ReinHurtBoxManager>();
+            manager.managedHB = hb;
+            manager.refHB = sample;
+        }
+
+        private void AddGolemHurtbox()
+        {
+            GameObject targetObj = BodyCatalog.FindBodyPrefab("GolemBody");
+            if (!targetObj)
+            {
+                Debug.Log("No targetObj");
+                return;
+            }
+
+            Transform target = FindChildPath(targetObj.transform, "ModelBase/mdlGolem/GolemArmature/ROOT/base/stomach/chest/head/MuzzleLaser", '/');
+            if (!target)
+            {
+                Debug.Log("No Target");
+                return;
+            }
+
+            HurtBoxGroup hbg = targetObj.GetComponent<HurtBoxGroup>();
+            if (!hbg)
+            {
+                
+                hbg = targetObj.GetComponentInChildren<HurtBoxGroup>();
+            }
+            if (!hbg)
+            {
+                Debug.Log("No hbg");
+                return;
+            }
+
+            HurtBox sample = targetObj.GetComponent<HurtBox>();
+            if (!sample)
+            {
+                
+                sample = targetObj.GetComponentInChildren<HurtBox>();
+            }
+            if (!sample)
+            {
+                Debug.Log("No Sample hurtbox found");
+                return;
+            }
+
+            GameObject g = target.gameObject;
+            g.layer = sample.gameObject.layer;
+            SphereCollider col = g.AddComponent<SphereCollider>();
+            col.radius = 0.35f;
+            col.isTrigger = false;
+            col.enabled = true;
+            col.center = new Vector3(0f, 0f, 0f);
+            //col.height = 1f;
+            //col.direction = 2;
+            HurtBox hb = g.AddComponent<HurtBox>();
+            hb.healthComponent = sample.healthComponent;
+            hb.isBullseye = false;
+            hb.damageModifier = HurtBox.DamageModifier.SniperTarget;
+            ReinHurtBoxManager manager = g.AddComponent<ReinHurtBoxManager>();
+            manager.managedHB = hb;
+            manager.refHB = sample;
+        }
+
+        private void AddElderLemurianHurtbox()
+        {
+            GameObject targetObj = BodyCatalog.FindBodyPrefab("LemurianBruiserBody");
+            if (!targetObj)
+            {
+                Debug.Log("No targetObj");
+                return;
+            }
+
+            Transform target = FindChildPath(targetObj.transform, "ModelBase/mdlLemurianBruiser/LemurianBruiserArmature/ROOT/base/stomach/chest/neck.1/neck.2/HURTBOX, Lemmy Bruiser", '/');
+            if (!target)
+            {
+                Debug.Log("No Target");
+                return;
+            }
+
+            target.GetComponent<HurtBox>().damageModifier = HurtBox.DamageModifier.SniperTarget;
+        }
+
+        //Basic monsters
+        private void AddImpHurtbox()
+        {
+            GameObject targetObj = BodyCatalog.FindBodyPrefab("ImpBody");
+            if (!targetObj)
+            {
+                Debug.Log("No targetObj");
+                return;
+            }
+
+            Transform target = FindChildPath(targetObj.transform, "ModelBase/mdlImp/ImpArmature/ROOT/base/stomach/chest/Eyeball/Eyeball_end", '/');
+            if (!target)
+            {
+                Debug.Log("No Target");
+                return;
+            }
+
+            HurtBoxGroup hbg = targetObj.GetComponent<HurtBoxGroup>();
+            if (!hbg)
+            {
+                
+                hbg = targetObj.GetComponentInChildren<HurtBoxGroup>();
+            }
+            if (!hbg)
+            {
+                Debug.Log("No hbg");
+                return;
+            }
+
+            HurtBox sample = targetObj.GetComponent<HurtBox>();
+            if (!sample)
+            {
+                
+                sample = targetObj.GetComponentInChildren<HurtBox>();
+            }
+            if (!sample)
+            {
+                Debug.Log("No Sample hurtbox found");
+                return;
+            }
+
+            GameObject g = target.gameObject;
+            g.layer = sample.gameObject.layer;
+            SphereCollider col = g.AddComponent<SphereCollider>();
+            col.radius = 0.2f;
+            col.isTrigger = false;
+            col.enabled = true;
+            col.center = new Vector3(0f, 0f, 0f);
+            //col.height = 1f;
+            //col.direction = 2;
+            HurtBox hb = g.AddComponent<HurtBox>();
+            hb.healthComponent = sample.healthComponent;
+            hb.isBullseye = false;
+            hb.damageModifier = HurtBox.DamageModifier.SniperTarget;
+            ReinHurtBoxManager manager = g.AddComponent<ReinHurtBoxManager>();
+            manager.managedHB = hb;
+            manager.refHB = sample;
+        }
+        
     }
 }
 

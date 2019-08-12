@@ -4,6 +4,8 @@ using RoR2.UI;
 using RoR2.Projectile;
 using R2API.Utils;
 using System.Reflection;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace ReinSniperRework
 {
@@ -24,9 +26,15 @@ namespace ReinSniperRework
         public readonly string g_crosshairString = "prefabs/crosshair/banditcrosshairrevolver";
         //other
         public SniperUIController g_ui;
+        private Texture2D newTex;
 
-        
-                        //UI Controller values
+                        //Enumerator config
+        //floats
+        private float en_checkTimer = 0.5f;
+        private float en_readDelay = 0.2f;
+
+
+        //UI Controller values
         //floats
         //ints
         public readonly int ui_bar1Width = 200;
@@ -60,13 +68,13 @@ namespace ReinSniperRework
         public readonly float p_rechargeInterval = 0.001f;
         public readonly float p_shootDelay = 0f;
         public readonly float p_shotDamage = 2.5f;
-        public readonly float p_shotForce = 500.0f;
+        public readonly float p_shotForce = 750.0f;
         public readonly float p_shotCoef = 1.0f;
         public readonly float p_recoilAmplitude = 10.0f;
         public readonly float p_baseDuration = 0.01f;
         public readonly float p_interruptInterval = 0.01f;
-        public readonly float p_recoilForceMult = 500.0f;
-        public readonly float p_reloadForceMult = 500.0f;
+        public readonly float p_recoilForceMult = 650.0f;
+        public readonly float p_reloadForceMult = 600.0f;
         public readonly float p_ntShotRadius = 0.025f;
         public readonly float p_t0ShotRadius = 0.05f;
         public readonly float p_t1ShotRadius = 0.1f;
@@ -82,7 +90,7 @@ namespace ReinSniperRework
         public readonly float p_chargeT1Scale = 1.25f;
         public readonly float p_chargeT2Scale = 5.0f;
         public readonly float p_chargeT1Coef = 1.25f;
-        public readonly float p_chargeT2Coef = 1.69f;
+        public readonly float p_chargeT2Coef = 1.75f;
         public readonly float p_reloadStartDelay = 0.5f;
         public readonly float p_loadTime = 2.0f;
         public readonly float p_attackSpeedSoft = 2.5f;
@@ -90,10 +98,10 @@ namespace ReinSniperRework
         public readonly float p_softLoadEnd = 0.6f;
         public readonly float p_sweetLoadStart = 0.25f;
         public readonly float p_sweetLoadEnd = 0.4f;
-        public readonly float p_hitLIBase = 50.0f;
-        public readonly float p_hitLRBase = 1.0f;
-        public readonly float p_hitLIScale = 3.0f;
-        public readonly float p_hitLRScale = 3.0f;
+        public readonly float p_hitLIBase = 100.0f;
+        public readonly float p_hitLRBase = 3.0f;
+        public readonly float p_hitLIScale = 5.0f;
+        public readonly float p_hitLRScale = 5.0f;
         //ints
         public readonly int p_baseMaxStock = 1;
         public readonly int p_rechargeStock = 1;
@@ -107,25 +115,23 @@ namespace ReinSniperRework
         public readonly bool p_mustKeyPress = true;
         public readonly bool p_shotSmartCollision = true;
         //strings
-        public readonly string p_attackSoundString = "Play_item_use_lighningArm";
+        public readonly string p_attackSound = "Play_MULT_m1_snipe_shoot";
         public readonly string p_muzzleName = "MuzzleShotgun";
-        public readonly string p_baseLoadSound = "Play_bandit_M2_load";
+        public readonly string p_baseLoadSound = "Play_bandit_M1_pump";
         public readonly string p_softLoadSound = "";
         public readonly string p_sweetLoadSound = "Play_item_proc_crit_cooldown";
         //other
-        public GameObject p_effectPrefab;
         public GameObject p_hitEffectPrefab;
         public GameObject p_tracerEffectPrefab;
         public Tracer p_tracer;
-        public ParticleSystem p_tracerPS;
         public ParticleSystemRenderer p_tracerPSR;
-        public ParticleSystemRenderer p_hitPSR1;
-        public ParticleSystemRenderer p_hitPSR2;
         public Light p_tracerHitL;
+        public List<Material> p_matsToEdit = new List<Material>();
         //load requests
-        private ResourceRequest req_p_effectPrefab = Resources.LoadAsync<GameObject>("prefabs/effects/muzzleflashes/muzzleflashmagelightning");
-        private ResourceRequest req_p_hitEffectPrefab = Resources.LoadAsync<GameObject>("prefabs/effects/impacteffects/LightningStrikeImpact");
-        private ResourceRequest req_p_tracerEffectPrefab = Resources.LoadAsync<GameObject>("prefabs/effects/tracers/tracertoolbotrebar");
+        private ResourceRequest req_p_hitEffectPrefab;
+        private ResourceRequest req_p_tracerEffectPrefab;
+        private IEnumerator en_p_hitEffectPrefab;
+        private IEnumerator en_p_tracerEffectPrefab;
 
         //SniperSecondary Values
         //floats
@@ -154,7 +160,8 @@ namespace ReinSniperRework
         //other
         public GameObject s_crosshairPrefab;
         //load requests
-        private ResourceRequest req_s_crosshairPrefab = Resources.LoadAsync<GameObject>("prefabs/crosshair/snipercrosshair");
+        private ResourceRequest req_s_crosshairPrefab;
+        private IEnumerator en_s_crosshairPrefab;
 
 
                         //SniperUtility values
@@ -163,20 +170,11 @@ namespace ReinSniperRework
         public readonly float u_shootDelay = 0.25f;
         public readonly float u_duration = 0.15f;
         public readonly float u_speedCoef = 12.5f;
-        public readonly float u_smallHopStrength = 50.0f;
-        public readonly float u_procCoef = 1.0f;
-        public readonly float u_orbRange = 1000.0f;
-        public readonly float u_orbPrefireDuration = 0.2f;
-        public readonly float u_orbFreq = 1000.0f;
-        public readonly float u_initSpeedCoef = 5.0f;
-        public readonly float u_endSpeedCoef = 2.5f;
-        public readonly float u_damageMult = 1.0f;
         //ints
         public readonly int u_baseMaxStock = 1;
         public readonly int u_rechargeStock = 1;
         public readonly int u_requiredStock = 1;
         public readonly int u_stockToConsume = 1;
-        public readonly int u_orbMax = 1000;
         //bools
         public readonly bool u_isBullets = false;
         public readonly bool u_beginCDOnEnd = true;
@@ -186,18 +184,17 @@ namespace ReinSniperRework
         //strings
         public readonly string u_beginSoundString = "";
         public readonly string u_endSoundString = "";
-        public readonly string u_muzzle = "";
-        public readonly string u_dodgeSound = "";
         //other
         public GameObject u_blinkPrefab;
-        public GameObject u_muzzleFlashPrefab;
         public Material u_blinkMat1;
         public Material u_blinkMat2;
         //load requests
-        private ResourceRequest req_u_blinkPrefab = Resources.LoadAsync<GameObject>("prefabs/effects/impblinkeffect");
-        private ResourceRequest req_u_muzzleFlashPrefab = Resources.LoadAsync<GameObject>("prefabs/effects/muzzleflashes/muzzleflashmagelightning");
-        private ResourceRequest req_u_blinkMat1 = Resources.LoadAsync<Material>("Materials/mattpinout");
-        private ResourceRequest req_u_blinkMat2 = Resources.LoadAsync<Material>("Materials/mathuntressflashexpanded");
+        private ResourceRequest req_u_blinkPrefab;
+        private ResourceRequest req_u_blinkMat1;
+        private ResourceRequest req_u_blinkMat2;
+        private IEnumerator en_u_blinkPrefab;
+        private IEnumerator en_u_blinkMat1;
+        private IEnumerator en_u_blinkMat2;
 
 
                         //SniperSpecial values
@@ -241,207 +238,363 @@ namespace ReinSniperRework
         public GameObject r_mineProj;
         private BuffIndex i_wardBuff = BuffIndex.Cripple;
         //load requests
-        private ResourceRequest req_r_mineProj = Resources.LoadAsync<GameObject>("Prefabs/projectiles/engimine");
-        private ResourceRequest req_i_mineWard = Resources.LoadAsync<GameObject>("prefabs/networkedobjects/engimineward");
-        private ResourceRequest req_i_mineForceTetherPrefab = Resources.LoadAsync<GameObject>("prefabs/effects/gravspheretether");
+        private ResourceRequest req_r_mineProj;
+        private ResourceRequest req_i_mineWard;
+        private ResourceRequest req_i_mineForceTetherPrefab;
+        private IEnumerator en_r_mineProj;
 
-        public void FixedUpdate()
+        public void Awake()
         {
-            if (!p_effectPrefab && req_p_effectPrefab.isDone)
+            newTex = CreateRampTexture(new Vector3(1f, 1f, 1f), 0.75f);
+            p_matsToEdit.Clear();
+
+            req_p_hitEffectPrefab = Resources.LoadAsync<GameObject>("prefabs/effects/impacteffects/LightningStrikeImpact");
+            req_p_tracerEffectPrefab = Resources.LoadAsync<GameObject>("prefabs/effects/tracers/tracertoolbotrebar");
+            req_s_crosshairPrefab = Resources.LoadAsync<GameObject>("prefabs/crosshair/snipercrosshair");
+            req_u_blinkPrefab = Resources.LoadAsync<GameObject>("prefabs/effects/impblinkeffect");
+            req_u_blinkMat1 = Resources.LoadAsync<Material>("Materials/mattpinout");
+            req_u_blinkMat2 = Resources.LoadAsync<Material>("Materials/mathuntressflashexpanded");
+            req_r_mineProj = Resources.LoadAsync<GameObject>("Prefabs/projectiles/engimine");
+            req_i_mineWard = Resources.LoadAsync<GameObject>("prefabs/networkedobjects/engimineward");
+            req_i_mineForceTetherPrefab = Resources.LoadAsync<GameObject>("prefabs/effects/gravspheretether");
+
+            en_p_hitEffectPrefab = co_p_hitEffectPrefab();
+            StartCoroutine(en_p_hitEffectPrefab);
+
+            en_p_tracerEffectPrefab = co_p_tracerEffectPrefab();
+            StartCoroutine(en_p_tracerEffectPrefab);
+
+            en_s_crosshairPrefab = co_s_crosshairPrefab();
+            StartCoroutine(en_s_crosshairPrefab);
+
+            en_u_blinkPrefab = co_u_blinkPrefab();
+            StartCoroutine(en_u_blinkPrefab);
+
+            en_u_blinkMat1 = co_u_blinkMat1();
+            StartCoroutine(en_u_blinkMat1);
+
+            en_u_blinkMat2 = co_u_blinkMat2();
+            StartCoroutine(en_u_blinkMat2);
+
+            en_r_mineProj = co_r_mineProj();
+            StartCoroutine(en_r_mineProj);
+        }
+
+        private IEnumerator co_p_hitEffectPrefab()
+        {
+            if( !p_hitEffectPrefab )
             {
-                p_effectPrefab = Get_p_effectPrefab(req_p_effectPrefab);
-            }
-            if (!p_tracerEffectPrefab && req_p_tracerEffectPrefab.isDone)
-            {
-                p_tracerEffectPrefab = Get_p_tracereffectPrefab(req_p_tracerEffectPrefab);
-            }
-            if (!p_hitEffectPrefab && req_p_hitEffectPrefab.isDone)
-            {
-                p_hitEffectPrefab = Get_p_hitEffectPrefab(req_p_hitEffectPrefab);
-            }
-            if (!s_crosshairPrefab && req_s_crosshairPrefab.isDone)
-            {
-                s_crosshairPrefab = Get_s_crosshairPrefab(req_s_crosshairPrefab);
-            }
-            if (!u_blinkPrefab && req_u_blinkPrefab.isDone)
-            {
-                u_blinkPrefab = Get_u_blinkPrefab(req_u_blinkPrefab);
-            }
-            if( !u_muzzleFlashPrefab && req_u_muzzleFlashPrefab.isDone )
-            {
-                u_muzzleFlashPrefab = Get_u_muzzleFlashPrefab(req_u_muzzleFlashPrefab);
-            }
-            if (!r_mineProj && req_r_mineProj.isDone && req_i_mineWard.isDone && req_i_mineForceTetherPrefab.isDone )
-            {
-                r_mineProj = Get_r_mineProj(req_r_mineProj, req_i_mineWard, req_i_mineForceTetherPrefab);
+                while (!req_p_hitEffectPrefab.isDone)
+                {
+                    yield return new WaitForSeconds(en_checkTimer);
+                }
+                yield return new WaitForSeconds(en_readDelay);
+
+                GameObject g = (GameObject)req_p_hitEffectPrefab.asset;
+
+                foreach( ParticleSystemRenderer psr in g.GetComponentsInChildren<ParticleSystemRenderer>() )
+                {
+                    //Debug.Log(psr.gameObject.name);
+                    //Debug.Log("Material");
+                    //DebugMaterialInfo(psr.material);
+                    //Debug.Log("Trail Material");
+                    //DebugMaterialInfo(psr.material);
+
+                    switch (psr.gameObject.name)
+                    {
+                        case "LightningRibbon":
+                            Destroy(psr);
+                            break;
+                        case "Ring":
+                            psr.material.SetTexture("_RemapTex", newTex);
+                            p_matsToEdit.Add(psr.material);
+                            break;
+                        case "Flash":
+                            Destroy(psr);
+                            break;
+                        case "Distortion":
+                            break;
+                        case "Flash Lines":
+                            psr.material.SetTexture("_RemapTex", newTex);
+                            p_matsToEdit.Add(psr.material);
+                            break;
+                        case "Sphere":
+                            psr.material.SetTexture("_RemapTex", newTex);
+                            p_matsToEdit.Add(psr.material);
+                            break;
+                        default:
+                            Debug.Log(psr.gameObject.name + " not registered");
+                            break;
+                    }
+                }
+
+                foreach( ParticleSystem ps in g.GetComponentsInChildren<ParticleSystem>() )
+                {
+                    switch( ps.gameObject.name )
+                    {
+                        case "LightningRibbon":
+                            Destroy(ps);
+                            break;
+                        case "Ring":
+                            var ringSize = ps.sizeOverLifetime;
+                            ringSize.sizeMultiplier = 0.75f;
+                            break;
+                        case "Flash":
+                            Destroy(ps);
+                            break;
+                        case "Distortion":
+                            var distSize = ps.sizeOverLifetime;
+                            distSize.sizeMultiplier = 1f;
+                            break;
+                        case "Flash Lines":
+                            var lineSize = ps.sizeOverLifetime;
+                            lineSize.xMultiplier = 0.75f;
+                            lineSize.yMultiplier = 0.25f;
+                            lineSize.zMultiplier = 0.25f;
+                            break;
+                        case "Sphere":
+                            var size = ps.sizeOverLifetime;
+                            size.sizeMultiplier = 0.75f;
+                            break;
+                        default:
+                            Debug.Log(ps.gameObject.name + " not registered");
+                            break;
+                    }
+                }
+
+
+                p_tracerHitL = g.GetComponent<Light>();
+                if( !p_tracerHitL )
+                {
+                    p_tracerHitL = g.AddComponent<Light>();
+                }
+                p_tracerHitL.type = LightType.Point;
+                FadeLight fl = g.GetComponent<FadeLight>();
+                if (!fl)
+                {
+                    fl = g.AddComponent<FadeLight>();
+                }
+                fl.light = p_tracerHitL;
+                fl.time = 1.0f;
+
+                p_hitEffectPrefab = g;
             }
         }
 
-
-        private GameObject Get_p_effectPrefab(ResourceRequest r)
+        private IEnumerator co_p_tracerEffectPrefab()
         {
-            return (GameObject)r.asset;
+            if( !p_tracerEffectPrefab )
+            {
+                while( !req_p_tracerEffectPrefab.isDone )
+                {
+                    yield return new WaitForSeconds(en_checkTimer);
+                }
+                yield return new WaitForSeconds(en_readDelay);
+
+                GameObject g = (GameObject)req_p_tracerEffectPrefab.asset;
+
+                Destroy(g.GetComponentInChildren<MeshRenderer>());
+                foreach( ParticleSystemRenderer psr in g.GetComponentsInChildren<ParticleSystemRenderer>())
+                {
+                    if( psr.gameObject.name != "BeamObject" )
+                    {
+                        Destroy(psr);
+                    }
+                }
+
+                p_tracer = g.GetComponent<Tracer>();
+                p_tracerPSR = p_tracer.beamObject.GetComponent<ParticleSystemRenderer>();
+                p_tracerPSR.trailMaterial.SetTexture("_RemapTex", newTex);
+                p_matsToEdit.Add(p_tracerPSR.trailMaterial);
+
+                p_tracerEffectPrefab = g;
+            }
         }
-        private GameObject Get_p_tracereffectPrefab(ResourceRequest r)
-        {
-            GameObject g = (GameObject)r.asset;
-            Destroy(g.GetComponentInChildren<MeshRenderer>());
-            p_tracer = g.GetComponent<Tracer>();
-            p_tracerPS = p_tracer.beamObject.GetComponent<ParticleSystem>();
-            p_tracerPSR = p_tracer.beamObject.GetComponent<ParticleSystemRenderer>();
-            Destroy( g.GetComponentInChildren<FlickerLight>());
 
-            return g;
+        private IEnumerator co_s_crosshairPrefab()
+        {
+            if( !s_crosshairPrefab )
+            {
+                while( !req_s_crosshairPrefab.isDone )
+                {
+                    yield return new WaitForSeconds(en_checkTimer);
+                }
+                yield return new WaitForSeconds(en_readDelay);
+
+                GameObject g = (GameObject)req_s_crosshairPrefab.asset;
+
+                g.GetComponent<DisplayStock>().skillSlot = SkillSlot.Secondary;
+
+                s_crosshairPrefab = g;
+            }
         }
-        private GameObject Get_p_hitEffectPrefab(ResourceRequest r)
+
+        private IEnumerator co_u_blinkPrefab()
         {
-            GameObject g = (GameObject)r.asset;
-            //Debug.Log("Lightning strike components");
-            //foreach( Component c in g.GetComponents<Component>() )
-            //{
-            //    Debug.Log("---");
-            //    Debug.Log(c.name);
-            //    Debug.Log(c.GetType().ToString());
-            //    Debug.Log("---");
-            //}
-            //Debug.Log("Child Components");
-            //foreach( Component c in g.GetComponentsInChildren<Component>() )
-            //{
-            //    Debug.Log("---");
-            //    Debug.Log(c.gameObject.name);
-            //    Debug.Log(c.name);
-            //    Debug.Log(c.GetType().ToString());
-            //    Debug.Log("---");
-            //}
-            Transform tr = g.transform.Find("LightningRibbon");
-            if( tr )
+            if( !u_blinkPrefab )
             {
-                Destroy(tr.gameObject);
-            }
-            tr = g.transform.Find("Flash");
-            if( tr )
-            {
-                Destroy(tr.gameObject);
-            }
-            tr = g.transform.Find("PostProcess");
-            if( tr )
-            {
-                Destroy(tr.gameObject);
-            }
-            tr = g.transform.Find("Flash Lines");
-            if( tr )
-            {
-                Destroy(tr.gameObject);
-            }
-            tr = g.transform.Find("Ring");
-            if( tr )
-            {
-                p_hitPSR1 = tr.gameObject.GetComponent<ParticleSystemRenderer>();
-            }
-            tr = g.transform.Find("Sphere");
-            if( tr )
-            {
-                p_hitPSR2 = tr.gameObject.GetComponent<ParticleSystemRenderer>();
-            }
+                while (!req_u_blinkPrefab.isDone )
+                {
+                    yield return new WaitForSeconds(en_checkTimer);
+                }
+                yield return new WaitForSeconds(en_readDelay);
 
-            p_tracerHitL = g.GetComponent<Light>();
-            if( !p_tracerHitL )
-            {
-                p_tracerHitL = g.AddComponent<Light>();
+                GameObject g = (GameObject)req_u_blinkPrefab.asset;
+
+                u_blinkPrefab = g;
             }
-
-            p_tracerHitL.type = LightType.Point;
-            p_tracerHitL.color = new Color(0f, 0f, 0f, 0f);
-            p_tracerHitL.intensity = 40f;
-            p_tracerHitL.range = 1f;
-            FadeLight fl = g.GetComponent<FadeLight>();
-            if( !fl )
-            {
-                fl = g.AddComponent<FadeLight>();
-            }
-            fl.light = p_tracerHitL;
-            fl.time = 0.75f;
-
-
-            return (GameObject)r.asset;
         }
-        private GameObject Get_s_crosshairPrefab(ResourceRequest r)
-        {
-            GameObject go = (GameObject)r.asset;
-            go.GetComponent<DisplayStock>().skillSlot = SkillSlot.Secondary;
-            return go;
-        }
-        private GameObject Get_u_blinkPrefab(ResourceRequest r)
-        {
-            return (GameObject)r.asset;
-        }
-        private GameObject Get_u_muzzleFlashPrefab(ResourceRequest r )
-        {
-            return (GameObject)r.asset;
-        }
-        private Material Get_u_blinkMat1(ResourceRequest r)
-        {
-            return (Material)r.asset;
-        }
-        private Material Get_u_blinkMat2(ResourceRequest r)
-        {
-            return (Material)r.asset;
-        }
-        private GameObject Get_r_mineProj(ResourceRequest r1, ResourceRequest r2, ResourceRequest r3 )
-        {
-            GameObject mine = (GameObject)r1.asset;
-            GameObject mineWard = (GameObject)r2.asset;
-            GameObject tetherPrefab = (GameObject)r3.asset;
 
-            BuffWard ward = mineWard.GetComponent<BuffWard>();
-
-            ward.radius = i_wardRadius;
-            ward.interval = i_wardInterval;
-            ward.buffType = i_wardBuff;
-            ward.buffDuration = i_wardBuffDuration;
-            ward.floorWard = i_wardFloorWard;
-            ward.expires = i_wardExpires;
-            ward.invertTeamFilter = i_wardInvertTeam;
-            ward.expireDuration = i_wardDuration;
-
-            RadialForce force = mineWard.GetComponent<RadialForce>();
-            if( !force )
+        private IEnumerator co_u_blinkMat1()
+        {
+            if( !u_blinkMat1 )
             {
-                force = mineWard.AddComponent<RadialForce>();
+                while( !req_u_blinkMat1.isDone )
+                {
+                    yield return new WaitForSeconds(en_checkTimer);
+                }
+                yield return new WaitForSeconds(en_readDelay);
+
+                Material m = (Material)req_u_blinkMat1.asset;
+
+                u_blinkMat1 = m;
             }
-            
+        }
 
-            force.tetherPrefab = tetherPrefab;
-            force.radius = i_wardRadius * i_mineForceRadiusMod;
-            force.damping = i_mineForceDamping;
-            force.forceMagnitude = i_mineForceStrength;
-            force.forceCoefficientAtEdge = i_mineForceFalloff;
-
-            Collider col = mine.AddComponent<SphereCollider>();
-            ((SphereCollider)col).radius = i_triggerRadiusMod * i_wardRadius;
-            col.isTrigger = true;
-
-            HookMineController hookControl = mine.GetComponent<HookMineController>();
-            if( !hookControl )
+        private IEnumerator co_u_blinkMat2()
+        {
+            if (!u_blinkMat2)
             {
-                hookControl = mine.AddComponent<HookMineController>();
+                while (!req_u_blinkMat2.isDone)
+                {
+                    yield return new WaitForSeconds(en_checkTimer);
+                }
+                yield return new WaitForSeconds(en_readDelay);
+
+                Material m = (Material)req_u_blinkMat2.asset;
+
+                u_blinkMat2 = m;
+            }
+        }
+        
+        private IEnumerator co_r_mineProj()
+        {
+            if( !r_mineProj )
+            {
+                while( !req_r_mineProj.isDone || !req_i_mineForceTetherPrefab.isDone || !req_i_mineWard.isDone )
+                {
+                    yield return new WaitForSeconds(en_checkTimer);
+                }
+                yield return new WaitForSeconds(en_readDelay);
+
+                GameObject mine = (GameObject)req_r_mineProj.asset;
+                GameObject mineWard = (GameObject)req_i_mineWard.asset;
+                GameObject tetherPrefab = (GameObject)req_i_mineForceTetherPrefab.asset;
+
+                BuffWard ward = mineWard.GetComponent<BuffWard>();
+
+                ward.radius = i_wardRadius;
+                ward.interval = i_wardInterval;
+                ward.buffType = i_wardBuff;
+                ward.buffDuration = i_wardBuffDuration;
+                ward.floorWard = i_wardFloorWard;
+                ward.expires = i_wardExpires;
+                ward.invertTeamFilter = i_wardInvertTeam;
+                ward.expireDuration = i_wardDuration;
+
+                RadialForce force = mineWard.GetComponent<RadialForce>();
+                if (!force)
+                {
+                    force = mineWard.AddComponent<RadialForce>();
+                }
+
+
+                force.tetherPrefab = tetherPrefab;
+                force.radius = i_wardRadius * i_mineForceRadiusMod;
+                force.damping = i_mineForceDamping;
+                force.forceMagnitude = i_mineForceStrength;
+                force.forceCoefficientAtEdge = i_mineForceFalloff;
+
+                Collider col = mine.AddComponent<SphereCollider>();
+                ((SphereCollider)col).radius = i_triggerRadiusMod * i_wardRadius;
+                col.isTrigger = true;
+
+                HookMineController hookControl = mine.GetComponent<HookMineController>();
+                if (!hookControl)
+                {
+                    hookControl = mine.AddComponent<HookMineController>();
+                }
+
+                hookControl.wardPrefab = mineWard;
+                hookControl.primingDelay = i_minePrimeDelay;
+                hookControl.hookDuration = i_mineHookDuration;
+                hookControl.hookInterval = i_mineHookInterval;
+                hookControl.hooksPerTick = i_mineHooksPerTick;
+                hookControl.hookRadius = i_mineHookRadiusMod * i_wardRadius;
+                hookControl.teamHostile = TeamIndex.Monster;
+                hookControl.teamFriendly = TeamIndex.Player;
+
+                mine.GetComponent<ProjectileSimple>().velocity = i_mineThrowVelocity;
+
+                Destroy(mine.GetComponent<ProjectileController>().ghostPrefab.GetComponent<EngiMineAnimator>());
+                Destroy(mine.GetComponent<EngiMineController>());
+
+                r_mineProj = mine;
+            }
+        }
+
+        public Texture2D CreateRampTexture(Vector3 vec, float startGrad)
+        {
+            Texture2D tex = new Texture2D(256, 16, TextureFormat.RGBA32, false);
+
+            int start = Mathf.CeilToInt(startGrad * 255);
+            int gradLength = 255 - start;
+            Color32 back = new Color32(0, 0, 0, 0);
+            Color32 temp = new Color32(0, 0, 0, 0);
+            for (int i = 0; i <= 255; i++)
+            {
+                if (i > start)
+                {
+                    float frac = ((float)i - (float)start) / (float)gradLength;
+                    temp.r = (byte)Mathf.RoundToInt(255 * frac * vec.x);
+                    temp.g = (byte)Mathf.RoundToInt(255 * frac * vec.y);
+                    temp.b = (byte)Mathf.RoundToInt(255 * frac * vec.z);
+                    temp.a = (byte)Mathf.RoundToInt(255 * frac);
+                }
+                else
+                {
+                    temp = back;
+                }
+                for (int y = 0; y < 16; y++)
+                {
+                    tex.SetPixel(i, y, temp);
+                }
             }
 
-            hookControl.wardPrefab = mineWard;
-            hookControl.primingDelay = i_minePrimeDelay;
-            hookControl.hookDuration = i_mineHookDuration;
-            hookControl.hookInterval = i_mineHookInterval;
-            hookControl.hooksPerTick = i_mineHooksPerTick;
-            hookControl.hookRadius = i_mineHookRadiusMod * i_wardRadius;
-            hookControl.teamHostile = TeamIndex.Monster;
-            hookControl.teamFriendly = TeamIndex.Player;
+            tex.wrapMode = TextureWrapMode.MirrorOnce;
+            tex.Apply();
 
-            mine.GetComponent<ProjectileSimple>().velocity = i_mineThrowVelocity;
+            return tex;
+        }
 
-            Destroy(mine.GetComponent<ProjectileController>().ghostPrefab.GetComponent<EngiMineAnimator>());
-            Destroy(mine.GetComponent<EngiMineController>());
+        private void DebugMaterialInfo( Material m )
+        {
+            Debug.Log("Material name: " + m.name);
+            string[] s = m.shaderKeywords;
+            Debug.Log("Shader keywords");
+            for( int i=0; i<s.Length;i++ )
+            {
+                Debug.Log(s[i]);
+            }
 
-            return mine;
+            Debug.Log("Shader name: " + m.shader.name);
+
+            Debug.Log("Texture Properties");
+            string[] s2 = m.GetTexturePropertyNames();
+            for( int i = 0; i<s2.Length;i++ )
+            {
+                Debug.Log(s2[i] + " : " + m.GetTexture(s2[i]));
+            }
         }
     }
 }

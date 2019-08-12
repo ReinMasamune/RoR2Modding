@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReinArchwispDemo", "ReinArc
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReinDirectorCardLib", "ReinDirectorCardLib\ReinDirectorCardLib.csproj", "{64416F94-00B3-48E0-A520-9E9D55D9F762}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CopyObject", "CopyObject\CopyObject.csproj", "{DF2A20DF-7114-4A82-87D3-BF277A306800}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{64416F94-00B3-48E0-A520-9E9D55D9F762}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{64416F94-00B3-48E0-A520-9E9D55D9F762}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{64416F94-00B3-48E0-A520-9E9D55D9F762}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF2A20DF-7114-4A82-87D3-BF277A306800}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF2A20DF-7114-4A82-87D3-BF277A306800}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF2A20DF-7114-4A82-87D3-BF277A306800}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF2A20DF-7114-4A82-87D3-BF277A306800}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -101,22 +101,22 @@ namespace ReinDirectorCardLib
 
                         if (extraChampions != 0)
                         {
-                            DirectorCardCategorySelection.Category miniBosses = new DirectorCardCategorySelection.Category
+                            DirectorCardCategorySelection.Category champions = new DirectorCardCategorySelection.Category
                             {
                                 name = cats.categories[0].name,
                                 selectionWeight = cats.categories[0].selectionWeight,
-                                cards = new DirectorCard[baseMiniBosses + extraMiniBosses]
+                                cards = new DirectorCard[baseChampions + extraChampions]
                             };
 
-                            for (int i = 0; i < baseMiniBosses; i++)
+                            for (int i = 0; i < baseChampions; i++)
                             {
-                                miniBosses.cards[i] = cats.categories[0].cards[i];
+                                champions.cards[i] = cats.categories[0].cards[i];
                             }
-                            for (int i = 0; i < extraMiniBosses; i++)
+                            for (int i = 0; i < extraChampions; i++)
                             {
-                                miniBosses.cards[baseMiniBosses + i] = newMinibosses[i];
+                                champions.cards[baseChampions + i] = newChampions[i];
                             }
-                            cats.categories[0] = miniBosses;
+                            cats.categories[0] = champions;
                         }
                         if (extraMiniBosses != 0)
                         {
@@ -139,22 +139,22 @@ namespace ReinDirectorCardLib
                         }
                         if (extraBasicMonsters != 0)
                         {
-                            DirectorCardCategorySelection.Category miniBosses = new DirectorCardCategorySelection.Category
+                            DirectorCardCategorySelection.Category basicMonsters = new DirectorCardCategorySelection.Category
                             {
                                 name = cats.categories[2].name,
                                 selectionWeight = cats.categories[2].selectionWeight,
-                                cards = new DirectorCard[baseMiniBosses + extraMiniBosses]
+                                cards = new DirectorCard[baseBasicMonsters + extraBasicMonsters]
                             };
 
-                            for (int i = 0; i < baseMiniBosses; i++)
+                            for (int i = 0; i < baseBasicMonsters; i++)
                             {
-                                miniBosses.cards[i] = cats.categories[2].cards[i];
+                                basicMonsters.cards[i] = cats.categories[2].cards[i];
                             }
-                            for (int i = 0; i < extraMiniBosses; i++)
+                            for (int i = 0; i < extraBasicMonsters; i++)
                             {
-                                miniBosses.cards[baseMiniBosses + i] = newMinibosses[i];
+                                basicMonsters.cards[baseBasicMonsters + i] = newBasicMonsters[i];
                             }
-                            cats.categories[2] = miniBosses;
+                            cats.categories[2] = basicMonsters;
                         }
 
                         self.SetFieldValue<DirectorCardCategorySelection>("monsterCategories", cats);

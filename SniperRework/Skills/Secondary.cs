@@ -39,6 +39,7 @@ namespace EntityStates.ReinSniperRework.SniperWeapon
         {
             data.g_ui.showChargeBar = false;
             data.g_shotCharge = 0f;
+            data.g_chargeTier = 0;
             data.g_zoomed = false;
             if (NetworkServer.active && base.characterBody)
             {
