@@ -181,7 +181,7 @@ namespace EntityStates.ReinSniperRework.SniperWeapon
         public override void FixedUpdate()
         {
             base.FixedUpdate();
-            timer += Time.fixedDeltaTime * base.attackSpeedStat;
+            timer += Time.fixedDeltaTime * characterBody.attackSpeed;
             base.characterBody.isSprinting = false;
             if (timer >= data.p_reloadStartDelay && base.isAuthority)
             {

@@ -62,7 +62,7 @@ namespace EntityStates.ReinSniperRework.SniperWeapon
             base.characterBody.isSprinting = false;
             if( data.g_shotCharge < 1.0f )
             {
-                float addedCharge = Time.fixedDeltaTime * base.attackSpeedStat / data.s_chargeTime;
+                float addedCharge = Time.fixedDeltaTime * characterBody.attackSpeed / data.s_chargeTime;
                 data.g_shotCharge += addedCharge;
             }
             if( data.g_shotCharge >= 1.0f )

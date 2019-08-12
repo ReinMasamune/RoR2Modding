@@ -7,7 +7,7 @@ using System.Runtime.CompilerServices;
 namespace ReinSniperRework
 {
     [BepInDependency("com.bepis.r2api")]
-    [BepInPlugin("com.ReinThings.ReinSniperRework", "ReinSniperRework", "1.0.2")]
+    [BepInPlugin("com.ReinThings.ReinSniperRework", "ReinSniperRework", "1.0.3")]
 
     public class ReinSniperReworkMain : BaseUnityPlugin
     {
