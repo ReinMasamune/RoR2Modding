@@ -170,6 +170,10 @@ namespace EntityStates.ReinSniperRework.SniperWeapon
 
         private float AdjustedAttackSpeed( float attackSpeed )
         {
+            if( attackSpeed < 1f )
+            {
+                return attackSpeed;
+            }
             return Mathf.Min(attackSpeed, 1f + data.p_attackSpeedSoft * (1f - 1f / attackSpeed));
         }
     }
