@@ -7,8 +7,10 @@ using static ReinDirectorCardLib.ReinDirectorCardLib;
 
 namespace ReinDirectorCardLib
 {
-    public class AddedMonsterCard
+    public class EditMonsterCard
     {
+        public bool doEdits = false;
+        public string monsterName;
         public MonsterCategory category;
         public SpawnStages stages;
         public DirectorCard monster;
@@ -16,8 +18,10 @@ namespace ReinDirectorCardLib
         public string modMethodName;
         public int modLineNumber;
 
-        public AddedMonsterCard(MonsterCategory category, SpawnStages stages, DirectorCard monster,[CallerFilePath] string file = null, [CallerMemberName] string name = null, [CallerLineNumber] int lineNumber = 0 )
+        public EditMonsterCard(string monsterName , MonsterCategory category, SpawnStages stages, DirectorCard monster,[CallerFilePath] string file = null, [CallerMemberName] string name = null, [CallerLineNumber] int lineNumber = 0 )
         {
+            doEdits = true;
+            this.monsterName = monsterName;
             this.category = category;
             this.stages = stages;
             this.monster = monster ?? throw new ArgumentNullException(nameof(monster));

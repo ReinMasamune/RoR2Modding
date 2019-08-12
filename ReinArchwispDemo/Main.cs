@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using RoR2.Navigation;
 using System;
 using ReinDirectorCardLib;
-using static ReinDirectorCardLib.AddedMonsterCard;
+using static ReinDirectorCardLib.ReinDirectorCardLib;
 
 namespace ReinArchWispDemo
 {
@@ -19,23 +19,9 @@ namespace ReinArchWispDemo
     {
         public void Awake()
         {
-            //Loading the body here so changes can be made if needed, in this case we want to fix the hitbox so it covers more than 1/2 of the enemy and adjust the mass a bit
-            GameObject archWispBody = Resources.Load<GameObject>("prefabs/characterbodies/ArchWispBody");
-            CharacterMotor archWispMotor = archWispBody.GetComponent<CharacterMotor>();
-            archWispMotor.mass *= 2f;
-            HurtBox archWispHurtBox = archWispBody.GetComponentInChildren<HurtBox>();
-            if( archWispHurtBox )
-            {
-                GameObject hurtBoxObject = archWispHurtBox.gameObject;
-                //Remove old collider
-                Destroy(hurtBoxObject.GetComponent<Collider>());
-                //Add shiny new collider
-                BoxCollider collider = hurtBoxObject.AddComponent<BoxCollider>();
-                collider.isTrigger = false;
-                collider.center = new Vector3(0f, -0.5f, 0.25f);
-                collider.size = new Vector3(2.25f, 1.25f, 4f);
-            }
-
+            //Spawn card should be added to the list during Awake()
+            //Adding later should be ok, but results could be strange so try to avoid it (especially during stage load time)
+            //Edits to the body can be done at any time
             CharacterSpawnCard archWispCSC = ScriptableObject.CreateInstance<CharacterSpawnCard>();
             archWispCSC.noElites = false;
             archWispCSC.prefab = Resources.Load<GameObject>("prefabs/charactermasters/ArchWispMaster");
@@ -57,8 +43,48 @@ namespace ReinArchWispDemo
             archWispCard.spawnDistance = DirectorCore.MonsterSpawnDistance.Standard;
 
             AddedMonsterCard archWisp = new AddedMonsterCard(MonsterCategory.Miniboss, SpawnStages.AllStages, archWispCard);
-            ReinDirectorCardLib.ReinDirectorCardLib.AddedMonsterCards.Add(archWisp);
+            AddedMonsterCards.Add(archWisp);
 
+
+            //Now going to allow elite overloading worms, hopefully
+            CharacterSpawnCard owCard = Resources.Load<CharacterSpawnCard>("SpawnCards/CharacterSpawnCards/cscElectricWorm");
+            Debug.Log("----------------------------------------");
+            Debug.Log(owCard.name);
+            owCard.noElites = false;
+
+            DirectorCard owDirCard = new DirectorCard();
+            owDirCard.spawnCard = owCard;
+            owDirCard.cost = 4000;
+            owDirCard.selectionWeight = 1;
+            owDirCard.allowAmbushSpawn = true;
+            owDirCard.forbiddenUnlockable = "";
+            owDirCard.minimumStageCompletions = 0;
+            owDirCard.preventOverhead = true;
+            owDirCard.spawnDistance = DirectorCore.MonsterSpawnDistance.Far;
+
+            EditMonsterCard owEdit = new EditMonsterCard(owCard.prefab.name, MonsterCategory.Champion, SpawnStages.AllStages, owDirCard);
+            EditMonsterCards.Add(owEdit);
+            //foreach( CharacterSpawnCard csc in owCard )
+            //{
+            //    Debug.Log(csc.name);
+            //}
+
+        }
+
+        public void Start()
+        {
+            GameObject archWispBody = Resources.Load<GameObject>("prefabs/characterbodies/ArchWispBody");
+            HurtBox archWispHurtBox = archWispBody.GetComponentInChildren<HurtBox>();
+            if (archWispHurtBox)
+            {
+                GameObject hurtBoxObject = archWispHurtBox.gameObject;
+                //Remove old collider
+                Destroy(hurtBoxObject.GetComponent<SphereCollider>());
+                //Add shiny new collider
+                MeshCollider collider = hurtBoxObject.AddComponent<MeshCollider>();
+                collider.sharedMesh = archWispBody.GetComponentInChildren<SkinnedMeshRenderer>().sharedMesh;
+                collider.convex = true;
+            }
         }
     }
 }

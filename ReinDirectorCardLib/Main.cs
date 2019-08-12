@@ -4,6 +4,7 @@ using UnityEngine;
 using R2API.Utils;
 using System.Collections.Generic;
 using static ReinDirectorCardLib.AddedMonsterCard;
+using System;
 
 namespace ReinDirectorCardLib
 {
@@ -13,7 +14,30 @@ namespace ReinDirectorCardLib
     public class ReinDirectorCardLib : BaseUnityPlugin
     {
         public static List<AddedMonsterCard> AddedMonsterCards = new List<AddedMonsterCard>();
-        
+        public static List<EditMonsterCard> EditMonsterCards = new List<EditMonsterCard>();
+
+        public enum MonsterCategory
+        {
+            Champion = 0,
+            Miniboss = 1,
+            BasicMonster = 2
+        }
+
+        [Flags]
+        public enum SpawnStages
+        {
+            DistantRoost = 1,
+            TitanicPlains = 2,
+            WetlandAspect = 4,
+            AbandonedAqueduct = 8,
+            RallypointDelta = 16,
+            ScorchedAcres = 32,
+            AbyssalDepths = 64,
+            GildedCoast = 128,
+            AllStages = 255,
+            InvalidStage = 256
+        }
+
         public void Start()
         {
             On.RoR2.ClassicStageInfo.Awake += (orig, self) =>
@@ -52,6 +76,10 @@ namespace ReinDirectorCardLib
                                 stage = SpawnStages.RallypointDelta;
                                 break;
 
+                            case "wispgraveyard":
+                                stage = SpawnStages.ScorchedAcres;
+                                break;
+
                             case "dampcavesimple":
                                 stage = SpawnStages.AbyssalDepths;
                                 break;
@@ -65,9 +93,9 @@ namespace ReinDirectorCardLib
                                 break;
                         }
 
-                        List<DirectorCard> newChampions = new List<DirectorCard>();
-                        List<DirectorCard> newMinibosses = new List<DirectorCard>();
-                        List<DirectorCard> newBasicMonsters = new List<DirectorCard>();
+                        List<AddedMonsterCard> newChampions = new List<AddedMonsterCard>();
+                        List<AddedMonsterCard> newMinibosses = new List<AddedMonsterCard>();
+                        List<AddedMonsterCard> newBasicMonsters = new List<AddedMonsterCard>();
 
                         foreach( AddedMonsterCard amc in AddedMonsterCards )
                         {
@@ -76,15 +104,46 @@ namespace ReinDirectorCardLib
                                 switch( amc.category )
                                 {
                                     case MonsterCategory.BasicMonster:
-                                        newBasicMonsters.Add(amc.monster);
+                                        newBasicMonsters.Add(amc);
                                         break;
 
                                     case MonsterCategory.Miniboss:
-                                        newMinibosses.Add(amc.monster);
+                                        newMinibosses.Add(amc);
                                         break;
 
                                     case MonsterCategory.Champion:
-                                        newChampions.Add(amc.monster);
+                                        newChampions.Add(amc);
+                                        break;
+                                }
+                            }
+                        }
+
+                        Dictionary<string, EditMonsterCard> championEdits = new Dictionary<string, EditMonsterCard>();
+                        Dictionary<string, EditMonsterCard> minibossEdits = new Dictionary<string, EditMonsterCard>();
+                        Dictionary<string, EditMonsterCard> basicEdits = new Dictionary<string, EditMonsterCard>();
+                        bool editChamps = false;
+                        bool editMiniboss = false;
+                        bool editBasic = false;
+
+                        foreach ( EditMonsterCard emc in EditMonsterCards )
+                        {
+                            if( emc.stages.HasFlag( stage ) && emc.doEdits )
+                            {
+                                switch( emc.category )
+                                {
+                                    case MonsterCategory.BasicMonster:
+                                        basicEdits.Add(emc.monsterName, emc);
+                                        editBasic = true;
+                                        break;
+
+                                    case MonsterCategory.Miniboss:
+                                        minibossEdits.Add(emc.monsterName, emc);
+                                        editMiniboss = true;
+                                        break;
+
+                                    case MonsterCategory.Champion:
+                                        championEdits.Add(emc.monsterName, emc);
+                                        editChamps = true;
                                         break;
                                 }
                             }
@@ -94,13 +153,16 @@ namespace ReinDirectorCardLib
                         extraChampions = newChampions.Count;
                         extraMiniBosses = newMinibosses.Count;
 
+
+
                         DirectorCardCategorySelection cats = self.GetFieldValue<DirectorCardCategorySelection>("monsterCategories");
                         int baseChampions = cats.categories[0].cards.Length;
                         int baseMiniBosses = cats.categories[1].cards.Length;
                         int baseBasicMonsters = cats.categories[2].cards.Length;
 
-                        if (extraChampions != 0)
+                        if (extraChampions != 0 || editChamps)
                         {
+                            Debug.Log("Generating Champion cards");
                             DirectorCardCategorySelection.Category champions = new DirectorCardCategorySelection.Category
                             {
                                 name = cats.categories[0].name,
@@ -108,18 +170,40 @@ namespace ReinDirectorCardLib
                                 cards = new DirectorCard[baseChampions + extraChampions]
                             };
 
+                            DirectorCard temp;
+                            EditMonsterCard temp2;
+                            AddedMonsterCard temp3;
+
                             for (int i = 0; i < baseChampions; i++)
                             {
+                                temp = cats.categories[0].cards[i];
+                                if( editChamps && championEdits.ContainsKey(temp.spawnCard.prefab.name ))
+                                {
+                                    temp2 = championEdits[temp.spawnCard.prefab.name];
+                                    if( temp2.doEdits )
+                                    {
+                                        Debug.Log("Applying edit to: " + temp2.monsterName + " from: " + temp2.modFilePath + " Method: " + temp2.modMethodName + " Line: " + temp2.modLineNumber);
+                                        champions.cards[i] = temp2.monster;
+                                        continue;
+                                    }
+                                    else
+                                    {
+                                        Debug.Log("Skipping edit to: " + temp2.monsterName + " from: " + temp2.modFilePath + " Method: " + temp2.modMethodName + " Line: " + temp2.modLineNumber);
+                                    }
+                                }
                                 champions.cards[i] = cats.categories[0].cards[i];
                             }
                             for (int i = 0; i < extraChampions; i++)
                             {
-                                champions.cards[baseChampions + i] = newChampions[i];
+                                temp3 = newChampions[i];
+                                Debug.Log("New monster: " + temp3.monster.spawnCard.prefab.name + " added by: " + temp3.modFilePath + " Method: " + temp3.modMethodName + " Line: " + temp3.modLineNumber);
+                                champions.cards[baseChampions + i] = temp3.monster;
                             }
                             cats.categories[0] = champions;
                         }
-                        if (extraMiniBosses != 0)
+                        if (extraMiniBosses != 0 || editMiniboss)
                         {
+                            Debug.Log("Generating Miniboss cards");
                             DirectorCardCategorySelection.Category miniBosses = new DirectorCardCategorySelection.Category
                             {
                                 name = cats.categories[1].name,
@@ -127,18 +211,40 @@ namespace ReinDirectorCardLib
                                 cards = new DirectorCard[baseMiniBosses + extraMiniBosses]
                             };
 
+                            DirectorCard temp;
+                            EditMonsterCard temp2;
+                            AddedMonsterCard temp3;
+
                             for (int i = 0; i < baseMiniBosses; i++)
                             {
+                                temp = cats.categories[1].cards[i];
+                                if (editMiniboss && minibossEdits.ContainsKey(temp.spawnCard.prefab.name))
+                                {
+                                    temp2 = minibossEdits[temp.spawnCard.prefab.name];
+                                    if (temp2.doEdits)
+                                    {
+                                        Debug.Log("Applying edit to: " + temp2.monsterName + " from: " + temp2.modFilePath + " Method: " + temp2.modMethodName + " Line: " + temp2.modLineNumber);
+                                        miniBosses.cards[i] = minibossEdits[temp.spawnCard.prefab.name].monster;
+                                        continue;
+                                    }
+                                    else
+                                    {
+                                        Debug.Log("Skipping edit to: " + temp2.monsterName + " from: " + temp2.modFilePath + " Method: " + temp2.modMethodName + " Line: " + temp2.modLineNumber);
+                                    }
+                                }
                                 miniBosses.cards[i] = cats.categories[1].cards[i];
                             }
                             for (int i = 0; i < extraMiniBosses; i++)
                             {
-                                miniBosses.cards[baseMiniBosses + i] = newMinibosses[i];
+                                temp3 = newMinibosses[i];
+                                Debug.Log("New monster: " + temp3.monster.spawnCard.prefab.name + " added by: " + temp3.modFilePath + " Method: " + temp3.modMethodName + " Line: " + temp3.modLineNumber);
+                                miniBosses.cards[baseMiniBosses + i] = temp3.monster;
                             }
                             cats.categories[1] = miniBosses;
                         }
-                        if (extraBasicMonsters != 0)
+                        if (extraBasicMonsters != 0 || editBasic)
                         {
+                            Debug.Log("Generating Basic Monster cards");
                             DirectorCardCategorySelection.Category basicMonsters = new DirectorCardCategorySelection.Category
                             {
                                 name = cats.categories[2].name,
@@ -146,13 +252,34 @@ namespace ReinDirectorCardLib
                                 cards = new DirectorCard[baseBasicMonsters + extraBasicMonsters]
                             };
 
+                            DirectorCard temp;
+                            EditMonsterCard temp2;
+                            AddedMonsterCard temp3;
+
                             for (int i = 0; i < baseBasicMonsters; i++)
                             {
+                                temp = cats.categories[2].cards[i];
+                                if (editBasic && basicEdits.ContainsKey(temp.spawnCard.prefab.name))
+                                {
+                                    temp2 = basicEdits[temp.spawnCard.prefab.name];
+                                    if (temp2.doEdits)
+                                    {
+                                        Debug.Log("Applying edit to: " + temp2.monsterName + " from: " + temp2.modFilePath + " Method: " + temp2.modMethodName + " Line: " + temp2.modLineNumber);
+                                        basicMonsters.cards[i] = basicEdits[temp.spawnCard.prefab.name].monster;
+                                        continue;
+                                    }
+                                    else
+                                    {
+                                        Debug.Log("Skipping edit to: " + temp2.monsterName + " from: " + temp2.modFilePath + " Method: " + temp2.modMethodName + " Line: " + temp2.modLineNumber);
+                                    }
+                                }
                                 basicMonsters.cards[i] = cats.categories[2].cards[i];
                             }
                             for (int i = 0; i < extraBasicMonsters; i++)
                             {
-                                basicMonsters.cards[baseBasicMonsters + i] = newBasicMonsters[i];
+                                temp3 = newBasicMonsters[i];
+                                Debug.Log("New monster: " + temp3.monster.spawnCard.prefab.name + " added by: " + temp3.modFilePath + " Method: " + temp3.modMethodName + " Line: " + temp3.modLineNumber);
+                                basicMonsters.cards[baseBasicMonsters + i] = temp3.monster;
                             }
                             cats.categories[2] = basicMonsters;
                         }
