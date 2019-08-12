@@ -153,8 +153,6 @@ namespace ReinDirectorCardLib
                         extraChampions = newChampions.Count;
                         extraMiniBosses = newMinibosses.Count;
 
-
-
                         DirectorCardCategorySelection cats = self.GetFieldValue<DirectorCardCategorySelection>("monsterCategories");
                         int baseChampions = cats.categories[0].cards.Length;
                         int baseMiniBosses = cats.categories[1].cards.Length;
