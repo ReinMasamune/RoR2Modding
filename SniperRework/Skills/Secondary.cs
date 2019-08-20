@@ -86,7 +86,7 @@ namespace EntityStates.ReinSniperRework.SniperWeapon
                 data.g_chargeTier = 0;
             }
 
-            UpdateSlowTier(data.g_chargeTier + 1);
+            UpdateSlowTier(data.g_chargeTier);
 
             if( base.cameraTargetParams.aimMode != CameraTargetParams.AimType.FirstPerson )
             {
@@ -127,14 +127,10 @@ namespace EntityStates.ReinSniperRework.SniperWeapon
                 switch (slowTier)
                 {
                     case 1:
-                        oldBuff = BuffIndex.Slow30;
-                        break;
-
-                    case 2:
                         oldBuff = BuffIndex.Slow50;
                         break;
 
-                    case 3:
+                    case 2:
                         oldBuff = BuffIndex.Slow80;
                         break;
 
@@ -146,14 +142,10 @@ namespace EntityStates.ReinSniperRework.SniperWeapon
                 switch (newSlow)
                 {
                     case 1:
-                        newBuff = BuffIndex.Slow30;
-                        break;
-
-                    case 2:
                         newBuff = BuffIndex.Slow50;
                         break;
 
-                    case 3:
+                    case 2:
                         newBuff = BuffIndex.Slow80;
                         break;
 

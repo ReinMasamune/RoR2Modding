@@ -1,0 +1,73 @@
+		private void DebugChildren( GameObject g )
+        {
+            if (g != null)
+            {
+                DebugComponents(g);
+                Transform t = g.transform;
+                if (t != null)
+                {
+                    foreach( Transform child in t )
+                    {
+                        if (child.parent == t )
+                        {
+                            DebugComponents(child.gameObject);
+                            DebugChildren(child.gameObject);
+                        }
+                    }
+                }
+            }
+        }
+
+        private void DebugComponents(GameObject g)
+        {
+            if( g != null )
+            {
+                foreach( Component c in g.GetComponents<Component>() )
+                {
+                    if( c != null )
+                    {
+                        DebugFields(c);
+                    }
+                }
+            }
+        }
+
+        private void DebugFields(object thing)
+        {
+            if (thing != null)
+            {
+                foreach (FieldInfo f in thing.GetType().GetFields())
+                {
+                    if (f != null)
+                    {
+                        string name = f.Name;
+
+                        var type = f.FieldType;
+                        var value = f.GetValue(thing);
+                        if (type.IsValueType || type == typeof(string))
+                        {
+                            if (value != null)
+                            {
+                            }
+                            else
+                            {
+                            }
+                        }
+                        else if (type == typeof(GameObject))
+                        {
+                            DebugChildren(value as GameObject);
+                        }
+                        else
+                        {
+                            DebugFields(value);
+                        }
+                    }
+                    else
+                    {
+                    }
+                }
+            }
+            else
+            {
+            }
+        }

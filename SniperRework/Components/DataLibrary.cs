@@ -11,7 +11,8 @@ namespace ReinSniperRework
 {
     public class ReinDataLibrary : MonoBehaviour
     {
-                        //General use values
+        public AssetBundle bundle;
+        //General use values
         //floats
         public readonly float g_baseDamage = 16.0f;
         public readonly float g_baseHealth = 100.0f;
@@ -27,8 +28,9 @@ namespace ReinSniperRework
         //other
         public SniperUIController g_ui;
         private Texture2D newTex;
+        private Texture2D newTex2;
 
-                        //Enumerator config
+        //Enumerator config
         //floats
         private float en_checkTimer = 0.5f;
         private float en_readDelay = 0.2f;
@@ -63,7 +65,7 @@ namespace ReinSniperRework
         public readonly Color ui_bar2SliderColor = new Color(1.0f, 1.0f, 1.0f, 1.0f);
 
 
-                        //SniperPrimary Values
+        //SniperPrimary Values
         //floats
         public readonly float p_rechargeInterval = 0.001f;
         public readonly float p_shootDelay = 0f;
@@ -73,7 +75,7 @@ namespace ReinSniperRework
         public readonly float p_recoilAmplitude = 10.0f;
         public readonly float p_baseDuration = 0.01f;
         public readonly float p_interruptInterval = 0.01f;
-        public readonly float p_recoilForceMult = 650.0f;
+        public readonly float p_recoilForceMult = 600.0f;
         public readonly float p_reloadForceMult = 600.0f;
         public readonly float p_ntShotRadius = 0.025f;
         public readonly float p_t0ShotRadius = 0.05f;
@@ -83,14 +85,14 @@ namespace ReinSniperRework
         public readonly float p_reloadT0Mod = 0.75f;
         public readonly float p_reloadT1Mod = 1.45f;
         public readonly float p_reloadT2Mod = 2.0f;
-        public readonly float p_chargeT0Mod = 1.0f;
-        public readonly float p_chargeT1Mod = 1.05f;
-        public readonly float p_chargeT2Mod = 2.0f;
+        public readonly float p_chargeT0Mod = 0.0f;
+        public readonly float p_chargeT1Mod = -1.0f;
+        public readonly float p_chargeT2Mod = -1.0f;
         public readonly float p_chargeT0Scale = 0.0f;
-        public readonly float p_chargeT1Scale = 1.25f;
-        public readonly float p_chargeT2Scale = 5.0f;
-        public readonly float p_chargeT1Coef = 1.25f;
-        public readonly float p_chargeT2Coef = 1.75f;
+        public readonly float p_chargeT1Scale = 5.25f;
+        public readonly float p_chargeT2Scale = 10.0f;
+        public readonly float p_chargeT1Coef = 1.05f;
+        public readonly float p_chargeT2Coef = 1.25f;
         public readonly float p_reloadStartDelay = 0.5f;
         public readonly float p_loadTime = 2.0f;
         public readonly float p_attackSpeedSoft = 2.5f;
@@ -125,6 +127,9 @@ namespace ReinSniperRework
         public GameObject p_tracerEffectPrefab;
         public Tracer p_tracer;
         public ParticleSystemRenderer p_tracerPSR;
+        public ParticleSystemRenderer p_subPSR;
+        public ParticleSystem p_tracerPS;
+        public ParticleSystem p_subPS;
         public Light p_tracerHitL;
         public List<Material> p_matsToEdit = new List<Material>();
         //load requests
@@ -142,9 +147,9 @@ namespace ReinSniperRework
         public readonly float s_maxZoom = 32.0f;
         public readonly float s_baseFOV = 60.0f;
         public readonly float s_scrollScale = 1.5f;
-        public readonly float s_chargeTime = 10.0f;
-        public readonly float s_boost1Start = 0.25f;
-        public readonly float s_boost2Start = 0.75f;
+        public readonly float s_chargeTime = 5.0f;
+        public readonly float s_boost1Start = 0.33f;
+        public readonly float s_boost2Start = 0.9f;
         //ints
         public readonly int s_baseMaxStock = 1;
         public readonly int s_rechargeStock = 1;
@@ -164,7 +169,7 @@ namespace ReinSniperRework
         private IEnumerator en_s_crosshairPrefab;
 
 
-                        //SniperUtility values
+        //SniperUtility values
         //floats
         public readonly float u_rechargeInterval = 8.0f;
         public readonly float u_shootDelay = 0.25f;
@@ -197,7 +202,7 @@ namespace ReinSniperRework
         private IEnumerator en_u_blinkMat2;
 
 
-                        //SniperSpecial values
+        //SniperSpecial values
         //floats
         public readonly float r_rechargeInterval = 30.0f;
         public readonly float r_shootDelay = 0.1f;
@@ -245,18 +250,22 @@ namespace ReinSniperRework
 
         public void Awake()
         {
-            newTex = CreateRampTexture(new Vector3(1f, 1f, 1f), 0.75f);
+            newTex = CreateRampTexture(new Vector3(1f, 1f, 1f), 0.5f);
+            newTex2 = new Texture2D(1, 1);
+            newTex2.SetPixel(0, 0, new Color(1f, 1f, 1f, 1f));
+            newTex2.Apply();
+            //newTex = bundle.LoadAsset<Texture2D>("Assets/Texture2D/texRampDefault.png");
             p_matsToEdit.Clear();
 
-            req_p_hitEffectPrefab = Resources.LoadAsync<GameObject>("prefabs/effects/impacteffects/LightningStrikeImpact");
-            req_p_tracerEffectPrefab = Resources.LoadAsync<GameObject>("prefabs/effects/tracers/tracertoolbotrebar");
+            req_p_hitEffectPrefab = Resources.LoadAsync<GameObject>("prefabs/effects/impacteffects/LightningStrikeImpact");//Need to adjust this
+            req_p_tracerEffectPrefab = Resources.LoadAsync<GameObject>("prefabs/effects/tracers/tracergolem");
             req_s_crosshairPrefab = Resources.LoadAsync<GameObject>("prefabs/crosshair/snipercrosshair");
             req_u_blinkPrefab = Resources.LoadAsync<GameObject>("prefabs/effects/impblinkeffect");
             req_u_blinkMat1 = Resources.LoadAsync<Material>("Materials/mattpinout");
             req_u_blinkMat2 = Resources.LoadAsync<Material>("Materials/mathuntressflashexpanded");
-            req_r_mineProj = Resources.LoadAsync<GameObject>("Prefabs/projectiles/engimine");
-            req_i_mineWard = Resources.LoadAsync<GameObject>("prefabs/networkedobjects/engimineward");
-            req_i_mineForceTetherPrefab = Resources.LoadAsync<GameObject>("prefabs/effects/gravspheretether");
+            req_r_mineProj = Resources.LoadAsync<GameObject>("Prefabs/projectiles/engimine");//Need to adjust this
+            req_i_mineWard = Resources.LoadAsync<GameObject>("prefabs/networkedobjects/engimineward");//Need to adjust this
+            req_i_mineForceTetherPrefab = Resources.LoadAsync<GameObject>("prefabs/effects/gravspheretether");//Maybe adjust this?
 
             en_p_hitEffectPrefab = co_p_hitEffectPrefab();
             StartCoroutine(en_p_hitEffectPrefab);
@@ -282,7 +291,7 @@ namespace ReinSniperRework
 
         private IEnumerator co_p_hitEffectPrefab()
         {
-            if( !p_hitEffectPrefab )
+            if (!p_hitEffectPrefab)
             {
                 while (!req_p_hitEffectPrefab.isDone)
                 {
@@ -291,8 +300,11 @@ namespace ReinSniperRework
                 yield return new WaitForSeconds(en_readDelay);
 
                 GameObject g = (GameObject)req_p_hitEffectPrefab.asset;
+                //g = Instantiate(g);
+                //DontDestroyOnLoad(g);
+                //g.SetActive(false);
 
-                foreach( ParticleSystemRenderer psr in g.GetComponentsInChildren<ParticleSystemRenderer>() )
+                foreach (ParticleSystemRenderer psr in g.GetComponentsInChildren<ParticleSystemRenderer>())
                 {
                     //Debug.Log(psr.gameObject.name);
                     //Debug.Log("Material");
@@ -315,8 +327,9 @@ namespace ReinSniperRework
                         case "Distortion":
                             break;
                         case "Flash Lines":
-                            psr.material.SetTexture("_RemapTex", newTex);
-                            p_matsToEdit.Add(psr.material);
+                            //psr.material.SetTexture("_RemapTex", newTex);
+                            //p_matsToEdit.Add(psr.material);
+                            Destroy(psr);
                             break;
                         case "Sphere":
                             psr.material.SetTexture("_RemapTex", newTex);
@@ -328,29 +341,26 @@ namespace ReinSniperRework
                     }
                 }
 
-                foreach( ParticleSystem ps in g.GetComponentsInChildren<ParticleSystem>() )
+                foreach (ParticleSystem ps in g.GetComponentsInChildren<ParticleSystem>())
                 {
-                    switch( ps.gameObject.name )
+                    switch (ps.gameObject.name)
                     {
                         case "LightningRibbon":
                             Destroy(ps);
                             break;
                         case "Ring":
                             var ringSize = ps.sizeOverLifetime;
-                            ringSize.sizeMultiplier = 0.75f;
+                            ringSize.sizeMultiplier = 1f;
                             break;
                         case "Flash":
                             Destroy(ps);
                             break;
                         case "Distortion":
                             var distSize = ps.sizeOverLifetime;
-                            distSize.sizeMultiplier = 1f;
+                            distSize.sizeMultiplier = 1.25f;
                             break;
                         case "Flash Lines":
-                            var lineSize = ps.sizeOverLifetime;
-                            lineSize.xMultiplier = 0.75f;
-                            lineSize.yMultiplier = 0.25f;
-                            lineSize.zMultiplier = 0.25f;
+                            Destroy(ps);
                             break;
                         case "Sphere":
                             var size = ps.sizeOverLifetime;
@@ -364,7 +374,7 @@ namespace ReinSniperRework
 
 
                 p_tracerHitL = g.GetComponent<Light>();
-                if( !p_tracerHitL )
+                if (!p_tracerHitL)
                 {
                     p_tracerHitL = g.AddComponent<Light>();
                 }
@@ -383,29 +393,49 @@ namespace ReinSniperRework
 
         private IEnumerator co_p_tracerEffectPrefab()
         {
-            if( !p_tracerEffectPrefab )
+            if (!p_tracerEffectPrefab)
             {
-                while( !req_p_tracerEffectPrefab.isDone )
+                while (!req_p_tracerEffectPrefab.isDone)
                 {
                     yield return new WaitForSeconds(en_checkTimer);
                 }
                 yield return new WaitForSeconds(en_readDelay);
 
-                GameObject g = (GameObject)req_p_tracerEffectPrefab.asset;
+                GameObject refGO = (GameObject)req_p_tracerEffectPrefab.asset;
 
-                Destroy(g.GetComponentInChildren<MeshRenderer>());
-                foreach( ParticleSystemRenderer psr in g.GetComponentsInChildren<ParticleSystemRenderer>())
-                {
-                    if( psr.gameObject.name != "BeamObject" )
-                    {
-                        Destroy(psr);
-                    }
-                }
+                GameObject g = Instantiate(refGO);
+                g.SetActive(false);
+                DontDestroyOnLoad(g);
 
                 p_tracer = g.GetComponent<Tracer>();
-                p_tracerPSR = p_tracer.beamObject.GetComponent<ParticleSystemRenderer>();
-                p_tracerPSR.trailMaterial.SetTexture("_RemapTex", newTex);
-                p_matsToEdit.Add(p_tracerPSR.trailMaterial);
+
+                p_tracerPS = g.GetComponentInChildren<ParticleSystem>();
+                p_tracerPSR = g.GetComponentInChildren<ParticleSystemRenderer>();
+
+                var main = p_tracerPS.main;
+                var colL = p_tracerPS.colorOverLifetime;
+                main.startSizeX = 3f;
+                main.startSizeY = 0.25f;
+                main.startSizeZ = 3f;
+                main.simulationSpace = ParticleSystemSimulationSpace.World;
+
+                colL.enabled = false;
+
+                Material mat1 = Instantiate(refGO.GetComponentInChildren<ParticleSystemRenderer>().material);
+
+                mat1.SetTexture("_RemapTex", newTex);
+
+                mat1.SetTexture("_Cloud1Tex", bundle.LoadAsset<Texture2D>("Assets/Texture2D/texCloudWhiteNoise.png"));
+
+                mat1.SetTexture("_Cloud2Tex", bundle.LoadAsset<Texture2D>("Assets/Texture2D/texCloudSkulls.png"));
+
+                mat1.SetTexture("_MainTex", bundle.LoadAsset<Texture2D>("Assets/Texture2D/texAlphaGradient2Mask.png"));
+
+
+
+                p_tracerPSR.material = mat1;
+
+                p_matsToEdit.Add(mat1);
 
                 p_tracerEffectPrefab = g;
             }
@@ -413,9 +443,9 @@ namespace ReinSniperRework
 
         private IEnumerator co_s_crosshairPrefab()
         {
-            if( !s_crosshairPrefab )
+            if (!s_crosshairPrefab)
             {
-                while( !req_s_crosshairPrefab.isDone )
+                while (!req_s_crosshairPrefab.isDone)
                 {
                     yield return new WaitForSeconds(en_checkTimer);
                 }
@@ -431,9 +461,9 @@ namespace ReinSniperRework
 
         private IEnumerator co_u_blinkPrefab()
         {
-            if( !u_blinkPrefab )
+            if (!u_blinkPrefab)
             {
-                while (!req_u_blinkPrefab.isDone )
+                while (!req_u_blinkPrefab.isDone)
                 {
                     yield return new WaitForSeconds(en_checkTimer);
                 }
@@ -447,9 +477,9 @@ namespace ReinSniperRework
 
         private IEnumerator co_u_blinkMat1()
         {
-            if( !u_blinkMat1 )
+            if (!u_blinkMat1)
             {
-                while( !req_u_blinkMat1.isDone )
+                while (!req_u_blinkMat1.isDone)
                 {
                     yield return new WaitForSeconds(en_checkTimer);
                 }
@@ -476,12 +506,12 @@ namespace ReinSniperRework
                 u_blinkMat2 = m;
             }
         }
-        
+
         private IEnumerator co_r_mineProj()
         {
-            if( !r_mineProj )
+            if (!r_mineProj)
             {
-                while( !req_r_mineProj.isDone || !req_i_mineForceTetherPrefab.isDone || !req_i_mineWard.isDone )
+                while (!req_r_mineProj.isDone || !req_i_mineForceTetherPrefab.isDone || !req_i_mineWard.isDone)
                 {
                     yield return new WaitForSeconds(en_checkTimer);
                 }
@@ -577,12 +607,12 @@ namespace ReinSniperRework
             return tex;
         }
 
-        private void DebugMaterialInfo( Material m )
+        private void DebugMaterialInfo(Material m)
         {
             Debug.Log("Material name: " + m.name);
             string[] s = m.shaderKeywords;
             Debug.Log("Shader keywords");
-            for( int i=0; i<s.Length;i++ )
+            for (int i = 0; i < s.Length; i++)
             {
                 Debug.Log(s[i]);
             }
@@ -591,10 +621,11 @@ namespace ReinSniperRework
 
             Debug.Log("Texture Properties");
             string[] s2 = m.GetTexturePropertyNames();
-            for( int i = 0; i<s2.Length;i++ )
+            for (int i = 0; i < s2.Length; i++)
             {
                 Debug.Log(s2[i] + " : " + m.GetTexture(s2[i]));
             }
         }
     }
 }
+

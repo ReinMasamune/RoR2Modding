@@ -3,6 +3,8 @@ using RoR2;
 using UnityEngine;
 using R2API.Utils;
 using System.Runtime.CompilerServices;
+using System.Reflection;
+using EntityStates;
 
 namespace ReinSniperRework
 {
@@ -13,14 +15,88 @@ namespace ReinSniperRework
     {
         public void Start()
         {
+            var execAssembly = Assembly.GetExecutingAssembly();
+            var stream = execAssembly.GetManifestResourceStream("ReinSniperRework.sniperassetbundle");
+            var sniperBundle = AssetBundle.LoadFromStream(stream);
+            
             GameObject body = BodyCatalog.FindBodyPrefab("SniperBody");
 
             ReinDataLibrary data = body.AddComponent<ReinDataLibrary>();
             data.g_ui = body.AddComponent<SniperUIController>();
             data.g_ui.data = data;
+            data.bundle = sniperBundle;
 
             SkillLocator SL = body.GetComponent<SkillLocator>();
             CharacterBody charbody = body.GetComponent<CharacterBody>();
+            SetStateOnHurt hurtState = body.AddComponent<SetStateOnHurt>();
+
+            hurtState.canBeFrozen = true;
+            hurtState.canBeHitStunned = false;
+            hurtState.canBeStunned = false;
+            hurtState.hitThreshold = 5f;
+
+            hurtState.hurtState = new SerializableEntityStateType(EntityState.Instantiate(219).GetType());
+
+
+            int i = 0;
+            EntityStateMachine[] esmr = new EntityStateMachine[2]; 
+            foreach( EntityStateMachine esm in body.GetComponentsInChildren<EntityStateMachine>())
+            {
+                switch (esm.customName)
+                {
+                    case "Body":
+                        hurtState.targetStateMachine = esm;
+                        break;
+                    default:
+                        if (i < 2)
+                        {
+                            esmr[i] = esm;
+                            Debug.Log(esm.customName);
+                        }
+                        i++;
+                        Debug.Log(i);
+                        break;
+                }
+            }
+
+            hurtState.idleStateMachine = esmr;
+
+            
+            /*GameObject refBody = BodyCatalog.FindBodyPrefab("CommandoBody");
+
+            if( refBody )
+            {
+                Debug.Log("----------");
+                Debug.Log("Getting data from commando for reference");
+                SetStateOnHurt hurtState = refBody.GetComponent<SetStateOnHurt>();
+                Debug.Log("Settings");
+                Debug.Log(hurtState.canBeFrozen);
+                Debug.Log(hurtState.canBeHitStunned);
+                Debug.Log(hurtState.canBeStunned);
+                Debug.Log(hurtState.hitThreshold);
+                Debug.Log("Ref vars");
+                Debug.Log("hurtState info");
+                SerializableEntityStateType stateOnHurt = hurtState.hurtState;
+                Debug.Log(stateOnHurt.stateType.ToString());
+                Debug.Log(stateOnHurt.GetType().ToString());
+                Debug.Log(StateIndexTable.TypeToIndex( stateOnHurt.GetType()))
+                Debug.Log("targetStateMachine");
+                EntityStateMachine esm1 = hurtState.targetStateMachine;
+                Debug.Log(esm1.customName);
+                Debug.Log(esm1.name);
+                Debug.Log(esm1.GetType().ToString());
+                EntityStateMachine[] esmr = hurtState.idleStateMachine;
+                Debug.Log("Fuckin arrays of ref types");
+                foreach(EntityStateMachine mac in esmr )
+                {
+                    Debug.Log(mac.customName);
+                    Debug.Log(mac.name);
+                    Debug.Log(mac.GetType().ToString());
+                    Debug.Log("----");
+                }
+            }
+            */
+
 
             GenericSkill Sniper1 = SL.primary;
             GenericSkill Sniper2 = SL.secondary;
@@ -33,7 +109,7 @@ namespace ReinSniperRework
             charbody.crosshairPrefab = Resources.Load<GameObject>(data.g_crosshairString);
             charbody.bodyFlags = CharacterBody.BodyFlags.ImmuneToExecutes;
 
-            //Config skill1
+            //Config skills
             Sniper1.baseRechargeInterval = data.p_rechargeInterval;
             Sniper1.baseMaxStock = data.p_baseMaxStock;
             Sniper1.rechargeStock = data.p_rechargeStock;
@@ -362,7 +438,9 @@ namespace ReinSniperRework
                 BoxCollider colb = hbb.gameObject.GetComponent<BoxCollider>();
                 if( colb.transform.localScale.x > 5f )
                 {
-                    colb.size = new Vector3(1f, 1f, 0.8f);
+                    Debug.Log("Beetle queen head adjusted");
+                    //colb.size = new Vector3(1f, 1f, 0.8f);
+                    colb.center = new Vector3(0f, 0f, -0.1f);
                 }
             }
 
@@ -389,14 +467,16 @@ namespace ReinSniperRework
                 return;
             }
 
+            target = target.Find("Mouth");
+
             GameObject g = target.gameObject;
             g.layer = sample.gameObject.layer;
             CapsuleCollider col = g.AddComponent<CapsuleCollider>();
-            col.radius = 0.5f;
+            col.radius = 0.75f;
             col.isTrigger = false;
             col.enabled = true;
-            col.center = new Vector3(0f, -0.1f, 0f);
-            col.height = 2f;
+            col.center = new Vector3(0f, -0.2f, -0.25f);
+            col.height = 2.5f;
             col.direction = 0;
             HurtBox hb = g.AddComponent<HurtBox>();
             hb.healthComponent = sample.healthComponent;
@@ -905,6 +985,15 @@ namespace ReinSniperRework
             {
                 Debug.Log("No Sample hurtbox found");
                 return;
+            }
+
+            foreach( CapsuleCollider coll in targetObj.GetComponentsInChildren<CapsuleCollider>() )
+            {
+                if( coll.gameObject.name == "TempHurtbox" )
+                {
+                    Debug.Log("Templar main hurtbox adjusted");
+                    coll.center = new Vector3(0f, -0.3f, 0f);
+                }
             }
 
             GameObject g = target.gameObject;
