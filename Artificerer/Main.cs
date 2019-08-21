@@ -19,14 +19,14 @@ namespace ReinArtificerer
             //var execAssembly = Assembly.GetExecutingAssembly();
             //var stream = execAssembly.GetManifestResourceStream("ReinSniperRework.sniperassetbundle");
             //var sniperBundle = AssetBundle.LoadFromStream(stream);
-
             GameObject body = BodyCatalog.FindBodyPrefab("MageBody");
 
             ReinDataLibrary data = body.AddComponent<ReinDataLibrary>();
             ReinElementTracker element = body.AddComponent<ReinElementTracker>();
+            ReinLightningBuffTracker lightning = body.AddComponent<ReinLightningBuffTracker>();
             element.data = data;
             data.element = element;
-
+            data.lightning = lightning;
             //data.g_ui = body.AddComponent<SniperUIController>();
             //data.g_ui.data = data;
             //data.bundle = sniperBundle;
@@ -34,77 +34,14 @@ namespace ReinArtificerer
             SkillLocator SL = body.GetComponent<SkillLocator>();
             CharacterBody charBody = body.GetComponent<CharacterBody>();
             element.body = charBody;
-            //SetStateOnHurt hurtState = body.AddComponent<SetStateOnHurt>();
+            lightning.body = charBody;
 
-            Debug.Log(Resources.Load<GameObject>("Prefabs/Projectiles/MageFireBombProjectile").GetComponent<ProjectileController>().ghostPrefab.name);
-
-            //hurtState.canBeFrozen = true;
-            //hurtState.canBeHitStunned = false;
-            //hurtState.canBeStunned = false;
-            //hurtState.hitThreshold = 5f;
-
-            //hurtState.hurtState = new SerializableEntityStateType(EntityState.Instantiate(219).GetType());
-
-
-            //int i = 0;
-            //EntityStateMachine[] esmr = new EntityStateMachine[2];
-            //foreach (EntityStateMachine esm in body.GetComponentsInChildren<EntityStateMachine>())
-            //{
-            //    switch (esm.customName)
-            //    {
-            //        case "Body":
-            //            hurtState.targetStateMachine = esm;
-            //            break;
-            //        default:
-            //            if (i < 2)
-            //            {
-            //                esmr[i] = esm;
-            //                Debug.Log(esm.customName);
-            //            }
-            //            i++;
-            //            Debug.Log(i);
-            //            break;
-            //    }
-            //}
-
-            //hurtState.idleStateMachine = esmr;
-
-
-            /*GameObject refBody = BodyCatalog.FindBodyPrefab("CommandoBody");
-
-            if( refBody )
-            {
-                Debug.Log("----------");
-                Debug.Log("Getting data from commando for reference");
-                SetStateOnHurt hurtState = refBody.GetComponent<SetStateOnHurt>();
-                Debug.Log("Settings");
-                Debug.Log(hurtState.canBeFrozen);
-                Debug.Log(hurtState.canBeHitStunned);
-                Debug.Log(hurtState.canBeStunned);
-                Debug.Log(hurtState.hitThreshold);
-                Debug.Log("Ref vars");
-                Debug.Log("hurtState info");
-                SerializableEntityStateType stateOnHurt = hurtState.hurtState;
-                Debug.Log(stateOnHurt.stateType.ToString());
-                Debug.Log(stateOnHurt.GetType().ToString());
-                Debug.Log(StateIndexTable.TypeToIndex( stateOnHurt.GetType()))
-                Debug.Log("targetStateMachine");
-                EntityStateMachine esm1 = hurtState.targetStateMachine;
-                Debug.Log(esm1.customName);
-                Debug.Log(esm1.name);
-                Debug.Log(esm1.GetType().ToString());
-                EntityStateMachine[] esmr = hurtState.idleStateMachine;
-                Debug.Log("Fuckin arrays of ref types");
-                foreach(EntityStateMachine mac in esmr )
-                {
-                    Debug.Log(mac.customName);
-                    Debug.Log(mac.name);
-                    Debug.Log(mac.GetType().ToString());
-                    Debug.Log("----");
-                }
-            }
-            */
-
+            var netStates = body.GetComponent<NetworkStateMachine>();
+            var states = netStates.GetFieldValue<EntityStateMachine[]>("stateMachines");
+            data.bodyState = states[0];
+            data.weaponState = states[1];
+            Debug.Log(data.bodyState.customName);
+            Debug.Log(data.weaponState.customName);
 
             GenericSkill mage1 = SL.primary;
             GenericSkill mage2 = SL.secondary;
@@ -203,8 +140,6 @@ namespace ReinArtificerer
             //   survivorIndex = SurvivorIndex.Count
             //};
             //R2API.SurvivorAPI.AddSurvivorOnReady(survivor);
-
-            //AddHurtboxes();
         }
 
     }

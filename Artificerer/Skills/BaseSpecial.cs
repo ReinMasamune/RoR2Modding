@@ -6,8 +6,9 @@ using ReinArtificerer;
 
 namespace EntityStates.ReinArtificerer.Artificer.Weapon
 {
-    public class FireSpecial : BaseState
+    public class BaseSpecial : BaseState
     {
+        // TODO: Refurbish this entire skill
         ReinDataLibrary data;
         ReinElementTracker elements;
         ReinLightningBuffTracker lightning;
@@ -35,9 +36,9 @@ namespace EntityStates.ReinArtificerer.Artificer.Weapon
         {
             base.OnEnter();
             data = base.GetComponent<ReinDataLibrary>();
-            Chat.AddMessage("This is the fire special, kinda");
-
-            elements.ResetElement(ReinElementTracker.Element.fire);
+            elements = data.element;
+            lightning = data.lightning;
+            Chat.AddMessage("This is the base special");
 
             elements.AddElement(ReinElementTracker.Element.fire, 2);
 
@@ -102,6 +103,12 @@ namespace EntityStates.ReinArtificerer.Artificer.Weapon
             }
             if (stopwatch >= flamethrowerDuration + entryDuration && base.isAuthority)
             {
+                if( lightning.GetBuffed() )
+                {
+                    LightningBlink blink = new LightningBlink();
+                    blink.castValue = data.r_blinkCastValue;
+                    data.bodyState.SetNextState(blink);
+                }
                 outer.SetNextStateToMain();
                 return;
             }

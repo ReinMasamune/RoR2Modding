@@ -10,6 +10,13 @@ namespace EntityStates.ReinArtificerer.Artificer.Weapon
     public class Utility : BaseState
     {
         ReinDataLibrary data;
+        ReinElementTracker elements;
+        ReinElementTracker.Element mainElem;
+        ReinLightningBuffTracker lightning;
+
+        int fireLevel = 0;
+        int iceLevel = 0;
+        int lightningLevel = 0;
 
         //public static GameObject goodCrosshairPrefab;
         //public static GameObject badCrosshairPrefab;
@@ -19,76 +26,37 @@ namespace EntityStates.ReinArtificerer.Artificer.Weapon
         private GameObject areaIndicatorInstance;
         private GameObject cachedCrosshairPrefab;
 
-        private GameObject tempProjectile;
-        private GameObject tempMuzzleFlash;
-
         public override void OnEnter()
         {
             base.OnEnter();
 
             data = base.GetComponent<ReinDataLibrary>();
+            elements = data.element;
+            lightning = data.lightning;
 
-            int elem = Mathf.RoundToInt(Random.Range(1f, 3f));
-
-            switch( elem )
-            {
-                case 1:
-                    Chat.AddMessage("Fire");
-                    data.u_walkerController.firePillarPrefab = data.u_f_pillar;
-                    tempMuzzleFlash = data.u_f_muzzle;
-                    break;
-
-                case 2:
-                    Chat.AddMessage("Ice");
-                    data.u_walkerController.firePillarPrefab = data.u_i_pillar;
-                    tempMuzzleFlash = data.u_i_muzzle;
-                    break;
-
-                case 3:
-                    Chat.AddMessage("Lightning");
-                    data.u_walkerController.firePillarPrefab = data.u_l_pillar;
-                    tempMuzzleFlash = data.u_l_muzzle;
-                    break;
-
-                default:
-                    Chat.AddMessage("Wtf");
-                    data.u_walkerController.firePillarPrefab = data.u_i_pillar;
-                    tempMuzzleFlash = data.u_i_muzzle;
-                    break;
-            }
-            if( elem == 1 )
-            {
-
-            }
-            if( elem == 2 )
-            {
-
-            }
-            if( elem == 3 )
-            {
-
-            }
+            mainElem = elements.GetMainElement();
 
             duration = data.u_baseDuration / attackSpeedStat;
+
             base.characterBody.SetAimTimer(duration + 2f);
+
             cachedCrosshairPrefab = base.characterBody.crosshairPrefab;
+
             base.PlayAnimation("Gesture, Additive", "PrepWall", "PrepWall.playbackRate", duration);
+
             Util.PlaySound(data.u_prepSound, base.gameObject);
+
             areaIndicatorInstance = UnityEngine.Object.Instantiate<GameObject>(data.u_areaIndicator);
-            MageLastElementTracker component = base.GetComponent<MageLastElementTracker>();
-            if (component)
-            {
-                component.ApplyElement(MageElement.Ice);
-            }
+
             UpdateAreaIndicator();
         }
-
+        //good
         public override void Update()
         {
             base.Update();
             UpdateAreaIndicator();
         }
-
+        //good
         public override void FixedUpdate()
         {
             base.FixedUpdate();
@@ -105,18 +73,80 @@ namespace EntityStates.ReinArtificerer.Artificer.Weapon
             {
                 base.PlayAnimation("Gesture, Additive", "FireWall");
                 Util.PlaySound(data.u_fireSound, base.gameObject);
-                if (/*areaIndicatorInstance &&*/ base.isAuthority)
+                if (areaIndicatorInstance && base.isAuthority)
                 {
+                    GameObject tempMuzzleFlash;
+
+                    fireLevel = elements.GetElementLevel(ReinElementTracker.Element.fire);
+                    iceLevel = elements.GetElementLevel(ReinElementTracker.Element.ice);
+                    lightningLevel = elements.GetElementLevel(ReinElementTracker.Element.lightning);
+
+                    switch (mainElem)
+                    {
+                        case ReinElementTracker.Element.fire:
+                            Chat.AddMessage("Fire wall");
+                            elements.ResetElement(ReinElementTracker.Element.fire);
+                            data.u_walkerController.firePillarPrefab = data.u_f_pillar;
+                            tempMuzzleFlash = data.u_f_muzzle;
+                            break;
+                        case ReinElementTracker.Element.ice:
+                            Chat.AddMessage("Ice wall");
+                            elements.ResetElement(ReinElementTracker.Element.ice);
+                            data.u_walkerController.firePillarPrefab = data.u_i_pillar;
+                            tempMuzzleFlash = data.u_i_muzzle;
+                            break;
+                        case ReinElementTracker.Element.lightning:
+                            Chat.AddMessage("Lightning wall");
+                            elements.ResetElement(ReinElementTracker.Element.lightning);
+                            data.u_walkerController.firePillarPrefab = data.u_l_pillar;
+                            tempMuzzleFlash = data.u_l_muzzle;
+                            break;
+                        case ReinElementTracker.Element.none:
+                            Chat.AddMessage("Base wall");
+
+                            data.u_walkerController.firePillarPrefab = data.u_i_pillar;
+                            tempMuzzleFlash = data.u_i_muzzle;
+
+                            break;
+                        default:
+                            Chat.AddMessage("You fucking broke it... Good job moron");
+                            data.u_walkerController.firePillarPrefab = data.u_i_pillar;
+                            tempMuzzleFlash = data.u_i_muzzle;
+                            break;
+                    }
+                    if (fireLevel > 0)
+                    {
+
+                    }
+                    if (iceLevel > 0)
+                    {
+
+                    }
+                    if (lightningLevel > 0)
+                    {
+
+                    }
+
+                    elements.AddElement(ReinElementTracker.Element.ice, 2);
+
+
                     EffectManager.instance.SimpleMuzzleFlash(tempMuzzleFlash, base.gameObject, "MuzzleLeft", true);
                     EffectManager.instance.SimpleMuzzleFlash(tempMuzzleFlash, base.gameObject, "MuzzleRight", true);
                     //Vector3 forward = areaIndicatorInstance.transform.forward;
                     Vector3 forward = base.GetAimRay().direction;
                     forward.y = 0f;
                     forward.Normalize();
-                    Vector3 vector = Vector3.Cross(Vector3.up, forward);
+                    //Vector3 vector = Vector3.Cross(Vector3.up, forward);
                     bool crit = Util.CheckRoll(critStat, base.characterBody.master);
+                    // TODO: Utility needs update to new projectile fire def
                     ProjectileManager.instance.FireProjectile(data.u_seedProjectile, areaIndicatorInstance.transform.position + Vector3.up, Util.QuaternionSafeLookRotation(forward), base.gameObject, damageStat * data.u_i_damageCoef, 0f, crit, DamageColorIndex.Default, null, -1f);
-                    //ProjectileManager.instance.FireProjectile(tempProjectile, areaIndicatorInstance.transform.position + Vector3.up, Util.QuaternionSafeLookRotation(-vector), base.gameObject, damageStat * data.u_i_damageCoef, 0f, crit, DamageColorIndex.Default, null, -1f);
+
+                    if( lightning.GetBuffed() )
+                    {
+                        LightningBlink blink = new LightningBlink();
+                        blink.castValue = data.u_blinkCastValue;
+                        data.bodyState.SetNextState(blink);
+                    }
                 }
             }
             else
@@ -128,7 +158,7 @@ namespace EntityStates.ReinArtificerer.Artificer.Weapon
             base.characterBody.crosshairPrefab = cachedCrosshairPrefab;
             base.OnExit();
         }
-
+        //good
         private void UpdateAreaIndicator()
         {
             goodPlacement = false;
@@ -150,7 +180,7 @@ namespace EntityStates.ReinArtificerer.Artificer.Weapon
             }
             areaIndicatorInstance.SetActive(goodPlacement);
         }
-
+        //good
         public override InterruptPriority GetMinimumInterruptPriority()
         {
             return InterruptPriority.Pain;

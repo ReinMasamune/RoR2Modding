@@ -9,6 +9,13 @@ namespace EntityStates.ReinArtificerer.Artificer.Weapon
     public class Secondary : BaseState
     {
         ReinDataLibrary data;
+        ReinElementTracker elements;
+        ReinElementTracker.Element mainElem;
+        ReinLightningBuffTracker lightning;
+
+        private int fireLevel = 0;
+        private int iceLevel = 0;
+        private int lightningLevel = 0;
 
         private float stopwatch;
         private float windDownDuration;
@@ -28,56 +35,50 @@ namespace EntityStates.ReinArtificerer.Artificer.Weapon
             base.OnEnter();
 
             data = base.GetComponent<ReinDataLibrary>();
+            elements = data.element;
+            lightning = data.lightning;
 
-            int elem = Mathf.RoundToInt(Random.Range(1f, 3f));
+            mainElem = elements.GetMainElement();
 
-            tempMuzzleFlash = data.s_l_muzzle;
-            tempChargeEffect = data.s_l_charge;
+            fireLevel = elements.GetElementLevel(ReinElementTracker.Element.fire);
+            iceLevel = elements.GetElementLevel(ReinElementTracker.Element.ice);
+            lightningLevel = elements.GetElementLevel(ReinElementTracker.Element.lightning);
 
-            data.s_proxBeams.enabled = false;
-
-            switch( elem )
+            switch (mainElem)
             {
-                case 1:
-                    Chat.AddMessage("Fire");
-                    tempMuzzleFlash = data.s_f_muzzle;
-                    data.s_control.ghostPrefab = data.s_f_projectile;
+                case ReinElementTracker.Element.fire:
+                    Chat.AddMessage("Fire bomb");
                     tempChargeEffect = data.s_f_charge;
                     break;
-
-                case 2:
-                    Chat.AddMessage("Ice");
-                    tempMuzzleFlash = data.s_i_muzzle;
-                    data.s_control.ghostPrefab = data.s_i_projectile;
+                case ReinElementTracker.Element.ice:
+                    Chat.AddMessage("Ice bomb");
                     tempChargeEffect = data.s_i_charge;
                     break;
-
-                case 3:
-                    Chat.AddMessage("Lightning");
-                    tempMuzzleFlash = data.s_l_muzzle;
-                    data.s_control.ghostPrefab = data.s_l_projectile;
+                case ReinElementTracker.Element.lightning:
+                    Chat.AddMessage("Lightning bomb");
                     tempChargeEffect = data.s_l_charge;
                     break;
-
+                case ReinElementTracker.Element.none:
+                    Chat.AddMessage("Base bomb");
+                    tempChargeEffect = data.s_l_charge;
+                    break;
                 default:
-                    Debug.Log("WTf");
+                    Chat.AddMessage("You fucking broke it... Good job moron");
+                    tempChargeEffect = data.s_l_charge;
                     break;
             }
-            if( elem == 1 )
+            if (fireLevel > 0)
             {
 
             }
-            if( elem == 2 )
+            if (iceLevel > 0)
             {
 
             }
-            if( elem == 3 )
+            if (lightningLevel > 0)
             {
-                data.s_proxBeams.enabled = true;
+
             }
-
-
-
 
             stopwatch = 0f;
 
@@ -133,6 +134,12 @@ namespace EntityStates.ReinArtificerer.Artificer.Weapon
             if (!hasFiredBomb && (stopwatch >= chargeDuration || !base.inputBank.skill2.down) && !hasFiredBomb && stopwatch >= 0.5f)
             {
                 FireNovaBomb();
+                if( lightning.GetBuffed() )
+                {
+                    LightningBlink blink = new LightningBlink();
+                    blink.castValue = data.s_blinkCastValue;
+                    data.bodyState.SetNextState(blink);
+                }
             }
             if (stopwatch >= windDownDuration && hasFiredBomb && base.isAuthority)
             {
@@ -140,7 +147,7 @@ namespace EntityStates.ReinArtificerer.Artificer.Weapon
                 return;
             }
         }
-
+        //good
         public override void OnExit()
         {
             if (chargeEffectInstance)
@@ -150,7 +157,7 @@ namespace EntityStates.ReinArtificerer.Artificer.Weapon
             base.characterBody.crosshairPrefab = defaultCrosshairPrefab;
             base.OnExit();
         }
-
+        //good
         private float GetChargeProgress()
         {
             return Mathf.Clamp01(stopwatch / chargeDuration);
@@ -165,6 +172,55 @@ namespace EntityStates.ReinArtificerer.Artificer.Weapon
             {
                 EntityState.Destroy(chargeEffectInstance);
             }
+
+            // TODO: Element needs to go here (except charge prefab)
+            switch( mainElem )
+            {
+                case ReinElementTracker.Element.fire:
+                    Chat.AddMessage("Fire bomb");
+                    elements.ResetElement(ReinElementTracker.Element.fire);
+                    tempMuzzleFlash = data.s_f_muzzle;
+                    data.s_control.ghostPrefab = data.s_f_projectile;
+                break;
+                case ReinElementTracker.Element.ice:
+                    Chat.AddMessage("Ice bomb");
+                    elements.ResetElement(ReinElementTracker.Element.ice);
+                    tempMuzzleFlash = data.s_i_muzzle;
+                    data.s_control.ghostPrefab = data.s_i_projectile;
+                break;
+                case ReinElementTracker.Element.lightning:
+                    Chat.AddMessage("Lightning bomb");
+                    elements.ResetElement(ReinElementTracker.Element.lightning);
+                    tempMuzzleFlash = data.s_l_muzzle;
+                    data.s_control.ghostPrefab = data.s_l_projectile;
+                break;
+                case ReinElementTracker.Element.none:
+                    Chat.AddMessage("Base bomb");
+                    tempMuzzleFlash = data.s_l_muzzle;
+                    data.s_control.ghostPrefab = data.s_l_projectile;
+                break;
+                default:
+                    Chat.AddMessage("You fucking broke it... Good job moron");
+                    tempMuzzleFlash = data.s_l_muzzle;
+                    data.s_control.ghostPrefab = data.s_l_projectile;
+                break;
+            }
+            if (fireLevel > 0)
+            {
+
+            }
+            if (iceLevel > 0)
+            {
+
+            }
+            if (lightningLevel > 0)
+            {
+
+            }
+
+            elements.AddElement(ReinElementTracker.Element.lightning, 2);
+
+
             if (data.s_l_muzzle)
             {
                 EffectManager.instance.SimpleMuzzleFlash(data.s_l_muzzle, base.gameObject, "MuzzleLeft", false);
@@ -173,13 +229,16 @@ namespace EntityStates.ReinArtificerer.Artificer.Weapon
             if (base.isAuthority)
             {
                 float chargeProgress = GetChargeProgress();
-                if (data.s_l_projectile != null)
+                if (data.s_projectile != null)
                 {
+                    // TODO: this stuff might need to come out of here to go into the element stuff
                     float num = Util.Remap(chargeProgress, 0f, 1f, data.s_minDamageCoef, data.s_maxDamageCoef);
                     float num2 = chargeProgress * data.s_l_hitForce;
                     Ray aimRay2 = base.GetAimRay();
                     Vector3 direction = aimRay2.direction;
                     Vector3 origin = aimRay2.origin;
+
+                    // TODO: convert secondary to new projectile definition
                     ProjectileManager.instance.FireProjectile(data.s_projectile, origin, Util.QuaternionSafeLookRotation(direction), base.gameObject, damageStat * num, num2, Util.CheckRoll(critStat, base.characterBody.master), DamageColorIndex.Default, null, -1f);
                 }
                 if (base.characterMotor)
@@ -190,7 +249,7 @@ namespace EntityStates.ReinArtificerer.Artificer.Weapon
             base.characterBody.crosshairPrefab = defaultCrosshairPrefab;
             stopwatch = 0f;
         }
-
+        //good
         public override InterruptPriority GetMinimumInterruptPriority()
         {
             return InterruptPriority.PrioritySkill;

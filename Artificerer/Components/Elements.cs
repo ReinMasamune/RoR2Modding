@@ -28,6 +28,15 @@ namespace ReinArtificerer
             lightning = 3
         }
 
+        private void Awake()
+        {
+            levels[Element.none] = 0;
+            levels[Element.fire] = 0;
+            levels[Element.ice] = 0;
+            levels[Element.lightning] = 0;
+
+        }
+
         public Element GetMainElement()
         {
             int fLevel = levels[Element.fire];
@@ -69,6 +78,7 @@ namespace ReinArtificerer
         public void ResetElement(Element el )
         {
             levels[el] = 0;
+            lastUsed = Element.none;
         }
 
         private int GetElemBonus(Element el )

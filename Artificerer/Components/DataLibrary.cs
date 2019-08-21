@@ -13,18 +13,22 @@ namespace ReinArtificerer
 {
     public class ReinDataLibrary : MonoBehaviour
     {
+        #region Fields
         #region Misc Fields
         //=========================================================================
         //General Config
         //=========================================================================
         //floats
-        private const float requestCheckDelay = 0.1f;
+        private const float requestCheckDelay = 0.02f;
 
 
         //=========================================================================
         //Generic data
         //=========================================================================
         public ReinElementTracker element;
+        public ReinLightningBuffTracker lightning;
+        public EntityStateMachine bodyState;
+        public EntityStateMachine weaponState;
 
         //=========================================================================
         //Element tracker settings
@@ -40,32 +44,30 @@ namespace ReinArtificerer
         //Primary
         //=========================================================================
         //floats
+        public readonly float p_blinkCastValue = 1.0f;
+        public readonly float p_baseRadius = 1.0f;
         public readonly float p_attackSpeedAnimationSwitch = 1.0f;
         public readonly float p_baseDuration = 0.25f;
         public readonly float p_fireSoundPitch = 1.3f;
         public readonly float p_bloom = 0.2f;
-        public readonly float p_f_procCoef = 1.0f;
-        public readonly float p_f_damageCoef = 2.2f;
-        public readonly float p_f_hitForce = 300.0f;
-        public readonly float p_i_procCoef = 1.0f;
-        public readonly float p_i_damageCoef = 2.2f;
-        public readonly float p_i_hitForce = 300.0f;
-        public readonly float p_l_procCoef = 1.0f;
-        public readonly float p_l_damageCoef = 2.2f;
-        public readonly float p_l_hitForce = 300.0f;
+        public readonly float p_damageCoef = 2.0f;
+        public readonly float p_procCoef = 1.0f;
+        public readonly float p_hitForce = 300.0f;
+        public readonly float p_f_radMod = 0.15f;
+        public readonly float p_i_baseDur = 3.0f;
+        public readonly float p_i_durMod = 0.15f;
         public readonly float p_l_proxRange = 20.0f;
+        public readonly float p_l_proxRangeMod = 0.15f;
         public readonly float p_l_proxAttackInt = 1.0f;
+        public readonly float p_l_proxAttackIntMod = 0.15f;
         public readonly float p_l_proxProcCoef = 0.1f;
         public readonly float p_l_proxDamageCoef = 1.0f;
         public readonly float p_l_proxListClear = 1.0f;
-        public readonly float p_c_procCoef = 1.0f;
-        public readonly float p_c_damageCoef = 2.2f;
-        public readonly float p_c_hitForce = 300.0f;
+        public readonly float p_l_proxListClearMod = 0.15f;
         //ints
         //bools
         //strings
         public readonly string p_fireSound = "Play_mage_m1_shoot";
-        public readonly string p_c_impaleSound = "";
         //loadpaths
         private const string path_p_projectile = "Prefabs/Projectiles/MageFireboltBasic";
         private const string path_p_f_projectile = "Prefabs/ProjectileGhosts/MageFireboltGhost";
@@ -128,12 +130,14 @@ namespace ReinArtificerer
         public ProjectileImpactExplosion p_explode;
         public ProjectileDamageTrail p_trailProj;
         public ProjectileProximityBeamController p_proxBeams;
+        public ProjectileSimple p_i_frostSimp;
         #endregion
         #region Secondary Fields
         //=========================================================================
         //Secondary
         //=========================================================================
         //floats
+        public readonly float s_blinkCastValue = 1.0f;
         public readonly float s_chargeDuration = 2.0f;
         public readonly float s_minChargeDuration = 0.5f;
         public readonly float s_winddownDuration = 0.4f;
@@ -213,6 +217,7 @@ namespace ReinArtificerer
         //Utility
         //=========================================================================
         //floats
+        public readonly float u_blinkCastValue = 1.0f;
         public readonly float u_baseDuration = 0.3f;
         public readonly float u_maxRange = 600.0f;
         public readonly float u_maxSlope = 70.0f;
@@ -237,7 +242,7 @@ namespace ReinArtificerer
         private const string path_u_l_pillar = "Prefabs/Projectiles/MageLightningWallSeedProjectile";
         private const string path_u_l_muzzle = "Prefabs/Effects/Muzzleflashes/MuzzleflashMageLightning";
         private const string path_u_l_pillarGhost = "Prefabs/ProjectileGhosts/ElectricOrbGhost";
-        private const string path_u_l_impactEffect = "";
+        private const string path_u_l_impactEffect = "Prefabs/Effects/LightningStakeNova";
         private const string path_u_l_childProj = "Prefabs/Projectiles/ElectricWormSeekerProjectile";
         //load routines
         private ResourceRequest req_u_seedProjectile;
@@ -281,6 +286,7 @@ namespace ReinArtificerer
         //Special
         //=========================================================================
         //floats
+        public readonly float r_blinkCastValue = 1.0f;
         public readonly float r_f_maxDistance = 20.0f;
         public readonly float r_f_radius = 2.0f;
         public readonly float r_f_entryDur = 0.6f;
@@ -306,8 +312,36 @@ namespace ReinArtificerer
         public GameObject r_f_mainEffect;
         public GameObject r_f_tracerEffect;
         public GameObject r_f_impactEffect;
+        public GameObject r_i_areaIndicator;
         #endregion
-        
+        #region Blink Fields
+        //=========================================================================
+        //Blink
+        //=========================================================================
+        //floats
+        public readonly float b_speedCoef = 15.0f;
+        public readonly float b_baseDuration = 0.5f;
+        //strings
+        public readonly string b_sound1 = "";
+        public readonly string b_sound2 = "";
+        //loadpaths
+        private const string path_b_mat1 = "";
+        private const string path_b_mat2 = "";
+        private const string path_b_prefab = "";
+        //load routines
+        private ResourceRequest req_b_mat1;
+        private ResourceRequest req_b_mat2;
+        private ResourceRequest req_b_prefab;
+        private IEnumerator en_b_mat1;
+        private IEnumerator en_b_mat2;
+        private IEnumerator en_b_prefab;
+        //other
+        public Material b_mat1;
+        public Material b_mat2;
+        public GameObject b_prefab;
+        #endregion
+
+        #endregion
         #region Prefab loading
         //=========================================================================
         //Loading
@@ -318,6 +352,7 @@ namespace ReinArtificerer
             var skill2 = EntityState.Instantiate(59);
             var skill3 = EntityState.Instantiate(279);
             var skill4 = EntityState.Instantiate(190);
+            var skill5 = EntityState.Instantiate(58);
 
             #region Primary prefab loading
             //Primary prefabs
@@ -507,7 +542,6 @@ namespace ReinArtificerer
                 StartCoroutine(en_u_seedProjectile);
             }
 
-
             Debug.Log("u_f_pillar");
             if( !u_f_pillar )
             {
@@ -590,12 +624,13 @@ namespace ReinArtificerer
             r_f_impactEffect = skill4.GetFieldValue<GameObject>("impactEffectPrefab");
             DontDestroyOnLoad(r_f_impactEffect);
 
+
+            r_i_areaIndicator = skill5.GetFieldValue<GameObject>("areaIndicatorPrefab");
             //Debug.Log("r_f_tracerEffect");
             //r_f_tracerEffect = Instantiate(skill4.GetFieldValue<GameObject>("tracerEffectPrefab"));
             //DontDestroyOnLoad(r_f_tracerEffect);
             #endregion
         }
-
         #endregion
         #region Prefab setup
         //=========================================================================
@@ -617,17 +652,12 @@ namespace ReinArtificerer
             p_control = p_projectile.GetComponent<ProjectileController>();
             p_simple = p_projectile.GetComponent<ProjectileSimple>();
 
+            p_i_frostSimp = p_i_frostProj.GetComponent<ProjectileSimple>();
+
             p_explode.fireChildren = false;
             p_explode.childrenCount = 1;
             p_explode.childrenDamageCoefficient = 1.0f;
             p_explode.childrenProjectilePrefab = p_i_frostProj;
-
-
-            p_trailProj = p_projectile.GetComponent<ProjectileDamageTrail>();
-            if( !p_trailProj )
-            {
-                p_trailProj = p_projectile.AddComponent<ProjectileDamageTrail>();
-            }
 
             p_proxBeams = p_projectile.GetComponent<ProjectileProximityBeamController>();
             if( !p_proxBeams )
@@ -905,6 +935,47 @@ namespace ReinArtificerer
             u_l_pillarGhost = (GameObject)r2.asset;
             u_l_impactEffect = (GameObject)r3.asset;
             u_l_childProj = (GameObject)r4.asset;
+
+            u_l_pillar.GetComponent<ProjectileParentTether>().enabled = false;
+            var simpleProj = u_l_pillar.GetComponent<ProjectileSimple>();
+            simpleProj.lifetime = 10f;
+            simpleProj.velocity = 0f;
+
+            u_l_pillar.GetComponent<ProjectileController>().ghostPrefab = u_l_pillarGhost;
+
+            var explode = u_l_pillar.GetComponent<ProjectileImpactExplosion>();
+            if( !explode )
+            {
+                explode = u_l_pillar.AddComponent<ProjectileImpactExplosion>();
+            }
+            explode.impactEffect = u_l_impactEffect;
+            //explode.explosionSoundString = "";
+            //explode.lifetimeExpiredSoundString = "";
+            //explode.offsetForLifetimeExpiredSound = 0;
+            explode.destroyOnEnemy = false;
+            explode.destroyOnWorld = false;
+            explode.timerAfterImpact = true;
+            explode.falloffModel = BlastAttack.FalloffModel.None;
+            explode.lifetime = 10.0f;
+            explode.lifetimeAfterImpact = 8.0f;
+            explode.lifetimeRandomOffset = 0.0f;
+            explode.blastRadius = 4.0f;
+            explode.blastDamageCoefficient = 1.0f;
+            explode.blastProcCoefficient = 1.0f;
+            explode.bonusBlastForce = Vector3.zero;
+            explode.fireChildren = true;
+            explode.childrenProjectilePrefab = u_l_childProj;
+            explode.childrenCount = 4;
+            explode.childrenDamageCoefficient = 0.25f;
+            explode.minAngleOffset = new Vector3(-0.3f, -0.3f, -0.3f);
+            explode.maxAngleOffset = new Vector3(0.3f, 0.3f, 0.3f);
+            explode.transformSpace = ProjectileImpactExplosion.TransformSpace.Local;
+
+            var stick = u_l_pillar.GetComponent<ProjectileStickOnImpact>();
+            stick.ignoreWorld = true;
+
+            var rb = u_l_pillar.GetComponent<Rigidbody>();
+            rb.useGravity = false;
         }
         IEnumerator Co_u_l_muzzle(ResourceRequest r1)
         {
