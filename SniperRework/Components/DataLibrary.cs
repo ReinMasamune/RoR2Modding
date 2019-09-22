@@ -214,19 +214,19 @@ namespace ReinSniperRework
         private float i_wardInterval = 1.0f;
         private float i_wardDuration = 10.0f;
         private float i_triggerRadiusMod = 1.0f;
-        private float i_mineHookInterval = 1.25f;
+        private float i_mineHookInterval = 1.0f;
         private float i_mineHookDuration = 10.0f;
         private float i_mineHookRadiusMod = 3.5f;
-        private float i_mineForceRadiusMod = 1.24f;
+        private float i_mineForceRadiusMod = 1.5f;
         private float i_mineForceDamping = 0.05f;
-        private float i_mineForceStrength = 2.0f;
+        private float i_mineForceStrength = 2.5f;
         private float i_mineForceFalloff = 0.0f;
         //ints
         public readonly int r_baseMaxStock = 1;
         public readonly int r_rechargeStock = 1;
         public readonly int r_requiredStock = 1;
         public readonly int r_stocktoConsume = 1;
-        private int i_mineHooksPerTick = 4;
+        private int i_mineHooksPerTick = 6;
         private int i_mineHookTicks = 10;
         //bools
         public readonly bool r_isBullets = false;
