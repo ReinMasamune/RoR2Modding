@@ -17,8 +17,8 @@ namespace ReinArtificerer
         public void Start()
         {
             //var execAssembly = Assembly.GetExecutingAssembly();
-            //var stream = execAssembly.GetManifestResourceStream("ReinSniperRework.sniperassetbundle");
-            //var sniperBundle = AssetBundle.LoadFromStream(stream);
+            //var stream = execAssembly.GetManifestResourceStream("ReinArtificerer.artificermeshes");
+            //var artiBundle = AssetBundle.LoadFromStream(stream);
             GameObject body = BodyCatalog.FindBodyPrefab("MageBody");
 
             ReinDataLibrary data = body.AddComponent<ReinDataLibrary>();
@@ -27,6 +27,7 @@ namespace ReinArtificerer
             element.data = data;
             data.element = element;
             data.lightning = lightning;
+            //data.bundle = artiBundle;
             //data.g_ui = body.AddComponent<SniperUIController>();
             //data.g_ui.data = data;
             //data.bundle = sniperBundle;

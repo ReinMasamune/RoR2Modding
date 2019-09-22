@@ -8,7 +8,7 @@ namespace EntityStates.ReinArtificerer.Artificer.Weapon
 {
     public class BaseSpecial : BaseState
     {
-        // TODO: Refurbish this entire skill
+        // TODO: Special Base EntityState; Needs major work overall
         ReinDataLibrary data;
         ReinElementTracker elements;
         ReinLightningBuffTracker lightning;

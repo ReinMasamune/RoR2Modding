@@ -22,6 +22,11 @@ namespace EntityStates.ReinSniperRework.SniperWeapon
             base.StartAimMode(aimRay, 2f, false);
             if (base.isAuthority)
             {
+                HookMineInvader inv = data.r_mineProj.GetComponent<HookMineInvader>();
+                inv.owner = base.gameObject;
+
+                inv.enabled = true;
+
                 //Projectile stuff
                 projInfo.crit = false;
                 projInfo.damage = 0f;
@@ -32,6 +37,8 @@ namespace EntityStates.ReinSniperRework.SniperWeapon
                 projInfo.projectilePrefab = data.r_mineProj;
 
                 ProjectileManager.instance.FireProjectile(projInfo);
+
+                inv.enabled = false;
             }
         }
 
@@ -40,7 +47,7 @@ namespace EntityStates.ReinSniperRework.SniperWeapon
             base.FixedUpdate();
             if (base.fixedAge >= duration && base.isAuthority)
             {
-                this.outer.SetNextStateToMain();
+                outer.SetNextStateToMain();
                 return;
             }
         }

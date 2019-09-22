@@ -173,7 +173,10 @@ namespace EntityStates.ReinArtificerer.Artificer.Weapon
                 EntityState.Destroy(chargeEffectInstance);
             }
 
-            // TODO: Element needs to go here (except charge prefab)
+            // TODO: Secondary EntityState; Various elemental scalings
+
+            data.s_explode.fireChildren = false;
+
             switch( mainElem )
             {
                 case ReinElementTracker.Element.fire:
@@ -181,6 +184,10 @@ namespace EntityStates.ReinArtificerer.Artificer.Weapon
                     elements.ResetElement(ReinElementTracker.Element.fire);
                     tempMuzzleFlash = data.s_f_muzzle;
                     data.s_control.ghostPrefab = data.s_f_projectile;
+                    data.s_explode.fireChildren = true;
+                    data.s_explode.childrenProjectilePrefab = data.s_f_child;
+                    data.s_explode.childrenCount = 1;
+                    data.s_explode.childrenDamageCoefficient = 1.0f;
                 break;
                 case ReinElementTracker.Element.ice:
                     Chat.AddMessage("Ice bomb");
@@ -231,14 +238,13 @@ namespace EntityStates.ReinArtificerer.Artificer.Weapon
                 float chargeProgress = GetChargeProgress();
                 if (data.s_projectile != null)
                 {
-                    // TODO: this stuff might need to come out of here to go into the element stuff
                     float num = Util.Remap(chargeProgress, 0f, 1f, data.s_minDamageCoef, data.s_maxDamageCoef);
                     float num2 = chargeProgress * data.s_l_hitForce;
                     Ray aimRay2 = base.GetAimRay();
                     Vector3 direction = aimRay2.direction;
                     Vector3 origin = aimRay2.origin;
 
-                    // TODO: convert secondary to new projectile definition
+                    // TODO: Secondary EntityState; FireProjectile is outdated
                     ProjectileManager.instance.FireProjectile(data.s_projectile, origin, Util.QuaternionSafeLookRotation(direction), base.gameObject, damageStat * num, num2, Util.CheckRoll(critStat, base.characterBody.master), DamageColorIndex.Default, null, -1f);
                 }
                 if (base.characterMotor)

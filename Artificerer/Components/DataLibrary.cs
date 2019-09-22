@@ -29,7 +29,7 @@ namespace ReinArtificerer
         public ReinLightningBuffTracker lightning;
         public EntityStateMachine bodyState;
         public EntityStateMachine weaponState;
-
+        public AssetBundle bundle;
         //=========================================================================
         //Element tracker settings
         //=========================================================================
@@ -164,9 +164,12 @@ namespace ReinArtificerer
         private const string path_s_f_projectile = "Prefabs/ProjectileGhosts/RedAffixMissileGhost";
         private const string path_s_f_muzzle = "Prefabs/Effects/Muzzleflashes/MuzzleflashMageFireLarge";
         private const string path_s_f_charge = "Prefabs/Effects/ChargeMageFireBomb";
+        private const string path_s_f_child = "Prefabs/Projectiles/MageFireBoltExpanded";
+        private const string path_s_f_childGhost = "Prefabs/ProjectileGhosts/MagmaOrbGhost";
         private const string path_s_i_projectile = "Prefabs/ProjectileGhosts/MageIceBombGhost";
         private const string path_s_i_muzzle = "Prefabs/Effects/Muzzleflashes/MuzzleflashMageIceLarge";
         private const string path_s_i_charge = "Prefabs/Effects/ChargeMageIceBomb";
+        private const string path_s_i_freezeEffect = "Prefabs/Effects/ImpactEffects/AffixWhiteExplosion";
         private const string path_s_l_projectile = "Prefabs/ProjectileGhosts/MageLightningBombGhost";
         private const string path_s_l_muzzle = "Prefabs/Effects/Muzzleflashes/MuzzleflashMageLightningLarge";
         private const string path_s_l_charge = "Prefabs/Effects/ChargeMageLightningBomb";
@@ -175,6 +178,8 @@ namespace ReinArtificerer
         private ResourceRequest req_s_f_projectile;
         private ResourceRequest req_s_f_muzzle;
         private ResourceRequest req_s_f_charge;
+        private ResourceRequest req_s_f_child;
+        private ResourceRequest req_s_f_childGhost;
         private ResourceRequest req_s_i_projectile;
         private ResourceRequest req_s_i_muzzle;
         private ResourceRequest req_s_i_charge;
@@ -185,6 +190,7 @@ namespace ReinArtificerer
         private IEnumerator en_s_f_projectile;
         private IEnumerator en_s_f_muzzle;
         private IEnumerator en_s_f_charge;
+        private IEnumerator en_s_f_child;
         private IEnumerator en_s_i_projectile;
         private IEnumerator en_s_i_muzzle;
         private IEnumerator en_s_i_charge;
@@ -197,6 +203,8 @@ namespace ReinArtificerer
         public GameObject s_f_projectile;
         public GameObject s_f_muzzle;
         public GameObject s_f_charge;
+        public GameObject s_f_child;
+        public GameObject s_f_childGhost;
         public GameObject s_i_projectile;
         public GameObject s_i_muzzle;
         public GameObject s_i_charge;
@@ -469,6 +477,15 @@ namespace ReinArtificerer
                 req_s_f_charge = Resources.LoadAsync<GameObject>(path_s_f_charge);
                 en_s_f_projectile = Co_s_f_projectile(req_s_f_projectile, req_s_f_charge);
                 StartCoroutine(en_s_f_projectile);
+            }
+
+            Debug.Log("s_f_child + s_f_childGhost");
+            if( !s_f_child | !s_f_childGhost  )
+            {
+                req_s_f_child = Resources.LoadAsync<GameObject>(path_s_f_child);
+                req_s_f_childGhost = Resources.LoadAsync<GameObject>(path_s_f_childGhost);
+                en_s_f_child = Co_s_f_child(req_s_f_child, req_s_f_childGhost);
+                StartCoroutine(en_s_f_child);
             }
 
             Debug.Log("s_f_muzzle");
@@ -771,15 +788,21 @@ namespace ReinArtificerer
             s_simple = s_projectile.GetComponent<ProjectileSimple>();
             s_explode = s_projectile.GetComponent<ProjectileImpactExplosion>();
             s_dmg = s_projectile.GetComponent<ProjectileDamage>();
+
+
             s_proxBeams = s_projectile.GetComponent<ProjectileProximityBeamController>();
-            
-            //Fire trail
-            //Icicles
-            //s_icicleControl = s_projectile.GetComponent<IcicleAuraController>();
-            //if( !s_icicleControl )
-            //{
-            //
-            //}
+            s_proxBeams.enabled = false;
+
+            s_trailProj = s_projectile.GetComponent<ProjectileDamageTrail>();
+            if( !s_trailProj )
+            {
+                s_trailProj = s_projectile.AddComponent<ProjectileDamageTrail>();
+            }
+            s_trailProj.enabled = false;
+
+            // TODO: Secondary Projectile; Icicle Setup
+
+            // TODO: Secondary projectile; Other effects
         }
 
         #region Fire
@@ -817,6 +840,54 @@ namespace ReinArtificerer
                 yield return new WaitForSeconds(requestCheckDelay);
             }
             s_f_muzzle = (GameObject)r1.asset;
+        }
+
+        private IEnumerator Co_s_f_child( ResourceRequest r1 , ResourceRequest r2 )
+        {
+            while( !r1.isDone || !r2.isDone )
+            {
+                yield return new WaitForSeconds(requestCheckDelay);
+            }
+            s_f_child = (GameObject)r1.asset;
+            s_f_childGhost = (GameObject)r2.asset;
+
+            s_f_child.GetComponent<ProjectileController>().ghostPrefab = s_f_childGhost;
+
+            s_f_child.GetComponent<Rigidbody>().useGravity = true;
+
+            var s_f_childSimple = s_f_child.GetComponent<ProjectileSimple>();
+            s_f_childSimple.lifetime = 5f;
+            s_f_childSimple.velocity = 25.0f;
+            s_f_childSimple.updateAfterFiring = false;
+
+            s_f_child.GetComponent<SphereCollider>().radius = 0.5f;
+
+            s_f_child.GetComponent<ProjectileOverlapAttack>().enabled = false;
+            s_f_child.GetComponent<HitBoxGroup>().enabled = false;
+
+            var s_f_childExplode = s_f_child.GetComponent<ProjectileImpactExplosion>();
+            if( !s_f_childExplode )
+            {
+                s_f_childExplode = s_f_child.AddComponent<ProjectileImpactExplosion>();
+            }
+            // TODO: Secondary Fire Child; load impact effect
+            //s_f_childExplode.impactEffect
+            // TODO: Secondary Fire Child; sound
+            //s_f_childExplode.explosionSoundString = "";
+            s_f_childExplode.destroyOnEnemy = true;
+            s_f_childExplode.destroyOnWorld = true;
+            s_f_childExplode.timerAfterImpact = false;
+            s_f_childExplode.falloffModel = BlastAttack.FalloffModel.Linear;
+            s_f_childExplode.lifetime = 5f;
+            s_f_childExplode.lifetimeAfterImpact = 0f;
+            s_f_childExplode.lifetimeRandomOffset = 0f;
+            s_f_childExplode.blastRadius = 7.0f;
+            s_f_childExplode.blastDamageCoefficient = 1.0f;
+            s_f_childExplode.blastProcCoefficient = 1.0f;
+            s_f_childExplode.bonusBlastForce = Vector3.zero;
+
+            // TODO: Secondary Fire Child; Second child for ground burn?
+
         }
         #endregion
         #region Ice
@@ -1002,12 +1073,40 @@ namespace ReinArtificerer
         //=========================================================================
         //Helper funcs
         //=========================================================================
-        private void CopyFields<T>(T source , T dest )
+        private void CopyFields<T>(T dest , T source )
         {
             foreach( FieldInfo f in typeof(T).GetFields() )
             {
-                dest.SetFieldValue(f.Name, f.GetValue(dest) );
+                f.SetValue(dest, f.GetValue(source));
             }
+        }
+
+        private void S_f_setupChildPS1( ParticleSystem ps , ParticleSystemRenderer psr , GameObject refPS )
+        {
+            ParticleSystem refPartSys = refPS.GetComponent<ParticleSystem>();
+            ParticleSystemRenderer refPartSysR = refPS.GetComponent<ParticleSystemRenderer>();
+
+            CopyFields<ParticleSystem.MainModule>(ps.main, refPartSys.main);
+            CopyFields<ParticleSystem.EmissionModule>(ps.emission, refPartSys.emission);
+            CopyFields<ParticleSystem.ColorOverLifetimeModule>(ps.colorOverLifetime, refPartSys.colorOverLifetime);
+            CopyFields<ParticleSystem.SizeOverLifetimeModule>(ps.sizeOverLifetime, refPartSys.sizeOverLifetime);
+            CopyFields<ParticleSystem.RotationOverLifetimeModule>(ps.rotationOverLifetime, refPartSys.rotationOverLifetime);
+
+            CopyFields<ParticleSystemRenderer>(psr, refPartSysR);
+        }
+
+        private void S_f_setupChildPS2( ParticleSystem ps , ParticleSystemRenderer psr , GameObject refPS )
+        {
+            ParticleSystem refPartSys = refPS.GetComponent<ParticleSystem>();
+            ParticleSystemRenderer refPartSysR = refPS.GetComponent<ParticleSystemRenderer>();
+
+            CopyFields<ParticleSystem.MainModule>(ps.main, refPartSys.main);
+            CopyFields<ParticleSystem.EmissionModule>(ps.emission, refPartSys.emission);
+            CopyFields<ParticleSystem.ColorOverLifetimeModule>(ps.colorOverLifetime, refPartSys.colorOverLifetime);
+            CopyFields<ParticleSystem.SizeOverLifetimeModule>(ps.sizeOverLifetime, refPartSys.sizeOverLifetime);
+            CopyFields<ParticleSystem.RotationOverLifetimeModule>(ps.rotationOverLifetime, refPartSys.rotationOverLifetime);
+
+            CopyFields<ParticleSystemRenderer>(psr, refPartSysR);
         }
 
 

@@ -5,6 +5,7 @@ using R2API.Utils;
 using System.Runtime.CompilerServices;
 using System.Reflection;
 using EntityStates;
+using RoR2.Skills;
 
 namespace ReinSniperRework
 {
@@ -37,7 +38,6 @@ namespace ReinSniperRework
 
             hurtState.hurtState = new SerializableEntityStateType(EntityState.Instantiate(219).GetType());
 
-
             int i = 0;
             EntityStateMachine[] esmr = new EntityStateMachine[2]; 
             foreach( EntityStateMachine esm in body.GetComponentsInChildren<EntityStateMachine>())
@@ -61,47 +61,20 @@ namespace ReinSniperRework
 
             hurtState.idleStateMachine = esmr;
 
-            
-            /*GameObject refBody = BodyCatalog.FindBodyPrefab("CommandoBody");
+            GenericSkill Sniper1G = SL.primary;
+            GenericSkill Sniper2G = SL.secondary;
+            GenericSkill Sniper3G = SL.utility;
+            GenericSkill Sniper4G = SL.special;
 
-            if( refBody )
-            {
-                Debug.Log("----------");
-                Debug.Log("Getting data from commando for reference");
-                SetStateOnHurt hurtState = refBody.GetComponent<SetStateOnHurt>();
-                Debug.Log("Settings");
-                Debug.Log(hurtState.canBeFrozen);
-                Debug.Log(hurtState.canBeHitStunned);
-                Debug.Log(hurtState.canBeStunned);
-                Debug.Log(hurtState.hitThreshold);
-                Debug.Log("Ref vars");
-                Debug.Log("hurtState info");
-                SerializableEntityStateType stateOnHurt = hurtState.hurtState;
-                Debug.Log(stateOnHurt.stateType.ToString());
-                Debug.Log(stateOnHurt.GetType().ToString());
-                Debug.Log(StateIndexTable.TypeToIndex( stateOnHurt.GetType()))
-                Debug.Log("targetStateMachine");
-                EntityStateMachine esm1 = hurtState.targetStateMachine;
-                Debug.Log(esm1.customName);
-                Debug.Log(esm1.name);
-                Debug.Log(esm1.GetType().ToString());
-                EntityStateMachine[] esmr = hurtState.idleStateMachine;
-                Debug.Log("Fuckin arrays of ref types");
-                foreach(EntityStateMachine mac in esmr )
-                {
-                    Debug.Log(mac.customName);
-                    Debug.Log(mac.name);
-                    Debug.Log(mac.GetType().ToString());
-                    Debug.Log("----");
-                }
-            }
-            */
+            SkillFamily SniperFam1 = Sniper1G.skillFamily;
+            SkillFamily SniperFam2 = Sniper2G.skillFamily;
+            SkillFamily SniperFam3 = Sniper3G.skillFamily;
+            SkillFamily SniperFam4 = Sniper4G.skillFamily;
 
-
-            GenericSkill Sniper1 = SL.primary;
-            GenericSkill Sniper2 = SL.secondary;
-            GenericSkill Sniper3 = SL.utility;
-            GenericSkill Sniper4 = SL.special;
+            SkillDef Sniper1 = SniperFam1.variants[SniperFam1.defaultVariantIndex].skillDef;
+            SkillDef Sniper2 = SniperFam2.variants[SniperFam2.defaultVariantIndex].skillDef;
+            SkillDef Sniper3 = SniperFam3.variants[SniperFam3.defaultVariantIndex].skillDef;
+            SkillDef Sniper4 = SniperFam4.variants[SniperFam4.defaultVariantIndex].skillDef;
 
             charbody.baseDamage = data.g_baseDamage;
             charbody.baseMaxHealth = data.g_baseHealth;
@@ -110,61 +83,59 @@ namespace ReinSniperRework
             charbody.bodyFlags = CharacterBody.BodyFlags.ImmuneToExecutes;
 
             //Config skills
-            Sniper1.baseRechargeInterval = data.p_rechargeInterval;
-            Sniper1.baseMaxStock = data.p_baseMaxStock;
-            Sniper1.rechargeStock = data.p_rechargeStock;
-            Sniper1.isBullets = data.p_isBullets;
-            Sniper1.shootDelay = data.p_shootDelay;
-            Sniper1.beginSkillCooldownOnSkillEnd = data.p_beginCDOnEnd;
-            Sniper1.isCombatSkill = data.p_isCombatSkill;
-            Sniper1.noSprint = data.p_noSprint;
-            Sniper1.mustKeyPress = data.p_mustKeyPress;
-            Sniper1.requiredStock = data.p_requiredStock;
-            Sniper1.stockToConsume = data.p_stockToConsome;
+            Sniper1.SetFieldValue("baseRechargeInterval",  data.p_rechargeInterval);
+            Sniper1.SetFieldValue("baseMaxStock" , data.p_baseMaxStock);
+            Sniper1.SetFieldValue("rechargeStock" , data.p_rechargeStock);
+            Sniper1.SetFieldValue("isBullets" , data.p_isBullets);
+            Sniper1.SetFieldValue("shootDelay" , data.p_shootDelay);
+            Sniper1.SetFieldValue("beginSkillCooldownOnSkillEnd" , data.p_beginCDOnEnd);
+            Sniper1.SetFieldValue("isCombatSkill" , data.p_isCombatSkill);
+            Sniper1.SetFieldValue("noSprint" , data.p_noSprint);
+            Sniper1.SetFieldValue("mustKeyPress" , data.p_mustKeyPress);
+            Sniper1.SetFieldValue("requiredStock" , data.p_requiredStock);
+            Sniper1.SetFieldValue("stockToConsume" , data.p_stockToConsome);
             Sniper1.SetFieldValue("activationState", new EntityStates.SerializableEntityStateType(typeof(EntityStates.ReinSniperRework.SniperWeapon.SniperPrimary)));
 
-
-            Sniper2.baseRechargeInterval = data.s_rechargeInterval;
-            Sniper2.baseMaxStock = data.s_baseMaxStock;
-            Sniper2.rechargeStock = data.s_rechargeStock;
-            Sniper2.isBullets = data.s_isBullets;
-            Sniper2.shootDelay = data.s_shootDelay;
-            Sniper2.beginSkillCooldownOnSkillEnd = data.s_beginCDOnEnd;
-            Sniper2.isCombatSkill = data.s_isCombatSkill;
-            Sniper2.noSprint = data.s_noSprint;
-            Sniper2.mustKeyPress = data.s_mustKeyPress;
-            Sniper2.requiredStock = data.s_requiredStock;
-            Sniper2.stockToConsume = data.s_stockToConsume;
+            Sniper2.SetFieldValue("baseRechargeInterval" , data.s_rechargeInterval);
+            Sniper2.SetFieldValue("baseMaxStock" , data.s_baseMaxStock);
+            Sniper2.SetFieldValue("rechargeStock" , data.s_rechargeStock);
+            Sniper2.SetFieldValue("isBullets" , data.s_isBullets);
+            Sniper2.SetFieldValue("shootDelay" , data.s_shootDelay);
+            Sniper2.SetFieldValue("beginSkillCooldownOnSkillEnd" , data.s_beginCDOnEnd);
+            Sniper2.SetFieldValue("isCombatSkill" , data.s_isCombatSkill);
+            Sniper2.SetFieldValue("noSprint" , data.s_noSprint);
+            Sniper2.SetFieldValue("mustKeyPress" , data.s_mustKeyPress);
+            Sniper2.SetFieldValue("requiredStock" , data.s_requiredStock);
+            Sniper2.SetFieldValue("stockToConsume" , data.s_stockToConsume);
             Sniper2.SetFieldValue("activationState", new EntityStates.SerializableEntityStateType(typeof(EntityStates.ReinSniperRework.SniperWeapon.SniperSecondary)));
 
 
-            Sniper3.baseRechargeInterval = data.u_rechargeInterval;
-            Sniper3.baseMaxStock = data.u_baseMaxStock;
-            Sniper3.rechargeStock = data.u_rechargeStock;
-            Sniper3.isBullets = data.u_isBullets;
-            Sniper3.shootDelay = data.u_shootDelay;
-            Sniper3.beginSkillCooldownOnSkillEnd = data.u_beginCDOnEnd;
-            Sniper3.isCombatSkill = data.u_isCombatSkill;
-            Sniper3.noSprint = data.u_noSprint;
-            Sniper3.mustKeyPress = data.u_mustKeyPress;
-            Sniper3.requiredStock = data.u_requiredStock;
-            Sniper3.stockToConsume = data.u_stockToConsume;
+            Sniper3.SetFieldValue("baseRechargeInterval" , data.u_rechargeInterval);
+            Sniper3.SetFieldValue("baseMaxStock" , data.u_baseMaxStock);
+            Sniper3.SetFieldValue("rechargeStock" , data.u_rechargeStock);
+            Sniper3.SetFieldValue("isBullets" , data.u_isBullets);
+            Sniper3.SetFieldValue("shootDelay" , data.u_shootDelay);
+            Sniper3.SetFieldValue("beginSkillCooldownOnSkillEnd" , data.u_beginCDOnEnd);
+            Sniper3.SetFieldValue("isCombatSkill" , data.u_isCombatSkill);
+            Sniper3.SetFieldValue("noSprint" , data.u_noSprint);
+            Sniper3.SetFieldValue("mustKeyPress" , data.u_mustKeyPress);
+            Sniper3.SetFieldValue("requiredStock" , data.u_requiredStock);
+            Sniper3.SetFieldValue("stockToConsume" , data.u_stockToConsume);
             Sniper3.SetFieldValue("activationState", new EntityStates.SerializableEntityStateType(typeof(EntityStates.ReinSniperRework.SniperWeapon.SniperUtility)));
 
 
-            Sniper4.baseRechargeInterval = data.r_rechargeInterval;
-            Sniper4.baseMaxStock = data.r_baseMaxStock;
-            Sniper4.rechargeStock = data.r_rechargeStock;
-            Sniper4.isBullets = data.r_isBullets;
-            Sniper4.shootDelay = data.r_shootDelay;
-            Sniper4.beginSkillCooldownOnSkillEnd = data.r_beginCDOnEnd;
-            Sniper4.isCombatSkill = data.r_isCombatSkill;
-            Sniper4.noSprint = data.r_noSprint;
-            Sniper4.mustKeyPress = data.r_mustKeyPress;
-            Sniper4.requiredStock = data.r_requiredStock;
-            Sniper4.stockToConsume = data.r_stocktoConsume;
+            Sniper4.SetFieldValue("baseRechargeInterval" , data.r_rechargeInterval);
+            Sniper4.SetFieldValue("baseMaxStock" , data.r_baseMaxStock);
+            Sniper4.SetFieldValue("rechargeStock" , data.r_rechargeStock);
+            Sniper4.SetFieldValue("isBullets" , data.r_isBullets);
+            Sniper4.SetFieldValue("shootDelay" , data.r_shootDelay);
+            Sniper4.SetFieldValue("beginSkillCooldownOnSkillEnd" , data.r_beginCDOnEnd);
+            Sniper4.SetFieldValue("isCombatSkill" , data.r_isCombatSkill);
+            Sniper4.SetFieldValue("noSprint" , data.r_noSprint);
+            Sniper4.SetFieldValue("mustKeyPress" , data.r_mustKeyPress);
+            Sniper4.SetFieldValue("requiredStock" , data.r_requiredStock);
+            Sniper4.SetFieldValue("stockToConsume" , data.r_stocktoConsume);
             Sniper4.SetFieldValue("activationState", new EntityStates.SerializableEntityStateType(typeof(EntityStates.ReinSniperRework.SniperWeapon.SniperSpecial)));
-
 
             Sniper1.skillNameToken = "Snipe";
             Sniper2.skillNameToken = "Steady Aim";
@@ -178,17 +149,13 @@ namespace ReinSniperRework
 
             SL.passiveSkill.enabled = true;
             SL.passiveSkill.skillNameToken = "Headshot";
-            SL.passiveSkill.skillDescriptionToken = "Some enemies can be shot in the head for 50% bonus damage. [Currently only works on Lemurians, Beetles, and Beetle Guards, more coming hopefully soon]";
+            SL.passiveSkill.skillDescriptionToken = "Some enemies can be shot in the head for 50% bonus damage.";
 
 
             var survivor = new SurvivorDef
             {
                 bodyPrefab = body,
-                descriptionToken = "Sniper is a high single-target damage survivor with moderate mobility." + "\n\n\n" +
-                "Snipe is your only source of damage, hitting perfect reloads is essential to keeping a fast pace. " + "\n" + "The recoil can be used to extend time in the air." + "\n" + "Attack speed can make it more difficult to time reloads, but never makes it impossible." + "\n\n\n" +
-                "Steady Aim is a high-risk high-reward option that takes a very long time to charge, but does incredible damage." + "\n\n\n" +
-                "Military Training is essential to staying alive. When it is on cooldown you are at your most vulnerable." + "\n\n\n" +
-                "Snare Trap deals no damage, but can be used for a variety of purposes: Weakening high priority targets, grouping up enemies for Steady Aim, or simply to slow enemies that are chasing you.",
+                descriptionToken = "Sniper is a high single-target damage survivor with moderate mobility.",
                 displayPrefab = Resources.Load<GameObject>("Prefabs/Characters/SniperDisplay"),
                 primaryColor = new Color(0.25f, 0.25f, 0.25f),
                 unlockableName = "",

@@ -138,7 +138,7 @@ namespace EntityStates.ReinArtificerer.Artificer.Weapon
                     forward.Normalize();
                     //Vector3 vector = Vector3.Cross(Vector3.up, forward);
                     bool crit = Util.CheckRoll(critStat, base.characterBody.master);
-                    // TODO: Utility needs update to new projectile fire def
+                    // TODO: Utility EntityState; FireProjectile is outdated
                     ProjectileManager.instance.FireProjectile(data.u_seedProjectile, areaIndicatorInstance.transform.position + Vector3.up, Util.QuaternionSafeLookRotation(forward), base.gameObject, damageStat * data.u_i_damageCoef, 0f, crit, DamageColorIndex.Default, null, -1f);
 
                     if( lightning.GetBuffed() )

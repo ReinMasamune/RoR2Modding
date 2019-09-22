@@ -139,6 +139,7 @@ namespace EntityStates.ReinArtificerer.Artificer.Weapon
             base.characterBody.AddSpreadBloom(data.p_bloom);
             hasFiredGauntlet = true;
 
+            // TODO: Primary EntityState; Elemental Scalings
 
             GameObject tempMuzzleFlash;
             data.p_explode.enabled = true;
@@ -214,7 +215,7 @@ namespace EntityStates.ReinArtificerer.Artificer.Weapon
             }
             if (base.isAuthority)
             {
-                // TODO: Switch to new projectile definition
+                // TODO: Primary EntityState; FireProjectile is outdated
                 ProjectileManager.instance.FireProjectile(data.p_projectile, aimRay.origin, Util.QuaternionSafeLookRotation(aimRay.direction), base.gameObject, data.p_damageCoef * this.damageStat, 0f, Util.CheckRoll(this.critStat, base.characterBody.master), DamageColorIndex.Default, null, -1f);
             }
         }
