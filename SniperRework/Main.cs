@@ -82,6 +82,8 @@ namespace ReinSniperRework
             charbody.crosshairPrefab = Resources.Load<GameObject>(data.g_crosshairString);
             charbody.bodyFlags = CharacterBody.BodyFlags.ImmuneToExecutes;
 
+            charbody.baseNameToken = "Sniper";
+
             //Config skills
             Sniper1.SetFieldValue("baseRechargeInterval",  data.p_rechargeInterval);
             Sniper1.SetFieldValue("baseMaxStock" , data.p_baseMaxStock);
@@ -157,7 +159,7 @@ namespace ReinSniperRework
                 bodyPrefab = body,
                 descriptionToken = "Sniper is a high single-target damage survivor with moderate mobility.",
                 displayPrefab = Resources.Load<GameObject>("Prefabs/Characters/SniperDisplay"),
-                primaryColor = new Color(0.25f, 0.25f, 0.25f),
+                primaryColor = new Color(0.15f, 0.15f, 0.15f),
                 unlockableName = "",
                 survivorIndex = SurvivorIndex.Count
             };
