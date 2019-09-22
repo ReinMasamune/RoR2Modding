@@ -1,5 +1,6 @@
 ﻿using System;
 using RoR2;
+using RoR2.Projectile;
 using UnityEngine;
 using UnityEngine.Networking;
 using System.Collections.Generic;
@@ -19,6 +20,7 @@ namespace ReinSniperRework
 
         public void Start()
         {
+            owner = gameObject.GetComponent<ProjectileController>().owner;
             foreach( EntityStateMachine mach in gameObject.GetComponents<EntityStateMachine>() )
             {
                 switch( mach.customName )
@@ -48,19 +50,37 @@ namespace ReinSniperRework
 
         private void OnActivation()
         {
-            if (NetworkServer.active)
+            if (wardPrefab)
             {
-                if (wardPrefab)
-                {
-                    activated = true;
-                    GameObject obj = UnityEngine.Object.Instantiate<GameObject>(wardPrefab, transform.position, Quaternion.identity);
-                    BuffWard ward = obj.GetComponent<BuffWard>();
-                    TeamFilter filter = obj.GetComponent<TeamFilter>();
-                    obj.GetComponent<HookMineHooking>().owner = owner;
-                    filter.teamIndex = (filter.teamIndex == TeamIndex.Player) ? TeamIndex.Monster : TeamIndex.Player;
-                    NetworkServer.Spawn(obj);
+                activated = true;
 
+                CharacterBody body = owner.GetComponent<CharacterBody>();
+                if( body )
+                {
+                    if( body.baseNameToken == "Sniper" )
+                    {
+                        GameObject obj = UnityEngine.Object.Instantiate<GameObject>(wardPrefab, transform.position, Quaternion.identity);
+                        BuffWard ward = obj.GetComponent<BuffWard>();
+                        TeamFilter filter = obj.GetComponent<TeamFilter>();
+                        obj.GetComponent<HookMineHooking>().owner = owner;
+                        filter.teamIndex = (filter.teamIndex == TeamIndex.Player) ? TeamIndex.Monster : TeamIndex.Player;
+
+                        if (NetworkServer.active)
+                        {
+                            ward.enabled = true;
+                            NetworkServer.Spawn(obj);
+                        }
+                        else
+                        {
+                            ward.enabled = false;
+                        }
+                    }
+                    else
+                    {
+                        Debug.Log("Skipping activation because you aren't sniper");
+                    }
                 }
+
             }
         }
     }

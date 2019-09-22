@@ -1,8 +1,9 @@
 ﻿using BepInEx;
 using RoR2;
 using UnityEngine;
+using R2API;
 using R2API.Utils;
-
+using System;
 
 namespace ReinAcridMod
 {
@@ -11,10 +12,12 @@ namespace ReinAcridMod
 
     public class ReinSurvivorMod : BaseUnityPlugin
     {
+        /*
         public void Start()
         {
             GameObject body = BodyCatalog.FindBodyPrefab("BeetleGuardAllyBody");
 
+            
             ReinDataLibrary data = body.AddComponent<ReinDataLibrary>();
             //data.g_ui = body.AddComponent<AcridUIController>();
             //data.g_ui.data = data;
@@ -49,6 +52,8 @@ namespace ReinAcridMod
             GenericSkill acridSpecial = body.AddComponent<GenericSkill>();
             SL.special = acridSpecial;
 
+            
+
             var survivor = new SurvivorDef
             {
                 bodyPrefab = body,
@@ -60,6 +65,27 @@ namespace ReinAcridMod
             };
             R2API.SurvivorAPI.AddSurvivorOnReady(survivor);
         }
+        */
+
+        public void Awake()
+        {
+            SurvivorAPI.SurvivorCatalogReady += delegate (object s, EventArgs e)
+            {
+                SurvivorDef item = new SurvivorDef
+                {
+                    bodyPrefab = BodyCatalog.FindBodyPrefab("BanditBody"),
+                    descriptionToken = "",
+                    displayPrefab = Resources.Load<GameObject>("Prefabs/Characters/SniperDisplay"),
+                    primaryColor = new Color(1f, 1f, 1f, 1f),
+                    unlockableName = "",
+                    survivorIndex = SurvivorIndex.Count
+                };
+
+                SurvivorAPI.AddSurvivor(item);
+            };
+        }
+
+
     }
 }
 

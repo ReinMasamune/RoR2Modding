@@ -583,8 +583,6 @@ namespace ReinSniperRework
                 //hookControl.hookRadius = i_mineHookRadiusMod * i_wardRadius;
                 //hookControl.teamHostile = TeamIndex.Monster;
                 //hookControl.teamFriendly = TeamIndex.Player;
-
-                hookInv.enabled = false;
                 hookInv.wardPrefab = mineWard;
                 //hookInv.SelfRef = mine;
 

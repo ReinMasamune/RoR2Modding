@@ -20,13 +20,9 @@ namespace EntityStates.ReinSniperRework.SniperWeapon
             duration = data.r_baseDuration / this.attackSpeedStat;
             Ray aimRay = base.GetAimRay();
             base.StartAimMode(aimRay, 2f, false);
+            HookMineInvader inv = data.r_mineProj.GetComponent<HookMineInvader>();
             if (base.isAuthority)
             {
-                HookMineInvader inv = data.r_mineProj.GetComponent<HookMineInvader>();
-                inv.owner = base.gameObject;
-
-                inv.enabled = true;
-
                 //Projectile stuff
                 projInfo.crit = false;
                 projInfo.damage = 0f;
@@ -38,7 +34,6 @@ namespace EntityStates.ReinSniperRework.SniperWeapon
 
                 ProjectileManager.instance.FireProjectile(projInfo);
 
-                inv.enabled = false;
             }
         }
 

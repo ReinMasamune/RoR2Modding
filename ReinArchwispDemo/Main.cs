@@ -87,7 +87,7 @@ namespace ReinArchWispDemo
             //Adding the unused Archaic Wisp enemy to the game
             //First thing we need is a SpawnCard, there are two ways to get it.
             //First, load one from the game files. This is what that code looks like
-            // CharacterSpawnCard archWispCSC = Resources.Load<CharacterSpawnCard>("spawncards/CharacterSpawnCards/cscArchWisp");
+            //CharacterSpawnCard archWispCSC = Resources.Load<CharacterSpawnCard>("spawncards/CharacterSpawnCards/cscArchWisp");
             //For the sake of demonstration, instead we will make a new spawncard
             CharacterSpawnCard archWispCSC = ScriptableObject.CreateInstance<CharacterSpawnCard>();         //Constructor
             archWispCSC.noElites = false;                                                                   //This enemy can be an elite            
@@ -98,7 +98,7 @@ namespace ReinArchWispDemo
             archWispCSC.occupyPosition = false;                                                             //Flying enemies don't need this at true
             archWispCSC.sendOverNetwork = true;                                                             //This is an enemy, we want it networked
             archWispCSC.nodeGraphType = MapNodeGroup.GraphType.Air;                                         //Flying enemies spawn in the air, not the floor
-
+            archWispCSC.loadout = new SerializableLoadout();                                                //This is the loadout for the body. Have not tested this much yet
 
             //Now we need a DirectorCard for the enemy              
             DirectorCard archWispDirectorCard = new DirectorCard();                                         //Constructor

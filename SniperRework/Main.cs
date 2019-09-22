@@ -10,7 +10,7 @@ using RoR2.Skills;
 namespace ReinSniperRework
 {
     [BepInDependency("com.bepis.r2api")]
-    [BepInPlugin("com.ReinThings.ReinSniperRework", "ReinSniperRework", "1.0.4")]
+    [BepInPlugin("com.ReinThings.ReinSniperRework", "ReinSniperRework", "1.0.5")]
 
     public class ReinSniperReworkMain : BaseUnityPlugin
     {
@@ -161,7 +161,7 @@ namespace ReinSniperRework
                 displayPrefab = Resources.Load<GameObject>("Prefabs/Characters/SniperDisplay"),
                 primaryColor = new Color(0.15f, 0.15f, 0.15f),
                 unlockableName = "",
-                survivorIndex = SurvivorIndex.Count
+                survivorIndex = (SurvivorIndex)int.MaxValue
             };
             R2API.SurvivorAPI.AddSurvivorOnReady(survivor);
 
