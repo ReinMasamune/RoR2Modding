@@ -1,19 +1,21 @@
 ﻿using BepInEx;
 using RoR2;
 using UnityEngine;
+using R2API;
 using R2API.Utils;
-
 using System.Reflection;
 using EntityStates;
 using RoR2.Skills;
+using System;
 
 namespace ReinSniperRework
 {
     [BepInDependency("com.bepis.r2api")]
-    [BepInPlugin("com.ReinThings.ReinSniperRework", "ReinSniperRework", "1.0.5")]
+    [BepInPlugin("com.ReinThings.ReinSniperRework", "ReinSniperRework", "1.0.6")]
 
     public class ReinSniperReworkMain : BaseUnityPlugin
     {
+
         public void Start()
         {
             var execAssembly = Assembly.GetExecutingAssembly();
@@ -153,7 +155,6 @@ namespace ReinSniperRework
             SL.passiveSkill.skillNameToken = "Headshot";
             SL.passiveSkill.skillDescriptionToken = "Some enemies can be shot in the head for 50% bonus damage.";
 
-
             var survivor = new SurvivorDef
             {
                 bodyPrefab = body,
@@ -164,7 +165,7 @@ namespace ReinSniperRework
                 survivorIndex = (SurvivorIndex)int.MaxValue
             };
             R2API.SurvivorAPI.AddSurvivorOnReady(survivor);
-
+            
             SniperHeadshotHitboxStuff.AddHurtboxes();
         }
 

@@ -38,6 +38,17 @@ namespace ReinDirectorCardLib
             InvalidStage = 256
         }
 
+        public void Awake()
+        {
+            On.RoR2.CharacterSpawnCard.Awake += (orig, self) =>
+            {
+                if( self.loadout == null )
+                {
+                    self.loadout = new SerializableLoadout();
+                }
+            };
+        }
+
         public void Start()
         {
             On.RoR2.ClassicStageInfo.Awake += (orig, self) =>

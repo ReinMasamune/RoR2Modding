@@ -89,16 +89,17 @@ namespace ReinArchWispDemo
             //First, load one from the game files. This is what that code looks like
             //CharacterSpawnCard archWispCSC = Resources.Load<CharacterSpawnCard>("spawncards/CharacterSpawnCards/cscArchWisp");
             //For the sake of demonstration, instead we will make a new spawncard
-            CharacterSpawnCard archWispCSC = ScriptableObject.CreateInstance<CharacterSpawnCard>();         //Constructor
-            archWispCSC.noElites = false;                                                                   //This enemy can be an elite            
-            archWispCSC.prefab = Resources.Load<GameObject>("prefabs/charactermasters/ArchWispMaster");     //Loading the characterMaster prefab for archwisp
+            CharacterSpawnCard archWispCSC = ScriptableObject.CreateInstance<CharacterSpawnCard>();                                      //Constructor
+            archWispCSC.loadout = new SerializableLoadout();                                                //This is the loadout for the body. Have not tested this much yet
+            archWispCSC.noElites = false;                                                                   //This enemy can be an elite                
             archWispCSC.forbiddenFlags = NodeFlags.NoCharacterSpawn;                                        //Keep it from spawning in weird places
             archWispCSC.requiredFlags = NodeFlags.None;                                                     //This field is rarely used
             archWispCSC.hullSize = HullClassification.Human;                                                //Just keep this at human
             archWispCSC.occupyPosition = false;                                                             //Flying enemies don't need this at true
             archWispCSC.sendOverNetwork = true;                                                             //This is an enemy, we want it networked
             archWispCSC.nodeGraphType = MapNodeGroup.GraphType.Air;                                         //Flying enemies spawn in the air, not the floor
-            archWispCSC.loadout = new SerializableLoadout();                                                //This is the loadout for the body. Have not tested this much yet
+            archWispCSC.prefab = Resources.Load<GameObject>("prefabs/charactermasters/ArchWispMaster");     //Loading the characterMaster prefab for archwisp
+
 
             //Now we need a DirectorCard for the enemy              
             DirectorCard archWispDirectorCard = new DirectorCard();                                         //Constructor
@@ -177,6 +178,11 @@ namespace ReinArchWispDemo
                 collider.sharedMesh = archWispBody.GetComponentInChildren<SkinnedMeshRenderer>().sharedMesh;
                 collider.convex = true;
             }
+            //CharacterBody AWBody = archWispBody.GetComponent<CharacterBody>();
+            //if( AWBody )
+            //{
+            //    AWBody.baseNameToken = "Archaic Wisp";
+            //}
         }
     }
 }
