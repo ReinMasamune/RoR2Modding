@@ -9,18 +9,22 @@ using UnityEngine.Networking;
 
 namespace ReinHuntressSkills.Skills.Primary
 {
-    public class HuntressPrimary1 : BaseState
+    public class HuntressPrimary2 : BaseState
     {
         //Consts
-        private const string fireSoundString = "";
-        private const float baseDuration = 0.3f;
+        private const string fireSoundString = "Play_huntress_m1_shoot";
+        private const float baseDuration = 1.0f;
+        private const int baseArrowsToFire = 5;
+        private const float spacingFrac = 0.5f;
 
         //Internal vars
         private float duration;
+        private float arrowTimer;
+        private float arrowTime;
+        private float arrowFireEnd;
         private ChildLocator childLoc;
         private Animator anim;
         private float timer;
-        private bool firedArrow = false;
         private GameObject projPrefab = Resources.Load<GameObject>("Prefabs/Projectiles/Arrow");
 
         public override void OnEnter()
@@ -29,12 +33,13 @@ namespace ReinHuntressSkills.Skills.Primary
 
             Transform modelTrans = base.GetModelTransform();
 
-            Util.PlayScaledSound(fireSoundString, base.gameObject, attackSpeedStat);
+            duration = baseDuration;
+            arrowFireEnd = duration * spacingFrac;
+            arrowTime = (duration - arrowFireEnd) / 5 / attackSpeedStat;
+            
 
-            duration = baseDuration / attackSpeedStat;
-
-            PlayCrossfade("Gesture, Override", "FireSeekingShot", "FireSeekingShot.playbackRate", duration, duration * 0.2f / attackSpeedStat);
-            PlayCrossfade("Gesture, Additive", "FireSeekingShot", "FireSeekingShot.playbackRate", duration, duration * 0.2f / attackSpeedStat);
+            PlayCrossfade("Gesture, Override", "FireSeekingShot", "FireSeekingShot.playbackRate", arrowTime, arrowTime * 0.2f / attackSpeedStat);
+            PlayCrossfade("Gesture, Additive", "FireSeekingShot", "FireSeekingShot.playbackRate", arrowTime, arrowTime * 0.2f / attackSpeedStat);
 
             if( modelTrans )
             {
@@ -46,6 +51,8 @@ namespace ReinHuntressSkills.Skills.Primary
                 characterBody.SetAimTimer(duration + 1.0f);
             }
             timer = 0.0f;
+            arrowTimer = 0.0f;
+            fireArrow();
         }
 
         public override void FixedUpdate()
@@ -53,10 +60,19 @@ namespace ReinHuntressSkills.Skills.Primary
             base.FixedUpdate();
 
             timer += Time.fixedDeltaTime;
-            if( anim.GetFloat("FireSeekingShot.fire") > 0.0f )
+            if( timer <= arrowFireEnd )
+            {
+                arrowTimer += Time.fixedDeltaTime;
+            }
+            while( arrowTimer > arrowTime)
             {
                 fireArrow();
+                arrowTimer -= arrowTime;
             }
+            //if( anim.GetFloat("FireSeekingShot.fire") > 0.0f )
+            //{
+            //    fireArrow();
+            //}
             if( timer > duration && isAuthority )
             {
                 outer.SetNextStateToMain();
@@ -67,7 +83,7 @@ namespace ReinHuntressSkills.Skills.Primary
         public override void OnExit()
         {
             base.OnExit();
-            fireArrow();
+            //fireArrow();
         }
 
         public override InterruptPriority GetMinimumInterruptPriority()
@@ -87,13 +103,18 @@ namespace ReinHuntressSkills.Skills.Primary
 
         private void fireArrow()
         {
-            if( firedArrow || !NetworkServer.active )
-            {
-                return;
-            }
-            firedArrow = true;
+            //if( firedArrow || !NetworkServer.active )
+            //{
+            //    return;
+            //}
+            //firedArrow = true;
 
             Ray aim = GetAimRay();
+
+            PlayCrossfade("Gesture, Override", "FireSeekingShot", "FireSeekingShot.playbackRate", arrowTime, arrowTime * 0.2f / attackSpeedStat);
+            PlayCrossfade("Gesture, Additive", "FireSeekingShot", "FireSeekingShot.playbackRate", arrowTime, arrowTime * 0.2f / attackSpeedStat);
+
+            Util.PlayScaledSound(fireSoundString, base.gameObject, attackSpeedStat);
 
             FireProjectileInfo info = new FireProjectileInfo
             {
@@ -103,7 +124,7 @@ namespace ReinHuntressSkills.Skills.Primary
                 owner = gameObject,
                 useSpeedOverride = false,
                 useFuseOverride = false,
-                damage = damageStat * 1.5f,
+                damage = damageStat * 0.6f,
                 force = 1f,
                 crit = base.RollCrit(),
                 damageColorIndex = DamageColorIndex.Default,

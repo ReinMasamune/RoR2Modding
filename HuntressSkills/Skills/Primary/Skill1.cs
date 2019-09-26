@@ -12,8 +12,8 @@ namespace ReinHuntressSkills.Skills.Primary
     public class HuntressPrimary1 : BaseState
     {
         //Consts
-        private const string fireSoundString = "";
-        private const float baseDuration = 0.3f;
+        private const string fireSoundString = "Play_huntress_m1_shoot";
+        private const float baseDuration = 0.5f;
 
         //Internal vars
         private float duration;

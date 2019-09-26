@@ -33,9 +33,10 @@ namespace ReinDirectorCardLib
             RallypointDelta = 16,
             ScorchedAcres = 32,
             AbyssalDepths = 64,
-            GildedCoast = 128,
-            AllStages = 255,
-            InvalidStage = 256
+            SirenCall = 128,
+            GildedCoast = 256,
+            AllStages = 511,
+            InvalidStage = 512
         }
 
         public void Awake()
@@ -93,6 +94,10 @@ namespace ReinDirectorCardLib
 
                             case "dampcavesimple":
                                 stage = SpawnStages.AbyssalDepths;
+                                break;
+
+                            case "shipgraveyard":
+                                stage = SpawnStages.SirenCall;
                                 break;
 
                             case "goldshores":

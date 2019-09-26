@@ -1,4 +1,5 @@
 ﻿using BepInEx;
+using BepInEx.Configuration;
 using RoR2;
 using UnityEngine;
 using System;
@@ -10,7 +11,7 @@ using System.IO;
 namespace ReinStutterStunter
 {
     [BepInDependency("com.bepis.r2api")]
-    [BepInPlugin("com.ReinThings.ReinStutterStunter", "ReinStutterStunter", "1.0.0")]
+    [BepInPlugin("com.ReinThings.ReinStutterStunter", "ReinStutterStunter", "1.0.2")]
     public class ReinStutterStunterMain : BaseUnityPlugin
     {
         private bool isGotoScary = false;
@@ -23,32 +24,42 @@ namespace ReinStutterStunter
 
         private string folderPath;
         private string logPath;
+        private bool log = true;
+
+        public static ConfigWrapper<bool> configWrappingPaper;
 
         public void Awake()
         {
-            folderPath = Environment.CurrentDirectory + "\\MemoryLog";
-            if (!Directory.Exists(folderPath))
-            {
-                Directory.CreateDirectory(folderPath);
-            }
+            configWrappingPaper = Config.Wrap<bool>("Settings", "Enable Logging", "Should a csv file of memory usage be saved?", true);
 
-            int i = 1;
-            if (isGotoScary)
+            log = configWrappingPaper.Value;
+
+            if (log)
             {
-                do
+                folderPath = Environment.CurrentDirectory + "\\MemoryLog";
+                if (!Directory.Exists(folderPath))
                 {
-                    logPath = $"\\MemLog{i++}.csv";
+                    Directory.CreateDirectory(folderPath);
                 }
-                while (File.Exists(folderPath + logPath));
-            }
-            else
-            {
+
+                int i = 1;
+                if (isGotoScary)
+                {
+                    do
+                    {
+                        logPath = $"\\MemLog{i++}.csv";
+                    }
+                    while (File.Exists(folderPath + logPath));
+                }
+                else
+                {
                 CheckAgain:
                     logPath = $"\\MemLog{i++}.csv";
                     if (File.Exists(folderPath + logPath)) goto CheckAgain;
+                }
+
+                logPath = folderPath + logPath;
             }
-            
-            logPath = folderPath + logPath;
         }
         public void Start()
         {
@@ -183,7 +194,10 @@ namespace ReinStutterStunter
         }
         private void AddALine( string s )
         {
-            File.AppendAllText(logPath, s + Environment.NewLine);
+            if (log)
+            {
+                File.AppendAllText(logPath, s + Environment.NewLine);
+            }
         }
     }
 }

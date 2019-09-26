@@ -9,7 +9,7 @@ using UnityEngine.Networking;
 
 namespace ReinHuntressSkills.Skills.Primary
 {
-    public class HuntressPrimary1 : BaseState
+    public class HuntressPrimary3 : BaseState
     {
         //Consts
         private const string fireSoundString = "";
@@ -33,8 +33,9 @@ namespace ReinHuntressSkills.Skills.Primary
 
             duration = baseDuration / attackSpeedStat;
 
-            PlayCrossfade("Gesture, Override", "FireSeekingShot", "FireSeekingShot.playbackRate", duration, duration * 0.2f / attackSpeedStat);
-            PlayCrossfade("Gesture, Additive", "FireSeekingShot", "FireSeekingShot.playbackRate", duration, duration * 0.2f / attackSpeedStat);
+            //PlayCrossfade("Gesture, Override", "FireArrowBarrage", "FireSeekingShot.playbackRate", duration, duration * 0.2f / attackSpeedStat);
+            //PlayCrossfade("Gesture, Additive", "FireArrowBarrage", "FireSeekingShot.playbackRate", duration, duration * 0.2f / attackSpeedStat);
+            PlayCrossfade("Body", "ArrowBarrageLoop", duration);
 
             if( modelTrans )
             {
