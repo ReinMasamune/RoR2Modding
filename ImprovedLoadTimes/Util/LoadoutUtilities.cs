@@ -3,7 +3,7 @@ using RoR2;
 using RoR2.Skills;
 using UnityEngine;
 
-namespace ImprovedLoadTimes.Misc
+namespace ImprovedLoadTimes.Util
 {
     public static class LoadoutUtilities
     {
