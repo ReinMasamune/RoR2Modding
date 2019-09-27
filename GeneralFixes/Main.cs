@@ -3,17 +3,24 @@ using RoR2;
 using UnityEngine;
 using System.Collections.Generic;
 using RoR2.Navigation;
+using R2API;
+using R2API.Utils;
 using Mono.Cecil.Cil;
 using MonoMod.Cil;
 using System;
+using System.Reflection;
+using EntityStates;
 
 namespace ReinGeneralFixes
 {
     [BepInDependency("com.bepis.r2api")]
     [BepInPlugin("com.ReinThings.ReinGeneralBugfixes", "ReinGeneralBugfixes", "1.0.0")]
 
-    public class ReinArchWispDemo : BaseUnityPlugin
+    public class ReinGeneralFixesMain : BaseUnityPlugin
     {
+        Dictionary<int, CharacterBody> dict1 = new Dictionary<int, CharacterBody>();
+        Dictionary<int, CharacterBody> dict2 = new Dictionary<int, CharacterBody>();
+
         public void Awake()
         {
             IL.RoR2.GlobalEventManager.OnHitEnemy += (il) =>
@@ -25,10 +32,7 @@ namespace ReinGeneralFixes
                     x => x.MatchAnd(),
                     x => x.MatchLdcI4(0)
                 );
-                Debug.Log(c);
                 c.RemoveRange(33);
-                Debug.Log(c);
-                //c.Emit(OpCodes.Ldarg_1);
                 c.Emit(OpCodes.Ldarg_2);
                 c.EmitDelegate<Action<DamageInfo,GameObject>>( (di,vic) =>
                 {
@@ -49,7 +53,65 @@ namespace ReinGeneralFixes
                     }
                     
                 });
-                Debug.Log(il);
+            };
+
+            On.RoR2.Inventory.CopyItemsFrom += (orig, self, copyFrom) =>
+            {
+                self.CopyEquipmentFrom(copyFrom);
+                orig(self, copyFrom);
+            };
+
+            On.EntityStates.EngiTurret.EngiTurretWeapon.FireBeam.OnEnter += (orig, self) =>
+            {
+                orig(self);
+                var prop = self.GetType().GetProperty("characterBody", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.FlattenHierarchy);
+                dict2.Add(self.GetFieldValue<Transform>("modelTransform").GetInstanceID(), (CharacterBody)prop.GetValue(self));
+            };
+
+            On.EntityStates.EngiTurret.EngiTurretWeapon.FireBeam.FixedUpdate += (orig, self) =>
+            {
+                float timer = self.GetFieldValue<float>("fireTimer");
+                float attackSpeedBonus = dict2[self.GetFieldValue<Transform>("modelTransform").GetInstanceID()].attackSpeed - 1.0f;
+                timer += Time.fixedDeltaTime * attackSpeedBonus;
+                self.SetFieldValue<float>("fireTimer", timer);
+                orig(self);
+            };
+
+            On.EntityStates.EngiTurret.EngiTurretWeapon.FireBeam.OnExit += (orig, self) =>
+            {
+                dict2.Remove(self.GetFieldValue<Transform>("modelTransform").GetInstanceID());
+                orig(self);
+            };
+
+            On.EntityStates.Mage.Weapon.Flamethrower.OnEnter += (orig, self) =>
+            {
+                orig(self);
+                var prop = self.GetType().GetProperty("characterBody", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.FlattenHierarchy);
+                dict1.Add(self.GetFieldValue<ChildLocator>("childLocator").GetInstanceID(), (CharacterBody)prop.GetValue(self));
+            };
+
+            On.EntityStates.Mage.Weapon.Flamethrower.FixedUpdate += (orig, self) =>
+            {
+                bool doThings = self.GetFieldValue<bool>("hasBegunFlamethrower");
+                if( doThings )
+                {
+                    float attackSpeedBonus = dict1[self.GetFieldValue<ChildLocator>("childLocator").GetInstanceID()].attackSpeed - 1.0f;
+                    float timer = self.GetFieldValue<float>("flamethrowerStopwatch");
+                    timer += Time.fixedDeltaTime * attackSpeedBonus;
+                    self.SetFieldValue<float>("flamethrowerStopwatch", timer);
+                }
+                orig(self);
+            };
+
+            On.EntityStates.Mage.Weapon.Flamethrower.OnExit += (orig, self) =>
+            {
+                dict1.Remove(self.GetFieldValue<ChildLocator>("childLocator").GetInstanceID());
+                orig(self);
+            };
+
+            On.EntityStates.Commando.CommandoWeapon.FireGrenade.OnEnter += (orig, self) =>
+            {
+                orig(self);
             };
         }
     }
