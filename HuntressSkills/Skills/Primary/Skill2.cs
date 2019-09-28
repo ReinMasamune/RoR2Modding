@@ -35,7 +35,9 @@ namespace ReinHuntressSkills.Skills.Primary
 
             duration = baseDuration;
             arrowFireEnd = duration * spacingFrac;
-            arrowTime = (duration - arrowFireEnd) / 5 / attackSpeedStat;
+            arrowTime = (duration - arrowFireEnd) / baseArrowsToFire / attackSpeedStat;
+
+            projPrefab.GetComponent<ProjectileController>().procCoefficient = 0.75f;
             
 
             PlayCrossfade("Gesture, Override", "FireSeekingShot", "FireSeekingShot.playbackRate", arrowTime, arrowTime * 0.2f / attackSpeedStat);

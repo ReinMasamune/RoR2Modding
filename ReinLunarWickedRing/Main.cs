@@ -19,6 +19,21 @@ namespace ReinWickedRing
             //{
             //    orig(self);
             //};
+            On.RoR2.CharacterBody.RecalculateStats += (orig, self) =>
+            {
+                orig(self);
+                float startCrit = self.crit;
+                //Debug.Log(startCrit);
+                if( self.inventory && self.inventory.GetItemCount(ItemIndex.CooldownOnCrit) > 0 )
+                {
+                    startCrit -= 5f;
+                    startCrit -= (self.baseCrit + self.levelCrit * (self.level - 1f));
+                }
+                //Debug.Log(startCrit);
+                self.SetPropertyValue<float>("crit" , startCrit);
+                //Debug.Log(self.crit);
+            };
+
 
             On.RoR2.GlobalEventManager.OnHitEnemy += (orig, self, damageInfo, victim) =>
             {
@@ -28,30 +43,33 @@ namespace ReinWickedRing
                     CharacterBody atBody = damageInfo.attacker.GetComponent<CharacterBody>();
                     if( atBody )
                     {
-                        CharacterMaster master = atBody.master;
-                        if (master)
+                        if( atBody.bodyIndex != 26 && atBody.bodyIndex != 27 )
                         {
-                            Inventory inv = master.inventory;
-                            if (inv)
+                            CharacterMaster master = atBody.master;
+                            if (master)
                             {
-                                int count = inv.GetItemCount(ItemIndex.CooldownOnCrit);
-                                if (count > 0 && damageInfo.crit && damageInfo.procCoefficient > 0f)
+                                Inventory inv = master.inventory;
+                                if (inv)
                                 {
-                                    float val1 = damageInfo.damage / atBody.damage * Mathf.Pow(2f, (float)(inv.GetItemCount(ItemIndex.LunarDagger) + 1f));
-                                    float val2 = damageInfo.procCoefficient * 0.9f * (1f - Mathf.Pow(1.15f, -1f * Mathf.Sqrt(val1) * (float)count));
+                                    int count = inv.GetItemCount(ItemIndex.CooldownOnCrit);
+                                    if (count > 0 && damageInfo.crit && damageInfo.procCoefficient > 0f)
+                                    {
+                                        float val1 = damageInfo.damage / atBody.damage * Mathf.Pow(2f, (float)(inv.GetItemCount(ItemIndex.LunarDagger) + 1f));
+                                        float val2 = damageInfo.procCoefficient * 0.9f * (1f - Mathf.Pow(1.15f, -1f * Mathf.Sqrt(val1) * (float)count));
 
-                                    DamageInfo recoil = new DamageInfo();
-                                    recoil.damage = atBody.healthComponent.combinedHealth * val2;
-                                    recoil.position = atBody.corePosition;
-                                    recoil.force = Vector3.zero;
-                                    recoil.damageColorIndex = DamageColorIndex.Default;
-                                    recoil.crit = false;
-                                    recoil.attacker = null;
-                                    recoil.inflictor = null;
-                                    recoil.damageType = DamageType.BypassArmor;
-                                    recoil.procCoefficient = 0f;
-                                    recoil.procChainMask = default(ProcChainMask);
-                                    atBody.healthComponent.TakeDamage(recoil);
+                                        DamageInfo recoil = new DamageInfo();
+                                        recoil.damage = atBody.healthComponent.combinedHealth * val2;
+                                        recoil.position = atBody.corePosition;
+                                        recoil.force = Vector3.zero;
+                                        recoil.damageColorIndex = DamageColorIndex.Default;
+                                        recoil.crit = false;
+                                        recoil.attacker = null;
+                                        recoil.inflictor = null;
+                                        recoil.damageType = DamageType.BypassArmor;
+                                        recoil.procCoefficient = 0f;
+                                        recoil.procChainMask = default(ProcChainMask);
+                                        atBody.healthComponent.TakeDamage(recoil);
+                                    }
                                 }
                             }
                         }
@@ -66,6 +84,11 @@ namespace ReinWickedRing
             ItemCatalog.lunarItemList.Add(ItemIndex.CooldownOnCrit);
             typeof(ItemCatalog).GetFieldValue<ItemDef[]>("itemDefs")[(int)ItemIndex.CooldownOnCrit].tier = ItemTier.Lunar;
             R2API.ItemDropAPI.AddToDefaultByTier(ItemTier.Lunar, ItemIndex.CooldownOnCrit);
+
+            ItemDef ringDef = typeof(ItemCatalog).GetFieldValue<ItemDef[]>("itemDefs")[(int)ItemIndex.CooldownOnCrit];
+            ringDef.tier = ItemTier.Lunar;
+            ringDef.pickupToken = "Reduce all cooldowns by on crit at the cost of health.";
+            ringDef.descriptionToken = "Reduces all cooldowns by 1 (+1 per stack) second(s) on critical hit. Take a percentage of current hp as damage based on the damage of the hit (multiplied by stacks) divided by your base damage stat pm critical hit.";
         }
     }
 }

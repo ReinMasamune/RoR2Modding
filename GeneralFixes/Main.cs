@@ -113,6 +113,31 @@ namespace ReinGeneralFixes
             {
                 orig(self);
             };
+
+            /*
+            On.RoR2.CharacterBody.RecalculateStats += (orig, self) =>
+            {
+                float level = self.level;
+                int hoofCount = 0;
+                int drinkCount = 0;
+                int whipCount = 0;
+                int tonicAffCount = 0;
+                if( self.inventory )
+                {
+                    hoofCount = self.inventory.GetItemCount(ItemIndex.Hoof);
+                    drinkCount = self.inventory.GetItemCount(ItemIndex.SprintBonus);
+                    whipCount = self.inventory.GetItemCount(ItemIndex.SprintOutOfCombat);
+                    tonicAffCount = self.inventory.GetItemCount(ItemIndex.TonicAffliction);
+                    level += self.inventory.GetItemCount(ItemIndex.LevelBonus);
+                }
+            };
+            */
+
+            On.RoR2.HealthComponent.RepeatHealComponent.AddReserve += (orig, self, amount, max) =>
+            {
+                max *= 1000f;
+                orig(self, amount, max);
+            };
         }
     }
 }
