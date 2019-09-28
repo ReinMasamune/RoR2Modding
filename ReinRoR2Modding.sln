@@ -25,7 +25,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReinLunarWickedRing", "Rein
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HuntressSkills", "HuntressSkills\HuntressSkills.csproj", "{5957FF02-776C-47B8-AF9E-C945BA3BC4CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImprovedLoadTimes", "ImprovedLoadTimes\ImprovedLoadTimes.csproj", "{1AE70AEF-14CA-47C0-9903-C970C1415F31}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImprovedLoadTimes", "ImprovedLoadTimes\ImprovedLoadTimes.csproj", "{1AE70AEF-14CA-47C0-9903-C970C1415F31}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReinDirectorCardLib", "ReinDirectorCardLib\ReinDirectorCardLib.csproj", "{A6C1D5DC-C5A9-4D61-BF36-EB0455C84F0E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -81,6 +83,10 @@ Global
 		{1AE70AEF-14CA-47C0-9903-C970C1415F31}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1AE70AEF-14CA-47C0-9903-C970C1415F31}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1AE70AEF-14CA-47C0-9903-C970C1415F31}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6C1D5DC-C5A9-4D61-BF36-EB0455C84F0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6C1D5DC-C5A9-4D61-BF36-EB0455C84F0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6C1D5DC-C5A9-4D61-BF36-EB0455C84F0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6C1D5DC-C5A9-4D61-BF36-EB0455C84F0E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

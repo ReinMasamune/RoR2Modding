@@ -15,7 +15,6 @@ namespace ReinGeneralFixes
 {
     [BepInDependency("com.bepis.r2api")]
     [BepInPlugin("com.ReinThings.ReinGeneralBugfixes", "ReinGeneralBugfixes", "1.0.0")]
-
     public class ReinGeneralFixesMain : BaseUnityPlugin
     {
         Dictionary<int, CharacterBody> dict1 = new Dictionary<int, CharacterBody>();
@@ -109,10 +108,10 @@ namespace ReinGeneralFixes
                 orig(self);
             };
 
-            On.EntityStates.Commando.CommandoWeapon.FireGrenade.OnEnter += (orig, self) =>
-            {
-                orig(self);
-            };
+            //On.EntityStates.Commando.CommandoWeapon.FireGrenade.OnEnter += (orig, self) =>
+            //{
+            //    orig(self);
+            //};
 
             /*
             On.RoR2.CharacterBody.RecalculateStats += (orig, self) =>
