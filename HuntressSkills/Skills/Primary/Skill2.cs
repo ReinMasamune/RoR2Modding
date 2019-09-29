@@ -16,12 +16,17 @@ namespace ReinHuntressSkills.Skills.Primary
         private const float baseDuration = 1.0f;
         private const int baseArrowsToFire = 5;
         private const float spacingFrac = 0.5f;
+        private const float baseSpread = 0.275f;
+        private const float flatSpread = 0.005f;
+        private const int maxArrowsPerFrame = 15;
 
         //Internal vars
         private float duration;
         private float arrowTimer;
         private float arrowTime;
         private float arrowFireEnd;
+        private int frameArrowCounter;
+        private int arrowCounter;
         private ChildLocator childLoc;
         private Animator anim;
         private float timer;
@@ -33,11 +38,47 @@ namespace ReinHuntressSkills.Skills.Primary
 
             Transform modelTrans = base.GetModelTransform();
 
+            ProjectileTargetComponent projTarget = projPrefab.GetComponent<ProjectileTargetComponent>();
+            if (!projTarget)
+            {
+                projTarget = projPrefab.AddComponent<ProjectileTargetComponent>();
+            }
+
+
+            ProjectileDirectionalTargetFinder projFinder = projPrefab.GetComponent<ProjectileDirectionalTargetFinder>();
+            if (!projFinder)
+            {
+                projFinder = projPrefab.AddComponent<ProjectileDirectionalTargetFinder>();
+            }
+            projFinder.lookCone = 6.5f;
+            projFinder.lookRange = 60.0f;
+            projFinder.targetSearchInterval = 0.15f;
+            projFinder.onlySearchIfNoTarget = false;
+            projFinder.allowTargetLoss = true;
+            projFinder.testLoS = true;
+            projFinder.ignoreAir = false;
+
+            ProjectileSteerTowardTarget projSteer = projPrefab.GetComponent<ProjectileSteerTowardTarget>();
+            if (!projSteer)
+            {
+                projSteer = projPrefab.AddComponent<ProjectileSteerTowardTarget>();
+            }
+            projSteer.rotationSpeed = 45.0f;
+
+            ProjectileSimple projSimp = projPrefab.GetComponent<ProjectileSimple>();
+            if( !projSimp )
+            {
+                Debug.Log("Dafuq you done?");
+            }
+            projSimp.updateAfterFiring = true;
+
+
+
             duration = baseDuration;
             arrowFireEnd = duration * spacingFrac;
             arrowTime = (duration - arrowFireEnd) / baseArrowsToFire / attackSpeedStat;
 
-            projPrefab.GetComponent<ProjectileController>().procCoefficient = 0.75f;
+            this.projPrefab.GetComponent<ProjectileController>().procCoefficient = 0.75f;
             
 
             PlayCrossfade("Gesture, Override", "FireSeekingShot", "FireSeekingShot.playbackRate", arrowTime, arrowTime * 0.2f / attackSpeedStat);
@@ -54,6 +95,7 @@ namespace ReinHuntressSkills.Skills.Primary
             }
             timer = 0.0f;
             arrowTimer = 0.0f;
+            arrowCounter = 0;
             fireArrow();
         }
 
@@ -62,11 +104,12 @@ namespace ReinHuntressSkills.Skills.Primary
             base.FixedUpdate();
 
             timer += Time.fixedDeltaTime;
+            frameArrowCounter = 0;
             if( timer <= arrowFireEnd )
             {
                 arrowTimer += Time.fixedDeltaTime;
             }
-            while( arrowTimer > arrowTime)
+            while( arrowTimer > arrowTime && frameArrowCounter++ <= maxArrowsPerFrame )
             {
                 fireArrow();
                 arrowTimer -= arrowTime;
@@ -122,7 +165,7 @@ namespace ReinHuntressSkills.Skills.Primary
             {
                 projectilePrefab = projPrefab,
                 position = aim.origin,
-                rotation = Util.QuaternionSafeLookRotation(aim.direction),
+                rotation = Util.QuaternionSafeLookRotation(CalculateSpreadVector(aim.direction , characterBody.spreadBloomAngle , 0f , 2 )),
                 owner = gameObject,
                 useSpeedOverride = false,
                 useFuseOverride = false,
@@ -134,6 +177,33 @@ namespace ReinHuntressSkills.Skills.Primary
             };
 
             ProjectileManager.instance.FireProjectile(info);
+            arrowCounter++;
+            base.characterBody.AddSpreadBloom(baseSpread / Mathf.Sqrt(arrowCounter) + flatSpread);
+        }
+
+        private Vector3 CalculateSpreadVector(Vector3 forward , float maxSpread , float forcedDistrib , int samples )
+        {
+            //Chat.AddMessage(maxSpread.ToString());
+            Vector3 result = forward;
+            Vector3 temp = Vector3.left;
+            Vector3.OrthoNormalize(ref forward, ref temp);
+
+            float totalp = 0f;
+            for( int i = 0; i<=samples; i++ )
+            {
+                totalp += UnityEngine.Random.Range(maxSpread * forcedDistrib, maxSpread);
+            }
+            totalp /= samples;
+
+            float totalr = UnityEngine.Random.Range(Single.Epsilon, 360f);
+
+            Quaternion q1 = Quaternion.AngleAxis(totalp, temp);
+            result = q1 * result;
+
+            q1 = Quaternion.AngleAxis(totalr, forward);
+            result = q1 * result;
+
+            return result;
         }
     }
 }

@@ -161,12 +161,53 @@ namespace ReinArchWispDemo
 
             //Final thing is to add it to the edit list
             EditMonsterCards.Add(zapSnokEdit);
+
+
+
+            CharacterSpawnCard anchWispCSC = ScriptableObject.CreateInstance<CharacterSpawnCard>();                                      //Constructor
+            anchWispCSC.loadout = new SerializableLoadout();                                                //This is the loadout for the body. Have not tested this much yet
+            anchWispCSC.noElites = false;                                                                   //This enemy can be an elite                
+            anchWispCSC.forbiddenFlags = NodeFlags.NoCharacterSpawn;                                        //Keep it from spawning in weird places
+            anchWispCSC.requiredFlags = NodeFlags.None;                                                     //This field is rarely used
+            anchWispCSC.hullSize = HullClassification.Human;                                                //Just keep this at human
+            anchWispCSC.occupyPosition = false;                                                             //Flying enemies don't need this at true
+            anchWispCSC.sendOverNetwork = true;                                                             //This is an enemy, we want it networked
+            anchWispCSC.nodeGraphType = MapNodeGroup.GraphType.Air;                                         //Flying enemies spawn in the air, not the floor
+            anchWispCSC.prefab = Resources.Load<GameObject>("prefabs/charactermasters/ancientWispMaster");     //Loading the characterMaster prefab for archwisp
+
+
+            //Now we need a DirectorCard for the enemy              
+            DirectorCard anchWispDirectorCard = new DirectorCard();                                         //Constructor
+            anchWispDirectorCard.spawnCard = anchWispCSC;                                                   //Set the spawn card we just made
+            anchWispDirectorCard.cost = 500;                                                                //Greater Wisps cost 200, beetle queens cost 600
+            anchWispDirectorCard.selectionWeight = 100;                                                       //Weight of 1, because that is fine
+            anchWispDirectorCard.allowAmbushSpawn = true;                                                   //Surprise!
+            anchWispDirectorCard.forbiddenUnlockable = "";                                                  //Not messing with these atm
+            anchWispDirectorCard.minimumStageCompletions = 0;                                               //Same spawn settings as ror1        
+            anchWispDirectorCard.preventOverhead = true;                                                    //Leaving this at default
+            anchWispDirectorCard.spawnDistance = DirectorCore.MonsterSpawnDistance.Standard;                //Standard spawn distance
+
+            //Now, for the part that actually uses the lib
+            //We want to add this card so the director uses it, and ideally we don't want to conflict with other mods
+            //The lib provides a public list you can add all your cards to, and does all the edits at once
+            //There still can be conflicts if two mods are changing the same thing.
+
+            //We need to make an AddedMonsterCard, because this is an entirely new entry
+            //Before that, we want to select the stages it can spawn on
+            SpawnStages stages3 = SpawnStages.AllStages;             //This starts us off with all default stages
+            //stages -= SpawnStages.WetlandAspect;                    //We remove Wetland Aspect, because greater wisps can't spawn there either
+
+            //Now we make the AddedMonsterCard
+            AddedMonsterCard anchWisp = new AddedMonsterCard(MonsterCategory.Champion, stages3, anchWispDirectorCard);
+
+            //Once we have that we simply add it to the list with the .Add method.
+            AddedMonsterCards.Add(anchWisp);
         }
 
         public void Start()
         {
             //Nothing to see here, just hitbox edits so shots register more consistently.
-            GameObject archWispBody = Resources.Load<GameObject>("prefabs/characterbodies/ArchWispBody");
+            GameObject archWispBody = Resources.Load<GameObject>("prefabs/characterbodies/AncientWispBody");
             HurtBox archWispHurtBox = archWispBody.GetComponentInChildren<HurtBox>();
             if (archWispHurtBox)
             {

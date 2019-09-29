@@ -29,6 +29,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImprovedLoadTimes", "Improv
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReinDirectorCardLib", "ReinDirectorCardLib\ReinDirectorCardLib.csproj", "{A6C1D5DC-C5A9-4D61-BF36-EB0455C84F0E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Atmosphere", "Atmosphere\Atmosphere.csproj", "{D8BBAB5C-06B4-4984-B601-85DCF48229C0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +89,10 @@ Global
 		{A6C1D5DC-C5A9-4D61-BF36-EB0455C84F0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A6C1D5DC-C5A9-4D61-BF36-EB0455C84F0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A6C1D5DC-C5A9-4D61-BF36-EB0455C84F0E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8BBAB5C-06B4-4984-B601-85DCF48229C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8BBAB5C-06B4-4984-B601-85DCF48229C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8BBAB5C-06B4-4984-B601-85DCF48229C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8BBAB5C-06B4-4984-B601-85DCF48229C0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

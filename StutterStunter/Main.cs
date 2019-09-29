@@ -20,7 +20,7 @@ namespace ReinStutterStunter
         private long memoryWarning = 3000;
         private long memoryCap = 4000;
         private const long div = 1048576;
-        private const float checkDelay = 10.0f;
+        private const float checkDelay = 30.0f;
 
         private string folderPath;
         private string logPath;
@@ -77,10 +77,10 @@ namespace ReinStutterStunter
                 switch( mode )
                 {
                     case GarbageCollector.Mode.Enabled:
-                        //Chat("Garbage Collection enabled");
+                        Chat.AddMessage("Garbage Collection enabled");
                         break;
                     case GarbageCollector.Mode.Disabled:
-                        //Chat.AddMessage("Garbage Collection disabled");
+                        Chat.AddMessage("Garbage Collection disabled");
                         break;
                     default:
                         Chat.AddMessage("Something went very wrong with garbage collection");
@@ -161,7 +161,7 @@ namespace ReinStutterStunter
             {
                 curMem = GC.GetTotalMemory(true);
                 peakMem = Math.Max(curMem, peakMem);
-                AddALine(Time.fixedUnscaledTime.ToString() + "," + curMem.ToString());
+                AddALine(Time.realtimeSinceStartup.ToString() + "," + curMem.ToString());
 
                 if ((curMem / div) > memoryWarning)
                 {
