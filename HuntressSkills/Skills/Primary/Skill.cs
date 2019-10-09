@@ -9,7 +9,7 @@ using UnityEngine.Networking;
 
 namespace ReinHuntressSkills.Skills.Primary
 {
-    public class HuntressPrimary2 : BaseState
+    public class HuntressPrimary : BaseState
     {
         //Consts
         private const string fireSoundString = "Play_huntress_m1_shoot";
@@ -36,15 +36,11 @@ namespace ReinHuntressSkills.Skills.Primary
         {
             base.OnEnter();
 
-            Transform modelTrans = base.GetModelTransform();
-
             ProjectileTargetComponent projTarget = projPrefab.GetComponent<ProjectileTargetComponent>();
             if (!projTarget)
             {
                 projTarget = projPrefab.AddComponent<ProjectileTargetComponent>();
             }
-
-
             ProjectileDirectionalTargetFinder projFinder = projPrefab.GetComponent<ProjectileDirectionalTargetFinder>();
             if (!projFinder)
             {
@@ -57,14 +53,12 @@ namespace ReinHuntressSkills.Skills.Primary
             projFinder.allowTargetLoss = true;
             projFinder.testLoS = true;
             projFinder.ignoreAir = false;
-
             ProjectileSteerTowardTarget projSteer = projPrefab.GetComponent<ProjectileSteerTowardTarget>();
             if (!projSteer)
             {
                 projSteer = projPrefab.AddComponent<ProjectileSteerTowardTarget>();
             }
             projSteer.rotationSpeed = 45.0f;
-
             ProjectileSimple projSimp = projPrefab.GetComponent<ProjectileSimple>();
             if( !projSimp )
             {
@@ -72,14 +66,13 @@ namespace ReinHuntressSkills.Skills.Primary
             }
             projSimp.updateAfterFiring = true;
 
-
-
             duration = baseDuration;
             arrowFireEnd = duration * spacingFrac;
             arrowTime = (duration - arrowFireEnd) / baseArrowsToFire / attackSpeedStat;
 
-            this.projPrefab.GetComponent<ProjectileController>().procCoefficient = 0.75f;
-            
+            this.projPrefab.GetComponent<ProjectileController>().procCoefficient = 0.4f;
+
+            Transform modelTrans = base.GetModelTransform();
 
             PlayCrossfade("Gesture, Override", "FireSeekingShot", "FireSeekingShot.playbackRate", arrowTime, arrowTime * 0.2f / attackSpeedStat);
             PlayCrossfade("Gesture, Additive", "FireSeekingShot", "FireSeekingShot.playbackRate", arrowTime, arrowTime * 0.2f / attackSpeedStat);
@@ -114,10 +107,6 @@ namespace ReinHuntressSkills.Skills.Primary
                 fireArrow();
                 arrowTimer -= arrowTime;
             }
-            //if( anim.GetFloat("FireSeekingShot.fire") > 0.0f )
-            //{
-            //    fireArrow();
-            //}
             if( timer > duration && isAuthority )
             {
                 outer.SetNextStateToMain();
@@ -127,8 +116,8 @@ namespace ReinHuntressSkills.Skills.Primary
 
         public override void OnExit()
         {
+            Debug.Log("ArrowCount: " + arrowCounter.ToString());
             base.OnExit();
-            //fireArrow();
         }
 
         public override InterruptPriority GetMinimumInterruptPriority()
@@ -136,24 +125,8 @@ namespace ReinHuntressSkills.Skills.Primary
             return InterruptPriority.Skill;
         }
 
-        //public override void OnSerialize(NetworkWriter writer)
-        //{
-        //    writer.Write(HurtBoxReference)
-        //}
-
-        //public override void OnDeserialize(NetworkReader reader)
-        //{
-        //    base.OnDeserialize(reader);
-        //}
-
         private void fireArrow()
         {
-            //if( firedArrow || !NetworkServer.active )
-            //{
-            //    return;
-            //}
-            //firedArrow = true;
-
             Ray aim = GetAimRay();
 
             PlayCrossfade("Gesture, Override", "FireSeekingShot", "FireSeekingShot.playbackRate", arrowTime, arrowTime * 0.2f / attackSpeedStat);
@@ -183,7 +156,6 @@ namespace ReinHuntressSkills.Skills.Primary
 
         private Vector3 CalculateSpreadVector(Vector3 forward , float maxSpread , float forcedDistrib , int samples )
         {
-            //Chat.AddMessage(maxSpread.ToString());
             Vector3 result = forward;
             Vector3 temp = Vector3.left;
             Vector3.OrthoNormalize(ref forward, ref temp);
