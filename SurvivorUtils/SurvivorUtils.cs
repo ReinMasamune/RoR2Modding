@@ -19,27 +19,20 @@ namespace SurvivorUtils
 
         public static bool AddNewSurvivor( SurvivorDef survivor , string survivorName = "", [CallerFilePath] string file = null, [CallerMemberName] string name = null, [CallerLineNumber] int lineNumber = 0)
         {
-            //Get a mod name from filepath
-            string modName = "[Mod really messed up?]";
-            int start = file.LastIndexOf('/');
-            int end = file.LastIndexOf('.');
-            end -= start;
-            if (end > 0)
-            {
-                modName = file.Substring(start + 1, end);
-            }
-            else
-            {
-                modName = file.Substring(start + 1);
-            }
-            
             //Pre-generate the string that will be logged referring to this specific survivor
-            string modInfo = "Mod: " + modName + " Method: " +  name + " Line: " + lineNumber.ToString();
+            string modInfo = GetModinfoString(file, name, lineNumber);
 
             //Block this from running if the survivor list was already generated, return false so a mod can be aware of this in script
             if ( hasAlreadyAddedSurvivors )
             { 
-                Debug.Log("Tried to add survivor after list was created at: " + modInfo);
+                Debug.Log("Tried to add survivor: " + survivorName + " after survivor list was created at: " + modInfo);
+                return false;
+            }
+
+            //Check and make sure there is a prefab for the survivor
+            if( !survivor.bodyPrefab )
+            {
+                Debug.Log("No prefab defined for survivor: " + survivorName + " in " + modInfo);
                 return false;
             }
 
@@ -51,6 +44,25 @@ namespace SurvivorUtils
 
             //Return true so a mod can be aware that their survivor was added successfully in script
             return true;
+        }
+
+        private static string GetModinfoString(string file , string name , int lineNumber )
+        {
+            //Isolate the name
+            int start = file.LastIndexOf('/');
+            int end = file.LastIndexOf('.');
+            end -= start;
+            string modName = "";
+            if (end > 0)
+            {
+                modName = file.Substring(start + 1, end);
+            }
+            else
+            {
+                modName = file.Substring(start + 1);
+            }
+            //Return a string with the info
+            return "Mod: " + modName + " Method: " + name + " Line: " + lineNumber.ToString();
         }
 
         private static void RegisterEvent()
@@ -65,12 +77,12 @@ namespace SurvivorUtils
             RoR2.SurvivorCatalog.getAdditionalSurvivorDefs += AddSurvivorAction;
             eventRegistered = true;
         }
-
         private static void UnRegisterEvent()
         {
             //Unregister the event, it will not be called again anyway but good habits
             RoR2.SurvivorCatalog.getAdditionalSurvivorDefs -= AddSurvivorAction;
         }
+
 
         private static void AddSurvivorAction(List<SurvivorDef> obj)
         {
@@ -87,10 +99,12 @@ namespace SurvivorUtils
             //Increase the max survivor count to ensure there is enough space on the char select bar
             SurvivorCatalog.survivorMaxCount += count;
 
+            SurvivorDef curSurvivor;
+
             //Loop through the new survivors
             for ( int i = 0; i < count; i++ )
             {
-                SurvivorDef curSurvivor = newSurvivors[i];
+                curSurvivor = newSurvivors[i];
 
                 //Check if the current survivor has been registered in bodycatalog. Log if it has not, but still add the survivor
                 if( BodyCatalog.FindBodyIndex(curSurvivor.bodyPrefab) == -1 || BodyCatalog.GetBodyPrefab( BodyCatalog.FindBodyIndex(curSurvivor.bodyPrefab ) ) != curSurvivor.bodyPrefab )
