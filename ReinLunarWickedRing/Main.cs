@@ -15,10 +15,6 @@ namespace ReinWickedRing
     {
         public void Awake()
         {
-            //On.RoR2.GenericSkill.OnExecute += (orig, self) =>
-            //{
-            //    orig(self);
-            //};
             On.RoR2.CharacterBody.RecalculateStats += (orig, self) =>
             {
                 orig(self);
