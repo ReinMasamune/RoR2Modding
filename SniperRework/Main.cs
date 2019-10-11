@@ -16,13 +16,13 @@ namespace ReinSniperRework
     public class ReinSniperReworkMain : BaseUnityPlugin
     {
 
-        public void Start()
+        public void Awake()
         {
             var execAssembly = Assembly.GetExecutingAssembly();
             var stream = execAssembly.GetManifestResourceStream("ReinSniperRework.sniperassetbundle");
             var sniperBundle = AssetBundle.LoadFromStream(stream);
-            
-            GameObject body = BodyCatalog.FindBodyPrefab("SniperBody");
+
+            GameObject body = Resources.Load<GameObject>("prefabs/characterbodies/sniperbody");
 
             ReinDataLibrary data = body.AddComponent<ReinDataLibrary>();
             data.g_ui = body.AddComponent<SniperUIController>();
@@ -79,8 +79,11 @@ namespace ReinSniperRework
             SkillDef Sniper4 = SniperFam4.variants[SniperFam4.defaultVariantIndex].skillDef;
 
             charbody.baseDamage = data.g_baseDamage;
+            charbody.levelDamage = data.g_baseDamage * 0.2f;
             charbody.baseMaxHealth = data.g_baseHealth;
+            charbody.levelMaxHealth = data.g_baseHealth * 0.3f;
             charbody.baseRegen = data.g_baseRegen;
+            charbody.levelRegen = data.g_baseRegen * 0.3f;
             charbody.crosshairPrefab = Resources.Load<GameObject>(data.g_crosshairString);
             charbody.bodyFlags = CharacterBody.BodyFlags.ImmuneToExecutes;
 
@@ -164,11 +167,15 @@ namespace ReinSniperRework
                 unlockableName = "",
                 survivorIndex = (SurvivorIndex)int.MaxValue
             };
-            R2API.SurvivorAPI.AddSurvivorOnReady(survivor);
+            R2API.SurvivorAPI.AddSurvivor(survivor, "sniper");
             
-            SniperHeadshotHitboxStuff.AddHurtboxes();
+
         }
 
+        public void Start()
+        {
+            SniperHeadshotHitboxStuff.AddHurtboxes();
+        }
         
         
         

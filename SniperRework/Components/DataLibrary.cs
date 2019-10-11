@@ -16,7 +16,7 @@ namespace ReinSniperRework
         //floats
         public readonly float g_baseDamage = 16.0f;
         public readonly float g_baseHealth = 110.0f;
-        public readonly float g_baseRegen = 1.0f;
+        public readonly float g_baseRegen = 0.6f;
         public float g_shotCharge;
         //ints
         public int g_reloadTier = 2;
