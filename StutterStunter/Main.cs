@@ -11,7 +11,7 @@ using System.IO;
 namespace ReinStutterStunter
 {
     [BepInDependency("com.bepis.r2api")]
-    [BepInPlugin("com.ReinThings.ReinStutterStunter", "ReinStutterStunter", "1.0.2")]
+    [BepInPlugin("com.ReinThings.ReinStutterStunter", "ReinStutterStunter", "1.0.3")]
     public class ReinStutterStunterMain : BaseUnityPlugin
     {
         private bool isGotoScary = false;
@@ -72,6 +72,7 @@ namespace ReinStutterStunter
             //{
             //    DisableGC();
             //});
+            /*
             GarbageCollector.GCModeChanged += (GarbageCollector.Mode mode) =>
             {
                 switch( mode )
@@ -88,6 +89,7 @@ namespace ReinStutterStunter
                         break;
                 }
             };
+            */
             SceneManager.sceneUnloaded += (Scene scene) =>
             {
                 Chat.AddMessage("Scene unload");

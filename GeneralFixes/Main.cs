@@ -14,7 +14,7 @@ using EntityStates;
 namespace ReinGeneralFixes
 {
     [BepInDependency("com.bepis.r2api")]
-    [BepInPlugin("com.ReinThings.ReinGeneralBugfixes", "ReinGeneralBugfixes", "1.0.0")]
+    [BepInPlugin("com.ReinThings.ReinGeneralBugfixes", "ReinGeneralBugfixes", "1.0.1")]
     public class ReinGeneralFixesMain : BaseUnityPlugin
     {
         Dictionary<int, CharacterBody> dict1 = new Dictionary<int, CharacterBody>();
@@ -34,8 +34,7 @@ namespace ReinGeneralFixes
                 c.RemoveRange(33);
                 c.Emit(OpCodes.Ldarg_2);
                 c.EmitDelegate<Action<DamageInfo,GameObject>>( (di,vic) =>
-                {
-                    
+                {  
                     if( (di.damageType & DamageType.IgniteOnHit ) > DamageType.Generic )
                     {
                         DotController.InflictDot(vic, di.attacker, DotController.DotIndex.Burn, 4f * di.procCoefficient, 1f);
@@ -67,6 +66,8 @@ namespace ReinGeneralFixes
                 dict2.Add(self.GetFieldValue<Transform>("modelTransform").GetInstanceID(), (CharacterBody)prop.GetValue(self));
             };
 
+
+            /*
             On.EntityStates.EngiTurret.EngiTurretWeapon.FireBeam.FixedUpdate += (orig, self) =>
             {
                 float timer = self.GetFieldValue<float>("fireTimer");
@@ -81,6 +82,7 @@ namespace ReinGeneralFixes
                 dict2.Remove(self.GetFieldValue<Transform>("modelTransform").GetInstanceID());
                 orig(self);
             };
+            */
 
             On.EntityStates.Mage.Weapon.Flamethrower.OnEnter += (orig, self) =>
             {
