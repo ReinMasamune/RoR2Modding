@@ -1,7 +1,0 @@
-LobbyLeaderCrown
-
-> UnityEngine.RectTransform
-
-> UnityEngine.CanvasRenderer
-
-> UnityEngine.UI.Image
