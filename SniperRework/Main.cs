@@ -33,6 +33,10 @@ namespace ReinSniperRework
             CharacterBody charbody = body.GetComponent<CharacterBody>();
             SetStateOnHurt hurtState = body.AddComponent<SetStateOnHurt>();
 
+            charbody.name = "Sniper";
+            charbody.baseNameToken = "Sniper";
+            charbody.subtitleNameToken = "The sniping guy!";
+
             hurtState.canBeFrozen = true;
             hurtState.canBeHitStunned = false;
             hurtState.canBeStunned = false;
@@ -165,9 +169,8 @@ namespace ReinSniperRework
                 displayPrefab = Resources.Load<GameObject>("Prefabs/Characters/SniperDisplay"),
                 primaryColor = new Color(0.15f, 0.15f, 0.15f),
                 unlockableName = "",
-                survivorIndex = (SurvivorIndex)int.MaxValue
             };
-            R2API.SurvivorAPI.AddSurvivor(survivor, "sniper");
+            R2API.SurvivorAPI.AddSurvivor(survivor);
             
 
         }
