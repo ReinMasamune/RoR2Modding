@@ -19,8 +19,19 @@ namespace ImprovedLoadTimes
     [BepInPlugin("com.ReinThings.ImprovedLoadTime", "ImprovedLoadTime", "1.0.0")]
     public class ImprovedLoadTimesMain : BaseUnityPlugin
     {
+        public void Awake()
+        {
+
+        }
+
         public void Start()
         {
+            EntityStates.Loader.ChargeFist.baseChargeDuration *= 10f;
+            EntityStates.Loader.SwingChargedFist.maxPunchForce *= 100f;
+            EntityStates.Loader.SwingChargedFist.maxLungeSpeed *= 2f;
+            EntityStates.Loader.SwingChargedFist.velocityDamageCoefficient *= 5f;
+
+            /*
             GameObject oneBodyMan = BodyCatalog.FindBodyPrefab("LoaderBody");
             SkillFamily oneLoaderFamilyMan = LoadoutUtilities.GetSkillFamily(oneBodyMan, SkillSlot.Utility);
             Sprite oneSpriteMan = Resources.Load<Sprite>("ONEPUNCH");
@@ -52,6 +63,18 @@ namespace ImprovedLoadTimes
                 fullRestockOnAssign = true
             };
             LoadoutUtilities.AddSkillToVariants(oneLoaderFamilyMan, onePunchSkillMan);
+
+
+            foreach (FieldInfo f in typeof(EntityStates.Loader.ChargeFist).GetFields(BindingFlags.Static))
+            {
+                f.SetValue(typeof(ImprovedLoadTimes.Skills.Utility.AHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH), f.GetValue(typeof(EntityStates.Loader.ChargeFist)));
+            }
+
+            foreach (FieldInfo f in typeof(EntityStates.Loader.SwingChargedFist).GetFields(BindingFlags.Static))
+            {
+                f.SetValue(typeof(ImprovedLoadTimes.Skills.Utility.ONEPUNCH), f.GetValue(typeof(EntityStates.Loader.ChargeFist)));
+            }
+            */
         }
     }
 }

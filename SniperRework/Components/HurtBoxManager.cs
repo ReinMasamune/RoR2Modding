@@ -22,6 +22,8 @@ namespace ReinSniperRework
             }
             hbs[gr.hurtBoxes.Length] = managedHB;
             gr.hurtBoxes = hbs;
+
+            gameObject.tag = "Untagged";
         }
 
         public void FixedUpdate()

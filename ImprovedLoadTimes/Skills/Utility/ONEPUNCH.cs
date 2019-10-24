@@ -9,21 +9,7 @@ using UnityEngine.Networking;
 
 namespace ImprovedLoadTimes.Skills.Utility
 {
-    public class ONEPUNCH : EntityStates.Loader.ChargeFist
+    public class ONEPUNCH : EntityStates.Loader.SwingChargedFist
     {
-        public override void OnEnter()
-        {
-            base.OnEnter();
-        }
-
-        public override void FixedUpdate()
-        {
-            base.FixedUpdate();
-        }
-
-        public override void OnExit()
-        {
-            base.OnExit();
-        }
     }
 }

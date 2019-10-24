@@ -102,6 +102,7 @@ namespace ReinSniperRework
                 Debug.Log("No hbg");
             }
 
+            new GameObject().transform.local
 
             HurtBox sample = targetObj.GetComponent<HurtBox>();
             if (!sample)

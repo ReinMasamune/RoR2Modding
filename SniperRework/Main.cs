@@ -11,7 +11,7 @@ using System;
 namespace ReinSniperRework
 {
     [BepInDependency("com.bepis.r2api")]
-    [BepInPlugin("com.ReinThings.ReinSniperRework", "ReinSniperRework", "1.0.6")]
+    [BepInPlugin("com.ReinThings.ReinSniperRework", "ReinSniperRework", "1.0.7")]
 
     public class ReinSniperReworkMain : BaseUnityPlugin
     {

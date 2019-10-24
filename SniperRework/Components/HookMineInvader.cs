@@ -50,15 +50,13 @@ namespace ReinSniperRework
 
         private void OnActivation()
         {
+            Debug.Log("OnActivation");
             if (wardPrefab)
             {
                 activated = true;
-
-                CharacterBody body = owner.GetComponent<CharacterBody>();
-                if( body )
-                {
-                    if( body.baseNameToken == "Sniper" )
+                    if( owner.GetComponent<ReinDataLibrary>() != null )
                     {
+                        Debug.Log("Sniper mine");
                         GameObject obj = UnityEngine.Object.Instantiate<GameObject>(wardPrefab, transform.position, Quaternion.identity);
                         BuffWard ward = obj.GetComponent<BuffWard>();
                         TeamFilter filter = obj.GetComponent<TeamFilter>();
@@ -79,7 +77,6 @@ namespace ReinSniperRework
                     {
                         Debug.Log("Skipping activation because you aren't sniper");
                     }
-                }
 
             }
         }
