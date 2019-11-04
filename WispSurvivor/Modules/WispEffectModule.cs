@@ -109,7 +109,7 @@ namespace WispSurvivor.Modules
         private static GameObject CreateImpFx00(GameObject baseObj, int skinIndex)
         {
             const int matIndex = 0;
-            GameObject obj = baseObj.InstantiateClone("WispImpact0-" + skinIndex.ToString());
+            GameObject obj = baseObj.InstantiateClone("WispImpact0-" + skinIndex.ToString() , false);
          
 
             GameObject flameObj = obj.transform.Find("Flames").gameObject;
@@ -169,7 +169,7 @@ namespace WispSurvivor.Modules
 
         private static GameObject CreatePrimaryOrb(GameObject baseFX, int skinIndex)
         {
-            GameObject obj = baseFX.InstantiateClone("PrimaryOrb"+skinIndex.ToString());
+            GameObject obj = baseFX.InstantiateClone("PrimaryOrb"+skinIndex.ToString(), false);
 
             MonoBehaviour.DestroyImmediate(obj.GetComponent<RoR2.Orbs.OrbEffect>());
 
@@ -993,7 +993,7 @@ namespace WispSurvivor.Modules
 
         private static GameObject CreateSecondaryExplosion(GameObject baseFX, int skinIndex, GameObject refFX)
         {
-            GameObject obj = baseFX.InstantiateClone("SecondaryExplosion"+skinIndex.ToString());
+            GameObject obj = baseFX.InstantiateClone("SecondaryExplosion"+skinIndex.ToString(), false);
 
             Material flameMat = WispMaterialModule.fireMaterials[skinIndex][0];
             Color flameCol = WispMaterialModule.fireColors[skinIndex];
@@ -1122,7 +1122,7 @@ namespace WispSurvivor.Modules
 
         private static GameObject CreateBlazeEffect( GameObject baseFX, int skinIndex )
         {
-            GameObject obj = baseFX.InstantiateClone("BlazeEffect"+skinIndex.ToString());
+            GameObject obj = baseFX.InstantiateClone("BlazeEffect"+skinIndex.ToString(), false);
 
             MonoBehaviour.Destroy(obj.GetComponent<DestroyOnTimer>());
 
@@ -1171,7 +1171,7 @@ namespace WispSurvivor.Modules
             fireEmis.rateOverTime = new ParticleSystem.MinMaxCurve
             {
                 mode = ParticleSystemCurveMode.Constant,
-                constant = 10f
+                constant = 20f
             };
 
             var fireShape = firePS.shape;
@@ -1220,7 +1220,7 @@ namespace WispSurvivor.Modules
                     }
                 }
             };
-            fireSOL.sizeMultiplier = 3f;
+            fireSOL.sizeMultiplier = 5f;
 
             var fireROL = firePS.rotationOverLifetime;
             fireROL.enabled = true;
@@ -1266,7 +1266,7 @@ namespace WispSurvivor.Modules
             ringEmis.rateOverTime = new ParticleSystem.MinMaxCurve
             {
                 mode = ParticleSystemCurveMode.Constant,
-                constant = 30f
+                constant = 50f
             };
 
             var ringShape = ringPS.shape;
@@ -1315,7 +1315,7 @@ namespace WispSurvivor.Modules
                     }
                 }
             };
-            ringSOL.sizeMultiplier = 3f;
+            ringSOL.sizeMultiplier = 5f;
 
             var ringROL = ringPS.rotationOverLifetime;
             ringROL.enabled = true;
@@ -1344,7 +1344,7 @@ namespace WispSurvivor.Modules
 
         private static GameObject CreateIgniteEffect(GameObject baseFX, int skinIndex)
         {
-            GameObject obj = baseFX.InstantiateClone("IgniteEffect"+skinIndex.ToString());
+            GameObject obj = baseFX.InstantiateClone("IgniteEffect"+skinIndex.ToString(), false);
             MonoBehaviour.Destroy(obj.GetComponent<DestroyOnTimer>());
             obj.AddComponent<Components.WispIgnitionEffectController>();
             //obj.transform.Find("Point Light").GetComponent<Light>().color = WispMaterialModule.fireColors[skinIndex];
@@ -1397,7 +1397,7 @@ namespace WispSurvivor.Modules
 
         private static GameObject CreateLeechOrb( GameObject baseFX, int skinIndex )
         {
-            GameObject obj = baseFX.InstantiateClone("LeechEffect"+skinIndex.ToString());
+            GameObject obj = baseFX.InstantiateClone("LeechEffect"+skinIndex.ToString(), false);
 
             
 
@@ -1432,7 +1432,7 @@ namespace WispSurvivor.Modules
 
         private static GameObject CreateUtilityAim( GameObject baseFX, int skinIndex)
         {
-            GameObject obj = baseFX.InstantiateClone("WispUtilityAimEffect");
+            GameObject obj = baseFX.InstantiateClone("WispUtilityAimEffect" + skinIndex.ToString() , false);
 
             LineRenderer lr = obj.GetComponent<LineRenderer>();
             GameObject g = new GameObject("lineEnd");
@@ -1468,7 +1468,7 @@ namespace WispSurvivor.Modules
 
         private static GameObject CreateSpecialExplosion( GameObject baseFX, int skinIndex )
         {
-            GameObject obj = baseFX.InstantiateClone("SpecialExplosion"+skinIndex.ToString());
+            GameObject obj = baseFX.InstantiateClone("SpecialExplosion"+skinIndex.ToString(), false);
             Transform burst = obj.transform.Find("InitialBurst");
             Transform ring = burst.Find("Ring");
             Transform chunks = burst.Find("Chunks, Sharp");
@@ -1548,7 +1548,7 @@ namespace WispSurvivor.Modules
 
         private static GameObject CreateSpecialCharge( GameObject baseFX, int skinIndex )
         {
-            GameObject obj = baseFX.InstantiateClone("SpecialCharge"+skinIndex.ToString());
+            GameObject obj = baseFX.InstantiateClone("SpecialCharge"+skinIndex.ToString(), false);
 
             obj.name = "WispSpecialChargeEffect";
 

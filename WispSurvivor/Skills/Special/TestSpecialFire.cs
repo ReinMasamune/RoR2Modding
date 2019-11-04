@@ -2,6 +2,7 @@
 using EntityStates;
 using UnityEngine;
 using RoR2.Projectile;
+using UnityEngine.Networking;
 
 namespace WispSurvivor.Skills.Special
 {
@@ -69,7 +70,10 @@ namespace WispSurvivor.Skills.Special
                 //PlayAnimation("Body", "Idle", "", 0.2f);
                 RoR2.Util.PlaySound("Stop_item_use_BFG_loop", gameObject);
 
-                outer.SetNextStateToMain();
+                if( isAuthority )
+                {
+                    outer.SetNextStateToMain();
+                }
             }
         }
 
@@ -90,6 +94,7 @@ namespace WispSurvivor.Skills.Special
 
         private void Fire()
         {
+            if (NetworkServer.active) characterBody.RemoveBuff(BuffIndex.Slow50);
             double charge = passive.ReadCharge();
 
             Ray r = GetAimRay();
@@ -110,10 +115,12 @@ namespace WispSurvivor.Skills.Special
                 damageColorIndex = DamageColorIndex.Default,
             };
 
-            fired = true;
-            ProjectileManager.instance.FireProjectile(proj);
 
-            characterBody.RemoveBuff(BuffIndex.Slow50);
+            fired = true;
+
+            if (!isAuthority) return;
+
+            ProjectileManager.instance.FireProjectile(proj);
         }
     }
 }

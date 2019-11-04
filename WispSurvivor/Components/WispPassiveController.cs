@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
+using UnityEngine.Networking;
 using System;
 using RoR2;
 
 namespace WispSurvivor.Components
 {
-    public class WispPassiveController : MonoBehaviour
+    public class WispPassiveController : NetworkBehaviour
     {
         private const double decayRate = -0.1;
         private const double zeroMark = 100f;
@@ -75,6 +76,5 @@ namespace WispSurvivor.Components
             temp += zeroMark;
             return temp;
         }
-
     }
 }

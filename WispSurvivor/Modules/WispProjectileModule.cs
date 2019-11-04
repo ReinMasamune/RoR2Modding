@@ -50,7 +50,7 @@ namespace WispSurvivor.Modules
 
         private static GameObject CreateSpecialProjectileGhost( int skinIndex )
         {
-            GameObject obj = Resources.Load<GameObject>("Prefabs/projectileghosts/archwispcannonghost").InstantiateClone("WispCannonGhostThing"+skinIndex.ToString());
+            GameObject obj = Resources.Load<GameObject>("Prefabs/projectileghosts/archwispcannonghost").InstantiateClone("WispCannonGhostThing"+skinIndex.ToString(), false);
 
             GameObject fireObj = obj.transform.Find("Particles").gameObject;
             GameObject sphereObj = fireObj.transform.Find("FireSphere").gameObject;

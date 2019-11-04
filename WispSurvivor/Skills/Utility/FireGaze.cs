@@ -10,24 +10,39 @@ namespace WispSurvivor.Skills.Utility
 {
     public class FireGaze : BaseState
     {
-        public float flareTime;
-        public float blazeOrbRadius;
-        public float blazeOrbDuration;
-        public float blazeOrbTickFreq;
-        public float blazeOrbMinDur;
-        public float blazeOrbDurationPerStack;
-        public float igniteOrbDuration;
-        public float igniteOrbProcCoef;
-        public float igniteOrbTickDamage;
-        public float igniteOrbTickFreq;
-        public float igniteOrbDebuffTimeMult;
-        public float igniteOrbStacksPerSecOnDeath;
-        public float igniteOrbBaseStacksOnDeath;
-        public float igniteOrbExpireStacksMult;
+        public static float baseBlazeOrbRadius = 10f;
+        public static float baseBlazeOrbDuration = 10f;
+        public static float baseBlazeOrbTickfreq = 1f;
+        public static float baseBlazeOrbMinDur = 1f;
+        public static float baseBlazeOrbDurationPerStack = 0.25f;
 
-        public bool crit;
+        public static float baseIgniteOrbDebuffTimeMult = 1f;
+        public static float baseIgniteOrbDuration = 3f;
+        public static float baseIgniteOrbProcCoef = 0.05f;
+        public static float baseIgniteOrbTickDamage = 0.1f;
+        public static float baseIgniteOrbTickFreq = 2f;
+        public static float baseIgniteOrbBaseStacksOnDeath = 1f;
+        public static float baseIgniteOrbStacksPerSecOnDeath = 1f;
+        public static float baseIgniteOrbExpireStacksMult = 1f;
 
-        public uint skin;
+        private float flareTime;
+        private float blazeOrbRadius;
+        private float blazeOrbDuration;
+        private float blazeOrbTickFreq;
+        private float blazeOrbMinDur;
+        private float blazeOrbDurationPerStack;
+        private float igniteOrbDuration;
+        private float igniteOrbProcCoef;
+        private float igniteOrbTickDamage;
+        private float igniteOrbTickFreq;
+        private float igniteOrbDebuffTimeMult;
+        private float igniteOrbStacksPerSecOnDeath;
+        private float igniteOrbBaseStacksOnDeath;
+        private float igniteOrbExpireStacksMult;
+
+        private bool crit;
+
+        private uint skin;
 
         public Vector3 orbOrigin;
         public Vector3 orbNormal;
@@ -43,6 +58,22 @@ namespace WispSurvivor.Skills.Utility
 
             //Bigger face flare
             //Sync the position with server
+            skin = characterBody.skinIndex;
+
+            blazeOrbRadius = baseBlazeOrbRadius;
+            blazeOrbDuration = baseBlazeOrbDuration;
+            blazeOrbTickFreq = baseBlazeOrbTickfreq;
+            blazeOrbMinDur = baseBlazeOrbMinDur;
+            blazeOrbDurationPerStack = baseBlazeOrbDurationPerStack;
+
+            igniteOrbDebuffTimeMult = baseIgniteOrbDebuffTimeMult;
+            igniteOrbDuration = baseIgniteOrbDuration;
+            igniteOrbProcCoef = baseIgniteOrbProcCoef;
+            igniteOrbTickDamage = baseIgniteOrbTickDamage * damageStat;
+            igniteOrbTickFreq = baseIgniteOrbTickFreq;
+            igniteOrbBaseStacksOnDeath = baseIgniteOrbBaseStacksOnDeath;
+            igniteOrbStacksPerSecOnDeath = baseIgniteOrbStacksPerSecOnDeath;
+            igniteOrbExpireStacksMult = baseIgniteOrbExpireStacksMult;
 
         }
 
@@ -71,15 +102,15 @@ namespace WispSurvivor.Skills.Utility
         public override void OnSerialize(NetworkWriter writer)
         {
             base.OnSerialize(writer);
-            writer.Write(skin);
             writer.Write(orbOrigin);
+            writer.Write(orbNormal);
         }
 
         public override void OnDeserialize(NetworkReader reader)
         {
             base.OnDeserialize(reader);
-            skin = reader.ReadUInt32();
             orbOrigin = reader.ReadVector3();
+            orbNormal = reader.ReadVector3();
         }
 
         public override InterruptPriority GetMinimumInterruptPriority()

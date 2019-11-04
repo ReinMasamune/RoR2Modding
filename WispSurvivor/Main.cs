@@ -123,20 +123,18 @@ namespace WispSurvivor
 
 //For release:
 
-// TODO: Fully fix and test networking
-// TODO: Double firing Special in MP
-// TODO: Utility not working in MP
+// TODO: Charge indicator not working in MP for clients
 // TODO: Charge not syncing in MP
-// TODO: Rewrite secondary for MP (2 states possibly?)
-// TODO: Buff system implementation
-// TODO: Rework utility
-// TODO: Check netowrkhash stuff, hashes seem to be duplicating?
+// TODO: Primary firing correctly, but the blastattack is not happening in correct area when used by client (
+
 // TODO: Primary animation issue needs fix (twitch at end) most likely need state chaining
 // TODO: Material and AOE marker on utility aim
 // TODO: Verify primary damage values are correct
-// TODO: SkillsCatalog get additional skilldefs
+// TODO: Need indicator for utility duration
 
 
+// TOD: Rewrite secondary for MP (2 states possibly?)
+// TOD: SkillsCatalog get additional skilldefs
 // TOD: Offset the modelbase instead of the model
 // TOD: Character lobby description
 // TOD: Primary explosion effect tweak (yellow stuff)

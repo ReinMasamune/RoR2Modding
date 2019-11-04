@@ -81,9 +81,12 @@ namespace WispSurvivor.Orbs
             }
         }
 
-        public void OnArrival()
+        public override void OnArrival()
         {
-            OnDead(igniteExpireStacksMult);
+            if( isActive )
+            {
+                OnDead(igniteExpireStacksMult);
+            }
         }
 
         private void TickDamage(HurtBox enemy)
@@ -117,13 +120,17 @@ namespace WispSurvivor.Orbs
 
             isActive = false;
 
-            if( parent.isActive )
-            {
-                parent.AddStacks(mult * (igniteBaseStacksOnDeath + (durationTimer * igniteStacksPerSecOnDeath)));
-            }
+            float value = mult * (igniteBaseStacksOnDeath + (durationTimer * igniteStacksPerSecOnDeath));
 
-            parent.AddStacks(1);
-            //call back to the parent orb
+            if ( parent.isActive )
+            {
+                Debug.Log("Ignition dead, value: " + value.ToString());
+                parent.AddStacks(value);
+                parent.children.Remove(this);
+            } else
+            {
+                //Do a cool thing here based on value (explosion I guess? modified will o wisp explosion could be fun...)
+            }
         }
     }
 }

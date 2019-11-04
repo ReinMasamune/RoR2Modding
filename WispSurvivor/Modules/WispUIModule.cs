@@ -17,7 +17,7 @@ namespace WispSurvivor.Modules
 
         public static void CreateCrosshair()
         {
-            GameObject baseUI = Resources.Load<GameObject>("Prefabs/Crosshair/HuntressSnipeCrosshair").InstantiateClone("WispCrosshair");
+            GameObject baseUI = Resources.Load<GameObject>("Prefabs/Crosshair/HuntressSnipeCrosshair").InstantiateClone("WispCrosshair", false);
             crosshair = baseUI;
         }
     }

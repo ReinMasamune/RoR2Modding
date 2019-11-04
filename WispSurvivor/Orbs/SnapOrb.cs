@@ -71,7 +71,7 @@ namespace WispSurvivor.Orbs
 
             EffectManager.instance.SpawnEffect(Modules.WispEffectModule.primaryExplosionEffects[skin] , effect , true);
 
-            if( attacker )
+            if ( attacker )
             {
                 new BlastAttack
                 {
@@ -83,7 +83,7 @@ namespace WispSurvivor.Orbs
                     crit = crit,
                     damageColorIndex = damageColor,
                     damageType = DamageType.Generic,
-                    falloffModel = BlastAttack.FalloffModel.SweetSpot,
+                    falloffModel = BlastAttack.FalloffModel.None,
                     inflictor = null,
                     position = lastPos,
                     procChainMask = procMask,

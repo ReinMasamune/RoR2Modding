@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
+using UnityEngine.Networking;
 using System;
 
 namespace WispSurvivor.Components
 {
-    public class WispUIController : MonoBehaviour
+    public class WispUIController : NetworkBehaviour
     {
         public WispPassiveController passive;
 
@@ -59,12 +60,13 @@ namespace WispSurvivor.Components
 
         public void Update()
         {
+            if (!base.isLocalPlayer) return;
             UpdateBarColors(passive.ReadCharge());
         }
 
         public void OnGUI()
         {
-
+            if (!base.isLocalPlayer) return;
             for( int i = 0; i < 10; i++ )
             {
                 GUI.Box(boxes[i], colors[colorStates[9 - i]], style );

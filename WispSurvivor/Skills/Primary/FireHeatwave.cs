@@ -10,33 +10,42 @@ namespace WispSurvivor.Skills.Primary
 {
     public class FireHeatwave : BaseState
     {
-        public float fireDuration;
-        public float fireDelay;
-        public float damageValue;
-        public float explosionRadius;
-        public float maxRange;
-        public float maxAngle;
+        public static float baseFireDelay = 0.02125f;
+        public static float baseDamageMult = 2.5f;
+        public static float chargeScaler = 0.5f;
+        public static float explosionRadius = 5f;
+
+        public float initAS;
+
+        public Vector3 targetVec;
+        public HurtBox target;
 
         public bool crit;
 
-        public uint skin;
+        public uint skin = 0;
+
+
+        private float baseFireDuration = PrepHeatwave.baseFireDuration;
+        private float fireDuration;
+        private float fireDelay;
+        private float damageValue;
 
         private bool fired = false;
 
-        private Vector3 targetVec;
-        private HurtBox target;
-        private BullseyeSearch search = new BullseyeSearch();
+        private Components.WispPassiveController passive;
         private ChildLocator childLoc;
 
         public override void OnEnter()
         {
             base.OnEnter();
-            if( isAuthority )
-            {
-                skin = characterBody.skinIndex;
-                GetTarget();
-            }
+            passive = gameObject.GetComponent<Components.WispPassiveController>();
+            skin = characterBody.skinIndex;
             childLoc = GetModelTransform().GetComponent<ChildLocator>();
+
+            fireDuration = baseFireDuration / initAS;
+            fireDelay = baseFireDelay / initAS;
+
+            damageValue = damageStat * baseDamageMult * ((1f - chargeScaler) + chargeScaler * (float)((passive.ReadCharge() - 100.0) / 100.0));
         }
 
         public override void FixedUpdate()
@@ -76,7 +85,7 @@ namespace WispSurvivor.Skills.Primary
             base.OnSerialize(writer);
             writer.Write(HurtBoxReference.FromHurtBox(target));
             writer.Write(targetVec);
-            writer.Write(skin);
+            writer.Write(initAS);
         }
 
         public override void OnDeserialize(NetworkReader reader)
@@ -84,34 +93,7 @@ namespace WispSurvivor.Skills.Primary
             base.OnDeserialize(reader);
             target = reader.ReadHurtBoxReference().ResolveHurtBox();
             targetVec = reader.ReadVector3();
-            skin = reader.ReadUInt32();
-        }
-
-        private void GetTarget()
-        {
-            Ray r = GetAimRay();
-
-            search.teamMaskFilter = TeamMask.all;
-            search.teamMaskFilter.RemoveTeam(TeamComponent.GetObjectTeam(gameObject));
-            search.filterByLoS = true;
-            search.searchOrigin = r.origin;
-            search.searchDirection = r.direction;
-            search.sortMode = BullseyeSearch.SortMode.DistanceAndAngle;
-            search.maxDistanceFilter = maxRange;
-            search.maxAngleFilter = maxAngle;
-            search.RefreshCandidates();
-            target = search.GetResults().FirstOrDefault<HurtBox>();
-
-            RaycastHit rh;
-            
-            if( Physics.Raycast( r , out rh , maxRange , LayerIndex.world.mask | LayerIndex.entityPrecise.mask , QueryTriggerInteraction.UseGlobal ) )
-            {
-                targetVec = rh.point;
-            }
-            else
-            {
-                targetVec = r.GetPoint(maxRange);
-            }
+            initAS = reader.ReadSingle();
         }
 
         private void FireOrb()

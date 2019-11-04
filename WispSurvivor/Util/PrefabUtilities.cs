@@ -4,6 +4,8 @@ using UnityEngine.Networking;
 using R2API.Utils;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using System.Security.Cryptography;
+using System.Text;
 using RoR2.Projectile;
 
 namespace WispSurvivor.Util
@@ -40,11 +42,23 @@ namespace WispSurvivor.Util
             return v;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="g"></param>
+        /// <returns></returns>
         public static T AddOrGetComponent<T>( this Transform g ) where T : Component
         {
             return AddOrGetComponent<T>(g.gameObject);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="g"></param>
+        /// <returns></returns>
         public static T AddOrGetComponent<T>( this Component g ) where T : Component
         {
             return AddOrGetComponent<T>(g.gameObject);
@@ -52,10 +66,14 @@ namespace WispSurvivor.Util
 
 
         /// <summary>
-        /// Creates and returns a copy of a GameObject. 
-        /// This copy is disabled immediately on creation and will not call Awake() on its components
+        /// 
         /// </summary>
-        /// <param Object to clone="g"></param>
+        /// <param name="g"></param>
+        /// <param name="nameToSet"></param>
+        /// <param name="registerNetwork"></param>
+        /// <param name="file"></param>
+        /// <param name="member"></param>
+        /// <param name="line"></param>
         /// <returns></returns>
         public static GameObject InstantiateClone( this GameObject g, string nameToSet,  bool registerNetwork = true, [CallerFilePath] string file = "", [CallerMemberName] string member = "", [CallerLineNumber] int line = 0 )
         {
@@ -68,11 +86,17 @@ namespace WispSurvivor.Util
             return prefab;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="g"></param>
+        /// <param name="file"></param>
+        /// <param name="member"></param>
+        /// <param name="line"></param>
         public static void RegisterNetworkPrefab( this GameObject g, [CallerFilePath] string file = "", [CallerMemberName] string member = "", [CallerLineNumber] int line = 0)
         {
             RegisterPrefabInternal(g, file, member, line);
         }
-
         #endregion
 
         #region Catalogs
@@ -261,15 +285,50 @@ namespace WispSurvivor.Util
             }
         }
 
+        private static NetworkHash128 nullHash = new NetworkHash128
+        {
+            i0 = 0,
+            i1 = 0,
+            i2 = 0,
+            i3 = 0,
+            i4 = 0,
+            i5 = 0,
+            i6 = 0,
+            i7 = 0,
+            i8 = 0,
+            i9 = 0,
+            i10 = 0,
+            i11 = 0,
+            i12 = 0,
+            i13 = 0,
+            i14 = 0,
+            i15 = 0
+        };
+
         private static void RegisterClientPrefabsNStuff(On.RoR2.Networking.GameNetworkManager.orig_OnStartClient orig, RoR2.Networking.GameNetworkManager self, UnityEngine.Networking.NetworkClient newClient)
         {
             orig(self, newClient);
             foreach (HashStruct h in thingsToHash)
             {
-                ClientScene.RegisterPrefab(h.prefab, NetworkHash128.Parse(h.goName + h.callPath + h.callMember + h.callLine.ToString()));
+                if (h.prefab.HasComponent<NetworkIdentity>()) h.prefab.GetComponent<NetworkIdentity>().SetFieldValue<NetworkHash128>("m_AssetId",nullHash);
+                ClientScene.RegisterPrefab(h.prefab, NetworkHash128.Parse(MakeHash(h.goName + h.callPath + h.callMember + h.callLine.ToString())));
             }
         }
 
+        private static string MakeHash( string s )
+        {
+            MD5 hash = MD5.Create();
+            byte[] prehash = hash.ComputeHash(Encoding.UTF8.GetBytes(s));
+
+            StringBuilder sb = new StringBuilder();
+
+            for( int i = 0; i < prehash.Length; i++ )
+            {
+                sb.Append(prehash[i].ToString("x2"));
+            }
+
+            return sb.ToString();
+        }
         #endregion
     }
 }

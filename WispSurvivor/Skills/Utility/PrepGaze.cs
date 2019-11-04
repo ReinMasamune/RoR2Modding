@@ -10,40 +10,7 @@ namespace WispSurvivor.Skills.Utility
     {
         public static float maxRange = 50f;
         public static float flareDuration = 0.2f;
-
-        public static float baseBlazeOrbRadius = 10f;
-        public static float baseBlazeOrbDuration = 10f;
-        public static float baseBlazeOrbTickfreq = 1f;
-        public static float baseBlazeOrbMinDur = 1f;
-        public static float baseBlazeOrbDurationPerStack = 1f;
-
-        public static float baseIgniteOrbDebuffTimeMult = 1f;
-        public static float baseIgniteOrbDuration = 10f;
-        public static float baseIgniteOrbProcCoef = 1f;
-        public static float baseIgniteOrbTickDamage = 1f;
-        public static float baseIgniteOrbTickFreq = 1f;
-        public static float baseIgniteOrbBaseStacksOnDeath = 1f;
-        public static float baseIgniteOrbStacksPerSecOnDeath = 1f;
-        public static float baseIgniteOrbExpireStacksMult = 1f;
-
-
-        public static DamageColorIndex igniteOrbDamageColor = DamageColorIndex.Default;
-        //Orb settings here
-
-        private float blazeOrbRadius;
-        private float blazeOrbDuration;
-        private float blazeOrbTickFreq;
-        private float blazeOrbMinDur;
-        private float blazeOrbDurationPerStack;
-
-        private float igniteOrbDebuffTimeMult;
-        private float igniteOrbDuration;
-        private float igniteOrbProcCoef;
-        private float igniteOrbTickDamage;
-        private float igniteOrbTickFreq;
-        private float igniteOrbStacksPerSecOnDeath;
-        private float igniteOrbBaseStacksOnDeath;
-        private float igniteOrbExpireStacksMult;
+        public static float castRadius = 0.25f;
 
         private uint skin = 0;
 
@@ -62,26 +29,10 @@ namespace WispSurvivor.Skills.Utility
             passive = gameObject.GetComponent<Components.WispPassiveController>();
 
             //Do I need authority check?
-            skin = characterBody.skinIndex;
+
 
             //Do the face flare thing
             //Create a prediction beam to aim location
-
-
-            blazeOrbRadius = baseBlazeOrbRadius;
-            blazeOrbDuration = baseBlazeOrbDuration;
-            blazeOrbTickFreq = baseBlazeOrbTickfreq;
-            blazeOrbMinDur = baseBlazeOrbMinDur;
-            blazeOrbDurationPerStack = baseBlazeOrbDurationPerStack;
-
-            igniteOrbDebuffTimeMult = baseIgniteOrbDebuffTimeMult;
-            igniteOrbDuration = baseIgniteOrbDuration;
-            igniteOrbProcCoef = baseIgniteOrbProcCoef;
-            igniteOrbTickDamage = baseIgniteOrbTickDamage;
-            igniteOrbTickFreq = baseIgniteOrbTickFreq;
-            igniteOrbBaseStacksOnDeath = baseIgniteOrbBaseStacksOnDeath;
-            igniteOrbStacksPerSecOnDeath = baseIgniteOrbStacksPerSecOnDeath;
-            igniteOrbExpireStacksMult = baseIgniteOrbExpireStacksMult;
         }
 
         public override void Update()
@@ -101,7 +52,7 @@ namespace WispSurvivor.Skills.Utility
                 Ray r = GetAimRay();
 
                 RaycastHit rh;
-                if (Physics.Raycast(r, out rh, maxRange, LayerIndex.world.mask | LayerIndex.entityPrecise.mask, QueryTriggerInteraction.UseGlobal))
+                if (Physics.SphereCast(r, castRadius, out rh, maxRange, LayerIndex.world.mask | LayerIndex.entityPrecise.mask, QueryTriggerInteraction.UseGlobal))
                 {
                     end.position = rh.point;
                     normal = rh.normal;
@@ -125,23 +76,6 @@ namespace WispSurvivor.Skills.Utility
                 {
                     orbOrigin = end.position,
                     orbNormal = normal,
-                    skin = skin,
-                    flareTime = flareDuration,
-                    blazeOrbDuration = blazeOrbDuration,
-                    blazeOrbRadius = blazeOrbRadius,
-                    blazeOrbTickFreq = blazeOrbTickFreq,
-                    blazeOrbMinDur = blazeOrbMinDur,
-                    blazeOrbDurationPerStack = blazeOrbDurationPerStack,
-                    igniteOrbDamageColor = igniteOrbDamageColor,
-                    igniteOrbDebuffTimeMult = igniteOrbDebuffTimeMult,
-                    igniteOrbDuration = igniteOrbDuration,
-                    igniteOrbProcCoef = igniteOrbProcCoef,
-                    igniteOrbTickDamage = igniteOrbTickDamage,
-                    igniteOrbTickFreq = igniteOrbTickFreq,
-                    igniteOrbBaseStacksOnDeath = igniteOrbBaseStacksOnDeath,
-                    igniteOrbStacksPerSecOnDeath = igniteOrbStacksPerSecOnDeath,
-                    igniteOrbExpireStacksMult = igniteOrbExpireStacksMult,
-                    crit = RollCrit()
                 });
             }
         }

@@ -22,21 +22,21 @@ namespace WispSurvivor.Modules
         {
             BuffDef wispFireDebuff = new BuffDef
             {
-                buffColor = new Color(1f, 1f, 1f, 1f),
+                buffColor = new Color(0.5f, 0.1f, 0.7f, 1f),
                 buffIndex = BuffIndex.Count,
                 canStack = true,
                 eliteIndex = EliteIndex.None,
-                iconPath = "",
+                iconPath = "Textures/BuffIcons/texBuffOnFireIcon",
                 isDebuff = true,
                 name = "WispCurseBurn"
             };
             BuffDef wispRestoreBuff = new BuffDef
             {
-                buffColor = new Color(1f, 1f, 1f, 1f),
+                buffColor = new Color(0.5f, 0.1f, 0.7f, 1f),
                 buffIndex = BuffIndex.Count,
                 canStack = true,
                 eliteIndex = EliteIndex.None,
-                iconPath = "",
+                iconPath = "Textures/BuffIcons/texBuffTeslaIcon",
                 isDebuff = false,
                 name = "WispFlameChargeBuff"
             };

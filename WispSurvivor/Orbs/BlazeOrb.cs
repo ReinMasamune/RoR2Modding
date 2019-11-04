@@ -53,9 +53,6 @@ namespace WispSurvivor.Orbs
                 if (i.isActive)
                 {
                     i.parent = this;
-                } else
-                {
-                    children.Remove(i);
                 }
             }
 
@@ -106,11 +103,14 @@ namespace WispSurvivor.Orbs
             }
         }
 
-        public void OnArrival()
+        public override void OnArrival()
         {
+            base.OnArrival();
             Debug.Log("Blaze orb had " + stacks.ToString() + " stacks.");
 
             float nextDuration = stacks * blazeDurationPerStack;
+
+            Debug.Log(nextDuration);
 
             if (nextDuration >= blazeMinDurToContinue)
             {
@@ -148,7 +148,7 @@ namespace WispSurvivor.Orbs
 
         public void AddStacks( float stacks )
         {
-            stacks += stacks;
+            this.stacks += stacks;
         }
 
         private void TickDamage(HurtBox enemy )
