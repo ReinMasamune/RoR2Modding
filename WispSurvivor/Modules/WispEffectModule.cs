@@ -21,6 +21,7 @@ namespace WispSurvivor.Modules
         public static GameObject[] utilityBurns = new GameObject[8];
         public static GameObject[] utilityLeech = new GameObject[8];
         public static GameObject[] utilityAim = new GameObject[8];
+        public static GameObject[] utilityIndicator = new GameObject[8];
 
         public static GameObject[] specialCharge = new GameObject[8];
         public static GameObject[] specialExplosion = new GameObject[8];
@@ -35,12 +36,20 @@ namespace WispSurvivor.Modules
             CreateIgnitionOrbEffects();
             CreateLeechOrbEffects();
             CreateUtilityAimEffects();
+            CreateUtilityIndicatorEffects();
             CreateSpecialExplosionEffects();
             CreateSpecialChargeEffects();
         }
 
+        //public static void DoPostLoadModule()
+        //{
+            //UpdateUtilityAimEffects();
+        //}
+
         public static void Register()
         {
+            PreRegister();
+
             foreach (GameObject[] gs in genericImpactEffects)
             {
                 foreach (GameObject g in gs)
@@ -81,6 +90,12 @@ namespace WispSurvivor.Modules
                 RegisterNewEffect(g);
             }
         }
+        
+        public static void PreRegister()
+        {
+            EditUtilityAimEffect();
+        }
+
         #region Generic Impact Effects
         private static void CreateGenericImpactEffects()
         {
@@ -169,15 +184,16 @@ namespace WispSurvivor.Modules
 
         private static GameObject CreatePrimaryOrb(GameObject baseFX, int skinIndex)
         {
-            GameObject obj = baseFX.InstantiateClone("PrimaryOrb"+skinIndex.ToString(), false);
+            GameObject obj = baseFX.InstantiateClone("PrimaryOrb" + skinIndex.ToString(), false);
 
             MonoBehaviour.DestroyImmediate(obj.GetComponent<RoR2.Orbs.OrbEffect>());
 
             var orbController = obj.AddComponent<Components.WispOrbEffectController>();
-            orbController.startSound = "Play_gravekeeper_attack1_fire";
-            orbController.endSound = "Play_lemurianBruiser_m1_explode";
+            orbController.startSound = "Play_wisp_active_loop";
+            orbController.endSound = "Stop_wisp_active_loop";
+            orbController.explosionSound = "Play_item_use_fireballDash_explode";
 
-            foreach(AkEvent ev in obj.GetComponents<AkEvent>())
+            foreach (AkEvent ev in obj.GetComponents<AkEvent>())
             {
                 MonoBehaviour.Destroy(ev);
             }
@@ -186,7 +202,8 @@ namespace WispSurvivor.Modules
             Material flameMat = WispMaterialModule.fireMaterials[skinIndex][0];
             Color flameCol = WispMaterialModule.fireColors[skinIndex];
 
-            Material distortion = Resources.Load<GameObject>("Prefabs/Effects/ImpactEffects/LightningStrikeImpact").transform.Find("Distortion").GetComponent<ParticleSystemRenderer>().material;
+            //Material distortion = Resources.Load<GameObject>("Prefabs/Effects/ImpactEffects/LightningStrikeImpact").transform.Find("Distortion").GetComponent<ParticleSystemRenderer>().material;
+            Material distortion = Resources.Load<GameObject>("Prefabs/Effects/ArchWispDeath").transform.Find("InitialBurst").Find("Distortion").GetComponent<ParticleSystemRenderer>().material;
 
             GameObject parts1 = obj.transform.Find("Mesh").gameObject;
             GameObject parts2 = obj.transform.Find("Flames").gameObject;
@@ -410,9 +427,9 @@ namespace WispSurvivor.Modules
             ps2Main.loop = true;
             ps2Main.prewarm = false;
             ps2Main.startDelay = 0f;
-            ps2Main.startLifetime = 1f;
+            ps2Main.startLifetime = 0.25f;
             ps2Main.startSpeed = 0f;
-            ps2Main.startSize = 1.25f;
+            ps2Main.startSize = 3f;
             ps2Main.startRotation = 0f;
             ps2Main.flipRotation = 0.5f;
             ps2Main.gravityModifier = 0f;
@@ -437,7 +454,7 @@ namespace WispSurvivor.Modules
             ps2Emis.rateOverDistance = new ParticleSystem.MinMaxCurve
             {
                 mode = ParticleSystemCurveMode.Constant,
-                constant = 0.25f
+                constant = 0.5f
             };
 
             var ps2Shape = ps2.shape;
@@ -522,14 +539,23 @@ namespace WispSurvivor.Modules
                 {
                     postWrapMode = WrapMode.Clamp,
                     preWrapMode = WrapMode.Clamp,
-                    keys = new Keyframe[3]
+                    keys = new Keyframe[4]
                     {
                         new Keyframe
                         {
                             time = 0f,
-                            value = 0.42f,
+                            value = 0.1f,
                             outTangent = 0.5f,
                             outWeight = 0.5f
+                        },
+                        new Keyframe
+                        {
+                            time = 0.1f,
+                            value = 0.4f,
+                            outTangent = 0.5f,
+                            outWeight = 0.5f,
+                            inTangent = 0.5f,
+                            inWeight = 0.5f
                         },
                         new Keyframe
                         {
@@ -743,7 +769,7 @@ namespace WispSurvivor.Modules
                 }
             };
             ps3SOL.separateAxes = false;
-            ps3SOL.sizeMultiplier = 4f;
+            ps3SOL.sizeMultiplier = 3f;
 
             var ps3ROL = ps3.rotationOverLifetime;
             ps3ROL.enabled = true;
@@ -1134,6 +1160,15 @@ namespace WispSurvivor.Modules
             Transform indicator = obj.transform.Find("GroundSlamIndicator");
             MonoBehaviour.Destroy(indicator.gameObject);
 
+            GameObject range = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            range.name = "rangeInd";
+            range.transform.parent = obj.transform;
+            range.transform.localScale = new Vector3(2f, 2f, 2f);
+            range.transform.localPosition = Vector3.zero;
+            range.transform.localRotation = Quaternion.identity;
+
+            MonoBehaviour.Destroy(range.GetComponent<SphereCollider>());
+
             GameObject fireObj = new GameObject("Flames");
             fireObj.transform.parent = obj.transform;
             fireObj.transform.localPosition = Vector3.zero;
@@ -1427,7 +1462,6 @@ namespace WispSurvivor.Modules
             }
 
             MonoBehaviour.Destroy(baseFX);
-
         }
 
         private static GameObject CreateUtilityAim( GameObject baseFX, int skinIndex)
@@ -1435,7 +1469,9 @@ namespace WispSurvivor.Modules
             GameObject obj = baseFX.InstantiateClone("WispUtilityAimEffect" + skinIndex.ToString() , false);
 
             LineRenderer lr = obj.GetComponent<LineRenderer>();
-            GameObject g = new GameObject("lineEnd");
+            GameObject g = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            MonoBehaviour.Destroy(g.GetComponent<SphereCollider>());
+            g.name = "lineEnd";
             g.transform.parent = obj.transform;
             g.transform.localPosition = Vector3.zero;
             g.transform.localRotation = Quaternion.identity;
@@ -1448,10 +1484,54 @@ namespace WispSurvivor.Modules
             lr.startWidth = 0.1f;
             lr.endWidth = 0.1f;
             lr.useWorldSpace = true;
-            //lr.material = WispMaterialModule.fireMaterials[skinIndex][5];
             
 
             return obj;
+        }
+        #endregion
+        #region Utility Indicator Effect
+        private static void CreateUtilityIndicatorEffects()
+        {
+            GameObject baseFX = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+
+            for( int i = 0; i < 8; i++ )
+            {
+                utilityIndicator[i] = CreateUtilityIndicator(baseFX, i);
+            }
+        }
+
+        private static GameObject CreateUtilityIndicator( GameObject baseFX, int skinIndex )
+        {
+            GameObject obj = baseFX.InstantiateClone("WispUtilityIndicator", false);
+
+            MeshFilter mesh = obj.GetComponent<MeshFilter>();
+            MeshRenderer renderer = obj.GetComponent<MeshRenderer>();
+
+            return obj;
+        }
+
+        #endregion
+        #region Edit Utility Aim Effect Post-Load
+        public static void EditUtilityAimEffect()
+        {
+            Material mat1 = MonoBehaviour.Instantiate<Material>(EntityStates.GolemMonster.ChargeLaser.laserPrefab.GetComponent<LineRenderer>().material);
+            Material mat2 = MonoBehaviour.Instantiate<Material>(EntityStates.Huntress.ArrowRain.areaIndicatorPrefab.transform.Find("Expander").Find("Sphere").GetComponent<MeshRenderer>().materials[0]);
+
+            for( int i = 0; i < 8; i++ )
+            {
+                WispMaterialModule.otherMaterials[i] = new Material[2]
+                {
+                    MonoBehaviour.Instantiate<Material>(mat1),
+                    MonoBehaviour.Instantiate<Material>(mat2)
+                };
+
+                WispMaterialModule.otherMaterials[i][0].SetTexture("_RemapTex", WispMaterialModule.fireTextures[i]);
+                WispMaterialModule.otherMaterials[i][1].SetTexture("_RemapTex", WispMaterialModule.fireTextures[i]);
+
+                utilityAim[i].GetComponent<LineRenderer>().material = WispMaterialModule.otherMaterials[i][0];
+                utilityAim[i].transform.Find("lineEnd").GetComponent<MeshRenderer>().material = WispMaterialModule.otherMaterials[i][1];
+                utilityFlames[i].transform.Find("rangeInd").GetComponent<MeshRenderer>().material = WispMaterialModule.otherMaterials[i][1];
+            }
         }
 
         #endregion
@@ -1716,6 +1796,7 @@ namespace WispSurvivor.Modules
 
 
         #endregion
+
         private static void ExFunction(GameObject body, Dictionary<Type, Component> dic)
         {
 
@@ -1884,4 +1965,20 @@ namespace WispSurvivor.Modules
 
     Play_merc_shift_slice
 
+    Play_item_proc_igniteOnKill_Loop
+    Stop_item_proc_igniteOnKill_Loop
+
+    Play_beetle_guard_attack2_spikeLoop
+    Stop_beetle_guard_attack2_spikeLoop
+    Play_beetle_guard_attack1
+    Play_beetle_guard_impact
+    Play_beetle_guard_attack2_initial
+
+    Play_item_use_fireballDash_explode
+
+    Play_merc_R_slicingBlades_throw
+    Play_imp_overlord_attack1_throw
+    Play_engi_M2_throw
+    Play_huntress_m2_throw
+    Play_commando_M2_grenade_throw
     */

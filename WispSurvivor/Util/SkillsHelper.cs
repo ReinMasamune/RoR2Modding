@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using RoR2.Skills;
 using R2API.Utils;
 using System;
 using System.Collections.Generic;
@@ -40,5 +41,32 @@ namespace WispSurvivor.Util
 
             return true;
         }
+
+        public static bool AddSkillDef( SkillDef s )
+        {
+            if (!s) return false;
+
+            SkillCatalog.getAdditionalSkillDefs += ( list ) =>
+            {
+                list.Add(s);
+                Debug.Log("SkillDef: " + s.skillNameToken + " added to SkillCatalog");
+            };
+
+            return true;
+        }
+
+        public static bool AddSkillFamily( SkillFamily sf )
+        {
+            if (!sf) return false;
+
+            SkillCatalog.getAdditionalSkillFamilies += (list) =>
+            {
+                list.Add(sf);
+                Debug.Log("SkillFamily added to SkillCatalog");
+            };
+
+            return true;
+        }
+
     }
 }

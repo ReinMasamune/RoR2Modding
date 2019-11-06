@@ -11,6 +11,7 @@ namespace WispSurvivor.Modules
         public static Color[] fireColors = new Color[8];
         public static Texture2D[] fireTextures = new Texture2D[8];
         public static Material[][] fireMaterials = new Material[8][];
+        public static Material[][] otherMaterials = new Material[8][];
         public static Shader effectShader;
 
         public static void DoModule( GameObject body , Dictionary<Type,Component> dic)

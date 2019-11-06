@@ -27,14 +27,14 @@ namespace WispSurvivor.Modules
 
         private static void RegisterStates()
         {
-            AddSkill(typeof(WispSurvivor.Skills.Primary.PrepHeatwave));
-            AddSkill(typeof(WispSurvivor.Skills.Primary.FireHeatwave));
-            AddSkill(typeof(WispSurvivor.Skills.Secondary.TestSecondary));
-            AddSkill(typeof(WispSurvivor.Skills.Utility.TestUtility));
+            AddSkill(typeof(Skills.Primary.PrepHeatwave));
+            AddSkill(typeof(Skills.Primary.FireHeatwave));
+            AddSkill(typeof(Skills.Primary.HeatwaveWindDown));
+            AddSkill(typeof(Skills.Secondary.TestSecondary));
             AddSkill(typeof(Skills.Utility.PrepGaze));
             AddSkill(typeof(Skills.Utility.FireGaze));
-            AddSkill(typeof(WispSurvivor.Skills.Special.TestSpecial));
-            AddSkill(typeof(WispSurvivor.Skills.Special.TestSpecialFire));
+            AddSkill(typeof(Skills.Special.Cremation));
+            AddSkill(typeof(Skills.Special.CremationRecovery));
         }
 
         private static SkillLocator SetupGenericSkills(GameObject body, Dictionary<Type, Component> dic)
@@ -118,6 +118,8 @@ namespace WispSurvivor.Modules
                         break;
                 }
             }
+
+            net.SetFieldValue<EntityStateMachine[]>("stateMachines", netStates);
         }
 
         private static void DoPassiveStuff( GameObject body, SkillLocator sl )
@@ -143,7 +145,7 @@ namespace WispSurvivor.Modules
             skill.activationStateMachineName = "Weapon";
 
             skill.baseMaxStock = 3;
-            skill.baseRechargeInterval = 2f;
+            skill.baseRechargeInterval = 2.5f;
             skill.beginSkillCooldownOnSkillEnd = true;
             skill.canceledFromSprinting = false;
             skill.fullRestockOnAssign = true;
@@ -219,14 +221,14 @@ namespace WispSurvivor.Modules
             skill.activationStateMachineName = "Gaze";
 
             skill.baseMaxStock = 1;
-            skill.baseRechargeInterval = 10f;
-            skill.beginSkillCooldownOnSkillEnd = false;
+            skill.baseRechargeInterval = 15f;
+            skill.beginSkillCooldownOnSkillEnd = true;
             skill.canceledFromSprinting = false;
             skill.fullRestockOnAssign = true;
             skill.interruptPriority = InterruptPriority.Skill;
             skill.isBullets = false;
             skill.isCombatSkill = true;
-            skill.mustKeyPress = false;
+            skill.mustKeyPress = true;
             skill.noSprint = false;
             skill.rechargeStock = 1;
             skill.requiredStock = 1;
@@ -254,7 +256,7 @@ namespace WispSurvivor.Modules
         private static SkillDef DoSpecial1(GameObject body, Dictionary<Type, Component> dic)
         {
             SkillDef skill = ScriptableObject.CreateInstance<SkillDef>();
-            skill.activationState = new SerializableEntityStateType(typeof(Skills.Special.TestSpecial));
+            skill.activationState = new SerializableEntityStateType(typeof(Skills.Special.Cremation));
             skill.activationStateMachineName = "Weapon";
 
             skill.baseMaxStock = 1;
@@ -299,6 +301,9 @@ namespace WispSurvivor.Modules
             s.SetFieldValue<SkillFamily>("_skillFamily", ScriptableObject.CreateInstance<SkillFamily>());
             //}
             s.skillFamily.variants = new SkillFamily.Variant[0];
+
+            AddSkillFamily(s.skillFamily);
+
             return s.skillFamily;
         }
 
@@ -314,6 +319,7 @@ namespace WispSurvivor.Modules
                     unlockableName = "",
                     viewableNode = new ViewablesCatalog.Node(skills[i].skillNameToken, false)
                 };
+                AddSkillDef(skills[i]);
             }
 
             fam.variants = variants;

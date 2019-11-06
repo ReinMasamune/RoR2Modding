@@ -124,7 +124,6 @@ namespace WispSurvivor.Orbs
 
             if ( parent.isActive )
             {
-                Debug.Log("Ignition dead, value: " + value.ToString());
                 parent.AddStacks(value);
                 parent.children.Remove(this);
             } else

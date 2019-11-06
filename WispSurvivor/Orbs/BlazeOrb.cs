@@ -1,6 +1,7 @@
 ﻿using RoR2;
 using UnityEngine;
 using System.Collections.Generic;
+using System.Reflection;
 using RoR2.Orbs;
 
 namespace WispSurvivor.Orbs
@@ -106,11 +107,8 @@ namespace WispSurvivor.Orbs
         public override void OnArrival()
         {
             base.OnArrival();
-            Debug.Log("Blaze orb had " + stacks.ToString() + " stacks.");
 
             float nextDuration = stacks * blazeDurationPerStack;
-
-            Debug.Log(nextDuration);
 
             if (nextDuration >= blazeMinDurToContinue)
             {

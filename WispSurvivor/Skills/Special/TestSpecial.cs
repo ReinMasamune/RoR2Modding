@@ -127,8 +127,7 @@ namespace WispSurvivor.Skills.Special
                     recoveryTime = recoveryDuration,
                     fireDelay = fireDelay,
                     skin = skin,
-                    effectInstance = chargeEffect,
-                    soundID1 = soundID1
+                    effectInstance = chargeEffect
                 });
             }
         }

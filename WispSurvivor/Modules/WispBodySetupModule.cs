@@ -26,13 +26,13 @@ namespace WispSurvivor.Modules
             chbod.levelMoveSpeed = 0f;
             chbod.baseJumpPower = 15.0f;
             chbod.levelJumpPower = 0f;
-            chbod.baseDamage = 15f;
-            chbod.levelDamage = 3f;
+            chbod.baseDamage = 12f;
+            chbod.levelDamage = 2.4f;
             chbod.baseAttackSpeed = 1.0f;
             chbod.levelAttackSpeed = 0f;
             chbod.baseCrit = 1f;
             chbod.levelCrit = 0f;
-            chbod.baseArmor = 0f;
+            chbod.baseArmor = 5f;
             chbod.levelArmor = 0f;
             chbod.baseJumpCount = 1;
             chbod.baseAcceleration = 60.0f;

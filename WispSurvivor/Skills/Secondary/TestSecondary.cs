@@ -9,12 +9,13 @@ namespace WispSurvivor.Skills.Secondary
 {
     public class TestSecondary : BaseState
     {
-        public static double chargeUsed = 25.0;
+        public static double chargeUsed = 15.0;
 
         public static float baseDuration = 1f;
         public static float scanDelay = 0.25f;
         public static float fireDelay = 0.5f;
-        public static float damageRatio = 4.0f;
+        public static float damageRatio = 3.0f;
+        public static float chargeScaler = 0.5f;
         public static float radius = 8f;
         public static float returnIdlePercent = 0.5f;
 
@@ -108,8 +109,9 @@ namespace WispSurvivor.Skills.Secondary
         private void FireOrb()
         {
             if (hasFired) return;
-            double charge = passive.ConsumeCharge(chargeUsed);
+            var chargeState = passive.ConsumePercentCharge(chargeUsed);
             PlayCrossfade("Gesture", "FireBomb", "ChargeBomb.playbackRate", duration * (1f - fireDelay), 0.2f);
+            hasFired = true;
             if (!NetworkServer.active)
             {
                 return;
@@ -119,14 +121,11 @@ namespace WispSurvivor.Skills.Secondary
             dir.y = 0f;
             dir = Vector3.Normalize(dir);
 
-            hasFired = true;
-
             Orbs.SparkOrb nextOrb = new Orbs.SparkOrb();
 
-            nextOrb.maxFall = 5f;
             nextOrb.attacker = gameObject;
             nextOrb.crit = RollCrit();
-            nextOrb.damage = damageStat * damageRatio * ( 0.5f + 0.5f * (float)(charge - 100) / 100);
+            nextOrb.damage = damageStat * damageRatio * ( 1f + chargeScaler * (float)(chargeState.chargeLeft + chargeState.chargeConsumed - 100) / 100);
             nextOrb.damageColor = DamageColorIndex.Default;
             nextOrb.direction = dir;
             nextOrb.origin = GetAimRay().origin;
@@ -138,7 +137,8 @@ namespace WispSurvivor.Skills.Secondary
             nextOrb.stepDist = 8.0f;
             nextOrb.stepHeight = 5.0f;
             nextOrb.maxFall = 25f;
-            nextOrb.stepsLeft = 1 + (int)Math.Truncate( charge / 50.0 );
+            nextOrb.innerRadScale = 0.5f;
+            nextOrb.stepsLeft = 1 + (int)Math.Truncate( chargeState.chargeConsumed / 10.0 );
             nextOrb.team = TeamComponent.GetObjectTeam(gameObject);
             nextOrb.skin = skin;
 

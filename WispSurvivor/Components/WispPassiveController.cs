@@ -5,11 +5,17 @@ using RoR2;
 
 namespace WispSurvivor.Components
 {
-    public class WispPassiveController : NetworkBehaviour
+    public class WispPassiveController : MonoBehaviour
     {
+        public struct ChargeState
+        {
+            public double chargeConsumed;
+            public double chargeLeft;
+        }
+
         private const double decayRate = -0.1;
         private const double zeroMark = 100f;
-        private const double regenPsPs = 0.4;
+        private const double regenPsPs = 0.5;
         private const double decayMultWithBuff = 0.25;
 
         private double charge;
@@ -50,6 +56,18 @@ namespace WispSurvivor.Components
             return temp;
         }
 
+        public ChargeState ConsumePercentCharge( double consumedPercent )
+        {
+            double chargeToConsume = charge * consumedPercent / 100.0;
+            charge -= chargeToConsume;
+
+            return new ChargeState
+            {
+                chargeConsumed = chargeToConsume,
+                chargeLeft = charge
+            };
+        }
+
         public double DrainCharge(double drainedCharge)
         {
             if (drainedCharge < charge)
@@ -64,6 +82,18 @@ namespace WispSurvivor.Components
             }
         }
 
+        public ChargeState DrainPercentCharge( double drainedPercent )
+        {
+            double chargeToDrain = charge * drainedPercent / 100.0;
+            charge -= chargeToDrain;
+
+            return new ChargeState
+            {
+                chargeConsumed = chargeToDrain,
+                chargeLeft = charge
+            };
+        }
+
         public double ReadCharge()
         {
             return charge;
@@ -76,5 +106,7 @@ namespace WispSurvivor.Components
             temp += zeroMark;
             return temp;
         }
+
+
     }
 }

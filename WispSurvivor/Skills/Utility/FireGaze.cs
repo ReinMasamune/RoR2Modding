@@ -10,22 +10,25 @@ namespace WispSurvivor.Skills.Utility
 {
     public class FireGaze : BaseState
     {
-        public static float baseBlazeOrbRadius = 10f;
+        public static double chargeUsed = 20.0;
+
+        public static float baseBlazeOrbRadius = 15f;
         public static float baseBlazeOrbDuration = 10f;
         public static float baseBlazeOrbTickfreq = 1f;
         public static float baseBlazeOrbMinDur = 1f;
-        public static float baseBlazeOrbDurationPerStack = 0.25f;
+        public static float baseBlazeOrbDurationPerStack = 0.1f;
 
-        public static float baseIgniteOrbDebuffTimeMult = 1f;
-        public static float baseIgniteOrbDuration = 3f;
+        public static float baseIgniteOrbDebuffTimeMult = 1.1f;
+        public static float baseIgniteOrbDuration = 4f;
         public static float baseIgniteOrbProcCoef = 0.05f;
         public static float baseIgniteOrbTickDamage = 0.1f;
         public static float baseIgniteOrbTickFreq = 2f;
-        public static float baseIgniteOrbBaseStacksOnDeath = 1f;
+        public static float baseIgniteOrbBaseStacksOnDeath = 5f;
         public static float baseIgniteOrbStacksPerSecOnDeath = 1f;
-        public static float baseIgniteOrbExpireStacksMult = 1f;
+        public static float baseIgniteOrbExpireStacksMult = 0.75f;
 
-        private float flareTime;
+        private static float flareTime = 0.2f;
+
         private float blazeOrbRadius;
         private float blazeOrbDuration;
         private float blazeOrbTickFreq;
@@ -47,17 +50,17 @@ namespace WispSurvivor.Skills.Utility
         public Vector3 orbOrigin;
         public Vector3 orbNormal;
 
-        public DamageColorIndex igniteOrbDamageColor;
+        public DamageColorIndex igniteOrbDamageColor = DamageColorIndex.WeakPoint;
 
         private bool hasFired = false;
+
+        private Components.WispPassiveController passive;
         
         //Orb params and stuff
         public override void OnEnter()
         {
             base.OnEnter();
-
-            //Bigger face flare
-            //Sync the position with server
+            passive = gameObject.GetComponent<Components.WispPassiveController>();
             skin = characterBody.skinIndex;
 
             blazeOrbRadius = baseBlazeOrbRadius;
@@ -122,9 +125,12 @@ namespace WispSurvivor.Skills.Utility
         {
             if (hasFired) return;
             hasFired = true;
+            var chargeState = passive.ConsumePercentCharge(chargeUsed);
             if (!NetworkServer.active) return;
 
             BlazeOrb blaze = new BlazeOrb();
+
+            
 
 
             //Unorganized shit
@@ -146,7 +152,7 @@ namespace WispSurvivor.Skills.Utility
             blaze.igniteDebuffTimeMult = igniteOrbDebuffTimeMult;
             blaze.igniteDuration = igniteOrbDuration;
             blaze.igniteProcCoef = igniteOrbProcCoef;
-            blaze.igniteTickDamage = igniteOrbTickDamage;
+            blaze.igniteTickDamage = igniteOrbTickDamage * ( 1f + 0.5f * ((float)(( chargeState.chargeLeft + chargeState.chargeConsumed ) / 100.0 ) ));
             blaze.igniteTickFreq = igniteOrbTickFreq;
             blaze.igniteStacksPerSecOnDeath = igniteOrbStacksPerSecOnDeath;
             blaze.igniteBaseStacksOnDeath = igniteOrbBaseStacksOnDeath;

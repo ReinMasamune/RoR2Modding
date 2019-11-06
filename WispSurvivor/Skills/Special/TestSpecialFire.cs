@@ -19,7 +19,6 @@ namespace WispSurvivor.Skills.Special
 
         public uint skin;
 
-        public uint soundID1;
 
         private bool fired = false;
         private bool rotated = false;
@@ -54,7 +53,7 @@ namespace WispSurvivor.Skills.Special
                 PlayAnimation("Body", "SpecialFire", "SpecialFire.playbackRate", recoveryTime);
                 RoR2.Util.PlaySound("Stop_greater_wisp_active_loop", gameObject);
                 RoR2.Util.PlaySound("Play_item_use_BFG_fire", gameObject);
-                MonoBehaviour.Destroy(effectInstance);
+                if( effectInstance ) MonoBehaviour.Destroy(effectInstance);
                 Fire();
             }
 

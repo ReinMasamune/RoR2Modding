@@ -9,6 +9,8 @@ namespace WispSurvivor.Components
         public string startSound = "";
         public string endSound = "";
 
+        public string explosionSound = "";
+
         private float duration;
         private float timeLeft;
         private float startDist;
@@ -47,7 +49,7 @@ namespace WispSurvivor.Components
             prevPos = start;
 
             transform.position = start;
-            RoR2.Util.PlaySound(startSound, gameObject);
+            RoR2.Util.PlayScaledSound(startSound, gameObject , 2.0f);
         }
 
         public void Update()
@@ -80,6 +82,7 @@ namespace WispSurvivor.Components
                 if (timeLeft < 0f)
                 {
                     RoR2.Util.PlaySound(endSound, gameObject);
+                    RoR2.Util.PlaySound(explosionSound, gameObject);
                     dead = true;
                 }
             }

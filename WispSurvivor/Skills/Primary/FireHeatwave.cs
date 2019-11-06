@@ -11,8 +11,8 @@ namespace WispSurvivor.Skills.Primary
     public class FireHeatwave : BaseState
     {
         public static float baseFireDelay = 0.02125f;
-        public static float baseDamageMult = 2.5f;
-        public static float chargeScaler = 0.5f;
+        public static float baseDamageMult = 3.0f;
+        public static float chargeScaler = 0.10f;
         public static float explosionRadius = 5f;
 
         public float initAS;
@@ -45,7 +45,9 @@ namespace WispSurvivor.Skills.Primary
             fireDuration = baseFireDuration / initAS;
             fireDelay = baseFireDelay / initAS;
 
-            damageValue = damageStat * baseDamageMult * ((1f - chargeScaler) + chargeScaler * (float)((passive.ReadCharge() - 100.0) / 100.0));
+            damageValue = damageStat * baseDamageMult * ((1f + chargeScaler * (float)((passive.ReadCharge() - 100.0) / 100.0)));
+
+            //RoR2.Util.PlaySound("Play_beetle_guard_attack2_initial", gameObject);
         }
 
         public override void FixedUpdate()
@@ -60,11 +62,15 @@ namespace WispSurvivor.Skills.Primary
             {
                 FireOrb();
             }
-            if( fixedAge >= fireDuration )
+            if( fixedAge >= fireDuration && isAuthority )
             {
-                if( isAuthority )
+                if( inputBank && inputBank.skill1.down )
                 {
-                    outer.SetNextStateToMain();
+                    outer.SetNextState(new PrepHeatwave());
+                }
+                else
+                {
+                    outer.SetNextState(new HeatwaveWindDown());
                 }
             }
         }

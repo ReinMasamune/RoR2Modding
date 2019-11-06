@@ -10,11 +10,11 @@ namespace WispSurvivor.Skills.Primary
 {
     public class PrepHeatwave : BaseState
     {
-        public static float basePrepDuration = 0.2f;
-        public static float baseFireDuration = 0.425f;
-        public static float maxRange = 40f;
+        public static float basePrepDuration = 0.1f;
+        public static float baseFireDuration = 0.525f;
+        public static float maxRange = 45f;
         public static float maxAngle = 7.5f;
-        public static float noStockSpeedMult = 0.5f;
+        public static float noStockSpeedMult = 0.375f;
         public static float animReturnPercent = 0.55f;
 
         public static double baseChargeAdded = 10.0;
@@ -45,6 +45,7 @@ namespace WispSurvivor.Skills.Primary
 
             bool hasStock = skillLocator.primary.stock > 0;
             skillLocator.primary.stock = hasStock ? skillLocator.primary.stock - 1 : 0;
+            skillLocator.primary.rechargeStopwatch = 0f;
             initAS = attackSpeedStat * (hasStock ? 1f : noStockSpeedMult);
 
             prepDuration = basePrepDuration / initAS;
@@ -58,6 +59,7 @@ namespace WispSurvivor.Skills.Primary
             modelTrans = GetModelTransform();
             string animStr = anim.GetCurrentAnimatorStateInfo(anim.GetLayerIndex("Gesture")).IsName("Throw1") ? "Throw2" : "Throw1";
             PlayCrossfade("Gesture", animStr, "Throw.playbackRate", totalDuration / (1f - animReturnPercent), 0.2f);
+            RoR2.Util.PlaySound("Play_huntress_m2_throw", gameObject);
 
             if( characterBody )
             {

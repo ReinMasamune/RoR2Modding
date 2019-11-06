@@ -1,4 +1,5 @@
 ﻿using BepInEx;
+using BepInEx.Configuration;
 using RoR2;
 using UnityEngine;
 using System;
@@ -13,15 +14,36 @@ using static WispSurvivor.Util.PrefabUtilities;
 namespace WispSurvivor
 {
     [BepInDependency("com.bepis.r2api")]
-    [BepInPlugin("com.ReinThings.RogueWisp", "Rein-RogueWisp", "1.0.3")]
+    [BepInPlugin("com.ReinThings.RogueWisp", "Rein-RogueWisp", "1.1.1")]
     public class WispSurvivorMain : BaseUnityPlugin
     {
         Dictionary<Type, Component> componentLookup = new Dictionary<Type, Component>();
 
         GameObject body;
 
+        //public static ConfigWrapper<bool> configWrappingPaper;
+
         public void Awake()
         {
+            /*
+            configWrappingPaper = Config.Wrap<bool>("Settings", "Enable Logging", "Should run stats be saved to a file seperate from PreviousRun.xml? This info is not tranmitted anywhere automatically. If you wish, you may send me the file via discord for me to improve overall mod quality.", false);
+            bool logging = configWrappingPaper.Value;
+
+            if( logging )
+            {
+                Debug.Log("Local stat tracking is enabled. This means that run reports will not overwrite eachother." + 
+                    "\nYou can disable this setting in the config." + 
+                    "\nIf you wish, you may also send these archived reports to me via discord where I will use the data to help better balance my mods (and nothing else)");
+            } else
+            {
+                Debug.Log("Local stat tracking is disabled. Run reports will function as they do in vanilla game. If you wish to enable stat tracking you may do so in the config." +
+                    "\nWhen enabled, a second run report is saved to a subfolder and does not overwrite previous ones. You then may submit those reports to me via discord to me if you want to" +
+                    "\nIf you do choose to send them to me, I will use them to gather information about the state of my mod" +
+                    "\nAn example of that would be: 80% of run reports for Rogue Wisp show that players struggle to get past stage 3. That may mean I need to address the starting power of the character.");
+            }
+            */
+
+
             var execAssembly = Assembly.GetExecutingAssembly();
             var stream = execAssembly.GetManifestResourceStream("WispSurvivor.Bundle.wispsurvivor");
             var bundle = AssetBundle.LoadFromStream(stream);
@@ -121,39 +143,37 @@ namespace WispSurvivor
    
 }
 
-//For release:
-
-// TODO: Charge indicator not working in MP for clients
-// TODO: Charge not syncing in MP
-// TODO: Primary firing correctly, but the blastattack is not happening in correct area when used by client (
-
-// TODO: Primary animation issue needs fix (twitch at end) most likely need state chaining
-// TODO: Material and AOE marker on utility aim
-// TODO: Verify primary damage values are correct
-// TODO: Need indicator for utility duration
+//For next release:
+// TODO: Utility: Further gameplay tweaks
+    //Create a gameplay pattern around being inside the burn zone with enemies
+    //Remove the flame buff stacks from killing enemies
+    //
 
 
+// TODO: Convert flat consumption charge funcs to return ChargeState
+// TODO: Utility sounds (unsure what to do here)
+// TODO: Visual flare thing on utility stuff...
+// TODO: Update Descriptions
+
+// Future plans and shit
+
+
+// TOD: Need indicator for utility duration (spawn in the entitystate, have sync vars set up on object, pass ref to object to the orb)
+// TOD: Body Animation smoothing params
 // TOD: Rewrite secondary for MP (2 states possibly?)
-// TOD: SkillsCatalog get additional skilldefs
 // TOD: Offset the modelbase instead of the model
 // TOD: Character lobby description
 // TOD: Primary explosion effect tweak (yellow stuff)
 // TOD: Customize crosshair
-// TOD: Explosion falloffs
 // TOD: Death Effects
-// TOD: Utility sounds (unsure what to do here)
 // TOD: Set up screen scaling on UI
 // TOD: R hovering and movement
 // TOD: Readme lore sillyness
 // TOD: Hide UI when paused
 // TOD: Add a second charge readout 
-// TOD: Shift needs adjustments
 // TOD: Face flare
-// TOD: Networking
 // TOD: Hurtbox during special
-// TOD: Buffs setup
 // TOD: Portrait,Pod
-// TOD: Set up the item display ruleset
 // TOD: Ragdoll stuff
 // TOD: Effects obscuring vision
 // TOD: Effect brightness settings
@@ -164,4 +184,4 @@ namespace WispSurvivor
 // TOD: Base class for mod plugin with helpers
 // TOD: Additional bonuses from charge level
 // TOD: ItemDisplayRuleset
-// TOD: Visual flare thing on utility stuff...
+// TOD: Null ref on kill enemy with primary when client

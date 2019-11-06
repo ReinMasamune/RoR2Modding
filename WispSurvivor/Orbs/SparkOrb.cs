@@ -15,7 +15,7 @@ namespace WispSurvivor.Orbs
         public float stepHeight = 1f;
         public float stepDist = 1f;
         public float maxFall = 5f;
-        public float minDistThreshold = 0.1f;
+        public float minDistThreshold = 1f;
         public float height = 10f;
         public float vOffset = 5f;
         public float innerRadScale = 0.67f;
@@ -156,7 +156,7 @@ namespace WispSurvivor.Orbs
                     dmg.inflictor = attacker;
                     dmg.position = col.transform.position;
                     dmg.procChainMask = procMask;
-                    dmg.procCoefficient = procCoef;
+                    dmg.procCoefficient = procCoef * edgePenaltyMult;
 
                     hcomp.TakeDamage(dmg);
                     GlobalEventManager.instance.OnHitEnemy(dmg, hcomp.gameObject);

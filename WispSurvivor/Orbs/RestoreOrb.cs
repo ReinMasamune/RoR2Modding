@@ -1,4 +1,5 @@
-﻿using RoR2;
+﻿using UnityEngine;
+using RoR2;
 
 namespace WispSurvivor.Orbs
 {
@@ -13,7 +14,7 @@ namespace WispSurvivor.Orbs
 
         public override void Begin()
         {
-            duration = distanceToTarget / 50f;
+            duration = distanceToTarget / 75f;
             EffectData effect = new EffectData
             {
                 origin = origin,
@@ -35,9 +36,16 @@ namespace WispSurvivor.Orbs
             if (!body) return;
 
             BuffIndex b = BuffCatalog.FindBuffIndex("WispFlameChargeBuff");
+            float value = stacks * 1.5f;
+
+            value = Mathf.Sqrt(value);
+            int stackTo = Mathf.FloorToInt(value);
+            float duration = value / stackTo;
+            duration *= 5f;
+
             for( int i = 0; i < stacks; i++ )
             {
-                body.AddTimedBuff(b, 5f);
+                body.AddTimedBuff(b, duration * ( 1f + ( i / (stacks-1) ) * 0.1f));
             }
         }
 

@@ -12,27 +12,21 @@ namespace WispSurvivor.Skills.Utility
         public static float flareDuration = 0.2f;
         public static float castRadius = 0.25f;
 
+        private float radius = FireGaze.baseBlazeOrbRadius;
+
         private uint skin = 0;
 
         private Vector3 normal;
 
         private Components.WispPassiveController passive;
         private GameObject line;
-        private LineRenderer lr;
         private Transform end;
-        private Transform castStart;
 
         public override void OnEnter()
         {
             base.OnEnter();
-
             passive = gameObject.GetComponent<Components.WispPassiveController>();
-
-            //Do I need authority check?
-
-
-            //Do the face flare thing
-            //Create a prediction beam to aim location
+            skin = characterBody.skinIndex;
         }
 
         public override void Update()
@@ -42,9 +36,10 @@ namespace WispSurvivor.Skills.Utility
             if( !line )
             {
                 Transform muzzle = GetModelTransform().Find("CannonPivot").Find("AncientWispArmature").Find("Head");
-                line = UnityEngine.Object.Instantiate<GameObject>(Modules.WispEffectModule.utilityAim[0], muzzle.TransformPoint(0f, 0.1f, 0f), muzzle.rotation, muzzle);
-                lr = line.GetComponent<LineRenderer>();
+                line = UnityEngine.Object.Instantiate<GameObject>(Modules.WispEffectModule.utilityAim[skin], muzzle.TransformPoint(0f, 0.1f, 0f), muzzle.rotation, muzzle);
                 end = line.transform.Find("lineEnd");
+                end.parent = null;
+                end.localScale = new Vector3(2*radius, 2*radius, 2*radius);
             }
 
             if (line)
@@ -85,6 +80,7 @@ namespace WispSurvivor.Skills.Utility
             base.OnExit();
             //Destroy the beam marker
             Destroy(line);
+            Destroy(end.gameObject);
         }
 
         public override InterruptPriority GetMinimumInterruptPriority()

@@ -60,13 +60,13 @@ namespace WispSurvivor.Components
 
         public void Update()
         {
-            if (!base.isLocalPlayer) return;
+            if (!base.hasAuthority) return;
             UpdateBarColors(passive.ReadCharge());
         }
 
         public void OnGUI()
         {
-            if (!base.isLocalPlayer) return;
+            if (!base.hasAuthority) return;
             for( int i = 0; i < 10; i++ )
             {
                 GUI.Box(boxes[i], colors[colorStates[9 - i]], style );
