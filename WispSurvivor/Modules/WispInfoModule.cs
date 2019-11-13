@@ -32,27 +32,26 @@ namespace WispSurvivor.Modules
             AddNewToken("WISP_SURVIVOR_SKIN_8", "Ascendent");
 
             //Skills
-            AddNewToken("WISP_SURVIVOR_PRIMARY_1_NAME", "Heatwave");
-            AddNewToken("WISP_SURVIVOR_SECONDARY_1_NAME", "Legendary Spark");
-            AddNewToken("WISP_SURVIVOR_UTILITY_1_NAME", "Burning Gaze");
-            AddNewToken("WISP_SURVIVOR_SPECIAL_1_NAME", "Cremation");
-            AddNewToken("WISP_SURVIVOR_PRIMARY_1_DESC", "Fire a shockwave that explodes on impact, dealing <style=cIsDamage>300% damage</style>." + 
-                "\nCan hold up to <style=cIsDamage>3 stock</style> but does not require them to use. When used with stock has double attack speed and charge gain." +
-                "\nGains <style=cIsDamage>damage</style> with <style=cIsUtility>Flame Charge</style> and grants <style=cIsUtility>10 Flame Charge</style> on use.");
-            AddNewToken("WISP_SURVIVOR_SECONDARY_1_DESC", "Create a series of flame pillars that explode for <style=cIsDamage>150% damage</style>" +
-                "\nDeals <style=cIsDamage>double damage</style> in the center of the pillar. Costs <style=cIsUtility>15% Flame Charge</style> on cast." +
-                "\n<style=cIsUtility>Flame Charge</style> increases <style=cIsDamage>damage</style> and <style=cIsUtility>the number of pillars</style>.");
-            AddNewToken("WISP_SURVIVOR_UTILITY_1_DESC", "Create an <style=cIsDamage>Inferno</style> lasting 10 seconds where you aim, <style=cIsDamage>igniting</style> all enemies inside for four seconds once per second." +
-                "\n<style=cIsDamage>Ignited</style> enemies take <style=cIsDamage>10% damage</style> and are inflicted with <style=cIsUtility>Cursed Flame</style> twice per second." +
-                "\nCosts <style=cIsUtility>20% Flame Charge</style> on cast.<style=cIsUtility>Flame Charge</style> increases <style=cIsDamage>damage</style>.");
-            AddNewToken("WISP_SURVIVOR_SPECIAL_1_DESC", "Charge a ball of fire dealing from <style=cIsDamage>437.5% to 1750% damage</style> based on time." + 
-                "\nYou are <style=cIsHealth>slowed</style> while charging. Costs <style=cIsUtility>10% Flame Charge</style> per second while charging" +
-                "\n<style=cIsUtility>Flame Charge</style> greatly increases damage");
+           
             AddNewToken("WISP_SURVIVOR_PASSIVE_NAME", "Cursed Flames");
-            AddNewToken("WISP_SURVIVOR_PASSIVE_DESC", "Gain <style=cIsUtility>Flame Charge</style> over time when under 100 charge. Lose <style=cIsUtility>Flame Charge</style> over time when over 100." +
-                "\nGain a buff when you kill an enemy inflicted with <style=cIsUtility>Cursed Flames</style>. This buff reduces decay of <style=cIsUtility>Flame Charge</style> and restores it over time." +
-                "\nThe number of stacks and the duration of the buff depend on the number of stacks of <style=cIsUtility>Cursed Flame</style> on the enemy.");
+            AddNewToken("WISP_SURVIVOR_PASSIVE_DESC", "<style=cIsUtility>Flame Charge</style> <style=cIsDamage>Empowers</style> your abilities but decays over time." +
+                "\nAbilities consume <style=cIsUtility>Flame Charge</style> on cast.");
 
+            AddNewToken("WISP_SURVIVOR_PRIMARY_1_NAME", "Heatwave");
+            AddNewToken("WISP_SURVIVOR_PRIMARY_1_DESC", "Fire a shockwave that explodes for <style=cIsDamage>300% damage.</style> <style=cIsUtility>Restores 5 Flame Charge</style> on cast." + 
+                "\nCan hold up to <style=cIsDamage>3 stock.</style> When used with stock has <style=cIsUtility>double attack speed and charge gain.</style>" );
+
+            AddNewToken("WISP_SURVIVOR_SECONDARY_1_NAME", "Legendary Spark");
+            AddNewToken("WISP_SURVIVOR_SECONDARY_1_DESC", "Create a line of flame pillars that explode for <style=cIsDamage>150% damage.</style>" +
+                "\nDeals <style=cIsDamage>double damage</style> in the center of the pillar.");
+
+            AddNewToken("WISP_SURVIVOR_UTILITY_1_NAME", "Burning Gaze");
+            AddNewToken("WISP_SURVIVOR_UTILITY_1_DESC", "Create an <style=cIsDamage>Inferno</style> that <style=cIsDamage>Ignites</style> all enemies for <style=cIsDamage>80% damage</style> per second." +
+                "\n<style=cIsDamage>Ignited</style> enemies restore your <style=cIsUtility>Flame Charge</style> while you are inside the <style=cIsDamage>Inferno.</style>");
+
+            AddNewToken("WISP_SURVIVOR_SPECIAL_1_NAME", "Cremation");
+            AddNewToken("WISP_SURVIVOR_SPECIAL_1_DESC", "Charge up a Fireball for <style=cIsDamage>435%-1750% damage.</style>" + 
+                "\n<style=cIsHealth>Cannot Sprint</style> while charging.");
 
             On.RoR2.Language.LoadAllFilesForLanguage += Language_LoadAllFilesForLanguage;
         }

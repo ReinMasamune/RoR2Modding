@@ -1,6 +1,7 @@
 ﻿using RoR2;
-using UnityEngine;
 using RoR2.Orbs;
+using UnityEngine;
+using System;
 
 namespace WispSurvivor.Orbs
 {
@@ -39,6 +40,7 @@ namespace WispSurvivor.Orbs
 
         private bool dead = false;
         private bool wasDead = false;
+        private bool boosted = false;
 
         public override void Begin()
         {
@@ -64,6 +66,14 @@ namespace WispSurvivor.Orbs
 
         public void FixedUpdate()
         {
+            try
+            {
+                boosted = parent.isActive && parent.isOwnerInside;
+            } catch( NullReferenceException e )
+            {
+                boosted = false;
+            }
+            
             durationTimer += Time.fixedDeltaTime;
 
             if (!target) dead = true;
@@ -72,7 +82,7 @@ namespace WispSurvivor.Orbs
             if (dead && !wasDead) OnDead();
             if (dead) return;
 
-            damageTimer += Time.fixedDeltaTime;
+            damageTimer += Time.fixedDeltaTime * (boosted ? 1f : 0.5f);
 
             while (damageTimer >= damageInterval)
             {
@@ -95,8 +105,6 @@ namespace WispSurvivor.Orbs
             if (!enemy.healthComponent) return;
             if (!enemy.healthComponent.gameObject) return;
             if (!attacker) return;
-            BuffIndex b = BuffCatalog.FindBuffIndex("WispCurseBurn");
-            enemy.healthComponent.gameObject.GetComponent<CharacterBody>().AddTimedBuff(b, (igniteTime - durationTimer ) * igniteDebuffTimeMult);
             //Damage info stuff here
             DamageInfo d = new DamageInfo();
             d.damage = igniteTickDmg;
@@ -105,13 +113,15 @@ namespace WispSurvivor.Orbs
             d.force = Vector3.zero;
             d.crit = crit;
             d.procChainMask = new ProcChainMask();
-            d.procCoefficient = igniteProcCoef;
+            d.procCoefficient = boosted ? igniteProcCoef : 0f;
             d.position = enemy.transform.position;
             d.damageColorIndex = igniteDamageColor;
+
 
             enemy.healthComponent.TakeDamage(d);
             GlobalEventManager.instance.OnHitEnemy(d, enemy.healthComponent.gameObject);
             GlobalEventManager.instance.OnHitAll(d, enemy.healthComponent.gameObject);
+            parent.AddStacks(igniteDebuffTimeMult * (enemy.healthComponent.gameObject.GetComponent<CharacterBody>().hullClassification != HullClassification.Human ? 1f : 0.5f ));
         }
 
         private void OnDead( float mult = 1f)
@@ -130,6 +140,11 @@ namespace WispSurvivor.Orbs
             {
                 //Do a cool thing here based on value (explosion I guess? modified will o wisp explosion could be fun...)
             }
+        }
+
+        private void Detonate()
+        {
+            //Implement this?
         }
     }
 }

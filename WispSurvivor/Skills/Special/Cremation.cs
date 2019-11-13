@@ -26,7 +26,7 @@ namespace WispSurvivor.Skills.Special
         public static float baseFireDelay = 0.25f;
         public static float baseDamageScaler = 17.5f;
         public static float chargeScaler = 0.5f;
-        public static float timeScaler = 0.25f;
+        public static float timeScaler = 0.75f;
 
         private double chargeUsedPerSec;
         private double chargeLevel = 0;
@@ -127,7 +127,7 @@ namespace WispSurvivor.Skills.Special
 
         private void ChargingState(float t)
         {
-            var chargeState = passive.DrainPercentCharge(chargeUsedPerSec * t);
+            var chargeState = passive.UseChargeDrain(chargeUsedPerSec, t);
             chargeLevel += chargeState.chargeConsumed;
             idealChargeLevel += chargeUsedPerSec * t;
             timer += t;
@@ -153,9 +153,9 @@ namespace WispSurvivor.Skills.Special
 
         private void ChargedState( float t )
         {
-            chargeTimer += t * attackSpeedStat;
-
-            chargeLevel += passive.DrainCharge(chargeUsedPerSec * t);
+            chargeTimer += t;
+            var chargeState = passive.UseChargeDrain(chargeUsedPerSec, t);
+            chargeLevel += chargeState.chargeConsumed;
             idealChargeLevel += chargeUsedPerSec * t;
 
             timer += t;
@@ -193,13 +193,14 @@ namespace WispSurvivor.Skills.Special
         {
             RoR2.Util.PlaySound("Stop_greater_wisp_active_loop", gameObject);
             RoR2.Util.PlaySound("Play_item_use_BFG_fire", gameObject);
-            double charge = passive.ReadCharge();
 
             Ray r = GetAimRay();
 
-            float damageMult1 = (1f - timeScaler ) + timeScaler * (float)chargeTimer / ( maxChargeDuration - minChargeDuration);
-            //float damageMult2 = (1f - chargeScaler ) + chargeScaler * (idealChargeLevel > 0 ? (float)(chargeLevel / idealChargeLevel) : 1f);
-            float damageMult3 = 1.0f + chargeScaler * (float)((charge + chargeLevel - 100.0) / 100.0);
+            float chargeMult = Components.WispPassiveController.GetDrainScaler(chargeLevel, idealChargeLevel, chargeScaler );
+
+            float timeMult = chargeTimer / (maxChargeDuration - minChargeDuration) - 1f;
+            timeMult *= timeScaler;
+            timeMult += 1f;
 
             FireProjectileInfo proj = new FireProjectileInfo
             {
@@ -207,7 +208,7 @@ namespace WispSurvivor.Skills.Special
                 position = r.origin,
                 rotation = RoR2.Util.QuaternionSafeLookRotation(r.direction),
                 owner = gameObject,
-                damage = damageStat * baseDamageScaler * damageMult1 * damageMult3,
+                damage = damageStat * baseDamageScaler * chargeMult * timeMult,
                 force = 50f,
                 crit = RollCrit(),
                 damageColorIndex = DamageColorIndex.Default,

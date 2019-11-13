@@ -45,6 +45,12 @@ namespace WispSurvivor.Modules
             impact.impactEffect = WispEffectModule.specialExplosion[skinIndex];
             impact.blastRadius = 10f;
 
+            ProjectileSimple simp = obj.GetComponent<ProjectileSimple>();
+            simp.velocity = 125f;
+
+            SphereCollider sphere = obj.GetComponent<SphereCollider>();
+            sphere.radius = 0.45f;
+
             return obj;
         }
 

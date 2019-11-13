@@ -1,28 +1,39 @@
 ﻿using RoR2;
+using R2API.Utils;
 using UnityEngine;
 using System;
+using System.Reflection;
 using System.Collections.Generic;
 using static WispSurvivor.Util.PrefabUtilities;
+using System.Runtime.Serialization;
+using System.Linq;
 
 namespace WispSurvivor.Modules
 {
     public static class WispModelModule
     {
         private const uint matIndex = 0;
+        private static Type nameTransformPair;
 
         public static void DoModule( GameObject body , Dictionary<Type,Component> dic)
         {
             EditModelScale(body, dic);
             EditModelStructure(body, dic);
+            EditModelFlare(body, dic);
             EditModelParticles(body, dic);
             EditModelSkins(body, dic);
+            EditModelUVs(body, dic);
+            DoChildLocator(body, dic);
+            DoIDRS(body, dic);
+            DoHurtBoxes(body, dic);
         }
 
         private static void EditModelScale( GameObject body , Dictionary<Type,Component> dic )
         {
             dic.C<ModelLocator>().modelBaseTransform.gameObject.name = "ModelBase";
-            dic.C<ModelLocator>().modelTransform.localScale = new Vector3(1f, 1f, 1f);
-            dic.C<ModelLocator>().modelTransform.localPosition = new Vector3(0f, 4f, 0f);
+            dic.C<ModelLocator>().modelBaseTransform.localPosition = new Vector3(0f, -0.3f, 0f);
+            dic.C<ModelLocator>().modelTransform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
+            dic.C<ModelLocator>().modelTransform.localPosition = new Vector3( 0f, 0.3f, 0f );
         }
 
         private static void EditModelStructure( GameObject body, Dictionary<Type,Component> dic )
@@ -35,6 +46,29 @@ namespace WispSurvivor.Modules
 
             Transform armatureTransform = modelTransform.Find("AncientWispArmature");
             armatureTransform.parent = pivotPoint.transform;
+        }
+
+        private static void EditModelFlare( GameObject body, Dictionary<Type,Component> dic )
+        {
+            GameObject flareObj = dic.C<ModelLocator>().modelTransform.Find("CannonPivot").Find("AncientWispArmature").Find("Head").Find("GameObject").gameObject;
+            flareObj.transform.localScale = Vector3.one;
+
+            GameObject flare2Obj = MonoBehaviour.Instantiate<GameObject>(flareObj, flareObj.transform.parent);
+            flare2Obj.transform.localEulerAngles = new Vector3(0f, 180f, 0f);
+            GameObject refObj = new GameObject("FlareRef");
+            refObj.transform.parent = flareObj.transform.parent;
+            refObj.transform.localPosition = Vector3.zero;
+            refObj.transform.localEulerAngles = new Vector3(0f, 180f, 0f);
+
+            flare2Obj.GetComponent<EyeFlare>().directionSource = refObj.transform;
+
+            dic.C<Components.WispFlareController>().flare1 = flareObj.GetComponent<SpriteRenderer>();
+            dic.C<Components.WispFlareController>().flare2 = flare2Obj.GetComponent<SpriteRenderer>();
+
+            flareObj.SetActive(false);
+            flare2Obj.SetActive(false);
+
+            //MonoBehaviour.Destroy(flareObj.GetComponent<EyeFlare>());
         }
 
         private static void EditModelParticles( GameObject body, Dictionary<Type,Component> dic )
@@ -62,12 +96,6 @@ namespace WispSurvivor.Modules
             {
                 if (!t) continue;
                 tempName = t.gameObject.name;
-
-                if( tempName == "GameObject" )
-                {
-                    MonoBehaviour.Destroy(t.gameObject);
-                    continue;
-                }
 
                 if (flames.ContainsKey(tempName))
                 {
@@ -121,7 +149,7 @@ namespace WispSurvivor.Modules
                 rendererInfos[i][particles.Length] = new CharacterModel.RendererInfo
                 {
                     renderer = armorRenderer,
-                    defaultMaterial = armorMaterial,
+                    defaultMaterial = WispMaterialModule.armorMaterials[i],
                     defaultShadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On,
                     ignoreOverlays = false
                 };
@@ -155,6 +183,484 @@ namespace WispSurvivor.Modules
             }
 
             bodySkins.skins = skins;
+        }
+
+        private static void EditModelUVs(GameObject body, Dictionary<Type,Component> dic )
+        {
+            Mesh m = dic.C<ModelLocator>().modelTransform.Find("AncientWispMesh").GetComponent<SkinnedMeshRenderer>().sharedMesh;
+            Vector2[] newUvs = new Vector2[m.vertexCount];
+            Vector3[] verts = m.vertices;
+            float tempu = 0f;
+            float tempv = 0f;
+            float tempp = 0f;
+            Vector2 tempv2 = Vector2.zero;
+            for (int i = 0; i < m.vertexCount; i++)
+            {
+                tempv = verts[i].z;
+                tempu = Mathf.Atan2(verts[i].y, verts[i].x);
+
+                newUvs[i] = new Vector2(tempu,tempv);
+            }
+            m.uv = newUvs;
+        }
+
+        private static void DoChildLocator( GameObject body, Dictionary<Type,Component> dic )
+        {
+            Transform model = dic.C<ModelLocator>().modelTransform;
+            RagdollController rag = model.gameObject.AddComponent<RagdollController>();
+
+            ChildLocator children = model.GetComponent<ChildLocator>();
+            FieldInfo f = typeof(ChildLocator).GetField("transformPairs", BindingFlags.NonPublic | BindingFlags.Instance);
+            object thing = f.GetValue(children);
+            object[] pairs = ((Array)thing).Cast<object>().ToArray();
+            Type pairsArray = thing.GetType();
+            nameTransformPair = thing.GetType().GetElementType();
+            Array.Resize<object>(ref pairs, pairs.Length + 16);
+
+            List<Transform> bones = new List<Transform>();
+
+            BoxCollider box;
+            CapsuleCollider cap;
+            Rigidbody rb;
+
+            Transform t2;
+            var v = Array.CreateInstance(nameTransformPair, pairs.Length + 16);
+
+            int i = 0;
+            for (i = 0; i < 3; i++)
+            {
+                v.SetValue(pairs[i], i);
+            }
+            foreach ( Transform t in model.GetComponentsInChildren<Transform>() )
+            {
+                if (!t) continue;
+                switch( t.name )
+                {
+                    default:
+                        break;
+
+                    case "ChestCannon1":
+                        t2 = new GameObject("ItemParent" + i.ToString()).transform;
+                        t2.parent = t;
+                        t2.localPosition = new Vector3(0f, 0.65f, 0f);
+                        t2.localEulerAngles = new Vector3(180f, 0f, 0f);
+                        t2.localScale = new Vector3(1.25f, 1.25f, 1.25f);
+                        v.SetValue((CreateNameTransformPair("Chest", t2)), i++);
+
+                        box = t.gameObject.AddComponent<BoxCollider>();
+                        box.size = new Vector3(0.5f, 0.9f, 0.1f);
+                        box.center = new Vector3(0f, 0.4f, 0f);
+                        box.enabled = false;
+                        t.gameObject.AddComponent<Rigidbody>();
+                        bones.Add(t);
+                        break;
+
+                    case "ChestCannonGuard1":
+                        box = t.gameObject.AddComponent<BoxCollider>();
+                        box.size = new Vector3(0.75f, 0.7f, 0.2f);
+                        box.center = new Vector3(0f, 0.25f, 0.05f);
+                        box.enabled = false;
+                        t.gameObject.AddComponent<Rigidbody>();
+                        bones.Add(t);
+                        break;
+
+                    case "ChestCannon2":
+                        t2 = new GameObject("ItemParent" + i.ToString()).transform;
+                        t2.parent = t;
+                        t2.localPosition = new Vector3(0f, 0.5f, 0f);
+                        t2.localEulerAngles = new Vector3(180f, 0f, 0f);
+                        t2.localScale = new Vector3(1.25f, 1.25f, 1.25f);
+                        v.SetValue((CreateNameTransformPair("Stomach", t2)), i++);
+
+                        box = t.gameObject.AddComponent<BoxCollider>();
+                        box.size = new Vector3(0.5f, 0.9f, 0.1f);
+                        box.center = new Vector3(0f, 0.4f, 0f);
+                        box.enabled = false;
+                        t.gameObject.AddComponent<Rigidbody>();
+                        bones.Add(t);
+                        break;
+
+                    case "ChestCannonGuard2":
+                        box = t.gameObject.AddComponent<BoxCollider>();
+                        box.size = new Vector3(0.7f, 0.5f, 0.2f);
+                        box.center = new Vector3(0f, 0.17f, -0.05f);
+                        box.enabled = false;
+                        t.gameObject.AddComponent<Rigidbody>();
+                        bones.Add(t);
+                        break;
+
+                    case "Head":
+                        t2 = new GameObject("ItemParent" + i.ToString()).transform;
+                        t2.parent = t;
+                        t2.localPosition = new Vector3(0f, 0.2f, 0f);
+                        t2.localEulerAngles = new Vector3(0f, 0f, 0f);
+                        t2.localScale = new Vector3(1.25f, 1.25f, 1.25f);
+                        v.SetValue((CreateNameTransformPair("Head", t2)), i++);
+
+                        cap = t.gameObject.AddComponent<CapsuleCollider>();
+                        cap.direction = 0;
+                        cap.radius = 0.25f;
+                        cap.height = 1f;
+                        cap.center = new Vector3(0f, 0.25f, 0.15f);
+                        t.gameObject.AddComponent<Rigidbody>();
+                        bones.Add(t);
+                        break;
+
+                    case "thigh.r":
+                        t2 = new GameObject("ItemParent" + i.ToString()).transform;
+                        t2.parent = t;
+                        t2.localPosition = new Vector3(0f, 0.25f, 0f);
+                        t2.localEulerAngles = new Vector3(0f, -90f, 0f);
+                        t2.localScale = new Vector3(1.25f, 1.25f, 1.25f);
+                        v.SetValue(CreateNameTransformPair("ThighR", t2) , i++ );
+
+                        cap = t.gameObject.AddComponent<CapsuleCollider>();
+                        cap.direction = 1;
+                        cap.radius = 0.15f;
+                        cap.height = 0.5f;
+                        cap.center = new Vector3(0f, 0.2f, 0f);
+                        t.gameObject.AddComponent<Rigidbody>();
+                        bones.Add(t);
+                        break;
+
+                    case "thigh.l":
+                        t2 = new GameObject("ItemParent" + i.ToString()).transform;
+                        t2.parent = t;
+                        t2.localPosition = new Vector3(0f, 0.25f, 0f);
+                        t2.localEulerAngles = new Vector3(0f, 90f, 0f);
+                        t2.localScale = new Vector3(1.25f, 1.25f, 1.25f);
+                        v.SetValue((CreateNameTransformPair("ThighL", t2)),i++);
+
+                        cap = t.gameObject.AddComponent<CapsuleCollider>();
+                        cap.direction = 1;
+                        cap.radius = 0.15f;
+                        cap.height = 0.5f;
+                        cap.center = new Vector3(0f, 0.2f, 0f);
+                        t.gameObject.AddComponent<Rigidbody>();
+                        bones.Add(t);
+                        break;
+
+                    case "calf.r":
+                        t2 = new GameObject("ItemParent" + i.ToString()).transform;
+                        t2.parent = t;
+                        t2.localPosition = new Vector3(0f, 0f, 0f);
+                        t2.localEulerAngles = new Vector3(0f, 0f, 0f);
+                        t2.localScale = new Vector3(1.25f, 1.25f, 1.25f);
+                        v.SetValue((CreateNameTransformPair("CalfR", t2)), i++);
+
+                        cap = t.gameObject.AddComponent<CapsuleCollider>();
+                        cap.direction = 1;
+                        cap.radius = 0.125f;
+                        cap.height = 0.7f;
+                        cap.center = new Vector3(0f, 0.3f, 0f);
+                        t.gameObject.AddComponent<Rigidbody>();
+                        bones.Add(t);
+                        break;
+
+                    case "calf.l":
+                        t2 = new GameObject("ItemParent" + i.ToString()).transform;
+                        t2.parent = t;
+                        t2.localPosition = new Vector3(0f, 0f, 0f);
+                        t2.localEulerAngles = new Vector3(0f, 0f, 0f);
+                        t2.localScale = new Vector3(1.25f, 1.25f, 1.25f);
+                        v.SetValue((CreateNameTransformPair("CalfL", t2)), i++);
+
+                        cap = t.gameObject.AddComponent<CapsuleCollider>();
+                        cap.direction = 1;
+                        cap.radius = 0.125f;
+                        cap.height = 0.7f;
+                        cap.center = new Vector3(0f, 0.3f, 0f);
+                        t.gameObject.AddComponent<Rigidbody>();
+                        bones.Add(t);
+                        break;
+
+                    case "toe1.l":
+                        t2 = new GameObject("ItemParent" + i.ToString()).transform;
+                        t2.parent = t;
+                        t2.localPosition = new Vector3(0f, 0f, 0f);
+                        t2.localEulerAngles = new Vector3(-45f, 0f, 0f);
+                        t2.localScale = new Vector3(1.25f, 1.25f, 1.25f);
+                        v.SetValue((CreateNameTransformPair("FootL", t2)), i++);
+
+                        box = t.gameObject.AddComponent<BoxCollider>();
+                        box.size = new Vector3(0.12f, 0.3f, 0.08f);
+                        box.center = new Vector3(0f, 0.08f, 0.01f);
+                        box.enabled = false;
+                        t.gameObject.AddComponent<Rigidbody>();
+                        bones.Add(t);
+                        break;
+
+                    case "toe1.r":
+                        t2 = new GameObject("ItemParent" + i.ToString()).transform;
+                        t2.parent = t;
+                        t2.localPosition = new Vector3(0f, 0f, 0f);
+                        t2.localEulerAngles = new Vector3(-45f, 0f, 0f);
+                        t2.localScale = new Vector3(1.25f, 1.25f, 1.25f);
+                        v.SetValue((CreateNameTransformPair("FootR", t2)), i++);
+
+                        box = t.gameObject.AddComponent<BoxCollider>();
+                        box.size = new Vector3(0.12f, 0.3f, 0.08f);
+                        box.center = new Vector3(0f, 0.08f, 0.01f);
+                        box.enabled = false;
+                        t.gameObject.AddComponent<Rigidbody>();
+                        bones.Add(t);
+                        break;
+
+                    case "toe2.l":
+                        box = t.gameObject.AddComponent<BoxCollider>();
+                        box.size = new Vector3(0.08f, 0.2f, 0.06f);
+                        box.center = new Vector3(0f, 0.06f, 0f);
+                        box.enabled = false;
+                        t.gameObject.AddComponent<Rigidbody>();
+                        bones.Add(t);
+                        break;
+
+                    case "toe2.r":
+                        box = t.gameObject.AddComponent<BoxCollider>();
+                        box.size = new Vector3(0.08f, 0.2f, 0.06f);
+                        box.center = new Vector3(0f, 0.06f, 0f);
+                        box.enabled = false;
+                        t.gameObject.AddComponent<Rigidbody>();
+                        bones.Add(t);
+                        break;
+
+                    case "shoulder.l":
+                        box = t.gameObject.AddComponent<BoxCollider>();
+                        box.size = new Vector3(0.3f, 0.5f, 0.5f);
+                        box.center = new Vector3(-0.075f, 0.3f, 0f);
+                        box.enabled = false;
+                        t.gameObject.AddComponent<Rigidbody>();
+                        bones.Add(t);
+                        break;
+
+                    case "shoulder.r":
+                        box = t.gameObject.AddComponent<BoxCollider>();
+                        box.size = new Vector3(0.3f, 0.5f, 0.5f);
+                        box.center = new Vector3(0.075f, 0.3f, 0f);
+                        box.enabled = false;
+                        t.gameObject.AddComponent<Rigidbody>();
+                        bones.Add(t);
+                        break;
+
+                    case "upperArm1.l":
+                        t2 = new GameObject("ItemParent" + i.ToString()).transform;
+                        t2.parent = t;
+                        t2.localPosition = new Vector3(0f, 0f, 0f);
+                        t2.localEulerAngles = new Vector3(0f, 0f, 0f);
+                        t2.localScale = new Vector3(1.25f, 1.25f, 1.25f);
+                        v.SetValue((CreateNameTransformPair("UpperArmL", t2)),i++);
+
+                        box = t.gameObject.AddComponent<BoxCollider>();
+                        box.size = new Vector3(0.2f, 0.4f, 0.4f);
+                        box.center = new Vector3(0f, 0.15f, 0f);
+                        box.enabled = false;
+                        t.gameObject.AddComponent<Rigidbody>();
+                        bones.Add(t);
+                        break;
+
+                    case "upperArm1.r":
+                        t2 = new GameObject("ItemParent" + i.ToString()).transform;
+                        t2.parent = t;
+                        t2.localPosition = new Vector3(0f, 0f, 0f);
+                        t2.localEulerAngles = new Vector3(0f, 0f, 0f);
+                        t2.localScale = new Vector3(1.25f, 1.25f, 1.25f);
+                        v.SetValue((CreateNameTransformPair("UpperArmR", t2)),i++);
+
+                        box = t.gameObject.AddComponent<BoxCollider>();
+                        box.size = new Vector3(0.2f, 0.4f, 0.4f);
+                        box.center = new Vector3(0f, 0.15f, 0f);
+                        box.enabled = false;
+                        t.gameObject.AddComponent<Rigidbody>();
+                        bones.Add(t);
+                        break;
+
+                    case "upperArm2.l":
+                        box = t.gameObject.AddComponent<BoxCollider>();
+                        box.size = new Vector3(0.12f, 0.3f, 0.3f);
+                        box.center = new Vector3(0.01f, 0.17f, 0f);
+                        box.enabled = false;
+                        t.gameObject.AddComponent<Rigidbody>();
+                        bones.Add(t);
+                        break;
+
+                    case "upperArm2.r":
+                        box = t.gameObject.AddComponent<BoxCollider>();
+                        box.size = new Vector3(0.12f, 0.3f, 0.3f);
+                        box.center = new Vector3(-0.01f, 0.17f, 0f);
+                        box.enabled = false;
+                        t.gameObject.AddComponent<Rigidbody>();
+                        bones.Add(t);
+                        break;
+
+                    case "finger1.l":
+                        cap = t.gameObject.AddComponent<CapsuleCollider>();
+                        cap.direction = 1;
+                        cap.radius = 0.035f;
+                        cap.height = 0.3f;
+                        cap.center = new Vector3(0f, 0.09f, 0f);
+                        t.gameObject.AddComponent<Rigidbody>();
+                        bones.Add(t);
+                        break;
+
+                    case "finger1.r":
+                        t2 = new GameObject("ItemParent" + i.ToString()).transform;
+                        t2.parent = t;
+                        t2.localPosition = new Vector3(0f, 0.1f, 0f);
+                        t2.localEulerAngles = new Vector3(0f, 0f, 0f);
+                        t2.localScale = new Vector3(1.25f, 1.25f, 1.25f);
+                        v.SetValue((CreateNameTransformPair("Finger22R", t2)),i++);
+
+                        cap = t.gameObject.AddComponent<CapsuleCollider>();
+                        cap.direction = 1;
+                        cap.radius = 0.035f;
+                        cap.height = 0.3f;
+                        cap.center = new Vector3(0f, 0.09f, 0f);
+                        t.gameObject.AddComponent<Rigidbody>();
+                        bones.Add(t);
+                        break;
+
+                    case "finger2.l":
+                        cap = t.gameObject.AddComponent<CapsuleCollider>();
+                        cap.direction = 1;
+                        cap.radius = 0.035f;
+                        cap.height = 0.25f;
+                        cap.center = new Vector3(0f, 0.075f, 0f);
+                        t.gameObject.AddComponent<Rigidbody>();
+                        bones.Add(t);
+                        break;
+
+                    case "finger2.r":
+                        t2 = new GameObject("ItemParent" + i.ToString()).transform;
+                        t2.parent = t;
+                        t2.localPosition = new Vector3(0f, 0.1f, 0f);
+                        t2.localEulerAngles = new Vector3(0f, 0f, 0f);
+                        t2.localScale = new Vector3(1.25f, 1.25f, 1.25f);
+                        v.SetValue((CreateNameTransformPair("Finger42R", t2)),i++);
+
+                        cap = t.gameObject.AddComponent<CapsuleCollider>();
+                        cap.direction = 1;
+                        cap.radius = 0.035f;
+                        cap.height = 0.25f;
+                        cap.center = new Vector3(0f, 0.075f, 0f);
+                        t.gameObject.AddComponent<Rigidbody>();
+                        bones.Add(t);
+                        break;
+
+                    case "thumb.l":
+                        t2 = new GameObject("ItemParent" + i.ToString()).transform;
+                        t2.parent = t;
+                        t2.localPosition = new Vector3(0f, -0.15f, -0.1f);
+                        t2.localEulerAngles = new Vector3(0f, 170f, 0f);
+                        t2.localScale = new Vector3(1.25f, 1.25f, 1.25f);
+                        v.SetValue((CreateNameTransformPair("HandL", t2)),i++);
+
+                        cap = t.gameObject.AddComponent<CapsuleCollider>();
+                        cap.direction = 1;
+                        cap.radius = 0.05f;
+                        cap.height = 0.2f;
+                        cap.center = new Vector3(-0.005f, 0.085f, 0f);
+                        t.gameObject.AddComponent<Rigidbody>();
+                        bones.Add(t);
+                        break;
+
+                    case "thumb.r":
+                        cap = t.gameObject.AddComponent<CapsuleCollider>();
+                        cap.direction = 1;
+                        cap.radius = 0.05f;
+                        cap.height = 0.2f;
+                        cap.center = new Vector3(-0.005f, 0.085f, 0f);
+                        t.gameObject.AddComponent<Rigidbody>();
+                        bones.Add(t);
+                        break;
+
+
+                    case "chest":
+                        t2 = new GameObject("ItemParent" + i.ToString()).transform;
+                        t2.parent = t;
+                        t2.localPosition = new Vector3(0f, 0.5f, 0f);
+                        t2.localEulerAngles = new Vector3(0f, -90f, 0f);
+                        t2.localScale = new Vector3(1.25f, 1.25f, 1.25f);
+                        v.SetValue((CreateNameTransformPair("Pelvis", t2)), i++);
+                        break;
+
+                    case "lowerArm.l":
+                        t2 = new GameObject("ItemParent" + i.ToString()).transform;
+                        t2.parent = t;
+                        t2.localPosition = new Vector3(0f, -0.2f, 0f);
+                        t2.localEulerAngles = new Vector3(0f, 90f, 0f);
+                        t2.localScale = new Vector3(1.25f, 1.25f, 1.25f);
+                        v.SetValue((CreateNameTransformPair("LowerArmL", t2)), i++);
+                        break;
+
+                    case "lowerArm.r":
+                        t2 = new GameObject("ItemParent" + i.ToString()).transform;
+                        t2.parent = t;
+                        t2.localPosition = new Vector3(0f, -0.2f, 0f);
+                        t2.localEulerAngles = new Vector3(0f, 90f, 0f);
+                        t2.localScale = new Vector3(1.25f, 1.25f, 1.25f);
+                        v.SetValue((CreateNameTransformPair("LowerArmR", t2)), i++);
+                        break;
+
+                    case "AncientWispArmature":
+                        t2 = new GameObject("ItemParent" + i.ToString()).transform;
+                        t2.parent = t;
+                        t2.localPosition = new Vector3(0f, 0f, 1.35f);
+                        t2.localEulerAngles = new Vector3(180f, 0f, 0f);
+                        t2.localScale = new Vector3(1.25f, 1.25f, 1.25f);
+                        v.SetValue((CreateNameTransformPair("Base", t2)), i++);
+                        break;
+                }
+            }
+
+            //MethodInfo m = typeof(WispModelModule).GetMethod("ReflCast").MakeGenericMethod((Type)nameTransformPair.MakeArrayType());
+            //MethodInfo m2 = typeof(WispModelModule).GetMethod("CastArray").MakeGenericMethod((Type)nameTransformPair);
+            f.SetValue(children, v );
+            rag.bones = bones.ToArray();
+        }
+
+        private static void DoIDRS( GameObject body, Dictionary<Type,Component> dic )
+        {
+            ItemDisplayRuleSet refidrs = Resources.Load<GameObject>("Prefabs/CharacterBodies/MageBody").GetComponent<ModelLocator>().modelTransform.GetComponent<CharacterModel>().itemDisplayRuleSet;
+            //ItemDisplayRuleSet idrs = ScriptableObject.CreateInstance<ItemDisplayRuleSet>();
+
+            //var refEquip = refidrs.GetFieldValue<Item>
+
+
+            dic.C<ModelLocator>().modelTransform.GetComponent<CharacterModel>().itemDisplayRuleSet = refidrs;
+        }
+
+        private static void DoHurtBoxes(GameObject body, Dictionary<Type,Component> dic )
+        {
+            Transform model = dic.C<ModelLocator>().modelTransform;
+            Transform mesh = model.Find("AncientWispMesh");
+            Transform refHb = model.Find("Hurtbox");
+
+            MeshCollider meshCol = refHb.gameObject.AddComponent<MeshCollider>();
+
+            MonoBehaviour.DestroyImmediate(refHb.GetComponent<Collider>());
+
+            meshCol.sharedMesh = mesh.GetComponent<SkinnedMeshRenderer>().sharedMesh;
+            meshCol.isTrigger = false;
+        }
+
+        private static object CreateNameTransformPair(string name, Transform transform)
+        {
+            var o = FormatterServices.GetUninitializedObject(nameTransformPair);
+            FieldInfo nameField = nameTransformPair.GetField("name", BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic);
+            FieldInfo transformField = nameTransformPair.GetField("transform", BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic);
+            nameField.SetValue(o, name);
+            transformField.SetValue(o, transform);
+            return o;
+        }
+
+        public static T ReflCast<T>( object o )
+        {
+            return (T)o;
+        }
+
+        public static T[] CastArray<T>( object o )
+        {
+            return ((Array)o).Cast<T>().ToArray();
         }
 
         private static CharacterModel.RendererInfo CreateFlameRendererInfo( Renderer r , Material m )
@@ -267,9 +773,9 @@ namespace WispSurvivor.Modules
             flames.Add("Head", new FlamePSInfo
             {
                 matIndex = 0,
-                startSpeed = 1f,
+                startSpeed = 0.5f,
                 startSize = 1f,
-                gravity = -0.3f,
+                gravity = -0.15f,
                 rate = 10f,
                 radius = 1f,
                 position = new Vector3(0f, 0.15f, 0f),
@@ -306,7 +812,7 @@ namespace WispSurvivor.Modules
             {
                 matIndex = 0,
                 startSpeed = 1f,
-                startSize = 2f,
+                startSize = 1.5f,
                 gravity = -0.2f,
                 rate = 8f,
                 radius = 1f,
@@ -318,7 +824,7 @@ namespace WispSurvivor.Modules
             {
                 matIndex = 0,
                 startSpeed = 1f,
-                startSize = 2f,
+                startSize = 1.5f,
                 gravity = -0.2f,
                 rate = 8f,
                 radius = 1f,
@@ -331,7 +837,7 @@ namespace WispSurvivor.Modules
             {
                 matIndex = 0,
                 startSpeed = 1f,
-                startSize = 2f,
+                startSize = 1.5f,
                 gravity = -0.2f,
                 rate = 6f,
                 radius = 1f,
@@ -343,7 +849,7 @@ namespace WispSurvivor.Modules
             {
                 matIndex = 0,
                 startSpeed = 1f,
-                startSize = 2f,
+                startSize = 1.5f,
                 gravity = -0.2f,
                 rate = 6f,
                 radius = 1f,
@@ -356,7 +862,7 @@ namespace WispSurvivor.Modules
             {
                 matIndex = 0,
                 startSpeed = 1f,
-                startSize = 2f,
+                startSize = 1.5f,
                 gravity = -0.3f,
                 rate = 10f,
                 radius = 1f,
@@ -368,7 +874,7 @@ namespace WispSurvivor.Modules
             {
                 matIndex = 0,
                 startSpeed = 1f,
-                startSize = 2f,
+                startSize = 1.5f,
                 gravity = -0.3f,
                 rate = 10f,
                 radius = 1f,
@@ -390,7 +896,7 @@ namespace WispSurvivor.Modules
             main.startLifetime = new ParticleSystem.MinMaxCurve
             {
                 mode = ParticleSystemCurveMode.Constant,
-                constant = 0.8f
+                constant = 0.65f
             };
             main.startSpeed = new ParticleSystem.MinMaxCurve
             {
@@ -563,6 +1069,26 @@ namespace WispSurvivor.Modules
         private static T C<T>( this Dictionary<Type,Component> dic ) where T : Component
         {
             return dic[typeof(T)] as T;
+        }
+
+        private static void DebugMaterialInfo(Material m)
+        {
+            Debug.Log("Material name: " + m.name);
+            string[] s = m.shaderKeywords;
+            Debug.Log("Shader keywords");
+            for (int i = 0; i < s.Length; i++)
+            {
+                Debug.Log(s[i]);
+            }
+
+            Debug.Log("Shader name: " + m.shader.name);
+
+            Debug.Log("Texture Properties");
+            string[] s2 = m.GetTexturePropertyNames();
+            for (int i = 0; i < s2.Length; i++)
+            {
+                Debug.Log(s2[i] + " : " + m.GetTexture(s2[i]));
+            }
         }
     }
 }

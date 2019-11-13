@@ -19,6 +19,8 @@ namespace WispSurvivor.Components
 
         private Rect[] boxes = new Rect[10];
 
+        private bool paused = false;
+
         private Texture2D[] colors = new Texture2D[8]
         {
             CreateSolidTex( new Color( 0f, 0f, 0f, 1f ) ),
@@ -56,6 +58,9 @@ namespace WispSurvivor.Components
             {
                 boxes[i] = new Rect(boxesStartH, boxesStartV + i * boxesSpacing, boxesW, boxesH);
             }
+
+            RoR2.RoR2Application.onPauseStartGlobal += () => paused = true;
+            RoR2.RoR2Application.onPauseEndGlobal += () => paused = false;
         }
 
         public void Update()
@@ -66,7 +71,7 @@ namespace WispSurvivor.Components
 
         public void OnGUI()
         {
-            if (!base.hasAuthority) return;
+            if (!base.hasAuthority || paused) return;
             for( int i = 0; i < 10; i++ )
             {
                 GUI.Box(boxes[i], colors[colorStates[9 - i]], style );

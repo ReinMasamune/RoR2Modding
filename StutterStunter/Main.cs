@@ -1,5 +1,6 @@
 ﻿using BepInEx;
 using BepInEx.Configuration;
+using R2API.Utils;
 using RoR2;
 using UnityEngine;
 using System;
@@ -7,32 +8,46 @@ using UnityEngine.Scripting;
 using UnityEngine.SceneManagement;
 using System.Collections;
 using System.IO;
+using UnityEngine.Rendering.PostProcessing;
 
 namespace ReinStutterStunter
 {
     [BepInDependency("com.bepis.r2api")]
-    [BepInPlugin("com.ReinThings.ReinStutterStunter", "ReinStutterStunter", "1.0.3")]
+    [BepInPlugin("com.ReinThings.ReinStutterStunter", "ReinStutterStunter", "1.0.4")]
     public class ReinStutterStunterMain : BaseUnityPlugin
     {
         private bool isGotoScary = false;
 
         private bool lockGCOn = false;
-        private long memoryWarning = 3000;
-        private long memoryCap = 4000;
+        private long memoryWarning = 1000;
+        private long memoryCap = 2000;
         private const long div = 1048576;
-        private const float checkDelay = 30.0f;
+        private float checkDelay = 30.0f;
 
         private string folderPath;
         private string logPath;
         private bool log = true;
+        private bool disableProcess = true;
 
         public static ConfigWrapper<bool> configWrappingPaper;
+        public static ConfigWrapper<long> memWarning;
+        public static ConfigWrapper<long> memCap;
+        public static ConfigWrapper<bool> disableProcessing;
+        public static ConfigWrapper<float> memCheckDelay;
 
         public void Awake()
         {
             configWrappingPaper = Config.Wrap<bool>("Settings", "Enable Logging", "Should a csv file of memory usage be saved?", true);
+            memCheckDelay = Config.Wrap<float>("Settings", "Memory check delay", "How much time should there be between memory checks?", 30.0f);
+            disableProcessing = Config.Wrap<bool>("Settings", "Disable post processing", "Only use this if you know what you're doing", false);
+            memWarning = Config.Wrap<long>("Settings", "Memory Warning threshold", "Only change this if you know what you are doing.", 3000);
+            memCap = Config.Wrap<long>("Settings", "Memory use cap", "Only change this if you know what you are doing", 4000);
 
             log = configWrappingPaper.Value;
+            disableProcess = disableProcessing.Value;
+            memoryWarning = memWarning.Value;
+            memoryCap = memCap.Value;
+            checkDelay = memCheckDelay.Value;
 
             if (log)
             {
@@ -60,6 +75,38 @@ namespace ReinStutterStunter
 
                 logPath = folderPath + logPath;
             }
+
+            if( disableProcess )
+            {
+                GameObject cam = Resources.Load<GameObject>("Prefabs/Main Camera");
+                if (!cam)
+                {
+                    Debug.Log("no cam");
+                    return;
+                }
+                Transform sceneCam = cam.transform.Find("Scene Camera");
+                if (!sceneCam)
+                {
+                    Debug.Log("no scene cam");
+                    return;
+                }
+                PostProcessLayer ppl = sceneCam.GetComponent<PostProcessLayer>();
+                if (!ppl)
+                {
+                    Debug.Log("no ppl");
+                    return;
+                }
+                PostProcessResources res = ppl.GetFieldValue<PostProcessResources>("m_Resources");
+                if( !res )
+                {
+                    Debug.Log("no res");
+                    return;
+                }
+                res.shaders.uber = res.shaders.finalPass;
+                //Shader uber = res.shaders.uber;
+                //uber.
+            }
+
         }
         public void Start()
         {

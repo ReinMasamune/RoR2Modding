@@ -2,20 +2,30 @@
 using UnityEngine;
 using System;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
+using System.Collections;
+using System.Reflection;
 
 namespace WispSurvivor.Modules
 {
     public static class WispMaterialModule
     {
         public static Gradient[] fireGradients = new Gradient[8];
+        public static Gradient[][] armorGradients = new Gradient[8][];
         public static Color[] fireColors = new Color[8];
         public static Texture2D[] fireTextures = new Texture2D[8];
+        public static Texture2D[][] armorTextures = new Texture2D[8][];
         public static Material[][] fireMaterials = new Material[8][];
         public static Material[][] otherMaterials = new Material[8][];
+        public static Material[] flareMats = new Material[8];
+        public static Material[] armorMaterials = new Material[8];
         public static Shader effectShader;
 
-        public static void DoModule( GameObject body , Dictionary<Type,Component> dic)
+        private static Material tempArmor1;
+
+        public static void DoModule( GameObject body , Dictionary<Type,Component> dic, WispSurvivorMain m)
         {
+            //m.StartCoroutine(SceneStuff(SceneManager.LoadSceneAsync(14, LoadSceneMode.Additive)));
             GenerateGradients();
             GenerateTextures();
             GenerateMaterials(dic);
@@ -25,6 +35,18 @@ namespace WispSurvivor.Modules
         {
             GradientAlphaKey[][] aKeys = new GradientAlphaKey[8][];
             GradientColorKey[][] cKeys = new GradientColorKey[8][];
+            GradientAlphaKey[][] aKeyArm = new GradientAlphaKey[8][];
+            GradientColorKey[][] cKeyArm = new GradientColorKey[8][];
+            GradientAlphaKey[][] aKeyArm2 = new GradientAlphaKey[8][];
+            GradientColorKey[][] cKeyArm2 = new GradientColorKey[8][];
+
+            GradientAlphaKey[] solidAKey = new GradientAlphaKey[1];
+            solidAKey[0] = new GradientAlphaKey(1f, 0f);
+
+            GradientAlphaKey[] arm2A = new GradientAlphaKey[3];
+            arm2A[0] = new GradientAlphaKey(0f, 1f);
+            arm2A[1] = new GradientAlphaKey(0f, 0.7f);
+            arm2A[2] = new GradientAlphaKey(1f, 0.4f);
 
             //Ancient wisp generic
             aKeys[0] = new GradientAlphaKey[3];
@@ -38,6 +60,22 @@ namespace WispSurvivor.Modules
 
             fireColors[0] = new Color(0.8f, 0.3f, 0.9f);
 
+            aKeyArm[0] = solidAKey;
+            cKeyArm[0] = new GradientColorKey[5];
+            cKeyArm[0][0] = new GradientColorKey(new Color(0.05f, 0.05f, 0.05f), 1f);
+            cKeyArm[0][1] = new GradientColorKey(new Color(0.05f, 0.05f, 0.05f), 0.6f);
+            cKeyArm[0][2] = new GradientColorKey(new Color(0.8f, 0.3f, 0.9f), 0.4f);
+            cKeyArm[0][3] = new GradientColorKey(new Color(0.8f, 0.3f, 0.9f), 0.3f);
+            cKeyArm[0][4] = new GradientColorKey(new Color(1f, 1f, 1f), 0f);
+
+            aKeyArm2[0] = arm2A;
+            cKeyArm2[0] = new GradientColorKey[5];
+            cKeyArm2[0][0] = new GradientColorKey(new Color(0.4f, 0.15f, 0.45f), 1f);
+            cKeyArm2[0][1] = new GradientColorKey(new Color(0.8f, 0.3f, 0.9f), 0.5f);
+            cKeyArm2[0][2] = new GradientColorKey(Color.white, 0.4f);
+            cKeyArm2[0][3] = new GradientColorKey(new Color(0.8f, 0.3f, 0.9f), 0.2f);
+            cKeyArm2[0][4] = new GradientColorKey(Color.black, 0.1f);
+
             //Lesser wisp
             aKeys[1] = new GradientAlphaKey[3];
             aKeys[1][0] = new GradientAlphaKey(0f, 1f);
@@ -49,6 +87,22 @@ namespace WispSurvivor.Modules
             cKeys[1][1] = new GradientColorKey(new Color(0.906f, 0.420f, 0.235f), 0f);
 
             fireColors[1] = new Color(0.906f, 0.420f, 0.235f, 1.0f);
+
+            aKeyArm[1] = solidAKey;
+            cKeyArm[1] = new GradientColorKey[5];
+            cKeyArm[1][0] = new GradientColorKey(new Color(0.05f, 0.05f, 0.05f), 1f);
+            cKeyArm[1][1] = new GradientColorKey(new Color(0.05f, 0.05f, 0.05f), 0.6f);
+            cKeyArm[1][2] = new GradientColorKey(new Color(0.906f, 0.42f, 0.235f), 0.4f);
+            cKeyArm[1][3] = new GradientColorKey(new Color(0.906f, 0.42f, 0.235f), 0.3f);
+            cKeyArm[1][4] = new GradientColorKey(new Color(1f, 1f, 1f), 0f);
+
+            aKeyArm2[1] = arm2A;
+            cKeyArm2[1] = new GradientColorKey[5];
+            cKeyArm2[1][0] = new GradientColorKey(new Color(0.45f, 0.21f, 0.11f), 1f);
+            cKeyArm2[1][1] = new GradientColorKey(new Color(0.906f, 0.420f, 0.235f), 0.5f);
+            cKeyArm2[1][2] = new GradientColorKey(Color.white, 0.4f);
+            cKeyArm2[1][3] = new GradientColorKey(new Color(0.906f, 0.420f, 0.235f), 0.2f);
+            cKeyArm2[1][4] = new GradientColorKey(Color.black, 0.1f);
 
             //Greater wisp
             aKeys[2] = new GradientAlphaKey[3];
@@ -62,6 +116,22 @@ namespace WispSurvivor.Modules
 
             fireColors[2] = new Color(0.400f, 0.769f, 0.192f, 1.0f);
 
+            aKeyArm[2] = solidAKey;
+            cKeyArm[2] = new GradientColorKey[5];
+            cKeyArm[2][0] = new GradientColorKey(new Color(0.05f, 0.05f, 0.05f), 1f);
+            cKeyArm[2][1] = new GradientColorKey(new Color(0.05f, 0.05f, 0.05f), 0.6f);
+            cKeyArm[2][2] = new GradientColorKey(new Color(0.4f, 0.769f, 0.192f), 0.4f);
+            cKeyArm[2][3] = new GradientColorKey(new Color(0.4f, 0.769f, 0.192f), 0.3f);
+            cKeyArm[2][4] = new GradientColorKey(new Color(1f, 1f, 1f), 0f);
+
+            aKeyArm2[2] = arm2A;
+            cKeyArm2[2] = new GradientColorKey[5];
+            cKeyArm2[2][0] = new GradientColorKey(new Color(0.2f, 0.35f, 0.1f), 1f);
+            cKeyArm2[2][1] = new GradientColorKey(new Color(0.4f, 0.769f, 0.192f), 0.5f);
+            cKeyArm2[2][2] = new GradientColorKey(Color.white, 0.4f);
+            cKeyArm2[2][3] = new GradientColorKey(new Color(0.400f, 0.769f, 0.192f), 0.2f);
+            cKeyArm2[2][4] = new GradientColorKey(Color.black, 0.1f);
+
             //Archaic wisp
             aKeys[3] = new GradientAlphaKey[3];
             aKeys[3][0] = new GradientAlphaKey(0f, 1f);
@@ -73,6 +143,22 @@ namespace WispSurvivor.Modules
             cKeys[3][1] = new GradientColorKey(new Color(1f, 0.590f, 0.806f), 0f);
 
             fireColors[3] = new Color(1f, 0.590f, 0.806f, 1.0f);
+
+            aKeyArm[3] = solidAKey;
+            cKeyArm[3] = new GradientColorKey[5];
+            cKeyArm[3][0] = new GradientColorKey(new Color(0.05f, 0.05f, 0.05f), 1f);
+            cKeyArm[3][1] = new GradientColorKey(new Color(0.05f, 0.05f, 0.05f), 0.6f);
+            cKeyArm[3][2] = new GradientColorKey(new Color(1f, 0.59f, 0.806f), 0.4f);
+            cKeyArm[3][3] = new GradientColorKey(new Color(1f, 0.59f, 0.806f), 0.3f);
+            cKeyArm[3][4] = new GradientColorKey(new Color(1f, 1f, 1f), 0f);
+
+            aKeyArm2[3] = arm2A;
+            cKeyArm2[3] = new GradientColorKey[5];
+            cKeyArm2[3][0] = new GradientColorKey(new Color(0.5f, 0.3f, 0.4f), 1f);
+            cKeyArm2[3][1] = new GradientColorKey(new Color(1f, 0.590f, 0.806f), 0.5f);
+            cKeyArm2[3][2] = new GradientColorKey(Color.white, 0.4f);
+            cKeyArm2[3][3] = new GradientColorKey(new Color(1f, 0.590f, 0.806f), 0.2f);
+            cKeyArm2[3][4] = new GradientColorKey(Color.black, 0.1f);
 
             //Lunar wisp
             aKeys[4] = new GradientAlphaKey[3];
@@ -91,6 +177,22 @@ namespace WispSurvivor.Modules
 
             fireColors[4] = new Color(0.5f, 0.75f, 1f, 1.0f);
 
+            aKeyArm[4] = solidAKey;
+            cKeyArm[4] = new GradientColorKey[5];
+            cKeyArm[4][0] = new GradientColorKey(new Color(0.05f, 0.05f, 0.05f), 1f);
+            cKeyArm[4][1] = new GradientColorKey(new Color(0.05f, 0.05f, 0.05f), 0.6f);
+            cKeyArm[4][2] = new GradientColorKey(new Color(0.5f, 0.75f, 1f), 0.4f);
+            cKeyArm[4][3] = new GradientColorKey(new Color(0.5f, 0.75f, 1f), 0.3f);
+            cKeyArm[4][4] = new GradientColorKey(new Color(1f, 1f, 1f), 0f);
+
+            aKeyArm2[4] = arm2A;
+            cKeyArm2[4] = new GradientColorKey[5];
+            cKeyArm2[4][0] = new GradientColorKey(new Color(0.25f, 0.4f, 0.5f), 1f);
+            cKeyArm2[4][1] = new GradientColorKey(new Color(0.5f, 0.75f, 1f), 0.5f);
+            cKeyArm2[4][2] = new GradientColorKey(Color.white, 0.4f);
+            cKeyArm2[4][3] = new GradientColorKey(new Color(0.5f, 0.75f, 1f), 0.2f);
+            cKeyArm2[4][4] = new GradientColorKey(Color.black, 0.1f);
+
             //Solar wisp
             aKeys[5] = new GradientAlphaKey[3];
             aKeys[5][0] = new GradientAlphaKey(0f, 1f);
@@ -107,6 +209,22 @@ namespace WispSurvivor.Modules
             cKeys[5][6] = new GradientColorKey(new Color(0.9f, 0.95f, 0.8f), 0f);
 
             fireColors[5] = new Color(0.95f, 0.95f, 0.05f, 1f);
+
+            aKeyArm[5] = solidAKey;
+            cKeyArm[5] = new GradientColorKey[5];
+            cKeyArm[5][0] = new GradientColorKey(new Color(0.05f, 0.05f, 0.05f), 1f);
+            cKeyArm[5][1] = new GradientColorKey(new Color(0.05f, 0.05f, 0.05f), 0.6f);
+            cKeyArm[5][2] = new GradientColorKey(new Color(0.95f, 0.95f, 0.05f), 0.4f);
+            cKeyArm[5][3] = new GradientColorKey(new Color(0.95f, 0.95f, 0.05f), 0.3f);
+            cKeyArm[5][4] = new GradientColorKey(new Color(1f, 1f, 1f), 0f);
+
+            aKeyArm2[5] = arm2A;
+            cKeyArm2[5] = new GradientColorKey[5];
+            cKeyArm2[5][0] = new GradientColorKey(new Color(0.5f, 0.5f, 0f), 1f);
+            cKeyArm2[5][1] = new GradientColorKey(new Color(0.95f, 0.95f, 0.05f), 0.5f);
+            cKeyArm2[5][2] = new GradientColorKey(Color.white, 0.4f);
+            cKeyArm2[5][3] = new GradientColorKey(new Color(0.95f, 0.95f, 0.05f), 0.2f);
+            cKeyArm2[5][4] = new GradientColorKey(Color.black, 0.1f);
 
             //Iridescent wisp
             aKeys[6] = new GradientAlphaKey[3];
@@ -126,6 +244,28 @@ namespace WispSurvivor.Modules
 
             fireColors[6] = new Color(1f, 1f, 1f, 1f);
 
+            aKeyArm[6] = solidAKey;
+            cKeyArm[6] = new GradientColorKey[8];
+            cKeyArm[6][0] = new GradientColorKey(new Color(0.05f, 0.05f, 0.05f), 1f);
+            cKeyArm[6][1] = new GradientColorKey(new Color(0.05f, 0.05f, 0.05f), 0.51f);
+            cKeyArm[6][2] = new GradientColorKey(new Color(1f, 0f, 0f), 0.5f);
+            cKeyArm[6][3] = new GradientColorKey(new Color(1f, 1f, 0f), 0.475f);
+            cKeyArm[6][4] = new GradientColorKey(new Color(0f, 1f, 0f), 0.45f);
+            cKeyArm[6][5] = new GradientColorKey(new Color(0f, 1f, 1f), 0.375f);
+            cKeyArm[6][6] = new GradientColorKey(new Color(0f, 0f, 1f), 0.25f);
+            cKeyArm[6][7] = new GradientColorKey(new Color(1f, 1f, 1f), 0f);
+
+            aKeyArm2[6] = arm2A;
+            cKeyArm2[6] = new GradientColorKey[8];
+            cKeyArm2[6][0] = new GradientColorKey(new Color(1f, 0f, 0f), 1f);
+            cKeyArm2[6][1] = new GradientColorKey(new Color(1f, 1f, 0f), 0.5f);
+            cKeyArm2[6][2] = new GradientColorKey(new Color(0f, 1f, 0f), 0.2f);
+            cKeyArm2[6][3] = new GradientColorKey(Color.white, 0.4f);
+            cKeyArm2[6][4] = new GradientColorKey(new Color(0f, 1f, 0f), 0.2f);
+            cKeyArm2[6][5] = new GradientColorKey(new Color(0f, 1f, 1f), 0.2f);
+            cKeyArm2[6][6] = new GradientColorKey(new Color(0f, 0f, 1f), 0.2f);
+            cKeyArm2[6][7] = new GradientColorKey(Color.black, 0.1f);
+
             //Ascended wisp
             aKeys[7] = new GradientAlphaKey[3];
             aKeys[7][0] = new GradientAlphaKey(0f, 1f);
@@ -137,14 +277,43 @@ namespace WispSurvivor.Modules
 
             fireColors[7] = new Color(1f, 1f, 1f, 1f);
 
+            aKeyArm[7] = solidAKey;
+            cKeyArm[7] = new GradientColorKey[5];
+            cKeyArm[7][0] = new GradientColorKey(new Color(0.05f, 0.05f, 0.05f), 1f);
+            cKeyArm[7][1] = new GradientColorKey(new Color(0.05f, 0.05f, 0.05f), 0.6f);
+            cKeyArm[7][2] = new GradientColorKey(new Color(1f, 1f, 1f), 0.4f);
+            cKeyArm[7][3] = new GradientColorKey(new Color(1f, 1f, 1f), 0.3f);
+            cKeyArm[7][4] = new GradientColorKey(new Color(1f, 1f, 1f), 0f);
 
-            for( int i = 0; i < 8; i++ )
+            aKeyArm2[7] = arm2A;
+            cKeyArm2[7] = new GradientColorKey[5];
+            cKeyArm2[7][0] = new GradientColorKey(new Color(0.3f, 0.3f, 0.3f), 1f);
+            cKeyArm2[7][1] = new GradientColorKey(new Color(0.6f, 0.6f, 0.6f), 0.5f);
+            cKeyArm2[7][2] = new GradientColorKey(Color.white, 0.4f);
+            cKeyArm2[7][3] = new GradientColorKey(new Color(0.6f, 0.6f, 0.6f), 0.2f);
+            cKeyArm2[7][4] = new GradientColorKey(Color.black, 0.1f);
+
+            for ( int i = 0; i < 8; i++ )
             {
                 fireGradients[i] = new Gradient
                 {
                     alphaKeys = aKeys[i],
                     colorKeys = cKeys[i],
                     mode = GradientMode.Blend
+                };
+
+                armorGradients[i] = new Gradient[2];
+                armorGradients[i][0] = new Gradient
+                {
+                    mode = GradientMode.Blend,
+                    alphaKeys = aKeyArm[i],
+                    colorKeys = cKeyArm[i]
+                };
+                armorGradients[i][1] = new Gradient
+                {
+                    mode = GradientMode.Blend,
+                    alphaKeys = aKeyArm2[i],
+                    colorKeys = cKeyArm2[i]
                 };
             }
         }
@@ -154,6 +323,11 @@ namespace WispSurvivor.Modules
             for( int i = 0; i < 8; i++ )
             {
                 fireTextures[i] = CreateNewRampTex(fireGradients[i]);
+                armorTextures[i] = new Texture2D[armorGradients[0].Length];
+                for( int j = 0; j < armorGradients[0].Length; j++ )
+                {
+                    armorTextures[i][j] = CreateNewRampTex(armorGradients[i][j]);
+                }
             }
         }
 
@@ -235,6 +409,49 @@ namespace WispSurvivor.Modules
                 fireMaterials[i][10].SetFloat("_InvFade", 2f);
                 fireMaterials[i][10].SetFloat("_SrcBlend", 5f);
             }
+
+            Material baseArmorMaterial = MonoBehaviour.Instantiate<Material>(Resources.Load<GameObject>("Prefabs/CharacterBodies/AncientWispBody").GetComponent<ModelLocator>().modelTransform.Find("AncientWispMesh").GetComponent<SkinnedMeshRenderer>().material);
+            baseArmorMaterial.DisableKeyword("DITHER");
+            baseArmorMaterial.DisableKeyword("_EMISSION");
+            baseArmorMaterial.EnableKeyword("FLOWMAP");
+            baseArmorMaterial.EnableKeyword("FRESNEL_EMISSION");
+            baseArmorMaterial.globalIlluminationFlags = MaterialGlobalIlluminationFlags.EmissiveIsBlack;
+            baseArmorMaterial.SetTexture("_MainTex", null);
+            baseArmorMaterial.SetTextureScale("_FlowHeightmap", new Vector2(4f, 4f));
+            baseArmorMaterial.SetFloat("_FEON", 1f);
+            baseArmorMaterial.SetFloat("_FlowDiffuseStrength", 1f);
+            baseArmorMaterial.SetFloat("_FlowmapOn", 1);
+            baseArmorMaterial.SetFloat("_FresnelBoost", 17.46f);
+            baseArmorMaterial.SetFloat("_FresnelPower", 0.48f);
+            baseArmorMaterial.SetFloat("_NormalStrength", 0.84f);
+            baseArmorMaterial.SetFloat("_DiffuseBias", 0f);
+            baseArmorMaterial.SetFloat("_DiffuseExponent", 0f);
+            baseArmorMaterial.SetFloat("_DiffuseHardness", 0f);
+            baseArmorMaterial.SetFloat("_DiffuseScale", 0f);
+            baseArmorMaterial.SetFloat("_RimBoost", 0f);
+            baseArmorMaterial.SetFloat("_RimPower", 0f);
+            baseArmorMaterial.SetFloat("_RimStrength", 0f);
+            baseArmorMaterial.SetColor("_Color", new Color(0.05f, 0.05f, 0.05f, 1f));
+            baseArmorMaterial.SetColor("_RimTint", new Color(0f, 0f, 0f, 1f));
+            baseArmorMaterial.SetColor("_SpecularTint", new Color(0f, 0f, 0f, 1f));
+
+            //DebugMaterialInfo(Resources.Load<GameObject>("Prefabs/ArchWispFireTrail").GetComponent<DamageTrail>().segmentPrefab.GetComponent<ParticleSystemRenderer>().material);
+            Texture tempTex = Resources.Load<GameObject>("Prefabs/ArchWispFireTrail").GetComponent<DamageTrail>().segmentPrefab.GetComponent<ParticleSystemRenderer>().material.GetTexture("_Cloud2Tex");
+
+            baseArmorMaterial.SetTexture("_FlowHeightmap", tempTex);
+            baseArmorMaterial.SetTexture("_FlowTex", tempTex);
+
+            baseArmorMaterial.SetInt("_FlowmapOn", 1);
+            baseArmorMaterial.SetInt("_FEON", 1);
+
+
+            for ( int i = 0; i < 8; i++ )
+            {
+                armorMaterials[i] = MonoBehaviour.Instantiate<Material>(baseArmorMaterial);
+                armorMaterials[i].SetTexture("_FlowHeightRamp", armorTextures[i][0]);
+                armorMaterials[i].SetTexture("_FresnelRamp", armorTextures[i][1]);
+            }
+            
         }
 
         private static Material[] GetBaseMaterials(Dictionary<Type,Component> dic )

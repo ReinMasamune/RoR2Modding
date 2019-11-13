@@ -186,6 +186,10 @@ namespace WispSurvivor.Modules
         {
             GameObject obj = baseFX.InstantiateClone("PrimaryOrb" + skinIndex.ToString(), false);
 
+            var fx = obj.GetComponent<VFXAttributes>();
+            fx.vfxPriority = VFXAttributes.VFXPriority.Always;
+            fx.vfxIntensity = VFXAttributes.VFXIntensity.Low;
+
             MonoBehaviour.DestroyImmediate(obj.GetComponent<RoR2.Orbs.OrbEffect>());
 
             var orbController = obj.AddComponent<Components.WispOrbEffectController>();
@@ -429,7 +433,7 @@ namespace WispSurvivor.Modules
             ps2Main.startDelay = 0f;
             ps2Main.startLifetime = 0.25f;
             ps2Main.startSpeed = 0f;
-            ps2Main.startSize = 3f;
+            ps2Main.startSize = 2f;
             ps2Main.startRotation = 0f;
             ps2Main.flipRotation = 0.5f;
             ps2Main.gravityModifier = 0f;
@@ -628,9 +632,9 @@ namespace WispSurvivor.Modules
             ps3Main.loop = true;
             ps3Main.prewarm = false;
             ps3Main.startDelay = 0f;
-            ps3Main.startLifetime = 1f;
+            ps3Main.startLifetime = 0.25f;
             ps3Main.startSpeed = 0f;
-            ps3Main.startSize = 1f;
+            ps3Main.startSize = 0.75f;
             ps3Main.startRotation = 0f;
             ps3Main.flipRotation = 0.5f;
             ps3Main.gravityModifier = 0f;
@@ -642,7 +646,7 @@ namespace WispSurvivor.Modules
             ps3Main.emitterVelocityMode = ParticleSystemEmitterVelocityMode.Rigidbody;
             ps3Main.maxParticles = 1000;
             ps3Main.stopAction = ParticleSystemStopAction.None;
-            ps3Main.cullingMode = ParticleSystemCullingMode.Automatic;
+            ps3Main.cullingMode = ParticleSystemCullingMode.AlwaysSimulate;
             ps3Main.ringBufferMode = ParticleSystemRingBufferMode.Disabled;
 
             var ps3Emis = ps3.emission;
@@ -655,13 +659,13 @@ namespace WispSurvivor.Modules
             ps3Emis.rateOverDistance = new ParticleSystem.MinMaxCurve
             {
                 mode = ParticleSystemCurveMode.Constant,
-                constant = 0.25f
+                constant = 1f
             };
 
             var ps3Shape = ps3.shape;
             ps3Shape.enabled = true;
             ps3Shape.shapeType = ParticleSystemShapeType.BoxEdge;
-            ps3Shape.radius = 0.5f;
+            ps3Shape.radius = 0.25f;
             ps3Shape.position = Vector3.zero;
             ps3Shape.rotation = new Vector3(0f, 0f, 0f);
             ps3Shape.scale = new Vector3(1f, 1f, 1f);
@@ -790,23 +794,23 @@ namespace WispSurvivor.Modules
             };
 
             psr3.renderMode = ParticleSystemRenderMode.Billboard;
-            psr3.normalDirection = 1f;
+            //psr3.normalDirection = 1f;
             psr3.material = flameMat;
-            psr3.sortMode = ParticleSystemSortMode.None;
-            psr3.sortingFudge = 0f;
-            psr3.minParticleSize = 0f;
-            psr3.maxParticleSize = 0.5f;
-            psr3.alignment = ParticleSystemRenderSpace.View;
-            psr3.allowRoll = true;
-            psr3.maskInteraction = SpriteMaskInteraction.None;
-            psr3.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
-            psr3.receiveShadows = false;
-            psr3.shadowBias = 0f;
-            psr3.motionVectorGenerationMode = MotionVectorGenerationMode.Object;
-            psr3.sortingLayerID = LayerIndex.defaultLayer.intVal;
-            psr3.sortingOrder = 0;
-            psr3.lightProbeUsage = UnityEngine.Rendering.LightProbeUsage.BlendProbes;
-            psr3.reflectionProbeUsage = UnityEngine.Rendering.ReflectionProbeUsage.Off;
+            //psr3.sortMode = ParticleSystemSortMode.None;
+            //psr3.sortingFudge = 0f;
+            //psr3.minParticleSize = 0f;
+            //psr3.maxParticleSize = 0.5f;
+            //psr3.alignment = ParticleSystemRenderSpace.View;
+            //psr3.allowRoll = true;
+            //psr3.maskInteraction = SpriteMaskInteraction.None;
+            //psr3.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+            //psr3.receiveShadows = false;
+            //psr3.shadowBias = 0f;
+            //psr3.motionVectorGenerationMode = MotionVectorGenerationMode.Object;
+            //psr3.sortingLayerID = LayerIndex.defaultLayer.intVal;
+            //psr3.sortingOrder = 0;
+            //psr3.lightProbeUsage = UnityEngine.Rendering.LightProbeUsage.BlendProbes;
+            //psr3.reflectionProbeUsage = UnityEngine.Rendering.ReflectionProbeUsage.Off;
             #endregion
 
             return obj;
@@ -837,7 +841,9 @@ namespace WispSurvivor.Modules
             GameObject flashObj = obj2.transform.Find("Flash").gameObject;
             GameObject distObj = obj2.transform.Find("Distortion").gameObject;
 
-
+            var fx = obj.GetComponent<VFXAttributes>();
+            fx.vfxPriority = VFXAttributes.VFXPriority.Always;
+            fx.vfxIntensity = VFXAttributes.VFXIntensity.Low;
 
             ParticleSystem flamesPS = flamesObj.GetComponent<ParticleSystem>();
             ParticleSystemRenderer flamesPSR = flamesObj.GetComponent<ParticleSystemRenderer>();
@@ -1021,6 +1027,10 @@ namespace WispSurvivor.Modules
         {
             GameObject obj = baseFX.InstantiateClone("SecondaryExplosion"+skinIndex.ToString(), false);
 
+            var fx = obj.GetComponent<VFXAttributes>();
+            fx.vfxPriority = VFXAttributes.VFXPriority.Always;
+            fx.vfxIntensity = VFXAttributes.VFXIntensity.Low;
+
             Material flameMat = WispMaterialModule.fireMaterials[skinIndex][0];
             Color flameCol = WispMaterialModule.fireColors[skinIndex];
 
@@ -1150,6 +1160,10 @@ namespace WispSurvivor.Modules
         {
             GameObject obj = baseFX.InstantiateClone("BlazeEffect"+skinIndex.ToString(), false);
 
+            var fx = obj.GetComponent<VFXAttributes>();
+            fx.vfxPriority = VFXAttributes.VFXPriority.Always;
+            fx.vfxIntensity = VFXAttributes.VFXIntensity.Low;
+
             MonoBehaviour.Destroy(obj.GetComponent<DestroyOnTimer>());
 
             obj.AddComponent<Components.WispBlazeEffectController>();
@@ -1185,8 +1199,8 @@ namespace WispSurvivor.Modules
             fireMain.startLifetime = new ParticleSystem.MinMaxCurve
             {
                 mode = ParticleSystemCurveMode.TwoConstants,
-                constantMin = 0.75f,
-                constantMax = 1f
+                constantMin = 1.25f,
+                constantMax = 1.5f
             };
             fireMain.gravityModifier = new ParticleSystem.MinMaxCurve
             {
@@ -1255,7 +1269,7 @@ namespace WispSurvivor.Modules
                     }
                 }
             };
-            fireSOL.sizeMultiplier = 5f;
+            fireSOL.sizeMultiplier = 7.5f;
 
             var fireROL = firePS.rotationOverLifetime;
             fireROL.enabled = true;
@@ -1549,6 +1563,11 @@ namespace WispSurvivor.Modules
         private static GameObject CreateSpecialExplosion( GameObject baseFX, int skinIndex )
         {
             GameObject obj = baseFX.InstantiateClone("SpecialExplosion"+skinIndex.ToString(), false);
+
+            var fx = obj.GetComponent<VFXAttributes>();
+            fx.vfxPriority = VFXAttributes.VFXPriority.Always;
+            fx.vfxIntensity = VFXAttributes.VFXIntensity.Low;
+
             Transform burst = obj.transform.Find("InitialBurst");
             Transform ring = burst.Find("Ring");
             Transform chunks = burst.Find("Chunks, Sharp");

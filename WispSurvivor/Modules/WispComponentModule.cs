@@ -45,6 +45,7 @@ namespace WispSurvivor.Modules
             body.AddComponentToDictionary<EntityStateMachine>(dic).customName = "Gaze";
             body.AddOrGetComponentToDictionary<CapsuleCollider>(dic);
             body.AddOrGetComponentToDictionary<SetStateOnHurt>(dic);
+            body.AddOrGetComponentToDictionary<Components.WispFlareController>(dic);
         }
 
         private static void GetComponents( GameObject body , Dictionary<Type,Component> dic )
@@ -53,6 +54,7 @@ namespace WispSurvivor.Modules
             body.AddOrGetComponentToDictionary<Rigidbody>(dic);
             body.AddOrGetComponentToDictionary<CharacterBody>(dic);
             body.AddOrGetComponentToDictionary<CameraTargetParams>(dic);
+            body.AddOrGetComponentToDictionary<CharacterDeathBehavior>(dic);
         }
 
         private static T AddOrGetComponentToDictionary<T>(this GameObject g , Dictionary<Type,Component> dic ) where T : Component

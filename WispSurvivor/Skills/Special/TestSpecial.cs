@@ -97,7 +97,7 @@ namespace WispSurvivor.Skills.Special
             timer += Time.fixedDeltaTime;
             //characterMotor.velocity.y = Mathf.Max(0f, characterMotor.velocity.y);
 
-            chargeLevel += passive.DrainCharge(chargeUsedPerSec * Time.fixedDeltaTime);
+            //chargeLevel += passive.DrainCharge(chargeUsedPerSec * Time.fixedDeltaTime);
             idealChargeLevel += chargeUsedPerSec * Time.fixedDeltaTime;
 
             if( timer > minChargeDuration * 0.8f && !rotated)

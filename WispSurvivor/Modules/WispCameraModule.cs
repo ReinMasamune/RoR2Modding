@@ -21,8 +21,8 @@ namespace WispSurvivor.Modules
             MonoBehaviour.DontDestroyOnLoad(aimOrigin);
             cameraPivot.transform.SetParent(body.transform, false);
             aimOrigin.transform.SetParent(body.transform, false);
-            cameraPivot.transform.localPosition = new Vector3(0f, 3.25f, 0f);
-            aimOrigin.transform.localPosition = new Vector3(0f, 2.35f, 0f);
+            cameraPivot.transform.localPosition = new Vector3(0f, 2.5f, 0f);
+            aimOrigin.transform.localPosition = new Vector3(0f, 1.9f, 0f);
             dic.C<CameraTargetParams>().cameraPivotTransform = cameraPivot.transform;
             dic.C<CharacterBody>().aimOriginTransform = aimOrigin.transform;
         }
@@ -33,8 +33,8 @@ namespace WispSurvivor.Modules
             camSettings.minPitch = -70f;
             camSettings.maxPitch = 70f;
             camSettings.wallCushion = 0.05f;
-            camSettings.pivotVerticalOffset = 1.5f;
-            camSettings.standardLocalCameraPos = new Vector3(0f, 0f, -10.86f);
+            camSettings.pivotVerticalOffset = 1.37f;
+            camSettings.standardLocalCameraPos = new Vector3(0f, 0f, -10f);
             dic.C<CameraTargetParams>().cameraParams = camSettings;
             dic.C<CameraTargetParams>().idealLocalCameraPos = new Vector3(0f, 0f, -4.71f);
         }

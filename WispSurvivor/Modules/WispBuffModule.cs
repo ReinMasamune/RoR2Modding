@@ -15,7 +15,6 @@ namespace WispSurvivor.Modules
 
         public static void DoModule(GameObject body, Dictionary<Type, Component> dic)
         {
-            SetupDeathHook(body, dic);
         }
 
         public static void RegisterBuffs()
@@ -36,7 +35,7 @@ namespace WispSurvivor.Modules
                 buffIndex = BuffIndex.Count,
                 canStack = true,
                 eliteIndex = EliteIndex.None,
-                iconPath = "Textures/BuffIcons/texBuffTeslaIcon",
+                iconPath = "Textures/BuffIcons/texBuffEngiShieldIcon",
                 isDebuff = false,
                 name = "WispFlameChargeBuff"
             };
@@ -44,34 +43,12 @@ namespace WispSurvivor.Modules
             //AddNewBuff
             AddNewBuff(wispFireDebuff);
             AddNewBuff(wispRestoreBuff);
+
+            BuffDef enrage = BuffCatalog.GetBuffDef(BuffIndex.EnrageAncientWisp);
+            enrage.buffColor = new Color(0.5f, 0.1f, 0.7f, 1f);
+            enrage.iconPath = "Textures/BuffIcons/texMovespeedBuffIcon";
         }
 
-        private static void SetupDeathHook(GameObject body, Dictionary<Type, Component> dic)
-        {
-            GlobalEventManager.onCharacterDeathGlobal += report =>
-            {
-                if( report.victimBody && report.attackerBody )
-                {
-                    BuffIndex b = BuffCatalog.FindBuffIndex("WispCurseBurn");
-                    uint stax = (uint)report.victimBody.GetBuffCount(b);
-                    if( stax > 0 )
-                    {
-                        if( report.attackerBody.subtitleNameToken == "ReinThings.WispSurvivor" )
-                        {
-                            Orbs.RestoreOrb orb = new Orbs.RestoreOrb();
-                            orb.skin = report.attackerBody.skinIndex;
-                            orb.origin = report.victimBody.coreTransform.position;
-                            orb.target = report.attackerBody.mainHurtBox;
-                            orb.stacks = stax;
-
-                            RoR2.Orbs.OrbManager.instance.AddOrb(orb);
-
-                            //report.attackerBody.GetComponent<Components.WispPassiveController>().AddCharge(stax);
-                        }
-                    }
-                }
-            };
-        }
 
         private static void ExFunction(GameObject body, Dictionary<Type, Component> dic)
         {

@@ -32,9 +32,9 @@ namespace WispSurvivor.Modules
         private static void SetupCapCollider(GameObject body, Dictionary<Type, Component> dic)
         {
             CapsuleCollider cap = dic.C<CapsuleCollider>();
-            cap.radius = 0f;
-            cap.height = 2f;
-            cap.center = new Vector3(0f, 0.45f, 0f);
+            cap.radius = 0.7f;
+            cap.height = 1.5f;
+            cap.center = new Vector3(0f, 0f, 0f);
         }
 
         private static void SetupBodyDirection(GameObject body, Dictionary<Type, Component> dic)
@@ -79,9 +79,9 @@ namespace WispSurvivor.Modules
             kinMot.LedgeHandling = true;
             kinMot.InteractiveRigidbodyHandling = true;
             kinMot.SafeMovement = false;
-            kinMot.SetFieldValue<float>("CapsuleRadius", 0.5f);
-            kinMot.SetFieldValue<float>("CapsuleHeight", 2f);
-            kinMot.SetFieldValue<float>("CapsuleYOffset", 0.45f);
+            kinMot.SetFieldValue<float>("CapsuleRadius", 0.7f);
+            kinMot.SetFieldValue<float>("CapsuleHeight", 1.5f);
+            kinMot.SetFieldValue<float>("CapsuleYOffset", 0f);
         }
 
         private static T C<T>( this Dictionary<Type,Component> dic ) where T : Component

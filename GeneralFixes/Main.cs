@@ -17,25 +17,8 @@ namespace ReinGeneralFixes
     [BepInPlugin("com.ReinThings.ReinGeneralBugfixes", "ReinGeneralBugfixes", "1.0.1")]
     public class ReinGeneralFixesMain : BaseUnityPlugin
     {
-        public void Awake()
-        {
-            On.RoR2.Loadout.BodyLoadoutManager.BodyLoadout.EnforceUnlockables += (orig, self, prof) =>
-            {
-                int i = self.GetFieldValue<int>("bodyIndex");
-                GameObject obj = BodyCatalog.GetBodyPrefab(i);
-                if (obj)
-                {
-                    orig(self, prof);
-                } else
-                {
-                    self.InvokeMethod("ResetSkin");
-                    orig(self, prof);
-                }
-            };
-        }
 
-
-        /*
+        
         Texture2D testTex;
         Texture2D bgTex;
         Rect posRect = new Rect(32f, 32f, 1524f, 96f);
@@ -121,7 +104,7 @@ namespace ReinGeneralFixes
             tex.Apply();
             return tex;
         }
-        */
+        
     }
 }
 

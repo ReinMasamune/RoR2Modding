@@ -79,6 +79,9 @@ namespace WispSurvivor.Modules
         private static void DoStatemachines(GameObject body, Dictionary<Type, Component> dic)
         {
             NetworkStateMachine net = dic.C<NetworkStateMachine>();
+            CharacterDeathBehavior death = dic.C<CharacterDeathBehavior>();
+            death.idleStateMachine = new EntityStateMachine[2];
+            death.deathState = new EntityStates.SerializableEntityStateType( typeof(EntityStates.Commando.DeathState));
 
             EntityStateMachine[] netStates = net.GetFieldValue<EntityStateMachine[]>("stateMachines");
             Array.Resize<EntityStateMachine>(ref netStates, 3);
@@ -99,18 +102,21 @@ namespace WispSurvivor.Modules
                         esm.mainStateType = new SerializableEntityStateType(typeof(GenericCharacterMain));
                         netStates[0] = esm;
                         hurtState.targetStateMachine = esm;
+                        death.deathStateMachine = esm;
                         break;
 
                     case "Weapon":
                         esm.initialStateType = new SerializableEntityStateType(typeof(Idle));
                         esm.mainStateType = new SerializableEntityStateType(typeof(Idle));
                         netStates[1] = esm;
+                        death.idleStateMachine[0] = esm;
                         break;
 
                     case "Gaze":
                         esm.initialStateType = new SerializableEntityStateType(typeof(Idle));
                         esm.mainStateType = new SerializableEntityStateType(typeof(Idle));
                         netStates[2] = esm;
+                        death.idleStateMachine[1] = esm;
                         break;
 
                     default:
@@ -221,7 +227,7 @@ namespace WispSurvivor.Modules
             skill.activationStateMachineName = "Gaze";
 
             skill.baseMaxStock = 1;
-            skill.baseRechargeInterval = 15f;
+            skill.baseRechargeInterval = 14.99999f;
             skill.beginSkillCooldownOnSkillEnd = true;
             skill.canceledFromSprinting = false;
             skill.fullRestockOnAssign = true;

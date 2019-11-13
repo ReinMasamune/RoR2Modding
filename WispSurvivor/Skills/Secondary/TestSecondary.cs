@@ -109,7 +109,7 @@ namespace WispSurvivor.Skills.Secondary
         private void FireOrb()
         {
             if (hasFired) return;
-            var chargeState = passive.ConsumePercentCharge(chargeUsed);
+            var chargeState = passive.UseCharge(chargeUsed, chargeScaler);
             PlayCrossfade("Gesture", "FireBomb", "ChargeBomb.playbackRate", duration * (1f - fireDelay), 0.2f);
             hasFired = true;
             if (!NetworkServer.active)
@@ -125,7 +125,7 @@ namespace WispSurvivor.Skills.Secondary
 
             nextOrb.attacker = gameObject;
             nextOrb.crit = RollCrit();
-            nextOrb.damage = damageStat * damageRatio * ( 1f + chargeScaler * (float)(chargeState.chargeLeft + chargeState.chargeConsumed - 100) / 100);
+            nextOrb.damage = damageStat * damageRatio * chargeState.chargeScaler;
             nextOrb.damageColor = DamageColorIndex.Default;
             nextOrb.direction = dir;
             nextOrb.origin = GetAimRay().origin;

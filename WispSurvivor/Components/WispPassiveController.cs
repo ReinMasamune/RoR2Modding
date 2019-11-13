@@ -11,11 +11,13 @@ namespace WispSurvivor.Components
         {
             public double chargeConsumed;
             public double chargeLeft;
+            public double chargeAtStart;
+            public float chargeScaler;
         }
 
         private const double decayRate = -0.1;
         private const double zeroMark = 100f;
-        private const double regenPsPs = 0.5;
+        private const double regenPsPs = 2.5;
         private const double decayMultWithBuff = 0.25;
 
         private double charge;
@@ -43,55 +45,59 @@ namespace WispSurvivor.Components
             charge += addedCharge;
         }
 
-        public double ConsumeCharge( double consumedCharge )
+        public ChargeState UseCharge(double percent, float scaler)
         {
-            double temp = charge;
-            double temp2 = charge - consumedCharge;
-            if( temp2 < 0 )
-            {
-                temp += temp2;
-                temp2 = 0;
-            }
-            charge = temp2;
-            return temp;
-        }
+            ChargeState state = new ChargeState();
 
-        public ChargeState ConsumePercentCharge( double consumedPercent )
-        {
-            double chargeToConsume = charge * consumedPercent / 100.0;
-            charge -= chargeToConsume;
+            double startingCharge = charge;
+            double chargeToConsume;
 
-            return new ChargeState
+            if( startingCharge > zeroMark )
             {
-                chargeConsumed = chargeToConsume,
-                chargeLeft = charge
-            };
-        }
-
-        public double DrainCharge(double drainedCharge)
-        {
-            if (drainedCharge < charge)
-            {
-                charge -= drainedCharge;
-                return drainedCharge;
+                chargeToConsume = startingCharge * percent / 100.0;
             } else
             {
-                double temp = charge;
-                charge = 0;
-                return temp;
+                chargeToConsume = percent;
             }
+
+            chargeToConsume = Math.Min(startingCharge, chargeToConsume);
+
+
+            charge -= chargeToConsume;
+
+            state.chargeAtStart = startingCharge;
+            state.chargeConsumed = chargeToConsume;
+            state.chargeLeft = charge;
+            state.chargeScaler = GetChargeScaler(chargeToConsume, percent, scaler);
+
+            return state;
         }
 
-        public ChargeState DrainPercentCharge( double drainedPercent )
+        public ChargeState UseChargeDrain(double rate, float time)
         {
-            double chargeToDrain = charge * drainedPercent / 100.0;
-            charge -= chargeToDrain;
+            ChargeState state = new ChargeState();
 
-            return new ChargeState
-            {
-                chargeConsumed = chargeToDrain,
-                chargeLeft = charge
-            };
+            double startingCharge = charge;
+            double chargeToConsume = startingCharge - (startingCharge * Math.Exp(-rate * time / 100));
+            chargeToConsume = Math.Max(0, chargeToConsume);
+
+            charge -= chargeToConsume;
+            state.chargeAtStart = startingCharge;
+            state.chargeConsumed = chargeToConsume;
+            state.chargeLeft = charge;
+            state.chargeScaler = 0f;
+
+            return state;
+        }
+
+        public static float GetDrainScaler(double drained, double ideal, float scaler)
+        {
+            float temp = (float)(drained / ideal);
+            temp -= 1f;
+            temp *= scaler;
+            temp += 1f;
+
+            return temp;
         }
 
         public double ReadCharge()
@@ -107,6 +113,16 @@ namespace WispSurvivor.Components
             return temp;
         }
 
+        private static float GetChargeScaler( double consumed, double percent, float scaler )
+        {
+            float temp = (float) (consumed / percent);
+            temp -= 1f;
+            temp *= scaler;
+            temp += 1f;
 
+            Debug.Log(temp);
+
+            return temp;
+        }
     }
 }

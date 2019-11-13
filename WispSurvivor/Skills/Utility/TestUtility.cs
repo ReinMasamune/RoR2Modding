@@ -63,7 +63,7 @@ namespace WispSurvivor.Skills.Utility
 
             skin = characterBody.skinIndex;
 
-            charge = passive.ConsumeCharge(chargeUsed);
+            //charge = passive.UseCharge(chargeUsed, );
         }
 
         public override void FixedUpdate()

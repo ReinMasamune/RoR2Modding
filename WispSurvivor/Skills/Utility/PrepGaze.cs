@@ -27,6 +27,11 @@ namespace WispSurvivor.Skills.Utility
             base.OnEnter();
             passive = gameObject.GetComponent<Components.WispPassiveController>();
             skin = characterBody.skinIndex;
+
+            var state = passive.UseCharge(FireGaze.chargeUsed , FireGaze.chargeScaler );
+            radius *= state.chargeScaler;
+
+            GetComponent<Components.WispFlareController>().intensity = 0.5f;
         }
 
         public override void Update()
@@ -71,6 +76,7 @@ namespace WispSurvivor.Skills.Utility
                 {
                     orbOrigin = end.position,
                     orbNormal = normal,
+                    blazeOrbRadius = radius
                 });
             }
         }
