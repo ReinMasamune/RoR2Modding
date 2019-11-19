@@ -1,20 +1,20 @@
 ﻿using RoR2;
-using UnityEngine;
 using System;
 using System.Collections.Generic;
-using static WispSurvivor.Util.PrefabUtilities;
+using UnityEngine;
+using static WispSurvivor.Helpers.PrefabHelpers;
 
 namespace WispSurvivor.Modules
 {
     public static class WispBodySetupModule
     {
-        public static void DoModule( GameObject body , Dictionary<Type,Component> dic)
+        public static void DoModule( GameObject body, Dictionary<Type, Component> dic, AssetBundle bundle )
         {
-            CharBodyStats(body, dic);
-            CharBodyOther(body, dic);
+            CharBodyStats( body, dic );
+            CharBodyOther( body, dic, bundle );
         }
 
-        private static void CharBodyStats( GameObject body, Dictionary<Type,Component> dic )
+        private static void CharBodyStats( GameObject body, Dictionary<Type, Component> dic )
         {
             CharacterBody chbod = dic.C<CharacterBody>();
             chbod.baseMaxHealth = 130.0f;
@@ -33,14 +33,14 @@ namespace WispSurvivor.Modules
             chbod.levelAttackSpeed = 0f;
             chbod.baseCrit = 1f;
             chbod.levelCrit = 0f;
-            chbod.baseArmor = 10f;
+            chbod.baseArmor = 0f;
             chbod.levelArmor = 0f;
             chbod.baseJumpCount = 1;
             chbod.baseAcceleration = 60.0f;
             chbod.spreadBloomDecayTime = 1f;
         }
 
-        private static void CharBodyOther(GameObject body, Dictionary<Type, Component> dic)
+        private static void CharBodyOther( GameObject body, Dictionary<Type, Component> dic, AssetBundle bundle )
         {
             CharacterBody chbod = dic.C<CharacterBody>();
             chbod.bodyFlags = CharacterBody.BodyFlags.ImmuneToExecutes;
@@ -50,6 +50,7 @@ namespace WispSurvivor.Modules
             chbod.subtitleNameToken = "ReinThings.WispSurvivor";
             chbod.baseNameToken = "WISP_SURVIVOR_BODY_NAME";
             chbod.preferredPodPrefab = CreateSurvivorPod();
+            chbod.portraitIcon = bundle.LoadAsset<Texture2D>("Assets/__EXPORT/WispyIcon.png");
         }
 
         private static GameObject CreateSurvivorPod()
@@ -62,7 +63,7 @@ namespace WispSurvivor.Modules
 
             foreach( InstantiatePrefabOnStart ipos in g.GetComponents<InstantiatePrefabOnStart>() )
             {
-                if (ipos.prefab.name == "SurvivorPodBatteryPanel") prefabSpawn = ipos;
+                if( ipos.prefab.name == "SurvivorPodBatteryPanel" ) prefabSpawn = ipos;
             }
 
             GameObject pref = prefabSpawn.prefab.InstantiateClone("WispPodPanel");
@@ -80,9 +81,6 @@ namespace WispSurvivor.Modules
             return g;
         }
 
-        private static T C<T>( this Dictionary<Type,Component> dic ) where T : Component
-        {
-            return dic[typeof(T)] as T;
-        }
+        private static T C<T>( this Dictionary<Type, Component> dic ) where T : Component => dic[typeof( T )] as T;
     }
 }

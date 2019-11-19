@@ -1,188 +1,185 @@
-﻿using RoR2;
-using EntityStates;
-using UnityEngine;
+﻿using EntityStates;
+using RoR2;
 using RoR2.Orbs;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.Networking;
 using WispSurvivor.Orbs;
-using System.Collections.Generic;
 
 namespace WispSurvivor.Skills.Utility
 {
     public class FireGaze : BaseState
     {
-        public static double chargeUsed = 20.0;
-        public static float chargeScaler = 0.1f;
+        public static System.Double chargeUsed = 20.0;
+        public static System.Single chargeScaler = 0.1f;
 
-        public static float baseBlazeOrbRadius = 20f;
-        public static float baseBlazeOrbDuration = 10f;
-        public static float baseBlazeOrbTickfreq = 1f;
-        public static float baseBlazeOrbMinDur = 10f;
-        public static float baseBlazeOrbDurationPerStack = 4f;
-        public static uint baseBlazeOrbBundleSize = 1u;
-        public static float baseBlazeOrbBundleSendFreq = 1f;
-        public static float baseBlazeOrbStackExchangeRate = 0.25f;
+        public static System.Single baseBlazeOrbRadius = 20f;
+        public static System.Single baseBlazeOrbDuration = 10f;
+        public static System.Single baseBlazeOrbTickfreq = 1f;
+        public static System.Single baseBlazeOrbExpireStacksMult = 10f;
+        public static System.Single baseBlazeOrbBuffDuration = 4f;
+        public static System.UInt32 baseBlazeOrbBundleSize = 1u;
+        public static System.Single baseBlazeOrbBundleSendFreq = 1f;
+        public static System.Single baseBlazeOrbBonusBundlePercent = 0.25f;
 
-        public static float baseIgniteOrbDebuffTimeMult = 0.1f;
-        public static float baseIgniteOrbDuration = 4f;
-        public static float baseIgniteOrbProcCoef = 0.05f;
-        public static float baseIgniteOrbTickDamage = 0.1f;
-        public static float baseIgniteOrbTickFreq = 2f;
-        public static float baseIgniteOrbBaseStacksOnDeath = 0.5f;
-        public static float baseIgniteOrbStacksPerSecOnDeath = 0.5f;
-        public static float baseIgniteOrbExpireStacksMult = 0.25f;
+        public static System.Single baseIgniteOrbStacksPerTick = 0.25f;
+        public static System.Single baseIgniteOrbDuration = 4f;
+        public static System.Single baseIgniteOrbProcCoef = 0.05f;
+        public static System.Single baseIgniteOrbTickDamage = 0.1f;
+        public static System.Single baseIgniteOrbTickFreq = 2f;
+        public static System.Single baseIgniteOrbBaseStacksOnDeath = 0.5f;
+        public static System.Single baseIgniteOrbDeathStacksMult = 0.5f;
+        public static System.Single baseIgniteOrbExpireStacksMult = 0f;
 
-        private static float flareTime = 0.25f;
+        private static System.Single flareTime = 0.35f;
 
-        public float blazeOrbRadius;
-        private float blazeOrbDuration;
-        private float blazeOrbTickFreq;
-        private float blazeOrbMinDur;
-        private float blazeOrbDurationPerStack;
-        private uint blazeOrbBundleSize;
-        private float blazeOrbBundleSendFreq;
-        private float blazeOrbStackExchangeRate;
-        private float igniteOrbDuration;
-        private float igniteOrbProcCoef;
-        private float igniteOrbTickDamage;
-        private float igniteOrbTickFreq;
-        private float igniteOrbDebuffTimeMult;
-        private float igniteOrbStacksPerSecOnDeath;
-        private float igniteOrbBaseStacksOnDeath;
-        private float igniteOrbExpireStacksMult;
+        public System.Single blazeOrbRadius;
+        private System.Single blazeOrbDuration;
+        private System.Single blazeOrbTickFreq;
+        private System.Single blazeOrbExpireStacksMult;
+        private System.Single blazeOrbBuffDuration;
+        private System.UInt32 blazeOrbBundleSize;
+        private System.Single blazeOrbBundleSendFreq;
+        private System.Single blazeOrbBonusBundlePercent;
+        private System.Single igniteOrbDuration;
+        private System.Single igniteOrbProcCoef;
+        private System.Single igniteOrbTickDamage;
+        private System.Single igniteOrbTickFreq;
+        private System.Single igniteOrbStacksPerTick;
+        private System.Single igniteOrbDeathStacksMult;
+        private System.Single igniteOrbBaseStacksOnDeath;
+        private System.Single igniteOrbExpireStacksMult;
 
-        private bool crit;
+        private System.Boolean crit;
 
-        private uint skin;
+        private System.UInt32 skin;
 
         public Vector3 orbOrigin;
         public Vector3 orbNormal;
 
         public DamageColorIndex igniteOrbDamageColor = DamageColorIndex.WeakPoint;
 
-        private bool hasFired = false;
+        private System.Boolean hasFired = false;
 
         private Components.WispPassiveController passive;
         private Components.WispFlareController flare;
-        
+
         //Orb params and stuff
         public override void OnEnter()
         {
             base.OnEnter();
-            passive = gameObject.GetComponent<Components.WispPassiveController>();
-            flare = GetComponent<Components.WispFlareController>();
-            skin = characterBody.skinIndex;
+            this.passive = this.gameObject.GetComponent<Components.WispPassiveController>();
+            this.flare = this.GetComponent<Components.WispFlareController>();
+            this.skin = this.characterBody.skinIndex;
 
             //blazeOrbRadius = baseBlazeOrbRadius;
-            blazeOrbDuration = baseBlazeOrbDuration;
-            blazeOrbTickFreq = baseBlazeOrbTickfreq;
-            blazeOrbMinDur = baseBlazeOrbMinDur;
-            blazeOrbDurationPerStack = baseBlazeOrbDurationPerStack;
-            blazeOrbStackExchangeRate = baseBlazeOrbStackExchangeRate;
+            this.blazeOrbDuration = baseBlazeOrbDuration;
+            this.blazeOrbTickFreq = baseBlazeOrbTickfreq;
+            this.blazeOrbExpireStacksMult = baseBlazeOrbExpireStacksMult;
+            this.blazeOrbBuffDuration = baseBlazeOrbBuffDuration;
+            this.blazeOrbBonusBundlePercent = baseBlazeOrbBonusBundlePercent;
 
-            igniteOrbDebuffTimeMult = baseIgniteOrbDebuffTimeMult;
-            igniteOrbDuration = baseIgniteOrbDuration;
-            igniteOrbProcCoef = baseIgniteOrbProcCoef;
-            igniteOrbTickDamage = baseIgniteOrbTickDamage * damageStat;
-            igniteOrbTickFreq = baseIgniteOrbTickFreq;
-            igniteOrbBaseStacksOnDeath = baseIgniteOrbBaseStacksOnDeath;
-            igniteOrbStacksPerSecOnDeath = baseIgniteOrbStacksPerSecOnDeath;
-            igniteOrbExpireStacksMult = baseIgniteOrbExpireStacksMult;
+            this.igniteOrbStacksPerTick = baseIgniteOrbStacksPerTick;
+            this.igniteOrbDuration = baseIgniteOrbDuration;
+            this.igniteOrbProcCoef = baseIgniteOrbProcCoef;
+            this.igniteOrbTickDamage = baseIgniteOrbTickDamage * this.damageStat;
+            this.igniteOrbTickFreq = baseIgniteOrbTickFreq;
+            this.igniteOrbBaseStacksOnDeath = baseIgniteOrbBaseStacksOnDeath;
+            this.igniteOrbDeathStacksMult = baseIgniteOrbDeathStacksMult;
+            this.igniteOrbExpireStacksMult = baseIgniteOrbExpireStacksMult;
             //crit = RollCrit();
 
-            flare.intensity = 1f;
+            this.flare.intensity = 1f;
         }
 
         public override void Update()
         {
             base.Update();
             //Scale flare down based on time / flareTime
-            flare.intensity = 1f - (age / flareTime);
+            this.flare.intensity = 1f - (this.age / flareTime);
         }
 
         public override void FixedUpdate()
         {
             base.FixedUpdate();
 
-            FireOrb();
-            if( fixedAge > flareTime && isAuthority )
+            this.FireOrb();
+            if( this.fixedAge > flareTime && this.isAuthority )
             {
-                outer.SetNextStateToMain();
+                this.outer.SetNextStateToMain();
             }
         }
 
         public override void OnExit()
         {
             base.OnExit();
-            flare.intensity = 0f;
+            this.flare.intensity = 0f;
         }
 
-        public override void OnSerialize(NetworkWriter writer)
+        public override void OnSerialize( NetworkWriter writer )
         {
-            base.OnSerialize(writer);
-            writer.Write(orbOrigin);
-            writer.Write(orbNormal);
-            writer.Write(blazeOrbRadius);
+            base.OnSerialize( writer );
+            writer.Write( this.orbOrigin );
+            writer.Write( this.orbNormal );
+            writer.Write( this.blazeOrbRadius );
         }
 
-        public override void OnDeserialize(NetworkReader reader)
+        public override void OnDeserialize( NetworkReader reader )
         {
-            base.OnDeserialize(reader);
-            orbOrigin = reader.ReadVector3();
-            orbNormal = reader.ReadVector3();
-            blazeOrbRadius = reader.ReadSingle();
+            base.OnDeserialize( reader );
+            this.orbOrigin = reader.ReadVector3();
+            this.orbNormal = reader.ReadVector3();
+            this.blazeOrbRadius = reader.ReadSingle();
         }
 
-        public override InterruptPriority GetMinimumInterruptPriority()
-        {
-            return InterruptPriority.Death;
-        }
+        public override InterruptPriority GetMinimumInterruptPriority() => InterruptPriority.Death;
 
         private void FireOrb()
         {
-            if (hasFired) return;
-            hasFired = true;
+            if( this.hasFired ) return;
+            this.hasFired = true;
             //var chargeState = passive.ConsumePercentCharge(chargeUsed);
-            if (!NetworkServer.active) return;
+            if( !NetworkServer.active ) return;
 
             BlazeOrb blaze = new BlazeOrb();
 
             //float chargeMult = (1f + 0.5f * ((float)((chargeState.chargeLeft + chargeState.chargeConsumed) / 100.0)));
 
-            blazeOrbBundleSendFreq = baseBlazeOrbBundleSendFreq;
-            blazeOrbBundleSize = (uint)Mathf.CeilToInt(baseBlazeOrbBundleSize); 
-            blazeOrbBundleSize = baseBlazeOrbBundleSize;
-            blazeOrbStackExchangeRate = baseBlazeOrbStackExchangeRate;
+            this.blazeOrbBundleSendFreq = baseBlazeOrbBundleSendFreq;
+            this.blazeOrbBundleSize = (System.UInt32)Mathf.CeilToInt( baseBlazeOrbBundleSize );
+            this.blazeOrbBundleSize = baseBlazeOrbBundleSize;
+            this.blazeOrbBonusBundlePercent = baseBlazeOrbBonusBundlePercent;
 
 
             //Unorganized shit
-            blaze.origin = orbOrigin;
-            blaze.normal = orbNormal;
-            blaze.skin = skin;
-            blaze.team = TeamComponent.GetObjectTeam(gameObject);
-            blaze.attacker = gameObject;
-            blaze.crit = crit;
+            blaze.origin = this.orbOrigin;
+            blaze.normal = this.orbNormal;
+            blaze.skin = this.skin;
+            blaze.team = TeamComponent.GetObjectTeam( this.gameObject );
+            blaze.attacker = this.gameObject;
+            blaze.crit = this.crit;
             blaze.children = new List<IgnitionOrb>();
 
-            blaze.blazeTime = blazeOrbDuration;
-            blaze.blazeRadius = blazeOrbRadius;
-            blaze.blazeFreq = blazeOrbTickFreq;
-            blaze.blazeMinDurToContinue = blazeOrbMinDur;
-            blaze.blazeDurationPerStack = blazeOrbDurationPerStack;
-            blaze.blazeOrbBundleSendFreq = blazeOrbBundleSendFreq;
-            blaze.blazeOrbStackBundleSize = blazeOrbBundleSize;
-            blaze.blazeStackExchangeRate = blazeOrbStackExchangeRate;
+            blaze.blazeTime = this.blazeOrbDuration;
+            blaze.blazeRadius = this.blazeOrbRadius;
+            blaze.blazeFreq = this.blazeOrbTickFreq;
+            blaze.blazeExpireStacksMult = this.blazeOrbExpireStacksMult;
+            blaze.blazeBuffDuration = this.blazeOrbBuffDuration;
+            blaze.blazeOrbBundleSendFreq = this.blazeOrbBundleSendFreq;
+            blaze.blazeOrbStackBundleSize = this.blazeOrbBundleSize;
+            blaze.blazeBonusBundlePercent = this.blazeOrbBonusBundlePercent;
 
-            blaze.igniteDamageColor = igniteOrbDamageColor;
-            blaze.igniteDebuffTimeMult = igniteOrbDebuffTimeMult;
-            blaze.igniteDuration = igniteOrbDuration;
-            blaze.igniteProcCoef = igniteOrbProcCoef;
-            blaze.igniteTickDamage = igniteOrbTickDamage;
-            blaze.igniteTickFreq = igniteOrbTickFreq;
-            blaze.igniteStacksPerSecOnDeath = igniteOrbStacksPerSecOnDeath;
-            blaze.igniteBaseStacksOnDeath = igniteOrbBaseStacksOnDeath;
-            blaze.igniteExpireStacksMult = igniteOrbExpireStacksMult;
-            
-            OrbManager.instance.AddOrb(blaze);
+            blaze.igniteDamageColor = this.igniteOrbDamageColor;
+            blaze.igniteStacksPerTick = this.igniteOrbStacksPerTick;
+            blaze.igniteDuration = this.igniteOrbDuration;
+            blaze.igniteProcCoef = this.igniteOrbProcCoef;
+            blaze.igniteTickDamage = this.igniteOrbTickDamage;
+            blaze.igniteTickFreq = this.igniteOrbTickFreq;
+            blaze.igniteDeathStacksMult = this.igniteOrbDeathStacksMult;
+            blaze.igniteBaseStacksOnDeath = this.igniteOrbBaseStacksOnDeath;
+            blaze.igniteExpireStacksMult = this.igniteOrbExpireStacksMult;
+
+            OrbManager.instance.AddOrb( blaze );
         }
     }
 }

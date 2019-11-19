@@ -9,8 +9,9 @@ using System;
 
 namespace ReinWickedRing
 {
+    [R2APISubmoduleDependency("ItemDropAPI")]
     [BepInDependency("com.bepis.r2api")]
-    [BepInPlugin("com.ReinThings.ReinWickedRing", "ReinWickedRing", "1.0.0")]
+    [BepInPlugin("com.ReinThings.ReinWickedRing", "ReinWickedRing", "1.0.1")]
     public class ReinWickedRingMain : BaseUnityPlugin
     {
         public void Awake()

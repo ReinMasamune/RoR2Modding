@@ -1,29 +1,29 @@
-﻿using RoR2;
-using EntityStates;
-using UnityEngine;
-using System;
+﻿using EntityStates;
+using RoR2;
 using RoR2.Orbs;
+using System;
+using UnityEngine;
 using UnityEngine.Networking;
 
 namespace WispSurvivor.Skills.Secondary
 {
     public class TestSecondary : BaseState
     {
-        public static double chargeUsed = 15.0;
+        public static Double chargeUsed = 15.0;
 
-        public static float baseDuration = 1f;
-        public static float scanDelay = 0.25f;
-        public static float fireDelay = 0.5f;
-        public static float damageRatio = 3.0f;
-        public static float chargeScaler = 0.5f;
-        public static float radius = 8f;
-        public static float returnIdlePercent = 0.5f;
+        public static Single baseDuration = 1f;
+        public static Single scanDelay = 0.25f;
+        public static Single fireDelay = 0.5f;
+        public static Single damageRatio = 3.0f;
+        public static Single chargeScaler = 0.75f;
+        public static Single radius = 8f;
+        public static Single returnIdlePercent = 0.5f;
 
-        private float duration;
+        private Single duration;
 
-        private uint skin = 0;
+        private UInt32 skin = 0;
 
-        private bool hasFired = false;
+        private Boolean hasFired = false;
 
         private ChildLocator childLoc;
         private Animator anim;
@@ -33,47 +33,47 @@ namespace WispSurvivor.Skills.Secondary
         {
             base.OnEnter();
 
-            passive = gameObject.GetComponent<Components.WispPassiveController>();
+            this.passive = this.gameObject.GetComponent<Components.WispPassiveController>();
 
             Transform modelTrans = base.GetModelTransform();
             //Sound
 
-            duration = baseDuration / attackSpeedStat;
+            this.duration = baseDuration / this.attackSpeedStat;
 
             //Animations
 
-            if (modelTrans)
+            if( modelTrans )
             {
-                childLoc = modelTrans.GetComponent<ChildLocator>();
-                anim = modelTrans.GetComponent<Animator>();
+                this.childLoc = modelTrans.GetComponent<ChildLocator>();
+                this.anim = modelTrans.GetComponent<Animator>();
             }
 
-            if (anim)
+            if( this.anim )
             {
-                PlayCrossfade("Gesture", "ChargeBomb", "ChargeBomb.playbackRate" , duration * fireDelay, 0.2f);
+                this.PlayCrossfade( "Gesture", "ChargeBomb", "ChargeBomb.playbackRate", this.duration * fireDelay, 0.2f );
             }
 
-            if (characterBody)
+            if( this.characterBody )
             {
-                characterBody.SetAimTimer(duration + 1f);
+                this.characterBody.SetAimTimer( this.duration + 1f );
             }
 
-            if( isAuthority )
+            if( this.isAuthority )
             {
-                skin = characterBody.skinIndex;
+                this.skin = this.characterBody.skinIndex;
             }
         }
 
         public override void FixedUpdate()
         {
             base.FixedUpdate();
-            if (!hasFired && fixedAge > duration * fireDelay)
+            if( !this.hasFired && this.fixedAge > this.duration * fireDelay )
             {
-                FireOrb();
+                this.FireOrb();
             }
-            if (fixedAge > duration && isAuthority)
+            if( this.fixedAge > this.duration && this.isAuthority )
             {
-                outer.SetNextStateToMain();
+                this.outer.SetNextStateToMain();
                 return;
             }
         }
@@ -81,54 +81,51 @@ namespace WispSurvivor.Skills.Secondary
         public override void OnExit()
         {
             base.OnExit();
-            FireOrb();
-            PlayCrossfade("Gesture", "Idle", 0.2f);
+            this.FireOrb();
+            this.PlayCrossfade( "Gesture", "Idle", 0.2f );
         }
 
-        public override InterruptPriority GetMinimumInterruptPriority()
-        {
-            return InterruptPriority.PrioritySkill;
-        }
+        public override InterruptPriority GetMinimumInterruptPriority() => InterruptPriority.PrioritySkill;
 
-        public override void OnSerialize(NetworkWriter writer)
+        public override void OnSerialize( NetworkWriter writer )
         {
-            if( isAuthority )
+            if( this.isAuthority )
             {
-                writer.Write(skin);
+                writer.Write( this.skin );
             }
         }
 
-        public override void OnDeserialize(NetworkReader reader)
+        public override void OnDeserialize( NetworkReader reader )
         {
-            if( !isAuthority )
+            if( !this.isAuthority )
             {
-                skin = reader.ReadUInt32();
+                this.skin = reader.ReadUInt32();
             }
         }
 
         private void FireOrb()
         {
-            if (hasFired) return;
-            var chargeState = passive.UseCharge(chargeUsed, chargeScaler);
-            PlayCrossfade("Gesture", "FireBomb", "ChargeBomb.playbackRate", duration * (1f - fireDelay), 0.2f);
-            hasFired = true;
-            if (!NetworkServer.active)
+            if( this.hasFired ) return;
+            Components.WispPassiveController.ChargeState chargeState = this.passive.UseCharge( chargeUsed, chargeScaler );
+            this.PlayCrossfade( "Gesture", "FireBomb", "ChargeBomb.playbackRate", this.duration * (1f - fireDelay), 0.2f );
+            this.hasFired = true;
+            if( !NetworkServer.active )
             {
                 return;
             }
 
-            Vector3 dir = GetAimRay().direction;
+            Vector3 dir = this.GetAimRay().direction;
             dir.y = 0f;
-            dir = Vector3.Normalize(dir);
+            dir = Vector3.Normalize( dir );
 
             Orbs.SparkOrb nextOrb = new Orbs.SparkOrb();
 
-            nextOrb.attacker = gameObject;
-            nextOrb.crit = RollCrit();
-            nextOrb.damage = damageStat * damageRatio * chargeState.chargeScaler;
+            nextOrb.attacker = this.gameObject;
+            nextOrb.crit = this.RollCrit();
+            nextOrb.damage = this.damageStat * damageRatio * chargeState.chargeScaler;
             nextOrb.damageColor = DamageColorIndex.Default;
             nextOrb.direction = dir;
-            nextOrb.origin = GetAimRay().origin;
+            nextOrb.origin = this.GetAimRay().origin;
             nextOrb.procCoef = 1.0f;
             nextOrb.isFirst = true;
             nextOrb.radius = radius;
@@ -138,11 +135,11 @@ namespace WispSurvivor.Skills.Secondary
             nextOrb.stepHeight = 5.0f;
             nextOrb.maxFall = 25f;
             nextOrb.innerRadScale = 0.5f;
-            nextOrb.stepsLeft = 1 + (int)Math.Truncate( chargeState.chargeConsumed / 10.0 );
-            nextOrb.team = TeamComponent.GetObjectTeam(gameObject);
-            nextOrb.skin = skin;
+            nextOrb.stepsLeft = 1 + (Int32)Math.Truncate( chargeState.chargeConsumed / 10.0 );
+            nextOrb.team = TeamComponent.GetObjectTeam( this.gameObject );
+            nextOrb.skin = this.skin;
 
-            OrbManager.instance.AddOrb(nextOrb);
+            OrbManager.instance.AddOrb( nextOrb );
         }
     }
 }

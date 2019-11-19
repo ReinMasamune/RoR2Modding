@@ -1,33 +1,33 @@
 ﻿using RoR2;
-using UnityEngine;
-using System.Collections.Generic;
 using RoR2.Orbs;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace WispSurvivor.Orbs
 {
-    class SparkOrb : RoR2.Orbs.Orb
+    internal class SparkOrb : RoR2.Orbs.Orb
     {
-        public float speed = 200f;
-        public float damage = 1f;
-        public float scale = 1f;
-        public float procCoef = 1f;
-        public float radius = 1f;
-        public float stepHeight = 1f;
-        public float stepDist = 1f;
-        public float maxFall = 5f;
-        public float minDistThreshold = 1f;
-        public float height = 10f;
-        public float vOffset = 5f;
-        public float innerRadScale = 0.67f;
-        public float edgePenaltyMult = 0.5f;
+        public System.Single speed = 200f;
+        public System.Single damage = 1f;
+        public System.Single scale = 1f;
+        public System.Single procCoef = 1f;
+        public System.Single radius = 1f;
+        public System.Single stepHeight = 1f;
+        public System.Single stepDist = 1f;
+        public System.Single maxFall = 5f;
+        public System.Single minDistThreshold = 1f;
+        public System.Single height = 10f;
+        public System.Single vOffset = 5f;
+        public System.Single innerRadScale = 0.67f;
+        public System.Single edgePenaltyMult = 0.5f;
 
-        public int stepsLeft = 0;
-        public uint skin = 0;
-        
+        public System.Int32 stepsLeft = 0;
+        public System.UInt32 skin = 0;
+
         public Vector3 direction;
 
-        public bool isFirst = false;
-        public bool crit = false;
+        public System.Boolean isFirst = false;
+        public System.Boolean crit = false;
 
 
         public TeamIndex team;
@@ -38,15 +38,15 @@ namespace WispSurvivor.Orbs
 
         private Vector3 dest;
 
-        private bool last = false;
+        private System.Boolean last = false;
 
         public override void Begin()
         {
-            Vector3 intermediate = origin + new Vector3(0f, stepHeight, 0f);
-            intermediate += direction * stepDist * ( isFirst ? 0.5f : 1.0f );
-            Vector3 dir = intermediate - origin;
-            float dist = dir.magnitude;
-            dir = Vector3.Normalize(dir);
+            Vector3 intermediate = this.origin + new Vector3(0f, this.stepHeight, 0f);
+            intermediate += this.direction * this.stepDist * (this.isFirst ? 0.5f : 1.0f);
+            Vector3 dir = intermediate - this.origin;
+            System.Single dist = dir.magnitude;
+            dir = Vector3.Normalize( dir );
 
             Ray r1 = new Ray
             {
@@ -58,13 +58,12 @@ namespace WispSurvivor.Orbs
 
             Vector3 top;
 
-            if (Physics.SphereCast(r1, 0.25f, out rh1, dist, LayerIndex.world.mask, QueryTriggerInteraction.UseGlobal))
+            if( Physics.SphereCast( r1, 0.25f, out rh1, dist, LayerIndex.world.mask, QueryTriggerInteraction.UseGlobal ) )
             {
                 top = rh1.point + rh1.normal;
-            }
-            else
+            } else
             {
-                top = r1.GetPoint(dist);
+                top = r1.GetPoint( dist );
             }
 
             Ray r2 = new Ray
@@ -75,20 +74,19 @@ namespace WispSurvivor.Orbs
 
             RaycastHit rh2;
 
-            if (Physics.SphereCast(r2, 0.25f,  out rh2 , maxFall, LayerIndex.world.mask , QueryTriggerInteraction.UseGlobal ) )
+            if( Physics.SphereCast( r2, 0.25f, out rh2, this.maxFall, LayerIndex.world.mask, QueryTriggerInteraction.UseGlobal ) )
             {
-                dest = rh2.point + rh2.normal;
-            }
-            else
+                this.dest = rh2.point + rh2.normal;
+            } else
             {
-                dest = r2.GetPoint(maxFall);
+                this.dest = r2.GetPoint( this.maxFall );
             }
 
-            float distance = Vector3.Distance(dest, origin);
+            System.Single distance = Vector3.Distance( this.dest, this.origin );
 
-            duration = distance / speed;
+            this.duration = distance / this.speed;
 
-            if (!isFirst && distance < minDistThreshold) last = true;
+            if( !this.isFirst && distance < this.minDistThreshold ) this.last = true;
 
             //Effect is created here
         }
@@ -101,94 +99,94 @@ namespace WispSurvivor.Orbs
                 origin = dest
             };
 
-            EffectManager.instance.SpawnEffect(Modules.WispEffectModule.secondaryExplosions[skin], effect, true);
+            EffectManager.instance.SpawnEffect( Modules.WispEffectModule.secondaryExplosions[this.skin], effect, true );
 
-            if (attacker)
+            if( this.attacker )
             {
-                Dictionary<HealthComponent, bool> mask = new Dictionary<HealthComponent, bool>();
+                Dictionary<HealthComponent, System.Boolean> mask = new Dictionary<HealthComponent, System.Boolean>();
                 HurtBox box;
 
-                Collider[] cols = Physics.OverlapCapsule(dest, dest + new Vector3(0f, 20f, 0f), radius * innerRadScale, LayerIndex.entityPrecise.mask, QueryTriggerInteraction.UseGlobal);
+                Collider[] cols = Physics.OverlapCapsule(this.dest, this.dest + new Vector3(0f, 20f, 0f), this.radius * this.innerRadScale, LayerIndex.entityPrecise.mask, QueryTriggerInteraction.UseGlobal);
 
-                foreach (Collider col in cols)
+                foreach( Collider col in cols )
                 {
-                    if (!col) continue;
+                    if( !col ) continue;
                     box = col.GetComponent<HurtBox>();
-                    if (!box) continue;
+                    if( !box ) continue;
                     HealthComponent hcomp = box.healthComponent;
-                    if (!hcomp || mask.ContainsKey(hcomp) || TeamComponent.GetObjectTeam(hcomp.gameObject) == team) continue;
+                    if( !hcomp || mask.ContainsKey( hcomp ) || TeamComponent.GetObjectTeam( hcomp.gameObject ) == this.team ) continue;
 
                     DamageInfo dmg = new DamageInfo();
-                    dmg.damage = damage;
-                    dmg.attacker = attacker;
-                    dmg.crit = crit;
-                    dmg.damageColorIndex = damageColor;
+                    dmg.damage = this.damage;
+                    dmg.attacker = this.attacker;
+                    dmg.crit = this.crit;
+                    dmg.damageColorIndex = this.damageColor;
                     dmg.damageType = DamageType.Generic;
-                    dmg.force = (direction + Vector3.up) * 50f;
-                    dmg.inflictor = attacker;
+                    dmg.force = (this.direction + Vector3.up) * 50f;
+                    dmg.inflictor = this.attacker;
                     dmg.position = col.transform.position;
-                    dmg.procChainMask = procMask;
-                    dmg.procCoefficient = procCoef;
+                    dmg.procChainMask = this.procMask;
+                    dmg.procCoefficient = this.procCoef;
 
-                    hcomp.TakeDamage(dmg);
-                    GlobalEventManager.instance.OnHitEnemy(dmg, hcomp.gameObject);
-                    GlobalEventManager.instance.OnHitAll(dmg, hcomp.gameObject);
-                    mask.Add(hcomp, true);
+                    hcomp.TakeDamage( dmg );
+                    GlobalEventManager.instance.OnHitEnemy( dmg, hcomp.gameObject );
+                    GlobalEventManager.instance.OnHitAll( dmg, hcomp.gameObject );
+                    mask.Add( hcomp, true );
                 }
 
-                cols = Physics.OverlapCapsule(dest, dest + new Vector3(0f, 20f, 0f), radius, LayerIndex.entityPrecise.mask, QueryTriggerInteraction.UseGlobal);
+                cols = Physics.OverlapCapsule( this.dest, this.dest + new Vector3( 0f, 20f, 0f ), this.radius, LayerIndex.entityPrecise.mask, QueryTriggerInteraction.UseGlobal );
 
-                foreach (Collider col in cols)
+                foreach( Collider col in cols )
                 {
-                    if (!col) continue;
+                    if( !col ) continue;
                     box = col.GetComponent<HurtBox>();
-                    if (!box) continue;
+                    if( !box ) continue;
                     HealthComponent hcomp = box.healthComponent;
-                    if (!hcomp || mask.ContainsKey(hcomp) || TeamComponent.GetObjectTeam(hcomp.gameObject) == team) continue;
+                    if( !hcomp || mask.ContainsKey( hcomp ) || TeamComponent.GetObjectTeam( hcomp.gameObject ) == this.team ) continue;
 
                     DamageInfo dmg = new DamageInfo();
-                    dmg.damage = damage * edgePenaltyMult;
-                    dmg.attacker = attacker;
-                    dmg.crit = crit;
-                    dmg.damageColorIndex = damageColor;
+                    dmg.damage = this.damage * this.edgePenaltyMult;
+                    dmg.attacker = this.attacker;
+                    dmg.crit = this.crit;
+                    dmg.damageColorIndex = this.damageColor;
                     dmg.damageType = DamageType.Generic;
-                    dmg.force = (direction + Vector3.up) * 10f;
-                    dmg.inflictor = attacker;
+                    dmg.force = (this.direction + Vector3.up) * 10f;
+                    dmg.inflictor = this.attacker;
                     dmg.position = col.transform.position;
-                    dmg.procChainMask = procMask;
-                    dmg.procCoefficient = procCoef * edgePenaltyMult;
+                    dmg.procChainMask = this.procMask;
+                    dmg.procCoefficient = this.procCoef * this.edgePenaltyMult;
 
-                    hcomp.TakeDamage(dmg);
-                    GlobalEventManager.instance.OnHitEnemy(dmg, hcomp.gameObject);
-                    GlobalEventManager.instance.OnHitAll(dmg, hcomp.gameObject);
-                    mask.Add(hcomp, true);
+                    hcomp.TakeDamage( dmg );
+                    GlobalEventManager.instance.OnHitEnemy( dmg, hcomp.gameObject );
+                    GlobalEventManager.instance.OnHitAll( dmg, hcomp.gameObject );
+                    mask.Add( hcomp, true );
                 }
             }
 
-            if( stepsLeft > 0 && !last)
+            if( this.stepsLeft > 0 && !this.last )
             {
                 SparkOrb nextOrb = new SparkOrb();
-                nextOrb.maxFall = maxFall;
-                nextOrb.attacker = attacker;
-                nextOrb.crit = crit;
-                nextOrb.damage = damage;
-                nextOrb.damageColor = damageColor;
-                nextOrb.direction = direction;
-                nextOrb.origin = dest;
-                nextOrb.procCoef = procCoef;
-                nextOrb.procMask = procMask;
+                nextOrb.maxFall = this.maxFall;
+                nextOrb.attacker = this.attacker;
+                nextOrb.crit = this.crit;
+                nextOrb.damage = this.damage;
+                nextOrb.damageColor = this.damageColor;
+                nextOrb.direction = this.direction;
+                nextOrb.origin = this.dest;
+                nextOrb.procCoef = this.procCoef;
+                nextOrb.procMask = this.procMask;
                 nextOrb.isFirst = false;
-                nextOrb.radius = radius;
-                nextOrb.scale = scale;
-                nextOrb.speed = speed;
-                nextOrb.stepDist = stepDist;
-                nextOrb.stepHeight = stepHeight;
-                nextOrb.stepsLeft = stepsLeft - 1;
-                nextOrb.target = target;
-                nextOrb.team = team;
-                nextOrb.skin = skin;
+                nextOrb.radius = this.radius;
+                nextOrb.scale = this.scale;
+                nextOrb.speed = this.speed;
+                nextOrb.stepDist = this.stepDist;
+                nextOrb.stepHeight = this.stepHeight;
+                nextOrb.stepsLeft = this.stepsLeft - 1;
+                nextOrb.target = this.target;
+                nextOrb.team = this.team;
+                nextOrb.skin = this.skin;
 
-                OrbManager.instance.AddOrb(nextOrb);
+                OrbManager.instance.AddOrb( nextOrb );
             }
         }
 

@@ -1,8 +1,6 @@
-﻿using UnityEngine;
-using RoR2;
+﻿using RoR2;
 using System;
-using System.Collections.Generic;
-using System.Text;
+using UnityEngine;
 
 namespace WispSurvivor.Components
 {
@@ -12,18 +10,18 @@ namespace WispSurvivor.Components
         public Transform doorMesh;
         public Transform doorMesh2;
 
-        public uint skin;
+        public UInt32 skin;
 
         public void Start()
         {
-            var body = GetComponent<VehicleSeat>().currentPassengerBody;
-            skin = body.skinIndex;
+            CharacterBody body = this.GetComponent<VehicleSeat>().currentPassengerBody;
+            this.skin = body.skinIndex;
 
             if( body.baseNameToken == "WISP_SURVIVOR_BODY_NAME" )
             {
-                podMesh.GetComponent<MeshRenderer>().material = Modules.WispMaterialModule.armorMaterials[skin];
-                doorMesh.GetComponent<MeshRenderer>().material = Modules.WispMaterialModule.armorMaterials[skin];
-                doorMesh2.GetComponent<MeshRenderer>().material = Modules.WispMaterialModule.armorMaterials[skin];
+                this.podMesh.GetComponent<MeshRenderer>().material = Modules.WispMaterialModule.armorMaterials[this.skin];
+                this.doorMesh.GetComponent<MeshRenderer>().material = Modules.WispMaterialModule.armorMaterials[this.skin];
+                this.doorMesh2.GetComponent<MeshRenderer>().material = Modules.WispMaterialModule.armorMaterials[this.skin];
             }
         }
     }

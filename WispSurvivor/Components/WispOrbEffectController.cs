@@ -3,21 +3,21 @@ using UnityEngine;
 
 namespace WispSurvivor.Components
 {
-    [RequireComponent(typeof( EffectComponent ) )]
+    [RequireComponent( typeof( EffectComponent ) )]
     public class WispOrbEffectController : MonoBehaviour
     {
-        public string startSound = "";
-        public string endSound = "";
+        public System.String startSound = "";
+        public System.String endSound = "";
 
-        public string explosionSound = "";
+        public System.String explosionSound = "";
 
-        private float duration;
-        private float timeLeft;
-        private float startDist;
-        private float deathDelay = 3f;
+        private System.Single duration;
+        private System.Single timeLeft;
+        private System.Single startDist;
+        private System.Single deathDelay = 3f;
 
-        private bool useTarget;
-        private bool dead = false;
+        private System.Boolean useTarget;
+        private System.Boolean dead = false;
 
         private Vector3 start;
         private Vector3 end;
@@ -28,70 +28,69 @@ namespace WispSurvivor.Components
 
         public void Start()
         {
-            EffectComponent effectComp = GetComponent<EffectComponent>();
+            EffectComponent effectComp = this.GetComponent<EffectComponent>();
             EffectData data = effectComp.effectData;
 
-            useTarget = data.genericBool;
-            duration = data.genericFloat;
-            start = data.origin;
-            end = data.start;
+            this.useTarget = data.genericBool;
+            this.duration = data.genericFloat;
+            this.start = data.origin;
+            this.end = data.start;
 
-            if( useTarget )
+            if( this.useTarget )
             {
-                target = data.ResolveHurtBoxReference().transform;
-                startDist = Vector3.Distance(start, target.position);
-            }else
+                this.target = data.ResolveHurtBoxReference().transform;
+                this.startDist = Vector3.Distance( this.start, this.target.position );
+            } else
             {
-                startDist = Vector3.Distance(start, end);
+                this.startDist = Vector3.Distance( this.start, this.end );
             }
 
-            timeLeft = duration;
-            prevPos = start;
+            this.timeLeft = this.duration;
+            this.prevPos = this.start;
 
-            transform.position = start;
-            RoR2.Util.PlayScaledSound(startSound, gameObject , 2.0f);
+            this.transform.position = this.start;
+            RoR2.Util.PlayScaledSound( this.startSound, this.gameObject, 2.0f );
         }
 
         public void Update()
         {
-            if (!dead)
+            if( !this.dead )
             {
-                if (useTarget)
+                if( this.useTarget )
                 {
-                    if (!target)
+                    if( !this.target )
                     {
-                        useTarget = false;
+                        this.useTarget = false;
                     }
                 }
 
-                Vector3 dest = end;
-                if (useTarget)
+                Vector3 dest = this.end;
+                if( this.useTarget )
                 {
-                    dest = target.position;
+                    dest = this.target.position;
                 }
 
                 //This can be modified to make arcing effects
-                timeLeft -= Time.deltaTime;
-                float frac = 1f - timeLeft / duration;
-                Vector3 desiredPos = Vector3.Lerp(start, dest, frac);
+                this.timeLeft -= Time.deltaTime;
+                System.Single frac = 1f - this.timeLeft / this.duration;
+                Vector3 desiredPos = Vector3.Lerp(this.start, dest, frac);
 
-                transform.rotation = Quaternion.FromToRotation(Vector3.Normalize(desiredPos - prevPos), transform.forward);
-                transform.position = desiredPos;
-                prevPos = desiredPos;
+                this.transform.rotation = Quaternion.FromToRotation( Vector3.Normalize( desiredPos - this.prevPos ), this.transform.forward );
+                this.transform.position = desiredPos;
+                this.prevPos = desiredPos;
 
-                if (timeLeft < 0f)
+                if( this.timeLeft < 0f )
                 {
-                    RoR2.Util.PlaySound(endSound, gameObject);
-                    RoR2.Util.PlaySound(explosionSound, gameObject);
-                    dead = true;
+                    RoR2.Util.PlaySound( this.endSound, this.gameObject );
+                    RoR2.Util.PlaySound( this.explosionSound, this.gameObject );
+                    this.dead = true;
                 }
-            }
-            else
+            } else
             {
-                deathDelay -= Time.deltaTime;
-                if( deathDelay < 0 )
+                this.deathDelay -= Time.deltaTime;
+                if( this.deathDelay < 0 )
                 {
-                    Destroy(gameObject);
+                    Destroy( this.gameObject );
                 }
             }
         }

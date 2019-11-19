@@ -1,35 +1,34 @@
-﻿using RoR2;
-using EntityStates;
-using UnityEngine;
-using System;
+﻿using EntityStates;
+using RoR2;
 using RoR2.Orbs;
+using System;
+using UnityEngine;
 using UnityEngine.Networking;
-using System.Linq;
 
 namespace WispSurvivor.Skills.Primary
 {
     public class FireHeatwave : BaseState
     {
-        public static float baseFireDelay = 0f;
-        public static float baseDamageMult = 3.0f;
-        public static float explosionRadius = 5f;
+        public static Single baseFireDelay = 0f;
+        public static Single baseDamageMult = 3.0f;
+        public static Single explosionRadius = 5f;
 
-        public float initAS;
+        public Single initAS;
 
         public Vector3 targetVec;
         public HurtBox target;
 
-        public bool crit;
+        public Boolean crit;
 
-        public uint skin = 0;
+        public UInt32 skin = 0;
 
 
-        private float baseFireDuration = PrepHeatwave.baseFireDuration;
-        private float fireDuration;
-        private float fireDelay;
-        private float damageValue;
+        private Single baseFireDuration = PrepHeatwave.baseFireDuration;
+        private Single fireDuration;
+        private Single fireDelay;
+        private Single damageValue;
 
-        private bool fired = false;
+        private Boolean fired = false;
 
         private Components.WispPassiveController passive;
         private ChildLocator childLoc;
@@ -37,14 +36,14 @@ namespace WispSurvivor.Skills.Primary
         public override void OnEnter()
         {
             base.OnEnter();
-            passive = gameObject.GetComponent<Components.WispPassiveController>();
-            skin = characterBody.skinIndex;
-            childLoc = GetModelTransform().GetComponent<ChildLocator>();
+            this.passive = this.gameObject.GetComponent<Components.WispPassiveController>();
+            this.skin = this.characterBody.skinIndex;
+            this.childLoc = this.GetModelTransform().GetComponent<ChildLocator>();
 
-            fireDuration = baseFireDuration / initAS;
-            fireDelay = baseFireDelay / initAS;
+            this.fireDuration = this.baseFireDuration / this.initAS;
+            this.fireDelay = baseFireDelay / this.initAS;
 
-            damageValue = damageStat * baseDamageMult;
+            this.damageValue = this.damageStat * baseDamageMult;
 
             //RoR2.Util.PlaySound("Play_beetle_guard_attack2_initial", gameObject);
         }
@@ -53,83 +52,74 @@ namespace WispSurvivor.Skills.Primary
         {
             base.FixedUpdate();
 
-            if( !fired )
+            if( !this.fired )
             {
-                characterBody.isSprinting = false;
+                this.characterBody.isSprinting = false;
             }
-            if( !fired && fixedAge >= fireDelay )
+            if( !this.fired && this.fixedAge >= this.fireDelay )
             {
-                FireOrb();
+                this.FireOrb();
             }
-            if( fixedAge >= fireDuration && isAuthority )
+            if( this.fixedAge >= this.fireDuration && this.isAuthority )
             {
-                if( inputBank && inputBank.skill1.down )
+                if( this.inputBank && this.inputBank.skill1.down )
                 {
-                    outer.SetNextState(new PrepHeatwave());
-                }
-                else
+                    this.outer.SetNextState( new PrepHeatwave() );
+                } else
                 {
-                    outer.SetNextState(new HeatwaveWindDown());
+                    this.outer.SetNextState( new HeatwaveWindDown() );
                 }
             }
         }
 
-        public override void OnExit()
-        {
-            base.OnExit();
+        public override void OnExit() => base.OnExit();
 
+        public override InterruptPriority GetMinimumInterruptPriority() => InterruptPriority.Skill;
+
+        public override void OnSerialize( NetworkWriter writer )
+        {
+            base.OnSerialize( writer );
+            writer.Write( HurtBoxReference.FromHurtBox( this.target ) );
+            writer.Write( this.targetVec );
+            writer.Write( this.initAS );
         }
 
-        public override InterruptPriority GetMinimumInterruptPriority()
+        public override void OnDeserialize( NetworkReader reader )
         {
-            return InterruptPriority.Skill;
-        }
-
-        public override void OnSerialize(NetworkWriter writer)
-        {
-            base.OnSerialize(writer);
-            writer.Write(HurtBoxReference.FromHurtBox(target));
-            writer.Write(targetVec);
-            writer.Write(initAS);
-        }
-
-        public override void OnDeserialize(NetworkReader reader)
-        {
-            base.OnDeserialize(reader);
-            target = reader.ReadHurtBoxReference().ResolveHurtBox();
-            targetVec = reader.ReadVector3();
-            initAS = reader.ReadSingle();
+            base.OnDeserialize( reader );
+            this.target = reader.ReadHurtBoxReference().ResolveHurtBox();
+            this.targetVec = reader.ReadVector3();
+            this.initAS = reader.ReadSingle();
         }
 
         private void FireOrb()
         {
-            if (fired) return;
-            fired = true;
-            if (!NetworkServer.active) return;
+            if( this.fired ) return;
+            this.fired = true;
+            if( !NetworkServer.active ) return;
 
             Orbs.SnapOrb snap = new Orbs.SnapOrb();
-            snap.damage = damageValue;
-            snap.crit = RollCrit();
-            snap.team = TeamComponent.GetObjectTeam(gameObject);
-            snap.attacker = gameObject;
+            snap.damage = this.damageValue;
+            snap.crit = this.RollCrit();
+            snap.team = TeamComponent.GetObjectTeam( this.gameObject );
+            snap.attacker = this.gameObject;
             snap.procCoef = 1.0f;
             snap.radius = explosionRadius;
-            snap.skin = skin;
-            Transform trans = childLoc.FindChild("MuzzleRight");
+            snap.skin = this.skin;
+            Transform trans = this.childLoc.FindChild("MuzzleRight");
             snap.origin = trans.position;
             snap.speed = 150f;
-            if( target )
+            if( this.target )
             {
-                snap.target = target;
+                snap.target = this.target;
                 snap.useTarget = true;
-                targetVec = target.transform.position;
-            }
-            else
+                this.targetVec = this.target.transform.position;
+            } else
             {
                 snap.useTarget = false;
             }
-            snap.targetPos = targetVec;
-            OrbManager.instance.AddOrb(snap);
+            snap.targetPos = this.targetVec;
+            OrbManager.instance.AddOrb( snap );
         }
     }
 }

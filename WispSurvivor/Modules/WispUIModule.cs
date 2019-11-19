@@ -1,8 +1,8 @@
-﻿using UnityEngine;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using WispSurvivor.Util;
-using static WispSurvivor.Util.PrefabUtilities;
+using UnityEngine;
+using WispSurvivor.Helpers;
+using static WispSurvivor.Helpers.PrefabHelpers;
 
 namespace WispSurvivor.Modules
 {
@@ -10,10 +10,7 @@ namespace WispSurvivor.Modules
     {
         public static GameObject crosshair;
 
-        public static void DoModule(GameObject body, Dictionary<Type, Component> dic)
-        {
-            CreateCrosshair();
-        }
+        public static void DoModule( GameObject body, Dictionary<Type, Component> dic ) => CreateCrosshair();
 
         public static void CreateCrosshair()
         {

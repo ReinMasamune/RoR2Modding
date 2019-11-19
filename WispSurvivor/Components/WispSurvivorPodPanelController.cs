@@ -1,8 +1,5 @@
-﻿using UnityEngine;
-using RoR2;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System;
+using UnityEngine;
 
 namespace WispSurvivor.Components
 {
@@ -10,19 +7,19 @@ namespace WispSurvivor.Components
     {
         public void Start()
         {
-            Transform par = transform;
-            while (par.parent != null) par = par.parent;
+            Transform par = this.transform;
+            while( par.parent != null ) par = par.parent;
 
-            Debug.Log(par.name);
-            var control = par.GetComponent<WispSurvivorPodController>();
+            Debug.Log( par.name );
+            WispSurvivorPodController control = par.GetComponent<WispSurvivorPodController>();
             if( control )
             {
-                var skin = control.skin;
+                UInt32 skin = control.skin;
 
-                transform.Find("EscapePodMesh.002").GetComponent<MeshRenderer>().material = Modules.WispMaterialModule.armorMaterials[skin];
+                this.transform.Find( "EscapePodMesh.002" ).GetComponent<MeshRenderer>().material = Modules.WispMaterialModule.armorMaterials[skin];
             }
 
-            
+
         }
     }
 }

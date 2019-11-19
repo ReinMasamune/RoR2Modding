@@ -1,46 +1,47 @@
-﻿using UnityEngine;
-using RoR2;
+﻿using RoR2;
 
 namespace WispSurvivor.Orbs
 {
     public class RestoreOrb : RoR2.Orbs.Orb
     {
-        public uint skin = 0;
+        public System.UInt32 skin = 0;
 
-        public uint stacks = 0;
-        public float length = 0f;
+        public System.UInt32 stacks = 0;
+        public System.Single length = 0f;
 
-        public bool crit = false;
-        public bool hasTarget = false;
+        public System.Boolean crit = false;
+        public System.Boolean hasTarget = false;
 
         public override void Begin()
         {
-            duration = distanceToTarget / 75f;
+            this.duration = this.distanceToTarget / 75f;
             EffectData effect = new EffectData
             {
                 origin = origin,
                 genericFloat = duration,
-                genericUInt = stacks
+                genericUInt = stacks,
+                scale = 1f,
+                genericBool = true
             };
 
-            effect.SetHurtBoxReference(target);
+            effect.SetHurtBoxReference( this.target );
 
-            EffectManager.instance.SpawnEffect(Modules.WispEffectModule.utilityLeech[skin] , effect , true);
+            EffectManager.instance.SpawnEffect( Modules.WispEffectModule.utilityLeech[this.skin], effect, true );
         }
 
         public override void OnArrival()
         {
-            if (!target) return;
-            HealthComponent hc = target.healthComponent;
-            if (!hc) return;
-            CharacterBody body = target.healthComponent.body;
-            if (!body) return;
+            if( !this.target ) return;
+            HealthComponent hc = this.target.healthComponent;
+            if( !hc ) return;
+            CharacterBody body = this.target.healthComponent.body;
+            if( !body ) return;
 
             BuffIndex b = BuffCatalog.FindBuffIndex("WispFlameChargeBuff");
 
-            for( int i = 0; i < stacks; i++ )
+            for( System.Int32 i = 0; i < this.stacks; i++ )
             {
-                body.AddTimedBuff(b, length);
+                body.AddTimedBuff( b, this.length );
             }
         }
 

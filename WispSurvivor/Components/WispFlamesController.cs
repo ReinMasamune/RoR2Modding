@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace WispSurvivor.Components
 {
@@ -7,16 +7,16 @@ namespace WispSurvivor.Components
     {
         public WispPassiveController passive;
         public List<ParticleSystem> flames = new List<ParticleSystem>();
-        public List<float> flameInfos = new List<float>();
+        public List<System.Single> flameInfos = new List<System.Single>();
 
         public void Update()
         {
-            float mult = (float) (passive.ReadCharge() / 100.0);
+            System.Single mult = (System.Single)(this.passive.ReadCharge() / 100.0);
             ParticleSystem.EmissionModule temp;
-            for( int i = 0; i < flames.Count; i++ )
+            for( System.Int32 i = 0; i < this.flames.Count; i++ )
             {
-                temp = flames[i].emission;
-                temp.rateMultiplier = mult * flameInfos[i];
+                temp = this.flames[i].emission;
+                temp.rateMultiplier = mult * this.flameInfos[i];
             }
         }
     }

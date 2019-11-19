@@ -1,40 +1,39 @@
-﻿using RoR2;
-using EntityStates;
+﻿using EntityStates;
+using RoR2;
 using UnityEngine;
-using RoR2.Orbs;
 using UnityEngine.Networking;
 
 namespace WispSurvivor.Skills.Utility
 {
     public class TestUtility : BaseState
     {
-        public static double chargeUsed = 10.0;
+        public static System.Double chargeUsed = 10.0;
 
-        public static float baseDuration = 0.2f;
-        public static float maxRange = 50f;
-        public static float returnIdlePercent = 0.5f;
-        public static float chargeScaler = 1f;
+        public static System.Single baseDuration = 0.2f;
+        public static System.Single maxRange = 50f;
+        public static System.Single returnIdlePercent = 0.5f;
+        public static System.Single chargeScaler = 1f;
 
-        public static float radius = 3f;
-        public static float baseTime = 5f;
-        public static float targetResetFreq = 0.5f;
-        public static float damageMult = 0.25f;
-        public static float baseDebuffTime = 1.5f;
-        public static float dotTimeMult = 1f;
-        public static float tickFreq = 1f;
-        public static float minTime = 1f;
-        public static float spreadLossFrac = 1.1f;
+        public static System.Single radius = 3f;
+        public static System.Single baseTime = 5f;
+        public static System.Single targetResetFreq = 0.5f;
+        public static System.Single damageMult = 0.25f;
+        public static System.Single baseDebuffTime = 1.5f;
+        public static System.Single dotTimeMult = 1f;
+        public static System.Single tickFreq = 1f;
+        public static System.Single minTime = 1f;
+        public static System.Single spreadLossFrac = 1.1f;
 
-        private double charge;
+        private System.Double charge;
 
-        private float duration;
+        private System.Single duration;
 
-        private bool hasFired = false;
-        private bool scanned = false;
-        private bool synced = false;
-        private bool useTarget = false;
+        private System.Boolean hasFired = false;
+        private System.Boolean scanned = false;
+        private System.Boolean synced = false;
+        private System.Boolean useTarget = false;
 
-        private uint skin = 0;
+        private System.UInt32 skin = 0;
 
         private Vector3 targetVec;
         private Vector3 normal;
@@ -49,19 +48,19 @@ namespace WispSurvivor.Skills.Utility
         {
             base.OnEnter();
 
-            passive = gameObject.GetComponent<Components.WispPassiveController>();
+            this.passive = this.gameObject.GetComponent<Components.WispPassiveController>();
 
             Transform modelTrans = base.GetModelTransform();
             //Sound
 
-            duration = baseDuration;
+            this.duration = baseDuration;
 
-            if (characterBody)
+            if( this.characterBody )
             {
-                characterBody.SetAimTimer(duration + 1f);
+                this.characterBody.SetAimTimer( this.duration + 1f );
             }
 
-            skin = characterBody.skinIndex;
+            this.skin = this.characterBody.skinIndex;
 
             //charge = passive.UseCharge(chargeUsed, );
         }
@@ -70,55 +69,49 @@ namespace WispSurvivor.Skills.Utility
         {
             base.FixedUpdate();
             //FireOrb();
-            if (fixedAge > duration && isAuthority)
+            if( this.fixedAge > this.duration && this.isAuthority )
             {
-                outer.SetNextStateToMain();
+                this.outer.SetNextStateToMain();
                 return;
             }
         }
 
-        public override void OnExit()
-        {
-            base.OnExit();
-        }
+        public override void OnExit() => base.OnExit();
 
-        public override InterruptPriority GetMinimumInterruptPriority()
-        {
-            return InterruptPriority.PrioritySkill;
-        }
+        public override InterruptPriority GetMinimumInterruptPriority() => InterruptPriority.PrioritySkill;
 
-        public override void OnSerialize(NetworkWriter writer)
+        public override void OnSerialize( NetworkWriter writer )
         {
-            if (isAuthority)
+            if( this.isAuthority )
             {
-                writer.Write(HurtBoxReference.FromHurtBox(target));
-                writer.Write(targetVec);
-                writer.Write(skin);
+                writer.Write( HurtBoxReference.FromHurtBox( this.target ) );
+                writer.Write( this.targetVec );
+                writer.Write( this.skin );
             }
         }
 
-        public override void OnDeserialize(NetworkReader reader)
+        public override void OnDeserialize( NetworkReader reader )
         {
-            if (!isAuthority)
+            if( !this.isAuthority )
             {
-                target = reader.ReadHurtBoxReference().ResolveHurtBox();
-                targetVec = reader.ReadVector3();
-                skin = reader.ReadUInt32();
-                synced = true;
+                this.target = reader.ReadHurtBoxReference().ResolveHurtBox();
+                this.targetVec = reader.ReadVector3();
+                this.skin = reader.ReadUInt32();
+                this.synced = true;
             }
         }
 
         private void GetTarget()
         {
-            useTarget = false;
-            Ray r = GetAimRay();
+            this.useTarget = false;
+            Ray r = this.GetAimRay();
 
             RaycastHit rh;
 
-            if (Physics.SphereCast( r, 0.25f, out rh, maxRange, LayerIndex.world.mask | LayerIndex.entityPrecise.mask, QueryTriggerInteraction.UseGlobal))
+            if( Physics.SphereCast( r, 0.25f, out rh, maxRange, LayerIndex.world.mask | LayerIndex.entityPrecise.mask, QueryTriggerInteraction.UseGlobal ) )
             {
-                targetVec = rh.point;
-                normal = rh.normal;
+                this.targetVec = rh.point;
+                this.normal = rh.normal;
 
                 Collider col = rh.collider;
                 if( col )
@@ -127,18 +120,17 @@ namespace WispSurvivor.Skills.Utility
                     if( hb )
                     {
                         TeamIndex team = TeamComponent.GetObjectTeam(hb.healthComponent.gameObject);
-                        if( team != TeamComponent.GetObjectTeam(gameObject) )
+                        if( team != TeamComponent.GetObjectTeam( this.gameObject ) )
                         {
-                            target = hb;
-                            useTarget = true;
+                            this.target = hb;
+                            this.useTarget = true;
                         }
                     }
                 }
-            }
-            else
+            } else
             {
-                targetVec = r.GetPoint(maxRange);
-                normal = Vector3.up;
+                this.targetVec = r.GetPoint( maxRange );
+                this.normal = Vector3.up;
             }
         }
 

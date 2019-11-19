@@ -1,6 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.Networking;
-using System;
 
 namespace WispSurvivor.Components
 {
@@ -8,18 +8,18 @@ namespace WispSurvivor.Components
     {
         public WispPassiveController passive;
 
-        private float boxesStartH = 1100;
-        private float boxesSpacing = 14f;
-        private float boxesStartV = 480f;
-        private float boxesW = 24f;
-        private float boxesH = 12f;
+        private Single boxesStartH = 1100;
+        private Single boxesSpacing = 14f;
+        private Single boxesStartV = 480f;
+        private Single boxesW = 24f;
+        private Single boxesH = 12f;
 
-        private static int texW = 12;
-        private static int texH = 6;
+        private static Int32 texW = 12;
+        private static Int32 texH = 6;
 
         private Rect[] boxes = new Rect[10];
 
-        private bool paused = false;
+        private Boolean paused = false;
 
         private Texture2D[] colors = new Texture2D[8]
         {
@@ -38,7 +38,7 @@ namespace WispSurvivor.Components
             border = new RectOffset(6, 6, 1, 1)
         };
 
-        private uint[] colorStates = new uint[10]
+        private UInt32[] colorStates = new UInt32[10]
         {
             0,
             0,
@@ -54,27 +54,27 @@ namespace WispSurvivor.Components
 
         public void Awake()
         {
-            for( int i = 0; i < 10; i++ )
+            for( Int32 i = 0; i < 10; i++ )
             {
-                boxes[i] = new Rect(boxesStartH, boxesStartV + i * boxesSpacing, boxesW, boxesH);
+                this.boxes[i] = new Rect( this.boxesStartH, this.boxesStartV + i * this.boxesSpacing, this.boxesW, this.boxesH );
             }
 
-            RoR2.RoR2Application.onPauseStartGlobal += () => paused = true;
-            RoR2.RoR2Application.onPauseEndGlobal += () => paused = false;
+            RoR2.RoR2Application.onPauseStartGlobal += () => this.paused = true;
+            RoR2.RoR2Application.onPauseEndGlobal += () => this.paused = false;
         }
 
         public void Update()
         {
-            if (!base.hasAuthority) return;
-            UpdateBarColors(passive.ReadCharge());
+            if( !base.hasAuthority ) return;
+            this.UpdateBarColors( this.passive.ReadCharge() );
         }
 
         public void OnGUI()
         {
-            if (!base.hasAuthority || paused) return;
-            for( int i = 0; i < 10; i++ )
+            if( !base.hasAuthority || this.paused ) return;
+            for( Int32 i = 0; i < 10; i++ )
             {
-                GUI.Box(boxes[i], colors[colorStates[9 - i]], style );
+                GUI.Box( this.boxes[i], this.colors[this.colorStates[9 - i]], this.style );
             }
         }
 
@@ -83,40 +83,40 @@ namespace WispSurvivor.Components
             Texture2D tex = new Texture2D(texW, texH);
 
             Color[] cols = new Color[texW * texH];
-            for( int i = 0; i < cols.Length; i++ )
+            for( Int32 i = 0; i < cols.Length; i++ )
             {
                 cols[i] = c;
             }
 
-            tex.SetPixels(0, 0, texW, texH, cols);
+            tex.SetPixels( 0, 0, texW, texH, cols );
             tex.Apply();
             return tex;
         }
 
-        private void UpdateBarColors( double charge )
+        private void UpdateBarColors( Double charge )
         {
-            uint c = (uint) Math.Round(charge / 10.0) * 10;
+            UInt32 c = (UInt32) Math.Round(charge / 10.0) * 10;
 
-            uint[] newColors = new uint[10];
+            UInt32[] newColors = new UInt32[10];
 
-            int val = 0;
-            int cStep = 10;
+            Int32 val = 0;
+            Int32 cStep = 10;
             while( val < c )
             {
                 cStep = val <= 200 ? 10 : (cStep * 2);
-                for( int i = 0; i < 10; i++ )
+                for( Int32 i = 0; i < 10; i++ )
                 {
-                    newColors[i] += (c-val) >= cStep ? 1u : 0u;
+                    newColors[i] += (c - val) >= cStep ? 1u : 0u;
                     val += cStep;
                 }
             }
 
-            for( int i = 0; i < 10; i++ )
+            for( Int32 i = 0; i < 10; i++ )
             {
                 newColors[i] %= 8u;
             }
 
-            colorStates = newColors;
+            this.colorStates = newColors;
         }
     }
 }

@@ -1,10 +1,15 @@
 ﻿using EntityStates;
+using UnityEngine;
 
 namespace WispSurvivor.Skills.Special
 {
-    public class CremationRecovery : BaseState
+    public class IncinerationRecovery : BaseState
     {
+        public static System.Single baseDuration = 0.75f;
         public System.UInt32 skin;
+
+        public Vector3 camPos1;
+        public Vector3 camPos2;
 
         private System.Single duration;
 
@@ -21,21 +26,23 @@ namespace WispSurvivor.Skills.Special
             base.OnEnter();
             this.skin = this.characterBody.skinIndex;
 
-            this.duration = Cremation.baseRecoveryDuration / this.attackSpeedStat;
+            this.duration = baseDuration / this.attackSpeedStat;
 
-            this.PlayAnimation( "Body", "SpecialFire", "SpecialFire.playbackRate", this.duration );
+            this.PlayAnimation( "Body", "SpecialFire", "SpecialFire.playbackRate", this.duration * 1.2f );
 
 
-            this.GetComponent<Components.WispAimAnimationController>().EndCannonMode( this.duration );
+            this.GetComponent<Components.WispAimAnimationController>().EndCannonMode( this.duration * 0.5f );
         }
 
         public override void FixedUpdate()
         {
             base.FixedUpdate();
+
+            cameraTargetParams.idealLocalCameraPos = Vector3.Lerp( camPos1, camPos2, fixedAge / this.duration );
+
             if( this.fixedAge > this.duration )
             {
                 this.PlayAnimation( "Body", "Idle" );
-                RoR2.Util.PlaySound( "Stop_item_use_BFG_loop", this.gameObject );
                 if( this.isAuthority )
                 {
                     this.outer.SetNextStateToMain();

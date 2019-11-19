@@ -1,23 +1,23 @@
-﻿using RoR2;
-using UnityEngine;
-using R2API.Utils;
+﻿using R2API.Utils;
+using RoR2;
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace WispSurvivor.Modules
 {
     public static class WispMotionModule
     {
-        public static void DoModule( GameObject body , Dictionary<Type,Component> dic)
+        public static void DoModule( GameObject body, Dictionary<Type, Component> dic )
         {
-            SetupRigidBody(body, dic);
-            SetupCapCollider(body, dic);
-            SetupBodyDirection(body, dic);
-            SetupBodyMotor(body, dic);
-            SetupBodyKinMotor(body, dic);
+            SetupRigidBody( body, dic );
+            SetupCapCollider( body, dic );
+            SetupBodyDirection( body, dic );
+            SetupBodyMotor( body, dic );
+            SetupBodyKinMotor( body, dic );
         }
 
-        private static void SetupRigidBody( GameObject body , Dictionary<Type,Component> dic )
+        private static void SetupRigidBody( GameObject body, Dictionary<Type, Component> dic )
         {
             Rigidbody rb = dic.C<Rigidbody>();
             rb.mass = 100f;
@@ -29,15 +29,15 @@ namespace WispSurvivor.Modules
             rb.constraints = RigidbodyConstraints.None;
         }
 
-        private static void SetupCapCollider(GameObject body, Dictionary<Type, Component> dic)
+        private static void SetupCapCollider( GameObject body, Dictionary<Type, Component> dic )
         {
             CapsuleCollider cap = dic.C<CapsuleCollider>();
             cap.radius = 0.7f;
             cap.height = 1.5f;
-            cap.center = new Vector3(0f, 0f, 0f);
+            cap.center = new Vector3( 0f, 0f, 0f );
         }
 
-        private static void SetupBodyDirection(GameObject body, Dictionary<Type, Component> dic)
+        private static void SetupBodyDirection( GameObject body, Dictionary<Type, Component> dic )
         {
             CharacterDirection dir = dic.C<CharacterDirection>();
             dir.targetTransform = dic.C<ModelLocator>().modelBaseTransform;
@@ -46,7 +46,7 @@ namespace WispSurvivor.Modules
             dir.turnSpeed = 300f;
         }
 
-        private static void SetupBodyMotor(GameObject body, Dictionary<Type, Component> dic)
+        private static void SetupBodyMotor( GameObject body, Dictionary<Type, Component> dic )
         {
             CharacterMotor motor = dic.C<CharacterMotor>();
             motor.walkSpeedPenaltyCoefficient = 1f;
@@ -60,7 +60,7 @@ namespace WispSurvivor.Modules
             motor.isFlying = false;
         }
 
-        private static void SetupBodyKinMotor(GameObject body, Dictionary<Type, Component> dic)
+        private static void SetupBodyKinMotor( GameObject body, Dictionary<Type, Component> dic )
         {
             KinematicCharacterController.KinematicCharacterMotor kinMot = dic.C<KinematicCharacterController.KinematicCharacterMotor>();
             kinMot.CharacterController = dic.C<CharacterMotor>();
@@ -79,14 +79,11 @@ namespace WispSurvivor.Modules
             kinMot.LedgeHandling = true;
             kinMot.InteractiveRigidbodyHandling = true;
             kinMot.SafeMovement = false;
-            kinMot.SetFieldValue<float>("CapsuleRadius", 0.7f);
-            kinMot.SetFieldValue<float>("CapsuleHeight", 1.5f);
-            kinMot.SetFieldValue<float>("CapsuleYOffset", 0f);
+            kinMot.SetFieldValue<Single>( "CapsuleRadius", 0.7f );
+            kinMot.SetFieldValue<Single>( "CapsuleHeight", 1.5f );
+            kinMot.SetFieldValue<Single>( "CapsuleYOffset", 0f );
         }
 
-        private static T C<T>( this Dictionary<Type,Component> dic ) where T : Component
-        {
-            return dic[typeof(T)] as T;
-        }
+        private static T C<T>( this Dictionary<Type, Component> dic ) where T : Component => dic[typeof( T )] as T;
     }
 }

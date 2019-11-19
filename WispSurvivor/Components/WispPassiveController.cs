@@ -1,7 +1,6 @@
-﻿using UnityEngine;
-using UnityEngine.Networking;
+﻿using RoR2;
 using System;
-using RoR2;
+using UnityEngine;
 
 namespace WispSurvivor.Components
 {
@@ -9,18 +8,18 @@ namespace WispSurvivor.Components
     {
         public struct ChargeState
         {
-            public double chargeConsumed;
-            public double chargeLeft;
-            public double chargeAtStart;
-            public float chargeScaler;
+            public Double chargeConsumed;
+            public Double chargeLeft;
+            public Double chargeAtStart;
+            public Single chargeScaler;
         }
 
-        private const double decayRate = -0.1;
-        private const double zeroMark = 100f;
-        private const double regenPsPs = 2.5;
-        private const double decayMultWithBuff = 0.25;
+        private const Double decayRate = -0.1;
+        private const Double zeroMark = 100f;
+        private const Double regenPsPs = 2.5;
+        private const Double decayMultWithBuff = 0.35;
 
-        private double charge;
+        private Double charge;
 
         private BuffIndex buffInd;
 
@@ -28,31 +27,28 @@ namespace WispSurvivor.Components
 
         public void Awake()
         {
-            charge = zeroMark;
-            body = GetComponent<CharacterBody>();
-            buffInd = BuffCatalog.FindBuffIndex("WispFlameChargeBuff");
+            this.charge = zeroMark;
+            this.body = this.GetComponent<CharacterBody>();
+            this.buffInd = BuffCatalog.FindBuffIndex( "WispFlameChargeBuff" );
         }
 
         public void FixedUpdate()
         {
-            int buffStacks = body.GetBuffCount(buffInd);            
-            charge = UpdateCharge(charge, Time.fixedDeltaTime * (float)( buffStacks > 0 ? decayMultWithBuff : 1.0 ));
-            charge += regenPsPs * buffStacks * Time.fixedDeltaTime;
+            Int32 buffStacks = this.body.GetBuffCount(this.buffInd);
+            this.charge = UpdateCharge( this.charge, Time.fixedDeltaTime * (Single)(buffStacks > 0 ? decayMultWithBuff : 1.0) );
+            this.charge += regenPsPs * buffStacks * Time.fixedDeltaTime;
         }
 
-        public void AddCharge(double addedCharge )
-        {
-            charge += addedCharge;
-        }
+        public void AddCharge( Double addedCharge ) => this.charge += addedCharge;
 
-        public ChargeState UseCharge(double percent, float scaler)
+        public ChargeState UseCharge( Double percent, Single scaler, bool floorCost = true )
         {
             ChargeState state = new ChargeState();
 
-            double startingCharge = charge;
-            double chargeToConsume;
+            Double startingCharge = this.charge;
+            Double chargeToConsume;
 
-            if( startingCharge > zeroMark )
+            if( startingCharge > zeroMark || !floorCost )
             {
                 chargeToConsume = startingCharge * percent / 100.0;
             } else
@@ -60,39 +56,40 @@ namespace WispSurvivor.Components
                 chargeToConsume = percent;
             }
 
-            chargeToConsume = Math.Min(startingCharge, chargeToConsume);
+            chargeToConsume = Math.Min( startingCharge, chargeToConsume );
 
 
-            charge -= chargeToConsume;
+            this.charge -= chargeToConsume;
 
             state.chargeAtStart = startingCharge;
             state.chargeConsumed = chargeToConsume;
-            state.chargeLeft = charge;
-            state.chargeScaler = GetChargeScaler(chargeToConsume, percent, scaler);
+            state.chargeLeft = this.charge;
+            state.chargeScaler = GetChargeScaler( chargeToConsume, percent, scaler );
 
             return state;
         }
 
-        public ChargeState UseChargeDrain(double rate, float time)
+        public ChargeState UseChargeDrain( Double rate, Single time, Single scaler = 0f )
         {
             ChargeState state = new ChargeState();
 
-            double startingCharge = charge;
-            double chargeToConsume = startingCharge - (startingCharge * Math.Exp(-rate * time / 100));
-            chargeToConsume = Math.Max(0, chargeToConsume);
+            Double startingCharge = this.charge;
+            Double chargeToConsume = startingCharge - (startingCharge * Math.Exp(-rate * time / 100));
 
-            charge -= chargeToConsume;
+            chargeToConsume = Math.Max( 0, chargeToConsume );
+
+            this.charge -= chargeToConsume;
             state.chargeAtStart = startingCharge;
             state.chargeConsumed = chargeToConsume;
-            state.chargeLeft = charge;
-            state.chargeScaler = 0f;
+            state.chargeLeft = this.charge;
+            state.chargeScaler = GetDrainScaler(chargeToConsume, (rate * time ), scaler );
 
             return state;
         }
 
-        public static float GetDrainScaler(double drained, double ideal, float scaler)
+        public static Single GetDrainScaler( Double drained, Double ideal, Single scaler )
         {
-            float temp = (float)(drained / ideal);
+            Single temp = (Single)(drained / ideal);
             temp -= 1f;
             temp *= scaler;
             temp += 1f;
@@ -100,27 +97,22 @@ namespace WispSurvivor.Components
             return temp;
         }
 
-        public double ReadCharge()
-        {
-            return charge;
-        }
+        public Double ReadCharge() => this.charge;
 
-        private static double UpdateCharge(double startVal, float dTime)
+        private static Double UpdateCharge( Double startVal, Single dTime )
         {
-            double temp = startVal - zeroMark;
-            temp *= Math.Exp(decayRate * dTime);
+            Double temp = startVal - zeroMark;
+            temp *= Math.Exp( decayRate * dTime );
             temp += zeroMark;
             return temp;
         }
 
-        private static float GetChargeScaler( double consumed, double percent, float scaler )
+        private static Single GetChargeScaler( Double consumed, Double percent, Single scaler )
         {
-            float temp = (float) (consumed / percent);
+            Single temp = (Single) (consumed / percent);
             temp -= 1f;
             temp *= scaler;
             temp += 1f;
-
-            Debug.Log(temp);
 
             return temp;
         }

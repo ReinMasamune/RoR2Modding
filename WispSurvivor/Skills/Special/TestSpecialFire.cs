@@ -1,29 +1,29 @@
-﻿using RoR2;
-using EntityStates;
-using UnityEngine;
+﻿using EntityStates;
+using RoR2;
 using RoR2.Projectile;
+using UnityEngine;
 using UnityEngine.Networking;
 
 namespace WispSurvivor.Skills.Special
 {
     public class TestSpecialFire : BaseState
     {
-        public float chargeTimer;
-        public double chargeLevel;
-        public double idealChargeLevel;
-        public float recoveryTime;
-        public float fireDelay;
-        public static float baseDamageScaler = 15.0f;
-        public static float chargeScaler = 10.0f;
+        public System.Single chargeTimer;
+        public System.Double chargeLevel;
+        public System.Double idealChargeLevel;
+        public System.Single recoveryTime;
+        public System.Single fireDelay;
+        public static System.Single baseDamageScaler = 15.0f;
+        public static System.Single chargeScaler = 10.0f;
         public GameObject effectInstance;
 
-        public uint skin;
+        public System.UInt32 skin;
 
 
-        private bool fired = false;
-        private bool rotated = false;
+        private System.Boolean fired = false;
+        private System.Boolean rotated = false;
 
-        private float timer = 0f;
+        private System.Single timer = 0f;
 
         private Components.WispPassiveController passive;
 
@@ -31,7 +31,7 @@ namespace WispSurvivor.Skills.Special
         {
             base.OnEnter();
 
-            passive = gameObject.GetComponent<Components.WispPassiveController>();
+            this.passive = this.gameObject.GetComponent<Components.WispPassiveController>();
 
             //PlayCrossfade("Gesture", "Throw1", "Throw.playbackRate", fireDelay / 0.25f, 0.2f);
         }
@@ -39,39 +39,39 @@ namespace WispSurvivor.Skills.Special
         public override void FixedUpdate()
         {
             base.FixedUpdate();
-            timer += Time.fixedDeltaTime;
+            this.timer += Time.fixedDeltaTime;
 
-            if( !fired )
+            if( !this.fired )
             {
                 //characterMotor.velocity.y = Mathf.Max(0f, characterMotor.velocity.y);
-                float scale = 1f - ( timer / fireDelay );
-                effectInstance.transform.localScale = new Vector3(scale, scale, scale);
+                System.Single scale = 1f - (this.timer / this.fireDelay);
+                this.effectInstance.transform.localScale = new Vector3( scale, scale, scale );
             }
 
-            if( timer > fireDelay && !fired)
+            if( this.timer > this.fireDelay && !this.fired )
             {
-                PlayAnimation("Body", "SpecialFire", "SpecialFire.playbackRate", recoveryTime);
-                RoR2.Util.PlaySound("Stop_greater_wisp_active_loop", gameObject);
-                RoR2.Util.PlaySound("Play_item_use_BFG_fire", gameObject);
-                if( effectInstance ) MonoBehaviour.Destroy(effectInstance);
-                Fire();
+                this.PlayAnimation( "Body", "SpecialFire", "SpecialFire.playbackRate", this.recoveryTime );
+                RoR2.Util.PlaySound( "Stop_greater_wisp_active_loop", this.gameObject );
+                RoR2.Util.PlaySound( "Play_item_use_BFG_fire", this.gameObject );
+                if( this.effectInstance ) MonoBehaviour.Destroy( this.effectInstance );
+                this.Fire();
             }
 
-            if( timer > fireDelay + recoveryTime * 0.5f && !rotated)
+            if( this.timer > this.fireDelay + this.recoveryTime * 0.5f && !this.rotated )
             {
-                GetComponent<Components.WispAimAnimationController>().cannonMode = false;
-                rotated = true;
+                //GetComponent<Components.WispAimAnimationController>().cannonMode = false;
+                this.rotated = true;
             }
 
-            if( timer > recoveryTime + fireDelay )
+            if( this.timer > this.recoveryTime + this.fireDelay )
             {
                 //PlayCrossfade("Gesture", "Idle", 0.2f);
                 //PlayAnimation("Body", "Idle", "", 0.2f);
-                RoR2.Util.PlaySound("Stop_item_use_BFG_loop", gameObject);
+                RoR2.Util.PlaySound( "Stop_item_use_BFG_loop", this.gameObject );
 
-                if( isAuthority )
+                if( this.isAuthority )
                 {
-                    outer.SetNextStateToMain();
+                    this.outer.SetNextStateToMain();
                 }
             }
         }
@@ -79,47 +79,44 @@ namespace WispSurvivor.Skills.Special
         public override void OnExit()
         {
             base.OnExit();
-            if( !fired )
+            if( !this.fired )
             {
-                Fire();
+                this.Fire();
             }
-            GetModelAnimator().SetBool("isCannon", false);
+            this.GetModelAnimator().SetBool( "isCannon", false );
         }
 
-        public override InterruptPriority GetMinimumInterruptPriority()
-        {
-            return InterruptPriority.Death;
-        }
+        public override InterruptPriority GetMinimumInterruptPriority() => InterruptPriority.Death;
 
         private void Fire()
         {
-            if (NetworkServer.active) characterBody.RemoveBuff(BuffIndex.Slow50);
-            double charge = passive.ReadCharge();
+            if( NetworkServer.active ) this.characterBody.RemoveBuff( BuffIndex.Slow50 );
+            System.Double charge = this.passive.ReadCharge();
 
-            Ray r = GetAimRay();
+            Ray r = this.GetAimRay();
 
-            float damageMult1 = 0.25f + 0.75f * chargeTimer;
-            float damageMult2 = 0.25f + 0.75f * (idealChargeLevel > 0 ? (float)(chargeLevel / idealChargeLevel) : 1f);
-            float damageMult3 = 1.0f + 0.5f * (float)((charge + chargeLevel - 100.0) / 100.0);
+            System.Single damageMult1 = 0.25f + 0.75f * this.chargeTimer;
+            System.Single damageMult2 = 0.25f + 0.75f * (this.idealChargeLevel > 0 ? (System.Single)(this.chargeLevel / this.idealChargeLevel) : 1f);
+            System.Single damageMult3 = 1.0f + 0.5f * (System.Single)((charge + this.chargeLevel - 100.0) / 100.0);
 
             FireProjectileInfo proj = new FireProjectileInfo
             {
-                projectilePrefab = Modules.WispProjectileModule.specialProjPrefabs[skin],
+                projectilePrefab = Modules.WispProjectileModule.specialProjPrefabs[this.skin],
                 position = r.origin,
                 rotation = RoR2.Util.QuaternionSafeLookRotation(r.direction),
                 owner = gameObject,
-                damage = damageStat * baseDamageScaler * damageMult1 * damageMult2 * damageMult3,
+                damage = this.damageStat * baseDamageScaler * damageMult1 * damageMult2 * damageMult3,
                 force = 50f,
-                crit = RollCrit(),
+                crit = this.RollCrit(),
                 damageColorIndex = DamageColorIndex.Default,
             };
 
 
-            fired = true;
+            this.fired = true;
 
-            if (!isAuthority) return;
+            if( !this.isAuthority ) return;
 
-            ProjectileManager.instance.FireProjectile(proj);
+            ProjectileManager.instance.FireProjectile( proj );
         }
     }
 }

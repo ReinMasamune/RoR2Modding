@@ -1,6 +1,5 @@
-﻿using UnityEngine;
-using System.Collections.Generic;
-using RoR2;
+﻿using RoR2;
+using UnityEngine;
 
 namespace WispSurvivor.Components
 {
@@ -9,7 +8,7 @@ namespace WispSurvivor.Components
         public SpriteRenderer flare1;
         public SpriteRenderer flare2;
 
-        public float intensity = 0f;
+        public System.Single intensity = 0f;
 
         private CharacterBody body;
 
@@ -18,23 +17,23 @@ namespace WispSurvivor.Components
 
         public void Start()
         {
-            body = GetComponent<CharacterBody>();
-            eye1 = flare1.GetComponent<EyeFlare>();
-            eye2 = flare2.GetComponent<EyeFlare>();
+            this.body = this.GetComponent<CharacterBody>();
+            this.eye1 = this.flare1.GetComponent<EyeFlare>();
+            this.eye2 = this.flare2.GetComponent<EyeFlare>();
         }
 
         public void Update()
         {
-            if( intensity > 0f )
+            if( this.intensity > 0f )
             {
-                flare1.gameObject.SetActive(true);
-                flare2.gameObject.SetActive(true);
-                eye1.localScale = eye2.localScale = intensity * 4f;
-                flare1.color = flare2.color = Modules.WispMaterialModule.fireColors[body.skinIndex];
+                this.flare1.gameObject.SetActive( true );
+                this.flare2.gameObject.SetActive( true );
+                this.eye1.localScale = this.eye2.localScale = this.intensity * 4f;
+                this.flare1.color = this.flare2.color = Modules.WispMaterialModule.fireColors[this.body.skinIndex];
             } else
             {
-                flare1.gameObject.SetActive(false);
-                flare2.gameObject.SetActive(false);
+                this.flare1.gameObject.SetActive( false );
+                this.flare2.gameObject.SetActive( false );
             }
         }
     }

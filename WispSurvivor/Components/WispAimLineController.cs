@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System;
 
 namespace WispSurvivor.Components
 {
@@ -11,16 +10,16 @@ namespace WispSurvivor.Components
 
         public void Awake()
         {
-            lr = GetComponent<LineRenderer>();
-            lrEnd = transform.Find("lineEnd");
+            this.lr = this.GetComponent<LineRenderer>();
+            this.lrEnd = this.transform.Find( "lineEnd" );
         }
 
         public void Update()
         {
-            lr.SetPosition(0, transform.position);
-            if( lrEnd )
+            this.lr.SetPosition( 0, this.transform.position );
+            if( this.lrEnd )
             {
-                lr.SetPosition(1, lrEnd.position);
+                this.lr.SetPosition( 1, this.lrEnd.position );
             }
         }
     }

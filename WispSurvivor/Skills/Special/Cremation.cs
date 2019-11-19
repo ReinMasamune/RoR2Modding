@@ -1,8 +1,7 @@
-﻿using RoR2;
+﻿using EntityStates;
+using RoR2;
 using RoR2.Projectile;
-using EntityStates;
 using UnityEngine;
-using UnityEngine.Networking;
 
 namespace WispSurvivor.Skills.Special
 {
@@ -18,32 +17,32 @@ namespace WispSurvivor.Skills.Special
 
         private CannonSubState state = CannonSubState.Charging;
 
-        public static double baseChargeUsedPerSec = 10.0;
+        public static System.Double baseChargeUsedPerSec = 10.0;
 
-        public static float baseMinChargeDuration = 1f;
-        public static float baseMaxChargeDuration = 3f;
-        public static float baseRecoveryDuration = 1f;
-        public static float baseFireDelay = 0.25f;
-        public static float baseDamageScaler = 17.5f;
-        public static float chargeScaler = 0.5f;
-        public static float timeScaler = 0.75f;
+        public static System.Single baseMinChargeDuration = 1f;
+        public static System.Single baseMaxChargeDuration = 3f;
+        public static System.Single baseRecoveryDuration = 1f;
+        public static System.Single baseFireDelay = 0.25f;
+        public static System.Single baseDamageScaler = 17.5f;
+        public static System.Single chargeScaler = 0.75f;
+        public static System.Single timeScaler = 0.75f;
 
-        private double chargeUsedPerSec;
-        private double chargeLevel = 0;
-        private double idealChargeLevel = 0;
+        private System.Double chargeUsedPerSec;
+        private System.Double chargeLevel = 0;
+        private System.Double idealChargeLevel = 0;
 
-        private float minChargeDuration;
-        private float maxChargeDuration;
-        private float fireDelay;
-        private float timer = 0f;
-        private float chargeTimer = 0f;
+        private System.Single minChargeDuration;
+        private System.Single maxChargeDuration;
+        private System.Single fireDelay;
+        private System.Single timer = 0f;
+        private System.Single chargeTimer = 0f;
 
-        private uint skin = 0;
+        private System.UInt32 skin = 0;
 
-        private bool fire = false;
-        private bool firing = false;
-        private bool fired = false;
-        private bool rotated = false;
+        private System.Boolean fire = false;
+        private System.Boolean firing = false;
+        private System.Boolean fired = false;
+        private System.Boolean rotated = false;
 
         private Transform muzzle;
         private Components.WispPassiveController passive;
@@ -54,19 +53,20 @@ namespace WispSurvivor.Skills.Special
         public override void OnEnter()
         {
             base.OnEnter();
-            passive = gameObject.GetComponent<Components.WispPassiveController>();
-            skin = characterBody.skinIndex;
+            this.passive = this.gameObject.GetComponent<Components.WispPassiveController>();
+            this.skin = this.characterBody.skinIndex;
 
-            minChargeDuration = baseMinChargeDuration / attackSpeedStat;
-            maxChargeDuration = baseMaxChargeDuration / attackSpeedStat;
-            chargeUsedPerSec = baseChargeUsedPerSec * attackSpeedStat;
-            fireDelay = baseFireDelay / attackSpeedStat;
+            this.minChargeDuration = baseMinChargeDuration / this.attackSpeedStat;
+            this.maxChargeDuration = baseMaxChargeDuration / this.attackSpeedStat;
+            this.chargeUsedPerSec = baseChargeUsedPerSec * this.attackSpeedStat;
+            this.fireDelay = baseFireDelay / this.attackSpeedStat;
 
-            characterBody.SetAimTimer(maxChargeDuration + 2f);
-            PlayAnimation("Body", "SpecialTransform", "SpecialTransform.playbackRate", minChargeDuration);
-            RoR2.Util.PlaySound("Play_greater_wisp_active_loop", gameObject);
+            this.characterBody.SetAimTimer( this.maxChargeDuration + 2f );
+            this.PlayAnimation( "Body", "SpecialTransform", "SpecialTransform.playbackRate", this.minChargeDuration );
+            RoR2.Util.PlaySound( "Play_greater_wisp_active_loop", this.gameObject );
+            this.GetComponent<Components.WispAimAnimationController>().StartCannonMode( this.minChargeDuration * 0.8f, 5.0f );
 
-            muzzle = GetModelTransform().Find("CannonPivot").Find("AncientWispArmature").Find("Head");
+            this.muzzle = this.GetModelTransform().Find( "CannonPivot" ).Find( "AncientWispArmature" ).Find( "Head" );
 
             //characterBody.AddBuff(BuffIndex.Slow50);
 
@@ -75,33 +75,29 @@ namespace WispSurvivor.Skills.Special
             //Crosshair
         }
 
-        public override void Update()
-        {
-            base.Update();
-            //Crosshair stuff
-        }
+        public override void Update() => base.Update();//Crosshair stuff
 
         public override void FixedUpdate()
         {
             base.FixedUpdate();
 
-            characterBody.isSprinting = false;
-            switch( state )
+            this.characterBody.isSprinting = false;
+            switch( this.state )
             {
                 case CannonSubState.Charging:
-                    ChargingState(Time.fixedDeltaTime);
+                    this.ChargingState( Time.fixedDeltaTime );
                     break;
 
                 case CannonSubState.Charged:
-                    ChargedState(Time.fixedDeltaTime);
+                    this.ChargedState( Time.fixedDeltaTime );
                     break;
 
                 case CannonSubState.Firing:
-                    FiringState(Time.fixedDeltaTime);
+                    this.FiringState( Time.fixedDeltaTime );
                     break;
 
                 case CannonSubState.Fired:
-                    FiredState(Time.fixedDeltaTime);
+                    this.FiredState( Time.fixedDeltaTime );
                     break;
             }
         }
@@ -109,117 +105,114 @@ namespace WispSurvivor.Skills.Special
         public override void OnExit()
         {
             base.OnExit();
-            if( chargeEffect )
+            if( this.chargeEffect )
             {
-                chargeEffect.transform.Find("Sparks").gameObject.SetActive(false);
+                this.chargeEffect.transform.Find( "Sparks" ).gameObject.SetActive( false );
 
 
-                chargeEffect.GetComponent<ObjectScaleCurve>().enabled = false;
+                this.chargeEffect.GetComponent<ObjectScaleCurve>().enabled = false;
                 //chargeEffect.GetComponent<ScaleParticleSystemDuration>().enabled = false;
                 //MonoBehaviour.Destroy(chargeEffect);
             }
         }
 
-        public override InterruptPriority GetMinimumInterruptPriority()
-        {
-            return InterruptPriority.Death;
-        }
+        public override InterruptPriority GetMinimumInterruptPriority() => InterruptPriority.Death;
 
-        private void ChargingState(float t)
+        private void ChargingState( System.Single t )
         {
-            var chargeState = passive.UseChargeDrain(chargeUsedPerSec, t);
-            chargeLevel += chargeState.chargeConsumed;
-            idealChargeLevel += chargeUsedPerSec * t;
-            timer += t;
+            Components.WispPassiveController.ChargeState chargeState = this.passive.UseChargeDrain( this.chargeUsedPerSec, t );
+            this.chargeLevel += chargeState.chargeConsumed;
+            this.idealChargeLevel += this.chargeUsedPerSec * t;
+            this.timer += t;
 
-            if( timer > minChargeDuration * 0.8f && !rotated )
+            if( this.timer > this.minChargeDuration * 0.8f && !this.rotated )
             {
-                GetComponent<Components.WispAimAnimationController>().cannonMode = true;
-                rotated = true;
-                chargeEffect = UnityEngine.Object.Instantiate<GameObject>(Modules.WispEffectModule.specialCharge[skin], muzzle.TransformPoint(new Vector3(0f, 0.1f, -0.5f)), muzzle.rotation);
-                chargeEffect.transform.parent = muzzle;
-                ScaleParticleSystemDuration scaler = chargeEffect.GetComponent<ScaleParticleSystemDuration>();
-                ObjectScaleCurve scaleCurve = chargeEffect.GetComponent<ObjectScaleCurve>();
-                if (scaler) scaler.newDuration = maxChargeDuration - timer;
-                if (scaleCurve) scaleCurve.timeMax = maxChargeDuration - timer;
+                //GetComponent<Components.WispAimAnimationController>().cannonMode = true;
+                this.rotated = true;
+                this.chargeEffect = UnityEngine.Object.Instantiate<GameObject>( Modules.WispEffectModule.specialCharge[this.skin], this.muzzle.TransformPoint( new Vector3( 0f, 0.1f, -0.5f ) ), this.muzzle.rotation );
+                this.chargeEffect.transform.parent = this.muzzle;
+                ScaleParticleSystemDuration scaler = this.chargeEffect.GetComponent<ScaleParticleSystemDuration>();
+                ObjectScaleCurve scaleCurve = this.chargeEffect.GetComponent<ObjectScaleCurve>();
+                if( scaler ) scaler.newDuration = this.maxChargeDuration - this.timer;
+                if( scaleCurve ) scaleCurve.timeMax = this.maxChargeDuration - this.timer;
             }
 
-            if( timer > minChargeDuration )
+            if( this.timer > this.minChargeDuration )
             {
-                state = CannonSubState.Charged;
-                timer = 0f;
+                this.state = CannonSubState.Charged;
+                this.timer = 0f;
             }
         }
 
-        private void ChargedState( float t )
+        private void ChargedState( System.Single t )
         {
-            chargeTimer += t;
-            var chargeState = passive.UseChargeDrain(chargeUsedPerSec, t);
-            chargeLevel += chargeState.chargeConsumed;
-            idealChargeLevel += chargeUsedPerSec * t;
+            this.chargeTimer += t;
+            Components.WispPassiveController.ChargeState chargeState = this.passive.UseChargeDrain( this.chargeUsedPerSec, t );
+            this.chargeLevel += chargeState.chargeConsumed;
+            this.idealChargeLevel += this.chargeUsedPerSec * t;
 
-            timer += t;
-            if( timer + minChargeDuration > maxChargeDuration || ( inputBank && !inputBank.skill4.down ))
+            this.timer += t;
+            if( this.timer + this.minChargeDuration > this.maxChargeDuration || (this.inputBank && !this.inputBank.skill4.down) )
             {
-                state = CannonSubState.Firing;
-                timer = 0f;
+                this.state = CannonSubState.Firing;
+                this.timer = 0f;
             }
         }
 
-        private void FiringState( float t )
+        private void FiringState( System.Single t )
         {
-            timer += t;
-            float scale = 1f - (timer / fireDelay);
-            chargeEffect.transform.localScale = new Vector3(scale, scale, scale);
+            this.timer += t;
+            System.Single scale = 1f - (this.timer / this.fireDelay);
+            this.chargeEffect.transform.localScale = new Vector3( scale, scale, scale );
 
-            if ( timer > fireDelay )
+            if( this.timer > this.fireDelay )
             {
-                if (chargeEffect) MonoBehaviour.Destroy(chargeEffect);
-                Fire();
-                state = CannonSubState.Fired;
-                timer = 0f;
+                if( this.chargeEffect ) MonoBehaviour.Destroy( this.chargeEffect );
+                this.Fire();
+                this.state = CannonSubState.Fired;
+                this.timer = 0f;
             }
         }
 
-        private void FiredState( float t )
+        private void FiredState( System.Single t )
         {
-            if( isAuthority )
+            if( this.isAuthority )
             {
-                outer.SetNextState(new CremationRecovery());
+                this.outer.SetNextState( new CremationRecovery() );
             }
         }
 
         private void Fire()
         {
-            RoR2.Util.PlaySound("Stop_greater_wisp_active_loop", gameObject);
-            RoR2.Util.PlaySound("Play_item_use_BFG_fire", gameObject);
+            RoR2.Util.PlaySound( "Stop_greater_wisp_active_loop", this.gameObject );
+            RoR2.Util.PlaySound( "Play_item_use_BFG_fire", this.gameObject );
 
-            Ray r = GetAimRay();
+            Ray r = this.GetAimRay();
 
-            float chargeMult = Components.WispPassiveController.GetDrainScaler(chargeLevel, idealChargeLevel, chargeScaler );
+            System.Single chargeMult = Components.WispPassiveController.GetDrainScaler( this.chargeLevel, this.idealChargeLevel, chargeScaler );
 
-            float timeMult = chargeTimer / (maxChargeDuration - minChargeDuration) - 1f;
+            System.Single timeMult = this.chargeTimer / (this.maxChargeDuration - this.minChargeDuration) - 1f;
             timeMult *= timeScaler;
             timeMult += 1f;
 
             FireProjectileInfo proj = new FireProjectileInfo
             {
-                projectilePrefab = Modules.WispProjectileModule.specialProjPrefabs[skin],
+                projectilePrefab = Modules.WispProjectileModule.specialProjPrefabs[this.skin],
                 position = r.origin,
                 rotation = RoR2.Util.QuaternionSafeLookRotation(r.direction),
                 owner = gameObject,
-                damage = damageStat * baseDamageScaler * chargeMult * timeMult,
+                damage = this.damageStat * baseDamageScaler * chargeMult * timeMult,
                 force = 50f,
-                crit = RollCrit(),
+                crit = this.RollCrit(),
                 damageColorIndex = DamageColorIndex.Default,
             };
 
 
-            fired = true;
+            this.fired = true;
 
-            if (!isAuthority) return;
+            if( !this.isAuthority ) return;
 
-            ProjectileManager.instance.FireProjectile(proj);
+            ProjectileManager.instance.FireProjectile( proj );
         }
     }
 }

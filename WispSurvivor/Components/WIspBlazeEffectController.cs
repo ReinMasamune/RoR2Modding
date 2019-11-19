@@ -1,28 +1,28 @@
 ﻿using RoR2;
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
 
 namespace WispSurvivor.Components
 {
-    [RequireComponent(typeof(EffectComponent))]
+    [RequireComponent( typeof( EffectComponent ) )]
     public class WispBlazeEffectController : MonoBehaviour
     {
-        private float timeLeft;
+        private System.Single timeLeft;
         public void Start()
         {
-            EffectComponent effectComp = GetComponent<EffectComponent>();
+            EffectComponent effectComp = this.GetComponent<EffectComponent>();
             EffectData data = effectComp.effectData;
 
-            timeLeft = data.genericFloat;
+            this.timeLeft = data.genericFloat;
 
-            StartCoroutine(DestroyOnTimer(timeLeft));
+            this.StartCoroutine( this.DestroyOnTimer( this.timeLeft ) );
         }
 
-        IEnumerator DestroyOnTimer(float timer)
+        private IEnumerator DestroyOnTimer( System.Single timer )
         {
-            yield return new WaitForSeconds(timer);
+            yield return new WaitForSeconds( timer );
 
-            MonoBehaviour.Destroy(gameObject);
+            MonoBehaviour.Destroy( this.gameObject );
         }
     }
 

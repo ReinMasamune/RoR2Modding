@@ -10,9 +10,9 @@ using System;
 
 namespace ReinSniperRework
 {
+    [R2APISubmoduleDependency(nameof(R2API.SurvivorAPI))]
     [BepInDependency("com.bepis.r2api")]
-    [BepInPlugin("com.ReinThings.ReinSniperRework", "ReinSniperRework", "1.0.7")]
-
+    [BepInPlugin("com.ReinThings.ReinSniperRework", "ReinSniperRework", "1.0.8")]
     public class ReinSniperReworkMain : BaseUnityPlugin
     {
 

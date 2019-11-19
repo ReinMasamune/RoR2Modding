@@ -1,20 +1,19 @@
-﻿using RoR2;
-using EntityStates;
+﻿using EntityStates;
+using RoR2;
 using UnityEngine;
-using RoR2.Orbs;
 using UnityEngine.Networking;
 
 namespace WispSurvivor.Skills.Utility
 {
     public class PrepGaze : BaseState
     {
-        public static float maxRange = 50f;
-        public static float flareDuration = 0.2f;
-        public static float castRadius = 0.25f;
+        public static System.Single maxRange = 50f;
+        public static System.Single flareDuration = 0.2f;
+        public static System.Single castRadius = 0.25f;
 
-        private float radius = FireGaze.baseBlazeOrbRadius;
+        private System.Single radius = FireGaze.baseBlazeOrbRadius;
 
-        private uint skin = 0;
+        private System.UInt32 skin = 0;
 
         private Vector3 normal;
 
@@ -25,42 +24,41 @@ namespace WispSurvivor.Skills.Utility
         public override void OnEnter()
         {
             base.OnEnter();
-            passive = gameObject.GetComponent<Components.WispPassiveController>();
-            skin = characterBody.skinIndex;
+            this.passive = this.gameObject.GetComponent<Components.WispPassiveController>();
+            this.skin = this.characterBody.skinIndex;
 
-            var state = passive.UseCharge(FireGaze.chargeUsed , FireGaze.chargeScaler );
-            radius *= state.chargeScaler;
+            Components.WispPassiveController.ChargeState state = this.passive.UseCharge( FireGaze.chargeUsed, FireGaze.chargeScaler );
+            this.radius *= state.chargeScaler;
 
-            GetComponent<Components.WispFlareController>().intensity = 0.5f;
+            this.GetComponent<Components.WispFlareController>().intensity = 0.5f;
         }
 
         public override void Update()
         {
             base.Update();
             //Update the beam position
-            if( !line )
+            if( !this.line )
             {
-                Transform muzzle = GetModelTransform().Find("CannonPivot").Find("AncientWispArmature").Find("Head");
-                line = UnityEngine.Object.Instantiate<GameObject>(Modules.WispEffectModule.utilityAim[skin], muzzle.TransformPoint(0f, 0.1f, 0f), muzzle.rotation, muzzle);
-                end = line.transform.Find("lineEnd");
-                end.parent = null;
-                end.localScale = new Vector3(2*radius, 2*radius, 2*radius);
+                Transform muzzle = this.GetModelTransform().Find("CannonPivot").Find("AncientWispArmature").Find("Head");
+                this.line = UnityEngine.Object.Instantiate<GameObject>( Modules.WispEffectModule.utilityAim[this.skin], muzzle.TransformPoint( 0f, 0.1f, 0f ), muzzle.rotation, muzzle );
+                this.end = this.line.transform.Find( "lineEnd" );
+                this.end.parent = null;
+                this.end.localScale = new Vector3( 2 * this.radius, 2 * this.radius, 2 * this.radius );
             }
 
-            if (line)
+            if( this.line )
             {
-                Ray r = GetAimRay();
+                Ray r = this.GetAimRay();
 
                 RaycastHit rh;
-                if (Physics.SphereCast(r, castRadius, out rh, maxRange, LayerIndex.world.mask | LayerIndex.entityPrecise.mask, QueryTriggerInteraction.UseGlobal))
+                if( Physics.SphereCast( r, castRadius, out rh, maxRange, LayerIndex.world.mask | LayerIndex.entityPrecise.mask, QueryTriggerInteraction.UseGlobal ) )
                 {
-                    end.position = rh.point;
-                    normal = rh.normal;
-                }
-                else
+                    this.end.position = rh.point;
+                    this.normal = rh.normal;
+                } else
                 {
-                    end.position = r.GetPoint(maxRange);
-                    normal = Vector3.up;
+                    this.end.position = r.GetPoint( maxRange );
+                    this.normal = Vector3.up;
                 }
             }
         }
@@ -68,16 +66,16 @@ namespace WispSurvivor.Skills.Utility
         public override void FixedUpdate()
         {
             base.FixedUpdate();
-            characterBody.SetAimTimer(1f);
-            if( inputBank && isAuthority && !inputBank.skill3.down )
+            this.characterBody.SetAimTimer( 1f );
+            if( this.inputBank && this.isAuthority && !this.inputBank.skill3.down )
             {
                 //Get the target position
-                outer.SetNextState(new FireGaze
+                this.outer.SetNextState( new FireGaze
                 {
-                    orbOrigin = end.position,
+                    orbOrigin = this.end.position,
                     orbNormal = normal,
                     blazeOrbRadius = radius
-                });
+                } );
             }
         }
 
@@ -85,24 +83,15 @@ namespace WispSurvivor.Skills.Utility
         {
             base.OnExit();
             //Destroy the beam marker
-            Destroy(line);
-            Destroy(end.gameObject);
+            Destroy( this.line );
+            Destroy( this.end.gameObject );
         }
 
-        public override InterruptPriority GetMinimumInterruptPriority()
-        {
-            return InterruptPriority.PrioritySkill;
-        }
+        public override InterruptPriority GetMinimumInterruptPriority() => InterruptPriority.PrioritySkill;
 
-        public override void OnSerialize(NetworkWriter writer)
-        {
-            base.OnSerialize(writer);
-        }
+        public override void OnSerialize( NetworkWriter writer ) => base.OnSerialize( writer );
 
-        public override void OnDeserialize(NetworkReader reader)
-        {
-            base.OnDeserialize(reader);
-        }
+        public override void OnDeserialize( NetworkReader reader ) => base.OnDeserialize( reader );
     }
 }
 

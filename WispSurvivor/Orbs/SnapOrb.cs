@@ -3,19 +3,19 @@ using UnityEngine;
 
 namespace WispSurvivor.Orbs
 {
-    class SnapOrb : RoR2.Orbs.Orb
+    internal class SnapOrb : RoR2.Orbs.Orb
     {
-        public float speed = 200f;
-        public float damage = 1f;
-        public float scale = 1f;
-        public float procCoef = 1f;
-        public float radius = 1f;
-        public uint skin = 0;
+        public System.Single speed = 200f;
+        public System.Single damage = 1f;
+        public System.Single scale = 1f;
+        public System.Single procCoef = 1f;
+        public System.Single radius = 1f;
+        public System.UInt32 skin = 0;
 
         public Vector3 targetPos;
 
-        public bool crit = false;
-        public bool useTarget = false;
+        public System.Boolean crit = false;
+        public System.Boolean useTarget = false;
 
         public TeamIndex team;
         public DamageColorIndex damageColor;
@@ -27,21 +27,20 @@ namespace WispSurvivor.Orbs
 
         public override void Begin()
         {
-            if( !target )
+            if( !this.target )
             {
-                useTarget = false;
+                this.useTarget = false;
             }
 
-            if( useTarget )
+            if( this.useTarget )
             {
-                lastPos = target.transform.position;
-            }
-            else
+                this.lastPos = this.target.transform.position;
+            } else
             {
-                lastPos = targetPos;
+                this.lastPos = this.targetPos;
             }
 
-            duration = Vector3.Distance(lastPos, origin) / speed + 0.15f;
+            this.duration = Vector3.Distance( this.lastPos, this.origin ) / this.speed + 0.15f;
             EffectData effectData = new EffectData
             {
                 origin = origin,
@@ -49,19 +48,18 @@ namespace WispSurvivor.Orbs
                 genericBool = useTarget,
                 start = lastPos
             };
-            effectData.SetHurtBoxReference(target);
-            EffectManager.instance.SpawnEffect(Modules.WispEffectModule.primaryOrbEffects[skin], effectData, true);
+            effectData.SetHurtBoxReference( this.target );
+            EffectManager.instance.SpawnEffect( Modules.WispEffectModule.primaryOrbEffects[this.skin], effectData, true );
         }
 
         public override void OnArrival()
         {
-            if (useTarget)
+            if( this.useTarget )
             {
-                lastPos = targetPos;
-            }
-            else
+                this.lastPos = this.targetPos;
+            } else
             {
-                lastPos = targetPos;
+                this.lastPos = this.targetPos;
             }
             EffectData effect = new EffectData
             {
@@ -69,9 +67,9 @@ namespace WispSurvivor.Orbs
                 scale = 0.5f
             };
 
-            EffectManager.instance.SpawnEffect(Modules.WispEffectModule.primaryExplosionEffects[skin] , effect , true);
+            EffectManager.instance.SpawnEffect( Modules.WispEffectModule.primaryExplosionEffects[this.skin], effect, true );
 
-            if ( attacker )
+            if( this.attacker )
             {
                 new BlastAttack
                 {

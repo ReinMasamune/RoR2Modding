@@ -4,10 +4,10 @@ using UnityEngine.Networking;
 
 namespace WispSurvivor.Components
 {
-    [RequireComponent(typeof( EffectComponent ) )]
+    [RequireComponent( typeof( EffectComponent ) )]
     public class WispNetworkedEffect : NetworkBehaviour
     {
         [SyncVar]
-        public float syncedFloat = 0f;
+        public System.Single syncedFloat = 0f;
     }
 }

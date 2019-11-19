@@ -1,31 +1,29 @@
-﻿using RoR2;
-using EntityStates;
-using UnityEngine;
+﻿using EntityStates;
+using RoR2;
 using System;
-using RoR2.Orbs;
-using UnityEngine.Networking;
 using System.Linq;
+using UnityEngine;
 
 namespace WispSurvivor.Skills.Primary
 {
     public class PrepHeatwave : BaseState
     {
-        public static float baseTotalDuration = 0.625f;
-        public static float basePrepDuration = 0.275f;
-        public static float baseFireDuration = baseTotalDuration-basePrepDuration;
-        public static float maxRange = 45f;
-        public static float maxAngle = 7.5f;
-        public static float noStockSpeedMult = 0.5f;
-        public static float animReturnPercent = 0.25f;
+        public static Single baseTotalDuration = 0.625f;
+        public static Single basePrepDuration = 0.275f;
+        public static Single baseFireDuration = baseTotalDuration-basePrepDuration;
+        public static Single maxRange = 45f;
+        public static Single maxAngle = 7.5f;
+        public static Single noStockSpeedMult = 0.5f;
+        public static Single animReturnPercent = 0.25f;
 
-        public static double baseChargeAdded = 15.0;
-        public static double noStockChargeMult = 0.5;
+        public static Double baseChargeAdded = 15.0;
+        public static Double noStockChargeMult = 0.5;
 
-        private float prepDuration;
-        private float fireDuration;
-        private float initAS;
+        private Single prepDuration;
+        private Single fireDuration;
+        private Single initAS;
 
-        private double chargeAdded;
+        private Double chargeAdded;
 
         private Vector3 targetVec;
 
@@ -37,81 +35,73 @@ namespace WispSurvivor.Skills.Primary
         public override void OnEnter()
         {
             base.OnEnter();
-            passive = gameObject.GetComponent<Components.WispPassiveController>();
-            bool hasStock = skillLocator.primary.stock > 0;
-            skillLocator.primary.stock = hasStock ? skillLocator.primary.stock - 1 : 0;
-            skillLocator.primary.rechargeStopwatch = 0f;
-            initAS = attackSpeedStat * (hasStock ? 1f : noStockSpeedMult);
+            this.passive = this.gameObject.GetComponent<Components.WispPassiveController>();
+            Boolean hasStock = this.skillLocator.primary.stock > 0;
+            this.skillLocator.primary.stock = hasStock ? this.skillLocator.primary.stock - 1 : 0;
+            this.skillLocator.primary.rechargeStopwatch = 0f;
+            this.initAS = this.attackSpeedStat * (hasStock ? 1f : noStockSpeedMult);
 
-            prepDuration = basePrepDuration / initAS;
-            fireDuration = baseFireDuration / initAS;
-            float totalDuration = prepDuration + fireDuration;
-            chargeAdded = baseChargeAdded * (hasStock ? 1.0 : noStockChargeMult);
-            passive.AddCharge(chargeAdded);
+            this.prepDuration = basePrepDuration / this.initAS;
+            this.fireDuration = baseFireDuration / this.initAS;
+            Single totalDuration = this.prepDuration + this.fireDuration;
+            this.chargeAdded = baseChargeAdded * (hasStock ? 1.0 : noStockChargeMult);
+            this.passive.AddCharge( this.chargeAdded );
 
             Transform modelTrans = base.GetModelTransform();
-            anim = GetModelAnimator();
-            modelTrans = GetModelTransform();
-            string animStr = anim.GetCurrentAnimatorStateInfo(anim.GetLayerIndex("Gesture")).IsName("Throw1") ? "Throw2" : "Throw1";
-            PlayCrossfade("Gesture", animStr, "Throw.playbackRate", totalDuration * 6f, 0.2f);
-            RoR2.Util.PlaySound("Play_huntress_m2_throw", gameObject);
+            this.anim = this.GetModelAnimator();
+            modelTrans = this.GetModelTransform();
+            String animStr = this.anim.GetCurrentAnimatorStateInfo(this.anim.GetLayerIndex("Gesture")).IsName("Throw1") ? "Throw2" : "Throw1";
+            this.PlayCrossfade( "Gesture", animStr, "Throw.playbackRate", totalDuration * 6f, 0.2f );
+            RoR2.Util.PlaySound( "Play_huntress_m2_throw", this.gameObject );
 
-            if( characterBody )
-            {
-                characterBody.SetAimTimer(totalDuration + 1f);
-            }
+            this.characterBody.SetAimTimer( totalDuration + 1f );
+            this.characterBody.isSprinting = false;
         }
 
         public override void FixedUpdate()
         {
             base.FixedUpdate();
-            characterBody.isSprinting = false;
+            //this.characterBody.isSprinting = false;
 
-            if( fixedAge >= prepDuration && isAuthority )
+            if( this.fixedAge >= this.prepDuration && this.isAuthority )
             {
-                GetTarget();
-                this.outer.SetNextState(new FireHeatwave
+                this.GetTarget();
+                this.outer.SetNextState( new FireHeatwave
                 {
                     initAS = initAS,
                     target = target,
                     targetVec = targetVec
-                });
+                } );
             }
         }
 
-        public override void OnExit()
-        {
-            base.OnExit();
-        }
+        public override void OnExit() => base.OnExit();
 
-        public override InterruptPriority GetMinimumInterruptPriority()
-        {
-            return InterruptPriority.Skill;
-        }
+        public override InterruptPriority GetMinimumInterruptPriority() => InterruptPriority.Skill;
 
         private void GetTarget()
         {
-            Ray r = GetAimRay();
+            Ray r = this.GetAimRay();
 
-            search.teamMaskFilter = TeamMask.all;
-            search.teamMaskFilter.RemoveTeam(TeamComponent.GetObjectTeam(gameObject));
-            search.filterByLoS = true;
-            search.searchOrigin = r.origin;
-            search.searchDirection = r.direction;
-            search.sortMode = BullseyeSearch.SortMode.DistanceAndAngle;
-            search.maxDistanceFilter = maxRange;
-            search.maxAngleFilter = maxAngle;
-            search.RefreshCandidates();
-            target = search.GetResults().FirstOrDefault<HurtBox>();
+            this.search.teamMaskFilter = TeamMask.all;
+            this.search.teamMaskFilter.RemoveTeam( TeamComponent.GetObjectTeam( this.gameObject ) );
+            this.search.filterByLoS = true;
+            this.search.searchOrigin = r.origin;
+            this.search.searchDirection = r.direction;
+            this.search.sortMode = BullseyeSearch.SortMode.DistanceAndAngle;
+            this.search.maxDistanceFilter = maxRange;
+            this.search.maxAngleFilter = maxAngle;
+            this.search.RefreshCandidates();
+            this.target = this.search.GetResults().FirstOrDefault<HurtBox>();
 
             RaycastHit rh;
 
-            if (Physics.Raycast(r, out rh, maxRange, LayerIndex.world.mask | LayerIndex.entityPrecise.mask, QueryTriggerInteraction.UseGlobal))
+            if( Physics.Raycast( r, out rh, maxRange, LayerIndex.world.mask | LayerIndex.entityPrecise.mask, QueryTriggerInteraction.UseGlobal ) )
             {
-                targetVec = rh.point;
+                this.targetVec = rh.point;
             } else
             {
-                targetVec = r.GetPoint(maxRange);
+                this.targetVec = r.GetPoint( maxRange );
             }
         }
     }

@@ -1,94 +1,96 @@
 ﻿using BepInEx;
-using BepInEx.Configuration;
+using RoR2.UI;
+using MonoMod.Cil;
+using R2API.Utils;
 using RoR2;
-using UnityEngine;
-using UnityEngine.SceneManagement;
+using RoR2.Networking;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
-using RoR2.Networking;
-using WispSurvivor.Util;
+using UnityEngine;
 using WispSurvivor.Modules;
-using R2API.Utils;
-using static WispSurvivor.Util.PrefabUtilities;
-using System.Collections;
-using MonoMod.Cil;
+using WispSurvivor.Helpers;
+using static WispSurvivor.Helpers.PrefabHelpers;
+using System.IO;
+using UnityEngine.Networking;
 
 namespace WispSurvivor
 {
-    [BepInDependency("com.bepis.r2api")]
-    [BepInPlugin("com.ReinThings.RogueWisp", "Rein-RogueWisp", "1.1.3")]
+    [R2APISubmoduleDependency( nameof( R2API.SurvivorAPI ) )]
+    [BepInDependency( "com.bepis.r2api" )]
+    [BepInPlugin( "com.ReinThings.RogueWisp", "Rein-RogueWisp", "1.2.4" )]
     public class WispSurvivorMain : BaseUnityPlugin
     {
-        Dictionary<Type, Component> componentLookup = new Dictionary<Type, Component>();
+        
 
-        GameObject body;
+        private Dictionary<Type, Component> componentLookup = new Dictionary<Type, Component>();
+        private GameObject body;
 
-        //Texture2D bgTex;
-
-        //Rect posRect = new Rect(32f, 32f, 1524f, 96f);
+        Texture2D bgTex;
+        Rect posRect = new Rect(32f, 32f, 1524f, 96f);
 
         public void Awake()
         {
-            var execAssembly = Assembly.GetExecutingAssembly();
-            var stream = execAssembly.GetManifestResourceStream("WispSurvivor.Bundle.wispsurvivor");
-            var bundle = AssetBundle.LoadFromStream(stream);
+            String thing1 = "To anyone looking to troubleshoot compatibility/bugs, feel free to message me on Discord (@Rein#7551) so I can fix/change how things work.";
+            String thing2 = "To anyone looking to learn from my code, feel free to message me on Discord (@Rein#7551) and ask any questions you want.";
+            String thing3 = "To anyone looking to simply copy paste my code... Thanks...";
+
+
+            Assembly execAssembly = Assembly.GetExecutingAssembly();
+            System.IO.Stream stream = execAssembly.GetManifestResourceStream( "WispSurvivor.Bundle.wispsurvivor" );
+            AssetBundle bundle = AssetBundle.LoadFromStream(stream);
 
             //Get a copy of the body prefab we need
-            body = Resources.Load<GameObject>("Prefabs/CharacterBodies/AncientWispBody").InstantiateClone("Rogue Wisp");
+            this.body = Resources.Load<GameObject>( "Prefabs/CharacterBodies/AncientWispBody" ).InstantiateClone( "Rogue Wisp" );
 
             //Queue the body to be added to the BodyCatalog
-            PrefabUtilities.RegisterNewBody(body);
+            PrefabHelpers.RegisterNewBody( this.body );
 
             //Perform the components module edits, save to the component cache
-            componentLookup = WispComponentModule.DoModule(body);
+            this.componentLookup = WispComponentModule.DoModule( this.body );
 
             //Perform the material module edits
-            WispMaterialModule.DoModule(body, componentLookup, this);
+            WispMaterialModule.DoModule( this.body, this.componentLookup, this );
 
             //Perform the effect module edits
-            WispEffectModule.DoModule(body, componentLookup);
+            WispEffectModule.DoModule( this.body, this.componentLookup );
 
             //Perform the model module edits
-            WispModelModule.DoModule(body, componentLookup);
+            WispModelModule.DoModule( this.body, this.componentLookup );
 
             //Perform the motion module edits
-            WispMotionModule.DoModule(body, componentLookup);
+            WispMotionModule.DoModule( this.body, this.componentLookup );
 
             //Perform the UI module edits
-            WispUIModule.DoModule(body, componentLookup);
+            WispUIModule.DoModule( this.body, this.componentLookup );
 
             //Perform the charBody module edits
-            WispBodySetupModule.DoModule(body, componentLookup);
+            WispBodySetupModule.DoModule( this.body, this.componentLookup, bundle );
 
             //Perform the camera module edits
-            WispCameraModule.DoModule(body, componentLookup);
+            WispCameraModule.DoModule( this.body, this.componentLookup );
 
             //Perform the animation module edits
-            WispAnimationModule.DoModule(body, componentLookup, bundle);
+            WispAnimationModule.DoModule( this.body, this.componentLookup, bundle );
 
             //Perform the orb module edits
-            WispOrbModule.DoModule(body, componentLookup);
+            WispOrbModule.DoModule( this.body, this.componentLookup );
 
             //Perform the projectile module edits
-            WispProjectileModule.DoModule(body, componentLookup);
+            WispProjectileModule.DoModule( this.body, this.componentLookup );
 
             //Perform the skills module edits
-            WispSkillsModule.DoModule(body, componentLookup);
+            WispSkillsModule.DoModule( this.body, this.componentLookup, bundle );
 
             //Perform the buff module edits
-            WispBuffModule.DoModule(body, componentLookup);
+            WispBuffModule.DoModule( this.body, this.componentLookup );
 
             //Perform the info module edits
-            WispInfoModule.DoModule(body, componentLookup);
+            WispInfoModule.DoModule( this.body, this.componentLookup );
 
             //Create a characterDisplay
-
-            GameObject display = body.GetComponent<ModelLocator>().modelBaseTransform.gameObject;
-            //display.transform.localScale = Vector3.one;
-            //Destroy(display.transform.Find("CannonPivot").Find("AncientWispArmature").Find("Head").Find("GameObject").gameObject);
-            //Destroy(display.GetComponent<CharacterModel>().baseParticleSystemInfos[0].particleSystem.gameObject);
-            //Destroy(display.GetComponent<CharacterModel>().baseParticleSystemInfos[1].particleSystem.gameObject);
+            GameObject display = this.body.GetComponent<ModelLocator>().modelBaseTransform.gameObject;
 
             SurvivorDef bodySurvivorDef = new SurvivorDef
             {
@@ -98,67 +100,56 @@ namespace WispSurvivor
                 primaryColor = new Color(0.7f, 0.2f, 0.9f),
             };
 
-            R2API.SurvivorAPI.AddSurvivor(bodySurvivorDef);
+            R2API.SurvivorAPI.AddSurvivor( bodySurvivorDef );
             ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             #region Other random stuff
             //Fix this thing that does something? I think?
-            InteractionDriver bodyIntDriver = body.GetComponent<InteractionDriver>();
+            InteractionDriver bodyIntDriver = this.body.GetComponent<InteractionDriver>();
             bodyIntDriver.highlightInteractor = true;
 
             //Adjust network transform settings
-            CharacterNetworkTransform bodyNetTrans = body.GetComponent<CharacterNetworkTransform>();
+            CharacterNetworkTransform bodyNetTrans = this.body.GetComponent<CharacterNetworkTransform>();
             bodyNetTrans.positionTransmitInterval = 0.05f;
             bodyNetTrans.interpolationFactor = 3f;
-            #endregion
-            ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            ///
 
-            IL.RoR2.CharacterBody.RecalculateStats += (il) =>
+            //Hooks to make stun grenades scale with proc coef correctly
+            IL.RoR2.GlobalEventManager.OnHitEnemy += ( il ) =>
             {
                 ILCursor c = new ILCursor(il);
-                c.GotoNext(MoveType.After,
-                    x => x.MatchLdloc(39),
-                    x => x.MatchLdcR4(0.1f),
-                    x => x.MatchLdcR4(0.2f),
-                    x => x.MatchLdloc(17),
-                    x => x.MatchConvR4(),
-                    x => x.MatchMul(),
-                    x => x.MatchAdd(),
-                    x => x.MatchLdarg(0),
-                    x => x.MatchLdfld<RoR2.CharacterBody>("sprintingSpeedMultiplier"),
-                    x => x.MatchDiv(),
-                    x => x.MatchAdd(),
-                    x => x.MatchStloc(39),
-                    x => x.MatchLdarg(0),
-                    x => x.MatchLdcI4(19)
+                c.GotoNext( MoveType.After,
+                    x => x.MatchCallvirt( "RoR2.SetStateOnHurt", "SetStun" )
                     );
-
-                c.GotoNext(MoveType.After,
-                    x => x.MatchBrfalse( out _ ),
-                    x => x.MatchLdloc(39),
-                    x => x.MatchLdcR4(0.2f),
-                    x => x.MatchAdd(),
-                    x => x.MatchStloc(39),
-                    x => x.MatchLdarg(0),
-                    x => x.MatchLdcI4(5)
-                    );
-
-                c.GotoNext(MoveType.After,
-                    x => x.MatchBrfalse( out _ ),
-                    x => x.MatchLdloc(39),
-                    x => x.MatchLdcR4(0.3f),
-                    x => x.MatchAdd(),
-                    x => x.MatchStloc(39),
-                    x => x.MatchLdarg(0),
-                    x => x.MatchLdcI4(6)
-                    );
-
-                c.Index += 3;
-                c.Remove();
-                c.Emit(Mono.Cecil.Cil.OpCodes.Ldc_R4, 0.25f);
+                c.Index += -3;
+                c.RemoveRange( 3 );
             };
 
-            //bgTex = CreateBGTexture();
+            On.RoR2.GlobalEventManager.OnHitEnemy += ( orig, self, info, victim ) =>
+            {
+                orig( self, info, victim );
+                if( info.procCoefficient <= 0f || info.rejected || !NetworkServer.active || !info.attacker ) return;
+                var body = info.attacker.GetComponent<CharacterBody>();
+                if( !body ) return;
+                var inventory = body.inventory;
+                if( !inventory ) return;
+                int stunCount = inventory.GetItemCount(ItemIndex.StunChanceOnHit);
+                if( stunCount <= 0 ) return;
+                var sqCoef = Mathf.Sqrt(info.procCoefficient);
+                if( !RoR2.Util.CheckRoll( RoR2.Util.ConvertAmplificationPercentageIntoReductionPercentage( sqCoef * 5f * (float)stunCount ), body.master ) ) return;
+                var stateOnHurt = victim.GetComponent<SetStateOnHurt>();
+                if( !stateOnHurt ) return;
+                stateOnHurt.SetStun( sqCoef * 2f );
+            };
+
+            //Hook to add a burn manager to all characterbodies.
+            On.RoR2.CharacterBody.Start += ( orig, self ) =>
+            {
+                orig( self );
+                self.gameObject.AddComponent<Components.WispBurnManager>();
+            };
+            #endregion
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+            bgTex = CreateBGTexture();
         }
 
         public void Start()
@@ -167,13 +158,22 @@ namespace WispSurvivor
             WispEffectModule.Register();
             //Register buffs
             WispBuffModule.RegisterBuffs();
+
+            DebugMaterialInfo( CharacterModel.eliteHauntedParticleReplacementMaterial );
+            DebugMaterialInfo( CharacterModel.elitePoisonParticleReplacementMaterial );
         }
 
-        /*
+        public void FixedUpdate()
+        {
+            //Ensure that the isModded flag is always set
+            RoR2Application.isModded = true;
+        }
+
+        
         public void OnGUI()
         {
             GUI.DrawTexture(posRect, bgTex);
-            GUI.DrawTexture(posRect, WispMaterialModule.armorTextures[6][0]);
+            GUI.DrawTexture(posRect, WispMaterialModule.fireTextures[7]);
         }
 
         private Texture2D CreateBGTexture()
@@ -205,8 +205,6 @@ namespace WispSurvivor
             return tex;
         }
 
-
-
         private static void DebugMaterialInfo(Material m)
         {
             Debug.Log("Material name: " + m.name);
@@ -226,17 +224,18 @@ namespace WispSurvivor
                 Debug.Log(s2[i] + " : " + m.GetTexture(s2[i]));
             }
         }
-        */
+        
     }
 
-   
+
 }
 
 //For next release:
-// TODO: Lower bound on consumption (Redirect all consumption to the passive for easier managment)
 
-// TODO: Convert flat consumption charge funcs to return ChargeState
-// TODO: Rename repurposed vars
+// TODO: Incineration needs some impact effects
+// TODO: Primary particles still aren't visible sometimes.
+// TODO: Iridescent needs to be more rainbowey?
+
 // TODO: Update Descriptions
 // TODO: Record video for the version
 
@@ -250,10 +249,7 @@ namespace WispSurvivor
 // TOD: Primary explosion effect tweak (yellow stuff)
 // TOD: Customize crosshair
 // TOD: Set up screen scaling on UI
-// TOD: R hovering and movement
 // TOD: Readme lore sillyness
-// TOD: Particles in logbook are weird
-// TOD: Portrait
 // TOD: Effects obscuring vision
 // TOD: Effect brightness settings
 // TOD: Muzzle flashes
@@ -261,8 +257,9 @@ namespace WispSurvivor
 // TOD: Animation cleanup and improvements
 // TOD: Base class for mod plugin with helpers
 // TOD: Null ref on kill enemy with primary when client
-// TOD: Survivor Pod flames
 // TOD: Improved Utility effects (orb of fire in center, orbs from enemies burning to center)
-// TOD: Primary clarity on charges
 // TOD: Improve itemdisplayruleset
+// TOD: Pod UV mapping (need to duplicate mesh?)
+// TOD: Capacitor limb issue
+// TOD: ParticleBuilder class, and convert everything to use it.
 

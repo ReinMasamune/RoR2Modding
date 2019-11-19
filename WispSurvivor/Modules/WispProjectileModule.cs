@@ -1,8 +1,8 @@
 ﻿using RoR2.Projectile;
-using UnityEngine;
 using System;
 using System.Collections.Generic;
-using static WispSurvivor.Util.PrefabUtilities;
+using UnityEngine;
+using static WispSurvivor.Helpers.PrefabHelpers;
 
 namespace WispSurvivor.Modules
 {
@@ -10,35 +10,29 @@ namespace WispSurvivor.Modules
     {
         public static GameObject[] specialProjPrefabs = new GameObject[8];
 
-        public static void DoModule( GameObject body , Dictionary<Type,Component> dic)
-        {
-            CreateSpecialProjectiles();
-        }
+        public static void DoModule( GameObject body, Dictionary<Type, Component> dic ) => CreateSpecialProjectiles();
 
-        private static void ExFunction(GameObject body, Dictionary<Type, Component> dic)
+        private static void ExFunction( GameObject body, Dictionary<Type, Component> dic )
         {
 
         }
 
-        private static T C<T>( this Dictionary<Type,Component> dic ) where T : Component
-        {
-            return dic[typeof(T)] as T;
-        }
+        private static T C<T>( this Dictionary<Type, Component> dic ) where T : Component => dic[typeof( T )] as T;
 
         private static void CreateSpecialProjectiles()
         {
-            for( int i = 0; i < 8; i++ )
+            for( Int32 i = 0; i < 8; i++ )
             {
-                specialProjPrefabs[i] = CreateSpecialProjectile(i);
-                Util.PrefabUtilities.RegisterNewProjectile(specialProjPrefabs[i]);
+                specialProjPrefabs[i] = CreateSpecialProjectile( i );
+                Helpers.PrefabHelpers.RegisterNewProjectile( specialProjPrefabs[i] );
             }
         }
 
-        private static GameObject CreateSpecialProjectile( int skinIndex )
+        private static GameObject CreateSpecialProjectile( Int32 skinIndex )
         {
             GameObject obj = Resources.Load<GameObject>("Prefabs/Projectiles/WispCannon").InstantiateClone("WispCannonProjectileThing"+skinIndex.ToString());
 
-            obj.GetComponent<ProjectileController>().ghostPrefab = CreateSpecialProjectileGhost(skinIndex);
+            obj.GetComponent<ProjectileController>().ghostPrefab = CreateSpecialProjectileGhost( skinIndex );
 
             ProjectileImpactExplosion impact = obj.GetComponent<ProjectileImpactExplosion>();
 
@@ -54,7 +48,7 @@ namespace WispSurvivor.Modules
             return obj;
         }
 
-        private static GameObject CreateSpecialProjectileGhost( int skinIndex )
+        private static GameObject CreateSpecialProjectileGhost( Int32 skinIndex )
         {
             GameObject obj = Resources.Load<GameObject>("Prefabs/projectileghosts/archwispcannonghost").InstantiateClone("WispCannonGhostThing"+skinIndex.ToString(), false);
 
@@ -74,15 +68,15 @@ namespace WispSurvivor.Modules
 
             ParticleSystem ps = sphereObj.GetComponent<ParticleSystem>();
 
-            var psCOL = ps.colorOverLifetime;
+            ParticleSystem.ColorOverLifetimeModule psCOL = ps.colorOverLifetime;
             ParticleSystem.MinMaxGradient psCOLGrad = new ParticleSystem.MinMaxGradient();
             psCOLGrad.mode = ParticleSystemGradientMode.Gradient;
             Gradient psCOLGradMain = new Gradient();
             GradientColorKey[] cols = new GradientColorKey[3];
-            cols[0] = new GradientColorKey( new Color(3f, 3f, 3f) , 0f );
-            cols[1] = new GradientColorKey(new Color(1f, 1f, 1f), 0.2f);
-            cols[2] = new GradientColorKey(new Color(0.8f, 0.8f, 0.8f), 1f);
-            psCOLGradMain.SetKeys(cols, psCOL.color.gradient.alphaKeys);
+            cols[0] = new GradientColorKey( new Color( 3f, 3f, 3f ), 0f );
+            cols[1] = new GradientColorKey( new Color( 1f, 1f, 1f ), 0.2f );
+            cols[2] = new GradientColorKey( new Color( 0.8f, 0.8f, 0.8f ), 1f );
+            psCOLGradMain.SetKeys( cols, psCOL.color.gradient.alphaKeys );
             psCOLGrad.gradient = psCOLGradMain;
             psCOL.color = psCOLGrad;
 

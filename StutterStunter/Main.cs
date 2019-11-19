@@ -12,7 +12,7 @@ using UnityEngine.Rendering.PostProcessing;
 
 namespace ReinStutterStunter
 {
-    [BepInDependency("com.bepis.r2api")]
+    [BepInDependency(R2API.R2API.PluginGUID, BepInDependency.DependencyFlags.HardDependency)]
     [BepInPlugin("com.ReinThings.ReinStutterStunter", "ReinStutterStunter", "1.0.4")]
     public class ReinStutterStunterMain : BaseUnityPlugin
     {

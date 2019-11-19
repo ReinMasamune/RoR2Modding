@@ -1,10 +1,10 @@
-﻿using RoR2;
-using EntityStates;
-using UnityEngine;
-using System;
+﻿using EntityStates;
+using RoR2;
 using RoR2.Orbs;
-using UnityEngine.Networking;
+using System;
 using System.Linq;
+using UnityEngine;
+using UnityEngine.Networking;
 
 namespace WispSurvivor.Skills.Primary
 {
@@ -20,28 +20,28 @@ namespace WispSurvivor.Skills.Primary
         public WispPrimaryAnimState state = WispPrimaryAnimState.First;
 
 
-        public static double baseChargeAdded = 5.0;
+        public static Double baseChargeAdded = 5.0;
 
-        public static float baseDuration = 0.625f;
-        public static float chargeScaler = 0.5f;
-        public static float scanDelay = 0.25f;
-        public static float fireDelay = 0.185f;
-        public static float maxRange = 35f;
-        public static float maxAngle = 7.5f;
-        public static float damageRatio = 2.5f;
-        public static float radius = 6f;
-        public static float returnIdlePercent = 0.55f;
+        public static Single baseDuration = 0.625f;
+        public static Single chargeScaler = 0.5f;
+        public static Single scanDelay = 0.25f;
+        public static Single fireDelay = 0.185f;
+        public static Single maxRange = 35f;
+        public static Single maxAngle = 7.5f;
+        public static Single damageRatio = 2.5f;
+        public static Single radius = 6f;
+        public static Single returnIdlePercent = 0.55f;
 
-        private float duration;
+        private Single duration;
 
-        private double chargeAdded;
+        private Double chargeAdded;
 
-        private bool hasFired = false;
-        private bool scanned = false;
-        private bool synced = false;
+        private Boolean hasFired = false;
+        private Boolean scanned = false;
+        private Boolean synced = false;
 
 
-        private uint skin = 0;
+        private UInt32 skin = 0;
 
         private Vector3 targetVec;
 
@@ -54,60 +54,60 @@ namespace WispSurvivor.Skills.Primary
         public override void OnEnter()
         {
             base.OnEnter();
-            passive = gameObject.GetComponent<Components.WispPassiveController>();
+            this.passive = this.gameObject.GetComponent<Components.WispPassiveController>();
 
             Transform modelTrans = base.GetModelTransform();
             //Sound
 
-            
+
 
             //int stockMissing = skillLocator.primary.maxStock - skillLocator.primary.stock + skillLocator.primary.stockToConsume;
             //duration = baseDuration / (attackSpeedStat / stockMissing);
             //float stockFrac = (skillLocator.primary.stock + skillLocator.primary.stockToConsume) / skillLocator.primary.maxStock;
             //duration = baseDuration / (attackSpeedStat * stockFrac);
 
-           
+
             //chargeAdded = baseChargeAdded / Mathf.Sqrt(attackSpeedStat);
-            
+
 
             //float stockMax = skillLocator.primary.maxStock;
             //float curStock = skillLocator.primary.stock;
             //float stockFrac = 0.5f + 0.5f * (stockMax+1) / (Math.Max( 0,curStock)+1);
             //duration = baseDuration * stockFrac / attackSpeedStat;
-            if (skillLocator.primary.stock > 0) skillLocator.primary.stock -= 1; else skillLocator.primary.stock = 0;
-            chargeAdded = baseChargeAdded * (skillLocator.primary.stock > 0 ? 2f : 1f);
-            duration = baseDuration * (skillLocator.primary.stock > 0 ? 1f : 2f) / attackSpeedStat;
+            if( this.skillLocator.primary.stock > 0 ) this.skillLocator.primary.stock -= 1; else this.skillLocator.primary.stock = 0;
+            this.chargeAdded = baseChargeAdded * (this.skillLocator.primary.stock > 0 ? 2f : 1f);
+            this.duration = baseDuration * (this.skillLocator.primary.stock > 0 ? 1f : 2f) / this.attackSpeedStat;
 
 
             //duration = baseDuration * (skillLocator.primary.maxStock*0.5f + 0.5f)) / (attackSpeedStat * (0.5f + 0.5f*( Math.Max(skillLocator.primary.stock, 0) + skillLocator.primary.stockToConsume)));
 
             //Animations
-            anim = GetModelAnimator();
-            modelTrans = GetModelTransform();
-            childLoc = modelTrans.GetComponent<ChildLocator>();
+            this.anim = this.GetModelAnimator();
+            modelTrans = this.GetModelTransform();
+            this.childLoc = modelTrans.GetComponent<ChildLocator>();
 
-            string animStr = anim.GetCurrentAnimatorStateInfo(anim.GetLayerIndex("Gesture")).IsName("Throw1") ? "Throw2" : "Throw1";
-                
+            String animStr = this.anim.GetCurrentAnimatorStateInfo(this.anim.GetLayerIndex("Gesture")).IsName("Throw1") ? "Throw2" : "Throw1";
+
             //int layerInd = anim.GetLayerIndex("Gesture");
             //if (anim.GetCurrentAnimatorStateInfo(layerInd).IsName("Throw1"))
             //{
-                PlayCrossfade("Gesture", animStr, "Throw.playbackRate", duration / (1f - returnIdlePercent), 0.2f);
+            this.PlayCrossfade( "Gesture", animStr, "Throw.playbackRate", this.duration / (1f - returnIdlePercent), 0.2f );
             //} else
             //{
             //    PlayCrossfade("Gesture", "Throw1", "Throw.playbackRate", duration / (1f - returnIdlePercent), 0.2f);
             //}
 
-            if( isAuthority )
+            if( this.isAuthority )
             {
-                skin = characterBody.skinIndex;
-                GetTarget();
+                this.skin = this.characterBody.skinIndex;
+                this.GetTarget();
             }
 
 
 
-            if( characterBody )
+            if( this.characterBody )
             {
-                characterBody.SetAimTimer(duration + 1f);
+                this.characterBody.SetAimTimer( this.duration + 1f );
             }
         }
 
@@ -116,40 +116,40 @@ namespace WispSurvivor.Skills.Primary
             base.FixedUpdate();
             //if( !scanned && fixedAge > duration * scanDelay * fireDelay )
             //{
-                
+
             //}
-            if( !hasFired && fixedAge > duration * fireDelay )
+            if( !this.hasFired && this.fixedAge > this.duration * fireDelay )
             {
-                FireOrb();
+                this.FireOrb();
             }
-            if( fixedAge > duration && isAuthority )
+            if( this.fixedAge > this.duration && this.isAuthority )
             {
-                if( inputBank && skillLocator && inputBank.skill1.down && skillLocator.primary.stock >= skillLocator.primary.requiredStock && !characterBody.isSprinting )
+                if( this.inputBank && this.skillLocator && this.inputBank.skill1.down && this.skillLocator.primary.stock >= this.skillLocator.primary.requiredStock && !this.characterBody.isSprinting )
                 {
-                    switch( state )
+                    switch( this.state )
                     {
                         case WispPrimaryAnimState.First:
-                            state = WispPrimaryAnimState.Right;
+                            this.state = WispPrimaryAnimState.Right;
                             break;
                         case WispPrimaryAnimState.Left:
-                            state = WispPrimaryAnimState.Right;
+                            this.state = WispPrimaryAnimState.Right;
                             break;
                         case WispPrimaryAnimState.Right:
-                            state = WispPrimaryAnimState.Left;
+                            this.state = WispPrimaryAnimState.Left;
                             break;
                     }
-                    outer.SetNextState(new TestPrimary
+                    this.outer.SetNextState( new TestPrimary
                     {
                         state = state
-                    });
+                    } );
 
 
                     return;
 
                 } else
                 {
-                    PlayCrossfade("Gesture", "Idle", 0.2f);
-                    outer.SetNextStateToMain();
+                    this.PlayCrossfade( "Gesture", "Idle", 0.2f );
+                    this.outer.SetNextStateToMain();
                 }
 
                 return;
@@ -159,84 +159,80 @@ namespace WispSurvivor.Skills.Primary
         public override void OnExit()
         {
             base.OnExit();
-            FireOrb();
+            this.FireOrb();
         }
 
-        public override InterruptPriority GetMinimumInterruptPriority()
+        public override InterruptPriority GetMinimumInterruptPriority() => InterruptPriority.Skill;
+
+        public override void OnSerialize( NetworkWriter writer )
         {
-            return InterruptPriority.Skill;
+            base.OnSerialize( writer );
+            writer.Write( HurtBoxReference.FromHurtBox( this.target ) );
+            writer.Write( this.targetVec );
+            writer.Write( this.skin );
         }
 
-        public override void OnSerialize(NetworkWriter writer)
+        public override void OnDeserialize( NetworkReader reader )
         {
-            base.OnSerialize(writer);
-            writer.Write(HurtBoxReference.FromHurtBox(target));
-            writer.Write(targetVec);
-            writer.Write(skin);
-        }
-
-        public override void OnDeserialize(NetworkReader reader)
-        {
-            base.OnDeserialize(reader);
-            target = reader.ReadHurtBoxReference().ResolveHurtBox();
-            targetVec = reader.ReadVector3();
-            skin = reader.ReadUInt32();
-            synced = true;
+            base.OnDeserialize( reader );
+            this.target = reader.ReadHurtBoxReference().ResolveHurtBox();
+            this.targetVec = reader.ReadVector3();
+            this.skin = reader.ReadUInt32();
+            this.synced = true;
         }
 
         private void GetTarget()
         {
-            scanned = true;
+            this.scanned = true;
 
-            Ray r = GetAimRay();
+            Ray r = this.GetAimRay();
 
-            search.teamMaskFilter = TeamMask.all;
-            search.teamMaskFilter.RemoveTeam(TeamComponent.GetObjectTeam(gameObject));
-            search.filterByLoS = true;
-            search.searchOrigin = r.origin;
-            search.searchDirection = r.direction;
-            search.sortMode = BullseyeSearch.SortMode.DistanceAndAngle;
-            search.maxDistanceFilter = maxRange;
-            search.maxAngleFilter = maxAngle;
-            search.RefreshCandidates();
-            target = search.GetResults().FirstOrDefault<HurtBox>();
+            this.search.teamMaskFilter = TeamMask.all;
+            this.search.teamMaskFilter.RemoveTeam( TeamComponent.GetObjectTeam( this.gameObject ) );
+            this.search.filterByLoS = true;
+            this.search.searchOrigin = r.origin;
+            this.search.searchDirection = r.direction;
+            this.search.sortMode = BullseyeSearch.SortMode.DistanceAndAngle;
+            this.search.maxDistanceFilter = maxRange;
+            this.search.maxAngleFilter = maxAngle;
+            this.search.RefreshCandidates();
+            this.target = this.search.GetResults().FirstOrDefault<HurtBox>();
 
             RaycastHit rh;
-            
-            if( Physics.Raycast( r , out rh , maxRange , LayerIndex.world.mask | LayerIndex.entityPrecise.mask , QueryTriggerInteraction.UseGlobal ) )
+
+            if( Physics.Raycast( r, out rh, maxRange, LayerIndex.world.mask | LayerIndex.entityPrecise.mask, QueryTriggerInteraction.UseGlobal ) )
             {
-                targetVec = rh.point;
-            }
-            else
+                this.targetVec = rh.point;
+            } else
             {
-                targetVec = r.GetPoint(maxRange);
+                this.targetVec = r.GetPoint( maxRange );
             }
         }
 
         private void FireOrb()
         {
-            if (hasFired) return;
-            passive.AddCharge(chargeAdded);
-            hasFired = true;
-            if (!NetworkServer.active) return;
+            if( this.hasFired ) return;
+            this.passive.AddCharge( this.chargeAdded );
+            this.hasFired = true;
+            if( !NetworkServer.active ) return;
 
             Orbs.SnapOrb arrow = new Orbs.SnapOrb();
 
-            if( !synced )
+            if( !this.synced )
             {
-                GetTarget();
-                skin = characterBody.skinIndex;
+                this.GetTarget();
+                this.skin = this.characterBody.skinIndex;
             }
 
-            arrow.damage = damageStat * ( damageRatio + ( chargeScaler * (float)( passive.ReadCharge() - 100 ) / 100 ));
-            arrow.crit = RollCrit();
-            arrow.team = TeamComponent.GetObjectTeam(gameObject);
-            arrow.attacker = gameObject;
+            arrow.damage = this.damageStat * (damageRatio + (chargeScaler * (Single)(this.passive.ReadCharge() - 100) / 100));
+            arrow.crit = this.RollCrit();
+            arrow.team = TeamComponent.GetObjectTeam( this.gameObject );
+            arrow.attacker = this.gameObject;
             arrow.procCoef = 1.0f;
             arrow.radius = radius;
-            arrow.skin = skin;
+            arrow.skin = this.skin;
 
-            Transform trans = childLoc.FindChild("MuzzleRight");
+            Transform trans = this.childLoc.FindChild("MuzzleRight");
 
             //Muzzle flash
 
@@ -244,21 +240,20 @@ namespace WispSurvivor.Skills.Primary
 
             arrow.speed = 150f;
 
-            if( target )
+            if( this.target )
             {
-                arrow.target = target;
+                arrow.target = this.target;
                 arrow.useTarget = true;
-                targetVec = target.transform.position;
-            }
-            else
+                this.targetVec = this.target.transform.position;
+            } else
             {
                 arrow.useTarget = false;
             }
 
-            arrow.targetPos = targetVec;
+            arrow.targetPos = this.targetVec;
 
 
-            OrbManager.instance.AddOrb(arrow);
+            OrbManager.instance.AddOrb( arrow );
         }
     }
 }

@@ -1,16 +1,16 @@
-﻿using RoR2;
-using UnityEngine;
-using UnityEngine.Networking;
-using R2API.Utils;
+﻿using R2API.Utils;
+using RoR2;
+using RoR2.Projectile;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using System.Text;
-using RoR2.Projectile;
+using UnityEngine;
+using UnityEngine.Networking;
 
-namespace WispSurvivor.Util
+namespace WispSurvivor.Helpers
 {
-    public static class PrefabUtilities
+    public static class PrefabHelpers
     {
         #region General
         /// <summary>
@@ -20,10 +20,7 @@ namespace WispSurvivor.Util
         /// <typeparam Type to check="T"></typeparam>
         /// <param Object to check="g"></param>
         /// <returns></returns>
-        public static bool HasComponent<T>( this GameObject g )
-        {
-            return g && g.GetComponent<T>() != null;
-        }
+        public static System.Boolean HasComponent<T>( this GameObject g ) => g && g.GetComponent<T>() != null;
 
         /// <summary>
         /// Gets and returns component of type T from GameObject
@@ -34,7 +31,7 @@ namespace WispSurvivor.Util
         /// <returns></returns>
         public static T AddOrGetComponent<T>( this GameObject g ) where T : Component
         {
-            var v = g.GetComponent<T>();
+            T v = g.GetComponent<T>();
             if( v == null )
             {
                 v = g.AddComponent<T>();
@@ -48,10 +45,7 @@ namespace WispSurvivor.Util
         /// <typeparam name="T"></typeparam>
         /// <param name="g"></param>
         /// <returns></returns>
-        public static T AddOrGetComponent<T>( this Transform g ) where T : Component
-        {
-            return AddOrGetComponent<T>(g.gameObject);
-        }
+        public static T AddOrGetComponent<T>( this Transform g ) where T : Component => AddOrGetComponent<T>( g.gameObject );
 
         /// <summary>
         /// 
@@ -59,10 +53,7 @@ namespace WispSurvivor.Util
         /// <typeparam name="T"></typeparam>
         /// <param name="g"></param>
         /// <returns></returns>
-        public static T AddOrGetComponent<T>( this Component g ) where T : Component
-        {
-            return AddOrGetComponent<T>(g.gameObject);
-        }
+        public static T AddOrGetComponent<T>( this Component g ) where T : Component => AddOrGetComponent<T>( g.gameObject );
 
 
         /// <summary>
@@ -75,13 +66,13 @@ namespace WispSurvivor.Util
         /// <param name="member"></param>
         /// <param name="line"></param>
         /// <returns></returns>
-        public static GameObject InstantiateClone( this GameObject g, string nameToSet,  bool registerNetwork = true, [CallerFilePath] string file = "", [CallerMemberName] string member = "", [CallerLineNumber] int line = 0 )
+        public static GameObject InstantiateClone( this GameObject g, System.String nameToSet, System.Boolean registerNetwork = true, [CallerFilePath] System.String file = "", [CallerMemberName] System.String member = "", [CallerLineNumber] System.Int32 line = 0 )
         {
             GameObject prefab = MonoBehaviour.Instantiate<GameObject>(g, GetParent().transform);
             prefab.name = nameToSet;
             if( registerNetwork )
             {
-                RegisterPrefabInternal(prefab, file, member, line);
+                RegisterPrefabInternal( prefab, file, member, line );
             }
             return prefab;
         }
@@ -93,10 +84,7 @@ namespace WispSurvivor.Util
         /// <param name="file"></param>
         /// <param name="member"></param>
         /// <param name="line"></param>
-        public static void RegisterNetworkPrefab( this GameObject g, [CallerFilePath] string file = "", [CallerMemberName] string member = "", [CallerLineNumber] int line = 0)
-        {
-            RegisterPrefabInternal(g, file, member, line);
-        }
+        public static void RegisterNetworkPrefab( this GameObject g, [CallerFilePath] System.String file = "", [CallerMemberName] System.String member = "", [CallerLineNumber] System.Int32 line = 0 ) => RegisterPrefabInternal( g, file, member, line );
         #endregion
 
         #region Catalogs
@@ -107,13 +95,13 @@ namespace WispSurvivor.Util
         /// </summary>
         /// <param Body Prefab="g"></param>
         /// <returns></returns>
-        public static bool RegisterNewBody( GameObject g )
+        public static System.Boolean RegisterNewBody( GameObject g )
         {
             if( g != null )
             {
                 RoR2.BodyCatalog.getAdditionalEntries += list =>
                 {
-                    list.Add(g);
+                    list.Add( g );
                 };
 
                 return true;
@@ -128,13 +116,13 @@ namespace WispSurvivor.Util
         /// </summary>
         /// <param Projectile Prefab="g"></param>
         /// <returns></returns>
-        public static bool RegisterNewProjectile( GameObject g )
+        public static System.Boolean RegisterNewProjectile( GameObject g )
         {
             if( g.HasComponent<ProjectileController>() )
             {
                 RoR2.ProjectileCatalog.getAdditionalEntries += list =>
                 {
-                    list.Add(g);
+                    list.Add( g );
                 };
 
                 return true;
@@ -148,20 +136,20 @@ namespace WispSurvivor.Util
         /// </summary>
         /// <param Effect Prefab="prefab"></param>
         /// <returns></returns>
-        public static bool RegisterNewEffect(GameObject prefab)
+        public static System.Boolean RegisterNewEffect( GameObject prefab )
         {
             List<GameObject> effects = EffectManager.instance.GetFieldValue<List<GameObject>>("effectPrefabsList");
-            Dictionary<GameObject, uint> effectLookup = EffectManager.instance.GetFieldValue<Dictionary<GameObject, uint>>("effectPrefabToIndexMap");
+            Dictionary<GameObject, System.UInt32> effectLookup = EffectManager.instance.GetFieldValue<Dictionary<GameObject, System.UInt32>>("effectPrefabToIndexMap");
 
-            if (!prefab)
+            if( !prefab )
             {
                 return false;
             }
 
-            int index = effects.Count;
+            System.Int32 index = effects.Count;
 
-            effects.Add(prefab);
-            effectLookup.Add(prefab, (uint)index);
+            effects.Add( prefab );
+            effectLookup.Add( prefab, (System.UInt32)index );
             return true;
         }
         #endregion
@@ -186,7 +174,7 @@ namespace WispSurvivor.Util
             newSkin.rendererInfos = skin.rendererInfos;
             newSkin.nameToken = skin.nameToken;
             newSkin.name = skin.name;
-            
+
 
 
             On.RoR2.SkinDef.Awake -= SkinDef_Awake;
@@ -199,7 +187,7 @@ namespace WispSurvivor.Util
         /// <param Renderer="r"></param>
         /// <param Default Material="m"></param>
         /// <returns></returns>
-        public static CharacterModel.RendererInfo CreateRendererInfo( Renderer r , Material m , bool ignoreOverlays , UnityEngine.Rendering.ShadowCastingMode shadow )
+        public static CharacterModel.RendererInfo CreateRendererInfo( Renderer r, Material m, System.Boolean ignoreOverlays, UnityEngine.Rendering.ShadowCastingMode shadow )
         {
             CharacterModel.RendererInfo ren = new CharacterModel.RendererInfo();
             ren.renderer = r;
@@ -216,16 +204,16 @@ namespace WispSurvivor.Util
         {
             public SkinDef[] baseSkins;
             public Sprite icon;
-            public string nameToken;
-            public string unlockableName;
+            public System.String nameToken;
+            public System.String unlockableName;
             public GameObject rootObject;
             public CharacterModel.RendererInfo[] rendererInfos;
-            public string name;
+            public System.String name;
         }
         #endregion
 
         #region Internal
-        private static void SkinDef_Awake(On.RoR2.SkinDef.orig_Awake orig, SkinDef self)
+        private static void SkinDef_Awake( On.RoR2.SkinDef.orig_Awake orig, SkinDef self )
         {
             //Intentionally do nothing
         }
@@ -235,14 +223,14 @@ namespace WispSurvivor.Util
         {
             if( !parent )
             {
-                parent = new GameObject("ModsAreHere");
-                MonoBehaviour.DontDestroyOnLoad(parent);
-                parent.SetActive(false);
+                parent = new GameObject( "ModsAreHere" );
+                MonoBehaviour.DontDestroyOnLoad( parent );
+                parent.SetActive( false );
 
-                On.RoR2.Util.IsPrefab += (orig, obj) =>
+                On.RoR2.Util.IsPrefab += ( orig, obj ) =>
                 {
-                    if (obj.transform.parent && obj.transform.parent.gameObject.name == "ModsAreHere") return true;
-                    return orig(obj);
+                    if( obj.transform.parent && obj.transform.parent.gameObject.name == "ModsAreHere" ) return true;
+                    return orig( obj );
                 };
             }
 
@@ -252,17 +240,17 @@ namespace WispSurvivor.Util
         private struct HashStruct
         {
             public GameObject prefab;
-            public string goName;
-            public string callPath;
-            public string callMember;
-            public int callLine;
+            public System.String goName;
+            public System.String callPath;
+            public System.String callMember;
+            public System.Int32 callLine;
         }
 
         private static List<HashStruct> thingsToHash = new List<HashStruct>();
 
-        private static bool needToRegister = false;
+        private static System.Boolean needToRegister = false;
 
-        private static void RegisterPrefabInternal( GameObject prefab , string callPath, string callMember, int callLine )
+        private static void RegisterPrefabInternal( GameObject prefab, System.String callPath, System.String callMember, System.Int32 callLine )
         {
             HashStruct h = new HashStruct
             {
@@ -272,7 +260,7 @@ namespace WispSurvivor.Util
                 callMember = callMember,
                 callLine = callLine
             };
-            thingsToHash.Add(h);
+            thingsToHash.Add( h );
             SetupRegistrationEvent();
         }
 
@@ -305,26 +293,26 @@ namespace WispSurvivor.Util
             i15 = 0
         };
 
-        private static void RegisterClientPrefabsNStuff(On.RoR2.Networking.GameNetworkManager.orig_OnStartClient orig, RoR2.Networking.GameNetworkManager self, UnityEngine.Networking.NetworkClient newClient)
+        private static void RegisterClientPrefabsNStuff( On.RoR2.Networking.GameNetworkManager.orig_OnStartClient orig, RoR2.Networking.GameNetworkManager self, UnityEngine.Networking.NetworkClient newClient )
         {
-            orig(self, newClient);
-            foreach (HashStruct h in thingsToHash)
+            orig( self, newClient );
+            foreach( HashStruct h in thingsToHash )
             {
-                if (h.prefab.HasComponent<NetworkIdentity>()) h.prefab.GetComponent<NetworkIdentity>().SetFieldValue<NetworkHash128>("m_AssetId",nullHash);
-                ClientScene.RegisterPrefab(h.prefab, NetworkHash128.Parse(MakeHash(h.goName + h.callPath + h.callMember + h.callLine.ToString())));
+                if( h.prefab.HasComponent<NetworkIdentity>() ) h.prefab.GetComponent<NetworkIdentity>().SetFieldValue<NetworkHash128>( "m_AssetId", nullHash );
+                ClientScene.RegisterPrefab( h.prefab, NetworkHash128.Parse( MakeHash( h.goName + h.callPath + h.callMember + h.callLine.ToString() ) ) );
             }
         }
 
-        private static string MakeHash( string s )
+        private static System.String MakeHash( System.String s )
         {
             MD5 hash = MD5.Create();
-            byte[] prehash = hash.ComputeHash(Encoding.UTF8.GetBytes(s));
+            System.Byte[] prehash = hash.ComputeHash( Encoding.UTF8.GetBytes( s ) );
 
             StringBuilder sb = new StringBuilder();
 
-            for( int i = 0; i < prehash.Length; i++ )
+            for( System.Int32 i = 0; i < prehash.Length; i++ )
             {
-                sb.Append(prehash[i].ToString("x2"));
+                sb.Append( prehash[i].ToString( "x2" ) );
             }
 
             return sb.ToString();

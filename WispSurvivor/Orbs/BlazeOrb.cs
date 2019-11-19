@@ -1,44 +1,43 @@
 ﻿using RoR2;
-using UnityEngine;
+using RoR2.Orbs;
 using System;
 using System.Collections.Generic;
-using System.Reflection;
-using RoR2.Orbs;
+using UnityEngine;
 
 namespace WispSurvivor.Orbs
 {
-    class BlazeOrb : RoR2.Orbs.Orb, IOrbFixedUpdateBehavior
+    internal class BlazeOrb : RoR2.Orbs.Orb, IOrbFixedUpdateBehavior
     {
         //Blaze settings
-        public float blazeTime = 1f;
-        public float blazeFreq = 1f;
-        public float blazeRadius = 1f;
-        public float blazeMinDurToContinue = 1f;
-        public float blazeDurationPerStack = 1f;
-        public float blazeOrbBundleSendFreq = 1f;
-        public float blazeStackExchangeRate = 1f;
+        public Single blazeTime = 1f;
+        public Single blazeFreq = 1f;
+        public Single blazeRadius = 1f;
+        public Single blazeExpireStacksMult = 1f;
+        public Single blazeBuffDuration = 1f;
+        public Single blazeOrbBundleSendFreq = 1f;
+        public Single blazeBonusBundlePercent = 1f;
 
-        public uint blazeOrbStackBundleSize = 1;
+        public UInt32 blazeOrbStackBundleSize = 1;
 
         //Ignite settings
-        public float igniteDuration = 1f;
-        public float igniteDebuffTimeMult = 1f;
-        public float igniteTickDamage = 1f;
-        public float igniteProcCoef = 1f;
-        public float igniteTickFreq = 1f;
-        public float igniteBaseStacksOnDeath = 1f;
-        public float igniteStacksPerSecOnDeath = 1f;
-        public float igniteExpireStacksMult = 1f;
+        public Single igniteDuration = 1f;
+        public Single igniteStacksPerTick = 1f;
+        public Single igniteTickDamage = 1f;
+        public Single igniteProcCoef = 1f;
+        public Single igniteTickFreq = 1f;
+        public Single igniteBaseStacksOnDeath = 1f;
+        public Single igniteDeathStacksMult = 1f;
+        public Single igniteExpireStacksMult = 1f;
 
         public DamageColorIndex igniteDamageColor = DamageColorIndex.Default;
 
         //Global settings
-        public bool crit = false;
+        public Boolean crit = false;
 
-        public uint skin = 0;
+        public UInt32 skin = 0;
 
-        public bool isActive = true;
-        public bool isOwnerInside = false;
+        public Boolean isActive = true;
+        public Boolean isOwnerInside = false;
 
         public TeamIndex team;
         public Vector3 normal;
@@ -48,11 +47,11 @@ namespace WispSurvivor.Orbs
         public List<IgnitionOrb> children;
 
         //Private stuff
-        private float blazeResetInt;
-        private float bundleSendInt;
-        private float curTime;
-        private float bundleSendTimer = 0f;
-        private float stacks = 0f;
+        private Single blazeResetInt;
+        private Single bundleSendInt;
+        private Single curTime;
+        private Single bundleSendTimer = 0f;
+        private Single stacks = 0f;
 
         private HurtBox attackerBox;
 
@@ -60,76 +59,77 @@ namespace WispSurvivor.Orbs
 
         private BuffIndex b;
 
-        private Dictionary<HealthComponent, float> mask = new Dictionary<HealthComponent, float>();
+        private Dictionary<HealthComponent, Single> mask = new Dictionary<HealthComponent, Single>();
+        private Dictionary<HealthComponent, Components.WispBurnManager> burnManagers = new Dictionary<HealthComponent, Components.WispBurnManager>();
 
         public override void Begin()
         {
-            b = BuffCatalog.FindBuffIndex("WispCurseBurn");
+            this.b = BuffCatalog.FindBuffIndex( "WispCurseBurn" );
 
-            foreach (IgnitionOrb i in children)
+            foreach( IgnitionOrb i in this.children )
             {
-                if (i.isActive)
+                if( i.isActive )
                 {
                     i.parent = this;
                 }
             }
 
-            duration = blazeTime;
+            this.duration = this.blazeTime;
 
-            isActive = true;
+            this.isActive = true;
 
             Vector3 tangent = Vector3.forward;
-            Vector3.OrthoNormalize(ref normal, ref tangent);
+            Vector3.OrthoNormalize( ref this.normal, ref tangent );
 
             EffectData effectData = new EffectData
             {
                 origin = origin,
                 genericFloat = duration,
-                rotation = Quaternion.LookRotation(tangent, normal),
+                rotation = Quaternion.LookRotation(tangent, this.normal),
                 scale = blazeRadius
             };
-            EffectManager.instance.SpawnEffect(Modules.WispEffectModule.utilityFlames[skin], effectData, true);
+            EffectManager.instance.SpawnEffect( Modules.WispEffectModule.utilityFlames[this.skin], effectData, true );
 
-            blazeResetInt = 1f / blazeFreq;
-            bundleSendInt = 1f / blazeOrbBundleSendFreq;
+            this.blazeResetInt = 1f / this.blazeFreq;
+            this.bundleSendInt = 1f / this.blazeOrbBundleSendFreq;
 
-            attackerBody = attacker.GetComponent<CharacterBody>();
-            attackerBox = attackerBody.mainHurtBox;
+            this.attackerBody = this.attacker.GetComponent<CharacterBody>();
+            this.attackerBox = this.attackerBody.mainHurtBox;
         }
 
         public void FixedUpdate()
         {
-            isOwnerInside = attacker && Vector3.Distance(attacker.transform.position, origin) <= blazeRadius;
+            this.isOwnerInside = this.attacker && Vector3.Distance( this.attacker.transform.position, this.origin ) <= this.blazeRadius;
 
-            if (isOwnerInside) bundleSendTimer += Time.fixedDeltaTime;
+            if( this.isOwnerInside ) this.bundleSendTimer += Time.fixedDeltaTime;
 
-            if (isOwnerInside && stacks >= blazeOrbStackBundleSize && bundleSendTimer >= bundleSendInt) SendStackBundle();
+            if( this.isOwnerInside && this.stacks >= this.blazeOrbStackBundleSize && this.bundleSendTimer >= this.bundleSendInt ) this.SendStackBundle();
 
-            if (isOwnerInside && !attackerBody.HasBuff(BuffIndex.EnrageAncientWisp)) attackerBody.AddBuff(BuffIndex.EnrageAncientWisp);
-            if (!isOwnerInside && attackerBody.HasBuff(BuffIndex.EnrageAncientWisp)) attackerBody.RemoveBuff(BuffIndex.EnrageAncientWisp);
+            if( this.isOwnerInside && !this.attackerBody.HasBuff( BuffIndex.EnrageAncientWisp ) ) this.attackerBody.AddBuff( BuffIndex.EnrageAncientWisp );
+            if( !this.isOwnerInside && this.attackerBody.HasBuff( BuffIndex.EnrageAncientWisp ) ) this.attackerBody.RemoveBuff( BuffIndex.EnrageAncientWisp );
 
-            Collider[] cols = Physics.OverlapSphere(origin, blazeRadius, LayerIndex.entityPrecise.mask, QueryTriggerInteraction.UseGlobal);
+            Collider[] cols = Physics.OverlapSphere(this.origin, this.blazeRadius, LayerIndex.entityPrecise.mask, QueryTriggerInteraction.UseGlobal);
 
             HurtBox box;
 
-            curTime = Time.fixedTime;
-            foreach (Collider col in cols)
+            this.curTime = Time.fixedTime;
+            foreach( Collider col in cols )
             {
-                if (!col) continue;
+                if( !col ) continue;
                 box = col.GetComponent<HurtBox>();
-                if (!box) continue;
+                if( !box ) continue;
                 HealthComponent hcomp = box.healthComponent;
-                if (!hcomp || !hcomp.alive || TeamComponent.GetObjectTeam(hcomp.gameObject) == team) continue;
+                if( !hcomp || !hcomp.alive || TeamComponent.GetObjectTeam( hcomp.gameObject ) == this.team ) continue;
 
-                if (mask.ContainsKey(hcomp))
+                if( this.mask.ContainsKey( hcomp ) )
                 {
-                    if (mask[hcomp] > curTime) continue;
-                    mask[hcomp] = curTime + blazeResetInt;
-                    TickDamage(box);
-                }else
+                    if( this.mask[hcomp] > this.curTime ) continue;
+                    this.mask[hcomp] = this.curTime + this.blazeResetInt;
+                    this.TickDamage( box );
+                } else
                 {
-                    mask.Add(hcomp, curTime + blazeResetInt);
-                    TickDamage(box);
+                    this.mask.Add( hcomp, this.curTime + this.blazeResetInt );
+                    this.TickDamage( box );
                 }
             }
         }
@@ -139,74 +139,89 @@ namespace WispSurvivor.Orbs
             base.OnArrival();
             //Ceil stacks to int and send if owner is in radius
 
-            if( isOwnerInside && stacks > 0 )
+            if( this.isOwnerInside && this.stacks > 0 )
             {
                 RestoreOrb orb = new RestoreOrb();
-                orb.stacks = (uint)Mathf.CeilToInt((stacks) / blazeMinDurToContinue);
-                orb.length = blazeDurationPerStack;
-                orb.origin = origin;
-                orb.skin = skin;
-                orb.target = attackerBox;
+                orb.stacks = (UInt32)Mathf.CeilToInt( (this.stacks) / this.blazeExpireStacksMult );
+                orb.length = this.blazeBuffDuration;
+                orb.origin = this.origin;
+                orb.skin = this.skin;
+                orb.target = this.attackerBox;
 
-                OrbManager.instance.AddOrb(orb);
+                OrbManager.instance.AddOrb( orb );
             }
 
-            if (attackerBody.HasBuff(BuffIndex.EnrageAncientWisp)) attackerBody.RemoveBuff(BuffIndex.EnrageAncientWisp);
+            if( this.attackerBody.HasBuff( BuffIndex.EnrageAncientWisp ) ) this.attackerBody.RemoveBuff( BuffIndex.EnrageAncientWisp );
 
-            isActive = false;
-         
+            this.isActive = false;
+
         }
 
-        public void AddStacks( float stacks )
+        public void AddStacks( Single stacks, IgnitionOrb i )
         {
+            if( !isActive ) return;
             this.stacks += stacks;
+
+            EffectData fx = new EffectData
+            {
+                origin = i.targetPos,
+                start = origin,
+                genericFloat = 0.25f,
+                genericUInt = 1u,
+                scale = 0.25f,
+                genericBool = false
+            };
+            EffectManager.instance.SpawnEffect( Modules.WispEffectModule.utilityLeech[this.skin], fx, true );
         }
 
         private void SendStackBundle()
         {
-            bundleSendTimer -= bundleSendInt;
-            stacks -= blazeOrbStackBundleSize;
-            var bonus = Mathf.FloorToInt(stacks * blazeStackExchangeRate);
-            stacks -= bonus;
+            this.bundleSendTimer -= this.bundleSendInt;
+            this.stacks -= this.blazeOrbStackBundleSize;
+            Int32 bonus = Mathf.FloorToInt(this.stacks * this.blazeBonusBundlePercent);
+            this.stacks -= bonus;
 
-            if (bundleSendTimer > 0f) bundleSendTimer *= 0.25f;
+            if( this.bundleSendTimer > 0f ) this.bundleSendTimer *= 0.25f;
 
             RestoreOrb orb = new RestoreOrb();
-            orb.stacks = (uint)Mathf.CeilToInt(blazeOrbStackBundleSize + bonus);
-            orb.length = blazeDurationPerStack;
-            orb.origin = origin;
-            orb.skin = skin;
-            orb.target = attackerBox;
+            orb.stacks = (UInt32)Mathf.CeilToInt( this.blazeOrbStackBundleSize + bonus );
+            orb.length = this.blazeBuffDuration;
+            orb.origin = this.origin;
+            orb.skin = this.skin;
+            orb.target = this.attackerBox;
 
-            OrbManager.instance.AddOrb(orb);
+            OrbManager.instance.AddOrb( orb );
         }
 
-        private void TickDamage(HurtBox enemy )
+        private void TickDamage( HurtBox enemy )
         {
+            (burnManagers.ContainsKey( enemy.healthComponent ) ? burnManagers[enemy.healthComponent] : (burnManagers[enemy.healthComponent] = enemy.healthComponent.GetComponent<Components.WispBurnManager>())).SetSkinDuration( skin, igniteDuration );
+
+
             IgnitionOrb orb = new IgnitionOrb();
 
-            orb.attacker = attacker;
-            orb.crit = crit;
-            orb.normal = Vector3.Normalize(enemy.transform.position - origin);
+            orb.attacker = this.attacker;
+            orb.crit = this.crit;
+            orb.normal = Vector3.Normalize( enemy.transform.position - this.origin );
             orb.origin = enemy.transform.position;
-            orb.skin = skin;
+            orb.skin = this.skin;
             orb.target = enemy;
-            orb.team = team;
-            orb.igniteDebuffTimeMult = igniteDebuffTimeMult;
-            orb.igniteProcCoef = igniteProcCoef;
-            orb.igniteTickDmg = igniteTickDamage;
-            orb.igniteTickFreq = igniteTickFreq;
-            orb.igniteTime = igniteDuration;
-            orb.igniteDamageColor = igniteDamageColor;
-            orb.igniteStacksPerSecOnDeath = igniteStacksPerSecOnDeath;
-            orb.igniteBaseStacksOnDeath = igniteBaseStacksOnDeath;
-            orb.igniteExpireStacksMult = igniteExpireStacksMult;
+            orb.team = this.team;
+            orb.igniteStacksPerTick = this.igniteStacksPerTick;
+            orb.igniteProcCoef = this.igniteProcCoef;
+            orb.igniteTickDmg = this.igniteTickDamage;
+            orb.igniteTickFreq = this.igniteTickFreq;
+            orb.igniteTime = this.igniteDuration;
+            orb.igniteDamageColor = this.igniteDamageColor;
+            orb.igniteDeathStacksMult = this.igniteDeathStacksMult;
+            orb.igniteBaseStacksOnDeath = this.igniteBaseStacksOnDeath;
+            orb.igniteExpireStacksMult = this.igniteExpireStacksMult;
             orb.parent = this;
-            
-            RoR2.Orbs.OrbManager.instance.AddOrb(orb);
-            children.Add(orb);
 
-            enemy.healthComponent.gameObject.GetComponent<CharacterBody>().AddTimedBuff(b, igniteDuration);
+            RoR2.Orbs.OrbManager.instance.AddOrb( orb );
+            this.children.Add( orb );
+
+            enemy.healthComponent.gameObject.GetComponent<CharacterBody>().AddTimedBuff( this.b, this.igniteDuration );
         }
     }
 }
