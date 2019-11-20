@@ -7,6 +7,7 @@ using System.Reflection;
 using UnityEngine;
 using static WispSurvivor.Helpers.ParticleUtils;
 using static WispSurvivor.Helpers.PrefabHelpers;
+using static WispSurvivor.Helpers.CatalogHelpers;
 
 namespace WispSurvivor.Modules
 {

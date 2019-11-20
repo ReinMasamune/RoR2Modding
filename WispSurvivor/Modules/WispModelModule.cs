@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Runtime.Serialization;
 using UnityEngine;
 using static WispSurvivor.Helpers.PrefabHelpers;
+using static WispSurvivor.Helpers.CatalogHelpers;
 
 namespace WispSurvivor.Modules
 {

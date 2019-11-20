@@ -12,6 +12,7 @@ using UnityEngine;
 using WispSurvivor.Modules;
 using WispSurvivor.Helpers;
 using static WispSurvivor.Helpers.PrefabHelpers;
+using static WispSurvivor.Helpers.CatalogHelpers;
 using System.IO;
 using UnityEngine.Networking;
 
@@ -45,7 +46,7 @@ namespace WispSurvivor
             this.body = Resources.Load<GameObject>( "Prefabs/CharacterBodies/AncientWispBody" ).InstantiateClone( "Rogue Wisp" );
 
             //Queue the body to be added to the BodyCatalog
-            PrefabHelpers.RegisterNewBody( this.body );
+            RegisterNewBody( this.body );
 
             //Perform the components module edits, save to the component cache
             this.componentLookup = WispComponentModule.DoModule( this.body );

@@ -7,7 +7,7 @@ namespace RoR2Plugin
 {
     public abstract partial class RoR2Plugin : BaseUnityPlugin
     {
-        public class PrefabHelpers
+        public class LanguageHelpers
         {
 
         }

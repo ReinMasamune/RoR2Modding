@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using static WispSurvivor.Helpers.PrefabHelpers;
+using static WispSurvivor.Helpers.CatalogHelpers;
 
 namespace WispSurvivor.Modules
 {
@@ -24,7 +25,7 @@ namespace WispSurvivor.Modules
             for( Int32 i = 0; i < 8; i++ )
             {
                 specialProjPrefabs[i] = CreateSpecialProjectile( i );
-                Helpers.PrefabHelpers.RegisterNewProjectile( specialProjPrefabs[i] );
+                RegisterNewProjectile( specialProjPrefabs[i] );
             }
         }
 
