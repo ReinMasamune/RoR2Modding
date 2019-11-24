@@ -17,12 +17,12 @@ namespace WispSurvivor.Modules
         private static void CharBodyStats( GameObject body, Dictionary<Type, Component> dic )
         {
             CharacterBody chbod = dic.C<CharacterBody>();
-            chbod.baseMaxHealth = 130.0f;
-            chbod.levelMaxHealth = 39.0f;
-            chbod.baseRegen = 1.0f;
-            chbod.levelRegen = 0.2f;
-            chbod.baseMaxShield = 0f;
-            chbod.levelMaxShield = 0f;
+            chbod.baseMaxHealth = 100.0f;
+            chbod.levelMaxHealth = 30.0f;
+            chbod.baseRegen = 0.6f;
+            chbod.levelRegen = 0.12f;
+            chbod.baseMaxShield = 30f;
+            chbod.levelMaxShield = 9f;
             chbod.baseMoveSpeed = 7f;
             chbod.levelMoveSpeed = 0f;
             chbod.baseJumpPower = 15.0f;

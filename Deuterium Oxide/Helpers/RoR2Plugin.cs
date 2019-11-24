@@ -10,6 +10,10 @@ namespace RoR2Plugin
 
         public abstract void RemoveHooks();
 
+        public abstract void OnLoad();
+
+        public abstract void OnUnload();
+
         /*
         public abstract void PluginActivate();
 
@@ -33,6 +37,7 @@ namespace RoR2Plugin
         protected virtual void OnEnable()
         {
             CreateHooks();
+            OnLoad();
             //PluginActivate();
             //PerformCatalogEdits();
         }
@@ -40,13 +45,9 @@ namespace RoR2Plugin
         protected virtual void OnDisable()
         {
             RemoveHooks();
+            OnUnload();
             //PluginDeactivate();
             //UndoCatalogEdits();
-        }
-
-        private void FixedUpdate()
-        {
-            RoR2.RoR2Application.isModded = true;
         }
 
         /*

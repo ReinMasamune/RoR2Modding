@@ -29,7 +29,7 @@ namespace WispSurvivor.Modules
             AddNewToken( "WISP_SURVIVOR_SKIN_5", "Lunar" );
             AddNewToken( "WISP_SURVIVOR_SKIN_6", "Solar" );
             AddNewToken( "WISP_SURVIVOR_SKIN_7", "Abyssal" );
-            AddNewToken( "WISP_SURVIVOR_SKIN_8", "Iridiscent" );
+            AddNewToken( "WISP_SURVIVOR_SKIN_8", "Blighted" );
 
 
             //Skills
@@ -47,7 +47,7 @@ namespace WispSurvivor.Modules
 
             AddNewToken( "WISP_SURVIVOR_UTILITY_1_NAME", "Burning Gaze" );
             AddNewToken( "WISP_SURVIVOR_UTILITY_1_DESC", "Create an <style=cIsDamage>Inferno</style> that <style=cIsDamage>Ignites</style> all enemies for <style=cIsDamage>80% damage</style> per second." +
-                "\nWhile in an<style=cIsDamage>Inferno</style><style=cIsUtility> Move Faster</style> and <style=cIsUtility>Gain Flame Charge</style> from <style=cIsDamage>Ignited</style> enemies." );
+                "\nWhile in an <style=cIsDamage>Inferno</style><style=cIsUtility> Move Faster</style> and <style=cIsUtility>Gain Flame Charge</style> from <style=cIsDamage>Ignited</style> enemies." );
 
             AddNewToken( "WISP_SURVIVOR_SPECIAL_1_NAME", "Incineration" );
             AddNewToken( "WISP_SURVIVOR_SPECIAL_1_DESC", "Fire a beam for <style=cIsDamage>500% damage</style> per second. <style=cIsUtility>Continues as long as you hold button</style>." +

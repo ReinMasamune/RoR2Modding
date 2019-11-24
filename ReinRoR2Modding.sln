@@ -27,7 +27,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WispSurvivor", "WispSurvivo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SurvivorUtils", "SurvivorUtils\SurvivorUtils.csproj", "{37CB33A4-440F-4985-8F28-02C57C42069C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoR2Plugin", "RoR2Plugin\RoR2Plugin.csproj", "{342C6A24-6600-4567-B93A-4FB3E30D6646}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RoR2Plugin", "RoR2Plugin\RoR2Plugin.csproj", "{342C6A24-6600-4567-B93A-4FB3E30D6646}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deuterium Oxide", "Deuterium Oxide\Deuterium Oxide.csproj", "{FA176A06-C281-43BC-A0AA-7AF0CBFF4EFC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -87,6 +89,10 @@ Global
 		{342C6A24-6600-4567-B93A-4FB3E30D6646}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{342C6A24-6600-4567-B93A-4FB3E30D6646}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{342C6A24-6600-4567-B93A-4FB3E30D6646}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA176A06-C281-43BC-A0AA-7AF0CBFF4EFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA176A06-C281-43BC-A0AA-7AF0CBFF4EFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA176A06-C281-43BC-A0AA-7AF0CBFF4EFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA176A06-C281-43BC-A0AA-7AF0CBFF4EFC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

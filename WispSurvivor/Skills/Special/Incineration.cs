@@ -15,10 +15,10 @@ namespace WispSurvivor.Skills.Special
         public static System.Single baseMinDuration = 1.0f;
         public static System.Single baseDamageMult = 1.0f;
         public static System.Single baseProcCoef = 1.0f;
-        public static System.Single baseTickFreq = 6f;
+        public static System.Single baseTickFreq = 5f;
         public static System.Single baseMaxRange = 1000f;
         public static System.Single baseRadius = 1f;
-        public static System.Single chargeScaler = 1f;
+        public static System.Single chargeScaler = 0.9f;
         public static System.Single minChargeToUse = 50f;
 
         public Vector3 camPos1;
@@ -234,12 +234,11 @@ namespace WispSurvivor.Skills.Special
                 } else if( ClientScene.ready )
                 {
                     write.StartMessage( 53 );
-                    write.Write( tempHc );
+                    write.Write( tempHc.gameObject );
                     WriteDmgInfo( write, tempDmgInfo );
                     write.Write( true );
                     write.FinishMessage();
                     ClientScene.readyConnection.SendWriter( write, QosChannelIndex.defaultReliable.intVal );
-                    Debug.Log( "Message sent?" );
                 }
             }
         }

@@ -65,59 +65,7 @@ namespace WispSurvivor.Modules
 
             BuffIndex armorBuff = BuffCatalog.FindBuffIndex("WispArmorBuff");
 
-            On.RoR2.CharacterBody.RecalculateStats += ( orig, self ) =>
-            {
-                orig( self );
-                if( self && self.inventory && self.HasBuff(armorBuff) )
-                {
-                    self.SetPropertyValue<float>( "armor", self.armor + specialArmorBoost );
-                }
-            };
-
-            IL.RoR2.CharacterBody.RecalculateStats += ( il ) =>
-            {
-                ILCursor c = new ILCursor(il);
-                c.GotoNext( MoveType.After,
-                    x => x.MatchLdloc( 39 ),
-                    x => x.MatchLdcR4( 0.1f ),
-                    x => x.MatchLdcR4( 0.2f ),
-                    x => x.MatchLdloc( 17 ),
-                    x => x.MatchConvR4(),
-                    x => x.MatchMul(),
-                    x => x.MatchAdd(),
-                    x => x.MatchLdarg( 0 ),
-                    x => x.MatchLdfld<RoR2.CharacterBody>( "sprintingSpeedMultiplier" ),
-                    x => x.MatchDiv(),
-                    x => x.MatchAdd(),
-                    x => x.MatchStloc( 39 ),
-                    x => x.MatchLdarg( 0 ),
-                    x => x.MatchLdcI4( 19 )
-                    );
-
-                c.GotoNext( MoveType.After,
-                    x => x.MatchBrfalse( out _ ),
-                    x => x.MatchLdloc( 39 ),
-                    x => x.MatchLdcR4( 0.2f ),
-                    x => x.MatchAdd(),
-                    x => x.MatchStloc( 39 ),
-                    x => x.MatchLdarg( 0 ),
-                    x => x.MatchLdcI4( 5 )
-                    );
-
-                c.GotoNext( MoveType.After,
-                    x => x.MatchBrfalse( out _ ),
-                    x => x.MatchLdloc( 39 ),
-                    x => x.MatchLdcR4( 0.3f ),
-                    x => x.MatchAdd(),
-                    x => x.MatchStloc( 39 ),
-                    x => x.MatchLdarg( 0 ),
-                    x => x.MatchLdcI4( 6 )
-                    );
-
-                c.Index += 3;
-                c.Remove();
-                c.Emit( Mono.Cecil.Cil.OpCodes.Ldc_R4, utilityMSBoost );
-            };
+            
         }
 
 

@@ -38,7 +38,7 @@ namespace WispSurvivor.Skills.Special
 
             if( this.fixedAge >= this.duration * rotatePoint )
             {
-                this.GetComponent<Components.WispAimAnimationController>().StartCannonMode( this.duration * 0.5f, 90.0f );
+                this.GetComponent<Components.WispAimAnimationController>().StartCannonMode( this.duration * 0.5f, 60.0f );
             }
 
             if( this.fixedAge >= this.duration )

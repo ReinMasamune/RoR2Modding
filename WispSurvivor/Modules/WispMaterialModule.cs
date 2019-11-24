@@ -19,6 +19,7 @@ namespace WispSurvivor.Modules
         public static Material[] flareMats = new Material[8];
         public static Material[] armorMaterials = new Material[8];
         public static Material[] burnOverlayMaterials = new Material[8];
+        public static Material[][] eliteFlameMaterials = new Material[8][];
         public static BurnEffectController.EffectParams[] burnOverlayParams = new BurnEffectController.EffectParams[8];
         public static Shader effectShader;
 
@@ -316,47 +317,47 @@ namespace WispSurvivor.Modules
 
             cKeys[7] = new GradientColorKey[8];
             cKeys[7][0] = new GradientColorKey( new Color( 0f, 0f, 0f ), 1f );
-            cKeys[7][1] = new GradientColorKey( new Color( 1f, 1f, 1f ), 0.9f );
-            cKeys[7][2] = new GradientColorKey( new Color( 1f, 0f, 0f ), 0.5f );
-            cKeys[7][3] = new GradientColorKey( new Color( 0f, 1f, 0f ), 0.25f );
-            cKeys[7][4] = new GradientColorKey( new Color( 0f, 0f, 1f ), 0.125f );
-            cKeys[7][5] = new GradientColorKey( new Color( 1f, 0f, 0f ), 0.0625f );
-            cKeys[7][6] = new GradientColorKey( new Color( 0f, 1f, 0f ), 0.00390625f );
-            cKeys[7][7] = new GradientColorKey( new Color( 0f, 0f, 1f ), 0f );
+            cKeys[7][1] = new GradientColorKey( new Color( 0f, 0f, 0f ), 0.9f );
+            cKeys[7][2] = new GradientColorKey( new Color( 1f, 1f, 1f ), 0.7f );
+            cKeys[7][3] = new GradientColorKey( new Color( 0f, 0f, 0f ), 0.5f );
+            cKeys[7][4] = new GradientColorKey( new Color( 1f, 1f, 1f ), 0.3f );
+            cKeys[7][5] = new GradientColorKey( new Color( 0f, 0f, 0f ), 0.1f );
+            cKeys[7][6] = new GradientColorKey( new Color( 1f, 1f, 1f ), 0.05f );
+            cKeys[7][7] = new GradientColorKey( new Color( 0f, 0f, 0f ), 0f );
 
             fireColors[7] = new Color( 1f, 1f, 1f, 1f );
 
             aKeyArm[7] = solidAKey;
             cKeyArm[7] = new GradientColorKey[8];
-            cKeyArm[7][0] = new GradientColorKey( new Color( 0.05f, 0.05f, 0.05f ), 1f );
-            cKeyArm[7][1] = new GradientColorKey( new Color( 0.05f, 0.05f, 0.05f ), 0.51f );
-            cKeyArm[7][2] = new GradientColorKey( new Color( 1f, 0f, 0f ), 0.5f );
-            cKeyArm[7][3] = new GradientColorKey( new Color( 1f, 1f, 0f ), 0.475f );
-            cKeyArm[7][4] = new GradientColorKey( new Color( 0f, 1f, 0f ), 0.45f );
-            cKeyArm[7][5] = new GradientColorKey( new Color( 0f, 1f, 1f ), 0.375f );
-            cKeyArm[7][6] = new GradientColorKey( new Color( 0f, 0f, 1f ), 0.25f );
+            cKeyArm[7][0] = new GradientColorKey( new Color( 0f, 0f, 0f ), 1f );
+            cKeyArm[7][1] = new GradientColorKey( new Color( 0f, 0f, 0f ), 0.51f );
+            cKeyArm[7][2] = new GradientColorKey( new Color( 0f, 0f, 0f ), 0.5f );
+            cKeyArm[7][3] = new GradientColorKey( new Color( 1f, 1f, 1f ), 0.475f );
+            cKeyArm[7][4] = new GradientColorKey( new Color( 0f, 0f, 0f ), 0.45f );
+            cKeyArm[7][5] = new GradientColorKey( new Color( 1f, 1f, 1f ), 0.375f );
+            cKeyArm[7][6] = new GradientColorKey( new Color( 0f, 0f, 0f ), 0.25f );
             cKeyArm[7][7] = new GradientColorKey( new Color( 1f, 1f, 1f ), 0f );
 
             aKeyArm2[7] = arm2A;
             cKeyArm2[7] = new GradientColorKey[8];
-            cKeyArm2[7][0] = new GradientColorKey( new Color( 1f, 0f, 0f ), 1f );
-            cKeyArm2[7][1] = new GradientColorKey( new Color( 1f, 1f, 0f ), 0.5f );
-            cKeyArm2[7][2] = new GradientColorKey( new Color( 0f, 1f, 0f ), 0.2f );
+            cKeyArm2[7][0] = new GradientColorKey( new Color( 0f, 0f, 0f ), 1f );
+            cKeyArm2[7][1] = new GradientColorKey( new Color( 1f, 1f, 1f ), 0.6f );
+            cKeyArm2[7][2] = new GradientColorKey( new Color( 0f, 0f, 0f ), 0.5f );
             cKeyArm2[7][3] = new GradientColorKey( Color.white, 0.4f );
-            cKeyArm2[7][4] = new GradientColorKey( new Color( 0f, 1f, 0f ), 0.2f );
-            cKeyArm2[7][5] = new GradientColorKey( new Color( 0f, 1f, 1f ), 0.2f );
-            cKeyArm2[7][6] = new GradientColorKey( new Color( 0f, 0f, 1f ), 0.2f );
+            cKeyArm2[7][4] = new GradientColorKey( new Color( 0f, 0f, 0f ), 0.4f );
+            cKeyArm2[7][5] = new GradientColorKey( new Color( 1f, 1f, 1f ), 0.3f );
+            cKeyArm2[7][6] = new GradientColorKey( new Color( 0f, 0f, 0f ), 0.2f );
             cKeyArm2[7][7] = new GradientColorKey( Color.black, 0.1f );
 
             aKeyEl[7] = solidAKey;
             cKeyEl[7] = new GradientColorKey[8];
             cKeyEl[7][0] = new GradientColorKey( Color.black, 0.65f );
-            cKeyEl[7][1] = new GradientColorKey( new Color( 1f, 0f, 0f ), 0.625f );
-            cKeyEl[7][2] = new GradientColorKey( new Color( 0f, 1f, 0f ), 0.575f );
-            cKeyEl[7][3] = new GradientColorKey( new Color( 0f, 0f, 1f ), 0.525f );
-            cKeyEl[7][4] = new GradientColorKey( new Color( 0f, 0f, 1f ), 0.475f );
-            cKeyEl[7][5] = new GradientColorKey( new Color( 0f, 1f, 0f ), 0.425f );
-            cKeyEl[7][6] = new GradientColorKey( new Color( 1f, 0f, 0f ), 0.375f );
+            cKeyEl[7][1] = new GradientColorKey( new Color( 0f, 0f, 0f ), 0.625f );
+            cKeyEl[7][2] = new GradientColorKey( new Color( 1f, 1f, 1f ), 0.575f );
+            cKeyEl[7][3] = new GradientColorKey( new Color( 0f, 0f, 0f ), 0.525f );
+            cKeyEl[7][4] = new GradientColorKey( new Color( 1f, 1f, 1f ), 0.475f );
+            cKeyEl[7][5] = new GradientColorKey( new Color( 0f, 0f, 0f ), 0.425f );
+            cKeyEl[7][6] = new GradientColorKey( new Color( 1f, 1f, 1f ), 0.375f );
             cKeyEl[7][7] = new GradientColorKey( Color.black, 0.35f );
 
             for( Int32 i = 0; i < 8; i++ )
@@ -538,6 +539,18 @@ namespace WispSurvivor.Modules
                     overlayMaterial = burnOverlayMaterials[i],
                     fireEffectPrefab = Resources.Load<GameObject>( "Prefabs/HelfireEffect" )
                 };
+            }
+
+            Material base1 = Resources.Load<Material>("Materials/matElitePoisonParticleReplacement");
+            Material base2 = Resources.Load<Material>("Materials/matEliteHauntedParticleReplacement");
+
+            for( Int32 i = 0; i < 8; i++ )
+            {
+                eliteFlameMaterials[i] = new Material[2];
+                eliteFlameMaterials[i][0] = MonoBehaviour.Instantiate<Material>( base1 );
+                eliteFlameMaterials[i][0].SetTexture( "_RemapTex", fireTextures[i] );
+                eliteFlameMaterials[i][1] = MonoBehaviour.Instantiate<Material>( base2 );
+                eliteFlameMaterials[i][1].SetTexture( "_RemapTex", fireTextures[i] );
             }
 
         }

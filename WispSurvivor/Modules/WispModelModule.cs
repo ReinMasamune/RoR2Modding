@@ -140,6 +140,8 @@ namespace WispSurvivor.Modules
             Renderer armorRenderer = bodyCharModel.baseRendererInfos[0].renderer;
             bodyCharModel.baseRendererInfos[0].defaultMaterial = WispMaterialModule.armorMaterials[0];
 
+            bodyCharModel.baseRendererInfos[0].ignoreOverlays = false;
+
 
 
             CharacterModel.ParticleSystemInfo[] particles = bodyCharModel.baseParticleSystemInfos;
