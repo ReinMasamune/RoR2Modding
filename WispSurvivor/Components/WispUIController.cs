@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RoR2.ConVar;
+using System;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -8,30 +9,46 @@ namespace WispSurvivor.Components
     {
         public WispPassiveController passive;
 
+        private Single barPosVFrac = 0.5f;
+        private Single barPosHFrac = 0.55f;
+        private Single barHeightFrac = 0.35f;
+        private Single barWidthFrac = 0.02f;
+        private Single spaceFrac = 0.5f;
+        private Single boxHeightFrac = 0.75f;
+
         private Single boxesStartH = 1100;
         private Single boxesSpacing = 14f;
         private Single boxesStartV = 480f;
         private Single boxesW = 24f;
         private Single boxesH = 12f;
 
-        private static Int32 texW = 12;
-        private static Int32 texH = 6;
+        private int width;
+        private int height;
+
+        private Single scale;
+
+        private Int32 texW = 12;
+        private Int32 texH = 6;
 
         private Rect[] boxes = new Rect[10];
 
         private Boolean paused = false;
 
-        private Texture2D[] colors = new Texture2D[8]
+        BaseConVar scaleVar;
+
+        private Color[] color = new Color[8]
         {
-            CreateSolidTex( new Color( 0f, 0f, 0f, 1f ) ),
-            CreateSolidTex( new Color( 1f, 1f, 1f, 1f ) ),
-            CreateSolidTex( new Color( 1f, 0f, 0f, 1f ) ),
-            CreateSolidTex( new Color( 0f, 1f, 0f, 1f ) ),
-            CreateSolidTex( new Color( 0f, 0f, 1f, 1f ) ),
-            CreateSolidTex( new Color( 1f, 1f, 0f, 1f ) ),
-            CreateSolidTex( new Color( 0f, 1f, 1f, 1f ) ),
-            CreateSolidTex( new Color( 1f, 0f, 1f, 1f ) ),
+            new Color( 0f, 0f, 0f, 1f ),
+            new Color( 1f, 1f, 1f, 1f ),
+            new Color( 1f, 0f, 0f, 1f ),
+            new Color( 0f, 1f, 0f, 1f ),
+            new Color( 0f, 0f, 1f, 1f ),
+            new Color( 1f, 1f, 0f, 1f ),
+            new Color( 0f, 1f, 1f, 1f ),
+            new Color( 1f, 0f, 1f, 1f ),
         };
+
+        private Texture2D[] colors = new Texture2D[8];
 
         private GUIStyle style = new GUIStyle
         {
@@ -54,11 +71,8 @@ namespace WispSurvivor.Components
 
         public void Awake()
         {
-            for( Int32 i = 0; i < 10; i++ )
-            {
-                this.boxes[i] = new Rect( this.boxesStartH, this.boxesStartV + i * this.boxesSpacing, this.boxesW, this.boxesH );
-            }
-
+            scaleVar = RoR2.Console.instance.FindConVar( "hud_scale" );
+            RecalcBarRect();
             RoR2.RoR2Application.onPauseStartGlobal += () => this.paused = true;
             RoR2.RoR2Application.onPauseEndGlobal += () => this.paused = false;
         }
@@ -67,6 +81,16 @@ namespace WispSurvivor.Components
         {
             if( !base.hasAuthority ) return;
             this.UpdateBarColors( this.passive.ReadCharge() );
+        }
+
+        public void FixedUpdate()
+        {
+            float temp = 0f;
+            
+            if( Screen.width != width || Screen.height != height || (TextSerialization.TryParseInvariant( scaleVar.GetString() , out temp ) && temp != scale ) )
+            {
+                RecalcBarRect();
+            }
         }
 
         public void OnGUI()
@@ -78,7 +102,47 @@ namespace WispSurvivor.Components
             }
         }
 
-        private static Texture2D CreateSolidTex( Color c )
+        private void RecalcBarRect()
+        {
+            width = Screen.width;
+            height = Screen.height;
+            TextSerialization.TryParseInvariant( scaleVar.GetString(), out scale );
+
+            float barWidth = width * barWidthFrac * scale / 100 ;
+            float barHeight = height * barHeightFrac * scale / 100;
+
+            float spaceSize = barHeight * spaceFrac / 10;
+            float barSize = spaceSize * boxHeightFrac;
+
+            boxesSpacing = spaceSize;
+            boxesH = barSize;
+            boxesW = barWidth;
+
+            boxesStartH = width * barPosHFrac;
+
+            float barV = height * barPosVFrac;
+            boxesStartV = barV - (barHeight / 4f);
+
+            texW = Mathf.CeilToInt( boxesW / 2f );
+            texH = Mathf.CeilToInt( boxesH / 2f );
+
+            for( Int32 i = 0; i < 10; i++ )
+            {
+                this.boxes[i] = new Rect( this.boxesStartH, this.boxesStartV + ( i * ( spaceSize ) ), this.boxesW, this.boxesH );
+            }
+
+            CreateTextures();
+        }
+
+        private void CreateTextures()
+        {
+            for( int i = 0; i < 8; i++ )
+            {
+                colors[i] = CreateSolidTex( color[i] );
+            }
+        }
+
+        private Texture2D CreateSolidTex( Color c )
         {
             Texture2D tex = new Texture2D(texW, texH);
 

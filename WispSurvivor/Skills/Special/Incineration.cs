@@ -78,6 +78,7 @@ namespace WispSurvivor.Skills.Special
             this.characterBody.AddBuff( this.armorBuff );
 
             cameraTargetParams.idealLocalCameraPos = camPos1;
+            characterMotor.useGravity = false;
         }
 
         public override void Update() => base.Update();//Update the charge and beam effects
@@ -141,6 +142,7 @@ namespace WispSurvivor.Skills.Special
             }
 
             this.characterBody.RemoveBuff( this.armorBuff );
+            characterMotor.useGravity = true;
         }
 
         public override InterruptPriority GetMinimumInterruptPriority() => InterruptPriority.Death;

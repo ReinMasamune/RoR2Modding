@@ -1,6 +1,7 @@
 ﻿using RoR2;
 using System;
 using System.Collections.Generic;
+using static RoR2Plugin.MiscHelpers;
 using UnityEngine;
 
 namespace WispSurvivor.Modules
@@ -20,6 +21,7 @@ namespace WispSurvivor.Modules
         public static Material[] armorMaterials = new Material[8];
         public static Material[] burnOverlayMaterials = new Material[8];
         public static Material[][] eliteFlameMaterials = new Material[8][];
+        public static Material[] shieldOverlayMaterials = new Material[8];
         public static BurnEffectController.EffectParams[] burnOverlayParams = new BurnEffectController.EffectParams[8];
         public static Shader effectShader;
 
@@ -551,6 +553,14 @@ namespace WispSurvivor.Modules
                 eliteFlameMaterials[i][0].SetTexture( "_RemapTex", fireTextures[i] );
                 eliteFlameMaterials[i][1] = MonoBehaviour.Instantiate<Material>( base2 );
                 eliteFlameMaterials[i][1].SetTexture( "_RemapTex", fireTextures[i] );
+            }
+
+            Material base3 = Resources.Load<Material>( "Materials/matEnergyShield" );
+
+            for( Int32 i = 0; i < 8; i++ )
+            {
+                shieldOverlayMaterials[i] = MonoBehaviour.Instantiate<Material>( base3 );
+                shieldOverlayMaterials[i].SetColor( "_TintColor", fireColors[i] );
             }
 
         }

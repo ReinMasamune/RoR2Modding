@@ -102,9 +102,7 @@ namespace WispSurvivor.Orbs
             this.isOwnerInside = this.attacker && Vector3.Distance( this.attacker.transform.position, this.origin ) <= this.blazeRadius;
 
             if( this.isOwnerInside ) this.bundleSendTimer += Time.fixedDeltaTime;
-
             if( this.isOwnerInside && this.stacks >= this.blazeOrbStackBundleSize && this.bundleSendTimer >= this.bundleSendInt ) this.SendStackBundle();
-
             if( this.isOwnerInside && !this.attackerBody.HasBuff( BuffIndex.EnrageAncientWisp ) ) this.attackerBody.AddBuff( BuffIndex.EnrageAncientWisp );
             if( !this.isOwnerInside && this.attackerBody.HasBuff( BuffIndex.EnrageAncientWisp ) ) this.attackerBody.RemoveBuff( BuffIndex.EnrageAncientWisp );
 
