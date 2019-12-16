@@ -1,4 +1,5 @@
-﻿using EntityStates;
+﻿/*
+using EntityStates;
 using RoR2;
 using RoR2.Projectile;
 using UnityEngine;
@@ -120,3 +121,4 @@ namespace WispSurvivor.Skills.Special
         }
     }
 }
+*/

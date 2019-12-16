@@ -63,7 +63,7 @@ namespace WispSurvivor.Skills.Special
             this.minDuration = baseMinDuration / this.attackSpeedStat;
             this.fireInterval = 1f / baseTickFreq;
 
-            RoR2.Util.PlayScaledSound("Play_titanboss_R_laser_loop", gameObject, 5f);
+            RoR2.Util.PlayScaledSound( "Play_titanboss_R_laser_loop", this.gameObject, 5f );
 
             this.muzzle = this.GetModelTransform().Find( "CannonPivot" ).Find( "BeamParent" );
 
@@ -77,8 +77,8 @@ namespace WispSurvivor.Skills.Special
 
             this.characterBody.AddBuff( this.armorBuff );
 
-            cameraTargetParams.idealLocalCameraPos = camPos1;
-            characterMotor.useGravity = false;
+            this.cameraTargetParams.idealLocalCameraPos = this.camPos1;
+            this.characterMotor.useGravity = false;
         }
 
         public override void Update() => base.Update();//Update the charge and beam effects
@@ -88,7 +88,7 @@ namespace WispSurvivor.Skills.Special
             base.FixedUpdate();
             this.skillLocator.special.rechargeStopwatch = 0f;
 
-            cameraTargetParams.idealLocalCameraPos = camPos1;
+            this.cameraTargetParams.idealLocalCameraPos = this.camPos1;
 
             this.fireTimer += Time.fixedDeltaTime * this.characterBody.attackSpeed;
 
@@ -114,7 +114,7 @@ namespace WispSurvivor.Skills.Special
 
             if( this.fireTimer > this.fireInterval )
             {
-                this.Fire(this.passive.UseChargeDrain( chargePerTick, this.fireInterval / this.characterBody.attackSpeed, chargeScaler));
+                this.Fire( this.passive.UseChargeDrain( chargePerTick, this.fireInterval / this.characterBody.attackSpeed, chargeScaler ) );
                 this.fireTimer -= this.fireInterval;
             }
 
@@ -133,24 +133,24 @@ namespace WispSurvivor.Skills.Special
             base.OnExit();
             if( this.fireTimer >= this.fireInterval / 2f )
             {
-                this.Fire(this.passive.UseChargeDrain( chargePerTick, this.fireInterval / this.characterBody.attackSpeed, chargeScaler ));
+                this.Fire( this.passive.UseChargeDrain( chargePerTick, this.fireInterval / this.characterBody.attackSpeed, chargeScaler ) );
             }
-            RoR2.Util.PlayScaledSound( "Stop_titanboss_R_laser_loop", gameObject, 5f );
+            RoR2.Util.PlayScaledSound( "Stop_titanboss_R_laser_loop", this.gameObject, 5f );
             if( this.beamEffect )
             {
                 Destroy( this.beamEffect );
             }
 
             this.characterBody.RemoveBuff( this.armorBuff );
-            characterMotor.useGravity = true;
+            this.characterMotor.useGravity = true;
         }
 
         public override InterruptPriority GetMinimumInterruptPriority() => InterruptPriority.Death;
 
-        private void Fire( Components.WispPassiveController.ChargeState state)
+        private void Fire( Components.WispPassiveController.ChargeState state )
         {
             //Charge consumption
-            
+
 
             if( !this.isAuthority ) return;
 
@@ -220,13 +220,13 @@ namespace WispSurvivor.Skills.Special
                     damageType = DamageType.Generic,
                     force = beam.aim.direction * beam.force,
                     inflictor = gameObject,
-                    position = tempHc.gameObject.transform.position,
+                    position = tempBox.transform.position,
                     procChainMask = default( ProcChainMask ),
                     procCoefficient = beam.procCoef
                 };
 
                 effect.origin = tempBox.transform.position;
-                EffectManager.instance.SpawnEffect( Modules.WispEffectModule.genericImpactEffects[skin][0], effect, true );
+                EffectManager.instance.SpawnEffect( Modules.WispEffectModule.genericImpactEffects[this.skin][0], effect, true );
 
                 if( NetworkServer.active )
                 {

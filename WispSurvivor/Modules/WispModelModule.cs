@@ -5,8 +5,8 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.Serialization;
 using UnityEngine;
-using static WispSurvivor.Helpers.PrefabHelpers;
-using static WispSurvivor.Helpers.CatalogHelpers;
+using static WispSurvivor.Helpers.APIInterface;
+using static WispSurvivor.Helpers.ComponentHelpers;
 
 namespace WispSurvivor.Modules
 {
@@ -147,7 +147,7 @@ namespace WispSurvivor.Modules
             CharacterModel.ParticleSystemInfo[] particles = bodyCharModel.baseParticleSystemInfos;
 
 
-            for( int i = 0; i < particles.Length; i++ )
+            for( Int32 i = 0; i < particles.Length; i++ )
             {
                 particles[i].renderer.material = WispMaterialModule.fireMaterials[0][0];
                 particles[i].defaultMaterial = WispMaterialModule.fireMaterials[0][0];

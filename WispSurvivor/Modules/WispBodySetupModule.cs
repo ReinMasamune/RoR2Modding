@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using static WispSurvivor.Helpers.PrefabHelpers;
+using static WispSurvivor.Helpers.APIInterface;
 
 namespace WispSurvivor.Modules
 {
@@ -50,7 +50,7 @@ namespace WispSurvivor.Modules
             chbod.subtitleNameToken = "ReinThings.WispSurvivor";
             chbod.baseNameToken = "WISP_SURVIVOR_BODY_NAME";
             chbod.preferredPodPrefab = CreateSurvivorPod();
-            chbod.portraitIcon = bundle.LoadAsset<Texture2D>("Assets/__EXPORT/WispyIcon.png");
+            chbod.portraitIcon = bundle.LoadAsset<Texture2D>( "Assets/__EXPORT/WispyIcon.png" );
         }
 
         private static GameObject CreateSurvivorPod()

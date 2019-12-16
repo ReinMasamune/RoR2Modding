@@ -9,10 +9,7 @@ namespace WispSurvivor.Modules
     {
         private static List<KeyValuePair<String, String>> newTokens = new List<KeyValuePair<String, String>>();
 
-        public static void DoModule( GameObject body, Dictionary<Type, Component> dic )
-        {
-            AddLanguageTokens();
-        }
+        public static void DoModule( GameObject body, Dictionary<Type, Component> dic ) => AddLanguageTokens();
 
         private static void AddLanguageTokens()
         {
@@ -35,15 +32,15 @@ namespace WispSurvivor.Modules
             //Skills
             AddNewToken( "WISP_SURVIVOR_PASSIVE_NAME", "Cursed Flames" );
             AddNewToken( "WISP_SURVIVOR_PASSIVE_DESC", "<style=cIsUtility>Flame Charge</style> <style=cIsDamage>Empowers</style> your abilities but decays over time." +
-                "\nAbilities consume <style=cIsUtility>Flame Charge</style> on cast." );
+                "\nRegain <style=cIsUtility>Shield</style> based on <style=cIsHealth>Maximum Health</style> whenever you regain <style=cIsUtility>Flame Charge.</style>" );
 
             AddNewToken( "WISP_SURVIVOR_PRIMARY_1_NAME", "Heatwave" );
-            AddNewToken( "WISP_SURVIVOR_PRIMARY_1_DESC", "Fire a shockwave that explodes for <style=cIsDamage>300% damage.</style> <style=cIsUtility>Restores 10 Flame Charge</style> on cast." +
-                "\nCan hold up to <style=cIsDamage>3 stock.</style> When used with stock has <style=cIsUtility>double attack speed and charge gain.</style>" );
+            AddNewToken( "WISP_SURVIVOR_PRIMARY_1_DESC", "Fire a shockwave for <style=cIsDamage>300% damage.</style> <style=cIsUtility>Restores Flame Charge</style> on hit." +
+                "\nCan hold up to <style=cIsDamage>3 stock.</style> When used with stock has <style=cIsUtility>increased attack speed.</style>" );
 
             AddNewToken( "WISP_SURVIVOR_SECONDARY_1_NAME", "Legendary Spark" );
             AddNewToken( "WISP_SURVIVOR_SECONDARY_1_DESC", "Create a line of flame pillars that explode for <style=cIsDamage>150% damage.</style>" +
-                "\nDeals <style=cIsDamage>double damage</style> in the center of the pillar." );
+                "\nDeals <style=cIsDamage>double damage</style> in the center of the pillar. Consumes <style=cIsUtility>Flame Charge</style> on cast." );
 
             AddNewToken( "WISP_SURVIVOR_UTILITY_1_NAME", "Burning Gaze" );
             AddNewToken( "WISP_SURVIVOR_UTILITY_1_DESC", "Create an <style=cIsDamage>Inferno</style> that <style=cIsDamage>Ignites</style> all enemies for <style=cIsDamage>80% damage</style> per second." +
@@ -51,12 +48,12 @@ namespace WispSurvivor.Modules
 
             AddNewToken( "WISP_SURVIVOR_SPECIAL_1_NAME", "Incineration" );
             AddNewToken( "WISP_SURVIVOR_SPECIAL_1_DESC", "Fire a beam for <style=cIsDamage>500% damage</style> per second. <style=cIsUtility>Continues as long as you hold button</style>." +
-                "\n<style=cIsUtility>Gain Armor</style> but <style=cIsHealth>Cannot Move</style> while firing." );
+                "\n<style=cIsUtility>Gain Armor</style> but <style=cIsHealth>Cannot Move</style> while firing. Drains <style=cIsUtility>Flame Charge</style> while firing." );
 
             On.RoR2.Language.LoadAllFilesForLanguage += Language_LoadAllFilesForLanguage;
         }
 
-        private static void CreateIcon(GameObject body)
+        private static void CreateIcon( GameObject body )
         {
 
         }

@@ -5,30 +5,24 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
-using static WispSurvivor.Helpers.ParticleUtils;
-using static WispSurvivor.Helpers.PrefabHelpers;
-using static WispSurvivor.Helpers.CatalogHelpers;
+using WispSurvivor.Helpers;
+using static WispSurvivor.Helpers.APIInterface;
 
 namespace WispSurvivor.Modules
 {
     public static class WispEffectModule
     {
         public static GameObject[][] genericImpactEffects = new GameObject[8][];
-
         public static GameObject[] primaryOrbEffects = new GameObject[8];
         public static GameObject[] primaryExplosionEffects = new GameObject[8];
-
         public static GameObject[] secondaryExplosions = new GameObject[8];
-
         public static GameObject[] utilityFlames = new GameObject[8];
         public static GameObject[] utilityBurns = new GameObject[8];
         public static GameObject[] utilityLeech = new GameObject[8];
         public static GameObject[] utilityAim = new GameObject[8];
         public static GameObject[] utilityIndicator = new GameObject[8];
-
         public static GameObject[] specialCharge = new GameObject[8];
         public static GameObject[] specialExplosion = new GameObject[8];
-
         public static GameObject[] specialBeam = new GameObject[8];
 
         public static void DoModule( GameObject body, Dictionary<Type, Component> dic )
@@ -257,7 +251,7 @@ namespace WispSurvivor.Modules
             ps1Main.emitterVelocityMode = ParticleSystemEmitterVelocityMode.Rigidbody;
             ps1Main.maxParticles = 1000;
             ps1Main.stopAction = ParticleSystemStopAction.None;
-            ps1Main.cullingMode = ParticleSystemCullingMode.Automatic;
+            ps1Main.cullingMode = ParticleSystemCullingMode.AlwaysSimulate;
             ps1Main.ringBufferMode = ParticleSystemRingBufferMode.Disabled;
 
             ParticleSystem.EmissionModule ps1Emis = ps1.emission;
@@ -455,7 +449,7 @@ namespace WispSurvivor.Modules
             ps2Main.emitterVelocityMode = ParticleSystemEmitterVelocityMode.Rigidbody;
             ps2Main.maxParticles = 1000;
             ps2Main.stopAction = ParticleSystemStopAction.None;
-            ps2Main.cullingMode = ParticleSystemCullingMode.Automatic;
+            ps2Main.cullingMode = ParticleSystemCullingMode.AlwaysSimulate;
             ps2Main.ringBufferMode = ParticleSystemRingBufferMode.Disabled;
 
             ParticleSystem.EmissionModule ps2Emis = ps2.emission;
@@ -1067,12 +1061,12 @@ namespace WispSurvivor.Modules
             ParticleSystem tubeRefPS = refFX.transform.Find("Particles").Find("Flames, Tube, CenterHuge").GetComponent<ParticleSystem>();
             ParticleSystemRenderer tubeRefPSR = refFX.transform.Find("Particles").Find("Flames, Tube, CenterHuge").GetComponent<ParticleSystemRenderer>();
 
-            SetParticleStruct<ParticleSystem.MainModule>( tubePS.main, tubeRefPS.main );
-            SetParticleStruct<ParticleSystem.EmissionModule>( tubePS.emission, tubeRefPS.emission );
-            SetParticleStruct<ParticleSystem.ShapeModule>( tubePS.shape, tubeRefPS.shape );
-            SetParticleStruct<ParticleSystem.ColorOverLifetimeModule>( tubePS.colorOverLifetime, tubeRefPS.colorOverLifetime );
-            SetParticleStruct<ParticleSystem.SizeOverLifetimeModule>( tubePS.sizeOverLifetime, tubeRefPS.sizeOverLifetime );
-            SetParticleStruct<ParticleSystem.RotationOverLifetimeModule>( tubePS.rotationOverLifetime, tubeRefPS.rotationOverLifetime );
+            ParticleUtils.SetParticleStruct<ParticleSystem.MainModule>( tubePS.main, tubeRefPS.main );
+            ParticleUtils.SetParticleStruct<ParticleSystem.EmissionModule>( tubePS.emission, tubeRefPS.emission );
+            ParticleUtils.SetParticleStruct<ParticleSystem.ShapeModule>( tubePS.shape, tubeRefPS.shape );
+            ParticleUtils.SetParticleStruct<ParticleSystem.ColorOverLifetimeModule>( tubePS.colorOverLifetime, tubeRefPS.colorOverLifetime );
+            ParticleUtils.SetParticleStruct<ParticleSystem.SizeOverLifetimeModule>( tubePS.sizeOverLifetime, tubeRefPS.sizeOverLifetime );
+            ParticleUtils.SetParticleStruct<ParticleSystem.RotationOverLifetimeModule>( tubePS.rotationOverLifetime, tubeRefPS.rotationOverLifetime );
 
             ParticleSystem.EmissionModule tubePSEmis = tubePS.emission;
             ParticleSystem.EmissionModule tubeRefPSEmis = tubeRefPS.emission;
@@ -1203,7 +1197,7 @@ namespace WispSurvivor.Modules
             ParticleSystemRenderer firePSR = fireObj.GetComponent<ParticleSystemRenderer>();
 
 
-            GameObject ballObj = CreateFireBallParticle( obj, WispMaterialModule.fireMaterials[skinIndex][9] );
+            GameObject ballObj = ParticleUtils.CreateFireBallParticle( obj, WispMaterialModule.fireMaterials[skinIndex][9] );
 
 
             ParticleSystem.MainModule fireMain = firePS.main;
@@ -1475,8 +1469,12 @@ namespace WispSurvivor.Modules
             Transform core = vfx.Find("Core");
 
             ParticleSystemRenderer corePSR = core.GetComponent<ParticleSystemRenderer>();
+            ParticleSystem corePS = core.GetComponent<ParticleSystem>();
 
             corePSR.material = WispMaterialModule.fireMaterials[skinIndex][1];
+
+            ParticleSystem.MainModule coreMain = corePS.main;
+            coreMain.cullingMode = ParticleSystemCullingMode.AlwaysSimulate;
 
             return obj;
         }
@@ -1866,7 +1864,7 @@ namespace WispSurvivor.Modules
 
             //GameObject bez2 = MonoBehaviour.Instantiate<GameObject>( bez.gameObject , bez.transform.parent );
 
-            var rot1 = bez.GetComponent<Rewired.ComponentControls.Effects.RotateAroundAxis>();
+            Rewired.ComponentControls.Effects.RotateAroundAxis rot1 = bez.GetComponent<Rewired.ComponentControls.Effects.RotateAroundAxis>();
             //var rot2 = bez2.GetComponent<Rewired.ComponentControls.Effects.RotateAroundAxis>();
             rot1.slowRotationSpeed = 120f;
             rot1.fastRotationSpeed = 80f;

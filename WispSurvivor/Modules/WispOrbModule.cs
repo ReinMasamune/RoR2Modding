@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using static WispSurvivor.Helpers.OrbHelper;
+using static WispSurvivor.Helpers.APIInterface;
 
 namespace WispSurvivor.Modules
 {

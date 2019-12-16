@@ -2,7 +2,8 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using static WispSurvivor.Helpers.PrefabHelpers;
+using static WispSurvivor.Helpers.APIInterface;
+using static WispSurvivor.Helpers.ComponentHelpers;
 
 namespace WispSurvivor
 {
@@ -49,6 +50,7 @@ namespace WispSurvivor
                 body.AddOrGetComponentToDictionary<CapsuleCollider>( dic );
                 body.AddOrGetComponentToDictionary<SetStateOnHurt>( dic );
                 body.AddOrGetComponentToDictionary<Components.WispFlareController>( dic );
+                body.AddOrGetComponentToDictionary<Misc.ClientOrbController>( dic );
             }
 
             private static void GetComponents( GameObject body, Dictionary<Type, Component> dic )
@@ -58,12 +60,12 @@ namespace WispSurvivor
                 body.AddOrGetComponentToDictionary<CharacterBody>( dic );
                 body.AddOrGetComponentToDictionary<CameraTargetParams>( dic );
                 body.AddOrGetComponentToDictionary<CharacterDeathBehavior>( dic );
-            }          
+            }
         }
     }
     namespace WispSurvivor.ComponentExtensions
     {
-        static class ComponentExtensions
+        internal static class ComponentExtensions
         {
             internal static T AddOrGetComponentToDictionary<T>( this GameObject g, Dictionary<Type, Component> dic ) where T : Component
             {

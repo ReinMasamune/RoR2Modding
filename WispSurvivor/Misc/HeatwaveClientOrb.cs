@@ -1,158 +1,168 @@
 ﻿using RoR2;
-using RoR2.Orbs;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
-namespace WispSurvivor.Orbs
+namespace WispSurvivor.Misc
 {
-    internal class IgnitionOrb : RoR2.Orbs.Orb, IOrbFixedUpdateBehavior
+    public class HeatwaveClientOrb : BaseClientOrb
     {
-        //Ignite settings
-        public Single igniteTime = 1f;
-        public Single igniteTickDmg = 1f;
-        public Single igniteTickFreq = 1f;
-        public Single igniteProcCoef = 1f;
-        public Single igniteStacksPerTick = 1f;
-        public Single igniteBaseStacksOnDeath = 0f;
-        public Single igniteDeathStacksMult = 1f;
-        public Single igniteExpireStacksMult = 1f;
+        public System.Single speed = 200f;
+        public System.Single damage = 1f;
+        public System.Single scale = 1f;
+        public System.Single procCoef = 1f;
+        public System.Single radius = 1f;
+        public Single force = 0f;
+        public Single chargeRestore = 0.0f;
+        public Single range = 0f;
+        public Single falloffStart = 0f;
+        public Single endFalloffMult = 0f;
+        public System.UInt32 skin = 0;
 
-        public DamageColorIndex igniteDamageColor = DamageColorIndex.Default;
 
-        public BlazeOrb parent;
+        public Vector3 startPos;
+        public Vector3 targetPos;
+        public Vector3 worldNormal;
+        public System.Boolean crit = false;
+        public Boolean hitWorld = false;
 
-        //Global settings
-        public Boolean crit = false;
-        public Boolean isActive = true;
-
-        public UInt32 skin = 0;
 
         public TeamIndex team;
-
-        public Vector3 normal;
-        public Vector3 targetPos;
+        public DamageColorIndex damageColor;
 
         public GameObject attacker;
+        public ProcChainMask procMask;
 
-        //Private values
-        private Single damageInterval;
-        private Single damageTimer;
-        private Single durationTimer;
-        private Single chargeMult;
+        private Single dist1;
+        private Single dist2;
 
-        private Boolean dead = false;
-        private Boolean wasDead = false;
-        private Boolean boosted = false;
-        private Boolean firstTick = true;
+
+        private Vector3 lastPos;
+
+        private Vector3 forceVec;
+
+        public List<HealthComponent> mask = new List<HealthComponent>();
 
         public override void Begin()
         {
-            this.duration = this.igniteTime;
-            this.isActive = true;
+            this.forceVec = this.targetPos - this.startPos;
+            base.totalDuration = Vector3.Magnitude( this.forceVec ) / this.speed;
+            this.forceVec = Vector3.Normalize( this.forceVec );
+            this.forceVec *= this.force;
 
-            Vector3 tangent = Vector3.forward;
-            Vector3.OrthoNormalize( ref this.normal, ref tangent );
+            EffectData effectData = new EffectData
+            {
+                origin = this.startPos,
+                genericFloat = base.totalDuration,
+                genericBool = false,
+                start = this.targetPos
+            };
 
-            //EffectData effectData = new EffectData
-            //{
-            //    origin = origin,
-            //    genericFloat = duration,
-            //    rotation = Quaternion.LookRotation(tangent, this.normal)
-            //};
-            //effectData.SetHurtBoxReference( this.target );
+            this.lastPos = this.startPos;
 
-            //EffectManager.instance.SpawnEffect( Modules.WispEffectModule.utilityBurns[this.skin], effectData, true );
+            EffectManager.instance.SpawnEffect( Modules.WispEffectModule.primaryOrbEffects[this.skin], effectData, true );
 
-            this.damageInterval = 1f / this.igniteTickFreq;
-            this.damageTimer = this.damageInterval;
-
-            CharacterBody targetBody = this.target.healthComponent.GetComponent<CharacterBody>();
-            Inventory targetInv = (targetBody ? targetBody.inventory : null) ;
-
-            this.chargeMult = this.GetChargeMult( targetInv ? targetInv.GetItemCount( ItemIndex.BoostDamage ) : 0, targetBody.baseNameToken );
-
-            //this.isLonk = this.target.healthComponent.gameObject.GetComponent<CharacterBody>().hullClassification == HullClassification.Golem || this.target.healthComponent.gameObject.GetComponent<CharacterBody>().hullClassification == HullClassification.BeetleQueen;
+            this.dist1 = this.range * this.falloffStart;
+            this.dist2 = this.range * (1f - this.falloffStart);
         }
-
-        public void FixedUpdate()
+        public override void Tick( Single deltaT )
         {
-            try
+            Vector3 currentPos = Vector3.Lerp( this.targetPos , this.startPos, ( base.remainingDuration / base.totalDuration ) );
+
+            Single curDist = Vector3.Magnitude( currentPos - this.startPos );
+            Single curMult = 1f;
+            if( curDist > this.dist1 )
             {
-                this.boosted = this.parent.isActive && this.parent.isOwnerInside;
-            } catch( NullReferenceException e )
-            {
-                this.boosted = false;
+                curMult -= ((curDist - this.dist1) / this.dist2) * (1f - this.endFalloffMult);
             }
 
-            this.durationTimer += Time.fixedDeltaTime;
 
-            if( !this.target ) this.dead = true;
-            if( !this.target.healthComponent ) this.dead = true;
-            if( !this.target.healthComponent.alive ) this.dead = true;
-            if( this.dead && !this.wasDead ) this.OnDead();
-            if( this.dead ) return;
+            Collider[] cols = Physics.OverlapCapsule( this.lastPos, currentPos, this.radius, LayerIndex.entityPrecise.mask, QueryTriggerInteraction.UseGlobal );
 
-            this.targetPos = this.target.transform.position;
-
-            this.damageTimer += Time.fixedDeltaTime * (this.boosted ? 1f : 0.5f);
-
-            while( this.damageTimer >= this.damageInterval )
+            foreach( Collider col in cols )
             {
-                this.TickDamage( this.target );
-                this.damageTimer -= this.damageInterval;
+                if( !col ) continue;
+                HurtBox box = col.GetComponent<HurtBox>();
+                if( !box ) continue;
+                HealthComponent hcomp = box.healthComponent;
+                if( !hcomp || this.mask.Contains( hcomp ) || TeamComponent.GetObjectTeam( hcomp.gameObject ) == this.team ) continue;
+
+                DamageInfo dmg = new DamageInfo();
+                dmg.damage = this.damage * curMult;
+                dmg.attacker = this.attacker;
+                dmg.crit = this.crit;
+                dmg.damageColorIndex = this.damageColor;
+                dmg.damageType = DamageType.Generic;
+                dmg.force = this.forceVec;
+                dmg.inflictor = this.attacker;
+                dmg.position = col.transform.position;
+                dmg.procChainMask = this.procMask;
+                dmg.procCoefficient = this.procCoef;
+
+                this.mask.Add( hcomp );
+                base.SendDamage( dmg, hcomp.gameObject );
+
+                EffectManager.instance.SpawnEffect( Modules.WispEffectModule.genericImpactEffects[this.skin][0], new EffectData
+                {
+                    origin = box.transform.position
+                }, true );
+
+                CharacterBody targetBody = hcomp.GetComponent<CharacterBody>();
+                Inventory targetInv = (targetBody ? targetBody.inventory : null);
+
+                Single dur = curMult * this.chargeRestore * this.GetChargeMult( targetInv ? targetInv.GetItemCount( ItemIndex.BoostDamage ) : 0, targetBody.baseNameToken );
+                UInt32 stacks = 1u;
+                if( dur > 0.75f )
+                {
+                    stacks = (UInt32)Mathf.RoundToInt( dur / 0.75f );
+                    dur = 0.75f;
+                }
+
+                Debug.Log( "Stacks:" + stacks.ToString() );
+                Debug.Log( "Duration:" + dur.ToString() );
+
+                EffectData fx = new EffectData
+                {
+                    origin = box.transform.position,
+                    start = this.attacker.transform.position,
+                    genericFloat = (curDist / this.speed) * 3.25f,
+                    genericUInt = stacks,
+                    scale = 0.65f * curMult,
+                    genericBool = false,
+                    color = DoBadThings(dur)
+                };
+                fx.SetHurtBoxReference( this.attacker );
+                EffectManager.instance.SpawnEffect( Modules.WispEffectModule.utilityLeech[this.skin], fx, true );
             }
         }
-
-        public override void OnArrival()
+        public override void End()
         {
-            if( this.isActive )
-            {
-                this.OnDead( this.igniteExpireStacksMult );
-            }
         }
 
-        private void TickDamage( HurtBox enemy )
+        public static Color32 DoBadThings( Single f )
         {
-            if( !enemy ) return;
-            if( !enemy.healthComponent ) return;
-            if( !enemy.healthComponent.gameObject ) return;
-            if( !this.attacker ) return;
-            //Damage info stuff here
-            DamageInfo d = new DamageInfo();
-            d.damage = this.igniteTickDmg;
-            d.attacker = this.attacker;
-            d.inflictor = null;
-            d.force = Vector3.zero;
-            d.crit = this.crit;
-            d.procChainMask = new ProcChainMask();
-            d.procCoefficient = (this.boosted ? this.igniteProcCoef : 0f) * (this.firstTick ? 1f : 1f);
-            d.position = enemy.transform.position;
-            d.damageColorIndex = this.igniteDamageColor;
+            Byte[] v = BitConverter.GetBytes( f );
 
-            this.firstTick = false;
-
-            enemy.healthComponent.TakeDamage( d );
-            GlobalEventManager.instance.OnHitEnemy( d, enemy.healthComponent.gameObject );
-            GlobalEventManager.instance.OnHitAll( d, enemy.healthComponent.gameObject );
-            this.parent.AddStacks( this.igniteStacksPerTick * this.chargeMult, this );
+            return new Color32
+            {
+                r = v[0],
+                g = v[1],
+                b = v[2],
+                a = v[3]
+            };
         }
 
-        private void OnDead( Single mult = 1f )
+        public static Single DoMoreBadThings( Color32 color )
         {
-            this.wasDead = true;
-
-            this.isActive = false;
-
-            Single value = mult * (this.igniteBaseStacksOnDeath + ((this.igniteTime - this.durationTimer) * this.igniteTickFreq * this.igniteStacksPerTick * this.igniteDeathStacksMult));
-
-            if( this.parent.isActive )
+            Byte[] v = new Byte[4]
             {
-                this.parent.AddStacks( value * this.chargeMult, this );
-                this.parent.children.Remove( this );
-            } else
-            {
-                //Do a cool thing here based on value (explosion I guess? modified will o wisp explosion could be fun...)
-            }
+                color.r,
+                color.g,
+                color.b,
+                color.a
+            };
+
+            return BitConverter.ToSingle( v, 0 );
         }
 
         private Single GetChargeMult( Int32 damageBoost, String name )
@@ -344,5 +354,6 @@ namespace WispSurvivor.Orbs
                     return MonsterTier.Other;
             }
         }
+
     }
 }

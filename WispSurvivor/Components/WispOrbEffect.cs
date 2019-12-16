@@ -1,6 +1,5 @@
 ﻿using RoR2;
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -10,15 +9,15 @@ namespace WispSurvivor.Components
     [RequireComponent( typeof( EffectComponent ) )]
     public class WispOrbEffect : MonoBehaviour
     {
-        public bool faceMovement = true;
-        public bool callArrivalIfTargetIsGone;
-        public bool startEffectCopiesRotation;
-        public bool endEffectCopiesRotation;
+        public Boolean faceMovement = true;
+        public Boolean callArrivalIfTargetIsGone;
+        public Boolean startEffectCopiesRotation;
+        public Boolean endEffectCopiesRotation;
 
-        public float startEffectScale = 1f;
-        public float endEffectScale = 1f;
+        public Single startEffectScale = 1f;
+        public Single endEffectScale = 1f;
 
-        public string soundString;
+        public String soundString;
 
         public Vector3 startVelocity1;
         public Vector3 startVelocity2;
@@ -32,12 +31,12 @@ namespace WispSurvivor.Components
         public UnityEvent onArrival;
 
 
-        private float age;
-        private float duration;
+        private Single age;
+        private Single duration;
 
-        private bool noTarget = false;
-        private bool playSound = false;
-     
+        private Boolean noTarget = false;
+        private Boolean playSound = false;
+
         private Vector3 startPosition;
         private Vector3 previousPosition;
         private Vector3 lastKnownTargetPosition;
@@ -45,6 +44,8 @@ namespace WispSurvivor.Components
         private Vector3 endVelocity;
 
         private Transform targetTransform;
+
+        private Single decodedCharge = 0f;
 
         private void Start()
         {
@@ -56,7 +57,7 @@ namespace WispSurvivor.Components
             this.duration = component.effectData.genericFloat;
             if( this.duration == 0f )
             {
-                Debug.LogFormat( "Zero duration for effect \"{0}\"", new object[]
+                Debug.LogFormat( "Zero duration for effect \"{0}\"", new System.Object[]
                 {
                     base.gameObject.name
                 } );
@@ -64,10 +65,10 @@ namespace WispSurvivor.Components
                 return;
             }
             this.lastKnownTargetPosition = (this.targetTransform ? this.targetTransform.position : component.effectData.start);
-            noTarget = !this.targetTransform;
+            this.noTarget = !this.targetTransform;
             if( component.effectData.genericBool )
             {
-                playSound = true;
+                this.playSound = true;
             }
             if( this.startEffect )
             {
@@ -89,21 +90,21 @@ namespace WispSurvivor.Components
             this.endVelocity.y = Mathf.Lerp( this.endVelocity1.y, this.endVelocity2.y, UnityEngine.Random.value );
             this.endVelocity.z = Mathf.Lerp( this.endVelocity1.z, this.endVelocity2.z, UnityEngine.Random.value );
             this.UpdateOrb( 0f );
+
+
+            this.decodedCharge = Misc.HeatwaveClientOrb.DoMoreBadThings( component.effectData.color );
         }
 
-        private void Update()
-        {
-            this.UpdateOrb( Time.deltaTime );
-        }
+        private void Update() => this.UpdateOrb( Time.deltaTime );
 
-        private void UpdateOrb( float deltaTime )
+        private void UpdateOrb( Single deltaTime )
         {
             if( this.targetTransform )
             {
                 this.lastKnownTargetPosition = this.targetTransform.position;
             }
-            float num = Mathf.Clamp01(this.age / this.duration);
-            float num2 = this.movementCurve.Evaluate(num);
+            Single num = Mathf.Clamp01(this.age / this.duration);
+            Single num2 = this.movementCurve.Evaluate(num);
             Vector3 vector = Vector3.Lerp(this.startPosition + this.startVelocity * num2, this.lastKnownTargetPosition + this.endVelocity * (1f - num2), num2);
             base.transform.position = vector;
             if( this.faceMovement && vector != this.previousPosition )
@@ -111,9 +112,9 @@ namespace WispSurvivor.Components
                 base.transform.forward = vector - this.previousPosition;
             }
             this.UpdateBezier();
-            if( num == 1f || (this.callArrivalIfTargetIsGone && this.targetTransform == null && !noTarget) )
+            if( num == 1f || (this.callArrivalIfTargetIsGone && this.targetTransform == null && !this.noTarget) )
             {
-                if( playSound ) RoR2.Util.PlaySound( soundString, base.gameObject);
+                if( this.playSound ) RoR2.Util.PlaySound( this.soundString, base.gameObject );
                 this.onArrival.Invoke();
                 if( this.endEffect )
                 {
@@ -145,40 +146,25 @@ namespace WispSurvivor.Components
             }
         }
 
-        public void InstantiatePrefab( GameObject prefab )
-        {
-            UnityEngine.Object.Instantiate<GameObject>( prefab, base.transform.position, base.transform.rotation );
-        }
+        public void InstantiatePrefab( GameObject prefab ) => UnityEngine.Object.Instantiate<GameObject>( prefab, base.transform.position, base.transform.rotation );
 
-        public void InstantiateEffect( GameObject prefab )
+        public void InstantiateEffect( GameObject prefab ) => EffectManager.instance.SpawnEffect( prefab, new EffectData
         {
-            EffectManager.instance.SpawnEffect( prefab, new EffectData
-            {
-                origin = base.transform.position
-            }, false );
-        }
+            origin = base.transform.position
+        }, false );
 
-        public void InstantiateEffectCopyRotation( GameObject prefab )
+        public void InstantiateEffectCopyRotation( GameObject prefab ) => EffectManager.instance.SpawnEffect( prefab, new EffectData
         {
-            EffectManager.instance.SpawnEffect( prefab, new EffectData
-            {
-                origin = base.transform.position,
-                rotation = base.transform.rotation
-            }, false );
-        }
+            origin = base.transform.position,
+            rotation = base.transform.rotation
+        }, false );
 
-        public void InstantiateEffectOppositeFacing( GameObject prefab )
+        public void InstantiateEffectOppositeFacing( GameObject prefab ) => EffectManager.instance.SpawnEffect( prefab, new EffectData
         {
-            EffectManager.instance.SpawnEffect( prefab, new EffectData
-            {
-                origin = base.transform.position,
-                rotation = RoR2.Util.QuaternionSafeLookRotation( -base.transform.forward )
-            }, false );
-        }
+            origin = base.transform.position,
+            rotation = RoR2.Util.QuaternionSafeLookRotation( -base.transform.forward )
+        }, false );
 
-        public void InstantiatePrefabOppositeFacing( GameObject prefab )
-        {
-            UnityEngine.Object.Instantiate<GameObject>( prefab, base.transform.position, RoR2.Util.QuaternionSafeLookRotation( -base.transform.forward ) );
-        }
+        public void InstantiatePrefabOppositeFacing( GameObject prefab ) => UnityEngine.Object.Instantiate<GameObject>( prefab, base.transform.position, RoR2.Util.QuaternionSafeLookRotation( -base.transform.forward ) );
     }
 }

@@ -5,8 +5,8 @@ using RoR2.Skills;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using static WispSurvivor.Helpers.PrefabHelpers;
-using static WispSurvivor.Helpers.SkillsHelper;
+using static WispSurvivor.Helpers.APIInterface;
+using static WispSurvivor.Helpers.ComponentHelpers;
 
 namespace WispSurvivor.Modules
 {
@@ -30,11 +30,10 @@ namespace WispSurvivor.Modules
             AddSkill( typeof( Skills.Primary.PrepHeatwave ) );
             AddSkill( typeof( Skills.Primary.FireHeatwave ) );
             AddSkill( typeof( Skills.Primary.HeatwaveWindDown ) );
+            AddSkill( typeof( Skills.Primary.Heatwave ) );
             AddSkill( typeof( Skills.Secondary.TestSecondary ) );
             AddSkill( typeof( Skills.Utility.PrepGaze ) );
             AddSkill( typeof( Skills.Utility.FireGaze ) );
-            AddSkill( typeof( Skills.Special.Cremation ) );
-            AddSkill( typeof( Skills.Special.CremationRecovery ) );
             AddSkill( typeof( Skills.Special.IncinerationWindup ) );
             AddSkill( typeof( Skills.Special.Incineration ) );
             AddSkill( typeof( Skills.Special.IncinerationRecovery ) );
@@ -134,7 +133,7 @@ namespace WispSurvivor.Modules
         private static void DoPassiveStuff( GameObject body, SkillLocator sl, AssetBundle bundle )
         {
             sl.passiveSkill.enabled = true;
-            sl.passiveSkill.icon = bundle.LoadAsset<Sprite>("Assets/__EXPORT/WispyPassiveIcon2.png");
+            sl.passiveSkill.icon = bundle.LoadAsset<Sprite>( "Assets/__EXPORT/WispyPassiveIcon2.png" );
             sl.passiveSkill.skillNameToken = "WISP_SURVIVOR_PASSIVE_NAME";
             sl.passiveSkill.skillDescriptionToken = "WISP_SURVIVOR_PASSIVE_DESC";
         }
@@ -149,8 +148,8 @@ namespace WispSurvivor.Modules
 
         private static SkillDef DoPrimary1( GameObject body, Dictionary<Type, Component> dic, AssetBundle bundle )
         {
-            SkillDef skill = ScriptableObject.CreateInstance<SkillDef>();
-            skill.activationState = new SerializableEntityStateType( typeof( Skills.Primary.PrepHeatwave ) );
+            SteppedSkillDef skill = ScriptableObject.CreateInstance<SteppedSkillDef>();
+            skill.activationState = new SerializableEntityStateType( typeof( Skills.Primary.Heatwave ) );
             skill.activationStateMachineName = "Weapon";
 
             skill.baseMaxStock = 3;
@@ -167,8 +166,9 @@ namespace WispSurvivor.Modules
             skill.requiredStock = 0;
             skill.shootDelay = 0.5f;
             skill.stockToConsume = 0;
+            skill.stepCount = 2;
 
-            skill.icon = bundle.LoadAsset<Sprite>("Assets/__EXPORT/WispyIncompleteIcon.png");
+            skill.icon = bundle.LoadAsset<Sprite>( "Assets/__EXPORT/wisp1.png" );
             skill.skillDescriptionToken = "WISP_SURVIVOR_PRIMARY_1_DESC";
             skill.skillName = "Primry1";
             skill.skillNameToken = "WISP_SURVIVOR_PRIMARY_1_NAME";
@@ -179,12 +179,12 @@ namespace WispSurvivor.Modules
         private static void DoSecondaries( GameObject body, Dictionary<Type, Component> dic, SkillLocator SL, SkillFamily[] fam, AssetBundle bundle )
         {
             SkillDef[] secondaries = new SkillDef[1];
-            secondaries[0] = DoSecondary1( body, dic , bundle);
+            secondaries[0] = DoSecondary1( body, dic, bundle );
 
             AssignVariants( fam[1], secondaries );
         }
 
-        private static SkillDef DoSecondary1( GameObject body, Dictionary<Type, Component> dic, AssetBundle bundle)
+        private static SkillDef DoSecondary1( GameObject body, Dictionary<Type, Component> dic, AssetBundle bundle )
         {
             SkillDef skill = ScriptableObject.CreateInstance<SkillDef>();
             skill.activationState = new SerializableEntityStateType( typeof( Skills.Secondary.TestSecondary ) );
@@ -205,7 +205,7 @@ namespace WispSurvivor.Modules
             skill.shootDelay = 0.5f;
             skill.stockToConsume = 1;
 
-            skill.icon = bundle.LoadAsset<Sprite>( "Assets/__EXPORT/rogueWispSec3.png" );
+            skill.icon = bundle.LoadAsset<Sprite>( "Assets/__EXPORT/wisp2alt.png" );
             skill.skillDescriptionToken = "WISP_SURVIVOR_SECONDARY_1_DESC";
             skill.skillName = "Secondary1";
             skill.skillNameToken = "WISP_SURVIVOR_SECONDARY_1_NAME";
@@ -244,7 +244,7 @@ namespace WispSurvivor.Modules
             skill.shootDelay = 0.5f;
             skill.stockToConsume = 1;
 
-            skill.icon = bundle.LoadAsset<Sprite>( "Assets/__EXPORT/WispyIncompleteIcon.png" );
+            skill.icon = bundle.LoadAsset<Sprite>( "Assets/__EXPORT/wisp3alt.png" );
             skill.skillDescriptionToken = "WISP_SURVIVOR_UTILITY_1_DESC";
             skill.skillName = "Utility1";
             skill.skillNameToken = "WISP_SURVIVOR_UTILITY_1_NAME";
@@ -257,7 +257,7 @@ namespace WispSurvivor.Modules
         private static void DoSpecials( GameObject body, Dictionary<Type, Component> dic, SkillLocator SL, SkillFamily[] fam, AssetBundle bundle )
         {
             SkillDef[] specials = new SkillDef[1];
-            specials[0] = DoSpecial1( body, dic , bundle);
+            specials[0] = DoSpecial1( body, dic, bundle );
 
             AssignVariants( fam[3], specials );
         }
@@ -283,7 +283,7 @@ namespace WispSurvivor.Modules
             skill.shootDelay = 0.5f;
             skill.stockToConsume = 1;
 
-            skill.icon = bundle.LoadAsset<Sprite>( "Assets/__EXPORT/WispyIncompleteIcon.png" );
+            skill.icon = bundle.LoadAsset<Sprite>( "Assets/__EXPORT/wisp4alt.png" );
             skill.skillDescriptionToken = "WISP_SURVIVOR_SPECIAL_1_DESC";
             skill.skillName = "Special1";
             skill.skillNameToken = "WISP_SURVIVOR_SPECIAL_1_NAME";

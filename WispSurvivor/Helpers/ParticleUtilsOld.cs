@@ -17,7 +17,7 @@ namespace WispSurvivor.Helpers
 
         public static GameObject CreateFireBallParticle( GameObject parent, Material mat )
         {
-            var info = CreateParticleBase(parent);
+            ParticleInfo info = CreateParticleBase(parent);
 
             //var ps = info.AddComponent<ParticleSystem>();
             //var psr = info.GetComponent<ParticleSystemRenderer>();
@@ -31,7 +31,7 @@ namespace WispSurvivor.Helpers
             info.psr.material = mat;
 
 
-            var psMain = info.ps.main;
+            ParticleSystem.MainModule psMain = info.ps.main;
             psMain.prewarm = true;
             psMain.startLifetime = 0.5f;
             psMain.startSpeed = 0f;
@@ -42,19 +42,19 @@ namespace WispSurvivor.Helpers
             psMain.cullingMode = ParticleSystemCullingMode.AlwaysSimulate;
 
 
-            var psEmis = info.ps.emission;
+            ParticleSystem.EmissionModule psEmis = info.ps.emission;
             psEmis.enabled = true;
             psEmis.rateOverTime = 100f;
             psEmis.rateOverDistance = 0f;
 
 
-            var psShape = info.ps.shape;
+            ParticleSystem.ShapeModule psShape = info.ps.shape;
             psShape.enabled = true;
             psShape.shapeType = ParticleSystemShapeType.Sphere;
             psShape.radius = 1f;
 
 
-            var psCOL = info.ps.colorOverLifetime;
+            ParticleSystem.ColorOverLifetimeModule psCOL = info.ps.colorOverLifetime;
             psCOL.enabled = true;
             psCOL.color = new ParticleSystem.MinMaxGradient
             {
@@ -75,7 +75,7 @@ namespace WispSurvivor.Helpers
             };
 
 
-            var psSOL = info.ps.sizeOverLifetime;
+            ParticleSystem.SizeOverLifetimeModule psSOL = info.ps.sizeOverLifetime;
             psSOL.enabled = true;
             psSOL.size = new ParticleSystem.MinMaxCurve
             {
@@ -121,7 +121,7 @@ namespace WispSurvivor.Helpers
             obj.transform.localRotation = Quaternion.identity;
 
             //return obj;
-            
+
             return new ParticleInfo
             {
                 obj = obj,
@@ -129,7 +129,7 @@ namespace WispSurvivor.Helpers
                 ps = obj.AddComponent<ParticleSystem>(),
                 psr = obj.GetComponent<ParticleSystemRenderer>()
             };
-            
+
         }
     }
 }

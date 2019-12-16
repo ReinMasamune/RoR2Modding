@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace WispSurvivor.Helpers
+namespace WispSurvivor.Helpers.OldStuff
 {
     public static class SkillsHelper
     {

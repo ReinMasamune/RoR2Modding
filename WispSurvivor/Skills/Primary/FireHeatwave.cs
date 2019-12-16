@@ -1,6 +1,5 @@
 ﻿using EntityStates;
 using RoR2;
-using RoR2.Orbs;
 using System;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -11,7 +10,9 @@ namespace WispSurvivor.Skills.Primary
     {
         public static Single baseFireDelay = 0f;
         public static Single baseDamageMult = 3.0f;
-        public static Single explosionRadius = 5f;
+        public static Single explosionRadius = 2f;
+        public static Single falloffStart = 0.25f;
+        public static Single endFalloffMult = 0.25f;
 
         public Single initAS;
 
@@ -32,10 +33,12 @@ namespace WispSurvivor.Skills.Primary
 
         private Components.WispPassiveController passive;
         private ChildLocator childLoc;
+        private Misc.ClientOrbController orbControl;
 
         public override void OnEnter()
         {
             base.OnEnter();
+            this.orbControl = this.gameObject.GetComponent<Misc.ClientOrbController>();
             this.passive = this.gameObject.GetComponent<Components.WispPassiveController>();
             this.skin = this.characterBody.skinIndex;
             this.childLoc = this.GetModelTransform().GetComponent<ChildLocator>();
@@ -96,8 +99,30 @@ namespace WispSurvivor.Skills.Primary
         {
             if( this.fired ) return;
             this.fired = true;
-            if( !NetworkServer.active ) return;
+            if( !this.isAuthority ) return;
 
+            Misc.HeatwaveClientOrb snap = new Misc.HeatwaveClientOrb();
+
+            snap.damage = this.damageValue;
+            snap.crit = this.RollCrit();
+            snap.team = TeamComponent.GetObjectTeam( this.gameObject );
+            snap.attacker = this.gameObject;
+            snap.procCoef = 1.0f;
+            snap.radius = explosionRadius;
+            snap.skin = this.skin;
+            Transform trans = this.childLoc.FindChild("MuzzleRight");
+            snap.startPos = trans.position;
+            snap.speed = 250f;
+            snap.targetPos = this.targetVec;
+            snap.chargeRestore = 5f;
+            snap.force = 100f;
+            snap.range = PrepHeatwave.maxRange;
+            snap.falloffStart = falloffStart;
+            snap.endFalloffMult = endFalloffMult;
+
+            this.orbControl.AddClientOrb( snap );
+
+            /*
             Orbs.SnapOrb snap = new Orbs.SnapOrb();
             snap.damage = this.damageValue;
             snap.crit = this.RollCrit();
@@ -120,6 +145,7 @@ namespace WispSurvivor.Skills.Primary
             }
             snap.targetPos = this.targetVec;
             OrbManager.instance.AddOrb( snap );
+            */
         }
     }
 }

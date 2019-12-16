@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 
-namespace WispSurvivor.Helpers
+namespace WispSurvivor.Helpers.OldStuff
 {
     public static class OrbHelper
     {
@@ -64,7 +64,7 @@ namespace WispSurvivor.Helpers
             typeof( OrbCatalog ).SetFieldValue<Dictionary<Type, Int32>>( "typeToIndex", typeToIndex );
         }
 
-        public static void ConvertOrbSettings( GameObject g)
+        public static void ConvertOrbSettings( GameObject g )
         {
             OrbEffect orb = g.GetComponent<OrbEffect>();
 
@@ -72,9 +72,9 @@ namespace WispSurvivor.Helpers
 
             FieldInfo f2;
 
-            foreach( FieldInfo f in typeof(OrbEffect).GetFields(BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic ))
+            foreach( FieldInfo f in typeof( OrbEffect ).GetFields( BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic ) )
             {
-                f2 = typeof( Components.WispOrbEffect ).GetField( f.Name , BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic );
+                f2 = typeof( Components.WispOrbEffect ).GetField( f.Name, BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic );
                 f2.SetValue( newOrb, f.GetValue( orb ) );
             }
 

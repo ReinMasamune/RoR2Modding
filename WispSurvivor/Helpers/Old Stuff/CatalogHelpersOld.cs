@@ -2,13 +2,9 @@
 using RoR2;
 using RoR2.Projectile;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using System.Security.Cryptography;
-using System.Text;
 using UnityEngine;
-using UnityEngine.Networking;
 
-namespace WispSurvivor.Helpers
+namespace WispSurvivor.Helpers.OldStuff
 {
     public static class CatalogHelpers
     {
@@ -87,7 +83,7 @@ namespace WispSurvivor.Helpers
         /// </summary>
         /// <param name="skin"></param>
         /// <returns></returns>
-        public static SkinDef CreateNewSkinDef( SkinDefInfo skin )
+        public static SkinDef CreateNewSkinDef( APIInterface.SkinDefInfo skin )
         {
             On.RoR2.SkinDef.Awake += SkinDef_Awake;
 
@@ -121,20 +117,6 @@ namespace WispSurvivor.Helpers
             ren.ignoreOverlays = ignoreOverlays;
             ren.defaultShadowCastingMode = shadow;
             return ren;
-        }
-
-        /// <summary>
-        /// Struct used to define the fields for a SkinDef before actually creating it
-        /// </summary>
-        public struct SkinDefInfo
-        {
-            public SkinDef[] baseSkins;
-            public Sprite icon;
-            public System.String nameToken;
-            public System.String unlockableName;
-            public GameObject rootObject;
-            public CharacterModel.RendererInfo[] rendererInfos;
-            public System.String name;
         }
         #endregion
 

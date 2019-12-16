@@ -1,6 +1,5 @@
 ﻿using R2API.Utils;
 using RoR2;
-using RoR2.Projectile;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
@@ -8,7 +7,7 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 
-namespace WispSurvivor.Helpers
+namespace WispSurvivor.Helpers.OldStuff
 {
     public static class PrefabHelpers
     {

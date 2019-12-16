@@ -1,4 +1,5 @@
-﻿using EntityStates;
+﻿
+using EntityStates;
 using UnityEngine;
 
 namespace WispSurvivor.Skills.Special
@@ -38,7 +39,7 @@ namespace WispSurvivor.Skills.Special
         {
             base.FixedUpdate();
 
-            cameraTargetParams.idealLocalCameraPos = Vector3.Lerp( camPos1, camPos2, fixedAge / this.duration );
+            this.cameraTargetParams.idealLocalCameraPos = Vector3.Lerp( this.camPos1, this.camPos2, this.fixedAge / this.duration );
 
             if( this.fixedAge > this.duration )
             {

@@ -5,7 +5,7 @@ using UnityEngine.Networking;
 
 namespace WispSurvivor.Components
 {
-    public class WispUIController : NetworkBehaviour
+    public class WispPrimaryController : NetworkBehaviour
     {
         public WispPassiveController passive;
 

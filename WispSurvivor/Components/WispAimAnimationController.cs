@@ -84,7 +84,7 @@ namespace WispSurvivor.Components
                     vec = r.GetPoint( Skills.Special.Incineration.baseMaxRange );
                 }
 
-                Quaternion rotation = Quaternion.Slerp( Quaternion.LookRotation(Vector3.Normalize(vec - this.headTransform.position), this.modelTransform.up), Quaternion.LookRotation(Vector3.Normalize(input.aimDirection) , this.modelTransform.up ), 0.25f );
+                Quaternion rotation = Quaternion.Slerp( Quaternion.LookRotation(Vector3.Normalize(vec - this.headTransform.position), this.modelTransform.up), Quaternion.LookRotation(Vector3.Normalize(this.input.aimDirection) , this.modelTransform.up ), 0.25f );
                 //Quaternion headRot = Quaternion.LookRotation(input.aimDirection, modelTransform.forward);
 
                 if( this.transition )

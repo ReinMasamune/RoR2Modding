@@ -1,6 +1,6 @@
-﻿using System;
+﻿using RoR2;
+using System;
 using System.Collections.Generic;
-using RoR2;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -9,11 +9,10 @@ namespace WispSurvivor.Components
     public class WispBurnManager : NetworkBehaviour
     {
         [SyncVar]
-        BurnSkinState state = BurnSkinState.None;
+        private BurnSkinState state = BurnSkinState.None;
+        private BurnSkinState localState = BurnSkinState.None;
 
-        BurnSkinState localState = BurnSkinState.None;
-
-        private Dictionary<BurnSkinState,float> skinTimers = new Dictionary<BurnSkinState, float>();
+        private Dictionary<BurnSkinState,Single> skinTimers = new Dictionary<BurnSkinState, Single>();
         private Dictionary<BurnSkinState,BurnEffectController> skinEffects = new Dictionary<BurnSkinState, BurnEffectController>();
 
         private GameObject target;
@@ -36,29 +35,31 @@ namespace WispSurvivor.Components
 
         public void Start()
         {
-            var ml = GetComponent<ModelLocator>();
-            if( ml && ml.modelTransform ) target = ml.modelTransform.gameObject; else dead = true; 
+            ModelLocator ml = this.GetComponent<ModelLocator>();
+            if( ml && ml.modelTransform ) this.target = ml.modelTransform.gameObject; else this.dead = true;
         }
 
         public void FixedUpdate()
         {
-            if( dead ) return;
-            UpdateTimers( Time.fixedDeltaTime );
-            UpdateLocalState();
+            if( this.dead ) return;
+            this.UpdateTimers( Time.fixedDeltaTime );
+            this.UpdateLocalState();
         }
 
-        public void SetSkinDuration( uint skin, float duration )
+        public void SetSkinDuration( UInt32 skin, Single duration )
         {
             BurnSkinState temp = SkinToState(skin);
-            if( state.HasFlag( temp ) && duration > skinTimers[temp] ) skinTimers[temp] = duration;
-            else
+            if( this.state.HasFlag( temp ) && duration > this.skinTimers[temp] )
             {
-                ActivateSkin( temp );
-                skinTimers[temp] = duration;
+                this.skinTimers[temp] = duration;
+            } else
+            {
+                this.ActivateSkin( temp );
+                this.skinTimers[temp] = duration;
             }
         }
 
-        public static BurnSkinState SkinToState( uint skin )
+        public static BurnSkinState SkinToState( UInt32 skin )
         {
             switch( skin )
             {
@@ -83,21 +84,21 @@ namespace WispSurvivor.Components
             }
         }
 
-        private void UpdateTimers( float delta )
+        private void UpdateTimers( Single delta )
         {
             if( !NetworkServer.active ) return;
             BurnSkinState temp;
-            for( uint i = 0; i < 8; i++ )
+            for( UInt32 i = 0; i < 8; i++ )
             {
                 temp = SkinToState( i );
-                if( state.HasFlag( temp ) )
+                if( this.state.HasFlag( temp ) )
                 {
-                    skinTimers[temp] -= delta;
+                    this.skinTimers[temp] -= delta;
 
-                    if( skinTimers[temp] <= 0f )
+                    if( this.skinTimers[temp] <= 0f )
                     {
-                        skinTimers[temp] = 0f;
-                        DeactivateSkin( temp );
+                        this.skinTimers[temp] = 0f;
+                        this.DeactivateSkin( temp );
                     }
                 }
             }
@@ -105,32 +106,32 @@ namespace WispSurvivor.Components
 
         private void UpdateLocalState()
         {
-            if( state == localState ) return;
+            if( this.state == this.localState ) return;
 
             BurnSkinState temp;
 
-            for( uint i = 0; i < 8; i++ )
+            for( UInt32 i = 0; i < 8; i++ )
             {
                 temp = SkinToState( i );
 
-                if( state.HasFlag( temp ) && localState.HasFlag( temp ) ) continue;
-                if( !state.HasFlag( temp ) && !localState.HasFlag( temp ) ) continue;
+                if( this.state.HasFlag( temp ) && this.localState.HasFlag( temp ) ) continue;
+                if( !this.state.HasFlag( temp ) && !this.localState.HasFlag( temp ) ) continue;
 
-                if( state.HasFlag( temp ) )
+                if( this.state.HasFlag( temp ) )
                 {
-                    if( !skinEffects.ContainsKey(temp) || skinEffects[temp] == null ) skinEffects[temp] = gameObject.AddComponent<BurnEffectController>();
+                    if( !this.skinEffects.ContainsKey( temp ) || this.skinEffects[temp] == null ) this.skinEffects[temp] = this.gameObject.AddComponent<BurnEffectController>();
 
-                    skinEffects[temp].effectType = Modules.WispMaterialModule.burnOverlayParams[i];
-                    skinEffects[temp].target = target;
+                    this.skinEffects[temp].effectType = Modules.WispMaterialModule.burnOverlayParams[i];
+                    this.skinEffects[temp].target = this.target;
                 } else
                 {
-                    if( skinEffects.ContainsKey( temp ) && skinEffects[temp] ) Destroy( skinEffects[temp] );
-                    skinEffects[temp] = null;
+                    if( this.skinEffects.ContainsKey( temp ) && this.skinEffects[temp] ) Destroy( this.skinEffects[temp] );
+                    this.skinEffects[temp] = null;
                 }
-                
+
             }
 
-            localState = state;
+            this.localState = this.state;
         }
 
         private void ActivateSkin( BurnSkinState state )

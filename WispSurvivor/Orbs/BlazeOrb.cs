@@ -157,7 +157,7 @@ namespace WispSurvivor.Orbs
 
         public void AddStacks( Single stacks, IgnitionOrb i )
         {
-            if( !isActive ) return;
+            if( !this.isActive ) return;
             this.stacks += stacks;
 
             EffectData fx = new EffectData
@@ -193,7 +193,7 @@ namespace WispSurvivor.Orbs
 
         private void TickDamage( HurtBox enemy )
         {
-            (burnManagers.ContainsKey( enemy.healthComponent ) ? burnManagers[enemy.healthComponent] : (burnManagers[enemy.healthComponent] = enemy.healthComponent.GetComponent<Components.WispBurnManager>())).SetSkinDuration( skin, igniteDuration );
+            (this.burnManagers.ContainsKey( enemy.healthComponent ) ? this.burnManagers[enemy.healthComponent] : (this.burnManagers[enemy.healthComponent] = enemy.healthComponent.GetComponent<Components.WispBurnManager>())).SetSkinDuration( this.skin, this.igniteDuration );
 
 
             IgnitionOrb orb = new IgnitionOrb();

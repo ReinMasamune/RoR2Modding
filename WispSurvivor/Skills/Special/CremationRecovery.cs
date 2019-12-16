@@ -1,4 +1,5 @@
-﻿using EntityStates;
+﻿/*
+using EntityStates;
 
 namespace WispSurvivor.Skills.Special
 {
@@ -48,3 +49,4 @@ namespace WispSurvivor.Skills.Special
         public override InterruptPriority GetMinimumInterruptPriority() => InterruptPriority.Death;
     }
 }
+*/

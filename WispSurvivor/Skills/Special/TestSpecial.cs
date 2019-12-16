@@ -1,4 +1,5 @@
-﻿using EntityStates;
+﻿/*
+using EntityStates;
 using RoR2;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -155,3 +156,4 @@ namespace WispSurvivor.Skills.Special
         public override void OnDeserialize( NetworkReader reader ) => this.skin = reader.ReadUInt32();
     }
 }
+*/

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using WispSurvivor.Helpers;
-using static WispSurvivor.Helpers.PrefabHelpers;
+using static WispSurvivor.Helpers.APIInterface;
 
 namespace WispSurvivor.Modules
 {

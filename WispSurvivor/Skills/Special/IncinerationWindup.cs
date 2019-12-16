@@ -1,4 +1,5 @@
-﻿using EntityStates;
+﻿
+using EntityStates;
 using UnityEngine;
 
 namespace WispSurvivor.Skills.Special
@@ -24,15 +25,15 @@ namespace WispSurvivor.Skills.Special
             this.characterBody.SetAimTimer( this.duration * 1.5f );
             this.PlayAnimation( "Body", "SpecialTransform", "SpecialTransform.playbackRate", this.duration );
 
-            camStart = cameraTargetParams.idealLocalCameraPos;
-            camEnd = new Vector3( camStart.x, camStart.y - camYOff, camStart.z * camZMult );
+            this.camStart = this.cameraTargetParams.idealLocalCameraPos;
+            this.camEnd = new Vector3( this.camStart.x, this.camStart.y - camYOff, this.camStart.z * camZMult );
         }
 
         public override void FixedUpdate()
         {
             base.FixedUpdate();
 
-            cameraTargetParams.idealLocalCameraPos = Vector3.Lerp( camStart, camEnd, this.fixedAge / this.duration );
+            this.cameraTargetParams.idealLocalCameraPos = Vector3.Lerp( this.camStart, this.camEnd, this.fixedAge / this.duration );
 
             //Gradual slowdown of movement
 
@@ -59,3 +60,4 @@ namespace WispSurvivor.Skills.Special
         public override InterruptPriority GetMinimumInterruptPriority() => InterruptPriority.Death;
     }
 }
+

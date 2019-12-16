@@ -1,6 +1,4 @@
-﻿using System;
-using BepInEx;
-using UnityEngine;
+﻿using BepInEx;
 
 namespace RoR2Plugin
 {
@@ -30,19 +28,9 @@ namespace RoR2Plugin
 
         */
 
-        protected virtual void OnEnable()
-        {
-            CreateHooks();
-            //PluginActivate();
-            //PerformCatalogEdits();
-        }
+        protected virtual void OnEnable() => this.CreateHooks();//PluginActivate();//PerformCatalogEdits();
 
-        protected virtual void OnDisable()
-        {
-            RemoveHooks();
-            //PluginDeactivate();
-            //UndoCatalogEdits();
-        }
+        protected virtual void OnDisable() => this.RemoveHooks();//PluginDeactivate();//UndoCatalogEdits();
 
         /*
         private void PerformCatalogEdits()

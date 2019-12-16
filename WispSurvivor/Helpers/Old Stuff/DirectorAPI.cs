@@ -1,10 +1,10 @@
-﻿using RoR2;
-using R2API.Utils;
+﻿using R2API.Utils;
+using RoR2;
 using System;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
 
-namespace RoR2Plugin
+namespace RoR2Plugin.OldStuff
 {
     public abstract partial class RoR2Plugin
     {
@@ -29,7 +29,7 @@ namespace RoR2Plugin
             public static event Action<List<DirectorCard> , Stage> monsterActions;
             public static event Action<List<DirectorCard> , Stage> interactableActions;
 
-            private static bool inUse = false;
+            private static Boolean inUse = false;
 
             private static void AddHook()
             {
@@ -41,10 +41,10 @@ namespace RoR2Plugin
 
             private static void ClassicStageInfo_Awake( On.RoR2.ClassicStageInfo.orig_Awake orig, ClassicStageInfo self )
             {
-                var monsters = self.GetFieldValue<DirectorCard[]>("monsterCards").ToList<DirectorCard>();
-                var interactables = self.GetFieldValue<DirectorCard[]>("interactableCards").ToList<DirectorCard>();
+                List<DirectorCard> monsters = self.GetFieldValue<DirectorCard[]>( "monsterCards" ).ToList<DirectorCard>();
+                List<DirectorCard> interactables = self.GetFieldValue<DirectorCard[]>( "interactableCards" ).ToList<DirectorCard>();
 
-                var stage = GetStage(self);
+                Stage stage = GetStage(self);
 
                 Action<List<DirectorCard>,Stage> monsterAct = monsterActions;
                 if( monsterAct != null )
@@ -59,10 +59,7 @@ namespace RoR2Plugin
 
             }
 
-            private static Stage GetStage( ClassicStageInfo stage )
-            {
-                return Stage.Custom;
-            }
+            private static Stage GetStage( ClassicStageInfo stage ) => Stage.Custom;
         }
     }
 }

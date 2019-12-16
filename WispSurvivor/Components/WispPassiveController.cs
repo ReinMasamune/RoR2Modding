@@ -41,7 +41,7 @@ namespace WispSurvivor.Components
 
         public void AddCharge( Double addedCharge ) => this.charge += addedCharge;
 
-        public ChargeState UseCharge( Double percent, Single scaler, bool floorCost = true )
+        public ChargeState UseCharge( Double percent, Single scaler, Boolean floorCost = true )
         {
             ChargeState state = new ChargeState();
 
@@ -82,7 +82,7 @@ namespace WispSurvivor.Components
             state.chargeAtStart = startingCharge;
             state.chargeConsumed = chargeToConsume;
             state.chargeLeft = this.charge;
-            state.chargeScaler = GetDrainScaler(chargeToConsume, (rate * time ), scaler );
+            state.chargeScaler = GetDrainScaler( chargeToConsume, (rate * time), scaler );
 
             return state;
         }

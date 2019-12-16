@@ -1,7 +1,6 @@
 ﻿using RoR2;
 using System;
 using System.Collections.Generic;
-using static RoR2Plugin.MiscHelpers;
 using UnityEngine;
 
 namespace WispSurvivor.Modules

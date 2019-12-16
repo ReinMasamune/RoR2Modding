@@ -1,5 +1,4 @@
-﻿using MonoMod.Cil;
-using R2API.Utils;
+﻿using R2API.Utils;
 using RoR2;
 using System;
 using System.Collections.Generic;
@@ -65,7 +64,7 @@ namespace WispSurvivor.Modules
 
             BuffIndex armorBuff = BuffCatalog.FindBuffIndex("WispArmorBuff");
 
-            
+
         }
 
 

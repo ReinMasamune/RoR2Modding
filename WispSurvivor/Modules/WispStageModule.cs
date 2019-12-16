@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
-using WispSurvivor.Helpers;
-using static WispSurvivor.Helpers.PrefabHelpers;
+﻿using UnityEngine;
 
 namespace WispSurvivor.Modules
 {
     public static class WispStageModule
     {
-        public static void DoModule(AssetBundle bundle )
+        public static void DoModule( AssetBundle bundle )
         {
 
         }
