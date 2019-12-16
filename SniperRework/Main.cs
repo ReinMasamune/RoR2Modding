@@ -45,7 +45,7 @@ namespace ReinSniperRework
             hurtState.hurtState = new SerializableEntityStateType(EntityState.Instantiate(219).GetType());
 
             int i = 0;
-            EntityStateMachine[] esmr = new EntityStateMachine[2]; 
+            EntityStateMachine[] esmr = new EntityStateMachine[2];
             foreach( EntityStateMachine esm in body.GetComponentsInChildren<EntityStateMachine>())
             {
                 switch (esm.customName)
