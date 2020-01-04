@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -27,6 +27,9 @@
     <Reference Include="BepInEx.Preloader">
       <HintPath>..\libs\BepInEx.Preloader.dll</HintPath>
     </Reference>
+    <Reference Include="Facepunch.Steamworks">
+      <HintPath>..\libs\Facepunch.Steamworks.dll</HintPath>
+    </Reference>
     <Reference Include="MMHOOK_Assembly-CSharp">
       <HintPath>..\libs\MMHOOK_Assembly-CSharp.dll</HintPath>
     </Reference>
@@ -42,6 +45,9 @@
     <Reference Include="Mono.Cecil.Rocks">
       <HintPath>..\libs\Mono.Cecil.Rocks.dll</HintPath>
     </Reference>
+    <Reference Include="Mono.Security">
+      <HintPath>..\libs\Mono.Security.dll</HintPath>
+    </Reference>
     <Reference Include="MonoMod">
       <HintPath>..\libs\MonoMod.exe</HintPath>
     </Reference>
@@ -50,6 +56,12 @@
     </Reference>
     <Reference Include="MonoMod.Utils">
       <HintPath>..\libs\MonoMod.Utils.dll</HintPath>
+    </Reference>
+    <Reference Include="ProBuilderCore">
+      <HintPath>..\libs\ProBuilderCore.dll</HintPath>
+    </Reference>
+    <Reference Include="ProBuilderMeshOps">
+      <HintPath>..\libs\ProBuilderMeshOps.dll</HintPath>
     </Reference>
     <Reference Include="R2API">
       <HintPath>..\libs\R2API.dll</HintPath>

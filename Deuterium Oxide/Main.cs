@@ -4,40 +4,173 @@ using BepInEx;
 using R2API;
 using R2API.Utils;
 using RoR2;
-using RoR2Plugin;
 using UnityEngine;
 using UnityEngine.Networking;
 
 namespace Deuterium_Oxide
 {
-    [R2APISubmoduleDependency( nameof( R2API.DifficultyAPI ) )]
+    [R2APISubmoduleDependency( nameof( R2API.DifficultyAPI ), nameof( R2API.DirectorAPI ) )]
     [BepInDependency( "com.bepis.r2api")]
     [BepInPlugin("com.ReinThings.DeuteriumOxide", "Deuterium Oxide" , "1.0.0" )]
-    public class Main : RoR2Plugin.RoR2Plugin
+    public class Main : BaseUnityPlugin
     {
         public RoR2.DifficultyIndex diffInd1;
         public RoR2.DifficultyIndex diffInd2;
+        public DirectorAPI.DirectorCardHolder archWispCard;
 
-        private Dictionary<string,SpawnParams> cardAdjustments = new Dictionary<string, SpawnParams>();
-
-        private struct SpawnParams
+        private void OnEnable()
         {
-            public float weightMult;
-            public float costMult;
-            public bool disableRestrictions;
+            On.RoR2.CharacterBody.Start += this.GiveHelpers;
+            DirectorAPI.MonsterActions += this.DirectorAPI_MonsterActions;
+        }
 
-            public SpawnParams( Single weightMult, Single costMult, Boolean disableRestrictions )
+        private void DirectorAPI_MonsterActions( List<DirectorAPI.DirectorCardHolder> cards, DirectorAPI.StageInfo stage )
+        {
+            if( Run.instance.selectedDifficulty == diffInd1 || Run.instance.selectedDifficulty == diffInd2 )
             {
-                this.weightMult = weightMult;
-                this.costMult = costMult;
-                this.disableRestrictions = disableRestrictions;
+                cards.Add( archWispCard );
+
+                foreach( DirectorAPI.DirectorCardHolder card in cards )
+                {
+                    ModifyCard( card );
+                }
             }
         }
 
-        public override void CreateHooks()
+        private void ModifyCard( DirectorAPI.DirectorCardHolder card )
         {
-            On.RoR2.ClassicStageInfo.Awake += this.ModifySpawnWeights;
-            On.RoR2.CharacterBody.Start += this.GiveHelpers;
+            var dirCard = card.card;
+            var name = dirCard.spawnCard.name.ToLower();
+
+            card.card.selectionWeight *= 4;
+
+            
+            if( name == "cscNullifier".ToLower() )
+            {
+                card.card.selectionWeight *= 2;
+                card.card.spawnCard.directorCreditCost /= 2;
+                return;
+            }
+            if( name == "cscScav".ToLower() )
+            {
+                return;
+            }
+
+
+            
+            if( name == DirectorAPI.Helpers.MonsterNames.AlloyVulture.ToLower() )
+            {
+                card.card.spawnCard.directorCreditCost = 14;
+                card.card.minimumStageCompletions = 0;
+            }
+            if( name == DirectorAPI.Helpers.MonsterNames.Beetle.ToLower() )
+            {
+                card.card.selectionWeight = 0;
+            }
+            if( name == "cscHermitCrab".ToLower() )
+            {
+                card.card.spawnCard.directorCreditCost = 12;
+                card.card.minimumStageCompletions = 0;
+            }
+            if( name == DirectorAPI.Helpers.MonsterNames.Imp.ToLower() )
+            {
+                card.card.spawnCard.directorCreditCost = 12;
+            }
+            if( name == DirectorAPI.Helpers.MonsterNames.Jellyfish.ToLower() )
+            {
+                card.card.selectionWeight = 0;
+            }
+            if( name == DirectorAPI.Helpers.MonsterNames.Lemurian.ToLower() )
+            {
+
+            }
+            if( name == DirectorAPI.Helpers.MonsterNames.LesserWisp.ToLower() )
+            {
+                card.card.selectionWeight *= 2;
+                card.card.spawnCard.directorCreditCost = 9;
+            }
+            if( name == DirectorAPI.Helpers.MonsterNames.SolusProbe.ToLower() )
+            {
+
+            }
+            
+
+
+            if( name == DirectorAPI.Helpers.MonsterNames.ArchaicWisp.ToLower() )
+            {
+                card.card.selectionWeight *= 3;
+                card.card.spawnCard.directorCreditCost = 150;
+            }
+            if( name == DirectorAPI.Helpers.MonsterNames.BeetleGuard.ToLower() )
+            {
+
+            }
+            if( name == DirectorAPI.Helpers.MonsterNames.BighornBison.ToLower() )
+            {
+
+            }
+            if( name == DirectorAPI.Helpers.MonsterNames.BrassContraption.ToLower() )
+            {
+                card.card.selectionWeight *= 2;
+            }
+            if( name == DirectorAPI.Helpers.MonsterNames.ClayTemplar.ToLower() )
+            {
+                card.card.selectionWeight *= 2;
+                card.card.minimumStageCompletions = 0;
+            }
+            if( name == DirectorAPI.Helpers.MonsterNames.ElderLemurian.ToLower() )
+            {
+                card.card.selectionWeight *= 2;
+            }
+            if( name == DirectorAPI.Helpers.MonsterNames.GreaterWisp.ToLower() )
+            {
+                card.card.selectionWeight *= 2;
+                card.card.spawnCard.directorCreditCost = 100;
+            }
+            if( name == DirectorAPI.Helpers.MonsterNames.StoneGolem.ToLower() )
+            {
+                card.card.selectionWeight *= 2;
+            }
+            
+
+
+            if( name == DirectorAPI.Helpers.MonsterNames.BeetleQueen.ToLower() )
+            {
+                card.card.selectionWeight /= 4;
+            }
+            if( name == DirectorAPI.Helpers.MonsterNames.ClayDunestrider.ToLower() )
+            {
+
+            }
+            if( name == DirectorAPI.Helpers.MonsterNames.Grovetender.ToLower() )
+            {
+
+            }
+            if( name == DirectorAPI.Helpers.MonsterNames.ImpOverlord.ToLower() )
+            {
+
+            }
+            if( name == DirectorAPI.Helpers.MonsterNames.MagmaWorm.ToLower() )
+            {
+                
+            }
+            if( name == DirectorAPI.Helpers.MonsterNames.OverloadingWorm.ToLower() )
+            {
+                card.card.spawnCard.directorCreditCost = 3000;
+                ((CharacterSpawnCard)card.card.spawnCard).noElites = false;
+            }
+            if( name == DirectorAPI.Helpers.MonsterNames.SolusControlUnit.ToLower() )
+            {
+
+            }
+            if( name == DirectorAPI.Helpers.MonsterNames.WanderingVagrant.ToLower() )
+            {
+
+            }
+            if( name == DirectorAPI.Helpers.MonsterNames.StoneTitanTitanicPlains.ToLower() || name == DirectorAPI.Helpers.MonsterNames.StoneTitanDistantRoost.ToLower() || name == DirectorAPI.Helpers.MonsterNames.StoneTitanAbandonedAqueduct.ToLower() || name == DirectorAPI.Helpers.MonsterNames.StoneTitanAbyssalDepths.ToLower() )
+            {
+
+            }
         }
 
         private void GiveHelpers( On.RoR2.CharacterBody.orig_Start orig, CharacterBody self )
@@ -69,45 +202,31 @@ namespace Deuterium_Oxide
             }
         }
 
-        private void ModifySpawnWeights( On.RoR2.ClassicStageInfo.orig_Awake orig, RoR2.ClassicStageInfo self )
+        private void OnDisable()
         {
-            if( Run.instance.selectedDifficulty == diffInd1 || Run.instance.selectedDifficulty == diffInd2 )
-            {
-                var cats = self.GetFieldValue<DirectorCardCategorySelection>( "monsterCategories" );
-                foreach( DirectorCardCategorySelection.Category cat in cats.categories )
-                {
-                    foreach( DirectorCard card in cat.cards )
-                    {
-                        card.selectionWeight *= 100;
-                        string s =  card.spawnCard.prefab.name;
-                        if( cardAdjustments.ContainsKey( s ) )
-                        {
-                            card.selectionWeight = (int)(card.selectionWeight * cardAdjustments[s].weightMult);
-                            card.cost = (int)(card.cost * cardAdjustments[s].costMult);
-                            if( cardAdjustments[s].disableRestrictions )
-                            {
-                                card.minimumStageCompletions = 0;
-                                card.requiredUnlockable = "";
-                                ((CharacterSpawnCard)card.spawnCard).noElites = false;
-                            }
-                        } else
-                        {
-                            Debug.Log( "Unregistered Monster: " + s );
-                        }
-                    }
-                }
-            }
-            orig( self );
-        }
-
-        public override void RemoveHooks()
-        {
-            On.RoR2.ClassicStageInfo.Awake -= this.ModifySpawnWeights;
             On.RoR2.CharacterBody.Start -= this.GiveHelpers;
         }
 
-        public override void OnLoad()
+        private void Awake()
         {
+            var archWispSpawnCard = Resources.Load<CharacterSpawnCard>( "SpawnCards/CharacterSpawnCards/cscArchWisp");
+            archWispSpawnCard.directorCreditCost = 300;
+
+            var archWispDirCard = new DirectorCard();
+            archWispDirCard.allowAmbushSpawn = true;
+            archWispDirCard.forbiddenUnlockable = "";
+            archWispDirCard.minimumStageCompletions = 4;
+            archWispDirCard.preventOverhead = false;
+            archWispDirCard.requiredUnlockable = "";
+            archWispDirCard.selectionWeight = 1;
+            archWispDirCard.spawnCard = archWispSpawnCard;
+            archWispDirCard.spawnDistance = DirectorCore.MonsterSpawnDistance.Standard;
+
+            archWispCard = new DirectorAPI.DirectorCardHolder();
+            archWispCard.card = archWispDirCard;
+            archWispCard.interactableCategory = DirectorAPI.InteractableCategory.None;
+            archWispCard.monsterCategory = DirectorAPI.MonsterCategory.Minibosses;
+
             var diff = new RoR2.DifficultyDef(3f, "REIN_DIFFICULTY_DEUTERIUM_NAME" , "Textures/ItemIcons/texMaskIcon", "REIN_DIFFICULTY_DEUTERIUM_DESC", new Color( 0f, 0f, 0f, 1f ));
             var diff2 = new RoR2.DifficultyDef( 4f, "REIN_DIFFICULTY_TRITIUM_NAME" , "Textures/ItemIcons/texMaskIcon", "REIN_DIFFICULTY_TRITIUM_DESC" , new Color( 0f, 0f, 0f, 1f ) );
 
@@ -115,6 +234,7 @@ namespace Deuterium_Oxide
             diffInd2 = DifficultyAPI.AddDifficulty( diff2 );
 
 
+            /*
             //Disabled cards
             cardAdjustments["BeetleMaster"] = new SpawnParams( 0.0f, 1.0f, true );
             cardAdjustments["JellyfishMaster"] = new SpawnParams( 0.0f, 1.0f, true );
@@ -145,11 +265,7 @@ namespace Deuterium_Oxide
             cardAdjustments["GreaterWispMaster"] = new SpawnParams( 2.0f, 0.5f, true );
             cardAdjustments["ElectricWormMaster"] = new SpawnParams( 2.0f, 0.5f, true );
             cardAdjustments["LemurianBruiserMaster"] = new SpawnParams( 2.0f, 1.0f, true );
-        }
-
-        public override void OnUnload()
-        {
-
+            */
         }
     }
 }
