@@ -118,9 +118,6 @@ namespace RogueWispPlugin.Misc
                     dur = 0.75f;
                 }
 
-                Debug.Log( "Stacks:" + stacks.ToString() );
-                Debug.Log( "Duration:" + dur.ToString() );
-
                 EffectData fx = new EffectData
                 {
                     origin = box.transform.position,
@@ -263,6 +260,8 @@ namespace RogueWispPlugin.Misc
                     return MonsterTier.Miniboss;
                 case "ARCHWISP_BODY_NAME":
                     return MonsterTier.Miniboss;
+                case "NULLIFIER_BODY_NAME":
+                    return MonsterTier.Miniboss;
 
 
                 case "BEETLEQUEEN_BODY_NAME":
@@ -281,11 +280,21 @@ namespace RogueWispPlugin.Misc
                     return MonsterTier.Boss;
                 case "VAGRANT_BODY_NAME":
                     return MonsterTier.Boss;
+                case "SCAV_BODY_NAME":
+                    return MonsterTier.Boss;
 
 
                 case "ELECTRICWORM_BODY_NAME":
                     return MonsterTier.SuperBoss;
                 case "SHOPKEEPER_BODY_NAME":
+                    return MonsterTier.SuperBoss;
+                case "SCAVLUNAR1_BODY_NAME":
+                    return MonsterTier.SuperBoss;
+                case "SCAVLUNAR2_BODY_NAME":
+                    return MonsterTier.SuperBoss;
+                case "SCAVLUNAR3_BODY_NAME":
+                    return MonsterTier.SuperBoss;
+                case "SCAVLUNAR4_BODY_NAME":
                     return MonsterTier.SuperBoss;
 
 

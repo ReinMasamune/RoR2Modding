@@ -9,8 +9,6 @@ namespace RogueWispPlugin.Components
         {
             Transform par = this.transform;
             while( par.parent != null ) par = par.parent;
-
-            Debug.Log( par.name );
             WispSurvivorPodController control = par.GetComponent<WispSurvivorPodController>();
             if( control )
             {
