@@ -29,7 +29,7 @@ namespace RogueWispPlugin.Components
         {
             this.charge = zeroMark;
             this.body = this.GetComponent<CharacterBody>();
-            this.buffInd = BuffCatalog.FindBuffIndex( "WispFlameChargeBuff" );
+            this.buffInd = Main.instance.RW_flameChargeBuff;
         }
 
         public void FixedUpdate()

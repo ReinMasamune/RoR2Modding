@@ -31,6 +31,8 @@ namespace RogueWispPlugin
         public String thing2;
         public String thing3;
 
+        internal static Main instance;
+
         private event Action Load;
         private event Action FirstFrame;
         private event Action Enable;
@@ -51,7 +53,8 @@ namespace RogueWispPlugin
             this.thing1 = "Note that everything in this codebase is already part of R2API. I spent a month of my time integrating all of that so that people would stop copy pasting from here.";
             this.thing2 = "If you are truly insistant on taking the lazy way out (Looking at you ravens) then screw you too I guess?";
             this.thing3 = "I also no longer at all interested in answering any questions about my code or helping anyone in any way. If people are just going to copy paste anyway then they aren't worth my time.";
- 
+
+            instance = this;
 
             this.Tick += () => RoR2Application.isModded = true;
 
