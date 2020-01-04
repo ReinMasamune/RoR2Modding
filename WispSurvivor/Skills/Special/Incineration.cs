@@ -55,7 +55,7 @@ namespace RogueWispPlugin.Skills.Special
         public override void OnEnter()
         {
             base.OnEnter();
-            this.armorBuff = BuffCatalog.FindBuffIndex( "WispArmorBuff" );
+            this.armorBuff = Main.instance.RW_armorBuff;
             this.passive = this.gameObject.GetComponent<Components.WispPassiveController>();
             this.skin = this.characterBody.skinIndex;
             this.aimAnim = this.GetComponent<Components.WispAimAnimationController>();

@@ -22,6 +22,7 @@ namespace RogueWispPlugin
         {
             this.Load += this.RW_RegisterBuffs;
             this.FirstFrame += this.RW_EditEnrageBuff;
+            new CharacterBody().AddBuff( BuffIndex.AffixBlue );
         }
 
         private void RW_EditEnrageBuff()
