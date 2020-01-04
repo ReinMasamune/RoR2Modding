@@ -1,4 +1,4 @@
-﻿namespace AlternateArtificer.Components
+﻿namespace AlternativeArtificer.Components
 {
     using System;
     using System.Collections.Generic;

@@ -1,6 +1,8 @@
-﻿namespace AlternateArtificer.States.Main
+﻿namespace AlternativeArtificer.States.Main
 {
+    using AlternateArtificer.SelectablePassive;
     using EntityStates;
+    using EntityStates.Mage;
     using RoR2;
     using System;
     using System.Collections.Generic;
@@ -8,58 +10,55 @@
     using System.Text;
     using UnityEngine;
 
+    /*
     public class AltArtiMain : GenericCharacterMain
     {
-        public Components.PassiveController passive;
-        private Action base_base_FixedUpdate;
+        public static Mesh envSuitMesh;
+        public static Mesh elementalIntensityMesh;
+
+        public static PassiveSkillDef envSuit;
+        public static PassiveSkillDef elementalIntensity;
+
+        public PassiveComponent.PassiveMode mode;
+
+        private EntityStateMachine passiveStateMachine;
+        private GenericSkill passiveSkill;
 
         public override void OnEnter()
         {
             base.OnEnter();
-            passive = base.GetComponent<Components.PassiveController>();
-
-            var method = typeof(BaseCharacterMain).GetMethod("FixedUpdate");
-            var funcPointer = method.MethodHandle.GetFunctionPointer();
-            base_base_FixedUpdate = (Action)Activator.CreateInstance(typeof(Action), this, funcPointer );
+            this.mode = base.gameObject.GetComponent<PassiveComponent>().mode;
+            this.passiveStateMachine = EntityStateMachine.FindByCustomName( base.gameObject, "Jet" );
         }
 
-        public override void FixedUpdate()
+        public override void ProcessJump()
         {
-            base_base_FixedUpdate();
-            this.GatherInputs();
-            this.HandleMovements();
-            this.PerformInputs();
-        }
+            base.ProcessJump();
 
-        private new void PerformInputs()
-        {
-            if( base.isAuthority )
+            if( this.mode == PassiveComponent.PassiveMode.ENVSuit )
             {
-                if( base.hasSkillLocator )
+                if( this.hasCharacterMotor && this.hasInputBank && base.isAuthority )
                 {
-                    DoSkill( base.skillLocator.primary, ref base.skill1InputReceived, base.inputBank.skill1.justPressed );
-                    DoSkill( base.skillLocator.secondary, ref base.skill2InputReceived, base.inputBank.skill2.justPressed );
-                    DoSkill( base.skillLocator.utility, ref base.skill3InputReceived, base.inputBank.skill3.justPressed );
-                    DoSkill( base.skillLocator.special, ref base.skill4InputReceived, base.inputBank.skill4.justPressed );
-                }
-                base.jumpInputReceived = false;
-                base.sprintInputReceived = false;
-            }
-        }
+                    Boolean inJetpack = this.passiveStateMachine.state.GetType() == typeof( JetpackOn );
+                    Boolean jetpackOk = base.characterMotor.velocity.y < 0f && !base.characterMotor.isGrounded;
 
-        private void DoSkill(GenericSkill slot, ref Boolean inputRecieved, Boolean justPressed )
-        {
-            Boolean temp = inputRecieved;
-            inputRecieved = false;
-            if( !slot ) return;
-
-            if( ( justPressed || ( temp && !slot.mustKeyPress )) && base.CanExecuteSkill( slot ) )
-            {
-                if( slot.ExecuteIfReady() )
-                {
-                    passive.SkillCast( slot );
+                    if( inJetpack )
+                    {
+                        if( !jetpackOk || !base.inputBank.jump.down )
+                        {
+                            passiveStateMachine.SetNextState( new Idle() );
+                        }
+                    } else
+                    {
+                        if( jetpackOk && base.inputBank.jump.down )
+                        {
+                            passiveStateMachine.SetNextState( new JetpackOn() );
+                        }
+                    }
+                    
                 }
             }
         }
     }
+    */
 }
