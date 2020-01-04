@@ -20,7 +20,8 @@ namespace RogueWispPlugin
         nameof( R2API.EntityAPI ), 
         nameof( R2API.PrefabAPI ),
         nameof( R2API.LoadoutAPI ),
-        nameof( R2API.OrbAPI ) 
+        nameof( R2API.OrbAPI ),
+        nameof( R2API.AssetPlus.AssetPlus )
     )]
 
     [BepInDependency( "com.bepis.r2api" )]
