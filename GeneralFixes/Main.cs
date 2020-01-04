@@ -13,98 +13,28 @@ using EntityStates;
 
 namespace ReinGeneralFixes
 {
+    [R2APISubmoduleDependency(nameof(AssetAPI),
+        nameof(DifficultyAPI),
+        nameof(DirectorAPI),
+        nameof(EffectAPI),
+        nameof(EntityAPI),
+        nameof(InventoryAPI),
+        nameof(ItemAPI),
+        nameof(ItemDropAPI),
+        nameof(LoadoutAPI),
+        nameof(LobbyConfigAPI),
+        nameof(OrbAPI),
+        nameof(PlayerAPI),
+        nameof(PrefabAPI),
+        nameof(SkillAPI),
+        nameof(SkinAPI),
+        nameof(SurvivorAPI),
+        nameof(R2API.AssetPlus.AssetPlus))]
     [BepInDependency("com.bepis.r2api")]
     [BepInPlugin("com.ReinThings.ReinGeneralBugfixes", "ReinGeneralBugfixes", "1.0.1")]
     public class ReinGeneralFixesMain : BaseUnityPlugin
     {
 
-        
-        Texture2D testTex;
-        Texture2D bgTex;
-        Rect posRect = new Rect(32f, 32f, 1524f, 96f);
-
-        public void Awake()
-        {
-            bgTex = CreateBGTexture();
-
-            Gradient grad = new Gradient();
-
-            GradientAlphaKey[] aKeys = new GradientAlphaKey[2];
-            aKeys[0] = new GradientAlphaKey(0.75f, 0f);
-            aKeys[1] = new GradientAlphaKey(0f, 1f);
-
-            GradientColorKey[] cKeys = new GradientColorKey[2];
-            cKeys[0] = new GradientColorKey(new Color(0f, 0f, 0f), 1f);
-            cKeys[1] = new GradientColorKey(new Color(1f, 0.690f, 0.906f), 0f);
-            //cKeys[2] = new GradientColorKey(new Color(0.1f, 0.11f, 0.6f), 0.7f);
-            //cKeys[3] = new GradientColorKey(new Color(0.19f, 0.19f, 0.85f), 0.63f);
-            //cKeys[4] = new GradientColorKey(new Color(0.4f, 0.55f, 1.0f), 0.32f);
-            //cKeys[5] = new GradientColorKey(new Color(0.48f, 0.69f, 1.0f), 0.25f);
-            //cKeys[6] = new GradientColorKey(new Color(0.5f, 0.75f, 1.0f), 0f);
-
-            grad.SetKeys(cKeys, aKeys);
-
-            testTex = CreateNewRampTex(grad);
-            
-        }
-
-        public void OnGUI()
-        {
-            GUI.DrawTexture(posRect, bgTex);
-            GUI.DrawTexture(posRect, testTex);
-        }
-
-        private static Texture2D CreateNewRampTex(Gradient grad)
-        {
-            Texture2D tex = new Texture2D(256, 16, TextureFormat.ARGB32, false);
-
-            Color tempC;
-            Color[] tempCs = new Color[16];
-
-            for (int i = 0; i < 256; i++)
-            {
-                tempC = grad.Evaluate( (255f - i) / 255f);
-                for (int j = 0; j < 16; j++)
-                {
-                    tempCs[j] = tempC;
-                }
-
-                tex.SetPixels(i, 0, 1, 16, tempCs);
-            }
-
-            tex.Apply();
-            return tex;
-        }
-
-        private Texture2D CreateBGTexture()
-        {
-            Texture2D tex = new Texture2D(256, 16, TextureFormat.ARGB32, false);
-
-            bool swap = false;
-
-            Color b = new Color(0f, 0f, 0f, 1f);
-            Color w = new Color(1f, 1f, 1f, 1f);
-
-            Color[] white = new Color[64];
-            Color[] black = new Color[64];
-
-            for( int i = 0; i < 64; i++ )
-            {
-                white[i] = w;
-                black[i] = b;
-            }
-
-            for( int i =0; i<256; i+=8)
-            {
-                tex.SetPixels(i, 0, 8, 8, (swap ? white : black));
-                tex.SetPixels(i, 8, 8, 8, (swap ? black : white));
-                swap = !swap;
-            }
-
-            tex.Apply();
-            return tex;
-        }
-        
     }
 }
 
