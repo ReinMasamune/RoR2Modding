@@ -1,7 +1,7 @@
 ﻿using RoR2;
 using UnityEngine;
 
-namespace WispSurvivor.Orbs
+namespace RogueWispPlugin.Orbs
 {
     internal class SnapOrb : RoR2.Orbs.Orb
     {
@@ -49,7 +49,7 @@ namespace WispSurvivor.Orbs
                 start = lastPos
             };
             effectData.SetHurtBoxReference( this.target );
-            EffectManager.instance.SpawnEffect( Modules.WispEffectModule.primaryOrbEffects[this.skin], effectData, true );
+            EffectManager.SpawnEffect( Main.primaryOrbEffects[this.skin], effectData, true );
         }
 
         public override void OnArrival()
@@ -67,7 +67,7 @@ namespace WispSurvivor.Orbs
                 scale = 0.5f
             };
 
-            EffectManager.instance.SpawnEffect( Modules.WispEffectModule.primaryExplosionEffects[this.skin], effect, true );
+            EffectManager.SpawnEffect( Main.primaryExplosionEffects[this.skin], effect, true );
 
             if( this.attacker )
             {

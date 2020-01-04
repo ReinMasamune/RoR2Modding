@@ -3,8 +3,8 @@ using RoR2;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-
-namespace WispSurvivor.Modules
+/*
+namespace RogueWispPlugin.Modules
 {
     public static class WispBuffModule
     {
@@ -93,3 +93,4 @@ namespace WispSurvivor.Modules
         }
     }
 }
+*/

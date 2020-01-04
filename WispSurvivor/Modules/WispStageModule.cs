@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
-
-namespace WispSurvivor.Modules
+/*
+namespace RogueWispPlugin.Modules
 {
     public static class WispStageModule
     {
@@ -11,3 +11,4 @@ namespace WispSurvivor.Modules
 
     }
 }
+*/

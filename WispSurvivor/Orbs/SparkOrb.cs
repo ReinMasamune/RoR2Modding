@@ -3,7 +3,7 @@ using RoR2.Orbs;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace WispSurvivor.Orbs
+namespace RogueWispPlugin.Orbs
 {
     internal class SparkOrb : RoR2.Orbs.Orb
     {
@@ -99,7 +99,7 @@ namespace WispSurvivor.Orbs
                 origin = dest
             };
 
-            EffectManager.instance.SpawnEffect( Modules.WispEffectModule.secondaryExplosions[this.skin], effect, true );
+            EffectManager.SpawnEffect( Main.secondaryExplosions[this.skin], effect, true );
 
             if( this.attacker )
             {

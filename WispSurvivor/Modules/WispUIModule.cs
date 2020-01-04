@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using WispSurvivor.Helpers;
-using static WispSurvivor.Helpers.APIInterface;
+using RogueWispPlugin.Helpers;
+using static RogueWispPlugin.Helpers.APIInterface;
 
-namespace WispSurvivor.Modules
+/*
+namespace RogueWispPlugin.Modules
 {
     public static class WispUIModule
     {
@@ -19,3 +20,4 @@ namespace WispSurvivor.Modules
         }
     }
 }
+*/

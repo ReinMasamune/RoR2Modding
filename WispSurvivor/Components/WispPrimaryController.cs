@@ -3,7 +3,7 @@ using System;
 using UnityEngine;
 using UnityEngine.Networking;
 
-namespace WispSurvivor.Components
+namespace RogueWispPlugin.Components
 {
     public class WispPrimaryController : NetworkBehaviour
     {

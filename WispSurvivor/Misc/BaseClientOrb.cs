@@ -4,7 +4,7 @@ using System;
 using UnityEngine;
 using UnityEngine.Networking;
 
-namespace WispSurvivor.Misc
+namespace RogueWispPlugin.Misc
 {
     public abstract class BaseClientOrb
     {

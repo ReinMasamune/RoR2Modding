@@ -3,7 +3,7 @@ using RoR2;
 using System.Reflection;
 using UnityEngine;
 
-namespace WispSurvivor.Components
+namespace RogueWispPlugin.Components
 {
     public class WispAimAnimationController : MonoBehaviour
     {

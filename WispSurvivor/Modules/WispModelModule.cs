@@ -5,10 +5,11 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.Serialization;
 using UnityEngine;
-using static WispSurvivor.Helpers.APIInterface;
-using static WispSurvivor.Helpers.ComponentHelpers;
+using static RogueWispPlugin.Helpers.APIInterface;
+using static RogueWispPlugin.Helpers.ComponentHelpers;
 
-namespace WispSurvivor.Modules
+/*
+namespace RogueWispPlugin.Modules
 {
     public static class WispModelModule
     {
@@ -124,7 +125,7 @@ namespace WispSurvivor.Modules
                 {
                     particleSystem = tempPSList[i].ps,
                     renderer = tempPSList[i].psr,
-                    defaultMaterial = WispMaterialModule.fireMaterials[0][0]
+                    defaultMaterial = Main.fireMaterials[0][0]
                 };
                 flameCont.flames.Add( tempPSList[i].ps );
                 flameCont.flameInfos.Add( tempPSList[i].info.rate );
@@ -138,7 +139,7 @@ namespace WispSurvivor.Modules
             ModelSkinController bodySkins = bodyModel.AddOrGetComponent<ModelSkinController>();
 
             Renderer armorRenderer = bodyCharModel.baseRendererInfos[0].renderer;
-            bodyCharModel.baseRendererInfos[0].defaultMaterial = WispMaterialModule.armorMaterials[0];
+            bodyCharModel.baseRendererInfos[0].defaultMaterial = Main.armorMaterials[0];
 
             bodyCharModel.baseRendererInfos[0].ignoreOverlays = false;
 
@@ -149,11 +150,11 @@ namespace WispSurvivor.Modules
 
             for( Int32 i = 0; i < particles.Length; i++ )
             {
-                particles[i].renderer.material = WispMaterialModule.fireMaterials[0][0];
-                particles[i].defaultMaterial = WispMaterialModule.fireMaterials[0][0];
+                particles[i].renderer.material = Main.fireMaterials[0][0];
+                particles[i].defaultMaterial = Main.fireMaterials[0][0];
             }
 
-            armorRenderer.material = WispMaterialModule.armorMaterials[0];
+            armorRenderer.material = Main.armorMaterials[0];
 
             CharacterModel.RendererInfo[][] rendererInfos = new CharacterModel.RendererInfo[8][];
             for( Int32 i = 0; i < 8; i++ )
@@ -161,13 +162,13 @@ namespace WispSurvivor.Modules
                 rendererInfos[i] = new CharacterModel.RendererInfo[particles.Length + 1];
                 for( Int32 j = 0; j < particles.Length; j++ )
                 {
-                    rendererInfos[i][j] = CreateFlameRendererInfo( particles[j].renderer, WispMaterialModule.fireMaterials[i][matIndex] );
+                    rendererInfos[i][j] = CreateFlameRendererInfo( particles[j].renderer, Main.fireMaterials[i][matIndex] );
                 }
                 // TODO: Array of armor mats should be reffed here and used
                 rendererInfos[i][particles.Length] = new CharacterModel.RendererInfo
                 {
                     renderer = armorRenderer,
-                    defaultMaterial = WispMaterialModule.armorMaterials[i],
+                    defaultMaterial = Main.armorMaterials[i],
                     defaultShadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On,
                     ignoreOverlays = false
                 };
@@ -187,7 +188,7 @@ namespace WispSurvivor.Modules
 
             for( Int32 i = 0; i < 8; i++ )
             {
-                SkinDefInfo skinInfo = new SkinDefInfo
+                R2API.SkinAPI.SkinDefInfo skinInfo = new R2API.SkinAPI.SkinDefInfo
                 {
                     baseSkins = Array.Empty<SkinDef>(),
                     icon = Resources.Load<Sprite>("NotAPath"),
@@ -1096,3 +1097,4 @@ namespace WispSurvivor.Modules
         }
     }
 }
+*/

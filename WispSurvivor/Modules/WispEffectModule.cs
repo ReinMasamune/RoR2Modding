@@ -5,10 +5,11 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
-using WispSurvivor.Helpers;
-using static WispSurvivor.Helpers.APIInterface;
+using RogueWispPlugin.Helpers;
+using static RogueWispPlugin.Helpers.APIInterface;
 
-namespace WispSurvivor.Modules
+/*
+namespace RogueWispPlugin.Modules
 {
     public static class WispEffectModule
     {
@@ -85,10 +86,6 @@ namespace WispSurvivor.Modules
                 RegisterNewEffect( g );
             }
             foreach( GameObject g in specialExplosion )
-            {
-                RegisterNewEffect( g );
-            }
-            foreach( GameObject g in specialBeam )
             {
                 RegisterNewEffect( g );
             }
@@ -2041,7 +2038,7 @@ namespace WispSurvivor.Modules
                 }
             };
             */
-
+            /*
 
             return g;
         }
@@ -2154,6 +2151,7 @@ namespace WispSurvivor.Modules
         }
     }
 }
+*/
 
 /* Sounds
 

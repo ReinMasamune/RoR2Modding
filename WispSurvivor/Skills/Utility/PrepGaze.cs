@@ -3,7 +3,7 @@ using RoR2;
 using UnityEngine;
 using UnityEngine.Networking;
 
-namespace WispSurvivor.Skills.Utility
+namespace RogueWispPlugin.Skills.Utility
 {
     public class PrepGaze : BaseState
     {
@@ -40,7 +40,7 @@ namespace WispSurvivor.Skills.Utility
             if( !this.line )
             {
                 Transform muzzle = this.GetModelTransform().Find("CannonPivot").Find("AncientWispArmature").Find("Head");
-                this.line = UnityEngine.Object.Instantiate<GameObject>( Modules.WispEffectModule.utilityAim[this.skin], muzzle.TransformPoint( 0f, 0.1f, 0f ), muzzle.rotation, muzzle );
+                this.line = UnityEngine.Object.Instantiate<GameObject>( Main.utilityAim[this.skin], muzzle.TransformPoint( 0f, 0.1f, 0f ), muzzle.rotation, muzzle );
                 this.end = this.line.transform.Find( "lineEnd" );
                 this.end.parent = null;
                 this.end.localScale = new Vector3( 2 * this.radius, 2 * this.radius, 2 * this.radius );

@@ -6,200 +6,70 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
-using WispSurvivor.Helpers;
-using WispSurvivor.Modules;
-using static WispSurvivor.Helpers.APIInterface;
+using RogueWispPlugin.Helpers;
+using RogueWispPlugin.Modules;
+using static RogueWispPlugin.Helpers.APIInterface;
 
-namespace WispSurvivor
+namespace RogueWispPlugin
 {
-    [R2APISubmoduleDependency( nameof( R2API.SurvivorAPI ) )]
+    [R2APISubmoduleDependency( 
+        nameof( R2API.SurvivorAPI ), 
+        nameof( R2API.EffectAPI ), 
+        nameof( R2API.SkillAPI ), 
+        nameof( R2API.SkinAPI ), 
+        nameof( R2API.EntityAPI ), 
+        nameof( R2API.PrefabAPI ),
+        nameof( R2API.LoadoutAPI ),
+        nameof( R2API.OrbAPI ) 
+    )]
+
     [BepInDependency( "com.bepis.r2api" )]
-    [BepInPlugin( "com.ReinThings.RogueWisp", "Rein-RogueWisp", "1.3.1" )]
-    public partial class WispSurvivorMain : RoR2Plugin.RoR2Plugin
+    [BepInPlugin( "com.ReinThings.RogueWisp", "Rein-RogueWisp", "1.3.3" )]
+    internal partial class Main : BaseUnityPlugin
     {
-        private Dictionary<Type, Component> componentLookup = new Dictionary<Type, Component>();
-        private GameObject body;
+        public String thing1;
+        public String thing2;
+        public String thing3;
 
-        private BuffIndex armorBuff;
-        private BuffIndex chargeBuff;
-        private Texture2D bgTex;
-        private Rect posRect = new Rect(32f, 32f, 1524f, 96f);
+        private event Action Load;
+        private event Action FirstFrame;
+        private event Action Enable;
+        private event Action Disable;
+        private event Action Frame;
+        private event Action PostFrame;
+        private event Action Tick;
+        private event Action GUI;
 
-        public void Awake()
+        partial void CreateRogueWisp();
+        partial void CreateAncientWisp();
+        partial void CreateFirstWisp();
+        partial void CreateWispFriend();
+        partial void CreateStage();
+
+        public Main()
         {
-            String thing1 = "To anyone looking to troubleshoot compatibility/bugs, feel free to message me on Discord (@Rein#7551) so I can fix/change how things work.";
-            String thing2 = "To anyone looking to learn from my code, feel free to message me on Discord (@Rein#7551) and ask any questions you want.";
-            String thing3 = "To anyone looking to simply copy paste my code... Thanks...";
+            this.thing1 = "Note that everything in this codebase is already part of R2API. I spent a month of my time integrating all of that so that people would stop copy pasting from here.";
+            this.thing2 = "If you are truly insistant on taking the lazy way out (Looking at you ravens) then screw you too I guess?";
+            this.thing3 = "I also no longer at all interested in answering any questions about my code or helping anyone in any way. If people are just going to copy paste anyway then they aren't worth my time.";
+ 
 
-            Assembly execAssembly = Assembly.GetExecutingAssembly();
-            System.IO.Stream stream = execAssembly.GetManifestResourceStream( "WispSurvivor.Bundle.wispsurvivor" );
-            AssetBundle bundle = AssetBundle.LoadFromStream(stream);
+            this.Tick += () => RoR2Application.isModded = true;
 
-            //Get a copy of the body prefab we need
-            //Resources.UnloadAsset( Resources.Load<GameObject>( "Prefabs/CharacterBodies/AncientWispBody" ) );
-            this.body = Resources.Load<GameObject>( "Prefabs/CharacterBodies/AncientWispBody" ).InstantiateClone( "Rogue Wisp" );
-            //Resources.UnloadAsset( Resources.Load<GameObject>( "Prefabs/CharacterBodies/AncientWispBody" ) );
-
-            //Queue the body to be added to the BodyCatalog
-            RegisterNewBody( this.body );
-
-            //Perform the components module edits, save to the component cache
-            this.componentLookup = WispComponentModule.DoModule( this.body );
-
-            //Perform the material module edits
-            WispMaterialModule.DoModule( this.body, this.componentLookup, this );
-
-            //Perform the effect module edits
-            WispEffectModule.DoModule( this.body, this.componentLookup );
-
-            //Perform the model module edits
-            WispModelModule.DoModule( this.body, this.componentLookup );
-
-            //Perform the motion module edits
-            WispMotionModule.DoModule( this.body, this.componentLookup );
-
-            //Perform the UI module edits
-            WispUIModule.DoModule( this.body, this.componentLookup );
-
-            //Perform the charBody module edits
-            WispBodySetupModule.DoModule( this.body, this.componentLookup, bundle );
-
-            //Perform the camera module edits
-            WispCameraModule.DoModule( this.body, this.componentLookup );
-
-            //Perform the animation module edits
-            WispAnimationModule.DoModule( this.body, this.componentLookup, bundle );
-
-            //Perform the orb module edits
-            WispOrbModule.DoModule( this.body, this.componentLookup );
-
-            //Perform the projectile module edits
-            //WispProjectileModule.DoModule( this.body, this.componentLookup );
-
-            //Perform the skills module edits
-            WispSkillsModule.DoModule( this.body, this.componentLookup, bundle );
-
-            //Perform the buff module edits
-            WispBuffModule.DoModule( this.body, this.componentLookup );
-
-            //Perform the info module edits
-            WispInfoModule.DoModule( this.body, this.componentLookup );
-
-            //Create a characterDisplay
-            GameObject display = this.body.GetComponent<ModelLocator>().modelBaseTransform.gameObject;
-
-            SurvivorDef bodySurvivorDef = new SurvivorDef
-            {
-                bodyPrefab = body,
-                descriptionToken = "WISP_SURVIVOR_BODY_DESC",
-                displayPrefab = display,
-                primaryColor = new Color(0.7f, 0.2f, 0.9f),
-            };
-
-            R2API.SurvivorAPI.AddSurvivor( bodySurvivorDef );
-            ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            #region Other random stuff
-            //Fix this thing that does something? I think?
-            InteractionDriver bodyIntDriver = this.body.GetComponent<InteractionDriver>();
-            bodyIntDriver.highlightInteractor = true;
-
-            //Adjust network transform settings
-            CharacterNetworkTransform bodyNetTrans = this.body.GetComponent<CharacterNetworkTransform>();
-            bodyNetTrans.positionTransmitInterval = 0.05f;
-            bodyNetTrans.interpolationFactor = 3f;
-            #endregion
-#if DEBUG
-            BuildMainLayer();
-#endif
+            this.CreateRogueWisp();
+            this.CreateAncientWisp();
+            this.CreateFirstWisp();
+            this.CreateWispFriend();
+            this.CreateStage();
         }
 
-        public void Start()
-        {
-            //Register effects
-            WispEffectModule.Register();
-            Dictionary<GameObject, UInt32> dict = (EffectManager.instance).GetFieldValue<Dictionary<GameObject, UInt32>>( "effectPrefabToIndexMap" );
-            for( Int32 i = 0; i < 8; i++ )
-            {
-                this.restoreIndex[i] = dict[Modules.WispEffectModule.utilityLeech[i]];
-            }
-
-            //Register buffs
-            WispBuffModule.RegisterBuffs();
-
-            this.armorBuff = BuffCatalog.FindBuffIndex( "WispArmorBuff" );
-            this.chargeBuff = BuffCatalog.FindBuffIndex( "WispFlameChargeBuff" );
-        }
-
-        public void FixedUpdate() => RoR2Application.isModded = true;
-
-#if DEBUG
-        public void Update()
-        {
-            KeyListen();
-        }
-
-        public void OnGUI()
-        {
-            DrawUI();
-        }
-#endif
-        /*
-        public void OnGUI()
-        {
-            GUI.DrawTexture(posRect, bgTex);
-            GUI.DrawTexture(posRect, WispMaterialModule.fireTextures[7]);
-        }
-
-        private Texture2D CreateBGTexture()
-        {
-            Texture2D tex = new Texture2D(256, 16, TextureFormat.ARGB32, false);
-
-            bool swap = false;
-
-            Color b = new Color(0f, 0f, 0f, 1f);
-            Color w = new Color(1f, 1f, 1f, 1f);
-
-            Color[] white = new Color[64];
-            Color[] black = new Color[64];
-
-            for (int i = 0; i < 64; i++)
-            {
-                white[i] = w;
-                black[i] = b;
-            }
-
-            for (int i = 0; i < 256; i += 8)
-            {
-                tex.SetPixels(i, 0, 8, 8, (swap ? white : black));
-                tex.SetPixels(i, 8, 8, 8, (swap ? black : white));
-                swap = !swap;
-            }
-
-            tex.Apply();
-            return tex;
-        }
-
-        private static void DebugMaterialInfo(Material m)
-        {
-            Debug.Log("Material name: " + m.name);
-            string[] s = m.shaderKeywords;
-            Debug.Log("Shader keywords");
-            for (int i = 0; i < s.Length; i++)
-            {
-                Debug.Log(s[i]);
-            }
-
-            Debug.Log("Shader name: " + m.shader.name);
-
-            Debug.Log("Texture Properties");
-            string[] s2 = m.GetTexturePropertyNames();
-            for (int i = 0; i < s2.Length; i++)
-            {
-                Debug.Log(s2[i] + " : " + m.GetTexture(s2[i]));
-            }
-        }
-        */
-
+        private void Awake() => this.Load?.Invoke();
+        private void Start() => this.FirstFrame?.Invoke();
+        private void OnEnable() => this.Enable?.Invoke();
+        private void OnDisable() => this.Disable?.Invoke();
+        private void Update() => this.Frame?.Invoke();
+        private void LateUpdate() => this.PostFrame?.Invoke();
+        private void FixedUpdate() => this.Tick?.Invoke();
+        private void OnGUI() => this.GUI?.Invoke();
     }
 
 

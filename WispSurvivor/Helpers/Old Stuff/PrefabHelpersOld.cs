@@ -7,7 +7,7 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 
-namespace WispSurvivor.Helpers.OldStuff
+namespace RogueWispPlugin.Helpers.OldStuff
 {
     public static class PrefabHelpers
     {
@@ -141,7 +141,7 @@ namespace WispSurvivor.Helpers.OldStuff
             if( !needToRegister )
             {
                 needToRegister = true;
-                On.RoR2.Networking.GameNetworkManager.OnStartClient += RegisterClientPrefabsNStuff;
+                RoR2.Networking.GameNetworkManager.onStartGlobal += RegisterClientPrefabsNStuff;
             }
         }
 
@@ -165,9 +165,8 @@ namespace WispSurvivor.Helpers.OldStuff
             i15 = 0
         };
 
-        private static void RegisterClientPrefabsNStuff( On.RoR2.Networking.GameNetworkManager.orig_OnStartClient orig, RoR2.Networking.GameNetworkManager self, UnityEngine.Networking.NetworkClient newClient )
+        private static void RegisterClientPrefabsNStuff()
         {
-            orig( self, newClient );
             foreach( HashStruct h in thingsToHash )
             {
                 if( h.prefab.HasComponent<NetworkIdentity>() ) h.prefab.GetComponent<NetworkIdentity>().SetFieldValue<NetworkHash128>( "m_AssetId", nullHash );

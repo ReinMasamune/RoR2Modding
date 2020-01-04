@@ -5,16 +5,17 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Networking;
-using WispSurvivor.Modules;
+using RogueWispPlugin.Modules;
 
-namespace WispSurvivor
+namespace RogueWispPlugin
 {
-    public partial class WispSurvivorMain
+    /*
+    internal partial class Main
     {
         private Color32 nullColor = new Color32( 0, 0, 0, 0);
         private UInt32[] restoreIndex = new UInt32[8];
 
-        public override void RemoveHooks()
+        public void RemoveHooks()
         {
             IL.RoR2.GlobalEventManager.OnHitEnemy -= this.RemoveStunOnHit;
             On.RoR2.GlobalEventManager.OnHitEnemy -= this.AddStunOnHit;
@@ -26,7 +27,7 @@ namespace WispSurvivor
             On.RoR2.CharacterModel.UpdateOverlays -= this.CharacterModel_UpdateOverlays;
         }
 
-        public override void CreateHooks()
+        public void CreateHooks()
         {
             IL.RoR2.GlobalEventManager.OnHitEnemy += this.RemoveStunOnHit;
             On.RoR2.GlobalEventManager.OnHitEnemy += this.AddStunOnHit;
@@ -36,16 +37,16 @@ namespace WispSurvivor
             On.RoR2.CharacterBody.FixedUpdate += this.ShieldRegenStuff;
             On.RoR2.CharacterModel.InstanceUpdate += this.CharacterModel_InstanceUpdate;
             On.RoR2.CharacterModel.UpdateOverlays += this.CharacterModel_UpdateOverlays;
-            On.RoR2.EffectManager.TransmitEffect_uint_EffectData_NetworkConnection += this.DoVeryVeryBadThings;
+            On.RoR2.EffectManager.TransmitEffect += this.DoVeryVeryBadThings;
         }
 
 
-
-        private void DoVeryVeryBadThings( On.RoR2.EffectManager.orig_TransmitEffect_uint_EffectData_NetworkConnection orig, EffectManager self, UInt32 effectPrefabIndex, EffectData effectData, NetworkConnection netOrigin )
+        
+        private void DoVeryVeryBadThings( On.RoR2.EffectManager.orig_TransmitEffect orig, EffectIndex effectPrefabIndex, EffectData effectData, NetworkConnection netOrigin )
         {
-            orig( self, effectPrefabIndex, effectData, netOrigin );
+            orig( effectPrefabIndex, effectData, netOrigin );
 
-            if( NetworkServer.active && CheckIndex( effectPrefabIndex, this.restoreIndex ) && (effectData.color.r != 0 || effectData.color.g != 0 || effectData.color.b != 0 || effectData.color.a != 0) )
+            if( NetworkServer.active && CheckIndex( (UInt32)effectPrefabIndex, this.restoreIndex ) && (effectData.color.r != 0 || effectData.color.g != 0 || effectData.color.b != 0 || effectData.color.a != 0) )
             {
                 GameObject temp = effectData.ResolveHurtBoxReference();
                 if( temp )
@@ -62,6 +63,7 @@ namespace WispSurvivor
                 }
             }
         }
+        
 
         private IEnumerator DelayBuff( BuffIndex buff, CharacterBody body, Single duration, UInt32 stacks, Single delay )
         {
@@ -163,7 +165,7 @@ namespace WispSurvivor
                 x => x.MatchLdcI4( 6 ),
                 x => x.MatchCallOrCallvirt<RoR2.CharacterBody>( "HasBuff" ),
                 x => x.MatchBrfalse( out _ ),
-                x => x.MatchLdloc( 39 )
+                x => x.MatchLdloc( 47 )
                 );
 
             c.Remove();
@@ -227,4 +229,5 @@ namespace WispSurvivor
         }
 
     }
+    */
 }

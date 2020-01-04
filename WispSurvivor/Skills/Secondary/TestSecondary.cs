@@ -5,7 +5,7 @@ using System;
 using UnityEngine;
 using UnityEngine.Networking;
 
-namespace WispSurvivor.Skills.Secondary
+namespace RogueWispPlugin.Skills.Secondary
 {
     public class TestSecondary : BaseState
     {

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace WispSurvivor.Components
+namespace RogueWispPlugin.Components
 {
     public class WispFlamesController : MonoBehaviour
     {

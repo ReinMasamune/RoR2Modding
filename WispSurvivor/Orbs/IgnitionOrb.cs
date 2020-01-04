@@ -3,7 +3,7 @@ using RoR2.Orbs;
 using System;
 using UnityEngine;
 
-namespace WispSurvivor.Orbs
+namespace RogueWispPlugin.Orbs
 {
     internal class IgnitionOrb : RoR2.Orbs.Orb, IOrbFixedUpdateBehavior
     {

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-namespace WispSurvivor.Components
+namespace RogueWispPlugin.Components
 {
     public class WispBurnManager : NetworkBehaviour
     {
@@ -121,7 +121,7 @@ namespace WispSurvivor.Components
                 {
                     if( !this.skinEffects.ContainsKey( temp ) || this.skinEffects[temp] == null ) this.skinEffects[temp] = this.gameObject.AddComponent<BurnEffectController>();
 
-                    this.skinEffects[temp].effectType = Modules.WispMaterialModule.burnOverlayParams[i];
+                    this.skinEffects[temp].effectType = Main.burnOverlayParams[i];
                     this.skinEffects[temp].target = this.target;
                 } else
                 {

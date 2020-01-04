@@ -6,7 +6,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Networking;
 
-namespace WispSurvivor.Skills.Primary
+namespace RogueWispPlugin.Skills.Primary
 {
     public class TestPrimary : BaseState
     {
@@ -124,7 +124,7 @@ namespace WispSurvivor.Skills.Primary
             }
             if( this.fixedAge > this.duration && this.isAuthority )
             {
-                if( this.inputBank && this.skillLocator && this.inputBank.skill1.down && this.skillLocator.primary.stock >= this.skillLocator.primary.requiredStock && !this.characterBody.isSprinting )
+                if( this.inputBank && this.skillLocator && this.inputBank.skill1.down && this.skillLocator.primary.stock >= this.skillLocator.primary.skillDef.requiredStock && !this.characterBody.isSprinting )
                 {
                     switch( this.state )
                     {

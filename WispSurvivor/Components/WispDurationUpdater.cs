@@ -1,7 +1,7 @@
 ﻿using RoR2;
 using UnityEngine;
 
-namespace WispSurvivor.Components
+namespace RogueWispPlugin.Components
 {
     [RequireComponent( typeof( EffectComponent ) )]
     public class WispDurationUpdater : MonoBehaviour

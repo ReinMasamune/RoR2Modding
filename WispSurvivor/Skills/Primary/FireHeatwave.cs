@@ -4,7 +4,7 @@ using System;
 using UnityEngine;
 using UnityEngine.Networking;
 
-namespace WispSurvivor.Skills.Primary
+namespace RogueWispPlugin.Skills.Primary
 {
     public class FireHeatwave : BaseState
     {

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 
-namespace WispSurvivor.Helpers.OldStuff
+namespace RogueWispPlugin.Helpers.OldStuff
 {
     public static class OrbHelper
     {

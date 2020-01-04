@@ -1,6 +1,6 @@
 ﻿using RoR2;
 
-namespace WispSurvivor.Orbs
+namespace RogueWispPlugin.Orbs
 {
     public class RestoreOrb : RoR2.Orbs.Orb
     {
@@ -26,7 +26,7 @@ namespace WispSurvivor.Orbs
 
             effect.SetHurtBoxReference( this.target );
 
-            EffectManager.instance.SpawnEffect( Modules.WispEffectModule.utilityLeech[this.skin], effect, true );
+            EffectManager.SpawnEffect( Main.utilityLeech[this.skin], effect, true );
         }
 
         public override void OnArrival()

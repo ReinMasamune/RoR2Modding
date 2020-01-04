@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using static WispSurvivor.Helpers.APIInterface;
+using static RogueWispPlugin.Helpers.APIInterface;
 
-namespace WispSurvivor.Modules
+/*
+namespace RogueWispPlugin.Modules
 {
     public static class WispOrbModule
     {
@@ -19,3 +20,4 @@ namespace WispSurvivor.Modules
         private static T C<T>( this Dictionary<Type, Component> dic ) where T : Component => dic[typeof( T )] as T;
     }
 }
+*/

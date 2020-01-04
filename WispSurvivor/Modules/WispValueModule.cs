@@ -1,11 +1,11 @@
 ﻿#define ALLOWVALUECHANGES
-
+/*
 using System;
 
-namespace WispSurvivor
+namespace RogueWispPlugin
 {
 #if DEBUG
-    public partial class WispSurvivorMain
+    internal partial class WispSurvivorMain
     {
         [DebugMenu("Window.Width", DebugMenu.MenuType.TextEntry)]
         private static Single windowWidth = 512f;
@@ -572,3 +572,4 @@ namespace WispSurvivor
         }
     }
 }
+*/

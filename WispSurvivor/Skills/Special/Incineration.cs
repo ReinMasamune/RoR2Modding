@@ -6,7 +6,7 @@ using System.Reflection;
 using UnityEngine;
 using UnityEngine.Networking;
 
-namespace WispSurvivor.Skills.Special
+namespace RogueWispPlugin.Skills.Special
 {
     public class Incineration : BaseState
     {
@@ -67,7 +67,7 @@ namespace WispSurvivor.Skills.Special
 
             this.muzzle = this.GetModelTransform().Find( "CannonPivot" ).Find( "BeamParent" );
 
-            this.beamEffect = UnityEngine.Object.Instantiate<GameObject>( Modules.WispEffectModule.specialBeam[this.skin], this.muzzle.position, this.muzzle.rotation );
+            this.beamEffect = UnityEngine.Object.Instantiate<GameObject>( Main.specialBeam[this.skin], this.muzzle.position, this.muzzle.rotation );
             this.beamEffect.transform.parent = this.muzzle;
             this.beamEnd = this.beamEffect.transform.Find( "End" );
             //Create the charge and beam effects
@@ -226,7 +226,7 @@ namespace WispSurvivor.Skills.Special
                 };
 
                 effect.origin = tempBox.transform.position;
-                EffectManager.instance.SpawnEffect( Modules.WispEffectModule.genericImpactEffects[this.skin][0], effect, true );
+                EffectManager.SpawnEffect( Main.genericImpactEffects[this.skin][0], effect, true );
 
                 if( NetworkServer.active )
                 {

@@ -2,7 +2,7 @@
 using System;
 using UnityEngine;
 
-namespace WispSurvivor.Components
+namespace RogueWispPlugin.Components
 {
     public class WispPassiveController : MonoBehaviour
     {

@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace WispSurvivor.Components
+namespace RogueWispPlugin.Components
 {
     [RequireComponent( typeof( EffectComponent ) )]
     public class WispBlazeEffectController : MonoBehaviour

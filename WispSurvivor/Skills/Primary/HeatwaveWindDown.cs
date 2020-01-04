@@ -1,7 +1,7 @@
 ﻿using EntityStates;
 using System;
 
-namespace WispSurvivor.Skills.Primary
+namespace RogueWispPlugin.Skills.Primary
 {
     public class HeatwaveWindDown : BaseState
     {
@@ -16,7 +16,7 @@ namespace WispSurvivor.Skills.Primary
             {
                 base.PlayCrossfade( "Gesture", "Idle", time / base.attackSpeedStat );
 
-                if( base.hasAuthority )
+                if( base.isAuthority )
                 {
                     base.outer.SetNextStateToMain();
                 }

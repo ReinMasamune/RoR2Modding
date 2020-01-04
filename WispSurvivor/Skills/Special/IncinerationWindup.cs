@@ -2,7 +2,7 @@
 using EntityStates;
 using UnityEngine;
 
-namespace WispSurvivor.Skills.Special
+namespace RogueWispPlugin.Skills.Special
 {
     public class IncinerationWindup : BaseState
     {

@@ -1,11 +1,8 @@
-﻿using R2API.Utils;
-using RoR2.Orbs;
-using System;
-using System.Collections.Generic;
+﻿using RoR2.Orbs;
 using System.Reflection;
 using UnityEngine;
 
-namespace WispSurvivor.Helpers
+namespace RogueWispPlugin.Helpers
 {
     public static class OrbHelper
     {

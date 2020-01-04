@@ -4,7 +4,7 @@ using RoR2.Projectile;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace WispSurvivor.Helpers.OldStuff
+namespace RogueWispPlugin.Helpers.OldStuff
 {
     public static class CatalogHelpers
     {
@@ -58,20 +58,20 @@ namespace WispSurvivor.Helpers.OldStuff
         /// </summary>
         /// <param Effect Prefab="prefab"></param>
         /// <returns></returns>
-        public static System.Boolean RegisterNewEffect( GameObject prefab )
+        public static System.Boolean RegisterNewEffect( EffectDef effect )
         {
-            List<GameObject> effects = EffectManager.instance.GetFieldValue<List<GameObject>>("effectPrefabsList");
-            Dictionary<GameObject, System.UInt32> effectLookup = EffectManager.instance.GetFieldValue<Dictionary<GameObject, System.UInt32>>("effectPrefabToIndexMap");
+            //EffectDef[] effects = EffectCatalog.GetFieldValue<EffectDef[]>("effectPrefabsList");
+            //Dictionary<GameObject, System.UInt32> effectLookup = EffectManager.instance.GetFieldValue<Dictionary<GameObject, System.UInt32>>("effectPrefabToIndexMap");
 
-            if( !prefab )
-            {
+            //if( !effect )
+            //{
                 return false;
-            }
+            //}
 
-            System.Int32 index = effects.Count;
+            //System.Int32 index = effects.Count;
 
-            effects.Add( prefab );
-            effectLookup.Add( prefab, (System.UInt32)index );
+            //effects.Add( effect );
+            //effectLookup.Add( effect, (System.UInt32)index );
             return true;
         }
         #endregion
@@ -83,7 +83,7 @@ namespace WispSurvivor.Helpers.OldStuff
         /// </summary>
         /// <param name="skin"></param>
         /// <returns></returns>
-        public static SkinDef CreateNewSkinDef( APIInterface.SkinDefInfo skin )
+        public static SkinDef CreateNewSkinDef( R2API.SkinAPI.SkinDefInfo skin )
         {
             On.RoR2.SkinDef.Awake += SkinDef_Awake;
 

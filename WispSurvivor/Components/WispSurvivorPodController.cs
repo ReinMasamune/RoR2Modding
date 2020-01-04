@@ -2,7 +2,7 @@
 using System;
 using UnityEngine;
 
-namespace WispSurvivor.Components
+namespace RogueWispPlugin.Components
 {
     public class WispSurvivorPodController : MonoBehaviour
     {
@@ -19,9 +19,9 @@ namespace WispSurvivor.Components
 
             if( body.baseNameToken == "WISP_SURVIVOR_BODY_NAME" )
             {
-                this.podMesh.GetComponent<MeshRenderer>().material = Modules.WispMaterialModule.armorMaterials[this.skin];
-                this.doorMesh.GetComponent<MeshRenderer>().material = Modules.WispMaterialModule.armorMaterials[this.skin];
-                this.doorMesh2.GetComponent<MeshRenderer>().material = Modules.WispMaterialModule.armorMaterials[this.skin];
+                this.podMesh.GetComponent<MeshRenderer>().material = Main.armorMaterials[this.skin];
+                this.doorMesh.GetComponent<MeshRenderer>().material = Main.armorMaterials[this.skin];
+                this.doorMesh2.GetComponent<MeshRenderer>().material = Main.armorMaterials[this.skin];
             }
         }
     }

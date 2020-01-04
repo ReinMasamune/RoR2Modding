@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace WispSurvivor.Components
+namespace RogueWispPlugin.Components
 {
     public class WispSelfBuffTracker : MonoBehaviour
     {

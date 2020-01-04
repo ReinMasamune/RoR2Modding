@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace WispSurvivor.Helpers
+namespace RogueWispPlugin.Helpers
 {
     public static class ComponentHelpers
     {

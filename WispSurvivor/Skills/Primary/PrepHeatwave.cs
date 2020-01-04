@@ -3,7 +3,7 @@ using RoR2;
 using System;
 using UnityEngine;
 
-namespace WispSurvivor.Skills.Primary
+namespace RogueWispPlugin.Skills.Primary
 {
     public class PrepHeatwave : BaseState
     {

@@ -3,8 +3,9 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace WispSurvivor.Modules
+namespace RogueWispPlugin.Modules
 {
+    /*
     public static class WispMaterialModule
     {
         public static Gradient[] fireGradients = new Gradient[8];
@@ -24,7 +25,7 @@ namespace WispSurvivor.Modules
         public static BurnEffectController.EffectParams[] burnOverlayParams = new BurnEffectController.EffectParams[8];
         public static Shader effectShader;
 
-        public static void DoModule( GameObject body, Dictionary<Type, Component> dic, WispSurvivorMain m )
+        internal static void DoModule( GameObject body, Dictionary<Type, Component> dic, Main m )
         {
             GenerateGradients();
             GenerateTextures();
@@ -644,4 +645,5 @@ namespace WispSurvivor.Modules
             }
         }
     }
+    */
 }

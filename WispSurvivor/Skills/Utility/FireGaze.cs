@@ -4,9 +4,9 @@ using RoR2.Orbs;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
-using WispSurvivor.Orbs;
+using RogueWispPlugin.Orbs;
 
-namespace WispSurvivor.Skills.Utility
+namespace RogueWispPlugin.Skills.Utility
 {
     public class FireGaze : BaseState
     {

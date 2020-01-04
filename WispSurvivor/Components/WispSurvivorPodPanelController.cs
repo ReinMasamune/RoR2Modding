@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace WispSurvivor.Components
+namespace RogueWispPlugin.Components
 {
     public class WispSurvivorPodPanelController : MonoBehaviour
     {
@@ -16,7 +16,7 @@ namespace WispSurvivor.Components
             {
                 UInt32 skin = control.skin;
 
-                this.transform.Find( "EscapePodMesh.002" ).GetComponent<MeshRenderer>().material = Modules.WispMaterialModule.armorMaterials[skin];
+                this.transform.Find( "EscapePodMesh.002" ).GetComponent<MeshRenderer>().material = Main.armorMaterials[skin];
             }
 
 

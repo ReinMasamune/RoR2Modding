@@ -9,7 +9,11 @@
     <DebugType>none</DebugType>
     <DebugSymbols>false</DebugSymbols>
     <OutputPath>bin\Releases\</OutputPath>
-    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>DEBUG</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
@@ -81,9 +85,6 @@
     </Reference>
     <Reference Include="Rewired_Windows_Lib">
       <HintPath>..\libs\Rewired_Windows_Lib.dll</HintPath>
-    </Reference>
-    <Reference Include="SurvivorUtils">
-      <HintPath>..\libs\SurvivorUtils.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Postprocessing.Runtime">
       <HintPath>..\libs\Unity.Postprocessing.Runtime.dll</HintPath>

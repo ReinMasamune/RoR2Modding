@@ -2,14 +2,15 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using static WispSurvivor.Helpers.APIInterface;
-using static WispSurvivor.Helpers.ComponentHelpers;
+using static RogueWispPlugin.Helpers.ComponentHelpers;
 
-namespace WispSurvivor
+/*
+namespace RogueWispPlugin
 {
     using static WispSurvivor.ComponentExtensions.ComponentExtensions;
-    public partial class WispSurvivorMain
+    internal partial class Main
     {
+        
         private static class WispComponentModule
         {
             public static Dictionary<Type, Component> DoModule( GameObject body )
@@ -85,3 +86,4 @@ namespace WispSurvivor
         }
     }
 }
+*/

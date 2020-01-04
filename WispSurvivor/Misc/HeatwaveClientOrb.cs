@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace WispSurvivor.Misc
+namespace RogueWispPlugin.Misc
 {
     public class HeatwaveClientOrb : BaseClientOrb
     {
@@ -55,12 +55,12 @@ namespace WispSurvivor.Misc
                 origin = this.startPos,
                 genericFloat = base.totalDuration,
                 genericBool = false,
-                start = this.targetPos
+                start = this.targetPos,           
             };
 
             this.lastPos = this.startPos;
 
-            EffectManager.instance.SpawnEffect( Modules.WispEffectModule.primaryOrbEffects[this.skin], effectData, true );
+            EffectManager.SpawnEffect( Main.primaryOrbEffects[this.skin], effectData, true );
 
             this.dist1 = this.range * this.falloffStart;
             this.dist2 = this.range * (1f - this.falloffStart);
@@ -102,7 +102,7 @@ namespace WispSurvivor.Misc
                 this.mask.Add( hcomp );
                 base.SendDamage( dmg, hcomp.gameObject );
 
-                EffectManager.instance.SpawnEffect( Modules.WispEffectModule.genericImpactEffects[this.skin][0], new EffectData
+                EffectManager.SpawnEffect( Main.genericImpactEffects[this.skin][0], new EffectData
                 {
                     origin = box.transform.position
                 }, true );
@@ -132,7 +132,7 @@ namespace WispSurvivor.Misc
                     color = DoBadThings(dur)
                 };
                 fx.SetHurtBoxReference( this.attacker );
-                EffectManager.instance.SpawnEffect( Modules.WispEffectModule.utilityLeech[this.skin], fx, true );
+                EffectManager.SpawnEffect( Main.utilityLeech[this.skin], fx, true );
             }
         }
         public override void End()

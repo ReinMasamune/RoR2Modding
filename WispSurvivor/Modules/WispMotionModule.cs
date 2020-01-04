@@ -4,8 +4,9 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace WispSurvivor.Modules
+namespace RogueWispPlugin.Modules
 {
+    /*
     public static class WispMotionModule
     {
         public static void DoModule( GameObject body, Dictionary<Type, Component> dic )
@@ -86,4 +87,5 @@ namespace WispSurvivor.Modules
 
         private static T C<T>( this Dictionary<Type, Component> dic ) where T : Component => dic[typeof( T )] as T;
     }
+    */
 }

@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.Networking;
 
-namespace WispSurvivor.Components
+namespace RogueWispPlugin.Components
 {
     [RequireComponent( typeof( EffectComponent ) )]
     public class WispNetworkedEffect : NetworkBehaviour

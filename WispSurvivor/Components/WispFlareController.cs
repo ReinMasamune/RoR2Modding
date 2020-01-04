@@ -1,7 +1,7 @@
 ﻿using RoR2;
 using UnityEngine;
 
-namespace WispSurvivor.Components
+namespace RogueWispPlugin.Components
 {
     public class WispFlareController : MonoBehaviour
     {
@@ -29,7 +29,7 @@ namespace WispSurvivor.Components
                 this.flare1.gameObject.SetActive( true );
                 this.flare2.gameObject.SetActive( true );
                 this.eye1.localScale = this.eye2.localScale = this.intensity * 4f;
-                this.flare1.color = this.flare2.color = Modules.WispMaterialModule.fireColors[this.body.skinIndex];
+                this.flare1.color = this.flare2.color = Main.fireColors[this.body.skinIndex];
             } else
             {
                 this.flare1.gameObject.SetActive( false );

@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace WispSurvivor.Orbs
+namespace RogueWispPlugin.Orbs
 {
     internal class BlazeOrb : RoR2.Orbs.Orb, IOrbFixedUpdateBehavior
     {
@@ -88,7 +88,7 @@ namespace WispSurvivor.Orbs
                 rotation = Quaternion.LookRotation(tangent, this.normal),
                 scale = blazeRadius
             };
-            EffectManager.instance.SpawnEffect( Modules.WispEffectModule.utilityFlames[this.skin], effectData, true );
+            EffectManager.SpawnEffect( Main.utilityFlames[this.skin], effectData, true );
 
             this.blazeResetInt = 1f / this.blazeFreq;
             this.bundleSendInt = 1f / this.blazeOrbBundleSendFreq;
@@ -169,7 +169,7 @@ namespace WispSurvivor.Orbs
                 scale = 0.25f,
                 genericBool = false
             };
-            EffectManager.instance.SpawnEffect( Modules.WispEffectModule.utilityLeech[this.skin], fx, true );
+            EffectManager.SpawnEffect( Main.utilityLeech[this.skin], fx, true );
         }
 
         private void SendStackBundle()

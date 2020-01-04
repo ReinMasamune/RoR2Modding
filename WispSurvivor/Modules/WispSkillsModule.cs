@@ -5,10 +5,10 @@ using RoR2.Skills;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using static WispSurvivor.Helpers.APIInterface;
-using static WispSurvivor.Helpers.ComponentHelpers;
-
-namespace WispSurvivor.Modules
+using static RogueWispPlugin.Helpers.APIInterface;
+using static RogueWispPlugin.Helpers.ComponentHelpers;
+/*
+namespace RogueWispPlugin.Modules
 {
     public static class WispSkillsModule
     {
@@ -330,6 +330,6 @@ namespace WispSurvivor.Modules
 
             fam.variants = variants;
         }
-
     }
 }
+*/

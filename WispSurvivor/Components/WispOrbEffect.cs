@@ -3,7 +3,7 @@ using System;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace WispSurvivor.Components
+namespace RogueWispPlugin.Components
 {
     // Token: 0x0200048B RID: 1163
     [RequireComponent( typeof( EffectComponent ) )]
@@ -81,7 +81,7 @@ namespace WispSurvivor.Components
                 {
                     effectData.rotation = base.transform.rotation;
                 }
-                EffectManager.instance.SpawnEffect( this.startEffect, effectData, false );
+                //EffectManager.instance.SpawnEffect( this.startEffect, effectData, false );
             }
             this.startVelocity.x = Mathf.Lerp( this.startVelocity1.x, this.startVelocity2.x, UnityEngine.Random.value );
             this.startVelocity.y = Mathf.Lerp( this.startVelocity1.y, this.startVelocity2.y, UnityEngine.Random.value );
@@ -127,7 +127,7 @@ namespace WispSurvivor.Components
                     {
                         effectData.rotation = base.transform.rotation;
                     }
-                    EffectManager.instance.SpawnEffect( this.endEffect, effectData, false );
+                    EffectManager.SpawnEffect( this.endEffect, effectData, false );
                 }
                 UnityEngine.Object.Destroy( base.gameObject );
             }
@@ -148,22 +148,24 @@ namespace WispSurvivor.Components
 
         public void InstantiatePrefab( GameObject prefab ) => UnityEngine.Object.Instantiate<GameObject>( prefab, base.transform.position, base.transform.rotation );
 
-        public void InstantiateEffect( GameObject prefab ) => EffectManager.instance.SpawnEffect( prefab, new EffectData
+        
+        public void InstantiateEffect( GameObject prefab ) => EffectManager.SpawnEffect( prefab, new EffectData
         {
             origin = base.transform.position
         }, false );
 
-        public void InstantiateEffectCopyRotation( GameObject prefab ) => EffectManager.instance.SpawnEffect( prefab, new EffectData
+        public void InstantiateEffectCopyRotation( GameObject prefab ) => EffectManager.SpawnEffect( prefab, new EffectData
         {
             origin = base.transform.position,
             rotation = base.transform.rotation
         }, false );
 
-        public void InstantiateEffectOppositeFacing( GameObject prefab ) => EffectManager.instance.SpawnEffect( prefab, new EffectData
+        public void InstantiateEffectOppositeFacing( GameObject prefab ) => EffectManager.SpawnEffect( prefab, new EffectData
         {
             origin = base.transform.position,
             rotation = RoR2.Util.QuaternionSafeLookRotation( -base.transform.forward )
         }, false );
+        
 
         public void InstantiatePrefabOppositeFacing( GameObject prefab ) => UnityEngine.Object.Instantiate<GameObject>( prefab, base.transform.position, RoR2.Util.QuaternionSafeLookRotation( -base.transform.forward ) );
     }

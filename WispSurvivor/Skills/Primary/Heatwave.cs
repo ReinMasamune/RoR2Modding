@@ -3,7 +3,7 @@ using RoR2;
 using System;
 using UnityEngine;
 
-namespace WispSurvivor.Skills.Primary
+namespace RogueWispPlugin.Skills.Primary
 {
     public class Heatwave : BaseState, RoR2.Skills.SteppedSkillDef.IStepSetter
     {
@@ -83,7 +83,7 @@ namespace WispSurvivor.Skills.Primary
             {
                 if( base.fixedAge >= this.duration )
                 {
-                    if( base.hasAuthority )
+                    if( base.isAuthority )
                     {
                         base.outer.SetNextState( new HeatwaveWindDown() );
                     }
@@ -106,7 +106,7 @@ namespace WispSurvivor.Skills.Primary
         {
             if( this.hasFired ) return;
             this.hasFired = true;
-            if( !this.hasAuthority ) return;
+            if( !this.isAuthority ) return;
 
             this.GetTarget();
 
