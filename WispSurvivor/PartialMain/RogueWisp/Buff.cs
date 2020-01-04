@@ -21,6 +21,14 @@ namespace RogueWispPlugin
         partial void RW_Buff()
         {
             this.Load += this.RW_RegisterBuffs;
+            this.FirstFrame += this.RW_EditEnrageBuff;
+        }
+
+        private void RW_EditEnrageBuff()
+        {
+            BuffDef enrage = BuffCatalog.GetBuffDef(BuffIndex.EnrageAncientWisp);
+            enrage.buffColor = new Color( 0.5f, 0.1f, 0.7f, 1f );
+            enrage.iconPath = "Textures/BuffIcons/texMovespeedBuffIcon";
         }
 
         private void RW_RegisterBuffs()
@@ -61,10 +69,6 @@ namespace RogueWispPlugin
             this.RW_curseBurn = (BuffIndex)R2API.ItemAPI.AddCustomBuff( new R2API.CustomBuff( wispFireDebuff.name, wispFireDebuff ) );
             this.RW_flameChargeBuff = (BuffIndex)R2API.ItemAPI.AddCustomBuff( new R2API.CustomBuff( wispRestoreBuff.name, wispRestoreBuff ) );
             this.RW_armorBuff = (BuffIndex)R2API.ItemAPI.AddCustomBuff( new R2API.CustomBuff( wispArmorBuff.name, wispArmorBuff ) );
-
-            BuffDef enrage = BuffCatalog.GetBuffDef(BuffIndex.EnrageAncientWisp);
-            enrage.buffColor = new Color( 0.5f, 0.1f, 0.7f, 1f );
-            enrage.iconPath = "Textures/BuffIcons/texMovespeedBuffIcon";
         }
     }
 
