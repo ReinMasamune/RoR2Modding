@@ -133,7 +133,7 @@ namespace EntityStates.ReinSniperRework.SniperWeapon
             EffectData effectData = new EffectData();
             effectData.rotation = Util.QuaternionSafeLookRotation(this.blinkVector);
             effectData.origin = origin;
-            EffectManager.instance.SpawnEffect(data.u_blinkPrefab, effectData, false);
+            EffectManager.SpawnEffect(data.u_blinkPrefab, effectData, false);
         }
 
         public override void FixedUpdate()

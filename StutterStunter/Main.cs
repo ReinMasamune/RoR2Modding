@@ -75,88 +75,20 @@ namespace ReinStutterStunter
 
                 logPath = folderPath + logPath;
             }
-
-            if( disableProcess )
-            {
-                GameObject cam = Resources.Load<GameObject>("Prefabs/Main Camera");
-                if (!cam)
-                {
-                    Debug.Log("no cam");
-                    return;
-                }
-                Transform sceneCam = cam.transform.Find("Scene Camera");
-                if (!sceneCam)
-                {
-                    Debug.Log("no scene cam");
-                    return;
-                }
-                PostProcessLayer ppl = sceneCam.GetComponent<PostProcessLayer>();
-                if (!ppl)
-                {
-                    Debug.Log("no ppl");
-                    return;
-                }
-                PostProcessResources res = ppl.GetFieldValue<PostProcessResources>("m_Resources");
-                if( !res )
-                {
-                    Debug.Log("no res");
-                    return;
-                }
-                res.shaders.uber = res.shaders.finalPass;
-                //Shader uber = res.shaders.uber;
-                //uber.
-            }
-
         }
         public void Start()
         {
-            //Action pauseStart = new Action(delegate ()
-            //{
-            //    EnableGC(false);
-            //    GC.Collect();
-            //});
-            //Action pauseEnd = new Action(delegate ()
-            //{
-            //    DisableGC();
-            //});
-            /*
-            GarbageCollector.GCModeChanged += (GarbageCollector.Mode mode) =>
+            On.RoR2.Stage.OnDisable += ( orig, self ) =>
             {
-                switch( mode )
-                {
-                    case GarbageCollector.Mode.Enabled:
-                        Chat.AddMessage("Garbage Collection enabled");
-                        break;
-                    case GarbageCollector.Mode.Disabled:
-                        Chat.AddMessage("Garbage Collection disabled");
-                        break;
-                    default:
-                        Chat.AddMessage("Something went very wrong with garbage collection");
-                        Chat.AddMessage("I strongly recommend you exit the game immediately.");
-                        break;
-                }
-            };
-            */
-            SceneManager.sceneUnloaded += (Scene scene) =>
-            {
-                Chat.AddMessage("Scene unload");
-                EnableGC(false);
+                orig( self );
                 GC.Collect();
+                EnableGC( false );
             };
-            //RoR2Application.onPauseStartGlobal = (Action)Delegate.Combine(RoR2Application.onPauseStartGlobal, pauseStart);
-            //RoR2Application.onPauseEndGlobal = (Action)Delegate.Combine(RoR2Application.onPauseEndGlobal, pauseEnd);
-            On.RoR2.Stage.Start += (orig, self) =>
+            On.RoR2.Stage.OnEnable += ( orig, self ) =>
             {
-                Chat.AddMessage("Stage Start");
-                orig(self);
-                GC.Collect();
+                orig( self );
                 DisableGC();
-            };
-            On.RoR2.RoR2Application.CCQuit += (orig, self) =>
-            {
-                EnableGC(true);
                 GC.Collect();
-                orig(self);
             };
             On.RoR2.UI.PauseScreenController.OnEnable += (orig, self) =>
             {
@@ -166,7 +98,7 @@ namespace ReinStutterStunter
             };
             On.RoR2.UI.PauseScreenController.OnDisable += (orig, self) =>
             {
-                DisableGC();
+                this.DisableGC();
                 orig(self);
             };
             On.RoR2.Run.Awake += (orig, self) =>
@@ -178,10 +110,10 @@ namespace ReinStutterStunter
         }
         private void DisableGC()
         {
-            AddALine(Time.fixedUnscaledTime.ToString() + ",Disabling GC");
-            if( lockGCOn )
+            this.AddALine(Time.fixedUnscaledTime.ToString() + ",Disabling GC");
+            if( this.lockGCOn )
             {
-                AddALine(Time.fixedUnscaledTime.ToString() + ",GC is locked to on. Restart the game to change");
+                this.AddALine(Time.fixedUnscaledTime.ToString() + ",GC is locked to on. Restart the game to change");
                 Debug.Log("GC is locked on. Restart the game to change");
             }
             else

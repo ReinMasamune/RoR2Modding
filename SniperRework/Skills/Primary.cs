@@ -189,7 +189,7 @@ namespace EntityStates.ReinSniperRework.SniperWeapon
                     start = aimRay.origin
                 };
                 data.p_tracerEffectPrefab.SetActive(true);
-                EffectManager.instance.SpawnEffect(data.p_tracerEffectPrefab, effectData1, false);
+                EffectManager.SpawnEffect(data.p_tracerEffectPrefab, effectData1, false);
                 data.p_tracerEffectPrefab.SetActive(false);
 
                 RaycastHit hitInfo;
@@ -253,7 +253,7 @@ namespace EntityStates.ReinSniperRework.SniperWeapon
                             start = effStartPos
                         };
                         data.p_tracerEffectPrefab.SetActive(true);
-                        EffectManager.instance.SpawnEffect(data.p_tracerEffectPrefab, effectData, false);
+                        EffectManager.SpawnEffect(data.p_tracerEffectPrefab, effectData, false);
                         data.p_tracerEffectPrefab.SetActive(false);
                     }
                 }

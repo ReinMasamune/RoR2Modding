@@ -10,9 +10,9 @@ using System;
 
 namespace ReinSniperRework
 {
-    [R2APISubmoduleDependency(nameof(R2API.SurvivorAPI))]
+    [R2APISubmoduleDependency(nameof(R2API.SurvivorAPI), nameof( EntityAPI))]
     [BepInDependency("com.bepis.r2api")]
-    [BepInPlugin("com.ReinThings.ReinSniperRework", "ReinSniperRework", "1.0.8")]
+    [BepInPlugin("com.ReinThings.ReinSniperRework", "ReinSniperRework", "1.0.9")]
     public class ReinSniperReworkMain : BaseUnityPlugin
     {
 
@@ -32,6 +32,8 @@ namespace ReinSniperRework
             SkillLocator SL = body.GetComponent<SkillLocator>();
             CharacterBody charbody = body.GetComponent<CharacterBody>();
             SetStateOnHurt hurtState = body.AddComponent<SetStateOnHurt>();
+
+            charbody.preferredPodPrefab = Resources.Load<GameObject>( "Prefabs/NetworkedObjects/SurvivorPod" );
 
             charbody.name = "Sniper";
             charbody.baseNameToken = "Sniper";
