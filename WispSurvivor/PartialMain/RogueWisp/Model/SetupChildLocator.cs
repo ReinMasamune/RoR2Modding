@@ -8,7 +8,7 @@ using System.Reflection;
 using UnityEngine;
 using RogueWispPlugin.Helpers;
 using RogueWispPlugin.Modules;
-using static RogueWispPlugin.Helpers.APIInterface;
+//using static RogueWispPlugin.Helpers.APIInterface;
 using System.Linq;
 using System.Runtime.Serialization;
 

@@ -2,62 +2,65 @@
 using EntityStates;
 using UnityEngine;
 
-namespace RogueWispPlugin.Skills.Special
+namespace RogueWispPlugin
 {
-    public class IncinerationWindup : BaseState
+    internal partial class Main
     {
-        public static System.Single baseDuration = 0.5f;
-        public static System.Single rotatePoint = 0.6f;
-        public static System.Single camYOff = 0.75f;
-        public static System.Single camZMult = 0.5f;
-
-        private System.Single duration;
-        private Vector3 camStart;
-        private Vector3 camEnd;
-
-        public override void OnEnter()
+        public class IncinerationWindup : BaseState
         {
-            base.OnEnter();
+            public static System.Single baseDuration = 0.5f;
+            public static System.Single rotatePoint = 0.6f;
+            public static System.Single camYOff = 0.75f;
+            public static System.Single camZMult = 0.5f;
 
-            this.PlayCrossfade( "Gesture", "Idle", this.duration / 2f );
-            this.duration = baseDuration / this.attackSpeedStat;
+            private System.Single duration;
+            private Vector3 camStart;
+            private Vector3 camEnd;
 
-            this.characterBody.SetAimTimer( this.duration * 1.5f );
-            this.PlayAnimation( "Body", "SpecialTransform", "SpecialTransform.playbackRate", this.duration );
-
-            this.camStart = this.cameraTargetParams.idealLocalCameraPos;
-            this.camEnd = new Vector3( this.camStart.x, this.camStart.y - camYOff, this.camStart.z * camZMult );
-        }
-
-        public override void FixedUpdate()
-        {
-            base.FixedUpdate();
-
-            this.cameraTargetParams.idealLocalCameraPos = Vector3.Lerp( this.camStart, this.camEnd, this.fixedAge / this.duration );
-
-            //Gradual slowdown of movement
-
-            if( this.fixedAge >= this.duration * rotatePoint )
+            public override void OnEnter()
             {
-                this.GetComponent<Components.WispAimAnimationController>().StartCannonMode( this.duration * 0.5f, 60.0f );
+                base.OnEnter();
+
+                this.PlayCrossfade( "Gesture", "Idle", this.duration / 2f );
+                this.duration = baseDuration / this.attackSpeedStat;
+
+                this.characterBody.SetAimTimer( this.duration * 1.5f );
+                this.PlayAnimation( "Body", "SpecialTransform", "SpecialTransform.playbackRate", this.duration );
+
+                this.camStart = this.cameraTargetParams.idealLocalCameraPos;
+                this.camEnd = new Vector3( this.camStart.x, this.camStart.y - camYOff, this.camStart.z * camZMult );
             }
 
-            if( this.fixedAge >= this.duration )
+            public override void FixedUpdate()
             {
-                if( this.isAuthority )
+                base.FixedUpdate();
+
+                this.cameraTargetParams.idealLocalCameraPos = Vector3.Lerp( this.camStart, this.camEnd, this.fixedAge / this.duration );
+
+                //Gradual slowdown of movement
+
+                if( this.fixedAge >= this.duration * rotatePoint )
                 {
-                    this.outer.SetNextState( new Incineration
+                    this.GetComponent<WispAimAnimationController>().StartCannonMode( this.duration * 0.5f, 60.0f );
+                }
+
+                if( this.fixedAge >= this.duration )
+                {
+                    if( this.isAuthority )
                     {
-                        camPos1 = camEnd,
-                        camPos2 = camStart
-                    } );
+                        this.outer.SetNextState( new Incineration
+                        {
+                            camPos1 = camEnd,
+                            camPos2 = camStart
+                        } );
+                    }
                 }
             }
+
+            public override void OnExit() => base.OnExit();
+
+            public override InterruptPriority GetMinimumInterruptPriority() => InterruptPriority.Death;
         }
-
-        public override void OnExit() => base.OnExit();
-
-        public override InterruptPriority GetMinimumInterruptPriority() => InterruptPriority.Death;
     }
-}
 
+}

@@ -2,26 +2,29 @@
 using System;
 using UnityEngine;
 
-namespace RogueWispPlugin.Components
+namespace RogueWispPlugin
 {
-    public class WispSurvivorPodController : MonoBehaviour
+    internal partial class Main
     {
-        public Transform podMesh;
-        public Transform doorMesh;
-        public Transform doorMesh2;
-
-        public UInt32 skin;
-
-        public void Start()
+        public class WispSurvivorPodController : MonoBehaviour
         {
-            CharacterBody body = this.GetComponent<VehicleSeat>().currentPassengerBody;
-            this.skin = body.skinIndex;
+            public Transform podMesh;
+            public Transform doorMesh;
+            public Transform doorMesh2;
 
-            if( body.baseNameToken == "WISP_SURVIVOR_BODY_NAME" )
+            public UInt32 skin;
+
+            public void Start()
             {
-                this.podMesh.GetComponent<MeshRenderer>().material = Main.armorMaterials[this.skin];
-                this.doorMesh.GetComponent<MeshRenderer>().material = Main.armorMaterials[this.skin];
-                this.doorMesh2.GetComponent<MeshRenderer>().material = Main.armorMaterials[this.skin];
+                CharacterBody body = this.GetComponent<VehicleSeat>().currentPassengerBody;
+                this.skin = body.skinIndex;
+
+                if( body.baseNameToken == "WISP_SURVIVOR_BODY_NAME" )
+                {
+                    this.podMesh.GetComponent<MeshRenderer>().material = Main.armorMaterials[this.skin];
+                    this.doorMesh.GetComponent<MeshRenderer>().material = Main.armorMaterials[this.skin];
+                    this.doorMesh2.GetComponent<MeshRenderer>().material = Main.armorMaterials[this.skin];
+                }
             }
         }
     }

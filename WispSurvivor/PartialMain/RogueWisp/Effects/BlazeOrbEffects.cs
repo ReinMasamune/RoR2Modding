@@ -8,7 +8,7 @@ using System.Reflection;
 using UnityEngine;
 using RogueWispPlugin.Helpers;
 using RogueWispPlugin.Modules;
-using static RogueWispPlugin.Helpers.APIInterface;
+//using static RogueWispPlugin.Helpers.APIInterface;
 
 namespace RogueWispPlugin
 {
@@ -39,7 +39,7 @@ namespace RogueWispPlugin
 
             MonoBehaviour.Destroy( obj.GetComponent<DestroyOnTimer>() );
 
-            obj.AddComponent<Components.WispBlazeEffectController>();
+            obj.AddComponent<WispBlazeEffectController>();
             obj.transform.localScale = Vector3.one;
 
             obj.GetComponent<EffectComponent>().applyScale = true;

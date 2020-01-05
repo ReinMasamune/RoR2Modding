@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace RogueWispPlugin.Helpers
+namespace RogueWispPlugin
 {
     public static class ComponentHelpers
     {

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
-using RogueWispPlugin.Helpers;
-using static RogueWispPlugin.Helpers.APIInterface;
+﻿
 
 /*
 namespace RogueWispPlugin.Modules

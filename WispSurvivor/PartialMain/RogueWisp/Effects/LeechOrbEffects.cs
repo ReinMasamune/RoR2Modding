@@ -8,7 +8,7 @@ using System.Reflection;
 using UnityEngine;
 using RogueWispPlugin.Helpers;
 using RogueWispPlugin.Modules;
-using static RogueWispPlugin.Helpers.APIInterface;
+//using static RogueWispPlugin.Helpers.APIInterface;
 
 namespace RogueWispPlugin
 {
@@ -38,9 +38,9 @@ namespace RogueWispPlugin
             MonoBehaviour.Destroy( obj.GetComponent<AkEvent>() );
             MonoBehaviour.Destroy( obj.GetComponent<AkGameObj>() );
 
-            Helpers.OrbHelper.ConvertOrbSettings( obj );
+            OrbHelper.ConvertOrbSettings( obj );
 
-            obj.GetComponent<Components.WispOrbEffect>().soundString = "Play_treeBot_m1_hit_heal";
+            obj.GetComponent<WispOrbEffect>().soundString = "Play_treeBot_m1_hit_heal";
 
             Transform vfx = obj.transform.Find("VFX");
             Transform core = vfx.Find("Core");

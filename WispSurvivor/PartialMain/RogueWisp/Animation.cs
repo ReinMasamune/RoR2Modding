@@ -8,7 +8,7 @@ using System.Reflection;
 using UnityEngine;
 using RogueWispPlugin.Helpers;
 using RogueWispPlugin.Modules;
-using static RogueWispPlugin.Helpers.APIInterface;
+//using static RogueWispPlugin.Helpers.APIInterface;
 
 namespace RogueWispPlugin
 {
@@ -38,7 +38,7 @@ namespace RogueWispPlugin
             aa.aimType = AimAnimator.AimType.Direct;
             aa.enableAimWeight = false;
 
-            this.RW_body.AddComponent<Components.WispAimAnimationController>();
+            this.RW_body.AddComponent<WispAimAnimationController>();
         }
 
         private void RW_SetAnimationController()

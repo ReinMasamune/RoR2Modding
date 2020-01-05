@@ -1,22 +1,25 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace RogueWispPlugin.Components
+namespace RogueWispPlugin
 {
-    public class WispFlamesController : MonoBehaviour
+    internal partial class Main
     {
-        public WispPassiveController passive;
-        public List<ParticleSystem> flames = new List<ParticleSystem>();
-        public List<System.Single> flameInfos = new List<System.Single>();
-
-        public void Update()
+        public class WispFlamesController : MonoBehaviour
         {
-            System.Single mult = (System.Single)(this.passive.ReadCharge() / 100.0);
-            ParticleSystem.EmissionModule temp;
-            for( System.Int32 i = 0; i < this.flames.Count; i++ )
+            public WispPassiveController passive;
+            public List<ParticleSystem> flames = new List<ParticleSystem>();
+            public List<System.Single> flameInfos = new List<System.Single>();
+
+            public void Update()
             {
-                temp = this.flames[i].emission;
-                temp.rateMultiplier = mult * this.flameInfos[i];
+                System.Single mult = (System.Single)(this.passive.ReadCharge() / 100.0);
+                ParticleSystem.EmissionModule temp;
+                for( System.Int32 i = 0; i < this.flames.Count; i++ )
+                {
+                    temp = this.flames[i].emission;
+                    temp.rateMultiplier = mult * this.flameInfos[i];
+                }
             }
         }
     }

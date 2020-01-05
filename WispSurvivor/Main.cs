@@ -8,7 +8,6 @@ using System.Reflection;
 using UnityEngine;
 using RogueWispPlugin.Helpers;
 using RogueWispPlugin.Modules;
-using static RogueWispPlugin.Helpers.APIInterface;
 
 namespace RogueWispPlugin
 {
@@ -21,11 +20,31 @@ namespace RogueWispPlugin
         nameof( R2API.PrefabAPI ),
         nameof( R2API.LoadoutAPI ),
         nameof( R2API.OrbAPI ),
+        nameof( R2API.ItemAPI ),
+        nameof( R2API.DirectorAPI ),
         nameof( R2API.AssetPlus.AssetPlus )
     )]
 
     [BepInDependency( "com.bepis.r2api" )]
     [BepInPlugin( "com.ReinThings.RogueWisp", "Rein-RogueWisp", "1.3.3" )]
+    [BepInIncompatibility( "com.PallesenProductions.ExpandedSkins" )]
+    [BepInIncompatibility( "com.PallesenProductions.ExpandedSkins.1.0.0" )]
+    [BepInIncompatibility( "com.PallesenProductions.ExpandedSkins.1.0.1" )]
+    [BepInIncompatibility( "com.PallesenProductions.ExpandedSkins.1.0.2" )]
+    [BepInIncompatibility( "com.PallesenProductions.ExpandedSkins.1.0.3" )]
+    [BepInIncompatibility( "com.PallesenProductions.ExpandedSkins.1.1.0" )]
+    [BepInIncompatibility( "com.PallesenProductions.ExpandedSkins.1.1.1" )]
+    [BepInIncompatibility( "com.PallesenProductions.ExpandedSkins.1.1.2" )]
+    [BepInIncompatibility( "com.PallesenProductions.ExpandedSkins.1.1.3" )]
+    [BepInIncompatibility( "com.PallesenProductions.ExpandedSkins.1.2.0" )]
+    [BepInIncompatibility( "com.PallesenProductions.ExpandedSkins.1.2.1" )]
+    [BepInIncompatibility( "com.PallesenProductions.ExpandedSkins.1.2.2" )]
+    [BepInIncompatibility( "com.PallesenProductions.ExpandedSkins.1.2.3" )]
+    [BepInIncompatibility( "com.PallesenProductions.ExpandedSkins.1.3.0" )]
+    [BepInIncompatibility( "com.PallesenProductions.ExpandedSkins.1.3.1" )]
+    [BepInIncompatibility( "com.PallesenProductions.ExpandedSkins.1.3.2" )]
+    [BepInIncompatibility( "com.PallesenProductions.ExpandedSkins.1.3.3" )]
+    [BepInIncompatibility( "com.PallesenProductions.VanillaTweaks" )]
     internal partial class Main : BaseUnityPlugin
     {
         public String thing1;
@@ -46,14 +65,17 @@ namespace RogueWispPlugin
         partial void CreateRogueWisp();
         partial void CreateAncientWisp();
         partial void CreateFirstWisp();
+        partial void CreateArchaicWisp();
         partial void CreateWispFriend();
         partial void CreateStage();
 
         public Main()
         {
-            this.thing1 = "Note that everything in this codebase is already part of R2API. I spent a month of my time integrating all of that so that people would stop copy pasting from here.";
-            this.thing2 = "If you are truly insistant on taking the lazy way out (Looking at you ravens) then screw you too I guess?";
-            this.thing3 = "I also no longer at all interested in answering any questions about my code or helping anyone in any way. If people are just going to copy paste anyway then they aren't worth my time.";
+            this.thing1 = "Note that everything in this codebase that can be used safely is already part of R2API.";
+            this.thing2 = "There is still plenty of code here that can easily brick saves if not used properly.";
+            this.thing3 = "Please, don't be the person who causes the <mods break saves> to start.";
+            //this.thing2 = "If you are truly insistant on taking the lazy way out (Looking at you ravens) then screw you too I guess?";
+            //this.thing3 = "I also no longer at all interested in answering any questions about my code or helping anyone in any way. If people are just going to copy paste anyway then they aren't worth my time.";
 
             instance = this;
 
@@ -80,13 +102,6 @@ namespace RogueWispPlugin
 }
 
 //For next release:
-
-// TODO: Primary particles still aren't visible sometimes.
-// TODO: Primary needs impact effects and world hit effects.
-// TODO: Merge primary into single state again
-
-// TODO: Update Descriptions
-
 // Future plans and shit
 
 // TOD: Utility sounds (unsure what to do here)
@@ -117,6 +132,7 @@ namespace RogueWispPlugin
 // TOD: Redo other elite materials
 // TOD: Expanded skin selection (Set of plasma skins, hard white outline on flames like blighted currently has.
 // TOD: Explore networking potential from handleOverlapAttack
+// TOD: Blighted skin has a weird red tint on special
 
 
 

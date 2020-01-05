@@ -1,12 +1,4 @@
-﻿using EntityStates;
-using R2API.Utils;
-using RoR2;
-using RoR2.Skills;
-using System;
-using System.Collections.Generic;
-using UnityEngine;
-using static RogueWispPlugin.Helpers.APIInterface;
-using static RogueWispPlugin.Helpers.ComponentHelpers;
+﻿
 /*
 namespace RogueWispPlugin.Modules
 {

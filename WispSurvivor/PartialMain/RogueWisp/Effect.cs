@@ -8,7 +8,7 @@ using System.Reflection;
 using UnityEngine;
 using RogueWispPlugin.Helpers;
 using RogueWispPlugin.Modules;
-using static RogueWispPlugin.Helpers.APIInterface;
+//using static RogueWispPlugin.Helpers.APIInterface;
 
 namespace RogueWispPlugin
 {
@@ -63,40 +63,40 @@ namespace RogueWispPlugin
             {
                 foreach( GameObject g in gs )
                 {
-                    RegisterNewEffect( g );
+                    R2API.EffectAPI.AddEffect( g );
                 }
             }
             foreach( GameObject g in primaryOrbEffects )
             {
-                RegisterNewEffect( g );
+                R2API.EffectAPI.AddEffect( g );
             }
             foreach( GameObject g in primaryExplosionEffects )
             {
-                RegisterNewEffect( g );
+                R2API.EffectAPI.AddEffect( g );
             }
             foreach( GameObject g in secondaryExplosions )
             {
-                RegisterNewEffect( g );
+                R2API.EffectAPI.AddEffect( g );
             }
             foreach( GameObject g in utilityFlames )
             {
-                RegisterNewEffect( g );
+                R2API.EffectAPI.AddEffect( g );
             }
             foreach( GameObject g in utilityBurns )
             {
-                RegisterNewEffect( g );
+                R2API.EffectAPI.AddEffect( g );
             }
             foreach( GameObject g in utilityLeech )
             {
-                RegisterNewEffect( g );
+                R2API.EffectAPI.AddEffect( g );
             }
             foreach( GameObject g in specialCharge )
             {
-                RegisterNewEffect( g );
+                R2API.EffectAPI.AddEffect( g );
             }
             foreach( GameObject g in specialExplosion )
             {
-                RegisterNewEffect( g );
+                R2API.EffectAPI.AddEffect( g );
             }
 
             typeof( EffectCatalog ).InvokeMethod( "CCEffectsReload", new ConCommandArgs() );

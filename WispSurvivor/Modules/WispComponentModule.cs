@@ -1,10 +1,4 @@
-﻿using RoR2;
-using System;
-using System.Collections.Generic;
-using UnityEngine;
-using static RogueWispPlugin.Helpers.ComponentHelpers;
-
-/*
+﻿/*
 namespace RogueWispPlugin
 {
     using static WispSurvivor.ComponentExtensions.ComponentExtensions;

@@ -2,12 +2,15 @@
 using UnityEngine;
 using UnityEngine.Networking;
 
-namespace RogueWispPlugin.Components
+namespace RogueWispPlugin
 {
-    [RequireComponent( typeof( EffectComponent ) )]
-    public class WispNetworkedEffect : NetworkBehaviour
+    internal partial class Main
     {
-        [SyncVar]
-        public System.Single syncedFloat = 0f;
+        [RequireComponent( typeof( EffectComponent ) )]
+        public class WispNetworkedEffect : NetworkBehaviour
+        {
+            [SyncVar]
+            public System.Single syncedFloat = 0f;
+        }
     }
 }

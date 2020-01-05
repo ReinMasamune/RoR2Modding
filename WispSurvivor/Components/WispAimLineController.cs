@@ -1,25 +1,28 @@
 ﻿using UnityEngine;
 
-namespace RogueWispPlugin.Components
+namespace RogueWispPlugin
 {
-    public class WispAimLineController : MonoBehaviour
+    internal partial class Main
     {
-        private LineRenderer lr;
-
-        private Transform lrEnd;
-
-        public void Awake()
+        public class WispAimLineController : MonoBehaviour
         {
-            this.lr = this.GetComponent<LineRenderer>();
-            this.lrEnd = this.transform.Find( "lineEnd" );
-        }
+            private LineRenderer lr;
 
-        public void Update()
-        {
-            this.lr.SetPosition( 0, this.transform.position );
-            if( this.lrEnd )
+            private Transform lrEnd;
+
+            public void Awake()
             {
-                this.lr.SetPosition( 1, this.lrEnd.position );
+                this.lr = this.GetComponent<LineRenderer>();
+                this.lrEnd = this.transform.Find( "lineEnd" );
+            }
+
+            public void Update()
+            {
+                this.lr.SetPosition( 0, this.transform.position );
+                if( this.lrEnd )
+                {
+                    this.lr.SetPosition( 1, this.lrEnd.position );
+                }
             }
         }
     }

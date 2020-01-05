@@ -8,7 +8,7 @@ using System.Reflection;
 using UnityEngine;
 using RogueWispPlugin.Helpers;
 using RogueWispPlugin.Modules;
-using static RogueWispPlugin.Helpers.APIInterface;
+//using static RogueWispPlugin.Helpers.APIInterface;
 
 namespace RogueWispPlugin
 {
@@ -40,12 +40,12 @@ namespace RogueWispPlugin
             this.RW_body.AddComponent<CharacterDirection>();
             this.RW_body.AddComponent<KinematicCharacterController.KinematicCharacterMotor>();
             this.RW_body.AddComponent<SetStateOnHurt>();
-            this.RW_body.AddComponent<Components.WispFlareController>();
-            this.RW_body.AddComponent<Misc.ClientOrbController>();
-            this.RW_body.AddComponent<Components.WispFlamesController>();
+            this.RW_body.AddComponent<WispFlareController>();
+            this.RW_body.AddComponent<ClientOrbController>();
+            this.RW_body.AddComponent<WispFlamesController>();
 
-            var passive = this.RW_body.AddComponent<Components.WispPassiveController>();
-            this.RW_body.AddComponent<Components.WispUIController>().passive = passive;
+            var passive = this.RW_body.AddComponent<WispPassiveController>();
+            this.RW_body.AddComponent<WispUIController>().passive = passive;
             this.RW_body.AddComponent<EntityStateMachine>().customName = "Gaze";
 
             // GET components missing now.

@@ -3,7 +3,7 @@ using RoR2.Skills;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-
+/*
 namespace RogueWispPlugin.Helpers.OldStuff
 {
     public static class SkillsHelper
@@ -57,3 +57,4 @@ namespace RogueWispPlugin.Helpers.OldStuff
 
     }
 }
+*/

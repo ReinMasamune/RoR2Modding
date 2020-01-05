@@ -2,25 +2,28 @@
 using System.Reflection;
 using UnityEngine;
 
-namespace RogueWispPlugin.Helpers
+namespace RogueWispPlugin
 {
-    public static class OrbHelper
+    internal partial class Main
     {
-        public static void ConvertOrbSettings( GameObject g )
+        public static class OrbHelper
         {
-            OrbEffect orb = g.GetComponent<OrbEffect>();
-
-            Components.WispOrbEffect newOrb = g.AddComponent<Components.WispOrbEffect>();
-
-            FieldInfo f2;
-
-            foreach( FieldInfo f in typeof( OrbEffect ).GetFields( BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic ) )
+            public static void ConvertOrbSettings( GameObject g )
             {
-                f2 = typeof( Components.WispOrbEffect ).GetField( f.Name, BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic );
-                f2.SetValue( newOrb, f.GetValue( orb ) );
-            }
+                OrbEffect orb = g.GetComponent<OrbEffect>();
 
-            MonoBehaviour.Destroy( orb );
+                WispOrbEffect newOrb = g.AddComponent<WispOrbEffect>();
+
+                FieldInfo f2;
+
+                foreach( FieldInfo f in typeof( OrbEffect ).GetFields( BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic ) )
+                {
+                    f2 = typeof( WispOrbEffect ).GetField( f.Name, BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic );
+                    f2.SetValue( newOrb, f.GetValue( orb ) );
+                }
+
+                MonoBehaviour.Destroy( orb );
+            }
         }
     }
 }

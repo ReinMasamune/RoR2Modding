@@ -8,7 +8,7 @@ using System.Reflection;
 using UnityEngine;
 using RogueWispPlugin.Helpers;
 using RogueWispPlugin.Modules;
-using static RogueWispPlugin.Helpers.APIInterface;
+//using static RogueWispPlugin.Helpers.APIInterface;
 
 namespace RogueWispPlugin
 {
@@ -85,13 +85,24 @@ namespace RogueWispPlugin
                     rootObject = bodyModel,
                     rendererInfos = rendererInfos[i]
                 };
-                skins[i] = CreateNewSkinDef( skinInfo );
+                skins[i] = R2API.SkinAPI.CreateNewSkinDef( skinInfo );
             }
 
             bodySkins.skins = skins;
         }
 
         private static CharacterModel.RendererInfo CreateFlameRendererInfo( Renderer r, Material m ) => CreateRendererInfo( r, m, true, UnityEngine.Rendering.ShadowCastingMode.On );
+
+        public static CharacterModel.RendererInfo CreateRendererInfo( Renderer r, Material m, System.Boolean ignoreOverlays, UnityEngine.Rendering.ShadowCastingMode shadow )
+        {
+            CharacterModel.RendererInfo ren = new CharacterModel.RendererInfo();
+            ren.renderer = r;
+            ren.defaultMaterial = m;
+            ren.ignoreOverlays = ignoreOverlays;
+            ren.defaultShadowCastingMode = shadow;
+            return ren;
+        }
+        //public static CharacterModel.RendererInfo CreateRendererInfo( Renderer r, Material m, System.Boolean ignoreOverlays, UnityEngine.Rendering.ShadowCastingMode shadow ) => CreateRendererInfo( r, m, ignoreOverlays, shadow );
 
     }
 

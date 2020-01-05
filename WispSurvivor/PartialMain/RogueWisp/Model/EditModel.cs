@@ -8,8 +8,7 @@ using System.Reflection;
 using UnityEngine;
 using RogueWispPlugin.Helpers;
 using RogueWispPlugin.Modules;
-using static RogueWispPlugin.Helpers.APIInterface;
-using RogueWispPlugin.Components;
+//using static RogueWispPlugin.Helpers.APIInterface;
 
 namespace RogueWispPlugin
 {
@@ -85,7 +84,7 @@ namespace RogueWispPlugin
             MonoBehaviour.Destroy( bodyCharModel.gameObject.GetComponent<AncientWispFireController>() );
             Array.Resize<CharacterModel.LightInfo>( ref bodyCharModel.baseLightInfos, 0 );
 
-            Components.WispFlamesController flameCont =this.RW_body.GetComponent<WispFlamesController>();
+            WispFlamesController flameCont =this.RW_body.GetComponent<WispFlamesController>();
             flameCont.passive = this.RW_body.GetComponent<WispPassiveController>();
 
             String tempName;

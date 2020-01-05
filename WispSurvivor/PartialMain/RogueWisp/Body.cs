@@ -8,7 +8,7 @@ using System.Reflection;
 using UnityEngine;
 using RogueWispPlugin.Helpers;
 using RogueWispPlugin.Modules;
-using static RogueWispPlugin.Helpers.APIInterface;
+//using static RogueWispPlugin.Helpers.APIInterface;
 
 namespace RogueWispPlugin
 {
@@ -61,7 +61,7 @@ namespace RogueWispPlugin
         private static GameObject CreateSurvivorPod()
         {
             GameObject g = Resources.Load<GameObject>("Prefabs/NetworkedObjects/SurvivorPod").InstantiateClone("WispSurvivorPod");
-            Components.WispSurvivorPodController wispPodControl = g.AddComponent<Components.WispSurvivorPodController>();
+            WispSurvivorPodController wispPodControl = g.AddComponent<WispSurvivorPodController>();
             Transform podModel = g.GetComponent<ModelLocator>().modelTransform.Find("EscapePodArmature");
 
             InstantiatePrefabOnStart prefabSpawn = new InstantiatePrefabOnStart();
@@ -72,7 +72,7 @@ namespace RogueWispPlugin
             }
 
             GameObject pref = prefabSpawn.prefab.InstantiateClone("WispPodPanel");
-            pref.AddComponent<Components.WispSurvivorPodPanelController>();
+            pref.AddComponent<WispSurvivorPodPanelController>();
             prefabSpawn.prefab = pref;
 
             Transform podMesh = podModel.Find("Base").Find("EscapePodMesh");

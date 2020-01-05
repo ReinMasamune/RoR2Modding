@@ -3,92 +3,95 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-namespace RogueWispPlugin.Misc
+namespace RogueWispPlugin
 {
-    public class ClientOrbController : NetworkBehaviour
+    internal partial class Main
     {
-        private List<BaseClientOrb> activeOrbs = new List<BaseClientOrb>();
-        private List<BaseClientOrb> destroy = new List<BaseClientOrb>();
-
-        public void AddClientOrb( BaseClientOrb newOrb )
+        public class ClientOrbController : NetworkBehaviour
         {
-            if( !this.hasAuthority )
+            private List<BaseClientOrb> activeOrbs = new List<BaseClientOrb>();
+            private List<BaseClientOrb> destroy = new List<BaseClientOrb>();
+
+            public void AddClientOrb( BaseClientOrb newOrb )
             {
-                Debug.Log( "AddClientOrb called without authority" );
-                return;
-            }
-            if( newOrb == null )
-            {
-                Debug.Log( "Null orb not added" );
-                return;
-            }
+                if( !this.hasAuthority )
+                {
+                    Debug.Log( "AddClientOrb called without authority" );
+                    return;
+                }
+                if( newOrb == null )
+                {
+                    Debug.Log( "Null orb not added" );
+                    return;
+                }
 
-            newOrb.Begin();
+                newOrb.Begin();
 
-            if( newOrb.totalDuration == 0f )
-            {
-                Debug.Log( "Orb failed to assign duration" );
-                return;
-            }
+                if( newOrb.totalDuration == 0f )
+                {
+                    Debug.Log( "Orb failed to assign duration" );
+                    return;
+                }
 
-            newOrb.remainingDuration = newOrb.totalDuration;
+                newOrb.remainingDuration = newOrb.totalDuration;
 
-            this.activeOrbs.Add( newOrb );
-        }
-
-        private void UpdateClientOrb( BaseClientOrb orb, Single deltaT )
-        {
-            if( !this.hasAuthority )
-            {
-                Debug.Log( "UpdateClientOrb called without authority" );
-                return;
+                this.activeOrbs.Add( newOrb );
             }
 
-            if( !this.activeOrbs.Contains( orb ) )
+            private void UpdateClientOrb( BaseClientOrb orb, Single deltaT )
             {
-                Debug.Log( "UpdateClientOrb called on non-existant orb" );
-                return;
+                if( !this.hasAuthority )
+                {
+                    Debug.Log( "UpdateClientOrb called without authority" );
+                    return;
+                }
+
+                if( !this.activeOrbs.Contains( orb ) )
+                {
+                    Debug.Log( "UpdateClientOrb called on non-existant orb" );
+                    return;
+                }
+
+                orb.remainingDuration -= deltaT;
+                orb.Tick( deltaT );
+
+                if( orb.remainingDuration <= 0f )
+                {
+                    this.EndClientOrb( orb );
+                }
             }
 
-            orb.remainingDuration -= deltaT;
-            orb.Tick( deltaT );
+            private void EndClientOrb( BaseClientOrb orb )
+            {
+                if( !this.hasAuthority )
+                {
+                    Debug.Log( "EndClientOrb called without authority" );
+                    return;
+                }
+                if( !this.activeOrbs.Contains( orb ) )
+                {
+                    Debug.Log( "EndClientOrb called on non-existant orb" );
+                    return;
+                }
+                orb.End();
+                this.destroy.Add( orb );
+            }
 
-            if( orb.remainingDuration <= 0f )
+            private void FixedUpdate()
             {
-                this.EndClientOrb( orb );
-            }
-        }
+                if( !this.hasAuthority ) return;
 
-        private void EndClientOrb( BaseClientOrb orb )
-        {
-            if( !this.hasAuthority )
-            {
-                Debug.Log( "EndClientOrb called without authority" );
-                return;
+                Single deltaT = Time.fixedDeltaTime;
+                foreach( BaseClientOrb orb in this.activeOrbs )
+                {
+                    this.UpdateClientOrb( orb, deltaT );
+                }
+                foreach( BaseClientOrb orb in this.destroy )
+                {
+                    this.activeOrbs.Remove( orb );
+                }
+                this.destroy.Clear();
             }
-            if( !this.activeOrbs.Contains( orb ) )
-            {
-                Debug.Log( "EndClientOrb called on non-existant orb" );
-                return;
-            }
-            orb.End();
-            this.destroy.Add( orb );
-        }
-
-        private void FixedUpdate()
-        {
-            if( !this.hasAuthority ) return;
-
-            Single deltaT = Time.fixedDeltaTime;
-            foreach( BaseClientOrb orb in this.activeOrbs )
-            {
-                this.UpdateClientOrb( orb, deltaT );
-            }
-            foreach( BaseClientOrb orb in this.destroy )
-            {
-                this.activeOrbs.Remove( orb );
-            }
-            this.destroy.Clear();
         }
     }
 }

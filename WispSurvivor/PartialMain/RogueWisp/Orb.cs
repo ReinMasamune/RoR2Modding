@@ -8,7 +8,7 @@ using System.Reflection;
 using UnityEngine;
 using RogueWispPlugin.Helpers;
 using RogueWispPlugin.Modules;
-using static RogueWispPlugin.Helpers.APIInterface;
+//using static RogueWispPlugin.Helpers.APIInterface;
 
 namespace RogueWispPlugin
 {
@@ -21,11 +21,11 @@ namespace RogueWispPlugin
 
         private void RW_AddOrbs()
         {
-            AddOrb( typeof( Orbs.RestoreOrb ) );
-            AddOrb( typeof( Orbs.SnapOrb ) );
-            AddOrb( typeof( Orbs.SparkOrb ) );
-            AddOrb( typeof( Orbs.BlazeOrb ) );
-            AddOrb( typeof( Orbs.IgnitionOrb ) );
+            R2API.OrbAPI.AddOrb( typeof( RestoreOrb ) );
+            R2API.OrbAPI.AddOrb( typeof( SnapOrb ) );
+            R2API.OrbAPI.AddOrb( typeof( SparkOrb ) );
+            R2API.OrbAPI.AddOrb( typeof( BlazeOrb ) );
+            R2API.OrbAPI.AddOrb( typeof( IgnitionOrb ) );
         }
     }
 

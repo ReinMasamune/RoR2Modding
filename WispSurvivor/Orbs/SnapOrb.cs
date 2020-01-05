@@ -1,94 +1,97 @@
 ﻿using RoR2;
 using UnityEngine;
 
-namespace RogueWispPlugin.Orbs
+namespace RogueWispPlugin
 {
-    internal class SnapOrb : RoR2.Orbs.Orb
+    internal partial class Main
     {
-        public System.Single speed = 200f;
-        public System.Single damage = 1f;
-        public System.Single scale = 1f;
-        public System.Single procCoef = 1f;
-        public System.Single radius = 1f;
-        public System.UInt32 skin = 0;
-
-        public Vector3 targetPos;
-
-        public System.Boolean crit = false;
-        public System.Boolean useTarget = false;
-
-        public TeamIndex team;
-        public DamageColorIndex damageColor;
-
-        public GameObject attacker;
-        public ProcChainMask procMask;
-
-        private Vector3 lastPos;
-
-        public override void Begin()
+        internal class SnapOrb : RoR2.Orbs.Orb
         {
-            if( !this.target )
-            {
-                this.useTarget = false;
-            }
+            public System.Single speed = 200f;
+            public System.Single damage = 1f;
+            public System.Single scale = 1f;
+            public System.Single procCoef = 1f;
+            public System.Single radius = 1f;
+            public System.UInt32 skin = 0;
 
-            if( this.useTarget )
-            {
-                this.lastPos = this.target.transform.position;
-            } else
-            {
-                this.lastPos = this.targetPos;
-            }
+            public Vector3 targetPos;
 
-            this.duration = Vector3.Distance( this.lastPos, this.origin ) / this.speed + 0.15f;
-            EffectData effectData = new EffectData
-            {
-                origin = origin,
-                genericFloat = duration,
-                genericBool = useTarget,
-                start = lastPos
-            };
-            effectData.SetHurtBoxReference( this.target );
-            EffectManager.SpawnEffect( Main.primaryOrbEffects[this.skin], effectData, true );
-        }
+            public System.Boolean crit = false;
+            public System.Boolean useTarget = false;
 
-        public override void OnArrival()
-        {
-            if( this.useTarget )
-            {
-                this.lastPos = this.targetPos;
-            } else
-            {
-                this.lastPos = this.targetPos;
-            }
-            EffectData effect = new EffectData
-            {
-                origin = lastPos,
-                scale = 0.5f
-            };
+            public TeamIndex team;
+            public DamageColorIndex damageColor;
 
-            EffectManager.SpawnEffect( Main.primaryExplosionEffects[this.skin], effect, true );
+            public GameObject attacker;
+            public ProcChainMask procMask;
 
-            if( this.attacker )
+            private Vector3 lastPos;
+
+            public override void Begin()
             {
-                new BlastAttack
+                if( !this.target )
                 {
-                    attacker = attacker,
-                    baseDamage = damage,
-                    baseForce = 0f,
-                    bonusForce = Vector3.zero,
-                    canHurtAttacker = false,
-                    crit = crit,
-                    damageColorIndex = damageColor,
-                    damageType = DamageType.Generic,
-                    falloffModel = BlastAttack.FalloffModel.None,
-                    inflictor = null,
-                    position = lastPos,
-                    procChainMask = procMask,
-                    procCoefficient = procCoef,
-                    radius = radius,
-                    teamIndex = team
-                }.Fire();
+                    this.useTarget = false;
+                }
+
+                if( this.useTarget )
+                {
+                    this.lastPos = this.target.transform.position;
+                } else
+                {
+                    this.lastPos = this.targetPos;
+                }
+
+                this.duration = Vector3.Distance( this.lastPos, this.origin ) / this.speed + 0.15f;
+                EffectData effectData = new EffectData
+                {
+                    origin = origin,
+                    genericFloat = duration,
+                    genericBool = useTarget,
+                    start = lastPos
+                };
+                effectData.SetHurtBoxReference( this.target );
+                EffectManager.SpawnEffect( Main.primaryOrbEffects[this.skin], effectData, true );
+            }
+
+            public override void OnArrival()
+            {
+                if( this.useTarget )
+                {
+                    this.lastPos = this.targetPos;
+                } else
+                {
+                    this.lastPos = this.targetPos;
+                }
+                EffectData effect = new EffectData
+                {
+                    origin = lastPos,
+                    scale = 0.5f
+                };
+
+                EffectManager.SpawnEffect( Main.primaryExplosionEffects[this.skin], effect, true );
+
+                if( this.attacker )
+                {
+                    new BlastAttack
+                    {
+                        attacker = attacker,
+                        baseDamage = damage,
+                        baseForce = 0f,
+                        bonusForce = Vector3.zero,
+                        canHurtAttacker = false,
+                        crit = crit,
+                        damageColorIndex = damageColor,
+                        damageType = DamageType.Generic,
+                        falloffModel = BlastAttack.FalloffModel.None,
+                        inflictor = null,
+                        position = lastPos,
+                        procChainMask = procMask,
+                        procCoefficient = procCoef,
+                        radius = radius,
+                        teamIndex = team
+                    }.Fire();
+                }
             }
         }
     }

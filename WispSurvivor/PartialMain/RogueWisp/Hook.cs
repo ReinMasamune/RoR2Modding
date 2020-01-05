@@ -8,7 +8,7 @@ using System.Reflection;
 using UnityEngine;
 using RogueWispPlugin.Helpers;
 using RogueWispPlugin.Modules;
-using static RogueWispPlugin.Helpers.APIInterface;
+//using static RogueWispPlugin.Helpers.APIInterface;
 using MonoMod.Cil;
 using System.Collections;
 using UnityEngine.Networking;
@@ -60,7 +60,7 @@ namespace RogueWispPlugin
                     CharacterBody comp = temp.GetComponent<CharacterBody>();
                     if( comp && comp.baseNameToken == "WISP_SURVIVOR_BODY_NAME" )
                     {
-                        Single value = Misc.HeatwaveClientOrb.DoMoreBadThings(effectData.color);
+                        Single value = HeatwaveClientOrb.DoMoreBadThings(effectData.color);
                         if( value > 0f )
                         {
                             this.StartCoroutine( this.DelayBuff( this.RW_flameChargeBuff, comp, value, effectData.genericUInt, effectData.genericFloat ) );
@@ -120,7 +120,7 @@ namespace RogueWispPlugin
         private void AddBurnManager( On.RoR2.CharacterBody.orig_Start orig, CharacterBody self )
         {
             orig( self );
-            self.gameObject.AddComponent<Components.WispBurnManager>();
+            self.gameObject.AddComponent<WispBurnManager>();
         }
 
         private void ArmorBoost( On.RoR2.CharacterBody.orig_RecalculateStats orig, CharacterBody self )

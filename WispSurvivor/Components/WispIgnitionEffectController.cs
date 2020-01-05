@@ -3,29 +3,32 @@ using System.Collections;
 using UnityEngine;
 
 
-namespace RogueWispPlugin.Components
+namespace RogueWispPlugin
 {
-    [RequireComponent( typeof( EffectComponent ) )]
-    public class WispIgnitionEffectController : MonoBehaviour
+    internal partial class Main
     {
-        private System.Single timeLeft;
-        public void Start()
+        [RequireComponent( typeof( EffectComponent ) )]
+        public class WispIgnitionEffectController : MonoBehaviour
         {
-            EffectComponent effectComp = this.GetComponent<EffectComponent>();
-            EffectData data = effectComp.effectData;
+            private System.Single timeLeft;
+            public void Start()
+            {
+                EffectComponent effectComp = this.GetComponent<EffectComponent>();
+                EffectData data = effectComp.effectData;
 
-            this.timeLeft = data.genericFloat;
+                this.timeLeft = data.genericFloat;
 
-            this.StartCoroutine( this.DestroyOnTimer( this.timeLeft ) );
+                this.StartCoroutine( this.DestroyOnTimer( this.timeLeft ) );
+            }
+
+            private IEnumerator DestroyOnTimer( System.Single timer )
+            {
+                yield return new WaitForSeconds( timer );
+
+                MonoBehaviour.Destroy( this.gameObject );
+            }
         }
 
-        private IEnumerator DestroyOnTimer( System.Single timer )
-        {
-            yield return new WaitForSeconds( timer );
 
-            MonoBehaviour.Destroy( this.gameObject );
-        }
     }
-
-
 }

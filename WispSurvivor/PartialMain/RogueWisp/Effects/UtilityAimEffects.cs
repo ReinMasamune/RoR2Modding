@@ -8,7 +8,7 @@ using System.Reflection;
 using UnityEngine;
 using RogueWispPlugin.Helpers;
 using RogueWispPlugin.Modules;
-using static RogueWispPlugin.Helpers.APIInterface;
+//using static RogueWispPlugin.Helpers.APIInterface;
 
 namespace RogueWispPlugin
 {
@@ -47,7 +47,7 @@ namespace RogueWispPlugin
             GameObject baseFX = new GameObject("Temp", new Type[2]
             {
                 typeof(LineRenderer),
-                typeof(Components.WispAimLineController),
+                typeof(WispAimLineController),
             });
 
             for( Int32 i = 0; i < 8; i++ )

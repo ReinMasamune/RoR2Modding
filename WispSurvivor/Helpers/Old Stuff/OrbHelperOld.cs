@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
-
+/*
 namespace RogueWispPlugin.Helpers.OldStuff
 {
     public static class OrbHelper
@@ -82,3 +82,4 @@ namespace RogueWispPlugin.Helpers.OldStuff
         }
     }
 }
+*/

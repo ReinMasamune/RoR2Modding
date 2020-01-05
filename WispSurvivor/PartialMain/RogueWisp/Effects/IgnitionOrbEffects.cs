@@ -8,7 +8,7 @@ using System.Reflection;
 using UnityEngine;
 using RogueWispPlugin.Helpers;
 using RogueWispPlugin.Modules;
-using static RogueWispPlugin.Helpers.APIInterface;
+//using static RogueWispPlugin.Helpers.APIInterface;
 
 namespace RogueWispPlugin
 {
@@ -33,7 +33,7 @@ namespace RogueWispPlugin
         {
             GameObject obj = baseFX.InstantiateClone("IgniteEffect"+skinIndex.ToString(), false);
             MonoBehaviour.Destroy( obj.GetComponent<DestroyOnTimer>() );
-            obj.AddComponent<Components.WispIgnitionEffectController>();
+            obj.AddComponent<WispIgnitionEffectController>();
             //obj.transform.Find("Point Light").GetComponent<Light>().color = WispMaterialModule.fireColors[skinIndex];
             MonoBehaviour.Destroy( obj.transform.Find( "Point Light" ).gameObject );
             Transform flareObj = obj.transform.Find("Flare");

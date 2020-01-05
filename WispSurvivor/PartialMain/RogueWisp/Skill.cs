@@ -8,7 +8,7 @@ using System.Reflection;
 using UnityEngine;
 using RogueWispPlugin.Helpers;
 using RogueWispPlugin.Modules;
-using static RogueWispPlugin.Helpers.APIInterface;
+//using static RogueWispPlugin.Helpers.APIInterface;
 using RoR2.Skills;
 using EntityStates;
 
@@ -34,7 +34,7 @@ namespace RogueWispPlugin
         {
             SkillDef[] specials = new SkillDef[1];
             SkillDef skill = ScriptableObject.CreateInstance<SkillDef>();
-            skill.activationState = new SerializableEntityStateType( typeof( Skills.Special.IncinerationWindup ) );
+            skill.activationState = new SerializableEntityStateType( typeof( IncinerationWindup ) );
             skill.activationStateMachineName = "Weapon";
 
             skill.baseMaxStock = 1;
@@ -66,7 +66,7 @@ namespace RogueWispPlugin
         {
             SkillDef[] utilities = new SkillDef[1];
             SkillDef skill = ScriptableObject.CreateInstance<SkillDef>();
-            skill.activationState = new SerializableEntityStateType( typeof( Skills.Utility.PrepGaze ) );
+            skill.activationState = new SerializableEntityStateType( typeof( PrepGaze ) );
             skill.activationStateMachineName = "Gaze";
 
             skill.baseMaxStock = 1;
@@ -99,7 +99,7 @@ namespace RogueWispPlugin
             SkillDef[] secondaries = new SkillDef[1];
 
             SkillDef skill = ScriptableObject.CreateInstance<SkillDef>();
-            skill.activationState = new SerializableEntityStateType( typeof( Skills.Secondary.TestSecondary ) );
+            skill.activationState = new SerializableEntityStateType( typeof( TestSecondary ) );
             skill.activationStateMachineName = "Weapon";
 
             skill.baseMaxStock = 1;
@@ -133,7 +133,7 @@ namespace RogueWispPlugin
             
 
             SteppedSkillDef skill = ScriptableObject.CreateInstance<SteppedSkillDef>();
-            skill.activationState = new SerializableEntityStateType( typeof( Skills.Primary.Heatwave ) );
+            skill.activationState = new SerializableEntityStateType( typeof( Heatwave ) );
             skill.activationStateMachineName = "Weapon";
 
             skill.baseMaxStock = 3;
@@ -256,16 +256,16 @@ namespace RogueWispPlugin
         }
         private void RW_RegisterSkillStates()
         {
-            AddSkill( typeof( Skills.Primary.PrepHeatwave ) );
-            AddSkill( typeof( Skills.Primary.FireHeatwave ) );
-            AddSkill( typeof( Skills.Primary.HeatwaveWindDown ) );
-            AddSkill( typeof( Skills.Primary.Heatwave ) );
-            AddSkill( typeof( Skills.Secondary.TestSecondary ) );
-            AddSkill( typeof( Skills.Utility.PrepGaze ) );
-            AddSkill( typeof( Skills.Utility.FireGaze ) );
-            AddSkill( typeof( Skills.Special.IncinerationWindup ) );
-            AddSkill( typeof( Skills.Special.Incineration ) );
-            AddSkill( typeof( Skills.Special.IncinerationRecovery ) );
+            R2API.SkillAPI.AddSkill( typeof( PrepHeatwave ) );
+            R2API.SkillAPI.AddSkill( typeof( FireHeatwave ) );
+            R2API.SkillAPI.AddSkill( typeof( HeatwaveWindDown ) );
+            R2API.SkillAPI.AddSkill( typeof( Heatwave ) );
+            R2API.SkillAPI.AddSkill( typeof( TestSecondary ) );
+            R2API.SkillAPI.AddSkill( typeof( PrepGaze ) );
+            R2API.SkillAPI.AddSkill( typeof( FireGaze ) );
+            R2API.SkillAPI.AddSkill( typeof( IncinerationWindup ) );
+            R2API.SkillAPI.AddSkill( typeof( Incineration ) );
+            R2API.SkillAPI.AddSkill( typeof( IncinerationRecovery ) );
         }
 
 
@@ -277,7 +277,7 @@ namespace RogueWispPlugin
             //}
             s.skillFamily.variants = new SkillFamily.Variant[0];
 
-            AddSkillFamily( s.skillFamily );
+            R2API.SkillAPI.AddSkillFamily( s.skillFamily );
 
             return s.skillFamily;
         }
@@ -294,7 +294,7 @@ namespace RogueWispPlugin
                     unlockableName = "",
                     viewableNode = new ViewablesCatalog.Node( skills[i].skillNameToken, false )
                 };
-                AddSkillDef( skills[i] );
+                R2API.SkillAPI.AddSkillDef( skills[i] );
             }
 
             fam.variants = variants;

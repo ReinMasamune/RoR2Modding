@@ -1,23 +1,26 @@
 ﻿using System;
 using UnityEngine;
 
-namespace RogueWispPlugin.Components
+namespace RogueWispPlugin
 {
-    public class WispSurvivorPodPanelController : MonoBehaviour
+    internal partial class Main
     {
-        public void Start()
+        public class WispSurvivorPodPanelController : MonoBehaviour
         {
-            Transform par = this.transform;
-            while( par.parent != null ) par = par.parent;
-            WispSurvivorPodController control = par.GetComponent<WispSurvivorPodController>();
-            if( control )
+            public void Start()
             {
-                UInt32 skin = control.skin;
+                Transform par = this.transform;
+                while( par.parent != null ) par = par.parent;
+                WispSurvivorPodController control = par.GetComponent<WispSurvivorPodController>();
+                if( control )
+                {
+                    UInt32 skin = control.skin;
 
-                this.transform.Find( "EscapePodMesh.002" ).GetComponent<MeshRenderer>().material = Main.armorMaterials[skin];
+                    this.transform.Find( "EscapePodMesh.002" ).GetComponent<MeshRenderer>().material = Main.armorMaterials[skin];
+                }
+
+
             }
-
-
         }
     }
 }

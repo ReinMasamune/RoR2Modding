@@ -14,18 +14,9 @@ namespace RogueWispPlugin
 {
     internal partial class Main
     {
-        private GameObject AW_body;
-        private GameObject AW_master;
-
-        partial void AW_Test();
-        partial void AW_General();
-        partial void AW_Hook();
-
-        partial void CreateAncientWisp()
+        partial void AW_General()
         {
-            this.AW_Test();
-            this.AW_General();
-            this.AW_Hook();
+
         }
     }
 

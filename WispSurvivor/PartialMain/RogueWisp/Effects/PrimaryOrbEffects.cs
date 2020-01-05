@@ -8,7 +8,7 @@ using System.Reflection;
 using UnityEngine;
 using RogueWispPlugin.Helpers;
 using RogueWispPlugin.Modules;
-using static RogueWispPlugin.Helpers.APIInterface;
+//using static RogueWispPlugin.Helpers.APIInterface;
 
 namespace RogueWispPlugin
 {
@@ -39,7 +39,7 @@ namespace RogueWispPlugin
 
             MonoBehaviour.DestroyImmediate( obj.GetComponent<RoR2.Orbs.OrbEffect>() );
 
-            Components.WispOrbEffectController orbController = obj.AddComponent<Components.WispOrbEffectController>();
+            WispOrbEffectController orbController = obj.AddComponent<WispOrbEffectController>();
             orbController.startSound = "Play_wisp_active_loop";
             orbController.endSound = "Stop_wisp_active_loop";
             orbController.explosionSound = "Play_item_use_fireballDash_explode";

@@ -7,53 +7,10 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 
-namespace RogueWispPlugin.Helpers.OldStuff
+namespace RogueWispPlugin
 {
     public static class PrefabHelpers
     {
-        /// <summary>
-        /// Returns true if the GameObject has a component of type T
-        /// Retuns false if the GameObject is null, or does not have a component of type T
-        /// </summary>
-        /// <typeparam Type to check="T"></typeparam>
-        /// <param Object to check="g"></param>
-        /// <returns></returns>
-        public static System.Boolean HasComponent<T>( this GameObject g ) => g && g.GetComponent<T>() != null;
-
-        /// <summary>
-        /// Gets and returns component of type T from GameObject
-        /// If there is no component of type T, adds one and returns it
-        /// </summary>
-        /// <typeparam Type to get="T"></typeparam>
-        /// <param Object to check="g"></param>
-        /// <returns></returns>
-        public static T AddOrGetComponent<T>( this GameObject g ) where T : Component
-        {
-            T v = g.GetComponent<T>();
-            if( v == null )
-            {
-                v = g.AddComponent<T>();
-            }
-            return v;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="g"></param>
-        /// <returns></returns>
-        public static T AddOrGetComponent<T>( this Transform g ) where T : Component => AddOrGetComponent<T>( g.gameObject );
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="g"></param>
-        /// <returns></returns>
-        public static T AddOrGetComponent<T>( this Component g ) where T : Component => AddOrGetComponent<T>( g.gameObject );
-
-
         /// <summary>
         /// 
         /// </summary>
@@ -85,10 +42,6 @@ namespace RogueWispPlugin.Helpers.OldStuff
         public static void RegisterNetworkPrefab( this GameObject g, [CallerFilePath] System.String file = "", [CallerMemberName] System.String member = "", [CallerLineNumber] System.Int32 line = 0 ) => RegisterPrefabInternal( g, file, member, line );
 
         #region Internal
-        private static void SkinDef_Awake( On.RoR2.SkinDef.orig_Awake orig, SkinDef self )
-        {
-            //Intentionally do nothing
-        }
 
         private static GameObject parent;
         private static GameObject GetParent()

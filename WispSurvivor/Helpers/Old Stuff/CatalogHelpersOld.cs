@@ -4,6 +4,7 @@ using RoR2.Projectile;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
 namespace RogueWispPlugin.Helpers.OldStuff
 {
     public static class CatalogHelpers
@@ -128,3 +129,4 @@ namespace RogueWispPlugin.Helpers.OldStuff
         #endregion
     }
 }
+*/

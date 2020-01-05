@@ -8,7 +8,7 @@ using System.Reflection;
 using UnityEngine;
 using RogueWispPlugin.Helpers;
 using RogueWispPlugin.Modules;
-using static RogueWispPlugin.Helpers.APIInterface;
+//using static RogueWispPlugin.Helpers.APIInterface;
 
 namespace RogueWispPlugin
 {
@@ -69,6 +69,24 @@ namespace RogueWispPlugin
             this.RW_curseBurn = (BuffIndex)R2API.ItemAPI.AddCustomBuff( new R2API.CustomBuff( wispFireDebuff.name, wispFireDebuff ) );
             this.RW_flameChargeBuff = (BuffIndex)R2API.ItemAPI.AddCustomBuff( new R2API.CustomBuff( wispRestoreBuff.name, wispRestoreBuff ) );
             this.RW_armorBuff = (BuffIndex)R2API.ItemAPI.AddCustomBuff( new R2API.CustomBuff( wispArmorBuff.name, wispArmorBuff ) );
+        }
+
+        private static BuffIndex AddNewBuff( BuffDef b )
+        {
+            BuffDef[] buffs = typeof(BuffCatalog).GetFieldValue<BuffDef[]>("buffDefs");
+            Dictionary<String, BuffIndex> name2Buff = typeof(BuffCatalog).GetFieldValue<Dictionary<String, BuffIndex>>("nameToBuffIndex");
+
+            Int32 ogNum = BuffCatalog.buffCount;
+
+            typeof( BuffCatalog ).SetPropertyValue<Int32>( "buffCount", ogNum + 1 );
+            Array.Resize<BuffDef>( ref buffs, ogNum + 1 );
+
+            buffs[ogNum] = b;
+            name2Buff[b.name] = (BuffIndex)ogNum;
+
+            typeof( BuffCatalog ).SetFieldValue<BuffDef[]>( "buffDefs", buffs );
+            typeof( BuffCatalog ).SetFieldValue<Dictionary<String, BuffIndex>>( "nameToBuffIndex", name2Buff );
+            return name2Buff[b.name];
         }
     }
 

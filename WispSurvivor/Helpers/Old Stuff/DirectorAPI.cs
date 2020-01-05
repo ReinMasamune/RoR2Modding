@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
+/*
 namespace RoR2Plugin.OldStuff
 {
     public abstract partial class RoR2Plugin
@@ -63,3 +64,4 @@ namespace RoR2Plugin.OldStuff
         }
     }
 }
+*/
