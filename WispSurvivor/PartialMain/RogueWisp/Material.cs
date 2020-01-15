@@ -12,6 +12,7 @@ using RogueWispPlugin.Modules;
 
 namespace RogueWispPlugin
 {
+#if ROGUEWISP
     internal partial class Main
     {
         internal static Gradient[] fireGradients = new Gradient[8];
@@ -51,6 +52,8 @@ namespace RogueWispPlugin
             for( Int32 i = 0; i < baseMats.Length; i++ )
             {
                 tempMat = baseMats[i];
+
+                //RoR2Plugin.Main.MiscHelpers.DebugMaterialInfo( tempMat );
 
                 for( Int32 j = 0; j < 8; j++ )
                 {
@@ -628,5 +631,5 @@ namespace RogueWispPlugin
             return mats;
         }
     }
-
+#endif
 }

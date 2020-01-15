@@ -12,6 +12,7 @@ using RogueWispPlugin.Modules;
 
 namespace RogueWispPlugin
 {
+#if ANCIENTWISP
     internal partial class Main
     {
         partial void AW_Hook()
@@ -19,5 +20,5 @@ namespace RogueWispPlugin
 
         }
     }
-
+#endif
 }

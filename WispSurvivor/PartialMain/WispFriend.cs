@@ -12,6 +12,7 @@ using RogueWispPlugin.Modules;
 
 namespace RogueWispPlugin
 {
+#if WISPITEM
     internal partial class Main
     {
         partial void CreateWispFriend()
@@ -19,5 +20,5 @@ namespace RogueWispPlugin
 
         }
     }
-
+#endif
 }

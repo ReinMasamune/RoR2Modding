@@ -29,9 +29,6 @@
     <Reference Include="Facepunch.Steamworks">
       <HintPath>..\libs\Facepunch.Steamworks.dll</HintPath>
     </Reference>
-    <Reference Include="KdTreeLib">
-      <HintPath>..\libs\KdTreeLib.dll</HintPath>
-    </Reference>
     <Reference Include="MMHOOK_Assembly-CSharp">
       <HintPath>..\libs\MMHOOK_Assembly-CSharp.dll</HintPath>
     </Reference>

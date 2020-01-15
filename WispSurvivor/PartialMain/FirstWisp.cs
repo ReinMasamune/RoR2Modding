@@ -12,6 +12,7 @@ using RogueWispPlugin.Modules;
 
 namespace RogueWispPlugin
 {
+#if FIRSTWISP
     internal partial class Main
     {
         partial void CreateFirstWisp()
@@ -19,5 +20,5 @@ namespace RogueWispPlugin
 
         }
     }
-
+#endif
 }

@@ -12,6 +12,7 @@ using RogueWispPlugin.Modules;
 
 namespace RogueWispPlugin
 {
+#if ROGUEWISP
     internal partial class Main
     {
         partial void RW_Orb()
@@ -28,5 +29,5 @@ namespace RogueWispPlugin
             R2API.OrbAPI.AddOrb( typeof( IgnitionOrb ) );
         }
     }
-
+#endif
 }

@@ -1,4 +1,4 @@
-﻿#define REIN
+﻿
 namespace AlternativeArtificer
 {
     using BepInEx;
@@ -11,15 +11,32 @@ namespace AlternativeArtificer
     using AlternateArtificer.SelectablePassive;
     using AlternativeArtificer.States.Main;
 
-    [R2APISubmoduleDependency(nameof(EntityAPI),nameof(ItemAPI),nameof(SkillAPI),nameof(SkinAPI),nameof(AssetPlus),nameof(EffectAPI),nameof(PrefabAPI))]
+    [R2APISubmoduleDependency(nameof(ItemAPI),nameof(AssetPlus),nameof(EffectAPI),nameof(PrefabAPI),nameof(LoadoutAPI))]
     [BepInDependency( "com.bepis.r2api" )]
-    [BepInIncompatibility( "com.PallesenProductions.VanillaTweaks" )]
     [BepInIncompatibility( "com.examplemodder.ArtificerRangeTeleport" )]
     [BepInIncompatibility( "com.examplemodder.ArtificerToggleHover" )]
     [BepInIncompatibility( "com.bongopd.ArtGlassCannon"  )]
     [BepInIncompatibility( "com.ThunderDownUnder.SolidIcewall" )]
     [BepInIncompatibility( "com.Raus.IonUtility")]
-    [BepInPlugin( "com.ReinThings.AltArti", "Rein-AlternativeArtificer", "1.0.2" )]
+    [BepInIncompatibility( "com.PallesenProductions.ExpandedSkins" )]
+    [BepInIncompatibility( "com.PallesenProductions.ExpandedSkins.1.0.0" )]
+    [BepInIncompatibility( "com.PallesenProductions.ExpandedSkins.1.0.1" )]
+    [BepInIncompatibility( "com.PallesenProductions.ExpandedSkins.1.0.2" )]
+    [BepInIncompatibility( "com.PallesenProductions.ExpandedSkins.1.0.3" )]
+    [BepInIncompatibility( "com.PallesenProductions.ExpandedSkins.1.1.0" )]
+    [BepInIncompatibility( "com.PallesenProductions.ExpandedSkins.1.1.1" )]
+    [BepInIncompatibility( "com.PallesenProductions.ExpandedSkins.1.1.2" )]
+    [BepInIncompatibility( "com.PallesenProductions.ExpandedSkins.1.1.3" )]
+    [BepInIncompatibility( "com.PallesenProductions.ExpandedSkins.1.2.0" )]
+    [BepInIncompatibility( "com.PallesenProductions.ExpandedSkins.1.2.1" )]
+    [BepInIncompatibility( "com.PallesenProductions.ExpandedSkins.1.2.2" )]
+    [BepInIncompatibility( "com.PallesenProductions.ExpandedSkins.1.2.3" )]
+    [BepInIncompatibility( "com.PallesenProductions.ExpandedSkins.1.3.0" )]
+    [BepInIncompatibility( "com.PallesenProductions.ExpandedSkins.1.3.1" )]
+    [BepInIncompatibility( "com.PallesenProductions.ExpandedSkins.1.3.2" )]
+    [BepInIncompatibility( "com.PallesenProductions.ExpandedSkins.1.3.3" )]
+    [BepInIncompatibility( "com.PallesenProductions.ExpandedSkills" )]
+    [BepInPlugin( "com.ReinThings.AltArti", "Rein-AlternativeArtificer", "1.0.4" )]
     public partial class Main : BaseUnityPlugin
     {
         private GameObject artiBody;
@@ -63,24 +80,28 @@ namespace AlternativeArtificer
             base.Logger.LogInfo( "Loaded successfully" );
         }
 
-        private void Logger_LogEvent( System.Object sender, BepInEx.Logging.LogEventArgs e )
-        {
-            Debug.Log( e );
-        }
-
         private void OnEnable()
         {
             AddHooks();
-            base.Logger.LogInfo( "Enabled successfully" );
+            //base.Logger.LogInfo( "Enabled successfully" );
         }
         private void OnDisable()
         {
             RemoveHooks();
-            base.Logger.LogInfo( "Disabled successfully" );
+            //base.Logger.LogInfo( "Disabled successfully" );
         }
         private void FixedUpdate()
         {
             RoR2Application.isModded = true;
+        }
+
+        private void Start()
+        {
+            var nova = EntityStates.EntityState.Instantiate( new EntityStates.SerializableEntityStateType( typeof( EntityStates.Mage.Weapon.ChargeNovabomb ) ) );
+            var ice = EntityStates.EntityState.Instantiate( new EntityStates.SerializableEntityStateType( typeof( EntityStates.Mage.Weapon.ChargeIcebomb ) ) );
+
+            UnityEngine.Object.Destroy( ((EntityStates.Mage.Weapon.ChargeNovabomb)nova).chargeEffectPrefab.GetComponent<EffectComponent>() );
+            UnityEngine.Object.Destroy( ((EntityStates.Mage.Weapon.ChargeNovabomb)ice).chargeEffectPrefab.GetComponent<EffectComponent>() );
         }
     }
 }

@@ -12,6 +12,7 @@ using RogueWispPlugin.Modules;
 
 namespace RogueWispPlugin
 {
+#if ROGUEWISP
     internal partial class Main
     {
         partial void RW_SetupIDRS()
@@ -30,5 +31,5 @@ namespace RogueWispPlugin
             this.RW_body.GetComponent<ModelLocator>().modelTransform.GetComponent<CharacterModel>().itemDisplayRuleSet = refidrs;
         }
     }
-
+#endif
 }

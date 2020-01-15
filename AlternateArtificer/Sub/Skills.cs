@@ -107,14 +107,17 @@
                 var renderInfos = model.baseRendererInfos;
                 if( renderInfos.Length == 10 )
                 {
-                    ((SkinnedMeshRenderer)model.baseRendererInfos[9].renderer).sharedMesh = this.artiDefaultMesh;
+                    try
+                    {
+                        ((SkinnedMeshRenderer)model.baseRendererInfos[9].renderer).sharedMesh = this.artiDefaultMesh;
+                    } catch { }
                     model.baseRendererInfos[2].renderer.gameObject.SetActive( true );
                     model.baseRendererInfos[3].renderer.gameObject.SetActive( true );
                     model.baseRendererInfos[5].renderer.gameObject.SetActive( true );
                     model.baseRendererInfos[6].renderer.gameObject.SetActive( true );
                 } else
                 {
-                    ((SkinnedMeshRenderer)model.baseRendererInfos[3].renderer).sharedMesh = this.artiChangedMesh;
+                    ((SkinnedMeshRenderer)model.baseRendererInfos[3].renderer).sharedMesh = this.artiDefaultMesh;
                     model.baseRendererInfos[0].renderer.gameObject.SetActive( true );
                     model.baseRendererInfos[1].renderer.gameObject.SetActive( true );
                 }
@@ -136,9 +139,9 @@
                 }
             };
 
-            SkillAPI.AddSkillDef( envSuit );
-            SkillAPI.AddSkillDef( elementalIntensity );
-            SkillAPI.AddSkillFamily( passiveFamily );
+            LoadoutAPI.AddSkillDef( envSuit );
+            LoadoutAPI.AddSkillDef( elementalIntensity );
+            LoadoutAPI.AddSkillFamily( passiveFamily );
 
             addedSkills.Add( envSuit );
             addedSkills.Add( elementalIntensity );
@@ -156,8 +159,8 @@
 
         private void RegisterSkillTypes()
         {
-            SkillAPI.AddSkill( typeof( States.Special.IonSurge ) );
-            SkillAPI.AddSkill( typeof( States.Main.AltArtiPassive ) );
+            LoadoutAPI.AddSkill( typeof( States.Special.IonSurge ) );
+            LoadoutAPI.AddSkill( typeof( States.Main.AltArtiPassive ) );
         }
 
         private void SetupStateMachines()

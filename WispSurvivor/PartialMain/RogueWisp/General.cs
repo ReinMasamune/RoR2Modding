@@ -8,14 +8,14 @@ using System.Reflection;
 using UnityEngine;
 using RogueWispPlugin.Helpers;
 using RogueWispPlugin.Modules;
+using R2API;
 //using static RogueWispPlugin.Helpers.APIInterface;
 
 namespace RogueWispPlugin
 {
+#if ROGUEWISP
     internal partial class Main
     {
-
-
         partial void RW_General()
         {
             this.Load += this.RW_LoadAssetBundle;
@@ -58,6 +58,8 @@ namespace RogueWispPlugin
             CharacterNetworkTransform bodyNetTrans = this.RW_body.GetComponent<CharacterNetworkTransform>();
             bodyNetTrans.positionTransmitInterval = 0.05f;
             bodyNetTrans.interpolationFactor = 3f;
+
+            this.RW_body.tag = "Finish";
         }
 
         private void RW_GetBody()
@@ -72,6 +74,7 @@ namespace RogueWispPlugin
                 descriptionToken = "WISP_SURVIVOR_BODY_DESC",
                 displayPrefab = display,
                 primaryColor = new Color(0.7f, 0.2f, 0.9f),
+                
             };
 
             R2API.SurvivorAPI.AddSurvivor( bodySurvivorDef );
@@ -84,5 +87,5 @@ namespace RogueWispPlugin
             this.RW_assetBundle = AssetBundle.LoadFromStream(stream);
         }
     }
-
+#endif
 }

@@ -9,9 +9,12 @@ using UnityEngine;
 using RogueWispPlugin.Helpers;
 using RogueWispPlugin.Modules;
 //using static RogueWispPlugin.Helpers.APIInterface;
+using R2API;
+using static R2API.PrefabAPI;
 
 namespace RogueWispPlugin
 {
+#if ROGUEWISP
     internal partial class Main
     {
         partial void RW_Body()
@@ -86,5 +89,5 @@ namespace RogueWispPlugin
             return g;
         }
     }
-
+#endif
 }

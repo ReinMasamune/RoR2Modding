@@ -8,15 +8,15 @@ using System.Reflection;
 using UnityEngine;
 using RogueWispPlugin.Helpers;
 using RogueWispPlugin.Modules;
+using System.Runtime.CompilerServices;
+using System.Diagnostics;
+using System.Xml;
 
 namespace RogueWispPlugin
 {
     [R2APISubmoduleDependency( 
         nameof( R2API.SurvivorAPI ), 
         nameof( R2API.EffectAPI ), 
-        nameof( R2API.SkillAPI ), 
-        nameof( R2API.SkinAPI ), 
-        nameof( R2API.EntityAPI ), 
         nameof( R2API.PrefabAPI ),
         nameof( R2API.LoadoutAPI ),
         nameof( R2API.OrbAPI ),
@@ -24,32 +24,23 @@ namespace RogueWispPlugin
         nameof( R2API.DirectorAPI ),
         nameof( R2API.AssetPlus.AssetPlus )
     )]
-
-    [BepInDependency( "com.bepis.r2api" )]
-    [BepInPlugin( "com.ReinThings.RogueWisp", "Rein-RogueWisp", "1.3.3" )]
-    [BepInIncompatibility( "com.PallesenProductions.ExpandedSkins" )]
-    [BepInIncompatibility( "com.PallesenProductions.ExpandedSkins.1.0.0" )]
-    [BepInIncompatibility( "com.PallesenProductions.ExpandedSkins.1.0.1" )]
-    [BepInIncompatibility( "com.PallesenProductions.ExpandedSkins.1.0.2" )]
-    [BepInIncompatibility( "com.PallesenProductions.ExpandedSkins.1.0.3" )]
-    [BepInIncompatibility( "com.PallesenProductions.ExpandedSkins.1.1.0" )]
-    [BepInIncompatibility( "com.PallesenProductions.ExpandedSkins.1.1.1" )]
-    [BepInIncompatibility( "com.PallesenProductions.ExpandedSkins.1.1.2" )]
-    [BepInIncompatibility( "com.PallesenProductions.ExpandedSkins.1.1.3" )]
-    [BepInIncompatibility( "com.PallesenProductions.ExpandedSkins.1.2.0" )]
-    [BepInIncompatibility( "com.PallesenProductions.ExpandedSkins.1.2.1" )]
-    [BepInIncompatibility( "com.PallesenProductions.ExpandedSkins.1.2.2" )]
-    [BepInIncompatibility( "com.PallesenProductions.ExpandedSkins.1.2.3" )]
-    [BepInIncompatibility( "com.PallesenProductions.ExpandedSkins.1.3.0" )]
-    [BepInIncompatibility( "com.PallesenProductions.ExpandedSkins.1.3.1" )]
-    [BepInIncompatibility( "com.PallesenProductions.ExpandedSkins.1.3.2" )]
-    [BepInIncompatibility( "com.PallesenProductions.ExpandedSkins.1.3.3" )]
+#pragma warning disable CA2243 // Attribute string literals should parse correctly
+    [BepInDependency( R2API.R2API.PluginGUID, BepInDependency.DependencyFlags.HardDependency )]
+    [BepInPlugin( pluginGUID, pluginName, pluginVersion )]
+    [BepInIncompatibility( "com.PallesenProductions.ExpandedSkills" )]
+    [BepInIncompatibility( "com.PallesenProductions.RyanSkinAPI" )]
     [BepInIncompatibility( "com.PallesenProductions.VanillaTweaks" )]
+#pragma warning restore CA2243 // Attribute string literals should parse correctly
     internal partial class Main : BaseUnityPlugin
     {
+        const String pluginGUID = "com.Rein.RogueWisp";
+        const String pluginName = "Rogue Wisp";
+        const String pluginVersion = Consts.ver;
+
         public String thing1;
         public String thing2;
-        public String thing3;
+
+        private Stopwatch watch;
 
         internal static Main instance;
 
@@ -62,48 +53,137 @@ namespace RogueWispPlugin
         private event Action Tick;
         private event Action GUI;
 
+#if ROGUEWISP
         partial void CreateRogueWisp();
+#endif
+#if ANCIENTWISP
         partial void CreateAncientWisp();
-        partial void CreateFirstWisp();
+#endif
+#if ARCHAICWISP
         partial void CreateArchaicWisp();
+#endif
+#if FIRSTWISP
+        partial void CreateFirstWisp();
+#endif
+#if WISPITEM
         partial void CreateWispFriend();
+#endif
+#if STAGE
         partial void CreateStage();
-
+#endif
         public Main()
         {
             this.thing1 = "Note that everything in this codebase that can be used safely is already part of R2API.";
-            this.thing2 = "There is still plenty of code here that can easily brick saves if not used properly.";
-            this.thing3 = "Please, don't be the person who causes the <mods break saves> to start.";
+            this.thing2 = "If you're here to copy paste my code, fuck off and learn something on your own for once.";
             //this.thing2 = "If you are truly insistant on taking the lazy way out (Looking at you ravens) then screw you too I guess?";
             //this.thing3 = "I also no longer at all interested in answering any questions about my code or helping anyone in any way. If people are just going to copy paste anyway then they aren't worth my time.";
+
+#if TIMER
+            this.watch = new Stopwatch();
+            this.Load += this.AwakeTimeStart;
+            this.Enable += this.EnableTimeStart;
+            this.FirstFrame += this.StartTimeStart;
+#endif
+
+            foreach( KeyValuePair<String,PluginInfo> p in BepInEx.Bootstrap.Chainloader.PluginInfos )
+            {
+                if( !p.Value.Metadata.GUID.ToLower().StartsWith( "com.rein") && !(p.Value.Metadata.GUID == R2API.R2API.PluginGUID) )
+                {
+                    this.CheckCompat( p.Value.Metadata.GUID.ToLower() );
+                    //base.Logger.LogWarning( "Unverified compatibility with: " + p.Value.Metadata.Name + ", There may be unexpected interactions or unbalanced behaviour." );
+                }
+            }
 
             instance = this;
 
             this.Tick += () => RoR2Application.isModded = true;
 
+#if ROGUEWISP
             this.CreateRogueWisp();
+#endif
+#if ANCIENTWISP
             this.CreateAncientWisp();
+#endif
+#if ARCHAICWISP
+            this.CreateArchaicWisp;
+#endif
+#if FIRSTWISP
             this.CreateFirstWisp();
+#endif
+#if WISPITEM
             this.CreateWispFriend();
+#endif
+#if STAGE
             this.CreateStage();
+#endif
+
+            this.FirstFrame += this.Main_FirstFrame;
+
+#if TIMER
+            this.Load += this.AwakeTimeStop;
+            this.Enable += this.EnableTimeStop;
+            this.FirstFrame += this.StartTimeStop;
+#endif
         }
 
-        private void Awake() => this.Load?.Invoke();
-        private void Start() => this.FirstFrame?.Invoke();
-        private void OnEnable() => this.Enable?.Invoke();
-        private void OnDisable() => this.Disable?.Invoke();
-        private void Update() => this.Frame?.Invoke();
-        private void LateUpdate() => this.PostFrame?.Invoke();
-        private void FixedUpdate() => this.Tick?.Invoke();
-        private void OnGUI() => this.GUI?.Invoke();
+        private void Main_FirstFrame()
+        {
+            typeof( EffectCatalog ).InvokeMethod( "CCEffectsReload", new ConCommandArgs() );
+        }
+
+#pragma warning disable IDE0051 // Remove unused private members
+        public void Awake() => this.Load?.Invoke();
+        public void Start() => this.FirstFrame?.Invoke();
+        public void OnEnable() => this.Enable?.Invoke();
+        public void OnDisable() => this.Disable?.Invoke();
+        public void Update() => this.Frame?.Invoke();
+        public void LateUpdate() => this.PostFrame?.Invoke();
+        public void FixedUpdate() => this.Tick?.Invoke();
+        public void OnGUI() => this.GUI?.Invoke();
+#pragma warning restore IDE0051 // Remove unused private members
+
+#if TIMER
+        private void AwakeTimeStart()
+        {
+            this.watch.Restart();
+        }
+        private void AwakeTimeStop()
+        {
+            this.watch.Stop();
+            base.Logger.LogInfo( "Awake Time: " + this.watch.ElapsedMilliseconds );
+        }
+
+        private void EnableTimeStart()
+        {
+            this.watch.Restart();
+        }
+        private void EnableTimeStop()
+        {
+            this.watch.Stop();
+            base.Logger.LogInfo( "Enable Time: " + this.watch.ElapsedMilliseconds );
+        }
+        private void StartTimeStart()
+        {
+            this.watch.Restart();
+        }
+        private void StartTimeStop()
+        {
+            this.watch.Stop();
+            base.Logger.LogInfo( "Start Time: " + this.watch.ElapsedMilliseconds );
+        }
+#endif
+
+        private void CheckCompat( String s )
+        {
+
+        }
     }
-
-
 }
 
 //For next release:
 // Future plans and shit
 
+// TOD: IDRS not showing on server
 // TOD: Utility sounds (unsure what to do here)
 // TOD: Little Disciple and Will O Wisp color should change with skin
 // TOD: Body Animation smoothing params
@@ -128,13 +208,11 @@ namespace RogueWispPlugin
 // TOD: Secondary doing onhitglobal for all enemies hit and not at center
 // TOD: Meteor ignores wisp
 // TOD: Shield material vertex offset
-// TOD: Incinteration impact effects
+// TOD: Incineration impact effects
 // TOD: Redo other elite materials
 // TOD: Expanded skin selection (Set of plasma skins, hard white outline on flames like blighted currently has.
 // TOD: Explore networking potential from handleOverlapAttack
-// TOD: Blighted skin has a weird red tint on special
-
-
+// TOD: When hopoo adds projectile and effect skins, redo all vfx
 
 // ERRORS:
 /*

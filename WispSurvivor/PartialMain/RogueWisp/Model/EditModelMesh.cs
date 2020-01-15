@@ -12,6 +12,7 @@ using RogueWispPlugin.Modules;
 
 namespace RogueWispPlugin
 {
+#if ROGUEWISP
     internal partial class Main
     {
         partial void RW_EditModelMesh()
@@ -38,5 +39,5 @@ namespace RogueWispPlugin
             m.uv = newUvs;
         }
     }
-
+#endif
 }

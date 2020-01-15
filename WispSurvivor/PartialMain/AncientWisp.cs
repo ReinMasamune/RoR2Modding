@@ -12,10 +12,12 @@ using RogueWispPlugin.Modules;
 
 namespace RogueWispPlugin
 {
+#if ANCIENTWISP
     internal partial class Main
     {
         private GameObject AW_body;
         private GameObject AW_master;
+        private GameObject AW_primaryProj;
 
         partial void AW_Test();
         partial void AW_General();
@@ -28,5 +30,5 @@ namespace RogueWispPlugin
             this.AW_Hook();
         }
     }
-
+#endif
 }

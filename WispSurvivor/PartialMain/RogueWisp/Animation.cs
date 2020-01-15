@@ -12,6 +12,7 @@ using RogueWispPlugin.Modules;
 
 namespace RogueWispPlugin
 {
+#if ROGUEWISP
     internal partial class Main
     {
         partial void RW_Animation()
@@ -88,5 +89,5 @@ namespace RogueWispPlugin
             ovac.ApplyOverrides( replacedAnimations );
         }
     }
-
+#endif
 }

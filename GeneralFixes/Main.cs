@@ -10,181 +10,114 @@ using MonoMod.Cil;
 using System;
 using System.Reflection;
 using EntityStates;
+using RoR2.Skills;
 
 namespace ReinGeneralFixes
 {
-    [R2APISubmoduleDependency(nameof(AssetAPI),
-        nameof(DifficultyAPI),
-        nameof(DirectorAPI),
-        nameof(EffectAPI),
-        nameof(EntityAPI),
-        nameof(InventoryAPI),
-        nameof(ItemAPI),
-        nameof(ItemDropAPI),
-        nameof(LoadoutAPI),
-        nameof(LobbyConfigAPI),
-        nameof(OrbAPI),
-        nameof(PlayerAPI),
-        nameof(PrefabAPI),
-        nameof(SkillAPI),
-        nameof(SkinAPI),
-        nameof(SurvivorAPI),
-        nameof(R2API.AssetPlus.AssetPlus))]
     [BepInDependency("com.bepis.r2api")]
-    [BepInPlugin("com.ReinThings.ReinGeneralBugfixes", "ReinGeneralBugfixes", "1.0.1")]
-    public class ReinGeneralFixesMain : BaseUnityPlugin
+    [BepInPlugin("com.Rein.GeneralBalance", "General Balance + Fixes", "1.0.0")]
+    internal partial class Main : BaseUnityPlugin
     {
+        internal Single gestureBreakChance = 0.1f;
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+        private event Action Load;
+        private event Action Enable;
+        private event Action Disable;
+        private event Action FirstFrame;
+        private event Action Frame;
+        private event Action PostFrame;
+        private event Action Tick;
+        private event Action GUI;
+
+        partial void DisableOPItems();
+        partial void DisableUPItems();
+
+        partial void EditCommandoCDs();
+        partial void EditCommandoRoll();
+
+        partial void EditVisionsCrosshair();
+
+
+        partial void FixOSP();
+        partial void FixGesture();
+        partial void FixTesla();
+        partial void FixRazorWire();
+        partial void FixResDisk();
+
+
+        private Main()
+        {
+            this.DisableOPItems();
+            this.DisableUPItems();
+
+
+            this.EditCommandoCDs();
+            this.EditCommandoRoll();
+
+            this.EditVisionsCrosshair();
+
+            this.FixOSP();
+
+            this.FixGesture();
+            this.FixTesla();
+            this.FixRazorWire();
+            this.FixResDisk();
+        }
+
+#pragma warning disable IDE0051 // Remove unused private members
+        private void Awake() => this.Load?.Invoke();
+        private void Start() => this.FirstFrame?.Invoke();
+        private void OnEnable() => this.Enable?.Invoke();
+        private void OnDisable() => this.Disable?.Invoke();
+        private void Update() => this.Frame?.Invoke();
+        private void LateUpdate() => this.PostFrame?.Invoke();
+        private void FixedUpdate() => this.Tick?.Invoke();
+        private void OnGUI() => this.GUI?.Invoke();
+#pragma warning restore IDE0051 // Remove unused private members
     }
 }
-
-//Old stuff
 /*
-        Dictionary<int, CharacterBody> dict1 = new Dictionary<int, CharacterBody>();
-        Dictionary<int, CharacterBody> dict2 = new Dictionary<int, CharacterBody>();
+Changelist:
+Commando Phase round 2s cooldown, phase blast 3s cooldown
+Commando dodge roll now counts as sprinting
+// TODO: Commando roll nosprint false
+// TODO: Commando roll movespeed mult down
+
+OSP now is applied after shields and barrier.
+OSP can now no longer block more than 180% of your max health in damage from any single hit.
+
+// TODO: Disable OP items
+// TODO: Disable UP items
+
+
+Gesture now has chance of breaking equipment on use.
+Gesture now reduces cooldown by 50% per stack.
+
+Visions now gives huntress and mercenary commandos crosshair to make aiming possible.
 
 
 
 
-On.RoR2.Loadout.BodyLoadoutManager.BodyLoadout.IsSkillVariantLocked += (orig, self, i, prof) =>
-            {
-                if (!self.InvokeMethod<bool>("IsSkillVariantValid", i))
-                {
-                    return true;
-                }
-                return orig(self, i, prof);
-            };
-
-            On.RoR2.Loadout.BodyLoadoutManager.BodyLoadout.IsSkinLocked += (orig, self, prof) =>
-            {
-                if (!self.InvokeMethod<bool>("IsSkinValid"))
-                {
-                    return true;
-                }
-                return orig(self, prof);
-            };
 
 
 
-            IL.RoR2.GlobalEventManager.OnHitEnemy += (il) =>
-            {
-                ILCursor c = new ILCursor(il);
-                c.GotoNext(MoveType.Before,
-                    x => x.MatchLdfld<DamageInfo>("damageType"),
-                    x => x.MatchLdcI4(0x80),
-                    x => x.MatchAnd(),
-                    x => x.MatchLdcI4(0)
-                );
-                c.RemoveRange(33);
-                c.Emit(OpCodes.Ldarg_2);
-                c.EmitDelegate<Action<DamageInfo,GameObject>>( (di,vic) =>
-                {  
-                    if( (di.damageType & DamageType.IgniteOnHit ) > DamageType.Generic )
-                    {
-                        DotController.InflictDot(vic, di.attacker, DotController.DotIndex.Burn, 4f * di.procCoefficient, 1f);
-                    }
-
-                    if ((di.damageType & DamageType.PercentIgniteOnHit) > DamageType.Generic)
-                    {
-                        DotController.InflictDot(vic, di.attacker, DotController.DotIndex.PercentBurn, 4f * di.procCoefficient, 1f);
-                    }
-
-                    if (di.attacker.GetComponent<CharacterBody>().HasBuff(BuffIndex.AffixRed) )
-                    {
-                        DotController.InflictDot(vic, di.attacker, DotController.DotIndex.PercentBurn, 4f * di.procCoefficient, 1f);
-                    }
-                    
-                });
-            };
-
-            On.RoR2.Inventory.CopyItemsFrom += (orig, self, copyFrom) =>
-            {
-                self.CopyEquipmentFrom(copyFrom);
-                orig(self, copyFrom);
-            };
-
-            On.EntityStates.EngiTurret.EngiTurretWeapon.FireBeam.OnEnter += (orig, self) =>
-            {
-                orig(self);
-                var prop = self.GetType().GetProperty("characterBody", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.FlattenHierarchy);
-                dict2.Add(self.GetFieldValue<Transform>("modelTransform").GetInstanceID(), (CharacterBody)prop.GetValue(self));
-            };
 
 
-            
-            On.EntityStates.EngiTurret.EngiTurretWeapon.FireBeam.FixedUpdate += (orig, self) =>
-            {
-                float timer = self.GetFieldValue<float>("fireTimer");
-                float attackSpeedBonus = dict2[self.GetFieldValue<Transform>("modelTransform").GetInstanceID()].attackSpeed - 1.0f;
-                timer += Time.fixedDeltaTime * attackSpeedBonus;
-                self.SetFieldValue<float>("fireTimer", timer);
-                orig(self);
-            };
-
-            On.EntityStates.EngiTurret.EngiTurretWeapon.FireBeam.OnExit += (orig, self) =>
-            {
-                dict2.Remove(self.GetFieldValue<Transform>("modelTransform").GetInstanceID());
-                orig(self);
-            };
 
 
-On.EntityStates.Mage.Weapon.Flamethrower.OnEnter += (orig, self) =>
-            {
-                orig(self);
-var prop = self.GetType().GetProperty("characterBody", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.FlattenHierarchy);
-dict1.Add(self.GetFieldValue<ChildLocator>("childLocator").GetInstanceID(), (CharacterBody) prop.GetValue(self));
-            };
-
-            On.EntityStates.Mage.Weapon.Flamethrower.FixedUpdate += (orig, self) =>
-            {
-                bool doThings = self.GetFieldValue<bool>("hasBegunFlamethrower");
-                if(doThings )
-                {
-                    float attackSpeedBonus = dict1[self.GetFieldValue<ChildLocator>("childLocator").GetInstanceID()].attackSpeed - 1.0f;
-float timer = self.GetFieldValue<float>("flamethrowerStopwatch");
-timer += Time.fixedDeltaTime* attackSpeedBonus;
-self.SetFieldValue<float>("flamethrowerStopwatch", timer);
-                }
-                orig(self);
-            };
-
-            On.EntityStates.Mage.Weapon.Flamethrower.OnExit += (orig, self) =>
-            {
-                dict1.Remove(self.GetFieldValue<ChildLocator>("childLocator").GetInstanceID());
-                orig(self);
-            };
-
-            On.EntityStates.Commando.CommandoWeapon.FireGrenade.OnEnter += (orig, self) =>
-            {
-                orig(self);
-            };
-
-            
-            On.RoR2.CharacterBody.RecalculateStats += (orig, self) =>
-            {
-                float level = self.level;
-int hoofCount = 0;
-int drinkCount = 0;
-int whipCount = 0;
-int tonicAffCount = 0;
-                if(self.inventory )
-                {
-                    hoofCount = self.inventory.GetItemCount(ItemIndex.Hoof);
-                    drinkCount = self.inventory.GetItemCount(ItemIndex.SprintBonus);
-                    whipCount = self.inventory.GetItemCount(ItemIndex.SprintOutOfCombat);
-                    tonicAffCount = self.inventory.GetItemCount(ItemIndex.TonicAffliction);
-                    level += self.inventory.GetItemCount(ItemIndex.LevelBonus);
-                }
-            };
-            
-            
-            On.RoR2.HealthComponent.RepeatHealComponent.AddReserve += (orig, self, amount, max) =>
-            {
-                max *= 1000f;
-                orig(self, amount, max);
-            };
 
 
-            
-        }
 */

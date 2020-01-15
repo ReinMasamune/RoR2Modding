@@ -12,6 +12,7 @@ using RogueWispPlugin.Modules;
 
 namespace RogueWispPlugin
 {
+#if ROGUEWISP
     internal partial class Main
     {
         // TEMP
@@ -36,6 +37,7 @@ namespace RogueWispPlugin
         partial void RW_Buff();
         partial void RW_Info();
 
+
         partial void CreateRogueWisp()
         {
             this.RW_General();
@@ -54,5 +56,5 @@ namespace RogueWispPlugin
             this.RW_Info();
         }
     }
-
+#endif
 }

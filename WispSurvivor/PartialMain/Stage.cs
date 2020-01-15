@@ -12,6 +12,7 @@ using RogueWispPlugin.Modules;
 
 namespace RogueWispPlugin
 {
+#if STAGE
     internal partial class Main
     {
         partial void CreateStage()
@@ -19,5 +20,5 @@ namespace RogueWispPlugin
 
         }
     }
-
+#endif
 }

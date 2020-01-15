@@ -138,7 +138,7 @@
             //newMaterial.SetInt( "_RampInfo", 4 );
 
 
-            newMaterial.SetFloat( "_EmPower", 5f );
+            newMaterial.SetFloat( "_EmPower", 10f );
             newMaterial.SetFloat( "_PrintBias", 0.32f );
             newMaterial.SetFloat( "_PrintBoost", 3.85f );
             //newMaterial.SetFloat( "_SliceHeight", 0.6f );
@@ -154,18 +154,20 @@
             rendererInfos[1].defaultMaterial = newMaterial;
             var spriteTex = baseSkin.icon.texture;
 
-            SkinAPI.SkinDefInfo newSkinInfo = new SkinAPI.SkinDefInfo
+            LoadoutAPI.SkinDefInfo newSkinInfo = new LoadoutAPI.SkinDefInfo
             {
                 baseSkins = masterySkin.baseSkins,
-                icon = CreateSkinIcon( new Color( 1f, 0f, 0f ), new Color( 0f, 1f, 0f ), new Color( 0f, 0f, 1f ), new Color( 0f, 0f, 0f ), new Color( 0.9f, 0.9f, 0.9f ) ),
+                icon = CreateSkinIcon( new Color( 0.4f, 0.4f, 0.4f ), new Color( 0.9f, 0.9f, 0.9f ), new Color( 0.2f, 0.2f, 0.2f ), new Color( 0.2f, 0.4f, 1f ), new Color( 0.4f, 0.4f, 0.4f ) ),
                 name = "NAME",
                 nameToken = "REIN_ALTARTI_ALTMASTERYSKIN_NAME",
                 rootObject = baseSkin.rootObject,
                 unlockableName = masterySkin.unlockableName,
-                rendererInfos = rendererInfos
+                rendererInfos = rendererInfos,
+                gameObjectActivations = Array.Empty<SkinDef.GameObjectActivation>(),
+                meshReplacements = Array.Empty<SkinDef.MeshReplacement>()
             };
 
-            SkinDef newSkin = SkinAPI.CreateNewSkinDef( newSkinInfo );
+            SkinDef newSkin = LoadoutAPI.CreateNewSkinDef( newSkinInfo );
 
             var skinsArray = skins.skins;
             Array.Resize<SkinDef>( ref skinsArray, skinsArray.Length + 1 );
@@ -431,7 +433,7 @@
             public void Execute( Int32 index )
             {
                 Int32 x = (index % 128) - 64;
-                Int32 y = Mathf.FloorToInt( index / 128 ) - 64;
+                Int32 y = ( index / 128 ) - 64;
                 if( Math.Abs(Math.Abs(y) - Math.Abs(x)) <= 2 )
                 {
                     this.texOutput[index] = this.cross;
@@ -473,17 +475,17 @@
 
             DrawBlock( texArray, new Color( 0.2f, 0.2f, 0.2f, 1.0f ), new RectInt( 0, 0, 512, 512 ), texSize ).Complete();  //Base
             DrawBlock( texArray2, Color.clear, new RectInt( 0, 0, 512, 512 ), texSize2 ).Complete();
-            DrawBlock( texArray, new Color( 0.015f, 0.026f, 0.04f, 0.0f ), new RectInt( 56, 0, 54, 219 ), texSize ).Complete();   //head and gauntlets
+            DrawBlock( texArray, new Color( 0.08f, 0.08f, 0.1f, 0.0f ), new RectInt( 56, 0, 54, 219 ), texSize ).Complete();   //head and gauntlets
             DrawBlock( texArray, new Color( 1.0f, 1.0f, 1.0f, 0.0f ), new RectInt( 0, 485, 400, 27 ), texSize ).Complete(); //Front side gauntlets
             DrawBlock( texArray2, new Color( 0.0f, 0.0f, 10.0f, 1.0f ), new RectInt( 0, 485, 400, 27 ), texSize2 ).Complete();
 
-            DrawBlock( texArray, new Color( 0.1f, 0.1f, 0.1f, 1f ), new RectInt( 0, 0, 56, 55 ), texSize ).Complete();    //Stripe things?
-            DrawBlock( texArray, new Color( 0.05f, 0.05f, 0.05f, 1.0f ), new RectInt( 0, 55, 56, 55 ), texSize ).Complete();
+            DrawBlock( texArray, new Color( 0.15f, 0.15f, 0.15f, 1f ), new RectInt( 0, 0, 56, 55 ), texSize ).Complete();    //Chestplate
+            DrawBlock( texArray, new Color( 0.075f, 0.075f, 0.075f, 1.0f ), new RectInt( 0, 55, 56, 55 ), texSize ).Complete();
             DrawBlock( texArray, new Color( 0.1f, 0.1f, 0.1f, 1.0f ), new RectInt( 0, 110, 56, 55 ), texSize ).Complete(); //Misc trim
             DrawBlock( texArray, new Color( 0.7f, 0.7f, 0.7f, 1.0f ), new RectInt( 0, 165, 56, 55 ), texSize ).Complete();  // body/skin1
             DrawBlock( texArray, new Color( 0.8f, 0.8f, 0.8f, 1.0f ), new RectInt( 0, 220, 56, 55 ), texSize ).Complete();  // body/skin2
             DrawBlock( texArray, new Color( 0f, 0f, 10f, 1f ), new RectInt( 170, 0, 171, 164 ), texSize ).Complete(); //Metal trim stuff
-            DrawBlock( texArray2, new Color( 0f, 0f, 10f, 1f ), new RectInt( 170, 0, 171, 164 ), texSize2 ).Complete();
+            DrawBlock( texArray2, new Color( 0f, 0f, 15f, 1f ), new RectInt( 170, 0, 171, 164 ), texSize2 ).Complete();
             DrawBlock( texArray, Color.black, new RectInt( 504, 0, 8, 512 ), texSize ).Complete();
             DrawBlock( texArray, Color.black, new RectInt( 482, 0, 15, 137 ), texSize ).Complete();
             DrawBlock( texArray, Color.black, new RectInt( 485, 137, 12, 305 ), texSize ).Complete();

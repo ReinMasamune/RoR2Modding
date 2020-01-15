@@ -10,14 +10,112 @@ using System;
 
 namespace ReinSniperRework
 {
-    [R2APISubmoduleDependency(nameof(R2API.SurvivorAPI), nameof( EntityAPI))]
+    [R2APISubmoduleDependency(
+        nameof( R2API.SurvivorAPI ),
+        nameof( R2API.EffectAPI ),
+        nameof( R2API.PrefabAPI ),
+        nameof( R2API.LoadoutAPI ),
+        nameof( R2API.OrbAPI ),
+        nameof( R2API.ItemAPI ),
+        nameof( R2API.AssetPlus.AssetPlus )
+    )]
     [BepInDependency("com.bepis.r2api")]
-    [BepInPlugin("com.ReinThings.ReinSniperRework", "ReinSniperRework", "1.0.9")]
-    public class ReinSniperReworkMain : BaseUnityPlugin
+    [BepInPlugin("com.ReinThings.ReinSniperRework", "ReinSniperRework", "2.0.0")]
+    internal partial class Main : BaseUnityPlugin
     {
+        private event Action Load;
+        private event Action FirstFrame;
+        private event Action Enable;
+        private event Action Disable;
+        private event Action Frame;
+        private event Action PostFrame;
+        private event Action Tick;
+        private event Action GUI;
 
+        internal static Main instance;
+
+        private Boolean borkedAF = false;
+        private Action borkedAction = () =>
+        {
+            Main.instance.Logger.LogError( "Sniper is borked AF" );
+        };
+
+        private DamageType resetOnKill = (DamageType)262144u;
+        private BuffIndex resetDebuff;
+        private Single resetDebuffTime = 3f;
+
+        private GameObject sniperBody;
+        private GameObject knifeProjectile;
+        private GameObject baseCrosshair;
+        private GameObject scopeCrosshair;
+
+        private Mesh sniperBodyMesh;
+        private Mesh sniperRifleMesh;
+        private Material sniperBodyMaterial;
+        private Material sniperRifleMaterial;
+        private Material sniperPistolMaterial;
+
+        partial void General();
+        partial void Hooks();
+        partial void CharacterBody();
+        partial void Skills();
+        partial void Materials();
+        partial void Mesh();
+        partial void Model();
+        partial void Animations();
+        partial void Effects();
+        partial void Projectiles();
+        partial void Buffs();
+        partial void Language();
+        partial void Test();
+
+        internal Main()
+        {
+            instance = this;
+            this.General();
+            this.Hooks();
+            this.CharacterBody();
+            this.Skills();
+            this.Materials();
+            this.Mesh();
+            this.Model();
+            this.Animations();
+            this.Effects();
+            this.Projectiles();
+            this.Buffs();
+            this.Language();
+
+            this.Test();
+        }
+
+        private void Awake() => (this.borkedAF ? this.borkedAction : this.Load)?.Invoke();
+        private void Start() => (this.borkedAF ? this.borkedAction : this.FirstFrame)?.Invoke();
+        private void OnEnable() => (this.borkedAF ? this.borkedAction : this.Enable)?.Invoke();
+        private void OnDisable() => (this.borkedAF ? this.borkedAction : this.Disable)?.Invoke();
+        private void Update() => (this.borkedAF ? this.borkedAction : this.Frame)?.Invoke();
+        private void LateUpdate() => (this.borkedAF ? this.borkedAction : this.PostFrame)?.Invoke();
+        private void FixedUpdate() => (this.borkedAF ? this.borkedAction : this.Tick)?.Invoke();
+        private void OnGUI() => (this.borkedAF ? this.borkedAction : this.GUI)?.Invoke();
+
+        internal static void LogI( object data )
+        {
+            instance.Logger.LogInfo( data );
+        }
+        internal static void LogW( object data )
+        {
+            instance.Logger.LogWarning( data );
+        }
+        internal static void LogE( object data )
+        {
+            instance.Logger.LogError( data );
+        }
+
+        // TODO: Shoot backflip
+
+        /*
         public void Awake()
         {
+            
             var execAssembly = Assembly.GetExecutingAssembly();
             var stream = execAssembly.GetManifestResourceStream("ReinSniperRework.sniperassetbundle");
             var sniperBundle = AssetBundle.LoadFromStream(stream);
@@ -174,14 +272,14 @@ namespace ReinSniperRework
             };
             R2API.SurvivorAPI.AddSurvivor(survivor);
             
-
+            
         }
 
         public void Start()
         {
-            SniperHeadshotHitboxStuff.AddHurtboxes();
+            //SniperHeadshotHitboxStuff.AddHurtboxes();
         }
-        
+        */
         
         
     }

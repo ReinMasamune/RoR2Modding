@@ -8,10 +8,12 @@ using System.Reflection;
 using UnityEngine;
 using RogueWispPlugin.Helpers;
 using RogueWispPlugin.Modules;
+using R2API;
 //using static RogueWispPlugin.Helpers.APIInterface;
 
 namespace RogueWispPlugin
 {
+#if ROGUEWISP
     internal partial class Main
     {
         private GameObject RW_crosshair;
@@ -26,5 +28,5 @@ namespace RogueWispPlugin
             this.RW_crosshair = baseUI;
         }
     }
-
+#endif
 }

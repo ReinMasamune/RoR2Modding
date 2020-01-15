@@ -17,7 +17,7 @@
 
         const Single stepHalt = 0.75f;
         const Single dashTime = 0.3f;
-        const Single speedConst = 0.4f;
+        const Single speedConst = 0.3f;
 
         private Int32 stepCounter = 0;
 
@@ -85,6 +85,14 @@
             {
                 base.characterBody.bodyFlags |= CharacterBody.BodyFlags.IgnoreFallDamage;
                 base.characterMotor.onHitGround += this.CharacterMotor_onHitGround;
+            }
+
+            for( Int32 i = 0; i < this.handles.Length; i++ )
+            {
+                if( this.handles[i] != null )
+                {
+                    this.handles[i].Fire( 0f, 0f );
+                }
             }
 
             base.OnExit();

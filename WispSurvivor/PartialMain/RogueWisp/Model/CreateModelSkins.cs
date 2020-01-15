@@ -8,10 +8,12 @@ using System.Reflection;
 using UnityEngine;
 using RogueWispPlugin.Helpers;
 using RogueWispPlugin.Modules;
+using R2API;
 //using static RogueWispPlugin.Helpers.APIInterface;
 
 namespace RogueWispPlugin
 {
+#if ROGUEWISP
     internal partial class Main
     {
         partial void RW_CreateModelSkins()
@@ -51,7 +53,6 @@ namespace RogueWispPlugin
                 {
                     rendererInfos[i][j] = CreateFlameRendererInfo( particles[j].renderer, Main.fireMaterials[i][0] );
                 }
-                // TODO: Array of armor mats should be reffed here and used
                 rendererInfos[i][particles.Length] = new CharacterModel.RendererInfo
                 {
                     renderer = armorRenderer,
@@ -75,10 +76,20 @@ namespace RogueWispPlugin
 
             for( Int32 i = 0; i < 8; i++ )
             {
+                var sprite = Resources.Load<Sprite>( "NotAPath" );
+                try
+                {
+                    sprite = LoadoutAPI.CreateSkinIcon( fireColors[i], Color.white, fireColors[i] * 0.5f, Color.black );
+                } catch
+                {
+                    base.Logger.LogError( "Please update to latest R2API, unable to create skin icons." );
+                    sprite = Resources.Load<Sprite>( "NotAPath" );
+                }
+
                 R2API.SkinAPI.SkinDefInfo skinInfo = new R2API.SkinAPI.SkinDefInfo
                 {
                     baseSkins = Array.Empty<SkinDef>(),
-                    icon = Resources.Load<Sprite>("NotAPath"),
+                    icon = sprite,
                     nameToken = skinNames[i],
                     name = skinNames[i],
                     unlockableName = "",
@@ -105,5 +116,5 @@ namespace RogueWispPlugin
         //public static CharacterModel.RendererInfo CreateRendererInfo( Renderer r, Material m, System.Boolean ignoreOverlays, UnityEngine.Rendering.ShadowCastingMode shadow ) => CreateRendererInfo( r, m, ignoreOverlays, shadow );
 
     }
-
+#endif
 }

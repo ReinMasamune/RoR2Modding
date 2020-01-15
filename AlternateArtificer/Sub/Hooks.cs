@@ -38,7 +38,7 @@
             On.EntityStates.Mage.Weapon.Flamethrower.OnExit += this.Flamethrower_OnExit;
             On.RoR2.HealthComponent.TakeDamage += this.HealthComponent_TakeDamage;
             GlobalEventManager.onCharacterDeathGlobal += this.GlobalEventManager_OnCharacterDeath;
-            On.RoR2.Loadout.BodyLoadoutManager.BodyLoadout.ToXml += this.BodyLoadout_ToXml;
+            //On.RoR2.Loadout.BodyLoadoutManager.BodyLoadout.ToXml += this.BodyLoadout_ToXml;
             IL.RoR2.UI.CharacterSelectController.OnNetworkUserLoadoutChanged += this.CharacterSelectController_OnNetworkUserLoadoutChanged;
         }
 

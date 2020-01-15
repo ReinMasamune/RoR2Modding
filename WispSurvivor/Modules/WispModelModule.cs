@@ -156,7 +156,6 @@ namespace RogueWispPlugin.Modules
                 {
                     rendererInfos[i][j] = CreateFlameRendererInfo( particles[j].renderer, Main.fireMaterials[i][matIndex] );
                 }
-                // TODO: Array of armor mats should be reffed here and used
                 rendererInfos[i][particles.Length] = new CharacterModel.RendererInfo
                 {
                     renderer = armorRenderer,

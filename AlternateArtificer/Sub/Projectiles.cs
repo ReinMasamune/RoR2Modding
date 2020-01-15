@@ -77,7 +77,7 @@
 
             var projSteering = proj.GetComponent<ProjectileSteerTowardTarget>();
             projSteering.enabled = true;
-            projSteering.rotationSpeed = 120f;
+            projSteering.rotationSpeed = 140f;
 
             var projStick = proj.GetComponent<ProjectileStickOnImpact>();
             //projStick.ignoreCharacters = false;
@@ -94,7 +94,7 @@
             projExpl.timerAfterImpact = true;
             projExpl.falloffModel = BlastAttack.FalloffModel.None;
             projExpl.lifetime = 10f;
-            projExpl.lifetimeAfterImpact = 2f;
+            projExpl.lifetimeAfterImpact = 1f;
             projExpl.lifetimeRandomOffset = 0f;
             projExpl.blastRadius = 1f;
             projExpl.blastDamageCoefficient = 1f;

@@ -8,9 +8,6 @@
     using System.Text;
     using UnityEngine;
 
-    /// <summary>
-    /// Note that none of the default SkillDef fields actually do anything in this scenario.
-    /// </summary>
     public class PassiveSkillDef : SkillDef
     {
         public struct StateMachineDefaults
@@ -53,7 +50,10 @@
 
         public override void OnUnassigned( [NotNull] GenericSkill skillSlot )
         {
-            this.applyVisuals?.Invoke( skillSlot.characterBody.modelLocator.modelTransform.GetComponent<CharacterModel>() );
+            if( skillSlot && skillSlot.characterBody && skillSlot.characterBody.modelLocator && skillSlot.characterBody.modelLocator.modelTransform )
+            {
+                this.applyVisuals?.Invoke( skillSlot.characterBody.modelLocator.modelTransform.GetComponent<CharacterModel>() );
+            }
 
             var stateMachines = skillSlot.GetComponents<EntityStateMachine>();
             foreach( StateMachineDefaults def in this.stateMachineDefaults )

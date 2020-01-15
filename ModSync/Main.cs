@@ -1,48 +1,49 @@
 ﻿namespace ModSync
 {
     using BepInEx;
-    //using R2API.Utils;
+    using R2API.Utils;
     using System;
+    using UnityEngine;
+    using UnityEngine.Networking;
+    using R2API;
+    using RoR2;
+    using RoR2.Networking;
+    using System.Collections.Generic;
 
     //[R2APISubmoduleDependency()]
-    //[BepInDependency( "com.bepis.r2api" )]
-    [BepInPlugin( "com.ReinThings.ModlistMessages", "Rein-ModlistMessages", "1.0.0" )]
+    [BepInDependency( "com.bepis.r2api" )]
+    [BepInPlugin( "com.ReinThings.ModSync", "Rein-ModSync", "1.0.0" )]
     public partial class Main : BaseUnityPlugin
     {
-        const Int16 serverToClient = 200;
-        const Int16 clientToServer = 201;
-        const Single messageTimeout = 5f;
-
-        private event Action Load;
-        private event Action FirstFrame;
-        private event Action Enable;
-        private event Action Disable;
-        private event Action Frame;
-        private event Action PostFrame;
-        private event Action Tick;
-        private event Action GUI;
-
-        partial void AddAttributes();
-        partial void CreateConfig();
-        partial void GetMods();
-        partial void Hook();
-
-
-        public Main()
+        private void Awake()
         {
-            this.AddAttributes();
-            this.CreateConfig();
-            this.GetMods();
-            this.Hook();
+            this.BuildConfig();
+            ModListAPI.modlistRecievedFromClient += this.ModListAPI_modlistRecievedFromClient;
+            ModListAPI.modlistRecievedFromServer += this.ModListAPI_modlistRecievedFromServer;
         }
 
-        private void Awake() => this.Load?.Invoke();
-        private void Start() => this.FirstFrame?.Invoke();
-        private void OnEnable() => this.Enable?.Invoke();
-        private void OnDisable() => this.Disable?.Invoke();
-        private void Update() => this.Frame?.Invoke();
-        private void LateUpdate() => this.PostFrame?.Invoke();
-        private void FixedUpdate() => this.Tick?.Invoke();
-        private void OnGUI() => this.GUI?.Invoke();
+        private void ModListAPI_modlistRecievedFromServer( NetworkConnection connection, ModListAPI.ModList list )
+        {
+            base.Logger.LogWarning( "Modlist recieved from server" );
+            foreach( ModListAPI.ModInfo mod in list.mods )
+            {
+                base.Logger.LogWarning( mod.guid + " : " + mod.version );
+            }
+        }
+
+        private void ModListAPI_modlistRecievedFromClient( NetworkConnection connection, ModListAPI.ModList list, CSteamID steamID )
+        {
+            base.Logger.LogWarning( "Modlist recieved from client with steamID: " + steamID.value );
+
+            foreach( ModListAPI.ModInfo mod in list.mods )
+            {
+                base.Logger.LogWarning( mod.guid + " : " + mod.version );
+            }
+
+            if( !this.CheckList(list, this.GetModPrefs() ) )
+            {
+                GameNetworkManager.singleton.ServerKickClient( connection, GameNetworkManager.KickReason.BadVersion );
+            }
+        }
     }
 }

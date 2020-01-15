@@ -12,6 +12,7 @@ using RogueWispPlugin.Modules;
 
 namespace RogueWispPlugin
 {
+#if ROGUEWISP
     internal partial class Main
     {
         internal static GameObject[][] genericImpactEffects = new GameObject[8][];
@@ -186,5 +187,5 @@ namespace RogueWispPlugin
         }
 
     }
-
+#endif
 }

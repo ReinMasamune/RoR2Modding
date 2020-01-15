@@ -40,7 +40,7 @@ namespace RogueWispPlugin
                 this.refCannonTransform = this.modelTransform;
                 this.cannonTransform = this.modelTransform.Find( "CannonPivot" );
                 this.headTransform = this.cannonTransform.Find( "AncientWispArmature" ).Find( "Head" );
-                this.refHeadTransform = this.modelTransform.Find( "Hurtbox" );
+                this.refHeadTransform = this.modelTransform;
 
                 this.baseCannonRot = this.cannonTransform.localRotation;
                 this.baseCannonPos = this.cannonTransform.localPosition;

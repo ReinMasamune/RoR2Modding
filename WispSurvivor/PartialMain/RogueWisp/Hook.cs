@@ -15,9 +15,10 @@ using UnityEngine.Networking;
 
 namespace RogueWispPlugin
 {
+#if ROGUEWISP
     internal partial class Main
     {
-        // TODO: Cleanup here
+        const Single shieldRegenFrac = 0.002f;
         partial void RW_Hook()
         {
             this.Enable += this.RW_AddHooks;
@@ -130,7 +131,7 @@ namespace RogueWispPlugin
             {
                 if( self.HasBuff( this.RW_armorBuff ) )
                 {
-                    self.SetPropertyValue<Single>( "armor", self.armor + 100f );
+                    self.SetPropertyValue<Single>( "armor", self.armor + 50f );
                 }
             }
         }
@@ -158,7 +159,7 @@ namespace RogueWispPlugin
                 Int32 count = self.GetBuffCount( this.RW_flameChargeBuff );
                 if( count > 0 )
                 {
-                    self.healthComponent.RechargeShield( Time.fixedDeltaTime * 0.005f * count * self.maxHealth );
+                    self.healthComponent.RechargeShield( Time.fixedDeltaTime * shieldRegenFrac * count * self.maxHealth );
                 }
             }
         }
@@ -206,5 +207,5 @@ namespace RogueWispPlugin
             }
         }
     }
-
+#endif
 }

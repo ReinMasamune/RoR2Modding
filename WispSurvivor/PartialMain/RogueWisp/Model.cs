@@ -11,6 +11,7 @@ using RogueWispPlugin.Modules;
 
 namespace RogueWispPlugin
 {
+#if ROGUEWISP
     internal partial class Main
     {
         partial void RW_EditModel();
@@ -30,5 +31,5 @@ namespace RogueWispPlugin
             this.RW_SetupHurtBoxes();
         }
     }
-
+#endif
 }

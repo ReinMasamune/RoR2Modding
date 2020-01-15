@@ -503,7 +503,7 @@
             this.search.filterByLoS = true;
             this.search.searchOrigin = aimRay.origin;
             this.search.searchDirection = aimRay.direction;
-            this.search.sortMode = BullseyeSearch.SortMode.DistanceAndAngle;
+            this.search.sortMode = BullseyeSearch.SortMode.Angle;
             this.search.maxDistanceFilter = targetRange;
             this.search.maxAngleFilter = targetAng;
             this.search.RefreshCandidates();

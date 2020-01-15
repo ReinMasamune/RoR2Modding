@@ -14,6 +14,7 @@ using EntityStates;
 
 namespace RogueWispPlugin
 {
+#if ROGUEWISP
     internal partial class Main
     {
         private SkillFamily[] RW_skillFamilies;
@@ -300,5 +301,5 @@ namespace RogueWispPlugin
             fam.variants = variants;
         }
     }
-
+#endif
 }

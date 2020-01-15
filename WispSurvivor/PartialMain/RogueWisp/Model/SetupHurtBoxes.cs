@@ -12,12 +12,12 @@ using RogueWispPlugin.Modules;
 
 namespace RogueWispPlugin
 {
+#if ROGUEWISP
     internal partial class Main
     {
         partial void RW_SetupHurtBoxes()
         {
-            // TODO: Redo hurtbox setup to be not bad...
-            this.Load += this.RW_DoHurtBoxSetup;
+            //this.Load += this.RW_DoHurtBoxSetup;
         }
 
         private void RW_DoHurtBoxSetup()
@@ -34,5 +34,5 @@ namespace RogueWispPlugin
             meshCol.isTrigger = false;
         }
     }
-
+#endif
 }

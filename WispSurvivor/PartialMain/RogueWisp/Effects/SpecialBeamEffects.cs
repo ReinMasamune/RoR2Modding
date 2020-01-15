@@ -8,10 +8,12 @@ using System.Reflection;
 using UnityEngine;
 using RogueWispPlugin.Helpers;
 using RogueWispPlugin.Modules;
+using R2API;
 //using static RogueWispPlugin.Helpers.APIInterface;
 
 namespace RogueWispPlugin
 {
+#if ROGUEWISP
     internal partial class Main
     {
         partial void RW_SpecialBeamEffects()
@@ -149,6 +151,7 @@ namespace RogueWispPlugin
             arcflarepsmain.startLifetime = 0.5f;
             arcflarepsmain.startSize = 1f;
             arcflarepsmain.maxParticles = 100;
+            arcflarepsmain.startColor = new Color( 1f, 1f, 1f, 1f );
 
             ParticleSystem.EmissionModule arcflareemis = arcFlarePs.emission;
             arcflareemis.rateOverTime = 100f;
@@ -230,5 +233,5 @@ namespace RogueWispPlugin
             return g;
         }
     }
-
+#endif
 }

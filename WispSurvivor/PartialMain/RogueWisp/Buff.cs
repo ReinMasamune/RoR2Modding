@@ -12,6 +12,7 @@ using RogueWispPlugin.Modules;
 
 namespace RogueWispPlugin
 {
+#if ROGUEWISP
     internal partial class Main
     {
         internal BuffIndex RW_curseBurn;
@@ -89,5 +90,5 @@ namespace RogueWispPlugin
             return name2Buff[b.name];
         }
     }
-
+#endif
 }

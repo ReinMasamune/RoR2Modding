@@ -14,13 +14,134 @@ using System.Runtime.Serialization;
 
 namespace RogueWispPlugin
 {
+#if ROGUEWISP
     internal partial class Main
     {
         Type RW_nameTransformPair;
+        List<GameObject> RW_newHurtBoxes = new List<GameObject>();
 
         partial void RW_SetupChildLocator()
         {
             this.Load += this.RW_DoChildLocatorSetup;
+            //this.Load += this.RW_NewChildLocatorSetup;
+        }
+
+        private void RW_NewChildLocatorSetup()
+        {
+            var model = this.RW_body.GetComponent<ModelLocator>().modelTransform;
+            var rag = model.gameObject.AddComponent<RagdollController>();
+            var childLoc = model.GetComponent<ChildLocator>();
+
+            FieldInfo transformPairsArray = typeof(ChildLocator).GetField( "transformPairs", BindingFlags.NonPublic | BindingFlags.Instance );
+            System.Object pairsObj = transformPairsArray.GetValue( childLoc );
+            System.Object[] pairsArray = ((Array)pairsObj).Cast<System.Object>().ToArray();
+            Type transformPair = pairsObj.GetType().GetElementType();
+
+        }
+
+        private void AddNewTransformPair( String name, Transform transform, Type pairType, ref System.Object[] pairsArray )
+        {
+            var index = pairsArray.Length;
+            Array.Resize( ref pairsArray, index + 1 );
+
+            var pair = FormatterServices.GetUninitializedObject( pairType );
+            FieldInfo nameField = pairType.GetField( "name", BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic );
+            FieldInfo transformField = pairType.GetField( "transform", BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic );
+            nameField.SetValue( pair, name );
+            transformField.SetValue( pair, transform );
+            pairsArray[index] = pair;
+        }
+
+        private void AddNewHurtBox( GameObject parent, HurtBoxGroup group, HealthComponent health, Boolean isMain, Boolean isBullseye, HurtBox.DamageModifier modifier )
+        {
+            var obj = new GameObject( "HurtBox" );
+            obj.transform.parent = parent.transform;
+            obj.transform.localScale = Vector3.one;
+            obj.transform.localRotation = Quaternion.identity;
+            obj.transform.localPosition = Vector3.zero;
+
+            obj.layer = LayerIndex.entityPrecise.intVal;
+
+            Collider col = null;
+
+            var parCol = parent.GetComponent<Collider>();
+            if( parCol is SphereCollider )
+            {
+                var sphere = obj.AddComponent<SphereCollider>();
+                var parSphere = parCol as SphereCollider;
+                sphere.center = parSphere.center;
+                sphere.contactOffset = parSphere.contactOffset;
+                sphere.radius = parSphere.radius;
+                sphere.isTrigger = false;
+                //sphere.Material
+
+                col = sphere;
+            } else if( parCol is BoxCollider )
+            {
+                var box = obj.AddComponent<BoxCollider>();
+                var parBox = parCol as BoxCollider;
+                box.center = parBox.center;
+                box.contactOffset = parBox.contactOffset;
+                box.size = parBox.size;
+                box.isTrigger = false;
+                //box.Material
+
+                col = box;
+
+            } else if( parCol is CapsuleCollider )
+            {
+                var cap = obj.AddComponent<CapsuleCollider>();
+                var parCap = parCol as CapsuleCollider;
+                cap.center = parCap.center;
+                cap.contactOffset = parCap.contactOffset;
+                cap.direction = parCap.direction;
+                cap.height = parCap.height;
+                cap.radius = parCap.radius;
+                cap.isTrigger = false;
+                //cap.material
+
+                col = cap;
+            } else
+            {
+                base.Logger.LogError( "Unhandled collider type: " + parCol.GetType().ToString() );
+                Destroy( obj );
+                return;
+            }
+
+            if( col == null )
+            {
+                base.Logger.LogError( "Collider was null" );
+                Destroy( obj );
+                return;
+            }
+
+            //parent.transform.parent = obj.transform;
+
+            HurtBox hurtBox = obj.AddComponent<HurtBox>();
+            hurtBox.isBullseye = isBullseye;
+            hurtBox.healthComponent = health;
+            hurtBox.damageModifier = modifier;
+            hurtBox.hurtBoxGroup = group;
+
+            if( group.hurtBoxes == null )
+            {
+                group.hurtBoxes = Array.Empty<HurtBox>();
+            }
+
+            if( isMain )
+            {
+                group.mainHurtBox = hurtBox;
+            }
+
+            Int16 index = (Int16)group.hurtBoxes.Length;
+            Array.Resize<HurtBox>( ref group.hurtBoxes, index + 1 );
+            group.hurtBoxes[index] = hurtBox;
+            hurtBox.indexInGroup = index;
+
+            if( isBullseye )
+            {
+                ++group.bullseyeCount;
+            }
         }
 
         private void RW_DoChildLocatorSetup()
@@ -37,6 +158,15 @@ namespace RogueWispPlugin
             Array.Resize<System.Object>( ref pairs, pairs.Length + 16 );
 
             List<Transform> bones = new List<Transform>();
+
+
+            var boxGroup = model.GetComponent<HurtBoxGroup>();
+            Destroy( boxGroup.hurtBoxes[0].gameObject );
+            boxGroup.hurtBoxes = null;
+            boxGroup.mainHurtBox = null;
+            boxGroup.bullseyeCount = 0;
+
+            var health = this.RW_body.GetComponent<HealthComponent>();
 
             BoxCollider box;
             CapsuleCollider cap;
@@ -72,6 +202,7 @@ namespace RogueWispPlugin
                         box.enabled = false;
                         t.gameObject.AddComponent<Rigidbody>();
                         bones.Add( t );
+                        this.AddNewHurtBox( t.gameObject, boxGroup, health, true, true, HurtBox.DamageModifier.Normal );
                         break;
 
                     case "ChestCannonGuard1":
@@ -81,6 +212,7 @@ namespace RogueWispPlugin
                         box.enabled = false;
                         t.gameObject.AddComponent<Rigidbody>();
                         bones.Add( t );
+                        this.AddNewHurtBox( t.gameObject, boxGroup, health, false, false, HurtBox.DamageModifier.Normal );
                         break;
 
                     case "ChestCannon2":
@@ -97,6 +229,7 @@ namespace RogueWispPlugin
                         box.enabled = false;
                         t.gameObject.AddComponent<Rigidbody>();
                         bones.Add( t );
+                        this.AddNewHurtBox( t.gameObject, boxGroup, health, false, false, HurtBox.DamageModifier.Normal );
                         break;
 
                     case "ChestCannonGuard2":
@@ -106,6 +239,7 @@ namespace RogueWispPlugin
                         box.enabled = false;
                         t.gameObject.AddComponent<Rigidbody>();
                         bones.Add( t );
+                        this.AddNewHurtBox( t.gameObject, boxGroup, health, false, false, HurtBox.DamageModifier.Normal );
                         break;
 
                     case "Head":
@@ -123,6 +257,7 @@ namespace RogueWispPlugin
                         cap.center = new Vector3( 0f, 0.25f, 0.15f );
                         t.gameObject.AddComponent<Rigidbody>();
                         bones.Add( t );
+                        this.AddNewHurtBox( t.gameObject, boxGroup, health, false, false, HurtBox.DamageModifier.Normal );
                         break;
 
                     case "thigh.r":
@@ -140,6 +275,7 @@ namespace RogueWispPlugin
                         cap.center = new Vector3( 0f, 0.2f, 0f );
                         t.gameObject.AddComponent<Rigidbody>();
                         bones.Add( t );
+                        this.AddNewHurtBox( t.gameObject, boxGroup, health, false, false, HurtBox.DamageModifier.Normal );
                         break;
 
                     case "thigh.l":
@@ -157,6 +293,7 @@ namespace RogueWispPlugin
                         cap.center = new Vector3( 0f, 0.2f, 0f );
                         t.gameObject.AddComponent<Rigidbody>();
                         bones.Add( t );
+                        this.AddNewHurtBox( t.gameObject, boxGroup, health, false, false, HurtBox.DamageModifier.Normal );
                         break;
 
                     case "calf.r":
@@ -174,6 +311,7 @@ namespace RogueWispPlugin
                         cap.center = new Vector3( 0f, 0.3f, 0f );
                         t.gameObject.AddComponent<Rigidbody>();
                         bones.Add( t );
+                        this.AddNewHurtBox( t.gameObject, boxGroup, health, false, false, HurtBox.DamageModifier.Normal );
                         break;
 
                     case "calf.l":
@@ -191,6 +329,7 @@ namespace RogueWispPlugin
                         cap.center = new Vector3( 0f, 0.3f, 0f );
                         t.gameObject.AddComponent<Rigidbody>();
                         bones.Add( t );
+                        this.AddNewHurtBox( t.gameObject, boxGroup, health, false, false, HurtBox.DamageModifier.Normal );
                         break;
 
                     case "toe1.l":
@@ -207,6 +346,7 @@ namespace RogueWispPlugin
                         box.enabled = false;
                         t.gameObject.AddComponent<Rigidbody>();
                         bones.Add( t );
+                        this.AddNewHurtBox( t.gameObject, boxGroup, health, false, false, HurtBox.DamageModifier.Normal );
                         break;
 
                     case "toe1.r":
@@ -223,6 +363,7 @@ namespace RogueWispPlugin
                         box.enabled = false;
                         t.gameObject.AddComponent<Rigidbody>();
                         bones.Add( t );
+                        this.AddNewHurtBox( t.gameObject, boxGroup, health, false, false, HurtBox.DamageModifier.Normal );
                         break;
 
                     case "toe2.l":
@@ -232,6 +373,7 @@ namespace RogueWispPlugin
                         box.enabled = false;
                         t.gameObject.AddComponent<Rigidbody>();
                         bones.Add( t );
+                        this.AddNewHurtBox( t.gameObject, boxGroup, health, false, false, HurtBox.DamageModifier.Normal );
                         break;
 
                     case "toe2.r":
@@ -241,6 +383,7 @@ namespace RogueWispPlugin
                         box.enabled = false;
                         t.gameObject.AddComponent<Rigidbody>();
                         bones.Add( t );
+                        this.AddNewHurtBox( t.gameObject, boxGroup, health, false, false, HurtBox.DamageModifier.Normal );
                         break;
 
                     case "shoulder.l":
@@ -250,6 +393,7 @@ namespace RogueWispPlugin
                         box.enabled = false;
                         t.gameObject.AddComponent<Rigidbody>();
                         bones.Add( t );
+                        this.AddNewHurtBox( t.gameObject, boxGroup, health, false, false, HurtBox.DamageModifier.Normal );
                         break;
 
                     case "shoulder.r":
@@ -259,6 +403,7 @@ namespace RogueWispPlugin
                         box.enabled = false;
                         t.gameObject.AddComponent<Rigidbody>();
                         bones.Add( t );
+                        this.AddNewHurtBox( t.gameObject, boxGroup, health, false, false, HurtBox.DamageModifier.Normal );
                         break;
 
                     case "upperArm1.l":
@@ -275,6 +420,7 @@ namespace RogueWispPlugin
                         box.enabled = false;
                         t.gameObject.AddComponent<Rigidbody>();
                         bones.Add( t );
+                        this.AddNewHurtBox( t.gameObject, boxGroup, health, false, false, HurtBox.DamageModifier.Normal );
                         break;
 
                     case "upperArm1.r":
@@ -291,6 +437,7 @@ namespace RogueWispPlugin
                         box.enabled = false;
                         t.gameObject.AddComponent<Rigidbody>();
                         bones.Add( t );
+                        this.AddNewHurtBox( t.gameObject, boxGroup, health, false, false, HurtBox.DamageModifier.Normal );
                         break;
 
                     case "upperArm2.l":
@@ -300,6 +447,7 @@ namespace RogueWispPlugin
                         box.enabled = false;
                         t.gameObject.AddComponent<Rigidbody>();
                         bones.Add( t );
+                        this.AddNewHurtBox( t.gameObject, boxGroup, health, false, false, HurtBox.DamageModifier.Normal );
                         break;
 
                     case "upperArm2.r":
@@ -309,6 +457,7 @@ namespace RogueWispPlugin
                         box.enabled = false;
                         t.gameObject.AddComponent<Rigidbody>();
                         bones.Add( t );
+                        this.AddNewHurtBox( t.gameObject, boxGroup, health, false, false, HurtBox.DamageModifier.Normal );
                         break;
 
                     case "finger1.l":
@@ -319,6 +468,7 @@ namespace RogueWispPlugin
                         cap.center = new Vector3( 0f, 0.09f, 0f );
                         t.gameObject.AddComponent<Rigidbody>();
                         bones.Add( t );
+                        this.AddNewHurtBox( t.gameObject, boxGroup, health, false, false, HurtBox.DamageModifier.Normal );
                         break;
 
                     case "finger1.r":
@@ -336,6 +486,7 @@ namespace RogueWispPlugin
                         cap.center = new Vector3( 0f, 0.09f, 0f );
                         t.gameObject.AddComponent<Rigidbody>();
                         bones.Add( t );
+                        this.AddNewHurtBox( t.gameObject, boxGroup, health, false, false, HurtBox.DamageModifier.Normal );
                         break;
 
                     case "finger2.l":
@@ -346,6 +497,7 @@ namespace RogueWispPlugin
                         cap.center = new Vector3( 0f, 0.075f, 0f );
                         t.gameObject.AddComponent<Rigidbody>();
                         bones.Add( t );
+                        this.AddNewHurtBox( t.gameObject, boxGroup, health, false, false, HurtBox.DamageModifier.Normal );
                         break;
 
                     case "finger2.r":
@@ -363,6 +515,7 @@ namespace RogueWispPlugin
                         cap.center = new Vector3( 0f, 0.075f, 0f );
                         t.gameObject.AddComponent<Rigidbody>();
                         bones.Add( t );
+                        this.AddNewHurtBox( t.gameObject, boxGroup, health, false, false, HurtBox.DamageModifier.Normal );
                         break;
 
                     case "thumb.l":
@@ -380,6 +533,7 @@ namespace RogueWispPlugin
                         cap.center = new Vector3( -0.005f, 0.085f, 0f );
                         t.gameObject.AddComponent<Rigidbody>();
                         bones.Add( t );
+                        this.AddNewHurtBox( t.gameObject, boxGroup, health, false, false, HurtBox.DamageModifier.Normal );
                         break;
 
                     case "thumb.r":
@@ -390,6 +544,7 @@ namespace RogueWispPlugin
                         cap.center = new Vector3( -0.005f, 0.085f, 0f );
                         t.gameObject.AddComponent<Rigidbody>();
                         bones.Add( t );
+                        this.AddNewHurtBox( t.gameObject, boxGroup, health, false, false, HurtBox.DamageModifier.Normal );
                         break;
 
 
@@ -431,6 +586,9 @@ namespace RogueWispPlugin
                 }
             }
 
+
+
+
             //MethodInfo m = typeof(WispModelModule).GetMethod("ReflCast").MakeGenericMethod((Type)nameTransformPair.MakeArrayType());
             //MethodInfo m2 = typeof(WispModelModule).GetMethod("CastArray").MakeGenericMethod((Type)nameTransformPair);
             f.SetValue( children, v );
@@ -447,5 +605,5 @@ namespace RogueWispPlugin
             return o;
         }
     }
-
+#endif
 }

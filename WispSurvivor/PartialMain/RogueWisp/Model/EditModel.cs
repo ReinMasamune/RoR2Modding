@@ -12,6 +12,7 @@ using RogueWispPlugin.Modules;
 
 namespace RogueWispPlugin
 {
+#if ROGUEWISP
     internal partial class Main
     {
         partial void RW_EditModel()
@@ -26,9 +27,9 @@ namespace RogueWispPlugin
         {
             var modelLocator = this.RW_body.GetComponent<ModelLocator>();
             modelLocator.modelBaseTransform.gameObject.name = "ModelBase";
-            modelLocator.modelBaseTransform.localPosition = new Vector3( 0f, -0.3f, 0f );
-            modelLocator.modelTransform.localScale = new Vector3( 0.8f, 0.8f, 0.8f );
-            modelLocator.modelTransform.localPosition = new Vector3( 0f, 0.3f, 0f );
+            modelLocator.modelBaseTransform.localPosition = new Vector3( 0f, 0.0f, 0f );
+            modelLocator.modelTransform.localScale = new Vector3( 0.7f, 0.7f, 0.7f );
+            modelLocator.modelTransform.localPosition = new Vector3( 0f, 0.2f, 0f );
         }
 
         private void RW_EditModelStructure()
@@ -37,7 +38,7 @@ namespace RogueWispPlugin
             Transform modelTransform = this.RW_body.GetComponent<ModelLocator>().modelTransform;
             GameObject pivotPoint = new GameObject("CannonPivot");
             pivotPoint.transform.parent = modelTransform;
-            pivotPoint.transform.localPosition = new Vector3( 0f, 2f, 0f );
+            pivotPoint.transform.localPosition = new Vector3( 0f, 1.5f, 0f );
             pivotPoint.transform.localEulerAngles = new Vector3( -90f, 0f, 0f );
 
             Transform armatureTransform = modelTransform.Find("AncientWispArmature");
@@ -103,7 +104,7 @@ namespace RogueWispPlugin
                 {
                     tempPS = t.gameObject.AddOrGetComponent<ParticleSystem>();
                     tempPSR = t.gameObject.AddOrGetComponent<ParticleSystemRenderer>();
-                    SetupFlameParticleSystem(tempPS, 0, flames[tempName] );
+                    SetupFlameParticleSystem( tempPS, 0, flames[tempName] );
                     tempPSList.Add( new PSCont
                     {
                         ps = tempPS,
@@ -269,7 +270,7 @@ namespace RogueWispPlugin
             return flames;
         }
 
-        private static void SetupFlameParticleSystem( ParticleSystem ps, Int32 skinIndex, FlamePSInfo psi )
+        private void SetupFlameParticleSystem( ParticleSystem ps, Int32 skinIndex, FlamePSInfo psi )
         {
             ParticleSystem.MainModule main = ps.main;
             main.duration = 1f;
@@ -449,5 +450,5 @@ namespace RogueWispPlugin
             custData.enabled = false;
         }
     }
-
+#endif
 }

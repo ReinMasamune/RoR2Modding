@@ -12,6 +12,7 @@ using RogueWispPlugin.Modules;
 
 namespace RogueWispPlugin
 {
+#if ROGUEWISP
     internal partial class Main
     {
         partial void RW_Motion()
@@ -86,5 +87,5 @@ namespace RogueWispPlugin
             rb.constraints = RigidbodyConstraints.None;
         }
     }
-
+#endif
 }

@@ -12,6 +12,7 @@ using RogueWispPlugin.Modules;
 
 namespace RogueWispPlugin
 {
+#if ROGUEWISP
     internal partial class Main
     {
         partial void RW_Info()
@@ -64,5 +65,5 @@ namespace RogueWispPlugin
             R2API.AssetPlus.Languages.AddToken( s, s2 );
         }
     }
-
+#endif
 }

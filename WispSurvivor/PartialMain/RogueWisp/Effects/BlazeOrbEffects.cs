@@ -8,10 +8,12 @@ using System.Reflection;
 using UnityEngine;
 using RogueWispPlugin.Helpers;
 using RogueWispPlugin.Modules;
+using R2API;
 //using static RogueWispPlugin.Helpers.APIInterface;
 
 namespace RogueWispPlugin
 {
+#if ROGUEWISP
     internal partial class Main
     {
         partial void RW_BlazeOrbEffects()
@@ -55,6 +57,15 @@ namespace RogueWispPlugin
             range.transform.localRotation = Quaternion.identity;
 
             MonoBehaviour.Destroy( range.GetComponent<SphereCollider>() );
+
+            GameObject range2 = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            range2.name = "rangeInd2";
+            range2.transform.parent = obj.transform;
+            range2.transform.localScale = new Vector3( 2f, 2f, 2f );
+            range2.transform.localPosition = Vector3.zero;
+            range2.transform.localRotation = Quaternion.identity;
+
+            MonoBehaviour.Destroy( range2.GetComponent<SphereCollider>() );
 
             GameObject fireObj = new GameObject("Flames");
             fireObj.transform.parent = obj.transform;
@@ -256,5 +267,5 @@ namespace RogueWispPlugin
             return obj;
         }
     }
-
+#endif
 }
