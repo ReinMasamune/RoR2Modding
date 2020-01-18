@@ -18,7 +18,7 @@ namespace ReinGeneralFixes
     [BepInPlugin("com.Rein.GeneralBalance", "General Balance + Fixes", "1.0.0")]
     internal partial class Main : BaseUnityPlugin
     {
-        internal Single gestureBreakChance = 0.1f;
+        internal Single gestureBreakChance = 0.05f;
 
 
 
@@ -58,6 +58,10 @@ namespace ReinGeneralFixes
         partial void FixResDisk();
 
 
+
+        partial void EditOvergrownPrinters();
+
+
         private Main()
         {
             this.DisableOPItems();
@@ -75,6 +79,8 @@ namespace ReinGeneralFixes
             this.FixTesla();
             this.FixRazorWire();
             this.FixResDisk();
+
+            this.EditOvergrownPrinters();
         }
 
 #pragma warning disable IDE0051 // Remove unused private members
@@ -108,7 +114,7 @@ Gesture now reduces cooldown by 50% per stack.
 
 Visions now gives huntress and mercenary commandos crosshair to make aiming possible.
 
-
+Overgrown printers can now have any boss tier item, including fancy pearls and halcyon seeds.
 
 
 
