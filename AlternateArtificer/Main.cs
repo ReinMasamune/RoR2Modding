@@ -108,3 +108,4 @@ namespace AlternativeArtificer
 
 //BUGS
 // TODO: Lose the current passive state when revived with Dio
+// TODO: Ion surge space input
