@@ -2,7 +2,17 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyVersion>1.0.0.21</AssemblyVersion>
+    <FileVersion>1.0.0.21</FileVersion>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Bundle\wickedring" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Bundle\wickedring" />
+  </ItemGroup>
 
   <ItemGroup>
     <Reference Include="0Harmony">
