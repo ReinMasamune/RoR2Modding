@@ -18,6 +18,8 @@ namespace RogueWispPlugin
         private GameObject AW_body;
         private GameObject AW_master;
         private GameObject AW_primaryProj;
+        private GameObject AW_secDelayEffect;
+        private GameObject AW_secExplodeEffect;
 
         partial void AW_Test();
         partial void AW_General();

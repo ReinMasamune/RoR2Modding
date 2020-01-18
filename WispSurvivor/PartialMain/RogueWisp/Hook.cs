@@ -131,7 +131,7 @@ namespace RogueWispPlugin
             {
                 if( self.HasBuff( this.RW_armorBuff ) )
                 {
-                    self.SetPropertyValue<Single>( "armor", self.armor + 50f );
+                    self.SetPropertyValue<Single>( "armor", self.armor + 75f );
                 }
             }
         }

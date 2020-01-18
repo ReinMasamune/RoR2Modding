@@ -2,15 +2,15 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>RogueWisp</AssemblyName>
-    <AssemblyVersion>1.3.5.40</AssemblyVersion>
-    <FileVersion>1.3.5.40</FileVersion>
+    <AssemblyVersion>1.3.5.66</AssemblyVersion>
+    <FileVersion>1.3.5.66</FileVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DebugType>none</DebugType>
     <DebugSymbols>false</DebugSymbols>
     <OutputPath>bin\Releases\</OutputPath>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
-    <DefineConstants>ROGUEWISP ANCIENTWISP TIMER</DefineConstants>
+    <DefineConstants>ROGUEWISP ANCIENTWISP TIMER LOGGING</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DefineConstants>DEBUG</DefineConstants>

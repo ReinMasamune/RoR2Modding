@@ -21,7 +21,9 @@ namespace RogueWispPlugin
         nameof( R2API.LoadoutAPI ),
         nameof( R2API.OrbAPI ),
         nameof( R2API.ItemAPI ),
+#if ANCIENTWISP
         nameof( R2API.DirectorAPI ),
+#endif
         nameof( R2API.AssetPlus.AssetPlus )
     )]
 #pragma warning disable CA2243 // Attribute string literals should parse correctly
@@ -40,7 +42,26 @@ namespace RogueWispPlugin
         public String thing1;
         public String thing2;
 
+        private Boolean working;
+
         private Stopwatch watch;
+
+        private List<PluginInfo> _plugins;
+        private List<PluginInfo> plugins
+        {
+            get
+            {
+                if( this._plugins == null )
+                {
+                    this._plugins = new List<PluginInfo>();
+                    foreach( PluginInfo p in BepInEx.Bootstrap.Chainloader.PluginInfos.Values )
+                    {
+                        this._plugins.Add( p );
+                    }
+                }
+                return this._plugins;
+            }
+        }
 
         internal static Main instance;
 
@@ -52,7 +73,15 @@ namespace RogueWispPlugin
         private event Action PostFrame;
         private event Action Tick;
         private event Action GUI;
-
+#if LOADCHECKS
+        partial Boolean LoadChecks();
+#endif
+#if COMPATCHECKS
+        partial Boolean CompatChecks();
+#endif
+#if CROSSMODFUNCTIONALITY
+        partial void CrossModFunctionality();
+#endif
 #if ROGUEWISP
         partial void CreateRogueWisp();
 #endif
@@ -74,56 +103,56 @@ namespace RogueWispPlugin
         public Main()
         {
             this.thing1 = "Note that everything in this codebase that can be used safely is already part of R2API.";
-            this.thing2 = "If you're here to copy paste my code, fuck off and learn something on your own for once.";
-            //this.thing2 = "If you are truly insistant on taking the lazy way out (Looking at you ravens) then screw you too I guess?";
-            //this.thing3 = "I also no longer at all interested in answering any questions about my code or helping anyone in any way. If people are just going to copy paste anyway then they aren't worth my time.";
+            this.thing2 = "If you're here to copy paste my code, please don't complain to me when it doesn't work like magic or you cause a major issue for a user.";
 
-#if TIMER
-            this.watch = new Stopwatch();
-            this.Load += this.AwakeTimeStart;
-            this.Enable += this.EnableTimeStart;
-            this.FirstFrame += this.StartTimeStart;
-#endif
-
-            foreach( KeyValuePair<String,PluginInfo> p in BepInEx.Bootstrap.Chainloader.PluginInfos )
-            {
-                if( !p.Value.Metadata.GUID.ToLower().StartsWith( "com.rein") && !(p.Value.Metadata.GUID == R2API.R2API.PluginGUID) )
-                {
-                    this.CheckCompat( p.Value.Metadata.GUID.ToLower() );
-                    //base.Logger.LogWarning( "Unverified compatibility with: " + p.Value.Metadata.Name + ", There may be unexpected interactions or unbalanced behaviour." );
-                }
-            }
-
+            this.working = true;
             instance = this;
-
-            this.Tick += () => RoR2Application.isModded = true;
-
+#if LOADCHECKS
+            this.working = this.LoadChecks() && this.working;
+#endif
+#if COMPATCHECKS
+            this.working = this.CompatChecks() && this.working;
+#endif
+            if( this.working )
+            {
+#if TIMER
+                this.watch = new Stopwatch();
+                this.Load += this.AwakeTimeStart;
+                this.Enable += this.EnableTimeStart;
+                this.FirstFrame += this.StartTimeStart;
+#endif
+                this.Tick += () => RoR2Application.isModded = true;
+#if CROSSMODFUNCTIONALITY
+                this.CrossModFunctionality();
+#endif
 #if ROGUEWISP
-            this.CreateRogueWisp();
+                this.CreateRogueWisp();
 #endif
 #if ANCIENTWISP
-            this.CreateAncientWisp();
+                this.CreateAncientWisp();
 #endif
 #if ARCHAICWISP
-            this.CreateArchaicWisp;
+                this.CreateArchaicWisp;
 #endif
 #if FIRSTWISP
-            this.CreateFirstWisp();
+                this.CreateFirstWisp();
 #endif
 #if WISPITEM
-            this.CreateWispFriend();
+                this.CreateWispFriend();
 #endif
 #if STAGE
-            this.CreateStage();
+                this.CreateStage();
 #endif
-
-            this.FirstFrame += this.Main_FirstFrame;
-
+                this.FirstFrame += this.Main_FirstFrame;
 #if TIMER
-            this.Load += this.AwakeTimeStop;
-            this.Enable += this.EnableTimeStop;
-            this.FirstFrame += this.StartTimeStop;
+                this.Load += this.AwakeTimeStop;
+                this.Enable += this.EnableTimeStop;
+                this.FirstFrame += this.StartTimeStop;
 #endif
+            } else
+            {
+                Main.LogF( "Rogue Wisp has failed to load properly and will not be enabled. See preceding errors." );
+            }
         }
 
         private void Main_FirstFrame()
@@ -150,9 +179,8 @@ namespace RogueWispPlugin
         private void AwakeTimeStop()
         {
             this.watch.Stop();
-            base.Logger.LogInfo( "Awake Time: " + this.watch.ElapsedMilliseconds );
+            Main.LogI( "Awake Time: " + this.watch.ElapsedMilliseconds );
         }
-
         private void EnableTimeStart()
         {
             this.watch.Restart();
@@ -160,7 +188,7 @@ namespace RogueWispPlugin
         private void EnableTimeStop()
         {
             this.watch.Stop();
-            base.Logger.LogInfo( "Enable Time: " + this.watch.ElapsedMilliseconds );
+            Main.LogI( "Enable Time: " + this.watch.ElapsedMilliseconds );
         }
         private void StartTimeStart()
         {
@@ -169,13 +197,41 @@ namespace RogueWispPlugin
         private void StartTimeStop()
         {
             this.watch.Stop();
-            base.Logger.LogInfo( "Start Time: " + this.watch.ElapsedMilliseconds );
+            Main.LogI( "Start Time: " + this.watch.ElapsedMilliseconds );
         }
 #endif
-
-        private void CheckCompat( String s )
+        internal static void Log( BepInEx.Logging.LogLevel level, object data, String file, String member, Int32 line )
         {
-
+#if LOGGING
+            Main.instance.Logger.Log( level, data );
+#endif
+#if FINDLOGS
+            Main.instance.Logger.LogWarning( "Log: " + level.ToString() + " called by: " + file + " : " + member + " : " + line );
+#endif
+        }
+        internal static void LogI( object data, [CallerFilePath] String file = "", [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 )
+        {
+            Main.Log( BepInEx.Logging.LogLevel.Info, data, file, member, line );
+        }
+        internal static void LogM( object data, [CallerFilePath] String file = "", [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 )
+        {
+            Main.Log( BepInEx.Logging.LogLevel.Message, data, file, member, line );
+        }
+        internal static void LogD( object data, [CallerFilePath] String file = "", [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 )
+        {
+            Main.Log( BepInEx.Logging.LogLevel.Debug, data, file, member, line );
+        }
+        internal static void LogW( object data, [CallerFilePath] String file = "", [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 )
+        {
+            Main.Log( BepInEx.Logging.LogLevel.Warning, data, file, member, line );
+        }
+        internal static void LogE( object data, [CallerFilePath] String file = "", [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 )
+        {
+            Main.Log( BepInEx.Logging.LogLevel.Error, data, file, member, line );
+        }
+        internal static void LogF( object data, [CallerFilePath] String file = "", [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 )
+        {
+            Main.Log( BepInEx.Logging.LogLevel.Fatal, data, file, member, line );
         }
     }
 }

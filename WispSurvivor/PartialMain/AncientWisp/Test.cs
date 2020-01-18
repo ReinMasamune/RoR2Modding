@@ -26,6 +26,33 @@ namespace RogueWispPlugin
             this.Load += this.AW_SurvivorCatDebugStuff;
             this.Load += this.AW_GenPrimaryProjectile;
             this.Load += this.AW_SetupSkillsStuff;
+            this.Load += this.AW_GetSecondaryEffectStuff;
+            this.Load += this.AW_GetSpecialProjectileStuff;
+            this.Load += this.AW_GetSpecialZoneProjectileStuff;
+        }
+
+        private void AW_GetSpecialZoneProjectileStuff()
+        {
+
+        }
+        private void AW_GetSpecialProjectileStuff()
+        {
+
+        }
+
+
+        private void AW_GetSecondaryEffectStuff()
+        {
+            var effect1 = Resources.Load<GameObject>("Prefabs/Effects/MeteorStrikePredictionEffect").InstantiateClone("AncientWispPillarPrediction", false);
+            Destroy( effect1.GetComponent<DestroyOnTimer>() );
+            Destroy( effect1.GetComponent<EffectComponent>() );
+
+
+            var effect2 = Resources.Load<GameObject>("Prefabs/Effects/ImpactEffects/MeteorStrikeImpact").InstantiateClone("AncientWispPillar", false);
+            EffectAPI.AddEffect( effect2 );
+
+            this.AW_secDelayEffect = effect1;
+            this.AW_secExplodeEffect = effect2;
         }
 
         private void AW_SetupSkillsStuff()
@@ -70,14 +97,14 @@ namespace RogueWispPlugin
                     viewableNode = new ViewablesCatalog.Node("aaa", false )
                 }
             };
-
             skillLoc.primary.SetFieldValue<SkillFamily>( "_skillFamily", primaryFam );
+
 
             var secondaryFam = ScriptableObject.CreateInstance<SkillFamily>();
             var secondaryDef = ScriptableObject.CreateInstance<SkillDef>();
             LoadoutAPI.AddSkillDef( secondaryDef );
             LoadoutAPI.AddSkillFamily( secondaryFam );
-            LoadoutAPI.AddSkill( typeof(AWSecondary) );
+            LoadoutAPI.AddSkill( typeof( AWSecondary ) );
 
             secondaryDef.activationState = new EntityStates.SerializableEntityStateType( typeof( AWSecondary ) );
             secondaryDef.activationStateMachineName = "Weapon";
@@ -87,7 +114,7 @@ namespace RogueWispPlugin
             secondaryDef.canceledFromSprinting = false;
             secondaryDef.fullRestockOnAssign = true;
             secondaryDef.icon = Resources.Load<Sprite>( "NotAPath" );
-            secondaryDef.interruptPriority = EntityStates.InterruptPriority.PrioritySkill;
+            secondaryDef.interruptPriority = EntityStates.InterruptPriority.Skill;
             secondaryDef.isBullets = false;
             secondaryDef.isCombatSkill = true;
             secondaryDef.mustKeyPress = false;
@@ -100,6 +127,16 @@ namespace RogueWispPlugin
             secondaryDef.skillNameToken = "";
             secondaryDef.stockToConsume = 1;
 
+            secondaryFam.variants = new SkillFamily.Variant[]
+            {
+                new SkillFamily.Variant
+                {
+                    skillDef = secondaryDef,
+                    unlockableName = "",
+                    viewableNode = new ViewablesCatalog.Node( "aaaa", false )
+                }
+            };
+            skillLoc.secondary.SetFieldValue<SkillFamily>( "_skillFamily", secondaryFam );
 
         }
 
@@ -163,10 +200,11 @@ namespace RogueWispPlugin
         private void AW_TestSkillDrivers()
         {
             var primaryDriver = this.AW_master.AddComponent<AISkillDriver>();
-            //var secondaryDriver = this.AW_master.AddComponent<AISkillDriver>();
+            var secondaryDriver = this.AW_master.AddComponent<AISkillDriver>();
             //var utilityDriver = this.AW_master.AddComponent<AISkillDriver>();
             //var specialDriver = this.AW_master.AddComponent<AISkillDriver>();
             var chaseDriver = this.AW_master.AddComponent<AISkillDriver>();
+            var strafeDriver = this.AW_master.AddComponent<AISkillDriver>();
 
             primaryDriver.customName = "Primary";
             primaryDriver.skillSlot = SkillSlot.Primary;
@@ -192,6 +230,30 @@ namespace RogueWispPlugin
             primaryDriver.shouldSprint = false;
             primaryDriver.shouldFireEquipment = false;
 
+            secondaryDriver.customName = "Secondary";
+            secondaryDriver.skillSlot = SkillSlot.Secondary;
+            secondaryDriver.requiredSkill = null;
+            secondaryDriver.requireSkillReady = true;
+            secondaryDriver.requireEquipmentReady = false;
+            secondaryDriver.moveTargetType = AISkillDriver.TargetType.CurrentEnemy;
+            secondaryDriver.minUserHealthFraction = Single.NegativeInfinity;
+            secondaryDriver.maxUserHealthFraction = Single.PositiveInfinity;
+            secondaryDriver.minTargetHealthFraction = Single.NegativeInfinity;
+            secondaryDriver.maxTargetHealthFraction = Single.PositiveInfinity;
+            secondaryDriver.minDistance = 0f;
+            secondaryDriver.maxDistance = 100f;
+            secondaryDriver.selectionRequiresTargetLoS = false;
+            secondaryDriver.activationRequiresTargetLoS = false;
+            secondaryDriver.movementType = AISkillDriver.MovementType.Stop;
+            secondaryDriver.moveInputScale = 1f;
+            secondaryDriver.aimType = AISkillDriver.AimType.AtMoveTarget;
+            secondaryDriver.ignoreNodeGraph = false;
+            secondaryDriver.driverUpdateTimerOverride = 0.5f;
+            secondaryDriver.resetCurrentEnemyOnNextDriverSelection = false;
+            secondaryDriver.noRepeat = false;
+            secondaryDriver.shouldSprint = false;
+            secondaryDriver.shouldFireEquipment = false;
+
             chaseDriver.customName = "Chase";
             chaseDriver.skillSlot = SkillSlot.None;
             chaseDriver.requireSkillReady = false;
@@ -201,7 +263,7 @@ namespace RogueWispPlugin
             chaseDriver.maxUserHealthFraction = Single.PositiveInfinity;
             chaseDriver.minTargetHealthFraction = Single.NegativeInfinity;
             chaseDriver.maxTargetHealthFraction = Single.PositiveInfinity;
-            chaseDriver.minDistance = 0f;
+            chaseDriver.minDistance = 50f;
             chaseDriver.maxDistance = Single.PositiveInfinity;
             chaseDriver.selectionRequiresTargetLoS = false;
             chaseDriver.activationRequiresTargetLoS = false;
@@ -212,8 +274,31 @@ namespace RogueWispPlugin
             chaseDriver.driverUpdateTimerOverride = -1f;
             chaseDriver.resetCurrentEnemyOnNextDriverSelection = false;
             chaseDriver.noRepeat = false;
-            chaseDriver.shouldSprint = false;
+            chaseDriver.shouldSprint = true;
             chaseDriver.shouldFireEquipment = false;
+
+            strafeDriver.customName = "Chase";
+            strafeDriver.skillSlot = SkillSlot.None;
+            strafeDriver.requireSkillReady = false;
+            strafeDriver.requireEquipmentReady = false;
+            strafeDriver.moveTargetType = AISkillDriver.TargetType.CurrentEnemy;
+            strafeDriver.minUserHealthFraction = Single.NegativeInfinity;
+            strafeDriver.maxUserHealthFraction = Single.PositiveInfinity;
+            strafeDriver.minTargetHealthFraction = Single.NegativeInfinity;
+            strafeDriver.maxTargetHealthFraction = Single.PositiveInfinity;
+            strafeDriver.minDistance = 0f;
+            strafeDriver.maxDistance = 50f;
+            strafeDriver.selectionRequiresTargetLoS = false;
+            strafeDriver.activationRequiresTargetLoS = false;
+            strafeDriver.movementType = AISkillDriver.MovementType.StrafeMovetarget;
+            strafeDriver.moveInputScale = 1f;
+            strafeDriver.aimType = AISkillDriver.AimType.AtMoveTarget;
+            strafeDriver.ignoreNodeGraph = false;
+            strafeDriver.driverUpdateTimerOverride = -1f;
+            strafeDriver.resetCurrentEnemyOnNextDriverSelection = false;
+            strafeDriver.noRepeat = false;
+            strafeDriver.shouldSprint = true;
+            strafeDriver.shouldFireEquipment = false;
         }
 
         private void AW_TestStuff()

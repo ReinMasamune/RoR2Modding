@@ -2,21 +2,19 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using UnityEngine;
 
 namespace RogueWispPlugin
 {
 #if ANCIENTWISP
     internal partial class Main
     {
-        internal class AWChargePrimary : BaseState
+        internal class AWFireUtility : BaseState
         {
-            const Single baseDuration = 1.5f;
+            const Single baseDuration = 0.5f;
+            const Single damageCoef = 1.0f;
 
 
             private Single duration;
-
-            private GameObject chargeInstance;
 
             public override void OnEnter()
             {
@@ -24,13 +22,8 @@ namespace RogueWispPlugin
 
                 this.duration = baseDuration / base.attackSpeedStat;
 
-                base.PlayCrossfade( "Gesture", "ChargeRHCannon", "ChargeRHCannon.playbackRate", this.duration, 0.2f );
-
-                var muzzleTransform = base.GetModelTransform().GetComponent<ChildLocator>().FindChild( "MuzzleRight" );
-
-                this.chargeInstance = UnityEngine.Object.Instantiate<GameObject>( EntityStates.AncientWispMonster.ChargeRHCannon.effectPrefab, muzzleTransform.position, muzzleTransform.rotation, muzzleTransform );
-
-                base.characterBody.SetAimTimer( this.duration );
+                //Fire projectile
+                //Animation
             }
 
             public override void FixedUpdate()
@@ -39,16 +32,13 @@ namespace RogueWispPlugin
 
                 if( base.fixedAge >= this.duration && base.isAuthority )
                 {
-                    base.outer.SetNextState( new AWFirePrimary() );
-                    return;
+                    base.outer.SetNextStateToMain();
                 }
             }
 
             public override void OnExit()
             {
                 base.OnExit();
-
-                UnityEngine.Object.Destroy( this.chargeInstance );
             }
 
             public override InterruptPriority GetMinimumInterruptPriority()

@@ -20,7 +20,7 @@ namespace RogueWispPlugin
             public static System.Single baseProcCoef = 0.8f;
             public static System.Single baseTickFreq = 5f;
             public static System.Single baseMaxRange = 1000f;
-            public static System.Single baseRadius = 1f;
+            public static System.Single baseRadius = 2f;
             public static System.Single chargeScaler = 0.9f;
             public static System.Single minChargeToUse = 50f;
 

@@ -25,7 +25,7 @@ namespace RogueWispPlugin
 
                 Ray aim = base.GetAimRay();
 
-                base.PlayAnimation( "Gesture", "FireRHCannon", "FireRHCannon.playbackRate", this.duration );
+                base.PlayCrossfade( "Gesture", "Throw1", "Throw.playbackRate", this.duration * 2f, 0.2f );
 
 
                 //Muzzle flash
@@ -33,7 +33,7 @@ namespace RogueWispPlugin
 
                 var muzzleTransform = base.GetModelTransform().GetComponent<ChildLocator>().FindChild( "MuzzleRight" );
 
-                if( base.isAuthority )
+                if( base.isAuthority && false )
                 {
                     ProjectileManager.instance.FireProjectile( new FireProjectileInfo
                     {
@@ -65,12 +65,12 @@ namespace RogueWispPlugin
             public override void OnExit()
             {
                 base.OnExit();
-                base.PlayAnimation( "Gesture", "Idle" );
+                base.PlayCrossfade( "Gesture", "Idle", 0.2f );
             }
 
             public override InterruptPriority GetMinimumInterruptPriority()
             {
-                return InterruptPriority.Skill;
+                return InterruptPriority.PrioritySkill;
             }
         }
     }
