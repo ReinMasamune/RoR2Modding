@@ -14,8 +14,8 @@ namespace RogueWispPlugin
             private BurnSkinState state = BurnSkinState.None;
             private BurnSkinState localState = BurnSkinState.None;
 
-            private Dictionary<BurnSkinState,Single> skinTimers = new Dictionary<BurnSkinState, Single>();
-            private Dictionary<BurnSkinState,BurnEffectController> skinEffects = new Dictionary<BurnSkinState, BurnEffectController>();
+            private readonly Dictionary<BurnSkinState, Single> skinTimers = new Dictionary<BurnSkinState, Single>();
+            private readonly Dictionary<BurnSkinState, BurnEffectController> skinEffects = new Dictionary<BurnSkinState, BurnEffectController>();
 
             private GameObject target;
 

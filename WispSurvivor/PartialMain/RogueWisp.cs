@@ -1,13 +1,5 @@
-﻿using BepInEx;
-using R2API.Utils;
-using RoR2;
-using RoR2.Networking;
-using System;
-using System.Collections.Generic;
-using System.Reflection;
+﻿using System;
 using UnityEngine;
-using RogueWispPlugin.Helpers;
-using RogueWispPlugin.Modules;
 //using static RogueWispPlugin.APIInterface;
 
 namespace RogueWispPlugin
@@ -16,7 +8,7 @@ namespace RogueWispPlugin
     internal partial class Main
     {
         // TEMP
-        private UInt32[] restoreIndex = new UInt32[8];
+        private readonly UInt32[] restoreIndex = new UInt32[8];
 
 
         private GameObject RW_body;

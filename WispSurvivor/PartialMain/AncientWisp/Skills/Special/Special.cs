@@ -1,9 +1,4 @@
-﻿using EntityStates;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace RogueWispPlugin
+﻿namespace RogueWispPlugin
 {
 #if ANCIENTWISP
     internal partial class Main

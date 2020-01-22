@@ -1,14 +1,8 @@
-﻿using BepInEx;
-using R2API.Utils;
-using RoR2;
-using RoR2.Networking;
-using System;
-using System.Collections.Generic;
-using System.Reflection;
-using UnityEngine;
+﻿using R2API;
 using RogueWispPlugin.Helpers;
-using RogueWispPlugin.Modules;
-using R2API;
+using RoR2;
+using System;
+using UnityEngine;
 //using static RogueWispPlugin.Helpers.APIInterface;
 
 namespace RogueWispPlugin
@@ -16,10 +10,7 @@ namespace RogueWispPlugin
 #if ROGUEWISP
     internal partial class Main
     {
-        partial void RW_BlazeOrbEffects()
-        {
-            this.Load += this.RW_CreateBlazeOrbEffects;
-        }
+        partial void RW_BlazeOrbEffects() => this.Load += this.RW_CreateBlazeOrbEffects;
 
         private void RW_CreateBlazeOrbEffects()
         {

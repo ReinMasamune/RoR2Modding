@@ -1,11 +1,4 @@
-﻿using EntityStates;
-using RoR2;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using UnityEngine;
-
-namespace RogueWispPlugin
+﻿namespace RogueWispPlugin
 {
 #if ANCIENTWISP
     internal partial class Main
@@ -247,6 +240,10 @@ namespace RogueWispPlugin
             {
                 //this.DetonatePillars();
                 //base.PlayCrossfade( "Body", "EndRain", "EndRain.playbackRate", 0.5f, 0.2f );
+                if( this.pillars != null )
+                {
+                    foreach( GameObject g in this.pillars ) if( g != null ) Destroy( g );
+                }
                 base.OnExit();
             }
 
@@ -255,7 +252,7 @@ namespace RogueWispPlugin
                 return InterruptPriority.PrioritySkill;
             }
 
-            #region Warmup
+    #region Warmup
             private void WarmupStart()
             {
                 base.PlayCrossfade( "Body", "ChargeRain", "ChargeRain.playbackRate", this.warmupDuration, 0.2f );
@@ -268,8 +265,8 @@ namespace RogueWispPlugin
             {
 
             }
-            #endregion
-            #region PlacePillars
+    #endregion
+    #region PlacePillars
             private void PlacePillarsStart()
             {
                 base.PlayCrossfade( "Body", "ChannelRain", 0.3f );
@@ -288,8 +285,8 @@ namespace RogueWispPlugin
             {
 
             }
-            #endregion
-            #region PreDetonate
+    #endregion
+    #region PreDetonate
             private void PreDetonateStart()
             {
                 base.PlayCrossfade( "Gesture", "Enrage", "Enrage.playbackRate", this.preDetonateDuration, 0.2f );
@@ -302,8 +299,8 @@ namespace RogueWispPlugin
             {
 
             }
-            #endregion
-            #region Detonate
+    #endregion
+    #region Detonate
             private void DetonateStart()
             {
                 this.DetonatePillars();
@@ -316,8 +313,8 @@ namespace RogueWispPlugin
             {
 
             }
-            #endregion
-            #region PostDetonate
+    #endregion
+    #region PostDetonate
             private void PostDetonateStart()
             {
                 base.PlayCrossfade( "Body", "EndRain", "EndRain.playbackRate", this.postDetonateDuration, 0.2f );
@@ -330,8 +327,8 @@ namespace RogueWispPlugin
             {
 
             }
-            #endregion
-            #region End
+    #endregion
+    #region End
             private void End()
             {
                 if( base.isAuthority )
@@ -339,7 +336,7 @@ namespace RogueWispPlugin
                     base.outer.SetNextStateToMain();
                 }
             }
-            #endregion
+    #endregion
 
 
 

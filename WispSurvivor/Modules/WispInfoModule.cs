@@ -1,8 +1,4 @@
-﻿using R2API.Utils;
-using System;
-using System.Collections.Generic;
-using UnityEngine;
-/*
+﻿/*
 namespace RogueWispPlugin.Modules
 {
     public static class WispInfoModule

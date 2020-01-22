@@ -61,8 +61,8 @@ namespace RogueWispPlugin
 
             private BuffIndex b;
 
-            private Dictionary<HealthComponent, Single> mask = new Dictionary<HealthComponent, Single>();
-            private Dictionary<HealthComponent, Main.WispBurnManager> burnManagers = new Dictionary<HealthComponent, WispBurnManager>();
+            private readonly Dictionary<HealthComponent, Single> mask = new Dictionary<HealthComponent, Single>();
+            private readonly Dictionary<HealthComponent, Main.WispBurnManager> burnManagers = new Dictionary<HealthComponent, WispBurnManager>();
 
             public override void Begin()
             {

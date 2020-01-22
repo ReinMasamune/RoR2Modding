@@ -1,17 +1,4 @@
-﻿using BepInEx;
-using R2API.Utils;
-using RoR2;
-using RoR2.Networking;
-using System;
-using System.Collections.Generic;
-using System.Reflection;
-using UnityEngine;
-using RogueWispPlugin.Helpers;
-using RogueWispPlugin.Modules;
-using RoR2.CharacterAI;
-using R2API;
-using RoR2.Skills;
-//using static RogueWispPlugin.Helpers.APIInterface;
+﻿//using static RogueWispPlugin.Helpers.APIInterface;
 
 namespace RogueWispPlugin
 {
@@ -28,16 +15,36 @@ namespace RogueWispPlugin
             this.Load += this.AW_SetupSkillsStuff;
             this.Load += this.AW_GetSecondaryEffectStuff;
             this.Load += this.AW_GetSpecialProjectileStuff;
-            this.Load += this.AW_GetSpecialZoneProjectileStuff;
+            this.Load += this.AW_RegisterOrbStuff;
+
         }
 
-        private void AW_GetSpecialZoneProjectileStuff()
+
+
+        private void AW_RegisterOrbStuff()
         {
-
+            OrbAPI.AddOrb( typeof( UniversalHealOrb ) );
         }
+
         private void AW_GetSpecialProjectileStuff()
         {
+            var obj1 = Resources.Load<GameObject>("Prefabs/Projectiles/EvisProjectile" ).InstantiateClone("AWZoneLaunch" );
+            var obj2 = Resources.Load<GameObject>("Prefabs/Projectiles/EvisOverlapProjectile").InstantiateClone("AWZone" );
 
+            var impactExplosion1 = obj1.GetComponent<ProjectileImpactExplosion>();
+            impactExplosion1.childrenProjectilePrefab = obj2;
+
+            var healComp = obj2.AddComponent<ProjectileUniversalHealOrbOnDamage>();
+            healComp.healType = UniversalHealOrb.HealType.PercentMax;
+            healComp.healTarget = UniversalHealOrb.HealTarget.Barrier;
+            healComp.value = 0.05f;
+            healComp.effectPrefab = Resources.Load<GameObject>( "Prefabs/Effects/OrbEffects/HealthOrbEffect" );
+
+            this.AW_utilProj = obj1;
+            this.AW_utilZoneProj = obj2;
+
+            ProjectileCatalog.getAdditionalEntries += ( list ) => list.Add( this.AW_utilProj );
+            ProjectileCatalog.getAdditionalEntries += ( list ) => list.Add( this.AW_utilZoneProj );
         }
 
 
@@ -138,6 +145,46 @@ namespace RogueWispPlugin
             };
             skillLoc.secondary.SetFieldValue<SkillFamily>( "_skillFamily", secondaryFam );
 
+
+            var utilityFam = ScriptableObject.CreateInstance<SkillFamily>();
+            var utilityDef = ScriptableObject.CreateInstance<SkillDef>();
+            LoadoutAPI.AddSkillDef( utilityDef );
+            LoadoutAPI.AddSkillFamily( utilityFam );
+            LoadoutAPI.AddSkill( typeof( AWChargeUtility ) );
+            LoadoutAPI.AddSkill( typeof( AWFireUtility ) );
+
+            utilityDef.activationState = new EntityStates.SerializableEntityStateType( typeof( AWChargeUtility ) );
+            utilityDef.activationStateMachineName = "Weapon";
+            utilityDef.baseMaxStock = 1;
+            utilityDef.baseRechargeInterval = 10f;
+            utilityDef.beginSkillCooldownOnSkillEnd = true;
+            utilityDef.canceledFromSprinting = false;
+            utilityDef.fullRestockOnAssign = true;
+            utilityDef.icon = Resources.Load<Sprite>( "NotAPath" );
+            utilityDef.interruptPriority = EntityStates.InterruptPriority.Skill;
+            utilityDef.isBullets = false;
+            utilityDef.isCombatSkill = true;
+            utilityDef.mustKeyPress = false;
+            utilityDef.noSprint = false;
+            utilityDef.rechargeStock = 1;
+            utilityDef.requiredStock = 1;
+            utilityDef.shootDelay = 0.1f;
+            utilityDef.skillDescriptionToken = "";
+            utilityDef.skillName = "";
+            utilityDef.skillNameToken = "";
+            utilityDef.stockToConsume = 1;
+
+            utilityFam.variants = new SkillFamily.Variant[]
+            {
+                new SkillFamily.Variant
+                {
+                    skillDef = utilityDef,
+                    unlockableName = "",
+                    viewableNode = new ViewablesCatalog.Node( "aaaaaa", false )
+                }
+            };
+            skillLoc.utility.SetFieldValue<SkillFamily>( "_skillFamily", utilityFam );
+
         }
 
         private void AW_GenPrimaryProjectile()
@@ -201,7 +248,7 @@ namespace RogueWispPlugin
         {
             var primaryDriver = this.AW_master.AddComponent<AISkillDriver>();
             var secondaryDriver = this.AW_master.AddComponent<AISkillDriver>();
-            //var utilityDriver = this.AW_master.AddComponent<AISkillDriver>();
+            var utilityDriver = this.AW_master.AddComponent<AISkillDriver>();
             //var specialDriver = this.AW_master.AddComponent<AISkillDriver>();
             var chaseDriver = this.AW_master.AddComponent<AISkillDriver>();
             var strafeDriver = this.AW_master.AddComponent<AISkillDriver>();
@@ -253,6 +300,30 @@ namespace RogueWispPlugin
             secondaryDriver.noRepeat = false;
             secondaryDriver.shouldSprint = false;
             secondaryDriver.shouldFireEquipment = false;
+
+            utilityDriver.customName = "Utility";
+            utilityDriver.skillSlot = SkillSlot.Utility;
+            utilityDriver.requiredSkill = null;
+            utilityDriver.requireSkillReady = true;
+            utilityDriver.requireEquipmentReady = false;
+            utilityDriver.moveTargetType = AISkillDriver.TargetType.CurrentEnemy;
+            utilityDriver.minUserHealthFraction = Single.NegativeInfinity;
+            utilityDriver.maxUserHealthFraction = Single.PositiveInfinity;
+            utilityDriver.minTargetHealthFraction = Single.NegativeInfinity;
+            utilityDriver.maxTargetHealthFraction = Single.PositiveInfinity;
+            utilityDriver.minDistance = 0f;
+            utilityDriver.maxDistance = 100f;
+            utilityDriver.selectionRequiresTargetLoS = false;
+            utilityDriver.activationRequiresTargetLoS = false;
+            utilityDriver.movementType = AISkillDriver.MovementType.Stop;
+            utilityDriver.moveInputScale = 1f;
+            utilityDriver.aimType = AISkillDriver.AimType.AtMoveTarget;
+            utilityDriver.ignoreNodeGraph = false;
+            utilityDriver.driverUpdateTimerOverride = 0.5f;
+            utilityDriver.resetCurrentEnemyOnNextDriverSelection = false;
+            utilityDriver.noRepeat = false;
+            utilityDriver.shouldSprint = false;
+            utilityDriver.shouldFireEquipment = false;
 
             chaseDriver.customName = "Chase";
             chaseDriver.skillSlot = SkillSlot.None;

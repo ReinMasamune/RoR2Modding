@@ -1,9 +1,4 @@
-﻿using EntityStates;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace RogueWispPlugin
+﻿namespace RogueWispPlugin
 {
 #if ANCIENTWISP
     internal partial class Main
@@ -22,8 +17,24 @@ namespace RogueWispPlugin
 
                 this.duration = baseDuration / base.attackSpeedStat;
 
-                //Fire projectile
-                //Animation
+                if( base.isAuthority )
+                {
+                    var r = base.GetAimRay();
+                    ProjectileManager.instance.FireProjectile( new FireProjectileInfo
+                    {
+                        crit = base.RollCrit(),
+                        damage = damageCoef * base.damageStat,
+                        damageColorIndex = RoR2.DamageColorIndex.Default,
+                        force = 0f,
+                        owner = base.gameObject,
+                        position = r.origin,
+                        procChainMask = default,
+                        projectilePrefab = Main.instance.AW_utilProj,
+                        rotation = Util.QuaternionSafeLookRotation( r.direction ),
+                    });
+                }
+
+                base.PlayCrossfade( "Gesture", "FireBomb", "FireBomb.playbackRate", this.duration, 0.2f );
             }
 
             public override void FixedUpdate()

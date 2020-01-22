@@ -41,7 +41,7 @@ namespace RogueWispPlugin
 
             private UInt32 skin = 0;
 
-            private ChildLocator childLoc;
+            private readonly ChildLocator childLoc;
             private Animator anim;
             private WispPassiveController passive;
             private ClientOrbController orbControl;

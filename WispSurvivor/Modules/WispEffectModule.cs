@@ -2030,118 +2030,118 @@ namespace RogueWispPlugin.Modules
                 }
             };
             */
-            /*
+/*
 
-            return g;
-        }
+return g;
+}
 
 
-        #endregion
+#endregion
 
-        private static void ExFunction( GameObject body, Dictionary<Type, Component> dic )
-        {
+private static void ExFunction( GameObject body, Dictionary<Type, Component> dic )
+{
 
-        }
+}
 
-        private static T C<T>( this Dictionary<Type, Component> dic ) where T : Component => dic[typeof( T )] as T;
+private static T C<T>( this Dictionary<Type, Component> dic ) where T : Component => dic[typeof( T )] as T;
 
-        private static void Strip( this GameObject g )
-        {
-            foreach( Component c in g.GetComponents<Component>() )
-            {
-                if( !c ) continue;
-                if( c.GetType() == typeof( Transform ) ) continue;
+private static void Strip( this GameObject g )
+{
+foreach( Component c in g.GetComponents<Component>() )
+{
+    if( !c ) continue;
+    if( c.GetType() == typeof( Transform ) ) continue;
 
-                MonoBehaviour.DestroyImmediate( c );
-            }
-        }
+    MonoBehaviour.DestroyImmediate( c );
+}
+}
 
-        private static void BasicSetup( this ParticleSystem ps1 )
-        {
-            ParticleSystem.EmissionModule ps1Emission = ps1.emission;
-            ps1Emission.enabled = false;
+private static void BasicSetup( this ParticleSystem ps1 )
+{
+ParticleSystem.EmissionModule ps1Emission = ps1.emission;
+ps1Emission.enabled = false;
 
-            ParticleSystem.ShapeModule ps1Shape = ps1.shape;
-            ps1Shape.enabled = false;
+ParticleSystem.ShapeModule ps1Shape = ps1.shape;
+ps1Shape.enabled = false;
 
-            ParticleSystem.VelocityOverLifetimeModule ps1VOL = ps1.velocityOverLifetime;
-            ps1VOL.enabled = false;
+ParticleSystem.VelocityOverLifetimeModule ps1VOL = ps1.velocityOverLifetime;
+ps1VOL.enabled = false;
 
-            ParticleSystem.LimitVelocityOverLifetimeModule ps1LimVOL = ps1.limitVelocityOverLifetime;
-            ps1LimVOL.enabled = false;
+ParticleSystem.LimitVelocityOverLifetimeModule ps1LimVOL = ps1.limitVelocityOverLifetime;
+ps1LimVOL.enabled = false;
 
-            ParticleSystem.InheritVelocityModule ps1InhVel = ps1.inheritVelocity;
-            ps1InhVel.enabled = false;
+ParticleSystem.InheritVelocityModule ps1InhVel = ps1.inheritVelocity;
+ps1InhVel.enabled = false;
 
-            ParticleSystem.ForceOverLifetimeModule ps1FOL = ps1.forceOverLifetime;
-            ps1FOL.enabled = false;
+ParticleSystem.ForceOverLifetimeModule ps1FOL = ps1.forceOverLifetime;
+ps1FOL.enabled = false;
 
-            ParticleSystem.ColorOverLifetimeModule ps1COL = ps1.colorOverLifetime;
-            ps1COL.enabled = false;
+ParticleSystem.ColorOverLifetimeModule ps1COL = ps1.colorOverLifetime;
+ps1COL.enabled = false;
 
-            ParticleSystem.ColorBySpeedModule ps1CBS = ps1.colorBySpeed;
-            ps1CBS.enabled = false;
+ParticleSystem.ColorBySpeedModule ps1CBS = ps1.colorBySpeed;
+ps1CBS.enabled = false;
 
-            ParticleSystem.SizeOverLifetimeModule ps1SOL = ps1.sizeOverLifetime;
-            ps1SOL.enabled = false;
+ParticleSystem.SizeOverLifetimeModule ps1SOL = ps1.sizeOverLifetime;
+ps1SOL.enabled = false;
 
-            ParticleSystem.SizeBySpeedModule ps1SBS = ps1.sizeBySpeed;
-            ps1SBS.enabled = false;
+ParticleSystem.SizeBySpeedModule ps1SBS = ps1.sizeBySpeed;
+ps1SBS.enabled = false;
 
-            ParticleSystem.RotationOverLifetimeModule ps1ROL = ps1.rotationOverLifetime;
-            ps1ROL.enabled = false;
+ParticleSystem.RotationOverLifetimeModule ps1ROL = ps1.rotationOverLifetime;
+ps1ROL.enabled = false;
 
-            ParticleSystem.RotationBySpeedModule ps1RBS = ps1.rotationBySpeed;
-            ps1RBS.enabled = false;
+ParticleSystem.RotationBySpeedModule ps1RBS = ps1.rotationBySpeed;
+ps1RBS.enabled = false;
 
-            ParticleSystem.ExternalForcesModule ps1ExtFor = ps1.externalForces;
-            ps1ExtFor.enabled = false;
+ParticleSystem.ExternalForcesModule ps1ExtFor = ps1.externalForces;
+ps1ExtFor.enabled = false;
 
-            ParticleSystem.NoiseModule ps1Noise = ps1.noise;
-            ps1Noise.enabled = false;
+ParticleSystem.NoiseModule ps1Noise = ps1.noise;
+ps1Noise.enabled = false;
 
-            ParticleSystem.CollisionModule ps1Collis = ps1.collision;
-            ps1Collis.enabled = false;
+ParticleSystem.CollisionModule ps1Collis = ps1.collision;
+ps1Collis.enabled = false;
 
-            ParticleSystem.TriggerModule ps1Trig = ps1.trigger;
-            ps1Trig.enabled = false;
+ParticleSystem.TriggerModule ps1Trig = ps1.trigger;
+ps1Trig.enabled = false;
 
-            ParticleSystem.SubEmittersModule ps1SubEmit = ps1.subEmitters;
-            ps1SubEmit.enabled = false;
+ParticleSystem.SubEmittersModule ps1SubEmit = ps1.subEmitters;
+ps1SubEmit.enabled = false;
 
-            ParticleSystem.TextureSheetAnimationModule ps1TexAnim = ps1.textureSheetAnimation;
-            ps1TexAnim.enabled = false;
+ParticleSystem.TextureSheetAnimationModule ps1TexAnim = ps1.textureSheetAnimation;
+ps1TexAnim.enabled = false;
 
-            ParticleSystem.LightsModule ps1Light = ps1.lights;
-            ps1Light.enabled = false;
+ParticleSystem.LightsModule ps1Light = ps1.lights;
+ps1Light.enabled = false;
 
-            ParticleSystem.TrailModule ps1Trails = ps1.trails;
-            ps1Trails.enabled = false;
+ParticleSystem.TrailModule ps1Trails = ps1.trails;
+ps1Trails.enabled = false;
 
-            ParticleSystem.CustomDataModule ps1Cust = ps1.customData;
-            ps1Cust.enabled = false;
-        }
+ParticleSystem.CustomDataModule ps1Cust = ps1.customData;
+ps1Cust.enabled = false;
+}
 
-        private static void DebugMaterialInfo( Material m )
-        {
-            Debug.Log( "Material name: " + m.name );
-            String[] s = m.shaderKeywords;
-            Debug.Log( "Shader keywords" );
-            for( Int32 i = 0; i < s.Length; i++ )
-            {
-                Debug.Log( s[i] );
-            }
+private static void DebugMaterialInfo( Material m )
+{
+Debug.Log( "Material name: " + m.name );
+String[] s = m.shaderKeywords;
+Debug.Log( "Shader keywords" );
+for( Int32 i = 0; i < s.Length; i++ )
+{
+    Debug.Log( s[i] );
+}
 
-            Debug.Log( "Shader name: " + m.shader.name );
+Debug.Log( "Shader name: " + m.shader.name );
 
-            Debug.Log( "Texture Properties" );
-            String[] s2 = m.GetTexturePropertyNames();
-            for( Int32 i = 0; i < s2.Length; i++ )
-            {
-                Debug.Log( s2[i] + " : " + m.GetTexture( s2[i] ) );
-            }
-        }
-    }
+Debug.Log( "Texture Properties" );
+String[] s2 = m.GetTexturePropertyNames();
+for( Int32 i = 0; i < s2.Length; i++ )
+{
+    Debug.Log( s2[i] + " : " + m.GetTexture( s2[i] ) );
+}
+}
+}
 }
 */
 

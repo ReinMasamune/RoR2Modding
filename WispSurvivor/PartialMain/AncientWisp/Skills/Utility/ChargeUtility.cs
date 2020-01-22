@@ -1,9 +1,4 @@
-﻿using EntityStates;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace RogueWispPlugin
+﻿namespace RogueWispPlugin
 {
 #if ANCIENTWISP
     internal partial class Main
@@ -22,7 +17,9 @@ namespace RogueWispPlugin
                 this.duration = baseChargeTime / base.attackSpeedStat;
 
                 //Effect
-                //Animation
+
+                base.PlayCrossfade( "Gesture", "ChargeBomb", "ChargeBomb.playbackRate", this.duration, 0.2f );
+
             }
 
             public override void FixedUpdate()

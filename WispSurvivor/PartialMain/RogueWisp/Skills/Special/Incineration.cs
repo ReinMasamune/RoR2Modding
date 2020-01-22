@@ -42,17 +42,17 @@ namespace RogueWispPlugin
             private WispPassiveController passive;
             private GameObject beamEffect;
             private Transform beamEnd;
-            private Collider[] beamCols = new Collider[512];
-            private Dictionary<HealthComponent, System.Boolean> beamMask = new Dictionary<HealthComponent, System.Boolean>();
-            private Dictionary<Collider, MemoizedGetComponent<HurtBox>> cacheBoxes = new Dictionary<Collider, MemoizedGetComponent<HurtBox>>();
+            private readonly Collider[] beamCols = new Collider[512];
+            private readonly Dictionary<HealthComponent, System.Boolean> beamMask = new Dictionary<HealthComponent, System.Boolean>();
+            private readonly Dictionary<Collider, MemoizedGetComponent<HurtBox>> cacheBoxes = new Dictionary<Collider, MemoizedGetComponent<HurtBox>>();
             private MemoizedGetComponent<HurtBox> temp;
             private TeamIndex team;
             private WispAimAnimationController aimAnim;
             private BuffIndex armorBuff;
 
-            private static NetworkWriter write = new NetworkWriter();
+            private static readonly NetworkWriter write = new NetworkWriter();
 
-            private MethodInfo netStuff;
+            private readonly MethodInfo netStuff;
 
 
             public override void OnEnter()
@@ -189,7 +189,7 @@ namespace RogueWispPlugin
                 Vector3 end = beam.aim.origin;
 
                 //if( Physics.Raycast( beam.aim, out beamRh, beam.range, LayerIndex.world.mask, QueryTriggerInteraction.UseGlobal ) )
-                if( Util.CharacterRaycast( base.outer.gameObject, beam.aim, out beamRh, beam.range, LayerIndex.world.mask, QueryTriggerInteraction.UseGlobal ))
+                if( Util.CharacterRaycast( base.outer.gameObject, beam.aim, out beamRh, beam.range, LayerIndex.world.mask, QueryTriggerInteraction.UseGlobal ) )
                 {
                     end = beamRh.point;
                 } else

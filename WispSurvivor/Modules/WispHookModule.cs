@@ -1,13 +1,4 @@
-﻿using MonoMod.Cil;
-using R2API.Utils;
-using RoR2;
-using System;
-using System.Collections;
-using UnityEngine;
-using UnityEngine.Networking;
-using RogueWispPlugin.Modules;
-
-namespace RogueWispPlugin
+﻿namespace RogueWispPlugin
 {
     /*
     internal partial class Main

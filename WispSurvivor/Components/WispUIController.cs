@@ -11,12 +11,12 @@ namespace RogueWispPlugin
         {
             public WispPassiveController passive;
 
-            private Single barPosVFrac = 0.5f;
-            private Single barPosHFrac = 0.6f;
-            private Single barHeightFrac = 0.4f;
-            private Single barWidthFrac = 0.02f;
-            private Single spaceFrac = 0.5f;
-            private Single boxHeightFrac = 0.65f;
+            private readonly Single barPosVFrac = 0.5f;
+            private readonly Single barPosHFrac = 0.6f;
+            private readonly Single barHeightFrac = 0.4f;
+            private readonly Single barWidthFrac = 0.02f;
+            private readonly Single spaceFrac = 0.5f;
+            private readonly Single boxHeightFrac = 0.65f;
 
             private Single boxesStartH = 1100;
             private Single boxesSpacing = 14f;
@@ -32,12 +32,12 @@ namespace RogueWispPlugin
             private Int32 texW = 12;
             private Int32 texH = 6;
 
-            private Rect[] boxes = new Rect[10];
+            private readonly Rect[] boxes = new Rect[10];
 
             private Boolean paused = false;
             private BaseConVar scaleVar;
 
-            private Color[] color = new Color[8]
+            private readonly Color[] color = new Color[8]
         {
             new Color( 0f, 0f, 0f, 1f ),
             new Color( 1f, 1f, 1f, 1f ),
@@ -49,11 +49,11 @@ namespace RogueWispPlugin
             new Color( 1f, 0f, 1f, 1f ),
         };
 
-            private Texture2D[] colors = new Texture2D[8];
+            private readonly Texture2D[] colors = new Texture2D[8];
 
-            private GUIStyle style = new GUIStyle
+            private readonly GUIStyle style = new GUIStyle
             {
-                border = new RectOffset(6, 6, 1, 1)
+                border = new RectOffset( 6, 6, 1, 1 )
             };
 
             private UInt32[] colorStates = new UInt32[10]

@@ -1,13 +1,6 @@
-﻿using BepInEx;
-using R2API.Utils;
-using RoR2;
-using RoR2.Networking;
+﻿using RoR2;
 using System;
-using System.Collections.Generic;
-using System.Reflection;
 using UnityEngine;
-using RogueWispPlugin.Helpers;
-using RogueWispPlugin.Modules;
 //using static RogueWispPlugin.Helpers.APIInterface;
 
 namespace RogueWispPlugin
@@ -15,10 +8,7 @@ namespace RogueWispPlugin
 #if ROGUEWISP
     internal partial class Main
     {
-        partial void RW_EditModelMesh()
-        {
-            this.Load += this.RW_DoModelMeshEdits;
-        }
+        partial void RW_EditModelMesh() => this.Load += this.RW_DoModelMeshEdits;
 
         private void RW_DoModelMeshEdits()
         {

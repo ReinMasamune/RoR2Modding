@@ -1,9 +1,4 @@
-﻿using R2API.Utils;
-using RoR2;
-using System;
-using System.Collections.Generic;
-using UnityEngine;
-/*
+﻿/*
 namespace RogueWispPlugin.Modules
 {
     public static class WispBuffModule

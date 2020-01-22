@@ -1,14 +1,8 @@
-﻿using BepInEx;
-using R2API.Utils;
+﻿using R2API;
 using RoR2;
 using RoR2.Networking;
-using System;
-using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
-using RogueWispPlugin.Helpers;
-using RogueWispPlugin.Modules;
-using R2API;
 //using static RogueWispPlugin.Helpers.APIInterface;
 
 namespace RogueWispPlugin
@@ -44,7 +38,7 @@ namespace RogueWispPlugin
             this.RW_body.AddComponent<ClientOrbController>();
             this.RW_body.AddComponent<WispFlamesController>();
 
-            var passive = this.RW_body.AddComponent<WispPassiveController>();
+            WispPassiveController passive = this.RW_body.AddComponent<WispPassiveController>();
             this.RW_body.AddComponent<WispUIController>().passive = passive;
             this.RW_body.AddComponent<EntityStateMachine>().customName = "Gaze";
 
@@ -74,7 +68,7 @@ namespace RogueWispPlugin
                 descriptionToken = "WISP_SURVIVOR_BODY_DESC",
                 displayPrefab = display,
                 primaryColor = new Color(0.7f, 0.2f, 0.9f),
-                
+
             };
 
             R2API.SurvivorAPI.AddSurvivor( bodySurvivorDef );
@@ -83,8 +77,8 @@ namespace RogueWispPlugin
         private void RW_LoadAssetBundle()
         {
             Assembly execAssembly = Assembly.GetExecutingAssembly();
-            System.IO.Stream stream = execAssembly.GetManifestResourceStream( "WispSurvivor.Bundle.wispsurvivor" );
-            this.RW_assetBundle = AssetBundle.LoadFromStream(stream);
+            System.IO.Stream stream = execAssembly.GetManifestResourceStream( "RogueWispPlugin.Bundle.wispsurvivor" );
+            this.RW_assetBundle = AssetBundle.LoadFromStream( stream );
         }
     }
 #endif

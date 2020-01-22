@@ -33,7 +33,7 @@ namespace RogueWispPlugin
             public static System.Single baseIgniteOrbDeathStacksMult = 0.5f;
             public static System.Single baseIgniteOrbExpireStacksMult = 0f;
 
-            private static System.Single flareTime = 0.35f;
+            private static readonly System.Single flareTime = 0.35f;
 
             public System.Single blazeOrbRadius;
             private System.Single blazeOrbDuration;
@@ -52,7 +52,7 @@ namespace RogueWispPlugin
             private System.Single igniteOrbBaseStacksOnDeath;
             private System.Single igniteOrbExpireStacksMult;
 
-            private System.Boolean crit;
+            private readonly System.Boolean crit;
 
             private System.UInt32 skin;
 

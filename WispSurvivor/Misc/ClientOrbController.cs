@@ -9,8 +9,8 @@ namespace RogueWispPlugin
     {
         public class ClientOrbController : NetworkBehaviour
         {
-            private List<BaseClientOrb> activeOrbs = new List<BaseClientOrb>();
-            private List<BaseClientOrb> destroy = new List<BaseClientOrb>();
+            private readonly List<BaseClientOrb> activeOrbs = new List<BaseClientOrb>();
+            private readonly List<BaseClientOrb> destroy = new List<BaseClientOrb>();
 
             public void AddClientOrb( BaseClientOrb newOrb )
             {

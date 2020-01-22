@@ -1,14 +1,9 @@
-﻿using BepInEx;
-using R2API.Utils;
+﻿using R2API;
+using RogueWispPlugin.Helpers;
 using RoR2;
-using RoR2.Networking;
 using System;
-using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
-using RogueWispPlugin.Helpers;
-using RogueWispPlugin.Modules;
-using R2API;
 //using static RogueWispPlugin.Helpers.APIInterface;
 
 namespace RogueWispPlugin
@@ -16,10 +11,7 @@ namespace RogueWispPlugin
 #if ROGUEWISP
     internal partial class Main
     {
-        partial void RW_SecondaryExplosionEffects()
-        {
-            this.Load += this.RW_CreateSecondaryExplosionEffects;
-        }
+        partial void RW_SecondaryExplosionEffects() => this.Load += this.RW_CreateSecondaryExplosionEffects;
 
         private void RW_CreateSecondaryExplosionEffects()
         {

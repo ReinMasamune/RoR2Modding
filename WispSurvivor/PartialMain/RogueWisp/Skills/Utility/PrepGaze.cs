@@ -55,7 +55,7 @@ namespace RogueWispPlugin
 
                     RaycastHit rh;
                     //if( Physics.SphereCast( r, castRadius, out rh, maxRange, LayerIndex.world.mask | LayerIndex.entityPrecise.mask, QueryTriggerInteraction.UseGlobal ) )
-                    if( Util.CharacterSpherecast( base.outer.gameObject, r, castRadius, out rh, maxRange, LayerIndex.world.mask | LayerIndex.entityPrecise.mask, QueryTriggerInteraction.UseGlobal ))
+                    if( Util.CharacterSpherecast( base.outer.gameObject, r, castRadius, out rh, maxRange, LayerIndex.world.mask | LayerIndex.entityPrecise.mask, QueryTriggerInteraction.UseGlobal ) )
                     {
                         this.end.position = rh.point;
                         this.normal = rh.normal;

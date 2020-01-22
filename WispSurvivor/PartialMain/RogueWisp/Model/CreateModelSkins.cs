@@ -1,14 +1,7 @@
-﻿using BepInEx;
-using R2API.Utils;
+﻿using R2API;
 using RoR2;
-using RoR2.Networking;
 using System;
-using System.Collections.Generic;
-using System.Reflection;
 using UnityEngine;
-using RogueWispPlugin.Helpers;
-using RogueWispPlugin.Modules;
-using R2API;
 //using static RogueWispPlugin.Helpers.APIInterface;
 
 namespace RogueWispPlugin
@@ -16,10 +9,7 @@ namespace RogueWispPlugin
 #if ROGUEWISP
     internal partial class Main
     {
-        partial void RW_CreateModelSkins()
-        {
-            this.Load += this.RW_DoSkinCreation;
-        }
+        partial void RW_CreateModelSkins() => this.Load += this.RW_DoSkinCreation;
 
         private void RW_DoSkinCreation()
         {
@@ -76,7 +66,7 @@ namespace RogueWispPlugin
 
             for( Int32 i = 0; i < 8; i++ )
             {
-                var sprite = Resources.Load<Sprite>( "NotAPath" );
+                Sprite sprite = Resources.Load<Sprite>( "NotAPath" );
                 try
                 {
                     sprite = LoadoutAPI.CreateSkinIcon( fireColors[i], Color.white, fireColors[i] * 0.5f, Color.black );

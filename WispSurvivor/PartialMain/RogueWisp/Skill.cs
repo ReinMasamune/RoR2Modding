@@ -1,16 +1,10 @@
-﻿using BepInEx;
+﻿using EntityStates;
 using R2API.Utils;
 using RoR2;
-using RoR2.Networking;
-using System;
-using System.Collections.Generic;
-using System.Reflection;
-using UnityEngine;
-using RogueWispPlugin.Helpers;
-using RogueWispPlugin.Modules;
 //using static RogueWispPlugin.Helpers.APIInterface;
 using RoR2.Skills;
-using EntityStates;
+using System;
+using UnityEngine;
 
 namespace RogueWispPlugin
 {
@@ -131,7 +125,7 @@ namespace RogueWispPlugin
         private void RW_DoPrimaries()
         {
             SkillDef[] primaries = new SkillDef[1];
-            
+
 
             SteppedSkillDef skill = ScriptableObject.CreateInstance<SteppedSkillDef>();
             skill.activationState = new SerializableEntityStateType( typeof( Heatwave ) );
@@ -164,7 +158,7 @@ namespace RogueWispPlugin
         }
         private void RW_DoPassive()
         {
-            var sl = this.RW_body.GetComponent<SkillLocator>();
+            SkillLocator sl = this.RW_body.GetComponent<SkillLocator>();
             sl.passiveSkill.enabled = true;
             sl.passiveSkill.icon = this.RW_assetBundle.LoadAsset<Sprite>( "Assets/__EXPORT/WispyPassiveIcon2.png" );
             sl.passiveSkill.skillNameToken = "WISP_SURVIVOR_PASSIVE_NAME";
@@ -223,7 +217,7 @@ namespace RogueWispPlugin
         }
         private void RW_SetupSkillFamilies()
         {
-            var skillLocator = this.RW_body.GetComponent<SkillLocator>();
+            SkillLocator skillLocator = this.RW_body.GetComponent<SkillLocator>();
             this.RW_skillFamilies = new SkillFamily[4];
             this.RW_skillFamilies[0] = GetNewSkillFamily( skillLocator.primary );
             this.RW_skillFamilies[1] = GetNewSkillFamily( skillLocator.secondary );
@@ -257,8 +251,6 @@ namespace RogueWispPlugin
         }
         private void RW_RegisterSkillStates()
         {
-            R2API.SkillAPI.AddSkill( typeof( PrepHeatwave ) );
-            R2API.SkillAPI.AddSkill( typeof( FireHeatwave ) );
             R2API.SkillAPI.AddSkill( typeof( HeatwaveWindDown ) );
             R2API.SkillAPI.AddSkill( typeof( Heatwave ) );
             R2API.SkillAPI.AddSkill( typeof( TestSecondary ) );

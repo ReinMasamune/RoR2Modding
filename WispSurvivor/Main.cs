@@ -1,22 +1,16 @@
 ﻿using BepInEx;
 using R2API.Utils;
 using RoR2;
-using RoR2.Networking;
 using System;
 using System.Collections.Generic;
-using System.Reflection;
-using UnityEngine;
-using RogueWispPlugin.Helpers;
-using RogueWispPlugin.Modules;
-using System.Runtime.CompilerServices;
 using System.Diagnostics;
-using System.Xml;
+using System.Runtime.CompilerServices;
 
 namespace RogueWispPlugin
 {
-    [R2APISubmoduleDependency( 
-        nameof( R2API.SurvivorAPI ), 
-        nameof( R2API.EffectAPI ), 
+    [R2APISubmoduleDependency(
+        nameof( R2API.SurvivorAPI ),
+        nameof( R2API.EffectAPI ),
         nameof( R2API.PrefabAPI ),
         nameof( R2API.LoadoutAPI ),
         nameof( R2API.OrbAPI ),
@@ -35,16 +29,16 @@ namespace RogueWispPlugin
 #pragma warning restore CA2243 // Attribute string literals should parse correctly
     internal partial class Main : BaseUnityPlugin
     {
-        const String pluginGUID = "com.Rein.RogueWisp";
-        const String pluginName = "Rogue Wisp";
-        const String pluginVersion = Consts.ver;
+        private const String pluginGUID = "com.Rein.RogueWisp";
+        private const String pluginName = "Rogue Wisp";
+        private const String pluginVersion = Consts.ver;
 
         public String thing1;
         public String thing2;
 
-        private Boolean working;
+        private readonly Boolean working;
 
-        private Stopwatch watch;
+        private readonly Stopwatch watch;
 
         private List<PluginInfo> _plugins;
         private List<PluginInfo> plugins
@@ -84,6 +78,9 @@ namespace RogueWispPlugin
 #endif
 #if ROGUEWISP
         partial void CreateRogueWisp();
+#endif
+#if BOSSHPBAR
+        partial void EditBossHPBar();
 #endif
 #if ANCIENTWISP
         partial void CreateAncientWisp();
@@ -128,6 +125,9 @@ namespace RogueWispPlugin
 #if ROGUEWISP
                 this.CreateRogueWisp();
 #endif
+#if BOSSHPBAR
+                this.EditBossHPBar();
+#endif
 #if ANCIENTWISP
                 this.CreateAncientWisp();
 #endif
@@ -155,10 +155,7 @@ namespace RogueWispPlugin
             }
         }
 
-        private void Main_FirstFrame()
-        {
-            typeof( EffectCatalog ).InvokeMethod( "CCEffectsReload", new ConCommandArgs() );
-        }
+        private void Main_FirstFrame() => typeof( EffectCatalog ).InvokeMethod( "CCEffectsReload", new ConCommandArgs() );
 
 #pragma warning disable IDE0051 // Remove unused private members
         public void Awake() => this.Load?.Invoke();
@@ -172,71 +169,48 @@ namespace RogueWispPlugin
 #pragma warning restore IDE0051 // Remove unused private members
 
 #if TIMER
-        private void AwakeTimeStart()
-        {
-            this.watch.Restart();
-        }
+        private void AwakeTimeStart() => this.watch.Restart();
         private void AwakeTimeStop()
         {
             this.watch.Stop();
             Main.LogI( "Awake Time: " + this.watch.ElapsedMilliseconds );
         }
-        private void EnableTimeStart()
-        {
-            this.watch.Restart();
-        }
+        private void EnableTimeStart() => this.watch.Restart();
         private void EnableTimeStop()
         {
             this.watch.Stop();
             Main.LogI( "Enable Time: " + this.watch.ElapsedMilliseconds );
         }
-        private void StartTimeStart()
-        {
-            this.watch.Restart();
-        }
+        private void StartTimeStart() => this.watch.Restart();
         private void StartTimeStop()
         {
             this.watch.Stop();
             Main.LogI( "Start Time: " + this.watch.ElapsedMilliseconds );
         }
 #endif
-        internal static void Log( BepInEx.Logging.LogLevel level, object data, String file, String member, Int32 line )
-        {
+        internal static void Log( BepInEx.Logging.LogLevel level, Object data, String file, String member, Int32 line ) =>
 #if LOGGING
             Main.instance.Logger.Log( level, data );
 #endif
 #if FINDLOGS
             Main.instance.Logger.LogWarning( "Log: " + level.ToString() + " called by: " + file + " : " + member + " : " + line );
 #endif
-        }
-        internal static void LogI( object data, [CallerFilePath] String file = "", [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 )
-        {
-            Main.Log( BepInEx.Logging.LogLevel.Info, data, file, member, line );
-        }
-        internal static void LogM( object data, [CallerFilePath] String file = "", [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 )
-        {
-            Main.Log( BepInEx.Logging.LogLevel.Message, data, file, member, line );
-        }
-        internal static void LogD( object data, [CallerFilePath] String file = "", [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 )
-        {
-            Main.Log( BepInEx.Logging.LogLevel.Debug, data, file, member, line );
-        }
-        internal static void LogW( object data, [CallerFilePath] String file = "", [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 )
-        {
-            Main.Log( BepInEx.Logging.LogLevel.Warning, data, file, member, line );
-        }
-        internal static void LogE( object data, [CallerFilePath] String file = "", [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 )
-        {
-            Main.Log( BepInEx.Logging.LogLevel.Error, data, file, member, line );
-        }
-        internal static void LogF( object data, [CallerFilePath] String file = "", [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 )
-        {
-            Main.Log( BepInEx.Logging.LogLevel.Fatal, data, file, member, line );
-        }
+
+        internal static void LogI( Object data, [CallerFilePath] String file = "", [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 ) => Main.Log( BepInEx.Logging.LogLevel.Info, data, file, member, line );
+        internal static void LogM( Object data, [CallerFilePath] String file = "", [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 ) => Main.Log( BepInEx.Logging.LogLevel.Message, data, file, member, line );
+        internal static void LogD( Object data, [CallerFilePath] String file = "", [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 ) => Main.Log( BepInEx.Logging.LogLevel.Debug, data, file, member, line );
+        internal static void LogW( Object data, [CallerFilePath] String file = "", [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 ) => Main.Log( BepInEx.Logging.LogLevel.Warning, data, file, member, line );
+        internal static void LogE( Object data, [CallerFilePath] String file = "", [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 ) => Main.Log( BepInEx.Logging.LogLevel.Error, data, file, member, line );
+        internal static void LogF( Object data, [CallerFilePath] String file = "", [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 ) => Main.Log( BepInEx.Logging.LogLevel.Fatal, data, file, member, line );
+        internal static Int32 logCounter = 0;
+        internal static void LogC( [CallerFilePath] String file = "", [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 ) => Main.Log( BepInEx.Logging.LogLevel.Info, member + ": " + line + ":: " + logCounter++, file, member, line );
     }
 }
 
 //For next release:
+// TODO: Continue work on boss hp bar
+
+
 // Future plans and shit
 
 // TOD: IDRS not showing on server
@@ -250,7 +224,6 @@ namespace RogueWispPlugin
 // TOD: Effects obscuring vision
 // TOD: Effect brightness settings
 // TOD: Muzzle flashes
-// TOD: Skill Icons
 // TOD: Animation cleanup and improvements
 // TOD: Null ref on kill enemy with primary when client
 // TOD: Improve itemdisplayruleset

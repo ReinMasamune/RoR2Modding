@@ -1,12 +1,4 @@
-﻿using EntityStates;
-using RoR2;
-using RoR2.Projectile;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using UnityEngine;
-
-namespace RogueWispPlugin
+﻿namespace RogueWispPlugin
 {
 #if ANCIENTWISP
     internal partial class Main

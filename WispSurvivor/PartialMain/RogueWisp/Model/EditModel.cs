@@ -1,13 +1,7 @@
-﻿using BepInEx;
-using R2API.Utils;
-using RoR2;
-using RoR2.Networking;
+﻿using RoR2;
 using System;
 using System.Collections.Generic;
-using System.Reflection;
 using UnityEngine;
-using RogueWispPlugin.Helpers;
-using RogueWispPlugin.Modules;
 //using static RogueWispPlugin.Helpers.APIInterface;
 
 namespace RogueWispPlugin
@@ -25,7 +19,7 @@ namespace RogueWispPlugin
 
         private void RW_EditModelScale()
         {
-            var modelLocator = this.RW_body.GetComponent<ModelLocator>();
+            ModelLocator modelLocator = this.RW_body.GetComponent<ModelLocator>();
             modelLocator.modelBaseTransform.gameObject.name = "ModelBase";
             modelLocator.modelBaseTransform.localPosition = new Vector3( 0f, 0.0f, 0f );
             modelLocator.modelTransform.localScale = new Vector3( 0.7f, 0.7f, 0.7f );
@@ -64,7 +58,7 @@ namespace RogueWispPlugin
 
             flare2Obj.GetComponent<EyeFlare>().directionSource = refObj.transform;
 
-            var flareController = this.RW_body.GetComponent<WispFlareController>();
+            WispFlareController flareController = this.RW_body.GetComponent<WispFlareController>();
             flareController.flare1 = flareObj.GetComponent<SpriteRenderer>();
             flareController.flare2 = flare2Obj.GetComponent<SpriteRenderer>();
 
@@ -104,7 +98,7 @@ namespace RogueWispPlugin
                 {
                     tempPS = t.gameObject.AddOrGetComponent<ParticleSystem>();
                     tempPSR = t.gameObject.AddOrGetComponent<ParticleSystemRenderer>();
-                    SetupFlameParticleSystem( tempPS, 0, flames[tempName] );
+                    this.SetupFlameParticleSystem( tempPS, 0, flames[tempName] );
                     tempPSList.Add( new PSCont
                     {
                         ps = tempPS,

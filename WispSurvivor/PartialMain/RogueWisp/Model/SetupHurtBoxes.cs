@@ -1,13 +1,5 @@
-﻿using BepInEx;
-using R2API.Utils;
-using RoR2;
-using RoR2.Networking;
-using System;
-using System.Collections.Generic;
-using System.Reflection;
+﻿using RoR2;
 using UnityEngine;
-using RogueWispPlugin.Helpers;
-using RogueWispPlugin.Modules;
 //using static RogueWispPlugin.Helpers.APIInterface;
 
 namespace RogueWispPlugin

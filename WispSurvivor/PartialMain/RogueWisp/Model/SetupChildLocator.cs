@@ -1,36 +1,27 @@
-﻿using BepInEx;
-using R2API.Utils;
-using RoR2;
-using RoR2.Networking;
+﻿using RoR2;
 using System;
 using System.Collections.Generic;
-using System.Reflection;
-using UnityEngine;
-using RogueWispPlugin.Helpers;
-using RogueWispPlugin.Modules;
 //using static RogueWispPlugin.Helpers.APIInterface;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.Serialization;
+using UnityEngine;
 
 namespace RogueWispPlugin
 {
 #if ROGUEWISP
     internal partial class Main
     {
-        Type RW_nameTransformPair;
-        List<GameObject> RW_newHurtBoxes = new List<GameObject>();
+        private Type RW_nameTransformPair;
+        private readonly List<GameObject> RW_newHurtBoxes = new List<GameObject>();
 
-        partial void RW_SetupChildLocator()
-        {
-            this.Load += this.RW_DoChildLocatorSetup;
-            //this.Load += this.RW_NewChildLocatorSetup;
-        }
+        partial void RW_SetupChildLocator() => this.Load += this.RW_DoChildLocatorSetup;//this.Load += this.RW_NewChildLocatorSetup;
 
         private void RW_NewChildLocatorSetup()
         {
-            var model = this.RW_body.GetComponent<ModelLocator>().modelTransform;
-            var rag = model.gameObject.AddComponent<RagdollController>();
-            var childLoc = model.GetComponent<ChildLocator>();
+            Transform model = this.RW_body.GetComponent<ModelLocator>().modelTransform;
+            RagdollController rag = model.gameObject.AddComponent<RagdollController>();
+            ChildLocator childLoc = model.GetComponent<ChildLocator>();
 
             FieldInfo transformPairsArray = typeof(ChildLocator).GetField( "transformPairs", BindingFlags.NonPublic | BindingFlags.Instance );
             System.Object pairsObj = transformPairsArray.GetValue( childLoc );
@@ -41,10 +32,10 @@ namespace RogueWispPlugin
 
         private void AddNewTransformPair( String name, Transform transform, Type pairType, ref System.Object[] pairsArray )
         {
-            var index = pairsArray.Length;
+            Int32 index = pairsArray.Length;
             Array.Resize( ref pairsArray, index + 1 );
 
-            var pair = FormatterServices.GetUninitializedObject( pairType );
+            System.Object pair = FormatterServices.GetUninitializedObject( pairType );
             FieldInfo nameField = pairType.GetField( "name", BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic );
             FieldInfo transformField = pairType.GetField( "transform", BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic );
             nameField.SetValue( pair, name );
@@ -54,7 +45,7 @@ namespace RogueWispPlugin
 
         private void AddNewHurtBox( GameObject parent, HurtBoxGroup group, HealthComponent health, Boolean isMain, Boolean isBullseye, HurtBox.DamageModifier modifier )
         {
-            var obj = new GameObject( "HurtBox" );
+            GameObject obj = new GameObject( "HurtBox" );
             obj.transform.parent = parent.transform;
             obj.transform.localScale = Vector3.one;
             obj.transform.localRotation = Quaternion.identity;
@@ -64,11 +55,11 @@ namespace RogueWispPlugin
 
             Collider col = null;
 
-            var parCol = parent.GetComponent<Collider>();
+            Collider parCol = parent.GetComponent<Collider>();
             if( parCol is SphereCollider )
             {
-                var sphere = obj.AddComponent<SphereCollider>();
-                var parSphere = parCol as SphereCollider;
+                SphereCollider sphere = obj.AddComponent<SphereCollider>();
+                SphereCollider parSphere = parCol as SphereCollider;
                 sphere.center = parSphere.center;
                 sphere.contactOffset = parSphere.contactOffset;
                 sphere.radius = parSphere.radius;
@@ -78,8 +69,8 @@ namespace RogueWispPlugin
                 col = sphere;
             } else if( parCol is BoxCollider )
             {
-                var box = obj.AddComponent<BoxCollider>();
-                var parBox = parCol as BoxCollider;
+                BoxCollider box = obj.AddComponent<BoxCollider>();
+                BoxCollider parBox = parCol as BoxCollider;
                 box.center = parBox.center;
                 box.contactOffset = parBox.contactOffset;
                 box.size = parBox.size;
@@ -90,8 +81,8 @@ namespace RogueWispPlugin
 
             } else if( parCol is CapsuleCollider )
             {
-                var cap = obj.AddComponent<CapsuleCollider>();
-                var parCap = parCol as CapsuleCollider;
+                CapsuleCollider cap = obj.AddComponent<CapsuleCollider>();
+                CapsuleCollider parCap = parCol as CapsuleCollider;
                 cap.center = parCap.center;
                 cap.contactOffset = parCap.contactOffset;
                 cap.direction = parCap.direction;
@@ -154,26 +145,26 @@ namespace RogueWispPlugin
             System.Object thing = f.GetValue( children );
             System.Object[] pairs = ((Array)thing).Cast<System.Object>().ToArray();
             Type pairsArray = thing.GetType();
-            RW_nameTransformPair = thing.GetType().GetElementType();
+            this.RW_nameTransformPair = thing.GetType().GetElementType();
             Array.Resize<System.Object>( ref pairs, pairs.Length + 16 );
 
             List<Transform> bones = new List<Transform>();
 
 
-            var boxGroup = model.GetComponent<HurtBoxGroup>();
+            HurtBoxGroup boxGroup = model.GetComponent<HurtBoxGroup>();
             Destroy( boxGroup.hurtBoxes[0].gameObject );
             boxGroup.hurtBoxes = null;
             boxGroup.mainHurtBox = null;
             boxGroup.bullseyeCount = 0;
 
-            var health = this.RW_body.GetComponent<HealthComponent>();
+            HealthComponent health = this.RW_body.GetComponent<HealthComponent>();
 
             BoxCollider box;
             CapsuleCollider cap;
             Rigidbody rb;
 
             Transform t2;
-            Array v = Array.CreateInstance(RW_nameTransformPair, pairs.Length + 16);
+            Array v = Array.CreateInstance(this.RW_nameTransformPair, pairs.Length + 16);
 
             Int32 i = 0;
             for( i = 0; i < 3; i++ )
@@ -194,7 +185,7 @@ namespace RogueWispPlugin
                         t2.localPosition = new Vector3( 0f, 0.65f, 0f );
                         t2.localEulerAngles = new Vector3( 180f, 0f, 0f );
                         t2.localScale = new Vector3( 1.25f, 1.25f, 1.25f );
-                        v.SetValue( (CreateNameTransformPair( "Chest", t2 )), i++ );
+                        v.SetValue( (this.CreateNameTransformPair( "Chest", t2 )), i++ );
 
                         box = t.gameObject.AddComponent<BoxCollider>();
                         box.size = new Vector3( 0.5f, 0.9f, 0.1f );
@@ -221,7 +212,7 @@ namespace RogueWispPlugin
                         t2.localPosition = new Vector3( 0f, 0.5f, 0f );
                         t2.localEulerAngles = new Vector3( 180f, 0f, 0f );
                         t2.localScale = new Vector3( 1.25f, 1.25f, 1.25f );
-                        v.SetValue( (CreateNameTransformPair( "Stomach", t2 )), i++ );
+                        v.SetValue( (this.CreateNameTransformPair( "Stomach", t2 )), i++ );
 
                         box = t.gameObject.AddComponent<BoxCollider>();
                         box.size = new Vector3( 0.5f, 0.9f, 0.1f );
@@ -248,7 +239,7 @@ namespace RogueWispPlugin
                         t2.localPosition = new Vector3( 0f, 0.2f, 0f );
                         t2.localEulerAngles = new Vector3( 0f, 0f, 0f );
                         t2.localScale = new Vector3( 1.25f, 1.25f, 1.25f );
-                        v.SetValue( (CreateNameTransformPair( "Head", t2 )), i++ );
+                        v.SetValue( (this.CreateNameTransformPair( "Head", t2 )), i++ );
 
                         cap = t.gameObject.AddComponent<CapsuleCollider>();
                         cap.direction = 0;
@@ -266,7 +257,7 @@ namespace RogueWispPlugin
                         t2.localPosition = new Vector3( 0f, 0.25f, 0f );
                         t2.localEulerAngles = new Vector3( 0f, -90f, 0f );
                         t2.localScale = new Vector3( 1.25f, 1.25f, 1.25f );
-                        v.SetValue( CreateNameTransformPair( "ThighR", t2 ), i++ );
+                        v.SetValue( this.CreateNameTransformPair( "ThighR", t2 ), i++ );
 
                         cap = t.gameObject.AddComponent<CapsuleCollider>();
                         cap.direction = 1;
@@ -284,7 +275,7 @@ namespace RogueWispPlugin
                         t2.localPosition = new Vector3( 0f, 0.25f, 0f );
                         t2.localEulerAngles = new Vector3( 0f, 90f, 0f );
                         t2.localScale = new Vector3( 1.25f, 1.25f, 1.25f );
-                        v.SetValue( (CreateNameTransformPair( "ThighL", t2 )), i++ );
+                        v.SetValue( (this.CreateNameTransformPair( "ThighL", t2 )), i++ );
 
                         cap = t.gameObject.AddComponent<CapsuleCollider>();
                         cap.direction = 1;
@@ -302,7 +293,7 @@ namespace RogueWispPlugin
                         t2.localPosition = new Vector3( 0f, 0f, 0f );
                         t2.localEulerAngles = new Vector3( 0f, 0f, 0f );
                         t2.localScale = new Vector3( 1.25f, 1.25f, 1.25f );
-                        v.SetValue( (CreateNameTransformPair( "CalfR", t2 )), i++ );
+                        v.SetValue( (this.CreateNameTransformPair( "CalfR", t2 )), i++ );
 
                         cap = t.gameObject.AddComponent<CapsuleCollider>();
                         cap.direction = 1;
@@ -320,7 +311,7 @@ namespace RogueWispPlugin
                         t2.localPosition = new Vector3( 0f, 0f, 0f );
                         t2.localEulerAngles = new Vector3( 0f, 0f, 0f );
                         t2.localScale = new Vector3( 1.25f, 1.25f, 1.25f );
-                        v.SetValue( (CreateNameTransformPair( "CalfL", t2 )), i++ );
+                        v.SetValue( (this.CreateNameTransformPair( "CalfL", t2 )), i++ );
 
                         cap = t.gameObject.AddComponent<CapsuleCollider>();
                         cap.direction = 1;
@@ -338,7 +329,7 @@ namespace RogueWispPlugin
                         t2.localPosition = new Vector3( 0f, 0f, 0f );
                         t2.localEulerAngles = new Vector3( -45f, 0f, 0f );
                         t2.localScale = new Vector3( 1.25f, 1.25f, 1.25f );
-                        v.SetValue( (CreateNameTransformPair( "FootL", t2 )), i++ );
+                        v.SetValue( (this.CreateNameTransformPair( "FootL", t2 )), i++ );
 
                         box = t.gameObject.AddComponent<BoxCollider>();
                         box.size = new Vector3( 0.12f, 0.3f, 0.08f );
@@ -355,7 +346,7 @@ namespace RogueWispPlugin
                         t2.localPosition = new Vector3( 0f, 0f, 0f );
                         t2.localEulerAngles = new Vector3( -45f, 0f, 0f );
                         t2.localScale = new Vector3( 1.25f, 1.25f, 1.25f );
-                        v.SetValue( (CreateNameTransformPair( "FootR", t2 )), i++ );
+                        v.SetValue( (this.CreateNameTransformPair( "FootR", t2 )), i++ );
 
                         box = t.gameObject.AddComponent<BoxCollider>();
                         box.size = new Vector3( 0.12f, 0.3f, 0.08f );
@@ -412,7 +403,7 @@ namespace RogueWispPlugin
                         t2.localPosition = new Vector3( 0f, 0f, 0f );
                         t2.localEulerAngles = new Vector3( 0f, 0f, 0f );
                         t2.localScale = new Vector3( 1.25f, 1.25f, 1.25f );
-                        v.SetValue( (CreateNameTransformPair( "UpperArmL", t2 )), i++ );
+                        v.SetValue( (this.CreateNameTransformPair( "UpperArmL", t2 )), i++ );
 
                         box = t.gameObject.AddComponent<BoxCollider>();
                         box.size = new Vector3( 0.2f, 0.4f, 0.4f );
@@ -429,7 +420,7 @@ namespace RogueWispPlugin
                         t2.localPosition = new Vector3( 0f, 0f, 0f );
                         t2.localEulerAngles = new Vector3( 0f, 0f, 0f );
                         t2.localScale = new Vector3( 1.25f, 1.25f, 1.25f );
-                        v.SetValue( (CreateNameTransformPair( "UpperArmR", t2 )), i++ );
+                        v.SetValue( (this.CreateNameTransformPair( "UpperArmR", t2 )), i++ );
 
                         box = t.gameObject.AddComponent<BoxCollider>();
                         box.size = new Vector3( 0.2f, 0.4f, 0.4f );
@@ -477,7 +468,7 @@ namespace RogueWispPlugin
                         t2.localPosition = new Vector3( 0f, 0.1f, 0f );
                         t2.localEulerAngles = new Vector3( 0f, 0f, 0f );
                         t2.localScale = new Vector3( 1.25f, 1.25f, 1.25f );
-                        v.SetValue( (CreateNameTransformPair( "Finger22R", t2 )), i++ );
+                        v.SetValue( (this.CreateNameTransformPair( "Finger22R", t2 )), i++ );
 
                         cap = t.gameObject.AddComponent<CapsuleCollider>();
                         cap.direction = 1;
@@ -506,7 +497,7 @@ namespace RogueWispPlugin
                         t2.localPosition = new Vector3( 0f, 0.1f, 0f );
                         t2.localEulerAngles = new Vector3( 0f, 0f, 0f );
                         t2.localScale = new Vector3( 1.25f, 1.25f, 1.25f );
-                        v.SetValue( (CreateNameTransformPair( "Finger42R", t2 )), i++ );
+                        v.SetValue( (this.CreateNameTransformPair( "Finger42R", t2 )), i++ );
 
                         cap = t.gameObject.AddComponent<CapsuleCollider>();
                         cap.direction = 1;
@@ -524,7 +515,7 @@ namespace RogueWispPlugin
                         t2.localPosition = new Vector3( 0f, -0.15f, -0.1f );
                         t2.localEulerAngles = new Vector3( 0f, 170f, 0f );
                         t2.localScale = new Vector3( 1.25f, 1.25f, 1.25f );
-                        v.SetValue( (CreateNameTransformPair( "HandL", t2 )), i++ );
+                        v.SetValue( (this.CreateNameTransformPair( "HandL", t2 )), i++ );
 
                         cap = t.gameObject.AddComponent<CapsuleCollider>();
                         cap.direction = 1;
@@ -554,7 +545,7 @@ namespace RogueWispPlugin
                         t2.localPosition = new Vector3( 0f, 0.5f, 0f );
                         t2.localEulerAngles = new Vector3( 0f, -90f, 0f );
                         t2.localScale = new Vector3( 1.25f, 1.25f, 1.25f );
-                        v.SetValue( (CreateNameTransformPair( "Pelvis", t2 )), i++ );
+                        v.SetValue( (this.CreateNameTransformPair( "Pelvis", t2 )), i++ );
                         break;
 
                     case "lowerArm.l":
@@ -563,7 +554,7 @@ namespace RogueWispPlugin
                         t2.localPosition = new Vector3( 0f, -0.2f, 0f );
                         t2.localEulerAngles = new Vector3( 0f, 90f, 0f );
                         t2.localScale = new Vector3( 1.25f, 1.25f, 1.25f );
-                        v.SetValue( (CreateNameTransformPair( "LowerArmL", t2 )), i++ );
+                        v.SetValue( (this.CreateNameTransformPair( "LowerArmL", t2 )), i++ );
                         break;
 
                     case "lowerArm.r":
@@ -572,7 +563,7 @@ namespace RogueWispPlugin
                         t2.localPosition = new Vector3( 0f, -0.2f, 0f );
                         t2.localEulerAngles = new Vector3( 0f, 90f, 0f );
                         t2.localScale = new Vector3( 1.25f, 1.25f, 1.25f );
-                        v.SetValue( (CreateNameTransformPair( "LowerArmR", t2 )), i++ );
+                        v.SetValue( (this.CreateNameTransformPair( "LowerArmR", t2 )), i++ );
                         break;
 
                     case "AncientWispArmature":
@@ -581,7 +572,7 @@ namespace RogueWispPlugin
                         t2.localPosition = new Vector3( 0f, 0f, 1.35f );
                         t2.localEulerAngles = new Vector3( 180f, 0f, 0f );
                         t2.localScale = new Vector3( 1.25f, 1.25f, 1.25f );
-                        v.SetValue( (CreateNameTransformPair( "Base", t2 )), i++ );
+                        v.SetValue( (this.CreateNameTransformPair( "Base", t2 )), i++ );
                         break;
                 }
             }

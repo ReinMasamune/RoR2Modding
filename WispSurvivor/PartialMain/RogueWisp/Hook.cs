@@ -1,16 +1,10 @@
-﻿using BepInEx;
+﻿//using static RogueWispPlugin.Helpers.APIInterface;
+using MonoMod.Cil;
 using R2API.Utils;
 using RoR2;
-using RoR2.Networking;
 using System;
-using System.Collections.Generic;
-using System.Reflection;
-using UnityEngine;
-using RogueWispPlugin.Helpers;
-using RogueWispPlugin.Modules;
-//using static RogueWispPlugin.Helpers.APIInterface;
-using MonoMod.Cil;
 using System.Collections;
+using UnityEngine;
 using UnityEngine.Networking;
 
 namespace RogueWispPlugin
@@ -18,7 +12,7 @@ namespace RogueWispPlugin
 #if ROGUEWISP
     internal partial class Main
     {
-        const Single shieldRegenFrac = 0.002f;
+        private const Single shieldRegenFrac = 0.002f;
         partial void RW_Hook()
         {
             this.Enable += this.RW_AddHooks;

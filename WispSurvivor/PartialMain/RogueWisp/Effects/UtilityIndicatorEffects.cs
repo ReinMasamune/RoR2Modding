@@ -1,14 +1,6 @@
-﻿using BepInEx;
-using R2API.Utils;
-using RoR2;
-using RoR2.Networking;
+﻿using R2API;
 using System;
-using System.Collections.Generic;
-using System.Reflection;
 using UnityEngine;
-using RogueWispPlugin.Helpers;
-using RogueWispPlugin.Modules;
-using R2API;
 //using static RogueWispPlugin.Helpers.APIInterface;
 
 namespace RogueWispPlugin
@@ -16,10 +8,7 @@ namespace RogueWispPlugin
 #if ROGUEWISP
     internal partial class Main
     {
-        partial void RW_UtilityIndicatorEffects()
-        {
-            this.Load += this.RW_CreateUtilityIndicatorEffects;
-        }
+        partial void RW_UtilityIndicatorEffects() => this.Load += this.RW_CreateUtilityIndicatorEffects;
 
         private void RW_CreateUtilityIndicatorEffects()
         {

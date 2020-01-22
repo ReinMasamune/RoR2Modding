@@ -18,12 +18,12 @@ namespace RogueWispPlugin
             private System.Single duration;
 
 
-            private System.Boolean fired = false;
-            private System.Boolean rotated = false;
+            private readonly System.Boolean fired = false;
+            private readonly System.Boolean rotated = false;
 
-            private System.Single timer = 0f;
+            private readonly System.Single timer = 0f;
 
-            private WispPassiveController passive;
+            private readonly WispPassiveController passive;
 
             public override void OnEnter()
             {

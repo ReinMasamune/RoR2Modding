@@ -1,9 +1,4 @@
-﻿using RoR2;
-using System;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace RogueWispPlugin.Modules
+﻿namespace RogueWispPlugin.Modules
 {
     /*
     public static class WispMaterialModule
