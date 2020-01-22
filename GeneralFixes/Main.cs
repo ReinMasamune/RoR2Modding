@@ -57,10 +57,10 @@ namespace ReinGeneralFixes
         partial void FixRazorWire();
         partial void FixResDisk();
 
-
-
         partial void EditOvergrownPrinters();
 
+
+        partial void SetupDPSMeter();
 
         private Main()
         {
@@ -81,6 +81,10 @@ namespace ReinGeneralFixes
             this.FixResDisk();
 
             this.EditOvergrownPrinters();
+
+#if DPSMETER
+            this.SetupDPSMeter();
+#endif
         }
 
 #pragma warning disable IDE0051 // Remove unused private members
