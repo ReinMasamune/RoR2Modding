@@ -31,11 +31,10 @@ namespace RogueWispPlugin
                 "\nRegain <style=cIsUtility>Shield</style> based on <style=cIsHealth>Maximum Health</style> whenever you regain <style=cIsUtility>Flame Charge.</style>" );
 
             this.AddNewToken( "WISP_SURVIVOR_PRIMARY_1_NAME", "Heatwave" );
-            this.AddNewToken( "WISP_SURVIVOR_PRIMARY_1_DESC", "Fire a shockwave for <style=cIsDamage>300% damage.</style> <style=cIsUtility>Restores Flame Charge</style> on hit." +
-                "\nCan hold up to <style=cIsDamage>3 stock.</style> When used with stock has <style=cIsUtility>increased attack speed.</style>" );
+            this.AddNewToken( "WISP_SURVIVOR_PRIMARY_1_DESC", "Fire a shockwave for <style=cIsDamage>175% damage.</style> <style=cIsUtility>Restores Flame Charge</style> on hit." );
 
             this.AddNewToken( "WISP_SURVIVOR_SECONDARY_1_NAME", "Legendary Spark" );
-            this.AddNewToken( "WISP_SURVIVOR_SECONDARY_1_DESC", "Create a line of flame pillars that explode for <style=cIsDamage>150% damage.</style>" +
+            this.AddNewToken( "WISP_SURVIVOR_SECONDARY_1_DESC", "Create a line of flame pillars that explode for <style=cIsDamage>125% damage.</style>" +
                 "\nDeals <style=cIsDamage>double damage</style> in the center of the pillar. Consumes <style=cIsUtility>Flame Charge</style> on cast." );
 
             this.AddNewToken( "WISP_SURVIVOR_UTILITY_1_NAME", "Burning Gaze" );
@@ -44,7 +43,7 @@ namespace RogueWispPlugin
 
             this.AddNewToken( "WISP_SURVIVOR_SPECIAL_1_NAME", "Incineration" );
             this.AddNewToken( "WISP_SURVIVOR_SPECIAL_1_DESC", "Fire a beam for <style=cIsDamage>500% damage</style> per second. <style=cIsUtility>Continues as long as you hold button</style>." +
-                "\n<style=cIsUtility>Gain Armor</style> but <style=cIsHealth>Cannot Move</style> while firing. Drains <style=cIsUtility>Flame Charge</style> while firing." );
+                "\n<style=cIsUtility>Gain Armor</style> but <style=cIsHealth>Cannot Move</style> while firing. Drains <style=cIsUtility>Flame Charge</style> per second while firing." );
 
         }
 

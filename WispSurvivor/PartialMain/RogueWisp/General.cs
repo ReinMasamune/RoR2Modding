@@ -1,6 +1,8 @@
-﻿using R2API;
+﻿using MonoMod.Cil;
+using R2API;
 using RoR2;
 using RoR2.Networking;
+using System;
 using System.Reflection;
 using UnityEngine;
 //using static RogueWispPlugin.Helpers.APIInterface;
@@ -10,6 +12,8 @@ namespace RogueWispPlugin
 #if ROGUEWISP
     internal partial class Main
     {
+        private ReinSurvivorDef RW_survivorDef;
+
         partial void RW_General()
         {
             this.Load += this.RW_LoadAssetBundle;
@@ -62,16 +66,51 @@ namespace RogueWispPlugin
             BodyCatalog.getAdditionalEntries += ( list ) => list.Add( this.RW_body );
             GameObject display = this.RW_body.GetComponent<ModelLocator>().modelBaseTransform.gameObject;
 
-            SurvivorDef bodySurvivorDef = new SurvivorDef
+            var dummyBody = new GameObject("Nope").InstantiateClone("NopeNope", false);
+            //BodyCatalog.getAdditionalEntries += ( list ) => list.Add( dummyBody );
+            this.RW_survivorDef = new ReinSurvivorDef
             {
                 bodyPrefab = this.RW_body,
                 descriptionToken = "WISP_SURVIVOR_BODY_DESC",
                 displayPrefab = display,
-                primaryColor = new Color(0.7f, 0.2f, 0.9f),
-
+                primaryColor = new Color( 0.7f, 0.2f, 0.9f ),
+                dummyBody = dummyBody,
             };
+            R2API.SurvivorAPI.AddSurvivor( this.RW_survivorDef );
+            this.RW_survivorDef.Hide();
+            //On.RoR2.SurvivorCatalog.RegisterSurvivor += this.SurvivorCatalog_RegisterSurvivor;
+            IL.RoR2.SurvivorCatalog.Init += this.SurvivorCatalog_Init;
+            IL.RoR2.UnlockableCatalog.Init += this.UnlockableCatalog_Init;
+        }
 
-            R2API.SurvivorAPI.AddSurvivor( bodySurvivorDef );
+        private void UnlockableCatalog_Init( ILContext il )
+        {
+            ILCursor c = new ILCursor( il );
+            c.EmitDelegate<Action>( () => this.RW_survivorDef.Unhide() );
+        }
+
+        private void SurvivorCatalog_Init( MonoMod.Cil.ILContext il )
+        {
+            ILCursor c = new ILCursor( il );
+            c.EmitDelegate<Action>( () => this.RW_survivorDef.Unhide() );
+            c.GotoNext( MoveType.Before, x => x.MatchRet() );
+            c.EmitDelegate<Action>( () => this.RW_survivorDef.Hide() );
+        }
+
+        public class ReinSurvivorDef : SurvivorDef
+        {
+            private GameObject hiddenBody;
+            internal GameObject dummyBody;
+
+            internal void Hide()
+            {
+                this.hiddenBody = base.bodyPrefab;
+                base.bodyPrefab = this.dummyBody;
+            }
+            internal void Unhide()
+            {
+                base.bodyPrefab = this.hiddenBody;
+            }
         }
 
         private void RW_LoadAssetBundle()

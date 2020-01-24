@@ -38,6 +38,7 @@ namespace RogueWispPlugin
             Transform glob = partPar.Find("Glob");
             Transform post = g.transform.Find("End").Find("EndEffect").Find("PostProcess");
             Transform bez = g.transform.Find("BezierHolder");
+            Transform end = g.transform.Find("End");
 
             //GameObject bez2 = MonoBehaviour.Instantiate<GameObject>( bez.gameObject , bez.transform.parent );
 
@@ -74,12 +75,13 @@ namespace RogueWispPlugin
             beamMat.SetTexture( "_RemapTex", fireTextures[skinIndex] );
             mainLaser.material = beamMat;
 
-            mainLaser.widthMultiplier = 2f;
+            mainLaser.widthMultiplier = 3f;
 
             foreach( LineRenderer line in subLasers )
             {
                 //Sub laser stuff
                 line.material = beamMat;
+                line.widthMultiplier *= 1.25f;
             }
 
 
@@ -154,6 +156,170 @@ namespace RogueWispPlugin
             arcflareshape.radius = 0.25f;
 
 
+            Transform endPS = Instantiate<GameObject>( flare.gameObject, end ).transform;
+            endPS.gameObject.name = "Sub";
+            endPS.parent = end;
+            endPS.localPosition = Vector3.zero;
+            endPS.localScale = Vector3.one * 3f;
+            endPS.localRotation = Quaternion.identity;
+
+            var endPSS = endPS.GetComponent<ParticleSystem>();
+            var endPSMain = endPSS.main;
+            endPSMain.simulationSpace = ParticleSystemSimulationSpace.World;
+            endPSMain.startLifetime = 0.35f;
+            endPSMain.gravityModifier = -0.25f;
+
+            var endPSEmis = endPSS.emission;
+            endPSEmis.rateOverTime = 300f;
+
+            GameObject endPSDist = new GameObject( "Dist" );
+            endPSDist.transform.parent = endPS;
+            endPSDist.transform.localPosition = Vector3.zero;
+            endPSDist.transform.localScale = Vector3.one * 0.5f;
+            endPSDist.transform.localRotation = Quaternion.identity;
+
+
+            /*
+            Material distortion = Resources.Load<GameObject>("Prefabs/Effects/ImpactEffects/LightningStrikeImpact").transform.Find("Distortion").GetComponent<ParticleSystemRenderer>().material;
+            //Material distortion = Resources.Load<GameObject>("Prefabs/Effects/ArchWispDeath").transform.Find("InitialBurst").Find("Distortion").GetComponent<ParticleSystemRenderer>().material;
+
+
+            ParticleSystem distPS = endPSDist.AddComponent<ParticleSystem>();
+            ParticleSystemRenderer distPSR = endPSDist.AddOrGetComponent<ParticleSystemRenderer>();
+
+            BasicSetup( distPS );
+
+            ParticleSystem.MainModule distPSMain = distPS.main;
+            distPSMain.duration = 1f;
+            distPSMain.loop = true;
+            distPSMain.prewarm = true;
+            distPSMain.startDelay = 0f;
+            distPSMain.startLifetime = 0.25f;
+            distPSMain.startSpeed = 0f;
+            distPSMain.startSize = 2f;
+            distPSMain.startRotation = 0f;
+            distPSMain.flipRotation = 0.5f;
+            distPSMain.gravityModifier = 0f;
+            distPSMain.simulationSpace = ParticleSystemSimulationSpace.World;
+            distPSMain.simulationSpeed = 1f;
+            distPSMain.useUnscaledTime = false;
+            distPSMain.scalingMode = ParticleSystemScalingMode.Hierarchy;
+            distPSMain.playOnAwake = true;
+            distPSMain.emitterVelocityMode = ParticleSystemEmitterVelocityMode.Rigidbody;
+            distPSMain.maxParticles = 1000;
+            distPSMain.stopAction = ParticleSystemStopAction.None;
+            distPSMain.cullingMode = ParticleSystemCullingMode.AlwaysSimulate;
+            distPSMain.ringBufferMode = ParticleSystemRingBufferMode.Disabled;
+
+            ParticleSystem.EmissionModule distPSEmis = distPS.emission;
+            distPSEmis.enabled = true;
+            distPSEmis.rateOverTime = 50f;
+            distPSEmis.rateOverDistance = 0f;
+
+            ParticleSystem.ShapeModule distPSShape = distPS.shape;
+            distPSShape.enabled = false;
+            distPSShape.shapeType = ParticleSystemShapeType.BoxEdge;
+            distPSShape.radius = 0.005f;
+            distPSShape.position = Vector3.zero;
+            distPSShape.rotation = new Vector3( 0f, 0f, 0f );
+            distPSShape.scale = new Vector3( 1f, 1f, 1f );
+            distPSShape.alignToDirection = false;
+            distPSShape.randomDirectionAmount = 0f;
+            distPSShape.sphericalDirectionAmount = 0f;
+            distPSShape.randomPositionAmount = 0f;
+
+            ParticleSystem.ColorOverLifetimeModule distPSCOL = distPS.colorOverLifetime;
+            distPSCOL.enabled = false;
+
+            ParticleSystem.SizeOverLifetimeModule distPSSOL = distPS.sizeOverLifetime;
+            distPSSOL.enabled = true;
+            distPSSOL.size = new ParticleSystem.MinMaxCurve
+            {
+                mode = ParticleSystemCurveMode.Curve,
+                curve = new AnimationCurve
+                {
+                    postWrapMode = WrapMode.Clamp,
+                    preWrapMode = WrapMode.Clamp,
+                    keys = new Keyframe[4]
+                    {
+                        new Keyframe
+                        {
+                            time = 0f,
+                            value = 0.1f,
+                            outTangent = 0.5f,
+                            outWeight = 0.5f
+                        },
+                        new Keyframe
+                        {
+                            time = 0.1f,
+                            value = 0.4f,
+                            outTangent = 0.5f,
+                            outWeight = 0.5f,
+                            inTangent = 0.5f,
+                            inWeight = 0.5f
+                        },
+                        new Keyframe
+                        {
+                            time = 0.4f,
+                            value = 0.5f,
+                            inTangent = 0.5f,
+                            inWeight = 0.5f,
+                            outTangent = 0.5f,
+                            outWeight = 0.5f
+                        },
+                        new Keyframe
+                        {
+                            time = 1f,
+                            value = 0f,
+                            inTangent = 0.5f,
+                            inWeight = 0.5f
+                        }
+                    }
+                }
+            };
+            distPSSOL.separateAxes = false;
+            distPSSOL.sizeMultiplier = 1f;
+
+            ParticleSystem.RotationOverLifetimeModule distPSROL = distPS.rotationOverLifetime;
+            distPSROL.enabled = true;
+            distPSROL.x = new ParticleSystem.MinMaxCurve
+            {
+                mode = ParticleSystemCurveMode.Constant,
+                constant = 2f
+            };
+            distPSROL.y = new ParticleSystem.MinMaxCurve
+            {
+                mode = ParticleSystemCurveMode.Constant,
+                constant = 2f
+            };
+            distPSROL.z = new ParticleSystem.MinMaxCurve
+            {
+                mode = ParticleSystemCurveMode.Constant,
+                constant = 2f
+            };
+
+            var distPSVOL = distPS.velocityOverLifetime;
+            distPSVOL.enabled = false;
+
+            distPSR.renderMode = ParticleSystemRenderMode.Billboard;
+            distPSR.normalDirection = 1f;
+            distPSR.material = distortion;
+            distPSR.sortMode = ParticleSystemSortMode.None;
+            distPSR.sortingFudge = 0f;
+            distPSR.minParticleSize = 0f;
+            distPSR.maxParticleSize = 0.5f;
+            distPSR.alignment = ParticleSystemRenderSpace.View;
+            distPSR.allowRoll = true;
+            distPSR.maskInteraction = SpriteMaskInteraction.None;
+            distPSR.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+            distPSR.receiveShadows = false;
+            distPSR.shadowBias = 0f;
+            distPSR.motionVectorGenerationMode = MotionVectorGenerationMode.Object;
+            distPSR.sortingLayerID = LayerIndex.defaultLayer.intVal;
+            distPSR.sortingOrder = 0;
+            distPSR.lightProbeUsage = UnityEngine.Rendering.LightProbeUsage.BlendProbes;
+            distPSR.reflectionProbeUsage = UnityEngine.Rendering.ReflectionProbeUsage.Off;
+            */
             /*
             var flarePS = arcFlare.GetComponent<ParticleSystem>();
             var flarePSR = arcFlare.GetComponent<ParticleSystemRenderer>();
@@ -220,7 +386,7 @@ namespace RogueWispPlugin
             };
             */
 
-
+            endPS.gameObject.SetActive( false );
             return g;
         }
     }

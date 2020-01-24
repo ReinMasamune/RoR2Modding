@@ -44,6 +44,52 @@ namespace RogueWispPlugin
 
             Material flameMat = fireMaterials[skinIndex][0];
             Color flameCol = fireColors[skinIndex];
+            Color.RGBToHSV( flameCol, out Single h, out Single s, out Single v );
+            s *= 0.75f;
+            v /= 0.75f;
+            var coreColor = Color.HSVToRGB( h, s, v);
+
+            var trail = obj.AddComponent<TrailRenderer>();
+            trail.material = trailMaterial;
+            trail.startColor = coreColor;
+            trail.endColor = flameCol;
+            trail.textureMode = LineTextureMode.Stretch;
+            trail.alignment = LineAlignment.View;
+            //WidthCurve
+            //trail.colorGradient = fireGradients[skinIndex];
+            trail.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+            trail.motionVectorGenerationMode = MotionVectorGenerationMode.Object;
+            trail.lightProbeUsage = UnityEngine.Rendering.LightProbeUsage.Off;
+            trail.reflectionProbeUsage = UnityEngine.Rendering.ReflectionProbeUsage.Off;
+            trail.sortingLayerName = "Default";
+            trail.lightProbeProxyVolumeOverride = null;
+            trail.probeAnchor = null;
+            trail.lightmapScaleOffset = new Vector4( 1f, 1f, 0f, 0f );
+            trail.realtimeLightmapScaleOffset = new Vector4( 1f, 1f, 0f, 0f );
+
+            trail.time = 0.25f;
+            trail.startWidth = 2f;
+            trail.endWidth = 0.05f;
+            trail.widthMultiplier = 1.0f;
+            trail.minVertexDistance = 0.1f;
+            trail.shadowBias = 0f;
+
+            trail.autodestruct = false;
+            trail.emitting = true;
+            trail.generateLightingData = false;
+            trail.receiveShadows = true;
+            trail.allowOcclusionWhenDynamic = true;        
+
+            trail.numCornerVertices = 64;
+            trail.numCapVertices = 64;
+            trail.renderingLayerMask = 1;
+            trail.rendererPriority = 0;
+            trail.sortingLayerID = 0;
+            trail.sortingOrder = 0;
+            trail.lightmapIndex = -1;
+            trail.realtimeLightmapIndex = -1;
+            
+
 
             //Material distortion = Resources.Load<GameObject>("Prefabs/Effects/ImpactEffects/LightningStrikeImpact").transform.Find("Distortion").GetComponent<ParticleSystemRenderer>().material;
             Material distortion = Resources.Load<GameObject>("Prefabs/Effects/ArchWispDeath").transform.Find("InitialBurst").Find("Distortion").GetComponent<ParticleSystemRenderer>().material;
@@ -420,7 +466,7 @@ namespace RogueWispPlugin
                 }
             };
             ps2SOL.separateAxes = false;
-            ps2SOL.sizeMultiplier = 4f;
+            ps2SOL.sizeMultiplier = 2f;
 
             ParticleSystem.RotationOverLifetimeModule ps2ROL = ps2.rotationOverLifetime;
             ps2ROL.enabled = true;

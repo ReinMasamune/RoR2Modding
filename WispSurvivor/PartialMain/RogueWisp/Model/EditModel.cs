@@ -285,7 +285,7 @@ namespace RogueWispPlugin
             main.startSize = new ParticleSystem.MinMaxCurve
             {
                 mode = ParticleSystemCurveMode.Constant,
-                constant = psi.startSize
+                constant = psi.startSize * 0.75f
             };
             main.startRotation3D = false;
             main.startRotation = new ParticleSystem.MinMaxCurve
@@ -335,7 +335,7 @@ namespace RogueWispPlugin
             shape.enabled = true;
             shape.shapeType = ParticleSystemShapeType.Cone;
             shape.angle = 38.26f;
-            shape.radius = psi.radius;
+            shape.radius = psi.radius * 0.75f;
             shape.radiusThickness = 1f;
             shape.arc = 360f;
             shape.arcMode = ParticleSystemShapeMultiModeValue.Random;

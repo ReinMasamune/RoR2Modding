@@ -11,8 +11,8 @@ namespace RogueWispPlugin
         {
             public static System.Single baseDuration = 0.5f;
             public static System.Single rotatePoint = 0.6f;
-            public static System.Single camYOff = 0.75f;
-            public static System.Single camZMult = 0.5f;
+            public static System.Single camYOff = 0.5f;
+            public static System.Single camZMult = 0.35f;
 
             private System.Single duration;
             private Vector3 camStart;

@@ -50,6 +50,7 @@ namespace RogueWispPlugin
                 this.timeLeft = this.duration;
                 this.prevPos = this.start;
 
+
                 this.transform.position = this.start;
                 RoR2.Util.PlayScaledSound( this.startSound, this.gameObject, 2.0f );
             }
@@ -86,6 +87,7 @@ namespace RogueWispPlugin
                         RoR2.Util.PlaySound( this.endSound, this.gameObject );
                         RoR2.Util.PlaySound( this.explosionSound, this.gameObject );
                         this.dead = true;
+                        base.gameObject.GetComponent<TrailRenderer>().emitting = false;
                     }
                 } else
                 {

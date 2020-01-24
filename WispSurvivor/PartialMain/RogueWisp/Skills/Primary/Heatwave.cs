@@ -20,11 +20,11 @@ namespace RogueWispPlugin
 
             public Direction state = Direction.Right;
 
-            public static Single baseDuration = 0.375f;
+            public static Single baseDuration = 0.875f;
             public static Single fireStartFrac = 0.35f;
             public static Single maxRange = 75f;
             public static Single noStockSpeedMult = 0.5f;
-            public static Single damageMult = 3.5f;
+            public static Single damageMult = 1.75f;
             public static Single radius = 2.0f;
             public static Single falloffStart = 0.35f;
             public static Single endFalloffMult = 0.25f;
@@ -53,11 +53,12 @@ namespace RogueWispPlugin
                 this.passive = base.gameObject.GetComponent<WispPassiveController>();
                 this.orbControl = base.gameObject.GetComponent<ClientOrbController>();
 
-                Boolean hasStock = base.skillLocator.primary.stock > 0;
-                base.skillLocator.primary.stock = hasStock ? base.skillLocator.primary.stock - 1 : 0;
-                base.skillLocator.primary.rechargeStopwatch = 0f;
+                //Boolean hasStock = base.skillLocator.primary.stock > 0;
+                //base.skillLocator.primary.stock = hasStock ? base.skillLocator.primary.stock - 1 : 0;
+                //base.skillLocator.primary.rechargeStopwatch = 0f;
 
-                Single effectiveAttackSpeed = base.attackSpeedStat * ( hasStock ? 1.0f : noStockSpeedMult );
+                //Single effectiveAttackSpeed = base.attackSpeedStat * ( hasStock ? 1.0f : noStockSpeedMult );
+                Single effectiveAttackSpeed = base.attackSpeedStat;
 
                 this.duration = baseDuration / effectiveAttackSpeed;
                 this.fireDelay = this.duration * fireStartFrac;

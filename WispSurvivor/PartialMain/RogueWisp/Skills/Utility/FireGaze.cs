@@ -15,7 +15,7 @@ namespace RogueWispPlugin
             public static System.Double chargeUsed = 20.0;
             public static System.Single chargeScaler = 0.1f;
 
-            public static System.Single baseBlazeOrbRadius = 20f;
+            public static System.Single baseBlazeOrbRadius = 25f;
             public static System.Single baseBlazeOrbDuration = 10f;
             public static System.Single baseBlazeOrbTickfreq = 1f;
             public static System.Single baseBlazeOrbExpireStacksMult = 10f;

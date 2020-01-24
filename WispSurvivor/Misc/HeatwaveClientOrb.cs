@@ -43,7 +43,7 @@ namespace RogueWispPlugin
 
             private Vector3 forceVec;
 
-            public List<HealthComponent> mask = new List<HealthComponent>();
+            public HashSet<HealthComponent> mask = new HashSet<HealthComponent>();
 
             public override void Begin()
             {

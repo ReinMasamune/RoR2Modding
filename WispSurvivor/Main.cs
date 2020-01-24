@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
+using System.Reflection;
+using UnityEngine;
 
 namespace RogueWispPlugin
 {
@@ -24,8 +26,6 @@ namespace RogueWispPlugin
     [BepInDependency( R2API.R2API.PluginGUID, BepInDependency.DependencyFlags.HardDependency )]
     [BepInPlugin( pluginGUID, pluginName, pluginVersion )]
     [BepInIncompatibility( "com.PallesenProductions.ExpandedSkills" )]
-    [BepInIncompatibility( "com.PallesenProductions.RyanSkinAPI" )]
-    [BepInIncompatibility( "com.PallesenProductions.VanillaTweaks" )]
 #pragma warning restore CA2243 // Attribute string literals should parse correctly
     internal partial class Main : BaseUnityPlugin
     {
@@ -38,7 +38,9 @@ namespace RogueWispPlugin
 
         private readonly Boolean working;
 
+#if TIMER
         private readonly Stopwatch watch;
+#endif
 
         private List<PluginInfo> _plugins;
         private List<PluginInfo> plugins
@@ -81,6 +83,9 @@ namespace RogueWispPlugin
 #endif
 #if BOSSHPBAR
         partial void EditBossHPBar();
+#endif
+#if NETWORKING
+        partial void SetupNetworking();
 #endif
 #if ANCIENTWISP
         partial void CreateAncientWisp();
@@ -143,6 +148,9 @@ namespace RogueWispPlugin
 #if STAGE
                 this.CreateStage();
 #endif
+#if NETWORKING
+                this.SetupNetworking();
+#endif
                 this.FirstFrame += this.Main_FirstFrame;
 #if TIMER
                 this.Load += this.AwakeTimeStop;
@@ -154,7 +162,6 @@ namespace RogueWispPlugin
                 Main.LogF( "Rogue Wisp has failed to load properly and will not be enabled. See preceding errors." );
             }
         }
-
         private void Main_FirstFrame() => typeof( EffectCatalog ).InvokeMethod( "CCEffectsReload", new ConCommandArgs() );
 
 #pragma warning disable IDE0051 // Remove unused private members
@@ -188,27 +195,40 @@ namespace RogueWispPlugin
             Main.LogI( "Start Time: " + this.watch.ElapsedMilliseconds );
         }
 #endif
-        internal static void Log( BepInEx.Logging.LogLevel level, Object data, String file, String member, Int32 line ) =>
+        internal static void Log( BepInEx.Logging.LogLevel level, System.Object data, String member, Int32 line )
+        {
+            if( level == BepInEx.Logging.LogLevel.Fatal )
+            {
+                Main.instance.Logger.Log( level, data );
+            } else
+            {
 #if LOGGING
-            Main.instance.Logger.Log( level, data );
+                Main.instance.Logger.Log( level, data );
 #endif
+            }
 #if FINDLOGS
             Main.instance.Logger.LogWarning( "Log: " + level.ToString() + " called by: " + file + " : " + member + " : " + line );
 #endif
+        }
 
-        internal static void LogI( Object data, [CallerFilePath] String file = "", [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 ) => Main.Log( BepInEx.Logging.LogLevel.Info, data, file, member, line );
-        internal static void LogM( Object data, [CallerFilePath] String file = "", [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 ) => Main.Log( BepInEx.Logging.LogLevel.Message, data, file, member, line );
-        internal static void LogD( Object data, [CallerFilePath] String file = "", [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 ) => Main.Log( BepInEx.Logging.LogLevel.Debug, data, file, member, line );
-        internal static void LogW( Object data, [CallerFilePath] String file = "", [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 ) => Main.Log( BepInEx.Logging.LogLevel.Warning, data, file, member, line );
-        internal static void LogE( Object data, [CallerFilePath] String file = "", [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 ) => Main.Log( BepInEx.Logging.LogLevel.Error, data, file, member, line );
-        internal static void LogF( Object data, [CallerFilePath] String file = "", [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 ) => Main.Log( BepInEx.Logging.LogLevel.Fatal, data, file, member, line );
+        internal static void LogI( System.Object data, [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 ) => Main.Log( BepInEx.Logging.LogLevel.Info, data, member, line );
+        internal static void LogM( System.Object data, [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 ) => Main.Log( BepInEx.Logging.LogLevel.Message, data, member, line );
+        internal static void LogD( System.Object data, [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 ) => Main.Log( BepInEx.Logging.LogLevel.Debug, data, member, line );
+        internal static void LogW( System.Object data, [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 ) => Main.Log( BepInEx.Logging.LogLevel.Warning, data, member, line );
+        internal static void LogE( System.Object data, [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 ) => Main.Log( BepInEx.Logging.LogLevel.Error, data, member, line );
+        internal static void LogF( System.Object data, [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 ) => Main.Log( BepInEx.Logging.LogLevel.Fatal, data, member, line );
         internal static Int32 logCounter = 0;
-        internal static void LogC( [CallerFilePath] String file = "", [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 ) => Main.Log( BepInEx.Logging.LogLevel.Info, member + ": " + line + ":: " + logCounter++, file, member, line );
+        internal static void LogC( [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 ) => Main.Log( BepInEx.Logging.LogLevel.Info, member + ": " + line + ":: " + logCounter++, member, line );
     }
 }
 
 //For next release:
-// TODO: Continue work on boss hp bar
+// TODO: Transparency on barrier portion of boss hp bar
+// TODO: Ancient wisp needs better vfx for all skills
+// TODO: Tune damage values and stats on ancient wisp
+// TODO: Flames are offset strangley during Ancient Wisp secondary
+// TODO: Proper spawning conditions for ancient wisp
+// TODO: Tune AI for ancient wisp
 
 
 // Future plans and shit
@@ -242,6 +262,7 @@ namespace RogueWispPlugin
 // TOD: Expanded skin selection (Set of plasma skins, hard white outline on flames like blighted currently has.
 // TOD: Explore networking potential from handleOverlapAttack
 // TOD: When hopoo adds projectile and effect skins, redo all vfx
+// TOD: GPU particlesystem
 
 // ERRORS:
 /*

@@ -1,5 +1,6 @@
 ﻿using RoR2;
 using System;
+using System.Reflection;
 using UnityEngine;
 //using static RogueWispPlugin.Helpers.APIInterface;
 
@@ -22,6 +23,7 @@ namespace RogueWispPlugin
         internal static Material[] burnOverlayMaterials = new Material[8];
         internal static Material[][] eliteFlameMaterials = new Material[8][];
         internal static Material[] shieldOverlayMaterials = new Material[8];
+        internal static Material trailMaterial;
         internal static BurnEffectController.EffectParams[] burnOverlayParams = new BurnEffectController.EffectParams[8];
         internal static Shader effectShader;
 
@@ -189,6 +191,12 @@ namespace RogueWispPlugin
                 shieldOverlayMaterials[i] = MonoBehaviour.Instantiate<Material>( base3 );
                 shieldOverlayMaterials[i].SetColor( "_TintColor", fireColors[i] );
             }
+
+
+
+
+            trailMaterial = Instantiate<Material>(Resources.Load<GameObject>("Prefabs/ProjectileGhosts/ElectricWormSeekerGhost").transform.Find("Trail").GetComponent<TrailRenderer>().material);
+            //RoR2Plugin.Main.MiscHelpers.DebugMaterialInfo( base4 );
         }
 
         private void RW_GenerateTextures()

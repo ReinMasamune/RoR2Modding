@@ -105,8 +105,22 @@ namespace RogueWispPlugin
 
                 if( this.attacker )
                 {
-                    Dictionary<HealthComponent, System.Boolean> mask = new Dictionary<HealthComponent, System.Boolean>();
+                    HashSet<HealthComponent> mask = new HashSet<HealthComponent>();
                     HurtBox box;
+
+                    DamageInfo bdmg = new DamageInfo();
+                    bdmg.damage = this.damage;
+                    bdmg.attacker = this.attacker;
+                    bdmg.crit = this.crit;
+                    bdmg.damageColorIndex = this.damageColor;
+                    bdmg.damageType = DamageType.Generic;
+                    bdmg.force = (this.direction + Vector3.up) * 50f;
+                    bdmg.inflictor = this.attacker;
+                    bdmg.position = dest;
+                    bdmg.procChainMask = this.procMask;
+                    bdmg.procCoefficient = this.procCoef;
+                    GlobalEventManager.instance.OnHitAll( bdmg, null );
+
 
                     Collider[] cols = Physics.OverlapCapsule(this.dest, this.dest + new Vector3(0f, 20f, 0f), this.radius * this.innerRadScale, LayerIndex.entityPrecise.mask, QueryTriggerInteraction.UseGlobal);
 
@@ -116,7 +130,7 @@ namespace RogueWispPlugin
                         box = col.GetComponent<HurtBox>();
                         if( !box ) continue;
                         HealthComponent hcomp = box.healthComponent;
-                        if( !hcomp || mask.ContainsKey( hcomp ) || TeamComponent.GetObjectTeam( hcomp.gameObject ) == this.team ) continue;
+                        if( !hcomp || mask.Contains( hcomp ) || TeamComponent.GetObjectTeam( hcomp.gameObject ) == this.team ) continue;
 
                         DamageInfo dmg = new DamageInfo();
                         dmg.damage = this.damage;
@@ -133,7 +147,7 @@ namespace RogueWispPlugin
                         hcomp.TakeDamage( dmg );
                         GlobalEventManager.instance.OnHitEnemy( dmg, hcomp.gameObject );
                         GlobalEventManager.instance.OnHitAll( dmg, hcomp.gameObject );
-                        mask.Add( hcomp, true );
+                        mask.Add( hcomp );
                     }
 
                     cols = Physics.OverlapCapsule( this.dest, this.dest + new Vector3( 0f, 20f, 0f ), this.radius, LayerIndex.entityPrecise.mask, QueryTriggerInteraction.UseGlobal );
@@ -144,7 +158,7 @@ namespace RogueWispPlugin
                         box = col.GetComponent<HurtBox>();
                         if( !box ) continue;
                         HealthComponent hcomp = box.healthComponent;
-                        if( !hcomp || mask.ContainsKey( hcomp ) || TeamComponent.GetObjectTeam( hcomp.gameObject ) == this.team ) continue;
+                        if( !hcomp || mask.Contains( hcomp ) || TeamComponent.GetObjectTeam( hcomp.gameObject ) == this.team ) continue;
 
                         DamageInfo dmg = new DamageInfo();
                         dmg.damage = this.damage * this.edgePenaltyMult;
@@ -161,7 +175,7 @@ namespace RogueWispPlugin
                         hcomp.TakeDamage( dmg );
                         GlobalEventManager.instance.OnHitEnemy( dmg, hcomp.gameObject );
                         GlobalEventManager.instance.OnHitAll( dmg, hcomp.gameObject );
-                        mask.Add( hcomp, true );
+                        mask.Add( hcomp );
                     }
                 }
 

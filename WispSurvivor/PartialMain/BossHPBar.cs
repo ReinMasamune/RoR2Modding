@@ -20,7 +20,6 @@ namespace RogueWispPlugin
         private void CameraRigController_Start( On.RoR2.CameraRigController.orig_Start orig, CameraRigController self )
         {
             orig( self );
-            Main.LogW( "cam rig start" );
             if( self.hud )
             {
                 HUDBossHealthBarController oldBoss = self.hud.GetComponentInChildren<HUDBossHealthBarController>();

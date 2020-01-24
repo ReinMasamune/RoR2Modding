@@ -4,6 +4,7 @@ using R2API.Utils;
 using RoR2;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -13,6 +14,7 @@ namespace RogueWispPlugin
     internal partial class Main
     {
         private const Single shieldRegenFrac = 0.002f;
+        internal HashSet<CharacterBody> RW_BlockSprintCrosshair = new HashSet<CharacterBody>();
         partial void RW_Hook()
         {
             this.Enable += this.RW_AddHooks;
@@ -29,6 +31,8 @@ namespace RogueWispPlugin
             On.RoR2.CharacterBody.FixedUpdate -= this.ShieldRegenStuff;
             On.RoR2.CharacterModel.InstanceUpdate -= this.CharacterModel_InstanceUpdate;
             On.RoR2.CharacterModel.UpdateOverlays -= this.CharacterModel_UpdateOverlays;
+            IL.RoR2.UI.CrosshairManager.UpdateCrosshair -= this.CrosshairManager_UpdateCrosshair;
+            IL.RoR2.CameraRigController.Update -= this.CameraRigController_Update;
         }
         private void RW_AddHooks()
         {
@@ -41,6 +45,25 @@ namespace RogueWispPlugin
             On.RoR2.CharacterModel.InstanceUpdate += this.CharacterModel_InstanceUpdate;
             On.RoR2.CharacterModel.UpdateOverlays += this.CharacterModel_UpdateOverlays;
             On.RoR2.EffectManager.TransmitEffect += this.DoVeryVeryBadThings;
+            IL.RoR2.UI.CrosshairManager.UpdateCrosshair += this.CrosshairManager_UpdateCrosshair;
+            IL.RoR2.CameraRigController.Update += this.CameraRigController_Update;
+        }
+
+        private void CameraRigController_Update( ILContext il )
+        {
+            ILCursor c = new ILCursor( il );
+
+            c.GotoNext( MoveType.Before, x => x.MatchCallvirt<RoR2.CharacterBody>( "get_isSprinting" ) );
+            c.Remove();
+            c.EmitDelegate<Func<CharacterBody, Boolean>>( ( body ) => body.isSprinting && !this.RW_BlockSprintCrosshair.Contains( body ) );
+        }
+
+        private void CrosshairManager_UpdateCrosshair( ILContext il )
+        {
+            ILCursor c = new ILCursor( il );
+            c.GotoNext( MoveType.Before, x => x.MatchCallvirt<RoR2.CharacterBody>( "get_isSprinting" ) );
+            c.Remove();
+            c.EmitDelegate<Func<CharacterBody, Boolean>>( ( body ) => body.isSprinting && !this.RW_BlockSprintCrosshair.Contains( body ) ); 
         }
 
         private void DoVeryVeryBadThings( On.RoR2.EffectManager.orig_TransmitEffect orig, EffectIndex effectPrefabIndex, EffectData effectData, NetworkConnection netOrigin )

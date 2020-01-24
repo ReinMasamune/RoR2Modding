@@ -131,8 +131,8 @@ namespace RogueWispPlugin
             skill.activationState = new SerializableEntityStateType( typeof( Heatwave ) );
             skill.activationStateMachineName = "Weapon";
 
-            skill.baseMaxStock = 3;
-            skill.baseRechargeInterval = 2.5f;
+            skill.baseMaxStock = 1;
+            skill.baseRechargeInterval = 0f;
             skill.beginSkillCooldownOnSkillEnd = true;
             skill.canceledFromSprinting = false;
             skill.fullRestockOnAssign = true;
@@ -141,10 +141,10 @@ namespace RogueWispPlugin
             skill.isCombatSkill = true;
             skill.mustKeyPress = false;
             skill.noSprint = true;
-            skill.rechargeStock = 3;
-            skill.requiredStock = 0;
+            skill.rechargeStock = 1;
+            skill.requiredStock = 1;
             skill.shootDelay = 0.5f;
-            skill.stockToConsume = 0;
+            skill.stockToConsume = 1;
             skill.stepCount = 2;
 
             skill.icon = this.RW_assetBundle.LoadAsset<Sprite>( "Assets/__EXPORT/wisp1.png" );
