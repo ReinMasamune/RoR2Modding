@@ -15,10 +15,10 @@ using RoR2.Skills;
 namespace ReinGeneralFixes
 {
     [BepInDependency("com.bepis.r2api")]
-    [BepInPlugin("com.Rein.GeneralBalance", "General Balance + Fixes", "1.0.0")]
+    [BepInPlugin("com.Rein.GeneralBalance", "General Balance + Fixes", "2.1.0.32")]
     internal partial class Main : BaseUnityPlugin
     {
-        internal Single gestureBreakChance = 0.05f;
+        internal Single gestureBreakChance = 0.025f;
 
 
 
@@ -49,6 +49,8 @@ namespace ReinGeneralFixes
         partial void EditCommandoRoll();
 
         partial void EditVisionsCrosshair();
+        partial void EditCorpsebloom();
+        partial void FixBandolier();
 
 
         partial void FixOSP();
@@ -59,8 +61,9 @@ namespace ReinGeneralFixes
 
         partial void EditOvergrownPrinters();
 
-
+#if DPSMETER
         partial void SetupDPSMeter();
+#endif
 
         private Main()
         {
@@ -72,6 +75,8 @@ namespace ReinGeneralFixes
             this.EditCommandoRoll();
 
             this.EditVisionsCrosshair();
+            this.EditCorpsebloom();
+            this.FixBandolier();
 
             this.FixOSP();
 
@@ -122,7 +127,7 @@ Overgrown printers can now have any boss tier item, including fancy pearls and h
 
 
 
-
+// TODO: Focus crystal self damage
 
 
 

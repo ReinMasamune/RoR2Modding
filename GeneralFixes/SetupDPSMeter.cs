@@ -14,6 +14,7 @@ using RoR2.Skills;
 
 namespace ReinGeneralFixes
 {
+#if DPSMETER
     internal partial class Main
     {
         partial void SetupDPSMeter()
@@ -347,27 +348,5 @@ namespace ReinGeneralFixes
             if( obj != null ) return obj.GetInstanceID(); else return 0;
         }
     }
+#endif
 }
-/*
-Changelist:
-Commando Phase round 2s cooldown, phase blast 3s cooldown
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-*/

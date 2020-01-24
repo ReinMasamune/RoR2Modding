@@ -24,13 +24,34 @@ namespace ReinGeneralFixes
 
         private void RemoveGestureFix()
         {
-            On.RoR2.EquipmentSlot.Execute -= this.EquipmentSlot_Execute;
+            RoR2.EquipmentSlot.onServerEquipmentActivated -= this.EquipmentSlot_onServerEquipmentActivated;
             IL.RoR2.Inventory.UpdateEquipment -= this.Inventory_UpdateEquipment;
         }
         private void AddGestureFix()
         {
-            On.RoR2.EquipmentSlot.Execute += this.EquipmentSlot_Execute;
             IL.RoR2.Inventory.UpdateEquipment += this.Inventory_UpdateEquipment;
+            RoR2.EquipmentSlot.onServerEquipmentActivated += this.EquipmentSlot_onServerEquipmentActivated;
+        }
+
+        private void EquipmentSlot_onServerEquipmentActivated( EquipmentSlot slot, EquipmentIndex equipInd )
+        {
+            var body = slot.characterBody;
+            if( body )
+            {
+                var inv = body.inventory;
+                if( inv )
+                {
+                    var gestureCount = inv.GetItemCount( ItemIndex.AutoCastEquipment );
+                    if( gestureCount > 0 )
+                    {
+                        if( Util.CheckRoll( 100f * (1f - (Mathf.Pow( 1f - this.gestureBreakChance, gestureCount ))), body.master ) )
+                        {
+                            inv.SetEquipmentIndex( EquipmentIndex.None );
+                            Util.PlaySound( "Play_item_proc_armorReduction_shatter", slot.gameObject );
+                        }
+                    }
+                }
+            }
         }
 
         private void Inventory_UpdateEquipment( ILContext il )
@@ -40,27 +61,6 @@ namespace ReinGeneralFixes
             c.GotoNext( MoveType.After, x => x.MatchLdcR4( 0.5f ) );
             c.Remove();
             c.Emit( OpCodes.Ldc_R4, 0.5f );
-        }
-
-        private void EquipmentSlot_Execute( On.RoR2.EquipmentSlot.orig_Execute orig, EquipmentSlot self )
-        {
-            orig( self );
-            var body = self.characterBody;
-            if( body && body.inventory )
-            {
-                var inv = body.inventory;
-                if( inv )
-                {
-                    var gestureCount = inv.GetItemCount( ItemIndex.AutoCastEquipment );
-                    if( gestureCount > 0 )
-                    {
-                        if( Util.CheckRoll( 1f - (Mathf.Pow( 1f - this.gestureBreakChance, gestureCount )), body.master ) )
-                        {
-                            inv.SetEquipmentIndex( EquipmentIndex.None );
-                        }
-                    }
-                }
-            }
         }
     }
 }
