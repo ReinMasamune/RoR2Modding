@@ -12,13 +12,12 @@ using System.Reflection;
 namespace ReinWickedRing
 {
     [R2APISubmoduleDependency(
-        nameof( ItemDropAPI ),
         nameof( R2API.AssetPlus.AssetPlus ),
         nameof( ItemAPI ),
         nameof( ResourcesAPI )
     )]
     [BepInDependency("com.bepis.r2api")]
-    [BepInPlugin("com.Rein.ReinWickedRing", "ReinWickedRing", "1.2.0")]
+    [BepInPlugin("com.Rein.ReinWickedRing", "ReinWickedRing", "1.2.1")]
     public class ReinWickedRingMain : BaseUnityPlugin
     {
         private HashSet<Int32> blacklistedBodies = new HashSet<Int32>();
