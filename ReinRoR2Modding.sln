@@ -43,7 +43,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImprovedVisions", "Improved
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FancyParticles", "FancyParticles\FancyParticles.csproj", "{9008E681-9B5F-4E86-BE13-9521BF7244D4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scavangest", "Scavangest\Scavangest.csproj", "{DB3AD1E2-EC4E-4AF9-A115-48501BF2E40F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scavangest", "Scavangest\Scavangest.csproj", "{DB3AD1E2-EC4E-4AF9-A115-48501BF2E40F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{26884AA3-135C-483E-8B62-A93AD6F13E89}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
