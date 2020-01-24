@@ -223,6 +223,11 @@ namespace RogueWispPlugin
 }
 
 //For next release:
+// TODO: NetworkMessageHandler for fancy new networking setup
+// TODO: Finish fancy new networking
+
+
+
 // TODO: Transparency on barrier portion of boss hp bar
 // TODO: Ancient wisp needs better vfx for all skills
 // TODO: Tune damage values and stats on ancient wisp
@@ -233,11 +238,12 @@ namespace RogueWispPlugin
 
 // Future plans and shit
 
+// TOD: Undo hard coding of skin numbers
 // TOD: IDRS not showing on server
 // TOD: Utility sounds (unsure what to do here)
 // TOD: Little Disciple and Will O Wisp color should change with skin
 // TOD: Body Animation smoothing params
-// TOD: Rewrite secondary for MP (2 states possibly?)
+// TOD: Rewrite secondary
 // TOD: Character lobby description
 // TOD: Customize crosshair
 // TOD: Readme lore sillyness
@@ -253,14 +259,10 @@ namespace RogueWispPlugin
 // TOD: Custom CharacterMain
 // TOD: Broach shield location is weird
 // TOD: Sounds for Special
-// TOD: Special beam should do OnHitGlobal at hit spot
-// TOD: Secondary doing onhitglobal for all enemies hit and not at center
 // TOD: Meteor ignores wisp
 // TOD: Shield material vertex offset
-// TOD: Incineration impact effects
 // TOD: Redo other elite materials
 // TOD: Expanded skin selection (Set of plasma skins, hard white outline on flames like blighted currently has.
-// TOD: Explore networking potential from handleOverlapAttack
 // TOD: When hopoo adds projectile and effect skins, redo all vfx
 // TOD: GPU particlesystem
 
