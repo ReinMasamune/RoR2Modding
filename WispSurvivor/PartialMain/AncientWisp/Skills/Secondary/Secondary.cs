@@ -1,6 +1,12 @@
-﻿namespace RogueWispPlugin
+﻿#if ANCIENTWISP
+using EntityStates;
+using RoR2;
+using System;
+using System.Collections.Generic;
+using UnityEngine;
+namespace RogueWispPlugin
 {
-#if ANCIENTWISP
+
     internal partial class Main
     {
         internal class AWSecondary : BaseState
@@ -417,5 +423,5 @@
             }
         }
     }
-#endif
 }
+#endif

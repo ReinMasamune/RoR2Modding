@@ -1,6 +1,13 @@
-﻿namespace RogueWispPlugin
+﻿#if ANCIENTWISP
+using EntityStates;
+using RoR2;
+using RoR2.Projectile;
+using System;
+using UnityEngine;
+
+namespace RogueWispPlugin
 {
-#if ANCIENTWISP
+
     internal partial class Main
     {
         internal class AWFirePrimary : BaseState
@@ -66,5 +73,6 @@
             }
         }
     }
-#endif
+
 }
+#endif

@@ -1,6 +1,10 @@
-﻿namespace RogueWispPlugin
+﻿#if ANCIENTWISP
+using EntityStates;
+using System;
+
+namespace RogueWispPlugin
 {
-#if ANCIENTWISP
+
     internal partial class Main
     {
         internal class AWChargeUtility : BaseState
@@ -45,5 +49,6 @@
             }
         }
     }
-#endif
+
 }
+#endif

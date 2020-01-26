@@ -1,5 +1,6 @@
 ﻿using RoR2;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -33,6 +34,7 @@ namespace RogueWispPlugin
             public DamageColorIndex damageColor;
 
             public GameObject attacker;
+            public CharacterBody attackerBody;
             public ProcChainMask procMask;
 
             private Single dist1;
@@ -120,6 +122,9 @@ namespace RogueWispPlugin
                         dur = 0.75f;
                     }
 
+                    var delay = (curDist / this.speed) * 3.25f;
+                    base.outer.StartCoroutine( this.DelayedBuff( delay * 0.9f, this.attackerBody, Main.instance.RW_flameChargeBuff, dur, (Int32)stacks ) );
+
                     EffectData fx = new EffectData
                     {
                         origin = box.transform.position,
@@ -136,6 +141,12 @@ namespace RogueWispPlugin
             }
             public override void End()
             {
+            }
+
+            private IEnumerator DelayedBuff( Single delay, CharacterBody body, BuffIndex buff, Single duration, Int32 stacks )
+            {
+                yield return new WaitForSeconds( delay );
+                Main.AddTimedBuff( body, buff, duration, stacks );
             }
 
             public static Color32 DoBadThings( Single f )

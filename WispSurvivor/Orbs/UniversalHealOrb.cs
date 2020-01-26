@@ -1,4 +1,8 @@
-﻿namespace RogueWispPlugin
+﻿using RoR2;
+using System;
+using UnityEngine;
+
+namespace RogueWispPlugin
 {
 #if ANCIENTWISP
     internal partial class Main

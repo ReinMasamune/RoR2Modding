@@ -1,4 +1,5 @@
-﻿//using static RogueWispPlugin.Helpers.APIInterface;
+﻿#if ROGUEWISP
+using Mono.Cecil.Cil;
 using MonoMod.Cil;
 using R2API.Utils;
 using RoR2;
@@ -10,7 +11,7 @@ using UnityEngine.Networking;
 
 namespace RogueWispPlugin
 {
-#if ROGUEWISP
+
     internal partial class Main
     {
         private const Single shieldRegenFrac = 0.002f;
@@ -44,8 +45,8 @@ namespace RogueWispPlugin
             On.RoR2.CharacterBody.FixedUpdate += this.ShieldRegenStuff;
             On.RoR2.CharacterModel.InstanceUpdate += this.CharacterModel_InstanceUpdate;
             On.RoR2.CharacterModel.UpdateOverlays += this.CharacterModel_UpdateOverlays;
-            On.RoR2.EffectManager.TransmitEffect += this.DoVeryVeryBadThings;
-            IL.RoR2.UI.CrosshairManager.UpdateCrosshair += this.CrosshairManager_UpdateCrosshair;
+            //On.RoR2.EffectManager.TransmitEffect += this.DoVeryVeryBadThings;
+            //IL.RoR2.UI.CrosshairManager.UpdateCrosshair += this.CrosshairManager_UpdateCrosshair;
             IL.RoR2.CameraRigController.Update += this.CameraRigController_Update;
         }
 
@@ -53,17 +54,20 @@ namespace RogueWispPlugin
         {
             ILCursor c = new ILCursor( il );
 
-            c.GotoNext( MoveType.Before, x => x.MatchCallvirt<RoR2.CharacterBody>( "get_isSprinting" ) );
-            c.Remove();
-            c.EmitDelegate<Func<CharacterBody, Boolean>>( ( body ) => body.isSprinting && !this.RW_BlockSprintCrosshair.Contains( body ) );
+            c.GotoNext( MoveType.After, x => x.MatchCallOrCallvirt<RoR2.CharacterBody>( "get_isSprinting" ) );
+            c.Emit( OpCodes.Ldarg_0 );
+            c.Emit<RoR2.CameraRigController>( OpCodes.Ldfld, "targetBody" );
+            c.EmitDelegate<Func<CharacterBody, Boolean>>( ( body ) => !this.RW_BlockSprintCrosshair.Contains( body ) );
+            c.Emit( OpCodes.And );
         }
 
         private void CrosshairManager_UpdateCrosshair( ILContext il )
         {
             ILCursor c = new ILCursor( il );
-            c.GotoNext( MoveType.Before, x => x.MatchCallvirt<RoR2.CharacterBody>( "get_isSprinting" ) );
-            c.Remove();
-            c.EmitDelegate<Func<CharacterBody, Boolean>>( ( body ) => body.isSprinting && !this.RW_BlockSprintCrosshair.Contains( body ) ); 
+            c.GotoNext( MoveType.After, x => x.MatchCallOrCallvirt<RoR2.CharacterBody>( "get_isSprinting" ) );
+            c.Emit( OpCodes.Ldarg_1 );
+            c.EmitDelegate<Func<CharacterBody, Boolean>>( ( body ) => !this.RW_BlockSprintCrosshair.Contains( body ) );
+            c.Emit( OpCodes.And );
         }
 
         private void DoVeryVeryBadThings( On.RoR2.EffectManager.orig_TransmitEffect orig, EffectIndex effectPrefabIndex, EffectData effectData, NetworkConnection netOrigin )
@@ -224,5 +228,5 @@ namespace RogueWispPlugin
             }
         }
     }
-#endif
 }
+#endif

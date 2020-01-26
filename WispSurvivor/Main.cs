@@ -85,7 +85,8 @@ namespace RogueWispPlugin
         partial void EditBossHPBar();
 #endif
 #if NETWORKING
-        partial void SetupNetworking();
+        partial void SetupNetworkingFramework();
+        partial void SetupNetworkingFunctions();
 #endif
 #if ANCIENTWISP
         partial void CreateAncientWisp();
@@ -149,7 +150,8 @@ namespace RogueWispPlugin
                 this.CreateStage();
 #endif
 #if NETWORKING
-                this.SetupNetworking();
+                this.SetupNetworkingFramework();
+                this.SetupNetworkingFunctions();
 #endif
                 this.FirstFrame += this.Main_FirstFrame;
 #if TIMER
@@ -223,10 +225,6 @@ namespace RogueWispPlugin
 }
 
 //For next release:
-// TODO: NetworkMessageHandler for fancy new networking setup
-// TODO: Finish fancy new networking
-
-
 
 // TODO: Transparency on barrier portion of boss hp bar
 // TODO: Ancient wisp needs better vfx for all skills
@@ -234,6 +232,7 @@ namespace RogueWispPlugin
 // TODO: Flames are offset strangley during Ancient Wisp secondary
 // TODO: Proper spawning conditions for ancient wisp
 // TODO: Tune AI for ancient wisp
+// TODO: Ancient wisp UV mapping (need to duplicate mesh)
 
 
 // Future plans and shit
@@ -253,7 +252,7 @@ namespace RogueWispPlugin
 // TOD: Animation cleanup and improvements
 // TOD: Null ref on kill enemy with primary when client
 // TOD: Improve itemdisplayruleset
-// TOD: Pod UV mapping (need to duplicate mesh?)
+// TOD: Pod UV mapping (need to duplicate mesh)
 // TOD: Capacitor limb issue
 // TOD: ParticleBuilder class, and convert everything to use it.
 // TOD: Custom CharacterMain
@@ -265,6 +264,7 @@ namespace RogueWispPlugin
 // TOD: Expanded skin selection (Set of plasma skins, hard white outline on flames like blighted currently has.
 // TOD: When hopoo adds projectile and effect skins, redo all vfx
 // TOD: GPU particlesystem
+// TOD: Clipping through ground still...
 
 // ERRORS:
 /*

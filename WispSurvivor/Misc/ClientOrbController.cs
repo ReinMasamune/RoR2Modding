@@ -24,7 +24,7 @@ namespace RogueWispPlugin
                     Debug.Log( "Null orb not added" );
                     return;
                 }
-
+                newOrb.outer = this;
                 newOrb.Begin();
 
                 if( newOrb.totalDuration == 0f )

@@ -1,6 +1,9 @@
-﻿namespace RogueWispPlugin
+﻿#if ANCIENTWISP
+using EntityStates;
+
+namespace RogueWispPlugin
 {
-#if ANCIENTWISP
+
     internal partial class Main
     {
         internal class AWSpecial : BaseState
@@ -8,5 +11,6 @@
 
         }
     }
-#endif
+
 }
+#endif

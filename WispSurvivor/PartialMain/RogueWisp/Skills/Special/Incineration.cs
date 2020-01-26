@@ -1,4 +1,5 @@
-﻿using EntityStates;
+﻿#if ROGUEWISP
+using EntityStates;
 using RoR2;
 using RoR2.Networking;
 using System;
@@ -9,7 +10,7 @@ using UnityEngine.Networking;
 
 namespace RogueWispPlugin
 {
-#if ROGUEWISP
+
 	internal partial class Main
 	{
 		public class Incineration : BaseState
@@ -311,5 +312,5 @@ namespace RogueWispPlugin
 			}
 		}
 	}
-#endif
 }
+#endif

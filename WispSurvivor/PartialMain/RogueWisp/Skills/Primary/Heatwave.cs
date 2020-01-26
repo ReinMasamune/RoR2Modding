@@ -132,7 +132,7 @@ namespace RogueWispPlugin
                 snap.range = maxRange;
                 snap.falloffStart = falloffStart;
                 snap.endFalloffMult = endFalloffMult;
-
+                snap.attackerBody = base.characterBody;
                 this.orbControl.AddClientOrb( snap );
             }
 
