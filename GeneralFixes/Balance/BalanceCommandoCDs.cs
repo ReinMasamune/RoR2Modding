@@ -16,7 +16,7 @@ namespace ReinGeneralFixes
 {
     internal partial class Main
     {
-        partial void EditCommandoCDs()
+        partial void BalanceCommandoCDs()
         {
             this.FirstFrame += this.EditCommandoSecondaryCooldown;
         }

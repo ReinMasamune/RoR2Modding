@@ -16,7 +16,7 @@ namespace ReinGeneralFixes
 {
     internal partial class Main
     {
-        partial void EditCorpsebloom()
+        partial void BalanceCorpsebloom()
         {
             this.Enable += this.AddCorpsebloomEdits;
             this.Disable += this.RemoveCorpsebloomEdits;

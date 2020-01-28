@@ -17,7 +17,7 @@ namespace ReinGeneralFixes
 {
     internal partial class Main
     {
-        partial void EditVisionsCrosshair()
+        partial void QoLVisionsCrosshair()
         {
             this.Load += this.GetNewCrosshairPrefab;
             this.Load += this.PopulateBadCrosshairs;
@@ -89,18 +89,20 @@ namespace ReinGeneralFixes
             var ret = orig( self, skillSlot );
 
             var crosshair = skillSlot.characterBody.crosshairPrefab;
-
-            if( !this.origCrosshairLookup.ContainsKey( self ) || this.origCrosshairLookup[self] == null )
+            if( crosshair != null )
             {
-                this.origCrosshairLookup[self] = new VisionsContextData();
-            }
-            if( this.badCrosshairs.Contains( crosshair.name ) && skillSlot.characterBody.crosshairPrefab != this.newVisionsCrosshair )
-            {
-                this.origCrosshairLookup[self].origCrosshair = crosshair;
-                skillSlot.characterBody.crosshairPrefab = this.newVisionsCrosshair;
-            } else
-            {
-                this.origCrosshairLookup[self].checkCoroutine = skillSlot.StartCoroutine( this.CheckCrosshairSet( skillSlot.characterBody, this.origCrosshairLookup[self] ) );
+                if( !this.origCrosshairLookup.ContainsKey( self ) || this.origCrosshairLookup[self] == null )
+                {
+                    this.origCrosshairLookup[self] = new VisionsContextData();
+                }
+                if( this.badCrosshairs.Contains( crosshair.name ) && skillSlot.characterBody.crosshairPrefab != this.newVisionsCrosshair )
+                {
+                    this.origCrosshairLookup[self].origCrosshair = crosshair;
+                    skillSlot.characterBody.crosshairPrefab = this.newVisionsCrosshair;
+                } else
+                {
+                    this.origCrosshairLookup[self].checkCoroutine = skillSlot.StartCoroutine( this.CheckCrosshairSet( skillSlot.characterBody, this.origCrosshairLookup[self] ) );
+                }
             }
             return ret;
         }

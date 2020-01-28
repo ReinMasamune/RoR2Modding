@@ -16,7 +16,7 @@ namespace ReinGeneralFixes
 {
     internal partial class Main
     {
-        partial void FixGesture()
+        partial void BalanceGesture()
         {
             this.Enable += this.AddGestureFix;
             this.Disable += this.RemoveGestureFix;

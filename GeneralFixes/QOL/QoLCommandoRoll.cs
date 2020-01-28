@@ -16,7 +16,7 @@ namespace ReinGeneralFixes
 {
     internal partial class Main
     {
-        partial void EditCommandoRoll()
+        partial void QoLCommandoRoll()
         {
             this.Enable += this.AddCommandoRollEdits;
             this.Disable += this.RemoveCommandoRollEdits;

@@ -16,7 +16,7 @@ namespace ReinGeneralFixes
 {
     internal partial class Main
     {
-        partial void FixOSP()
+        partial void BalanceOSP()
         {
             this.Enable += this.AddOSPFix;
             this.Disable += this.RemoveOSPFix;
@@ -36,21 +36,24 @@ namespace ReinGeneralFixes
             ILCursor c = new ILCursor( il );
 
             c.GotoNext( MoveType.After, x => x.MatchCallOrCallvirt<RoR2.HealthComponent>( "get_hasOneshotProtection" ) );
-            c.Index += 3;
-            c.RemoveRange( 7 );
-            c.EmitDelegate<Func<Single, HealthComponent, Single>>( ( num, healthComp ) =>
+            c.GotoNext( MoveType.Before, x => x.MatchCallOrCallvirt<RoR2.HealthComponent>( "get_fullCombinedHealth" ) );
+            c.RemoveRange( 2 );
+            c.GotoNext( MoveType.Before, x => x.MatchLdfld<RoR2.HealthComponent>( "barrier" ) );
+            c.RemoveRange( 2 );
+            c.GotoNext( MoveType.Before, x => x.MatchMul() );
+            c.RemoveRange( 2 );
+            c.EmitDelegate<Func<Single, HealthComponent, Single, Single>>( ( num, healthComp, osp ) =>
             {
                 var temp = num;
                 temp -= healthComp.shield;
                 temp -= healthComp.barrier;
 
-                var protection = healthComp.fullHealth * 0.9f;
+                var protection = healthComp.fullHealth * osp;
                 if( temp <= protection )
                 {
                     return num;
                 }
-
-                temp -= protection * 2f;
+                temp -= healthComp.fullHealth * ( 1f + ( 1f / osp ) );
                 temp = Mathf.Max( 0f, temp );
                 temp += protection;
                 temp += healthComp.shield;
@@ -58,7 +61,6 @@ namespace ReinGeneralFixes
 
                 return temp;
             } );
-
         }
     }
 }

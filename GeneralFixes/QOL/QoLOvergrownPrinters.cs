@@ -16,7 +16,7 @@ namespace ReinGeneralFixes
 {
     internal partial class Main
     {
-        partial void EditOvergrownPrinters()
+        partial void QoLOvergrownPrinters()
         {
             this.Load += this.DoOvergrownPrinterEdits;
         }

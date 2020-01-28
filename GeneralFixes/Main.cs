@@ -14,21 +14,14 @@ using RoR2.Skills;
 
 namespace ReinGeneralFixes
 {
+    [R2APISubmoduleDependency(
+        nameof( PrefabAPI )
+    )]
     [BepInDependency("com.bepis.r2api")]
     [BepInPlugin("com.Rein.GeneralBalance", "General Balance + Fixes", "2.1.0.32")]
     internal partial class Main : BaseUnityPlugin
     {
         internal Single gestureBreakChance = 0.025f;
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -42,24 +35,19 @@ namespace ReinGeneralFixes
         private event Action Tick;
         private event Action GUI;
 
-        partial void DisableOPItems();
-        partial void DisableUPItems();
 
-        partial void EditCommandoCDs();
-        partial void EditCommandoRoll();
+        partial void BalanceCommandoCDs();
+        partial void QoLCommandoRoll();
 
-        partial void EditVisionsCrosshair();
-        partial void EditCorpsebloom();
+        partial void QoLVisionsCrosshair();
+        partial void BalanceCorpsebloom();
         partial void FixBandolier();
 
 
-        partial void FixOSP();
-        partial void FixGesture();
-        partial void FixTesla();
-        partial void FixRazorWire();
-        partial void FixResDisk();
+        partial void BalanceOSP();
+        partial void BalanceGesture();
 
-        partial void EditOvergrownPrinters();
+        partial void QoLOvergrownPrinters();
 
 #if DPSMETER
         partial void SetupDPSMeter();
@@ -67,25 +55,22 @@ namespace ReinGeneralFixes
 
         private Main()
         {
-            this.DisableOPItems();
-            this.DisableUPItems();
+            this.BalanceCommandoCDs();
+            this.QoLCommandoRoll();
 
-
-            this.EditCommandoCDs();
-            this.EditCommandoRoll();
-
-            this.EditVisionsCrosshair();
-            this.EditCorpsebloom();
+            this.QoLVisionsCrosshair();
+            this.BalanceCorpsebloom();
             this.FixBandolier();
 
-            this.FixOSP();
+            this.BalanceOSP();
 
-            this.FixGesture();
-            this.FixTesla();
-            this.FixRazorWire();
-            this.FixResDisk();
+            this.BalanceGesture();
 
-            this.EditOvergrownPrinters();
+            this.QoLOvergrownPrinters();
+
+
+
+
 
 #if DPSMETER
             this.SetupDPSMeter();
@@ -127,12 +112,40 @@ Overgrown printers can now have any boss tier item, including fancy pearls and h
 
 
 
-// TODO: Focus crystal self damage
+// TODO: Focus crystal + crowbar self damage
+// TODO: Add model to spectral circlet
 
 
 
 
 
+ITEMS:
 
+
+Fireworks
+Gasoline
+Medkit
+Monster Tooth
+Stun Grenade
+Warbanner
+
+Berzerkers
+Chronobauble
+Razor Wire
+Will o Wisp
+
+Ceremonial Dagger
+Happiest Mask
+Resonance Disk
+Tesla Coil
+
+Queens Gland
+
+Blast Shower
+Royal Capacitor
+Crowdfunder
+
+Effigy
+Tincture
 
 */
