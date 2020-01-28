@@ -46,7 +46,7 @@ namespace RogueWispPlugin
             On.RoR2.CharacterModel.InstanceUpdate += this.CharacterModel_InstanceUpdate;
             On.RoR2.CharacterModel.UpdateOverlays += this.CharacterModel_UpdateOverlays;
             //On.RoR2.EffectManager.TransmitEffect += this.DoVeryVeryBadThings;
-            //IL.RoR2.UI.CrosshairManager.UpdateCrosshair += this.CrosshairManager_UpdateCrosshair;
+            IL.RoR2.UI.CrosshairManager.UpdateCrosshair += this.CrosshairManager_UpdateCrosshair;
             IL.RoR2.CameraRigController.Update += this.CameraRigController_Update;
         }
 

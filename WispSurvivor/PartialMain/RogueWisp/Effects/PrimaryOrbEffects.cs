@@ -71,7 +71,7 @@ namespace RogueWispPlugin
             trail.startWidth = 2f;
             trail.endWidth = 0.05f;
             trail.widthMultiplier = 1.0f;
-            trail.minVertexDistance = 0.1f;
+            trail.minVertexDistance = 0.025f;
             trail.shadowBias = 0f;
 
             trail.autodestruct = false;

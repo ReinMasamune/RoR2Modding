@@ -1,4 +1,4 @@
-﻿#if NETWORKING
+﻿#if !NETWORKING
 using RoR2;
 using RoR2.Networking;
 using System;

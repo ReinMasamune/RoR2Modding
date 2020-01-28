@@ -258,7 +258,7 @@ namespace RogueWispPlugin
 					effect.origin = tempBox.transform.position;
 					EffectManager.SpawnEffect( Main.genericImpactEffects[this.skin][0], effect, true );
 
-					DoNetworkedDamage( tempDmgInfo, tempHc );
+					DoNetworkedDamage( tempDmgInfo, tempBox );
 				}
 			}
 
@@ -270,12 +270,21 @@ namespace RogueWispPlugin
 				return this.cacheBoxes[c];
 			}
 
-			public static void DoNetworkedDamage( DamageInfo info, HealthComponent target )
+			public static void DoNetworkedDamage( DamageInfo info, HurtBox target )
 			{
+#if NETWORKING
+				NetLib.BuiltIns.SendDamage.DealDamage( info, target );
+#else
+				HealthComponent targetHc = null;
 				GameObject targetObj = null;
+
 				if( target != null )
 				{
-					targetObj = target.gameObject;
+					targetHc = target.healthComponent;
+				}
+				if( targetHc != null )
+				{
+					targetObj = targetHc.gameObject;
 				}
 				if( NetworkServer.active )
 				{
@@ -294,6 +303,7 @@ namespace RogueWispPlugin
 					write.FinishMessage();
 					ClientScene.readyConnection.SendWriter( write, (Int32)QosType.Reliable );
 				}
+#endif
 			}
 
 			public static void WriteDmgInfo( NetworkWriter writer, DamageInfo damageInfo )

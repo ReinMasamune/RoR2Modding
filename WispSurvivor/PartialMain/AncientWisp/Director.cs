@@ -1,4 +1,5 @@
 ﻿#if ANCIENTWISP
+using GeneralPluginStuff;
 using RoR2;
 using System.Collections.Generic;
 using UnityEngine;
@@ -42,9 +43,9 @@ namespace RogueWispPlugin
             dirCard.spawnDistance = DirectorCore.MonsterSpawnDistance.Standard;
 
             this.AW_dirCard = new R2API.DirectorAPI.DirectorCardHolder();
-            this.AW_dirCard.card = dirCard;
-            this.AW_dirCard.interactableCategory = R2API.DirectorAPI.InteractableCategory.None;
-            this.AW_dirCard.monsterCategory = R2API.DirectorAPI.MonsterCategory.Champions;
+            this.AW_dirCard.SetCard(dirCard);
+            this.AW_dirCard.SetInteractableCategory(R2API.DirectorAPI.InteractableCategory.None);
+            this.AW_dirCard.SetMonsterCategory(R2API.DirectorAPI.MonsterCategory.Champions);
 
             R2API.DirectorAPI.MonsterActions += this.DirectorAPI_MonsterActions;
         }

@@ -104,7 +104,11 @@ namespace RogueWispPlugin
                     dmg.procCoefficient = this.procCoef;
 
                     this.mask.Add( hcomp );
+#if NETWORKING
+                    NetLib.BuiltIns.SendDamage.DealDamage( dmg, box );
+#else
                     base.SendDamage( dmg, hcomp.gameObject );
+#endif
 
                     EffectManager.SpawnEffect( Main.genericImpactEffects[this.skin][0], new EffectData
                     {
@@ -146,7 +150,11 @@ namespace RogueWispPlugin
             private IEnumerator DelayedBuff( Single delay, CharacterBody body, BuffIndex buff, Single duration, Int32 stacks )
             {
                 yield return new WaitForSeconds( delay );
+#if NETWORKING
+                NetLib.BuiltIns.SendBuff.AddTimedBuff( body, buff, duration, stacks );
+#else
                 Main.AddTimedBuff( body, buff, duration, stacks );
+#endif
             }
 
             public static Color32 DoBadThings( Single f )

@@ -7,6 +7,9 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Reflection;
 using UnityEngine;
+#if NETWORKING
+using NetLib;
+#endif
 
 namespace RogueWispPlugin
 {
@@ -23,6 +26,9 @@ namespace RogueWispPlugin
         nameof( R2API.AssetPlus.AssetPlus )
     )]
 #pragma warning disable CA2243 // Attribute string literals should parse correctly
+#if NETWORKING
+    [BepInDependency( NetLib.NetLib.guid, BepInDependency.DependencyFlags.SoftDependency )]
+#endif
     [BepInDependency( R2API.R2API.PluginGUID, BepInDependency.DependencyFlags.HardDependency )]
     [BepInPlugin( pluginGUID, pluginName, pluginVersion )]
     [BepInIncompatibility( "com.PallesenProductions.ExpandedSkills" )]
@@ -85,6 +91,8 @@ namespace RogueWispPlugin
         partial void EditBossHPBar();
 #endif
 #if NETWORKING
+        partial void RegisterNetworkMessages();
+#else
         partial void SetupNetworkingFramework();
         partial void SetupNetworkingFunctions();
 #endif
@@ -150,6 +158,8 @@ namespace RogueWispPlugin
                 this.CreateStage();
 #endif
 #if NETWORKING
+                this.RegisterNetworkMessages();
+#else
                 this.SetupNetworkingFramework();
                 this.SetupNetworkingFunctions();
 #endif
