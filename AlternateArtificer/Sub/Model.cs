@@ -154,20 +154,18 @@
             rendererInfos[1].defaultMaterial = newMaterial;
             var spriteTex = baseSkin.icon.texture;
 
-            LoadoutAPI.SkinDefInfo newSkinInfo = new LoadoutAPI.SkinDefInfo
-            {
-                baseSkins = masterySkin.baseSkins,
-                icon = CreateSkinIcon( new Color( 0.4f, 0.4f, 0.4f ), new Color( 0.9f, 0.9f, 0.9f ), new Color( 0.2f, 0.2f, 0.2f ), new Color( 0.2f, 0.4f, 1f ), new Color( 0.4f, 0.4f, 0.4f ) ),
-                name = "NAME",
-                nameToken = "REIN_ALTARTI_ALTMASTERYSKIN_NAME",
-                rootObject = baseSkin.rootObject,
-                unlockableName = masterySkin.unlockableName,
-                rendererInfos = rendererInfos,
-                gameObjectActivations = Array.Empty<SkinDef.GameObjectActivation>(),
-                meshReplacements = Array.Empty<SkinDef.MeshReplacement>()
-            };
+            LoadoutAPI.SkinDefInfo info = new LoadoutAPI.SkinDefInfo();
 
-            SkinDef newSkin = LoadoutAPI.CreateNewSkinDef( newSkinInfo );
+            SkinDef newSkin = LoadoutAPI.CreateNewSkinDef( info );
+            newSkin.baseSkins = masterySkin.baseSkins;
+            newSkin.icon = CreateSkinIcon( new Color( 0.4f, 0.4f, 0.4f ), new Color( 0.9f, 0.9f, 0.9f ), new Color( 0.2f, 0.2f, 0.2f ), new Color( 0.2f, 0.4f, 1f ), new Color( 0.4f, 0.4f, 0.4f ) );
+            newSkin.name = "NAME";
+            newSkin.nameToken = "REIN_ALTARTI_ALTMASTERYSKIN_NAME";
+            newSkin.rootObject = baseSkin.rootObject;
+            newSkin.unlockableName = masterySkin.unlockableName;
+            newSkin.rendererInfos = rendererInfos;
+            newSkin.gameObjectActivations = Array.Empty<SkinDef.GameObjectActivation>();
+            newSkin.meshReplacements = Array.Empty<SkinDef.MeshReplacement>();
 
             var skinsArray = skins.skins;
             Array.Resize<SkinDef>( ref skinsArray, skinsArray.Length + 1 );
