@@ -3,6 +3,7 @@ using RoR2;
 using UnityEngine;
 using R2API.Utils;
 using R2API;
+using GeneralPluginStuff;
 
 namespace ReinArchWispDemo
 {
@@ -11,7 +12,7 @@ namespace ReinArchWispDemo
         nameof( R2API.AssetPlus.AssetPlus )
         )]
     [BepInDependency("com.bepis.r2api")]
-    [BepInPlugin("com.Rein.ReinDirectorCardDemoArchWisp", "ReinArchWisps", "2.0.0")]
+    [BepInPlugin("com.Rein.ReinDirectorCardDemoArchWisp", "ReinArchWisps", "2.0.1")]
     public class Main : BaseUnityPlugin
     {
         public void Awake()
@@ -30,15 +31,15 @@ namespace ReinArchWispDemo
             archWispDirCard.spawnDistance = DirectorCore.MonsterSpawnDistance.Standard;
 
             var archWispCard = new DirectorAPI.DirectorCardHolder();
-            archWispCard.card = archWispDirCard;
-            archWispCard.interactableCategory = DirectorAPI.InteractableCategory.None;
-            archWispCard.monsterCategory = DirectorAPI.MonsterCategory.Minibosses;
+            archWispCard.SetCard(archWispDirCard );
+            archWispCard.SetInteractableCategory( DirectorAPI.InteractableCategory.None );
+            archWispCard.SetMonsterCategory( DirectorAPI.MonsterCategory.Minibosses );
 
             DirectorAPI.MonsterActions += ( list, stage ) =>
             {
                 foreach( DirectorAPI.DirectorCardHolder card in list )
                 {
-                    var csc = card.card.spawnCard as CharacterSpawnCard;
+                    var csc = card.GetCard().spawnCard as CharacterSpawnCard;
                     if( csc.noElites && csc.name == "cscelectricworm" )
                     {
                         csc.noElites = false;
