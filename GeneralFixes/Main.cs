@@ -37,16 +37,17 @@ namespace ReinGeneralFixes
 
 
         partial void BalanceCommandoCDs();
-        partial void QoLCommandoRoll();
-
-        partial void QoLVisionsCrosshair();
         partial void BalanceCorpsebloom();
-        partial void FixBandolier();
-
-
         partial void BalanceOSP();
         partial void BalanceGesture();
 
+        partial void FixBandolier();
+        partial void FixSelfDamage();
+        partial void FixCircletModel();
+
+
+        partial void QoLCommandoRoll();
+        partial void QoLVisionsCrosshair();
         partial void QoLOvergrownPrinters();
 
 #if DPSMETER
@@ -56,16 +57,16 @@ namespace ReinGeneralFixes
         private Main()
         {
             this.BalanceCommandoCDs();
-            this.QoLCommandoRoll();
-
-            this.QoLVisionsCrosshair();
             this.BalanceCorpsebloom();
-            this.FixBandolier();
-
             this.BalanceOSP();
-
             this.BalanceGesture();
 
+            this.FixBandolier();
+            this.FixSelfDamage();
+            this.FixCircletModel();
+
+            this.QoLCommandoRoll();
+            this.QoLVisionsCrosshair();
             this.QoLOvergrownPrinters();
 
 
@@ -120,6 +121,7 @@ Overgrown printers can now have any boss tier item, including fancy pearls and h
 
 
 ITEMS:
+Gesture             chance to overload equipment on use. While overloaded equip has low cd and fires automatically. Equip breaks on overload end.
 
 
 Fireworks
@@ -127,9 +129,9 @@ Gasoline
 Medkit
 Monster Tooth
 Stun Grenade
-Warbanner
+Warbanner           (Regen while in zone)
 
-Berzerkers
+Berzerkers          (Gives base damage instead of attack speed)
 Chronobauble
 Razor Wire
 Will o Wisp
@@ -141,11 +143,8 @@ Tesla Coil
 
 Queens Gland
 
-Blast Shower
+Blast Shower        (make it reflect projectiles, instead of destroying)
 Royal Capacitor
-Crowdfunder
 
 Effigy
-Tincture
-
 */
