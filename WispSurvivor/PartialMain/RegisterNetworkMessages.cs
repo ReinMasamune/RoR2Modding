@@ -1,12 +1,8 @@
 ﻿#if NETWORKING
 using BepInEx;
-using RoR2;
-using RoR2.Networking;
+using R2API.Utils;
 using System;
-using System.Collections.Generic;
 using System.Reflection;
-using UnityEngine.Networking;
-using static RoR2.NetworkExtensions;
 
 namespace RogueWispPlugin
 {
@@ -26,7 +22,7 @@ namespace RogueWispPlugin
 
             if( !this.netLibInstalled )
             {
-                Main.LogW( "Loading networking" );
+                Main.LogW( "NetLib is not installed, loading fallback networking." );
                 Assembly execAssembly = Assembly.GetExecutingAssembly();
                 System.IO.Stream stream = execAssembly.GetManifestResourceStream( "RogueWispPlugin.Assemblies.NetLib.dll" );
                 var data = new Byte[stream.Length];
@@ -35,11 +31,12 @@ namespace RogueWispPlugin
                 var plugin = asm.GetType( "NetLib.Internals.Plugin" );
                 if( plugin == null )
                 {
-                    Main.LogE( "Couldn't load networking" );
+                    Main.LogE( "Failed to load fallback networking. Multiplayer will not work." );
                     return;
                 }
 
                 var netLib = base.gameObject.AddComponent( plugin ) as BaseUnityPlugin;
+                netLib.SetPropertyValue<BepInEx.Logging.ManualLogSource>( "Logger", Main.instance.Logger );
             }
         }
 

@@ -31,7 +31,6 @@ namespace RogueWispPlugin
 #endif
     [BepInDependency( R2API.R2API.PluginGUID, BepInDependency.DependencyFlags.HardDependency )]
     [BepInPlugin( pluginGUID, pluginName, pluginVersion )]
-    [BepInIncompatibility( "com.PallesenProductions.ExpandedSkills" )]
 #pragma warning restore CA2243 // Attribute string literals should parse correctly
     internal partial class Main : BaseUnityPlugin
     {
@@ -79,7 +78,7 @@ namespace RogueWispPlugin
         partial Boolean LoadChecks();
 #endif
 #if COMPATCHECKS
-        partial Boolean CompatChecks();
+        partial void CompatChecks();
 #endif
 #if CROSSMODFUNCTIONALITY
         partial void CrossModFunctionality();
@@ -118,12 +117,7 @@ namespace RogueWispPlugin
 
             this.working = true;
             instance = this;
-#if LOADCHECKS
-            this.working = this.LoadChecks() && this.working;
-#endif
-#if COMPATCHECKS
-            this.working = this.CompatChecks() && this.working;
-#endif
+            this.CompatChecks();
             if( this.working )
             {
 #if TIMER
@@ -209,7 +203,7 @@ namespace RogueWispPlugin
 #endif
         internal static void Log( BepInEx.Logging.LogLevel level, System.Object data, String member, Int32 line )
         {
-            if( level == BepInEx.Logging.LogLevel.Fatal )
+            if( level == BepInEx.Logging.LogLevel.Fatal || level == BepInEx.Logging.LogLevel.Error || level == BepInEx.Logging.LogLevel.Warning | level == BepInEx.Logging.LogLevel.Message )
             {
                 Main.instance.Logger.Log( level, data );
             } else
