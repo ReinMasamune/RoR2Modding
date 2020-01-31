@@ -43,6 +43,36 @@ namespace RogueWispPlugin
 
         private readonly Boolean working;
 
+
+
+
+        private static ExecutionState _state = ExecutionState.PreLoad;
+        internal static ExecutionState state
+        {
+            get
+            {
+                return _state;
+            }
+            set
+            {
+                if( _state == ExecutionState.Broken ) return;
+                Main.LogM( value.ToString() );
+                _state = value;
+            }
+        }
+        private static void IncState() => ++state;
+        internal enum ExecutionState
+        {
+            Broken = -1,
+            PreLoad = 0,
+            Constructor = 1,
+            Awake = 2,
+            Enable = 3,
+            Catalogs = 4,
+            Start = 5,
+            Execution = 6
+        }
+
 #if TIMER
         private readonly Stopwatch watch;
 #endif
@@ -66,14 +96,14 @@ namespace RogueWispPlugin
 
         internal static Main instance;
 
-        private event Action Load;
-        private event Action FirstFrame;
-        private event Action Enable;
-        private event Action Disable;
-        private event Action Frame;
-        private event Action PostFrame;
-        private event Action Tick;
-        private event Action GUI;
+        internal event Action Load;
+        internal event Action FirstFrame;
+        internal event Action Enable;
+        internal event Action Disable;
+        internal event Action Frame;
+        internal event Action PostFrame;
+        internal event Action Tick;
+        internal event Action GUI;
 #if LOADCHECKS
         partial Boolean LoadChecks();
 #endif
@@ -83,6 +113,7 @@ namespace RogueWispPlugin
 #if CROSSMODFUNCTIONALITY
         partial void CrossModFunctionality();
 #endif
+        partial void CreateAccessors();
 #if ROGUEWISP
         partial void CreateRogueWisp();
 #endif
@@ -115,8 +146,16 @@ namespace RogueWispPlugin
             this.thing1 = "Note that everything in this codebase that can be used safely is already part of R2API.";
             this.thing2 = "If you're here to copy paste my code, please don't complain to me when it doesn't work like magic or you cause a major issue for a user.";
 
+            this.CreateAccessors();
+
+            IncState();
+
             this.working = true;
             instance = this;
+            this.Load += IncState;
+            this.Enable += IncState;
+            this.FirstFrame += IncState;
+
             this.CompatChecks();
             if( this.working )
             {
@@ -167,7 +206,11 @@ namespace RogueWispPlugin
             {
                 Main.LogF( "Rogue Wisp has failed to load properly and will not be enabled. See preceding errors." );
             }
+
+            this.Enable += IncState;
+            this.FirstFrame += IncState;
         }
+
         private void Main_FirstFrame() => typeof( EffectCatalog ).InvokeMethod( "CCEffectsReload", new ConCommandArgs() );
 
 #pragma warning disable IDE0051 // Remove unused private members
