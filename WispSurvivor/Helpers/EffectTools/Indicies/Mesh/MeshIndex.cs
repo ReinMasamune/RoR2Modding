@@ -6,8 +6,14 @@ using UnityEngine;
 
 namespace RogueWispPlugin.Helpers
 {
-    internal enum MeshIndex
+    internal enum MeshIndex : ulong
     {
+        Sphere,
+        Capsule,
+        Cylinder,
+        Cube,
+        Plane,
+        Quad,
 
     }
 }

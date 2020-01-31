@@ -83,7 +83,7 @@ namespace RogueWispPlugin.Helpers
                 return s;
             }
         }
-        private void RegisterAccessor()
+        internal void RegisterAccessor()
         {
             switch( this.assetType )
             {
@@ -152,8 +152,110 @@ namespace RogueWispPlugin.Helpers
             this.index = index;
             this.access = access;
             this.minState = minState;
+        }
 
-            this.RegisterAccessor();
+        internal GenericAccessor( MaterialIndex index, Func<TValue> access, Main.ExecutionState minState = Main.ExecutionState.Awake )
+        {
+            var tv = typeof(TValue);
+            if( tv == typeof( Material ) )
+            {
+                this.assetType = AssetType.Material;
+            } else if( tv == typeof( Shader ) )
+            {
+                this.assetType = AssetType.Shader;
+            } else if( tv == typeof( Mesh ) )
+            {
+                this.assetType = AssetType.Mesh;
+            } else if( tv == typeof( Texture ) )
+            {
+                this.assetType = AssetType.Texture;
+            } else
+            {
+                throw new ArgumentException( "Bad type for genericaccessor with name: " + name + ", Type must be: " + this.validTypes );
+            }
+
+            this.isVanilla = true;
+            this.index = (UInt64)index;
+            this.access = access;
+            this.minState = minState;
+        }
+
+        internal GenericAccessor( TextureIndex index, Func<TValue> access, Main.ExecutionState minState = Main.ExecutionState.Awake )
+        {
+            var tv = typeof(TValue);
+            if( tv == typeof( Material ) )
+            {
+                this.assetType = AssetType.Material;
+            } else if( tv == typeof( Shader ) )
+            {
+                this.assetType = AssetType.Shader;
+            } else if( tv == typeof( Mesh ) )
+            {
+                this.assetType = AssetType.Mesh;
+            } else if( tv == typeof( Texture ) )
+            {
+                this.assetType = AssetType.Texture;
+            } else
+            {
+                throw new ArgumentException( "Bad type for genericaccessor with name: " + name + ", Type must be: " + this.validTypes );
+            }
+
+            this.isVanilla = true;
+            this.index = (UInt64)index;
+            this.access = access;
+            this.minState = minState;
+        }
+
+        internal GenericAccessor( MeshIndex index, Func<TValue> access, Main.ExecutionState minState = Main.ExecutionState.Awake )
+        {
+            var tv = typeof(TValue);
+            if( tv == typeof( Material ) )
+            {
+                this.assetType = AssetType.Material;
+            } else if( tv == typeof( Shader ) )
+            {
+                this.assetType = AssetType.Shader;
+            } else if( tv == typeof( Mesh ) )
+            {
+                this.assetType = AssetType.Mesh;
+            } else if( tv == typeof( Texture ) )
+            {
+                this.assetType = AssetType.Texture;
+            } else
+            {
+                throw new ArgumentException( "Bad type for genericaccessor with name: " + name + ", Type must be: " + this.validTypes );
+            }
+
+            this.isVanilla = true;
+            this.index = (UInt64)index;
+            this.access = access;
+            this.minState = minState;
+        }
+
+        internal GenericAccessor( ShaderIndex index, Func<TValue> access, Main.ExecutionState minState = Main.ExecutionState.Awake )
+        {
+            var tv = typeof(TValue);
+            if( tv == typeof( Material ) )
+            {
+                this.assetType = AssetType.Material;
+            } else if( tv == typeof( Shader ) )
+            {
+                this.assetType = AssetType.Shader;
+            } else if( tv == typeof( Mesh ) )
+            {
+                this.assetType = AssetType.Mesh;
+            } else if( tv == typeof( Texture ) )
+            {
+                this.assetType = AssetType.Texture;
+            } else
+            {
+                throw new ArgumentException( "Bad type for genericaccessor with name: " + name + ", Type must be: " + this.validTypes );
+            }
+
+            this.isVanilla = true;
+            this.index = (UInt64)index;
+            this.access = access;
+            this.minState = minState;
         }
     }
 }
