@@ -8,12 +8,13 @@ namespace RogueWispPlugin.Helpers
 {
     internal enum MeshIndex : ulong
     {
+        #region Unity Primatives
         Sphere,
         Capsule,
         Cylinder,
         Cube,
         Plane,
         Quad,
-
+        #endregion
     }
 }
