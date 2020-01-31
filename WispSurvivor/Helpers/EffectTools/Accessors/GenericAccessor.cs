@@ -19,7 +19,8 @@ namespace RogueWispPlugin.Helpers
                 {
                     if( this.access != null )
                     {
-                        return this.access();
+                        this.val = this.access();
+                        return this.val;
                     } else
                     {
                         throw new NullReferenceException( "Access null for " + this.indexName );
