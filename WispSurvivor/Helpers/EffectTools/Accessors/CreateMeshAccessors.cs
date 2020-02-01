@@ -15,7 +15,7 @@ namespace RogueWispPlugin
                 var mesh = obj.GetComponent<MeshFilter>().mesh;
                 Destroy( obj );
                 return mesh;
-            }, ExecutionState.Constructor ).RegisterAccessor();
+            }, false, ExecutionState.Constructor ).RegisterAccessor();
 
             new GenericAccessor<Mesh>( MeshIndex.Capsule, () =>
             {
@@ -23,7 +23,7 @@ namespace RogueWispPlugin
                 var mesh = obj.GetComponent<MeshFilter>().mesh;
                 Destroy( obj );
                 return mesh;
-            }, ExecutionState.Constructor ).RegisterAccessor();
+            }, false, ExecutionState.Constructor ).RegisterAccessor();
 
             new GenericAccessor<Mesh>( MeshIndex.Cylinder, () =>
             {
@@ -31,7 +31,7 @@ namespace RogueWispPlugin
                 var mesh = obj.GetComponent<MeshFilter>().mesh;
                 Destroy( obj );
                 return mesh;
-            }, ExecutionState.Constructor ).RegisterAccessor();
+            }, false, ExecutionState.Constructor ).RegisterAccessor();
 
             new GenericAccessor<Mesh>( MeshIndex.Cube, () =>
             {
@@ -39,7 +39,7 @@ namespace RogueWispPlugin
                 var mesh = obj.GetComponent<MeshFilter>().mesh;
                 Destroy( obj );
                 return mesh;
-            }, ExecutionState.Constructor ).RegisterAccessor();
+            }, false, ExecutionState.Constructor ).RegisterAccessor();
 
             new GenericAccessor<Mesh>( MeshIndex.Plane, () =>
             {
@@ -47,7 +47,7 @@ namespace RogueWispPlugin
                 var mesh = obj.GetComponent<MeshFilter>().mesh;
                 Destroy( obj );
                 return mesh;
-            }, ExecutionState.Constructor ).RegisterAccessor();
+            }, false, ExecutionState.Constructor ).RegisterAccessor();
 
             new GenericAccessor<Mesh>( MeshIndex.Quad, () =>
             {
@@ -55,7 +55,7 @@ namespace RogueWispPlugin
                 var mesh = obj.GetComponent<MeshFilter>().mesh;
                 Destroy( obj );
                 return mesh;
-            }, ExecutionState.Constructor ).RegisterAccessor();
+            }, false, ExecutionState.Constructor ).RegisterAccessor();
             #endregion
         }
     }

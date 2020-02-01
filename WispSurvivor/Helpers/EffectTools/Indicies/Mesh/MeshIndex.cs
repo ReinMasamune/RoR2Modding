@@ -16,5 +16,8 @@ namespace RogueWispPlugin.Helpers
         Plane,
         Quad,
         #endregion
+        #region Hopoo Meshes
+        Spiral1,
+        #endregion
     }
 }

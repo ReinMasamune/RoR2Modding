@@ -8,52 +8,60 @@ namespace RogueWispPlugin.Helpers
 {
     internal static class MaterialLibrary
     {
+        private static HashSet<Material> mappedMaterials = new HashSet<Material>();
         private static Dictionary<MaterialIndex, GenericAccessor<Material>> vanilla = new Dictionary<MaterialIndex, GenericAccessor<Material>>();
         private static Dictionary<String, GenericAccessor<Material>> custom = new Dictionary<String, GenericAccessor<Material>>();
 
-        internal static void AddAccessor( GenericAccessor<Material> accessor )
+
+
+        internal static Boolean HasMaterial( Material mat)
         {
-            if( accessor.isVanilla )
-            {
-                var key = (MaterialIndex)accessor.index;
-                if( vanilla.ContainsKey( key ) )
-                {
-                    Main.LogE( "Duplicate key: " + key.ToString() );
-                    return;
-                }
-
-                vanilla[key] = accessor;
-            } else
-            {
-                var key = accessor.name;
-                if( custom.ContainsKey( key ) )
-                {
-                    Main.LogE( "Duplicate key: " + key );
-                    return;
-                }
-
-                custom[key] = accessor;
-            }
+            return mappedMaterials.Contains( mat );
         }
 
-        internal static Material GetMaterial( String key )
+        internal static Material GetMaterialRaw( String key )
         {
             if( !custom.ContainsKey( key ) )
             {
                 Main.LogE( "Invalid key: " + key );
                 return null;
             }
-            return custom[key].value;
+            var mat = custom[key].value;
+            mappedMaterials.Add( mat );
+            return mat;
         }
 
-        internal static Material GetMaterial( MaterialIndex key )
+        internal static Material GetMaterialRaw( MaterialIndex key )
         {
             if( !vanilla.ContainsKey( key ) )
             {
                 Main.LogE( "Invalid key: " + key.ToString() );
                 return null;
             }
-            return vanilla[key].value;
+            var mat = vanilla[key].value;
+            mappedMaterials.Add( mat );
+            return mat;
+        }
+
+        internal static Material GetMaterialClone( String key )
+        {
+            return UnityEngine.Object.Instantiate<Material>( GetMaterialRaw( key ) );
+        }
+
+        internal static Material GetMeshClone( MaterialIndex key )
+        {
+            return UnityEngine.Object.Instantiate<Material>( GetMaterialRaw( key ) );
+        }
+
+        
+
+        internal static void LogAll()
+        {
+            Main.LogI( "Materials::" );
+            foreach( var v in mappedMaterials )
+            {
+                Main.LogI( v?.name );
+            }
         }
     }
 }

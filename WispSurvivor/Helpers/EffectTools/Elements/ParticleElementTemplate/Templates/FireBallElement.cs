@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace RogueWispPlugin.Helpers
 {
-    internal class FireballParticle : ParticleElementTemplate
+    internal class FireBallElement : ParticleElementTemplate
     {
         internal enum FireballType
         {
@@ -14,7 +14,7 @@ namespace RogueWispPlugin.Helpers
             Lemurian = 1,
             GreaterWisp = 2,
         }
-        internal FireballParticle( ParticleElement element ) : base( element )
+        internal FireBallElement( ParticleElement element ) : base( element )
         {
 
         }

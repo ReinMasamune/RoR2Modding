@@ -6,8 +6,11 @@ using UnityEngine;
 
 namespace RogueWispPlugin.Helpers
 {
-    internal enum MaterialIndex
+    internal class FlashElement : ParticleElementTemplate
     {
+        internal FlashElement( ParticleElement element ) : base( element )
+        {
 
+        }
     }
 }

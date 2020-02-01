@@ -8,52 +8,57 @@ namespace RogueWispPlugin.Helpers
 {
     internal static class ShaderLibrary
     {
+        private static HashSet<Shader> mappedShaders = new HashSet<Shader>();
         private static Dictionary<ShaderIndex, GenericAccessor<Shader>> vanilla = new Dictionary<ShaderIndex, GenericAccessor<Shader>>();
         private static Dictionary<String, GenericAccessor<Shader>> custom = new Dictionary<String, GenericAccessor<Shader>>();
 
-        internal static void AddAccessor( GenericAccessor<Shader> accessor )
+
+        internal static Boolean HasShader( Shader shader )
         {
-            if( accessor.isVanilla )
-            {
-                var key = (ShaderIndex)accessor.index;
-                if( vanilla.ContainsKey( key ) )
-                {
-                    Main.LogE( "Duplicate key: " + key.ToString() );
-                    return;
-                }
-
-                vanilla[key] = accessor;
-            } else
-            {
-                var key = accessor.name;
-                if( custom.ContainsKey( key ) )
-                {
-                    Main.LogE( "Duplicate key: " + key );
-                    return;
-                }
-
-                custom[key] = accessor;
-            }
+            return mappedShaders.Contains( shader );
         }
 
-        internal static Shader GetShader( String key )
+        internal static Shader GetShaderRaw( String key )
         {
             if( !custom.ContainsKey( key ) )
             {
                 Main.LogE( "Invalid key: " + key );
                 return null;
             }
-            return custom[key].value;
+            var shader = custom[key].value;
+            mappedShaders.Add( shader );
+            return shader;
         }
 
-        internal static Shader GetShader( ShaderIndex key )
+        internal static Shader GetShaderRaw( ShaderIndex key )
         {
             if( !vanilla.ContainsKey( key ) )
             {
                 Main.LogE( "Invalid key: " + key.ToString() );
                 return null;
             }
-            return vanilla[key].value;
+            var shader = vanilla[key].value;
+            mappedShaders.Add( shader );
+            return shader;
+        }
+
+        internal static Shader GetShaderClone( String key )
+        {
+            return UnityEngine.Object.Instantiate<Shader>( GetShaderRaw( key ) );
+        }
+
+        internal static Shader GetShaderClone( ShaderIndex key )
+        {
+            return UnityEngine.Object.Instantiate<Shader>( GetShaderRaw( key ) );
+        }
+
+        internal static void LogAll()
+        {
+            Main.LogI( "Materials::" );
+            foreach( var v in mappedShaders )
+            {
+                Main.LogI( v?.name );
+            }
         }
     }
 }

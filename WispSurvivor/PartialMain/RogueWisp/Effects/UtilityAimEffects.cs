@@ -38,9 +38,9 @@ namespace RogueWispPlugin
                 }
             }
 
-            //RoR2Plugin.Main.MiscHelpers.DebugMaterialInfo( mat2 );
-            //RoR2Plugin.Main.MiscHelpers.DebugMaterialInfo( mat3 );
-
+            RoR2Plugin.Main.MiscHelpers.DebugMaterialInfo( mat1 );
+            RoR2Plugin.Main.MiscHelpers.DebugMaterialInfo( mat2 );
+            RoR2Plugin.Main.MiscHelpers.DebugMaterialInfo( mat3 );
 
             for( Int32 i = 0; i < 8; i++ )
             {

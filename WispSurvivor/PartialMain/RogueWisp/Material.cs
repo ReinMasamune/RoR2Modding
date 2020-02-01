@@ -18,7 +18,7 @@ namespace RogueWispPlugin
         internal static Texture2D[] electricTextures = new Texture2D[8];
         internal static Material[][] fireMaterials = new Material[8][];
         internal static Material[][] otherMaterials = new Material[8][];
-        internal static Material[] flareMats = new Material[8];
+        //internal static Material[] flareMats = new Material[8];
         internal static Material[] armorMaterials = new Material[8];
         internal static Material[] burnOverlayMaterials = new Material[8];
         internal static Material[][] eliteFlameMaterials = new Material[8][];
@@ -116,6 +116,7 @@ namespace RogueWispPlugin
             }
 
             Material baseArmorMaterial = MonoBehaviour.Instantiate<Material>(Resources.Load<GameObject>("Prefabs/CharacterBodies/AncientWispBody").GetComponent<ModelLocator>().modelTransform.Find("AncientWispMesh").GetComponent<SkinnedMeshRenderer>().material);
+          
             baseArmorMaterial.DisableKeyword( "DITHER" );
             baseArmorMaterial.DisableKeyword( "_EMISSION" );
             baseArmorMaterial.EnableKeyword( "FLOWMAP" );
@@ -148,6 +149,7 @@ namespace RogueWispPlugin
             baseArmorMaterial.SetInt( "_FlowmapOn", 1 );
             baseArmorMaterial.SetInt( "_FEON", 1 );
 
+            RoR2Plugin.Main.MiscHelpers.DebugMaterialInfo( baseArmorMaterial );
 
             for( Int32 i = 0; i < 8; i++ )
             {
@@ -157,6 +159,7 @@ namespace RogueWispPlugin
             }
 
             Material baseBurnMaterial = Resources.Load<Material>("Materials/MatOnHelfire");
+            RoR2Plugin.Main.MiscHelpers.DebugMaterialInfo( baseBurnMaterial );
 
             for( Int32 i = 0; i < 8; i++ )
             {
@@ -174,6 +177,8 @@ namespace RogueWispPlugin
 
             Material base1 = Resources.Load<Material>("Materials/matElitePoisonParticleReplacement");
             Material base2 = Resources.Load<Material>("Materials/matEliteHauntedParticleReplacement");
+            RoR2Plugin.Main.MiscHelpers.DebugMaterialInfo( base1 );
+            RoR2Plugin.Main.MiscHelpers.DebugMaterialInfo( base2 );
 
             for( Int32 i = 0; i < 8; i++ )
             {
@@ -185,6 +190,7 @@ namespace RogueWispPlugin
             }
 
             Material base3 = Resources.Load<Material>( "Materials/matEnergyShield" );
+            RoR2Plugin.Main.MiscHelpers.DebugMaterialInfo( base3 );
 
             for( Int32 i = 0; i < 8; i++ )
             {

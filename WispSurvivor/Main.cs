@@ -56,11 +56,16 @@ namespace RogueWispPlugin
             set
             {
                 if( _state == ExecutionState.Broken ) return;
-                Main.LogM( value.ToString() );
                 _state = value;
+                Main.LogI( "State inc: " + _state.ToString() );
+
             }
         }
-        private static void IncState() => ++state;
+        private static void IncState()
+        {
+            state = state + 1;
+            UpdateLibraries();
+        }
         internal enum ExecutionState
         {
             Broken = -1,
@@ -114,6 +119,7 @@ namespace RogueWispPlugin
         partial void CrossModFunctionality();
 #endif
         partial void CreateAccessors();
+        static partial void UpdateLibraries();
 #if ROGUEWISP
         partial void CreateRogueWisp();
 #endif
@@ -143,6 +149,7 @@ namespace RogueWispPlugin
 #endif
         public Main()
         {
+            instance = this;
             this.thing1 = "Note that everything in this codebase that can be used safely is already part of R2API.";
             this.thing2 = "If you're here to copy paste my code, please don't complain to me when it doesn't work like magic or you cause a major issue for a user.";
 
@@ -151,7 +158,7 @@ namespace RogueWispPlugin
             IncState();
 
             this.working = true;
-            instance = this;
+
             this.Load += IncState;
             this.Enable += IncState;
             this.FirstFrame += IncState;
@@ -209,6 +216,67 @@ namespace RogueWispPlugin
 
             this.Enable += IncState;
             this.FirstFrame += IncState;
+
+            this.FirstFrame += this.TempTestingShit;
+        }
+
+        private void TempTestingShit()
+        {
+            var mats = new HashSet<Material>();
+
+            var fx1 = Resources.Load<GameObject>("Prefabs/Effects/NullifierDeathExplosion" );
+            var fx2 = Resources.Load<GameObject>("Prefabs/ProjectileGhosts/NullifierPreBombGhost" );
+
+
+            foreach( var r in fx1.GetComponentsInChildren<ParticleSystemRenderer>() )
+            {
+                foreach( var m in r.sharedMaterials )
+                {
+                    mats.Add( m );
+                }
+            }
+            foreach( var r in fx2.GetComponentsInChildren<ParticleSystemRenderer>() )
+            {
+                foreach( var m in r.sharedMaterials )
+                {
+                    mats.Add( m );
+                }
+            }
+
+            foreach( var m in mats )
+            {
+                if( m == null ) continue;
+                RoR2Plugin.Main.MiscHelpers.DebugMaterialInfo( m );
+            }
+        }
+        private void AddObjToSet( GameObject obj, HashSet<Texture> texSet, HashSet<Mesh> meshSet, HashSet<Shader> shaderSet  )
+        {
+            if( obj == null ) return;
+            foreach( var psr in obj.GetComponents<ParticleSystemRenderer>() )
+            {
+                this.AddMatToSet( psr.material, texSet, meshSet, shaderSet );
+                var mesh = psr.mesh;
+                if( mesh != null ) meshSet.Add( mesh );
+            }
+
+            foreach( var psr in obj.GetComponentsInChildren<ParticleSystemRenderer>() )
+            {
+                this.AddMatToSet( psr.material, texSet, meshSet, shaderSet );
+                var mesh = psr.mesh;
+                if( mesh != null ) meshSet.Add( mesh );
+            }
+        }
+
+        private void AddMatToSet( Material m, HashSet<Texture> texSet, HashSet<Mesh> meshSet, HashSet<Shader> shaderSet )
+        {
+            if( m == null ) return;
+            var shader = m.shader;
+            if( shader != null ) shaderSet.Add( shader );
+            foreach( var ind in m.GetTexturePropertyNames() )
+            {
+                var tex = m.GetTexture( ind );
+                if( tex != null ) texSet.Add( tex );
+            }
         }
 
         private void Main_FirstFrame() => typeof( EffectCatalog ).InvokeMethod( "CCEffectsReload", new ConCommandArgs() );
@@ -246,6 +314,12 @@ namespace RogueWispPlugin
 #endif
         internal static void Log( BepInEx.Logging.LogLevel level, System.Object data, String member, Int32 line )
         {
+            if( data == null )
+            {
+                Main.instance.Logger.LogError( "Null data sent by: " + member + " line: " + line );
+                return;
+            }
+
             if( level == BepInEx.Logging.LogLevel.Fatal || level == BepInEx.Logging.LogLevel.Error || level == BepInEx.Logging.LogLevel.Warning | level == BepInEx.Logging.LogLevel.Message )
             {
                 Main.instance.Logger.Log( level, data );
@@ -280,6 +354,7 @@ namespace RogueWispPlugin
 // TODO: Proper spawning conditions for ancient wisp
 // TODO: Tune AI for ancient wisp
 // TODO: Ancient wisp UV mapping (need to duplicate mesh)
+// TODO: Add lunar scavs to the charge gain stuff
 
 
 // Future plans and shit

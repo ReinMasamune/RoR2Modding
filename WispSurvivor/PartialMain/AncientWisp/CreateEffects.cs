@@ -18,11 +18,26 @@ namespace RogueWispPlugin
             this.Load += this.AW_SpecialZoneGhost;
         }
 
-        private void AW_SpecialZoneGhost() => throw new System.NotImplementedException();
-        private void AW_SpecialGhost() => throw new System.NotImplementedException();
-        private void AW_PrimaryGhost() => throw new System.NotImplementedException();
-        private void AW_SpecialCharge() => throw new System.NotImplementedException();
-        private void AW_PrimaryCharge() => throw new System.NotImplementedException();
+        private void AW_SpecialZoneGhost()
+        {
+
+        }
+        private void AW_SpecialGhost()
+        {
+
+        }
+        private void AW_PrimaryGhost()
+        {
+
+        }
+        private void AW_SpecialCharge()
+        {
+
+        }
+        private void AW_PrimaryCharge()
+        {
+
+        }
 
         private void AW_SecondaryExplosion()
         {

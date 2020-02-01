@@ -6,16 +6,13 @@ using UnityEngine;
 
 namespace RogueWispPlugin.Helpers
 {
-    internal enum TextureIndex
+    internal enum TextureIndex : ulong
     {
-        Invalid = -1,
+        TexGlowPaintMask,
+        TexCloudDifferenceBW2,
+        TexGlowSoftCenterMask,
+        TexCloudDifferenceBW1,
+        TexBehemothTileMask,
 
-
-
-
-
-
-
-        Last
     }
 }
