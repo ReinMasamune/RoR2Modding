@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Reflection;
 using UnityEngine;
+using RogueWispPlugin.Helpers;
 #if NETWORKING
 using NetLib;
 #endif
@@ -223,19 +224,11 @@ namespace RogueWispPlugin
         private void TempTestingShit()
         {
             var mats = new HashSet<Material>();
-
-            var fx1 = Resources.Load<GameObject>("Prefabs/Effects/NullifierDeathExplosion" );
-            var fx2 = Resources.Load<GameObject>("Prefabs/ProjectileGhosts/NullifierPreBombGhost" );
+            var fx = AssetLibrary<GameObject>.GetAssetRaw( PrefabIndex.refWillOWispExplosion );
 
 
-            foreach( var r in fx1.GetComponentsInChildren<ParticleSystemRenderer>() )
-            {
-                foreach( var m in r.sharedMaterials )
-                {
-                    mats.Add( m );
-                }
-            }
-            foreach( var r in fx2.GetComponentsInChildren<ParticleSystemRenderer>() )
+
+            foreach( var r in fx.GetComponentsInChildren<ParticleSystemRenderer>() )
             {
                 foreach( var m in r.sharedMaterials )
                 {

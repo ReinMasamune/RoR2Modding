@@ -2,8 +2,8 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>RogueWisp</AssemblyName>
-    <AssemblyVersion>1.4.2.48</AssemblyVersion>
-    <FileVersion>1.4.2.48</FileVersion>
+    <AssemblyVersion>1.4.2.50</AssemblyVersion>
+    <FileVersion>1.4.2.50</FileVersion>
     <RootNamespace>RogueWispPlugin</RootNamespace>
     <UserSecretsId>392ba4cc-368a-4518-b19f-f550dca1e784</UserSecretsId>
   </PropertyGroup>
@@ -325,10 +325,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Helpers\EffectTools\Accessors\Shader\" />
-    <Folder Include="Helpers\EffectTools\Accessors\Material\" />
-    <Folder Include="Helpers\EffectTools\Accessors\Texture\" />
-    <Folder Include="Helpers\EffectTools\Accessors\Mesh\" />
+    <Folder Include="Helpers\AssetTools\TextureBuilder\" />
   </ItemGroup>
   <Target Name="AfterCompile">
     <Exec Command="echo &quot;&quot;" />

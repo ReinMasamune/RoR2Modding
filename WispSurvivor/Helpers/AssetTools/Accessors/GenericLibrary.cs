@@ -6,12 +6,32 @@ using UnityEngine;
 
 namespace RogueWispPlugin.Helpers
 {
-    internal static class AssetLibrary<TAsset> where TAsset : UnityEngine.Object
+    internal class AssetLibrary<TAsset> where TAsset : UnityEngine.Object
     {
+        private static AssetLibrary<TAsset> instance;
+
         private static HashSet<TAsset> mappedAssets = new HashSet<TAsset>();
         private static HashSet<GenericAccessor<TAsset>> uncachedAccessors = new HashSet<GenericAccessor<TAsset>>();
         private static HashSet<GenericAccessor<TAsset>> cachedAccessors = new HashSet<GenericAccessor<TAsset>>();
         private static Dictionary<UInt64,GenericAccessor<TAsset>> assets = new Dictionary<UInt64, GenericAccessor<TAsset>>();
+
+        private static void Init()
+        {
+            instance = new AssetLibrary<TAsset>();
+        }
+
+        internal static AssetLibrary<TAsset> i
+        {
+            get
+            {
+                if( instance == null )
+                {
+                    Init();
+                }
+                return instance;
+            }
+        }
+
 
         internal static void AddAssetAccess( GenericAccessor<TAsset> accessor )
         {
@@ -25,6 +45,22 @@ namespace RogueWispPlugin.Helpers
             if( accessor.shouldAutoCache )
             {
                 uncachedAccessors.Add( accessor );
+            }
+        }
+
+        internal TAsset this[UInt64 key]
+        {
+            get
+            {
+                return GetAssetRaw( key );
+            }
+        }
+
+        internal TAsset this[Enum enumKey]
+        {
+            get
+            {
+                return GetAssetRaw( enumKey );
             }
         }
 
@@ -65,7 +101,8 @@ namespace RogueWispPlugin.Helpers
         }
         internal static TAsset GetAssetRaw( Enum enumKey )
         {
-            return GetAssetRaw( (UInt64)(GenericIndex)enumKey );
+            var key = (UInt64)Convert.ChangeType( enumKey, enumKey.GetType() );
+            return GetAssetRaw( key );
         }
         internal static Main.ExecutionState GetLastState( params UInt64[] inds )
         {
@@ -83,7 +120,7 @@ namespace RogueWispPlugin.Helpers
             var max  = Main.ExecutionState.PreLoad;
             foreach( var ind in inds )
             {
-                var i = (UInt64)(GenericIndex)ind;
+                var i = (UInt64)Convert.ChangeType( ind, ind.GetType() ); ;
                 var temp = GetMinState( i );
                 if( temp > max ) max = temp;
             }
@@ -104,6 +141,5 @@ namespace RogueWispPlugin.Helpers
 
         private enum GenericIndex : UInt64
         { }
-
     }
 }

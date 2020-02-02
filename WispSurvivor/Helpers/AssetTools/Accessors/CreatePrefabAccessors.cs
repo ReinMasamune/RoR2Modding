@@ -11,15 +11,15 @@ namespace RogueWispPlugin
             #region Reference Prefabs
             new GenericAccessor<GameObject>( PrefabIndex.refWillOWispExplosion, () =>
             {
-                return Resources.Load<GameObject>( "Prefabs/" );
+                return Resources.Load<GameObject>( "Prefabs/Effects/WillOWispExplosion" );
             }, false, ExecutionState.Awake ).RegisterAccessor();
 
-            new GenericAccessor<GameObject>( PrefabIndex.refNullifierExplosion, () =>
+            new GenericAccessor<GameObject>( PrefabIndex.refNullifierDeathExplosion, () =>
             {
                 return Resources.Load<GameObject>( "Prefabs/Effects/NullifierDeathExplosion" );
             }, false, ExecutionState.Awake ).RegisterAccessor();
 
-            new GenericAccessor<GameObject>( PrefabIndex.refNullifierPreBomb, () =>
+            new GenericAccessor<GameObject>( PrefabIndex.refNullifierPreBombGhost, () =>
             {
                 return Resources.Load<GameObject>( "Prefabs/ProjectileGhosts/NullifierPreBombGhost" );
             }, false, ExecutionState.Awake ).RegisterAccessor();

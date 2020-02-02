@@ -10,8 +10,8 @@ namespace RogueWispPlugin.Helpers
     {
         #region Reference Prefabs
         refWillOWispExplosion,
-        refNullifierExplosion,
-        refNullifierPreBomb,
+        refNullifierDeathExplosion,
+        refNullifierPreBombGhost,
         #endregion
 
     }

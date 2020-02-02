@@ -52,6 +52,26 @@ namespace RogueWispPlugin.Helpers
             this.shouldAutoCache = shouldCache;
         }
 
+        internal GenericAccessor( Enum index, Func<TAsset> access, Boolean shouldCache = false, params UInt64[] dependencies )
+        {
+            var ind = Convert.ChangeType( index, index.GetType() );
+            this.name = ind.ToString();
+            this.index = (UInt64)ind;
+            this.access = access;
+            this.minState = AssetLibrary<TAsset>.GetLastState(dependencies);
+            this.shouldAutoCache = shouldCache;
+        }
+
+        internal GenericAccessor( Enum index, Func<TAsset> access, Boolean shouldCache = false, params Enum[] dependencies )
+        {
+            var ind = Convert.ChangeType( index, index.GetType() );
+            this.name = ind.ToString();
+            this.index = (UInt64)ind;
+            this.access = access;
+            this.minState = AssetLibrary<TAsset>.GetLastState(dependencies);
+            this.shouldAutoCache = shouldCache;
+        }
+
         private enum GenericIndex { }
     }
 }
