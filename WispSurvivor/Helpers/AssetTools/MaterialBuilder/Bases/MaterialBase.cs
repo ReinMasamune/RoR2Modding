@@ -62,6 +62,20 @@ namespace RogueWispPlugin.Helpers
         {
             return this.material.GetColor( name );
         }
+        internal void SetKeyword( String keyword, Boolean value )
+        {
+            if( value )
+            {
+                this.material.EnableKeyword( keyword );
+            } else
+            {
+                this.material.DisableKeyword( keyword );
+            }
+        }
+        internal Boolean GetKeyword( String keyword )
+        {
+            return this.material.IsKeywordEnabled( keyword );
+        }
 
 
         internal class TextureData
@@ -72,9 +86,6 @@ namespace RogueWispPlugin.Helpers
                 this.propName = propName;
                 this._texture = this.mat.GetTexture( this.propName );
             }
-
-
-
 
             internal Texture texture
             {
@@ -89,12 +100,10 @@ namespace RogueWispPlugin.Helpers
                 }
             }
 
-
             internal Material mat;
             internal String propName;
 
             private Texture _texture;
-
         }
 
         internal class ScaleOffsetTextureData : TextureData

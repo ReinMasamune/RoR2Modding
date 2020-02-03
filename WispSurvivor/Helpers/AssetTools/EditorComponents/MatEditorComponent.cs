@@ -5,11 +5,15 @@ namespace RogueWispPlugin.Helpers
 {
     internal class MaterialEditor : MonoBehaviour
     {
-        private Material mat;
-
+        private Material material;
+        private StandardMaterial mat;
         private void Awake()
         {
-            this.mat = base.gameObject.GetComponent<MeshRenderer>().material;
+            this.material = base.gameObject.GetComponent<MeshRenderer>().material;
+            if( this.material )
+            {
+                this.mat = new StandardMaterial( this.material );
+            }
         }
 
         private void OnGUI()
