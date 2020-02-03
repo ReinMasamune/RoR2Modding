@@ -33,7 +33,6 @@ namespace RogueWispPlugin.Helpers
             }
         }
 
-
         private TAsset val;
         private Func<TAsset> access;
 
@@ -44,7 +43,9 @@ namespace RogueWispPlugin.Helpers
 
         internal GenericAccessor( Enum index, Func<TAsset> access, Boolean shouldCache = false, Main.ExecutionState minState = Main.ExecutionState.Awake )
         {
-            var ind = Convert.ChangeType( index, index.GetType() );
+            var indType = index.GetType();
+            BaseAssetLibrary.AddAssociation<TAsset>( indType );
+            var ind = Convert.ChangeType( index, indType );
             this.name = ind.ToString();
             this.index = (UInt64)ind;
             this.access = access;
@@ -52,26 +53,16 @@ namespace RogueWispPlugin.Helpers
             this.shouldAutoCache = shouldCache;
         }
 
-        internal GenericAccessor( Enum index, Func<TAsset> access, Boolean shouldCache = false, params UInt64[] dependencies )
-        {
-            var ind = Convert.ChangeType( index, index.GetType() );
-            this.name = ind.ToString();
-            this.index = (UInt64)ind;
-            this.access = access;
-            this.minState = AssetLibrary<TAsset>.GetLastState(dependencies);
-            this.shouldAutoCache = shouldCache;
-        }
-
         internal GenericAccessor( Enum index, Func<TAsset> access, Boolean shouldCache = false, params Enum[] dependencies )
         {
-            var ind = Convert.ChangeType( index, index.GetType() );
+            var indType = index.GetType();
+            BaseAssetLibrary.AddAssociation<TAsset>( indType );
+            var ind = Convert.ChangeType( index, indType );
             this.name = ind.ToString();
             this.index = (UInt64)ind;
             this.access = access;
-            this.minState = AssetLibrary<TAsset>.GetLastState(dependencies);
+            this.minState = BaseAssetLibrary.GetLastState(dependencies);
             this.shouldAutoCache = shouldCache;
         }
-
-        private enum GenericIndex { }
     }
 }

@@ -59,3 +59,272 @@ namespace RogueWispPlugin.Helpers
         }
     }
 }
+
+/*
+Element types:
+
+(ActivateGoldBeacon)
+Coins
+LongLifeNoiseTrails, Bright
+Flash, White
+Flash, Red
+Point light
+Dash, Bright
+Sphere
+
+(ActivateRadarTower)
+ExpandingSphere
+MassSparks
+Point Light
+PP
+
+(Affix White Delay Effect)
+Chunks
+Nova Sphere
+Point light
+Flash, White
+CoreSphere
+Spikes
+LightShafts
+
+(AmmoPackPickupEffect)
+Ring
+Shells
+
+(AncientWispEnrage)
+Crosses
+SwingTrail
+
+(ArchWispDeath)
+Ring
+Chunks
+Mask
+Chunks, Sharp
+Flames
+Flash
+Distortion
+Debris
+Point light
+
+(ArchWispPreDeath)
+LightShafts
+Chunks
+Flames
+Goo
+Point light
+Flames
+Flames, Radial
+Flash
+
+(AssassinDaggerTrail)
+SwingTrail
+
+(BeamSphereExplosion)
+Ring
+Chunks, Sharp
+Flames
+Flash
+Point light
+Lightning
+
+(BearProc)
+Fluff
+
+(BeetleGuardDefenseUp)
+Pulse
+Shields
+
+(BeetleQueenBurrow)
+Debris, 3D
+Debris
+Dust,3D
+Dust,Billboarded
+Debris, 3D
+Debris
+Dust
+
+(BeetleQueenScream)
+Distortion
+Spit
+Debris
+
+(BeetleQueenScreamDeath)
+Acid
+Distortion
+Spit
+
+(BeetleWardDeathEffect)
+Bugs
+Point Light
+Blood
+Blooc, Opague
+
+(BellDeath)
+BurstLight
+Beams
+
+(BellPreDeath)
+LightShafts
+Flames
+
+(BirdSharkDeathEffect)
+SmallFeather
+Blood
+
+(BisonChargeStep)
+Debris
+Dust
+
+(BoostJumpEffect)
+Feather, Radial
+Feather, Directional
+
+(BootCharging)
+Squares
+Point light
+
+(BootIsReady)
+Squares
+Distortion
+BlueRing
+InnerEnergy
+Point light
+
+(BootTrigger)
+Squares
+Distortion
+BlueRing
+InnerEnergy
+Point light
+
+(BrittleDeath)
+BurstLight
+Beams
+
+(BubbleShieldEndEffect)
+ScaledHitsparks
+UnscaledHitsparks
+ScaledSmoke, Billboard
+ScaledSmokeRing, Mesh
+Unscaled Smoke, Billboard
+AreaIndicatorRing, Billboard
+AreaIndicatorRing, Random Billboard
+Physics Sparks
+Flash, Soft Glow
+Unscaled Flames
+Dash, Bright
+Point Light
+Chunks, Solid
+Chunks, Billboards
+
+(ChargeMadeFireBomb)
+Base
+OrbCore
+Point light
+
+(ChargeMageIceBomb)
+Point light
+Beams
+Base
+OrbCore
+
+(ChargeMageLightningBomb)
+Base
+OrbCore
+Point light
+Sparks, Trail
+
+(ClayBossDeath)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*/

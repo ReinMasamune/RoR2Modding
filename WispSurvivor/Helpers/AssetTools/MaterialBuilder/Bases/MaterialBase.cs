@@ -36,7 +36,7 @@ namespace RogueWispPlugin.Helpers
         internal MaterialBase( String name, ShaderIndex index )
         {
             this.shader = index;
-            this.material = new Material( AssetLibrary<Shader>.GetAssetRaw( index ) );
+            this.material = new Material( AssetLibrary<Shader>.i[index] );
             this.name = name;
         }
     }

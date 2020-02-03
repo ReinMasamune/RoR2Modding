@@ -12,6 +12,9 @@ namespace RogueWispPlugin.Helpers
         refWillOWispExplosion,
         refNullifierDeathExplosion,
         refNullifierPreBombGhost,
+        refLockedMage,
+        refFireTornadoGhost,
+        refTitanRechargeRocksEffect,
         #endregion
 
     }

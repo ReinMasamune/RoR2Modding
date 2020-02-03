@@ -3,6 +3,7 @@ using R2API.Utils;
 using RoR2;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Reflection;
@@ -218,53 +219,384 @@ namespace RogueWispPlugin
             this.Enable += IncState;
             this.FirstFrame += IncState;
 
-            this.FirstFrame += this.TempTestingShit;
+            //this.FirstFrame += this.TempTestingShit;
+            this.FirstFrame += this.GetTexListTest;
+        }
+
+        private void GetTexListTest()
+        {
+            var dic = new Dictionary<Texture,HashSet<MatAccess>>();
+
+            AssetLibrary<Material>.TryOnAll( ( mat ) =>
+            {
+                var names = mat.GetTexturePropertyNames();
+                for( Int32 i = 0; i < names.Length; ++i )
+                {
+                    var tex = mat.GetTexture( names[i] );
+                    if( tex != null )
+                    {
+                        if( dic.ContainsKey( tex ) )
+                        {
+                            dic[tex].Add( new MatAccess( names[i], mat ) );
+                        } else
+                        {
+                            dic[tex] = new HashSet<MatAccess>();
+                            dic[tex].Add( new MatAccess( names[i], mat ) );
+                        }
+                    }
+                }
+            } );
+
+            foreach( var kv in dic )
+            {
+                Main.LogW( kv.Key.name );
+                foreach( var mat in kv.Value )
+                {
+                    Main.LogI( mat.info );
+                }
+            }
+        }
+
+        private class MatAccess
+        {
+            private Material mat;
+            private String propName;
+
+            internal MatAccess( String prop, Material mat )
+            {
+                this.mat = mat;
+                this.propName = prop;
+            }
+
+            internal String info
+            {
+                get
+                {
+                    return mat.name + " :: " + propName;
+                }
+            }
+
         }
 
         private void TempTestingShit()
         {
-            var mats = new HashSet<Material>();
-            var fx = AssetLibrary<GameObject>.GetAssetRaw( PrefabIndex.refWillOWispExplosion );
+            var nameCounter = new Dictionary<String, UInt64>();
+            var mask = new HashSet<Transform>();
+            var handledTypes = new HashSet<Type>();
+            var unhandledTypes = new HashSet<Type>();
 
+            var settingsDict = new Dictionary<String,List<ParticleSystem>>();
 
-
-            foreach( var r in fx.GetComponentsInChildren<ParticleSystemRenderer>() )
+            foreach( var obj in Resources.FindObjectsOfTypeAll<GameObject>() )
             {
-                foreach( var m in r.sharedMaterials )
+                AddTransformNamesToDict( obj.transform, nameCounter, mask, settingsDict );
+            }
+
+            Main.LogW( "SORTING" );
+
+            var flags = BindingFlags.Public | BindingFlags.Instance;
+            var modules = new HashSet<ModuleAccess>();
+
+            foreach( var p in typeof(ParticleSystem).GetProperties(flags) )
+            {
+                if( p.PropertyType.Name.Contains( "Module" ) )
                 {
-                    mats.Add( m );
+                    modules.Add( new ModuleAccess( p, unhandledTypes, flags ) );
+                } else continue;
+            }
+
+            foreach( var t in unhandledTypes )
+            {
+                Main.LogW( t.Name );
+            }
+
+            foreach( var kv in nameCounter.OrderByDescending<KeyValuePair<String, UInt64>, UInt64>( ( kv ) => kv.Value ) )
+            {
+                if( kv.Value < 200 ) continue;
+                Main.LogE( kv.Key + ", count:" + kv.Value );
+
+                var data = CombineParticleData( settingsDict[kv.Key] );
+
+                foreach( var modAccess in modules )
+                {
+                    modAccess.DoModule( data );
+                }
+            }
+        }
+
+        private class ModuleAccess
+        {
+            private PropertyInfo propInfo;
+            internal void DoModule( ParticleData data )
+            {
+                Main.LogW( this.propInfo.Name );
+                foreach( var access in this.singleAccess )
+                {
+                    data.QueryData<SingleContext>( ( sys, con ) =>
+                    {
+                        var module = this.propInfo.GetValue( sys );
+
+                        con.AddValue( access.Get( module ) );
+                    }, ( con ) =>
+                    {
+                        var average = con.total / con.counter;
+                        Main.LogI( access.name + " min: " + con.min + " max: " + con.max + " average: " + average );
+                    } );
+                }
+                foreach( var access in this.booleanAccess )
+                {
+                    data.QueryData<BooleanContext>( ( sys, con ) =>
+                    {
+                        var module = this.propInfo.GetValue( sys );
+
+                        con.AddValue( access.Get( module ) );
+                    }, ( con ) =>
+                    {
+                        Main.LogI( access.name + " false: " + con.falseCount + " true: " + con.trueCount );
+                    } );
+                }
+                foreach( var access in this.int32Access )
+                {
+                    data.QueryData<Int32Context>( ( sys, con ) =>
+                    {
+                        var module = this.propInfo.GetValue( sys );
+
+                        con.AddValue( access.Get( module ) );
+                    }, ( con ) =>
+                    {
+                        Single average = (Single)(con.total / con.counter);
+                        Main.LogI( access.name + " min: " + con.min + " max: " + con.max + " average: " + average );
+                    } );
+                }
+            }
+            internal List<MemberAccess<Single>> singleAccess = new List<MemberAccess<Single>>();
+            internal List<MemberAccess<Boolean>> booleanAccess = new List<MemberAccess<Boolean>>();
+            internal List<MemberAccess<Int32>> int32Access = new List<MemberAccess<Int32>>();
+
+
+
+            internal ModuleAccess( PropertyInfo prop, HashSet<Type> unhandledTypes, BindingFlags flags )
+            {
+                this.propInfo = prop;
+                foreach( FieldInfo f in prop.PropertyType.GetFields(flags) )
+                {
+                    var t = f.FieldType;
+                    if( t == typeof( Single ) )
+                    {
+                        this.singleAccess.Add( new MemberAccess<Single>( f ) );
+                    } else if( t == typeof( Boolean ) )
+                    {
+                        this.booleanAccess.Add( new MemberAccess<Boolean>( f ) );
+                    } else if( t == typeof( Int32 ) )
+                    {
+                        this.int32Access.Add( new MemberAccess<Int32>( f ) );
+                    } else
+                    {
+                        unhandledTypes.Add( t );
+                        continue;
+                    }
+                }
+                foreach( PropertyInfo p in prop.PropertyType.GetProperties(flags) )
+                {
+                    var t = p.PropertyType;
+                    if( t == typeof( Single ) )
+                    {
+                        this.singleAccess.Add( new MemberAccess<Single>( p ) );
+                    } else if( t == typeof( Boolean ) )
+                    {
+                        this.booleanAccess.Add( new MemberAccess<Boolean>( p ) );
+                    } else if( t == typeof( Int32 ) )
+                    {
+                        this.int32Access.Add( new MemberAccess<Int32>( p ) );
+                    } else
+                    {
+                        unhandledTypes.Add( t );
+                        continue;
+                    }
+                }
+            }
+        }
+
+        private class SingleContext
+        {
+            internal Single min;
+            internal Single max;
+            internal Single total;
+            internal UInt64 counter;
+
+            public SingleContext()
+            {
+                this.min = Single.PositiveInfinity;
+                this.max = Single.NegativeInfinity;
+                this.total = 0f;
+                this.counter = 0u;
+            }
+
+            internal void AddValue( Single val )
+            {
+                ++this.counter;
+                if( val < this.min ) this.min = val;
+                if( val > this.max ) this.max = val;
+                this.total += val;
+            }
+        }
+
+        private class BooleanContext
+        {
+            internal UInt64 trueCount = 0u;
+            internal UInt64 falseCount = 0u;
+
+            internal void AddValue( Boolean val )
+            {
+                if( val ) ++this.trueCount; else ++this.falseCount;
+            }
+        }
+
+        private class Int32Context
+        {
+            internal Int32 min = Int32.MaxValue;
+            internal Int32 max = Int32.MinValue;
+            internal Int64 total = 0;
+            internal Int64 counter = 0;
+
+            internal void AddValue( Int32 val )
+            {
+                ++this.counter;
+                if( val > this.max ) this.max = val;
+                if( val < this.min ) this.min = val;
+                this.total += val;
+            }
+        }
+
+        private class MemberAccess<T>
+        {
+            internal String name
+            {
+                get
+                {
+                    if( field != null )
+                    {
+                        return field.Name;
+                    } else if( prop != null )
+                    {
+                        return prop.Name;
+                    } else return "";
+                }
+            }
+           
+            private FieldInfo field;
+            private PropertyInfo prop;
+            internal T Get( System.Object obj )
+            {
+                if( this.field != null )
+                {
+                    return (T)this.field.GetValue( obj );
+                } else if( this.prop != null )
+                {
+                    return (T)this.prop.GetValue( obj );
+                } else
+                {
+                    Main.LogE( "null field and prop" );
+                    return default;
                 }
             }
 
-            foreach( var m in mats )
+            internal MemberAccess( FieldInfo field )
             {
-                if( m == null ) continue;
-                RoR2Plugin.Main.MiscHelpers.DebugMaterialInfo( m );
+                this.prop = null;
+                this.field = field;
+            }
+
+            internal MemberAccess( PropertyInfo prop )
+            {
+                this.field = null;
+                this.prop = prop;
             }
         }
-        private void AddObjToSet( GameObject obj, HashSet<Texture> texSet, HashSet<Mesh> meshSet, HashSet<Shader> shaderSet  )
+
+
+        private static void AddTransformNamesToDict( Transform trans, Dictionary<String, UInt64> nameCounter, HashSet<Transform> mask, Dictionary<String,List<ParticleSystem>> data )
         {
-            if( obj == null ) return;
-            foreach( var psr in obj.GetComponents<ParticleSystemRenderer>() )
+            if( mask.Contains( trans ) )
             {
-                this.AddMatToSet( psr.material, texSet, meshSet, shaderSet );
-                var mesh = psr.mesh;
-                if( mesh != null ) meshSet.Add( mesh );
+                //return;
+            } else mask.Add( trans );
+            foreach( Transform t in trans )
+            {
+                AddTransformNamesToDict( t, nameCounter, mask, data );
             }
-
-            foreach( var psr in obj.GetComponentsInChildren<ParticleSystemRenderer>() )
+            var ps = trans.GetComponent<ParticleSystem>();
+            if( ps != null )
             {
-                this.AddMatToSet( psr.material, texSet, meshSet, shaderSet );
-                var mesh = psr.mesh;
-                if( mesh != null ) meshSet.Add( mesh );
+                var s = trans.name.ToLower();
+                s = s.Replace( " ", "" );
+                var split = s.Split(',');
+                if( split.Length != 0 )
+                {
+                    s = split[0];
+                }
+                IncName( s, nameCounter );
+                IncSettings( s, ps, data );
+            }
+        }
+        
+        private static void IncName( String name, Dictionary<String, UInt64> nameCounter )
+        {
+            if( nameCounter.ContainsKey( name ) )
+            {
+                ++nameCounter[name];
+            } else
+            {
+                nameCounter[name] = 1u;
             }
         }
 
-        private void AddMatToSet( Material m, HashSet<Texture> texSet, HashSet<Mesh> meshSet, HashSet<Shader> shaderSet )
+        private static void IncSettings( String name, ParticleSystem sys, Dictionary<String,List<ParticleSystem>> data )
+        {
+            if( data.ContainsKey( name ) && data[name] != null )
+            {
+                data[name].Add( sys );
+            } else
+            {
+                data[name] = new List<ParticleSystem>();
+                data[name].Add( sys );
+            }
+        }
+
+        private static ParticleData CombineParticleData( List<ParticleSystem> data )
+        {
+            var pdata = new ParticleData( data );
+            return pdata;
+        }
+
+        private class ParticleData
+        {
+            private List<ParticleSystem> data;
+            internal ParticleData( List<ParticleSystem> data )
+            {
+                this.data = data;
+            }
+
+            internal void QueryData<TContext>( Action<ParticleSystem,TContext> loop, Action<TContext> finalize ) where TContext : new()
+            {
+                var context = new TContext();
+                foreach( var ps in this.data )
+                {
+                    loop( ps, context );
+                }
+
+                finalize( context );
+            }
+        }
+
+
+
+
+
+
+        private void AddMatToSet( Material m, HashSet<Texture> texSet )
         {
             if( m == null ) return;
-            var shader = m.shader;
-            if( shader != null ) shaderSet.Add( shader );
             foreach( var ind in m.GetTexturePropertyNames() )
             {
                 var tex = m.GetTexture( ind );
@@ -348,6 +680,50 @@ namespace RogueWispPlugin
 // TODO: Tune AI for ancient wisp
 // TODO: Ancient wisp UV mapping (need to duplicate mesh)
 // TODO: Add lunar scavs to the charge gain stuff
+
+
+
+    /*
+[Warning:Rogue Wisp]
+MinMaxCurve
+[Warning:Rogue Wisp] MinMaxGradient
+[Warning:Rogue Wisp] ParticleSystemSimulationSpace
+[Warning:Rogue Wisp] Transform
+[Warning:Rogue Wisp] ParticleSystemScalingMode
+[Warning:Rogue Wisp] ParticleSystemEmitterVelocityMode
+[Warning:Rogue Wisp] ParticleSystemStopAction
+[Warning:Rogue Wisp] ParticleSystemCullingMode
+[Warning:Rogue Wisp] ParticleSystemRingBufferMode
+[Warning:Rogue Wisp] Vector2
+[Warning:Rogue Wisp] ParticleSystemEmissionType
+[Warning:Rogue Wisp] Vector3
+[Warning:Rogue Wisp] ParticleSystemShapeType
+[Warning:Rogue Wisp] ParticleSystemShapeMultiModeValue
+[Warning:Rogue Wisp] ParticleSystemMeshShapeType
+[Warning:Rogue Wisp] Mesh
+[Warning:Rogue Wisp] MeshRenderer
+[Warning:Rogue Wisp] SkinnedMeshRenderer
+[Warning:Rogue Wisp] Sprite
+[Warning:Rogue Wisp] SpriteRenderer
+[Warning:Rogue Wisp] Texture2D
+[Warning:Rogue Wisp] ParticleSystemShapeTextureChannel
+[Warning:Rogue Wisp] ParticleSystemInheritVelocityMode
+[Warning:Rogue Wisp] ParticleSystemGameObjectFilter
+[Warning:Rogue Wisp] ParticleSystemNoiseQuality
+[Warning:Rogue Wisp] ParticleSystemCollisionType
+[Warning:Rogue Wisp] ParticleSystemCollisionMode
+[Warning:Rogue Wisp] LayerMask
+[Warning:Rogue Wisp] ParticleSystemCollisionQuality
+[Warning:Rogue Wisp] ParticleSystemOverlapAction
+[Warning:Rogue Wisp] ParticleSystem
+[Warning:Rogue Wisp] ParticleSystemAnimationMode
+[Warning:Rogue Wisp] ParticleSystemAnimationTimeMode
+[Warning:Rogue Wisp] ParticleSystemAnimationType
+[Warning:Rogue Wisp] UVChannelFlags
+[Warning:Rogue Wisp] Light
+[Warning:Rogue Wisp] ParticleSystemTrailMode
+[Warning:Rogue Wisp] ParticleSystemTrailTextureMode
+*/
 
 
 // Future plans and shit

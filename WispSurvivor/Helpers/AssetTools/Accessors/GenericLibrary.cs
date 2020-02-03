@@ -6,20 +6,23 @@ using UnityEngine;
 
 namespace RogueWispPlugin.Helpers
 {
-    internal class AssetLibrary<TAsset> where TAsset : UnityEngine.Object
+    internal class AssetLibrary<TAsset> : BaseAssetLibrary where TAsset : UnityEngine.Object
     {
-        private static AssetLibrary<TAsset> instance;
-
         private static HashSet<TAsset> mappedAssets = new HashSet<TAsset>();
         private static HashSet<GenericAccessor<TAsset>> uncachedAccessors = new HashSet<GenericAccessor<TAsset>>();
         private static HashSet<GenericAccessor<TAsset>> cachedAccessors = new HashSet<GenericAccessor<TAsset>>();
         private static Dictionary<UInt64,GenericAccessor<TAsset>> assets = new Dictionary<UInt64, GenericAccessor<TAsset>>();
 
+        #region Singleton Stuff
+        private static AssetLibrary<TAsset> instance;
+        static AssetLibrary()
+        {
+            if( instance == null ) Init();
+        }
         private static void Init()
         {
             instance = new AssetLibrary<TAsset>();
         }
-
         internal static AssetLibrary<TAsset> i
         {
             get
@@ -31,8 +34,16 @@ namespace RogueWispPlugin.Helpers
                 return instance;
             }
         }
+        #endregion
 
-
+        #region Interface
+        internal TAsset this[Enum enumKey]
+        {
+            get
+            {
+                return GetAssetRaw( enumKey );
+            }
+        }
         internal static void AddAssetAccess( GenericAccessor<TAsset> accessor )
         {
             var index = accessor.index;
@@ -47,34 +58,30 @@ namespace RogueWispPlugin.Helpers
                 uncachedAccessors.Add( accessor );
             }
         }
-
-        internal TAsset this[UInt64 key]
+        internal static void TryOnAll( Action<TAsset> action )
         {
-            get
+            foreach( var access in assets )
             {
-                return GetAssetRaw( key );
+                try
+                {
+                    Main.LogI( access.Key );
+                    var val = access.Value.value;
+                    action?.Invoke( val );
+                } catch( Exception e )
+                {
+                    Main.LogE( access.Key + "   " + e );
+                    continue;
+                }
             }
         }
-
-        internal TAsset this[Enum enumKey]
-        {
-            get
-            {
-                return GetAssetRaw( enumKey );
-            }
-        }
-
-        internal static void SetAssetCached( TAsset asset )
-        {
-            mappedAssets.Add( asset );
-        }
-
         internal static Boolean HasAsset( TAsset asset )
         {
             return mappedAssets.Contains( asset );
         }
+        #endregion
 
-        internal static TAsset GetAssetRaw( UInt64 key )
+        #region Internals
+        private static TAsset GetAssetRaw( UInt64 key )
         {
             if( !assets.ContainsKey( key ) )
             {
@@ -99,47 +106,21 @@ namespace RogueWispPlugin.Helpers
 
             return asset;
         }
-        internal static TAsset GetAssetRaw( Enum enumKey )
+        private static TAsset GetAssetRaw( Enum enumKey )
         {
             var key = (UInt64)Convert.ChangeType( enumKey, enumKey.GetType() );
             return GetAssetRaw( key );
         }
-        internal static Main.ExecutionState GetLastState( params UInt64[] inds )
-        {
-            var max = Main.ExecutionState.PreLoad;
-            foreach( var i in inds )
-            {
-                var temp = GetMinState( i );
-                if( temp > max ) max = temp;
-            }
 
-            return max;
-        }
-        internal static Main.ExecutionState GetLastState( params System.Enum[] inds )
-        {
-            var max  = Main.ExecutionState.PreLoad;
-            foreach( var ind in inds )
-            {
-                var i = (UInt64)Convert.ChangeType( ind, ind.GetType() ); ;
-                var temp = GetMinState( i );
-                if( temp > max ) max = temp;
-            }
-
-            return max;
-        }
-
-        private static Main.ExecutionState GetMinState( UInt64 ind )
+        internal override Main.ExecutionState GetMinState( UInt64 ind )
         {
             if( !assets.ContainsKey( ind ) )
             {
                 Main.LogE( "Index: " + ind + " does not exist in library for type: " + typeof( TAsset ).ToString() );
                 return Main.ExecutionState.PreLoad;
             }
-
             return assets[ind].minState;
         }
-
-        private enum GenericIndex : UInt64
-        { }
+        #endregion
     }
 }

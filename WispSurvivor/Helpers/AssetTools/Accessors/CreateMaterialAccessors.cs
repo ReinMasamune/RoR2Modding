@@ -10,6 +10,33 @@ namespace RogueWispPlugin
         partial void CreateMaterialAccessors()
         {
             #region Reference Materials
+            #region Resources
+            new GenericAccessor<Material>( MaterialIndex.refMatOnHelfire,                           () =>
+            {
+                return Resources.Load<Material>( "Materials/MatOnHelfire" );
+            }, false, ExecutionState.Awake ).RegisterAccessor();
+            new GenericAccessor<Material>( MaterialIndex.refMatShatteredGlass,                      () =>
+            {
+                return Resources.Load<Material>( "Materials/MatShatteredGlass" );
+            }, false, ExecutionState.Awake ).RegisterAccessor();
+            new GenericAccessor<Material>( MaterialIndex.refMatTPInOut,                             () =>
+            {
+                return Resources.Load<Material>( "Materials/MatTPInOut" );
+            }, false, ExecutionState.Awake ).RegisterAccessor();
+            new GenericAccessor<Material>( MaterialIndex.refMatVagrantEnergized,                    () =>
+            {
+                return Resources.Load<Material>( "Materials/MatVagrantEnergized" );
+            }, false, ExecutionState.Awake ).RegisterAccessor();
+            new GenericAccessor<Material>( MaterialIndex.refMatElitePoisonParticleSystemReplacement,() =>
+            {
+                return Resources.Load<Material>( "Materials/MatElitePoisonParticleReplacement" );
+            }, false, ExecutionState.Awake ).RegisterAccessor();
+            new GenericAccessor<Material>( MaterialIndex.refMatMercEnergized,                       () =>
+            {
+                return Resources.Load<Material>( "Materials/MatMercEnergized" );
+            }, false, ExecutionState.Awake ).RegisterAccessor();
+            #endregion
+
             #region NullifierDeathExplosion
             new GenericAccessor<Material>( MaterialIndex.refMatTracerBright,                        () =>
             {
@@ -76,7 +103,7 @@ namespace RogueWispPlugin
             #region Nullifier Pre-Bomb Ghost
             new GenericAccessor<Material>( MaterialIndex.refMatNullBombAreaIndicator,               () =>
             {
-                var trans = AssetLibrary<GameObject>.i[PrefabIndex.refNullifierDeathExplosion].transform;
+                var trans = AssetLibrary<GameObject>.i[PrefabIndex.refNullifierPreBombGhost].transform;
                 ParticleSystemRenderer rend = null;
                 var pastFirst = false;
                 for( Int32 i = 0; i < trans.childCount; ++i )
@@ -121,17 +148,71 @@ namespace RogueWispPlugin
                 return rend.sharedMaterials[0];
             }, false, PrefabIndex.refWillOWispExplosion ).RegisterAccessor();
             #endregion
+
+            #region Locked Mage
+            new GenericAccessor<Material>( MaterialIndex.refMatBazaarIceCore,                       () =>
+            {
+                var trans = AssetLibrary<GameObject>.i[PrefabIndex.refLockedMage].transform.Find( "ModelBase/IceMesh" );
+                var rend = trans.GetComponent<MeshRenderer>();
+                return rend.sharedMaterials[0];
+            }, false, PrefabIndex.refLockedMage ).RegisterAccessor();
+            new GenericAccessor<Material>( MaterialIndex.refMatBazaarIceDistortion,                 () =>
+            {
+                var trans = AssetLibrary<GameObject>.i[PrefabIndex.refLockedMage].transform.Find( "ModelBase/IceMesh" );
+                var rend = trans.GetComponent<MeshRenderer>();
+                return rend.sharedMaterials[1];
+            }, false, PrefabIndex.refLockedMage ).RegisterAccessor();
             #endregion
 
+            #region Fire Tornado Ghost
+            new GenericAccessor<Material>( MaterialIndex.refMatGenericFlash, () =>
+            {
+                var trans = AssetLibrary<GameObject>.i[PrefabIndex.refFireTornadoGhost].transform.Find( "Flash, Red" );
+                var rend = trans.GetComponent<ParticleSystemRenderer>();
+                return rend.sharedMaterials[0];
+            }, false, PrefabIndex.refFireTornadoGhost ).RegisterAccessor();
+            new GenericAccessor<Material>( MaterialIndex.refMatDustDirectionalDark, () =>
+            {
+                var trans = AssetLibrary<GameObject>.i[PrefabIndex.refFireTornadoGhost].transform.Find( "Smoke" );
+                var rend = trans.GetComponent<ParticleSystemRenderer>();
+                return rend.sharedMaterials[0];
+            }, false, PrefabIndex.refFireTornadoGhost ).RegisterAccessor();
+            new GenericAccessor<Material>( MaterialIndex.refMatFireRingRunes, () =>
+            {
+                var trans = AssetLibrary<GameObject>.i[PrefabIndex.refFireTornadoGhost].transform.Find( "InitialBurst/RuneRings" );
+                var rend = trans.GetComponent<ParticleSystemRenderer>();
+                return rend.sharedMaterials[0];
+            }, false, PrefabIndex.refFireTornadoGhost ).RegisterAccessor();
 
+            #endregion
 
-
-
-
-
-
-
-
+            #region Titan Recharge Rocks Effect
+            new GenericAccessor<Material>( MaterialIndex.refMatGolemExplosion,                         () =>
+            {
+                var trans = AssetLibrary<GameObject>.i[PrefabIndex.refTitanRechargeRocksEffect].transform.Find( "3DDebris" );
+                var rend = trans.GetComponent<ParticleSystemRenderer>();
+                return rend.sharedMaterials[1];
+            }, false, PrefabIndex.refTitanRechargeRocksEffect ).RegisterAccessor();
+            new GenericAccessor<Material>( MaterialIndex.refMatTitanBeam,                              () =>
+            {
+                var trans = AssetLibrary<GameObject>.i[PrefabIndex.refTitanRechargeRocksEffect].transform.Find( "Sparks, Trail" );
+                var rend = trans.GetComponent<ParticleSystemRenderer>();
+                return rend.sharedMaterials[0];
+            }, false, PrefabIndex.refTitanRechargeRocksEffect ).RegisterAccessor();
+            new GenericAccessor<Material>( MaterialIndex.refMatArcaneCircle1,                          () =>
+            {
+                var trans = AssetLibrary<GameObject>.i[PrefabIndex.refTitanRechargeRocksEffect].transform.Find( "Glow" );
+                var rend = trans.GetComponent<ParticleSystemRenderer>();
+                return rend.sharedMaterials[0];
+            }, false, PrefabIndex.refTitanRechargeRocksEffect ).RegisterAccessor();
+            new GenericAccessor<Material>( MaterialIndex.refMatDistortion,                             () =>
+            {
+                var trans = AssetLibrary<GameObject>.i[PrefabIndex.refTitanRechargeRocksEffect].transform.Find( "Distortion" );
+                var rend = trans.GetComponent<ParticleSystemRenderer>();
+                return rend.sharedMaterials[0];
+            }, false, PrefabIndex.refTitanRechargeRocksEffect ).RegisterAccessor();
+            #endregion
+            #endregion
 
 
 
