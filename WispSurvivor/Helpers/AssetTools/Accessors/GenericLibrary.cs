@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace RogueWispPlugin.Helpers
 {
-    internal class AssetLibrary<TAsset> : BaseAssetLibrary where TAsset : UnityEngine.Object
+    internal class AssetLibrary<TAsset> : BaseAssetLibrary
     {
         private static HashSet<TAsset> mappedAssets = new HashSet<TAsset>();
         private static HashSet<GenericAccessor<TAsset>> uncachedAccessors = new HashSet<GenericAccessor<TAsset>>();

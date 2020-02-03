@@ -149,6 +149,9 @@ namespace RogueWispPlugin
 #if STAGE
         partial void CreateStage();
 #endif
+#if MATEDITOR
+        partial void SetupMatEditor();
+#endif
         public Main()
         {
             instance = this;
@@ -204,6 +207,9 @@ namespace RogueWispPlugin
 #else
                 this.SetupNetworkingFramework();
                 this.SetupNetworkingFunctions();
+#endif
+#if MATEDITOR
+                this.SetupMatEditor();
 #endif
                 this.FirstFrame += this.Main_FirstFrame;
 #if TIMER

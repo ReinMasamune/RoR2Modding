@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace RogueWispPlugin.Helpers
 {
-    internal class GenericAccessor<TAsset> where TAsset : UnityEngine.Object
+    internal class GenericAccessor<TAsset>
     {
         internal String name { get; private set; }
         internal UInt64 index { get; private set; }

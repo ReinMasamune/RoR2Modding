@@ -12,7 +12,7 @@ namespace RogueWispPlugin.Helpers
 
         internal abstract Main.ExecutionState GetMinState( UInt64 ind );
 
-        internal static void AddAssociation<TAsset>( Type indexType ) where TAsset : UnityEngine.Object
+        internal static void AddAssociation<TAsset>( Type indexType )
         {
             var lib = AssetLibrary<TAsset>.i;
             if( typeLookup.ContainsKey( indexType ) )
