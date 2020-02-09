@@ -46,6 +46,13 @@ namespace RogueWispPlugin.Helpers
             this.name = mat.name;
         }
 
+        internal enum CullMode
+        {
+            Off = 0,
+            Front = 1,
+            Back = 2
+        }
+
         internal void SetSingle( String name, Single value )
         {
             this.material.SetFloat( name, value );
@@ -75,6 +82,14 @@ namespace RogueWispPlugin.Helpers
         internal Boolean GetKeyword( String keyword )
         {
             return this.material.IsKeywordEnabled( keyword );
+        }
+        internal Vector4 GetVector4( String name )
+        {
+            return this.material.GetVector( name );
+        }
+        internal void SetVector4( String name, Vector4 value )
+        {
+            this.material.SetVector( name, value );
         }
 
 

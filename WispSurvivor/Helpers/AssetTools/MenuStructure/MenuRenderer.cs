@@ -1,35 +1,27 @@
 ﻿#if MATEDITOR
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Reflection;
 using UnityEngine;
 
 namespace RogueWispPlugin.Helpers
 {
+    /*
     internal class MenuRenderer
     {
+        private PropertyWrapper wrapper;
+
         internal MenuRenderer( PropertyInfo property, MenuAttribute settings )
         {
-            var type = property.PropertyType;
-            this.handler = TypeHandler.FindOrCreate( type );
-            if( String.IsNullOrEmpty( settings.name ) )
-            {
-
-            }
-
+            this.wrapper = PropertyWrapper.CreateWrapper( property, settings );
         }
-        internal void Draw( System.Object instance )
+
+        internal void Draw( System.Object representedInstance )
         {
-            var initValue = this.get( instance );
-            initValue = this.handler.Draw( initValue, this.settings );
-            this.set( initValue, instance );
+            this.wrapper.Draw( representedInstance );
         }
-
-
-        private TypeHandler handler;
-        private Func<System.Object,System.Object> get;
-        private Action<System.Object,System.Object> set;
-        private MenuAttribute settings;
     }
+    */
 }
 #endif

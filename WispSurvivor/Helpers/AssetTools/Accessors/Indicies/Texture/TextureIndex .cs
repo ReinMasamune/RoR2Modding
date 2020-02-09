@@ -8,6 +8,7 @@ namespace RogueWispPlugin.Helpers
 {
     internal enum TextureIndex : ulong
     {
+        None = 0,
         #region Reference Textures
         refTexCloudDifferenceBW1,
         refTexCloudDifferenceBW2,

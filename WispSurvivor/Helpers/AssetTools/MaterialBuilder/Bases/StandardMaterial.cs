@@ -11,6 +11,7 @@ namespace RogueWispPlugin.Helpers
     /// </summary>
     internal class StandardMaterial : MaterialBase
     {
+        [Menu(sectionName = "Main")]
         /// <summary>
         /// Unknown
         /// </summary>
@@ -20,6 +21,7 @@ namespace RogueWispPlugin.Helpers
             set => base.SetSingle( "_EnableCutout", (value ? 1.0f : 0.0f) );
         }
 
+        [Menu( sectionName = "Main" )]
         /// <summary>
         /// Unknown
         /// </summary>
@@ -29,6 +31,7 @@ namespace RogueWispPlugin.Helpers
             set => base.SetColor( "_Color", value );
         }
 
+        [Menu( sectionName = "Main" )]
         /// <summary>
         /// Unknown
         /// </summary>
@@ -45,6 +48,7 @@ namespace RogueWispPlugin.Helpers
         }
         private ScaleOffsetTextureData _mainTexture;
 
+        [Menu( sectionName = "Main" )]
         /// <summary>
         /// Unknown
         /// </summary>
@@ -54,6 +58,7 @@ namespace RogueWispPlugin.Helpers
             set => base.SetSingle( "_NormalStrength", value );
         }
 
+        [Menu( sectionName = "Main" )]
         /// <summary>
         /// Unknown
         /// </summary>
@@ -70,6 +75,7 @@ namespace RogueWispPlugin.Helpers
         }
         private ScaleOffsetTextureData _normalMap;
 
+        [Menu( sectionName = "Main" )]
         /// <summary>
         /// Unknown
         /// </summary>
@@ -79,6 +85,7 @@ namespace RogueWispPlugin.Helpers
             set => base.SetColor( "_EmColor", value );
         }
 
+        [Menu( sectionName = "Main" )]
         /// <summary>
         /// Unknown
         /// </summary>
@@ -95,6 +102,7 @@ namespace RogueWispPlugin.Helpers
         }
         private TextureData _emissionTexture;
 
+        [Menu( sectionName = "Main" )]
         /// <summary>
         /// Unknown
         /// </summary>
@@ -104,6 +112,7 @@ namespace RogueWispPlugin.Helpers
             set => base.SetSingle( "_EmPower", value );
         }
 
+        [Menu( sectionName = "Main" )]
         /// <summary>
         /// Unknown
         /// </summary>
@@ -113,6 +122,7 @@ namespace RogueWispPlugin.Helpers
             set => base.SetSingle( "_Smoothness", value );
         }
 
+        [Menu( sectionName = "Main" )]
         /// <summary>
         /// Unknown
         /// </summary>
@@ -122,6 +132,7 @@ namespace RogueWispPlugin.Helpers
             set => base.SetKeyword( "FORCE_SPEC", value );
         }
 
+        [Menu( sectionName = "Main" )]
         /// <summary>
         /// Unknown
         /// </summary>
@@ -138,6 +149,7 @@ namespace RogueWispPlugin.Helpers
             SubSurface = 4,
         }
 
+        [Menu( sectionName = "Main" )]
         /// <summary>
         /// Unknown
         /// </summary>
@@ -154,6 +166,7 @@ namespace RogueWispPlugin.Helpers
             Misc = 3,
         }
 
+        [Menu( sectionName = "Main" )]
         /// <summary>
         /// Unknown
         /// </summary>
@@ -163,6 +176,7 @@ namespace RogueWispPlugin.Helpers
             set => base.SetSingle( "_SpecularStrength", value );
         }
 
+        [Menu( sectionName = "Main" )]
         /// <summary>
         /// Unknown
         /// </summary>
@@ -172,6 +186,7 @@ namespace RogueWispPlugin.Helpers
             set => base.SetSingle( "_SpecularExponent", value );
         }
 
+        [Menu( sectionName = "Main" )]
         /// <summary>
         /// Unknown
         /// </summary>
@@ -180,13 +195,8 @@ namespace RogueWispPlugin.Helpers
             get => (CullMode)base.GetSingle( "_Cull" );
             set => base.SetSingle( "_Cull", (Single)value );
         }
-        internal enum CullMode
-        {
-            Off = 0,
-            Front = 1,
-            Back = 2
-        }
 
+        [Menu( sectionName = "Dithering" )]
         /// <summary>
         /// Unknown
         /// </summary>
@@ -196,6 +206,7 @@ namespace RogueWispPlugin.Helpers
             set => base.SetKeyword( "DITHER", value );
         }
 
+        [Menu( sectionName = "Dithering" )]
         /// <summary>
         /// Unknown
         /// </summary>
@@ -205,6 +216,7 @@ namespace RogueWispPlugin.Helpers
             set => base.SetSingle( "_FadeBias", value );
         }
 
+        [Menu( sectionName = "Fresnel Emission" )]
         /// <summary>
         /// Unknown
         /// </summary>
@@ -214,6 +226,7 @@ namespace RogueWispPlugin.Helpers
             set => base.SetKeyword( "FRESNEL_EMISSION", value );
         }
 
+        [Menu( sectionName = "Fresnel Emission", isRampTexture = true )]
         /// <summary>
         /// Unknown
         /// </summary>
@@ -230,6 +243,7 @@ namespace RogueWispPlugin.Helpers
         }
         private TextureData _fresnelRamp;
 
+        [Menu( sectionName = "Fresnel Emission" )]
         /// <summary>
         /// Unknown
         /// </summary>
@@ -239,6 +253,7 @@ namespace RogueWispPlugin.Helpers
             set => base.SetSingle( "_FresnelPower", value );
         }
 
+        [Menu( sectionName = "Fresnel Emission" )]
         /// <summary>
         /// Unknown
         /// </summary>
@@ -255,6 +270,7 @@ namespace RogueWispPlugin.Helpers
         }
         private TextureData _fresnelMask;
 
+        [Menu( sectionName = "Fresnel Emission" )]
         /// <summary>
         /// Unknown
         /// </summary>
@@ -264,6 +280,7 @@ namespace RogueWispPlugin.Helpers
             set => base.SetSingle( "_FresnelBoost", value );
         }
 
+        [Menu( sectionName = "Printing" )]
         /// <summary>
         /// Unknown
         /// </summary>
@@ -273,6 +290,7 @@ namespace RogueWispPlugin.Helpers
             set => base.SetKeyword( "PRINT_CUTOFF", value );
         }
 
+        [Menu( sectionName = "Printing" )]
         /// <summary>
         /// Unknown
         /// </summary>
@@ -282,6 +300,7 @@ namespace RogueWispPlugin.Helpers
             set => base.SetSingle( "_SliceHeight", value );
         }
 
+        [Menu( sectionName = "Printing" )]
         /// <summary>
         /// Unknown
         /// </summary>
@@ -291,6 +310,7 @@ namespace RogueWispPlugin.Helpers
             set => base.SetSingle( "_SliceHeight", value );
         }
 
+        [Menu( sectionName = "Printing" )]
         /// <summary>
         /// Unknown
         /// </summary>
@@ -300,6 +320,7 @@ namespace RogueWispPlugin.Helpers
             set => base.SetSingle( "_SliceAlphaDepth", value );
         }
 
+        [Menu( sectionName = "Printing" )]
         /// <summary>
         /// Unknown
         /// </summary>
@@ -316,6 +337,7 @@ namespace RogueWispPlugin.Helpers
         }
         private ScaleOffsetTextureData _printAlphaTexture;
 
+        [Menu( sectionName = "Printing" )]
         /// <summary>
         /// Unknown
         /// </summary>
@@ -325,6 +347,7 @@ namespace RogueWispPlugin.Helpers
             set => base.SetSingle( "_PrintBoost", value );
         }
 
+        [Menu( sectionName = "Printing" )]
         /// <summary>
         /// Unknown
         /// </summary>
@@ -334,6 +357,7 @@ namespace RogueWispPlugin.Helpers
             set => base.SetSingle( "_PrintBias", value );
         }
 
+        [Menu( sectionName = "Printing" )]
         /// <summary>
         /// Unknown
         /// </summary>
@@ -343,6 +367,7 @@ namespace RogueWispPlugin.Helpers
             set => base.SetSingle( "_PrintEmissionToAlbedoLerp", value );
         }
 
+        [Menu( sectionName = "Printing" )]
         /// <summary>
         /// Unknown
         /// </summary>
@@ -358,6 +383,7 @@ namespace RogueWispPlugin.Helpers
             BackToFront = 3,
         }
 
+        [Menu( sectionName = "Printing", isRampTexture = true )]
         /// <summary>
         /// Unknown
         /// </summary>
@@ -374,15 +400,17 @@ namespace RogueWispPlugin.Helpers
         }
         private TextureData _printRampTexture;
 
+        [Menu( sectionName = "Printing" )]
         /// <summary>
         /// Unknown
         /// </summary>
         internal RoR2.EliteIndex eliteIndex
         {
-            get => (RoR2.EliteIndex)base.GetSingle( "_EliteIndex" );
-            set => base.SetSingle( "_EliteIndex", (Single)value );
+            get => (RoR2.EliteIndex)(base.GetSingle( "_EliteIndex" ) - 1);
+            set => base.SetSingle( "_EliteIndex", ((Single)value) + 1 );
         }
 
+        [Menu( sectionName = "Printing" )]
         /// <summary>
         /// Unknown
         /// </summary>
@@ -392,6 +420,7 @@ namespace RogueWispPlugin.Helpers
             set => base.SetSingle( "_EliteBrightnessMin", value );
         }
 
+        [Menu( sectionName = "Printing" )]
         /// <summary>
         /// Unknown
         /// </summary>
@@ -401,6 +430,7 @@ namespace RogueWispPlugin.Helpers
             set => base.SetSingle( "_EliteBrightnessMax", value );
         }
 
+        [Menu( sectionName = "Splatmap" )]
         /// <summary>
         /// Unknown
         /// </summary>
@@ -410,6 +440,7 @@ namespace RogueWispPlugin.Helpers
             set => base.SetKeyword( "SPLATMAP", value );
         }
 
+        [Menu( sectionName = "Splatmap" )]
         /// <summary>
         /// Unknown
         /// </summary>
@@ -419,6 +450,7 @@ namespace RogueWispPlugin.Helpers
             set => base.SetKeyword( "USE_VERTEX_COLORS", value );
         }
 
+        [Menu( sectionName = "Splatmap" )]
         /// <summary>
         /// Unknown
         /// </summary>
@@ -427,7 +459,8 @@ namespace RogueWispPlugin.Helpers
             get => base.GetSingle( "_Depth" );
             set => base.SetSingle( "_Depth", value );
         }
-        
+
+        [Menu( sectionName = "Splatmap" )]
         /// <summary>
         /// Unknown
         /// </summary>
@@ -444,6 +477,7 @@ namespace RogueWispPlugin.Helpers
         }
         private ScaleOffsetTextureData _splatmapTexture;
 
+        [Menu( sectionName = "Splatmap" )]
         /// <summary>
         /// Unknown
         /// </summary>
@@ -453,6 +487,7 @@ namespace RogueWispPlugin.Helpers
             set => base.SetSingle( "_SplatmapTileScale", value );
         }
 
+        [Menu( sectionName = "Splatmap" )]
         /// <summary>
         /// Unknown
         /// </summary>
@@ -469,6 +504,7 @@ namespace RogueWispPlugin.Helpers
         }
         private TextureData _greenChannelTexture;
 
+        [Menu( sectionName = "Splatmap" )]
         /// <summary>
         /// Unknown
         /// </summary>
@@ -485,6 +521,7 @@ namespace RogueWispPlugin.Helpers
         }
         private TextureData _greenChannelNormalmap;
 
+        [Menu( sectionName = "Splatmap" )]
         /// <summary>
         /// Unknown
         /// </summary>
@@ -494,6 +531,7 @@ namespace RogueWispPlugin.Helpers
             set => base.SetSingle( "_GreenChannelSmoothness", value );
         }
 
+        [Menu( sectionName = "Splatmap" )]
         /// <summary>
         /// Unknown
         /// </summary>
@@ -503,6 +541,7 @@ namespace RogueWispPlugin.Helpers
             set => base.SetSingle( "_GreenChannelBias", value );
         }
 
+        [Menu( sectionName = "Splatmap" )]
         /// <summary>
         /// Unknown
         /// </summary>
@@ -519,6 +558,7 @@ namespace RogueWispPlugin.Helpers
         }
         private TextureData _blueChannelTexture;
 
+        [Menu( sectionName = "Splatmap" )]
         /// <summary>
         /// Unknown
         /// </summary>
@@ -535,6 +575,7 @@ namespace RogueWispPlugin.Helpers
         }
         private TextureData _blueChannelNormalmap;
 
+        [Menu( sectionName = "Splatmap" )]
         /// <summary>
         /// Unknown
         /// </summary>
@@ -544,6 +585,7 @@ namespace RogueWispPlugin.Helpers
             set => base.SetSingle( "_BlueChannelSmoothness", value );
         }
 
+        [Menu( sectionName = "Splatmap" )]
         /// <summary>
         /// Unknown
         /// </summary>
@@ -553,6 +595,7 @@ namespace RogueWispPlugin.Helpers
             set => base.SetSingle( "_BlueChannelBias", value );
         }
 
+        [Menu( sectionName = "Flowmap" )]
         /// <summary>
         /// Unknown
         /// </summary>
@@ -562,6 +605,7 @@ namespace RogueWispPlugin.Helpers
             set => base.SetKeyword( "FLOWMAP", value );
         }
 
+        [Menu( sectionName = "Flowmap" )]
         /// <summary>
         /// Unknown
         /// </summary>
@@ -578,6 +622,7 @@ namespace RogueWispPlugin.Helpers
         }
         private TextureData _flowmapTexture;
 
+        [Menu( sectionName = "Flowmap" )]
         /// <summary>
         /// Unknown
         /// </summary>
@@ -594,6 +639,7 @@ namespace RogueWispPlugin.Helpers
         }
         private ScaleOffsetTextureData _flowmapHeightmap;
 
+        [Menu( sectionName = "Flowmap", isRampTexture = true )]
         /// <summary>
         /// Unknown
         /// </summary>
@@ -610,6 +656,7 @@ namespace RogueWispPlugin.Helpers
         }
         private ScaleOffsetTextureData _flowmapHeightRamp;
 
+        [Menu( sectionName = "Flowmap" )]
         /// <summary>
         /// Unknown
         /// </summary>
@@ -619,6 +666,7 @@ namespace RogueWispPlugin.Helpers
             set => base.SetSingle( "_FlowHeightBias", value );
         }
 
+        [Menu( sectionName = "Flowmap" )]
         /// <summary>
         /// Unknown
         /// </summary>
@@ -628,6 +676,7 @@ namespace RogueWispPlugin.Helpers
             set => base.SetSingle( "_FlowHeightPower", value );
         }
 
+        [Menu( sectionName = "Flowmap" )]
         /// <summary>
         /// Unknown
         /// </summary>
@@ -637,6 +686,7 @@ namespace RogueWispPlugin.Helpers
             set => base.SetSingle( "_FlowEmissionStrength", value );
         }
 
+        [Menu( sectionName = "Flowmap" )]
         /// <summary>
         /// Unknown
         /// </summary>
@@ -646,6 +696,7 @@ namespace RogueWispPlugin.Helpers
             set => base.SetSingle( "_FlowSpeed", value );
         }
 
+        [Menu( sectionName = "Flowmap" )]
         /// <summary>
         /// Unknown
         /// </summary>
@@ -655,6 +706,7 @@ namespace RogueWispPlugin.Helpers
             set => base.SetSingle( "_FlowMaskStrength", value );
         }
 
+        [Menu( sectionName = "Flowmap" )]
         /// <summary>
         /// Unknown
         /// </summary>
@@ -664,6 +716,7 @@ namespace RogueWispPlugin.Helpers
             set => base.SetSingle( "_FlowNormalStrength", value );
         }
 
+        [Menu( sectionName = "Flowmap" )]
         /// <summary>
         /// Unknown
         /// </summary>
@@ -673,6 +726,7 @@ namespace RogueWispPlugin.Helpers
             set => base.SetSingle( "_FlowTextureScaleFactor", value );
         }
 
+        [Menu( sectionName = "Limb" )]
         /// <summary>
         /// Unknown
         /// </summary>
@@ -682,6 +736,7 @@ namespace RogueWispPlugin.Helpers
             set => base.SetKeyword( "LIMBREMOVAL", value );
         }
 
+        [Menu( sectionName = "Limb" )]
         /// <summary>
         /// Unknown
         /// </summary>
@@ -691,6 +746,7 @@ namespace RogueWispPlugin.Helpers
             set => base.SetSingle( "_LimbPrimeMask", value );
         }
 
+        [Menu( sectionName = "Limb" )]
         /// <summary>
         /// Unknown
         /// </summary>
@@ -700,6 +756,8 @@ namespace RogueWispPlugin.Helpers
             set => base.SetColor( "_FlashColor", value );
         }
 
+        /*
+        [Menu( sectionName = "Limb" )]
         /// <summary>
         /// Unknown
         /// </summary>
@@ -708,7 +766,7 @@ namespace RogueWispPlugin.Helpers
             get => base.GetColor( "_Fade" );
             set => base.SetColor( "_Fade", value );
         }
-
+        */
 
         /// <summary>
         /// Creates a standard material.

@@ -8,6 +8,11 @@ namespace RogueWispPlugin
     {
         partial void CreateTextureAccessors()
         {
+            new GenericAccessor<Texture>( TextureIndex.None, () =>
+            {
+                return null;
+            }, false, ExecutionState.Constructor ).RegisterAccessor();
+
             #region Reference Textures
             #region Cloud Textures
             new GenericAccessor<Texture>( TextureIndex.refTexCloudDifferenceBW1, () =>

@@ -2,10 +2,13 @@
 using EntityStates;
 using R2API;
 using R2API.Utils;
+using RogueWispPlugin.Helpers;
 using RoR2;
 using RoR2.Skills;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
 
 namespace RogueWispPlugin
 {
@@ -13,8 +16,86 @@ namespace RogueWispPlugin
     {
         partial void SetupMatEditor()
         {
-            this.Load += this.CreateMatEditorPrefab;
-            this.Load += this.CreateMatGremlin;
+            this.FirstFrame += this.CreateMatEditorPrefab;
+            //this.Load += this.CreateMatGremlin;
+            this.Frame += this.Main_Frame;
+        }
+
+        private List<MonoBehaviour> tempDisabled = new List<MonoBehaviour>();
+        private Dictionary<Light,Color> tempLights = new Dictionary<Light, Color>();
+
+        private void Main_Frame()
+        {
+            if( Input.GetKeyDown( KeyCode.F5 ) )
+            {
+                if( !MatPrefabExists() )
+                {
+                    var camTransform = Camera.main.transform.root;
+                    if( camTransform )
+                    {
+                        matPrefabInstance = UnityEngine.Object.Instantiate<GameObject>( matPrefab );
+                        matPrefabInstance.transform.localScale = new Vector3( 0.9f, 0.9f, 0.9f );
+                        matPrefabInstance.transform.parent = camTransform;
+                        matPrefabInstance.transform.localPosition = new Vector3( -0.5f, -1.4f, 2f );
+                        //matPrefabInstance.transform.localRotation = Quaternion.identity;
+                        matPrefabInstance.transform.localEulerAngles = new Vector3(0f, 180f, 0f );
+
+                        foreach(var comp in camTransform.GetComponentsInChildren<BlurOptimized>() )
+                        {
+                            Main.LogW( comp.name );
+                            if( comp.enabled )
+                            {
+                                this.tempDisabled.Add( comp );
+                                comp.enabled = false;
+                            }
+
+                        }
+
+                        foreach( var comp in camTransform.GetComponentsInChildren<PostProcessVolume>() )
+                        {
+                            if( comp.enabled )
+                            {
+                                Main.LogW( comp.name );
+                                if( comp.name == "GlobalPostProcessVolume, Base" )
+                                {
+                                    Main.LogE( comp.name + "Disabled" );
+                                    this.tempDisabled.Add( comp );
+                                    comp.enabled = false;
+                                }
+                            }
+                        }
+
+                        foreach( var obj in FindObjectsOfType<Light>() )
+                        {
+                            this.tempLights.Add( obj, obj.color );
+                            obj.color = Color.white;
+                        }
+
+                        //camTransform.Find( "UI Camera" ).gameObject.SetActive( false );
+                        
+                    } else
+                    {
+                        Main.LogE( "Failed to create material prefab, camera transform not found." );
+                    }
+                } else
+                {
+                    Destroy( matPrefabInstance );
+                    foreach( var comp in this.tempDisabled )
+                    {
+                        if( comp != null ) comp.enabled = true;
+                    }
+                    this.tempDisabled.Clear();
+
+                    foreach( var kv in this.tempLights )
+                    {
+                        if( kv.Key != null )
+                        {
+                            kv.Key.color = kv.Value;
+                        }
+                    }
+                    this.tempLights.Clear();
+                }
+            }
         }
 
         internal GameObject matGremlin;
@@ -65,7 +146,7 @@ namespace RogueWispPlugin
 
         internal static Boolean MatPrefabExists()
         {
-            return false;
+            return matPrefabInstance != null;
         }
 
         internal static GameObject matPrefab;
@@ -83,17 +164,21 @@ namespace RogueWispPlugin
                 matPrefabInstance = null;
             }
 
-            var temp = GameObject.CreatePrimitive( PrimitiveType.Sphere );
-            matPrefab = temp.InstantiateClone( "MatPrefab" );
-            Destroy( temp );
+            matPrefab = this.RW_body.GetComponent<ModelLocator>().modelBaseTransform.gameObject;
+            matPrefab.AddComponent<MaterialEditor>();
 
-
-            var col = matPrefab.GetComponent<Collider>();
+            var obj2 = GameObject.CreatePrimitive( PrimitiveType.Cylinder );
+            var col = obj2.GetComponent<Collider>();
             if( col != null ) Destroy( col );
-            var rb = matPrefab.GetComponent<Rigidbody>();
+            var rb = obj2.GetComponent<Rigidbody>();
             if( rb != null ) Destroy( rb );
 
+            obj2.transform.parent = matPrefab.transform;
 
+            obj2.transform.localPosition = new Vector3( 5f, 0f, 0f );
+            obj2.transform.localScale = new Vector3( 3f, 3f, 3f );
+
+            obj2.GetComponent<MeshRenderer>().material = Main.fireMaterials[0][0];
         }
 
         internal class SpawnMatPrefab : BaseState
@@ -137,7 +222,7 @@ namespace RogueWispPlugin
             {
                 if( this.aimEffect )
                 {
-                    //Spawn mat prefab
+                    Main.matPrefabInstance = UnityEngine.Object.Instantiate<GameObject>( Main.matPrefab, this.aimEffect.transform.position, this.aimEffect.transform.rotation );
                     UnityEngine.Object.Destroy( this.aimEffect );
                 }
                 base.OnExit();
