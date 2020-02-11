@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace RogueWispPlugin.Helpers
 {
-    internal struct WispBitSkin
+    internal struct WispBitSkin : IBitSkin
     {
         #region Static
         internal static HashSet<Int32> validColorInds = new HashSet<Int32>();
@@ -134,6 +134,55 @@ namespace RogueWispPlugin.Helpers
             },
         };
         #endregion
+        #region Static Helpers
+        private static Gradient CreateFlowGradient( Color color )
+        {
+            var grad = new Gradient();
+            var aKeys = new GradientAlphaKey[]
+            {
+                new GradientAlphaKey( 1f, 0f ),
+                new GradientAlphaKey( 1f, 1f ),
+            };
+
+            var cKeys = new GradientColorKey[]
+            {
+                new GradientColorKey( new Color( 0.05f, 0.05f, 0.05f ), 0f ),
+                new GradientColorKey( new Color( 0.05f, 0.05f, 0.05f ), 0.4f ),
+                new GradientColorKey( color, 0.6f ),
+                new GradientColorKey( color, 0.7f ),
+                new GradientColorKey( Color.white, 1f ),
+            };
+
+            grad.alphaKeys = aKeys;
+            grad.colorKeys = cKeys;
+
+            return grad;
+        }
+        private static Gradient CreateFEGradient( Color color )
+        {
+            var grad = new Gradient();
+            var aKeys = new GradientAlphaKey[]
+            {
+                new GradientAlphaKey( 0f, 0f ),
+                new GradientAlphaKey( 0f, 0.3f ),
+                new GradientAlphaKey( 1f, 0.6f ),
+            };
+
+            var cKeys = new GradientColorKey[]
+            {
+                new GradientColorKey( color / 2f, 0f ),
+                new GradientColorKey( color, 0.5f ),
+                new GradientColorKey( Color.white, 0.6f ),
+                new GradientColorKey( color, 0.8f ),
+                new GradientColorKey( Color.black, 0.9f ),
+            };
+
+            grad.alphaKeys = aKeys;
+            grad.colorKeys = cKeys;
+
+            return grad;
+        }
+        #endregion
 
         private static Gradient iridescentFlameGradient = new Gradient();
         private static Dictionary<UInt32,WispBitSkin> skinLookup = new Dictionary<UInt32, WispBitSkin>();
@@ -179,6 +228,18 @@ namespace RogueWispPlugin.Helpers
             return skin;
         }
         private static void SkinDef_Awake( On.RoR2.SkinDef.orig_Awake orig, RoR2.SkinDef self ) { }
+
+        #region Equality
+        public static Boolean operator ==( WispBitSkin obj1, WispBitSkin obj2 )
+        {
+            return obj1.EncodeToSkinIndex() == obj2.EncodeToSkinIndex();
+        }
+        public static Boolean operator !=( WispBitSkin obj1, WispBitSkin obj2 )
+        {
+            return obj1.EncodeToSkinIndex() != obj2.EncodeToSkinIndex();
+        }
+
+        #endregion
         #endregion
         internal Color mainColor { get; private set; }
         internal Gradient flameGradient { get; private set; }
@@ -242,6 +303,46 @@ namespace RogueWispPlugin.Helpers
             {
                 this.armorMainMaterial = new CloudMaterial( "ArmorMain" );
                 this.armorSecondMaterial = new DistortionMaterial( "ArmorRefraction" );
+
+                var main = this.armorMainMaterial as CloudMaterial;
+                var sec = this.armorSecondMaterial as DistortionMaterial;
+
+                main.tintColor = new Color( 0f, 0f, 0f, 0f );
+                main.disableRemapping = false;
+                main.mainTexture.texture = AssetLibrary<Texture>.i[TextureIndex.refTexCloudIce];
+                main.remapTexture.texture = RampTextureGenerator.GenerateRampTexture( this.flameGradient );
+                main.softFactor = 1f;
+                main.brightnessBoost = 1f;
+                main.alphaBoost = 1f;
+                main.alphaBias = 0f;
+                main.useUV1 = false;
+                main.fadeClose = false;
+                main.cull = MaterialBase.CullMode.Off;
+                main.cloudRemappingOn = false;
+                main.cloudDistortionOn = false;
+                main.distortionStrength = 0.05f;
+                main.cloudTexture1.texture = AssetLibrary<Texture>.i[TextureIndex.refCaustics];
+                main.cloudTexture2.texture = AssetLibrary<Texture>.i[TextureIndex.refTexCloudIce];
+                main.cutoffScrollSpeed = new Vector4( 0f, 0f, 1f, 3f );
+                main.vertexColorOn = false;
+                main.vertexAlphaOn = false;
+                main.luminanceForTextureAlpha = false;
+                main.vertexOffset = false;
+                main.fresnelFade = false;
+                main.fresnelPower = 0f;
+                main.vertexOffsetAmount = 0f;
+                main.externalAlpha = 1f;
+
+                sec.color = new Color( 0f, 0f, 0f, 0f );
+                sec.mainTexture.texture = null;
+                sec.bumpTexture.texture = AssetLibrary<Texture>.i[TextureIndex.refWaves_N];
+                sec.magnitude = 1f;
+
+
+                if( this.hasCracks )
+                {
+                    main.cloudRemappingOn = true;
+                }
             } else
             {
                 this.armorMainMaterial = new StandardMaterial( "ArmorMain" );
@@ -265,7 +366,7 @@ namespace RogueWispPlugin.Helpers
                 main.dither = false;
                 main.fadeBias = 0f;
                 main.fresnelEmission = false;
-                main.fresnelRamp.texture = null;
+                main.fresnelRamp.texture = RampTextureGenerator.GenerateRampTexture( CreateFEGradient( this.mainColor ) );
                 main.fresnelPower = 0f;
                 main.fresnelMask.texture = null;
                 main.fresnelBoost = 0f;
@@ -274,6 +375,7 @@ namespace RogueWispPlugin.Helpers
                 main.flowmapEnabled = false;
                 main.flowmapTexture.texture = AssetLibrary<Texture>.i[TextureIndex.refCaustics];
                 main.flowmapHeightmap.texture = AssetLibrary<Texture>.i[TextureIndex.refCaustics];
+                main.flowmapHeightRamp.texture = RampTextureGenerator.GenerateRampTexture( CreateFlowGradient( this.mainColor ) );
                 //Ramp texture stuff
                 main.flowHeightBias = 0.3f;
                 main.flowHeightPower = 1f;
@@ -298,8 +400,6 @@ namespace RogueWispPlugin.Helpers
                 armorMaterials[(Int32)this.armorMaterialType]( this.mainColor, main );
             }
         }
-
-        
 
         internal UInt32 EncodeToSkinIndex()
         {

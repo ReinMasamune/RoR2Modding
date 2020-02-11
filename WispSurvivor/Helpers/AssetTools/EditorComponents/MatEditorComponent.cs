@@ -33,6 +33,9 @@ namespace RogueWispPlugin.Helpers
         private IntersectionCloudMaterial intersectionCloudMat;
         private Menu<IntersectionCloudMaterial> intersectionCloudMaterialMenu;
 
+        private DistortionMaterial distortionMaterial;
+        private Menu<DistortionMaterial> distortionMaterialMenu;
+
 
         internal static GUIStyle windowStyle;
         private static Texture2D bgtex;
@@ -44,7 +47,8 @@ namespace RogueWispPlugin.Helpers
                 "Transform Control",
                 "Standard Material",
                 "Cloud Material",
-                "Cloud Intersection Material"
+                "Cloud Intersection Material",
+                "Distortion Material",
             };
 
 
@@ -86,15 +90,24 @@ namespace RogueWispPlugin.Helpers
             skins.ApplySkin( 0 );
 
 
-            this.standardMat = new StandardMaterial(Main.armorMaterials[0]);
+            this.standardMat = new StandardMaterial( Main.armorMaterials[0] );
             this.cloudMat = new CloudMaterial( Main.fireMaterials[0][0] );
             this.transformControls = new TransformControls( base.transform );
             this.camControls = new TransformControls( base.transform.parent );
+            this.distortionMaterial = new DistortionMaterial( "DistMat" );
 
             this.transformControlsMenu = new Menu<TransformControls>( this.transformControls );
             this.standardMaterialMenu = new Menu<StandardMaterial>( this.standardMat );
             this.cloudMaterialMenu = new Menu<CloudMaterial>( this.cloudMat );
             this.camControlMenu = new Menu<TransformControls>( this.camControls );
+            this.distortionMaterialMenu = new Menu<DistortionMaterial>( this.distortionMaterial );
+
+            var cyl = base.transform.GetComponentInChildren<MeshRenderer>();
+            cyl.sharedMaterials = new Material[]
+            {
+                cyl.sharedMaterial,
+                this.distortionMaterial.material,
+            };
         }
 
         private void OnGUI()
@@ -130,7 +143,7 @@ namespace RogueWispPlugin.Helpers
 
         private void DrawWindow( Int32 id )
         {
-            var tempSelection = GUILayout.Toolbar( this.windowSelection, this.selectionNames );
+            var tempSelection = GUILayout.SelectionGrid( this.windowSelection, this.selectionNames, 4 );
             if( GUI.changed && tempSelection != this.windowSelection )
             {
                 this.windowSelection = tempSelection;
@@ -150,6 +163,9 @@ namespace RogueWispPlugin.Helpers
                     break;
                 case 3:
                     this.intersectionCloudMaterialMenu?.Draw();
+                    break;
+                case 4:
+                    this.distortionMaterialMenu?.Draw();
                     break;
                 default:
                     break;

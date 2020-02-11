@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace RogueWispPlugin.Helpers
 {
-    internal class WispSkinController : MonoBehaviour
+    internal interface IBitSkin
     {
 
     }
