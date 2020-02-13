@@ -19,31 +19,31 @@ namespace RogueWispPlugin.Helpers
         {
             Type type = property.PropertyType;
 
-            if( type == typeof(Single) )
+            if( type == typeof( Single ) )
             {
                 return new SingleWrapper<TMenu>( property, settings );
-            } else if( type == typeof(Boolean) )
+            } else if( type == typeof( Boolean ) )
             {
                 return new BooleanWrapper<TMenu>( property, settings );
-            } else if( type == typeof(Int32) )
+            } else if( type == typeof( Int32 ) )
             {
                 return new Int32Wrapper<TMenu>( property, settings );
-            } else if( type == typeof(Vector2))
+            } else if( type == typeof( Vector2 ) )
             {
                 return new Vector2Wrapper<TMenu>( property, settings );
-            } else if( type == typeof(Vector3))
+            } else if( type == typeof( Vector3 ) )
             {
                 return new Vector3Wrapper<TMenu>( property, settings );
-            } else if( type == typeof(Vector4))
+            } else if( type == typeof( Vector4 ) )
             {
                 return new Vector4Wrapper<TMenu>( property, settings );
-            } else if( type == typeof(Color) )
+            } else if( type == typeof( Color ) )
             {
                 return new ColorWrapper<TMenu>( property, settings );
-            } else if( type == typeof(MaterialBase.TextureData) )
+            } else if( type == typeof( MaterialBase.TextureData ) )
             {
                 return new TextureWrapper<TMenu>( property, settings );
-            } else if( type == typeof( MaterialBase.ScaleOffsetTextureData) )
+            } else if( type == typeof( MaterialBase.ScaleOffsetTextureData ) )
             {
                 return new TextureWrapper<TMenu>( property, settings );
             } else if( type == typeof( EliteIndex ) )
@@ -58,9 +58,22 @@ namespace RogueWispPlugin.Helpers
             } else if( type == typeof( StandardMaterial.CullMode ) )
             {
                 return new EnumWrapper<TMenu, StandardMaterial.CullMode>( property, settings );
-            } else if( type == typeof( StandardMaterial.PrintDirection))
+            } else if( type == typeof( StandardMaterial.PrintDirection ) )
             {
                 return new EnumWrapper<TMenu, StandardMaterial.PrintDirection>( property, settings );
+            } else if( type.BaseType == typeof( Enum ) )
+            {
+                var t = typeof(EnumWrapper<,>).MakeGenericType( typeof(TMenu), type );
+                var constructor = t.GetConstructor( BindingFlags.Instance | BindingFlags.NonPublic, default, new Type[]
+                {
+                    typeof(PropertyInfo),
+                    typeof(MenuAttribute),
+                }, default );
+                return constructor.Invoke( new System.Object[]
+                {
+                    property,
+                    settings
+                } ) as PropertyWrapper<TMenu>;
             } else
             {
                 Main.LogE( "Unhandled type:" + type.ToString() );

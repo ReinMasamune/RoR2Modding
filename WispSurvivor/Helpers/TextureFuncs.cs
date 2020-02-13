@@ -16,13 +16,14 @@ namespace RogueWispPlugin.Helpers
 {
     internal static class RampTextureGenerator
     {
-        internal static Texture2D GenerateRampTexture( Gradient grad, Int32 width = 256, Int32 height = 16, Boolean threaded = true )
+        internal static Texture2D GenerateRampTexture( Gradient grad, Int32 width = 256, Int32 height = 16, Boolean threaded = false )
         {
 #if TIMER
             var timer = new Stopwatch();
 #endif
 
             var tex = new Texture2D( width, height, TextureFormat.ARGB32, false );
+            tex.wrapMode = TextureWrapMode.Clamp;
             if( !threaded )
             {
 #if TIMER
@@ -30,7 +31,7 @@ namespace RogueWispPlugin.Helpers
 #endif
                 for( Int32 x = 0; x < width; ++x )
                 {
-                    var color = grad.Evaluate( x / width );
+                    var color = grad.Evaluate( (Single)x / (Single)width );
                     for( Int32 y = 0; y < height; ++y )
                     {
                         tex.SetPixel( x, y, color );
@@ -58,6 +59,8 @@ namespace RogueWispPlugin.Helpers
 
                 var handle = gradLerp.Schedule( width, 1 );
                 handle.Complete();
+                gradAKeys.Dispose();
+                gradCKeys.Dispose();
             }
 
             tex.Apply();
@@ -111,7 +114,7 @@ namespace RogueWispPlugin.Helpers
 
                 for( Int32 i = 0; i < this.texHeight; ++i )
                 {
-                    var loc = ind + this.texHeight * ind;
+                    var loc = ind + this.texHeight * i;
                     this.texArray[loc] = color;
                 }
             }

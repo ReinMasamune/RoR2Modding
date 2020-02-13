@@ -9,24 +9,24 @@ namespace RogueWispPlugin
 #if ROGUEWISP
     internal partial class Main
     {
-        partial void RW_CreateModelSkins() => this.Load += this.RW_DoSkinCreation;
+        //partial void RW_CreateModelSkins() => this.Load += this.RW_DoSkinCreation;
 
         private void RW_DoSkinCreation()
         {
             GameObject bodyModel = this.RW_body.GetComponent<ModelLocator>().modelTransform.gameObject;
             CharacterModel bodyCharModel = bodyModel.GetComponent<CharacterModel>();
-            ModelSkinController bodySkins = bodyModel.AddOrGetComponent<ModelSkinController>();
+            //ModelSkinController bodySkins = bodyModel.AddOrGetComponent<ModelSkinController>();
 
-            Renderer armorRenderer = bodyCharModel.baseRendererInfos[0].renderer;
-            bodyCharModel.baseRendererInfos[0].defaultMaterial = Main.armorMaterials[0];
+            //Renderer armorRenderer = bodyCharModel.baseRendererInfos[0].renderer;
+            //bodyCharModel.baseRendererInfos[0].defaultMaterial = Main.armorMaterials[0];
 
-            bodyCharModel.baseRendererInfos[0].ignoreOverlays = false;
-
-
-
-            CharacterModel.ParticleSystemInfo[] particles = bodyCharModel.baseParticleSystemInfos;
+            //bodyCharModel.baseRendererInfos[0].ignoreOverlays = false;
 
 
+
+            //CharacterModel.ParticleSystemInfo[] particles = bodyCharModel.baseParticleSystemInfos;
+
+            /*
             for( Int32 i = 0; i < particles.Length; i++ )
             {
                 particles[i].renderer.material = Main.fireMaterials[0][0];
@@ -51,6 +51,7 @@ namespace RogueWispPlugin
                     ignoreOverlays = false
                 };
             }
+            */
 
             String[] skinNames = new String[8];
             skinNames[0] = "WISP_SURVIVOR_SKIN_1";
@@ -64,6 +65,7 @@ namespace RogueWispPlugin
 
             SkinDef[] skins = new SkinDef[8];
 
+            /*
             for( Int32 i = 0; i < 8; i++ )
             {
                 Sprite sprite = Resources.Load<Sprite>( "NotAPath" );
@@ -90,6 +92,7 @@ namespace RogueWispPlugin
             }
 
             bodySkins.skins = skins;
+            */
         }
 
         private static CharacterModel.RendererInfo CreateFlameRendererInfo( Renderer r, Material m ) => CreateRendererInfo( r, m, true, UnityEngine.Rendering.ShadowCastingMode.On );

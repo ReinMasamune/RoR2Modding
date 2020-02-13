@@ -5,12 +5,12 @@ using UnityEngine;
 
 namespace RogueWispPlugin.Helpers
 {
-    internal struct WispBitSkin : IBitSkin
+    internal class WispBitSkin : IBitSkin
     {
         #region Static
-        internal static HashSet<Int32> validColorInds = new HashSet<Int32>();
-        internal static HashSet<Int32> validFlameStyles = new HashSet<Int32>();
-        internal static HashSet<Int32> validArmorMaterials = new HashSet<Int32>();
+        internal static HashSet<UInt32> validColorInds = new HashSet<UInt32>();
+        internal static HashSet<UInt32> validFlameStyles = new HashSet<UInt32>();
+        internal static HashSet<UInt32> validArmorMaterials = new HashSet<UInt32>();
 
         #region Color
         private static Color[] colors = new Color[]
@@ -24,13 +24,6 @@ namespace RogueWispPlugin.Helpers
             new Color( 0.95f, 0.05f, 0.05f ),       //6u    Abyssal
             new Color( 0f, 0f, 0f ),                //7u    Blighted
             new Color( 1f, 1f, 1f ),                //8u    Pure
-            new Color( 0f, 0f, 0f ),                //9u    
-            new Color( 0f, 0f, 0f ),                //10u
-            new Color( 0f, 0f, 0f ),                //11u
-            new Color( 0f, 0f, 0f ),                //12u
-            new Color( 0f, 0f, 0f ),                //13u
-            new Color( 0f, 0f, 0f ),                //14u
-            new Color( 0f, 0f, 0f ),                //15u
         };
         #endregion
         #region FLGrad
@@ -39,48 +32,114 @@ namespace RogueWispPlugin.Helpers
             (col) =>                                //0u    Standard
             {
                 var grad = new Gradient();
+                var aKeys = new GradientAlphaKey[]
+                {
+                    new GradientAlphaKey( 0f, 0f ),
+                    new GradientAlphaKey( 0f, 0.5f ),
+                    new GradientAlphaKey( 1f, 1f ),
+                };
+
+                var cKeys = new GradientColorKey[]
+                {
+                    new GradientColorKey( Color.black, 0f ),
+                    new GradientColorKey( col, 0.1f ),
+                    new GradientColorKey( col, 1f ),
+                };
+
+                grad.alphaKeys = aKeys;
+                grad.colorKeys = cKeys;
                 return grad;
             },
 
             (col) =>                                //1u    Black Outline
             {
                 var grad = new Gradient();
+                var aKeys = new GradientAlphaKey[]
+                {
+                    new GradientAlphaKey( 0f, 0f ),
+                    new GradientAlphaKey( 1f, 1f ),
+                };
+
+                var cKeys = new GradientColorKey[]
+                {
+                    new GradientColorKey( Color.black, 0f ),
+                    new GradientColorKey( Color.black, 0.9f ),
+                    new GradientColorKey( col, 1f ),
+                };
+
+                grad.alphaKeys = aKeys;
+                grad.colorKeys = cKeys;
                 return grad;
             },
 
             (col) =>                                //2u    White Outline
             {
                 var grad = new Gradient();
+                var aKeys = new GradientAlphaKey[]
+                {
+                    new GradientAlphaKey( 0f, 0f ),
+                    new GradientAlphaKey( 0f, 0.5f ),
+                    new GradientAlphaKey( 1f, 1f ),
+                };
+
+                var cKeys = new GradientColorKey[]
+                {
+                    new GradientColorKey( Color.black, 0f ),
+                    new GradientColorKey( Color.white, 0.1f ),
+                    new GradientColorKey( Color.white, 0.65f ),
+                    new GradientColorKey( col, 0.7f ),
+                    new GradientColorKey( col, 1f ),
+                };
+
+                grad.alphaKeys = aKeys;
+                grad.colorKeys = cKeys;
                 return grad;
             },
 
-            (col) =>                                //3u    White Inline
+            (col) =>                                //3u    Black Inline
             {
                 var grad = new Gradient();
+                var aKeys = new GradientAlphaKey[]
+                {
+                    new GradientAlphaKey( 0f, 0f ),
+                    new GradientAlphaKey( 0f, 0.5f ),
+                    new GradientAlphaKey( 1f, 1f ),
+                };
+
+                var cKeys = new GradientColorKey[]
+                {
+                    new GradientColorKey( Color.black, 0f ),
+                    new GradientColorKey( col, 0.1f ),
+                    new GradientColorKey( col, 0.6f ),
+                    new GradientColorKey( Color.black, 0.7f ),
+                    new GradientColorKey( Color.black, 1f ),
+                };
+
+                grad.alphaKeys = aKeys;
+                grad.colorKeys = cKeys;
                 return grad;
             },
 
-            (col) =>                                //4u    Black Inline
+            (col) =>                                //4u    White Inline
             {
                 var grad = new Gradient();
-                return grad;
-            },
+                var aKeys = new GradientAlphaKey[]
+                {
+                    new GradientAlphaKey( 0f, 0f ),
+                    new GradientAlphaKey( 0f, 0.5f ),
+                    new GradientAlphaKey( 1f, 1f ),
+                };
 
-            (col) =>                                //5u
-            {
-                var grad = new Gradient();
-                return grad;
-            },
+                var cKeys = new GradientColorKey[]
+                {
+                    new GradientColorKey( Color.black, 0f ),
+                    new GradientColorKey( col, 0.1f ),
+                    new GradientColorKey( col, 0.95f ),
+                    new GradientColorKey( Color.white, 1f ),
+                };
 
-            (col) =>                                //6u
-            {
-                var grad = new Gradient();
-                return grad;
-            },
-
-            (col) =>                                //7u
-            {
-                var grad = new Gradient();
+                grad.alphaKeys = aKeys;
+                grad.colorKeys = cKeys;
                 return grad;
             },
         };
@@ -111,26 +170,6 @@ namespace RogueWispPlugin.Helpers
                 mat.rampChoice = StandardMaterial.RampInfo.SmoothedTwoTone;
                 mat.specularExponent = 0.75f;
                 mat.specularStrength = 0.9f;
-            },
-            (col, mat) =>       //3u
-            {
-
-            },
-            (col, mat) =>       //4u
-            {
-
-            },
-            (col, mat) =>       //5u
-            {
-
-            },
-            (col, mat) =>       //6u
-            {
-
-            },
-            (col, mat) =>       //7u
-            {
-
             },
         };
         #endregion
@@ -182,50 +221,87 @@ namespace RogueWispPlugin.Helpers
 
             return grad;
         }
+
+        private static Material CreatePlaceholderMaterial()
+        {
+            return new Material(Shader.Find( "Standard" ) );
+        }
+        #endregion
+
+        #region Static Placeholders
+        //internal static Material armorMain_placeholder = CreatePlaceholderMaterial();
+        //internal static Material flameMain_placeholder = CreatePlaceholderMaterial();
+
         #endregion
 
         private static Gradient iridescentFlameGradient = new Gradient();
         private static Dictionary<UInt32,WispBitSkin> skinLookup = new Dictionary<UInt32, WispBitSkin>();
         static WispBitSkin()
         {
-            for( Int32 i = 0; i < Int32.MaxValue; ++i )
+            var aKeys = new GradientAlphaKey[]
             {
-                if( i < colors.Length ) validColorInds.Add( i );
-                if( i < flameGradStyles.Length ) validFlameStyles.Add( i );
-                if( i < armorMaterials.Length ) validArmorMaterials.Add( i );
-            }
+                new GradientAlphaKey( 0f, 0f ),
+                new GradientAlphaKey( 1f, 1f )
+            };
+
+            var cKeys = new GradientColorKey[]
+            {
+                new GradientColorKey( Color.black, 0.05f ),
+                new GradientColorKey( new Color( 1f, 0f, 1f ), 0.165f ),
+                new GradientColorKey( new Color( 0f, 0f, 1f ), 0.33f ),
+                new GradientColorKey( new Color( 0f, 1f, 1f ), 0.495f ),
+                new GradientColorKey( new Color( 0f, 1f, 0f ), 0.66f ),
+                new GradientColorKey( new Color( 1f, 1f, 0f ), 0.825f ),
+                new GradientColorKey( new Color( 1f, 0f, 0f ), 0.99f ),
+                new GradientColorKey( new Color( 1f, 1f, 1f ), 1f ),
+            };
+            iridescentFlameGradient.alphaKeys = aKeys;
+            iridescentFlameGradient.colorKeys = cKeys;
+
+
+            //for( Int32 i = 0; i < Int32.MaxValue; ++i )
+            //{
+            //    if( i < colors.Length ) validColorInds.Add( i );
+            //    if( i < flameGradStyles.Length ) validFlameStyles.Add( i );
+            //    if( i < armorMaterials.Length ) validArmorMaterials.Add( i );
+            //}
         }
         internal static WispBitSkin GetWispSkin( UInt32 ind )
         {
+            Main.LogI( "Getting skin for: " + ind );
             if( skinLookup.ContainsKey( ind ) )
             {
                 return skinLookup[ind];
             }
-            var flags = (ind &          0b1111_0000_0000_0000_0000_0000_0000_0000u) >> 26;
+
+
+
+            var flags = (ind &          0b1111_0000_0000_0000_0000_0000_0000_0000u) >> 28;
+            Boolean useCustomColor = ( (flags & 0b0001u ) >> 0 ) != 0u;
+            Boolean isIridescent = ( (flags & 0b0010u ) >> 1 ) != 0u;
+            //Boolean isTransparent = ( (flags & 0b0100u ) >> 2 ) != 0u;
+            Boolean hasCracks = ( (flags & 0b1000u ) >> 3 ) != 0u;
 
             WispColorIndex color = WispColorIndex.MAX;
             UInt32 encodedCustomColor = 0u;
-            if( (flags & 0b0001u) == 1u )
+            if( useCustomColor )
             {
-                color = WispColorIndex.Custom;
-                encodedCustomColor = (UInt16)(ind & 0b0000_0000_0000_0011_1111_1111_1111_1111u);
+                encodedCustomColor = (ind & 0b0000_0000_0000_0011_1111_1111_1111_1111u);
             } else
             {
-                var flag = ind & 0b0000_0000_0000_0000_0000_0000_0000_1111u;
-                color = (WispColorIndex)flag;
+                color = (WispColorIndex)(ind & 0b0000_0000_0000_0000_0000_0000_0000_1111u);
             }
-
-            Boolean isIridescent = ( (flags & 0b0010u ) >> 1 ) == 1u;
-            Boolean isTransparent = ( (flags & 0b0100u ) >> 2 ) == 1u;
-            Boolean hasCracks = ( (flags & 0b1000u ) >> 3 ) == 1u;
 
             FlameGradientType flameGrad = (FlameGradientType)( (ind & 0b0000_0000_0001_1100_0000_0000_0000_0000u ) >> 18 );
             ArmorMaterialType armorMat = (ArmorMaterialType)(  (ind & 0b0000_1110_0000_0000_0000_0000_0000_0000u ) >> 25 );
 
-            var skin = new WispBitSkin( isIridescent, isTransparent, hasCracks, color, flameGrad, armorMat, encodedCustomColor );
-
+            var skin = new WispBitSkin( isIridescent, /*isTransparent ,*/ hasCracks, useCustomColor, color, flameGrad, armorMat, encodedCustomColor );
             skinLookup[ind] = skin;
             return skin;
+        }
+        internal static void ClearCachedSkins()
+        {
+            skinLookup.Clear();
         }
         private static void SkinDef_Awake( On.RoR2.SkinDef.orig_Awake orig, RoR2.SkinDef self ) { }
 
@@ -244,8 +320,9 @@ namespace RogueWispPlugin.Helpers
         internal Color mainColor { get; private set; }
         internal Gradient flameGradient { get; private set; }
         //internal Gradient armorGradient { get; private set; }
-        internal MaterialBase armorMainMaterial { get; private set; }
-        internal MaterialBase armorSecondMaterial { get; private set; }
+        internal Material armorMainMaterial { get; private set; }
+        //internal Material armorSecondMaterial { get; private set; }
+        internal Material flameMainMaterial { get; private set; }
 
 
 
@@ -255,22 +332,23 @@ namespace RogueWispPlugin.Helpers
         private FlameGradientType flameGradientType;
         private ArmorMaterialType armorMaterialType;
         private Boolean isIridescent;
-        private Boolean isTransparent;
+        //private Boolean isTransparent;
         private Boolean hasCracks;
+        private Boolean useCustomColor;
         private UInt32 encodedCustomColor;
 
         private Boolean encoded;
         private UInt32 encodeValue;
 
-        internal WispBitSkin( Boolean isIridescent, Boolean isTransparent, Boolean hasCracks, WispColorIndex color, FlameGradientType flameType, ArmorMaterialType armorMatType, UInt32 encodedCustomColor = 0u )
+        internal WispBitSkin( Boolean isIridescent, /*Boolean isTransparent,*/ Boolean hasCracks, Boolean useCustomColor, WispColorIndex color, FlameGradientType flameType, ArmorMaterialType armorMatType, UInt32 encodedCustomColor = 0u )
         {
             this.encoded = false;
             this.encodeValue = 0u;
 
             this.isIridescent = isIridescent;
-            this.isTransparent = isTransparent;
+            //this.isTransparent = isTransparent;
             this.hasCracks = hasCracks;
-
+            this.useCustomColor = useCustomColor;
             this.color = color;
             this.encodedCustomColor = encodedCustomColor;
             this.flameGradientType = flameType;
@@ -278,17 +356,21 @@ namespace RogueWispPlugin.Helpers
 
 
 
-            if( this.color == WispColorIndex.Custom )
+            if( this.useCustomColor )
             {
-                var encColor = this.encodedCustomColor;
+                var encColor = this.encodedCustomColor & 0b0000_0000_0011_1111_1111_1111_1111u;
                 Single r = ((encColor & 0b11_1111_0000_0000_0000u)>>12) / (Single)(0b11_1111u);
                 Single g = ((encColor & 0b00_0000_1111_1100_0000u)>>6) / (Single)(0b11_1111u);
                 Single b = ((encColor & 0b00_0000_0000_0011_1111u) ) / (Single)(0b11_1111u);
 
+                Main.LogI( r );
+                Main.LogI( g );
+                Main.LogI( b );
+
                 this.mainColor = new Color( r, g, b, 1f );
             } else
             {
-                this.mainColor = colors[(Int32)this.color];
+                this.mainColor = colors[(UInt32)this.color];
             }
 
             if( this.isIridescent )
@@ -296,17 +378,53 @@ namespace RogueWispPlugin.Helpers
                 this.flameGradient = iridescentFlameGradient;
             } else
             {
-                this.flameGradient = flameGradStyles[(Int32)this.flameGradientType]( this.mainColor );
+                this.flameGradient = flameGradStyles[(UInt32)this.flameGradientType]( this.mainColor );
             }
 
+            //var baseMat = UnityEngine.Object.Instantiate<Material>( )
+            var flamesMain = new CloudMaterial( "FlamesMain" );
+            //flamesMain.sourceBlend = 5f;
+            flamesMain.destinationBlend = 10f;
+            //flamesMain.internalSimpleBlendMode = 1f;
+            flamesMain.tintColor = new Color( 1f, 1f, 1f, 1f );
+            flamesMain.disableRemapping = false;
+            flamesMain.mainTexture.texture = AssetLibrary<Texture>.i[TextureIndex.refTexBanditExplosionMask];
+            flamesMain.remapTexture.texture = RampTextureGenerator.GenerateRampTexture( this.flameGradient );
+            flamesMain.softFactor = 1f;
+            flamesMain.brightnessBoost = 1f;
+            flamesMain.alphaBoost = 3f;
+            flamesMain.alphaBias = -0.1f;
+            flamesMain.useUV1 = false;
+            flamesMain.fadeClose = false;
+            flamesMain.fadeCloseDistance = 0.5f;
+            flamesMain.cull = MaterialBase.CullMode.Off;
+            flamesMain.cloudRemappingOn = true;
+            flamesMain.cloudDistortionOn = false;
+            flamesMain.distortionStrength = 0.1f;
+            flamesMain.cloudTexture1.texture = AssetLibrary<Texture>.i[TextureIndex.refTexCloudDifferenceBW2];
+            flamesMain.cloudTexture2.texture = AssetLibrary<Texture>.i[TextureIndex.refTexCloudLightning1];
+            flamesMain.cutoffScrollSpeed = new Vector4( 15f, 17f, 11f, 13f );
+            flamesMain.vertexColorOn = false;
+            flamesMain.vertexAlphaOn = false;
+            flamesMain.luminanceForTextureAlpha = false;
+            flamesMain.vertexOffset = false;
+            flamesMain.fresnelFade = true;
+            flamesMain.fresnelPower = 0.01f;
+            flamesMain.vertexOffsetAmount = 0f;
+            flamesMain.externalAlpha = 1f;
+
+            this.flameMainMaterial = flamesMain.material;
+
+            /*
             if( this.isTransparent )
             {
-                this.armorMainMaterial = new CloudMaterial( "ArmorMain" );
-                this.armorSecondMaterial = new DistortionMaterial( "ArmorRefraction" );
+            
+                var main = new CloudMaterial( "ArmorMain" );
+                var sec = new DistortionMaterial( "ArmorRefraction" );
 
-                var main = this.armorMainMaterial as CloudMaterial;
-                var sec = this.armorSecondMaterial as DistortionMaterial;
-
+                //main.sourceBlend = 5f;
+                //main.destinationBlend = 10f;
+                //main.internalSimpleBlendMode = 1f;
                 main.tintColor = new Color( 0f, 0f, 0f, 0f );
                 main.disableRemapping = false;
                 main.mainTexture.texture = AssetLibrary<Texture>.i[TextureIndex.refTexCloudIce];
@@ -343,11 +461,15 @@ namespace RogueWispPlugin.Helpers
                 {
                     main.cloudRemappingOn = true;
                 }
+
+                this.armorMainMaterial = main.material;
+                this.armorSecondMaterial = sec.material;
+                
             } else
             {
-                this.armorMainMaterial = new StandardMaterial( "ArmorMain" );
-                var main = this.armorMainMaterial as StandardMaterial;
-                this.armorSecondMaterial = null;
+            */
+                var main = new StandardMaterial( "ArmorMain" );
+                //this.armorSecondMaterial = null;
 
                 main.cutout = false;
                 main.mainColor = Color.white;
@@ -397,8 +519,16 @@ namespace RogueWispPlugin.Helpers
                     main.flowmapEnabled = false;
                 }
 
-                armorMaterials[(Int32)this.armorMaterialType]( this.mainColor, main );
+                armorMaterials[(UInt32)this.armorMaterialType]( this.mainColor, main );
+
+
+                this.armorMainMaterial = main.material;
+
+            /*
             }
+            */
+
+            skinLookup[this.EncodeToSkinIndex()] = this;
         }
 
         internal UInt32 EncodeToSkinIndex()
@@ -431,16 +561,16 @@ namespace RogueWispPlugin.Helpers
             this.encodeValue &=     0b0000_1111_1111_1111_1111_1111_1111_1111u;
             UInt32 flag = 0u;
             flag |= (this.hasCracks ? 1u : 0u) << 31;
-            flag |= (this.isTransparent ? 1u : 0u) << 30;
+            //flag |= (this.isTransparent ? 1u : 0u) << 30;
             flag |= (this.isIridescent ? 1u : 0u) << 29;
-            flag |= (this.color == WispColorIndex.Custom ? 1u : 0u) << 28;
+            flag |= (this.useCustomColor ? 1u : 0u) << 28;
             this.encodeValue |= flag;
         }
         private void UpdateEncodedColor()
         {
             this.encodeValue &=     0b1111_1111_1111_1100_0000_0000_0000_0000u;
             var flag = 0u;
-            if( this.color == WispColorIndex.Custom )
+            if( this.useCustomColor )
             {
                 flag = this.encodedCustomColor;
             } else
@@ -490,10 +620,14 @@ namespace RogueWispPlugin.Helpers
             Blighted = 7u,
             Pure = 8u,
             MAX = 16u,
-            Custom,
         }
         internal enum FlameGradientType : UInt32
         {
+            Standard = 0u,
+            BlackOutline = 1u,
+            WhiteOutline = 2u,
+            BlackInline = 3u,
+            WhiteInline = 4u,
             MAX = 8u,
         }
         internal enum ArmorMaterialType : UInt32

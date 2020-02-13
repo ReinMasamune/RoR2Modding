@@ -18,11 +18,7 @@ namespace RogueWispPlugin.Helpers
 
         private String[] selectionNames;
 
-        private StandardMaterial standardMat;
-        private Menu<StandardMaterial> standardMaterialMenu;
-
-        private CloudMaterial cloudMat;
-        private Menu<CloudMaterial> cloudMaterialMenu;
+        private WispModelBitSkinController skinController;
 
         private TransformControls transformControls;
         private Menu<TransformControls> transformControlsMenu;
@@ -30,11 +26,23 @@ namespace RogueWispPlugin.Helpers
         private TransformControls camControls;
         private Menu<TransformControls> camControlMenu;
 
-        private IntersectionCloudMaterial intersectionCloudMat;
-        private Menu<IntersectionCloudMaterial> intersectionCloudMaterialMenu;
+        private WispBitSkinMenuWrapper bitWrapper;
+        private Menu<WispBitSkinMenuWrapper> bitWrapperMenu;
 
-        private DistortionMaterial distortionMaterial;
-        private Menu<DistortionMaterial> distortionMaterialMenu;
+        private StandardMaterial armorMat1;
+        private Menu<StandardMaterial> armorMat1Menu;
+
+        private CloudMaterial armorMat2Main;
+        private Menu<CloudMaterial>armorMat2MainMenu;
+
+        private DistortionMaterial armorMat2Sec;
+        private Menu<DistortionMaterial> armorMat2SecMenu;
+
+        private CloudMaterial flameMaterial;
+        private Menu<CloudMaterial> flameMaterialMenu;
+
+        private Material[] prevFlameMats = Array.Empty<Material>();
+        private Material[] prevArmMats = Array.Empty<Material>();
 
 
         internal static GUIStyle windowStyle;
@@ -45,10 +53,11 @@ namespace RogueWispPlugin.Helpers
             this.selectionNames = new String[]
             {
                 "Transform Control",
-                "Standard Material",
-                "Cloud Material",
-                "Cloud Intersection Material",
-                "Distortion Material",
+                "Bit Skin",
+                "Flames Cloud",
+                "Armor Standard",
+                "Armor Cloud",
+                "Armor Distortion",
             };
 
 
@@ -86,57 +95,81 @@ namespace RogueWispPlugin.Helpers
         private void Start()
         {
             var model = base.GetComponentInChildren<CharacterModel>();
-            var skins = model.GetComponent<ModelSkinController>();
-            skins.ApplySkin( 0 );
+            //var skins = model.GetComponent<ModelSkinController>();
+            //skins.ApplySkin( 0 );
 
+            this.skinController = model.GetComponent<WispModelBitSkinController>();
 
-            this.standardMat = new StandardMaterial( Main.armorMaterials[0] );
-            this.cloudMat = new CloudMaterial( Main.fireMaterials[0][0] );
             this.transformControls = new TransformControls( base.transform );
             this.camControls = new TransformControls( base.transform.parent );
-            this.distortionMaterial = new DistortionMaterial( "DistMat" );
+            this.bitWrapper = new WispBitSkinMenuWrapper( base.GetComponentInChildren<WispModelBitSkinController>() );
 
             this.transformControlsMenu = new Menu<TransformControls>( this.transformControls );
-            this.standardMaterialMenu = new Menu<StandardMaterial>( this.standardMat );
-            this.cloudMaterialMenu = new Menu<CloudMaterial>( this.cloudMat );
             this.camControlMenu = new Menu<TransformControls>( this.camControls );
-            this.distortionMaterialMenu = new Menu<DistortionMaterial>( this.distortionMaterial );
+            this.bitWrapperMenu = new Menu<WispBitSkinMenuWrapper>( this.bitWrapper );
+        }
 
-            var cyl = base.transform.GetComponentInChildren<MeshRenderer>();
-            cyl.sharedMaterials = new Material[]
+        private void FixedUpdate()
+        {
+            /*
+            var tempFlames = this.skinController.activeFlameMaterial;
+            if( this.prevFlameMats == null || tempFlames != this.prevFlameMats )
             {
-                cyl.sharedMaterial,
-                this.distortionMaterial.material,
-            };
+                this.prevFlameMats = tempFlames;
+                this.flameMaterial = new CloudMaterial( tempFlames[0] );
+                this.flameMaterialMenu = new Menu<CloudMaterial>( this.flameMaterial );
+            }
+            var tempArms = this.skinController.activeArmorMaterial;
+            if( this.prevArmMats == null || tempArms != this.prevArmMats )
+            {
+                this.prevArmMats = tempArms;
+                if( tempArms.Length == 1 )
+                {
+                    this.armorMat1 = new StandardMaterial( tempArms[0] );
+                    this.armorMat1Menu = new Menu<StandardMaterial>( this.armorMat1 );
+                    this.armorMat2Main = null;
+                    this.armorMat2MainMenu = null;
+                    this.armorMat2Sec = null;
+                    this.armorMat2SecMenu = null;
+                } else
+                {
+                    this.armorMat1 = null;
+                    this.armorMat1Menu = null;
+                    this.armorMat2Main = new CloudMaterial( tempArms[0] );
+                    this.armorMat2MainMenu = new Menu<CloudMaterial>( this.armorMat2Main );
+                    this.armorMat2Sec = new DistortionMaterial( tempArms[1] );
+                    this.armorMat2SecMenu = new Menu<DistortionMaterial>( this.armorMat2Sec );
+                }
+            }
+            */
         }
 
         private void OnGUI()
         {
-            if( this.standardMat != null )
+
+            if( windowStyle == null )
             {
-                if( windowStyle == null )
-                {
-                    windowStyle = GUI.skin.window;
-                    windowStyle.focused.background = bgtex;
-                    windowStyle.active.background = bgtex;
-                    windowStyle.hover.background = bgtex;
-                    windowStyle.normal.background = bgtex;
-                    windowStyle.onActive.background = bgtex;
-                    windowStyle.onFocused.background = bgtex;
-                    //this.windowStyle.onHover.background = this.bgtex;
-                    windowStyle.onNormal.background = bgtex;
-                }
-
-                this.windowRect = GUILayout.Window( windowID, new Rect( Screen.width - width, 0f, width, height ), this.DrawWindow, "Material Editor", windowStyle );
-
-                var cursor = Input.mousePosition;
-                var cursorRect = new Rect( cursor.x, Screen.height - cursor.y, cursorWidth, cursorHeight );
-                if( this.windowRect.Contains( cursorRect.position ) )
-                {
-                    //cursorRect.position -= this.windowRect.position;
-                    GUI.DrawTexture( cursorRect, this.cursorTex );
-                }
+                windowStyle = GUI.skin.window;
+                windowStyle.focused.background = bgtex;
+                windowStyle.active.background = bgtex;
+                windowStyle.hover.background = bgtex;
+                windowStyle.normal.background = bgtex;
+                windowStyle.onActive.background = bgtex;
+                windowStyle.onFocused.background = bgtex;
+                //this.windowStyle.onHover.background = this.bgtex;
+                windowStyle.onNormal.background = bgtex;
             }
+
+            this.windowRect = GUILayout.Window( windowID, new Rect( Screen.width - width, 0f, width, height ), this.DrawWindow, "Material Editor", windowStyle );
+
+            var cursor = Input.mousePosition;
+            var cursorRect = new Rect( cursor.x, Screen.height - cursor.y, cursorWidth, cursorHeight );
+            if( this.windowRect.Contains( cursorRect.position ) )
+            {
+                //cursorRect.position -= this.windowRect.position;
+                GUI.DrawTexture( cursorRect, this.cursorTex );
+            }
+
         }
 
         private Rect windowRect;
@@ -156,16 +189,19 @@ namespace RogueWispPlugin.Helpers
                     this.camControlMenu?.Draw();
                     break;
                 case 1:
-                    this.standardMaterialMenu?.Draw();
+                    this.bitWrapperMenu?.Draw();
                     break;
                 case 2:
-                    this.cloudMaterialMenu?.Draw();
+                    this.flameMaterialMenu?.Draw();
                     break;
                 case 3:
-                    this.intersectionCloudMaterialMenu?.Draw();
+                    this.armorMat1Menu?.Draw();
                     break;
                 case 4:
-                    this.distortionMaterialMenu?.Draw();
+                    this.armorMat2MainMenu?.Draw();
+                    break;
+                case 5:
+                    this.armorMat2SecMenu?.Draw();
                     break;
                 default:
                     break;

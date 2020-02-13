@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Reflection;
 using UnityEngine;
+using UnityEngine.Rendering;
 using RogueWispPlugin.Helpers;
 #if NETWORKING
 using NetLib;
@@ -226,7 +227,17 @@ namespace RogueWispPlugin
 
             this.Enable += IncState;
             this.FirstFrame += IncState;
+            this.FirstFrame += this.RandomTesting;
         }
+
+        private void RandomTesting()
+        {
+            var shader = AssetLibrary<Shader>.i[ShaderIndex.HGCloudRemap];
+            var mat = AssetLibrary<Material>.i[MaterialIndex.refMatElitePoisonParticleSystemReplacement];
+            DumpMaterialInfo.DumpInfo( mat );
+        }
+
+        
 
         private void Main_FirstFrame() => typeof( EffectCatalog ).InvokeMethod( "CCEffectsReload", new ConCommandArgs() );
 
@@ -295,8 +306,8 @@ namespace RogueWispPlugin
 }
 // Thought organization:::
 
-//
-//
+// SKIN STUFF
+//  Need to hook in to CharacterModel.UpdateRendererMaterials and check for 
 //
 //
 //

@@ -9,6 +9,7 @@
         partial void RW_SetupChildLocator();
         partial void RW_SetupIDRS();
         partial void RW_SetupHurtBoxes();
+        partial void RW_SetupChildren();
 
         partial void RW_Model()
         {
@@ -18,6 +19,7 @@
             this.RW_SetupChildLocator();
             this.RW_SetupIDRS();
             this.RW_SetupHurtBoxes();
+            this.RW_SetupChildren();
         }
     }
 #endif

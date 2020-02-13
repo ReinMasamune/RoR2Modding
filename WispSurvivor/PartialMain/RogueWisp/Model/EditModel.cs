@@ -1,4 +1,5 @@
-﻿using RoR2;
+﻿using RogueWispPlugin.Helpers;
+using RoR2;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -77,8 +78,10 @@ namespace RogueWispPlugin
             MonoBehaviour.Destroy( bodyCharModel.baseParticleSystemInfos[0].particleSystem.gameObject );
             MonoBehaviour.Destroy( bodyCharModel.baseParticleSystemInfos[1].particleSystem.gameObject );
             MonoBehaviour.Destroy( bodyCharModel.gameObject.GetComponent<AncientWispFireController>() );
-            Array.Resize<CharacterModel.LightInfo>( ref bodyCharModel.baseLightInfos, 0 );
-
+            
+            //Array.Resize<CharacterModel.LightInfo>( ref bodyCharModel.baseLightInfos, 0 );
+            bodyCharModel.baseLightInfos = null;
+            bodyCharModel.baseRendererInfos = null;
             WispFlamesController flameCont =this.RW_body.GetComponent<WispFlamesController>();
             flameCont.passive = this.RW_body.GetComponent<WispPassiveController>();
 
@@ -88,6 +91,13 @@ namespace RogueWispPlugin
 
             Dictionary<String, FlamePSInfo> flames = CreateFlameDictionary();
             List<PSCont> tempPSList = new List<PSCont>();
+
+            var bitSkinCont = modelTransform.AddOrGetComponent<WispModelBitSkinController>();
+
+            var skinned = modelTransform.GetComponentInChildren<SkinnedMeshRenderer>();
+            //skinned.material = WispBitSkin.armorMain_placeholder;
+            //bitSkinCont.RegisterRenderer( skinned );
+
 
             foreach( Transform t in modelTransform.GetComponentsInChildren<Transform>() )
             {
@@ -99,6 +109,7 @@ namespace RogueWispPlugin
                     tempPS = t.gameObject.AddOrGetComponent<ParticleSystem>();
                     tempPSR = t.gameObject.AddOrGetComponent<ParticleSystemRenderer>();
                     this.SetupFlameParticleSystem( tempPS, 0, flames[tempName] );
+
                     tempPSList.Add( new PSCont
                     {
                         ps = tempPS,
@@ -108,19 +119,23 @@ namespace RogueWispPlugin
                 }
             }
 
-            Array.Resize<CharacterModel.ParticleSystemInfo>( ref bodyCharModel.baseParticleSystemInfos, tempPSList.Count );
-
+            //Array.Resize<CharacterModel.ParticleSystemInfo>( ref bodyCharModel.baseParticleSystemInfos, 0 );
+            bodyCharModel.baseParticleSystemInfos = null;
+            
             for( Int32 i = 0; i < tempPSList.Count; i++ )
             {
-                bodyCharModel.baseParticleSystemInfos[i] = new CharacterModel.ParticleSystemInfo
+                /*bodyCharModel.baseParticleSystemInfos[i] = new CharacterModel.ParticleSystemInfo
                 {
                     particleSystem = tempPSList[i].ps,
                     renderer = tempPSList[i].psr,
                     defaultMaterial = Main.fireMaterials[0][0]
-                };
+                };*/
+                //tempPSList[i].psr.material = WispBitSkin.flameMain_placeholder;
+                //bitSkinCont.RegisterRenderer( tempPSList[i].psr );
                 flameCont.flames.Add( tempPSList[i].ps );
                 flameCont.flameInfos.Add( tempPSList[i].info.rate );
             }
+            
         }
 
         public struct PSCont
