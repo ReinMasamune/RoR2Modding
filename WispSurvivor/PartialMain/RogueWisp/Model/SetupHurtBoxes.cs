@@ -1,10 +1,11 @@
-﻿using RoR2;
+﻿#if ROGUEWISP
+using RoR2;
 using UnityEngine;
 //using static RogueWispPlugin.Helpers.APIInterface;
 
 namespace RogueWispPlugin
 {
-#if ROGUEWISP
+
     internal partial class Main
     {
         partial void RW_SetupHurtBoxes()
@@ -26,5 +27,6 @@ namespace RogueWispPlugin
             meshCol.isTrigger = false;
         }
     }
-#endif
+
 }
+#endif

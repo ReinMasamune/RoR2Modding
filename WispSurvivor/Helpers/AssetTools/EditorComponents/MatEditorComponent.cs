@@ -41,8 +41,8 @@ namespace RogueWispPlugin.Helpers
         private CloudMaterial flameMaterial;
         private Menu<CloudMaterial> flameMaterialMenu;
 
-        private Material[] prevFlameMats = Array.Empty<Material>();
-        private Material[] prevArmMats = Array.Empty<Material>();
+        private Material prevFlameMats = null;
+        private Material prevArmMats = null;
 
 
         internal static GUIStyle windowStyle;
@@ -111,37 +111,27 @@ namespace RogueWispPlugin.Helpers
 
         private void FixedUpdate()
         {
-            /*
+            
             var tempFlames = this.skinController.activeFlameMaterial;
             if( this.prevFlameMats == null || tempFlames != this.prevFlameMats )
             {
                 this.prevFlameMats = tempFlames;
-                this.flameMaterial = new CloudMaterial( tempFlames[0] );
+                this.flameMaterial = new CloudMaterial( tempFlames );
                 this.flameMaterialMenu = new Menu<CloudMaterial>( this.flameMaterial );
             }
             var tempArms = this.skinController.activeArmorMaterial;
             if( this.prevArmMats == null || tempArms != this.prevArmMats )
             {
                 this.prevArmMats = tempArms;
-                if( tempArms.Length == 1 )
-                {
-                    this.armorMat1 = new StandardMaterial( tempArms[0] );
+
+                    this.armorMat1 = new StandardMaterial( tempArms );
                     this.armorMat1Menu = new Menu<StandardMaterial>( this.armorMat1 );
                     this.armorMat2Main = null;
                     this.armorMat2MainMenu = null;
                     this.armorMat2Sec = null;
                     this.armorMat2SecMenu = null;
-                } else
-                {
-                    this.armorMat1 = null;
-                    this.armorMat1Menu = null;
-                    this.armorMat2Main = new CloudMaterial( tempArms[0] );
-                    this.armorMat2MainMenu = new Menu<CloudMaterial>( this.armorMat2Main );
-                    this.armorMat2Sec = new DistortionMaterial( tempArms[1] );
-                    this.armorMat2SecMenu = new Menu<DistortionMaterial>( this.armorMat2Sec );
-                }
             }
-            */
+            
         }
 
         private void OnGUI()

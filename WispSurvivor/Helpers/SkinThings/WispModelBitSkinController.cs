@@ -51,6 +51,10 @@ namespace RogueWispPlugin.Helpers
         private void Awake()
         {
             this.modelRef = base.GetComponent<CharacterModel>();
+            if( this.skin == null )
+            {
+                this.skin = WispBitSkin.GetWispSkin( 0u );
+            }
         }
 
         private void ApplyMaterials()
@@ -66,6 +70,7 @@ namespace RogueWispPlugin.Helpers
             for( Int32 i = 0; i < this.modelRef.baseParticleSystemInfos.Length; ++i )
             {
                 this.modelRef.baseParticleSystemInfos[i].defaultMaterial = this.activeFlameMaterial;
+                this.modelRef.baseParticleSystemInfos[i].renderer.material = this.activeFlameMaterial;
             }
         }
     }

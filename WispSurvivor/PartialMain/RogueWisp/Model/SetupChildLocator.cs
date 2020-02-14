@@ -1,4 +1,5 @@
-﻿using RoR2;
+﻿#if ROGUEWISP
+using RoR2;
 using System;
 using System.Collections.Generic;
 //using static RogueWispPlugin.Helpers.APIInterface;
@@ -9,13 +10,13 @@ using UnityEngine;
 
 namespace RogueWispPlugin
 {
-#if ROGUEWISP
+
     internal partial class Main
     {
         private Type RW_nameTransformPair;
         private readonly List<GameObject> RW_newHurtBoxes = new List<GameObject>();
 
-        partial void RW_SetupChildLocator() => this.Load += this.RW_DoChildLocatorSetup;//this.Load += this.RW_NewChildLocatorSetup;
+        //partial void RW_SetupChildLocator() => this.Load += this.RW_DoChildLocatorSetup;//this.Load += this.RW_NewChildLocatorSetup;
 
         private void RW_NewChildLocatorSetup()
         {
@@ -179,7 +180,7 @@ namespace RogueWispPlugin
                     default:
                         break;
 
-                    case "ChestCannon1":
+                    case "ChestCannon1"://
                         t2 = new GameObject( "ItemParent" + i.ToString() ).transform;
                         t2.parent = t;
                         t2.localPosition = new Vector3( 0f, 0.65f, 0f );
@@ -196,7 +197,7 @@ namespace RogueWispPlugin
                         this.AddNewHurtBox( t.gameObject, boxGroup, health, true, true, HurtBox.DamageModifier.Normal );
                         break;
 
-                    case "ChestCannonGuard1":
+                    case "ChestCannonGuard1"://
                         box = t.gameObject.AddComponent<BoxCollider>();
                         box.size = new Vector3( 0.75f, 0.7f, 0.2f );
                         box.center = new Vector3( 0f, 0.25f, 0.05f );
@@ -206,7 +207,7 @@ namespace RogueWispPlugin
                         this.AddNewHurtBox( t.gameObject, boxGroup, health, false, false, HurtBox.DamageModifier.Normal );
                         break;
 
-                    case "ChestCannon2":
+                    case "ChestCannon2"://
                         t2 = new GameObject( "ItemParent" + i.ToString() ).transform;
                         t2.parent = t;
                         t2.localPosition = new Vector3( 0f, 0.5f, 0f );
@@ -223,7 +224,7 @@ namespace RogueWispPlugin
                         this.AddNewHurtBox( t.gameObject, boxGroup, health, false, false, HurtBox.DamageModifier.Normal );
                         break;
 
-                    case "ChestCannonGuard2":
+                    case "ChestCannonGuard2"://
                         box = t.gameObject.AddComponent<BoxCollider>();
                         box.size = new Vector3( 0.7f, 0.5f, 0.2f );
                         box.center = new Vector3( 0f, 0.17f, -0.05f );
@@ -233,7 +234,7 @@ namespace RogueWispPlugin
                         this.AddNewHurtBox( t.gameObject, boxGroup, health, false, false, HurtBox.DamageModifier.Normal );
                         break;
 
-                    case "Head":
+                    case "Head"://
                         t2 = new GameObject( "ItemParent" + i.ToString() ).transform;
                         t2.parent = t;
                         t2.localPosition = new Vector3( 0f, 0.2f, 0f );
@@ -251,7 +252,7 @@ namespace RogueWispPlugin
                         this.AddNewHurtBox( t.gameObject, boxGroup, health, false, false, HurtBox.DamageModifier.Normal );
                         break;
 
-                    case "thigh.r":
+                    case "thigh.r"://
                         t2 = new GameObject( "ItemParent" + i.ToString() ).transform;
                         t2.parent = t;
                         t2.localPosition = new Vector3( 0f, 0.25f, 0f );
@@ -269,7 +270,7 @@ namespace RogueWispPlugin
                         this.AddNewHurtBox( t.gameObject, boxGroup, health, false, false, HurtBox.DamageModifier.Normal );
                         break;
 
-                    case "thigh.l":
+                    case "thigh.l"://
                         t2 = new GameObject( "ItemParent" + i.ToString() ).transform;
                         t2.parent = t;
                         t2.localPosition = new Vector3( 0f, 0.25f, 0f );
@@ -287,7 +288,7 @@ namespace RogueWispPlugin
                         this.AddNewHurtBox( t.gameObject, boxGroup, health, false, false, HurtBox.DamageModifier.Normal );
                         break;
 
-                    case "calf.r":
+                    case "calf.r"://
                         t2 = new GameObject( "ItemParent" + i.ToString() ).transform;
                         t2.parent = t;
                         t2.localPosition = new Vector3( 0f, 0f, 0f );
@@ -305,7 +306,7 @@ namespace RogueWispPlugin
                         this.AddNewHurtBox( t.gameObject, boxGroup, health, false, false, HurtBox.DamageModifier.Normal );
                         break;
 
-                    case "calf.l":
+                    case "calf.l"://
                         t2 = new GameObject( "ItemParent" + i.ToString() ).transform;
                         t2.parent = t;
                         t2.localPosition = new Vector3( 0f, 0f, 0f );
@@ -323,7 +324,7 @@ namespace RogueWispPlugin
                         this.AddNewHurtBox( t.gameObject, boxGroup, health, false, false, HurtBox.DamageModifier.Normal );
                         break;
 
-                    case "toe1.l":
+                    case "toe1.l"://
                         t2 = new GameObject( "ItemParent" + i.ToString() ).transform;
                         t2.parent = t;
                         t2.localPosition = new Vector3( 0f, 0f, 0f );
@@ -340,7 +341,7 @@ namespace RogueWispPlugin
                         this.AddNewHurtBox( t.gameObject, boxGroup, health, false, false, HurtBox.DamageModifier.Normal );
                         break;
 
-                    case "toe1.r":
+                    case "toe1.r"://
                         t2 = new GameObject( "ItemParent" + i.ToString() ).transform;
                         t2.parent = t;
                         t2.localPosition = new Vector3( 0f, 0f, 0f );
@@ -357,7 +358,7 @@ namespace RogueWispPlugin
                         this.AddNewHurtBox( t.gameObject, boxGroup, health, false, false, HurtBox.DamageModifier.Normal );
                         break;
 
-                    case "toe2.l":
+                    case "toe2.l"://
                         box = t.gameObject.AddComponent<BoxCollider>();
                         box.size = new Vector3( 0.08f, 0.2f, 0.06f );
                         box.center = new Vector3( 0f, 0.06f, 0f );
@@ -377,7 +378,7 @@ namespace RogueWispPlugin
                         this.AddNewHurtBox( t.gameObject, boxGroup, health, false, false, HurtBox.DamageModifier.Normal );
                         break;
 
-                    case "shoulder.l":
+                    case "shoulder.l"://
                         box = t.gameObject.AddComponent<BoxCollider>();
                         box.size = new Vector3( 0.3f, 0.5f, 0.5f );
                         box.center = new Vector3( -0.075f, 0.3f, 0f );
@@ -387,7 +388,7 @@ namespace RogueWispPlugin
                         this.AddNewHurtBox( t.gameObject, boxGroup, health, false, false, HurtBox.DamageModifier.Normal );
                         break;
 
-                    case "shoulder.r":
+                    case "shoulder.r"://
                         box = t.gameObject.AddComponent<BoxCollider>();
                         box.size = new Vector3( 0.3f, 0.5f, 0.5f );
                         box.center = new Vector3( 0.075f, 0.3f, 0f );
@@ -397,7 +398,7 @@ namespace RogueWispPlugin
                         this.AddNewHurtBox( t.gameObject, boxGroup, health, false, false, HurtBox.DamageModifier.Normal );
                         break;
 
-                    case "upperArm1.l":
+                    case "upperArm1.l"://
                         t2 = new GameObject( "ItemParent" + i.ToString() ).transform;
                         t2.parent = t;
                         t2.localPosition = new Vector3( 0f, 0f, 0f );
@@ -414,7 +415,7 @@ namespace RogueWispPlugin
                         this.AddNewHurtBox( t.gameObject, boxGroup, health, false, false, HurtBox.DamageModifier.Normal );
                         break;
 
-                    case "upperArm1.r":
+                    case "upperArm1.r"://
                         t2 = new GameObject( "ItemParent" + i.ToString() ).transform;
                         t2.parent = t;
                         t2.localPosition = new Vector3( 0f, 0f, 0f );
@@ -431,7 +432,7 @@ namespace RogueWispPlugin
                         this.AddNewHurtBox( t.gameObject, boxGroup, health, false, false, HurtBox.DamageModifier.Normal );
                         break;
 
-                    case "upperArm2.l":
+                    case "upperArm2.l"://
                         box = t.gameObject.AddComponent<BoxCollider>();
                         box.size = new Vector3( 0.12f, 0.3f, 0.3f );
                         box.center = new Vector3( 0.01f, 0.17f, 0f );
@@ -441,7 +442,7 @@ namespace RogueWispPlugin
                         this.AddNewHurtBox( t.gameObject, boxGroup, health, false, false, HurtBox.DamageModifier.Normal );
                         break;
 
-                    case "upperArm2.r":
+                    case "upperArm2.r"://
                         box = t.gameObject.AddComponent<BoxCollider>();
                         box.size = new Vector3( 0.12f, 0.3f, 0.3f );
                         box.center = new Vector3( -0.01f, 0.17f, 0f );
@@ -451,7 +452,7 @@ namespace RogueWispPlugin
                         this.AddNewHurtBox( t.gameObject, boxGroup, health, false, false, HurtBox.DamageModifier.Normal );
                         break;
 
-                    case "finger1.l":
+                    case "finger1.l"://
                         cap = t.gameObject.AddComponent<CapsuleCollider>();
                         cap.direction = 1;
                         cap.radius = 0.035f;
@@ -462,7 +463,7 @@ namespace RogueWispPlugin
                         this.AddNewHurtBox( t.gameObject, boxGroup, health, false, false, HurtBox.DamageModifier.Normal );
                         break;
 
-                    case "finger1.r":
+                    case "finger1.r"://
                         t2 = new GameObject( "ItemParent" + i.ToString() ).transform;
                         t2.parent = t;
                         t2.localPosition = new Vector3( 0f, 0.1f, 0f );
@@ -480,7 +481,7 @@ namespace RogueWispPlugin
                         this.AddNewHurtBox( t.gameObject, boxGroup, health, false, false, HurtBox.DamageModifier.Normal );
                         break;
 
-                    case "finger2.l":
+                    case "finger2.l"://
                         cap = t.gameObject.AddComponent<CapsuleCollider>();
                         cap.direction = 1;
                         cap.radius = 0.035f;
@@ -491,7 +492,7 @@ namespace RogueWispPlugin
                         this.AddNewHurtBox( t.gameObject, boxGroup, health, false, false, HurtBox.DamageModifier.Normal );
                         break;
 
-                    case "finger2.r":
+                    case "finger2.r"://
                         t2 = new GameObject( "ItemParent" + i.ToString() ).transform;
                         t2.parent = t;
                         t2.localPosition = new Vector3( 0f, 0.1f, 0f );
@@ -509,7 +510,7 @@ namespace RogueWispPlugin
                         this.AddNewHurtBox( t.gameObject, boxGroup, health, false, false, HurtBox.DamageModifier.Normal );
                         break;
 
-                    case "thumb.l":
+                    case "thumb.l"://
                         t2 = new GameObject( "ItemParent" + i.ToString() ).transform;
                         t2.parent = t;
                         t2.localPosition = new Vector3( 0f, -0.15f, -0.1f );
@@ -527,7 +528,7 @@ namespace RogueWispPlugin
                         this.AddNewHurtBox( t.gameObject, boxGroup, health, false, false, HurtBox.DamageModifier.Normal );
                         break;
 
-                    case "thumb.r":
+                    case "thumb.r"://
                         cap = t.gameObject.AddComponent<CapsuleCollider>();
                         cap.direction = 1;
                         cap.radius = 0.05f;
@@ -596,5 +597,6 @@ namespace RogueWispPlugin
             return o;
         }
     }
-#endif
+
 }
+#endif

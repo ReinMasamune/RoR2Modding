@@ -263,7 +263,6 @@ namespace GeneralPluginStuff
                 }
             }
 
-
             return Expression.Lambda<Action<TObj, TVal>>( Expression.Call( param1, method, param2 ) );
         }
         private static Expression<Func<TObj,TVal>> CreateReader<TObj,TVal>( Type type, HashSet<String> names )

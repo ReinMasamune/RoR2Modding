@@ -308,11 +308,13 @@ namespace RogueWispPlugin.Helpers
         #region Equality
         public static Boolean operator ==( WispBitSkin obj1, WispBitSkin obj2 )
         {
+            if( obj1 is null && obj2 is null ) return true;
+            if( obj1 is null || obj2 is null ) return false;
             return obj1.EncodeToSkinIndex() == obj2.EncodeToSkinIndex();
         }
         public static Boolean operator !=( WispBitSkin obj1, WispBitSkin obj2 )
         {
-            return obj1.EncodeToSkinIndex() != obj2.EncodeToSkinIndex();
+            return !(obj1 == obj2);
         }
 
         #endregion
@@ -390,26 +392,26 @@ namespace RogueWispPlugin.Helpers
             flamesMain.disableRemapping = false;
             flamesMain.mainTexture.texture = AssetLibrary<Texture>.i[TextureIndex.refTexBanditExplosionMask];
             flamesMain.remapTexture.texture = RampTextureGenerator.GenerateRampTexture( this.flameGradient );
-            flamesMain.softFactor = 1f;
-            flamesMain.brightnessBoost = 1f;
-            flamesMain.alphaBoost = 3f;
-            flamesMain.alphaBias = -0.1f;
+            flamesMain.softFactor = 0f;
+            flamesMain.brightnessBoost = 1.5f;
+            flamesMain.alphaBoost = 5f;
+            flamesMain.alphaBias = 0f;
             flamesMain.useUV1 = false;
             flamesMain.fadeClose = false;
             flamesMain.fadeCloseDistance = 0.5f;
             flamesMain.cull = MaterialBase.CullMode.Off;
             flamesMain.cloudRemappingOn = true;
-            flamesMain.cloudDistortionOn = false;
-            flamesMain.distortionStrength = 0.1f;
-            flamesMain.cloudTexture1.texture = AssetLibrary<Texture>.i[TextureIndex.refTexCloudDifferenceBW2];
-            flamesMain.cloudTexture2.texture = AssetLibrary<Texture>.i[TextureIndex.refTexCloudLightning1];
+            flamesMain.cloudDistortionOn = true;
+            flamesMain.distortionStrength = 0.15f;
+            flamesMain.cloudTexture1.texture = AssetLibrary<Texture>.i[TextureIndex.refTexCloudDifferenceBW1];
+            flamesMain.cloudTexture2.texture = AssetLibrary<Texture>.i[TextureIndex.refTexCloudIce];
             flamesMain.cutoffScrollSpeed = new Vector4( 15f, 17f, 11f, 13f );
             flamesMain.vertexColorOn = false;
             flamesMain.vertexAlphaOn = false;
             flamesMain.luminanceForTextureAlpha = false;
             flamesMain.vertexOffset = false;
             flamesMain.fresnelFade = true;
-            flamesMain.fresnelPower = 0.01f;
+            flamesMain.fresnelPower = 0.1f;
             flamesMain.vertexOffsetAmount = 0f;
             flamesMain.externalAlpha = 1f;
 

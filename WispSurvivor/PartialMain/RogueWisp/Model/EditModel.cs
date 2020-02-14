@@ -15,7 +15,7 @@ namespace RogueWispPlugin
             this.Load += this.RW_EditModelScale;
             this.Load += this.RW_EditModelStructure;
             this.Load += this.RW_EditModelFlare;
-            this.Load += this.RW_EditModelParticles;
+            //this.Load += this.RW_EditModelParticles;
         }
 
         private void RW_EditModelScale()
@@ -47,7 +47,7 @@ namespace RogueWispPlugin
 
         private void RW_EditModelFlare()
         {
-            GameObject flareObj = this.RW_body.GetComponent<ModelLocator>().modelTransform.Find("CannonPivot").Find("AncientWispArmature").Find("Head").Find("GameObject").gameObject;
+            GameObject flareObj = this.RW_body.GetComponent<ModelLocator>().modelTransform.Find("CannonPivot/AncientWispArmature/Head/GameObject").gameObject;
             flareObj.transform.localScale = Vector3.one;
 
             GameObject flare2Obj = MonoBehaviour.Instantiate<GameObject>(flareObj, flareObj.transform.parent);
@@ -65,25 +65,24 @@ namespace RogueWispPlugin
 
             flareObj.SetActive( false );
             flare2Obj.SetActive( false );
-
-            //MonoBehaviour.Destroy(flareObj.GetComponent<EyeFlare>());
         }
 
         private void RW_EditModelParticles()
         {
+            /*
             Transform modelTransform = this.RW_body.GetComponent<ModelLocator>().modelTransform;
             CharacterModel bodyCharModel = modelTransform.GetComponent<CharacterModel>();
-            MonoBehaviour.Destroy( bodyCharModel.baseLightInfos[0].light.gameObject );
-            MonoBehaviour.Destroy( bodyCharModel.baseLightInfos[1].light.gameObject );
-            MonoBehaviour.Destroy( bodyCharModel.baseParticleSystemInfos[0].particleSystem.gameObject );
-            MonoBehaviour.Destroy( bodyCharModel.baseParticleSystemInfos[1].particleSystem.gameObject );
-            MonoBehaviour.Destroy( bodyCharModel.gameObject.GetComponent<AncientWispFireController>() );
+            //MonoBehaviour.Destroy( bodyCharModel.baseLightInfos[0].light.gameObject );
+            //MonoBehaviour.Destroy( bodyCharModel.baseLightInfos[1].light.gameObject );
+            //MonoBehaviour.Destroy( bodyCharModel.baseParticleSystemInfos[0].particleSystem.gameObject );
+            //MonoBehaviour.Destroy( bodyCharModel.baseParticleSystemInfos[1].particleSystem.gameObject );
+            //MonoBehaviour.Destroy( bodyCharModel.gameObject.GetComponent<AncientWispFireController>() );
             
             //Array.Resize<CharacterModel.LightInfo>( ref bodyCharModel.baseLightInfos, 0 );
-            bodyCharModel.baseLightInfos = null;
-            bodyCharModel.baseRendererInfos = null;
+            //bodyCharModel.baseLightInfos = null;
+            //bodyCharModel.baseRendererInfos = null;
             WispFlamesController flameCont =this.RW_body.GetComponent<WispFlamesController>();
-            flameCont.passive = this.RW_body.GetComponent<WispPassiveController>();
+            //flameCont.passive = this.RW_body.GetComponent<WispPassiveController>();
 
             String tempName;
             ParticleSystem tempPS;
@@ -129,13 +128,13 @@ namespace RogueWispPlugin
                     particleSystem = tempPSList[i].ps,
                     renderer = tempPSList[i].psr,
                     defaultMaterial = Main.fireMaterials[0][0]
-                };*/
+                };
                 //tempPSList[i].psr.material = WispBitSkin.flameMain_placeholder;
                 //bitSkinCont.RegisterRenderer( tempPSList[i].psr );
                 flameCont.flames.Add( tempPSList[i].ps );
                 flameCont.flameInfos.Add( tempPSList[i].info.rate );
             }
-            
+            */
         }
 
         public struct PSCont

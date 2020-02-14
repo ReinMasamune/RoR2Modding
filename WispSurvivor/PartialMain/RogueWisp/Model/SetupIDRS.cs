@@ -1,24 +1,260 @@
-﻿using RoR2;
+﻿#if ROGUEWISP
+using System;
+using System.Collections.Generic;
+using System.Reflection;
+using RoR2;
 using UnityEngine;
 //using static RogueWispPlugin.Helpers.APIInterface;
 
 namespace RogueWispPlugin
 {
-#if ROGUEWISP
     internal partial class Main
     {
-        partial void RW_SetupIDRS() => this.Load += this.RW_DoIDRSSetup;
+        partial void RW_SetupIDRS()
+        {
+            this.Load += this.RW_DoIDRSSetup;
+        }
+
+        private void PopulateDisplayDict()
+        {
+            var refRuleset = Resources.Load<GameObject>("Prefabs/CharacterBodies/MageBody")
+                .GetComponent<ModelLocator>()
+                    .modelTransform
+                        .GetComponent<CharacterModel>()
+                            .itemDisplayRuleSet;
+
+            var allFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.Instance;
+            var array1 = typeof(ItemDisplayRuleSet).GetField("namedItemRuleGroups", allFlags ).GetValue( refRuleset ) as ItemDisplayRuleSet.NamedRuleGroup[];
+            var array2 = typeof(ItemDisplayRuleSet).GetField("namedEquipmentRuleGroups", allFlags ).GetValue( refRuleset ) as ItemDisplayRuleSet.NamedRuleGroup[];
+            foreach( var val in array1 )
+            {
+                foreach( var val2 in val.displayRuleGroup.rules )
+                {
+                    var prefab = val2.followerPrefab;
+                    if( prefab == null ) continue;
+                    var key = prefab.name?.ToLower();
+                    if( itemDisplayPrefabs.ContainsKey( key ) ) continue;
+
+                    itemDisplayPrefabs[key] = prefab;
+                }
+            }
+
+            foreach( var val in array2 )
+            {
+                foreach( var val2 in val.displayRuleGroup.rules )
+                {
+                    var prefab = val2.followerPrefab;
+                    if( prefab == null ) continue;
+                    var key = prefab.name?.ToLower();
+                    if( itemDisplayPrefabs.ContainsKey( key ) ) continue;
+
+                    itemDisplayPrefabs[key] = prefab;
+                }
+            }
+        }
 
         private void RW_DoIDRSSetup()
         {
-            ItemDisplayRuleSet refidrs = Resources.Load<GameObject>("Prefabs/CharacterBodies/MageBody").GetComponent<ModelLocator>().modelTransform.GetComponent<CharacterModel>().itemDisplayRuleSet;
-            //ItemDisplayRuleSet idrs = ScriptableObject.CreateInstance<ItemDisplayRuleSet>();
+            this.PopulateDisplayDict();
 
-            //var refEquip = refidrs.GetFieldValue<Item>
+            var idrs = ScriptableObject.CreateInstance<ItemDisplayRuleSet>();
+
+            var itemDisplays = new List<ItemDisplayRuleSet.NamedRuleGroup>();
+            var equipmentDisplays = new List<ItemDisplayRuleSet.NamedRuleGroup>();
+
+            #region Equipment
+            //Wings
+            equipmentDisplays.Add( new ItemDisplayRuleSet.NamedRuleGroup
+            {
+                name = "Jetpack",
+                displayRuleGroup = new DisplayRuleGroup
+                {
+                    rules = new ItemDisplayRule[]
+                    {
+                        new ItemDisplayRule
+                        {
+                            ruleType = ItemDisplayRuleType.ParentedPrefab,
+                            followerPrefab = LoadDisplay("DisplayBugWings"),
+                            childName = "ChestCannon2",
+                            localPos = new Vector3( 0f, 0.126f, 0.177f ),
+                            localAngles = new Vector3( -180f, 0f, 0f ),
+                            localScale = new Vector3( 0.15f, 0.15f, 0.15f ),
+                            limbMask = LimbFlags.None
+                        }
+                    }
+                }
+            } );
+
+            //Crowdfunder
+            equipmentDisplays.Add( new ItemDisplayRuleSet.NamedRuleGroup
+            {
+                name = "GoldGat",
+                displayRuleGroup = new DisplayRuleGroup
+                {
+                    rules = new ItemDisplayRule[]
+                    {
+                        new ItemDisplayRule
+                        {
+                            ruleType = ItemDisplayRuleType.ParentedPrefab,
+                            followerPrefab = LoadDisplay("DisplayGoldGat"),
+                            childName = "shoulder.r",
+                            localPos = new Vector3( -0.452f, 0.146f, 0f ),
+                            localAngles = new Vector3( -110f, 90f, 0f ),
+                            localScale = new Vector3( 0.2f, 0.2f, 0.2f ),
+                            limbMask = LimbFlags.None
+                        }
+                    }
+                }
+            } );
+            #endregion
+            #region Affixes
+            //AffixRed
+            equipmentDisplays.Add( new ItemDisplayRuleSet.NamedRuleGroup
+            {
+                name = "AffixRed",
+                displayRuleGroup = new DisplayRuleGroup
+                {
+                    rules = new ItemDisplayRule[]
+                    {
+                        new ItemDisplayRule
+                        {
+                            ruleType = ItemDisplayRuleType.ParentedPrefab,
+                            followerPrefab = LoadDisplay("DisplayEliteHorn"),
+                            childName = "Head",
+                            localPos = new Vector3( 0.111f, 0.404f, 0.045f ),
+                            localAngles = new Vector3( 30f, 0f, -30f ),
+                            localScale = new Vector3( 0.1f, 0.1f, 0.1f ),
+                            limbMask = LimbFlags.None
+                        },
+                        new ItemDisplayRule
+                        {
+                            ruleType = ItemDisplayRuleType.ParentedPrefab,
+                            followerPrefab = LoadDisplay("DisplayEliteHorn"),
+                            childName = "Head",
+                            localPos = new Vector3( -0.111f, 0.404f, 0.045f ),
+                            localAngles = new Vector3( 30f, 0f, 30f ),
+                            localScale = new Vector3( -0.1f, 0.1f, 0.1f ),
+                            limbMask = LimbFlags.None
+                        }
+                    }
+                }
+            } );
+
+            //AffixBlue
+            equipmentDisplays.Add( new ItemDisplayRuleSet.NamedRuleGroup
+            {
+                name = "AffixBlue",
+                displayRuleGroup = new DisplayRuleGroup
+                {
+                    rules = new ItemDisplayRule[]
+                    {
+                        new ItemDisplayRule
+                        {
+                            ruleType = ItemDisplayRuleType.ParentedPrefab,
+                            followerPrefab = LoadDisplay("DisplayEliteRhinoHorn"),
+                            childName = "Head",
+                            localPos = new Vector3( 0f, 0.355f, 0.096f ),
+                            localAngles = new Vector3( -30f, 0f, 0f ),
+                            localScale = new Vector3( 0.3f, 0.3f, 0.3f ),
+                            limbMask = LimbFlags.None
+                        },
+                    }
+                }
+            } );
+
+            //AffixWhite
+            equipmentDisplays.Add( new ItemDisplayRuleSet.NamedRuleGroup
+            {
+                name = "AffixWhite",
+                displayRuleGroup = new DisplayRuleGroup
+                {
+                    rules = new ItemDisplayRule[]
+                    {
+                        new ItemDisplayRule
+                        {
+                            ruleType = ItemDisplayRuleType.ParentedPrefab,
+                            followerPrefab = LoadDisplay("DisplayEliteIceCrown"),
+                            childName = "Head",
+                            localPos = new Vector3( 0f, 0.529f, 0f ),
+                            localAngles = new Vector3( -90f, 0f, 0f ),
+                            localScale = new Vector3( 0.03f, 0.03f, 0.03f ),
+                            limbMask = LimbFlags.None
+                        },
+                    }
+                }
+            } );
+
+            //AffixPoison
+            equipmentDisplays.Add( new ItemDisplayRuleSet.NamedRuleGroup
+            {
+                name = "AffixPoison",
+                displayRuleGroup = new DisplayRuleGroup
+                {
+                    rules = new ItemDisplayRule[]
+                    {
+                        new ItemDisplayRule
+                        {
+                            ruleType = ItemDisplayRuleType.ParentedPrefab,
+                            followerPrefab = LoadDisplay("DisplayEliteUrchinCrown"),
+                            childName = "Head",
+                            localPos = new Vector3( 0f, 0.541f, 0.046f ),
+                            localAngles = new Vector3( -90f, 0f, 0f ),
+                            localScale = new Vector3( 0.05f, 0.05f, 0.05f ),
+                            limbMask = LimbFlags.None
+                        },
+                    }
+                }
+            } );
+
+            //AffixHaunted
+            equipmentDisplays.Add( new ItemDisplayRuleSet.NamedRuleGroup
+            {
+                name = "AffixHaunted",
+                displayRuleGroup = new DisplayRuleGroup
+                {
+                    rules = new ItemDisplayRule[]
+                    {
+                        new ItemDisplayRule
+                        {
+                            ruleType = ItemDisplayRuleType.ParentedPrefab,
+                            followerPrefab = LoadDisplay("DisplayEliteStealthCrown"),
+                            childName = "Head",
+                            localPos = new Vector3( 0f, 0.552f, 0.045f ),
+                            localAngles = new Vector3( -90f, 0f, 0f ),
+                            localScale = new Vector3( 0.06f, 0.06f, 0.06f ),
+                            limbMask = LimbFlags.None
+                        },
+                    }
+                }
+            } );
+            #endregion
+            #region Items
+
+            #endregion
 
 
-            this.RW_body.GetComponent<ModelLocator>().modelTransform.GetComponent<CharacterModel>().itemDisplayRuleSet = refidrs;
+            var allFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.Instance;
+
+            var itemArray = itemDisplays.ToArray();
+            var equipArray = equipmentDisplays.ToArray();
+
+            typeof( ItemDisplayRuleSet ).GetField( "namedItemRuleGroups", allFlags ).SetValue( idrs, itemArray );
+            typeof( ItemDisplayRuleSet ).GetField( "namedEquipmentRuleGroups", allFlags ).SetValue( idrs, equipArray );
+        }
+
+
+        private static Dictionary<String,GameObject> itemDisplayPrefabs = new Dictionary<String,GameObject>();
+        private GameObject LoadDisplay( String name )
+        {
+            if( itemDisplayPrefabs.ContainsKey( name ) )
+            {
+                return itemDisplayPrefabs[name.ToLower()];
+            } else
+            {
+                Main.LogE( name.ToLower() + " was not found." );
+                return null;
+            }
         }
     }
-#endif
 }
+#endif

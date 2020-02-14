@@ -348,7 +348,7 @@ namespace RogueWispPlugin
 
 
 
-
+// TODO: IDRS for critical equipment. (Crowdfunder and wings)
 // TODO: Transparency on barrier portion of boss hp bar
 // TODO: Ancient wisp needs better vfx for all skills
 // TODO: Tune damage values and stats on ancient wisp
