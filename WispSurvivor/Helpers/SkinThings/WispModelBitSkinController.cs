@@ -10,15 +10,28 @@ namespace RogueWispPlugin.Helpers
     {
         internal Material activeFlameMaterial;
         internal Material activeArmorMaterial;
+        internal Material activeTracerMaterial;
+        internal Material activeFlamePillarMaterial;
+        internal Material activeAreaIndicatorMaterial;
+        internal Material activeExplosionMaterial;
+        internal Material activeBeamMaterial;
         internal Color activeLightColor;
 
         private CharacterModel modelRef;
         private WispBitSkin skin
         {
-            get => this._skin;
+            get
+            {
+                if( this._skin == null )
+                {
+                    this._skin = WispBitSkin.GetWispSkin( 0u );
+                    this.OnSkinChanged( this._skin );
+                }
+                return this._skin;
+            }
             set
             {
-                if( value != this._skin )
+                if( value != this._skin || this._skin is null )
                 {
                     this._skin = value;
                     this.OnSkinChanged( value );
@@ -30,20 +43,28 @@ namespace RogueWispPlugin.Helpers
 
         internal override void Apply( IBitSkin skin )
         {
-            Main.LogI( "Skin applied" );
             if( !(skin is WispBitSkin) )
             {
                 throw new ArgumentException( "Provided skin was not a WispBitSkin" );
             }
 
-            this.skin = (WispBitSkin)skin;
-            Main.LogI( "Skin code: " + this.skin.EncodeToSkinIndex() );
+            var tempSkin = skin as WispBitSkin;
+            var oldCode = Convert.ToString( this.skin.EncodeToSkinIndex(), 2).PadLeft( 32, '0' );
+            var newCode = Convert.ToString( tempSkin.EncodeToSkinIndex(), 2).PadLeft( 32, '0' );
+            this.skin = tempSkin;
+            var appliedCode = Convert.ToString( this.skin.EncodeToSkinIndex(), 2).PadLeft( 32, '0' );
+            Main.LogI( String.Format( "Skin changed\n{0}\n{1}\n{2}", oldCode, newCode, appliedCode ) );
         }
 
         private void OnSkinChanged( WispBitSkin newSkin )
         {
             this.activeFlameMaterial = newSkin.flameMainMaterial;
             this.activeArmorMaterial = newSkin.armorMainMaterial;
+            this.activeTracerMaterial = newSkin.tracerMaterial;
+            this.activeFlamePillarMaterial = newSkin.flamePillarMaterial;
+            this.activeAreaIndicatorMaterial = newSkin.areaIndicatorMaterial;
+            this.activeExplosionMaterial = newSkin.explosionMaterial;
+            this.activeBeamMaterial = newSkin.beamMaterial;
             this.activeLightColor = newSkin.mainColor;
             this.ApplyMaterials();
         }
@@ -51,9 +72,24 @@ namespace RogueWispPlugin.Helpers
         private void Awake()
         {
             this.modelRef = base.GetComponent<CharacterModel>();
-            if( this.skin == null )
+            if( this.modelRef.body != null )
             {
-                this.skin = WispBitSkin.GetWispSkin( 0u );
+                this.Apply(WispBitSkin.GetWispSkin( this.modelRef.body.skinIndex ));
+            } else
+            {
+                this.Apply( WispBitSkin.GetWispSkin( 0u ) );
+            }
+        }
+
+        private void Start()
+        {
+            this.modelRef = base.GetComponent<CharacterModel>();
+            if( this.modelRef.body != null )
+            {
+                this.Apply( WispBitSkin.GetWispSkin( this.modelRef.body.skinIndex ) );
+            } else
+            {
+                this.Apply( WispBitSkin.GetWispSkin( 0u ) );
             }
         }
 

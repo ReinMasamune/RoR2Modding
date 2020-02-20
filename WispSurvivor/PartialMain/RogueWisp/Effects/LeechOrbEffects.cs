@@ -17,7 +17,7 @@ namespace RogueWispPlugin
 
             for( Int32 i = 0; i < 8; i++ )
             {
-                utilityLeech[i] = CreateLeechOrb( baseFX, i );
+                //utilityLeeches[i] = CreateLeechOrb( baseFX, i );
             }
         }
 

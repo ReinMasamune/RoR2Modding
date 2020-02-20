@@ -17,7 +17,7 @@ namespace RogueWispPlugin
 
             for( Int32 i = 0; i < 8; i++ )
             {
-                specialExplosion[i] = CreateSpecialExplosion( baseFX, i );
+                //specialExplosions[i] = CreateSpecialExplosion( baseFX, i );
             }
         }
 

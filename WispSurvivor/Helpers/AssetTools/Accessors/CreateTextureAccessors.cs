@@ -258,6 +258,580 @@ namespace RogueWispPlugin
                 return GetBumpMap( AssetLibrary<Material>.i[MaterialIndex.refMatInverseDistortion] );
             }, false, MaterialIndex.refMatInverseDistortion ).RegisterAccessor();
             #endregion
+
+            #region Unsorted
+            new GenericAccessor<Texture>( TextureIndex.refTexFeatherMask, () =>
+            {
+                var m = AssetLibrary<Material>.i[MaterialIndex.refMatAngelFeather];
+                return GetMainTex( m );
+                //return GetCloud1Tex( m );
+                //return GetCloud2Tex( m );
+                //return GetBumpMap( m );
+                //return GetNormalMap( m );
+            }, false, MaterialIndex.refMatAngelFeather ).RegisterAccessor();
+
+
+            new GenericAccessor<Texture>( TextureIndex.refTexGlowSquareMask, () =>
+            {
+                var m = AssetLibrary<Material>.i[MaterialIndex.refMatStealthkitSparks];
+                return GetMainTex( m );
+                //return GetCloud1Tex( m );
+                //return GetCloud2Tex( m );
+                //return GetBumpMap( m );
+                //return GetNormalMap( m );
+            }, false, MaterialIndex.refMatStealthkitSparks ).RegisterAccessor();
+
+
+            new GenericAccessor<Texture>( TextureIndex.refTexShard03Mask, () =>
+            {
+                var m = AssetLibrary<Material>.i[MaterialIndex.refMatRoboBallParticleRingHuge];
+                return GetMainTex( m );
+                //return GetCloud1Tex( m );
+                //return GetCloud2Tex( m );
+                //return GetBumpMap( m );
+                //return GetNormalMap( m );
+            }, false, MaterialIndex.refMatRoboBallParticleRingHuge ).RegisterAccessor();
+
+            ////////////////////////////////////////////////////////////////////////////////////////////////
+            new GenericAccessor<Texture>( TextureIndex.refTexFireMask, () =>
+            {
+                var m = AssetLibrary<Material>.i[MaterialIndex.refMatFireStaticLarge];
+                return GetMainTex( m );
+                //return GetCloud1Tex( m );
+                //return GetCloud2Tex( m );
+                //return GetBumpMap( m );
+                //return GetNormalMap( m );
+            }, false, MaterialIndex.refMatFireStaticLarge ).RegisterAccessor();
+
+
+            new GenericAccessor<Texture>( TextureIndex.refTexOmniShockwave2Mask, () =>
+            {
+                var m = AssetLibrary<Material>.i[MaterialIndex.refMatOmniRing2Generic];
+                return GetMainTex( m );
+                //return GetCloud1Tex( m );
+                //return GetCloud2Tex( m );
+                //return GetBumpMap( m );
+                //return GetNormalMap( m );
+            }, false, MaterialIndex.refMatOmniRing2Generic ).RegisterAccessor();
+
+
+            new GenericAccessor<Texture>( TextureIndex.refTexMercSwipeMask, () =>
+            {
+                var m = AssetLibrary<Material>.i[MaterialIndex.refMatMercSwipe2];
+                return GetMainTex( m );
+                //return GetCloud1Tex( m );
+                //return GetCloud2Tex( m );
+                //return GetBumpMap( m );
+                //return GetNormalMap( m );
+            }, false, MaterialIndex.refMatMercSwipe2 ).RegisterAccessor();
+
+
+            new GenericAccessor<Texture>( TextureIndex.refTexChainTrailMask, () =>
+            {
+                var m = AssetLibrary<Material>.i[MaterialIndex.refMatSuspendedInTime];
+                //return GetMainTex( m );
+                return GetCloud1Tex( m );
+                //return GetCloud2Tex( m );
+                //return GetBumpMap( m );
+                //return GetNormalMap( m );
+            }, false, MaterialIndex.refMatSuspendedInTime ).RegisterAccessor();
+
+
+            new GenericAccessor<Texture>( TextureIndex.refTexVagrantTentacleMask, () =>
+            {
+                var m = AssetLibrary<Material>.i[MaterialIndex.refMatTPShockwave];
+                return GetMainTex( m );
+                //return GetCloud1Tex( m );
+                //return GetCloud2Tex( m );
+                //return GetBumpMap( m );
+                //return GetNormalMap( m );
+            }, false, MaterialIndex.refMatTPShockwave ).RegisterAccessor();
+
+
+            new GenericAccessor<Texture>( TextureIndex.refTexBehemothTileNormal, () =>
+            {
+                var m = AssetLibrary<Material>.i[MaterialIndex.refMatOpagueDustTrail];
+                //return GetMainTex( m );
+                //return GetCloud1Tex( m );
+                //return GetCloud2Tex( m );
+                //return GetBumpMap( m );
+                return GetNormalMap( m );
+            }, false, MaterialIndex.refMatOpagueDustTrail ).RegisterAccessor();
+
+
+            new GenericAccessor<Texture>( TextureIndex.refTexLemurianSlash, () =>
+            {
+                var m = AssetLibrary<Material>.i[MaterialIndex.refMatLizardBiteTrail];
+                return GetMainTex( m );
+                //return GetCloud1Tex( m );
+                //return GetCloud2Tex( m );
+                //return GetBumpMap( m );
+                //return GetNormalMap( m );
+            }, false, MaterialIndex.refMatLizardBiteTrail ).RegisterAccessor();
+
+
+            new GenericAccessor<Texture>( TextureIndex.refTexAngelWingMask, () =>
+            {
+                var m = AssetLibrary<Material>.i[MaterialIndex.refMatAngelEffect];
+                return GetMainTex( m );
+                //return GetCloud1Tex( m );
+                //return GetCloud2Tex( m );
+                //return GetBumpMap( m );
+                //return GetNormalMap( m );
+            }, false, MaterialIndex.refMatAngelEffect ).RegisterAccessor();
+
+
+            new GenericAccessor<Texture>( TextureIndex.refTexVFXExplosionMask, () =>
+            {
+                var m = AssetLibrary<Material>.i[MaterialIndex.refMatCutExplosion];
+                return GetMainTex( m );
+                //return GetCloud1Tex( m );
+                //return GetCloud2Tex( m );
+                //return GetBumpMap( m );
+                //return GetNormalMap( m );
+            }, false, MaterialIndex.refMatCutExplosion ).RegisterAccessor();
+
+
+            new GenericAccessor<Texture>( TextureIndex.refTexShockwaveRing2Mask, () =>
+            {
+                var m = AssetLibrary<Material>.i[MaterialIndex.refMatOpagueWaterFoam];
+                return GetMainTex( m );
+                //return GetCloud1Tex( m );
+                //return GetCloud2Tex( m );
+                //return GetBumpMap( m );
+                //return GetNormalMap( m );
+            }, false, MaterialIndex.refMatOpagueWaterFoam ).RegisterAccessor();
+
+
+            new GenericAccessor<Texture>( TextureIndex.refTexItemPickupEffectParticleMask, () =>
+            {
+                var m = AssetLibrary<Material>.i[MaterialIndex.refMatBootWaveEnergy];
+                return GetMainTex( m );
+                //return GetCloud1Tex( m );
+                //return GetCloud2Tex( m );
+                //return GetBumpMap( m );
+                //return GetNormalMap( m );
+            }, false, MaterialIndex.refMatBootWaveEnergy ).RegisterAccessor();
+
+
+            new GenericAccessor<Texture>( TextureIndex.refTexEngiTrail, () =>
+            {
+                var m = AssetLibrary<Material>.i[MaterialIndex.refMatEngiTrail];
+                return GetMainTex( m );
+                //return GetCloud1Tex( m );
+                //return GetCloud2Tex( m );
+                //return GetBumpMap( m );
+                //return GetNormalMap( m );
+            }, false, MaterialIndex.refMatEngiTrail ).RegisterAccessor();
+
+
+            new GenericAccessor<Texture>( TextureIndex.refTexGlowPaintMask, () =>
+            {
+                var m = AssetLibrary<Material>.i[MaterialIndex.refMatGenericFire];
+                return GetMainTex( m );
+                //return GetCloud1Tex( m );
+                //return GetCloud2Tex( m );
+                //return GetBumpMap( m );
+                //return GetNormalMap( m );
+            }, false, MaterialIndex.refMatGenericFire ).RegisterAccessor();
+
+
+            new GenericAccessor<Texture>( TextureIndex.refTexAlphaGradient3Mask, () =>
+            {
+                var m = AssetLibrary<Material>.i[MaterialIndex.refMatTeleportOut];
+                return GetMainTex( m );
+                //return GetCloud1Tex( m );
+                //return GetCloud2Tex( m );
+                //return GetBumpMap( m );
+                //return GetNormalMap( m );
+            }, false, MaterialIndex.refMatTeleportOut ).RegisterAccessor();
+
+
+            new GenericAccessor<Texture>( TextureIndex.refTexAlphaGradient2Mask, () =>
+            {
+                var m = AssetLibrary<Material>.i[MaterialIndex.refMatDustSoft];
+                return GetMainTex( m );
+                //return GetCloud1Tex( m );
+                //return GetCloud2Tex( m );
+                //return GetBumpMap( m );
+                //return GetNormalMap( m );
+            }, false, MaterialIndex.refMatDustSoft ).RegisterAccessor();
+
+
+            new GenericAccessor<Texture>( TextureIndex.refTexHealingCrossMask, () =>
+            {
+                var m = AssetLibrary<Material>.i[MaterialIndex.refMatHealingCross];
+                return GetMainTex( m );
+                //return GetCloud1Tex( m );
+                //return GetCloud2Tex( m );
+                //return GetBumpMap( m );
+                //return GetNormalMap( m );
+            }, false, MaterialIndex.refMatHealingCross ).RegisterAccessor();
+
+
+            new GenericAccessor<Texture>( TextureIndex.refTexFluidSpraySmall, () =>
+            {
+                var m = AssetLibrary<Material>.i[MaterialIndex.refMatJellyfishChunks];
+                return GetMainTex( m );
+                //return GetCloud1Tex( m );
+                //return GetCloud2Tex( m );
+                //return GetBumpMap( m );
+                //return GetNormalMap( m );
+            }, false, MaterialIndex.refMatJellyfishChunks ).RegisterAccessor();
+
+
+            new GenericAccessor<Texture>( TextureIndex.refTexImpSwipeMask, () =>
+            {
+                var m = AssetLibrary<Material>.i[MaterialIndex.refMatImpSwipe];
+                return GetMainTex( m );
+                //return GetCloud1Tex( m );
+                //return GetCloud2Tex( m );
+                //return GetBumpMap( m );
+                //return GetNormalMap( m );
+            }, false, MaterialIndex.refMatImpSwipe ).RegisterAccessor();
+
+
+            new GenericAccessor<Texture>( TextureIndex.refTexCloudWaterRipples, () =>
+            {
+                var m = AssetLibrary<Material>.i[MaterialIndex.refMatImpBossPortal];
+                return GetMainTex( m );
+                //return GetCloud1Tex( m );
+                //return GetCloud2Tex( m );
+                //return GetBumpMap( m );
+                //return GetNormalMap( m );
+            }, false, MaterialIndex.refMatImpBossPortal ).RegisterAccessor();
+
+
+            new GenericAccessor<Texture>( TextureIndex.refTexCloudSkulls, () =>
+            {
+                var m = AssetLibrary<Material>.i[MaterialIndex.refMatHauntedAura];
+                //return GetMainTex( m );
+                //return GetCloud1Tex( m );
+                return GetCloud2Tex( m );
+                //return GetBumpMap( m );
+                //return GetNormalMap( m );
+            }, false, MaterialIndex.refMatHauntedAura ).RegisterAccessor();
+
+
+            new GenericAccessor<Texture>( TextureIndex.refTexGlowSkullMask, () =>
+            {
+                var m = AssetLibrary<Material>.i[MaterialIndex.refMatSkullFire];
+                return GetMainTex( m );
+                //return GetCloud1Tex( m );
+                //return GetCloud2Tex( m );
+                //return GetBumpMap( m );
+                //return GetNormalMap( m );
+            }, false, MaterialIndex.refMatSkullFire ).RegisterAccessor();
+
+
+            new GenericAccessor<Texture>( TextureIndex.refTexFluffyCloud2Mask, () =>
+            {
+                var m = AssetLibrary<Material>.i[MaterialIndex.refMatSonicBoomGroundDust];
+                return GetMainTex( m );
+                //return GetCloud1Tex( m );
+                //return GetCloud2Tex( m );
+                //return GetBumpMap( m );
+                //return GetNormalMap( m );
+            }, false, MaterialIndex.refMatSonicBoomGroundDust ).RegisterAccessor();
+
+
+            new GenericAccessor<Texture>( TextureIndex.refTexFluffyCloud3Mask, () =>
+            {
+                var m = AssetLibrary<Material>.i[MaterialIndex.refMatSonicBoomGroundDust];
+                //return GetMainTex( m );
+                return GetCloud1Tex( m );
+                //return GetCloud2Tex( m );
+                //return GetBumpMap( m );
+                //return GetNormalMap( m );
+            }, false, MaterialIndex.refMatSonicBoomGroundDust ).RegisterAccessor();
+
+
+            new GenericAccessor<Texture>( TextureIndex.refTexMageMatrixMaskDirectional, () =>
+            {
+                var m = AssetLibrary<Material>.i[MaterialIndex.refMatMageMatrixDirectionalLightning];
+                return GetMainTex( m );
+                //return GetCloud1Tex( m );
+                //return GetCloud2Tex( m );
+                //return GetBumpMap( m );
+                //return GetNormalMap( m );
+            }, false, MaterialIndex.refMatMageMatrixDirectionalLightning ).RegisterAccessor();
+
+
+            new GenericAccessor<Texture>( TextureIndex.refTexMageMatrixMask, () =>
+            {
+                var m = AssetLibrary<Material>.i[MaterialIndex.refMatMageMatrixLightning];
+                return GetMainTex( m );
+                //return GetCloud1Tex( m );
+                //return GetCloud2Tex( m );
+                //return GetBumpMap( m );
+                //return GetNormalMap( m );
+            }, false, MaterialIndex.refMatMageMatrixLightning ).RegisterAccessor();
+
+
+            new GenericAccessor<Texture>( TextureIndex.refTexMageMatrixTri, () =>
+            {
+                var m = AssetLibrary<Material>.i[MaterialIndex.refMatMatrixTriFire];
+                return GetMainTex( m );
+                //return GetCloud1Tex( m );
+                //return GetCloud2Tex( m );
+                //return GetBumpMap( m );
+                //return GetNormalMap( m );
+            }, false, MaterialIndex.refMatMatrixTriFire ).RegisterAccessor();
+
+
+            new GenericAccessor<Texture>( TextureIndex.refTexShockwaveMask, () =>
+            {
+                var m = AssetLibrary<Material>.i[MaterialIndex.refMatCleanseCore];
+                return GetMainTex( m );
+                //return GetCloud1Tex( m );
+                //return GetCloud2Tex( m );
+                //return GetBumpMap( m );
+                //return GetNormalMap( m );
+            }, false, MaterialIndex.refMatCleanseCore ).RegisterAccessor();
+
+
+            new GenericAccessor<Texture>( TextureIndex.refTexBlackHoleMask, () =>
+            {
+                var m = AssetLibrary<Material>.i[MaterialIndex.refMatCleanseCore];
+                //return GetMainTex( m );
+                return GetCloud1Tex( m );
+                //return GetCloud2Tex( m );
+                //return GetBumpMap( m );
+                //return GetNormalMap( m );
+            }, false, MaterialIndex.refMatCleanseCore ).RegisterAccessor();
+
+
+            new GenericAccessor<Texture>( TextureIndex.refTexCloudOrganic3, () =>
+            {
+                var m = AssetLibrary<Material>.i[MaterialIndex.refMatCleanseWater];
+                //return GetMainTex( m );
+                //return GetCloud1Tex( m );
+                return GetCloud2Tex( m );
+                //return GetBumpMap( m );
+                //return GetNormalMap( m );
+            }, false, MaterialIndex.refMatCleanseWater ).RegisterAccessor();
+
+
+            new GenericAccessor<Texture>( TextureIndex.refTexAlphaGradient4Mask, () =>
+            {
+                var m = AssetLibrary<Material>.i[MaterialIndex.refMatLaserTurbineTargetingLaser];
+                return GetMainTex( m );
+                //return GetCloud1Tex( m );
+                //return GetCloud2Tex( m );
+                //return GetBumpMap( m );
+                //return GetNormalMap( m );
+            }, false, MaterialIndex.refMatLaserTurbineTargetingLaser ).RegisterAccessor();
+
+
+            new GenericAccessor<Texture>( TextureIndex.refTexOmniRadialSlash1Mask, () =>
+            {
+                var m = AssetLibrary<Material>.i[MaterialIndex.refMatOmniRadialSlash1Merc];
+                return GetMainTex( m );
+                //return GetCloud1Tex( m );
+                //return GetCloud2Tex( m );
+                //return GetBumpMap( m );
+                //return GetNormalMap( m );
+            }, false, MaterialIndex.refMatOmniRadialSlash1Merc ).RegisterAccessor();
+
+
+            new GenericAccessor<Texture>( TextureIndex.refTexOmniHitspark2Mask, () =>
+            {
+                var m = AssetLibrary<Material>.i[MaterialIndex.refMatOmniHitspark2Merc];
+                return GetMainTex( m );
+                //return GetCloud1Tex( m );
+                //return GetCloud2Tex( m );
+                //return GetBumpMap( m );
+                //return GetNormalMap( m );
+            }, false, MaterialIndex.refMatOmniHitspark2Merc ).RegisterAccessor();
+
+
+            new GenericAccessor<Texture>( TextureIndex.refTexOmniHitspark1Mask, () =>
+            {
+                var m = AssetLibrary<Material>.i[MaterialIndex.refMatOmniHitspark1];
+                return GetMainTex( m );
+                //return GetCloud1Tex( m );
+                //return GetCloud2Tex( m );
+                //return GetBumpMap( m );
+                //return GetNormalMap( m );
+            }, false, MaterialIndex.refMatOmniHitspark1 ).RegisterAccessor();
+
+
+            new GenericAccessor<Texture>( TextureIndex.refTexSmokePuffSmallDirectionalDisplacement, () =>
+            {
+                var m = AssetLibrary<Material>.i[MaterialIndex.refMatOpagueDust];
+                return GetMainTex( m );
+                //return GetCloud1Tex( m );
+                //return GetCloud2Tex( m );
+                //return GetBumpMap( m );
+                //return GetNormalMap( m );
+            }, false, MaterialIndex.refMatOpagueDust ).RegisterAccessor();
+
+
+            new GenericAccessor<Texture>( TextureIndex.refTexSmokePuffSmallDirectionalNormal, () =>
+            {
+                var m = AssetLibrary<Material>.i[MaterialIndex.refMatOpagueDust];
+                //return GetMainTex( m );
+                //return GetCloud1Tex( m );
+                //return GetCloud2Tex( m );
+                //return GetBumpMap( m );
+                return GetNormalMap( m );
+            }, false, MaterialIndex.refMatOpagueDust ).RegisterAccessor();
+
+
+            new GenericAccessor<Texture>( TextureIndex.refTexOmniShockwave1Mask, () =>
+            {
+                var m = AssetLibrary<Material>.i[MaterialIndex.refMatOmniRing1Generic];
+                return GetMainTex( m );
+                //return GetCloud1Tex( m );
+                //return GetCloud2Tex( m );
+                //return GetBumpMap( m );
+                //return GetNormalMap( m );
+            }, false, MaterialIndex.refMatOmniRing1Generic ).RegisterAccessor();
+
+
+            new GenericAccessor<Texture>( TextureIndex.refTexOmniHitspark4Mask, () =>
+            {
+                var m = AssetLibrary<Material>.i[MaterialIndex.refMatOmniHitspark4Merc];
+                return GetMainTex( m );
+                //return GetCloud1Tex( m );
+                //return GetCloud2Tex( m );
+                //return GetBumpMap( m );
+                //return GetNormalMap( m );
+            }, false, MaterialIndex.refMatOmniHitspark4Merc ).RegisterAccessor();
+
+
+            new GenericAccessor<Texture>( TextureIndex.refTexFluidSprayLarge, () =>
+            {
+                var m = AssetLibrary<Material>.i[MaterialIndex.refMatBloodClayLarge];
+                return GetMainTex( m );
+                //return GetCloud1Tex( m );
+                //return GetCloud2Tex( m );
+                //return GetBumpMap( m );
+                //return GetNormalMap( m );
+            }, false, MaterialIndex.refMatBloodClayLarge ).RegisterAccessor();
+
+
+            new GenericAccessor<Texture>( TextureIndex.refTexWhiteRadialGradient256, () =>
+            {
+                var m = AssetLibrary<Material>.i[MaterialIndex.refMatClayGooFizzle];
+                return GetMainTex( m );
+                //return GetCloud1Tex( m );
+                //return GetCloud2Tex( m );
+                //return GetBumpMap( m );
+                //return GetNormalMap( m );
+            }, false, MaterialIndex.refMatClayGooFizzle ).RegisterAccessor();
+
+
+            new GenericAccessor<Texture>( TextureIndex.refTexParticleDust3Mask, () =>
+            {
+                var m = AssetLibrary<Material>.i[MaterialIndex.refMatClayBubbleBillboard];
+                return GetMainTex( m );
+                //return GetCloud1Tex( m );
+                //return GetCloud2Tex( m );
+                //return GetBumpMap( m );
+                //return GetNormalMap( m );
+            }, false, MaterialIndex.refMatClayBubbleBillboard ).RegisterAccessor();
+
+
+            new GenericAccessor<Texture>( TextureIndex.refTexSmokePuffDirectionalDisplacement, () =>
+            {
+                var m = AssetLibrary<Material>.i[MaterialIndex.refMatOpagueDustLargeDirectional];
+                return GetMainTex( m );
+                //return GetCloud1Tex( m );
+                //return GetCloud2Tex( m );
+                //return GetBumpMap( m );
+                //return GetNormalMap( m );
+            }, false, MaterialIndex.refMatOpagueDustLargeDirectional ).RegisterAccessor();
+
+
+            new GenericAccessor<Texture>( TextureIndex.refTexSmokePuffDirectionalNormal, () =>
+            {
+                var m = AssetLibrary<Material>.i[MaterialIndex.refMatOpagueDustLargeDirectional];
+                //return GetMainTex( m );
+                //return GetCloud1Tex( m );
+                //return GetCloud2Tex( m );
+                //return GetBumpMap( m );
+                return GetNormalMap( m );
+            }, false, MaterialIndex.refMatOpagueDustLargeDirectional ).RegisterAccessor();
+
+
+            new GenericAccessor<Texture>( TextureIndex.refTexSmokePuffSmallDisplacement, () =>
+            {
+                var m = AssetLibrary<Material>.i[MaterialIndex.refMatOpagueDustLarge];
+                return GetMainTex( m );
+                //return GetCloud1Tex( m );
+                //return GetCloud2Tex( m );
+                //return GetBumpMap( m );
+                //return GetNormalMap( m );
+            }, false, MaterialIndex.refMatOpagueDustLarge ).RegisterAccessor();
+
+
+            new GenericAccessor<Texture>( TextureIndex.refTexSmokePuffSmallNormal, () =>
+            {
+                var m = AssetLibrary<Material>.i[MaterialIndex.refMatOpagueDustLarge];
+                //return GetMainTex( m );
+                //return GetCloud1Tex( m );
+                //return GetCloud2Tex( m );
+                //return GetBumpMap( m );
+                return GetNormalMap( m );
+            }, false, MaterialIndex.refMatOpagueDustLarge ).RegisterAccessor();
+
+
+            new GenericAccessor<Texture>( TextureIndex.refTexLightning3Mask, () =>
+            {
+                var m = AssetLibrary<Material>.i[MaterialIndex.refMatGenericLaser];
+                //return GetMainTex( m );
+                return GetCloud1Tex( m );
+                //return GetCloud2Tex( m );
+                //return GetBumpMap( m );
+                //return GetNormalMap( m );
+            }, false, MaterialIndex.refMatGenericLaser ).RegisterAccessor();
+
+
+            new GenericAccessor<Texture>( TextureIndex.refTexShard02Mask, () =>
+            {
+                var m = AssetLibrary<Material>.i[MaterialIndex.refMatEngiShieldShards];
+                return GetMainTex( m );
+                //return GetCloud1Tex( m );
+                //return GetCloud2Tex( m );
+                //return GetBumpMap( m );
+                //return GetNormalMap( m );
+            }, false, MaterialIndex.refMatEngiShieldShards ).RegisterAccessor();
+
+
+            new GenericAccessor<Texture>( TextureIndex.refTexOmniExplosion2Mask, () =>
+            {
+                var m = AssetLibrary<Material>.i[MaterialIndex.refMatOmniExplosion1];
+                return GetMainTex( m );
+                //return GetCloud1Tex( m );
+                //return GetCloud2Tex( m );
+                //return GetBumpMap( m );
+                //return GetNormalMap( m );
+            }, false, MaterialIndex.refMatOmniExplosion1 ).RegisterAccessor();
+
+
+            new GenericAccessor<Texture>( TextureIndex.refTexRoboChunksDiffuse, () =>
+            {
+                var m = AssetLibrary<Material>.i[MaterialIndex.refMatRoboChunks];
+                return GetMainTex( m );
+                //return GetCloud1Tex( m );
+                //return GetCloud2Tex( m );
+                //return GetBumpMap( m );
+                //return GetNormalMap( m );
+            }, false, MaterialIndex.refMatRoboChunks ).RegisterAccessor();
+
+
+            new GenericAccessor<Texture>( TextureIndex.refTexRoboChunksNormal, () =>
+            {
+                var m = AssetLibrary<Material>.i[MaterialIndex.refMatRoboChunks];
+                //return GetMainTex( m );
+                //return GetCloud1Tex( m );
+                //return GetCloud2Tex( m );
+                //return GetBumpMap( m );
+                return GetNormalMap( m );
+            }, false, MaterialIndex.refMatRoboChunks ).RegisterAccessor();
+
+            #endregion
             #endregion
         }
 
@@ -288,38 +862,38 @@ namespace RogueWispPlugin
 
 
 /*
-BoostJumpEffect
-	TexFeatherMask                              //100%
-procstealthkit
+BoostJumpEffect/
+	TexFeatherMask                              //100%      Mat
+procstealthkit/
 	texglowsquaremask                           //100%
-roboballbossdelayknockupeffect
+roboballbossdelayknockupeffect/
 	texshard03mask                              //100%
-firePillarEffect
+firePillarEffect/
 	texFireMask                                 //100%
-lightningstakenova
+lightningstakenova/
 	texomnishockwave2mask                       //100%
-mercswordfinisherslash
+mercswordfinisherslash/
 	texmercswipemask                            //100%
-mageunlockpreexplosion
+mageunlockpreexplosion/
 	texchaintrailmask                           //100%	
-teleporterbeaconeffect
+teleporterbeaconeffect/
 	texvagranttentaclemask                      //100%
-sprintactivate
+sprintactivate/
 	texbehemothtilenormal                       //100%
-lemurianbitetrail
+lemurianbitetrail/
 	texLemurianSlash                            //100%
-hippoRezEffect
+hippoRezEffect/
 	texAngelWingMask                            //100%
-explosionDroneDeath
+explosionDroneDeath/
 	texVFXExplosionMask                         //100%
-waterfootstep
+waterfootstep/
 	texshockwavering2mask                       //100%
-BootIsReady
+BootIsReady/
 	texItemPickupEffectParticleMask             //100%
-explosionEngiTurretDeath
+explosionEngiTurretDeath/
 	texEngiTrail                                //100%
 	texGlowPaintmask                            //100%	
-teleportoutboom
+teleportoutboom/
 	texalphagradient3mask                       //100%
 	texalphagradient2mask	                    //100%
 fruitHealEffect

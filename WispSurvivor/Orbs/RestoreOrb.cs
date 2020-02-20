@@ -16,19 +16,19 @@ namespace RogueWispPlugin
 
             public override void Begin()
             {
-                this.duration = this.distanceToTarget / 75f;
+                this.duration = this.distanceToTarget / 60f;
                 EffectData effect = new EffectData
                 {
                     origin = origin,
                     genericFloat = duration,
-                    genericUInt = stacks,
+                    genericUInt = this.skin,
                     scale = 1f,
                     genericBool = true
                 };
 
                 effect.SetHurtBoxReference( this.target );
 
-                EffectManager.SpawnEffect( Main.utilityLeech[this.skin], effect, true );
+                EffectManager.SpawnEffect( Main.utilityLeech, effect, true );
             }
 
             public override void OnArrival()

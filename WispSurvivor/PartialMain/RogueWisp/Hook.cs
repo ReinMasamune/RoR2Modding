@@ -1,11 +1,13 @@
 ﻿#if ROGUEWISP
 using Mono.Cecil.Cil;
 using MonoMod.Cil;
+using MonoMod.RuntimeDetour.HookGen;
 using R2API.Utils;
 using RoR2;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -14,12 +16,28 @@ namespace RogueWispPlugin
 
     internal partial class Main
     {
-        private const Single shieldRegenFrac = 0.002f;
+        private const Single shieldRegenFrac = 0.005f;
         internal HashSet<CharacterBody> RW_BlockSprintCrosshair = new HashSet<CharacterBody>();
         partial void RW_Hook()
         {
             this.Enable += this.RW_AddHooks;
             this.Disable += this.RW_RemoveHooks;
+
+            bodyloadouttoxmlbase = MethodBase.GetMethodFromHandle( typeof( R2API.LoadoutAPI ).GetMethod( "BodyLoadout_ToXml", BindingFlags.Static | BindingFlags.NonPublic ).MethodHandle );
+        }
+
+        internal delegate System.Xml.Linq.XElement loadoutapibodyloadouttoxml( On.RoR2.Loadout.BodyLoadoutManager.orig_ToXml orig, System.Object self, String elementName );
+        private static MethodBase bodyloadouttoxmlbase;
+        internal static event ILContext.Manipulator ilhook_R2API_LoadoutAPI_BodyLoadout_ToXml
+        {
+            add
+            {
+                HookEndpointManager.Modify<loadoutapibodyloadouttoxml>(bodyloadouttoxmlbase,value);
+            }
+            remove
+            {
+                HookEndpointManager.Unmodify<loadoutapibodyloadouttoxml>(bodyloadouttoxmlbase, value );
+            }
         }
 
         private void RW_RemoveHooks()
@@ -30,10 +48,11 @@ namespace RogueWispPlugin
             On.RoR2.CharacterBody.RecalculateStats -= this.ArmorBoost;
             IL.RoR2.CharacterBody.RecalculateStats -= this.ModifyMSBoost;
             On.RoR2.CharacterBody.FixedUpdate -= this.ShieldRegenStuff;
-            On.RoR2.CharacterModel.InstanceUpdate -= this.CharacterModel_InstanceUpdate;
-            On.RoR2.CharacterModel.UpdateOverlays -= this.CharacterModel_UpdateOverlays;
+            //On.RoR2.CharacterModel.InstanceUpdate -= this.CharacterModel_InstanceUpdate;
+            //On.RoR2.CharacterModel.UpdateOverlays -= this.CharacterModel_UpdateOverlays;
             IL.RoR2.UI.CrosshairManager.UpdateCrosshair -= this.CrosshairManager_UpdateCrosshair;
             IL.RoR2.CameraRigController.Update -= this.CameraRigController_Update;
+            ilhook_R2API_LoadoutAPI_BodyLoadout_ToXml -= this.Main_ilhook_R2API_LoadoutAPI_BodyLoadout_ToXml;
         }
         private void RW_AddHooks()
         {
@@ -43,11 +62,28 @@ namespace RogueWispPlugin
             On.RoR2.CharacterBody.RecalculateStats += this.ArmorBoost;
             IL.RoR2.CharacterBody.RecalculateStats += this.ModifyMSBoost;
             On.RoR2.CharacterBody.FixedUpdate += this.ShieldRegenStuff;
-            On.RoR2.CharacterModel.InstanceUpdate += this.CharacterModel_InstanceUpdate;
-            On.RoR2.CharacterModel.UpdateOverlays += this.CharacterModel_UpdateOverlays;
+            //On.RoR2.CharacterModel.InstanceUpdate += this.CharacterModel_InstanceUpdate;
+            //On.RoR2.CharacterModel.UpdateOverlays += this.CharacterModel_UpdateOverlays;
             //On.RoR2.EffectManager.TransmitEffect += this.DoVeryVeryBadThings;
             IL.RoR2.UI.CrosshairManager.UpdateCrosshair += this.CrosshairManager_UpdateCrosshair;
             IL.RoR2.CameraRigController.Update += this.CameraRigController_Update;
+            ilhook_R2API_LoadoutAPI_BodyLoadout_ToXml += this.Main_ilhook_R2API_LoadoutAPI_BodyLoadout_ToXml;
+        }
+
+        private void Main_ilhook_R2API_LoadoutAPI_BodyLoadout_ToXml( ILContext il )
+        {
+            ILCursor c = new ILCursor( il );
+            ILLabel label = default;
+            c.GotoNext( MoveType.After, x => x.MatchLdloc( 1 ) );
+            c.Remove();
+            ++c.Index;
+            c.Remove();
+            c.EmitDelegate<Func<ModelSkinController,UInt32,SkinDef>>( (modelSkin, skinInd ) =>
+            {
+                if( modelSkin == null ) return null;
+                if( skinInd >= modelSkin.skins.Length ) return null;
+                return modelSkin.skins[skinInd];
+            });
         }
 
         private void CameraRigController_Update( ILContext il )
@@ -180,7 +216,7 @@ namespace RogueWispPlugin
                 Int32 count = self.GetBuffCount( this.RW_flameChargeBuff );
                 if( count > 0 )
                 {
-                    self.healthComponent.RechargeShield( Time.fixedDeltaTime * shieldRegenFrac * count * self.maxHealth );
+                    self.healthComponent.AddBarrier( Time.fixedDeltaTime * shieldRegenFrac * count * self.maxHealth );
                 }
             }
         }

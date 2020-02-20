@@ -237,6 +237,11 @@ namespace RogueWispPlugin.Helpers
         {
 
         }
+
+        internal IntersectionCloudMaterial( Material m ) : base( m )
+        {
+
+        }
     }
 
 }

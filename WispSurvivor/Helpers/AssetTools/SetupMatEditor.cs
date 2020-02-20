@@ -28,6 +28,14 @@ namespace RogueWispPlugin
         {
             if( Input.GetKeyDown( KeyCode.F5 ) )
             {
+                if( MaterialEditor.instance != null )
+                {
+                    MaterialEditor.instance.enabled = !MaterialEditor.instance.enabled;
+                }
+
+
+
+                /*
                 if( !MatPrefabExists() )
                 {
                     var camTransform = Camera.main.transform.root;
@@ -95,7 +103,9 @@ namespace RogueWispPlugin
                     }
                     this.tempLights.Clear();
                 }
+                */
             }
+
         }
 
         internal GameObject matGremlin;
@@ -154,6 +164,7 @@ namespace RogueWispPlugin
 
         private void CreateMatEditorPrefab()
         {
+            /*
             if( matPrefab != null )
             {
                 matPrefab = null;
@@ -163,8 +174,9 @@ namespace RogueWispPlugin
                 Destroy( matPrefabInstance );
                 matPrefabInstance = null;
             }
-
-            matPrefab = this.RW_body.GetComponent<ModelLocator>().modelBaseTransform.gameObject;
+            */
+            this.RW_body.GetComponent<ModelLocator>().modelBaseTransform.gameObject.AddComponent<MaterialEditor>();
+            /*
             matPrefab.AddComponent<MaterialEditor>();
 
             var obj2 = GameObject.CreatePrimitive( PrimitiveType.Cylinder );
@@ -179,6 +191,7 @@ namespace RogueWispPlugin
             obj2.transform.localScale = new Vector3( 3f, 3f, 3f );
 
             obj2.GetComponent<MeshRenderer>().material = Main.fireMaterials[0][0];
+            */
         }
 
         internal class SpawnMatPrefab : BaseState

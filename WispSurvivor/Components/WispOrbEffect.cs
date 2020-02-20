@@ -46,8 +46,6 @@ namespace RogueWispPlugin
 
             private Transform targetTransform;
 
-            private Single decodedCharge = 0f;
-
             private void Start()
             {
                 EffectComponent component = base.GetComponent<EffectComponent>();
@@ -91,9 +89,6 @@ namespace RogueWispPlugin
                 this.endVelocity.y = Mathf.Lerp( this.endVelocity1.y, this.endVelocity2.y, UnityEngine.Random.value );
                 this.endVelocity.z = Mathf.Lerp( this.endVelocity1.z, this.endVelocity2.z, UnityEngine.Random.value );
                 this.UpdateOrb( 0f );
-
-
-                this.decodedCharge = HeatwaveClientOrb.DoMoreBadThings( component.effectData.color );
             }
 
             private void Update() => this.UpdateOrb( Time.deltaTime );
@@ -128,7 +123,7 @@ namespace RogueWispPlugin
                         {
                             effectData.rotation = base.transform.rotation;
                         }
-                        EffectManager.SpawnEffect( this.endEffect, effectData, false );
+                        //EffectManager.SpawnEffect( this.endEffect, effectData, false );
                     }
                     UnityEngine.Object.Destroy( base.gameObject );
                 }

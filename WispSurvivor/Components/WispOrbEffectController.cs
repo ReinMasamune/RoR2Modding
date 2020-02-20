@@ -87,7 +87,11 @@ namespace RogueWispPlugin
                         RoR2.Util.PlaySound( this.endSound, this.gameObject );
                         RoR2.Util.PlaySound( this.explosionSound, this.gameObject );
                         this.dead = true;
-                        base.gameObject.GetComponent<TrailRenderer>().emitting = false;
+                        var trail = base.gameObject.GetComponent<TrailRenderer>();
+                        if( trail )
+                        {
+                            trail.emitting = false;
+                        }
                     }
                 } else
                 {

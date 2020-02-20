@@ -48,7 +48,93 @@ namespace RogueWispPlugin.Helpers
         refMatTitanBeam,
         refMatArcaneCircle1,
         refMatDistortion,
+
+
+
+        refMatAngelFeather,	
+
+		refMatStealthkitSparks, 
+
+		refMatRoboBallParticleRingHuge, 
+
+		refMatFireStaticLarge, 
+
+		refMatOmniRing2Generic, 
+
+		refMatMercSwipe2, 
+
+		refMatSuspendedInTime,
+
+		refMatTPShockwave, 
+
+		refMatOpagueDustTrail,
+
+		refMatLizardBiteTrail, 
+
+		refMatAngelEffect, 
+
+		refMatCutExplosion,
+
+		refMatOpagueWaterFoam,
+		
+		refMatBootWaveEnergy, 
+
+		refMatEngiTrail, //
+		refMatGenericFire, //
+
+		refMatTeleportOut, //
+		refMatDustSoft, //
+
+		refMatHealingCross, //
+		refMatJellyfishChunks, //
+
+		refMatImpSwipe,	//
+		refMatImpBossPortal, //
+
+		refMatHauntedAura, //
+		refMatSkullFire, //
+
+		refMatSonicBoomGroundDust, //
+
+		refMatMageMatrixDirectionalLightning, //
+		refMatMageMatrixLightning, //
+
+		refMatMatrixTriFire, //
+
+		refMatCleanseCore, //
+		refMatCleanseWater, //
+
+		refMatLaserTurbineTargetingLaser, //
+		refMatOmniRadialSlash1Merc, //
+		refMatOmniHitspark2Merc, //
+
+		refMatOmniHitspark1, //
+		refMatOpagueDust, //
+
+		refMatOmniRing1Generic, //
+		refMatOmniHitspark4Merc, //
+
+		refMatBloodClayLarge, //
+		refMatClayGooFizzle, //
+		refMatClayBubbleBillboard, //
+
+		refMatOpagueDustLargeDirectional, //TexSmokePuffDirectionalDisplacement TexSmokePuffDirectionalNormal
+		refMatOpagueDustLarge, //TexSmokePuffSmallDisplacement TexSmokePuffSmallNormal
+
+		refMatGenericLaser, //TexLightning3Mask
+
+		refMatEngiShieldShards, //TexShard02Mask
+		refMatOmniExplosion1, //TexOmniExplosion2Mask
+		refMatRoboChunks, //TexRoboChunksDiffuse TexRoboChunksNormal
         #endregion
         #endregion
     }
 }
+
+/*
+bubbleShieldendEffect
+	texShard02Mask                              //100%
+	texOmniExplosion2Mask                       //100%
+	texRoboChunksDiffuse                        //100%
+	texRoboChunksNormal                         //100%
+    */

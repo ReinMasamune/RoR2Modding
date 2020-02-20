@@ -17,6 +17,7 @@ namespace RogueWispPlugin
         partial void RW_General();
         partial void RW_Hook();
         partial void RW_Material();
+        partial void RW_NewEffect();
         partial void RW_Effect();
         partial void RW_Model();
         partial void RW_Motion();
@@ -35,6 +36,7 @@ namespace RogueWispPlugin
             this.RW_General();
             this.RW_Hook();
             this.RW_Material();
+            this.RW_NewEffect();
             this.RW_Effect();
             this.RW_Model();
             this.RW_Motion();

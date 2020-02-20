@@ -98,10 +98,11 @@ namespace RogueWispPlugin
                 //Explosion effect
                 EffectData effect = new EffectData
                 {
-                    origin = dest
+                    origin = dest,
+                    genericUInt = this.skin
                 };
 
-                EffectManager.SpawnEffect( Main.secondaryExplosions[this.skin], effect, true );
+                EffectManager.SpawnEffect( Main.secondaryExplosion, effect, true );
 
                 if( this.attacker )
                 {

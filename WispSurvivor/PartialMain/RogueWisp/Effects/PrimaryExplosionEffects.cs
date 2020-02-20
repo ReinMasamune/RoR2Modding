@@ -16,7 +16,7 @@ namespace RogueWispPlugin
             GameObject baseFX = Resources.Load<GameObject>("Prefabs/Effects/ImpactEffects/ExplosionGreaterWisp");
             for( Int32 i = 0; i < 8; i++ )
             {
-                primaryExplosionEffects[i] = CreatePrimaryExplosion( baseFX, i );
+                //primaryExplosionEffects[i] = CreatePrimaryExplosion( baseFX, i );
             }
         }
 

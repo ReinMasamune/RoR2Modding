@@ -1,8 +1,11 @@
 ﻿using RoR2;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using UnityEngine;
 using UnityEngine.Networking;
+using System.Linq;
+using RogueWispPlugin.Helpers;
 
 namespace RogueWispPlugin
 {
@@ -10,29 +13,105 @@ namespace RogueWispPlugin
     {
         public class WispBurnManager : NetworkBehaviour
         {
-            [SyncVar]
-            private BurnSkinState state = BurnSkinState.None;
-            private BurnSkinState localState = BurnSkinState.None;
+            private static Dictionary<UInt32, BurnEffectController.EffectParams> skinBurnParamsCache = new Dictionary<UInt32, BurnEffectController.EffectParams>();
 
-            private readonly Dictionary<BurnSkinState, Single> skinTimers = new Dictionary<BurnSkinState, Single>();
-            private readonly Dictionary<BurnSkinState, BurnEffectController> skinEffects = new Dictionary<BurnSkinState, BurnEffectController>();
+            private Boolean dirty;
+            private HashSet<UInt32> activeBurns = new HashSet<UInt32>();
+            private HashSet<UInt32> oldBurns = new HashSet<UInt32>();
+
+            private readonly Dictionary<UInt32, BurnTimer> skinTimers = new Dictionary<UInt32, BurnTimer>();
+            private readonly Dictionary<UInt32, BurnEffectController.EffectParams> skinParams = new Dictionary<UInt32, BurnEffectController.EffectParams>();
+            private readonly Dictionary<UInt32, BurnEffectController> skinEffects = new Dictionary<UInt32, BurnEffectController>();
 
             private GameObject target;
 
             private Boolean dead = false;
 
-            [Flags]
-            public enum BurnSkinState
+            public override Boolean OnSerialize( NetworkWriter writer, Boolean initialState )
             {
-                None = 0,
-                Skin0 = 1,
-                Skin1 = 2,
-                Skin2 = 4,
-                Skin3 = 8,
-                Skin4 = 16,
-                Skin5 = 32,
-                Skin6 = 64,
-                Skin7 = 128,
+                if( initialState || this.dirty )
+                {
+                    writer.Write( this.activeBurns.Count );
+                    foreach( var v in this.activeBurns )
+                    {
+                        writer.Write( v );
+                    }
+                    this.dirty = false;
+                    return true;
+                }
+                return false;
+            }
+
+            public override void OnDeserialize( NetworkReader reader, Boolean initialState )
+            {
+                var count = reader.ReadInt32();
+                var temp = this.oldBurns;
+                this.oldBurns = this.activeBurns;
+                this.activeBurns = temp;
+                this.activeBurns.Clear();
+                for( Int32 i = 0; i < count; ++i )
+                {
+                    var val = reader.ReadUInt32();
+                    this.activeBurns.Add( val );
+                    if( this.oldBurns.Contains( val ) )
+                    {
+                        this.oldBurns.Remove( val );
+                    } else
+                    {
+                        this.ActivateBurn( val );
+                    }
+                }
+
+                foreach( var val in this.oldBurns )
+                {
+                    this.DeactivateBurn( val );
+                }
+            }
+
+            private void ActivateBurn( UInt32 skin )
+            {
+                Main.LogI( skin + " Activate" );
+                if( this.skinEffects.ContainsKey( skin ) )
+                {
+                    return;
+                    //this.skinEffects[skin].enabled = true;
+                    //Destroy( this.skinEffects[skin] );
+                    //this.skinEffects.Remove( skin );
+                } else
+                {
+                    //var burnController = base.gameObject.AddComponent<BurnEffectController>();
+                    //burnController.target = this.target;
+                    //burnController.effectType = GetSkinParams( skin );
+                    //this.skinEffects[skin] = burnController;
+                }
+                var burnController = base.gameObject.AddComponent<BurnEffectController>();
+                burnController.target = this.target;
+                burnController.effectType = GetSkinParams( skin );
+                this.skinEffects[skin] = burnController;
+            }
+
+            private static BurnEffectController.EffectParams GetSkinParams( UInt32 skin )
+            {
+                if( !skinBurnParamsCache.ContainsKey( skin ) )
+                {
+                    var tempSkin = WispBitSkin.GetWispSkin( skin );
+                    skinBurnParamsCache[skin] = tempSkin.burnParams;
+                }
+
+                return skinBurnParamsCache[skin];
+            }
+
+
+            private void DeactivateBurn( UInt32 skin )
+            {
+                Main.LogI( skin + " Deactivate" );
+                if( this.skinEffects.ContainsKey( skin ) )
+                {
+                    Main.LogI( "Things" );
+                    //this.skinEffects[skin].enabled = false;
+                    Destroy( this.skinEffects[skin] );
+                    this.skinEffects.Remove( skin );
+                }
             }
 
             public void Start()
@@ -45,107 +124,61 @@ namespace RogueWispPlugin
             {
                 if( this.dead ) return;
                 this.UpdateTimers( Time.fixedDeltaTime );
-                this.UpdateLocalState();
             }
 
             public void SetSkinDuration( UInt32 skin, Single duration )
             {
-                BurnSkinState temp = SkinToState(skin);
-                if( this.state.HasFlag( temp ) && duration > this.skinTimers[temp] )
+                if( this.skinTimers.ContainsKey( skin ) )
                 {
-                    this.skinTimers[temp] = duration;
+                    var timer = this.skinTimers[skin];
+                    timer.timer = Mathf.Max( timer.timer, duration );
                 } else
                 {
-                    this.ActivateSkin( temp );
-                    this.skinTimers[temp] = duration;
-                }
-            }
-
-            public static BurnSkinState SkinToState( UInt32 skin )
-            {
-                switch( skin )
-                {
-                    case 0u:
-                        return BurnSkinState.Skin0;
-                    case 1u:
-                        return BurnSkinState.Skin1;
-                    case 2u:
-                        return BurnSkinState.Skin2;
-                    case 3u:
-                        return BurnSkinState.Skin3;
-                    case 4u:
-                        return BurnSkinState.Skin4;
-                    case 5u:
-                        return BurnSkinState.Skin5;
-                    case 6u:
-                        return BurnSkinState.Skin6;
-                    case 7u:
-                        return BurnSkinState.Skin7;
-                    default:
-                        return BurnSkinState.None;
+                    this.skinTimers[skin] = new BurnTimer( duration );
+                    this.activeBurns.Add( skin );
+                    this.ActivateBurn( skin );
                 }
             }
 
             private void UpdateTimers( Single delta )
             {
                 if( !NetworkServer.active ) return;
-                BurnSkinState temp;
-                for( UInt32 i = 0; i < 8; i++ )
-                {
-                    temp = SkinToState( i );
-                    if( this.state.HasFlag( temp ) )
-                    {
-                        this.skinTimers[temp] -= delta;
 
-                        if( this.skinTimers[temp] <= 0f )
-                        {
-                            this.skinTimers[temp] = 0f;
-                            this.DeactivateSkin( temp );
-                        }
+                var temp = new Queue<UInt32>();
+
+                foreach( var burnKV in this.skinTimers )
+                {
+                    if( burnKV.Value.PassTime(delta) )
+                    {
+                        temp.Enqueue( burnKV.Key );
+                        this.dirty = true;
                     }
+                }
+
+                while( temp.Count > 0 )
+                {
+                    var key = temp.Dequeue();
+
+                    this.skinTimers.Remove( key );
+                    this.activeBurns.Remove( key );
+
+                    this.DeactivateBurn( key );
                 }
             }
 
-            private void UpdateLocalState()
+            private class BurnTimer
             {
-                if( this.state == this.localState ) return;
-
-                BurnSkinState temp;
-
-                for( UInt32 i = 0; i < 8; i++ )
+                internal Single timer;
+                internal BurnTimer( Single duration )
                 {
-                    temp = SkinToState( i );
-
-                    if( this.state.HasFlag( temp ) && this.localState.HasFlag( temp ) ) continue;
-                    if( !this.state.HasFlag( temp ) && !this.localState.HasFlag( temp ) ) continue;
-
-                    if( this.state.HasFlag( temp ) )
-                    {
-                        if( !this.skinEffects.ContainsKey( temp ) || this.skinEffects[temp] == null ) this.skinEffects[temp] = this.gameObject.AddComponent<BurnEffectController>();
-
-                        this.skinEffects[temp].effectType = Main.burnOverlayParams[i];
-                        this.skinEffects[temp].target = this.target;
-                    } else
-                    {
-                        if( this.skinEffects.ContainsKey( temp ) && this.skinEffects[temp] ) Destroy( this.skinEffects[temp] );
-                        this.skinEffects[temp] = null;
-                    }
-
+                    this.timer = duration;
                 }
 
-                this.localState = this.state;
-            }
-
-            private void ActivateSkin( BurnSkinState state )
-            {
-                if( this.state.HasFlag( state ) ) return;
-                this.state |= state;
-            }
-
-            private void DeactivateSkin( BurnSkinState state )
-            {
-                if( !this.state.HasFlag( state ) ) return;
-                this.state &= ~state;
+                internal Boolean PassTime( Single delta )
+                {
+                    this.timer -= delta;
+                    return this.timer <= 0f;
+                }
             }
         }
     }

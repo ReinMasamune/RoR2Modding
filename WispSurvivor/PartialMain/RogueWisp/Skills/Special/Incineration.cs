@@ -1,5 +1,6 @@
 ﻿#if ROGUEWISP
 using EntityStates;
+using RogueWispPlugin.Helpers;
 using RoR2;
 using RoR2.Networking;
 using System;
@@ -76,11 +77,12 @@ namespace RogueWispPlugin
 
 				this.muzzle = this.GetModelTransform().Find( "CannonPivot" ).Find( "BeamParent" );
 
-				this.beamEffect = UnityEngine.Object.Instantiate<GameObject>( Main.specialBeam[this.skin], this.muzzle.position, this.muzzle.rotation );
+				this.beamEffect = UnityEngine.Object.Instantiate<GameObject>( Main.specialBeam, this.muzzle.position, this.muzzle.rotation );
+				this.beamEffect.GetComponent<BitSkinController>().Apply( WispBitSkin.GetWispSkin( this.skin ) );
 				this.beamEffect.transform.parent = this.muzzle;
 				this.beamEnd = this.beamEffect.transform.Find( "End" );
-				this.beamEndSub = this.beamEnd.Find( "Sub" );
-				this.beamEndSub.gameObject.SetActive( false );
+				//this.beamEndSub = this.beamEnd.Find( "Sub" );
+				//this.beamEndSub.gameObject.SetActive( false );
 				//Create the charge and beam effects
 				this.pos = Vector3.zero;
 
@@ -118,11 +120,11 @@ namespace RogueWispPlugin
 				if( Physics.Raycast( this.r, out this.rh, baseMaxRange, LayerIndex.world.mask, QueryTriggerInteraction.UseGlobal ) )
 				{
 					this.pos = this.rh.point;
-					this.beamEndSub.gameObject.SetActive( true );
+					//this.beamEndSub.gameObject.SetActive( true );
 				} else
 				{
 					this.pos = this.r.GetPoint( baseMaxRange );
-					this.beamEndSub.gameObject.SetActive( false );
+					//this.beamEndSub.gameObject.SetActive( false );
 				}
 
 				this.beamEnd.position = this.pos;
@@ -161,13 +163,10 @@ namespace RogueWispPlugin
 				Main.instance.RW_BlockSprintCrosshair.Remove( base.characterBody );
 			}
 
-			public override InterruptPriority GetMinimumInterruptPriority() => InterruptPriority.Death;
+			public override InterruptPriority GetMinimumInterruptPriority() => InterruptPriority.Frozen;
 
 			private void Fire( WispPassiveController.ChargeState state )
 			{
-				//Charge consumption
-
-
 				if( !this.isAuthority ) return;
 
 				Ray r = new Ray(this.muzzle.position, this.muzzle.forward);
@@ -231,7 +230,7 @@ namespace RogueWispPlugin
 				HurtBox tempBox;
 				HealthComponent tempHc;
 				DamageInfo tempDmgInfo;
-				EffectData effect = new EffectData();
+				//EffectData effect = new EffectData();
 				for( System.Int32 i = 0; i < count; i++ )
 				{
 					if( !this.beamCols[i] ) continue;
@@ -255,8 +254,8 @@ namespace RogueWispPlugin
 						procCoefficient = beam.procCoef
 					};
 
-					effect.origin = tempBox.transform.position;
-					EffectManager.SpawnEffect( Main.genericImpactEffects[this.skin][0], effect, true );
+					//effect.origin = tempBox.transform.position;
+					//EffectManager.SpawnEffect( Main.genericImpactEffects[this.skin][0], effect, true );
 
 					DoNetworkedDamage( tempDmgInfo, tempBox );
 				}

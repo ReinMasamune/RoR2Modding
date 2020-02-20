@@ -55,6 +55,7 @@ namespace RogueWispPlugin
             this.RW_boxGroup.bullseyeCount = 0;
             this.RW_ragdollController.bones = Array.Empty<Transform>();
             this.RW_flameController.passive = this.RW_passiveController;
+            this.AddFireParticlesToMesh( this.RW_body.GetComponentInChildren<SkinnedMeshRenderer>().transform );
             //Path stuff here
             #region Transform paths
             var meshTransform = modelTransform.Find( "CannonPivot/AncientWispMesh" );
@@ -945,14 +946,197 @@ namespace RogueWispPlugin
 
         private void AddFireParticles( Transform parent, Vector3 position, Vector3 rotation, Vector3 scale )
         {
+            //var obj = new GameObject( "Particles" );
+            //obj.transform.parent = parent;
+            //obj.transform.localPosition = Vector3.zero;
+            //obj.transform.localScale = Vector3.one;
+            //obj.transform.localRotation = Quaternion.identity;
+
+            //var ps = obj.AddComponent<ParticleSystem>();
+            //var psr = obj.AddOrGetComponent<ParticleSystemRenderer>();
+
+
+            //var ind = this.RW_charModel.baseParticleSystemInfos.Length;
+            //Array.Resize( ref this.RW_charModel.baseParticleSystemInfos, ind + 1 );
+            //this.RW_charModel.baseParticleSystemInfos[ind] = new CharacterModel.ParticleSystemInfo( ps );
+
+            //// TODO: Actually set up the particle system
+
+            //var psMain = ps.main;
+            //psMain.duration = 1f;
+            //psMain.loop = true;
+            //psMain.prewarm = false;
+            //psMain.startDelay = 0f;
+            //psMain.startLifetime = new ParticleSystem.MinMaxCurve( 0.35f, 0.85f );
+            //psMain.startSpeed = new ParticleSystem.MinMaxCurve( 0.2f, 1f );
+            //psMain.startSize3D = false;
+            //psMain.startSize = 1f;
+            //psMain.startRotation3D = false;
+            //psMain.startRotation = new ParticleSystem.MinMaxCurve( 0f, 360f );
+            //psMain.flipRotation = 0.5f;
+            //psMain.startColor = Color.white;
+            //psMain.gravityModifier = -0.3f;
+            //psMain.simulationSpace = ParticleSystemSimulationSpace.World;
+            //psMain.simulationSpeed = 1f;
+            //psMain.useUnscaledTime = false;
+            //psMain.scalingMode = ParticleSystemScalingMode.Local;
+            //psMain.playOnAwake = true;
+            //psMain.emitterVelocityMode = ParticleSystemEmitterVelocityMode.Transform;
+            //psMain.maxParticles = 1000;
+            //psMain.stopAction = ParticleSystemStopAction.None;
+            //psMain.cullingMode = ParticleSystemCullingMode.AlwaysSimulate;
+            //psMain.ringBufferMode = ParticleSystemRingBufferMode.Disabled;
+
+            //var psEmis = ps.emission;
+            //psEmis.enabled = true;
+            //psEmis.rateOverTime = 15f;
+            //psEmis.rateOverDistance = 0f;
+
+            //var psShape = ps.shape;
+            //psShape.enabled = true;
+            //psShape.shapeType = ParticleSystemShapeType.Cone;
+            //psShape.angle = 38.26f;
+            //psShape.radius = 0.75f;
+            //psShape.radiusThickness = 1f;
+            //psShape.arc = 360f;
+            //psShape.arcMode = ParticleSystemShapeMultiModeValue.Random;
+            //psShape.arcSpread = 0f;
+            //psShape.position = position;
+            //psShape.rotation = rotation;
+            //psShape.scale = scale;
+            //psShape.alignToDirection = false;
+
+            //var psVOL = ps.velocityOverLifetime;
+            //psVOL.enabled = false;
+
+            //var pslimVOL = ps.limitVelocityOverLifetime;
+            //pslimVOL.enabled = false;
+
+            //var psInheritVel = ps.inheritVelocity;
+            //psInheritVel.enabled = true;
+            //psInheritVel.mode = ParticleSystemInheritVelocityMode.Current;
+            //psInheritVel.curve = new ParticleSystem.MinMaxCurve( 1f, new AnimationCurve
+            //{
+            //    preWrapMode = WrapMode.Clamp,
+            //    postWrapMode = WrapMode.Clamp,
+            //    keys = new[]
+            //    {
+            //        new Keyframe(0f, 1f, 0f, 0f ),
+            //        new Keyframe(0.65f, 0.85f, -0.15f, -0.5f ),
+            //        new Keyframe(1f, 0f, 0f, 0f ),
+            //    }
+            //} );
+
+            //var psFOL = ps.forceOverLifetime;
+            //psFOL.enabled = false;
+
+            //var psCOL = ps.colorOverLifetime;
+            //psCOL.enabled = true;
+            //psCOL.color = new ParticleSystem.MinMaxGradient( new Gradient
+            //{
+            //    mode = GradientMode.Blend,
+            //    alphaKeys = new GradientAlphaKey[]
+            //    {
+            //        new GradientAlphaKey( 0f, 0f ),
+            //        new GradientAlphaKey( 0.9f, 0.1f ),
+            //        new GradientAlphaKey( 0.6f, 0.6f ),
+            //        new GradientAlphaKey( 0f, 1f ),
+            //    },
+            //    colorKeys = new GradientColorKey[]
+            //    {
+            //        new GradientColorKey( Color.white, 0f ),
+            //        new GradientColorKey( Color.white, 1f ),
+            //    }
+            //} );
+
+            //var psCBS = ps.colorBySpeed;
+            //psCBS.enabled = false;
+
+            //var psSOL = ps.sizeOverLifetime;
+            //psSOL.enabled = true;
+            //psSOL.size = new ParticleSystem.MinMaxCurve( 1.5f, new AnimationCurve
+            //{
+            //    preWrapMode = WrapMode.Clamp,
+            //    postWrapMode = WrapMode.Clamp,
+            //    keys = new[]
+            //    {
+            //        new Keyframe( 0f, 0.2f ),
+            //        new Keyframe( 0.47f, 0.51f ),
+            //        new Keyframe( 1f, 0.0025f )
+            //    }
+            //});
+
+            //var psSBS = ps.sizeBySpeed;
+            //psSBS.enabled = false;
+
+            //var psROL = ps.rotationOverLifetime;
+            //psROL.enabled = true;
+            //psROL.separateAxes = false;
+            //psROL.z = 3f;
+
+            //var psRBS = ps.rotationBySpeed;
+            //psRBS.enabled = false;
+
+            //var psExtForce = ps.externalForces;
+            //psExtForce.enabled = false;
+
+            //var psNoise = ps.noise;
+            //psNoise.enabled = false;
+
+            //var psCollide = ps.collision;
+            //psCollide.enabled = false;
+
+            //var psTrig = ps.trigger;
+            //psTrig.enabled = false;
+
+            //var psSubEmit = ps.subEmitters;
+            //psSubEmit.enabled = false;
+
+            //var psTexSheetAnim = ps.textureSheetAnimation;
+            //psTexSheetAnim.enabled = false;
+
+            //var psLights = ps.lights;
+            //psLights.enabled = false;
+
+            //var psTrail = ps.trails;
+            //psTrail.enabled = false;
+
+            //var psCustData = ps.customData;
+            //psCustData.enabled = false;
+
+        }
+
+        private void AddFireParticlesToMesh( Transform model )
+        {
             var obj = new GameObject( "Particles" );
-            obj.transform.parent = parent;
+            obj.transform.parent = model.parent;
             obj.transform.localPosition = Vector3.zero;
             obj.transform.localScale = Vector3.one;
             obj.transform.localRotation = Quaternion.identity;
 
             var ps = obj.AddComponent<ParticleSystem>();
             var psr = obj.AddOrGetComponent<ParticleSystemRenderer>();
+
+            psr.renderMode = ParticleSystemRenderMode.Billboard;
+            psr.normalDirection = 1;
+            psr.sortMode = ParticleSystemSortMode.None;
+            psr.sortingFudge = 0;
+            psr.minParticleSize = 0f;
+            psr.maxParticleSize = 1f;
+            psr.alignment = ParticleSystemRenderSpace.View;
+            psr.flip = Vector3.zero;
+            psr.allowRoll = true;
+            psr.pivot = Vector3.zero;
+            psr.maskInteraction = SpriteMaskInteraction.None;
+            psr.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+            psr.receiveShadows = true;
+            psr.shadowBias = 0;
+            psr.motionVectorGenerationMode = MotionVectorGenerationMode.Object;
+            psr.sortingLayerID = LayerIndex.defaultLayer.intVal;
+            psr.sortingOrder = 0;
+            psr.lightProbeUsage = UnityEngine.Rendering.LightProbeUsage.BlendProbes;
+            psr.reflectionProbeUsage = UnityEngine.Rendering.ReflectionProbeUsage.Simple;
+            psr.probeAnchor = null;
 
 
             var ind = this.RW_charModel.baseParticleSystemInfos.Length;
@@ -966,8 +1150,8 @@ namespace RogueWispPlugin
             psMain.loop = true;
             psMain.prewarm = false;
             psMain.startDelay = 0f;
-            psMain.startLifetime = new ParticleSystem.MinMaxCurve( 0.35f, 0.85f );
-            psMain.startSpeed = 1f;
+            psMain.startLifetime = new ParticleSystem.MinMaxCurve( 0.35f, 0.6f );
+            psMain.startSpeed = new ParticleSystem.MinMaxCurve( 0.2f, 1f );
             psMain.startSize3D = false;
             psMain.startSize = 1f;
             psMain.startRotation3D = false;
@@ -981,29 +1165,26 @@ namespace RogueWispPlugin
             psMain.scalingMode = ParticleSystemScalingMode.Local;
             psMain.playOnAwake = true;
             psMain.emitterVelocityMode = ParticleSystemEmitterVelocityMode.Transform;
-            psMain.maxParticles = 1000;
+            psMain.maxParticles = 10000;
             psMain.stopAction = ParticleSystemStopAction.None;
             psMain.cullingMode = ParticleSystemCullingMode.AlwaysSimulate;
             psMain.ringBufferMode = ParticleSystemRingBufferMode.Disabled;
 
             var psEmis = ps.emission;
             psEmis.enabled = true;
-            psEmis.rateOverTime = 15f;
+            psEmis.rateOverTime = 500f;
             psEmis.rateOverDistance = 0f;
 
             var psShape = ps.shape;
             psShape.enabled = true;
-            psShape.shapeType = ParticleSystemShapeType.Cone;
-            psShape.angle = 38.26f;
-            psShape.radius = 0.75f;
-            psShape.radiusThickness = 1f;
-            psShape.arc = 360f;
-            psShape.arcMode = ParticleSystemShapeMultiModeValue.Random;
-            psShape.arcSpread = 0f;
-            psShape.position = position;
-            psShape.rotation = rotation;
-            psShape.scale = scale;
-            psShape.alignToDirection = false;
+            psShape.shapeType = ParticleSystemShapeType.SkinnedMeshRenderer;
+            psShape.skinnedMeshRenderer = model.GetComponent<SkinnedMeshRenderer>();
+            psShape.meshShapeType = ParticleSystemMeshShapeType.Vertex;
+            psShape.meshSpawnMode = ParticleSystemShapeMultiModeValue.Random;
+            psShape.meshSpawnSpread = 0.05f;
+            psShape.normalOffset = -0.02f;
+            psShape.useMeshColors = false;
+            //psShape.meshSpawnSpeed = 100f;
 
             var psVOL = ps.velocityOverLifetime;
             psVOL.enabled = false;
@@ -1014,7 +1195,17 @@ namespace RogueWispPlugin
             var psInheritVel = ps.inheritVelocity;
             psInheritVel.enabled = true;
             psInheritVel.mode = ParticleSystemInheritVelocityMode.Current;
-            psInheritVel.curve = 0.8f;
+            psInheritVel.curve = new ParticleSystem.MinMaxCurve( 1f, new AnimationCurve
+            {
+                preWrapMode = WrapMode.Clamp,
+                postWrapMode = WrapMode.Clamp,
+                keys = new[]
+                {
+                    new Keyframe(0f, 1f, 0f, 0f ),
+                    new Keyframe(0.65f, 0.85f, -0.15f, -0.5f ),
+                    new Keyframe(1f, 0f, 0f, 0f ),
+                }
+            } );
 
             var psFOL = ps.forceOverLifetime;
             psFOL.enabled = false;
@@ -1043,7 +1234,7 @@ namespace RogueWispPlugin
 
             var psSOL = ps.sizeOverLifetime;
             psSOL.enabled = true;
-            psSOL.size = new ParticleSystem.MinMaxCurve( 1.5f, new AnimationCurve
+            psSOL.size = new ParticleSystem.MinMaxCurve( 1.35f, new AnimationCurve
             {
                 preWrapMode = WrapMode.Clamp,
                 postWrapMode = WrapMode.Clamp,
@@ -1053,7 +1244,7 @@ namespace RogueWispPlugin
                     new Keyframe( 0.47f, 0.51f ),
                     new Keyframe( 1f, 0.0025f )
                 }
-            });
+            } );
 
             var psSBS = ps.sizeBySpeed;
             psSBS.enabled = false;
@@ -1070,7 +1261,12 @@ namespace RogueWispPlugin
             psExtForce.enabled = false;
 
             var psNoise = ps.noise;
-            psNoise.enabled = false;
+            psNoise.enabled = true;
+            psNoise.frequency = 1;
+            psNoise.scrollSpeed = 1f;
+            psNoise.damping = false;
+            psNoise.quality = ParticleSystemNoiseQuality.High;
+            psNoise.positionAmount = 0.1f;
 
             var psCollide = ps.collision;
             psCollide.enabled = false;

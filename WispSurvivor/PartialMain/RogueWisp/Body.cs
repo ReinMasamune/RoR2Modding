@@ -30,12 +30,12 @@ namespace RogueWispPlugin
         private void RW_CharBodyStats()
         {
             CharacterBody chbod = this.RW_body.GetComponent<CharacterBody>();
-            chbod.baseMaxHealth = 100.0f;
-            chbod.levelMaxHealth = 30.0f;
+            chbod.baseMaxHealth = 90.0f;
+            chbod.levelMaxHealth = 27.0f;
             chbod.baseRegen = 0.6f;
             chbod.levelRegen = 0.12f;
-            chbod.baseMaxShield = 30f;
-            chbod.levelMaxShield = 9f;
+            chbod.baseMaxShield = 0f;
+            chbod.levelMaxShield = 0f;
             chbod.baseMoveSpeed = 7f;
             chbod.levelMoveSpeed = 0f;
             chbod.baseJumpPower = 15.0f;
@@ -56,27 +56,27 @@ namespace RogueWispPlugin
         private static GameObject CreateSurvivorPod()
         {
             GameObject g = Resources.Load<GameObject>("Prefabs/NetworkedObjects/SurvivorPod").InstantiateClone("WispSurvivorPod");
-            WispSurvivorPodController wispPodControl = g.AddComponent<WispSurvivorPodController>();
-            Transform podModel = g.GetComponent<ModelLocator>().modelTransform.Find("EscapePodArmature");
+            //WispSurvivorPodController wispPodControl = g.AddComponent<WispSurvivorPodController>();
+            //Transform podModel = g.GetComponent<ModelLocator>().modelTransform.Find("EscapePodArmature");
 
-            InstantiatePrefabOnStart prefabSpawn = new InstantiatePrefabOnStart();
+            //InstantiatePrefabOnStart prefabSpawn = new InstantiatePrefabOnStart();
 
-            foreach( InstantiatePrefabOnStart ipos in g.GetComponents<InstantiatePrefabOnStart>() )
-            {
-                if( ipos.prefab.name == "SurvivorPodBatteryPanel" ) prefabSpawn = ipos;
-            }
+            //foreach( InstantiatePrefabOnStart ipos in g.GetComponents<InstantiatePrefabOnStart>() )
+            //{
+            //    if( ipos.prefab.name == "SurvivorPodBatteryPanel" ) prefabSpawn = ipos;
+            //}
 
-            GameObject pref = prefabSpawn.prefab.InstantiateClone("WispPodPanel");
-            pref.AddComponent<WispSurvivorPodPanelController>();
-            prefabSpawn.prefab = pref;
+            //GameObject pref = prefabSpawn.prefab.InstantiateClone("WispPodPanel");
+            //pref.AddComponent<WispSurvivorPodPanelController>();
+            //prefabSpawn.prefab = pref;
 
-            Transform podMesh = podModel.Find("Base").Find("EscapePodMesh");
-            Transform doorMesh = podModel.Find("Base").Find("Door").Find("EscapePodDoorMesh");
-            Transform doorMesh2 = podModel.Find("Base").Find("ReleaseExhaustFX").Find("Door,Physics");
+            //Transform podMesh = podModel.Find("Base").Find("EscapePodMesh");
+            //Transform doorMesh = podModel.Find("Base").Find("Door").Find("EscapePodDoorMesh");
+            //Transform doorMesh2 = podModel.Find("Base").Find("ReleaseExhaustFX").Find("Door,Physics");
 
-            wispPodControl.podMesh = podMesh;
-            wispPodControl.doorMesh = doorMesh;
-            wispPodControl.doorMesh2 = doorMesh2;
+            //wispPodControl.podMesh = podMesh;
+            //wispPodControl.doorMesh = doorMesh;
+            //wispPodControl.doorMesh2 = doorMesh2;
 
             return g;
         }

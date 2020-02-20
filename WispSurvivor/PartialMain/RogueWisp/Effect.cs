@@ -10,17 +10,17 @@ namespace RogueWispPlugin
     internal partial class Main
     {
         internal static GameObject[][] genericImpactEffects = new GameObject[8][];
-        internal static GameObject[] primaryOrbEffects = new GameObject[8];
-        internal static GameObject[] primaryExplosionEffects = new GameObject[8];
-        internal static GameObject[] secondaryExplosions = new GameObject[8];
-        internal static GameObject[] utilityFlames = new GameObject[8];
-        internal static GameObject[] utilityBurns = new GameObject[8];
-        internal static GameObject[] utilityLeech = new GameObject[8];
-        internal static GameObject[] utilityAim = new GameObject[8];
-        internal static GameObject[] utilityIndicator = new GameObject[8];
-        internal static GameObject[] specialCharge = new GameObject[8];
-        internal static GameObject[] specialExplosion = new GameObject[8];
-        internal static GameObject[] specialBeam = new GameObject[8];
+        //internal static GameObject[] primaryOrbEffects = new GameObject[8];
+        //internal static GameObject[] primaryExplosionEffects = new GameObject[8];
+        //internal static GameObject[] secondaryExplosions = new GameObject[8];
+        //internal static GameObject[] utilityFlames = new GameObject[8];
+        //internal static GameObject[] utilityBurns = new GameObject[8];
+        //internal static GameObject[] utilityLeeches = new GameObject[8];
+        //internal static GameObject[] utilityAims = new GameObject[8];
+        //internal static GameObject[] utilityIndicators = new GameObject[8];
+        //internal static GameObject[] specialCharges = new GameObject[8];
+        //internal static GameObject[] specialExplosions = new GameObject[8];
+        //internal static GameObject[] specialBeams = new GameObject[8];
 
         partial void RW_GenericImpactEffects();
         partial void RW_PrimaryOrbEffects();
@@ -61,45 +61,45 @@ namespace RogueWispPlugin
                     R2API.EffectAPI.AddEffect( g );
                 }
             }
-            foreach( GameObject g in primaryOrbEffects )
-            {
-                R2API.EffectAPI.AddEffect( g );
-            }
-            foreach( GameObject g in primaryExplosionEffects )
-            {
-                R2API.EffectAPI.AddEffect( g );
-            }
-            foreach( GameObject g in secondaryExplosions )
-            {
-                R2API.EffectAPI.AddEffect( g );
-            }
-            foreach( GameObject g in utilityFlames )
-            {
-                R2API.EffectAPI.AddEffect( g );
-            }
-            foreach( GameObject g in utilityBurns )
-            {
-                R2API.EffectAPI.AddEffect( g );
-            }
-            foreach( GameObject g in utilityLeech )
-            {
-                R2API.EffectAPI.AddEffect( g );
-            }
-            foreach( GameObject g in specialCharge )
-            {
-                R2API.EffectAPI.AddEffect( g );
-            }
-            foreach( GameObject g in specialExplosion )
-            {
-                R2API.EffectAPI.AddEffect( g );
-            }
+            //foreach( GameObject g in primaryOrbEffects )
+            //{
+            //    R2API.EffectAPI.AddEffect( g );
+            //}
+            //foreach( GameObject g in primaryExplosionEffects )
+            //{
+            //    R2API.EffectAPI.AddEffect( g );
+            //}
+            //foreach( GameObject g in secondaryExplosions )
+            //{
+            //    R2API.EffectAPI.AddEffect( g );
+            //}
+            //foreach( GameObject g in utilityFlames )
+            //{
+            //    R2API.EffectAPI.AddEffect( g );
+            //}
+            //foreach( GameObject g in utilityBurns )
+            //{
+            //    R2API.EffectAPI.AddEffect( g );
+            //}
+            //foreach( GameObject g in utilityLeeches )
+            //{
+            //    R2API.EffectAPI.AddEffect( g );
+            //}
+            //foreach( GameObject g in specialCharges )
+            //{
+            //    R2API.EffectAPI.AddEffect( g );
+            //}
+            //foreach( GameObject g in specialExplosions )
+            //{
+            //    R2API.EffectAPI.AddEffect( g );
+            //}
 
             typeof( EffectCatalog ).InvokeMethod( "CCEffectsReload", new ConCommandArgs() );
 
 
             for( Int32 i = 0; i < 8; i++ )
             {
-                this.restoreIndex[i] = (UInt32)EffectCatalog.FindEffectIndexFromPrefab( utilityLeech[i] );
+                //this.restoreIndex[i] = (UInt32)EffectCatalog.FindEffectIndexFromPrefab( utilityLeeches[i] );
             }
         }
 

@@ -18,7 +18,7 @@ namespace RogueWispPlugin
 
             for( Int32 i = 0; i < 8; i++ )
             {
-                utilityFlames[i] = CreateBlazeEffect( baseFX, i );
+                //utilityFlames[i] = CreateBlazeEffect( baseFX, i );
             }
         }
 

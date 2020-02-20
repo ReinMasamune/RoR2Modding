@@ -88,9 +88,10 @@ namespace RogueWispPlugin
                     origin = origin,
                     genericFloat = duration,
                     rotation = Quaternion.LookRotation(tangent, this.normal),
-                    scale = blazeRadius
+                    scale = blazeRadius * 2f,
+                    genericUInt = this.skin,
                 };
-                EffectManager.SpawnEffect( Main.utilityFlames[this.skin], effectData, true );
+                EffectManager.SpawnEffect( Main.utilityIndicator, effectData, true );
 
                 this.blazeResetInt = 1f / this.blazeFreq;
                 this.bundleSendInt = 1f / this.blazeOrbBundleSendFreq;
@@ -161,17 +162,19 @@ namespace RogueWispPlugin
             {
                 if( !this.isActive ) return;
                 this.stacks += stacks;
+                var distance = ( i.targetPos - this.origin ).magnitude;
+                var delay = distance / 60f;
 
                 EffectData fx = new EffectData
                 {
                     origin = i.targetPos,
                     start = origin,
-                    genericFloat = 0.25f,
-                    genericUInt = 1u,
+                    genericFloat = delay,
+                    genericUInt = this.skin,
                     scale = 0.25f,
                     genericBool = false
                 };
-                EffectManager.SpawnEffect( Main.utilityLeech[this.skin], fx, true );
+                EffectManager.SpawnEffect( Main.utilityLeech, fx, true );
             }
 
             private void SendStackBundle()

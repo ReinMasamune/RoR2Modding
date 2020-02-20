@@ -141,13 +141,6 @@ namespace RogueWispPlugin.Helpers
             get => (RampInfo)base.GetSingle( "_RampInfo" );
             set => base.SetSingle( "_RampInfo", (Single)value );
         }
-        internal enum RampInfo
-        {
-            TwoTone = 0,
-            SmoothedTwoTone = 1,
-            Unlitish = 3,
-            SubSurface = 4,
-        }
 
         [Menu( sectionName = "Main" )]
         /// <summary>

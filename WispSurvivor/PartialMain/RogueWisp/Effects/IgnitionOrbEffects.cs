@@ -17,7 +17,7 @@ namespace RogueWispPlugin
 
             for( Int32 i = 0; i < 8; i++ )
             {
-                utilityBurns[i] = CreateIgniteEffect( baseFX, i );
+                //utilityBurns[i] = CreateIgniteEffect( baseFX, i );
             }
         }
 

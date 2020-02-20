@@ -18,7 +18,7 @@ namespace RogueWispPlugin
 
             for( Int32 i = 0; i < 8; i++ )
             {
-                specialBeam[i] = CreateSpecialBeam( baseFX, i );
+                //specialBeams[i] = CreateSpecialBeam( baseFX, i );
             }
         }
 

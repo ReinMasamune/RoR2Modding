@@ -60,11 +60,12 @@ namespace RogueWispPlugin
                     genericFloat = base.totalDuration,
                     genericBool = false,
                     start = this.targetPos,
+                    genericUInt = this.skin,
                 };
 
                 this.lastPos = this.startPos;
 
-                EffectManager.SpawnEffect( Main.primaryOrbEffects[this.skin], effectData, true );
+                EffectManager.SpawnEffect( Main.primaryOrbEffect, effectData, true );
 
                 this.dist1 = this.range * this.falloffStart;
                 this.dist2 = this.range * (1f - this.falloffStart);
@@ -110,10 +111,10 @@ namespace RogueWispPlugin
                     base.SendDamage( dmg, hcomp.gameObject );
 #endif
 
-                    EffectManager.SpawnEffect( Main.genericImpactEffects[this.skin][0], new EffectData
-                    {
-                        origin = box.transform.position
-                    }, true );
+                    //EffectManager.SpawnEffect( Main.genericImpactEffects[this.skin][0], new EffectData
+                    //{
+                    //    origin = box.transform.position
+                    //}, true );
 
                     CharacterBody targetBody = hcomp.GetComponent<CharacterBody>();
                     Inventory targetInv = (targetBody ? targetBody.inventory : null);
@@ -134,13 +135,13 @@ namespace RogueWispPlugin
                         origin = box.transform.position,
                         start = this.attacker.transform.position,
                         genericFloat = (curDist / this.speed) * 3.25f,
-                        genericUInt = stacks,
+                        genericUInt = this.skin,
                         scale = 0.65f * curMult,
                         genericBool = false,
                         color = DoBadThings(dur)
                     };
                     fx.SetHurtBoxReference( this.attacker );
-                    EffectManager.SpawnEffect( Main.utilityLeech[this.skin], fx, true );
+                    EffectManager.SpawnEffect( Main.utilityLeech, fx, true );
                 }
             }
             public override void End()

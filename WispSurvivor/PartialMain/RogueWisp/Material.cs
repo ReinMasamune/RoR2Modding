@@ -149,7 +149,7 @@ namespace RogueWispPlugin
             baseArmorMaterial.SetInt( "_FlowmapOn", 1 );
             baseArmorMaterial.SetInt( "_FEON", 1 );
 
-            RoR2Plugin.Main.MiscHelpers.DebugMaterialInfo( baseArmorMaterial );
+            //RoR2Plugin.Main.MiscHelpers.DebugMaterialInfo( baseArmorMaterial );
 
             for( Int32 i = 0; i < 8; i++ )
             {
@@ -159,7 +159,7 @@ namespace RogueWispPlugin
             }
 
             Material baseBurnMaterial = Resources.Load<Material>("Materials/MatOnHelfire");
-            RoR2Plugin.Main.MiscHelpers.DebugMaterialInfo( baseBurnMaterial );
+            //RoR2Plugin.Main.MiscHelpers.DebugMaterialInfo( baseBurnMaterial );
 
             for( Int32 i = 0; i < 8; i++ )
             {
@@ -177,8 +177,8 @@ namespace RogueWispPlugin
 
             Material base1 = Resources.Load<Material>("Materials/matElitePoisonParticleReplacement");
             Material base2 = Resources.Load<Material>("Materials/matEliteHauntedParticleReplacement");
-            RoR2Plugin.Main.MiscHelpers.DebugMaterialInfo( base1 );
-            RoR2Plugin.Main.MiscHelpers.DebugMaterialInfo( base2 );
+            //RoR2Plugin.Main.MiscHelpers.DebugMaterialInfo( base1 );
+            //RoR2Plugin.Main.MiscHelpers.DebugMaterialInfo( base2 );
 
             for( Int32 i = 0; i < 8; i++ )
             {
@@ -190,7 +190,7 @@ namespace RogueWispPlugin
             }
 
             Material base3 = Resources.Load<Material>( "Materials/matEnergyShield" );
-            RoR2Plugin.Main.MiscHelpers.DebugMaterialInfo( base3 );
+            //RoR2Plugin.Main.MiscHelpers.DebugMaterialInfo( base3 );
 
             for( Int32 i = 0; i < 8; i++ )
             {
@@ -203,6 +203,7 @@ namespace RogueWispPlugin
 
             trailMaterial = Instantiate<Material>(Resources.Load<GameObject>("Prefabs/ProjectileGhosts/ElectricWormSeekerGhost").transform.Find("Trail").GetComponent<TrailRenderer>().material);
             //RoR2Plugin.Main.MiscHelpers.DebugMaterialInfo( base4 );
+            RoR2Plugin.Main.MiscHelpers.DebugMaterialInfo( trailMaterial );
         }
 
         private void RW_GenerateTextures()

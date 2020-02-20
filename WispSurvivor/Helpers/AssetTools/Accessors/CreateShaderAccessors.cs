@@ -66,9 +66,9 @@ namespace RogueWispPlugin
                 return Resources.Load<Shader>( "Shaders/FX/HGIntersectionCloudRemap" );
             }, false, ExecutionState.Constructor ).RegisterAccessor();
 
-            new GenericAccessor<Shader>( ShaderIndex.HGOpagueCloudRemap, () =>
+            new GenericAccessor<Shader>( ShaderIndex.HGOpaqueCloudRemap, () =>
             {
-                return Resources.Load<Shader>( "Shaders/FX/HGOpagueCloudRemap" );
+                return Resources.Load<Shader>( "Shaders/FX/HGOpaqueCloudRemap" );
             }, false, ExecutionState.Constructor ).RegisterAccessor();
 
             new GenericAccessor<Shader>( ShaderIndex.HGSolidParallax, () =>

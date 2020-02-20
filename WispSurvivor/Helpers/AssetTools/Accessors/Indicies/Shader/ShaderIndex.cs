@@ -24,7 +24,7 @@ namespace RogueWispPlugin.Helpers
         HGDamageNumber,
         HGDistortion,
         HGIntersectionCloudRemap,
-        HGOpagueCloudRemap,
+        HGOpaqueCloudRemap,
         HGSolidParallax,
         #endregion
         #region Hopoo PostProcess

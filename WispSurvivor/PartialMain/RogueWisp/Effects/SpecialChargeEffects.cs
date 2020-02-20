@@ -16,7 +16,7 @@ namespace RogueWispPlugin
 
             for( Int32 i = 0; i < 8; i++ )
             {
-                specialCharge[i] = CreateSpecialCharge( baseFX, i );
+                //specialCharges[i] = CreateSpecialCharge( baseFX, i );
             }
         }
 

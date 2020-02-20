@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using RoR2;
 using UnityEngine;
 
 namespace RogueWispPlugin
@@ -8,17 +10,30 @@ namespace RogueWispPlugin
         public class WispFlamesController : MonoBehaviour
         {
             public WispPassiveController passive;
-            public List<ParticleSystem> flames = new List<ParticleSystem>();
-            public List<System.Single> flameInfos = new List<System.Single>();
+            private CharacterModel model;
+            private ParticleSystem[] flames;
+            private ParticleSystem.MinMaxCurve[] baseRates;
+
+            private void Awake()
+            {
+                this.model = base.gameObject.GetComponentInChildren<CharacterModel>();
+                this.flames = new ParticleSystem[this.model.baseParticleSystemInfos.Length];
+                this.baseRates = new ParticleSystem.MinMaxCurve[this.model.baseParticleSystemInfos.Length];
+                for( Int32 i = 0; i < this.model.baseParticleSystemInfos.Length; ++i )
+                {
+                    var temp = this.model.baseParticleSystemInfos[i].particleSystem;
+                    this.flames[i] = temp;
+                    this.baseRates[i] = temp.emission.rateOverTime;
+                }
+            }
 
             public void Update()
             {
                 System.Single mult = (System.Single)(this.passive.ReadCharge() / 100.0);
-                ParticleSystem.EmissionModule temp;
-                for( System.Int32 i = 0; i < this.flames.Count; i++ )
+                for( System.Int32 i = 0; i < this.flames.Length; i++ )
                 {
-                    temp = this.flames[i].emission;
-                    temp.rateMultiplier = mult * this.flameInfos[i];
+                    var temp = this.flames[i].emission;
+                    temp.rateOverTimeMultiplier = this.baseRates[i].Evaluate(0f) * mult;
                 }
             }
         }

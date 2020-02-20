@@ -86,7 +86,7 @@ namespace RogueWispPlugin
                         vec = r.GetPoint( Incineration.baseMaxRange );
                     }
 
-                    Quaternion rotation = Quaternion.Slerp( Quaternion.LookRotation(Vector3.Normalize(vec - this.headTransform.position), this.modelTransform.up), Quaternion.LookRotation(Vector3.Normalize(this.input.aimDirection) , this.modelTransform.up ), 0.25f );
+                    Quaternion rotation = Quaternion.Slerp( Util.QuaternionSafeLookRotation(Vector3.Normalize(vec - this.headTransform.position), this.modelTransform.up), Util.QuaternionSafeLookRotation(Vector3.Normalize(this.input.aimDirection) , this.modelTransform.up ), 0.25f );
                     //Quaternion headRot = Quaternion.LookRotation(input.aimDirection, modelTransform.forward);
 
                     if( this.transition )
@@ -109,7 +109,7 @@ namespace RogueWispPlugin
                         this.cannonTransform.localRotation = this.baseCannonRot;
                     }
                     this.cannonTransform.localPosition = this.baseCannonPos;
-                    this.headTransform.rotation = Quaternion.LookRotation( aimDirection, this.refHeadTransform.up );
+                    this.headTransform.rotation = Util.QuaternionSafeLookRotation( aimDirection, this.refHeadTransform.up );
                 }
             }
 

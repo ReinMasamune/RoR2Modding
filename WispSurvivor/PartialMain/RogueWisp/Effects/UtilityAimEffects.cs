@@ -38,9 +38,7 @@ namespace RogueWispPlugin
                 }
             }
 
-            RoR2Plugin.Main.MiscHelpers.DebugMaterialInfo( mat1 );
-            RoR2Plugin.Main.MiscHelpers.DebugMaterialInfo( mat2 );
-            RoR2Plugin.Main.MiscHelpers.DebugMaterialInfo( mat3 );
+
 
             for( Int32 i = 0; i < 8; i++ )
             {
@@ -55,11 +53,11 @@ namespace RogueWispPlugin
                 otherMaterials[i][1].SetTexture( "_RemapTex", fireTextures[i] );
                 otherMaterials[i][2].SetTexture( "_RemapTex", fireTextures[i] );
 
-                utilityAim[i].GetComponent<LineRenderer>().material = otherMaterials[i][0];
-                utilityAim[i].transform.Find( "lineEnd" ).GetComponent<MeshRenderer>().material = otherMaterials[i][1];
-                utilityAim[i].transform.Find( "lineEnd" ).Find( "lineEndSph2" ).GetComponent<MeshRenderer>().material = otherMaterials[i][2];
-                utilityFlames[i].transform.Find( "rangeInd" ).GetComponent<MeshRenderer>().material = otherMaterials[i][1];
-                utilityFlames[i].transform.Find( "rangeInd2" ).GetComponent<MeshRenderer>().material = otherMaterials[i][2];
+                //utilityAims[i].GetComponent<LineRenderer>().material = otherMaterials[i][0];
+                //utilityAims[i].transform.Find( "lineEnd" ).GetComponent<MeshRenderer>().material = otherMaterials[i][1];
+                //utilityAims[i].transform.Find( "lineEnd" ).Find( "lineEndSph2" ).GetComponent<MeshRenderer>().material = otherMaterials[i][2];
+                //utilityFlames[i].transform.Find( "rangeInd" ).GetComponent<MeshRenderer>().material = otherMaterials[i][1];
+                //utilityFlames[i].transform.Find( "rangeInd2" ).GetComponent<MeshRenderer>().material = otherMaterials[i][2];
             }
         }
 
@@ -73,7 +71,7 @@ namespace RogueWispPlugin
 
             for( Int32 i = 0; i < 8; i++ )
             {
-                utilityAim[i] = CreateUtilityAim( baseFX, i );
+                //utilityAims[i] = CreateUtilityAim( baseFX, i );
             }
 
             MonoBehaviour.Destroy( baseFX );

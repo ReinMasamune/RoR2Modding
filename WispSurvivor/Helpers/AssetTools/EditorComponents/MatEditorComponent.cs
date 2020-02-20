@@ -7,6 +7,8 @@ namespace RogueWispPlugin.Helpers
 {
     internal class MaterialEditor : MonoBehaviour
     {
+        internal static MaterialEditor instance;
+
         const Int32 windowID = 1;
         internal const Single width = 800f;
         internal const Single height = 1100f;
@@ -29,20 +31,29 @@ namespace RogueWispPlugin.Helpers
         private WispBitSkinMenuWrapper bitWrapper;
         private Menu<WispBitSkinMenuWrapper> bitWrapperMenu;
 
-        private StandardMaterial armorMat1;
-        private Menu<StandardMaterial> armorMat1Menu;
+        private StandardMaterial armorMat;
+        private Menu<StandardMaterial> armorMatMenu;
 
-        private CloudMaterial armorMat2Main;
-        private Menu<CloudMaterial>armorMat2MainMenu;
+        private CloudMaterial flameMat;
+        private Menu<CloudMaterial> flameMatMenu;
 
-        private DistortionMaterial armorMat2Sec;
-        private Menu<DistortionMaterial> armorMat2SecMenu;
+        //private OpaqueCloudMaterial flameMat;
+        //private Menu<OpaqueCloudMaterial> flameMatMenu;
 
-        private CloudMaterial flameMaterial;
-        private Menu<CloudMaterial> flameMaterialMenu;
+        private CloudMaterial tracerMat;
+        private Menu<CloudMaterial> tracerMatMenu;
 
-        private Material prevFlameMats = null;
-        private Material prevArmMats = null;
+        private CloudMaterial pillarMat;
+        private Menu<CloudMaterial> pillarMatMenu;
+
+        private IntersectionCloudMaterial indicatorMat;
+        private Menu<IntersectionCloudMaterial> indicatorMatMenu;
+
+        private CloudMaterial explosionMat;
+        private Menu<CloudMaterial> explosionMatMenu;
+
+        private CloudMaterial beamMat;
+        private Menu<CloudMaterial> beamMatMenu;
 
 
         internal static GUIStyle windowStyle;
@@ -50,21 +61,26 @@ namespace RogueWispPlugin.Helpers
         private Texture2D cursorTex;
         private void Awake()
         {
+            if( instance != null )
+            {
+                Destroy( instance );
+               
+            }
+            instance = this;
+            this.enabled = false;
+
             this.selectionNames = new String[]
             {
                 "Transform Control",
                 "Bit Skin",
-                "Flames Cloud",
-                "Armor Standard",
-                "Armor Cloud",
-                "Armor Distortion",
+                "Armor",
+                "Flame",
+                "Tracer",
+                "Pillar",
+                "Indicator",
+                "Explosion",
+                "Beam",
             };
-
-
-            
-
-            // TODO: Setup generic materials preview
-
             if( !bgtex )
             {
                 bgtex = new Texture2D( (Int32)width, (Int32)height );
@@ -77,9 +93,6 @@ namespace RogueWispPlugin.Helpers
                 bgtex.SetPixels( 0, 0, (Int32)width, (Int32)height, cols );
                 bgtex.Apply();
             }
-            
-
-
             this.cursorTex = new Texture2D( cursorWidth, cursorHeight );
             for( Int32 x = 0; x < cursorWidth; ++x )
             {
@@ -111,25 +124,49 @@ namespace RogueWispPlugin.Helpers
 
         private void FixedUpdate()
         {
-            
-            var tempFlames = this.skinController.activeFlameMaterial;
-            if( this.prevFlameMats == null || tempFlames != this.prevFlameMats )
+            if( this.armorMat == null || this.armorMat.material != this.skinController.activeArmorMaterial )
             {
-                this.prevFlameMats = tempFlames;
-                this.flameMaterial = new CloudMaterial( tempFlames );
-                this.flameMaterialMenu = new Menu<CloudMaterial>( this.flameMaterial );
+                this.armorMat = new StandardMaterial( this.skinController.activeArmorMaterial );
+                this.armorMatMenu = new Menu<StandardMaterial>( this.armorMat );
             }
-            var tempArms = this.skinController.activeArmorMaterial;
-            if( this.prevArmMats == null || tempArms != this.prevArmMats )
-            {
-                this.prevArmMats = tempArms;
 
-                    this.armorMat1 = new StandardMaterial( tempArms );
-                    this.armorMat1Menu = new Menu<StandardMaterial>( this.armorMat1 );
-                    this.armorMat2Main = null;
-                    this.armorMat2MainMenu = null;
-                    this.armorMat2Sec = null;
-                    this.armorMat2SecMenu = null;
+            if( this.flameMat == null || this.flameMat.material != this.skinController.activeFlameMaterial )
+            {
+                this.flameMat = new CloudMaterial( this.skinController.activeFlameMaterial );
+                this.flameMatMenu = new Menu<CloudMaterial>( this.flameMat );
+
+                //this.flameMat = new OpaqueCloudMaterial( this.skinController.activeFlameMaterial );
+                //this.flameMatMenu = new Menu<OpaqueCloudMaterial>( this.flameMat );
+            }
+
+            if( this.tracerMat == null || this.tracerMat.material != this.skinController.activeTracerMaterial )
+            {
+                this.tracerMat = new CloudMaterial( this.skinController.activeTracerMaterial );
+                this.tracerMatMenu = new Menu<CloudMaterial>( this.tracerMat );
+            }
+
+            if( this.pillarMat == null || this.pillarMat.material != this.skinController.activeFlamePillarMaterial )
+            {
+                this.pillarMat = new CloudMaterial( this.skinController.activeFlamePillarMaterial );
+                this.pillarMatMenu = new Menu<CloudMaterial>( this.pillarMat );
+            }
+            
+            if( this.indicatorMat == null || this.indicatorMat.material != this.skinController.activeAreaIndicatorMaterial )
+            {
+                this.indicatorMat = new IntersectionCloudMaterial( this.skinController.activeAreaIndicatorMaterial );
+                this.indicatorMatMenu = new Menu<IntersectionCloudMaterial>( this.indicatorMat );
+            }
+
+            if( this.explosionMat == null || this.explosionMat.material != this.skinController.activeExplosionMaterial )
+            {
+                this.explosionMat = new CloudMaterial( this.skinController.activeExplosionMaterial );
+                this.explosionMatMenu = new Menu<CloudMaterial>( this.explosionMat );
+            }
+
+            if( this.beamMat == null || this.beamMat.material != this.skinController.activeBeamMaterial )
+            {
+                this.beamMat = new CloudMaterial( this.skinController.activeBeamMaterial );
+                this.beamMatMenu = new Menu<CloudMaterial>( this.beamMat );
             }
             
         }
@@ -182,16 +219,25 @@ namespace RogueWispPlugin.Helpers
                     this.bitWrapperMenu?.Draw();
                     break;
                 case 2:
-                    this.flameMaterialMenu?.Draw();
+                    this.armorMatMenu?.Draw();
                     break;
                 case 3:
-                    this.armorMat1Menu?.Draw();
+                    this.flameMatMenu?.Draw();
                     break;
                 case 4:
-                    this.armorMat2MainMenu?.Draw();
+                    this.tracerMatMenu?.Draw();
                     break;
                 case 5:
-                    this.armorMat2SecMenu?.Draw();
+                    this.pillarMatMenu?.Draw();
+                    break;
+                case 6:
+                    this.indicatorMatMenu?.Draw();
+                    break;
+                case 7:
+                    this.explosionMatMenu?.Draw();
+                    break;
+                case 8:
+                    this.beamMatMenu?.Draw();
                     break;
                 default:
                     break;

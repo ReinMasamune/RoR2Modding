@@ -11,24 +11,24 @@ namespace RogueWispPlugin.Helpers
     /// </summary>
     internal class CloudMaterial : MaterialBase
     {
-        [Menu(sectionName = "Uncategorized" )]
+        [Menu( sectionName = "Uncategorized" )]
         /// <summary>
         /// Unknown
         /// </summary>
-        internal Single sourceBlend
+        internal UnityEngine.Rendering.BlendMode sourceBlend
         {
-            get => base.GetSingle( "_SrcBlend" );
-            set => base.SetSingle( "_SrcBlenc", value );
+            get => (UnityEngine.Rendering.BlendMode)base.GetSingle( "_SrcBlend" );
+            set => base.SetSingle( "_SrcBlend", (Single)value );
         }
 
-        [Menu(sectionName = "Uncategorized" )]
+        [Menu( sectionName = "Uncategorized" )]
         /// <summary>
         /// Unknown
         /// </summary>
-        internal Single destinationBlend
+        internal UnityEngine.Rendering.BlendMode destinationBlend
         {
-            get => base.GetSingle( "_DstBlend" );
-            set => base.SetSingle( "_DstBlend", value );
+            get => (UnityEngine.Rendering.BlendMode)base.GetSingle( "_DstBlend" );
+            set => base.SetSingle( "_DstBlend", (Single)value );
         }
 
         [Menu(sectionName = "Uncategorized")]

@@ -1,4 +1,5 @@
 ﻿using EntityStates;
+using RogueWispPlugin.Helpers;
 using RoR2;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -43,7 +44,8 @@ namespace RogueWispPlugin
                 if( !this.line )
                 {
                     Transform muzzle = this.GetModelTransform().Find("CannonPivot").Find("AncientWispArmature").Find("Head");
-                    this.line = UnityEngine.Object.Instantiate<GameObject>( Main.utilityAim[this.skin], muzzle.TransformPoint( 0f, 0.1f, 0f ), muzzle.rotation, muzzle );
+                    this.line = UnityEngine.Object.Instantiate<GameObject>( Main.utilityAim, muzzle.TransformPoint( 0f, 0.1f, 0f ), muzzle.rotation, muzzle );
+                    this.line.GetComponent<BitSkinController>().Apply( WispBitSkin.GetWispSkin( this.skin ) );
                     this.end = this.line.transform.Find( "lineEnd" );
                     this.end.parent = null;
                     this.end.localScale = new Vector3( 2 * this.radius, 2 * this.radius, 2 * this.radius );

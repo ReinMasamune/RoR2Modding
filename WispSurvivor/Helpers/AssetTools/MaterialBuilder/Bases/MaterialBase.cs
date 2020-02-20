@@ -53,6 +53,14 @@ namespace RogueWispPlugin.Helpers
             Back = 2
         }
 
+        internal enum RampInfo
+        {
+            TwoTone = 0,
+            SmoothedTwoTone = 1,
+            Unlitish = 3,
+            SubSurface = 4,
+        }
+
         internal void SetSingle( String name, Single value )
         {
             this.material.SetFloat( name, value );

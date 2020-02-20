@@ -51,7 +51,7 @@ namespace RogueWispPlugin
                     start = lastPos
                 };
                 effectData.SetHurtBoxReference( this.target );
-                EffectManager.SpawnEffect( Main.primaryOrbEffects[this.skin], effectData, true );
+                EffectManager.SpawnEffect( Main.primaryOrbEffect, effectData, true );
             }
 
             public override void OnArrival()
@@ -69,7 +69,7 @@ namespace RogueWispPlugin
                     scale = 0.5f
                 };
 
-                EffectManager.SpawnEffect( Main.primaryExplosionEffects[this.skin], effect, true );
+                //EffectManager.SpawnEffect( Main.primaryExplosionEffects[this.skin], effect, true );
 
                 if( this.attacker )
                 {

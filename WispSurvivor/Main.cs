@@ -154,6 +154,8 @@ namespace RogueWispPlugin
 #if MATEDITOR
         partial void SetupMatEditor();
 #endif
+        partial void SetupSkinSelector();
+        partial void SetupEffectSkinning();
         public Main()
         {
             instance = this;
@@ -214,6 +216,8 @@ namespace RogueWispPlugin
 #if MATEDITOR
                 this.SetupMatEditor();
 #endif
+                this.SetupSkinSelector();
+                this.SetupEffectSkinning();
                 this.FirstFrame += this.Main_FirstFrame;
 #if TIMER
                 this.Load += this.AwakeTimeStop;
@@ -227,17 +231,10 @@ namespace RogueWispPlugin
 
             this.Enable += IncState;
             this.FirstFrame += IncState;
-            this.FirstFrame += this.RandomTesting;
         }
 
-        private void RandomTesting()
-        {
-            var shader = AssetLibrary<Shader>.i[ShaderIndex.HGCloudRemap];
-            var mat = AssetLibrary<Material>.i[MaterialIndex.refMatElitePoisonParticleSystemReplacement];
-            DumpMaterialInfo.DumpInfo( mat );
-        }
 
-        
+
 
         private void Main_FirstFrame() => typeof( EffectCatalog ).InvokeMethod( "CCEffectsReload", new ConCommandArgs() );
 
@@ -329,7 +326,6 @@ namespace RogueWispPlugin
 //
 
 
-
 //Remake all skins
 //Create boss vfx
 //Balance boss abilities and stats
@@ -345,7 +341,7 @@ namespace RogueWispPlugin
 
 //For next release:
 
-
+// TODO: WispBurnManager with new skin system.
 
 
 // TODO: IDRS for critical equipment. (Crowdfunder and wings)
