@@ -70,13 +70,16 @@ namespace RogueWispPlugin
             var explShape = explosion.shape;
             explShape.enabled = true;
             explShape.shapeType = ParticleSystemShapeType.Hemisphere;
-            explShape.radius = 1.5f;
+            explShape.radius = 0.5f;
             explShape.rotation = new Vector3( -90f, 0f, 0f );
 
 
             var light = EffectHelper.AddLight( obj, skin, true, 10f, 100f );
             light.transform.localPosition += new Vector3( 0f, 3f, 0f );
             EffectHelper.EditLightOverTime( light, 2f, AnimationCurve.EaseInOut( 0f, 1f, 1f, 0f ), AnimationCurve.EaseInOut( 0f, 1f, 1f, 0f ) );
+
+
+            var distortion = EffectHelper.AddDistortion( obj, skin, MaterialType.Distortion, 8f, 0.3f, 0f );
 
 
 

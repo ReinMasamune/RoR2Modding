@@ -15,7 +15,15 @@ namespace RogueWispPlugin
             this.Load += this.AW_SetupPrimary;
             this.Load += this.AW_SetupSecondary;
             this.Load += this.AW_SetupUtility;
+            this.Load += this.AW_SetupEnrage;
         }
+
+        private void AW_SetupEnrage()
+        {
+            LoadoutAPI.AddSkill( typeof( AWDefaultMain ) );
+            LoadoutAPI.AddSkill( typeof( AWEnrageTransition ) );
+            LoadoutAPI.AddSkill( typeof( AWEnrageMainState ) );
+        } 
 
         private void AW_SetupUtility()
         {
@@ -26,11 +34,12 @@ namespace RogueWispPlugin
             LoadoutAPI.AddSkillFamily( utilityFam );
             LoadoutAPI.AddSkill( typeof( AWChargeUtility ) );
             LoadoutAPI.AddSkill( typeof( AWFireUtility ) );
+            
 
             utilityDef.activationState = new EntityStates.SerializableEntityStateType( typeof( AWChargeUtility ) );
             utilityDef.activationStateMachineName = "Weapon";
             utilityDef.baseMaxStock = 1;
-            utilityDef.baseRechargeInterval = 10f;
+            utilityDef.baseRechargeInterval = 23f;
             utilityDef.beginSkillCooldownOnSkillEnd = true;
             utilityDef.canceledFromSprinting = false;
             utilityDef.fullRestockOnAssign = true;
@@ -71,7 +80,7 @@ namespace RogueWispPlugin
             secondaryDef.activationState = new EntityStates.SerializableEntityStateType( typeof( AWSecondary ) );
             secondaryDef.activationStateMachineName = "Weapon";
             secondaryDef.baseMaxStock = 1;
-            secondaryDef.baseRechargeInterval = 10f;
+            secondaryDef.baseRechargeInterval = 31f;
             secondaryDef.beginSkillCooldownOnSkillEnd = true;
             secondaryDef.canceledFromSprinting = false;
             secondaryDef.fullRestockOnAssign = true;

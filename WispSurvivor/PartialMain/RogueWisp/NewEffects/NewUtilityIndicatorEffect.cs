@@ -2,6 +2,7 @@
 using R2API;
 using RogueWispPlugin.Helpers;
 using RoR2;
+using RoR2.Projectile;
 using System;
 using UnityEngine;
 //using static RogueWispPlugin.Helpers.APIInterface;
@@ -20,6 +21,8 @@ namespace RogueWispPlugin
         {
             var obj = new GameObject().InstantiateClone("UtilityAim", false );
 
+            obj.layer = LayerIndex.entityPrecise.intVal;
+
             var effComp = obj.AddComponent<EffectComponent>();
             effComp.positionAtReferencedTransform = false;
             effComp.parentToReferencedTransform = false;
@@ -37,6 +40,31 @@ namespace RogueWispPlugin
 
             EffectHelper.AddMeshIndicator( obj, skin, MaterialType.AreaIndicator, MeshIndex.Sphere, false );
 
+            //var tornado = EffectHelper.AddFlameTornado( obj, skin, MaterialType.FlameTornado, 1f, 10f, 7.5f, 7.5f );
+            //var tornadoMain = tornado.main;
+            //tornadoMain.startSizeX = 7.5f;
+            //tornadoMain.startSizeY = 7.5f;
+            //var tornadoSOL = tornado.sizeOverLifetime;
+            //tornadoSOL.enabled = true;
+            //tornadoSOL.separateAxes = true;
+            //tornadoSOL.x = new ParticleSystem.MinMaxCurve( 1f, AnimationCurve.Linear( 0f, 1f, 1f, 0f ) );
+            //tornadoSOL.y = new ParticleSystem.MinMaxCurve( 1f, AnimationCurve.Linear( 0f, 1f, 1f, 0f ) );
+            //tornadoSOL.z = new ParticleSystem.MinMaxCurve( 1f, AnimationCurve.EaseInOut( 0f, 0.9f, 1f, 1f ) );
+
+            var fire = EffectHelper.AddFire( obj, skin, MaterialType.Flames, 6f, 1.5f, 30f, 0f, -1f, true );
+            var fireMain = fire.main;
+            fireMain.scalingMode = ParticleSystemScalingMode.Local;
+
+            //var col = obj.AddComponent<SphereCollider>();
+            //col.isTrigger = true;
+            //col.center = Vector3.zero;
+            //col.radius = 0.5f;
+            //col.material = null;
+
+            //var slow = obj.AddComponent<SlowDownProjectiles>();
+            //slow.maxVelocityMagnitude = 20f;
+            //slow.antiGravity = 0f;
+            
 
             utilityIndicator = obj;
             RegisterEffect( utilityIndicator );

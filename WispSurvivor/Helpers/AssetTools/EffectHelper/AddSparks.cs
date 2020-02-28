@@ -50,7 +50,7 @@ namespace RogueWispPlugin.Helpers
             psMain.scalingMode = ParticleSystemScalingMode.Hierarchy;
             psMain.playOnAwake = true;
             psMain.emitterVelocityMode = ParticleSystemEmitterVelocityMode.Transform;
-            psMain.maxParticles = count * 2;
+            psMain.maxParticles = Mathf.Abs(count) * 2;
             psMain.stopAction = ParticleSystemStopAction.None;
             psMain.cullingMode = ParticleSystemCullingMode.AlwaysSimulate;
             psMain.ringBufferMode = ParticleSystemRingBufferMode.Disabled;

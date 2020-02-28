@@ -16,15 +16,15 @@ namespace RogueWispPlugin
 	{
 		public class Incineration : BaseState
 		{
-			public static System.Double chargePerTick = 15.0;
+			public static System.Double chargePerTick = 20;
 
-			public static System.Single baseMinDuration = 1.0f;
+			public static System.Single baseMinDuration = 0.25f;
 			public static System.Single baseDamageMult = 1.0f;
 			public static System.Single baseProcCoef = 0.8f;
 			public static System.Single baseTickFreq = 5f;
 			public static System.Single baseMaxRange = 1000f;
 			public static System.Single baseRadius = 2f;
-			public static System.Single chargeScaler = 1f;
+			public static System.Single chargeScaler = 0.8f;
 			public static System.Single minChargeToUse = 50f;
 
 			public Vector3 camPos1;
@@ -131,7 +131,7 @@ namespace RogueWispPlugin
 
 				if( this.fireTimer > this.fireInterval )
 				{
-					this.Fire( this.passive.UseChargeDrain( chargePerTick, this.fireInterval / this.characterBody.attackSpeed, chargeScaler ) );
+					this.Fire( this.passive.UseChargeDrain( chargePerTick, this.fireInterval / Mathf.Sqrt( base.characterBody.attackSpeed ), chargeScaler ) );
 					this.fireTimer -= this.fireInterval;
 				}
 
@@ -150,7 +150,7 @@ namespace RogueWispPlugin
 				base.OnExit();
 				if( this.fireTimer >= this.fireInterval / 2f )
 				{
-					this.Fire( this.passive.UseChargeDrain( chargePerTick, this.fireInterval / this.characterBody.attackSpeed, chargeScaler ) );
+					this.Fire( this.passive.UseChargeDrain( chargePerTick, this.fireInterval / Mathf.Sqrt(base.characterBody.attackSpeed), chargeScaler ) );
 				}
 				RoR2.Util.PlayScaledSound( "Stop_titanboss_R_laser_loop", this.gameObject, 5f );
 				if( this.beamEffect )

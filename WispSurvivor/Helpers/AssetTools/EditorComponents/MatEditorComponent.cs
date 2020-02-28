@@ -55,6 +55,27 @@ namespace RogueWispPlugin.Helpers
         private CloudMaterial beamMat;
         private Menu<CloudMaterial> beamMatMenu;
 
+        private DistortionMaterial distortionLMat;
+        private Menu<DistortionMaterial> distortionLMatMenu;
+
+        private DistortionMaterial distortionMat;
+        private Menu<DistortionMaterial> distortionMatMenu;
+
+        private DistortionMaterial distortionHMat;
+        private Menu<DistortionMaterial> distortionHMatMenu;
+
+        private CloudMaterial arcaneCircleMat;
+        private Menu<CloudMaterial> arcaneCircleMatMenu;
+
+        private CloudMaterial flameTornadoMat;
+        private Menu<CloudMaterial> flameTornadoMatMenu;
+
+        private IntersectionCloudMaterial bossIndicatorMat;
+        private Menu<IntersectionCloudMaterial> bossIndicatorMatMenu;
+
+        private CloudMaterial bossExplosionIndMat;
+        private Menu<CloudMaterial> bossExplosionIndMatMenu;
+
 
         internal static GUIStyle windowStyle;
         private static Texture2D bgtex;
@@ -80,6 +101,13 @@ namespace RogueWispPlugin.Helpers
                 "Indicator",
                 "Explosion",
                 "Beam",
+                "DistortionLight",
+                "Distortion",
+                "DistortionHeavy",
+                "ArcaneCircle",
+                "FlameTornado",
+                "BossIndicator",
+                "BossExplosionIndicator",
             };
             if( !bgtex )
             {
@@ -168,6 +196,49 @@ namespace RogueWispPlugin.Helpers
                 this.beamMat = new CloudMaterial( this.skinController.activeBeamMaterial );
                 this.beamMatMenu = new Menu<CloudMaterial>( this.beamMat );
             }
+
+            if( this.distortionLMat == null || this.distortionLMat.material != this.skinController.activeDistortionLightMaterial )
+            {
+                this.distortionLMat = new DistortionMaterial( this.skinController.activeDistortionLightMaterial );
+                this.distortionLMatMenu = new Menu<DistortionMaterial>( this.distortionLMat );
+            }
+
+            if( this.distortionMat == null || this.distortionMat.material != this.skinController.activeDistortionMaterial )
+            {
+                this.distortionMat = new DistortionMaterial( this.skinController.activeDistortionMaterial );
+                this.distortionMatMenu = new Menu<DistortionMaterial>( this.distortionMat );
+            }
+
+            if( this.distortionHMat == null || this.distortionHMat.material != this.skinController.activeDistortionHeavyMaterial )
+            {
+                this.distortionHMat = new DistortionMaterial( this.skinController.activeDistortionHeavyMaterial );
+                this.distortionHMatMenu = new Menu<DistortionMaterial>( this.distortionHMat );
+            }
+
+            if( this.arcaneCircleMat == null || this.arcaneCircleMat.material != this.skinController.activeArcaneCircleMaterial )
+            {
+                this.arcaneCircleMat = new CloudMaterial( this.skinController.activeArcaneCircleMaterial );
+                this.arcaneCircleMatMenu = new Menu<CloudMaterial>( this.arcaneCircleMat );
+            }
+
+            if( this.flameTornadoMat == null || this.flameTornadoMat.material != this.skinController.activeFlameTornadoMaterial )
+            {
+                this.flameTornadoMat = new CloudMaterial( this.skinController.activeFlameTornadoMaterial );
+                this.flameTornadoMatMenu = new Menu<CloudMaterial>( this.flameTornadoMat );
+            }
+
+            if( this.bossIndicatorMat == null || this.bossIndicatorMat.material != this.skinController.activeBossAreaIndicatorMaterial )
+            {
+                this.bossIndicatorMat = new IntersectionCloudMaterial( this.skinController.activeBossAreaIndicatorMaterial );
+                this.bossIndicatorMatMenu = new Menu<IntersectionCloudMaterial>( this.bossIndicatorMat );
+            }
+
+            if( this.bossExplosionIndMat == null || this.bossExplosionIndMat.material != this.skinController.activeBossAreaExplosionMaterial )
+            {
+                this.bossExplosionIndMat = new CloudMaterial( this.skinController.activeBossAreaExplosionMaterial );
+                this.bossExplosionIndMatMenu = new Menu<CloudMaterial>( this.bossExplosionIndMat );
+            }
+
             
         }
 
@@ -238,6 +309,27 @@ namespace RogueWispPlugin.Helpers
                     break;
                 case 8:
                     this.beamMatMenu?.Draw();
+                    break;
+                case 9:
+                    this.distortionLMatMenu?.Draw();
+                    break;
+                case 10:
+                    this.distortionMatMenu?.Draw();
+                    break;
+                case 11:
+                    this.distortionHMatMenu?.Draw();
+                    break;
+                case 12:
+                    this.arcaneCircleMatMenu?.Draw();
+                    break;
+                case 13:
+                    this.flameTornadoMatMenu?.Draw();
+                    break;
+                case 14:
+                    this.bossIndicatorMatMenu?.Draw();
+                    break;
+                case 15:
+                    this.bossExplosionIndMatMenu?.Draw();
                     break;
                 default:
                     break;

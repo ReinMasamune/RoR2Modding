@@ -13,7 +13,7 @@ namespace RogueWispPlugin
         internal class AWFirePrimary : BaseState
         {
             const Single baseDuration = 0.5f;
-            const Single damageCoef = 1.0f;
+            const Single damageCoef = 1f;
 
             private Single duration;
 
@@ -32,7 +32,7 @@ namespace RogueWispPlugin
 
                 var muzzleTransform = base.GetModelTransform().GetComponent<ChildLocator>().FindChild( "MuzzleRight" );
 
-                if( base.isAuthority && false )
+                if( base.isAuthority )
                 {
                     ProjectileManager.instance.FireProjectile( new FireProjectileInfo
                     {
@@ -43,7 +43,7 @@ namespace RogueWispPlugin
                         owner = base.gameObject,
                         position = muzzleTransform.position,
                         procChainMask = default,
-                        projectilePrefab = Main.instance.AW_primaryProj,
+                        projectilePrefab = Main.AW_primaryProjectile,
                         rotation = Util.QuaternionSafeLookRotation( aim.direction ),
 
                     } );

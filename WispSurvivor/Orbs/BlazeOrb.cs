@@ -1,4 +1,5 @@
-﻿using RoR2;
+﻿using RogueWispPlugin.Helpers;
+using RoR2;
 using RoR2.Orbs;
 using System;
 using System.Collections.Generic;
@@ -64,17 +65,57 @@ namespace RogueWispPlugin
             private readonly Dictionary<HealthComponent, Single> mask = new Dictionary<HealthComponent, Single>();
             private readonly Dictionary<HealthComponent, Main.WispBurnManager> burnManagers = new Dictionary<HealthComponent, WispBurnManager>();
 
+            private Dictionary<HealthComponent,Hit> bestHits = new Dictionary<HealthComponent, Hit>();
+
+            private HashSet<Collider> collidersInZone = new HashSet<Collider>();
+            private Dictionary<HealthComponent, TargetContext> targetContexts = new Dictionary<HealthComponent, TargetContext>();
+            private TriggerCallbackController hitDetection;
+            private AssociationMap<HealthComponent,HurtBox> targetBoxes = new AssociationMap<HealthComponent, HurtBox>();
+
+            private struct Hit
+            {
+                public Single distance;
+                public HurtBox box;
+
+                public Hit( HurtBox box, Single distance )
+                {
+                    this.distance = distance;
+                    this.box = box;
+                }
+            }
+            
+            private class TargetContext
+            {
+                public Single timer;
+                public Main.WispBurnManager burnManager;
+                public HealthComponent healthComponent;
+                public HurtBox mainHurtBox;
+
+                public TargetContext( Main.WispBurnManager manager, HealthComponent hc, Single initTimer = 0f )
+                {
+                    this.timer = initTimer;
+                    this.burnManager = manager;
+                    this.healthComponent = hc;
+                    this.mainHurtBox = hc.body.mainHurtBox;
+                }
+            }
+
             public override void Begin()
             {
                 this.b = Main.instance.RW_curseBurn;
 
-                foreach( IgnitionOrb i in this.children )
-                {
-                    if( i.isActive )
-                    {
-                        i.parent = this;
-                    }
-                }
+                //foreach( IgnitionOrb i in this.children )
+                //{
+                //    if( i.isActive )
+                //    {
+                //        i.parent = this;
+                //    }
+                //}
+
+                this.hitDetection = TriggerCallbackController.CreateSphere( this.blazeRadius, base.origin, true, LayerIndex.projectile );
+                this.hitDetection.onTriggerEnter += this.ColliderEnter;
+                this.hitDetection.onTriggerExit += this.ColliderExit;
+                //this.hitDetection.onTriggerStay += this.ColliderStay;
 
                 this.duration = this.blazeTime;
 
@@ -85,10 +126,10 @@ namespace RogueWispPlugin
 
                 EffectData effectData = new EffectData
                 {
-                    origin = origin,
-                    genericFloat = duration,
-                    rotation = Quaternion.LookRotation(tangent, this.normal),
-                    scale = blazeRadius * 2f,
+                    origin = base.origin,
+                    genericFloat = base.duration,
+                    rotation = Quaternion.identity,
+                    scale = this.blazeRadius * 2f,
                     genericUInt = this.skin,
                 };
                 EffectManager.SpawnEffect( Main.utilityIndicator, effectData, true );
@@ -99,40 +140,94 @@ namespace RogueWispPlugin
                 this.attackerBody = this.attacker.GetComponent<CharacterBody>();
                 this.attackerBox = this.attackerBody.mainHurtBox;
             }
+            private void ColliderStay( Collider col )
+            {
+                if( this.collidersInZone.Contains( col ) ) return;
+                this.ColliderEnter( col );
+            }
+            private void ColliderEnter( Collider col )
+            {
+                this.collidersInZone.Add( col );
+                var hb = col?.GetComponent<HurtBox>();
+                if( hb == null ) return;
+                var hc = hb.healthComponent;
+                if( hc == null ) return;
+                if( hc.body.teamComponent.teamIndex == this.team ) return;
+
+                this.targetBoxes.Add( hc, hb );
+            }
+            private void ColliderExit( Collider col )
+            {
+                if( this.collidersInZone.Contains( col ) ) this.collidersInZone.Remove( col );
+                var hb = col?.GetComponent<HurtBox>();
+                if( hb == null ) return;
+                if( !this.targetBoxes.ContainsValue( hb ) ) return;
+                var hc = hb.healthComponent;
+                if( hc == null ) return;
+                if( hc.body.teamComponent.teamIndex == this.team ) return;
+
+                this.targetBoxes.RemoveValue( hb );
+            }
 
             public void FixedUpdate()
             {
                 this.isOwnerInside = this.attacker && Vector3.Distance( this.attacker.transform.position, this.origin ) <= this.blazeRadius;
+
+
+                var dt = Time.fixedDeltaTime;
+                foreach( var hc in this.targetBoxes.keys )
+                {
+                    if( hc == null || !hc.alive ) continue;
+                    if( !this.targetContexts.ContainsKey( hc ) )
+                    {
+                        var burn = hc?.AddOrGetComponent<WispBurnManager>();
+                        this.targetContexts[hc] = new TargetContext(burn, hc, this.blazeResetInt );
+                    }
+                    var context = this.targetContexts[hc];
+                    context.timer += dt;
+
+                    while( context.timer >= this.blazeResetInt )
+                    {
+                        context.timer -= this.blazeResetInt;
+                        this.TickDamage( context );
+                    }
+                }
 
                 if( this.isOwnerInside ) this.bundleSendTimer += Time.fixedDeltaTime;
                 if( this.isOwnerInside && this.stacks >= this.blazeOrbStackBundleSize && this.bundleSendTimer >= this.bundleSendInt ) this.SendStackBundle();
                 if( this.isOwnerInside && !this.attackerBody.HasBuff( BuffIndex.EnrageAncientWisp ) ) this.attackerBody.AddBuff( BuffIndex.EnrageAncientWisp );
                 if( !this.isOwnerInside && this.attackerBody.HasBuff( BuffIndex.EnrageAncientWisp ) ) this.attackerBody.RemoveBuff( BuffIndex.EnrageAncientWisp );
 
-                Collider[] cols = Physics.OverlapSphere(this.origin, this.blazeRadius, LayerIndex.entityPrecise.mask, QueryTriggerInteraction.UseGlobal);
 
-                HurtBox box;
+                //if( this.isOwnerInside ) this.bundleSendTimer += Time.fixedDeltaTime;
+                //if( this.isOwnerInside && this.stacks >= this.blazeOrbStackBundleSize && this.bundleSendTimer >= this.bundleSendInt ) this.SendStackBundle();
+                //if( this.isOwnerInside && !this.attackerBody.HasBuff( BuffIndex.EnrageAncientWisp ) ) this.attackerBody.AddBuff( BuffIndex.EnrageAncientWisp );
+                //if( !this.isOwnerInside && this.attackerBody.HasBuff( BuffIndex.EnrageAncientWisp ) ) this.attackerBody.RemoveBuff( BuffIndex.EnrageAncientWisp );
 
-                this.curTime = Time.fixedTime;
-                foreach( Collider col in cols )
-                {
-                    if( !col ) continue;
-                    box = col.GetComponent<HurtBox>();
-                    if( !box ) continue;
-                    HealthComponent hcomp = box.healthComponent;
-                    if( !hcomp || !hcomp.alive || TeamComponent.GetObjectTeam( hcomp.gameObject ) == this.team ) continue;
+                //Collider[] cols = Physics.OverlapSphere(this.origin, this.blazeRadius, LayerIndex.entityPrecise.mask, QueryTriggerInteraction.UseGlobal);
 
-                    if( this.mask.ContainsKey( hcomp ) )
-                    {
-                        if( this.mask[hcomp] > this.curTime ) continue;
-                        this.mask[hcomp] = this.curTime + this.blazeResetInt;
-                        this.TickDamage( box );
-                    } else
-                    {
-                        this.mask.Add( hcomp, this.curTime + this.blazeResetInt );
-                        this.TickDamage( box );
-                    }
-                }
+                //HurtBox box;
+
+                //this.curTime = Time.fixedTime;
+                //foreach( Collider col in cols )
+                //{
+                //    if( !col ) continue;
+                //    box = col.GetComponent<HurtBox>();
+                //    if( !box ) continue;
+                //    HealthComponent hcomp = box.healthComponent;
+                //    if( !hcomp || !hcomp.alive || TeamComponent.GetObjectTeam( hcomp.gameObject ) == this.team ) continue;
+
+                //    if( this.mask.ContainsKey( hcomp ) )
+                //    {
+                //        if( this.mask[hcomp] > this.curTime ) continue;
+                //        this.mask[hcomp] = this.curTime + this.blazeResetInt;
+                //        this.TickDamage( box );
+                //    } else
+                //    {
+                //        this.mask.Add( hcomp, this.curTime + this.blazeResetInt );
+                //        this.TickDamage( box );
+                //    }
+                //}
             }
 
             public override void OnArrival()
@@ -155,6 +250,8 @@ namespace RogueWispPlugin
                 if( this.attackerBody.HasBuff( BuffIndex.EnrageAncientWisp ) ) this.attackerBody.RemoveBuff( BuffIndex.EnrageAncientWisp );
 
                 this.isActive = false;
+
+                this.hitDetection.Cleanup();
 
             }
 
@@ -209,6 +306,36 @@ namespace RogueWispPlugin
                 orb.origin = enemy.transform.position;
                 orb.skin = this.skin;
                 orb.target = enemy;
+                orb.team = this.team;
+                orb.igniteStacksPerTick = this.igniteStacksPerTick;
+                orb.igniteProcCoef = this.igniteProcCoef;
+                orb.igniteTickDmg = this.igniteTickDamage;
+                orb.igniteTickFreq = this.igniteTickFreq;
+                orb.igniteTime = this.igniteDuration;
+                orb.igniteDamageColor = this.igniteDamageColor;
+                orb.igniteDeathStacksMult = this.igniteDeathStacksMult;
+                orb.igniteBaseStacksOnDeath = this.igniteBaseStacksOnDeath;
+                orb.igniteExpireStacksMult = this.igniteExpireStacksMult;
+                orb.parent = this;
+
+                RoR2.Orbs.OrbManager.instance.AddOrb( orb );
+                this.children.Add( orb );
+
+                enemy.healthComponent.gameObject.GetComponent<CharacterBody>().AddTimedBuff( this.b, this.igniteDuration );
+            }
+
+            private void TickDamage( TargetContext enemy )
+            {
+                if( enemy == null || enemy.burnManager == null || enemy.healthComponent == null || enemy.mainHurtBox == null ) return;
+                enemy.burnManager.SetSkinDuration( this.skin, this.igniteDuration );
+                IgnitionOrb orb = new IgnitionOrb();
+
+                orb.attacker = this.attacker;
+                orb.crit = this.crit;
+                orb.normal = Vector3.Normalize( enemy.mainHurtBox.transform.position - this.origin );
+                orb.origin = enemy.mainHurtBox.transform.position;
+                orb.skin = this.skin;
+                orb.target = enemy.mainHurtBox;
                 orb.team = this.team;
                 orb.igniteStacksPerTick = this.igniteStacksPerTick;
                 orb.igniteProcCoef = this.igniteProcCoef;

@@ -16,5 +16,12 @@ namespace RogueWispPlugin.Helpers
         AreaIndicator,
         Explosion,
         Beam,
+        DistortionLight,
+        Distortion,
+        DistortionHeavy,
+        ArcaneCircle,
+        FlameTornado,
+        BossAreaIndicator,
+        BossAreaExplosion,
     }
 }

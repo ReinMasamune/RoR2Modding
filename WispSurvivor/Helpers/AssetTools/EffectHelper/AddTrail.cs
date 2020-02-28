@@ -9,7 +9,7 @@ namespace RogueWispPlugin.Helpers
     internal static partial class EffectHelper
     {
         private static Dictionary<GameObject,UInt32> trailCounter = new Dictionary<GameObject, UInt32>();
-        internal static TrailRenderer AddTrail( GameObject mainObj, WispSkinnedEffect skin, MaterialType matType, Boolean applyColor = true )
+        internal static TrailRenderer AddTrail( GameObject mainObj, WispSkinnedEffect skin, MaterialType matType, Single width, Single startWidth, Single endWidth, Single time, Boolean applyColor = true )
         {
             if( !trailCounter.ContainsKey( mainObj ) ) trailCounter[mainObj] = 0u;
             var obj = new GameObject( "Trail" + trailCounter[mainObj]++ );
@@ -25,10 +25,10 @@ namespace RogueWispPlugin.Helpers
             }
             if( applyColor ) skin.AddTrail( trail );
 
-            trail.time = 0.1f;
-            trail.startWidth = 0.65f;
-            trail.endWidth = 0.05f;
-            trail.widthMultiplier = 1.0f;
+            trail.time = time;
+            trail.startWidth = startWidth;
+            trail.endWidth = endWidth;
+            trail.widthMultiplier = width;
 
             trail.textureMode = LineTextureMode.Stretch;
             trail.alignment = LineAlignment.View;

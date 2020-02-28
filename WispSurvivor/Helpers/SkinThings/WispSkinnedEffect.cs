@@ -15,6 +15,13 @@ namespace RogueWispPlugin.Helpers
         public Renderer[] areaIndicatorRenderers = Array.Empty<Renderer>();
         public Renderer[] explosionRenderers = Array.Empty<Renderer>();
         public Renderer[] beamRenderers = Array.Empty<Renderer>();
+        public Renderer[] distortionLightRenderers = Array.Empty<Renderer>();
+        public Renderer[] distortionRenderers = Array.Empty<Renderer>();
+        public Renderer[] distortionHeavyRenderers = Array.Empty<Renderer>();
+        public Renderer[] arcaneCircleRenderers = Array.Empty<Renderer>();
+        public Renderer[] flameTornadoRenderers = Array.Empty<Renderer>();
+        public Renderer[] bossAreaIndicatorRenderers = Array.Empty<Renderer>();
+        public Renderer[] bossAreaExplosionRenderers = Array.Empty<Renderer>();
         public Light[] lights = Array.Empty<Light>();
         public TrailRenderer[] trails = Array.Empty<TrailRenderer>();
 
@@ -25,6 +32,13 @@ namespace RogueWispPlugin.Helpers
         private Material activeAreaIndicatorMaterial;
         private Material activeExplosionMaterial;
         private Material activeBeamMaterial;
+        private Material activeDistortionLightMaterial;
+        private Material activeDistortionMaterial;
+        private Material activeDistortionHeavyMaterial;
+        private Material activeArcaneCircleMaterial;
+        private Material activeFlameTornadoMaterial;
+        private Material activeBossAreaIndicatorMaterial;
+        private Material activeBossAreaExplosionMaterial;
         private Color activeColor;
         private Gradient activeColorGradient;
 
@@ -93,6 +107,41 @@ namespace RogueWispPlugin.Helpers
                     Array.Resize<Renderer>( ref this.beamRenderers, ind + 1 );
                     this.beamRenderers[ind] = renderer;
                     break;
+                case MaterialType.DistortionLight:
+                    ind = this.distortionLightRenderers.Length;
+                    Array.Resize<Renderer>( ref this.distortionLightRenderers, ind + 1 );
+                    this.distortionLightRenderers[ind] = renderer;
+                    break;
+                case MaterialType.Distortion:
+                    ind = this.distortionRenderers.Length;
+                    Array.Resize<Renderer>( ref this.distortionRenderers, ind + 1 );
+                    this.distortionRenderers[ind] = renderer;
+                    break;
+                case MaterialType.DistortionHeavy:
+                    ind = this.distortionHeavyRenderers.Length;
+                    Array.Resize<Renderer>( ref this.distortionHeavyRenderers, ind + 1 );
+                    this.distortionHeavyRenderers[ind] = renderer;
+                    break;
+                case MaterialType.ArcaneCircle:
+                    ind = this.arcaneCircleRenderers.Length;
+                    Array.Resize<Renderer>( ref this.arcaneCircleRenderers, ind + 1 );
+                    this.arcaneCircleRenderers[ind] = renderer;
+                    break;
+                case MaterialType.FlameTornado:
+                    ind = this.flameTornadoRenderers.Length;
+                    Array.Resize<Renderer>( ref this.flameTornadoRenderers, ind + 1 );
+                    this.flameTornadoRenderers[ind] = renderer;
+                    break;
+                case MaterialType.BossAreaIndicator:
+                    ind = this.bossAreaIndicatorRenderers.Length;
+                    Array.Resize<Renderer>( ref this.bossAreaIndicatorRenderers, ind + 1 );
+                    this.bossAreaIndicatorRenderers[ind] = renderer;
+                    break;
+                case MaterialType.BossAreaExplosion:
+                    ind = this.bossAreaExplosionRenderers.Length;
+                    Array.Resize<Renderer>( ref this.bossAreaExplosionRenderers, ind + 1 );
+                    this.bossAreaExplosionRenderers[ind] = renderer;
+                    break;
                     
             }
         }
@@ -122,7 +171,7 @@ namespace RogueWispPlugin.Helpers
             var newCode = Convert.ToString( tempSkin.EncodeToSkinIndex(), 2).PadLeft( 32, '0' );
             this.skin = tempSkin;
             var appliedCode = Convert.ToString( this.skin.EncodeToSkinIndex(), 2).PadLeft( 32, '0' );
-            Main.LogI( String.Format( "Skin changed\n{0}\n{1}\n{2}", oldCode, newCode, appliedCode ) );
+            //Main.LogI( String.Format( "Skin changed\n{0}\n{1}\n{2}", oldCode, newCode, appliedCode ) );
         }
 
         private void OnSkinChanged( WispBitSkin newSkin )
@@ -134,6 +183,13 @@ namespace RogueWispPlugin.Helpers
             this.activeAreaIndicatorMaterial = newSkin.areaIndicatorMaterial;
             this.activeExplosionMaterial = newSkin.explosionMaterial;
             this.activeBeamMaterial = newSkin.beamMaterial;
+            this.activeDistortionLightMaterial = newSkin.distortionLightMaterial;
+            this.activeDistortionMaterial = newSkin.distortionMaterial;
+            this.activeDistortionHeavyMaterial = newSkin.distortionHeavyMaterial;
+            this.activeArcaneCircleMaterial = newSkin.arcaneCircleMaterial;
+            this.activeFlameTornadoMaterial = newSkin.flameTornadoMaterial;
+            this.activeBossAreaIndicatorMaterial = newSkin.bossAreaIndicatorMaterial;
+            this.activeBossAreaExplosionMaterial = newSkin.bossExplosionAreaMaterial;
             this.activeColor = newSkin.mainColor;
             this.activeColorGradient = newSkin.flameGradient;
             this.ApplyMaterials();
@@ -168,6 +224,34 @@ namespace RogueWispPlugin.Helpers
             foreach( var ren in this.beamRenderers )
             {
                 ren.material = this.activeBeamMaterial;
+            }
+            foreach( var ren in this.distortionLightRenderers )
+            {
+                ren.material = this.activeDistortionLightMaterial;
+            }
+            foreach( var ren in this.distortionRenderers )
+            {
+                ren.material = this.activeDistortionMaterial;
+            }
+            foreach( var ren in this.distortionHeavyRenderers )
+            {
+                ren.material = this.activeDistortionHeavyMaterial;
+            }
+            foreach( var ren in this.arcaneCircleRenderers )
+            {
+                ren.material = this.activeArcaneCircleMaterial;
+            }
+            foreach( var ren in this.flameTornadoRenderers )
+            {
+                ren.material = this.activeFlameTornadoMaterial;
+            }
+            foreach( var ren in this.bossAreaIndicatorRenderers )
+            {
+                ren.material = this.activeBossAreaIndicatorMaterial;
+            }
+            foreach( var ren in this.bossAreaExplosionRenderers )
+            {
+                ren.material = this.activeBossAreaExplosionMaterial;
             }
 
 

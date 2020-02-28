@@ -7,45 +7,78 @@ using UnityEngine;
 
 namespace RogueWispPlugin.Helpers
 {
-    internal struct SoundEvent
+    [SerializeField]
+    [System.Serializable]
+    public struct SoundEvent
     {
-        internal Single time { get; private set; }
+        public Single time 
+        { 
+            get => this.intTime;
+        }
 
-        private String soundName;
-        private Boolean rtpcOn;
-        private String rtpcName;
-        private Single rtpcValue;
+        [SerializeField]
+        public Single intTime;
+
+        [SerializeField]
+        public String soundName;
+        [SerializeField]
+        public Boolean scaleOn;
+        [SerializeField]
+        public Boolean rtpcOn;
+        [SerializeField]
+        public String rtpcName;
+        [SerializeField]
+        public Single rtpcValue;
         
         internal SoundEvent( Single time, String soundName )
         {
-            this.time = time;
+            this.intTime = time;
 
             this.soundName = soundName;
             this.rtpcOn = false;
             this.rtpcName = default;
             this.rtpcValue = default;
+            this.scaleOn = false;
+        }
+
+        internal SoundEvent( Single time, String soundName, Single scale )
+        {
+            this.intTime = time;
+
+            this.soundName = soundName;
+            this.rtpcOn = false;
+            this.rtpcName = default;
+            this.rtpcValue = scale;
+            this.scaleOn = true;
+            
         }
 
         internal SoundEvent( Single time, String soundName, String rtpcName, Single rtpcValue )
         {
-            this.time = time;
+            this.intTime = time;
 
             this.soundName = soundName;
             this.rtpcOn = true;
             this.rtpcName = default;
             this.rtpcValue = default;
+            this.scaleOn = false;
         }
 
-
-        internal void Play( GameObject position )
+        public static implicit operator SoundEventObject( SoundEvent sound )
         {
-            if( this.rtpcOn )
-            {
-                Util.PlaySound( this.soundName, position, this.rtpcName, this.rtpcValue );
-            } else
-            {
-                Util.PlaySound( this.soundName, position );
-            }
+            return sound.Convert();
+        }
+
+        public SoundEventObject Convert()
+        {
+            var obj = ScriptableObject.CreateInstance<SoundEventObject>();
+            obj.time = this.time;
+            obj.rtpcName = this.rtpcName;
+            obj.rtpcOn = this.rtpcOn;
+            obj.rtpcValue = this.rtpcValue;
+            obj.scaleOn = this.scaleOn;
+            obj.soundName = this.soundName;
+            return obj;
         }
 
         

@@ -42,6 +42,7 @@ namespace ReinGeneralFixes
         partial void BalanceCorpsebloom();
         partial void BalanceOSP();
         partial void BalanceGesture();
+        partial void BalancePreGameShake();
 
         partial void FixBandolier();
         partial void FixSelfDamage();
@@ -63,6 +64,7 @@ namespace ReinGeneralFixes
             this.BalanceCorpsebloom();
             this.BalanceOSP();
             this.BalanceGesture();
+            this.BalancePreGameShake();
 
             this.FixBandolier();
             this.FixSelfDamage();
@@ -74,33 +76,13 @@ namespace ReinGeneralFixes
 
 
 
-            On.RoR2.Projectile.ProjectileController.Start += this.ProjectileController_Start;
+            //On.RoR2.Projectile.ProjectileController.Start += this.ProjectileController_Start;
 
 #if DPSMETER
             this.SetupDPSMeter();
 #endif
         }
 
-        private void ProjectileController_Start( On.RoR2.Projectile.ProjectileController.orig_Start orig, RoR2.Projectile.ProjectileController self )
-        {
-            orig( self );
-            if( self.ghost != null )
-            {
-                Main.LogI( "Non-NullGhost" );
-
-            } else
-            {
-                Main.LogI( "Null ghost" );
-            }
-
-            if( self.owner != null )
-            {
-                Main.LogI( "Non-NullOwner" );
-            } else
-            {
-                Main.LogI( "Null owner" );
-            }
-        }
 
 #pragma warning disable IDE0051 // Remove unused private members
         private void Awake() => this.Load?.Invoke();

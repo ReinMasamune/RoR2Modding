@@ -28,14 +28,14 @@ namespace RogueWispPlugin
             //Skills
             this.AddNewToken( "WISP_SURVIVOR_PASSIVE_NAME", "Cursed Flames" );
             this.AddNewToken( "WISP_SURVIVOR_PASSIVE_DESC", "<style=cIsUtility>Flame Charge</style> <style=cIsDamage>Empowers</style> your abilities but decays over time." +
-                "\nRegain <style=cIsUtility>Shield</style> based on <style=cIsHealth>Maximum Health</style> whenever you regain <style=cIsUtility>Flame Charge.</style>" );
+                "\nGain <style=cIsDamage>Barrier</style> based on <style=cIsHealth>Maximum Health</style> whenever you regain <style=cIsUtility>Flame Charge.</style>" );
 
             this.AddNewToken( "WISP_SURVIVOR_PRIMARY_1_NAME", "Heatwave" );
-            this.AddNewToken( "WISP_SURVIVOR_PRIMARY_1_DESC", "Fire a shockwave for <style=cIsDamage>175% damage.</style> <style=cIsUtility>Restores Flame Charge</style> on hit." );
+            this.AddNewToken( "WISP_SURVIVOR_PRIMARY_1_DESC", "Fire a shockwave for <style=cIsDamage>165% damage.</style> <style=cIsUtility>Restores Flame Charge</style> on hit." );
 
             this.AddNewToken( "WISP_SURVIVOR_SECONDARY_1_NAME", "Legendary Spark" );
-            this.AddNewToken( "WISP_SURVIVOR_SECONDARY_1_DESC", "Create a line of flame pillars that explode for <style=cIsDamage>125% damage.</style>" +
-                "\nDeals <style=cIsDamage>double damage</style> in the center of the pillar. Consumes <style=cIsUtility>Flame Charge</style> on cast." );
+            this.AddNewToken( "WISP_SURVIVOR_SECONDARY_1_DESC", "Create a line of flame pillars that explode for <style=cIsDamage>250% damage.</style>" +
+                "\nEnemies hit more than once take reduced damage. Consumes <style=cIsUtility>Flame Charge</style> on cast." );
 
             this.AddNewToken( "WISP_SURVIVOR_UTILITY_1_NAME", "Burning Gaze" );
             this.AddNewToken( "WISP_SURVIVOR_UTILITY_1_DESC", "Create an <style=cIsDamage>Inferno</style> that <style=cIsDamage>Ignites</style> all enemies for <style=cIsDamage>80% damage</style> per second." +

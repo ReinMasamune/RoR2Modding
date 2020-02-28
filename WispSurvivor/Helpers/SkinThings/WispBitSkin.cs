@@ -25,6 +25,12 @@ namespace RogueWispPlugin.Helpers
             new Color( 0.95f, 0.05f, 0.05f ),       //6u    Abyssal
             new Color( 0f, 0f, 0f ),                //7u    Blighted
             new Color( 1f, 1f, 1f ),                //8u    Pure
+            new Color( 0f, 1f, 0.6f ),              //9u    Aquatic
+            new Color( 0.302f, 0f, 0.302f ),        //10u   Faded
+            new Color( 0.302f, 0f, 0f ),            //11u   Blood
+            new Color( 0f, 0f, 0.2f ),              //12u   Midnight
+            new Color( 0f, 0.302f, 0f ),            //13u   Forest
+
         };
         #endregion
         #region FLGrad
@@ -284,7 +290,7 @@ namespace RogueWispPlugin.Helpers
         }
         internal static WispBitSkin GetWispSkin( UInt32 ind )
         {
-            Main.LogI( "Getting skin for: " + ind );
+            //Main.LogI( "Getting skin for: " + ind );
             if( skinLookup.ContainsKey( ind ) )
             {
                 return skinLookup[ind];
@@ -346,6 +352,13 @@ namespace RogueWispPlugin.Helpers
         internal Material areaIndicatorMaterial { get; private set; }
         internal Material explosionMaterial { get; private set; }
         internal Material beamMaterial { get; private set; }
+        internal Material distortionLightMaterial { get; private set; }
+        internal Material distortionMaterial { get; private set; }
+        internal Material distortionHeavyMaterial { get; private set; }
+        internal Material arcaneCircleMaterial { get; private set; }
+        internal Material flameTornadoMaterial { get; private set; }
+        internal Material bossAreaIndicatorMaterial { get; private set; }
+        internal Material bossExplosionAreaMaterial { get; private set; }
 
         internal BurnEffectController.EffectParams burnParams { get; private set; }
 
@@ -658,6 +671,203 @@ namespace RogueWispPlugin.Helpers
 
 
 
+            var arcCircle = new CloudMaterial( "ArcCircle" );
+            arcCircle.sourceBlend = UnityEngine.Rendering.BlendMode.One;
+            arcCircle.destinationBlend = UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha;
+            arcCircle.internalSimpleBlendMode = 0f;
+            arcCircle.tintColor = new Color( 1f, 1f, 1f, 1f );
+            arcCircle.disableRemapping = false;
+            arcCircle.mainTexture.texture = AssetLibrary<Texture>.i[TextureIndex.refTexArcaneCircle1Mask];
+            arcCircle.remapTexture.texture = flameRampTex;
+            arcCircle.softFactor = 0f;
+            arcCircle.brightnessBoost = 3f;
+            arcCircle.alphaBoost = 5f;
+            arcCircle.alphaBias = 0f;
+            arcCircle.useUV1 = false;
+            arcCircle.fadeClose = true;
+            arcCircle.fadeCloseDistance = 0.5f;
+            arcCircle.cull = MaterialBase.CullMode.Off;
+            arcCircle.cloudRemappingOn = true;
+            arcCircle.cloudDistortionOn = false;
+            arcCircle.distortionStrength = 0.15f;
+            arcCircle.cloudTexture1.texture = null;
+            arcCircle.cloudTexture2.texture = null;
+            arcCircle.cutoffScrollSpeed = Vector4.zero;
+            arcCircle.vertexColorOn = false;
+            arcCircle.vertexAlphaOn = false;
+            arcCircle.luminanceForTextureAlpha = false;
+            arcCircle.vertexOffset = false;
+            arcCircle.fresnelFade = false;
+            arcCircle.fresnelPower = 0.1f;
+            arcCircle.vertexOffsetAmount = 0f;
+            arcCircle.externalAlpha = 1f;
+
+            this.arcaneCircleMaterial = arcCircle.material;
+
+
+
+
+
+
+
+
+
+            var flameTornadoMat = new CloudMaterial( "flameTornadoMat" );
+            flameTornadoMat.sourceBlend = UnityEngine.Rendering.BlendMode.One;
+            flameTornadoMat.destinationBlend = UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha;
+            flameTornadoMat.internalSimpleBlendMode = 0f;
+            flameTornadoMat.tintColor = new Color( 1f, 1f, 1f, 1f );
+            flameTornadoMat.disableRemapping = false;
+            flameTornadoMat.mainTexture.texture = null;
+            flameTornadoMat.remapTexture.texture = flameRampTex;
+            flameTornadoMat.softFactor = 0.299f;
+            flameTornadoMat.brightnessBoost = 1f;
+            flameTornadoMat.alphaBoost = 2.16f;
+            flameTornadoMat.alphaBias = 0.207f;
+            flameTornadoMat.useUV1 = false;
+            flameTornadoMat.fadeClose = true;
+            flameTornadoMat.fadeCloseDistance = 0.5f;
+            flameTornadoMat.cull = MaterialBase.CullMode.Off;
+            flameTornadoMat.cloudRemappingOn = true;
+            flameTornadoMat.cloudDistortionOn = false;
+            flameTornadoMat.distortionStrength = 0.15f;
+            flameTornadoMat.cloudTexture1.texture = AssetLibrary<Texture>.i[TextureIndex.refTexCloudDifferenceBW2];
+            flameTornadoMat.cloudTexture1.tiling = new Vector2( 6f, 6f );
+            flameTornadoMat.cloudTexture2.texture = AssetLibrary<Texture>.i[TextureIndex.refTexBehemothTileMask];
+            flameTornadoMat.cloudTexture2.tiling = new Vector2( 1f, 6f );
+            flameTornadoMat.cutoffScrollSpeed = new Vector4( 12f, -20f, 3f, -40f );
+            flameTornadoMat.vertexColorOn = false;
+            flameTornadoMat.vertexAlphaOn = true;
+            flameTornadoMat.luminanceForTextureAlpha = false;
+            flameTornadoMat.vertexOffset = false;
+            flameTornadoMat.fresnelFade = false;
+            flameTornadoMat.fresnelPower = 0.1f;
+            flameTornadoMat.vertexOffsetAmount = 0f;
+            flameTornadoMat.externalAlpha = 1f;
+
+            this.flameTornadoMaterial = flameTornadoMat.material;
+
+
+
+
+
+
+            var bossAreaMat = new IntersectionCloudMaterial( "AreaIndicatorMaterial");
+            bossAreaMat.sourceBlend = UnityEngine.Rendering.BlendMode.One;
+            bossAreaMat.destinationBlend = UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha;
+            bossAreaMat.tintColor = Color.white;
+            bossAreaMat.mainTexture.texture = null;
+            bossAreaMat.cloudTexture1.texture = AssetLibrary<Texture>.i[TextureIndex.refCaustics];
+            bossAreaMat.cloudTexture1.tiling = new Vector2( 0.1f, 0.1f );
+            bossAreaMat.cloudTexture2.texture = AssetLibrary<Texture>.i[TextureIndex.refCaustics];
+            bossAreaMat.cloudTexture2.tiling = new Vector2( 0.05f, 0.05f );
+            bossAreaMat.remapTexture.texture = flameRampTex;
+            bossAreaMat.cutoffScrollSpeed = new Vector4( 11f, -13f, -17f, 15f );
+            bossAreaMat.softFactor = 1f;
+            bossAreaMat.softPower = 5f;
+            bossAreaMat.brightnessBoost = 3f;
+            bossAreaMat.rimPower = 3f;
+            bossAreaMat.rimStrength = 1.5f;
+            bossAreaMat.alphaBoost = 2.5f;
+            bossAreaMat.intersectionStrength = 30f;
+            bossAreaMat.cull = MaterialBase.CullMode.Off;
+            bossAreaMat.externalAlpha = 1f;
+            bossAreaMat.vertexColorsOn = false;
+            bossAreaMat.triplanarOn = true;
+
+            this.bossAreaIndicatorMaterial = bossAreaMat.material;
+
+
+
+            var bossExplosionAreaMat = new CloudMaterial( "bossExplosionAreaMat" );
+            bossExplosionAreaMat.sourceBlend = UnityEngine.Rendering.BlendMode.One;
+            bossExplosionAreaMat.destinationBlend = UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha;
+            bossExplosionAreaMat.internalSimpleBlendMode = 0f;
+            bossExplosionAreaMat.tintColor = new Color( 1f, 1f, 1f, 1f );
+            bossExplosionAreaMat.disableRemapping = false;
+            bossExplosionAreaMat.mainTexture.texture = null;
+            bossExplosionAreaMat.remapTexture.texture = flameRampTex;
+            bossExplosionAreaMat.softFactor = 0.299f;
+            bossExplosionAreaMat.brightnessBoost = 1f;
+            bossExplosionAreaMat.alphaBoost = 2.16f;
+            bossExplosionAreaMat.alphaBias = 0.207f;
+            bossExplosionAreaMat.useUV1 = false;
+            bossExplosionAreaMat.fadeClose = true;
+            bossExplosionAreaMat.fadeCloseDistance = 0.5f;
+            bossExplosionAreaMat.cull = MaterialBase.CullMode.Off;
+            bossExplosionAreaMat.cloudRemappingOn = true;
+            bossExplosionAreaMat.cloudDistortionOn = false;
+            bossExplosionAreaMat.distortionStrength = 0.15f;
+            bossExplosionAreaMat.cloudTexture1.texture = AssetLibrary<Texture>.i[TextureIndex.refTexCloudDifferenceBW2];
+            bossExplosionAreaMat.cloudTexture1.tiling = new Vector2( 6f, 6f );
+            bossExplosionAreaMat.cloudTexture2.texture = AssetLibrary<Texture>.i[TextureIndex.refTexCloudOrganic1];
+            bossExplosionAreaMat.cloudTexture2.tiling = new Vector2( 1f, 6f );
+            bossExplosionAreaMat.cutoffScrollSpeed = new Vector4( 12f, -20f, 3f, -40f );
+            bossExplosionAreaMat.vertexColorOn = false;
+            bossExplosionAreaMat.vertexAlphaOn = true;
+            bossExplosionAreaMat.luminanceForTextureAlpha = false;
+            bossExplosionAreaMat.vertexOffset = false;
+            bossExplosionAreaMat.fresnelFade = false;
+            bossExplosionAreaMat.fresnelPower = 0.1f;
+            bossExplosionAreaMat.vertexOffsetAmount = 0f;
+            bossExplosionAreaMat.externalAlpha = 1f;
+
+            this.bossExplosionAreaMaterial = bossExplosionAreaMat.material;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            var distortL = new DistortionMaterial( "DistortionMat" );
+            distortL.bumpTexture.texture = AssetLibrary<Texture>.i[TextureIndex.refTexNormalSphereFaded];
+            distortL.mainTexture.texture = null;
+            distortL.magnitude = 0.65f;
+            var distLr = this.mainColor.r;
+            var distLg = this.mainColor.g;
+            var distLb = this.mainColor.b;
+            var distLa = 0.25f;
+            distortL.color = new Color( distLr, distLg, distLb, distLa );
+
+
+            this.distortionLightMaterial = distortL.material;
+
+            var distort = new DistortionMaterial( "DistortionMat" );
+            distort.bumpTexture.texture = AssetLibrary<Texture>.i[TextureIndex.refTexNormalSphere];
+            distort.mainTexture.texture = null;
+            distort.magnitude = 1.2f;
+            var distr = this.mainColor.r;
+            var distg = this.mainColor.g;
+            var distb = this.mainColor.b;
+            var dista = 0.25f;
+            distort.color = new Color( distr, distg, distb, dista );
+
+
+            this.distortionMaterial = distort.material;
+
+            var distortH = new DistortionMaterial( "DistortionMat" );
+            distortH.bumpTexture.texture = AssetLibrary<Texture>.i[TextureIndex.refTexNormalSphere];
+            distortH.mainTexture.texture = null;
+            distortH.magnitude = 4f;
+            var distHr = this.mainColor.r;
+            var distHg = this.mainColor.g;
+            var distHb = this.mainColor.b;
+            var distHa = 0.25f;
+            distortH.color = new Color( distHr, distHg, distHb, distHa );
+
+
+            this.distortionHeavyMaterial = distortH.material;
+
+
+
             var main = new StandardMaterial( "ArmorMain" );
 
             main.cutout = false;
@@ -803,6 +1013,11 @@ namespace RogueWispPlugin.Helpers
             Abyssal = 6u,
             Blighted = 7u,
             Pure = 8u,
+            Aquatic = 9u,
+            Faded = 10u,
+            Blood = 11u,
+            Midnight = 12u,
+            Forest = 13u,
         }
         internal enum FlameGradientType : UInt32
         {

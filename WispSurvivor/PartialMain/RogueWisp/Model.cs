@@ -17,9 +17,9 @@
             this.RW_CreateModelSkins();
             this.RW_EditModelMesh();
             this.RW_SetupChildLocator();
-            this.RW_SetupIDRS();
             this.RW_SetupHurtBoxes();
             this.RW_SetupChildren();
+            this.RW_SetupIDRS();
         }
     }
 #endif

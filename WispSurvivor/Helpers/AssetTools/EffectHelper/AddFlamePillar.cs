@@ -15,7 +15,7 @@ namespace RogueWispPlugin.Helpers
             var calcRad = radius * 0.3f;
 
             if( !flamePillarCounter.ContainsKey( mainObj ) ) flamePillarCounter[mainObj] = 0u;
-            var obj = new GameObject( "FlamePillar" + flashCounter[mainObj]++ );
+            var obj = new GameObject( "FlamePillar" + flamePillarCounter[mainObj]++ );
             obj.transform.parent = mainObj.transform;
             obj.transform.localPosition = Vector3.zero;
             obj.transform.localScale = Vector3.one;

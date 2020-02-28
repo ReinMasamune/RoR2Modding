@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using Mono.Cecil.Cil;
 using MonoMod.Cil;
 using R2API;
@@ -7,11 +8,13 @@ using RogueWispPlugin.Helpers;
 using RoR2;
 using RoR2.Projectile;
 using UnityEngine;
+using UnityEngine.Networking;
 
 namespace RogueWispPlugin
 {
     internal partial class Main
     {
+        internal static String skinnedProjExplosionString = "SKINNEDTHING";
         private static HashSet<GameObject> skinnedEffects = new HashSet<GameObject>();
         private static Dictionary<EffectIndex,Dictionary<UInt32,EffectDef>> skinnedEffectCache = new Dictionary<EffectIndex, Dictionary<UInt32, EffectDef>>();
         partial void SetupEffectSkinning()
@@ -89,6 +92,36 @@ namespace RogueWispPlugin
         {
             On.RoR2.Projectile.ProjectileController.Start += this.ProjectileController_Start1;
             IL.RoR2.EffectManager.SpawnEffect_EffectIndex_EffectData_bool += this.EffectManager_SpawnEffect_EffectIndex_EffectData_bool1;
+            IL.RoR2.Projectile.ProjectileImpactExplosion.FixedUpdate += this.ProjectileImpactExplosion_FixedUpdate;
+
+
+
+            var instanceParam = Expression.Parameter( typeof( ProjectileImpactExplosion ), "instance" );
+            var field = Expression.Field( instanceParam, "projectileController" );
+            getController = Expression.Lambda<Func<ProjectileImpactExplosion, ProjectileController>>( field, instanceParam ).Compile();
+        }
+        private static Func<ProjectileImpactExplosion,ProjectileController> getController;
+
+
+        private void ProjectileImpactExplosion_FixedUpdate( ILContext il )
+        {
+            ILCursor c = new ILCursor( il );
+            c.GotoNext( MoveType.Before,
+                x => x.MatchLdcI4( 1 ),
+                x => x.MatchCall( typeof( RoR2.EffectManager ), nameof( EffectManager.SpawnEffect ) )
+            );
+            c.Emit( OpCodes.Dup );
+            c.Emit( OpCodes.Ldarg_0 );
+            c.EmitDelegate<Action<EffectData,ProjectileImpactExplosion>>( (data, self) =>
+            {
+                //Main.LogI( "Check1" );
+                if( self.explosionSoundString == Main.skinnedProjExplosionString )
+                {
+                    //Main.LogI( "sound matched" );
+                    var ownerBody = getController(self)?.owner?.GetComponent<CharacterBody>();
+                    if( ownerBody != null ) data.genericUInt = ownerBody.skinIndex;
+                }
+            });
         }
 
         private void EffectManager_SpawnEffect_EffectIndex_EffectData_bool1( MonoMod.Cil.ILContext il )
@@ -140,15 +173,23 @@ namespace RogueWispPlugin
 
         private void ProjectileController_Start1( On.RoR2.Projectile.ProjectileController.orig_Start orig, RoR2.Projectile.ProjectileController self )
         {
+            //Main.LogI( "ProjController start" );
+            //Main.LogI( "isPrediction: " + self.isPrediction );
+            //Main.LogI( "allowPrediction: " + self.allowPrediction );
+            //Main.LogI( "networkserveractive: " + NetworkServer.active );
+            //Main.LogI( "authority: " + self.hasAuthority );
             if( skinnedGhostCache.ContainsKey( self.catalogIndex ) && self.owner != null )
             {
+                //Main.LogI( "SkinnedProjectile" );
                 var skinInd = self.owner.GetComponent<CharacterBody>().skinIndex;
                 var cache = skinnedGhostCache[self.catalogIndex];
                 if( cache.ContainsKey( skinInd ) )
                 {
+                    //Main.LogI( "Cached ghost found" );
                     self.ghostPrefab = cache[skinInd];
                 } else
                 {
+                    //Main.LogI( "Generating ghost" );
                     var origGhost = self.ghostPrefab;
                     var newGhost = origGhost.InstantiateClone( "CachedProjectileGhost", false );
                     var controller = newGhost.GetComponent<BitSkinController>();
@@ -158,8 +199,17 @@ namespace RogueWispPlugin
                     self.ghostPrefab = newGhost;
                 }
             }
+            if( self.ghostPrefab == null )
+            {
+                //Main.LogI( "Null ghost prefab after skinning" );
+            }
 
             orig( self );
+
+            if( self.ghost == null )
+            {
+                //Main.LogI( "No ghost after start" );
+            }
         }
     }
 }

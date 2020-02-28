@@ -8,13 +8,14 @@ namespace RogueWispPlugin
     {
         private GameObject AW_body;
         private GameObject AW_master;
-        private GameObject AW_primaryProj;
+        //private GameObject AW_primaryProj;
         private GameObject AW_secDelayEffect;
         private GameObject AW_secExplodeEffect;
         private GameObject AW_utilProj;
         private GameObject AW_utilZoneProj;
 
         partial void AW_General();
+        partial void AW_Model();
         partial void AW_Director();
         partial void AW_CreateEffects();
         partial void AW_Orbs();
@@ -26,6 +27,7 @@ namespace RogueWispPlugin
         partial void CreateAncientWisp()
         {
             this.AW_General();
+            this.AW_Model();
             this.AW_Director();
             this.AW_CreateEffects();
             this.AW_Orbs();

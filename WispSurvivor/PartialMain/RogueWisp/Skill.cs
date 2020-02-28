@@ -177,7 +177,7 @@ namespace RogueWispPlugin
             SetStateOnHurt hurtState = this.RW_body.GetComponent<SetStateOnHurt>();
             hurtState.canBeFrozen = true;
             hurtState.canBeHitStunned = false;
-            hurtState.canBeStunned = false;
+            hurtState.canBeStunned = true;
             hurtState.hitThreshold = 5f;
             hurtState.hurtState = new SerializableEntityStateType( typeof( EntityStates.FrozenState ) );
 
@@ -208,7 +208,6 @@ namespace RogueWispPlugin
                         break;
 
                     default:
-                        Debug.Log( "Wisp has an extra statemachine" );
                         break;
                 }
             }

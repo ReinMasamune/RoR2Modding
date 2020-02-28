@@ -31,12 +31,48 @@ namespace RogueWispPlugin
             vfxAtrib.vfxPriority = VFXAttributes.VFXPriority.Always;
             vfxAtrib.vfxIntensity = VFXAttributes.VFXIntensity.Low;
 
+            var rb = obj.AddComponent<Rigidbody>();
+            rb.useGravity = false;
+
             var orbController = obj.AddComponent<WispOrbEffectController>();
             orbController.startSound = "Play_wisp_active_loop";
             orbController.endSound = "Stop_wisp_active_loop";
             orbController.explosionSound = "Play_item_use_fireballDash_explode";
 
-            var trail = EffectHelper.AddTrail( obj, skin, MaterialType.Tracer, false );
+            //var trail = EffectHelper.AddTrail( obj, skin, MaterialType.Tracer, false );
+
+            //var distortion = EffectHelper.AddDistortion( obj, skin, MaterialType.DistortionLight, 2f, 0.25f, 1f );
+            //var distortionEmit = distortion.emission;
+            //distortionEmit.enabled = true;
+            //distortionEmit.rateOverDistance = 30f;
+
+            var arcCircle = EffectHelper.AddArcaneCircle( obj, skin, MaterialType.ArcaneCircle, 4f, 0.65f );
+            var arcCircleMain = arcCircle.main;
+            arcCircleMain.duration = 10f;
+            var arcCircleEmis = arcCircle.emission;
+            arcCircleEmis.enabled = true;
+            arcCircleEmis.rateOverDistance = 0.1f;
+            arcCircleEmis.burstCount = 1;
+            arcCircleEmis.SetBurst( 0, new ParticleSystem.Burst( 0f, 1, 1, 1 ) );
+            var arcCircleRol = arcCircle.rotationOverLifetime;
+            arcCircleRol.enabled = true;
+            arcCircleRol.z = new ParticleSystem.MinMaxCurve( -3f, 3f );
+
+            var sparks = EffectHelper.AddSparks( obj, skin, MaterialType.Tracer, -1000, 0.125f, 1f );
+            var sparksEmis = sparks.emission;
+            sparksEmis.rateOverTime = 0f;
+            sparksEmis.rateOverDistance = 1f;
+            var sparksShape = sparks.shape;
+            sparksShape.enabled = true;
+            sparksShape.shapeType = ParticleSystemShapeType.Cone;
+            sparksShape.angle = 0f;
+            sparksShape.radius = 3f;
+            var sparksNoise = sparks.noise;
+            sparksNoise.enabled = true;
+            sparksNoise.quality = ParticleSystemNoiseQuality.High;
+            sparksNoise.scrollSpeed = 1f;
+            sparksNoise.positionAmount = 3f;
+            
 
             primaryOrbEffect = obj;
             RegisterEffect( primaryOrbEffect );

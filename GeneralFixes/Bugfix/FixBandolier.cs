@@ -41,6 +41,10 @@ namespace ReinGeneralFixes
                 var tempStock = skill.stock;
                 tempStock += skill.rechargeStock;
                 skill.stock = Mathf.Min( tempStock, skill.maxStock );
+                if( skill.stock >= skill.maxStock )
+                {
+                    skill.rechargeStopwatch = 0f;
+                }
             } );
         }
     }

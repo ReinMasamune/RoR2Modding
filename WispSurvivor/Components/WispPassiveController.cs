@@ -18,8 +18,8 @@ namespace RogueWispPlugin
 
             private const Double decayRate = -0.1;
             private const Double zeroMark = 100f;
-            private const Double regenPsPs = 2.5;
-            private const Double decayMultWithBuff = 0.35;
+            private const Double regenPsPs = 2;
+            private const Double decayMultWithBuff = 0.5;
 
             private Double charge;
 

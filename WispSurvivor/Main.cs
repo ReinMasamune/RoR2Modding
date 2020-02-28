@@ -60,7 +60,7 @@ namespace RogueWispPlugin
             {
                 if( _state == ExecutionState.Broken ) return;
                 _state = value;
-                Main.LogI( "State inc: " + _state.ToString() );
+                //Main.LogI( "State inc: " + _state.ToString() );
 
             }
         }
@@ -113,7 +113,7 @@ namespace RogueWispPlugin
         internal event Action Tick;
         internal event Action GUI;
 #if LOADCHECKS
-        partial Boolean LoadChecks();
+        //partial Boolean LoadChecks();
 #endif
 #if COMPATCHECKS
         partial void CompatChecks();
@@ -150,6 +150,9 @@ namespace RogueWispPlugin
 #endif
 #if STAGE
         partial void CreateStage();
+#endif
+#if SOUNDPLAYER
+        partial void SetupSoundPlayer();
 #endif
 #if MATEDITOR
         partial void SetupMatEditor();
@@ -196,7 +199,7 @@ namespace RogueWispPlugin
                 this.CreateAncientWisp();
 #endif
 #if ARCHAICWISP
-                this.CreateArchaicWisp;
+                this.CreateArchaicWisp();
 #endif
 #if FIRSTWISP
                 this.CreateFirstWisp();
@@ -213,12 +216,16 @@ namespace RogueWispPlugin
                 this.SetupNetworkingFramework();
                 this.SetupNetworkingFunctions();
 #endif
+#if SOUNDPLAYER
+                this.SetupSoundPlayer();
+#endif
 #if MATEDITOR
                 this.SetupMatEditor();
 #endif
                 this.SetupSkinSelector();
                 this.SetupEffectSkinning();
                 this.FirstFrame += this.Main_FirstFrame;
+                this.FirstFrame += this.RandomCrap;
 #if TIMER
                 this.Load += this.AwakeTimeStop;
                 this.Enable += this.EnableTimeStop;
@@ -231,8 +238,38 @@ namespace RogueWispPlugin
 
             this.Enable += IncState;
             this.FirstFrame += IncState;
+
+            //this.FirstFrame += this.TestingShit;
         }
 
+        private void RandomCrap()
+        {
+
+        }
+
+        //private void TestingShit()
+        //{
+        //    var meshSet = new HashSet<Mesh>(); 
+        //    foreach( var obj in Resources.LoadAll<GameObject>("Prefabs/StageDisplay") )
+        //    {
+        //        recursiveCheck
+        //    }
+        //}
+
+        //private void RecursiveCheck( GameObject obj, HashSet<Mesh> )
+        //{
+        //    foreach( var obj in Resources.LoadAll<GameObject>( "Prefabs/StageDisplay" ) )
+        //    {
+        //        foreach( var c in obj.GetComponents<SkinnedMeshRenderer>() )
+        //        {
+        //            meshSet.Add( c.sharedMesh );
+        //        }
+        //        foreach( var c in obj.GetComponents<ParticleSystemRenderer>() )
+        //        {
+
+        //        }
+        //    }
+        //}
 
 
 
@@ -314,7 +351,7 @@ namespace RogueWispPlugin
 //
 //
 //
-//
+//379.63%
 //
 //
 //
@@ -326,11 +363,6 @@ namespace RogueWispPlugin
 //
 
 
-//Remake all skins
-//Create boss vfx
-//Balance boss abilities and stats
-//More features for material menu
-//New skin system with fancy selection
 //Particle builder
 //Builders for other material types
 //Remake all wisp vfx with improved materials
@@ -341,22 +373,15 @@ namespace RogueWispPlugin
 
 //For next release:
 
-// TODO: WispBurnManager with new skin system.
 
 
-// TODO: IDRS for critical equipment. (Crowdfunder and wings)
 // TODO: Transparency on barrier portion of boss hp bar
-// TODO: Ancient wisp needs better vfx for all skills
-// TODO: Tune damage values and stats on ancient wisp
-// TODO: Flames are offset strangley during Ancient Wisp secondary
-// TODO: Proper spawning conditions for ancient wisp
-// TODO: Tune AI for ancient wisp
-// TODO: Ancient wisp UV mapping (need to duplicate mesh)
-// TODO: Add lunar scavs to the charge gain stuff
+// TODO: Null reference on RoR2.BurnController.Start (Grovetender wisps + Utility)
+// TODO: Ancient wisp add to wisp family event
+// TODO: Archaic wisp add to wisp family event
 
 
-
-    /*
+/*
 [Warning:Rogue Wisp]
 MinMaxCurve
 [Warning:Rogue Wisp] MinMaxGradient
@@ -401,7 +426,6 @@ MinMaxCurve
 
 // Future plans and shit
 
-// TOD: Undo hard coding of skin numbers
 // TOD: IDRS not showing on server
 // TOD: Utility sounds (unsure what to do here)
 // TOD: Little Disciple and Will O Wisp color should change with skin
@@ -412,21 +436,14 @@ MinMaxCurve
 // TOD: Readme lore sillyness
 // TOD: Effects obscuring vision
 // TOD: Effect brightness settings
-// TOD: Muzzle flashes
 // TOD: Animation cleanup and improvements
 // TOD: Null ref on kill enemy with primary when client
-// TOD: Improve itemdisplayruleset
 // TOD: Pod UV mapping (need to duplicate mesh)
 // TOD: Capacitor limb issue
-// TOD: ParticleBuilder class, and convert everything to use it.
 // TOD: Custom CharacterMain
 // TOD: Broach shield location is weird
 // TOD: Sounds for Special
 // TOD: Meteor ignores wisp
-// TOD: Shield material vertex offset
-// TOD: Redo other elite materials
-// TOD: Expanded skin selection (Set of plasma skins, hard white outline on flames like blighted currently has.
-// TOD: When hopoo adds projectile and effect skins, redo all vfx
 // TOD: GPU particlesystem
 // TOD: Clipping through ground still...
 

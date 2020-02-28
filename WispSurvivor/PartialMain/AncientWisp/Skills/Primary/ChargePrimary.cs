@@ -1,5 +1,7 @@
 ﻿#if ANCIENTWISP
 using EntityStates;
+using RogueWispPlugin.Helpers;
+using RoR2;
 using System;
 using UnityEngine;
 
@@ -27,9 +29,14 @@ namespace RogueWispPlugin
 
                 var muzzleTransform = base.GetModelTransform().GetComponent<ChildLocator>().FindChild( "MuzzleRight" );
 
-                this.chargeInstance = UnityEngine.Object.Instantiate<GameObject>( EntityStates.AncientWispMonster.ChargeRHCannon.effectPrefab, muzzleTransform.position, muzzleTransform.rotation, muzzleTransform );
+                this.chargeInstance = UnityEngine.Object.Instantiate<GameObject>( Main.AW_primaryChargeEffect, muzzleTransform.position, muzzleTransform.rotation, muzzleTransform );
+                this.chargeInstance.GetComponent<BitSkinController>().Apply( WispBitSkin.GetWispSkin( base.characterBody.skinIndex ) );
 
                 base.characterBody.SetAimTimer( this.duration );
+
+                Util.PlayScaledSound( "Play_greater_wisp_attack", base.gameObject, base.attackSpeedStat * ( 2f / baseDuration ) );
+                Util.PlayScaledSound( "Play_greater_wisp_attack", base.gameObject, base.attackSpeedStat * ( 2f / baseDuration ) );
+                Util.PlayScaledSound( "Play_greater_wisp_attack", base.gameObject, base.attackSpeedStat * ( 2f / baseDuration ) );
             }
 
             public override void FixedUpdate()

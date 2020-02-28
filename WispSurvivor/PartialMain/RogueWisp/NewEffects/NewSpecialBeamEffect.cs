@@ -53,7 +53,7 @@ namespace RogueWispPlugin
 
 
 
-            var beamLine = beam.AddBeamLine( skin, MaterialType.Beam, 0.2f );
+            var beamLine = beam.AddBeamLine( skin, MaterialType.Beam, 0.25f, 0f, 0 );
 
 
 

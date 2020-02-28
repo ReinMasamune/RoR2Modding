@@ -56,10 +56,10 @@ namespace RogueWispPlugin
                 this.duration = component.effectData.genericFloat;
                 if( this.duration == 0f )
                 {
-                    Debug.LogFormat( "Zero duration for effect \"{0}\"", new System.Object[]
-                    {
-                    base.gameObject.name
-                    } );
+                    //Debug.LogFormat( "Zero duration for effect \"{0}\"", new System.Object[]
+                    //{
+                    //base.gameObject.name
+                    //} );
                     UnityEngine.Object.Destroy( base.gameObject );
                     return;
                 }

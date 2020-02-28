@@ -64,7 +64,7 @@ namespace RogueWispPlugin.Helpers
             {
                 try
                 {
-                    Main.LogI( access.Key );
+                    //Main.LogI( access.Key );
                     var val = access.Value.value;
                     action?.Invoke( val );
                 } catch( Exception e )

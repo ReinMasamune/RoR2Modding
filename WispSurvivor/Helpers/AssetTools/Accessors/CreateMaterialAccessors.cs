@@ -44,54 +44,72 @@ namespace RogueWispPlugin
                 var rend = trans.Find( "Vacuum Stars, Trails" ).GetComponent<ParticleSystemRenderer>();
                 return rend.sharedMaterials[0];
             }, false, PrefabIndex.refNullifierDeathExplosion ).RegisterAccessor();
+
+
             new GenericAccessor<Material>( MaterialIndex.refMatDebris1,                             () =>
             {
                 var trans = AssetLibrary<GameObject>.i[PrefabIndex.refNullifierDeathExplosion].transform;
                 var rend = trans.Find( "Dirt" ).GetComponent<ParticleSystemRenderer>();
                 return rend.sharedMaterials[0];
             }, false, PrefabIndex.refNullifierDeathExplosion ).RegisterAccessor();
+
+
             new GenericAccessor<Material>( MaterialIndex.refMatInverseDistortion,                   () =>
             {
                 var trans = AssetLibrary<GameObject>.i[PrefabIndex.refNullifierDeathExplosion].transform;
                 var rend = trans.Find( "Vacuum Stars, Distortion" ).GetComponent<ParticleSystemRenderer>();
                 return rend.sharedMaterials[0];
             }, false, PrefabIndex.refNullifierDeathExplosion ).RegisterAccessor();
+
+
             new GenericAccessor<Material>( MaterialIndex.refMatOpagueDustSpeckledLarge,             () =>
             {
                 var trans = AssetLibrary<GameObject>.i[PrefabIndex.refNullifierDeathExplosion].transform;
                 var rend = trans.Find( "Goo, Medium" ).GetComponent<ParticleSystemRenderer>();
                 return rend.sharedMaterials[0];
             }, false, PrefabIndex.refNullifierDeathExplosion ).RegisterAccessor();
+
+
             new GenericAccessor<Material>( MaterialIndex.refMatNullifierStarParticle,               () =>
             {
                 var trans = AssetLibrary<GameObject>.i[PrefabIndex.refNullifierDeathExplosion].transform;
                 var rend = trans.Find( "Vacuum Stars" ).GetComponent<ParticleSystemRenderer>();
                 return rend.sharedMaterials[0];
             }, false, PrefabIndex.refNullifierDeathExplosion ).RegisterAccessor();
+
+
             new GenericAccessor<Material>( MaterialIndex.refMatNullifierStarTrail,                  () =>
             {
                 var trans = AssetLibrary<GameObject>.i[PrefabIndex.refNullifierDeathExplosion].transform;
                 var rend = trans.Find( "Vacuum Stars, Trails" ).GetComponent<ParticleSystemRenderer>();
                 return rend.sharedMaterials[1];
             }, false, PrefabIndex.refNullifierDeathExplosion ).RegisterAccessor();
+
+
             new GenericAccessor<Material>( MaterialIndex.refMatNullifierStarPortalEdge,             () =>
             {
                 var trans = AssetLibrary<GameObject>.i[PrefabIndex.refNullifierDeathExplosion].transform;
                 var rend = trans.Find( "Vacuum Radial" ).GetComponent<ParticleSystemRenderer>();
                 return rend.sharedMaterials[0];
             }, false, PrefabIndex.refNullifierDeathExplosion ).RegisterAccessor();
+
+
             new GenericAccessor<Material>( MaterialIndex.refMatNullifierExplosionAreaIndicatorSoft, () =>
             {
                 var trans = AssetLibrary<GameObject>.i[PrefabIndex.refNullifierDeathExplosion].transform;
                 var rend = trans.Find( "AreaIndicator" ).GetComponent<ParticleSystemRenderer>();
                 return rend.sharedMaterials[0];
             }, false, PrefabIndex.refNullifierDeathExplosion ).RegisterAccessor();
+
+
             new GenericAccessor<Material>( MaterialIndex.refMatNullifierExplosionAreaIndicatorHard, () =>
             {
                 var trans = AssetLibrary<GameObject>.i[PrefabIndex.refNullifierDeathExplosion].transform;
                 var rend = trans.Find( "AreaIndicator (1)" ).GetComponent<ParticleSystemRenderer>();
                 return rend.sharedMaterials[0];
             }, false, PrefabIndex.refNullifierDeathExplosion ).RegisterAccessor();
+
+
             new GenericAccessor<Material>( MaterialIndex.refMatNullifierGemPortal,                  () =>
             {
                 var trans = AssetLibrary<GameObject>.i[PrefabIndex.refNullifierDeathExplosion].transform;

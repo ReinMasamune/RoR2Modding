@@ -210,7 +210,7 @@ namespace RogueWispPlugin
                 switch( name )
                 {
                     default:
-                        Debug.Log( name + " is not a handled monster" );
+                        Main.LogM( name + " is not a handled monster" );
                         return MonsterTier.Other;
 
                     case "LEMURIAN_BODY_NAME":
@@ -255,6 +255,8 @@ namespace RogueWispPlugin
                         return MonsterTier.Miniboss;
                     case "ARCHWISP_BODY_NAME":
                         return MonsterTier.Miniboss;
+                    case "NULLIFIER_BODY_NAME":
+                        return MonsterTier.Miniboss;
 
 
                     case "BEETLEQUEEN_BODY_NAME":
@@ -273,15 +275,28 @@ namespace RogueWispPlugin
                         return MonsterTier.Boss;
                     case "VAGRANT_BODY_NAME":
                         return MonsterTier.Boss;
+                    case "SCAV_BODY_NAME":
+                        return MonsterTier.Boss;
+                    case "ANCIENT_WISP_BODY_NAME":
+                        return MonsterTier.Boss;
 
 
                     case "ELECTRICWORM_BODY_NAME":
                         return MonsterTier.SuperBoss;
                     case "SHOPKEEPER_BODY_NAME":
                         return MonsterTier.SuperBoss;
+                    case "SCAVLUNAR1_BODY_NAME":
+                        return MonsterTier.SuperBoss;
+                    case "SCAVLUNAR2_BODY_NAME":
+                        return MonsterTier.SuperBoss;
+                    case "SCAVLUNAR3_BODY_NAME":
+                        return MonsterTier.SuperBoss;
+                    case "SCAVLUNAR4_BODY_NAME":
+                        return MonsterTier.SuperBoss;
 
 
-                    case "ANCIENTWISP_BODY_NAME":
+
+                    case "FIRST_WISP_BODY_NAME":
                         return MonsterTier.HyperBoss;
                     case "TITANGOLD_BODY_NAME":
                         return MonsterTier.HyperBoss;

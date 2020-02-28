@@ -1,6 +1,8 @@
 ﻿#if ANCIENTWISP
+using BepInEx.Configuration;
 using GeneralPluginStuff;
 using RoR2;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,18 +10,26 @@ namespace RogueWispPlugin
 {
     internal partial class Main
     {
+        private ConfigEntry<Boolean> bossEnabled;
         partial void AW_Director()
         {
             this.Load += this.AW_SetupSpawns;
+
+            this.bossEnabled = base.Config.Bind<Boolean>( "Main", "Enable new boss", true,
+                "Should the new boss spawn in game? Left as an option in case of major bugs or issues with early version of boss." );
         }
 
         private R2API.DirectorAPI.DirectorCardHolder AW_dirCard;
         private void AW_SetupSpawns()
         {
+            //this.bossEnabled = base.Config.Bind<Boolean>( "Main", "Enable new boss", true,
+    //"Should the new boss spawn in game? Left as an option in case of major bugs or issues with early version of boss." );
+
+
             On.RoR2.CharacterSpawnCard.Awake += this.CharacterSpawnCard_Awake;
             var spawnCard = ScriptableObject.CreateInstance<CharacterSpawnCard>();
             On.RoR2.CharacterSpawnCard.Awake -= this.CharacterSpawnCard_Awake;
-            spawnCard.directorCreditCost = 600;
+            spawnCard.directorCreditCost = 2000;
             spawnCard.forbiddenAsBoss = false;
             spawnCard.forbiddenFlags = RoR2.Navigation.NodeFlags.NoCharacterSpawn;
             spawnCard.hullSize = HullClassification.Golem;
@@ -35,10 +45,10 @@ namespace RogueWispPlugin
             var dirCard = new DirectorCard();
             dirCard.allowAmbushSpawn = true;
             dirCard.forbiddenUnlockable = "";
-            dirCard.minimumStageCompletions = 0;
+            dirCard.minimumStageCompletions = 6;
             dirCard.preventOverhead = false;
             dirCard.requiredUnlockable = "";
-            dirCard.selectionWeight = 100;
+            dirCard.selectionWeight = 1;
             dirCard.spawnCard = spawnCard;
             dirCard.spawnDistance = DirectorCore.MonsterSpawnDistance.Standard;
 
@@ -47,7 +57,10 @@ namespace RogueWispPlugin
             this.AW_dirCard.SetInteractableCategory(R2API.DirectorAPI.InteractableCategory.None);
             this.AW_dirCard.SetMonsterCategory(R2API.DirectorAPI.MonsterCategory.Champions);
 
-            R2API.DirectorAPI.MonsterActions += this.DirectorAPI_MonsterActions;
+            if(this.bossEnabled.Value )
+            {
+                R2API.DirectorAPI.MonsterActions += this.DirectorAPI_MonsterActions;
+            }
         }
 
         private void DirectorAPI_MonsterActions( List<R2API.DirectorAPI.DirectorCardHolder> cards, R2API.DirectorAPI.StageInfo stage )

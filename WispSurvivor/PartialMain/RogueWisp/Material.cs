@@ -203,7 +203,7 @@ namespace RogueWispPlugin
 
             trailMaterial = Instantiate<Material>(Resources.Load<GameObject>("Prefabs/ProjectileGhosts/ElectricWormSeekerGhost").transform.Find("Trail").GetComponent<TrailRenderer>().material);
             //RoR2Plugin.Main.MiscHelpers.DebugMaterialInfo( base4 );
-            RoR2Plugin.Main.MiscHelpers.DebugMaterialInfo( trailMaterial );
+            //RoR2Plugin.Main.MiscHelpers.DebugMaterialInfo( trailMaterial );
         }
 
         private void RW_GenerateTextures()

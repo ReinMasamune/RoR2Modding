@@ -7,28 +7,36 @@ using System.Linq;
 
 namespace RogueWispPlugin.Helpers
 {
-    internal class EffectSoundPlayer : MonoBehaviour
+    public class EffectSoundPlayer : MonoBehaviour
     {
-        public SoundEvent[] soundEvents = Array.Empty<SoundEvent>();
+        [SerializeField]
+        public SoundEventObject[] soundEvents = Array.Empty<SoundEventObject>();
 
-        internal void AddSound( SoundEvent sound )
+        internal void AddSound( SoundEventObject sound )
         {
             if( this.postAwake ) throw new Exception( "Cannot add sounds after object has been instantiated" );
+
             var ind = this.soundEvents.Length;
-            Array.Resize<SoundEvent>( ref this.soundEvents, ind + 1 );
+            Array.Resize<SoundEventObject>( ref this.soundEvents, ind + 1 );
             this.soundEvents[ind] = sound;
         }
 
-
-        private Queue<SoundEvent> remainingEvents;
+        private Queue<SoundEventObject> remainingEvents;
         private Single timer = 0f;
         private Boolean postAwake = false;
+        private Queue<SoundEventObject> endingSounds = new Queue<SoundEventObject>();
 
-        private void Awake()
+        private void OnEnable()
         {
             this.postAwake = true;
-            this.remainingEvents = new Queue<SoundEvent>( this.soundEvents.OrderBy<SoundEvent,Single>( (val) => val.time ) );
-
+            this.endingSounds.Clear();
+            this.remainingEvents = new Queue<SoundEventObject>( this.soundEvents.OrderBy<SoundEventObject, Single>( ( val ) => val.time ) );
+            //Main.LogI( this.soundEvents.Length );
+            //Main.LogI( this.remainingEvents.Count );
+            while( this.remainingEvents.Count > 0 && this.remainingEvents.Peek().time < 0f )
+            {
+                this.endingSounds.Enqueue( this.remainingEvents.Dequeue() );
+            }
         }
 
         private void Update()
@@ -44,7 +52,7 @@ namespace RogueWispPlugin.Helpers
                 this.enabled = false;
             } else
             {
-                var nextSound = this.remainingEvents.Peek();
+                //var nextSound = this.remainingEvents.Peek();
                 if( this.remainingEvents.Peek().time <= this.timer )
                 {
                     this.remainingEvents.Dequeue().Play( base.gameObject );
@@ -52,5 +60,16 @@ namespace RogueWispPlugin.Helpers
                 }
             }
         }
+
+        private void OnDisable()
+        {
+            this.postAwake = false;
+            while( this.endingSounds.Count > 0 )
+            {
+                this.endingSounds.Dequeue().Play( base.gameObject );
+            }
+        }
+
+
     }
 }

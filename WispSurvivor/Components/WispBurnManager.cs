@@ -70,7 +70,7 @@ namespace RogueWispPlugin
 
             private void ActivateBurn( UInt32 skin )
             {
-                Main.LogI( skin + " Activate" );
+                //Main.LogI( skin + " Activate" );
                 if( this.skinEffects.ContainsKey( skin ) )
                 {
                     return;
@@ -104,10 +104,10 @@ namespace RogueWispPlugin
 
             private void DeactivateBurn( UInt32 skin )
             {
-                Main.LogI( skin + " Deactivate" );
+                //Main.LogI( skin + " Deactivate" );
                 if( this.skinEffects.ContainsKey( skin ) )
                 {
-                    Main.LogI( "Things" );
+                    //Main.LogI( "Things" );
                     //this.skinEffects[skin].enabled = false;
                     Destroy( this.skinEffects[skin] );
                     this.skinEffects.Remove( skin );

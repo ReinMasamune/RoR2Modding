@@ -20,7 +20,7 @@ namespace RogueWispPlugin
         private void AW_SetupStrafeDriver()
         {
             var strafeDriver = this.AW_master.AddComponent<AISkillDriver>();
-            strafeDriver.customName = "Chase";
+            strafeDriver.customName = "Strafe";
             strafeDriver.skillSlot = SkillSlot.None;
             strafeDriver.requireSkillReady = false;
             strafeDriver.requireEquipmentReady = false;
@@ -30,7 +30,7 @@ namespace RogueWispPlugin
             strafeDriver.minTargetHealthFraction = Single.NegativeInfinity;
             strafeDriver.maxTargetHealthFraction = Single.PositiveInfinity;
             strafeDriver.minDistance = 0f;
-            strafeDriver.maxDistance = 50f;
+            strafeDriver.maxDistance = 30f;
             strafeDriver.selectionRequiresTargetLoS = false;
             strafeDriver.activationRequiresTargetLoS = false;
             strafeDriver.movementType = AISkillDriver.MovementType.StrafeMovetarget;
@@ -56,7 +56,7 @@ namespace RogueWispPlugin
             chaseDriver.maxUserHealthFraction = Single.PositiveInfinity;
             chaseDriver.minTargetHealthFraction = Single.NegativeInfinity;
             chaseDriver.maxTargetHealthFraction = Single.PositiveInfinity;
-            chaseDriver.minDistance = 50f;
+            chaseDriver.minDistance = 30f;
             chaseDriver.maxDistance = Single.PositiveInfinity;
             chaseDriver.selectionRequiresTargetLoS = false;
             chaseDriver.activationRequiresTargetLoS = false;
@@ -81,7 +81,7 @@ namespace RogueWispPlugin
             utilityDriver.requireEquipmentReady = false;
             utilityDriver.moveTargetType = AISkillDriver.TargetType.CurrentEnemy;
             utilityDriver.minUserHealthFraction = Single.NegativeInfinity;
-            utilityDriver.maxUserHealthFraction = Single.PositiveInfinity;
+            utilityDriver.maxUserHealthFraction = WispBossEnrageController.enrageStartHealthFrac;
             utilityDriver.minTargetHealthFraction = Single.NegativeInfinity;
             utilityDriver.maxTargetHealthFraction = Single.PositiveInfinity;
             utilityDriver.minDistance = 0f;
@@ -113,7 +113,7 @@ namespace RogueWispPlugin
             secondaryDriver.minTargetHealthFraction = Single.NegativeInfinity;
             secondaryDriver.maxTargetHealthFraction = Single.PositiveInfinity;
             secondaryDriver.minDistance = 0f;
-            secondaryDriver.maxDistance = 100f;
+            secondaryDriver.maxDistance = 300f;
             secondaryDriver.selectionRequiresTargetLoS = false;
             secondaryDriver.activationRequiresTargetLoS = false;
             secondaryDriver.movementType = AISkillDriver.MovementType.Stop;
@@ -142,7 +142,7 @@ namespace RogueWispPlugin
             primaryDriver.maxTargetHealthFraction = Single.PositiveInfinity;
             primaryDriver.minDistance = 0f;
             primaryDriver.maxDistance = 100f;
-            primaryDriver.selectionRequiresTargetLoS = false;
+            primaryDriver.selectionRequiresTargetLoS = true;
             primaryDriver.activationRequiresTargetLoS = false;
             primaryDriver.movementType = AISkillDriver.MovementType.Stop;
             primaryDriver.moveInputScale = 1f;

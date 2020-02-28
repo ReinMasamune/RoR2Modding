@@ -5,10 +5,10 @@ namespace RogueWispPlugin
 #if LOADCHECKS
     internal partial class Main
     {
-        partial void LoadChecks()
-        {
+        //partial void LoadChecks()
+        //{
             
-        }
+        //}
     }
 #endif
 }

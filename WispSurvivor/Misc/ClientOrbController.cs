@@ -16,12 +16,12 @@ namespace RogueWispPlugin
             {
                 if( !this.hasAuthority )
                 {
-                    Debug.Log( "AddClientOrb called without authority" );
+                    //Debug.Log( "AddClientOrb called without authority" );
                     return;
                 }
                 if( newOrb == null )
                 {
-                    Debug.Log( "Null orb not added" );
+                    //Debug.Log( "Null orb not added" );
                     return;
                 }
                 newOrb.outer = this;
@@ -29,7 +29,7 @@ namespace RogueWispPlugin
 
                 if( newOrb.totalDuration == 0f )
                 {
-                    Debug.Log( "Orb failed to assign duration" );
+                    //Debug.Log( "Orb failed to assign duration" );
                     return;
                 }
 
@@ -42,13 +42,13 @@ namespace RogueWispPlugin
             {
                 if( !this.hasAuthority )
                 {
-                    Debug.Log( "UpdateClientOrb called without authority" );
+                    //Debug.Log( "UpdateClientOrb called without authority" );
                     return;
                 }
 
                 if( !this.activeOrbs.Contains( orb ) )
                 {
-                    Debug.Log( "UpdateClientOrb called on non-existant orb" );
+                    //Debug.Log( "UpdateClientOrb called on non-existant orb" );
                     return;
                 }
 
@@ -65,12 +65,12 @@ namespace RogueWispPlugin
             {
                 if( !this.hasAuthority )
                 {
-                    Debug.Log( "EndClientOrb called without authority" );
+                    //Debug.Log( "EndClientOrb called without authority" );
                     return;
                 }
                 if( !this.activeOrbs.Contains( orb ) )
                 {
-                    Debug.Log( "EndClientOrb called on non-existant orb" );
+                    //Debug.Log( "EndClientOrb called on non-existant orb" );
                     return;
                 }
                 orb.End();

@@ -89,11 +89,11 @@ namespace RogueWispPlugin
             {
                 if( bodyIndex == BodyCatalog.FindBodyIndex( this.RW_body ) )
                 {
-                    Main.LogI( "Wispy Selected" );
+                    //Main.LogI( "Wispy Selected" );
                     ApplyMenuEdits( bodyIndex, controller );
                 } else
                 {
-                    Main.LogI( "NotWispy Selected" );
+                    //Main.LogI( "NotWispy Selected" );
                     RemoveMenuEdits( controller );
                 }
             } );
@@ -119,32 +119,32 @@ namespace RogueWispPlugin
         private static HeaderNavigationController.Header wispySkinHeader;
         private static void ApplyMenuEdits( Int32 bodyIndex, CharacterSelectController controller )
         {
-            Main.LogC();
+            //Main.LogC();
 
             if( menuEditsInEffect ) return;
             menuEditsInEffect = true;
 
 
-            Main.LogC();
+            //Main.LogC();
 
             var headerPanelObj = controller.loadoutHeaderButton.transform.parent;
             var headerNavController = headerPanelObj.GetComponent<HeaderNavigationController>();
 
 
-            Main.LogC();
+            //Main.LogC();
 
             if( headerNavController.headers.Length != 4 )
             {
-                Main.LogC();
+                //Main.LogC();
 
                 if( String.IsNullOrEmpty(wispySkinHeader.headerName) )
                 {
-                    Main.LogC();
+                    //Main.LogC();
 
                     HeaderNavigationController.Header refHeader = default;
                     Int32 counter = 0;
 
-                    Main.LogC();
+                    //Main.LogC();
                     while( counter < 3 && String.IsNullOrEmpty( refHeader.headerName ) )
                     {
                         var temp = headerNavController.headers[counter++];
@@ -153,17 +153,17 @@ namespace RogueWispPlugin
                             refHeader = temp;
                         }
                     }
-                    Main.LogC();
+                    //Main.LogC();
 
 
                     if( !String.IsNullOrEmpty( refHeader.headerName ) )
                     {
-                        Main.LogC();
+                        //Main.LogC();
 
                         var newButtonObj = UnityEngine.Object.Instantiate<GameObject>(refHeader.headerButton.gameObject, refHeader.headerButton.transform.parent );
                         var newButton = newButtonObj.GetComponent<CustomButtonTransition>();
 
-                        Main.LogC();
+                        //Main.LogC();
 
                         var newButtonText = newButtonObj.transform.Find( "OverviewText" ).GetComponent<HGTextMeshProUGUI>();
                         var newButtonLang = newButtonText.GetComponent<LanguageTextMeshController>();
@@ -176,7 +176,7 @@ namespace RogueWispPlugin
                         var panelTextObj = newPanel.transform.Find("TextMeshPro Text" );
                         panelTextObj.GetComponent<HGTextMeshProUGUI>().text = "";
 
-                        Main.LogC();
+                        //Main.LogC();
 
 
                         wispySkinHeader = new HeaderNavigationController.Header
@@ -193,19 +193,19 @@ namespace RogueWispPlugin
                         controller.primaryColorImages[defaultImagesLength] = newButtonObj.GetComponent<Image>();
                         //controller.primaryColorTexts[defaultTextLength] = 
 
-                        Main.LogC();
+                        //Main.LogC();
                     }
 
-                    Main.LogC();
+                    //Main.LogC();
                 }
 
-                Main.LogC();
+                //Main.LogC();
                 Array.Resize<HeaderNavigationController.Header>( ref headerNavController.headers, 4 );
                 headerNavController.headers[3] = wispySkinHeader;
                 wispySkinHeader.headerButton.gameObject.SetActive( true );
                 //wispySkinHeader.headerRoot.gameObject.SetActive( true );
 
-                Main.LogC();
+                //Main.LogC();
             }
         }
 

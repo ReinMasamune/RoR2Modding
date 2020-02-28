@@ -12,6 +12,14 @@ namespace RogueWispPlugin.Helpers
     internal class DestroyOnEffectTimer : MonoBehaviour
     {
         public EffectComponent effectComp;
+        public ParticleSystem[] applyLifetimeTo = Array.Empty<ParticleSystem>();
+
+        public void AddLifetimeParticle( ParticleSystem ps )
+        {
+            var ind = applyLifetimeTo.Length;
+            Array.Resize<ParticleSystem>( ref this.applyLifetimeTo, ind + 1 );
+            this.applyLifetimeTo[ind] = ps;
+        }
 
         private void Start()
         {
@@ -33,8 +41,24 @@ namespace RogueWispPlugin.Helpers
                 Destroy( base.gameObject );
                 return;
             }
-
             base.StartCoroutine( this.DestroyRoutine( timer ) );
+
+            for( Int32 i = 0; i < this.applyLifetimeTo.Length; ++i )
+            {
+                var ps = this.applyLifetimeTo[i];
+                var psMain = ps.main;
+                var iDur = psMain.duration;
+                var durMult = timer / iDur;
+                psMain.duration = timer;
+
+                var iLife = psMain.startLifetime;
+                iLife.constant *= durMult;
+                iLife.constantMin *= durMult;
+                iLife.constantMax *= durMult;
+                iLife.curveMultiplier *= durMult;
+                psMain.startLifetime = iLife;
+            }
+
 
         }
 

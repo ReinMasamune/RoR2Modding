@@ -27,6 +27,8 @@ namespace RogueWispPlugin
 
             private Transform target;
 
+            private Rigidbody rb;
+
 
             public void Start()
             {
@@ -49,9 +51,13 @@ namespace RogueWispPlugin
 
                 this.timeLeft = this.duration;
                 this.prevPos = this.start;
-
+                var startVelocity = ( this.end - this.start ) / this.duration;
+                var direction = startVelocity.normalized;
+                base.transform.forward = direction;
 
                 this.transform.position = this.start;
+                this.rb = base.GetComponent<Rigidbody>();
+                this.rb.velocity = startVelocity;
                 RoR2.Util.PlayScaledSound( this.startSound, this.gameObject, 2.0f );
             }
 
@@ -67,23 +73,25 @@ namespace RogueWispPlugin
                         }
                     }
 
-                    Vector3 dest = this.end;
-                    if( this.useTarget )
-                    {
-                        dest = this.target.position;
-                    }
+                    //Vector3 dest = this.end;
+                    //if( this.useTarget )
+                    //{
+                    //    dest = this.target.position;
+                    //}
 
                     //This can be modified to make arcing effects
                     this.timeLeft -= Time.deltaTime;
-                    System.Single frac = 1f - this.timeLeft / this.duration;
-                    Vector3 desiredPos = Vector3.Lerp(this.start, dest, frac);
+                    //System.Single frac = 1f - this.timeLeft / this.duration;
+                    //Vector3 desiredPos = Vector3.Lerp(this.start, dest, frac);
 
-                    this.transform.rotation = Quaternion.FromToRotation( Vector3.Normalize( desiredPos - this.prevPos ), this.transform.forward );
-                    this.transform.position = desiredPos;
-                    this.prevPos = desiredPos;
+                    //this.transform.rotation = Quaternion.FromToRotation( Vector3.Normalize( desiredPos - this.prevPos ), this.transform.forward );
+                    //this.transform.position = desiredPos;
+                    //this.prevPos = desiredPos;
 
                     if( this.timeLeft < 0f )
                     {
+                        this.rb.velocity = Vector3.zero;
+                        this.rb.position = this.end;
                         RoR2.Util.PlaySound( this.endSound, this.gameObject );
                         RoR2.Util.PlaySound( this.explosionSound, this.gameObject );
                         this.dead = true;

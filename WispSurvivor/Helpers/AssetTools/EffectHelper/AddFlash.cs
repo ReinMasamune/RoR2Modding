@@ -9,7 +9,7 @@ namespace RogueWispPlugin.Helpers
     internal static partial class EffectHelper
     {
         private static Dictionary<GameObject, UInt32> flashCounter = new Dictionary<GameObject, UInt32>();
-        internal static ParticleSystem AddFlash( GameObject mainObj, WispSkinnedEffect skin, MaterialType matType )
+        internal static ParticleSystem AddFlash( GameObject mainObj, WispSkinnedEffect skin, MaterialType matType, Single size = 10f )
         {
             if( !flashCounter.ContainsKey( mainObj ) ) flashCounter[mainObj] = 0u;
             var obj = new GameObject( "Flash" + flashCounter[mainObj]++ );
@@ -37,7 +37,7 @@ namespace RogueWispPlugin.Helpers
             psMain.startLifetime = 0.1f;
             psMain.startSpeed = 0f;
             psMain.startSize3D = false;
-            psMain.startSize = 10f;
+            psMain.startSize = size;
             psMain.startRotation3D = false;
             psMain.startRotation = 0f;
             psMain.flipRotation = 0f;

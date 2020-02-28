@@ -2,12 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyVersion>1.0.0.42</AssemblyVersion>
-    <FileVersion>1.0.0.42</FileVersion>
+    <AssemblyVersion>1.0.0.54</AssemblyVersion>
+    <FileVersion>1.0.0.54</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DefineConstants>LOGGING</DefineConstants>
+    <DefineConstants></DefineConstants>
     <DebugType>none</DebugType>
     <DebugSymbols>false</DebugSymbols>
   </PropertyGroup>

@@ -4,19 +4,22 @@ using MonoMod.Cil;
 using MonoMod.RuntimeDetour.HookGen;
 using R2API.Utils;
 using RoR2;
+using RoR2.Projectile;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Reflection;
 using UnityEngine;
 using UnityEngine.Networking;
+using Mono.Cecil;
 
 namespace RogueWispPlugin
 {
-
     internal partial class Main
     {
-        private const Single shieldRegenFrac = 0.005f;
+        private const Single shieldRegenFrac = 0.03f;
+        private const Single rootNumber = 4f;
         internal HashSet<CharacterBody> RW_BlockSprintCrosshair = new HashSet<CharacterBody>();
         partial void RW_Hook()
         {
@@ -42,8 +45,8 @@ namespace RogueWispPlugin
 
         private void RW_RemoveHooks()
         {
-            IL.RoR2.GlobalEventManager.OnHitEnemy -= this.RemoveStunOnHit;
-            On.RoR2.GlobalEventManager.OnHitEnemy -= this.AddStunOnHit;
+            IL.RoR2.GlobalEventManager.OnHitEnemy -= this.RemoveStunOnHit;//
+            On.RoR2.GlobalEventManager.OnHitEnemy -= this.AddStunOnHit;//
             On.RoR2.CharacterBody.Start -= this.AddBurnManager;
             On.RoR2.CharacterBody.RecalculateStats -= this.ArmorBoost;
             IL.RoR2.CharacterBody.RecalculateStats -= this.ModifyMSBoost;
@@ -53,7 +56,12 @@ namespace RogueWispPlugin
             IL.RoR2.UI.CrosshairManager.UpdateCrosshair -= this.CrosshairManager_UpdateCrosshair;
             IL.RoR2.CameraRigController.Update -= this.CameraRigController_Update;
             ilhook_R2API_LoadoutAPI_BodyLoadout_ToXml -= this.Main_ilhook_R2API_LoadoutAPI_BodyLoadout_ToXml;
+            //On.RoR2.Projectile.SlowDownProjectiles.OnTriggerEnter += this.SlowDownProjectiles_OnTriggerEnter1;
+            IL.RoR2.SetStateOnHurt.OnTakeDamageServer -= this.SetStateOnHurt_OnTakeDamageServer;
         }
+
+
+
         private void RW_AddHooks()
         {
             IL.RoR2.GlobalEventManager.OnHitEnemy += this.RemoveStunOnHit;
@@ -68,7 +76,29 @@ namespace RogueWispPlugin
             IL.RoR2.UI.CrosshairManager.UpdateCrosshair += this.CrosshairManager_UpdateCrosshair;
             IL.RoR2.CameraRigController.Update += this.CameraRigController_Update;
             ilhook_R2API_LoadoutAPI_BodyLoadout_ToXml += this.Main_ilhook_R2API_LoadoutAPI_BodyLoadout_ToXml;
+            //On.RoR2.Projectile.SlowDownProjectiles.OnTriggerEnter += this.SlowDownProjectiles_OnTriggerEnter1;
+            IL.RoR2.SetStateOnHurt.OnTakeDamageServer += this.SetStateOnHurt_OnTakeDamageServer;
+
+
+            //var instance = Expression.Parameter(typeof(RoR2.Projectile.SlowDownProjectiles), "instance" );
+            //var body = Expression.Field( instance, "affectedRigidBodies" );
+            //getRbList = Expression.Lambda<Func<RoR2.Projectile.SlowDownProjectiles, List<Rigidbody>>>( body, instance ).Compile();
         }
+
+
+
+
+        //private static Func<RoR2.Projectile.SlowDownProjectiles, List<Rigidbody> > getRbList;
+        //private void SlowDownProjectiles_OnTriggerEnter1( On.RoR2.Projectile.SlowDownProjectiles.orig_OnTriggerEnter orig, RoR2.Projectile.SlowDownProjectiles self, Collider other )
+        //{
+        //    var otherController = other.GetComponent<ProjectileController>();
+        //    if( !otherController ) return;
+        //    var otherOwner = otherController.owner;
+        //    if( !otherOwner || TeamComponent.GetObjectTeam(otherOwner) == TeamIndex.Player ) return;
+        //    var rb = other.attachedRigidbody;
+        //    if( rb == null ) return;
+        //    getRbList( self ).Add( rb );
+        //}
 
         private void Main_ilhook_R2API_LoadoutAPI_BodyLoadout_ToXml( ILContext il )
         {
@@ -106,45 +136,59 @@ namespace RogueWispPlugin
             c.Emit( OpCodes.And );
         }
 
-        private void DoVeryVeryBadThings( On.RoR2.EffectManager.orig_TransmitEffect orig, EffectIndex effectPrefabIndex, EffectData effectData, NetworkConnection netOrigin )
+        //private void DoVeryVeryBadThings( On.RoR2.EffectManager.orig_TransmitEffect orig, EffectIndex effectPrefabIndex, EffectData effectData, NetworkConnection netOrigin )
+        //{
+        //    orig( effectPrefabIndex, effectData, netOrigin );
+
+        //    if( NetworkServer.active && CheckIndex( (UInt32)effectPrefabIndex, this.restoreIndex ) && (effectData.color.r != 0 || effectData.color.g != 0 || effectData.color.b != 0 || effectData.color.a != 0) )
+        //    {
+        //        GameObject temp = effectData.ResolveHurtBoxReference();
+        //        if( temp )
+        //        {
+        //            CharacterBody comp = temp.GetComponent<CharacterBody>();
+        //            if( comp && comp.baseNameToken == "WISP_SURVIVOR_BODY_NAME" )
+        //            {
+        //                Single value = HeatwaveClientOrb.DoMoreBadThings(effectData.color);
+        //                if( value > 0f )
+        //                {
+        //                    this.StartCoroutine( this.DelayBuff( this.RW_flameChargeBuff, comp, value, effectData.genericUInt, effectData.genericFloat ) );
+        //                }
+        //            }
+        //        }
+        //    }
+        //}
+
+        //private IEnumerator DelayBuff( BuffIndex buff, CharacterBody body, Single duration, UInt32 stacks, Single delay )
+        //{
+        //    yield return new WaitForSeconds( delay );
+
+        //    for( UInt32 i = 0; i < stacks; i++ )
+        //    {
+        //        body.AddTimedBuff( buff, duration );
+        //    }
+        //}
+
+        //private static Boolean CheckIndex( UInt32 index, UInt32[] indicies )
+        //{
+        //    for( Int32 i = 0; i < indicies.Length; i++ )
+        //    {
+        //        if( index == indicies[i] ) return true;
+        //    }
+        //    return false;
+        //}
+
+
+        private void SetStateOnHurt_OnTakeDamageServer( ILContext il )
         {
-            orig( effectPrefabIndex, effectData, netOrigin );
-
-            if( NetworkServer.active && CheckIndex( (UInt32)effectPrefabIndex, this.restoreIndex ) && (effectData.color.r != 0 || effectData.color.g != 0 || effectData.color.b != 0 || effectData.color.a != 0) )
-            {
-                GameObject temp = effectData.ResolveHurtBoxReference();
-                if( temp )
-                {
-                    CharacterBody comp = temp.GetComponent<CharacterBody>();
-                    if( comp && comp.baseNameToken == "WISP_SURVIVOR_BODY_NAME" )
-                    {
-                        Single value = HeatwaveClientOrb.DoMoreBadThings(effectData.color);
-                        if( value > 0f )
-                        {
-                            this.StartCoroutine( this.DelayBuff( this.RW_flameChargeBuff, comp, value, effectData.genericUInt, effectData.genericFloat ) );
-                        }
-                    }
-                }
-            }
-        }
-
-        private IEnumerator DelayBuff( BuffIndex buff, CharacterBody body, Single duration, UInt32 stacks, Single delay )
-        {
-            yield return new WaitForSeconds( delay );
-
-            for( UInt32 i = 0; i < stacks; i++ )
-            {
-                body.AddTimedBuff( buff, duration );
-            }
-        }
-
-        private static Boolean CheckIndex( UInt32 index, UInt32[] indicies )
-        {
-            for( Int32 i = 0; i < indicies.Length; i++ )
-            {
-                if( index == indicies[i] ) return true;
-            }
-            return false;
+            ILCursor c = new ILCursor( il );
+            //c.GotoNext( MoveType.After, x => x.MatchLdfld<SetStateOnHurt>( nameof( SetStateOnHurt.canBeStunned ) ) );
+            //Main.LogI( c );
+            //c.Index += 8;
+            //Main.LogI( c );
+            c.GotoNext( MoveType.Before, x => x.MatchCallOrCallvirt<SetStateOnHurt>( "SetStun" ) );
+            c.Emit( OpCodes.Ldloc_0 );
+            c.EmitDelegate<Func<DamageInfo, Single>>( ( info ) => info.procCoefficient );
+            c.Emit( OpCodes.Mul );
         }
 
 
@@ -152,7 +196,7 @@ namespace RogueWispPlugin
         {
             ILCursor c = new ILCursor(il);
             c.GotoNext( MoveType.After,
-                x => x.MatchCallvirt( "RoR2.SetStateOnHurt", "SetStun" )
+                x => x.MatchCallOrCallvirt( "RoR2.SetStateOnHurt", "SetStun" )
                 );
             c.Index += -3;
             c.RemoveRange( 3 );
@@ -216,53 +260,53 @@ namespace RogueWispPlugin
                 Int32 count = self.GetBuffCount( this.RW_flameChargeBuff );
                 if( count > 0 )
                 {
-                    self.healthComponent.AddBarrier( Time.fixedDeltaTime * shieldRegenFrac * count * self.maxHealth );
+                    self.healthComponent.AddBarrier( Time.fixedDeltaTime * shieldRegenFrac * Mathf.Pow(count,1f / rootNumber) * self.maxHealth );
                 }
             }
         }
 
-        private void CharacterModel_InstanceUpdate( On.RoR2.CharacterModel.orig_InstanceUpdate orig, CharacterModel self )
-        {
-            if( self.body && self.body.baseNameToken == "WISP_SURVIVOR_BODY_NAME" )
-            {
-                EliteIndex eliteInd = self.GetFieldValue<EliteIndex>( "myEliteIndex");
-                if( eliteInd == EliteIndex.Poison )
-                {
-                    self.SetFieldValue<Material>( "particleMaterialOverride", Main.eliteFlameMaterials[self.body.skinIndex][0] );
-                } else if( eliteInd == EliteIndex.Haunted )
-                {
-                    self.SetFieldValue<Material>( "particleMaterialOverride", Main.eliteFlameMaterials[self.body.skinIndex][1] );
-                } else
-                {
-                    self.SetFieldValue<Material>( "particleMaterialOverride", null );
-                }
+        //private void CharacterModel_InstanceUpdate( On.RoR2.CharacterModel.orig_InstanceUpdate orig, CharacterModel self )
+        //{
+        //    if( self.body && self.body.baseNameToken == "WISP_SURVIVOR_BODY_NAME" )
+        //    {
+        //        EliteIndex eliteInd = self.GetFieldValue<EliteIndex>( "myEliteIndex");
+        //        if( eliteInd == EliteIndex.Poison )
+        //        {
+        //            self.SetFieldValue<Material>( "particleMaterialOverride", Main.eliteFlameMaterials[self.body.skinIndex][0] );
+        //        } else if( eliteInd == EliteIndex.Haunted )
+        //        {
+        //            self.SetFieldValue<Material>( "particleMaterialOverride", Main.eliteFlameMaterials[self.body.skinIndex][1] );
+        //        } else
+        //        {
+        //            self.SetFieldValue<Material>( "particleMaterialOverride", null );
+        //        }
 
-                self.InvokeMethod( "UpdateGoldAffix" );
-                self.InvokeMethod( "UpdatePoisonAffix" );
-                self.InvokeMethod( "UpdateHauntedAffix" );
-                self.InvokeMethod( "UpdateLights" );
-            } else
-            {
-                orig( self );
-            }
-        }
+        //        self.InvokeMethod( "UpdateGoldAffix" );
+        //        self.InvokeMethod( "UpdatePoisonAffix" );
+        //        self.InvokeMethod( "UpdateHauntedAffix" );
+        //        self.InvokeMethod( "UpdateLights" );
+        //    } else
+        //    {
+        //        orig( self );
+        //    }
+        //}
 
-        private void CharacterModel_UpdateOverlays( On.RoR2.CharacterModel.orig_UpdateOverlays orig, CharacterModel self )
-        {
-            orig( self );
-            if( self.body && self.body.baseNameToken == "WISP_SURVIVOR_BODY_NAME" )
-            {
-                Material[] mats = self.GetFieldValue<Material[]>("currentOverlays" );
-                UInt32 skin = self.body.skinIndex;
-                for( Int32 i = 0; i < mats.Length; i++ )
-                {
-                    if( mats[i] == CharacterModel.energyShieldMaterial )
-                    {
-                        mats[i] = Main.shieldOverlayMaterials[skin];
-                    }
-                }
-            }
-        }
+        //private void CharacterModel_UpdateOverlays( On.RoR2.CharacterModel.orig_UpdateOverlays orig, CharacterModel self )
+        //{
+        //    orig( self );
+        //    if( self.body && self.body.baseNameToken == "WISP_SURVIVOR_BODY_NAME" )
+        //    {
+        //        Material[] mats = self.GetFieldValue<Material[]>("currentOverlays" );
+        //        UInt32 skin = self.body.skinIndex;
+        //        for( Int32 i = 0; i < mats.Length; i++ )
+        //        {
+        //            if( mats[i] == CharacterModel.energyShieldMaterial )
+        //            {
+        //                mats[i] = Main.shieldOverlayMaterials[skin];
+        //            }
+        //        }
+        //    }
+        //}
     }
 }
 #endif

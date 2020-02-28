@@ -18,6 +18,8 @@ namespace RogueWispPlugin.Helpers
         #endregion
         #region Hopoo Meshes
         Spiral1,
+        TornadoMesh,
+        TornadoMesh2,
         #endregion
     }
 }

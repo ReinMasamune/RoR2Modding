@@ -24,7 +24,7 @@ namespace RogueWispPlugin
             public static Single fireStartFrac = 0.35f;
             public static Single maxRange = 75f;
             public static Single noStockSpeedMult = 0.5f;
-            public static Single damageMult = 1.75f;
+            public static Single damageMult = 1.65f;
             public static Single radius = 2.0f;
             public static Single falloffStart = 0.35f;
             public static Single endFalloffMult = 0.25f;
@@ -127,7 +127,7 @@ namespace RogueWispPlugin
                 snap.startPos = trans.position;
                 snap.speed = 250f;
                 snap.targetPos = this.targetVec;
-                snap.chargeRestore = 5f;
+                snap.chargeRestore = 5f / Mathf.Sqrt(Mathf.Max(1f, base.attackSpeedStat ) );
                 snap.force = 100f;
                 snap.range = maxRange;
                 snap.falloffStart = falloffStart;

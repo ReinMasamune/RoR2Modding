@@ -17,26 +17,38 @@ namespace RogueWispPlugin
             public UniversalHealOrb.HealTarget healTarget;
             public UniversalHealOrb.HealType healType;
             public Single value;
+            public Boolean useSkin = false;
+            
 
             private ProjectileController projectileController;
+            private HurtBox ownerHB;
+            private UInt32 skinInd;
 
             private void Awake()
             {
                 this.projectileController = base.GetComponent<ProjectileController>();
+            }
 
+            private void Start()
+            {
+                var ownerBody = this.projectileController.owner.GetComponent<CharacterBody>();
+                this.ownerHB = ownerBody.mainHurtBox;
+                this.skinInd = ownerBody.skinIndex;
             }
 
             public void OnDamageInflictedServer( DamageReport damageReport )
             {
                 if( this.projectileController.owner )
                 {
-                    var hc = this.projectileController.owner.GetComponent<HealthComponent>();
-                    if( hc )
+                    if( this.ownerHB )
                     {
+                        Main.LogI( this.skinInd );
                         OrbManager.instance.AddOrb( new UniversalHealOrb
                         (
-                            hc.body.mainHurtBox,
+                            this.ownerHB,
                             this.effectPrefab,
+                            this.useSkin,
+                            this.skinInd,
                             damageReport.victimBody.transform.position,
                             this.value,
                             50f,

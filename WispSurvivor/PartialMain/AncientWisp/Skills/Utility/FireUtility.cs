@@ -12,7 +12,7 @@ namespace RogueWispPlugin
         internal class AWFireUtility : BaseState
         {
             const Single baseDuration = 0.5f;
-            const Single damageCoef = 1.0f;
+            const Single damageCoef = 1f;
 
 
             private Single duration;
@@ -35,12 +35,18 @@ namespace RogueWispPlugin
                         owner = base.gameObject,
                         position = r.origin,
                         procChainMask = default,
-                        projectilePrefab = Main.instance.AW_utilProj,
+                        projectilePrefab = Main.AW_utilityProjectile,
                         rotation = Util.QuaternionSafeLookRotation( r.direction ),
                     });
                 }
 
                 base.PlayCrossfade( "Gesture", "FireBomb", "FireBomb.playbackRate", this.duration, 0.2f );
+
+                Util.PlayScaledSound( "Play_imp_overlord_attack1_throw", base.gameObject, 0.5f );
+                Util.PlayScaledSound( "Play_imp_overlord_attack1_throw", base.gameObject, 0.5f );
+                Util.PlayScaledSound( "Play_imp_overlord_attack1_throw", base.gameObject, 0.5f );
+                Util.PlayScaledSound( "Play_imp_overlord_attack1_throw", base.gameObject, 0.5f );
+                Util.PlayScaledSound( "Play_imp_overlord_attack1_throw", base.gameObject, 0.5f );
             }
 
             public override void FixedUpdate()

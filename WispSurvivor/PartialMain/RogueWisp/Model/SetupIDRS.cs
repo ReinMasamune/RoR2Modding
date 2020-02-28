@@ -51,6 +51,12 @@ namespace RogueWispPlugin
                     itemDisplayPrefabs[key] = prefab;
                 }
             }
+
+            //foreach( var kv in itemDisplayPrefabs )
+            //{
+            //    Main.LogW( kv.Key );
+            //}
+            
         }
 
         private void RW_DoIDRSSetup()
@@ -76,8 +82,8 @@ namespace RogueWispPlugin
                             ruleType = ItemDisplayRuleType.ParentedPrefab,
                             followerPrefab = LoadDisplay("DisplayBugWings"),
                             childName = "ChestCannon2",
-                            localPos = new Vector3( 0f, 0.126f, 0.177f ),
-                            localAngles = new Vector3( -180f, 0f, 0f ),
+                            localPos = new Vector3( -0.177f, 0.126f, 0f ),
+                            localAngles = new Vector3( -180f, -90f, 0f ),
                             localScale = new Vector3( 0.15f, 0.15f, 0.15f ),
                             limbMask = LimbFlags.None
                         }
@@ -229,7 +235,117 @@ namespace RogueWispPlugin
             } );
             #endregion
             #region Items
+            //IncreaseHealing
+            itemDisplays.Add( new ItemDisplayRuleSet.NamedRuleGroup
+            {
+                name = "IncreaseHealing",
+                displayRuleGroup = new DisplayRuleGroup
+                {
+                    rules = new ItemDisplayRule[]
+                    {
+                        new ItemDisplayRule
+                        {
+                            ruleType = ItemDisplayRuleType.ParentedPrefab,
+                            followerPrefab = this.LoadDisplay("DisplayAntler"),
+                            childName = "Head",
+                            localPos = new Vector3( 0.26f, 0.4f, 0.36f ),
+                            localAngles = new Vector3( 0f, -90f, 0f ),
+                            localScale = new Vector3( 0.6f, 0.6f, -0.6f ),
+                            limbMask = LimbFlags.None
+                        },
+                        new ItemDisplayRule
+                        {
+                            ruleType = ItemDisplayRuleType.ParentedPrefab,
+                            followerPrefab = this.LoadDisplay("DisplayAntler"),
+                            childName = "Head",
+                            localPos = new Vector3( -0.26f, 0.4f, 0.36f ),
+                            localAngles = new Vector3( 0f, -90f, 0f ),
+                            localScale = new Vector3( 0.6f, 0.6f, 0.6f ),
+                            limbMask = LimbFlags.None
+                        },
+                    }
+                }
+            } );
 
+
+            //NovaOnHeal
+            itemDisplays.Add( new ItemDisplayRuleSet.NamedRuleGroup
+            {
+                name = "NovaOnHeal",
+                displayRuleGroup = new DisplayRuleGroup
+                {
+                    rules = new ItemDisplayRule[]
+                    {
+                        new ItemDisplayRule
+                        {
+                            ruleType = ItemDisplayRuleType.ParentedPrefab,
+                            followerPrefab = this.LoadDisplay("DisplayDevilHorns"),
+                            childName = "Head",
+                            localPos = new Vector3( 0.305f, 0.074f, 0.42f ),
+                            localAngles = new Vector3( 0f, -90f, 0f ),
+                            localScale = new Vector3( 1f, 1f, -1f ),
+                            limbMask = LimbFlags.None
+                        },
+                        new ItemDisplayRule
+                        {
+                            ruleType = ItemDisplayRuleType.ParentedPrefab,
+                            followerPrefab = this.LoadDisplay("DisplayDevilHorns"),
+                            childName = "Head",
+                            localPos = new Vector3( -0.305f, 0.074f, 0.42f ),
+                            localAngles = new Vector3( 0f, -90f, 0f ),
+                            localScale = new Vector3( 1f, 1f, 1f ),
+                            limbMask = LimbFlags.None
+                        },
+                    }
+                }
+            } );
+
+
+            //KillEliteFrenzy
+            itemDisplays.Add( new ItemDisplayRuleSet.NamedRuleGroup
+            {
+                name = "KillEliteFrenzy",
+                displayRuleGroup = new DisplayRuleGroup
+                {
+                    rules = new ItemDisplayRule[]
+                    {
+                        new ItemDisplayRule
+                        {
+                            ruleType = ItemDisplayRuleType.ParentedPrefab,
+                            followerPrefab = this.LoadDisplay("DisplayBrainstalk"),
+                            childName = "Head",
+                            localPos = new Vector3( 0f, 0.3881f, 0.0257f ),
+                            localAngles = new Vector3( 20f, 0f, 0f ),
+                            localScale = new Vector3( 0.2f, 0.2f, 0.2f ),
+                            limbMask = LimbFlags.None
+                        },
+                    }
+                }
+            } );
+
+
+
+            //Clover
+            itemDisplays.Add( new ItemDisplayRuleSet.NamedRuleGroup
+            {
+                name = "Clover",
+                displayRuleGroup = new DisplayRuleGroup
+                {
+                    rules = new ItemDisplayRule[]
+                    {
+                        new ItemDisplayRule
+                        {
+                            ruleType = ItemDisplayRuleType.ParentedPrefab,
+                            followerPrefab = this.LoadDisplay("DisplayClover"),
+                            childName = "Head",
+                            localPos = new Vector3( 0f, 0.413f, -0.038f ),
+                            localAngles = new Vector3( 180f, 90f, 0f ),
+                            localScale = new Vector3( 0.5f, 0.5f, 0.5f ),
+                            limbMask = LimbFlags.None
+                        },
+                    }
+                }
+            } );
             #endregion
 
 
@@ -240,13 +356,16 @@ namespace RogueWispPlugin
 
             typeof( ItemDisplayRuleSet ).GetField( "namedItemRuleGroups", allFlags ).SetValue( idrs, itemArray );
             typeof( ItemDisplayRuleSet ).GetField( "namedEquipmentRuleGroups", allFlags ).SetValue( idrs, equipArray );
+
+
+            this.RW_charModel.itemDisplayRuleSet = idrs;
         }
 
 
         private static Dictionary<String,GameObject> itemDisplayPrefabs = new Dictionary<String,GameObject>();
         private GameObject LoadDisplay( String name )
         {
-            if( itemDisplayPrefabs.ContainsKey( name ) )
+            if( itemDisplayPrefabs.ContainsKey( name.ToLower() ) )
             {
                 return itemDisplayPrefabs[name.ToLower()];
             } else

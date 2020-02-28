@@ -42,8 +42,12 @@ namespace RogueWispPlugin
 
             private System.Boolean last = false;
 
+            public HashSet<HealthComponent> hitMask;
+
             public override void Begin()
             {
+                if( this.hitMask == null ) this.hitMask = new HashSet<HealthComponent>();
+
                 Vector3 intermediate = this.origin + new Vector3(0f, this.stepHeight, 0f);
                 intermediate += this.direction * this.stepDist * (this.isFirst ? 0.5f : 1.0f);
                 Vector3 dir = intermediate - this.origin;
@@ -117,13 +121,41 @@ namespace RogueWispPlugin
                     bdmg.damageType = DamageType.Generic;
                     bdmg.force = (this.direction + Vector3.up) * 50f;
                     bdmg.inflictor = this.attacker;
-                    bdmg.position = dest;
+                    bdmg.position = this.dest;
                     bdmg.procChainMask = this.procMask;
                     bdmg.procCoefficient = this.procCoef;
                     GlobalEventManager.instance.OnHitAll( bdmg, null );
 
 
-                    Collider[] cols = Physics.OverlapCapsule(this.dest, this.dest + new Vector3(0f, 20f, 0f), this.radius * this.innerRadScale, LayerIndex.entityPrecise.mask, QueryTriggerInteraction.UseGlobal);
+                    //Collider[] cols = Physics.OverlapCapsule(this.dest, this.dest + new Vector3(0f, 20f, 0f), this.radius * this.innerRadScale, LayerIndex.entityPrecise.mask, QueryTriggerInteraction.UseGlobal);
+
+                    //foreach( Collider col in cols )
+                    //{
+                    //    if( !col ) continue;
+                    //    box = col.GetComponent<HurtBox>();
+                    //    if( !box ) continue;
+                    //    HealthComponent hcomp = box.healthComponent;
+                    //    if( !hcomp || mask.Contains( hcomp ) || TeamComponent.GetObjectTeam( hcomp.gameObject ) == this.team ) continue;
+
+                    //    DamageInfo dmg = new DamageInfo();
+                    //    dmg.damage = this.damage;
+                    //    dmg.attacker = this.attacker;
+                    //    dmg.crit = this.crit;
+                    //    dmg.damageColorIndex = this.damageColor;
+                    //    dmg.damageType = DamageType.Generic;
+                    //    dmg.force = (this.direction + Vector3.up) * 50f;
+                    //    dmg.inflictor = this.attacker;
+                    //    dmg.position = col.transform.position;
+                    //    dmg.procChainMask = this.procMask;
+                    //    dmg.procCoefficient = this.procCoef;
+
+                    //    hcomp.TakeDamage( dmg );
+                    //    GlobalEventManager.instance.OnHitEnemy( dmg, hcomp.gameObject );
+                    //    GlobalEventManager.instance.OnHitAll( dmg, hcomp.gameObject );
+                    //    mask.Add( hcomp );
+                    //}
+
+                    var cols = Physics.OverlapCapsule( this.dest, this.dest + new Vector3( 0f, 20f, 0f ), this.radius, LayerIndex.entityPrecise.mask, QueryTriggerInteraction.UseGlobal );
 
                     foreach( Collider col in cols )
                     {
@@ -139,44 +171,23 @@ namespace RogueWispPlugin
                         dmg.crit = this.crit;
                         dmg.damageColorIndex = this.damageColor;
                         dmg.damageType = DamageType.Generic;
-                        dmg.force = (this.direction + Vector3.up) * 50f;
-                        dmg.inflictor = this.attacker;
-                        dmg.position = col.transform.position;
-                        dmg.procChainMask = this.procMask;
-                        dmg.procCoefficient = this.procCoef;
-
-                        hcomp.TakeDamage( dmg );
-                        GlobalEventManager.instance.OnHitEnemy( dmg, hcomp.gameObject );
-                        GlobalEventManager.instance.OnHitAll( dmg, hcomp.gameObject );
-                        mask.Add( hcomp );
-                    }
-
-                    cols = Physics.OverlapCapsule( this.dest, this.dest + new Vector3( 0f, 20f, 0f ), this.radius, LayerIndex.entityPrecise.mask, QueryTriggerInteraction.UseGlobal );
-
-                    foreach( Collider col in cols )
-                    {
-                        if( !col ) continue;
-                        box = col.GetComponent<HurtBox>();
-                        if( !box ) continue;
-                        HealthComponent hcomp = box.healthComponent;
-                        if( !hcomp || mask.Contains( hcomp ) || TeamComponent.GetObjectTeam( hcomp.gameObject ) == this.team ) continue;
-
-                        DamageInfo dmg = new DamageInfo();
-                        dmg.damage = this.damage * this.edgePenaltyMult;
-                        dmg.attacker = this.attacker;
-                        dmg.crit = this.crit;
-                        dmg.damageColorIndex = this.damageColor;
-                        dmg.damageType = DamageType.Generic;
                         dmg.force = (this.direction + Vector3.up) * 10f;
                         dmg.inflictor = this.attacker;
                         dmg.position = col.transform.position;
                         dmg.procChainMask = this.procMask;
                         dmg.procCoefficient = this.procCoef * this.edgePenaltyMult;
 
+                        if( this.hitMask.Contains( hcomp ) )
+                        {
+                            dmg.damage *= this.edgePenaltyMult;
+                            dmg.procCoefficient *= this.edgePenaltyMult;
+                        }
+
                         hcomp.TakeDamage( dmg );
                         GlobalEventManager.instance.OnHitEnemy( dmg, hcomp.gameObject );
                         GlobalEventManager.instance.OnHitAll( dmg, hcomp.gameObject );
                         mask.Add( hcomp );
+                        this.hitMask.Add( hcomp );
                     }
                 }
 
@@ -202,6 +213,7 @@ namespace RogueWispPlugin
                     nextOrb.target = this.target;
                     nextOrb.team = this.team;
                     nextOrb.skin = this.skin;
+                    nextOrb.hitMask = this.hitMask;
 
                     OrbManager.instance.AddOrb( nextOrb );
                 }

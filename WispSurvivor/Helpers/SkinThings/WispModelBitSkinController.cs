@@ -15,6 +15,13 @@ namespace RogueWispPlugin.Helpers
         internal Material activeAreaIndicatorMaterial;
         internal Material activeExplosionMaterial;
         internal Material activeBeamMaterial;
+        internal Material activeDistortionLightMaterial;
+        internal Material activeDistortionMaterial;
+        internal Material activeDistortionHeavyMaterial;
+        internal Material activeArcaneCircleMaterial;
+        internal Material activeFlameTornadoMaterial;
+        internal Material activeBossAreaIndicatorMaterial;
+        internal Material activeBossAreaExplosionMaterial;
         internal Color activeLightColor;
 
         private CharacterModel modelRef;
@@ -53,7 +60,7 @@ namespace RogueWispPlugin.Helpers
             var newCode = Convert.ToString( tempSkin.EncodeToSkinIndex(), 2).PadLeft( 32, '0' );
             this.skin = tempSkin;
             var appliedCode = Convert.ToString( this.skin.EncodeToSkinIndex(), 2).PadLeft( 32, '0' );
-            Main.LogI( String.Format( "Skin changed\n{0}\n{1}\n{2}", oldCode, newCode, appliedCode ) );
+            //Main.LogI( String.Format( "Skin changed\n{0}\n{1}\n{2}", oldCode, newCode, appliedCode ) );
         }
 
         private void OnSkinChanged( WispBitSkin newSkin )
@@ -65,6 +72,13 @@ namespace RogueWispPlugin.Helpers
             this.activeAreaIndicatorMaterial = newSkin.areaIndicatorMaterial;
             this.activeExplosionMaterial = newSkin.explosionMaterial;
             this.activeBeamMaterial = newSkin.beamMaterial;
+            this.activeDistortionLightMaterial = newSkin.distortionLightMaterial;
+            this.activeDistortionMaterial = newSkin.distortionMaterial;
+            this.activeDistortionHeavyMaterial = newSkin.distortionHeavyMaterial;
+            this.activeArcaneCircleMaterial = newSkin.arcaneCircleMaterial;
+            this.activeFlameTornadoMaterial = newSkin.flameTornadoMaterial;
+            this.activeBossAreaIndicatorMaterial = newSkin.bossAreaIndicatorMaterial;
+            this.activeBossAreaExplosionMaterial = newSkin.bossExplosionAreaMaterial;
             this.activeLightColor = newSkin.mainColor;
             this.ApplyMaterials();
         }

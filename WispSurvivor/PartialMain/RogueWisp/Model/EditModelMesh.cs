@@ -17,7 +17,7 @@ namespace RogueWispPlugin
             Vector3[] verts = m.vertices;
             Single tempu = 0f;
             Single tempv = 0f;
-            Single tempp = 0f;
+            //Single tempp = 0f;
             Vector2 tempv2 = Vector2.zero;
             for( Int32 i = 0; i < m.vertexCount; i++ )
             {

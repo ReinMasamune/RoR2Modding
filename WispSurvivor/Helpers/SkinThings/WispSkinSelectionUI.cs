@@ -29,7 +29,7 @@ namespace RogueWispPlugin.Helpers
 
         private void OnEnable()
         {
-            Main.LogI( "Selection UI On" );
+            //Main.LogI( "Selection UI On" );
             this.rectTransform = base.transform as RectTransform;
 
             this.rectTransform.GetWorldCorners( this.corners );
@@ -41,10 +41,10 @@ namespace RogueWispPlugin.Helpers
             size.y = Mathf.Abs( size.y );
             this.areaRect = new Rect( topLeft, size );
 
-            Main.LogI( this.areaRect.x );
-            Main.LogI( this.areaRect.y );
-            Main.LogI( this.areaRect.width );
-            Main.LogI( this.areaRect.height );
+            //Main.LogI( this.areaRect.x );
+            //Main.LogI( this.areaRect.y );
+            //Main.LogI( this.areaRect.width );
+            //Main.LogI( this.areaRect.height );
 
             this.colorPreview = new Texture2D( Mathf.FloorToInt( this.areaRect.width * 0.5f ), Mathf.FloorToInt( this.areaRect.height * 0.15f ) );
             for( Int32 x = 0; x < this.colorPreview.width; ++x )
@@ -59,7 +59,7 @@ namespace RogueWispPlugin.Helpers
         }
         private void OnDisable()
         {
-            Main.LogI( "Selection UI Off" );
+            //Main.LogI( "Selection UI Off" );
            
         }
         private Boolean dataSet = false;

@@ -14,10 +14,13 @@ namespace RogueWispPlugin
 
             public Single value;
             public Single speed;
+            public UInt32 skin;
+
+            public Boolean useSkin;
 
             public GameObject effectPrefab;
 
-            public UniversalHealOrb( HurtBox target, GameObject effectPrefab, Vector3 origin, Single value, Single speed, HealType healType = HealType.Flat, HealTarget healTarget = HealTarget.Health )
+            public UniversalHealOrb( HurtBox target, GameObject effectPrefab, Boolean useSkin, UInt32 skin, Vector3 origin, Single value, Single speed, HealType healType = HealType.Flat, HealTarget healTarget = HealTarget.Health )
             {
                 base.target = target;
                 base.origin = origin;
@@ -27,6 +30,8 @@ namespace RogueWispPlugin
                 this.speed = speed;
                 this.healType = healType;
                 this.healTarget = healTarget;
+                this.useSkin = useSkin;
+                this.skin = skin;
             }
 
 
@@ -60,6 +65,7 @@ namespace RogueWispPlugin
                         origin = base.origin,
                         genericFloat = base.duration
                     };
+                    if( this.useSkin ) data.genericUInt = this.skin;
                     data.SetHurtBoxReference( base.target );
                     EffectManager.SpawnEffect( this.effectPrefab, data, true );
                 }

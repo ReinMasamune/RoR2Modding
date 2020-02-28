@@ -71,6 +71,18 @@ namespace RogueWispPlugin
                 }
                 return rend.mesh;
             }, false, PrefabIndex.refWillOWispExplosion ).RegisterAccessor();
+
+            new GenericAccessor<Mesh>( MeshIndex.TornadoMesh, () =>
+            {
+                var obj = AssetLibrary<GameObject>.i[PrefabIndex.refFireTornadoGhost].transform.Find("TornadoSmokeMesh");
+                return obj.GetComponent<ParticleSystemRenderer>().mesh;
+            }, false, PrefabIndex.refFireTornadoGhost ).RegisterAccessor();
+
+            new GenericAccessor<Mesh>( MeshIndex.TornadoMesh2, () =>
+            {
+                var obj = AssetLibrary<GameObject>.i[PrefabIndex.refFireTornadoGhost].transform.Find("TornadoMesh");
+                return obj.GetComponent<ParticleSystemRenderer>().mesh;
+            }, false, PrefabIndex.refFireTornadoGhost ).RegisterAccessor();
             #endregion
         }
     }

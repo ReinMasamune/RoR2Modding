@@ -12,15 +12,15 @@ namespace RogueWispPlugin
     {
         public class TestSecondary : BaseState
         {
-            public static Double chargeUsed = 10.0;
+            public const Double chargeUsed = 25.0;
 
-            public static Single baseDuration = 0.75f;
-            public static Single scanDelay = 0.25f;
-            public static Single fireDelay = 0.5f;
-            public static Single damageRatio = 2.5f;
-            public static Single chargeScaler = 0.5f;
-            public static Single radius = 8f;
-            public static Single returnIdlePercent = 0.5f;
+            public const Single baseDuration = 0.75f;
+            public const Single scanDelay = 0.25f;
+            public const Single fireDelay = 0.5f;
+            public const Single damageRatio = 2.5f;
+            public const Single chargeScaler = 0.5f;
+            public const Single radius = 6f;
+            public const Single returnIdlePercent = 0.5f;
 
             private Single duration;
 
@@ -137,7 +137,7 @@ namespace RogueWispPlugin
                 nextOrb.stepDist = 8.0f;
                 nextOrb.stepHeight = 5.0f;
                 nextOrb.maxFall = 25f;
-                nextOrb.innerRadScale = 0.5f;
+                nextOrb.innerRadScale = 0.25f;
                 nextOrb.stepsLeft = 1 + (Int32)Math.Truncate( chargeState.chargeConsumed / 7.5 );
                 nextOrb.team = TeamComponent.GetObjectTeam( this.gameObject );
                 nextOrb.skin = this.skin;
