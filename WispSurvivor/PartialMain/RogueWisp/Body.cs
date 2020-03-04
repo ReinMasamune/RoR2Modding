@@ -1,4 +1,5 @@
-﻿//using static RogueWispPlugin.Helpers.APIInterface;
+﻿#if ROGUEWISP
+//using static RogueWispPlugin.Helpers.APIInterface;
 using R2API;
 using RoR2;
 using UnityEngine;
@@ -6,7 +7,7 @@ using static R2API.PrefabAPI;
 
 namespace RogueWispPlugin
 {
-#if ROGUEWISP
+
     internal partial class Main
     {
         partial void RW_Body()
@@ -81,5 +82,6 @@ namespace RogueWispPlugin
             return g;
         }
     }
-#endif
+
 }
+#endif

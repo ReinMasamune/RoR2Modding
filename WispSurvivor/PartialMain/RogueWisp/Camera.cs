@@ -32,8 +32,8 @@ namespace RogueWispPlugin
             MonoBehaviour.DontDestroyOnLoad( aimOrigin );
             cameraPivot.transform.SetParent( this.RW_body.transform, false );
             aimOrigin.transform.SetParent( this.RW_body.transform, false );
-            cameraPivot.transform.localPosition = new Vector3( 0f, 1.851f, 0f );
-            aimOrigin.transform.localPosition = new Vector3( 0f, 1.142f, 0f );
+            cameraPivot.transform.localPosition = new Vector3( 0f, 1.75f, 0f );
+            aimOrigin.transform.localPosition = new Vector3( 0f, 1.3f, 0f );
             this.RW_body.GetComponent<CameraTargetParams>().cameraPivotTransform = cameraPivot.transform;
             this.RW_body.GetComponent<CharacterBody>().aimOriginTransform = aimOrigin.transform;
         }

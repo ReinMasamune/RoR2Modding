@@ -19,7 +19,8 @@ namespace RogueWispPlugin
                 "Should the new boss spawn in game? Left as an option in case of major bugs or issues with early version of boss." );
         }
 
-        private R2API.DirectorAPI.DirectorCardHolder AW_dirCard;
+        private R2API.DirectorAPI.DirectorCardHolder AW_dirCardHolder;
+        private DirectorCard AW_dirCard;
         private void AW_SetupSpawns()
         {
             //this.bossEnabled = base.Config.Bind<Boolean>( "Main", "Enable new boss", true,
@@ -51,21 +52,34 @@ namespace RogueWispPlugin
             dirCard.selectionWeight = 1;
             dirCard.spawnCard = spawnCard;
             dirCard.spawnDistance = DirectorCore.MonsterSpawnDistance.Standard;
+            this.AW_dirCard = dirCard;
 
-            this.AW_dirCard = new R2API.DirectorAPI.DirectorCardHolder();
-            this.AW_dirCard.SetCard(dirCard);
-            this.AW_dirCard.SetInteractableCategory(R2API.DirectorAPI.InteractableCategory.None);
-            this.AW_dirCard.SetMonsterCategory(R2API.DirectorAPI.MonsterCategory.Champions);
+            this.AW_dirCardHolder = new R2API.DirectorAPI.DirectorCardHolder();
+            this.AW_dirCardHolder.SetCard(dirCard);
+            this.AW_dirCardHolder.SetInteractableCategory(R2API.DirectorAPI.InteractableCategory.None);
+            this.AW_dirCardHolder.SetMonsterCategory(R2API.DirectorAPI.MonsterCategory.Champions);
 
             if(this.bossEnabled.Value )
             {
                 R2API.DirectorAPI.MonsterActions += this.DirectorAPI_MonsterActions;
+                R2API.DirectorAPI.FamilyActions += this.DirectorAPI_FamilyActions;
+            }
+        }
+
+        private void DirectorAPI_FamilyActions( List<R2API.DirectorAPI.MonsterFamilyHolder> families, R2API.DirectorAPI.StageInfo stage )
+        {
+            foreach( var family in families )
+            {
+                if( family.SelectionChatString == "FAMILY_WISP" )
+                {
+                    family.FamilyChampions.Add( this.AW_dirCard );
+                }
             }
         }
 
         private void DirectorAPI_MonsterActions( List<R2API.DirectorAPI.DirectorCardHolder> cards, R2API.DirectorAPI.StageInfo stage )
         {
-            cards.Add( this.AW_dirCard );
+            cards.Add( this.AW_dirCardHolder );
         }
 
         private void CharacterSpawnCard_Awake( On.RoR2.CharacterSpawnCard.orig_Awake orig, CharacterSpawnCard self )

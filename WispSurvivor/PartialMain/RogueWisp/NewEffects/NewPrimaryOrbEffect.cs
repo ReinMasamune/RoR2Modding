@@ -46,7 +46,7 @@ namespace RogueWispPlugin
             //distortionEmit.enabled = true;
             //distortionEmit.rateOverDistance = 30f;
 
-            var arcCircle = EffectHelper.AddArcaneCircle( obj, skin, MaterialType.ArcaneCircle, 4f, 0.65f );
+            var arcCircle = EffectHelper.AddArcaneCircle( obj, skin, MaterialType.ArcaneCircle, 2f, 0.65f );
             var arcCircleMain = arcCircle.main;
             arcCircleMain.duration = 10f;
             var arcCircleEmis = arcCircle.emission;

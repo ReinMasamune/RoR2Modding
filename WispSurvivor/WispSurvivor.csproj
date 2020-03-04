@@ -2,8 +2,8 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>RogueWisp</AssemblyName>
-    <AssemblyVersion>2.0.3.11</AssemblyVersion>
-    <FileVersion>2.0.2.4</FileVersion>
+    <AssemblyVersion>2.0.4.151</AssemblyVersion>
+    <FileVersion>2.0.2.151</FileVersion>
     <RootNamespace>RogueWispPlugin</RootNamespace>
     <UserSecretsId>392ba4cc-368a-4518-b19f-f550dca1e784</UserSecretsId>
   </PropertyGroup>

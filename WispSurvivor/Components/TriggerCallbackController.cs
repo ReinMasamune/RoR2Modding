@@ -115,7 +115,10 @@ namespace RogueWispPlugin
             }
             internal void Cleanup()
             {
-                UnityEngine.Object.Destroy( base.gameObject );
+                if( this != null && base.gameObject != null )
+                {
+                    UnityEngine.Object.Destroy( base.gameObject );
+                }
             }
             internal event Action<Collider> onTriggerEnter;
             internal event Action<Collider> onTriggerExit;

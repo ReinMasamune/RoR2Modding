@@ -78,11 +78,31 @@ namespace RogueWispPlugin
             ilhook_R2API_LoadoutAPI_BodyLoadout_ToXml += this.Main_ilhook_R2API_LoadoutAPI_BodyLoadout_ToXml;
             //On.RoR2.Projectile.SlowDownProjectiles.OnTriggerEnter += this.SlowDownProjectiles_OnTriggerEnter1;
             IL.RoR2.SetStateOnHurt.OnTakeDamageServer += this.SetStateOnHurt_OnTakeDamageServer;
-
+            On.RoR2.CameraRigController.Start += this.CameraRigController_Start1;
 
             //var instance = Expression.Parameter(typeof(RoR2.Projectile.SlowDownProjectiles), "instance" );
             //var body = Expression.Field( instance, "affectedRigidBodies" );
             //getRbList = Expression.Lambda<Func<RoR2.Projectile.SlowDownProjectiles, List<Rigidbody>>>( body, instance ).Compile();
+        }
+
+        private void CameraRigController_Start1( On.RoR2.CameraRigController.orig_Start orig, CameraRigController self )
+        {
+            orig( self );
+
+            if( self.hud != null )
+            {
+                var par = self.hud.transform.Find( "MainContainer/MainUIArea/BottomRightCluster/Scaler" );
+                var inst = Instantiate<GameObject>( wispHudPrefab, par );
+                var bar3Rect = inst.GetComponent<RectTransform>();
+                bar3Rect.anchoredPosition = new Vector2( 14f, 140f );
+                bar3Rect.sizeDelta = new Vector2( 310f, 32f );
+                bar3Rect.anchorMin = new Vector2( 0.5f, 0.5f );
+                bar3Rect.anchorMax = new Vector2( 0.5f, 0.5f );
+                bar3Rect.pivot = new Vector2( 0.5f, 0.5f );
+                bar3Rect.localEulerAngles = Vector3.zero;
+                bar3Rect.localScale = Vector3.one;
+
+            }
         }
 
 

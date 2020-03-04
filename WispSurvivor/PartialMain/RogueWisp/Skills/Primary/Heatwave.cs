@@ -20,14 +20,14 @@ namespace RogueWispPlugin
 
             public Direction state = Direction.Right;
 
-            public static Single baseDuration = 0.875f;
-            public static Single fireStartFrac = 0.35f;
-            public static Single maxRange = 75f;
-            public static Single noStockSpeedMult = 0.5f;
-            public static Single damageMult = 1.65f;
-            public static Single radius = 2.0f;
-            public static Single falloffStart = 0.35f;
-            public static Single endFalloffMult = 0.25f;
+            const Single baseDuration = 0.875f;
+            const Single fireStartFrac = 0.35f;
+            const Single maxRange = 80f;
+            const Single noStockSpeedMult = 0.5f;
+            const Single damageMult = 1.65f;
+            const Single radius = 2.0f;
+            const Single falloffStart = 0.25f;
+            const Single endFalloffMult = 0.35f;
 
             private Single duration;
             private Single fireDelay;
@@ -104,7 +104,10 @@ namespace RogueWispPlugin
                 }
             }
 
-            public override InterruptPriority GetMinimumInterruptPriority() => InterruptPriority.Skill;
+            public override InterruptPriority GetMinimumInterruptPriority()
+            {
+                return InterruptPriority.Skill;
+            }
 
             private void FireOrb()
             {
@@ -112,9 +115,11 @@ namespace RogueWispPlugin
                 this.hasFired = true;
                 if( !this.isAuthority ) return;
 
-                this.GetTarget();
+                //this.GetTarget();
 
                 HeatwaveClientOrb snap = new HeatwaveClientOrb();
+
+                var aim = base.GetAimRay();
 
                 snap.damage = this.damageValue;
                 snap.crit = this.RollCrit();
@@ -126,13 +131,17 @@ namespace RogueWispPlugin
                 Transform trans = base.FindModelChild("MuzzleRight");
                 snap.startPos = trans.position;
                 snap.speed = 250f;
-                snap.targetPos = this.targetVec;
+                //snap.targetPos = this.targetVec;
+                snap.useTargetPos = false;
+                snap.origin = aim.origin;
+                snap.direction = aim.direction;
                 snap.chargeRestore = 5f / Mathf.Sqrt(Mathf.Max(1f, base.attackSpeedStat ) );
                 snap.force = 100f;
                 snap.range = maxRange;
                 snap.falloffStart = falloffStart;
                 snap.endFalloffMult = endFalloffMult;
                 snap.attackerBody = base.characterBody;
+                snap.stopAtWorld = true;
                 this.orbControl.AddClientOrb( snap );
             }
 

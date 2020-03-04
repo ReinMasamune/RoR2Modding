@@ -70,6 +70,7 @@ namespace RogueWispPlugin
 
             private void ActivateBurn( UInt32 skin )
             {
+                if( this.dead ) return;
                 //Main.LogI( skin + " Activate" );
                 if( this.skinEffects.ContainsKey( skin ) )
                 {
@@ -84,6 +85,8 @@ namespace RogueWispPlugin
                     //burnController.effectType = GetSkinParams( skin );
                     //this.skinEffects[skin] = burnController;
                 }
+
+
                 var burnController = base.gameObject.AddComponent<BurnEffectController>();
                 burnController.target = this.target;
                 burnController.effectType = GetSkinParams( skin );
@@ -104,6 +107,7 @@ namespace RogueWispPlugin
 
             private void DeactivateBurn( UInt32 skin )
             {
+                if( this.dead ) return;
                 //Main.LogI( skin + " Deactivate" );
                 if( this.skinEffects.ContainsKey( skin ) )
                 {
@@ -122,12 +126,17 @@ namespace RogueWispPlugin
 
             public void FixedUpdate()
             {
-                if( this.dead ) return;
+                if( this.dead )
+                {
+                    Destroy( this );
+                    return;
+                }
                 this.UpdateTimers( Time.fixedDeltaTime );
             }
 
             public void SetSkinDuration( UInt32 skin, Single duration )
             {
+                if( this.dead ) return;
                 if( this.skinTimers.ContainsKey( skin ) )
                 {
                     var timer = this.skinTimers[skin];
@@ -143,7 +152,7 @@ namespace RogueWispPlugin
             private void UpdateTimers( Single delta )
             {
                 if( !NetworkServer.active ) return;
-
+                if( this.dead ) return;
                 var temp = new Queue<UInt32>();
 
                 foreach( var burnKV in this.skinTimers )

@@ -47,7 +47,7 @@ namespace RogueWispPlugin
             skill.shootDelay = 0.5f;
             skill.stockToConsume = 1;
 
-            skill.icon = this.RW_assetBundle.LoadAsset<Sprite>( "Assets/__EXPORT/wisp4alt.png" );
+            skill.icon = this.RW_assetBundle.LoadAsset<Sprite>( "Assets/__EXPORT/wisp4alt_v1.png" );
             skill.skillDescriptionToken = "WISP_SURVIVOR_SPECIAL_1_DESC";
             skill.skillName = "Special1";
             skill.skillNameToken = "WISP_SURVIVOR_SPECIAL_1_NAME";
@@ -147,7 +147,7 @@ namespace RogueWispPlugin
             skill.stockToConsume = 1;
             skill.stepCount = 2;
 
-            skill.icon = this.RW_assetBundle.LoadAsset<Sprite>( "Assets/__EXPORT/wisp1.png" );
+            skill.icon = this.RW_assetBundle.LoadAsset<Sprite>( "Assets/__EXPORT/wisp1_v1.png" );
             skill.skillDescriptionToken = "WISP_SURVIVOR_PRIMARY_1_DESC";
             skill.skillName = "Primry1";
             skill.skillNameToken = "WISP_SURVIVOR_PRIMARY_1_NAME";

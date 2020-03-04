@@ -1,4 +1,5 @@
-﻿using MonoMod.Cil;
+﻿#if ROGUEWISP
+using MonoMod.Cil;
 using R2API;
 using RoR2;
 using RoR2.Networking;
@@ -9,7 +10,7 @@ using UnityEngine;
 
 namespace RogueWispPlugin
 {
-#if ROGUEWISP
+
     internal partial class Main
     {
         private ReinSurvivorDef RW_survivorDef;
@@ -43,7 +44,8 @@ namespace RogueWispPlugin
             this.RW_body.AddComponent<WispFlamesController>();
 
             WispPassiveController passive = this.RW_body.AddComponent<WispPassiveController>();
-            this.RW_body.AddComponent<WispUIController>().passive = passive;
+            this.RW_body.AddComponent<WispCrosshairManager>();
+            //this.RW_body.AddComponent<WispUIController>().passive = passive;
             this.RW_body.AddComponent<EntityStateMachine>().customName = "Gaze";
 
             // GET components missing now.
@@ -120,5 +122,6 @@ namespace RogueWispPlugin
             this.RW_assetBundle = AssetBundle.LoadFromStream( stream );
         }
     }
-#endif
+
 }
+#endif

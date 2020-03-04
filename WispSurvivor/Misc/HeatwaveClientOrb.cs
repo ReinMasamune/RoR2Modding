@@ -10,25 +10,27 @@ namespace RogueWispPlugin
     {
         public class HeatwaveClientOrb : BaseClientOrb
         {
-            public System.Single speed = 200f;
-            public System.Single damage = 1f;
-            public System.Single scale = 1f;
-            public System.Single procCoef = 1f;
-            public System.Single radius = 1f;
+            public Single speed = 200f;
+            public Single damage = 1f;
+            public Single scale = 1f;
+            public Single procCoef = 1f;
+            public Single radius = 1f;
             public Single force = 0f;
             public Single chargeRestore = 0.0f;
             public Single range = 0f;
             public Single falloffStart = 0f;
             public Single endFalloffMult = 0f;
-            public System.UInt32 skin = 0;
+            public UInt32 skin = 0;
 
 
             public Vector3 startPos;
             public Vector3 targetPos;
             public Vector3 worldNormal;
-            public System.Boolean crit = false;
-            public Boolean hitWorld = false;
-
+            public Vector3 origin;
+            public Vector3 direction;
+            public Boolean crit = false;
+            public Boolean stopAtWorld = false;
+            public Boolean useTargetPos;
 
             public TeamIndex team;
             public DamageColorIndex damageColor;
@@ -40,9 +42,12 @@ namespace RogueWispPlugin
             private Single dist1;
             private Single dist2;
 
+            private Boolean worldHit = false;
 
             private Vector3 lastPos;
 
+
+            private Vector3[] worldHits;
 
 
 
@@ -74,6 +79,19 @@ namespace RogueWispPlugin
 
             public override void Begin()
             {
+                if( !this.useTargetPos )
+                {
+                    var r = new Ray( this.origin, this.direction );
+                    if( this.stopAtWorld && Util.CharacterRaycast( this.attacker, r, out RaycastHit hit, this.range, LayerIndex.world.mask, QueryTriggerInteraction.UseGlobal ) )
+                    {
+                        this.targetPos = hit.point + this.direction * this.radius * 2;
+                        this.worldHit = true;
+                    } else
+                    {
+                        this.targetPos = r.GetPoint( this.range );
+                    }
+                }
+
                 this.dVec = this.targetPos - this.startPos;
                 this.totalDist = this.dVec.magnitude;
                 this.dVec = this.dVec.normalized;
@@ -108,11 +126,16 @@ namespace RogueWispPlugin
             }
             private void ColliderEnter( Collider col )
             {
+                if( col == null ) return;
                 var box = col.GetComponent<HurtBox>();
                 if( box == null ) return;
                 var hc = box.healthComponent;
                 if( hc == null || this.mask.Contains( hc ) ) return;
-                if( hc.body.teamComponent.teamIndex == this.team ) return;
+                var body = hc.body;
+                if( body == null ) return;
+                var tc = body.teamComponent;
+                if( tc == null ) return;
+                if( tc.teamIndex == this.team ) return;
 
                 var dist = (col.ClosestPoint(this.startPos) - this.startPos).magnitude;
                 if( !this.bestHits.ContainsKey( hc ) || dist < this.bestHits[hc].distance )
@@ -136,7 +159,10 @@ namespace RogueWispPlugin
 
                 foreach( var kv in this.bestHits )
                 {
-                    var box = kv.Value.box;
+                    var hit = kv.Value;
+                    var hc = kv.Key;
+                    var box = hit.box;
+                    if( box == null || hc == null ) continue;
 
                     DamageInfo dmg = new DamageInfo
                     {
@@ -158,12 +184,12 @@ namespace RogueWispPlugin
 #else
                     base.SendDamage( dmg, box.healthComponent );
 #endif
-                    this.mask.Add( box.healthComponent );
+                    this.mask.Add( hc );
 
-                    var targetBody = box.healthComponent.body;
+                    var targetBody = hc.body;
                     Inventory targetInv = (targetBody ? targetBody.inventory : null);
 
-                    Single dur = curMult * this.chargeRestore * this.GetChargeMult( targetInv ? targetInv.GetItemCount( ItemIndex.BoostDamage ) : 0, targetBody.baseNameToken );
+                    Single dur = curMult * this.chargeRestore * this.GetChargeMult( targetInv ? targetInv.GetItemCount( ItemIndex.BoostDamage ) : 0, targetBody ? targetBody.baseNameToken : "UNIDENTIFIED" );
                     UInt32 stacks = 1u;
                     if( dur > 0.75f )
                     {
@@ -182,27 +208,12 @@ namespace RogueWispPlugin
                         genericUInt = this.skin,
                         scale = 0.65f * curMult,
                         genericBool = false,
-                        color = DoBadThings(dur)
                     };
                     fx.SetHurtBoxReference( this.attacker );
                     EffectManager.SpawnEffect( Main.utilityLeech, fx, true );
                 }
 
                 this.bestHits.Clear();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
                 //Vector3 currentPos = Vector3.Lerp( this.targetPos , this.startPos, ( base.remainingDuration / base.totalDuration ) );
 
@@ -255,26 +266,30 @@ namespace RogueWispPlugin
                     curMult -= ((curDist - this.dist1) / this.dist2) * (1f - this.endFalloffMult);
                 }
 
-                DamageInfo dmg = new DamageInfo
+
+                if( this.stopAtWorld && this.worldHit )
                 {
-                    attacker = this.attacker,
-                    crit = this.crit,
-                    damage = this.damage * curMult,
-                    damageColorIndex = this.damageColor,
-                    damageType = DamageType.Generic,
-                    dotIndex = DotController.DotIndex.None,
-                    force = this.forceVec * curMult,
-                    inflictor = null,
-                    position = this.targetPos,
-                    procChainMask = default,
-                    procCoefficient = this.procCoef * curMult,
-                };
+                    DamageInfo dmg = new DamageInfo
+                    {
+                        attacker = this.attacker,
+                        crit = this.crit,
+                        damage = this.damage * curMult,
+                        damageColorIndex = this.damageColor,
+                        damageType = DamageType.Generic,
+                        dotIndex = DotController.DotIndex.None,
+                        force = this.forceVec * curMult,
+                        inflictor = null,
+                        position = this.targetPos,
+                        procChainMask = default,
+                        procCoefficient = this.procCoef * curMult,
+                    };
 
 #if NETWORKING
-                NetLib.BuiltIns.SendDamage.DealDamage( dmg, null, false, false, true );
+                    NetLib.BuiltIns.SendDamage.DealDamage( dmg, null, false, false, true );
 #else
-                base.SendDamage( dmg, null);
+                    base.SendDamage( dmg, null);
 #endif
+                }
                 this.trigger.Cleanup();
             }
 

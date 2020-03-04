@@ -8,7 +8,7 @@ namespace RogueWispPlugin
     {
         public class HeatwaveWindDown : BaseState
         {
-            public static Single time = 0.5f;
+            const Single time = 0.5f;
 
             public override void OnEnter() => base.OnEnter();
 
@@ -17,13 +17,17 @@ namespace RogueWispPlugin
                 base.FixedUpdate();
                 if( base.fixedAge > 0.75f )
                 {
-                    base.PlayCrossfade( "Gesture", "Idle", time / base.attackSpeedStat );
-
                     if( base.isAuthority )
                     {
                         base.outer.SetNextStateToMain();
                     }
                 }
+            }
+
+            public override void OnExit()
+            {
+                base.PlayCrossfade( "Gesture", "Idle", time / base.attackSpeedStat );
+                base.OnExit();
             }
 
             public override InterruptPriority GetMinimumInterruptPriority() => InterruptPriority.Any;

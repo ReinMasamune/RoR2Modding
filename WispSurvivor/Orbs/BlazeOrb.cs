@@ -326,8 +326,11 @@ namespace RogueWispPlugin
 
             private void TickDamage( TargetContext enemy )
             {
-                if( enemy == null || enemy.burnManager == null || enemy.healthComponent == null || enemy.mainHurtBox == null ) return;
-                enemy.burnManager.SetSkinDuration( this.skin, this.igniteDuration );
+                if( enemy == null || enemy.healthComponent == null || enemy.mainHurtBox == null ) return;
+                if( enemy.burnManager != null )
+                {
+                    enemy.burnManager.SetSkinDuration( this.skin, this.igniteDuration );
+                }   
                 IgnitionOrb orb = new IgnitionOrb();
 
                 orb.attacker = this.attacker;

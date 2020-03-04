@@ -1,10 +1,11 @@
-﻿using RoR2;
+﻿#if BOSSHPBAR
+using RoR2;
 using RoR2.UI;
 //using static RogueWispPlugin.Helpers.APIInterface;
 
 namespace RogueWispPlugin
 {
-#if BOSSHPBAR
+
     internal partial class Main
     {
         partial void EditBossHPBar()
@@ -30,5 +31,5 @@ namespace RogueWispPlugin
             }
         }
     }
-#endif
 }
+#endif

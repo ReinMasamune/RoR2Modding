@@ -118,6 +118,7 @@ namespace RogueWispPlugin
 #if COMPATCHECKS
         partial void CompatChecks();
 #endif
+        //partial void PerformanceBoosts();
 #if CROSSMODFUNCTIONALITY
         partial void CrossModFunctionality();
 #endif
@@ -186,6 +187,8 @@ namespace RogueWispPlugin
                 this.FirstFrame += this.StartTimeStart;
 #endif
                 this.Tick += () => RoR2Application.isModded = true;
+
+                //this.PerformanceBoosts();
 #if CROSSMODFUNCTIONALITY
                 this.CrossModFunctionality();
 #endif
@@ -226,6 +229,7 @@ namespace RogueWispPlugin
                 this.SetupEffectSkinning();
                 this.FirstFrame += this.Main_FirstFrame;
                 this.FirstFrame += this.RandomCrap;
+                //this.GUI += this.DebugTexture;
 #if TIMER
                 this.Load += this.AwakeTimeStop;
                 this.Enable += this.EnableTimeStop;
@@ -238,8 +242,18 @@ namespace RogueWispPlugin
 
             this.Enable += IncState;
             this.FirstFrame += IncState;
+            
 
             //this.FirstFrame += this.TestingShit;
+        }
+
+        internal static Texture2D debugTexture;
+        private void DebugTexture()
+        {
+            if( debugTexture != null )
+            {
+                UnityEngine.GUI.Label( new Rect( 0f, 0f, 1000f, 1000f ), debugTexture );
+            }
         }
 
         private void RandomCrap()
@@ -291,19 +305,19 @@ namespace RogueWispPlugin
         private void AwakeTimeStop()
         {
             this.watch.Stop();
-            Main.LogI( "Awake Time: " + this.watch.ElapsedMilliseconds );
+            Main.LogM( "Awake Time: " + this.watch.ElapsedMilliseconds );
         }
         private void EnableTimeStart() => this.watch.Restart();
         private void EnableTimeStop()
         {
             this.watch.Stop();
-            Main.LogI( "Enable Time: " + this.watch.ElapsedMilliseconds );
+            Main.LogM( "Enable Time: " + this.watch.ElapsedMilliseconds );
         }
         private void StartTimeStart() => this.watch.Restart();
         private void StartTimeStop()
         {
             this.watch.Stop();
-            Main.LogI( "Start Time: " + this.watch.ElapsedMilliseconds );
+            Main.LogM( "Start Time: " + this.watch.ElapsedMilliseconds );
         }
 #endif
         internal static void Log( BepInEx.Logging.LogLevel level, System.Object data, String member, Int32 line )
