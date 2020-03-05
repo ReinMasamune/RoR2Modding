@@ -1,4 +1,5 @@
-﻿using RoR2.ConVar;
+﻿using RoR2;
+using RoR2.ConVar;
 using RoR2.UI;
 using System;
 using System.Collections.Generic;
@@ -32,64 +33,66 @@ namespace RogueWispPlugin
             {
                 this.fgImage.color = newColor;
             }
+            public void TurnOff()
+            {
+                this.bgImage.gameObject.SetActive( false );
+                this.fgImage.gameObject.SetActive( false );
+                this.on = false;
+            }
+            public void TurnOn()
+            {
+                this.bgImage.gameObject.SetActive( true );
+                this.fgImage.gameObject.SetActive( true );
+                this.on = true;
+            }
             #endregion
 
 
             #region Instance
+            private HUD outer;
+            private CharacterBody targetBody;
+            private GameObject targetObject;
 
-            private GameObject targetBody
-            {
-                get => this._targetBody;
-                set
-                {
-                    if( this._targetBody != value )
-                    {
-                        if( this._targetBody != null ) WispCrosshairManager.RemoveDisplay( this, this._targetBody );
-                        this._targetBody = value;
-                        this.active = false;
-                        if( this._targetBody != null ) this.active = WispCrosshairManager.AddDisplay( this, this._targetBody );
-                    }
-                }
-            }
-
-            private Boolean active
-            {
-                get => this._active;
-                set
-                {
-                    if( this._active != value )
-                    {
-                        this._active = value;
-                        this.bgImage.gameObject.SetActive( this._active );
-                        this.fgImage.gameObject.SetActive( this._active );
-                    }
-                }
-            }
-            private Boolean _active = false;
-
-            private GameObject _targetBody;
-            private Func<GameObject> getTargetBody;
+            private Boolean on;
+            private Boolean registered;
             private void OnEnable()
             {
-                var hudElem = base.transform.parent.GetComponent<HudElement>();
-                if( hudElem )
-                {
-                    this.getTargetBody = () => hudElem.targetBodyObject;
-                    return;
-                }
-                var hud = base.GetComponentInParent<HUD>();
-                if( hud )
-                {
-                    this.getTargetBody = () => hud.targetBodyObject;
-                }
-            }
-            private void Update()
-            {
-                this.targetBody = this.getTargetBody?.Invoke();
+                this.TurnOff();
+                this.registered = false;
+                this.outer = base.GetComponentInParent<HUD>();
             }
             private void OnDisable()
             {
-                this.targetBody = null;
+                this.TurnOff();
+            }
+            private void FixedUpdate()
+            {
+                var newObj = this.outer?.targetBodyObject;
+                if( newObj != null && newObj == this.targetObject )
+                {
+                    return;
+                } else
+                {
+                    if( this.on )
+                    {
+                        this.TurnOff();
+                    }
+                    if( this.registered )
+                    {
+                        WispCrosshairManager.RemoveDisplay( this, this.targetObject );
+                        this.registered = false;
+                    }
+
+                    this.targetObject = newObj;
+                    if( newObj != null )
+                    {
+                        if( WispCrosshairManager.AddDisplay( this, newObj ) )
+                        {
+                            this.registered = true;
+                            this.TurnOn();
+                        }
+                    }
+                }
             }
             #endregion
         }

@@ -1,4 +1,6 @@
-﻿using R2API.Utils;
+﻿#if R2API
+using R2API.Utils;
+#endif
 using RoR2;
 using System.Reflection;
 using UnityEngine;

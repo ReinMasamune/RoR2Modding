@@ -102,6 +102,34 @@ namespace RogueWispPlugin
                 bar3Rect.localEulerAngles = Vector3.zero;
                 bar3Rect.localScale = Vector3.one;
 
+                var par2 = self.hud.transform.Find( "MainContainer/CrosshairCanvas");
+                var cross1 = Instantiate<GameObject>( wispCrossBar1, par2 );
+                var bar1Rect = cross1.GetComponent<RectTransform>();
+                var cross2 = Instantiate<GameObject>( wispCrossBar2, par2 );
+                var bar2Rect = cross2.GetComponent<RectTransform>();
+
+
+                bar1Rect.anchoredPosition = new Vector2( 96f, 0f );
+                bar2Rect.anchoredPosition = new Vector2( -96f, 0f );
+
+                bar1Rect.sizeDelta = new Vector2( 256f, 128f );
+                bar2Rect.sizeDelta = new Vector2( 256f, 128f );
+
+                bar1Rect.anchorMin = new Vector2( 0.5f, 0.5f );
+                bar2Rect.anchorMin = new Vector2( 0.5f, 0.5f );
+
+                bar1Rect.anchorMax = new Vector2( 0.5f, 0.5f );
+                bar2Rect.anchorMax = new Vector2( 0.5f, 0.5f );
+
+                bar1Rect.pivot = new Vector2( 0.5f, 0.5f );
+                bar2Rect.pivot = new Vector2( 0.5f, 0.5f );
+
+                bar1Rect.localEulerAngles = new Vector3( 0f, 0f, -90f );
+                bar2Rect.localEulerAngles = new Vector3( 0f, 0f, 90f );
+
+                bar1Rect.localScale = Vector3.one * 0.125f;
+                bar2Rect.localScale = Vector3.one * 0.125f;
+
             }
         }
 

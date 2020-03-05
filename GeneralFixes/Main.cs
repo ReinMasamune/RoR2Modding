@@ -53,6 +53,12 @@ namespace ReinGeneralFixes
         partial void QoLVisionsCrosshair();
         partial void QoLOvergrownPrinters();
 
+        partial void PerformanceKinCharController();
+
+
+#if PROFILER
+        partial void Profiler();
+#endif
 #if DPSMETER
         partial void SetupDPSMeter();
 #endif
@@ -60,6 +66,12 @@ namespace ReinGeneralFixes
         private Main()
         {
             instance = this;
+#if PROFILER
+            this.Profiler();
+#endif
+
+
+
             this.BalanceCommandoCDs();
             this.BalanceCorpsebloom();
             this.BalanceOSP();
@@ -74,7 +86,7 @@ namespace ReinGeneralFixes
             this.QoLVisionsCrosshair();
             this.QoLOvergrownPrinters();
 
-
+            this.PerformanceKinCharController();
 
             //On.RoR2.Projectile.ProjectileController.Start += this.ProjectileController_Start;
 

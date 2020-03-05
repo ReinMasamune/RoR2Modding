@@ -1,4 +1,5 @@
-﻿using BepInEx;
+﻿#if R2API
+using BepInEx;
 using RoR2;
 using System;
 using System.Collections.Generic;
@@ -347,3 +348,4 @@ namespace GeneralPluginStuff
         }
     }
 }
+#endif

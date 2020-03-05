@@ -38,7 +38,7 @@ namespace RogueWispPlugin
             var bar = new GameObject().InstantiateClone("WispHudChunk", false );
 
 
-            var bar1 = Instantiate<GameObject>( temp.gameObject, temp.parent );
+            var bar1 = Instantiate<GameObject>( temp.gameObject, bar.transform );
             wispCrossBar1 = bar1;
             Destroy( bar1.GetComponent<Image>() );
             var bar1Rect = bar1.GetComponent<RectTransform>();
@@ -72,7 +72,7 @@ namespace RogueWispPlugin
             bar1Controller.fgImage = bar1FGImg;
 
 
-            var bar2 = Instantiate<GameObject>( temp.gameObject, temp.parent );
+            var bar2 = Instantiate<GameObject>( temp.gameObject, bar.transform );
             wispCrossBar2 = bar2;
             Destroy( bar2.GetComponent<Image>() );
             var bar2Rect = bar2.GetComponent<RectTransform>();

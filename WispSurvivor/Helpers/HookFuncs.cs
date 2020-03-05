@@ -47,6 +47,5 @@ namespace GeneralPluginStuff
         {
             return GetMethodBase<TDeclaring>( name, typeof( TParam1 ), typeof( TParam2 ), typeof( TParam3 ), typeof( TParam4 ) );
         }
-
     }
 }

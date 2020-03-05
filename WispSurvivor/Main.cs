@@ -1,5 +1,7 @@
 ﻿using BepInEx;
+#if R2API
 using R2API.Utils;
+#endif
 using RoR2;
 using System;
 using System.Collections.Generic;
@@ -16,6 +18,7 @@ using NetLib;
 
 namespace RogueWispPlugin
 {
+#if R2API
     [R2APISubmoduleDependency(
         nameof( R2API.SurvivorAPI ),
         nameof( R2API.EffectAPI ),
@@ -28,11 +31,13 @@ namespace RogueWispPlugin
 #endif
         nameof( R2API.AssetPlus.AssetPlus )
     )]
+
 #pragma warning disable CA2243 // Attribute string literals should parse correctly
+    [BepInDependency( R2API.R2API.PluginGUID, BepInDependency.DependencyFlags.HardDependency )]
+#endif
 #if NETWORKING
     [BepInDependency( NetLib.NetLib.guid, BepInDependency.DependencyFlags.SoftDependency )]
 #endif
-    [BepInDependency( R2API.R2API.PluginGUID, BepInDependency.DependencyFlags.HardDependency )]
     [BepInPlugin( pluginGUID, pluginName, pluginVersion )]
 #pragma warning restore CA2243 // Attribute string literals should parse correctly
     internal partial class Main : BaseUnityPlugin
