@@ -13,6 +13,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using Mono.Cecil;
 using ReinCore;
+using BepInEx.Configuration;
 
 namespace RogueWispPlugin
 {
@@ -22,11 +23,14 @@ namespace RogueWispPlugin
         private const Single shieldRegenFrac = 0.03f;
         private const Single rootNumber = 4f;
         internal HashSet<CharacterBody> RW_BlockSprintCrosshair = new HashSet<CharacterBody>();
+        private ConfigEntry<Boolean> chargeBarEnabled;
         partial void RW_Hook()
         {
             this.Enable += this.RW_AddHooks;
             this.Disable += this.RW_RemoveHooks;
             this.Load += this.Main_Load1;
+
+            this.chargeBarEnabled = base.Config.Bind<Boolean>( "Visual (Client)", "SkillBarChargeIndicator", true, "Should a charge bar be displayed above the skill bar in addition to around the crosshair?" );
         }
 
         private void Main_Load1()
@@ -231,15 +235,19 @@ namespace RogueWispPlugin
             if( self.hud != null )
             {
                 var par = self.hud.transform.Find( "MainContainer/MainUIArea/BottomRightCluster/Scaler" );
-                var inst = Instantiate<GameObject>( wispHudPrefab, par );
-                var bar3Rect = inst.GetComponent<RectTransform>();
-                bar3Rect.anchoredPosition = new Vector2( 14f, 140f );
-                bar3Rect.sizeDelta = new Vector2( 310f, 32f );
-                bar3Rect.anchorMin = new Vector2( 0.5f, 0.5f );
-                bar3Rect.anchorMax = new Vector2( 0.5f, 0.5f );
-                bar3Rect.pivot = new Vector2( 0.5f, 0.5f );
-                bar3Rect.localEulerAngles = Vector3.zero;
-                bar3Rect.localScale = Vector3.one;
+
+                if( this.chargeBarEnabled.Value )
+                {
+                    var inst = Instantiate<GameObject>( wispHudPrefab, par );
+                    var bar3Rect = inst.GetComponent<RectTransform>();
+                    bar3Rect.anchoredPosition = new Vector2( 14f, 140f );
+                    bar3Rect.sizeDelta = new Vector2( 310f, 32f );
+                    bar3Rect.anchorMin = new Vector2( 0.5f, 0.5f );
+                    bar3Rect.anchorMax = new Vector2( 0.5f, 0.5f );
+                    bar3Rect.pivot = new Vector2( 0.5f, 0.5f );
+                    bar3Rect.localEulerAngles = Vector3.zero;
+                    bar3Rect.localScale = Vector3.one;
+                }
 
                 var par2 = self.hud.transform.Find( "MainContainer/CrosshairCanvas");
                 var cross1 = Instantiate<GameObject>( wispCrossBar1, par2 );
