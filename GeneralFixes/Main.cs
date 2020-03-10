@@ -16,7 +16,25 @@ using System.Runtime.CompilerServices;
 namespace ReinGeneralFixes
 {
     [R2APISubmoduleDependency(
-        nameof( PrefabAPI )
+        nameof( PrefabAPI ),
+        nameof( SurvivorAPI ),
+        nameof( OrbAPI ),
+        nameof( ItemAPI ),
+        nameof( AssetAPI ),
+        nameof( R2API.AssetPlus.AssetPlus ),
+        nameof( DifficultyAPI ),
+        nameof( DirectorAPI ),
+        nameof( EffectAPI ),
+        nameof( InventoryAPI ),
+        nameof( ItemDropAPI ),
+        nameof( LobbyConfigAPI ),
+        nameof( ModListAPI ),
+        nameof( OrbAPI ),
+        nameof( PlayerAPI ),
+        nameof( SkillAPI ),
+        nameof( LoadoutAPI ),
+        nameof( ResourcesAPI ),
+        nameof( SkinAPI )
     )]
     [BepInDependency("com.bepis.r2api")]
     [BepInPlugin("com.Rein.GeneralBalance", "General Balance + Fixes", "2.1.0.32")]
