@@ -1,0 +1,239 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ReinCore</name>
+    </assembly>
+    <members>
+        <member name="T:ReinCore.Accessor`2">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ReinCore.Accessor`2.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+        </member>
+        <member name="P:ReinCore.Accessor`2.Get">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ReinCore.Accessor`2.Set">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:ReinCore.Accessor`2.AccessorGetDelegate">
+            <summary>
+            
+            </summary>
+            <param name="instance"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ReinCore.Accessor`2.AccessorSetDelegate">
+            <summary>
+            
+            </summary>
+            <param name="instance"></param>
+            <param name="value"></param>
+        </member>
+        <member name="T:ReinCore.StaticAccessor`1">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ReinCore.StaticAccessor`1.#ctor(System.Type,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="type"></param>
+            <param name="name"></param>
+        </member>
+        <member name="F:ReinCore.StaticAccessor`1.Get">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ReinCore.StaticAccessor`1.Set">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:ReinCore.StaticAccessor`1.StaticAccessorGetDelegate">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:ReinCore.StaticAccessor`1.StaticAccessorSetDelegate">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="T:ReinCore.StructAccessor`2">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ReinCore.StructAccessor`2.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="type"></param>
+            <param name="name"></param>
+        </member>
+        <member name="F:ReinCore.StructAccessor`2.Get">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ReinCore.StructAccessor`2.Set">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:ReinCore.StructAccessor`2.StructAccessorGetDelegate">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:ReinCore.StructAccessor`2.StructAccessorSetDelegate">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="T:ReinCore.ReinCore">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ReinCore.ReinCore.loaded">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ReinCore.ReinCore.ver">
+            <summary>
+            The version of the library
+            </summary>
+        </member>
+        <member name="T:ReinCore.EffectsCore">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:ReinCore.HooksCore">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:ReinCore.LanguageCore">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ReinCore.LanguageCore.loaded">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ReinCore.LanguageCore.AddLanguageToken(System.String,System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <param name="value"></param>
+            <param name="language"></param>
+        </member>
+        <member name="T:ReinCore.OrbsCore">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:ReinCore.PrefabsCore">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ReinCore.PrefabsCore.loaded">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ReinCore.PrefabsCore.ClonePrefab(UnityEngine.GameObject,System.String,System.Boolean,System.String,System.String,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="orginal"></param>
+            <param name="name"></param>
+            <param name="registerNetwork"></param>
+            <param name="file"></param>
+            <param name="member"></param>
+            <param name="line"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ReinCore.PrefabsCore.CreatePrefab(System.String,System.Boolean,System.String,System.String,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <param name="registerNetwork"></param>
+            <param name="file"></param>
+            <param name="member"></param>
+            <param name="line"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ReinCore.PrefabsCore.RegisterNetwork(UnityEngine.GameObject,System.String,System.String,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="prefab"></param>
+            <param name="file"></param>
+            <param name="member"></param>
+            <param name="line"></param>
+        </member>
+        <member name="T:ReinCore.SkillsCore">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ReinCore.SkillsCore.loaded">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ReinCore.SkillsCore.AddSkill(System.Type)">
+            <summary>
+            
+            </summary>
+            <param name="type"></param>
+        </member>
+        <member name="M:ReinCore.SkillsCore.AddSkillDef(RoR2.Skills.SkillDef)">
+            <summary>
+            
+            </summary>
+            <param name="skillDef"></param>
+        </member>
+        <member name="M:ReinCore.SkillsCore.AddSkillFamily(RoR2.Skills.SkillFamily)">
+            <summary>
+            
+            </summary>
+            <param name="skillFamily"></param>
+        </member>
+        <member name="T:ReinCore.SurvivorsCore">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ReinCore.SurvivorsCore.loaded">
+            <summary>
+            
+            </summary>
+        </member>
+    </members>
+</doc>
