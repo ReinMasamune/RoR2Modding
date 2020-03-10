@@ -10,13 +10,13 @@ namespace RogueWispPlugin
 {
     internal partial class Main
     {
-        private ConfigEntry<Boolean> bossEnabled;
+        //private ConfigEntry<Boolean> bossEnabled;
         partial void AW_Director()
         {
             this.Load += this.AW_SetupSpawns;
 
-            this.bossEnabled = base.Config.Bind<Boolean>( "Main", "Enable new boss", true,
-                "Should the new boss spawn in game? Left as an option in case of major bugs or issues with early version of boss." );
+            //this.bossEnabled = base.Config.Bind<Boolean>( "Main", "Enable new boss", true,
+            //    "Should the new boss spawn in game? Left as an option in case of major bugs or issues with early version of boss." );
         }
         // TODO: Director
         //private R2API.DirectorAPI.DirectorCardHolder AW_dirCardHolder;
@@ -61,15 +61,15 @@ namespace RogueWispPlugin
             // TODO: Director
             //this.AW_dirCardHolder.SetMonsterCategory(R2API.DirectorAPI.MonsterCategory.Champions);
 
-            if(this.bossEnabled.Value )
-            {
+            //if(this.bossEnabled.Value )
+            //{
                 SpawnsCore.monsterEdits += this.SpawnsCore_monsterEdits;
                 SpawnsCore.familyEdits += this.SpawnsCore_familyEdits;
                 // TODO: Director
                 //R2API.DirectorAPI.MonsterActions += this.DirectorAPI_MonsterActions;
                 // TODO: Director
                 //R2API.DirectorAPI.FamilyActions += this.DirectorAPI_FamilyActions;
-            }
+            //}
         }
 
         private void HooksCore_on_RoR2_CharacterSpawnCard_Awake( HooksCore.orig_RoR2_CharacterSpawnCard_Awake orig, CharacterSpawnCard self )
