@@ -13,10 +13,5 @@ namespace ReinCore
         {
             return (TSignature)Delegate.CreateDelegate( typeof( TSignature ), method );
         }
-
-        public static TSignature CreateDelegate<TSignature>( ) where TSignature : Delegate
-        {
-
-        }
     }
 }
