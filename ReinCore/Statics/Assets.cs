@@ -8,7 +8,7 @@ namespace ReinCore
 {
     public static class AssetsCore
     {
-        public static Boolean loaded { get; private set; } = false;
+        public static Boolean loaded { get; internal set; } = false;
 
 		public static TAsset LoadAsset<TAsset>( Enum index ) where TAsset : UnityEngine.Object
 		{
