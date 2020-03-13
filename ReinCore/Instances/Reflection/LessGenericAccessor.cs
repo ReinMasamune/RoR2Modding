@@ -65,7 +65,7 @@ namespace ReinCore
                 val &= ~FieldAttributes.InitOnly;
                 info.SetValue( member, val );
 
-                var fieldExpr = Expression.Field( instanceParam, field );
+                var fieldExpr = Expression.Field( instanceConv, field );
                 var assignExpr = Expression.Assign( fieldExpr, valueParam );
                 this.Set = Expression.Lambda<AccessorSetDelegate>( assignExpr, instanceParam, valueParam ).Compile();
                 this.Get = Expression.Lambda<AccessorGetDelegate>( fieldExpr, instanceParam ).Compile();
@@ -73,7 +73,7 @@ namespace ReinCore
             } else if( member.MemberType == MemberTypes.Property )
             {
                 var prop = member as PropertyInfo;
-                var propExpr = Expression.Property( instanceParam, prop );
+                var propExpr = Expression.Property( instanceConv, prop );
                 if( prop.CanWrite )
                 {
                     var assignExpr = Expression.Assign( propExpr, valueParam );
@@ -113,7 +113,7 @@ namespace ReinCore
         /// <param name="instance"></param>
         /// <param name="value"></param>
         [EditorBrowsable( EditorBrowsableState.Never )]
-        public delegate void AccessorSetDelegate( System.Object, TValue value );
+        public delegate void AccessorSetDelegate( System.Object instance, TValue value );
     }
 
 }
