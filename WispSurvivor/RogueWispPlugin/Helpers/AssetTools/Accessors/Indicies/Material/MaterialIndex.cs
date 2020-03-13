@@ -1,139 +1,139 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using UnityEngine;
+﻿//using System;
+//using System.Collections.Generic;
+//using System.Text;
+//using UnityEngine;
 
-namespace RogueWispPlugin.Helpers
-{
-    internal enum MaterialIndex : ulong
-    {
-        #region Reference Materials
-        #region Direct Load
-        refMatShatteredGlass,
-        refMatVagrantEnergized,
-        refMatTPInOut,
-        refMatMercEnergized,
-        refMatElitePoisonParticleSystemReplacement,
-        refMatOnHelfire,
-        #endregion
+//namespace RogueWispPlugin.Helpers
+//{
+//    internal enum MaterialIndex : ulong
+//    {
+//        #region Reference Materials
+//        #region Direct Load
+//        refMatShatteredGlass,
+//        refMatVagrantEnergized,
+//        refMatTPInOut,
+//        refMatMercEnergized,
+//        refMatElitePoisonParticleSystemReplacement,
+//        refMatOnHelfire,
+//        #endregion
 
-        #region Prefab Dependencies
-        refMatTracer,
-        refMatTracerBright,
-        refMatDebris1,
-        refMatDistortionFaded,
-        refMatInverseDistortion,
-        refMatOpagueDustSpeckledLarge,
+//        #region Prefab Dependencies
+//        refMatTracer,
+//        refMatTracerBright,
+//        refMatDebris1,
+//        refMatDistortionFaded,
+//        refMatInverseDistortion,
+//        refMatOpagueDustSpeckledLarge,
 
-        refMatNullifierStarParticle,
-        refMatNullifierStarTrail,
-        refMatNullifierStarPortalEdge,
-        refMatNullifierExplosionAreaIndicatorSoft,
-        refMatNullifierExplosionAreaIndicatorHard,
-        refMatNullBombAreaIndicator,
-        refMatNullifierGemPortal,
+//        refMatNullifierStarParticle,
+//        refMatNullifierStarTrail,
+//        refMatNullifierStarPortalEdge,
+//        refMatNullifierExplosionAreaIndicatorSoft,
+//        refMatNullifierExplosionAreaIndicatorHard,
+//        refMatNullBombAreaIndicator,
+//        refMatNullifierGemPortal,
 
-        refMatWillowispSpiral,
-        refMatWillowispRadial,
+//        refMatWillowispSpiral,
+//        refMatWillowispRadial,
 
-        refMatBazaarIceCore,
-        refMatBazaarIceDistortion,
+//        refMatBazaarIceCore,
+//        refMatBazaarIceDistortion,
 
-        refMatGenericFlash,
-        refMatDustDirectionalDark,
-        refMatFireRingRunes,
+//        refMatGenericFlash,
+//        refMatDustDirectionalDark,
+//        refMatFireRingRunes,
         
-        refMatGolemExplosion,
-        refMatTitanBeam,
-        refMatArcaneCircle1,
-        refMatDistortion,
+//        refMatGolemExplosion,
+//        refMatTitanBeam,
+//        refMatArcaneCircle1,
+//        refMatDistortion,
 
 
 
-        refMatAngelFeather,	
+//        refMatAngelFeather,	
 
-		refMatStealthkitSparks, 
+//		refMatStealthkitSparks, 
 
-		refMatRoboBallParticleRingHuge, 
+//		refMatRoboBallParticleRingHuge, 
 
-		refMatFireStaticLarge, 
+//		refMatFireStaticLarge, 
 
-		refMatOmniRing2Generic, 
+//		refMatOmniRing2Generic, 
 
-		refMatMercSwipe2, 
+//		refMatMercSwipe2, 
 
-		refMatSuspendedInTime,
+//		refMatSuspendedInTime,
 
-		refMatTPShockwave, 
+//		refMatTPShockwave, 
 
-		refMatOpagueDustTrail,
+//		refMatOpagueDustTrail,
 
-		refMatLizardBiteTrail, 
+//		refMatLizardBiteTrail, 
 
-		refMatAngelEffect, 
+//		refMatAngelEffect, 
 
-		refMatCutExplosion,
+//		refMatCutExplosion,
 
-		refMatOpagueWaterFoam,
+//		refMatOpagueWaterFoam,
 		
-		refMatBootWaveEnergy, 
+//		refMatBootWaveEnergy, 
 
-		refMatEngiTrail, //
-		refMatGenericFire, //
+//		refMatEngiTrail, //
+//		refMatGenericFire, //
 
-		refMatTeleportOut, //
-		refMatDustSoft, //
+//		refMatTeleportOut, //
+//		refMatDustSoft, //
 
-		refMatHealingCross, //
-		refMatJellyfishChunks, //
+//		refMatHealingCross, //
+//		refMatJellyfishChunks, //
 
-		refMatImpSwipe,	//
-		refMatImpBossPortal, //
+//		refMatImpSwipe,	//
+//		refMatImpBossPortal, //
 
-		refMatHauntedAura, //
-		refMatSkullFire, //
+//		refMatHauntedAura, //
+//		refMatSkullFire, //
 
-		refMatSonicBoomGroundDust, //
+//		refMatSonicBoomGroundDust, //
 
-		refMatMageMatrixDirectionalLightning, //
-		refMatMageMatrixLightning, //
+//		refMatMageMatrixDirectionalLightning, //
+//		refMatMageMatrixLightning, //
 
-		refMatMatrixTriFire, //
+//		refMatMatrixTriFire, //
 
-		refMatCleanseCore, //
-		refMatCleanseWater, //
+//		refMatCleanseCore, //
+//		refMatCleanseWater, //
 
-		refMatLaserTurbineTargetingLaser, //
-		refMatOmniRadialSlash1Merc, //
-		refMatOmniHitspark2Merc, //
+//		refMatLaserTurbineTargetingLaser, //
+//		refMatOmniRadialSlash1Merc, //
+//		refMatOmniHitspark2Merc, //
 
-		refMatOmniHitspark1, //
-		refMatOpagueDust, //
+//		refMatOmniHitspark1, //
+//		refMatOpagueDust, //
 
-		refMatOmniRing1Generic, //
-		refMatOmniHitspark4Merc, //
+//		refMatOmniRing1Generic, //
+//		refMatOmniHitspark4Merc, //
 
-		refMatBloodClayLarge, //
-		refMatClayGooFizzle, //
-		refMatClayBubbleBillboard, //
+//		refMatBloodClayLarge, //
+//		refMatClayGooFizzle, //
+//		refMatClayBubbleBillboard, //
 
-		refMatOpagueDustLargeDirectional, //TexSmokePuffDirectionalDisplacement TexSmokePuffDirectionalNormal
-		refMatOpagueDustLarge, //TexSmokePuffSmallDisplacement TexSmokePuffSmallNormal
+//		refMatOpagueDustLargeDirectional, //TexSmokePuffDirectionalDisplacement TexSmokePuffDirectionalNormal
+//		refMatOpagueDustLarge, //TexSmokePuffSmallDisplacement TexSmokePuffSmallNormal
 
-		refMatGenericLaser, //TexLightning3Mask
+//		refMatGenericLaser, //TexLightning3Mask
 
-		refMatEngiShieldShards, //TexShard02Mask
-		refMatOmniExplosion1, //TexOmniExplosion2Mask
-		refMatRoboChunks, //TexRoboChunksDiffuse TexRoboChunksNormal
-        #endregion
-        #endregion
-    }
-}
+//		refMatEngiShieldShards, //TexShard02Mask
+//		refMatOmniExplosion1, //TexOmniExplosion2Mask
+//		refMatRoboChunks, //TexRoboChunksDiffuse TexRoboChunksNormal
+//        #endregion
+//        #endregion
+//    }
+//}
 
-/*
-bubbleShieldendEffect
-	texShard02Mask                              //100%
-	texOmniExplosion2Mask                       //100%
-	texRoboChunksDiffuse                        //100%
-	texRoboChunksNormal                         //100%
-    */
+///*
+//bubbleShieldendEffect
+//	texShard02Mask                              //100%
+//	texOmniExplosion2Mask                       //100%
+//	texRoboChunksDiffuse                        //100%
+//	texRoboChunksNormal                         //100%
+//    */

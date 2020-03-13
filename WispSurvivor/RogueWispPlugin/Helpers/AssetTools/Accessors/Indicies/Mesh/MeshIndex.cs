@@ -1,24 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using UnityEngine;
+﻿//using System;
+//using System.Collections.Generic;
+//using System.Text;
+//using UnityEngine;
 
-namespace RogueWispPlugin.Helpers
-{
-    internal enum MeshIndex : ulong
-    {
-        #region Unity Primatives
-        Sphere,
-        Capsule,
-        Cylinder,
-        Cube,
-        Plane,
-        Quad,
-        #endregion
-        #region Hopoo Meshes
-        Spiral1,
-        TornadoMesh,
-        TornadoMesh2,
-        #endregion
-    }
-}
+//namespace RogueWispPlugin.Helpers
+//{
+//    internal enum MeshIndex : ulong
+//    {
+//        #region Unity Primatives
+//        Sphere,
+//        Capsule,
+//        Cylinder,
+//        Cube,
+//        Plane,
+//        Quad,
+//        #endregion
+//        #region Hopoo Meshes
+//        Spiral1,
+//        TornadoMesh,
+//        TornadoMesh2,
+//        #endregion
+//    }
+//}
