@@ -4,6 +4,81 @@
         <name>ReinCore</name>
     </assembly>
     <members>
+        <member name="T:ReinCore.CloudMaterial">
+            <summary>
+            A material using CloudRemap. Generally for particle effects.
+            </summary>
+        </member>
+        <member name="M:ReinCore.CloudMaterial.#ctor(System.String)">
+            <summary>
+            Creates a cloud remap material.
+            </summary>
+            <param name="name">The name of the material</param>
+        </member>
+        <member name="T:ReinCore.DistortionMaterial">
+            <summary>
+            A material using CloudRemap. Generally for particle effects.
+            </summary>
+        </member>
+        <member name="M:ReinCore.DistortionMaterial.#ctor(System.String)">
+            <summary>
+            Creates a cloud remap material.
+            </summary>
+            <param name="name">The name of the material</param>
+        </member>
+        <member name="T:ReinCore.IntersectionCloudMaterial">
+            <summary>
+            Unknown
+            </summary>
+        </member>
+        <member name="M:ReinCore.IntersectionCloudMaterial.#ctor(System.String)">
+            <summary>
+            Creates a standard material.
+            </summary>
+            <param name="name">The name of the material</param>
+        </member>
+        <member name="P:ReinCore.MaterialBase.name">
+            <summary>
+            The name of the material
+            </summary>
+        </member>
+        <member name="P:ReinCore.MaterialBase.shader">
+            <summary>
+            The shader to use
+            </summary>
+        </member>
+        <member name="P:ReinCore.MaterialBase.material">
+            <summary>
+            The Material that is being created
+            </summary>
+        </member>
+        <member name="T:ReinCore.OpaqueCloudMaterial">
+            <summary>
+            Unknown
+            </summary>
+        </member>
+        <member name="M:ReinCore.OpaqueCloudMaterial.#ctor(System.String)">
+            <summary>
+            Creates an opaque cloud material.
+            </summary>
+            <param name="name">The name of the material</param>
+        </member>
+        <member name="T:ReinCore.StandardMaterial">
+            <summary>
+            A material for normal objects in game like enemies.
+            </summary>
+        </member>
+        <member name="M:ReinCore.StandardMaterial.#ctor(System.String)">
+            <summary>
+            Creates a standard material.
+            </summary>
+            <param name="name">The name of the material</param>
+        </member>
+        <member name="T:ReinCore.WavingGrassMaterial">
+            <summary>
+            A material using CloudRemap. Generally for particle effects.
+            </summary>
+        </member>
         <member name="T:ReinCore.Accessor`2">
             <summary>
             
