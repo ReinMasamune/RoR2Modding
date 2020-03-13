@@ -1,12 +1,12 @@
-﻿using RogueWispPlugin.Helpers;
+﻿//using RogueWispPlugin.Helpers;
 
-namespace RogueWispPlugin
-{
-    internal partial class Main
-    {
-        static partial void UpdateLibraries()
-        {
+//namespace RogueWispPlugin
+//{
+//    internal partial class Main
+//    {
+//        static partial void UpdateLibraries()
+//        {
 
-        }
-    }
-}
+//        }
+//    }
+//}

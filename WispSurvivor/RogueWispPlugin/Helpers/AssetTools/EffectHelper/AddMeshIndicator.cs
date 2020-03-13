@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
+using ReinCore;
 
 namespace RogueWispPlugin.Helpers
 {
@@ -18,7 +19,7 @@ namespace RogueWispPlugin.Helpers
             obj.transform.localRotation = Quaternion.identity;
 
             Renderer renderer = null;
-            Mesh m = AssetLibrary<Mesh>.i[mesh];
+            Mesh m = AssetsCore.LoadAsset<Mesh>(mesh);
 
             if( useParticle )
             {

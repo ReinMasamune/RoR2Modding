@@ -177,7 +177,7 @@ namespace RogueWispPlugin.Helpers
             (col, mat) =>       //1u            Bone
             {
                 mat.mainColor = new Color( 0.55f, 0.55f, 0.51f, 0.9f );
-                mat.normalMap.texture = AssetLibrary<Texture>.i[TextureIndex.refWaves_N];
+                mat.normalMap.texture = AssetsCore.LoadAsset<Texture>(Texture2DIndex.refWaves_N);
                 mat.normalStrength = 1f;
                 mat.smoothness = 1f;
             },
@@ -186,7 +186,7 @@ namespace RogueWispPlugin.Helpers
                 mat.mainTexture.texture = null;
                 mat.mainColor = new Color( 0.3f, 0.3f, 0.3f, 0.9f );
                 mat.ignoreDiffuseAlphaForSpecular = true;
-                mat.normalMap.texture = AssetLibrary<Texture>.i[TextureIndex.refWaves_N];
+                mat.normalMap.texture = AssetsCore.LoadAsset<Texture>(Texture2DIndex.refWaves_N);
                 mat.normalStrength = 0.25f;
                 mat.smoothness = 1f;
                 mat.rampChoice = StandardMaterial.RampInfo.SmoothedTwoTone;
@@ -425,7 +425,7 @@ namespace RogueWispPlugin.Helpers
             flamesMain.internalSimpleBlendMode = 0f;
             flamesMain.tintColor = new Color( 1f, 1f, 1f, 1f );
             flamesMain.disableRemapping = false;
-            flamesMain.mainTexture.texture = AssetLibrary<Texture>.i[TextureIndex.refTexGlowSoftCenterMask];
+            flamesMain.mainTexture.texture = AssetsCore.LoadAsset<Texture>(Texture2DIndex.refTexGlowSoftCenterMask);
             flamesMain.remapTexture.texture = flameRampTex;
             flamesMain.softFactor = 0.5f;
             flamesMain.brightnessBoost = 1.1f;
@@ -438,8 +438,8 @@ namespace RogueWispPlugin.Helpers
             flamesMain.cloudRemappingOn = true;
             flamesMain.cloudDistortionOn = true;
             flamesMain.distortionStrength = 0.15f;
-            flamesMain.cloudTexture1.texture = AssetLibrary<Texture>.i[TextureIndex.refTexCloudDifferenceBW1];
-            flamesMain.cloudTexture2.texture = AssetLibrary<Texture>.i[TextureIndex.refTexCloudIce];
+            flamesMain.cloudTexture1.texture = AssetsCore.LoadAsset<Texture>(Texture2DIndex.refTexCloudDifferenceBW1);
+            flamesMain.cloudTexture2.texture = AssetsCore.LoadAsset<Texture>(Texture2DIndex.refTexCloudIce);
             flamesMain.cutoffScrollSpeed = new Vector4( 15f, 17f, 11f, 13f );
             flamesMain.vertexColorOn = false;
             flamesMain.vertexAlphaOn = false;
@@ -461,7 +461,7 @@ namespace RogueWispPlugin.Helpers
             tracerMat.internalSimpleBlendMode = 0f;
             tracerMat.tintColor = Color.white;
             tracerMat.disableRemapping = false;
-            tracerMat.mainTexture.texture = AssetLibrary<Texture>.i[TextureIndex.refTexParticleDust1Mask];
+            tracerMat.mainTexture.texture = AssetsCore.LoadAsset<Texture>(Texture2DIndex.refTexParticleDust1Mask);
             tracerMat.remapTexture.texture = flameRampTex;
             tracerMat.softFactor = 1f;
             tracerMat.brightnessBoost = 4f;
@@ -497,7 +497,7 @@ namespace RogueWispPlugin.Helpers
             pillarMat.internalSimpleBlendMode = 1f;
             pillarMat.tintColor = Color.white;
             pillarMat.disableRemapping = false;
-            pillarMat.mainTexture.texture = AssetLibrary<Texture>.i[TextureIndex.refTexWillowispSpiral];
+            pillarMat.mainTexture.texture = AssetsCore.LoadAsset<Texture>(Texture2DIndex.refTexWillowispSpiral);
             pillarMat.remapTexture.texture = flameRampTex;
             pillarMat.softFactor = 1.038f;
             pillarMat.brightnessBoost = 2f;
@@ -510,8 +510,8 @@ namespace RogueWispPlugin.Helpers
             pillarMat.cloudRemappingOn = true;
             pillarMat.cloudDistortionOn = true;
             pillarMat.distortionStrength = 0.12f;
-            pillarMat.cloudTexture1.texture = AssetLibrary<Texture>.i[TextureIndex.refTexCloudDifferenceBW2];
-            pillarMat.cloudTexture2.texture = AssetLibrary<Texture>.i[TextureIndex.refTexCloudOrganicNormal];
+            pillarMat.cloudTexture1.texture = AssetsCore.LoadAsset<Texture>(Texture2DIndex.refTexCloudDifferenceBW2);
+            pillarMat.cloudTexture2.texture = AssetsCore.LoadAsset<Texture>(Texture2DIndex.refTexCloudOrganicNormal);
             pillarMat.cutoffScrollSpeed = new Vector4( 4f, 8f, 5f, 2f );
             pillarMat.vertexColorOn = true;
             pillarMat.vertexAlphaOn = false;
@@ -530,9 +530,9 @@ namespace RogueWispPlugin.Helpers
             areaMat.destinationBlend = UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha;
             areaMat.tintColor = Color.white;
             areaMat.mainTexture.texture = null;
-            areaMat.cloudTexture1.texture = AssetLibrary<Texture>.i[TextureIndex.refCaustics];
+            areaMat.cloudTexture1.texture = AssetsCore.LoadAsset<Texture>(Texture2DIndex.refCaustics);
             areaMat.cloudTexture1.tiling = new Vector2( 0.1f, 0.1f );
-            areaMat.cloudTexture2.texture = AssetLibrary<Texture>.i[TextureIndex.refTexArcaneCircle1Mask];
+            areaMat.cloudTexture2.texture = AssetsCore.LoadAsset<Texture>(Texture2DIndex.refTexArcaneCircle1Mask);
             areaMat.cloudTexture2.tiling = new Vector2( 0.075f, 0.075f );
             areaMat.remapTexture.texture = flameRampTex;
             areaMat.cutoffScrollSpeed = new Vector4( 11f, -13f, -17f, 15f );
@@ -558,7 +558,7 @@ namespace RogueWispPlugin.Helpers
             //explMat.internalSimpleBlendMode = 1f;
             explMat.tintColor = new Color( 1f, 1f, 1f, 1f );
             explMat.disableRemapping = false;
-            explMat.mainTexture.texture = AssetLibrary<Texture>.i[TextureIndex.refTexGlowSoftCenterMask];
+            explMat.mainTexture.texture = AssetsCore.LoadAsset<Texture>(Texture2DIndex.refTexGlowSoftCenterMask);
             explMat.remapTexture.texture = flameRampTex;
             explMat.softFactor = 0f;
             explMat.brightnessBoost = 1.5f;
@@ -571,9 +571,9 @@ namespace RogueWispPlugin.Helpers
             explMat.cloudRemappingOn = true;
             explMat.cloudDistortionOn = false;
             explMat.distortionStrength = 0.15f;
-            explMat.cloudTexture1.texture = AssetLibrary<Texture>.i[TextureIndex.refTexCloudDifferenceBW2];
+            explMat.cloudTexture1.texture = AssetsCore.LoadAsset<Texture>(Texture2DIndex.refTexCloudDifferenceBW2);
             explMat.cloudTexture1.tiling = new Vector2( 3f, 3f );
-            explMat.cloudTexture2.texture = AssetLibrary<Texture>.i[TextureIndex.refTexCloudDifferenceBW1];
+            explMat.cloudTexture2.texture = AssetsCore.LoadAsset<Texture>(Texture2DIndex.refTexCloudDifferenceBW1);
             explMat.cloudTexture2.tiling = new Vector2( 4f, 4f );
             explMat.cutoffScrollSpeed = new Vector4( 15f, 17f, 11f, 13f );
             explMat.vertexColorOn = false;
@@ -596,7 +596,7 @@ namespace RogueWispPlugin.Helpers
             beamMat.internalSimpleBlendMode = 0f;
             beamMat.tintColor = Color.white;
             beamMat.disableRemapping = false;
-            beamMat.mainTexture.texture = AssetLibrary<Texture>.i[TextureIndex.refTexAlphaGradient3Mask];
+            beamMat.mainTexture.texture = AssetsCore.LoadAsset<Texture>(Texture2DIndex.refTexAlphaGradient3Mask);
             beamMat.remapTexture.texture = flameRampTex;
             beamMat.softFactor = 1f;
             beamMat.brightnessBoost = 8f;
@@ -609,8 +609,8 @@ namespace RogueWispPlugin.Helpers
             beamMat.cloudRemappingOn = true;
             beamMat.cloudDistortionOn = false;
             beamMat.distortionStrength = 0.1f;
-            beamMat.cloudTexture1.texture = AssetLibrary<Texture>.i[TextureIndex.refTexCloudIce];
-            beamMat.cloudTexture2.texture = AssetLibrary<Texture>.i[TextureIndex.refCaustics];
+            beamMat.cloudTexture1.texture = AssetsCore.LoadAsset<Texture>(Texture2DIndex.refTexCloudIce);
+            beamMat.cloudTexture2.texture = AssetsCore.LoadAsset<Texture>(Texture2DIndex.refCaustics);
             beamMat.cloudTexture2.tiling = new Vector2( 1f, 0.25f );
             beamMat.cutoffScrollSpeed = new Vector4( -11f, 17f, 13f, -15f );
             beamMat.vertexColorOn = false;
@@ -632,7 +632,7 @@ namespace RogueWispPlugin.Helpers
             burnMat.internalSimpleBlendMode = 0f;
             burnMat.tintColor = Color.white;
             burnMat.disableRemapping = false;
-            burnMat.mainTexture.texture = AssetLibrary<Texture>.i[TextureIndex.refTexCloudDifferenceBW1];
+            burnMat.mainTexture.texture = AssetsCore.LoadAsset<Texture>(Texture2DIndex.refTexCloudDifferenceBW1);
             burnMat.mainTexture.tiling = new Vector2( 12f, 12f );
             burnMat.remapTexture.texture = flameRampTex;
             burnMat.softFactor = 0f;
@@ -646,9 +646,9 @@ namespace RogueWispPlugin.Helpers
             burnMat.cloudRemappingOn = true;
             burnMat.cloudDistortionOn = false;
             burnMat.distortionStrength = 0.1f;
-            burnMat.cloudTexture1.texture = AssetLibrary<Texture>.i[TextureIndex.refTexCloudDifferenceBW1];
+            burnMat.cloudTexture1.texture = AssetsCore.LoadAsset<Texture>(Texture2DIndex.refTexCloudDifferenceBW1);
             burnMat.cloudTexture1.tiling = new Vector2( 4f, 4f );
-            burnMat.cloudTexture2.texture = AssetLibrary<Texture>.i[TextureIndex.refTexCloudDifferenceBW1];
+            burnMat.cloudTexture2.texture = AssetsCore.LoadAsset<Texture>(Texture2DIndex.refTexCloudDifferenceBW1);
             burnMat.cutoffScrollSpeed = new Vector4( 20f, -5f, 3f, 0f );
             burnMat.vertexColorOn = false;
             burnMat.vertexAlphaOn = false;
@@ -677,7 +677,7 @@ namespace RogueWispPlugin.Helpers
             arcCircle.internalSimpleBlendMode = 0f;
             arcCircle.tintColor = new Color( 1f, 1f, 1f, 1f );
             arcCircle.disableRemapping = false;
-            arcCircle.mainTexture.texture = AssetLibrary<Texture>.i[TextureIndex.refTexArcaneCircle1Mask];
+            arcCircle.mainTexture.texture = AssetsCore.LoadAsset<Texture>(Texture2DIndex.refTexArcaneCircle1Mask);
             arcCircle.remapTexture.texture = flameRampTex;
             arcCircle.softFactor = 0f;
             arcCircle.brightnessBoost = 3f;
@@ -731,9 +731,9 @@ namespace RogueWispPlugin.Helpers
             flameTornadoMat.cloudRemappingOn = true;
             flameTornadoMat.cloudDistortionOn = false;
             flameTornadoMat.distortionStrength = 0.15f;
-            flameTornadoMat.cloudTexture1.texture = AssetLibrary<Texture>.i[TextureIndex.refTexCloudDifferenceBW2];
+            flameTornadoMat.cloudTexture1.texture = AssetsCore.LoadAsset<Texture>(Texture2DIndex.refTexCloudDifferenceBW2);
             flameTornadoMat.cloudTexture1.tiling = new Vector2( 6f, 6f );
-            flameTornadoMat.cloudTexture2.texture = AssetLibrary<Texture>.i[TextureIndex.refTexBehemothTileMask];
+            flameTornadoMat.cloudTexture2.texture = AssetsCore.LoadAsset<Texture>(Texture2DIndex.refTexBehemothTileMask);
             flameTornadoMat.cloudTexture2.tiling = new Vector2( 1f, 6f );
             flameTornadoMat.cutoffScrollSpeed = new Vector4( 12f, -20f, 3f, -40f );
             flameTornadoMat.vertexColorOn = false;
@@ -757,9 +757,9 @@ namespace RogueWispPlugin.Helpers
             bossAreaMat.destinationBlend = UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha;
             bossAreaMat.tintColor = Color.white;
             bossAreaMat.mainTexture.texture = null;
-            bossAreaMat.cloudTexture1.texture = AssetLibrary<Texture>.i[TextureIndex.refCaustics];
+            bossAreaMat.cloudTexture1.texture = AssetsCore.LoadAsset<Texture>(Texture2DIndex.refCaustics);
             bossAreaMat.cloudTexture1.tiling = new Vector2( 0.1f, 0.1f );
-            bossAreaMat.cloudTexture2.texture = AssetLibrary<Texture>.i[TextureIndex.refCaustics];
+            bossAreaMat.cloudTexture2.texture = AssetsCore.LoadAsset<Texture>(Texture2DIndex.refCaustics);
             bossAreaMat.cloudTexture2.tiling = new Vector2( 0.05f, 0.05f );
             bossAreaMat.remapTexture.texture = flameRampTex;
             bossAreaMat.cutoffScrollSpeed = new Vector4( 11f, -13f, -17f, 15f );
@@ -798,9 +798,9 @@ namespace RogueWispPlugin.Helpers
             bossExplosionAreaMat.cloudRemappingOn = true;
             bossExplosionAreaMat.cloudDistortionOn = false;
             bossExplosionAreaMat.distortionStrength = 0.15f;
-            bossExplosionAreaMat.cloudTexture1.texture = AssetLibrary<Texture>.i[TextureIndex.refTexCloudDifferenceBW2];
+            bossExplosionAreaMat.cloudTexture1.texture = AssetsCore.LoadAsset<Texture>(Texture2DIndex.refTexCloudDifferenceBW2);
             bossExplosionAreaMat.cloudTexture1.tiling = new Vector2( 6f, 6f );
-            bossExplosionAreaMat.cloudTexture2.texture = AssetLibrary<Texture>.i[TextureIndex.refTexCloudOrganic1];
+            bossExplosionAreaMat.cloudTexture2.texture = AssetsCore.LoadAsset<Texture>(Texture2DIndex.refTexCloudOrganic1);
             bossExplosionAreaMat.cloudTexture2.tiling = new Vector2( 1f, 6f );
             bossExplosionAreaMat.cutoffScrollSpeed = new Vector4( 12f, -20f, 3f, -40f );
             bossExplosionAreaMat.vertexColorOn = false;
@@ -828,7 +828,7 @@ namespace RogueWispPlugin.Helpers
 
 
             var distortL = new DistortionMaterial( "DistortionMat" );
-            distortL.bumpTexture.texture = AssetLibrary<Texture>.i[TextureIndex.refTexNormalSphereFaded];
+            distortL.bumpTexture.texture = AssetsCore.LoadAsset<Texture>(Texture2DIndex.refTexNormalSphereFaded);
             distortL.mainTexture.texture = null;
             distortL.magnitude = 0.65f;
             var distLr = this.mainColor.r;
@@ -841,7 +841,7 @@ namespace RogueWispPlugin.Helpers
             this.distortionLightMaterial = distortL.material;
 
             var distort = new DistortionMaterial( "DistortionMat" );
-            distort.bumpTexture.texture = AssetLibrary<Texture>.i[TextureIndex.refTexNormalSphere];
+            distort.bumpTexture.texture = AssetsCore.LoadAsset<Texture>(Texture2DIndex.refTexNormalSphere);
             distort.mainTexture.texture = null;
             distort.magnitude = 1.2f;
             var distr = this.mainColor.r;
@@ -854,7 +854,7 @@ namespace RogueWispPlugin.Helpers
             this.distortionMaterial = distort.material;
 
             var distortH = new DistortionMaterial( "DistortionMat" );
-            distortH.bumpTexture.texture = AssetLibrary<Texture>.i[TextureIndex.refTexNormalSphere];
+            distortH.bumpTexture.texture = AssetsCore.LoadAsset<Texture>(Texture2DIndex.refTexNormalSphere);
             distortH.mainTexture.texture = null;
             distortH.magnitude = 4f;
             var distHr = this.mainColor.r;
@@ -894,8 +894,8 @@ namespace RogueWispPlugin.Helpers
             main.printingEnabled = false;
             main.splatmapEnabled = false;
             main.flowmapEnabled = false;
-            main.flowmapTexture.texture = AssetLibrary<Texture>.i[TextureIndex.refCaustics];
-            main.flowmapHeightmap.texture = AssetLibrary<Texture>.i[TextureIndex.refCaustics];
+            main.flowmapTexture.texture = AssetsCore.LoadAsset<Texture>(Texture2DIndex.refCaustics);
+            main.flowmapHeightmap.texture = AssetsCore.LoadAsset<Texture>(Texture2DIndex.refCaustics);
             main.flowmapHeightRamp.texture = TextureGenerator.GenerateRampTexture( CreateFlowGradient( this.mainColor ) );
             main.flowHeightBias = 0.3f;
             main.flowHeightPower = 1f;

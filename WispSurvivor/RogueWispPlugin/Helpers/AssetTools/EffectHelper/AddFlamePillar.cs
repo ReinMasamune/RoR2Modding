@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
+using ReinCore;
 
 namespace RogueWispPlugin.Helpers
 {
@@ -115,7 +116,7 @@ namespace RogueWispPlugin.Helpers
 
 
             psr.renderMode = ParticleSystemRenderMode.Mesh;
-            psr.mesh = AssetLibrary<Mesh>.i[MeshIndex.Spiral1];
+            psr.mesh = AssetsCore.LoadAsset<Mesh>(MeshIndex.Spiral1);
             //psr.normalDirection = 1f;
             //psr.sortMode = ParticleSystemSortMode.None;
             //psr.minParticleSize = 0f;
