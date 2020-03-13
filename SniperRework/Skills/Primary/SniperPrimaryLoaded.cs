@@ -22,7 +22,7 @@ namespace ReinSniperRework
                 base.OnEnter();
                 if( this.quality == SniperShoot.ReloadQuality.None ) this.quality = SniperShoot.ReloadQuality.Normal;
 
-                if( this.quality == SniperShoot.ReloadQuality.Perfect ) Util.PlaySound( "Play_item_proc_crit_cooldown", base.gameObject );
+                if( this.quality == SniperShoot.ReloadQuality.Perfect ) Util.PlaySound( "Play_MULT_m1_snipe_charge_end", base.gameObject );
             }
             public override void OnSerialize( NetworkWriter writer )
             {

@@ -4,23 +4,26 @@ using RoR2;
 using UnityEngine;
 using R2API;
 using R2API.Utils;
-using RoR2Plugin;
+using GeneralPluginStuff;
 
 namespace TurkeyMod
 {
-    [R2APISubmoduleDependency(nameof(R2API.AssetPlus))]
+    [R2APISubmoduleDependency(
+        nameof(R2API.AssetPlus.AssetPlus),
+        nameof(R2API.DirectorAPI)
+    )]
     [BepInDependency( "com.bepis.r2api" )]
-    [BepInPlugin( "com.ReinThings.TurkeyMod", "Rein-TurkeyMod", "1.0.0" )]
-    public class TurkeyModMain : RoR2Plugin.RoR2Plugin
+    [BepInPlugin( "com.ReinThings.TurkeyMod", "Rein-TurkeyMod", "1.0.1" )]
+    public class TurkeyModMain : BaseUnityPlugin
     {
-        public override void RemoveHooks()
+        public void OnDisable()
         {
-            DirectorAPI.monsterActions -= this.DirectorAPI_monsterActions;
+            DirectorAPI.MonsterActions -= this.DirectorAPI_monsterActions;
         }
 
-        public override void CreateHooks()
+        public void OnEnable()
         {
-            DirectorAPI.monsterActions += this.DirectorAPI_monsterActions;
+            DirectorAPI.MonsterActions += this.DirectorAPI_monsterActions;
         }
 
         private void DirectorAPI_monsterActions( System.Collections.Generic.List<DirectorAPI.DirectorCardHolder> cards, DirectorAPI.StageInfo stage )
@@ -30,7 +33,6 @@ namespace TurkeyMod
             DirectorCard turkeyCard = new DirectorCard
             {
                 allowAmbushSpawn = true,
-                cost = 15,
                 forbiddenUnlockable = "",
                 minimumStageCompletions = 0,
                 preventOverhead = false,
@@ -39,33 +41,29 @@ namespace TurkeyMod
                 spawnDistance = DirectorCore.MonsterSpawnDistance.Standard,
                 spawnCard = turkeyCSC
             };
-            cards.Add( new DirectorAPI.DirectorCardHolder
-            {
-                card = turkeyCard,
-                interactableCategory = DirectorAPI.InteractableCategory.None,
-                monsterCategory = DirectorAPI.MonsterCategory.BasicMonsters
-            });
-            cards.Add( new DirectorAPI.DirectorCardHolder
-            {
-                card = turkeyCard,
-                interactableCategory = DirectorAPI.InteractableCategory.None,
-                monsterCategory = DirectorAPI.MonsterCategory.Minibosses
-            }); 
-            cards.Add( new DirectorAPI.DirectorCardHolder
-            {
-                card = turkeyCard,
-                interactableCategory = DirectorAPI.InteractableCategory.None,
-                monsterCategory = DirectorAPI.MonsterCategory.Champions
-            });
+
+            var tempCard1 = new DirectorAPI.DirectorCardHolder();
+            tempCard1.SetCard( turkeyCard );
+            tempCard1.SetInteractableCategory( DirectorAPI.InteractableCategory.None );
+            tempCard1.SetMonsterCategory( DirectorAPI.MonsterCategory.BasicMonsters );
+            cards.Add( tempCard1 );
+            var tempCard2 = new DirectorAPI.DirectorCardHolder();
+            tempCard2.SetCard( turkeyCard );
+            tempCard2.SetInteractableCategory( DirectorAPI.InteractableCategory.None );
+            tempCard2.SetMonsterCategory( DirectorAPI.MonsterCategory.Minibosses );
+            cards.Add( tempCard2 );
+            var tempCard3 = new DirectorAPI.DirectorCardHolder();
+            tempCard3.SetCard( turkeyCard );
+            tempCard3.SetInteractableCategory( DirectorAPI.InteractableCategory.None );
+            tempCard3.SetMonsterCategory( DirectorAPI.MonsterCategory.Champions );
+            cards.Add( tempCard3 );
+
         }
 
 
         public void Awake()
         {
-            DirectorAPI.AddHook();
             R2API.AssetPlus.Languages.AddToken( "VULTURE_BODY_NAME", "Turkey" );
-            DirectorAPI.Helpers.AddSceneMonsterCredits( 100, DirectorAPI.Stage.TitanicPlains );
-            DirectorAPI.Helpers.AddSceneMonsterCredits( 100, DirectorAPI.Stage.DistantRoost );
         }
     }
 }

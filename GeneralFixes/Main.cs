@@ -11,25 +11,38 @@ using System;
 using System.Reflection;
 using EntityStates;
 using RoR2.Skills;
+using System.Runtime.CompilerServices;
 
 namespace ReinGeneralFixes
 {
+    [R2APISubmoduleDependency(
+        nameof( PrefabAPI ),
+        nameof( SurvivorAPI ),
+        nameof( OrbAPI ),
+        nameof( ItemAPI ),
+        nameof( AssetAPI ),
+        nameof( R2API.AssetPlus.AssetPlus ),
+        nameof( DifficultyAPI ),
+        nameof( DirectorAPI ),
+        nameof( EffectAPI ),
+        nameof( InventoryAPI ),
+        nameof( ItemDropAPI ),
+        nameof( LobbyConfigAPI ),
+        nameof( ModListAPI ),
+        nameof( OrbAPI ),
+        nameof( PlayerAPI ),
+        nameof( SkillAPI ),
+        nameof( LoadoutAPI ),
+        nameof( ResourcesAPI ),
+        nameof( SkinAPI )
+    )]
     [BepInDependency("com.bepis.r2api")]
     [BepInPlugin("com.Rein.GeneralBalance", "General Balance + Fixes", "2.1.0.32")]
     internal partial class Main : BaseUnityPlugin
     {
         internal Single gestureBreakChance = 0.025f;
 
-
-
-
-
-
-
-
-
-
-
+        internal static Main instance;
 
 
 
@@ -42,55 +55,64 @@ namespace ReinGeneralFixes
         private event Action Tick;
         private event Action GUI;
 
-        partial void DisableOPItems();
-        partial void DisableUPItems();
 
-        partial void EditCommandoCDs();
-        partial void EditCommandoRoll();
+        partial void BalanceCommandoCDs();
+        partial void BalanceCorpsebloom();
+        partial void BalanceOSP();
+        partial void BalanceGesture();
+        partial void BalancePreGameShake();
 
-        partial void EditVisionsCrosshair();
-        partial void EditCorpsebloom();
         partial void FixBandolier();
+        partial void FixSelfDamage();
+        partial void FixCircletModel();
 
 
-        partial void FixOSP();
-        partial void FixGesture();
-        partial void FixTesla();
-        partial void FixRazorWire();
-        partial void FixResDisk();
+        partial void QoLCommandoRoll();
+        partial void QoLVisionsCrosshair();
+        partial void QoLOvergrownPrinters();
 
-        partial void EditOvergrownPrinters();
+        partial void PerformanceKinCharController();
 
+
+#if PROFILER
+        partial void Profiler();
+#endif
 #if DPSMETER
         partial void SetupDPSMeter();
 #endif
 
         private Main()
         {
-            this.DisableOPItems();
-            this.DisableUPItems();
+            instance = this;
+#if PROFILER
+            this.Profiler();
+#endif
 
 
-            this.EditCommandoCDs();
-            this.EditCommandoRoll();
 
-            this.EditVisionsCrosshair();
-            this.EditCorpsebloom();
+            this.BalanceCommandoCDs();
+            this.BalanceCorpsebloom();
+            this.BalanceOSP();
+            this.BalanceGesture();
+            this.BalancePreGameShake();
+
             this.FixBandolier();
+            this.FixSelfDamage();
+            this.FixCircletModel();
 
-            this.FixOSP();
+            this.QoLCommandoRoll();
+            this.QoLVisionsCrosshair();
+            this.QoLOvergrownPrinters();
 
-            this.FixGesture();
-            this.FixTesla();
-            this.FixRazorWire();
-            this.FixResDisk();
+            this.PerformanceKinCharController();
 
-            this.EditOvergrownPrinters();
+            //On.RoR2.Projectile.ProjectileController.Start += this.ProjectileController_Start;
 
 #if DPSMETER
             this.SetupDPSMeter();
 #endif
         }
+
 
 #pragma warning disable IDE0051 // Remove unused private members
         private void Awake() => this.Load?.Invoke();
@@ -102,6 +124,39 @@ namespace ReinGeneralFixes
         private void FixedUpdate() => this.Tick?.Invoke();
         private void OnGUI() => this.GUI?.Invoke();
 #pragma warning restore IDE0051 // Remove unused private members
+
+
+
+        internal static void Log( BepInEx.Logging.LogLevel level, System.Object data, String member, Int32 line )
+        {
+            if( data == null )
+            {
+                Main.instance.Logger.LogError( "Null data sent by: " + member + " line: " + line );
+                return;
+            }
+
+            if( level == BepInEx.Logging.LogLevel.Fatal || level == BepInEx.Logging.LogLevel.Error || level == BepInEx.Logging.LogLevel.Warning | level == BepInEx.Logging.LogLevel.Message )
+            {
+                Main.instance.Logger.Log( level, data );
+            } else
+            {
+#if LOGGING
+                Main.instance.Logger.Log( level, data );
+#endif
+            }
+#if FINDLOGS
+            Main.instance.Logger.LogWarning( "Log: " + level.ToString() + " called by: " + member + " : " + line );
+#endif
+        }
+
+        internal static void LogI( System.Object data, [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 ) => Main.Log( BepInEx.Logging.LogLevel.Info, data, member, line );
+        internal static void LogM( System.Object data, [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 ) => Main.Log( BepInEx.Logging.LogLevel.Message, data, member, line );
+        internal static void LogD( System.Object data, [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 ) => Main.Log( BepInEx.Logging.LogLevel.Debug, data, member, line );
+        internal static void LogW( System.Object data, [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 ) => Main.Log( BepInEx.Logging.LogLevel.Warning, data, member, line );
+        internal static void LogE( System.Object data, [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 ) => Main.Log( BepInEx.Logging.LogLevel.Error, data, member, line );
+        internal static void LogF( System.Object data, [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 ) => Main.Log( BepInEx.Logging.LogLevel.Fatal, data, member, line );
+        internal static Int32 logCounter = 0;
+        internal static void LogC( [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 ) => Main.Log( BepInEx.Logging.LogLevel.Info, member + ": " + line + ":: " + logCounter++, member, line );
     }
 }
 /*
@@ -127,12 +182,38 @@ Overgrown printers can now have any boss tier item, including fancy pearls and h
 
 
 
-// TODO: Focus crystal self damage
+// TODO: Focus crystal + crowbar self damage
+// TODO: Add model to spectral circlet
 
 
 
 
 
+ITEMS:
+Gesture             chance to overload equipment on use. While overloaded equip has low cd and fires automatically. Equip breaks on overload end.
 
 
+Fireworks
+Gasoline
+Medkit
+Monster Tooth
+Stun Grenade
+Warbanner           (Regen while in zone)
+
+Berzerkers          (Gives base damage instead of attack speed)
+Chronobauble
+Razor Wire
+Will o Wisp
+
+Ceremonial Dagger
+Happiest Mask
+Resonance Disk
+Tesla Coil
+
+Queens Gland
+
+Blast Shower        (make it reflect projectiles, instead of destroying)
+Royal Capacitor
+
+Effigy
 */

@@ -2,9 +2,9 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>RogueWisp</AssemblyName>
-    <AssemblyVersion>1.4.1.24</AssemblyVersion>
-    <FileVersion>1.4.1.24</FileVersion>
-    <RootNamespace>RogueWispPlugin</RootNamespace>
+    <AssemblyVersion>2.0.5.95</AssemblyVersion>
+    <FileVersion>2.0.3.95</FileVersion>
+    <RootNamespace>Rein</RootNamespace>
     <UserSecretsId>392ba4cc-368a-4518-b19f-f550dca1e784</UserSecretsId>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -12,7 +12,7 @@
     <DebugSymbols>false</DebugSymbols>
     <OutputPath>bin\Releases\</OutputPath>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
-    <DefineConstants>ROGUEWISP ANCIENTWISP BOSSHPBAR NETWORKING LOGGING TIMER</DefineConstants>
+    <DefineConstants>ANCIENTWISP COMPATCHECKS BOSSHPBAR NETWORKING ROGUEWISP</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DefineConstants>DEBUG</DefineConstants>
@@ -29,13 +29,22 @@
     <AssemblyVersionSettings>None.None.NoneWithAutoReset.IncrementWithResetOnIncrease</AssemblyVersionSettings>
   </PropertyGroup>
   <ItemGroup>
-    <None Remove="Bundle\wispsurvivor" />
+    <None Remove="Assemblies\NetLib.dll" />
+    <None Remove="Assemblies\ReinCore.dll" />
+    <None Remove="RogueWispPlugin\Bundle\wispscene" />
+    <None Remove="RogueWispPlugin\Bundle\wispsurvivor" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Bundle\wispsurvivor" />
+    <EmbeddedResource Include="Assemblies\NetLib.dll" />
+    <EmbeddedResource Include="Assemblies\ReinCore.dll" />
+    <EmbeddedResource Include="RogueWispPlugin\Bundle\wispscene" />
+    <EmbeddedResource Include="RogueWispPlugin\Bundle\wispsurvivor" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.3" />
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.8">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="0Harmony">
@@ -43,9 +52,6 @@
     </Reference>
     <Reference Include="Assembly-CSharp">
       <HintPath>..\libs\Assembly-CSharp.dll</HintPath>
-    </Reference>
-    <Reference Include="Assembly-CSharp.R2API.mm">
-      <HintPath>..\libs\Assembly-CSharp.R2API.mm.dll</HintPath>
     </Reference>
     <Reference Include="BepInEx">
       <HintPath>..\libs\BepInEx.dll</HintPath>
@@ -58,9 +64,6 @@
     </Reference>
     <Reference Include="BepInEx.Preloader">
       <HintPath>..\libs\BepInEx.Preloader.dll</HintPath>
-    </Reference>
-    <Reference Include="MMHOOK_Assembly-CSharp">
-      <HintPath>..\libs\MMHOOK_Assembly-CSharp.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Cecil">
       <HintPath>..\libs\Mono.Cecil.dll</HintPath>
@@ -83,8 +86,11 @@
     <Reference Include="MonoMod.Utils">
       <HintPath>..\libs\MonoMod.Utils.dll</HintPath>
     </Reference>
-    <Reference Include="R2API">
-      <HintPath>..\libs\R2API.dll</HintPath>
+    <Reference Include="NetLib">
+      <HintPath>..\libs\NetLib.dll</HintPath>
+    </Reference>
+    <Reference Include="ReinCore">
+      <HintPath>..\libs\ReinCore.dll</HintPath>
     </Reference>
     <Reference Include="Rewired_Core">
       <HintPath>..\libs\Rewired_Core.dll</HintPath>
@@ -307,17 +313,20 @@
     <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Versioning.cs">
+    <Compile Update="RogueWispPlugin\Versioning.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Versioning.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Update="Versioning.tt">
+    <None Update="RogueWispPlugin\Versioning.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Versioning.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="RogueWispPlugin\Helpers\AssetTools\CustomAssets\Indicies\" />
   </ItemGroup>
   <Target Name="AfterCompile">
     <Exec Command="echo &quot;&quot;" />

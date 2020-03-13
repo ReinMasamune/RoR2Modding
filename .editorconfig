@@ -2,3 +2,9 @@
 
 # IDE0002: Simplify Member Access
 dotnet_diagnostic.IDE0002.severity = none
+
+# CA1810: Initialize reference type static fields inline
+dotnet_diagnostic.CA1810.severity = none
+
+# CA1812: WispSkinSelectionUI is an internal class that is apparently never instantiated. If so, remove the code from the assembly. If this class is intended to contain only static members, make it static (Shared in Visual Basic).
+dotnet_diagnostic.CA1812.severity = none
