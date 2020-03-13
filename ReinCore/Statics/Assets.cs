@@ -96,12 +96,9 @@ namespace ReinCore
 
 		internal static bool MatchAssetIndexType( Type assetType, Type enumType )
 		{
-			Log.Warning( assetType.Name, "MatchAssetIndexType", 64 );
-			Log.Warning( enumType.Name, "MatchAssetIndexType", 65 );
 			Type type;
 			if( AssetsCore.indexAssociations.TryGetValue( assetType, out type ) )
 			{
-				Log.Warning( type.Name, "MatchAssetIndexType", 68 );
 				return enumType == type;
 			}
 			return false;
