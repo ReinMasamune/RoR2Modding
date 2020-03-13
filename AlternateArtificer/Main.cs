@@ -27,25 +27,6 @@ namespace AlternativeArtificer
         private void Awake()
         {
             RegisterSkillTypes();
-            try
-            {
-                var serType = new EntityStates.SerializableEntityStateType( typeof( States.Main.AltArtiPassive ) );
-                var str = serType.stateType.ToString();
-            } catch
-            {
-                base.Logger.LogError( "AlternativeArtificer has been disabled due to a missing SubModule. Please check R2API installation" );
-                return;
-            }
-
-            base.Logger.LogInfo( "EntityAPI found, loading" );
-
-#if REIN
-            var wildPrint = Resources.Load<GameObject>("Prefabs/NetworkedObjects/DuplicatorWild").GetComponent<ShopTerminalBehavior>();
-            wildPrint.bannedItemTag = ItemTag.Any;
-#endif
-
-
-
             artiBody = Resources.Load<GameObject>( "Prefabs/CharacterBodies/MageBody" );
             artiSkillLocator = artiBody.GetComponent<SkillLocator>();
 
