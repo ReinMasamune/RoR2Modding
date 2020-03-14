@@ -42,6 +42,7 @@ namespace ReinCore
             var bodyLoadoutType = parentType.GetNestedType( "BodyLoadout", allFlags );
             bodyIndex = new Accessor<Int32>( bodyLoadoutType, "bodyIndex" );
             skinPreference = new Accessor<UInt32>( bodyLoadoutType, "skinPreference" );
+            skillPreferences = new Accessor<UInt32[]>( bodyLoadoutType, "skillPreferences" );
 
             var isSkinValidMethod = bodyLoadoutType.GetMethod("IsSkinValid", allFlags );
             var localIsSkinValidMethod = typeof(SkinsCore).GetMethod( "IsSkinValid", allFlags );
@@ -56,7 +57,7 @@ namespace ReinCore
             if( !ReinCore.r2apiExists )
             {
                 var enforceValidityMethod = bodyLoadoutType.GetMethod( "EnforceValidity", allFlags );
-                EnforceValidityOrig = Invoker.CreateDelegate<OrigEnforceValidity>( enforceValidityMethod );
+                //EnforceValidityOrig = Invoker.CreateDelegate<OrigEnforceValidity>( enforceValidityMethod );
 
                 var enforceUnlockablesMethod = bodyLoadoutType.GetMethod( "EnforceUnlockables", allFlags );
                 var localEnforceUnlockablesMethod = typeof(SkinsCore).GetMethod( "EnforceUnlockables", allFlags );
@@ -72,6 +73,7 @@ namespace ReinCore
 
         private static Accessor<Int32> bodyIndex;
         private static Accessor<UInt32> skinPreference;
+        private static Accessor<UInt32[]> skillPreferences;
 
         private static Hook isSkinValidHook;
         private static Hook isSkinLockedHook;
@@ -79,7 +81,7 @@ namespace ReinCore
 
         private static OrigIsSkinValid IsSkinValidOrig;
         private static OrigIsSkinLocked IsSkinLockedOrig;
-        private static OrigEnforceValidity EnforceValidityOrig;
+        //private static OrigEnforceValidity EnforceValidityOrig;
         private static OrigEnforceUnlockables EnforceUnlockablesOrig;
 
         private static Dictionary<GameObject,ValidSkinOverrideDelegate> validSkinOverrides = new Dictionary<GameObject, ValidSkinOverrideDelegate>();
@@ -109,7 +111,7 @@ namespace ReinCore
 
         private static void EnforceUnlockables(System.Object self, UserProfile userProfile)
         {
-            EnforceValidityOrig( self );
+            IsSkinValid( self );
             EnforceUnlockablesOrig( self, userProfile );
         }
     }
