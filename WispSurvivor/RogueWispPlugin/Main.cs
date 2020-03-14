@@ -39,7 +39,6 @@ namespace RogueWispPlugin
 
 
 
-
         private static ExecutionState _state = ExecutionState.PreLoad;
         internal static ExecutionState state
         {
