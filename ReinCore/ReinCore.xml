@@ -114,6 +114,41 @@
             <param name="instance"></param>
             <param name="value"></param>
         </member>
+        <member name="T:ReinCore.Accessor`1">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ReinCore.Accessor`1.#ctor(System.Type,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+        </member>
+        <member name="P:ReinCore.Accessor`1.Get">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ReinCore.Accessor`1.Set">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:ReinCore.Accessor`1.AccessorGetDelegate">
+            <summary>
+            
+            </summary>
+            <param name="instance"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ReinCore.Accessor`1.AccessorSetDelegate">
+            <summary>
+            
+            </summary>
+            <param name="instance"></param>
+            <param name="value"></param>
+        </member>
         <member name="T:ReinCore.StaticAccessor`1">
             <summary>
             
@@ -299,6 +334,13 @@
             
             </summary>
             <param name="skillFamily"></param>
+        </member>
+        <member name="T:ReinCore.SkinsCore.LockedSkinOverrideDelegate">
+            <summary>
+            A delegate to override the default check for if a skin is locked
+            </summary>
+            <param name="skinIndex">The index of the skin being checked</param>
+            <returns></returns>
         </member>
         <member name="T:ReinCore.SurvivorsCore">
             <summary>
