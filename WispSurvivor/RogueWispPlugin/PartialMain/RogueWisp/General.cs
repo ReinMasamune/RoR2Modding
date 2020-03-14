@@ -14,6 +14,7 @@ namespace RogueWispPlugin
     internal partial class Main
     {
         private SurvivorDef RW_survivorDef;
+        private CharacterBody RW_charBody;
 
         partial void RW_General()
         {
@@ -59,6 +60,9 @@ namespace RogueWispPlugin
             bodyNetTrans.positionTransmitInterval = 0.05f;
             bodyNetTrans.interpolationFactor = 3f;
 
+            SkinsCore.AddValidSkinOverride( this.RW_body, ( skinInd ) => true );
+            SkinsCore.AddLockedSkinOverride( this.RW_body, ( skinInd ) => false );
+
             this.RW_body.tag = "Finish";
         }
 
@@ -66,6 +70,7 @@ namespace RogueWispPlugin
         {
             this.RW_body = Resources.Load<GameObject>( "Prefabs/CharacterBodies/AncientWispBody" ).ClonePrefab( "RogueWispBody", true );
             BodyCatalog.getAdditionalEntries += ( list ) => list.Add( this.RW_body );
+            this.RW_charBody = this.RW_body.GetComponent<CharacterBody>();
             GameObject display = this.RW_body.GetComponent<ModelLocator>().modelBaseTransform.gameObject;
 
             //var dummyBody = new GameObject("Nope").ClonePrefab("NopeNope", false);
