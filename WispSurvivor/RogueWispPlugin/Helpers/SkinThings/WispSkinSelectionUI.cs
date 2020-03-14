@@ -11,7 +11,7 @@ namespace RogueWispPlugin.Helpers
         private const Single colorSelectionFracW = 0.25f;   //0.75 left
         private const Single armorFlameGradSelectionFracW = 0.25f;      //0.5 left
 
-        private Texture2D colorPreview;
+        private static Texture2D colorPreview;
         private Vector3[] corners = new Vector3[4];
         private RectTransform rectTransform;
         private Rect areaRect;
@@ -45,17 +45,19 @@ namespace RogueWispPlugin.Helpers
             //Main.LogI( this.areaRect.y );
             //Main.LogI( this.areaRect.width );
             //Main.LogI( this.areaRect.height );
-
-            this.colorPreview = new Texture2D( Mathf.FloorToInt( this.areaRect.width * 0.5f ), Mathf.FloorToInt( this.areaRect.height * 0.15f ) );
-            for( Int32 x = 0; x < this.colorPreview.width; ++x )
+            if( colorPreview == null )
             {
-                for( Int32 y = 0; y < this.colorPreview.height; ++y )
+                colorPreview = new Texture2D( Mathf.FloorToInt( this.areaRect.width * 0.5f ), Mathf.FloorToInt( this.areaRect.height * 0.15f ) );
+                for( Int32 x = 0; x < colorPreview.width; ++x )
                 {
-                    this.colorPreview.SetPixel( x, y, Color.white );
+                    for( Int32 y = 0; y < colorPreview.height; ++y )
+                    {
+                        colorPreview.SetPixel( x, y, Color.white );
+                    }
                 }
+                colorPreview.wrapMode = TextureWrapMode.Repeat;
+                colorPreview.Apply();
             }
-            this.colorPreview.wrapMode = TextureWrapMode.Repeat;
-            this.colorPreview.Apply();
         }
         private void OnDisable()
         {
@@ -128,6 +130,8 @@ namespace RogueWispPlugin.Helpers
                 this.inputColor = this.currentColor;
             } else
             {
+                this.currentColor = Color.black;
+                this.inputColor = Color.black;
                 this.colorSelected = (Int32)(this.currentSkin & 0b1111_1111u);
             }
         }
@@ -329,7 +333,7 @@ namespace RogueWispPlugin.Helpers
 
                 var tempColor = GUI.color;
                 GUI.color = this.currentColor;
-                GUILayout.Label( this.colorPreview, GUILayout.Height( this.colorPreview.height ), GUILayout.Width( this.colorPreview.width ) );
+                GUILayout.Label( colorPreview, GUILayout.Height( colorPreview.height ), GUILayout.Width( colorPreview.width ) );
                 GUI.color = tempColor;
 
 
@@ -345,7 +349,7 @@ namespace RogueWispPlugin.Helpers
 
                 var tempColor2 = GUI.color;
                 GUI.color = this.inputColor;
-                GUILayout.Label( this.colorPreview, GUILayout.Height( this.colorPreview.height ), GUILayout.Width( this.colorPreview.width ) );
+                GUILayout.Label( colorPreview, GUILayout.Height( colorPreview.height ), GUILayout.Width( colorPreview.width ) );
                 GUI.color = tempColor2;
 
                 
