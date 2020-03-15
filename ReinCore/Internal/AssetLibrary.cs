@@ -25,8 +25,7 @@ namespace ReinCore
             } else
             {
                 throw new KeyNotFoundException( String.Format( "The Key:{0} was not found.", index.GetName() ) );
-            }
-            return assets[ind].value;            
+            }         
         }
 
         internal static Boolean CanGetAsset( Enum index )

@@ -9,17 +9,19 @@ namespace ReinCore
 {
     public abstract class CorePlugin : BaseUnityPlugin
     {
-        private protected BepInEx.Logging.ManualLogSource logger
+        protected abstract void Init();
+
+        protected BepInEx.Logging.ManualLogSource logger
         {
             get => base.Logger;
         }
 
-        private protected BepInEx.Configuration.ConfigFile config
+        protected BepInEx.Configuration.ConfigFile config
         {
             get => base.Config;
         }
 
-        private protected State state
+        protected State state
         {
             get => this._state;
             private set
@@ -31,19 +33,19 @@ namespace ReinCore
                 this._state = value;
             }
         }
-        private State _state = State.Constructor;
-        private protected event Action<State> onStateChanged;
+        private State _state;
 
+        protected event Action<State> onStateChanged;
 
-        private protected event Action awake;
-        private protected event Action enable;
-        private protected event Action disable;
-        private protected event Action start;
-        private protected event Action fixedUpdate;
-        private protected event Action update;
-        private protected event Action lateUpdate;
-        private protected event Action destroy;
-        private protected event Action gui;
+        protected event Action awake;
+        protected event Action enable;
+        protected event Action disable;
+        protected event Action start;
+        protected event Action fixedUpdate;
+        protected event Action update;
+        protected event Action lateUpdate;
+        protected event Action destroy;
+        protected event Action gui;
 
         private protected virtual void Awake()
         {
@@ -111,9 +113,11 @@ namespace ReinCore
             this.state = State.Failed;
         }
 
-        private CorePlugin()
+        protected CorePlugin()
         {
             RoR2.RoR2Application.isModded = true;
+            this._state = State.Init;
+            this.Init();
         }
 
         static CorePlugin()

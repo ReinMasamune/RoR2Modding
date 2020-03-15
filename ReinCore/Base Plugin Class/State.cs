@@ -10,7 +10,7 @@ namespace ReinCore
     public enum State
     {
         Failed = -1,
-        Constructor = 0,
+        Init = 0,
         Awake = 1,
         Enable = 2,
         Start = 3,
