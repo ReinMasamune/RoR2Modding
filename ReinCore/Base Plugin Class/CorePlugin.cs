@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Text;
 using BepInEx;
 
-namespace ReinCore.Base_Plugin_Class
+namespace ReinCore
 {
     public abstract class CorePlugin : BaseUnityPlugin
     {
