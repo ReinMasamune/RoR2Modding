@@ -8,6 +8,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assemblies\ReinCore.dll" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Assemblies\ReinCore.dll" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="0Harmony">
       <HintPath>..\libs\0Harmony.dll</HintPath>
     </Reference>
@@ -275,10 +283,6 @@
     <Reference Include="Wwise">
       <HintPath>..\libs\Wwise.dll</HintPath>
     </Reference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Assemblies\" />
   </ItemGroup>
 
   <ItemGroup>
