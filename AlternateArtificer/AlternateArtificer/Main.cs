@@ -12,5 +12,7 @@ namespace Rein.AlternateArtificer
     {
         public const String guid = "com.Rein.AltArti";
         public const String name = "Alternate Artificer";
+
+
     }
 }
