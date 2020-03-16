@@ -178,7 +178,7 @@ namespace RogueWispPlugin
         //            }    
         //        }
         //    }
-        }
+        //}
 
         //private class NetMemberInfo
         //{
