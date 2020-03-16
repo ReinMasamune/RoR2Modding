@@ -101,9 +101,6 @@ namespace RogueWispPlugin.Helpers
             if( this.modelRef.body != null )
             {
                 this.Apply( WispBitSkin.GetWispSkin( this.modelRef.body.skinIndex ) );
-            } else
-            {
-                this.Apply( WispBitSkin.GetWispSkin( 0u ) );
             }
         }
 

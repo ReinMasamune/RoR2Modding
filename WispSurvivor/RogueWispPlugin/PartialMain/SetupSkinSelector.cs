@@ -54,8 +54,11 @@ namespace RogueWispPlugin
             c.Emit( OpCodes.Ldloc_1 );
             c.EmitDelegate<Func<UInt32, Int32, CharacterSelectController.CharacterPad, UInt32>>( ( skinIndex, bodyIndex, pad ) =>
             {
+                Main.LogW( "Set hook" );
                 if( bodyIndex == BodyCatalog.FindBodyIndex( this.RW_body ) )
                 {
+                    Main.LogW( "Pass 1" );
+                    Main.LogW( skinIndex );
                     var controller = pad.displayInstance?.GetComponent<BitSkinController>();
                     if( !controller ) controller = pad.displayInstance?.GetComponentInChildren<BitSkinController>();
                     controller?.Apply( WispBitSkin.GetWispSkin( skinIndex ) );

@@ -58,7 +58,7 @@ namespace RogueWispPlugin
 
         private void RW_RemoveHooks()
         {
-            if( this.r2apiPlugin != null )
+            if( this.r2apiPlugin != null && this.r2apiPlugin.Metadata.Version < System.Version.Parse("2.4.1") )
             {
                 ilhook_R2API_LoadoutAPI_BodyLoadout_ToXml -= this.Main_ilhook_R2API_LoadoutAPI_BodyLoadout_ToXml;
             }
@@ -96,7 +96,7 @@ namespace RogueWispPlugin
 
         private void RW_AddHooks()
         {
-            if( this.r2apiPlugin != null )
+            if( this.r2apiPlugin != null && this.r2apiPlugin.Metadata.Version < System.Version.Parse( "2.4.1" ) )
             {
                 ilhook_R2API_LoadoutAPI_BodyLoadout_ToXml += this.Main_ilhook_R2API_LoadoutAPI_BodyLoadout_ToXml;
             }
