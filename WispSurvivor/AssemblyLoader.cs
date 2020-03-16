@@ -21,18 +21,9 @@ namespace Rein
 
         private AssemblyLoad()
         {
-            Boolean r2apiPresent = false;
-            foreach( var guid in BepInEx.Bootstrap.Chainloader.PluginInfos.Keys )
-            {
-                if( guid == "com.bepis.r2api" )
-                {
-                    r2apiPresent = true;
-                    break;
-                }
-            }
             var InitCore = (InitCoreDelegate)Delegate.CreateDelegate( typeof(InitCoreDelegate), coreAssembly.GetType( "ReinCore.ReinCore" ).GetMethod( "Init" ) );
 
-            InitCore( r2apiPresent, false, false, true, true, true, true );
+            InitCore( true, false, false, true, true, true, true );
         }
 
         private delegate void InitCoreDelegate( Boolean r2api, Boolean debug, Boolean info, Boolean message, Boolean warning, Boolean error, Boolean fatal );

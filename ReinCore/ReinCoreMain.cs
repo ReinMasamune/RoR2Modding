@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using BepInEx;
+using Mono.Cecil;
 using Mono.Cecil.Cil;
 using MonoMod.Cil;
 using RoR2;
+using RoR2.Networking;
 
 namespace ReinCore
 {
@@ -17,8 +19,35 @@ namespace ReinCore
         /// </summary>
         public static Boolean loaded { get; internal set; } = false;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public static IEnumerable<PluginInfo> plugins
+        {
+            get => pluginsByName.Values;
+        }
 
-        public static void Init( Boolean r2apiExists, Boolean debugLogs, Boolean infoLogs, Boolean messageLogs, Boolean warningLogs, Boolean errorLogs, Boolean fatalLogs )
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="guid"></param>
+        /// <returns></returns>
+        public static Boolean IsPluginLoaded( String guid )
+        {
+            return pluginsByName.ContainsKey( guid );
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="doNetChecks"></param>
+        /// <param name="debugLogs"></param>
+        /// <param name="infoLogs"></param>
+        /// <param name="messageLogs"></param>
+        /// <param name="warningLogs"></param>
+        /// <param name="errorLogs"></param>
+        /// <param name="fatalLogs"></param>
+        public static void Init( Boolean doNetChecks, Boolean debugLogs, Boolean infoLogs, Boolean messageLogs, Boolean warningLogs, Boolean errorLogs, Boolean fatalLogs )
         {
             if( !loaded ) throw new CoreNotLoadedException( nameof( ReinCore ) );
             ReinCore.execLevel = 0;
@@ -28,9 +57,15 @@ namespace ReinCore
             execLevel |= warningLogs ? ExecutionLevel.Warning : 0;
             execLevel |= errorLogs ? ExecutionLevel.Error : 0;
             execLevel |= fatalLogs ? ExecutionLevel.Fatal : 0;
-            ReinCore.r2apiExists = r2apiExists;
+            if( doNetChecks )
+            {
+                NetworkCore.Check();
+            }
+
             Log.Message( String.Format( "{0} successfully loaded", nameof( ReinCore ) ) );
         }
+
+
         public static void SupplySubmoduleData( HashSet<String> submoduleNames )
         {
             if( submoduleNames == null ) return;
@@ -42,6 +77,10 @@ namespace ReinCore
         {
             HooksCore.on_RoR2_RoR2Application_UnitySystemConsoleRedirector_Redirect += HooksCore_on_RoR2_RoR2Application_UnitySystemConsoleRedirector_Redirect;
             if( !Log.loaded ) throw new CoreNotLoadedException( nameof( Log ) );
+
+            CheckPlugins();
+            r2apiExists = pluginsByName.ContainsKey( "com.bepis.r2api" );
+
             loaded = true;
         }
         internal static ExecutionLevel execLevel;
@@ -49,6 +88,8 @@ namespace ReinCore
         internal static R2APISubmodule activeSubmodules = R2APISubmodule.None;
         internal static event OnSubmoduleDataSuppliedDelegate onSubmoduleDataSupplied;
         internal delegate void OnSubmoduleDataSuppliedDelegate( R2APISubmodule activeSubmodules );
+
+        private static Dictionary<String,PluginInfo> pluginsByName = new Dictionary<String, PluginInfo>();
 
         private static void ParseSubmodules( HashSet<String> loadedSubmodules )
         {
@@ -120,7 +161,16 @@ namespace ReinCore
             }
         }
 
-
+        private static void CheckPlugins()
+        {
+            foreach( var kv in BepInEx.Bootstrap.Chainloader.PluginInfos )
+            {
+                var k = kv.Key;
+                var v = kv.Value;
+                if( String.IsNullOrEmpty( k ) || v == null ) continue;
+                pluginsByName[k] = v;
+            }
+        }
 
         private static void HooksCore_on_RoR2_RoR2Application_UnitySystemConsoleRedirector_Redirect( HooksCore.orig_RoR2_RoR2Application_UnitySystemConsoleRedirector_Redirect orig )
         {

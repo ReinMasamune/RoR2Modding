@@ -227,6 +227,30 @@
             
             </summary>
         </member>
+        <member name="P:ReinCore.ReinCore.plugins">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ReinCore.ReinCore.IsPluginLoaded(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="guid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ReinCore.ReinCore.Init(System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="doNetChecks"></param>
+            <param name="debugLogs"></param>
+            <param name="infoLogs"></param>
+            <param name="messageLogs"></param>
+            <param name="warningLogs"></param>
+            <param name="errorLogs"></param>
+            <param name="fatalLogs"></param>
+        </member>
         <member name="F:ReinCore.ReinCore.ver">
             <summary>
             The version of the library
@@ -259,6 +283,11 @@
             <param name="key"></param>
             <param name="value"></param>
             <param name="language"></param>
+        </member>
+        <member name="T:ReinCore.NetworkCore">
+            <summary>
+            
+            </summary>
         </member>
         <member name="T:ReinCore.OrbsCore">
             <summary>

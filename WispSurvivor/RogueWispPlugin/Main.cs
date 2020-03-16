@@ -85,6 +85,7 @@ namespace RogueWispPlugin
                     this._plugins = new List<PluginInfo>();
                     foreach( PluginInfo p in BepInEx.Bootstrap.Chainloader.PluginInfos.Values )
                     {
+                        if( p == null ) continue;
                         this._plugins.Add( p );
                     }
                 }
