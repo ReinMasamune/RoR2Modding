@@ -108,7 +108,7 @@ namespace ReinCore
             this.gui?.Invoke();
         }
 
-        private protected virtual void Fail()
+        protected virtual void Fail()
         {
             this.state = State.Failed;
         }

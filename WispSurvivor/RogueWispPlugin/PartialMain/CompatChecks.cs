@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using RoR2;
 using RoR2.Networking;
+using Mono.Cecil;
 
 namespace RogueWispPlugin
 {
@@ -54,7 +55,8 @@ namespace RogueWispPlugin
 
         private void CheckNetHandlers()
         {
-            var ror2asm = typeof(RoR2Application).Assembly;
+            var ror2asm = AssemblyDefinition.ReadAssembly()
+
             this.asmSet.Add( ror2asm );
             foreach( var p in this.plugins )
             {

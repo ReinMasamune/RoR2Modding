@@ -8,5 +8,6 @@ namespace Rein.AlternateArtificer
 {
     internal partial class Main
     {
+        private static void Log( B)
     }
 }

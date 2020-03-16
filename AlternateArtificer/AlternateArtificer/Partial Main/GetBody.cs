@@ -17,6 +17,12 @@ namespace Rein.AlternateArtificer
         private void Main_awake()
         {
             this.artiBodyPrefab = Resources.Load<GameObject>( "Prefabs/CharacterBodies/MageBody" );
+
+
+            if( this.artiBodyPrefab == null )
+            {
+                base.fail
+            }
         }
     }
 }
