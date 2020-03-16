@@ -21,7 +21,7 @@ namespace Rein.AlternateArtificer
 
             if( this.artiBodyPrefab == null )
             {
-                base.fail
+                //base.fail
             }
         }
     }

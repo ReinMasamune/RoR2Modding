@@ -46,7 +46,12 @@ namespace ReinCore
                             var atType = at.AttributeType;
                             if( atType.FullName != handlerString ) continue;
                             var info = new NetMemberInfo( at, asm, t, m );
-                            indexDict[info.msgIndex].Add( info );
+                            List<NetMemberInfo> list = null;
+                            if( !indexDict.TryGetValue( info.msgIndex, out list ) )
+                            {
+                                list = indexDict[info.msgIndex] = new List<NetMemberInfo>();
+                            }
+                            list.Add( info );
                         }
                     }
                 }
