@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using Unity.Collections;
+using Unity.Jobs;
 using UnityEngine;
 
 namespace RogueWispPlugin.Helpers
@@ -17,6 +19,34 @@ namespace RogueWispPlugin.Helpers
                     this.globalVerticies[i].Dispose();
                 }
             }
+
+            if( this.boneVerts != null )
+            {
+                for( Int32 i = 0; i < this.boneVerts.Count; ++i )
+                {
+                    this.boneVerts[i].Dispose();
+                }
+            }
+
+            if( this.boneTris != null )
+            {
+                for( Int32 i = 0; i < this.boneTris.Count; ++i )
+                {
+                    this.boneTris[i].Dispose();
+                }
+            }
+
+            if( this.boneLinks != null )
+            {
+                for( Int32 i = 0; i < this.boneLinks.Count; ++i )
+                {
+                    this.boneLinks[i].Dispose();
+                }
+            }
+
+            this.nativeVerts.Dispose();
+            this.nativeLinks.Dispose();
+            this.nativeTris.Dispose();
         }
 
 
@@ -36,6 +66,9 @@ namespace RogueWispPlugin.Helpers
         private readonly List<VertVertLink> linkList = new List<VertVertLink>();
 
 
+        private NativeArray<Vertex> nativeVerts;
+        private NativeArray<Link> nativeLinks;
+        private NativeArray<Triangle> nativeTris;
 
         //private readonly Dictionary<Int32, Int32> vertexToBone = new Dictionary<Int32, Int32>();
         private readonly Int32[] vertexToBone;
@@ -45,6 +78,12 @@ namespace RogueWispPlugin.Helpers
         private readonly List<Int32>[] vertexTriangleSets;
         private readonly List<Int32>[] vertexLinkSets;
         private readonly List<BoneMapper> boneMappers = new List<BoneMapper>();
+        private readonly List<NativeArray<Int32>> boneVerts = new List<NativeArray<Int32>>();
+        private readonly List<NativeArray<Int32>> boneTris = new List<NativeArray<Int32>>();
+        private readonly List<NativeArray<Int32>> boneLinks = new List<NativeArray<Int32>>();
+
+        private readonly Queue<JobHandle> activeJobs = new Queue<JobHandle>();
+
         //private readonly Dictionary<Int32, List<Int32>> boneToVertex = new Dictionary<Int32, List<Int32>>();
 
         //private readonly Dictionary<Int32, List<Int32>> boneToTriangles = new Dictionary<Int32, List<Int32>>();
@@ -168,17 +207,69 @@ namespace RogueWispPlugin.Helpers
 
         internal void Seperate()
         {
+            this.nativeVerts = new NativeArray<Vertex>( this.globalVerticies, Allocator.TempJob );
+            this.nativeLinks = new NativeArray<Link>( this.globalLinks, Allocator.TempJob );
+            this.nativeTris = new NativeArray<Triangle>( this.globalTriangles, Allocator.TempJob );
             for( Int32 i = 0; i < this.boneToVertex.Length; ++i )
             {
-                var verts = this.boneToVertex[i];
-                if( verts == null ) continue;
-                var tris = this.boneToTriangles[i];
-                var links = this.boneToLinks[i];
+                var v = this.boneToVertex[i];
+                if( v == null ) continue;
+                var verts = new NativeArray<Int32>( v.ToArray(), Allocator.TempJob );
+                var tris = new NativeArray<Int32>( this.boneToTriangles[i].ToArray(), Allocator.TempJob );
+                var links = new NativeArray<Int32>( this.boneToLinks[i].ToArray(), Allocator.TempJob );
+                this.boneTris.Add( tris );
+                this.boneVerts.Add( verts );
+                this.boneLinks.Add( links );
+
+                this.boneMappers.Add( new BoneMapper( i, this.nativeVerts, this.nativeLinks, this.nativeTris, verts, links, tris ) );
+            }
+        }
+
+        internal void Seed()
+        {
+            for( Int32 i = 0; i < this.boneMappers.Count; ++i )
+            {
+                this.activeJobs.Enqueue( this.boneMappers[i].GetSeedJob() );
             }
 
+            this.WaitForJobs();
+        }
+
+        internal void RunMain( Boolean forceComplete = false )
+        {
+            for( Int32 i = 0; i < this.boneMappers.Count; ++i )
+            {
+                this.activeJobs.Enqueue( this.boneMappers[i].Schedule() );
+            }
+
+            if( forceComplete )
+            {
+                this.WaitForJobs();
+            }
+        }
+
+        internal Vector2[] GetUVs()
+        {
+            this.WaitForJobs();
+
+            var uvs = new Vector2[this.nativeVerts.Length];
+            for( Int32 i = 0; i < this.nativeVerts.Length; ++i )
+            {
+                uvs[i] = this.nativeVerts[i].uv;
+            }
+
+
+            return uvs;
         }
 
         
+        private void WaitForJobs()
+        {
+            while( this.activeJobs.Count > 0 )
+            {
+                this.activeJobs.Dequeue().Complete();
+            }
+        }
 
         private Int32 AddLink( Int32 triangleIndex, VertVertLink linkKvp )
         {

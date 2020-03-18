@@ -37,7 +37,12 @@ namespace RogueWispPlugin.Helpers
             LogWatch( "Verticies" );
             mapper.Seperate();
             LogWatch( "Seperate" );
-
+            mapper.Seed();
+            LogWatch( "Seed" );
+            mapper.RunMain( true );
+            LogWatch( "Main" );
+            var newUVs = mapper.GetUVs();
+            LogWatch( "Get UVs" );
 
             mapper.Dispose();
             LogWatch( "Dispose" );
