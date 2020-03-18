@@ -1,12 +1,25 @@
 ﻿using RoR2;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 
 namespace RogueWispPlugin.Helpers
 {
-    internal class UVMapperInst
+    internal class UVMapperInst : IDisposable
     {
+        public void Dispose()
+        {
+            if( this.globalVerticies != null )
+            {
+                for( Int32 i = 0; i < this.globalVerticies.Length; ++i )
+                {
+                    this.globalVerticies[i].Dispose();
+                }
+            }
+        }
+
+
         private readonly Vector3[] verticies;
         private readonly Int32[] triangles;
         private readonly Vector3[] normals;
@@ -20,17 +33,26 @@ namespace RogueWispPlugin.Helpers
 
         private Int32 linkCounter;
 
-        private readonly List<KeyValuePair<Int32,Int32>> linkList = new List<KeyValuePair<Int32, Int32>>();
+        private readonly List<VertVertLink> linkList = new List<VertVertLink>();
 
-        private readonly Dictionary<Int32, Int32> vertexToBone = new Dictionary<Int32, Int32>();
-        private readonly Dictionary<Int32, Int32> boneToVertex = new Dictionary<Int32, Int32>();
-        private readonly Dictionary<Int32, List<Int32>> boneToTriangles = new Dictionary<Int32, List<Int32>>();
-        private readonly Dictionary<Int32, List<Int32>> boneToLinks = new Dictionary<Int32, List<Int32>>();
-        private readonly Dictionary<Int32, BoneMapper> boneMappers = new Dictionary<Int32, BoneMapper>();
-        private readonly Dictionary<Int32, HashSet<Int32>> vertexTriangleSets = new Dictionary<Int32, HashSet<Int32>>();
-        private readonly Dictionary<Int32, HashSet<Int32>> vertexLinkSets = new Dictionary<Int32, HashSet<Int32>>();
-        private readonly Dictionary<KeyValuePair<Int32,Int32>, Int32> linkMapping = new Dictionary<KeyValuePair<Int32, Int32>, Int32>();
-        private readonly Dictionary<KeyValuePair<Int32,Int32>, KeyValuePair<Int32,Int32>> linkTriangles = new Dictionary<KeyValuePair<Int32, Int32>, KeyValuePair<Int32, Int32>>();
+
+
+        //private readonly Dictionary<Int32, Int32> vertexToBone = new Dictionary<Int32, Int32>();
+        private readonly Int32[] vertexToBone;
+        private readonly List<Int32>[] boneToVertex = new List<Int32>[50];
+        private readonly List<Int32>[] boneToTriangles = new List<Int32>[50];
+        private readonly List<Int32>[] boneToLinks = new List<Int32>[50];
+        private readonly List<Int32>[] vertexTriangleSets;
+        private readonly List<Int32>[] vertexLinkSets;
+        private readonly List<BoneMapper> boneMappers = new List<BoneMapper>();
+        //private readonly Dictionary<Int32, List<Int32>> boneToVertex = new Dictionary<Int32, List<Int32>>();
+
+        //private readonly Dictionary<Int32, List<Int32>> boneToTriangles = new Dictionary<Int32, List<Int32>>();
+        //private readonly Dictionary<Int32, List<Int32>> boneToLinks = new Dictionary<Int32, List<Int32>>();
+        //private readonly Dictionary<Int32, HashSet<Int32>> vertexTriangleSets = new Dictionary<Int32, HashSet<Int32>>();
+        //private readonly Dictionary<Int32, HashSet<Int32>> vertexLinkSets = new Dictionary<Int32, HashSet<Int32>>();
+        private readonly Dictionary<VertVertLink, Int32> linkMapping = new Dictionary<VertVertLink, Int32>();
+        private readonly Dictionary<VertVertLink, VertVertLink> linkTriangles = new Dictionary<VertVertLink, VertVertLink>();
 
         internal UVMapperInst( Boolean logging, Vector3[] verticies, Int32[] triangles, Vector3[] normals, Vector2[] uvs, Vector4[] tangents, BoneWeight[] boneWeights )
         {
@@ -40,6 +62,27 @@ namespace RogueWispPlugin.Helpers
             this.uvs = uvs;
             this.tangents = tangents;
             this.boneWeights = boneWeights;
+            this.vertexToBone = new Int32[this.verticies.Length];
+            this.vertexTriangleSets = new List<Int32>[this.verticies.Length];
+            this.vertexLinkSets = new List<Int32>[this.verticies.Length];
+        }
+
+        internal void PreCache()
+        {
+            
+            for( Int32 i = 0; i < this.verticies.Length; ++i )
+            {
+                var bone = GetBoneIndexFromWeights( this.boneWeights[i] );
+                this.vertexToBone[i] = bone;
+
+                var virtList = this.boneToVertex[bone];
+                if( virtList == null )
+                {
+                    virtList = new List<Int32>();
+                    this.boneToVertex[bone] = virtList;
+                }
+                virtList.Add( i );
+            }
         }
 
         internal void GenerateTriangles()
@@ -68,11 +111,11 @@ namespace RogueWispPlugin.Helpers
 
                 this.globalTriangles[triInd] = new Triangle( triInd, ind1, ind2, ind3, link1Index, link2Index, link3Index );
 
-                List<Int32> boneTriList;
-                if( !this.boneToTriangles.TryGetValue( boneInd, out boneTriList ) )
+                var boneTriList = this.boneToTriangles[boneInd];
+                if( boneTriList == null )
                 {
                     boneTriList = new List<Int32>();
-                    this.boneToTriangles[boneInd] = boneTriList; 
+                    this.boneToTriangles[boneInd] = boneTriList;
                 }
                 boneTriList.Add( triInd );
             }
@@ -92,8 +135,8 @@ namespace RogueWispPlugin.Helpers
 
                 this.globalLinks[i] = new Link( i, vertexKvp.Key, vertexKvp.Value, triKvp.Key, triKvp.Value );
 
-                List<Int32> boneLinkList;
-                if( !this.boneToLinks.TryGetValue( boneInd, out boneLinkList ) )
+                var boneLinkList = this.boneToLinks[boneInd];
+                if( boneLinkList == null )
                 {
                     boneLinkList = new List<Int32>();
                     this.boneToLinks[boneInd] = boneLinkList;
@@ -101,6 +144,7 @@ namespace RogueWispPlugin.Helpers
                 boneLinkList.Add( i );
             }
         }
+
 
         internal void GenerateVerticies()
         {
@@ -124,11 +168,19 @@ namespace RogueWispPlugin.Helpers
 
         internal void Seperate()
         {
+            for( Int32 i = 0; i < this.boneToVertex.Length; ++i )
+            {
+                var verts = this.boneToVertex[i];
+                if( verts == null ) continue;
+                var tris = this.boneToTriangles[i];
+                var links = this.boneToLinks[i];
+            }
+
         }
 
         
 
-        private Int32 AddLink( Int32 triangleIndex, KeyValuePair<Int32,Int32> linkKvp )
+        private Int32 AddLink( Int32 triangleIndex, VertVertLink linkKvp )
         {
             Int32 index;
             if( !this.linkMapping.TryGetValue( linkKvp, out index ) )
@@ -139,10 +191,10 @@ namespace RogueWispPlugin.Helpers
                 this.linkList.Add( linkKvp );
             }
 
-            KeyValuePair<Int32,Int32> triKvp;
+            VertVertLink triKvp;
             if( !this.linkTriangles.TryGetValue( linkKvp, out triKvp ) )
             {
-                triKvp = new KeyValuePair<Int32, Int32>( triangleIndex, -1 );
+                triKvp = new VertVertLink( triangleIndex, -1 );
                 this.linkTriangles[linkKvp] = triKvp;
             } else
             {
@@ -152,7 +204,7 @@ namespace RogueWispPlugin.Helpers
                     return index;
                 }
 
-                triKvp = new KeyValuePair<Int32, Int32>( triKvp.Key, triangleIndex );
+                triKvp = new VertVertLink( triKvp.Key, triangleIndex );
                 this.linkTriangles[linkKvp] = triKvp;
             }
 
@@ -182,13 +234,20 @@ namespace RogueWispPlugin.Helpers
 
         private Int32 GetBoneIndexSingle( Int32 vert )
         {
-            Int32 bone;
-            if( !this.vertexToBone.TryGetValue( vert, out bone ) )
-            {
-                bone = GetBoneIndexFromWeights( this.boneWeights[vert] );
-                this.vertexToBone[vert] = bone;
-                this.boneToVertex[bone] = vert;
-            }
+            Int32 bone = this.vertexToBone[vert];
+            //if( !this.vertexToBone.TryGetValue( vert, out bone ) )
+            //{
+            //    bone = GetBoneIndexFromWeights( this.boneWeights[vert] );
+            //    this.vertexToBone[vert] = bone;
+
+            //    List<Int32> vertList;
+            //    if( !this.boneToVertex.TryGetValue( bone, out vertList ) )
+            //    {
+            //        vertList = new List<Int32>();
+            //        this.boneToVertex[bone] = vertList;
+            //    }
+            //    this.boneToVertex[bone].Add( vert );
+            //}
             return bone;
         }
 
@@ -210,10 +269,10 @@ namespace RogueWispPlugin.Helpers
 
         private void AddVertexTriangleAssociationSingle( Int32 triIndex, Int32 vertIndex )
         {
-            HashSet<Int32> triSet = null;
-            if( !this.vertexTriangleSets.TryGetValue( vertIndex, out triSet ) )
+            var triSet = this.vertexTriangleSets[vertIndex];
+            if( triSet == null )
             {
-                triSet = new HashSet<Int32>();
+                triSet = new List<Int32>();
                 this.vertexTriangleSets[vertIndex] = triSet;
             }
             triSet.Add( triIndex );
@@ -221,10 +280,10 @@ namespace RogueWispPlugin.Helpers
 
         private void AddVertexLinkAssociationSingle( Int32 linkIndex, Int32 vertIndex )
         {
-            HashSet<Int32> linkSet = null;
-            if( !this.vertexLinkSets.TryGetValue( vertIndex, out linkSet ) )
+            var linkSet = this.vertexLinkSets[vertIndex];
+            if( linkSet == null )
             {
-                linkSet = new HashSet<Int32>();
+                linkSet = new List<Int32>();
                 this.vertexLinkSets[vertIndex] = linkSet;
             }
             linkSet.Add( linkIndex );
@@ -279,9 +338,36 @@ namespace RogueWispPlugin.Helpers
             } else return outInd;
         }
 
-        private static KeyValuePair<Int32,Int32> MakeLinkKvp( Int32 ind1, Int32 ind2 )
+        private static VertVertLink MakeLinkKvp( Int32 ind1, Int32 ind2 )
         {
-            return new KeyValuePair<Int32, Int32>( Mathf.Min( ind1, ind2 ), Mathf.Max( ind1, ind2 ) );
+            return new VertVertLink( Mathf.Min( ind1, ind2 ), Mathf.Max( ind1, ind2 ) );
+        }
+
+        internal struct VertVertLink
+        {
+            internal static UInt32 maxCounter = 0u;
+
+            internal UInt32 counter;
+            internal VertVertLink( Int32 from, Int32 to )
+            {
+                this.Key = from;
+                this.Value = to;
+                this.counter = 0;
+            }
+
+            public override Int32 GetHashCode()
+            {
+                this.counter++;
+                if( this.counter > maxCounter )
+                {
+                    maxCounter = this.counter;
+                    Main.LogM( maxCounter );
+                }
+                return (this.Key, this.Value).GetHashCode();
+            }
+
+            internal Int32 Key;
+            internal Int32 Value;
         }
     }
 }

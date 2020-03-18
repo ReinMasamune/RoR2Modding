@@ -33,7 +33,6 @@ namespace RogueWispPlugin.Helpers
 
         public void Dispose()
         {
-            Main.LogW( "Disposing" );
             this.links.Dispose();
             this.triangles.Dispose();
         }

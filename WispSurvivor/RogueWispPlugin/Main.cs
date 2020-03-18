@@ -5,7 +5,6 @@ using R2API.Utils;
 using RoR2;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Reflection;
@@ -209,6 +208,63 @@ namespace RogueWispPlugin
 
                 //}
             }
+            //var dict = new List<Dictionary<UInt64,Boolean>>();
+            //var lastDic = new Dictionary<UInt64,Boolean>();
+            //dict.Add( lastDic );
+            //Boolean lastMatched = false;
+            //for( UInt64 i = 0; i < UInt64.MaxValue - 1; ++i )
+            //{
+            //    var v1 = i;
+            //    //var v2 = UInt64.MaxValue - i;
+            //    Boolean flag = false;
+            //    for( Int32 j = 0; j < dict.Count; ++j )
+            //    {
+            //        var cDict = dict[j];
+            //        if( cDict.ContainsKey( v1 ) )
+            //        {
+            //            flag = true;
+
+            //        } else
+            //        {
+            //            try
+            //            {
+            //                lastDic.Add( v1, true );
+            //            } catch
+            //            {
+            //                lastDic = new Dictionary<UInt64, Boolean>();
+            //                dict.Add( lastDic );
+            //                lastDic.Add( v1, true );
+            //            }
+            //        }
+            //        //if( cDict.Contains( v2 ) )
+            //        //{
+            //        //    Main.LogM( String.Format( "{0} is already present", v2 ) );
+            //        //} else
+            //        //{
+            //        //    try
+            //        //    {
+            //        //        lastDic.Add( v2 );
+            //        //    } catch
+            //        //    {
+            //        //        lastDic = new HashSet<UInt64>();
+            //        //        dict.Add( lastDic );
+            //        //        lastDic.Add( v2 );
+            //        //    }
+                        
+            //        //}
+            //    }
+            //    if( lastMatched != flag )
+            //    {
+            //        lastMatched = flag;
+            //        if( flag )
+            //        {
+            //            Main.LogM( String.Format( "Collision range start: {0}", v1 ) );
+            //        } else
+            //        {
+            //            Main.LogM( String.Format( "Collision range end: {0}", v1 ) );
+            //        }
+            //    }
+            //}
 
 
             //var lev = ReinCore.ExecutionLevel.Fatal | ReinCore.ExecutionLevel.Error;
