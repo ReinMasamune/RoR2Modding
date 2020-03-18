@@ -43,6 +43,8 @@ namespace RogueWispPlugin.Helpers
             LogWatch( "Main" );
             var newUVs = mapper.GetUVs();
             LogWatch( "Get UVs" );
+            mesh.uv = newUVs;
+            LogWatch( "Assign UVs" );
 
             mapper.Dispose();
             LogWatch( "Dispose" );

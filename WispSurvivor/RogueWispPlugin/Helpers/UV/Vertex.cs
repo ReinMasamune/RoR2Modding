@@ -31,6 +31,11 @@ namespace RogueWispPlugin.Helpers
             this.triangles = new NativeArray<Int32>( triangles, Allocator.TempJob );
         }
 
+        public void SetUV( Vector2 uv )
+        {
+            this.uv = uv;
+        }
+
         public void Dispose()
         {
             this.links.Dispose();

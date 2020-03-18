@@ -436,24 +436,14 @@ namespace RogueWispPlugin.Helpers
 
         internal struct VertVertLink
         {
-            internal static UInt32 maxCounter = 0u;
-
-            internal UInt32 counter;
             internal VertVertLink( Int32 from, Int32 to )
             {
                 this.Key = from;
                 this.Value = to;
-                this.counter = 0;
             }
 
             public override Int32 GetHashCode()
             {
-                this.counter++;
-                if( this.counter > maxCounter )
-                {
-                    maxCounter = this.counter;
-                    Main.LogM( maxCounter );
-                }
                 return (this.Key, this.Value).GetHashCode();
             }
 

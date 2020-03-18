@@ -6,7 +6,6 @@ namespace ReinCore
     internal delegate TAsset AssetAccessDelegate<TAsset>();
     internal class AssetAccessor<TAsset> where TAsset : UnityEngine.Object
     {
-
         internal AssetAccessor( Enum index, AssetAccessDelegate<TAsset> del, params Enum[] dependencies )
         {
             if( !AssetsCore.MatchAssetIndexType( typeof( TAsset ), index.GetType() ) ) throw new ArgumentException( "Incorrect index type" );

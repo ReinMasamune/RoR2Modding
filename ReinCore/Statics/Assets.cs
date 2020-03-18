@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Reflection;
 using BepInEx;
 using UnityEngine;
@@ -12,6 +13,8 @@ namespace ReinCore
 
 		public static TAsset LoadAsset<TAsset>( Enum index ) where TAsset : UnityEngine.Object
 		{
+			//var timer = new Stopwatch();
+			//timer.Start();
 			if( !AssetsCore.loaded )
 			{
 				throw new CoreNotLoadedException( nameof(AssetsCore) );
@@ -20,7 +23,11 @@ namespace ReinCore
 			{
 				throw new ArgumentException( "Incorrect index type", nameof(index) );
 			}
-			return AssetLibrary<TAsset>.GetAsset( index );
+			
+			var asset = AssetLibrary<TAsset>.GetAsset( index );
+			//timer.Stop();
+			//Log.Warning( String.Format( "Time for asset {0}: {1} ticks, {2} ms", index.GetName(), timer.ElapsedTicks, timer.ElapsedMilliseconds ) );
+			return asset;
 		}
 
 		public static Boolean CanLoadAsset<TAsset>( Enum index ) where TAsset : UnityEngine.Object
