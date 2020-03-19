@@ -32,7 +32,6 @@ namespace RogueWispPlugin.Helpers
 #if TIMER
             LogWatch( "Init" );
 #endif
-
             mapper.PreCache();
 #if TIMER
             LogWatch( "PreCache" );

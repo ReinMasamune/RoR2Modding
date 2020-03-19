@@ -156,12 +156,6 @@ namespace RogueWispPlugin
         
         static Main()
         {
-
-            //Assembly execAssembly = Assembly.GetExecutingAssembly();
-            //System.IO.Stream stream = execAssembly.GetManifestResourceStream( "RogueWispPlugin.Assemblies.ReinCore.dll" );
-            //var data = new Byte[stream.Length];
-            //stream.Read( data, 0, data.Length );
-            //Assembly.Load( data );
         }
 
         
@@ -181,111 +175,8 @@ namespace RogueWispPlugin
                     r2apiExists = true;
                 }
                 
-                //Main.LogW( p.Location );
-                //var asm = Assembly.ReflectionOnlyLoadFrom(p.Location);
-                //if( asm == null ) continue;
-                //Type[] types = null;
-                //try
-                //{
-                //    types = asm.GetTypes();
-                //} catch( ReflectionTypeLoadException e )
-                //{
-                //    if( e != null )
-                //    {
-                //        types = e.Types;
-                //    }
-                //}
-                //if( types == null ) continue;
-                //for( Int32 j = 0; j < types.Length; ++j )
-                //{
-                //    var t = types[j];
-                //    if( t == null ) continue;
-                //    var atribs = types[j].GetCustomAttributesData();
-                //    if( atribs == null ) continue;
-                //    for( Int32 k = 0; k < atribs.Count; ++k )
-                //    {
-                //        var atr = atribs[k];
-                //        if( atr == null ) continue;
-                //        Main.LogW( atr.ToString() );
-                //    }
-
-                //}
             }
 
-            //var dict = new List<Dictionary<UInt64,Boolean>>();
-            //var lastDic = new Dictionary<UInt64,Boolean>();
-            //dict.Add( lastDic );
-            //Boolean lastMatched = false;
-            //for( UInt64 i = 0; i < UInt64.MaxValue - 1; ++i )
-            //{
-            //    var v1 = i;
-            //    //var v2 = UInt64.MaxValue - i;
-            //    Boolean flag = false;
-            //    for( Int32 j = 0; j < dict.Count; ++j )
-            //    {
-            //        var cDict = dict[j];
-            //        if( cDict.ContainsKey( v1 ) )
-            //        {
-            //            flag = true;
-
-            //        } else
-            //        {
-            //            try
-            //            {
-            //                lastDic.Add( v1, true );
-            //            } catch
-            //            {
-            //                lastDic = new Dictionary<UInt64, Boolean>();
-            //                dict.Add( lastDic );
-            //                lastDic.Add( v1, true );
-            //            }
-            //        }
-            //        //if( cDict.Contains( v2 ) )
-            //        //{
-            //        //    Main.LogM( String.Format( "{0} is already present", v2 ) );
-            //        //} else
-            //        //{
-            //        //    try
-            //        //    {
-            //        //        lastDic.Add( v2 );
-            //        //    } catch
-            //        //    {
-            //        //        lastDic = new HashSet<UInt64>();
-            //        //        dict.Add( lastDic );
-            //        //        lastDic.Add( v2 );
-            //        //    }
-
-            //        //}
-            //    }
-            //    if( lastMatched != flag )
-            //    {
-            //        lastMatched = flag;
-            //        if( flag )
-            //        {
-            //            Main.LogM( String.Format( "Collision range start: {0}", v1 ) );
-            //        } else
-            //        {
-            //            Main.LogM( String.Format( "Collision range end: {0}", v1 ) );
-            //        }
-            //    }
-            //}
-
-
-            //var lev = ReinCore.ExecutionLevel.Fatal | ReinCore.ExecutionLevel.Error;
-            //lev |= ReinCore.ExecutionLevel.Warning;
-            //lev |= ReinCore.ExecutionLevel.Message;
-            //lev |= ReinCore.ExecutionLevel.Info;
-            //lev |= ReinCore.ExecutionLevel.Debug;
-            //ReinCore.ReinCore.Init( lev, r2apiExists );
-
-
-
-            //Assembly execAssembly = Assembly.GetExecutingAssembly();
-            //System.IO.Stream stream = execAssembly.GetManifestResourceStream( "RogueWispPlugin.Assemblies.ReinCore.dll" );
-            //var data = new Byte[stream.Length];
-            //stream.Read( data, 0, data.Length );
-            //var asm = Assembly.Load( data );
-            //Assembly.LoadFile( "" );
 
             this.thing1 = "Note that everything in this codebase that can be used safely is already part of R2API.";
             this.thing2 = "If you're here to copy paste my code, please don't complain to me when it doesn't work like magic or you cause a major issue for a user.";

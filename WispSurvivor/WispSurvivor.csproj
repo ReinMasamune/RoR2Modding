@@ -2,8 +2,8 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>RogueWisp</AssemblyName>
-    <AssemblyVersion>2.0.5.274</AssemblyVersion>
-    <FileVersion>2.0.3.274</FileVersion>
+    <AssemblyVersion>2.0.6.275</AssemblyVersion>
+    <FileVersion>2.0.6.275</FileVersion>
     <RootNamespace>Rein</RootNamespace>
     <UserSecretsId>392ba4cc-368a-4518-b19f-f550dca1e784</UserSecretsId>
   </PropertyGroup>
@@ -12,7 +12,7 @@
     <DebugSymbols>false</DebugSymbols>
     <OutputPath>bin\Releases\</OutputPath>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
-    <DefineConstants>MATEDITOR ANCIENTWISP COMPATCHECKS BOSSHPBAR NETWORKING ROGUEWISP</DefineConstants>
+    <DefineConstants>ANCIENTWISP COMPATCHECKS BOSSHPBAR NETWORKING ROGUEWISP</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DefineConstants>DEBUG</DefineConstants>

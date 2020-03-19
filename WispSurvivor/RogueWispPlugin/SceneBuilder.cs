@@ -14,7 +14,6 @@ namespace BundledScripts
             {
                 scenePrefabs[path] = new List<GameObject>();
             }
-            RogueWispPlugin.Main.LogW( "Prefab added: " + path );
             scenePrefabs[path].Add( prefab );
         }
         public static void ClearScenePrefabs( String path )
@@ -32,12 +31,9 @@ namespace BundledScripts
 
         private void Awake()
         {
-            RogueWispPlugin.Main.LogW( "Builder awake" );
             var curScene = SceneManager.GetActiveScene().path;
-            RogueWispPlugin.Main.LogW( curScene );
             if( scenePrefabs.ContainsKey( curScene ) )
             {
-                RogueWispPlugin.Main.LogW( "Builder starting spawns" );
                 foreach( var prefab in scenePrefabs[curScene] )
                 {
                     UnityEngine.Object.Instantiate<GameObject>( prefab, Vector3.zero, Quaternion.identity );
