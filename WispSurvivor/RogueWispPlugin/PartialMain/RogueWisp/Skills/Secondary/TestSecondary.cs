@@ -18,8 +18,8 @@ namespace RogueWispPlugin
             public const Single scanDelay = 0.25f;
             public const Single fireDelay = 0.5f;
             public const Single damageRatio = 2.5f;
-            public const Single chargeScaler = 0.5f;
-            public const Single radius = 6f;
+            public const Single chargeScaler = 0.65f;
+            public const Single radius = 5f;
             public const Single returnIdlePercent = 0.5f;
 
             private Single duration;
@@ -85,7 +85,7 @@ namespace RogueWispPlugin
             {
                 base.OnExit();
                 this.FireOrb();
-                this.PlayCrossfade( "Gesture", "Idle", 0.2f );
+                //this.PlayCrossfade( "Gesture", "Idle", 0.2f );
             }
 
             public override InterruptPriority GetMinimumInterruptPriority() => InterruptPriority.PrioritySkill;
@@ -138,6 +138,7 @@ namespace RogueWispPlugin
                 nextOrb.stepHeight = 5.0f;
                 nextOrb.maxFall = 25f;
                 nextOrb.innerRadScale = 0.25f;
+                nextOrb.edgePenaltyMult = 0.35f;
                 nextOrb.stepsLeft = 1 + (Int32)Math.Truncate( chargeState.chargeConsumed / 7.5 );
                 nextOrb.team = TeamComponent.GetObjectTeam( this.gameObject );
                 nextOrb.skin = this.skin;

@@ -21,7 +21,7 @@ namespace RogueWispPlugin
             public System.Single height = 10f;
             public System.Single vOffset = 5f;
             public System.Single innerRadScale = 0.67f;
-            public System.Single edgePenaltyMult = 0.5f;
+            public System.Single edgePenaltyMult = 0.35f;
 
             public System.Int32 stepsLeft = 0;
             public System.UInt32 skin = 0;

@@ -191,10 +191,10 @@ namespace RogueWispPlugin
 
                     Single dur = curMult * this.chargeRestore * this.GetChargeMult( targetInv ? targetInv.GetItemCount( ItemIndex.BoostDamage ) : 0, targetBody ? targetBody.baseNameToken : "UNIDENTIFIED" );
                     UInt32 stacks = 1u;
-                    if( dur > 0.75f )
+                    if( dur > 1f )
                     {
-                        stacks = (UInt32)Mathf.RoundToInt( dur / 0.75f );
-                        dur = 0.75f;
+                        stacks = (UInt32)Mathf.RoundToInt( dur );
+                        dur = 1f;
                     }
 
                     var delay = (curDist / this.speed) * 3.25f;

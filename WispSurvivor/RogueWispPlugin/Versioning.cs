@@ -2,6 +2,6 @@
 {
 	public static class Consts
 	{
-		public const string ver = "2.0.6.275";
+		public const string ver = "2.0.7.284";
 	}
 }

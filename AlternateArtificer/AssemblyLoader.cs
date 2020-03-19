@@ -7,7 +7,7 @@ namespace Rein
     [BepInPlugin( AssemblyLoad.guid, "Rein Assembly-PreLoad", AssemblyLoad.version )]
     internal class AssemblyLoad : BaseUnityPlugin
     {
-        public const String guid = "com.Rein.AssemblyLoader";
+        public const String guid = "___AssemblyLoader-com.Rein.Core";
         public const String version = ReinCore.ReinCore.ver;
         private static Assembly coreAssembly;
         static AssemblyLoad()

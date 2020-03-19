@@ -24,7 +24,7 @@ namespace RogueWispPlugin
 			public static System.Single baseTickFreq = 5f;
 			public static System.Single baseMaxRange = 1000f;
 			public static System.Single baseRadius = 2f;
-			public static System.Single chargeScaler = 0.8f;
+			public static System.Single chargeScaler = 0.85f;
 			public static System.Single minChargeToUse = 50f;
 
 			public Vector3 camPos1;
