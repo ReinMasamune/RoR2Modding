@@ -35,6 +35,7 @@ namespace RogueWispPlugin
 
         public String thing1;
         public String thing2;
+        public String thing3;
 
         private readonly Boolean working;
 
@@ -288,6 +289,7 @@ namespace RogueWispPlugin
 
             this.thing1 = "Note that everything in this codebase that can be used safely is already part of R2API.";
             this.thing2 = "If you're here to copy paste my code, please don't complain to me when it doesn't work like magic or you cause a major issue for a user.";
+            this.thing3 = "Look fish no more handler scanning! pls no delet meh!";
 
             this.CreateAccessors();
             this.CreateCustomAccessors();

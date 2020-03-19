@@ -937,25 +937,26 @@ namespace RogueWispPlugin.Helpers
             main.flowmapTexture.texture = AssetsCore.LoadAsset<Texture2D>(Texture2DIndex.refCaustics);
             main.flowmapHeightmap.texture = AssetsCore.LoadAsset<Texture2D>(Texture2DIndex.refCaustics);
             main.flowmapHeightRamp.texture = TextureGenerator.GenerateRampTexture( CreateFlowGradient( this.mainColor ) );
-            main.flowHeightBias = 0.175f;
+            main.flowHeightBias = 0.2f;
             main.flowHeightPower = 1.1f;
             main.flowHeightEmissionStrength = 1.25f;
             main.flowSpeed = 3.25f;
-            main.flowMaskStrength = -1.5f;
+            main.flowMaskStrength = this.hasCracks ? -1.5f : 0f;
             main.flowNormalStrength = 0.75f;
             main.flowTextureScaleFactor = 1.15f;
+            main.flowmapEnabled = true;
 
             main.limbRemovalEnabled = false;
             main.limbPrimeMask = 1f;
             main.flashColor = Color.clear;
 
-            if( this.hasCracks )
-            {
-                main.flowmapEnabled = true;
-            } else
-            {
-                main.flowmapEnabled = false;
-            }
+            //if( this.hasCracks )
+            //{
+            //    main.flowmapEnabled = true;
+            //} else
+            //{
+            //    main.flowmapEnabled = false;
+            //}
 
             armorMaterials[(UInt32)this.armorMaterialType]( this.mainColor, main );
 #endif
