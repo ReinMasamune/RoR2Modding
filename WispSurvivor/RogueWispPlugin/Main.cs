@@ -15,6 +15,8 @@ using RogueWispPlugin.Helpers;
 using NetLib;
 using EntityStates;
 using ReinCore;
+using MonoMod.RuntimeDetour;
+using MonoMod.Cil;
 #endif
 
 namespace RogueWispPlugin
@@ -208,6 +210,7 @@ namespace RogueWispPlugin
 
                 //}
             }
+
             //var dict = new List<Dictionary<UInt64,Boolean>>();
             //var lastDic = new Dictionary<UInt64,Boolean>();
             //dict.Add( lastDic );
@@ -250,7 +253,7 @@ namespace RogueWispPlugin
             //        //        dict.Add( lastDic );
             //        //        lastDic.Add( v2 );
             //        //    }
-                        
+
             //        //}
             //    }
             //    if( lastMatched != flag )
@@ -348,7 +351,7 @@ namespace RogueWispPlugin
                 this.SetupSkinSelector();
                 this.SetupEffectSkinning();
                 this.FirstFrame += this.Main_FirstFrame;
-                this.FirstFrame += this.RandomCrap;
+                //this.FirstFrame += this.RandomCrap;
                 //this.GUI += this.DebugTexture;
 #if TIMER
                 this.Load += this.AwakeTimeStop;
@@ -376,34 +379,68 @@ namespace RogueWispPlugin
             }
         }
 
-        private void RandomCrap()
+        private ILHook randomHook;
+        private Int32 counter = 0;
+        private void RandomCrap( ILContext il = null )
         {
-
+            if( il == null )
+            {
+                Main.LogE( "FirstCall" );
+                var self = MethodBase.GetCurrentMethod();
+                this.randomHook = new ILHook(self, this.RandomCrap );
+                this.randomHook.Apply();
+            } else
+            {
+                ILCursor c = new ILCursor( il );
+                var callNum = counter++;
+                c.EmitDelegate<Action>( () => Main.LogE( String.Format( "Call {0}", callNum ) ) );
+            }
         }
 
-        //private void TestingShit()
-        //{
-        //    var meshSet = new HashSet<Mesh>(); 
-        //    foreach( var obj in Resources.LoadAll<GameObject>("Prefabs/StageDisplay") )
-        //    {
-        //        recursiveCheck
-        //    }
-        //}
+        private static Texture2D uvTex;
+        
+        internal static Texture2D GetUVTexture()
+        {
+            if( uvTex == null )
+            {
+                uvTex = new Texture2D( 256, 256, TextureFormat.RGBAFloat, false );
+                
+                for( Int32 x = 0; x < uvTex.width; ++x )
+                {
+                    var red = 0.85f * (Single)x / (Single)(uvTex.width-1);
+                    red += 0.15f;
+                    for( Int32 y = 0; y < uvTex.height; ++y )
+                    {
+                        var green = 0.85f * (Single)y / (Single)(uvTex.height-1);
+                        green += 0.15f;
 
-        //private void RecursiveCheck( GameObject obj, HashSet<Mesh> )
-        //{
-        //    foreach( var obj in Resources.LoadAll<GameObject>( "Prefabs/StageDisplay" ) )
-        //    {
-        //        foreach( var c in obj.GetComponents<SkinnedMeshRenderer>() )
-        //        {
-        //            meshSet.Add( c.sharedMesh );
-        //        }
-        //        foreach( var c in obj.GetComponents<ParticleSystemRenderer>() )
-        //        {
+                        var col = Color.black;
 
-        //        }
-        //    }
-        //}
+                        if( x % 16 == 0 || y % 16 == 0 )
+                        {
+                            col = Color.white;
+                        }
+
+                        if( x == 0 || y == 0 || x == uvTex.width - 1 || y == uvTex.height - 1 )
+                        {
+                            col = Color.red;
+                        }
+
+                        if( x == uvTex.width / 2 || y == uvTex.height / 2 )
+                        {
+                            col = Color.cyan;
+                        }
+
+
+
+                        uvTex.SetPixel( x, y, col );
+                    }
+                }
+                uvTex.Apply();
+            }
+
+            return uvTex;
+        }
 
 
         private delegate void InvokeEffectsReloadDelegate( ConCommandArgs args );

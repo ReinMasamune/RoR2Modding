@@ -2,6 +2,7 @@
 using RoR2;
 using System;
 using UnityEngine;
+using ReinCore;
 
 namespace RogueWispPlugin.Helpers
 {
@@ -9,7 +10,7 @@ namespace RogueWispPlugin.Helpers
     {
         internal static MaterialEditor instance;
 
-        const Int32 windowID = 1;
+        const Int32 windowID = 3;
         internal const Single width = 800f;
         internal const Single height = 1100f;
 

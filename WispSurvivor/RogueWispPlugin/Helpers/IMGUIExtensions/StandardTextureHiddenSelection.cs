@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 using RogueWispPlugin.Helpers.IMGUI;
+using ReinCore;
 
 namespace RogueWispPlugin.Helpers
 {
@@ -12,7 +13,7 @@ namespace RogueWispPlugin.Helpers
         private String name;
         private MaterialBase.TextureData data;
         private Boolean showSelection;
-        private ScrollableEnumSelection<TextureIndex> textureSelection;
+        private ScrollableEnumSelection<Texture2DIndex> textureSelection;
         private NamedVector2TextEntry tilingEntry;
         private NamedVector2TextEntry offsetEntry;
         private Texture startTexture;
@@ -24,15 +25,15 @@ namespace RogueWispPlugin.Helpers
             this.data = data;
             this.showSelection = false;
             this.startTexture = this.data.texture;
-            this.textureSelection = new ScrollableEnumSelection<TextureIndex>( TextureIndex.None, "Texture", ( texInd ) =>
+            this.textureSelection = new ScrollableEnumSelection<Texture2DIndex>( Texture2DIndex.None, "Texture", ( texInd ) =>
             {
                 Texture tex = null;
-                if( texInd == TextureIndex.None )
+                if( texInd == Texture2DIndex.None )
                 {
                     tex = this.startTexture;
                 } else
                 {
-                    tex = AssetLibrary<Texture>.i[texInd];
+                    tex = AssetsCore.LoadAsset<Texture2D>( texInd );
                 }
                 this.data.texture = tex;
             } );

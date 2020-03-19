@@ -867,9 +867,49 @@ namespace RogueWispPlugin.Helpers
             this.distortionHeavyMaterial = distortH.material;
 
 
-
             var main = new StandardMaterial( "ArmorMain" );
+#if UVDEBUG
+            main.cutout = false;
+            main.mainColor = Color.white;
+            main.mainTexture.texture = Main.GetUVTexture();
+            main.mainTexture.tiling = new Vector2( 1f, 1f );
+            main.normalStrength = 0f;
+            main.normalMap.texture = null;
+            main.emissionColor = Color.black;
+            main.emissionPower = 0f;
+            main.smoothness = 0f;
+            main.ignoreDiffuseAlphaForSpecular = false;
+            main.rampChoice = StandardMaterial.RampInfo.Unlitish;
+            main.decalLayer = StandardMaterial.DecalLayer.Default;
+            main.specularStrength = 0f;
+            main.specularExponent = 1f;
+            main.cull = MaterialBase.CullMode.Back;
+            main.dither = false;
+            main.fadeBias = 0f;
+            main.fresnelEmission = false;
+            main.fresnelRamp.texture = null;
+            main.fresnelPower = 0f;
+            main.fresnelMask.texture = null;
+            main.fresnelBoost = 0f;
+            main.printingEnabled = false;
+            main.splatmapEnabled = false;
+            main.flowmapEnabled = false;
+            main.flowmapTexture.texture = null;
+            main.flowmapHeightmap.texture = null;
+            main.flowmapHeightRamp.texture = null;
+            main.flowHeightBias = 0f;
+            main.flowHeightPower = 1f;
+            main.flowHeightEmissionStrength = 0f;
+            main.flowSpeed = 0f;
+            main.flowMaskStrength = 0f;
+            main.flowNormalStrength = 0f;
+            main.flowTextureScaleFactor = 0f;
 
+            main.limbRemovalEnabled = false;
+            main.limbPrimeMask = 1f;
+            main.flashColor = Color.clear;
+#else
+            
             main.cutout = false;
             main.mainColor = Color.white;
             main.mainTexture.texture = null;
@@ -897,13 +937,13 @@ namespace RogueWispPlugin.Helpers
             main.flowmapTexture.texture = AssetsCore.LoadAsset<Texture2D>(Texture2DIndex.refCaustics);
             main.flowmapHeightmap.texture = AssetsCore.LoadAsset<Texture2D>(Texture2DIndex.refCaustics);
             main.flowmapHeightRamp.texture = TextureGenerator.GenerateRampTexture( CreateFlowGradient( this.mainColor ) );
-            main.flowHeightBias = 0.3f;
-            main.flowHeightPower = 1f;
-            main.flowHeightEmissionStrength = 1f;
-            main.flowSpeed = 1f;
-            main.flowMaskStrength = 0f;
-            main.flowNormalStrength = 2f;
-            main.flowTextureScaleFactor = 1f;
+            main.flowHeightBias = 0.175f;
+            main.flowHeightPower = 1.1f;
+            main.flowHeightEmissionStrength = 1.25f;
+            main.flowSpeed = 3.25f;
+            main.flowMaskStrength = -1.5f;
+            main.flowNormalStrength = 0.75f;
+            main.flowTextureScaleFactor = 1.15f;
 
             main.limbRemovalEnabled = false;
             main.limbPrimeMask = 1f;
@@ -918,7 +958,7 @@ namespace RogueWispPlugin.Helpers
             }
 
             armorMaterials[(UInt32)this.armorMaterialType]( this.mainColor, main );
-
+#endif
 
             this.armorMainMaterial = main.material;
 
@@ -942,7 +982,7 @@ namespace RogueWispPlugin.Helpers
         }
 
 
-        #region Encoding
+#region Encoding
         private void UpdateEncodedFlags()
         {
             this.encodeValue &=     0b0000_1111_1111_1111_1111_1111_1111_1111u;
@@ -993,8 +1033,8 @@ namespace RogueWispPlugin.Helpers
             var flag = ((UInt32)this.armorMaterialType) << 25;
             this.encodeValue |= flag;
         }
-        #endregion
-        #region Enums
+#endregion
+#region Enums
         internal enum WispColorIndex : UInt32
         {
             Ancient = 0u,
@@ -1026,7 +1066,7 @@ namespace RogueWispPlugin.Helpers
             Bone = 1u,
             Metal = 2u,
         }
-        #endregion
+#endregion
     }
 }
 

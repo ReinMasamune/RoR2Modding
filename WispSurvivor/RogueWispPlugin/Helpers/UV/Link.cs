@@ -9,22 +9,48 @@ namespace RogueWispPlugin.Helpers
 {
     public struct Link
     {
-        public readonly Int32 index;
-
-        public Link( Int32 index, Int32 vert1, Int32 vert2, Int32 tri1, Int32 tri2 )
+        public Int32 index
         {
-            this.index = index;
-            this.vert1 = vert1;
-            this.vert2 = vert2;
-            this.tri1 = tri1;
-            this.tri2 = tri2;
+            get => this.data.index;
+        }
+
+        public Vertex vertex1
+        {
+            get => this._vertexBuffer[this.data.vert1].reff;
+        }
+        public Vertex vertex2
+        {
+            get => this._vertexBuffer[this.data.vert2].reff;
+        }
+
+        public Triangle triangle1
+        {
+            get => this._trianglesBuffer[this.data.tri1].reff;
+        }
+        public Triangle triangle2
+        {
+            get => this._trianglesBuffer[this.data.tri2].reff;
         }
 
 
-        private readonly Int32 vert1;
-        private readonly Int32 vert2;
 
-        private readonly Int32 tri1;
-        private readonly Int32 tri2;
+        public Link( Int32 index, NativeArray<VertexData> vertexBuffer, NativeArray<LinkData> linkBuffer, NativeArray<TriangleData> triangleBuffer )
+        {
+            this._index = index;
+            this._vertexBuffer = vertexBuffer;
+            this._linksBuffer = linkBuffer;
+            this._trianglesBuffer = triangleBuffer;
+        }
+
+        private LinkData data
+        {
+            get => this._linksBuffer[this._index];
+            set => this._linksBuffer[this._index] = value;
+        }
+
+        private Int32 _index;
+        private NativeArray<VertexData> _vertexBuffer;
+        private NativeArray<LinkData> _linksBuffer;
+        private NativeArray<TriangleData> _trianglesBuffer;
     }
 }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 using RogueWispPlugin.Helpers.IMGUI;
+using ReinCore;
 
 namespace RogueWispPlugin.Helpers
 {
@@ -46,7 +47,7 @@ namespace RogueWispPlugin.Helpers
             this.data = data;
             this.showSelection = false;
             this.startTexture = this.data.texture;
-            this.curTexture = new Texture2D( 256, 16, TextureFormat.ARGB32, false );
+            this.curTexture = new Texture2D( 256, 16, TextureFormat.RGBAFloat, false );
             this.curTexture.wrapMode = TextureWrapMode.Clamp;
             this.selTexture = this.startTexture;
             this.select = 0;
@@ -113,18 +114,11 @@ namespace RogueWispPlugin.Helpers
                     GUILayout.Label( changesText, GUILayout.Width( 20f * Settings.widthPerChar ) );
                     GUILayout.Space( Settings.defaultMinSpace );
 
-                    if( this.pendingChanges )
+                    if( GUILayout.Button( "Apply", GUILayout.Width( 6f * Settings.widthPerChar ) ) && this.pendingChanges )
                     {
-                        if( GUILayout.Button( "Apply", GUILayout.Width( 6f * Settings.widthPerChar ) ) )
-                        {
-                            this.ApplyChanges();
-                            this.pendingChanges = false;
-                        }
-                    } else
-                    {
-                        GUILayout.Space( 6f * Settings.widthPerChar );
+                        this.ApplyChanges();
+                        this.pendingChanges = false;
                     }
-
                 }
                 GUILayout.EndHorizontal();
 
@@ -147,19 +141,7 @@ namespace RogueWispPlugin.Helpers
                 return;
             }
 
-            var w = this.curTexture.width;
-            var h = this.curTexture.height;
-            for( Int32 x = 0; x < w; ++x )
-            {
-                var t = (Single)x / (Single)w;
-                var color = this.backingGradient.Evaluate( t );
-                for( Int32 y = 0; y < h; ++y )
-                {
-                    tex.SetPixel( x, y, color );
-                }
-            }
-            tex.Apply();
-
+            TextureGenerator.ApplyRampTexture( tex, this.backingGradient );
         }
 
         public void ChangeAction( Action<MaterialBase.TextureData> onChanged ) { }

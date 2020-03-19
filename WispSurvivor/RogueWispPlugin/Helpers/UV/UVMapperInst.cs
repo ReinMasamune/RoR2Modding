@@ -57,18 +57,18 @@ namespace RogueWispPlugin.Helpers
         private readonly Vector4[] tangents;
         private readonly BoneWeight[] boneWeights;
 
-        private Vertex[] globalVerticies;
-        private Link[] globalLinks;
-        private Triangle[] globalTriangles;
+        private VertexData[] globalVerticies;
+        private LinkData[] globalLinks;
+        private TriangleData[] globalTriangles;
 
         private Int32 linkCounter;
 
         private readonly List<VertVertLink> linkList = new List<VertVertLink>();
 
 
-        private NativeArray<Vertex> nativeVerts;
-        private NativeArray<Link> nativeLinks;
-        private NativeArray<Triangle> nativeTris;
+        private NativeArray<VertexData> nativeVerts;
+        private NativeArray<LinkData> nativeLinks;
+        private NativeArray<TriangleData> nativeTris;
 
         //private readonly Dictionary<Int32, Int32> vertexToBone = new Dictionary<Int32, Int32>();
         private readonly Int32[] vertexToBone;
@@ -127,7 +127,7 @@ namespace RogueWispPlugin.Helpers
         internal void GenerateTriangles()
         {
             var triCount = this.triangles.Length / 3;
-            this.globalTriangles = new Triangle[triCount];
+            this.globalTriangles = new TriangleData[triCount];
             for( Int32 i = 0; i < this.triangles.Length; i += 3 )
             {
                 var triInd = i / 3;
@@ -148,7 +148,7 @@ namespace RogueWispPlugin.Helpers
                 var link2Index = this.AddLink( triInd, link2Kvp );
                 var link3Index = this.AddLink( triInd, link3Kvp );
 
-                this.globalTriangles[triInd] = new Triangle( triInd, ind1, ind2, ind3, link1Index, link2Index, link3Index );
+                this.globalTriangles[triInd] = new TriangleData( triInd, ind1, ind2, ind3, link1Index, link2Index, link3Index );
 
                 var boneTriList = this.boneToTriangles[boneInd];
                 if( boneTriList == null )
@@ -163,7 +163,7 @@ namespace RogueWispPlugin.Helpers
         internal void GenerateLinks()
         {
             var linkCount = this.linkCounter;
-            this.globalLinks = new Link[linkCount];
+            this.globalLinks = new LinkData[linkCount];
 
             for( Int32 i = 0; i < linkCount; ++i )
             {
@@ -172,7 +172,7 @@ namespace RogueWispPlugin.Helpers
                 var boneInd = this.GetBoneIndex( vertexKvp.Key, vertexKvp.Value );
                 var triKvp = this.linkTriangles[vertexKvp];
 
-                this.globalLinks[i] = new Link( i, vertexKvp.Key, vertexKvp.Value, triKvp.Key, triKvp.Value );
+                this.globalLinks[i] = new LinkData( i, vertexKvp.Key, vertexKvp.Value, triKvp.Key, triKvp.Value );
 
                 var boneLinkList = this.boneToLinks[boneInd];
                 if( boneLinkList == null )
@@ -188,7 +188,7 @@ namespace RogueWispPlugin.Helpers
         internal void GenerateVerticies()
         {
             var vertCount = this.verticies.Length;
-            this.globalVerticies = new Vertex[vertCount];
+            this.globalVerticies = new VertexData[vertCount];
             for( Int32 i = 0; i < vertCount; ++i )
             {
                 var triSet = this.vertexTriangleSets[i];
@@ -201,15 +201,38 @@ namespace RogueWispPlugin.Helpers
                 var linkArray = new Int32[linkCount];
                 linkSet.CopyTo( linkArray );
 
-                this.globalVerticies[i] = new Vertex( i, this.verticies[i], this.normals[i], this.tangents[i], this.uvs[i], linkArray, triArray );
+                this.globalVerticies[i] = new VertexData( i, this.verticies[i], this.normals[i], this.tangents[i], this.uvs[i], linkArray, triArray );
             }
         }
 
         internal void Seperate()
         {
-            this.nativeVerts = new NativeArray<Vertex>( this.globalVerticies, Allocator.TempJob );
-            this.nativeLinks = new NativeArray<Link>( this.globalLinks, Allocator.TempJob );
-            this.nativeTris = new NativeArray<Triangle>( this.globalTriangles, Allocator.TempJob );
+            this.nativeVerts = new NativeArray<VertexData>( this.globalVerticies, Allocator.TempJob );
+            this.nativeLinks = new NativeArray<LinkData>( this.globalLinks, Allocator.TempJob );
+            this.nativeTris = new NativeArray<TriangleData>( this.globalTriangles, Allocator.TempJob );
+
+            for( Int32 i = 0; i < this.nativeVerts.Length; ++i )
+            {
+                var vert = this.nativeVerts[i];
+                vert.AssignBuffers( this.nativeVerts, this.nativeLinks, this.nativeTris );
+                this.nativeVerts[i] = vert;
+            }
+
+            for( Int32 i = 0; i < this.nativeLinks.Length; ++i )
+            {
+                var link = this.nativeLinks[i];
+                link.AssignBuffers( this.nativeVerts, this.nativeLinks, this.nativeTris );
+                this.nativeLinks[i] = link;
+            }
+
+            for( Int32 i = 0; i < this.nativeTris.Length; ++i )
+            {
+                var tri = this.nativeTris[i];
+                tri.AssignBuffers( this.nativeVerts, this.nativeLinks, this.nativeTris );
+                this.nativeTris[i] = tri;
+            }
+
+
             for( Int32 i = 0; i < this.boneToVertex.Length; ++i )
             {
                 var v = this.boneToVertex[i];

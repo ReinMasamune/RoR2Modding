@@ -1,7 +1,5 @@
 ﻿#if MATEDITOR
 using EntityStates;
-using R2API;
-using R2API.Utils;
 using RogueWispPlugin.Helpers;
 using RoR2;
 using RoR2.Skills;
@@ -108,51 +106,51 @@ namespace RogueWispPlugin
 
         }
 
-        internal GameObject matGremlin;
-        private void CreateMatGremlin()
-        {
-            this.matGremlin = Resources.Load<GameObject>( "Prefabs/CharacterBodies/LemurianBody" ).InstantiateClone( "MatGremlin" );
-            BodyCatalog.getAdditionalEntries += ( list ) => list.Add( this.matGremlin );
-            SurvivorAPI.AddSurvivor( new SurvivorDef
-            {
-                bodyPrefab = this.matGremlin,
-                descriptionToken = "",
-                name = "",
-                displayPrefab = this.matGremlin.transform.Find( "ModelBase" ).gameObject,
-                primaryColor = Color.clear,
-                unlockableName = "",
-            } );
-            var charBody = this.matGremlin.GetComponent<CharacterBody>();
-            charBody.baseArmor = 9001f;
-            charBody.baseMaxHealth = 9001f;
-            charBody.baseMaxShield = 9001f;
-            charBody.baseRegen = 9001f;
-            charBody.preferredInitialStateType = new EntityStates.SerializableEntityStateType( typeof( EntityStates.LemurianMonster.SpawnState ) );
+        //internal GameObject matGremlin;
+        //private void CreateMatGremlin()
+        //{
+        //    this.matGremlin = Resources.Load<GameObject>( "Prefabs/CharacterBodies/LemurianBody" ).InstantiateClone( "MatGremlin" );
+        //    BodyCatalog.getAdditionalEntries += ( list ) => list.Add( this.matGremlin );
+        //    SurvivorAPI.AddSurvivor( new SurvivorDef
+        //    {
+        //        bodyPrefab = this.matGremlin,
+        //        descriptionToken = "",
+        //        name = "",
+        //        displayPrefab = this.matGremlin.transform.Find( "ModelBase" ).gameObject,
+        //        primaryColor = Color.clear,
+        //        unlockableName = "",
+        //    } );
+        //    var charBody = this.matGremlin.GetComponent<CharacterBody>();
+        //    charBody.baseArmor = 9001f;
+        //    charBody.baseMaxHealth = 9001f;
+        //    charBody.baseMaxShield = 9001f;
+        //    charBody.baseRegen = 9001f;
+        //    charBody.preferredInitialStateType = new EntityStates.SerializableEntityStateType( typeof( EntityStates.LemurianMonster.SpawnState ) );
 
 
-            var pDef = ScriptableObject.CreateInstance<SkillDef>();
-            pDef.activationState = new EntityStates.SerializableEntityStateType( typeof( SpawnMatPrefab ) );
-            pDef.activationStateMachineName = "Weapon";
-            pDef.mustKeyPress = true;
-            pDef.baseMaxStock = 1;
-            pDef.baseRechargeInterval = 3f;
-            pDef.beginSkillCooldownOnSkillEnd = true;
-            var pFamily = ScriptableObject.CreateInstance<SkillFamily>();
-            pFamily.variants = new SkillFamily.Variant[]
-            {
-                new SkillFamily.Variant
-                {
-                    skillDef = pDef,
-                    unlockableName = "",
-                    viewableNode = new ViewablesCatalog.Node( "stuff", false ),
-                },
-            };
-            var loc = this.matGremlin.GetComponent<SkillLocator>();
-            loc.primary.SetFieldValue( "_skillFamily", pFamily );
-            LoadoutAPI.AddSkill( typeof( SpawnMatPrefab ) );
-            LoadoutAPI.AddSkillDef( pDef );
-            LoadoutAPI.AddSkillFamily( pFamily );
-        }
+        //    var pDef = ScriptableObject.CreateInstance<SkillDef>();
+        //    pDef.activationState = new EntityStates.SerializableEntityStateType( typeof( SpawnMatPrefab ) );
+        //    pDef.activationStateMachineName = "Weapon";
+        //    pDef.mustKeyPress = true;
+        //    pDef.baseMaxStock = 1;
+        //    pDef.baseRechargeInterval = 3f;
+        //    pDef.beginSkillCooldownOnSkillEnd = true;
+        //    var pFamily = ScriptableObject.CreateInstance<SkillFamily>();
+        //    pFamily.variants = new SkillFamily.Variant[]
+        //    {
+        //        new SkillFamily.Variant
+        //        {
+        //            skillDef = pDef,
+        //            unlockableName = "",
+        //            viewableNode = new ViewablesCatalog.Node( "stuff", false ),
+        //        },
+        //    };
+        //    var loc = this.matGremlin.GetComponent<SkillLocator>();
+        //    loc.primary.SetFieldValue( "_skillFamily", pFamily );
+        //    LoadoutAPI.AddSkill( typeof( SpawnMatPrefab ) );
+        //    LoadoutAPI.AddSkillDef( pDef );
+        //    LoadoutAPI.AddSkillFamily( pFamily );
+        //}
 
         internal static Boolean MatPrefabExists()
         {

@@ -1,6 +1,7 @@
 ﻿#if MATEDITOR
 using System;
 using UnityEngine;
+using ReinCore;
 
 namespace RogueWispPlugin.Helpers
 {
@@ -12,7 +13,7 @@ namespace RogueWispPlugin.Helpers
             this.transform = transform;
         }
 
-        [Menu( sectionName = "General", sectionOrder = 0)]
+        [MenuAttribute( sectionName = "General", sectionOrder = 0)]
         internal Vector3 position
         {
             get => this.transform.localPosition;

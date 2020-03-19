@@ -169,6 +169,31 @@ namespace RogueWispPlugin.Helpers
         }
 
 
+        internal static void ApplyRampTexture( Texture2D tex, Gradient grad )
+        {
+            NativeArray<Color> texArray = tex.GetRawTextureData<Color>();
+            var alpha = grad.alphaKeys.OrderBy<GradientAlphaKey,Single>( (key) => key.time ).ToArray();
+            var color = grad.colorKeys.OrderBy<GradientColorKey,Single>( (key) => key.time ).ToArray();
+            NativeArray<GradientAlphaKey> gradAKeys = new NativeArray<GradientAlphaKey>( alpha, Allocator.TempJob );
+            NativeArray<GradientColorKey> gradCKeys = new NativeArray<GradientColorKey>( color, Allocator.TempJob );
+
+            var gradLerp = new LerpGradient
+            {
+                aKeys = gradAKeys,
+                cKeys = gradCKeys,
+                texArray = texArray,
+                texHeight = tex.height,
+                texWidth = tex.width,
+            };
+
+            var handle = gradLerp.Schedule( tex.width, 1 );
+            handle.Complete();
+            gradAKeys.Dispose();
+            gradCKeys.Dispose();
+
+            tex.Apply();
+        }
+
         internal static Texture2D GenerateRampTexture( Gradient grad, Int32 width = 256, Int32 height = 16, Boolean threaded = true )
         {
 #if TIMER

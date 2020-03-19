@@ -2,6 +2,7 @@
 using RoR2;
 using System;
 using UnityEngine;
+using ReinCore;
 
 namespace RogueWispPlugin.Helpers
 {

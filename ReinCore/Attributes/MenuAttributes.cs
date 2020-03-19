@@ -4,7 +4,7 @@ using UnityEngine;
 namespace ReinCore
 {
     [AttributeUsage( AttributeTargets.Property, AllowMultiple = false, Inherited = false )]
-    internal class MenuAttribute : Attribute
+    public class MenuAttribute : Attribute
     {
         public String name { get; set; }
         public String sectionName { get; set; }

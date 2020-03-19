@@ -7,39 +7,52 @@ using UnityEngine;
 
 namespace RogueWispPlugin.Helpers
 {
-    public struct Vertex : IDisposable
+    public struct Vertex
     {
-        public readonly Int32 index;
-        public readonly Vector3 position;
-        public readonly Vector3 normal;
-        public readonly Vector4 tangent;
-
-        public Vector2 uv { get; private set; }
-
-        private NativeArray<Int32> links;
-        private NativeArray<Int32> triangles;
-
-        public Vertex( Int32 index, Vector3 position, Vector3 normal, Vector4 tangent, Vector2 uv, Int32[] links, Int32[] triangles )
+        public Int32 index
         {
-            this.index = index;
-            this.position = position;
-            this.normal = normal;
-            this.tangent = tangent;
-            this.uv = uv;
-
-            this.links = new NativeArray<Int32>( links, Allocator.TempJob );
-            this.triangles = new NativeArray<Int32>( triangles, Allocator.TempJob );
+            get => this.data.index;
+        }
+        public Vector3 position
+        {
+            get => this.data.position;
+        }
+        public Vector3 normal
+        {
+            get => this.data.normal;
+        }
+        public Vector4 tangent
+        {
+            get => this.data.tangent;
+        }
+        public Vector2 uv
+        {
+            get => this.data.uv;
+            set
+            {
+                var temp = this.data;
+                temp.uv = value;
+                this.data = temp;
+            }
         }
 
-        public void SetUV( Vector2 uv )
+        public Vertex( Int32 index, NativeArray<VertexData> vertexBuffer, NativeArray<LinkData> linkBuffer, NativeArray<TriangleData> triangleBuffer )
         {
-            this.uv = uv;
+            this._index = index;
+            this._vertexBuffer = vertexBuffer;
+            this._linksBuffer = linkBuffer;
+            this._trianglesBuffer = triangleBuffer;
         }
 
-        public void Dispose()
+        private VertexData data
         {
-            this.links.Dispose();
-            this.triangles.Dispose();
+            get => this._vertexBuffer[this._index];
+            set => this._vertexBuffer[this._index] = value;
         }
+
+        private readonly Int32 _index;
+        private NativeArray<VertexData> _vertexBuffer;
+        private NativeArray<LinkData> _linksBuffer;
+        private NativeArray<TriangleData> _trianglesBuffer;
     }
 }

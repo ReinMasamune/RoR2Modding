@@ -6,6 +6,7 @@ using RoR2.Networking;
 using System;
 using System.Reflection;
 using UnityEngine;
+using RogueWispPlugin.Helpers;
 //using static RogueWispPlugin.Helpers.APIInterface;
 
 namespace RogueWispPlugin
@@ -43,6 +44,10 @@ namespace RogueWispPlugin
             this.RW_body.AddComponent<WispFlareController>();
             this.RW_body.AddComponent<ClientOrbController>();
             this.RW_body.AddComponent<WispFlamesController>();
+
+#if MATEDITOR
+            this.RW_body.AddComponent<MaterialEditor>();
+#endif
 
             WispPassiveController passive = this.RW_body.AddComponent<WispPassiveController>();
             this.RW_body.AddComponent<WispCrosshairManager>();
