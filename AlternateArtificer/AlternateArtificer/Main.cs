@@ -18,7 +18,12 @@ namespace Rein.AlternateArtificer
 
         partial void Prefab();
         partial void Hooks();
-
+        partial void Model();
+        partial void Buffs();
+        partial void Skills();
+        partial void Materials();
+        partial void Effects();
+        partial void Projectiles();
 
         protected override void Init()
         {
@@ -26,6 +31,12 @@ namespace Rein.AlternateArtificer
             log = base.logger;
             this.Prefab();
             this.Hooks();
+            this.Model();
+            this.Buffs();
+            this.Skills();
+            this.Materials();
+            this.Effects();
+            this.Projectiles();
         }
 
         protected override void Fail()
@@ -35,3 +46,6 @@ namespace Rein.AlternateArtificer
 
     }
 }
+
+
+// TODO: Passive selection

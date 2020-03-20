@@ -12,6 +12,7 @@ using UnityEngine;
 #if NETWORKING
 using MonoMod.RuntimeDetour;
 using MonoMod.Cil;
+using ReinCore;
 #endif
 namespace RogueWispPlugin
 {
@@ -229,6 +230,12 @@ namespace RogueWispPlugin
 #endif
                 this.SetupSkinSelector();
                 this.SetupEffectSkinning();
+
+
+
+
+
+
                 this.FirstFrame += this.Main_FirstFrame;
                 //this.FirstFrame += this.RandomCrap;
                 //this.GUI += this.DebugTexture;

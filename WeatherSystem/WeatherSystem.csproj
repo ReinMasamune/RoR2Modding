@@ -1,10 +1,10 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyVersion>1.0.0.18</AssemblyVersion>
-    <FileVersion>1.0.0.18</FileVersion>
     <RootNamespace>Rein</RootNamespace>
+    <AssemblyVersion>1.0.0.1</AssemblyVersion>
+    <FileVersion>1.0.0.1</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -22,9 +22,6 @@
     <Reference Include="Assembly-CSharp">
       <HintPath>..\libs\Assembly-CSharp.dll</HintPath>
     </Reference>
-    <Reference Include="Assembly-CSharp.R2API.mm">
-      <HintPath>..\libs\Assembly-CSharp.R2API.mm.dll</HintPath>
-    </Reference>
     <Reference Include="BepInEx">
       <HintPath>..\libs\BepInEx.dll</HintPath>
     </Reference>
@@ -37,8 +34,8 @@
     <Reference Include="BepInEx.Preloader">
       <HintPath>..\libs\BepInEx.Preloader.dll</HintPath>
     </Reference>
-    <Reference Include="MMHOOK_Assembly-CSharp">
-      <HintPath>..\libs\MMHOOK_Assembly-CSharp.dll</HintPath>
+    <Reference Include="Facepunch.Steamworks">
+      <HintPath>..\libs\Facepunch.Steamworks.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Cecil">
       <HintPath>..\libs\Mono.Cecil.dll</HintPath>
@@ -52,6 +49,9 @@
     <Reference Include="Mono.Cecil.Rocks">
       <HintPath>..\libs\Mono.Cecil.Rocks.dll</HintPath>
     </Reference>
+    <Reference Include="Mono.Security">
+      <HintPath>..\libs\Mono.Security.dll</HintPath>
+    </Reference>
     <Reference Include="MonoMod">
       <HintPath>..\libs\MonoMod.exe</HintPath>
     </Reference>
@@ -61,8 +61,11 @@
     <Reference Include="MonoMod.Utils">
       <HintPath>..\libs\MonoMod.Utils.dll</HintPath>
     </Reference>
-    <Reference Include="R2API">
-      <HintPath>..\libs\R2API.dll</HintPath>
+    <Reference Include="ProBuilderCore">
+      <HintPath>..\libs\ProBuilderCore.dll</HintPath>
+    </Reference>
+    <Reference Include="ProBuilderMeshOps">
+      <HintPath>..\libs\ProBuilderMeshOps.dll</HintPath>
     </Reference>
     <Reference Include="ReinCore">
       <HintPath>..\libs\ReinCore.dll</HintPath>
@@ -283,29 +286,6 @@
     <Reference Include="Wwise">
       <HintPath>..\libs\Wwise.dll</HintPath>
     </Reference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="Versioning.cs">
-      <DependentUpon>Versioning.tt</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="Versioning.tt">
-      <LastGenOutput>Versioning.cs</LastGenOutput>
-      <Generator>TextTemplatingFileGenerator</Generator>
-    </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="AlternateArtificer\States\" />
   </ItemGroup>
 
 </Project>

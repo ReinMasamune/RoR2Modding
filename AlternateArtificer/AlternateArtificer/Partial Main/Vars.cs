@@ -13,5 +13,9 @@ namespace Rein.AlternateArtificer
         private GameObject artiBodyPrefab;
         private SkillLocator artiSkillLocator;
         private CharacterBody artiCharBody;
+
+        internal static BuffIndex fireBuff;
+        internal static BuffIndex burnBuff;
+        internal static DotController.DotIndex burnDot;
     }
 }

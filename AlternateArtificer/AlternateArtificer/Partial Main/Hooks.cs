@@ -8,5 +8,9 @@ namespace Rein.AlternateArtificer
 {
     internal partial class Main
     {
+        partial void Hooks()
+        {
+
+        }
     }
 }
