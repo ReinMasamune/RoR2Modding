@@ -274,6 +274,9 @@ namespace RogueWispPlugin.Helpers
         internal Vector2[] GetUVs()
         {
             this.WaitForJobs();
+            //var finalizer = new FinalizeJob( this.nativeVerts ).Schedule( this.nativeVerts.Length, 1 );
+            //finalizer.Complete();
+
 
             var uvs = new Vector2[this.nativeVerts.Length];
             for( Int32 i = 0; i < this.nativeVerts.Length; ++i )

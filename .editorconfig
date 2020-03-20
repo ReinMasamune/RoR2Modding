@@ -8,3 +8,6 @@ dotnet_diagnostic.CA1810.severity = none
 
 # CA1812: WispSkinSelectionUI is an internal class that is apparently never instantiated. If so, remove the code from the assembly. If this class is intended to contain only static members, make it static (Shared in Visual Basic).
 dotnet_diagnostic.CA1812.severity = none
+
+# IDE0011: Add braces
+csharp_prefer_braces = when_multiline:silent

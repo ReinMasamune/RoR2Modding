@@ -20,13 +20,8 @@ namespace RogueWispPlugin.Helpers
             this.midVector = (max + min) / 2f;
 
             var maxComp = Mathf.Max( this.sizeVector.x, this.sizeVector.y, this.sizeVector.z );
-            //Main.LogE( String.Format( "Size {0}", this.sizeVector ) );
-
 
             this.tileVector = this.sizeVector;
-            //this.tileVector.x = 1f / this.tileVector.x;
-            //this.tileVector.y = 1f / this.tileVector.y;
-            //this.tileVector.z = 1f / this.tileVector.z;
             this.tileVector *= tilesPerUnit;
             this.tileFactor = tilesPerUnit;
         }
@@ -39,10 +34,10 @@ namespace RogueWispPlugin.Helpers
             pos -= this.minVector;
             pos *= this.tileFactor;
             pos.x = Mathf.Repeat( pos.x, 1f );
-            pos.y = Mathf.Repeat( pos.y, 1f );
+            //pos.y = Mathf.Repeat( pos.y, 1f );
             pos.z = Mathf.Repeat( pos.z, 1f );
             var tempV = pos.z;
-            var tempU = pos.x * 0.85f + pos.y * 0.15f;
+            var tempU = pos.x;
             var uv = new Vector2( tempU, tempV );
             vert.uv = uv;
         }

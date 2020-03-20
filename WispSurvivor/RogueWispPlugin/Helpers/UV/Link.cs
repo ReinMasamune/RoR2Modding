@@ -33,6 +33,17 @@ namespace RogueWispPlugin.Helpers
         }
 
 
+        public Single distance
+        {
+            get => Vector3.Distance( this.vertex1.position, this.vertex2.position );
+        }
+
+        public Single uvDistance
+        {
+            get => Vector2.Distance( this.vertex1.uv, this.vertex2.uv );
+        }
+
+
 
         public Link( Int32 index, NativeArray<VertexData> vertexBuffer, NativeArray<LinkData> linkBuffer, NativeArray<TriangleData> triangleBuffer )
         {

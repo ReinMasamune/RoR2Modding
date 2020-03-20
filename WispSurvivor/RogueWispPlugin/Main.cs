@@ -9,19 +9,15 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Reflection;
 using UnityEngine;
-using UnityEngine.Rendering;
-using RogueWispPlugin.Helpers;
 #if NETWORKING
-using NetLib;
-using EntityStates;
-using ReinCore;
 using MonoMod.RuntimeDetour;
 using MonoMod.Cil;
 #endif
-
 namespace RogueWispPlugin
 {
+#pragma warning disable CA2243 // Attribute string literals should parse correctly
 #if NETWORKING
+
     [BepInDependency( NetLib.NetLib.guid, BepInDependency.DependencyFlags.SoftDependency )]
 #endif
     [BepInDependency( Rein.AssemblyLoad.guid, BepInDependency.DependencyFlags.HardDependency )]
@@ -29,18 +25,16 @@ namespace RogueWispPlugin
 #pragma warning restore CA2243 // Attribute string literals should parse correctly
     internal partial class Main : BaseUnityPlugin
     {
+        #region random vars
         private const String pluginGUID = "com.Rein.RogueWisp";
         private const String pluginName = "Rogue Wisp";
         private const String pluginVersion = Consts.ver;
-
         public String thing1;
         public String thing2;
         public String thing3;
-
         private readonly Boolean working;
-
-
-
+        #endregion
+        #region execution tracking stuff
         private static ExecutionState _state = ExecutionState.PreLoad;
         internal static ExecutionState state
         {
@@ -72,11 +66,10 @@ namespace RogueWispPlugin
             Start = 5,
             Execution = 6
         }
-
+        #endregion
 #if TIMER
         private readonly Stopwatch watch;
 #endif
-
         private List<PluginInfo> _plugins;
         private List<PluginInfo> plugins
         {
@@ -94,9 +87,8 @@ namespace RogueWispPlugin
                 return this._plugins;
             }
         }
-
         internal static Main instance;
-
+        #region Events
         internal event Action Load;
         internal event Action FirstFrame;
         internal event Action Enable;
@@ -105,13 +97,13 @@ namespace RogueWispPlugin
         internal event Action PostFrame;
         internal event Action Tick;
         internal event Action GUI;
+        #endregion
 #if LOADCHECKS
         //partial Boolean LoadChecks();
 #endif
 #if COMPATCHECKS
         partial void CompatChecks();
 #endif
-        //partial void PerformanceBoosts();
 #if CROSSMODFUNCTIONALITY
         partial void CrossModFunctionality();
 #endif
@@ -152,15 +144,10 @@ namespace RogueWispPlugin
         partial void SetupMatEditor();
 #endif
         partial void SetupSkinSelector();
-        partial void SetupEffectSkinning();
-        
+        partial void SetupEffectSkinning();       
         static Main()
         {
         }
-
-        
-
-
         public Main()
         {
             instance = this;
@@ -176,7 +163,6 @@ namespace RogueWispPlugin
                 }
                 
             }
-
 
             this.thing1 = "Note that everything in this codebase that can be used safely is already part of R2API.";
             this.thing2 = "If you're here to copy paste my code, please don't complain to me when it doesn't work like magic or you cause a major issue for a user.";
