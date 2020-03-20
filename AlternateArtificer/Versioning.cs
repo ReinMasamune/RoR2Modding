@@ -2,6 +2,6 @@
 {
 	internal partial class Main
 	{
-		public const string ver = "1.0.0.17";
+		public const string ver = "1.0.0.18";
 	}
 }

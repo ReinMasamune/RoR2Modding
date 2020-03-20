@@ -16,28 +16,21 @@ namespace Rein.AlternateArtificer
         internal static Main instance;
         private static BepInEx.Logging.ManualLogSource log;
 
-        partial void GetBody();
-        partial void GetComponents();
-        partial void AddComponents();
-        partial void RemoveComponents();
-        partial void SetupHooks();
-
+        partial void Prefab();
+        partial void Hooks();
 
 
         protected override void Init()
         {
             instance = this;
             log = base.logger;
-            this.GetBody();
-            this.RemoveComponents();
-            this.GetComponents();
-            this.AddComponents();
+            this.Prefab();
+            this.Hooks();
         }
 
         protected override void Fail()
         {
             base.Fail();
-
         }
 
     }
