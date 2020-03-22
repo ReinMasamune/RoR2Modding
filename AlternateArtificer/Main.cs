@@ -27,7 +27,7 @@ namespace AlternativeArtificer
             artiBody = Resources.Load<GameObject>( "Prefabs/CharacterBodies/MageBody" );
             artiSkillLocator = artiBody.GetComponent<SkillLocator>();
 
-            DoBuffs();
+            DoBuffs();//
 
             EditModel();
             EditSkills();

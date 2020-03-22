@@ -16,7 +16,7 @@ namespace ReinCore
 
         static BuffsCore()
         {
-            HooksCore.il_RoR2_BuffCatalog_Init += HooksCore_il_RoR2_BuffCatalog_Init;
+            HooksCore.RoR2.BuffCatalog.Init.Il += Init_Il;
             RegisterBuff = (RegisterBuffDelegate)Delegate.CreateDelegate( typeof( RegisterBuffDelegate ), typeof( BuffCatalog ), "RegisterBuff" );
             loaded = true;
         }
@@ -25,13 +25,13 @@ namespace ReinCore
         private static RegisterBuffDelegate RegisterBuff;
         private static StaticAccessor<BuffDef[]> buffDefs = new StaticAccessor<BuffDef[]>( typeof(BuffCatalog), "buffDefs" );
 
-        private static void HooksCore_il_RoR2_BuffCatalog_Init( ILContext il )
+        private static void Init_Il( ILContext il )
         {
             ILCursor c = new ILCursor( il );
 
             c.GotoNext( MoveType.After,
-                x => x.MatchLdsfld( typeof(BuffCatalog), nameof(BuffCatalog.modHelper) ),
-                x => x.MatchLdsflda( typeof(BuffCatalog), "buffDefs" )
+                x => x.MatchLdsfld( typeof( BuffCatalog ), nameof( BuffCatalog.modHelper ) ),
+                x => x.MatchLdsflda( typeof( BuffCatalog ), "buffDefs" )
             );
             ++c.Index;
             c.EmitDelegate<Action>( () =>

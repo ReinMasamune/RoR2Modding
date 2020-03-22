@@ -45,12 +45,12 @@ namespace ReinCore
 
         static EffectsCore()
         {
-            HooksCore.on_RoR2_EffectCatalog_GetDefaultEffectDefs += HooksCore_on_RoR2_EffectCatalog_GetDefaultEffectDefs;
+            HooksCore.RoR2.EffectCatalog.GetDefaultEffectDefs.On += GetDefaultEffectDefs_On;
 
             loaded = true;
         }
 
-        private static EffectDef[] HooksCore_on_RoR2_EffectCatalog_GetDefaultEffectDefs( HooksCore.orig_RoR2_EffectCatalog_GetDefaultEffectDefs orig )
+        private static EffectDef[] GetDefaultEffectDefs_On( HooksCore.RoR2.EffectCatalog.GetDefaultEffectDefs.Orig orig )
         {
             var effects = orig();
 

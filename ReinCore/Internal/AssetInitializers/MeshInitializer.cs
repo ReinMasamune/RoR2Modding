@@ -91,6 +91,13 @@ namespace ReinCore
                 var obj = AssetLibrary<GameObject>.GetAsset(PrefabIndex.refFireTornadoGhost).transform.Find("TornadoMesh");
                 return obj.GetComponent<ParticleSystemRenderer>().mesh;
             }, PrefabIndex.refFireTornadoGhost ).RegisterAccessor();
+
+            new AssetAccessor<Mesh>( MeshIndex.MdlTriTip, () =>
+            {
+                var obj = AssetLibrary<GameObject>.GetAsset( PrefabIndex.refPickupTriTip ).transform.Find( "mslTriTip" ).GetComponent<MeshFilter>();
+                return obj.sharedMesh;
+            }, PrefabIndex.refPickupTriTip ).RegisterAccessor();
+
             #endregion
 
             completedProperly = true;

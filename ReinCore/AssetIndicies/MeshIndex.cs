@@ -6,6 +6,8 @@ namespace ReinCore
 {
     public enum MeshIndex : UInt64
     {
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+
         #region Unity Primatives
         Sphere,
         Capsule,
@@ -18,6 +20,9 @@ namespace ReinCore
         Spiral1,
         TornadoMesh,
         TornadoMesh2,
+        MdlTriTip,
         #endregion
+
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     }
 }

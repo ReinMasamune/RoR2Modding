@@ -17,16 +17,20 @@ namespace ReinCore
 
         static SurvivorsCore()
         {
-            HooksCore.on_RoR2_SurvivorCatalog_Init += HooksCore_on_RoR2_SurvivorCatalog_Init;
+            HooksCore.RoR2.SurvivorCatalog.Init.On += Init_On;
             vanillaSurvivorsCount = SurvivorCatalog.idealSurvivorOrder.Length;
             vanillaSurvivorsCount2 = SurvivorCatalog.survivorMaxCount;
 
             loaded = true;
         }
+
+
+
         private static Int32 vanillaSurvivorsCount;
         private static Int32 vanillaSurvivorsCount2;
         private static StaticAccessor<SurvivorDef[]> survivorDefs = new StaticAccessor<SurvivorDef[]>( typeof(SurvivorCatalog), "survivorDefs" );
-        private static void HooksCore_on_RoR2_SurvivorCatalog_Init( HooksCore.orig_RoR2_SurvivorCatalog_Init orig )
+
+        private static void Init_On( HooksCore.RoR2.SurvivorCatalog.Init.Orig orig )
         {
             orig();
             if( !loaded ) return;
@@ -40,7 +44,7 @@ namespace ReinCore
                 Array.Resize<SurvivorIndex>( ref SurvivorCatalog.idealSurvivorOrder, defs.Length - 1 );
                 for( Int32 i = startIndex; i < SurvivorCatalog.idealSurvivorOrder.Length; ++i )
                 {
-                    SurvivorCatalog.idealSurvivorOrder[i] = defs[i+1].survivorIndex;
+                    SurvivorCatalog.idealSurvivorOrder[i] = defs[i + 1].survivorIndex;
                 }
                 SurvivorCatalog.survivorMaxCount = SurvivorCatalog.idealSurvivorOrder.Length + extraBoxesCount;
             }

@@ -6,6 +6,7 @@ namespace ReinCore
 {
     public enum PrefabIndex : UInt64
     {
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         refWillOWispExplosion,
         refNullifierDeathExplosion,
         refNullifierPreBombGhost,
@@ -42,5 +43,8 @@ namespace ReinCore
         refElectricWormBurrow,
         refAmmoPackPickupEffect,
         refBubbleShieldEndEffect,
+        refPickupTriTip,
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     }
 }
+// TODO: Switch to UInt32 for indexing to avoid hash collisions in dictionary.

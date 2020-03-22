@@ -6,7 +6,10 @@ namespace ReinCore
 {
     public enum ShaderIndex : UInt64
     {
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+
         #region Hopoo Deferred
+
         HGStandard,
         HGSnowTopped,
         HGTriPlanarTerrainBlend,
@@ -38,5 +41,7 @@ namespace ReinCore
         HGUIIgnoreZ,
         HGUIOverBrighten,
         #endregion
+
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     }
 }

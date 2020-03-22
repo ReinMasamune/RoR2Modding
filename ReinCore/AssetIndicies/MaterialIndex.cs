@@ -6,9 +6,11 @@ namespace ReinCore
 {
     public enum MaterialIndex : UInt64
     {
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 		#region Reference Materials
 		#region Direct Load
 		refMatShatteredGlass,
+
 		refMatVagrantEnergized,
 		refMatTPInOut,
 		refMatMercEnergized,
@@ -126,5 +128,7 @@ namespace ReinCore
 		refMatRoboChunks,
 		#endregion
 		#endregion
+
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 }

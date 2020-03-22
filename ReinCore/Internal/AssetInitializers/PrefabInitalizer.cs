@@ -231,6 +231,15 @@ namespace ReinCore
             {
                 return Resources.Load<GameObject>( "Prefabs/Effects/BubbleShieldEndEffect" );
             }).RegisterAccessor();
+
+
+            new AssetAccessor<GameObject>( PrefabIndex.refPickupTriTip, () =>
+            {
+                return Resources.Load<GameObject>( "Prefabs/PickupModels/PickupTriTip" );
+            } ).RegisterAccessor();
+
+
+
             #endregion
 
 

@@ -194,60 +194,60 @@ namespace RogueWispPlugin.Helpers
             tex.Apply();
         }
 
-        internal static Texture2D GenerateRampTexture( Gradient grad, Int32 width = 256, Int32 height = 16, Boolean threaded = true )
-        {
-#if TIMER
-            var timer = new Stopwatch();
-#endif
+//        internal static Texture2D GenerateRampTexture( Gradient grad, Int32 width = 256, Int32 height = 16, Boolean threaded = true )
+//        {
+//#if TIMER
+//            var timer = new Stopwatch();
+//#endif
 
-            var tex = new Texture2D( width, height, TextureFormat.RGBAFloat, false );
-            tex.wrapMode = TextureWrapMode.Clamp;
-            if( !threaded )
-            {
-#if TIMER
-                timer.Start();
-#endif
-                for( Int32 x = 0; x < width; ++x )
-                {
-                    var color = grad.Evaluate( (Single)x / (Single)width );
-                    for( Int32 y = 0; y < height; ++y )
-                    {
-                        tex.SetPixel( x, y, color );
-                    }
-                }
-            } else
-            {
-#if TIMER
-                timer.Start();
-#endif
-                NativeArray<Color> texArray = tex.GetRawTextureData<Color>();
-                var alpha = grad.alphaKeys.OrderBy<GradientAlphaKey,Single>( (key) => key.time ).ToArray();
-                var color = grad.colorKeys.OrderBy<GradientColorKey,Single>( (key) => key.time ).ToArray();
-                NativeArray<GradientAlphaKey> gradAKeys = new NativeArray<GradientAlphaKey>( alpha, Allocator.TempJob );
-                NativeArray<GradientColorKey> gradCKeys = new NativeArray<GradientColorKey>( color, Allocator.TempJob );
+//            var tex = new Texture2D( width, height, TextureFormat.RGBAFloat, false );
+//            tex.wrapMode = TextureWrapMode.Clamp;
+//            if( !threaded )
+//            {
+//#if TIMER
+//                timer.Start();
+//#endif
+//                for( Int32 x = 0; x < width; ++x )
+//                {
+//                    var color = grad.Evaluate( (Single)x / (Single)width );
+//                    for( Int32 y = 0; y < height; ++y )
+//                    {
+//                        tex.SetPixel( x, y, color );
+//                    }
+//                }
+//            } else
+//            {
+//#if TIMER
+//                timer.Start();
+//#endif
+//                NativeArray<Color> texArray = tex.GetRawTextureData<Color>();
+//                var alpha = grad.alphaKeys.OrderBy<GradientAlphaKey,Single>( (key) => key.time ).ToArray();
+//                var color = grad.colorKeys.OrderBy<GradientColorKey,Single>( (key) => key.time ).ToArray();
+//                NativeArray<GradientAlphaKey> gradAKeys = new NativeArray<GradientAlphaKey>( alpha, Allocator.TempJob );
+//                NativeArray<GradientColorKey> gradCKeys = new NativeArray<GradientColorKey>( color, Allocator.TempJob );
 
-                var gradLerp = new LerpGradient
-                {
-                    aKeys = gradAKeys,
-                    cKeys = gradCKeys,
-                    texArray = texArray,
-                    texHeight = height,
-                    texWidth = width,
-                };
+//                var gradLerp = new LerpGradient
+//                {
+//                    aKeys = gradAKeys,
+//                    cKeys = gradCKeys,
+//                    texArray = texArray,
+//                    texHeight = height,
+//                    texWidth = width,
+//                };
 
-                var handle = gradLerp.Schedule( width, 1 );
-                handle.Complete();
-                gradAKeys.Dispose();
-                gradCKeys.Dispose();
-            }
+//                var handle = gradLerp.Schedule( width, 1 );
+//                handle.Complete();
+//                gradAKeys.Dispose();
+//                gradCKeys.Dispose();
+//            }
 
-            tex.Apply();
-#if TIMER
-            timer.Stop();
-            Main.LogM( timer.ElapsedMilliseconds + " rampTexGen, threaded = " + threaded );
-#endif
-            return tex;
-        }
+//            tex.Apply();
+//#if TIMER
+//            timer.Stop();
+//            Main.LogM( timer.ElapsedMilliseconds + " rampTexGen, threaded = " + threaded );
+//#endif
+//            return tex;
+//        }
 
         internal struct LerpGradient : IJobParallelFor
         {

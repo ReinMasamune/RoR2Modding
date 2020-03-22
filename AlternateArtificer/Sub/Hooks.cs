@@ -19,6 +19,7 @@
 
     public partial class Main
     {
+        public delegate TCheese GiveCheese<TCheese>();
         private void RemoveHooks()
         {
 

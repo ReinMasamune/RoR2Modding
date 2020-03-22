@@ -26,9 +26,9 @@ namespace RogueWispPlugin
             //this.bossEnabled = base.Config.Bind<Boolean>( "Main", "Enable new boss", true,
             //"Should the new boss spawn in game? Left as an option in case of major bugs or issues with early version of boss." );
 
-            HooksCore.on_RoR2_CharacterSpawnCard_Awake += this.HooksCore_on_RoR2_CharacterSpawnCard_Awake;
+            HooksCore.RoR2.CharacterSpawnCard.Awake.On += this.Awake_On;
             var spawnCard = ScriptableObject.CreateInstance<CharacterSpawnCard>();
-            HooksCore.on_RoR2_CharacterSpawnCard_Awake -= this.HooksCore_on_RoR2_CharacterSpawnCard_Awake;
+            HooksCore.RoR2.CharacterSpawnCard.Awake.On -= this.Awake_On;
             spawnCard.directorCreditCost = 2000;
             spawnCard.forbiddenAsBoss = false;
             spawnCard.forbiddenFlags = RoR2.Navigation.NodeFlags.NoCharacterSpawn;
@@ -72,7 +72,7 @@ namespace RogueWispPlugin
             //}
         }
 
-        private void HooksCore_on_RoR2_CharacterSpawnCard_Awake( HooksCore.orig_RoR2_CharacterSpawnCard_Awake orig, CharacterSpawnCard self )
+        private void Awake_On( HooksCore.RoR2.CharacterSpawnCard.Awake.Orig orig, CharacterSpawnCard self )
         {
             self.loadout = new SerializableLoadout();
             orig( self );
@@ -117,30 +117,6 @@ namespace RogueWispPlugin
                 break;
             }
         }
-
-        // TODO: Director
-        //private void DirectorAPI_FamilyActions( List<R2API.DirectorAPI.MonsterFamilyHolder> families, R2API.DirectorAPI.StageInfo stage )
-        //{
-        //    foreach( var family in families )
-        //    {
-        //        if( family.SelectionChatString == "FAMILY_WISP" )
-        //        {
-        //            family.FamilyChampions.Add( this.AW_dirCard );
-        //        }
-        //    }
-        //}
-
-        //// TODO: Director
-        //private void DirectorAPI_MonsterActions( List<R2API.DirectorAPI.DirectorCardHolder> cards, R2API.DirectorAPI.StageInfo stage )
-        //{
-        //    cards.Add( this.AW_dirCardHolder );
-        //}
-
-        //private void CharacterSpawnCard_Awake( On.RoR2.CharacterSpawnCard.orig_Awake orig, CharacterSpawnCard self )
-        //{
-        //    self.loadout = new SerializableLoadout();
-        //    orig( self );
-        //}
     }
 }
 #endif

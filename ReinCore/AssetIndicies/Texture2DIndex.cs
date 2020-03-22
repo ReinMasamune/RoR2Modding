@@ -6,8 +6,11 @@ namespace ReinCore
 {
     public enum Texture2DIndex : UInt64
     {
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         #region Reference Textures
+
         None,
+
 
         refTexCloudDifferenceBW1,
         refTexCloudDifferenceBW2,
@@ -104,5 +107,6 @@ namespace ReinCore
 
         #endregion
 
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     }
 }

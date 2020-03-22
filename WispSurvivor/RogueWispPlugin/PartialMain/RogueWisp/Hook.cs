@@ -60,20 +60,21 @@ namespace RogueWispPlugin
 
         private void RW_RemoveHooks()
         {
-            if( this.r2apiPlugin != null && this.r2apiPlugin.Metadata.Version < System.Version.Parse("2.4.1") )
+            if( this.r2apiPlugin != null && this.r2apiPlugin.Metadata.Version < System.Version.Parse( "2.4.1" ) )
             {
                 ilhook_R2API_LoadoutAPI_BodyLoadout_ToXml -= this.Main_ilhook_R2API_LoadoutAPI_BodyLoadout_ToXml;
             }
-            HooksCore.on_RoR2_CameraRigController_Start -= this.HooksCore_on_RoR2_CameraRigController_Start;
-            HooksCore.on_RoR2_CharacterBody_Start -= this.HooksCore_on_RoR2_CharacterBody_Start;
-            HooksCore.on_RoR2_CharacterBody_FixedUpdate -= this.HooksCore_on_RoR2_CharacterBody_FixedUpdate;
-            HooksCore.il_RoR2_CharacterBody_RecalculateStats -= this.HooksCore_il_RoR2_CharacterBody_RecalculateStats;
-            HooksCore.on_RoR2_CharacterBody_RecalculateStats -= this.HooksCore_on_RoR2_CharacterBody_RecalculateStats;
-            HooksCore.il_RoR2_UI_CrosshairManager_UpdateCrosshair -= this.HooksCore_il_RoR2_UI_CrosshairManager_UpdateCrosshair;
-            HooksCore.il_RoR2_CameraRigController_Update -= this.HooksCore_il_RoR2_CameraRigController_Update;
-            HooksCore.il_RoR2_SetStateOnHurt_OnTakeDamageServer -= this.HooksCore_il_RoR2_SetStateOnHurt_OnTakeDamageServer;
-            HooksCore.il_RoR2_GlobalEventManager_OnHitEnemy -= this.HooksCore_il_RoR2_GlobalEventManager_OnHitEnemy;
-            HooksCore.on_RoR2_GlobalEventManager_OnHitEnemy -= this.HooksCore_on_RoR2_GlobalEventManager_OnHitEnemy;
+
+            HooksCore.RoR2.CameraRigController.Start.On -= this.Start_On1;
+            HooksCore.RoR2.CharacterBody.Start.On -= this.Start_On2;
+            HooksCore.RoR2.CharacterBody.FixedUpdate.On -= this.FixedUpdate_On;
+            HooksCore.RoR2.CharacterBody.RecalculateStats.Il -= this.RecalculateStats_Il;
+            HooksCore.RoR2.CharacterBody.RecalculateStats.On -= this.RecalculateStats_On;
+            HooksCore.RoR2.UI.CrosshairManager.UpdateCrosshair.Il -= this.UpdateCrosshair_Il;
+            HooksCore.RoR2.CameraRigController.Update.Il -= this.Update_Il;
+            HooksCore.RoR2.SetStateOnHurt.OnTakeDamageServer.Il -= this.OnTakeDamageServer_Il;
+            HooksCore.RoR2.GlobalEventManager.OnHitEnemy.Il -= this.OnHitEnemy_Il;
+            HooksCore.RoR2.GlobalEventManager.OnHitEnemy.On -= this.OnHitEnemy_On;
         }
 
 
@@ -84,35 +85,36 @@ namespace RogueWispPlugin
             {
                 ilhook_R2API_LoadoutAPI_BodyLoadout_ToXml += this.Main_ilhook_R2API_LoadoutAPI_BodyLoadout_ToXml;
             }
-            HooksCore.on_RoR2_CameraRigController_Start += this.HooksCore_on_RoR2_CameraRigController_Start;
-            HooksCore.on_RoR2_CharacterBody_Start += this.HooksCore_on_RoR2_CharacterBody_Start;
-            HooksCore.on_RoR2_CharacterBody_FixedUpdate += this.HooksCore_on_RoR2_CharacterBody_FixedUpdate;
-            HooksCore.il_RoR2_CharacterBody_RecalculateStats += this.HooksCore_il_RoR2_CharacterBody_RecalculateStats;
-            HooksCore.on_RoR2_CharacterBody_RecalculateStats += this.HooksCore_on_RoR2_CharacterBody_RecalculateStats;
-            HooksCore.il_RoR2_UI_CrosshairManager_UpdateCrosshair += this.HooksCore_il_RoR2_UI_CrosshairManager_UpdateCrosshair;
-            HooksCore.il_RoR2_CameraRigController_Update += this.HooksCore_il_RoR2_CameraRigController_Update;
-            HooksCore.il_RoR2_SetStateOnHurt_OnTakeDamageServer += this.HooksCore_il_RoR2_SetStateOnHurt_OnTakeDamageServer;
-            HooksCore.il_RoR2_GlobalEventManager_OnHitEnemy += this.HooksCore_il_RoR2_GlobalEventManager_OnHitEnemy;
-            HooksCore.on_RoR2_GlobalEventManager_OnHitEnemy += this.HooksCore_on_RoR2_GlobalEventManager_OnHitEnemy;
+
+            HooksCore.RoR2.CameraRigController.Start.On += this.Start_On1;
+            HooksCore.RoR2.CharacterBody.Start.On += this.Start_On2;
+            HooksCore.RoR2.CharacterBody.FixedUpdate.On += this.FixedUpdate_On;
+            HooksCore.RoR2.CharacterBody.RecalculateStats.Il += this.RecalculateStats_Il;
+            HooksCore.RoR2.CharacterBody.RecalculateStats.On += this.RecalculateStats_On;
+            HooksCore.RoR2.UI.CrosshairManager.UpdateCrosshair.Il += this.UpdateCrosshair_Il;
+            HooksCore.RoR2.CameraRigController.Update.Il += this.Update_Il;
+            HooksCore.RoR2.SetStateOnHurt.OnTakeDamageServer.Il += this.OnTakeDamageServer_Il;
+            HooksCore.RoR2.GlobalEventManager.OnHitEnemy.Il += this.OnHitEnemy_Il;
+            HooksCore.RoR2.GlobalEventManager.OnHitEnemy.On += this.OnHitEnemy_On;
         }
 
-        private void HooksCore_on_RoR2_GlobalEventManager_OnHitEnemy( HooksCore.orig_RoR2_GlobalEventManager_OnHitEnemy orig, GlobalEventManager self, DamageInfo info, GameObject victim )
+        private void OnHitEnemy_On( HooksCore.RoR2.GlobalEventManager.OnHitEnemy.Orig orig, GlobalEventManager self, DamageInfo damageInfo, GameObject victim )
         {
-            orig( self, info, victim );
-            if( info.procCoefficient <= 0f || info.rejected || !NetworkServer.active || !info.attacker ) return;
-            CharacterBody body = info.attacker.GetComponent<CharacterBody>();
+            orig( self, damageInfo, victim );
+            if( damageInfo.procCoefficient <= 0f || damageInfo.rejected || !NetworkServer.active || !damageInfo.attacker ) return;
+            CharacterBody body = damageInfo.attacker.GetComponent<CharacterBody>();
             if( !body ) return;
             Inventory inventory = body.inventory;
             if( !inventory ) return;
             Int32 stunCount = inventory.GetItemCount(ItemIndex.StunChanceOnHit);
             if( stunCount <= 0 ) return;
-            Single sqCoef = Mathf.Sqrt(info.procCoefficient);
+            Single sqCoef = Mathf.Sqrt(damageInfo.procCoefficient);
             if( !RoR2.Util.CheckRoll( RoR2.Util.ConvertAmplificationPercentageIntoReductionPercentage( sqCoef * 5f * stunCount ), body.master ) ) return;
             SetStateOnHurt stateOnHurt = victim.GetComponent<SetStateOnHurt>();
             if( !stateOnHurt ) return;
             stateOnHurt.SetStun( sqCoef * 2f );
         }
-        private void HooksCore_il_RoR2_GlobalEventManager_OnHitEnemy( ILContext il )
+        private void OnHitEnemy_Il( ILContext il )
         {
             ILCursor c = new ILCursor(il);
             c.GotoNext( MoveType.After,
@@ -121,7 +123,7 @@ namespace RogueWispPlugin
             c.Index += -3;
             c.RemoveRange( 3 );
         }
-        private void HooksCore_il_RoR2_SetStateOnHurt_OnTakeDamageServer( ILContext il )
+        private void OnTakeDamageServer_Il( ILContext il )
         {
             ILCursor c = new ILCursor( il );
             c.GotoNext( MoveType.Before, x => x.MatchCallOrCallvirt<SetStateOnHurt>( "SetStun" ) );
@@ -129,7 +131,7 @@ namespace RogueWispPlugin
             c.EmitDelegate<Func<DamageInfo, Single>>( ( info ) => info.procCoefficient );
             c.Emit( OpCodes.Mul );
         }
-        private void HooksCore_il_RoR2_CameraRigController_Update( ILContext il )
+        private void Update_Il( ILContext il )
         {
             ILCursor c = new ILCursor( il );
 
@@ -139,7 +141,7 @@ namespace RogueWispPlugin
             c.EmitDelegate<Func<CharacterBody, Boolean>>( ( body ) => !this.RW_BlockSprintCrosshair.Contains( body ) );
             c.Emit( OpCodes.And );
         }
-        private void HooksCore_il_RoR2_UI_CrosshairManager_UpdateCrosshair( ILContext il )
+        private void UpdateCrosshair_Il( ILContext il )
         {
             ILCursor c = new ILCursor( il );
             c.GotoNext( MoveType.After, x => x.MatchCallOrCallvirt<RoR2.CharacterBody>( "get_isSprinting" ) );
@@ -147,7 +149,7 @@ namespace RogueWispPlugin
             c.EmitDelegate<Func<CharacterBody, Boolean>>( ( body ) => !this.RW_BlockSprintCrosshair.Contains( body ) );
             c.Emit( OpCodes.And );
         }
-        private void HooksCore_on_RoR2_CharacterBody_RecalculateStats( HooksCore.orig_RoR2_CharacterBody_RecalculateStats orig, CharacterBody self )
+        private void RecalculateStats_On( HooksCore.RoR2.CharacterBody.RecalculateStats.Orig orig, CharacterBody self )
         {
             orig( self );
             if( self && self.inventory )
@@ -162,7 +164,7 @@ namespace RogueWispPlugin
                 }
             }
         }
-        private void HooksCore_il_RoR2_CharacterBody_RecalculateStats( ILContext il )
+        private void RecalculateStats_Il( ILContext il )
         {
             ILCursor c = new ILCursor(il);
             c.GotoNext( MoveType.After,
@@ -176,7 +178,7 @@ namespace RogueWispPlugin
             c.Remove();
             c.Emit( Mono.Cecil.Cil.OpCodes.Ldc_R4, 0.25f );
         }
-        private void HooksCore_on_RoR2_CharacterBody_FixedUpdate( HooksCore.orig_RoR2_CharacterBody_FixedUpdate orig, CharacterBody self )
+        private void FixedUpdate_On( HooksCore.RoR2.CharacterBody.FixedUpdate.Orig orig, CharacterBody self )
         {
             orig( self );
             if( NetworkServer.active )
@@ -188,12 +190,12 @@ namespace RogueWispPlugin
                 }
             }
         }
-        private void HooksCore_on_RoR2_CharacterBody_Start( HooksCore.orig_RoR2_CharacterBody_Start orig, CharacterBody self )
+        private void Start_On2( HooksCore.RoR2.CharacterBody.Start.Orig orig, CharacterBody self )
         {
             orig( self );
             self.gameObject.AddComponent<WispBurnManager>();
         }
-        private void HooksCore_on_RoR2_CameraRigController_Start( HooksCore.orig_RoR2_CameraRigController_Start orig, CameraRigController self )
+        private void Start_On1( HooksCore.RoR2.CameraRigController.Start.Orig orig, CameraRigController self )
         {
             orig( self );
 

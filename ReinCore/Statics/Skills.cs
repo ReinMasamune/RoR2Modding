@@ -5,6 +5,7 @@ using System.Reflection;
 using BepInEx;
 using EntityStates;
 using MonoMod.RuntimeDetour;
+using RoR2;
 using RoR2.Skills;
 
 namespace ReinCore
@@ -75,6 +76,31 @@ namespace ReinCore
 
             SkillCatalog.getAdditionalSkillFamilies += ( list ) => list.Add( skillFamily );
             addedSkillFamilies.Add( skillFamily );
+        }
+
+        /// <summary>
+        /// Accessor for GenericSkill.SkillFamily
+        /// </summary>
+        public static Accessor<GenericSkill, SkillFamily> skillFamily { get; } = new Accessor<GenericSkill, SkillFamily>( "_skillFamily" );
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="skill"></param>
+        /// <returns></returns>
+        public static SkillFamily GetSkillFamily( this GenericSkill skill )
+        {
+            return skillFamily.Get( skill );
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="skill"></param>
+        /// <param name="family"></param>
+        public static void SetSkillFamily( this GenericSkill skill, SkillFamily family )
+        {
+            skillFamily.Set( skill, family );
         }
 
 

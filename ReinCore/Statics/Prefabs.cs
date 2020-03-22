@@ -100,14 +100,15 @@ namespace ReinCore
             set_AssetId = Expression.Lambda<SetAssetIdDelegate>( assignExpr1, instanceParam1, valueParam1 ).Compile();
 
             RoR2.Networking.GameNetworkManager.onStartGlobal += GameNetworkManager_onStartGlobal;
-            HooksCore.on_RoR2_Util_IsPrefab += HooksCore_on_RoR2_Util_IsPrefab;
+            HooksCore.RoR2.Util.IsPrefab.On += IsPrefab_On;
 
             loaded = true;
         }
 
-        private static Boolean HooksCore_on_RoR2_Util_IsPrefab( HooksCore.orig_RoR2_Util_IsPrefab orig, GameObject gameObject )
+        private static Boolean IsPrefab_On( HooksCore.RoR2.Util.IsPrefab.Orig orig, GameObject gameObject )
         {
             return orig( gameObject ) || gameObject.transform.IsChildOf( parentTransform );
+
         }
 
         private static readonly GameObject parent;

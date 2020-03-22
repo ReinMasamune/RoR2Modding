@@ -217,6 +217,12 @@
             </summary>
             <param name="value"></param>
         </member>
+        <member name="M:ReinCore.ExpandedInterpolation.InterpolationSettings.#ctor(System.Enum[])">
+            <summary>
+            This is slow as fuck and only exists for lazy people like me
+            </summary>
+            <param name="settings"></param>
+        </member>
         <member name="T:ReinCore.ReinCore">
             <summary>
             
@@ -363,6 +369,25 @@
             
             </summary>
             <param name="skillFamily"></param>
+        </member>
+        <member name="P:ReinCore.SkillsCore.skillFamily">
+            <summary>
+            Accessor for GenericSkill.SkillFamily
+            </summary>
+        </member>
+        <member name="M:ReinCore.SkillsCore.GetSkillFamily(RoR2.GenericSkill)">
+            <summary>
+            
+            </summary>
+            <param name="skill"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ReinCore.SkillsCore.SetSkillFamily(RoR2.GenericSkill,RoR2.Skills.SkillFamily)">
+            <summary>
+            
+            </summary>
+            <param name="skill"></param>
+            <param name="family"></param>
         </member>
         <member name="T:ReinCore.SkinsCore.LockedSkinOverrideDelegate">
             <summary>

@@ -413,7 +413,7 @@ namespace RogueWispPlugin.Helpers
                 this.flameGradient = flameGradStyles[(UInt32)this.flameGradientType]( this.mainColor );
             }
 
-            var flameRampTex = TextureGenerator.GenerateRampTexture( this.flameGradient );
+            var flameRampTex = TexturesCore.GenerateRampTexture( this.flameGradient );
             //Main.debugTexture = flameRampTex;
 
 
@@ -927,7 +927,7 @@ namespace RogueWispPlugin.Helpers
             main.dither = false;
             main.fadeBias = 0f;
             main.fresnelEmission = true;
-            main.fresnelRamp.texture = TextureGenerator.GenerateRampTexture( CreateFEGradient( this.mainColor ) );
+            main.fresnelRamp.texture = TexturesCore.GenerateRampTexture( CreateFEGradient( this.mainColor ) );
             main.fresnelPower = 0.2f;
             main.fresnelMask.texture = null;
             main.fresnelBoost = 20f;
@@ -936,7 +936,7 @@ namespace RogueWispPlugin.Helpers
             main.flowmapEnabled = false;
             main.flowmapTexture.texture = AssetsCore.LoadAsset<Texture2D>(Texture2DIndex.refCaustics);
             main.flowmapHeightmap.texture = AssetsCore.LoadAsset<Texture2D>(Texture2DIndex.refCaustics);
-            main.flowmapHeightRamp.texture = TextureGenerator.GenerateRampTexture( CreateFlowGradient( this.mainColor ) );
+            main.flowmapHeightRamp.texture = TexturesCore.GenerateRampTexture( CreateFlowGradient( this.mainColor ) );
             main.flowHeightBias = 0.2f;
             main.flowHeightPower = 1.1f;
             main.flowHeightEmissionStrength = 1.25f;

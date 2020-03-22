@@ -21,9 +21,11 @@ namespace Rein.AlternateArtificer
         partial void Model();
         partial void Buffs();
         partial void Skills();
+        partial void Textures();
         partial void Materials();
         partial void Effects();
         partial void Projectiles();
+        partial void Tokens();
 
         protected override void Init()
         {
@@ -34,9 +36,11 @@ namespace Rein.AlternateArtificer
             this.Model();
             this.Buffs();
             this.Skills();
+            this.Textures();
             this.Materials();
             this.Effects();
             this.Projectiles();
+            this.Tokens();
         }
 
         protected override void Fail()

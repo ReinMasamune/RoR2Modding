@@ -75,7 +75,7 @@ namespace ReinCore
 
         static ReinCore()
         {
-            HooksCore.on_RoR2_RoR2Application_UnitySystemConsoleRedirector_Redirect += HooksCore_on_RoR2_RoR2Application_UnitySystemConsoleRedirector_Redirect;
+            HooksCore.RoR2.RoR2Application.UnitySystemConsoleRedirector.Redirect.On += Redirect_On;
             if( !Log.loaded ) throw new CoreNotLoadedException( nameof( Log ) );
 
             CheckPlugins();
@@ -83,6 +83,12 @@ namespace ReinCore
 
             loaded = true;
         }
+
+        private static void Redirect_On( HooksCore.RoR2.RoR2Application.UnitySystemConsoleRedirector.Redirect.Orig orig )
+        {
+            // Do Nothing
+        }
+
         internal static ExecutionLevel execLevel;
         internal static Boolean r2apiExists;
         internal static R2APISubmodule activeSubmodules = R2APISubmodule.None;
@@ -170,11 +176,6 @@ namespace ReinCore
                 if( String.IsNullOrEmpty( k ) || v == null ) continue;
                 pluginsByName[k] = v;
             }
-        }
-
-        private static void HooksCore_on_RoR2_RoR2Application_UnitySystemConsoleRedirector_Redirect( HooksCore.orig_RoR2_RoR2Application_UnitySystemConsoleRedirector_Redirect orig )
-        {
-            // Do Nothing
         }
     }
 }

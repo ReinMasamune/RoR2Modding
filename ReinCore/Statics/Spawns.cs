@@ -21,14 +21,16 @@ namespace ReinCore
 
         static SpawnsCore()
         {
-            HooksCore.on_RoR2_ClassicStageInfo_Awake += HooksCore_on_RoR2_ClassicStageInfo_Awake;
+            HooksCore.RoR2.ClassicStageInfo.Awake.On += Awake_On;
             loaded = true;
         }
+
+
 
         private static Accessor<ClassicStageInfo,DirectorCardCategorySelection> monsterCategories = new Accessor<ClassicStageInfo, DirectorCardCategorySelection>( "monsterCategories" );
         private static Accessor<ClassicStageInfo,DirectorCardCategorySelection> interactableCategories = new Accessor<ClassicStageInfo, DirectorCardCategorySelection>( "interactableCategories" );
 
-        private static void HooksCore_on_RoR2_ClassicStageInfo_Awake( HooksCore.orig_RoR2_ClassicStageInfo_Awake orig, ClassicStageInfo self )
+        private static void Awake_On( HooksCore.RoR2.ClassicStageInfo.Awake.Orig orig, ClassicStageInfo self )
         {
             if( loaded )
             {

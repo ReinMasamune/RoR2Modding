@@ -17,16 +17,17 @@ namespace ReinCore
 
         static OrbsCore()
         {
-            HooksCore.on_RoR2_Orbs_OrbCatalog_GenerateCatalog += HooksCore_on_RoR2_Orbs_OrbCatalog_GenerateCatalog;
+            HooksCore.RoR2.Orbs.OrbCatalog.GenerateCatalog.On += GenerateCatalog_On;
 
             loaded = true;
         }
 
 
+
         private static StaticAccessor<Type[]> indexToType = new StaticAccessor<Type[]>( typeof(OrbCatalog), "indexToType" );
         private static StaticAccessor<Dictionary<Type,Int32>> typeToIndex = new StaticAccessor<Dictionary<Type, Int32>>( typeof(OrbCatalog), "typeToIndex" );
 
-        private static void HooksCore_on_RoR2_Orbs_OrbCatalog_GenerateCatalog( HooksCore.orig_RoR2_Orbs_OrbCatalog_GenerateCatalog orig )
+        private static void GenerateCatalog_On( HooksCore.RoR2.Orbs.OrbCatalog.GenerateCatalog.Orig orig )
         {
             orig();
             if( !loaded ) return;
