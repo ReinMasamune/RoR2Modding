@@ -59,5 +59,15 @@ namespace ReinCore.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] wooting_rgb_sdk64 {
+            get {
+                object obj = ResourceManager.GetObject("wooting_rgb_sdk64", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
     }
 }

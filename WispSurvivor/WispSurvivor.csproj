@@ -2,8 +2,8 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>RogueWisp</AssemblyName>
-    <AssemblyVersion>2.0.8.84</AssemblyVersion>
-    <FileVersion>2.0.8.84</FileVersion>
+    <AssemblyVersion>2.0.8.96</AssemblyVersion>
+    <FileVersion>2.0.8.96</FileVersion>
     <RootNamespace>Rein</RootNamespace>
     <UserSecretsId>392ba4cc-368a-4518-b19f-f550dca1e784</UserSecretsId>
   </PropertyGroup>
@@ -28,18 +28,6 @@
     <AssemblyFileVersionSettings>None.None.NoneWithAutoReset.IncrementWithResetOnIncrease</AssemblyFileVersionSettings>
     <AssemblyVersionSettings>None.None.NoneWithAutoReset.IncrementWithResetOnIncrease</AssemblyVersionSettings>
   </PropertyGroup>
-  <ItemGroup>
-    <None Remove="Assemblies\NetLib.dll" />
-    <None Remove="Assemblies\ReinCore.dll" />
-    <None Remove="RogueWispPlugin\Bundle\wispscene" />
-    <None Remove="RogueWispPlugin\Bundle\wispsurvivor" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Assemblies\NetLib.dll" />
-    <EmbeddedResource Include="Assemblies\ReinCore.dll" />
-    <EmbeddedResource Include="RogueWispPlugin\Bundle\wispscene" />
-    <EmbeddedResource Include="RogueWispPlugin\Bundle\wispsurvivor" />
-  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.8">
       <PrivateAssets>all</PrivateAssets>
@@ -90,7 +78,7 @@
       <HintPath>..\libs\NetLib.dll</HintPath>
     </Reference>
     <Reference Include="ReinCore">
-      <HintPath>..\libs\ReinCore.dll</HintPath>
+      <HintPath>..\ReinCore\bin\Release\netstandard2.0\ReinCore.dll</HintPath>
     </Reference>
     <Reference Include="Rewired_Core">
       <HintPath>..\libs\Rewired_Core.dll</HintPath>

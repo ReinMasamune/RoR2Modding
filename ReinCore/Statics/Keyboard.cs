@@ -15,7 +15,7 @@ namespace ReinCore
 
         static KeyboardCore()
         {
-            loaded = Loaders.LoadUnmanagedAssemblyFromStream( String.Format( "ReinCore.Assemblies.{0}", wootingDllName ), "WootingRGB" );
+            loaded = Loaders.ExtractUnmanagedDll( wootingDllName, Properties.Resources.wooting_rgb_sdk64 );
         }
 
         internal const String wootingDllName = "wooting-rgb-sdk64.dll";

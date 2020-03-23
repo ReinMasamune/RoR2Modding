@@ -233,6 +233,11 @@
               resource lookups using this strongly typed resource class.
             </summary>
         </member>
+        <member name="P:ReinCore.Properties.Resources.wooting_rgb_sdk64">
+            <summary>
+              Looks up a localized resource of type System.Byte[].
+            </summary>
+        </member>
         <member name="M:ReinCore.ExpandedInterpolation.InterpolationSettings.#ctor(System.Enum[])">
             <summary>
             This is slow as fuck and only exists for lazy people like me

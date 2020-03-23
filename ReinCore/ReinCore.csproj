@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyVersion>1.0.0.159</AssemblyVersion>
-    <FileVersion>1.0.0.159</FileVersion>
+    <AssemblyVersion>1.0.0.167</AssemblyVersion>
+    <FileVersion>1.0.0.167</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -13,11 +13,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Assemblies\wooting-rgb-sdk64.dll" />
+    <None Remove="Properties\wooting-rgb-sdk64.dll" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Assemblies\wooting-rgb-sdk64.dll" />
+    <EmbeddedResource Include="Properties\wooting-rgb-sdk64.dll" />
   </ItemGroup>
 
   <ItemGroup>

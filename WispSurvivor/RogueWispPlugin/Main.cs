@@ -191,13 +191,20 @@ namespace RogueWispPlugin
 #endif
                 this.Tick += () => RoR2Application.isModded = true;
 
-                var load = KeyboardCore.wooting_rgb_kbd_connected();
-                if( load )
+                var loaded = KeyboardCore.loaded;
+                if( loaded )
                 {
-                    Main.LogW( "Kb exists" );
+                    var kbExists = KeyboardCore.wooting_rgb_kbd_connected();
+                    if( kbExists )
+                    {
+                        Main.LogW( "Kb exists" );
+                    } else
+                    {
+                        Main.LogW( "Kb doesn't exist" );
+                    }
                 } else
                 {
-                    Main.LogW( "Kb does not exist" );
+                    Main.LogE( "KeyboardCore not loaded" );
                 }
 
                 //this.PerformanceBoosts();
@@ -241,7 +248,10 @@ namespace RogueWispPlugin
                 this.SetupEffectSkinning();
 
 
-
+#if LV1DPSTEST
+                SpawnsCore.monsterEdits += this.SpawnsCore_monsterEdits1;
+                RoR2.GlobalEventManager.onCharacterDeathGlobal += this.GlobalEventManager_onCharacterDeathGlobal;
+#endif
 
 
 
@@ -264,6 +274,82 @@ namespace RogueWispPlugin
 
             //this.FirstFrame += this.TestingShit;
         }
+
+#region Boss dps timer stuff
+#if LV1DPSTEST
+        private void GlobalEventManager_onCharacterDeathGlobal( DamageReport obj )
+        {
+            var v = obj?.victimBody?.GetComponent<TimeThing>();
+            if( v != null ) StopTimer();
+        }
+
+        private void SpawnsCore_monsterEdits1( ClassicStageInfo stageInfo, Run runInstance, DirectorCardCategorySelection monsterSelection )
+        {
+            foreach( var m in monsterSelection.categories )
+            {
+                if( m.name.Contains( "ions" ) )
+                {
+                    foreach( var n in m.cards )
+                    {
+                        //Main.LogW( n.spawnCard.name );
+                        if( n.spawnCard.name != "cscBeetleQueen" )
+                        {
+                            n.selectionWeight = 0;
+                        } else
+                        {
+                            var master = (n.spawnCard as CharacterSpawnCard).prefab;
+                            foreach( var v in master.GetComponents<RoR2.CharacterAI.AISkillDriver>() )
+                            {
+                                if( v.skillSlot == SkillSlot.Secondary )
+                                {
+                                    v.maxUserHealthFraction = 0f;
+                                    v.minUserHealthFraction = 0f;
+                                }
+                            }
+                            master.GetComponent<CharacterMaster>().bodyPrefab.AddComponent<TimeThing>();
+                        }
+                    }
+                } else
+                {
+                    foreach( var n in m.cards )
+                    {
+                        var body = n.spawnCard.prefab.GetComponent<CharacterMaster>().bodyPrefab.GetComponent<CharacterBody>();
+                        body.baseDamage = 0f;
+                        body.levelDamage = 0f;
+                    }
+                }
+            }
+        }
+
+
+        private static Stopwatch bossTimer = new Stopwatch();
+        internal static void StartTimer()
+        {
+            bossTimer.Restart();
+        }
+        internal static void StopTimer()
+        {
+            if( bossTimer.IsRunning )
+            {
+                bossTimer.Stop();
+                Chat.AddMessage( String.Format( "Time: {0}ms, Ticks: {1}", bossTimer.ElapsedMilliseconds, bossTimer.ElapsedTicks ) );
+            }
+        }
+        internal class TimeThing : MonoBehaviour
+        {
+            private void Start()
+            {
+                Main.StartTimer();
+            }
+
+            private void OnDisable()
+            {
+                Main.StopTimer();
+            }
+        }
+#endif
+#endregion
+
 
         internal static Texture2D debugTexture;
         private void DebugTexture()
