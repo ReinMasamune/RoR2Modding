@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyVersion>1.0.0.147</AssemblyVersion>
-    <FileVersion>1.0.0.147</FileVersion>
+    <AssemblyVersion>1.0.0.159</AssemblyVersion>
+    <FileVersion>1.0.0.159</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -11,6 +11,14 @@
     <DefineConstants></DefineConstants>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Assemblies\wooting-rgb-sdk64.dll" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Assemblies\wooting-rgb-sdk64.dll" />
+  </ItemGroup>
 
   <ItemGroup>
     <Reference Include="0Harmony">
@@ -283,6 +291,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Update="Versioning.cs">
       <DependentUpon>Versioning.tt</DependentUpon>
       <DesignTime>True</DesignTime>
@@ -303,6 +316,13 @@
 
   <ItemGroup>
     <Folder Include="EffectHelper\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

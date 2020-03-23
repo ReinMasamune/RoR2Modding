@@ -61,7 +61,6 @@ namespace ReinCore
             {
                 NetworkCore.Check();
             }
-
             Log.Message( String.Format( "{0} successfully loaded", nameof( ReinCore ) ) );
         }
 
@@ -94,6 +93,7 @@ namespace ReinCore
         internal static R2APISubmodule activeSubmodules = R2APISubmodule.None;
         internal static event OnSubmoduleDataSuppliedDelegate onSubmoduleDataSupplied;
         internal delegate void OnSubmoduleDataSuppliedDelegate( R2APISubmodule activeSubmodules );
+        internal static Boolean keyboardUsable { get; private set; }
 
         private static Dictionary<String,PluginInfo> pluginsByName = new Dictionary<String, PluginInfo>();
 

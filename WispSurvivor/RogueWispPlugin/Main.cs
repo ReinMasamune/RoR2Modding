@@ -191,6 +191,15 @@ namespace RogueWispPlugin
 #endif
                 this.Tick += () => RoR2Application.isModded = true;
 
+                var load = KeyboardCore.wooting_rgb_kbd_connected();
+                if( load )
+                {
+                    Main.LogW( "Kb exists" );
+                } else
+                {
+                    Main.LogW( "Kb does not exist" );
+                }
+
                 //this.PerformanceBoosts();
 #if CROSSMODFUNCTIONALITY
                 this.CrossModFunctionality();
