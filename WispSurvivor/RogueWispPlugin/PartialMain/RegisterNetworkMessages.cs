@@ -24,11 +24,8 @@ namespace RogueWispPlugin
             if( !this.netLibInstalled )
             {
                 Main.LogM( "NetLib is not installed, loading fallback networking." );
-                Assembly execAssembly = Assembly.GetExecutingAssembly();
-                System.IO.Stream stream = execAssembly.GetManifestResourceStream( "Rein.Assemblies.NetLib.dll" );
-                var data = new Byte[stream.Length];
-                stream.Read( data, 0, data.Length );
-                var asm = Assembly.Load( data );
+                
+                var asm = Assembly.Load( Rein.Properties.Resources.NetLib );
                 var plugin = asm.GetType( "NetLib.Internals.Plugin" );
                 if( plugin == null )
                 {

@@ -2,8 +2,8 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>RogueWisp</AssemblyName>
-    <AssemblyVersion>2.0.8.96</AssemblyVersion>
-    <FileVersion>2.0.8.96</FileVersion>
+    <AssemblyVersion>2.0.8.97</AssemblyVersion>
+    <FileVersion>2.0.8.97</FileVersion>
     <RootNamespace>Rein</RootNamespace>
     <UserSecretsId>392ba4cc-368a-4518-b19f-f550dca1e784</UserSecretsId>
   </PropertyGroup>
@@ -28,6 +28,18 @@
     <AssemblyFileVersionSettings>None.None.NoneWithAutoReset.IncrementWithResetOnIncrease</AssemblyFileVersionSettings>
     <AssemblyVersionSettings>None.None.NoneWithAutoReset.IncrementWithResetOnIncrease</AssemblyVersionSettings>
   </PropertyGroup>
+  <ItemGroup>
+    <None Remove="Properties\NetLib.dll" />
+    <None Remove="Properties\ReinCore.dll" />
+    <None Remove="Properties\wispscene" />
+    <None Remove="Properties\wispsurvivor" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\NetLib.dll" />
+    <EmbeddedResource Include="Properties\ReinCore.dll" />
+    <EmbeddedResource Include="Properties\wispscene" />
+    <EmbeddedResource Include="Properties\wispsurvivor" />
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.8">
       <PrivateAssets>all</PrivateAssets>
@@ -301,6 +313,11 @@
     <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Update="RogueWispPlugin\Versioning.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -315,6 +332,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="RogueWispPlugin\Helpers\AssetTools\CustomAssets\Indicies\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Target Name="AfterCompile">
     <Exec Command="echo &quot;&quot;" />

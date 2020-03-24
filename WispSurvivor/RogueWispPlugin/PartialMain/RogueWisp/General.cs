@@ -135,9 +135,7 @@ namespace RogueWispPlugin
 
         private void RW_LoadAssetBundle()
         {
-            Assembly execAssembly = Assembly.GetExecutingAssembly();
-            System.IO.Stream stream = execAssembly.GetManifestResourceStream( "Rein.RogueWispPlugin.Bundle.wispsurvivor" );
-            this.RW_assetBundle = AssetBundle.LoadFromStream( stream );
+            this.RW_assetBundle = AssetBundle.LoadFromMemory( Rein.Properties.Resources.wispsurvivor );
         }
     }
 

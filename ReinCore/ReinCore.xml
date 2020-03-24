@@ -293,6 +293,60 @@
             
             </summary>
         </member>
+        <member name="M:ReinCore.KeyboardCore.wooting_rgb_kbd_connected">
+            <summary>
+            This function offers a quick check if the keyboard is connected. It is recommended to poll this function at the start of your application and after a disconnect.
+            </summary>
+            <returns>true if keyboard is found</returns>
+        </member>
+        <member name="M:ReinCore.KeyboardCore.wooting_rgb_set_disconnected_cb(System.IntPtr)">
+            <summary>
+            The callback will be called when a Wooting keyboard disconnects. This will trigger after a failed color change.
+            </summary>
+            <param name="cb">The function pointer of the callback</param>
+        </member>
+        <member name="M:ReinCore.KeyboardCore.wooting_rgb_reset">
+            <summary>
+            This function will restore all the colours to the colours that were originally on the keyboard. This function must be called when you close the application.
+            </summary>
+            <returns>true if keyboard is reset</returns>
+        </member>
+        <member name="M:ReinCore.KeyboardCore.wooting_rgb_direct_set_key(System.Byte,System.Byte,System.Byte,System.Byte,System.Byte)">
+            <summary>
+            This function will directly change the color of 1 key on the keyboard. This will not influence the keyboard color array. Use this function for simple amplifications, like a notification. Use the array functions if you want to change the entire keyboard.
+            </summary>
+            <param name="row">horizontal index of the key</param>
+            <param name="column">vertical index of the key</param>
+            <param name="red">value of the red color</param>
+            <param name="green">value of the green color</param>
+            <param name="blue">value of the blue color</param>
+            <returns>true if the colour is set</returns>
+        </member>
+        <member name="M:ReinCore.KeyboardCore.wooting_rgb_direct_reset_key(System.Byte,System.Byte)">
+            <summary>
+            This function will directly reset the color of 1 key on the keyboard. This will not influence the keyboard color array. Use this function for simple amplifications, like a notification. Use the array functions if you want to change the entire keyboard
+            </summary>
+            <param name="row">horizontal index of the key</param>
+            <param name="column">vertical index of the key</param>
+            <returns>true if the colour is reset</returns>
+        </member>
+        <member name="M:ReinCore.KeyboardCore.wooting_rgb_array_update_keyboard">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ReinCore.KeyboardCore.wooting_rgb_array_set_single(System.Byte,System.Byte,System.Byte,System.Byte,System.Byte)">
+            <summary>
+            This function will set a single color in the colour array. This will not directly update the keyboard (unless the flag is set), so it can be called frequently. For example in a loop that updates the entire keyboard. This way you can avoid dealing with C arrays from different languages.
+            </summary>
+            <param name="row">horizontal index of the key</param>
+            <param name="column">vertical index of the key</param>
+            <param name="red">value of the red color</param>
+            <param name="green">value of the green color</param>
+            <param name="blue">value of the blue color</param>
+            <returns>true if the colours are changed (if auto update flag: updated)</returns>
+        </member>
         <member name="T:ReinCore.LanguageCore">
             <summary>
             
@@ -426,6 +480,32 @@
             <summary>
             
             </summary>
+        </member>
+        <member name="T:ResourceTools.EmbeddedResourceHelpers">
+            <summary>
+            A class that contains various helper methods for loading embedded resources.
+            </summary>
+        </member>
+        <member name="M:ResourceTools.EmbeddedResourceHelpers.LoadAssetBundle(System.Byte[])">
+            <summary>
+            Loads an embedded assetbundle.
+            </summary>
+            <param name="resourceBytes">The bytes returned from Properties.[resourcename]</param>
+            <returns>The loaded assetbundle</returns>
+        </member>
+        <member name="M:ResourceTools.EmbeddedResourceHelpers.LoadAssembly(System.Byte[])">
+            <summary>
+            Loads an embedded assenbly
+            </summary>
+            <param name="resourceBytes">The bytes returned from Properties.[resourcename]</param>
+            <returns>The loaded assembly</returns>
+        </member>
+        <member name="M:ResourceTools.EmbeddedResourceHelpers.LoadUnmanagedLibrary(System.String,System.Byte[])">
+            <summary>
+            Loads an embedded unmanaged library for use with [DllImport] and extern
+            </summary>
+            <param name="resourceDllName">The name of the file for use with [DllImport]. Should end in .dll</param>
+            <param name="resourceBytes">The bytes returned from Properties.[resourcename]</param>
         </member>
     </members>
 </doc>

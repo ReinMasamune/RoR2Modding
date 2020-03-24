@@ -12,11 +12,7 @@ namespace Rein
         private static Assembly coreAssembly;
         static AssemblyLoad()
         {
-            Assembly execAssembly = Assembly.GetExecutingAssembly();
-            System.IO.Stream stream = execAssembly.GetManifestResourceStream( "Rein.Assemblies.ReinCore.dll" );
-            var data = new Byte[stream.Length];
-            stream.Read( data, 0, data.Length );
-            coreAssembly = Assembly.Load( data );
+            coreAssembly = Assembly.Load( Properties.Resources.ReinCore );
         }
 
         private AssemblyLoad()

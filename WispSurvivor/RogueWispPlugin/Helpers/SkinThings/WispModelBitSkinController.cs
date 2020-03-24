@@ -3,6 +3,7 @@ using RoR2;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using ReinCore;
 
 namespace RogueWispPlugin.Helpers
 {
@@ -80,6 +81,14 @@ namespace RogueWispPlugin.Helpers
             this.activeBossAreaIndicatorMaterial = newSkin.bossAreaIndicatorMaterial;
             this.activeBossAreaExplosionMaterial = newSkin.bossExplosionAreaMaterial;
             this.activeLightColor = newSkin.mainColor;
+
+
+            for( Int32 i = 0; i < KeyboardCore.colorsArray.Length; ++i )
+            {
+                KeyboardCore.colorsArray[i] = this.activeLightColor;
+            }
+
+
             this.ApplyMaterials();
         }
 

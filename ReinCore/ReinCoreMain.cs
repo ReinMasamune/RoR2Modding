@@ -6,6 +6,7 @@ using Mono.Cecil.Cil;
 using MonoMod.Cil;
 using RoR2;
 using RoR2.Networking;
+using UnityEngine;
 
 namespace ReinCore
 {
@@ -81,22 +82,39 @@ namespace ReinCore
             r2apiExists = pluginsByName.ContainsKey( "com.bepis.r2api" );
 
             loaded = true;
+            managerObject = new GameObject( "coremanager" );
+            MonoBehaviour.DontDestroyOnLoad( managerObject );
+            managerObject.AddComponent<CoreManager>();
         }
 
-        private static void Redirect_On( HooksCore.RoR2.RoR2Application.UnitySystemConsoleRedirector.Redirect.Orig orig )
-        {
-            // Do Nothing
-        }
+
+
+
+
 
         internal static ExecutionLevel execLevel;
         internal static Boolean r2apiExists;
         internal static R2APISubmodule activeSubmodules = R2APISubmodule.None;
         internal static event OnSubmoduleDataSuppliedDelegate onSubmoduleDataSupplied;
         internal delegate void OnSubmoduleDataSuppliedDelegate( R2APISubmodule activeSubmodules );
-        internal static Boolean keyboardUsable { get; private set; }
 
+        internal static event Action awake;
+        internal static event Action start;
+        internal static event Action onEnable;
+        internal static event Action onDisable;
+        internal static event Action update;
+        internal static event Action fixedUpdate;
+        internal static event Action lateUpdate;
+        internal static event Action destroy;
+
+
+        private static GameObject managerObject;
         private static Dictionary<String,PluginInfo> pluginsByName = new Dictionary<String, PluginInfo>();
 
+        private static void Redirect_On( HooksCore.RoR2.RoR2Application.UnitySystemConsoleRedirector.Redirect.Orig orig )
+        {
+            // Do Nothing
+        }
         private static void ParseSubmodules( HashSet<String> loadedSubmodules )
         {
             foreach( var sub in loadedSubmodules )
@@ -176,6 +194,18 @@ namespace ReinCore
                 if( String.IsNullOrEmpty( k ) || v == null ) continue;
                 pluginsByName[k] = v;
             }
+        }
+
+        private class CoreManager : MonoBehaviour
+        {
+            private void Awake() => ReinCore.awake?.Invoke();
+            private void Start() => ReinCore.start?.Invoke();
+            private void OnEnable() => ReinCore.onEnable?.Invoke();
+            private void OnDisable() => ReinCore.onDisable?.Invoke();
+            private void Update() => ReinCore.update?.Invoke();
+            private void FixedUpdate() => ReinCore.fixedUpdate?.Invoke();
+            private void LateUpdate() => ReinCore.lateUpdate?.Invoke();
+            private void Destroy() => ReinCore.destroy?.Invoke();
         }
     }
 }

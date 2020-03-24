@@ -194,14 +194,7 @@ namespace RogueWispPlugin
                 var loaded = KeyboardCore.loaded;
                 if( loaded )
                 {
-                    var kbExists = KeyboardCore.wooting_rgb_kbd_connected();
-                    if( kbExists )
-                    {
-                        Main.LogW( "Kb exists" );
-                    } else
-                    {
-                        Main.LogW( "Kb doesn't exist" );
-                    }
+                    Main.LogM( "Keyboard loaded" );
                 } else
                 {
                     Main.LogE( "KeyboardCore not loaded" );
