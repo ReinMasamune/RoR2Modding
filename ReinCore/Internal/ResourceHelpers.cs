@@ -62,7 +62,7 @@ namespace ResourceTools
         /// </summary>
         /// <param name="resourceDllName">The name of the file for use with [DllImport]. Should end in .dll</param>
         /// <param name="resourceBytes">The bytes returned from Properties.[resourcename]</param>
-        internal static void LoadUnmanagedLibrary( String resourceDllName, Byte[] resourceBytes )
+        internal static String LoadUnmanagedLibrary( String resourceDllName, Byte[] resourceBytes )
         {
             //Make sure that the arguments are not null, and throw an exception if they are.
             if( resourceBytes == null ) throw new ArgumentNullException( nameof( resourceBytes ) );
@@ -74,7 +74,7 @@ namespace ResourceTools
             if( assemblyName == null ) throw new Exception( "GetExecutingAssembly returned null... wut?" );
 
             //Uses name and version of the executing assembly to make help deal with conflicts.
-            var directory = String.Format( "{0}.{1}", assemblyName.Name, assemblyName.Version );
+            var directory = assemblyName.Name;
 
             //If the directory doesn't exist, create it.
             if( !Directory.Exists( directory ) ) Directory.CreateDirectory( directory );
@@ -89,33 +89,11 @@ namespace ResourceTools
             var dllPath = Path.Combine( directory, resourceDllName );
 
             //If the file already exists, and is identical to what we want to write, then return.
-            if( File.Exists( dllPath ) && resourceBytes.SequenceEqual( File.ReadAllBytes( dllPath ) ) )
+            if( !(File.Exists( dllPath ) && resourceBytes.SequenceEqual( File.ReadAllBytes( dllPath ) )) )
             {
-                pathHolder.AddPath( dllPath );
-                return;
+                File.WriteAllBytes( dllPath, resourceBytes );
             }
-
-            File.WriteAllBytes( dllPath, resourceBytes );
-        }
-
-        //Used to clean up the created files on close.
-        private static PathHolder pathHolder = new PathHolder();
-        private class PathHolder
-        {
-            private List<String> paths = new List<String>();
-            internal void AddPath( String path ) => this.paths.Add( path );
-
-            //This is a destructor, its called when this object is destroyed. For Unity things you should be using OnDisable/Destroy, but this is better in this situation.
-            ~PathHolder()
-            {
-                foreach( var path in this.paths )
-                {
-                    try
-                    {
-                        File.Delete( path );
-                    } catch { }
-                }
-            }
+            return directory;
         }
     }
 }

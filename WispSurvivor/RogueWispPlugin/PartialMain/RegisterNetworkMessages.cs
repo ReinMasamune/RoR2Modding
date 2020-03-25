@@ -25,8 +25,11 @@ namespace RogueWispPlugin
             {
                 Main.LogM( "NetLib is not installed, loading fallback networking." );
                 
-                var asm = Assembly.Load( Rein.Properties.Resources.NetLib );
-                var plugin = asm.GetType( "NetLib.Internals.Plugin" );
+
+                var loadedAssembly = Assembly.Load( Rein.Properties.Resources.NetLib );
+
+
+                var plugin = loadedAssembly.GetType( "NetLib.Internals.Plugin" );
                 if( plugin == null )
                 {
                     Main.LogF( "Failed to load fallback networking. Multiplayer will not work." );

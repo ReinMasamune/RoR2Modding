@@ -2,8 +2,8 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>RogueWisp</AssemblyName>
-    <AssemblyVersion>2.0.8.97</AssemblyVersion>
-    <FileVersion>2.0.8.97</FileVersion>
+    <AssemblyVersion>2.0.8.107</AssemblyVersion>
+    <FileVersion>2.0.8.107</FileVersion>
     <RootNamespace>Rein</RootNamespace>
     <UserSecretsId>392ba4cc-368a-4518-b19f-f550dca1e784</UserSecretsId>
   </PropertyGroup>
@@ -28,18 +28,6 @@
     <AssemblyFileVersionSettings>None.None.NoneWithAutoReset.IncrementWithResetOnIncrease</AssemblyFileVersionSettings>
     <AssemblyVersionSettings>None.None.NoneWithAutoReset.IncrementWithResetOnIncrease</AssemblyVersionSettings>
   </PropertyGroup>
-  <ItemGroup>
-    <None Remove="Properties\NetLib.dll" />
-    <None Remove="Properties\ReinCore.dll" />
-    <None Remove="Properties\wispscene" />
-    <None Remove="Properties\wispsurvivor" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Properties\NetLib.dll" />
-    <EmbeddedResource Include="Properties\ReinCore.dll" />
-    <EmbeddedResource Include="Properties\wispscene" />
-    <EmbeddedResource Include="Properties\wispsurvivor" />
-  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.8">
       <PrivateAssets>all</PrivateAssets>

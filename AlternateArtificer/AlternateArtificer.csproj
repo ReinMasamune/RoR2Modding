@@ -8,16 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Assemblies\ReinCore.dll" />
-    <None Remove="wooting-rgb-sdk64.dll" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="Assemblies\ReinCore.dll" />
-    <EmbeddedResource Include="wooting-rgb-sdk64.dll" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Reference Include="0Harmony">
       <HintPath>..\libs\0Harmony.dll</HintPath>
     </Reference>

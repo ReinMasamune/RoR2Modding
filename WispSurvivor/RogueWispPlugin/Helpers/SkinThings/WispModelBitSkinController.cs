@@ -57,10 +57,10 @@ namespace RogueWispPlugin.Helpers
             }
 
             var tempSkin = skin as WispBitSkin;
-            var oldCode = Convert.ToString( this.skin.EncodeToSkinIndex(), 2).PadLeft( 32, '0' );
-            var newCode = Convert.ToString( tempSkin.EncodeToSkinIndex(), 2).PadLeft( 32, '0' );
+            //var oldCode = Convert.ToString( this.skin.EncodeToSkinIndex(), 2).PadLeft( 32, '0' );
+            //var newCode = Convert.ToString( tempSkin.EncodeToSkinIndex(), 2).PadLeft( 32, '0' );
             this.skin = tempSkin;
-            var appliedCode = Convert.ToString( this.skin.EncodeToSkinIndex(), 2).PadLeft( 32, '0' );
+            //var appliedCode = Convert.ToString( this.skin.EncodeToSkinIndex(), 2).PadLeft( 32, '0' );
             //Main.LogI( String.Format( "Skin changed\n{0}\n{1}\n{2}", oldCode, newCode, appliedCode ) );
         }
 
@@ -82,12 +82,18 @@ namespace RogueWispPlugin.Helpers
             this.activeBossAreaExplosionMaterial = newSkin.bossExplosionAreaMaterial;
             this.activeLightColor = newSkin.mainColor;
 
-
-            for( Int32 i = 0; i < KeyboardCore.colorsArray.Length; ++i )
+            if( KeyboardCore.loaded )
             {
-                KeyboardCore.colorsArray[i] = this.activeLightColor;
+                KeyboardCore.SetKey( GlobalKeys.AllKeys, this.activeLightColor );
             }
 
+            //for( Byte r = 0; r < 6; ++r )
+            //{
+            //    for( Byte c = 0; c < 21; ++c )
+            //    {
+            //        KeyboardCore.SetKeyColor( r, c, newSkin.mainColor );
+            //    }
+            //}
 
             this.ApplyMaterials();
         }

@@ -191,16 +191,6 @@ namespace RogueWispPlugin
 #endif
                 this.Tick += () => RoR2Application.isModded = true;
 
-                var loaded = KeyboardCore.loaded;
-                if( loaded )
-                {
-                    Main.LogM( "Keyboard loaded" );
-                } else
-                {
-                    Main.LogE( "KeyboardCore not loaded" );
-                }
-
-                //this.PerformanceBoosts();
 #if CROSSMODFUNCTIONALITY
                 this.CrossModFunctionality();
 #endif

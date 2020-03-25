@@ -1,9 +1,10 @@
 ﻿using System;
-using BepInEx;
+using System.Collections.Generic;
+using System.Text;
 
 namespace ReinCore
 {
-    internal enum KeyboardType : UInt64
+    internal enum KeyboardType
     {
         None = 0,
         Wooting = 1,
