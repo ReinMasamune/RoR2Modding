@@ -117,14 +117,49 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="lang__ANCIENT_WISP_BODY_NAME" xml:space="preserve">
+    <value>Ancient Wisp</value>
+  </data>
+  <data name="lang__ANCIENT_WISP_BODY_SUBNAME" xml:space="preserve">
+    <value>Banished and Chained</value>
+  </data>
+  <data name="lang__WISP_SURVIVOR_BODY_DESC" xml:space="preserve">
+    <value>The Rogue Wisp is a short-ranged, low-mobility, and high-damage survivor. These descriptions are incredibly time consuming to write, so good luck!</value>
+  </data>
+  <data name="lang__WISP_SURVIVOR_BODY_NAME" xml:space="preserve">
+    <value>Rogue Wisp</value>
+  </data>
+  <data name="lang__WISP_SURVIVOR_PASSIVE_DESC" xml:space="preserve">
+    <value>&lt;style=cIsUtility&gt;Flame Charge&lt;/style&gt; &lt;style=cIsDamage&gt;Empowers&lt;/style&gt; your abilities but decays over time. Gain &lt;style=cIsDamage&gt;Barrier&lt;/style&gt; based on &lt;style=cIsHealth&gt;Maximum Health&lt;/style&gt; whenever you regain &lt;style=cIsUtility&gt;Flame Charge.&lt;/style&gt;</value>
+  </data>
+  <data name="lang__WISP_SURVIVOR_PASSIVE_NAME" xml:space="preserve">
+    <value>Cursed Flames</value>
+  </data>
+  <data name="lang__WISP_SURVIVOR_PRIMARY_1_DESC" xml:space="preserve">
+    <value>Fire a shockwave for &lt;style=cIsDamage&gt;165% damage.&lt;/style&gt; &lt;style=cIsUtility&gt;Restores Flame Charge&lt;/style&gt; on hit.</value>
+  </data>
+  <data name="lang__WISP_SURVIVOR_PRIMARY_1_NAME" xml:space="preserve">
+    <value>Heatwave</value>
+  </data>
+  <data name="lang__WISP_SURVIVOR_SECONDARY_1_DESC" xml:space="preserve">
+    <value>Create a line of flame pillars that explode for &lt;style=cIsDamage&gt;250% damage.&lt;/style&gt; Enemies hit more than once take reduced damage. Consumes &lt;style=cIsUtility&gt;Flame Charge&lt;/style&gt; on cast.</value>
+  </data>
+  <data name="lang__WISP_SURVIVOR_SECONDARY_1_NAME" xml:space="preserve">
+    <value>Legendary Spark</value>
+  </data>
+  <data name="lang__WISP_SURVIVOR_SPECIAL_1_DESC" xml:space="preserve">
+    <value>Channel a beam for &lt;style=cIsDamage&gt;500% damage&lt;/style&gt; per second. &lt;style=cIsUtility&gt;Continues as long as you hold button&lt;/style&gt; &lt;style=cIsUtility&gt;Gain Armor&lt;/style&gt; but &lt;style=cIsHealth&gt;Cannot Move&lt;/style&gt; while firing. Drains &lt;style=cIsUtility&gt;Flame Charge&lt;/style&gt; per second while firing.</value>
+  </data>
+  <data name="lang__WISP_SURVIVOR_SPECIAL_1_NAME" xml:space="preserve">
+    <value>Incineration</value>
+  </data>
+  <data name="lang__WISP_SURVIVOR_UTILITY_1_DESC" xml:space="preserve">
+    <value>Create an &lt;style=cIsDamage&gt;Inferno&lt;/style&gt; that &lt;style=cIsDamage&gt;Ignites&lt;/style&gt; all enemies for &lt;style=cIsDamage&gt;80% damage&lt;/style&gt; per second. While in an &lt;style=cIsDamage&gt;Inferno&lt;/style&gt;&lt;style=cIsUtility&gt; Move Faster&lt;/style&gt; and &lt;style=cIsUtility&gt;Gain Flame Charge&lt;/style&gt; from &lt;style=cIsDamage&gt;Ignited&lt;/style&gt; enemies.</value>
+  </data>
+  <data name="lang__WISP_SURVIVOR_UTILITY_1_NAME" xml:space="preserve">
+    <value>Burning Gaze</value>
+  </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>icon.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="lang__RANDOMDUDE_BODY_NAME" xml:space="preserve">
-    <value>SomeTestString</value>
-    <comment>The body name for RandomDude</comment>
-  </data>
   <data name="NetLib" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>NetLib.dll;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>

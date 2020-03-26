@@ -1,5 +1,5 @@
-﻿namespace RogueWispPlugin.Modules
-{
+﻿//namespace RogueWispPlugin.Modules
+//{
     /*
     public static class WispMaterialModule
     {
@@ -641,4 +641,4 @@
         }
     }
     */
-}
+//}

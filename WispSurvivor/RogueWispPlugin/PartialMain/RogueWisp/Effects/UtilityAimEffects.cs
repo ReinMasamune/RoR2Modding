@@ -1,11 +1,12 @@
-﻿using ReinCore;
+﻿#if ROGUEWISP
+using ReinCore;
 using System;
 using UnityEngine;
 //using static RogueWispPlugin.Helpers.APIInterface;
 
-namespace RogueWispPlugin
+namespace Rein.RogueWispPlugin
 {
-#if ROGUEWISP
+
     internal partial class Main
     {
         partial void RW_UtilityAimEffects()
@@ -111,5 +112,6 @@ namespace RogueWispPlugin
             return obj;
         }
     }
-#endif
+
 }
+#endif

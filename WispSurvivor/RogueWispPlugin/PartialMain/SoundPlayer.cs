@@ -8,7 +8,7 @@ using System.Linq;
 using RoR2;
 using System.Collections.Generic;
 
-namespace RogueWispPlugin
+namespace Rein.RogueWispPlugin
 {
     partial class Main
     {

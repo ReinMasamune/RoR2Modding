@@ -1,10 +1,10 @@
-﻿
+﻿#if ROGUEWISP
 using EntityStates;
 using UnityEngine;
 
-namespace RogueWispPlugin
+namespace Rein.RogueWispPlugin
 {
-#if ROGUEWISP
+
     internal partial class Main
     {
         public class IncinerationRecovery : BaseState
@@ -59,5 +59,6 @@ namespace RogueWispPlugin
             public override InterruptPriority GetMinimumInterruptPriority() => InterruptPriority.Death;
         }
     }
-#endif
+
 }
+#endif

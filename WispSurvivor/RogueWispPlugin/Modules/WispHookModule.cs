@@ -1,5 +1,5 @@
-﻿namespace RogueWispPlugin
-{
+﻿//namespace RogueWispPlugin
+//{
     /*
     internal partial class Main
     {
@@ -221,4 +221,4 @@
 
     }
     */
-}
+//}

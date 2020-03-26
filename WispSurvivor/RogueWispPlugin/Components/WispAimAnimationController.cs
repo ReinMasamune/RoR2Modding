@@ -7,7 +7,7 @@ using UnityEngine;
 using System;
 using System.Linq.Expressions;
 
-namespace RogueWispPlugin
+namespace Rein.RogueWispPlugin
 {
     internal partial class Main
     {

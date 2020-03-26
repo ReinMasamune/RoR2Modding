@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RogueWispPlugin.Helpers
+namespace Rein.RogueWispPlugin.Helpers
 {
     internal class WispSkinSelectionUI : MonoBehaviour
     {

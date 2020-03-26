@@ -1,6 +1,6 @@
 ﻿#if ROGUEWISP
 using EntityStates;
-using RogueWispPlugin.Helpers;
+using Rein.RogueWispPlugin.Helpers;
 using RoR2;
 using RoR2.Networking;
 using System;
@@ -9,7 +9,7 @@ using System.Reflection;
 using UnityEngine;
 using UnityEngine.Networking;
 
-namespace RogueWispPlugin
+namespace Rein.RogueWispPlugin
 {
 
 	internal partial class Main

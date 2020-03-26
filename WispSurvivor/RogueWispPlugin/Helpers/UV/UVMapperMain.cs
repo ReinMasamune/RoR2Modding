@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
 
-namespace RogueWispPlugin.Helpers
+namespace Rein.RogueWispPlugin.Helpers
 {
     internal static class UVMapper
     {

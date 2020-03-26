@@ -1,12 +1,13 @@
-﻿using RoR2;
+﻿#if ROGUEWISP
+using RoR2;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using RogueWispPlugin.Helpers;
+using Rein.RogueWispPlugin.Helpers;
 
-namespace RogueWispPlugin
+namespace Rein.RogueWispPlugin
 {
-#if ROGUEWISP
+
     internal partial class Main
     {
         partial void RW_EditModelMesh() => this.Load += this.RW_DoModelMeshEdits;
@@ -229,5 +230,6 @@ namespace RogueWispPlugin
             }
         }
     }
-#endif
+
 }
+#endif

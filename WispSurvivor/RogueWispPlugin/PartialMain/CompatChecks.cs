@@ -6,7 +6,7 @@ using RoR2;
 using RoR2.Networking;
 using Mono.Cecil;
 
-namespace RogueWispPlugin
+namespace Rein.RogueWispPlugin
 {
     internal partial class Main
     {

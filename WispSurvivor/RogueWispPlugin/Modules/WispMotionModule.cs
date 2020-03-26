@@ -1,5 +1,5 @@
-﻿namespace RogueWispPlugin.Modules
-{
+﻿//namespace RogueWispPlugin.Modules
+//{
     /*
     public static class WispMotionModule
     {
@@ -82,4 +82,4 @@
         private static T C<T>( this Dictionary<Type, Component> dic ) where T : Component => dic[typeof( T )] as T;
     }
     */
-}
+//}

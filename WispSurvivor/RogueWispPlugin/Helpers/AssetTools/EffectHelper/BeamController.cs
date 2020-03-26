@@ -5,7 +5,7 @@ using UnityEngine;
 using System.Linq;
 using RoR2;
 
-namespace RogueWispPlugin.Helpers
+namespace Rein.RogueWispPlugin.Helpers
 {
     internal class BeamController : MonoBehaviour
     {

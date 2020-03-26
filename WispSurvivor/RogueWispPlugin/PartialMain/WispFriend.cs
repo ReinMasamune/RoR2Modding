@@ -1,8 +1,8 @@
 ﻿//using static RogueWispPlugin.Helpers.APIInterface;
-
-namespace RogueWispPlugin
-{
 #if WISPITEM
+namespace Rein.RogueWispPlugin
+{
+
     internal partial class Main
     {
         partial void CreateWispFriend()
@@ -10,5 +10,6 @@ namespace RogueWispPlugin
 
         }
     }
-#endif
+
 }
+#endif

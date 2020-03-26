@@ -1,12 +1,13 @@
-﻿using RoR2;
+﻿#if ROGUEWISP
+using RoR2;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 //using static RogueWispPlugin.Helpers.APIInterface;
 
-namespace RogueWispPlugin
+namespace Rein.RogueWispPlugin
 {
-#if ROGUEWISP
+
     internal partial class Main
     {
         partial void RW_Animation()
@@ -83,5 +84,6 @@ namespace RogueWispPlugin
             ovac.ApplyOverrides( replacedAnimations );
         }
     }
-#endif
+
 }
+#endif

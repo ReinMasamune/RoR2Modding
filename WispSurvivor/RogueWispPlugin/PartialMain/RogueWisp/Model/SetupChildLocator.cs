@@ -8,7 +8,7 @@ using System.Reflection;
 using System.Runtime.Serialization;
 using UnityEngine;
 
-namespace RogueWispPlugin
+namespace Rein.RogueWispPlugin
 {
 
     internal partial class Main

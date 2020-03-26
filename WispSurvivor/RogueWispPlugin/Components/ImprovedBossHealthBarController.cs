@@ -1,4 +1,5 @@
-﻿using RoR2;
+﻿#if BOSSHPBAR
+using RoR2;
 using RoR2.UI;
 using System;
 using System.Collections.Generic;
@@ -7,9 +8,9 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace RogueWispPlugin
+namespace Rein.RogueWispPlugin
 {
-#if BOSSHPBAR
+
     internal partial class Main
     {
         public class ImprovedBossHealthBarController : MonoBehaviour
@@ -483,5 +484,6 @@ namespace RogueWispPlugin
             }
         }
     }
-#endif
+
 }
+#endif

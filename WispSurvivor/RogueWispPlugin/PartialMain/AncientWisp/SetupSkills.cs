@@ -5,7 +5,7 @@ using UnityEngine;
 using ReinCore;
 using EntityStates;
 
-namespace RogueWispPlugin
+namespace Rein.RogueWispPlugin
 {
     // TODO: Skills
     internal partial class Main

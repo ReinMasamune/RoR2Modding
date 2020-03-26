@@ -1,8 +1,9 @@
-﻿//using static RogueWispPlugin.Helpers.APIInterface;
+﻿#if CROSSMODFUNCTIONALITY
+//using static RogueWispPlugin.Helpers.APIInterface;
 
-namespace RogueWispPlugin
+namespace Rein.RogueWispPlugin
 {
-#if CROSSMODFUNCTIONALITY
+
     internal partial class Main
     {
         partial void CrossModFunctionality()
@@ -10,5 +11,6 @@ namespace RogueWispPlugin
 
         }
     }
-#endif
+
 }
+#endif

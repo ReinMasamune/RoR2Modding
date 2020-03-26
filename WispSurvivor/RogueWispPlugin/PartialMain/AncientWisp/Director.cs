@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using ReinCore;
 
-namespace RogueWispPlugin
+namespace Rein.RogueWispPlugin
 {
     internal partial class Main
     {

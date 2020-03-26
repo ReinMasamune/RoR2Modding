@@ -1,10 +1,11 @@
-﻿using System;
+﻿#if ROGUEWISP
+using System;
 using UnityEngine;
 //using static RogueWispPlugin.APIInterface;
 
-namespace RogueWispPlugin
+namespace Rein.RogueWispPlugin
 {
-#if ROGUEWISP
+
     internal partial class Main
     {
         // TEMP
@@ -50,5 +51,6 @@ namespace RogueWispPlugin
             this.RW_Info();
         }
     }
-#endif
+
 }
+#endif

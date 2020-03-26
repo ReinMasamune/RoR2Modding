@@ -1,12 +1,13 @@
-﻿using ReinCore;
+﻿#if ROGUEWISP
+using ReinCore;
 using RoR2;
 using System;
 using UnityEngine;
 //using static RogueWispPlugin.Helpers.APIInterface;
 
-namespace RogueWispPlugin
+namespace Rein.RogueWispPlugin
 {
-#if ROGUEWISP
+
     internal partial class Main
     {
         partial void RW_SpecialBeamEffects() => this.FirstFrame += this.RW_CreateSpecialBeamEffects;
@@ -389,5 +390,6 @@ namespace RogueWispPlugin
             return g;
         }
     }
-#endif
+
 }
+#endif

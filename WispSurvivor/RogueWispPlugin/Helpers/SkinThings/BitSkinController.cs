@@ -3,7 +3,7 @@ using RoR2;
 using System;
 using UnityEngine;
 
-namespace RogueWispPlugin.Helpers
+namespace Rein.RogueWispPlugin.Helpers
 {
     internal abstract class BitSkinController : MonoBehaviour
     {

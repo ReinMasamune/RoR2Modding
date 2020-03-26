@@ -11,7 +11,7 @@ using Unity.Collections;
 using System.Diagnostics;
 using Unity.Jobs;
 
-namespace RogueWispPlugin.Helpers
+namespace Rein.RogueWispPlugin.Helpers
 {
     internal static class DumpMaterialInfo
     {

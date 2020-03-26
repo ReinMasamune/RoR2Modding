@@ -1,6 +1,6 @@
 ﻿#if ANCIENTWISP
 using EntityStates;
-using RogueWispPlugin.Helpers;
+using Rein.RogueWispPlugin.Helpers;
 using RoR2;
 using System;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using UnityEngine.Networking;
 using System.Linq;
 using System.Collections.ObjectModel;
 
-namespace RogueWispPlugin
+namespace Rein.RogueWispPlugin
 {
 
     internal partial class Main

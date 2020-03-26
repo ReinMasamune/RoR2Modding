@@ -1,8 +1,9 @@
-﻿//using static RogueWispPlugin.Helpers.APIInterface;
+﻿#if ANCIENTWISP
+//using static RogueWispPlugin.Helpers.APIInterface;
 
-namespace RogueWispPlugin
+namespace Rein.RogueWispPlugin
 {
-#if ANCIENTWISP
+
     internal partial class Main
     {
         partial void AW_Hook()
@@ -10,5 +11,6 @@ namespace RogueWispPlugin
 
         }
     }
-#endif
+
 }
+#endif

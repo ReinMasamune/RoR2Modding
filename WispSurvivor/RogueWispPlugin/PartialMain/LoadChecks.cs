@@ -1,8 +1,9 @@
-﻿//using static RogueWispPlugin.Helpers.APIInterface;
+﻿#if LOADCHECKS
+//using static RogueWispPlugin.Helpers.APIInterface;
 
-namespace RogueWispPlugin
+namespace Rein.RogueWispPlugin
 {
-#if LOADCHECKS
+
     internal partial class Main
     {
         //partial void LoadChecks()
@@ -10,5 +11,6 @@ namespace RogueWispPlugin
             
         //}
     }
-#endif
+
 }
+#endif

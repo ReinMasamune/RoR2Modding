@@ -1,12 +1,13 @@
-﻿using RoR2;
+﻿#if ROGUEWISP
+using RoR2;
 using System;
 using UnityEngine;
 using ReinCore;
 //using static RogueWispPlugin.Helpers.APIInterface;
 
-namespace RogueWispPlugin
+namespace Rein.RogueWispPlugin
 {
-#if ROGUEWISP
+
     internal partial class Main
     {
         partial void RW_LeechOrbEffects() => this.Load += this.RW_CreateLeechOrbEffects;
@@ -48,5 +49,6 @@ namespace RogueWispPlugin
             return obj;
         }
     }
-#endif
+
 }
+#endif

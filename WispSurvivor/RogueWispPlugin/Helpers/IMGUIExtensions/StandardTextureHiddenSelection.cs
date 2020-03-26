@@ -6,7 +6,7 @@ using UnityEngine;
 using RogueWispPlugin.Helpers.IMGUI;
 using ReinCore;
 
-namespace RogueWispPlugin.Helpers
+namespace Rein.RogueWispPlugin.Helpers
 {
     internal class StandardTextureHiddenSelection : IGUIMenuDrawer<MaterialBase.TextureData>
     {

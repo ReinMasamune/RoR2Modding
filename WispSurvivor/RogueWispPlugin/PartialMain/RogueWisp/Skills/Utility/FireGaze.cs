@@ -1,13 +1,14 @@
-﻿using EntityStates;
+﻿#if ROGUEWISP
+using EntityStates;
 using RoR2;
 using RoR2.Orbs;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-namespace RogueWispPlugin
+namespace Rein.RogueWispPlugin
 {
-#if ROGUEWISP
+
     internal partial class Main
     {
         public class FireGaze : BaseState
@@ -185,5 +186,6 @@ namespace RogueWispPlugin
             }
         }
     }
-#endif
+
 }
+#endif

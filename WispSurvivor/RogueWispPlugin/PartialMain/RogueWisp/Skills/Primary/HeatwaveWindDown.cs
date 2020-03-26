@@ -1,9 +1,10 @@
-﻿using EntityStates;
+﻿#if ROGUEWISP
+using EntityStates;
 using System;
 
-namespace RogueWispPlugin
+namespace Rein.RogueWispPlugin
 {
-#if ROGUEWISP
+
     internal partial class Main
     {
         public class HeatwaveWindDown : BaseState
@@ -33,5 +34,6 @@ namespace RogueWispPlugin
             public override InterruptPriority GetMinimumInterruptPriority() => InterruptPriority.Any;
         }
     }
-#endif
+
 }
+#endif

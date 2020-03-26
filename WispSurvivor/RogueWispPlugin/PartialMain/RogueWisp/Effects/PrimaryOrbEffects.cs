@@ -1,12 +1,13 @@
-﻿using ReinCore;
+﻿#if ROGUEWISP
+using ReinCore;
 using RoR2;
 using System;
 using UnityEngine;
 //using static RogueWispPlugin.Helpers.APIInterface;
 
-namespace RogueWispPlugin
+namespace Rein.RogueWispPlugin
 {
-#if ROGUEWISP
+
     internal partial class Main
     {
         partial void RW_PrimaryOrbEffects() => this.Load += this.RW_CreatePrimaryOrbEffects;
@@ -701,5 +702,6 @@ namespace RogueWispPlugin
             return obj;
         }
     }
-#endif
+
 }
+#endif

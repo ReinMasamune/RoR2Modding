@@ -1,13 +1,14 @@
-﻿using RogueWispPlugin.Helpers;
+﻿#if ROGUEWISP
+using Rein.RogueWispPlugin.Helpers;
 using RoR2;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 //using static RogueWispPlugin.Helpers.APIInterface;
 
-namespace RogueWispPlugin
+namespace Rein.RogueWispPlugin
 {
-#if ROGUEWISP
+
     internal partial class Main
     {
         partial void RW_EditModel()
@@ -458,5 +459,6 @@ namespace RogueWispPlugin
             custData.enabled = false;
         }
     }
-#endif
+
 }
+#endif

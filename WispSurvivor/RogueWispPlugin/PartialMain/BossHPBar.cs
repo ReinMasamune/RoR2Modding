@@ -4,7 +4,7 @@ using RoR2.UI;
 using ReinCore;
 //using static RogueWispPlugin.Helpers.APIInterface;
 
-namespace RogueWispPlugin
+namespace Rein.RogueWispPlugin
 {
     internal partial class Main
     {

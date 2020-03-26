@@ -1,13 +1,14 @@
-﻿using RogueWispPlugin.Helpers;
+﻿#if ROGUEWISP
+using Rein.RogueWispPlugin.Helpers;
 using RoR2;
 using System;
 using UnityEngine;
 using ReinCore;
 //using static RogueWispPlugin.Helpers.APIInterface;
 
-namespace RogueWispPlugin
+namespace Rein.RogueWispPlugin
 {
-#if ROGUEWISP
+
     internal partial class Main
     {
         partial void RW_BlazeOrbEffects() => this.Load += this.RW_CreateBlazeOrbEffects;
@@ -258,5 +259,6 @@ namespace RogueWispPlugin
             return obj;
         }
     }
-#endif
+
 }
+#endif

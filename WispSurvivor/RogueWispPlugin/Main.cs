@@ -14,7 +14,7 @@ using MonoMod.RuntimeDetour;
 using MonoMod.Cil;
 using ReinCore;
 #endif
-namespace RogueWispPlugin
+namespace Rein.RogueWispPlugin
 {
 #pragma warning disable CA2243 // Attribute string literals should parse correctly
 #if NETWORKING

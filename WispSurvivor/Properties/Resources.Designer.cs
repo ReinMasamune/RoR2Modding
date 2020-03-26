@@ -61,21 +61,128 @@ namespace Rein.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized string similar to Ancient Wisp.
         /// </summary>
-        internal static byte[] icon {
+        internal static string lang__ANCIENT_WISP_BODY_NAME {
             get {
-                object obj = ResourceManager.GetObject("icon", resourceCulture);
-                return ((byte[])(obj));
+                return ResourceManager.GetString("lang__ANCIENT_WISP_BODY_NAME", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SomeTestString.
+        ///   Looks up a localized string similar to Banished and Chained.
         /// </summary>
-        internal static string lang__RANDOMDUDE_BODY_NAME {
+        internal static string lang__ANCIENT_WISP_BODY_SUBNAME {
             get {
-                return ResourceManager.GetString("lang__RANDOMDUDE_BODY_NAME", resourceCulture);
+                return ResourceManager.GetString("lang__ANCIENT_WISP_BODY_SUBNAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Rogue Wisp is a short-ranged, low-mobility, and high-damage survivor. These descriptions are incredibly time consuming to write, so good luck!.
+        /// </summary>
+        internal static string lang__WISP_SURVIVOR_BODY_DESC {
+            get {
+                return ResourceManager.GetString("lang__WISP_SURVIVOR_BODY_DESC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rogue Wisp.
+        /// </summary>
+        internal static string lang__WISP_SURVIVOR_BODY_NAME {
+            get {
+                return ResourceManager.GetString("lang__WISP_SURVIVOR_BODY_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;style=cIsUtility&gt;Flame Charge&lt;/style&gt; &lt;style=cIsDamage&gt;Empowers&lt;/style&gt; your abilities but decays over time. Gain &lt;style=cIsDamage&gt;Barrier&lt;/style&gt; based on &lt;style=cIsHealth&gt;Maximum Health&lt;/style&gt; whenever you regain &lt;style=cIsUtility&gt;Flame Charge.&lt;/style&gt;.
+        /// </summary>
+        internal static string lang__WISP_SURVIVOR_PASSIVE_DESC {
+            get {
+                return ResourceManager.GetString("lang__WISP_SURVIVOR_PASSIVE_DESC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cursed Flames.
+        /// </summary>
+        internal static string lang__WISP_SURVIVOR_PASSIVE_NAME {
+            get {
+                return ResourceManager.GetString("lang__WISP_SURVIVOR_PASSIVE_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fire a shockwave for &lt;style=cIsDamage&gt;165% damage.&lt;/style&gt; &lt;style=cIsUtility&gt;Restores Flame Charge&lt;/style&gt; on hit..
+        /// </summary>
+        internal static string lang__WISP_SURVIVOR_PRIMARY_1_DESC {
+            get {
+                return ResourceManager.GetString("lang__WISP_SURVIVOR_PRIMARY_1_DESC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Heatwave.
+        /// </summary>
+        internal static string lang__WISP_SURVIVOR_PRIMARY_1_NAME {
+            get {
+                return ResourceManager.GetString("lang__WISP_SURVIVOR_PRIMARY_1_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create a line of flame pillars that explode for &lt;style=cIsDamage&gt;250% damage.&lt;/style&gt; Enemies hit more than once take reduced damage. Consumes &lt;style=cIsUtility&gt;Flame Charge&lt;/style&gt; on cast..
+        /// </summary>
+        internal static string lang__WISP_SURVIVOR_SECONDARY_1_DESC {
+            get {
+                return ResourceManager.GetString("lang__WISP_SURVIVOR_SECONDARY_1_DESC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Legendary Spark.
+        /// </summary>
+        internal static string lang__WISP_SURVIVOR_SECONDARY_1_NAME {
+            get {
+                return ResourceManager.GetString("lang__WISP_SURVIVOR_SECONDARY_1_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Channel a beam for &lt;style=cIsDamage&gt;500% damage&lt;/style&gt; per second. &lt;style=cIsUtility&gt;Continues as long as you hold button&lt;/style&gt; &lt;style=cIsUtility&gt;Gain Armor&lt;/style&gt; but &lt;style=cIsHealth&gt;Cannot Move&lt;/style&gt; while firing. Drains &lt;style=cIsUtility&gt;Flame Charge&lt;/style&gt; per second while firing..
+        /// </summary>
+        internal static string lang__WISP_SURVIVOR_SPECIAL_1_DESC {
+            get {
+                return ResourceManager.GetString("lang__WISP_SURVIVOR_SPECIAL_1_DESC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Incineration.
+        /// </summary>
+        internal static string lang__WISP_SURVIVOR_SPECIAL_1_NAME {
+            get {
+                return ResourceManager.GetString("lang__WISP_SURVIVOR_SPECIAL_1_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create an &lt;style=cIsDamage&gt;Inferno&lt;/style&gt; that &lt;style=cIsDamage&gt;Ignites&lt;/style&gt; all enemies for &lt;style=cIsDamage&gt;80% damage&lt;/style&gt; per second. While in an &lt;style=cIsDamage&gt;Inferno&lt;/style&gt;&lt;style=cIsUtility&gt; Move Faster&lt;/style&gt; and &lt;style=cIsUtility&gt;Gain Flame Charge&lt;/style&gt; from &lt;style=cIsDamage&gt;Ignited&lt;/style&gt; enemies..
+        /// </summary>
+        internal static string lang__WISP_SURVIVOR_UTILITY_1_DESC {
+            get {
+                return ResourceManager.GetString("lang__WISP_SURVIVOR_UTILITY_1_DESC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Burning Gaze.
+        /// </summary>
+        internal static string lang__WISP_SURVIVOR_UTILITY_1_NAME {
+            get {
+                return ResourceManager.GetString("lang__WISP_SURVIVOR_UTILITY_1_NAME", resourceCulture);
             }
         }
         

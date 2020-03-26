@@ -5,7 +5,7 @@ using R2API;
 using RoR2;
 using UnityEngine;
 
-namespace RogueWispPlugin
+namespace Rein.RogueWispPlugin
 {
 
     internal partial class Main

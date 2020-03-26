@@ -1,8 +1,9 @@
-﻿//using static RogueWispPlugin.Helpers.APIInterface;
+﻿#if FIRSTWISP
+//using static RogueWispPlugin.Helpers.APIInterface;
 
-namespace RogueWispPlugin
+namespace Rein.RogueWispPlugin
 {
-#if FIRSTWISP
+
     internal partial class Main
     {
         partial void CreateFirstWisp()
@@ -10,5 +11,6 @@ namespace RogueWispPlugin
 
         }
     }
-#endif
+
 }
+#endif

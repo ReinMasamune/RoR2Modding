@@ -5,9 +5,9 @@ using System.Collections.Specialized;
 using UnityEngine;
 using UnityEngine.Networking;
 using System.Linq;
-using RogueWispPlugin.Helpers;
+using Rein.RogueWispPlugin.Helpers;
 
-namespace RogueWispPlugin
+namespace Rein.RogueWispPlugin
 {
     internal partial class Main
     {

@@ -1,6 +1,7 @@
-﻿namespace RogueWispPlugin
+﻿#if ROGUEWISP
+namespace Rein.RogueWispPlugin
 {
-#if ROGUEWISP
+
     internal partial class Main
     {
         partial void RW_EditModel();
@@ -22,5 +23,6 @@
             this.RW_SetupIDRS();
         }
     }
-#endif
+
 }
+#endif

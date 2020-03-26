@@ -1,5 +1,5 @@
 ﻿#if ROGUEWISP
-using RogueWispPlugin.Helpers;
+using Rein.RogueWispPlugin.Helpers;
 using RoR2;
 using RoR2.Orbs;
 using System;
@@ -7,7 +7,7 @@ using UnityEngine;
 using ReinCore;
 //using static RogueWispPlugin.Helpers.APIInterface;
 
-namespace RogueWispPlugin
+namespace Rein.RogueWispPlugin
 {
 
     internal partial class Main

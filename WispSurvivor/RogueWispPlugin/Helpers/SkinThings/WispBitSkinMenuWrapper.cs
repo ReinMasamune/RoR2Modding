@@ -4,7 +4,7 @@ using System;
 using UnityEngine;
 using ReinCore;
 
-namespace RogueWispPlugin.Helpers
+namespace Rein.RogueWispPlugin.Helpers
 {
     internal class WispBitSkinMenuWrapper
     {

@@ -5,7 +5,7 @@ using System.Reflection;
 using UnityEngine;
 using ReinCore;
 
-namespace RogueWispPlugin.Helpers
+namespace Rein.RogueWispPlugin.Helpers
 {
     internal class EnumWrapper<TMenu,TEnum> : PropertyWrapper<TMenu> where TEnum : struct, Enum
     {

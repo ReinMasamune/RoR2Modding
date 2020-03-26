@@ -2,8 +2,8 @@
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using R2API;
 using UnityEngine;
+using ReinCore;
 
 namespace Rein.Properties
 {
@@ -31,7 +31,7 @@ namespace Rein.Properties
                 var langKey = propName.Substring(6);
                 if( String.IsNullOrEmpty( langKey ) ) continue;
                 var langValue = (String)prop.GetValue(null);
-                R2API.AssetPlus.Languages.AddToken( langKey, langValue );
+                ReinCore.LanguageCore.AddLanguageToken( langKey, langValue );
             }
         }
 
@@ -59,26 +59,6 @@ namespace Rein.Properties
         }
 
         /// <summary>
-        /// Loads an embedded assetbundle and automatically registers an AssetBundleResourcesProvider for it.
-        /// </summary>
-        /// <param name="prefix">Your mod prefix (Try this.GetModPrefix("ASSETNAME"))</param>
-        /// <param name="resourceBytes">The bytes returned by Properties.Resources.ASSETNAME</param>
-        /// <returns>The loaded bundle</returns>
-        public static AssetBundle LoadAssetBundleResourcesProvider( String prefix, Byte[] resourceBytes )
-        {
-            if( resourceBytes == null ) throw new ArgumentNullException( nameof( resourceBytes ) );
-            if( String.IsNullOrEmpty( prefix ) || !prefix.StartsWith( "@" ) ) throw new ArgumentException( "Invalid prefix format", nameof( prefix ) );
-
-            var bundle = AssetBundle.LoadFromMemory(resourceBytes);
-            if( bundle == null ) throw new NullReferenceException( String.Format( "{0} did not resolve to an assetbundle.", nameof( resourceBytes ) ) );
-
-            var provider = new AssetBundleResourcesProvider( prefix, bundle );
-            ResourcesAPI.AddProvider( provider );
-
-            return bundle;
-        }
-
-        /// <summary>
         /// Loads an embedded .png or .jpg image as a Texture2D
         /// </summary>
         /// <param name="resourceBytes">The bytes returned by Properties.Resources.ASSETNAME</param>
@@ -91,18 +71,6 @@ namespace Rein.Properties
             tempTex.LoadImage( resourceBytes, false );
 
             return tempTex;
-        }
-
-        /// <summary>
-        /// Loads an embedded wwise soundbank and registers it with AssetPlus
-        /// </summary>
-        /// <param name="resourceBytes">The bytes returned by Properties.Resources.ASSETNAME</param>
-        /// <returns>The ID of the soundbank</returns>
-        public static UInt32 LoadSoundBank( Byte[] resourceBytes )
-        {
-            if( resourceBytes == null ) throw new ArgumentNullException( nameof( resourceBytes ) );
-
-            return R2API.AssetPlus.SoundBanks.Add( resourceBytes );
         }
 
         /// <summary>

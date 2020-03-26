@@ -5,7 +5,7 @@ using RoR2.Projectile;
 using System;
 using UnityEngine;
 
-namespace RogueWispPlugin
+namespace Rein.RogueWispPlugin
 {
 
     internal partial class Main

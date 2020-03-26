@@ -1,11 +1,12 @@
-﻿using RoR2;
+﻿#if ROGUEWISP
+using RoR2;
 using System;
 using UnityEngine;
 //using static RogueWispPlugin.Helpers.APIInterface;
 
-namespace RogueWispPlugin
+namespace Rein.RogueWispPlugin
 {
-#if ROGUEWISP
+
     internal partial class Main
     {
         //partial void RW_CreateModelSkins() => this.Load += this.RW_DoSkinCreation;
@@ -108,5 +109,6 @@ namespace RogueWispPlugin
         //public static CharacterModel.RendererInfo CreateRendererInfo( Renderer r, Material m, System.Boolean ignoreOverlays, UnityEngine.Rendering.ShadowCastingMode shadow ) => CreateRendererInfo( r, m, ignoreOverlays, shadow );
 
     }
-#endif
+
 }
+#endif

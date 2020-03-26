@@ -3,7 +3,7 @@
 <#@ assembly name="System.Xml" #>
 <#@ import namespace="System.Xml" #>
 <#@ output extension=".cs" #>
-namespace RogueWispPlugin
+namespace Rein.RogueWispPlugin
 {
 	public static class Consts
 	{

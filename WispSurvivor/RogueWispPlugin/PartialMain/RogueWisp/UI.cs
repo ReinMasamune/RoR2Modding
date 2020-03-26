@@ -3,10 +3,10 @@ using System;
 using RoR2.UI;
 using UnityEngine;
 using UnityEngine.UI;
-using RogueWispPlugin.Helpers;
+using Rein.RogueWispPlugin.Helpers;
 using ReinCore;
 
-namespace RogueWispPlugin
+namespace Rein.RogueWispPlugin
 {
 
     internal partial class Main

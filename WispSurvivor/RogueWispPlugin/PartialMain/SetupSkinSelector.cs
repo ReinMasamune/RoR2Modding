@@ -3,13 +3,13 @@ using System.Linq.Expressions;
 using Mono.Cecil.Cil;
 using MonoMod.Cil;
 using ReinCore;
-using RogueWispPlugin.Helpers;
+using Rein.RogueWispPlugin.Helpers;
 using RoR2;
 using RoR2.UI;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace RogueWispPlugin
+namespace Rein.RogueWispPlugin
 {
     internal partial class Main
     {

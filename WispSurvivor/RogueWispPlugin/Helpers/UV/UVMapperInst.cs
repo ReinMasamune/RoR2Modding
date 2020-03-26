@@ -6,7 +6,7 @@ using Unity.Collections;
 using Unity.Jobs;
 using UnityEngine;
 
-namespace RogueWispPlugin.Helpers
+namespace Rein.RogueWispPlugin.Helpers
 {
     internal class UVMapperInst : IDisposable
     {

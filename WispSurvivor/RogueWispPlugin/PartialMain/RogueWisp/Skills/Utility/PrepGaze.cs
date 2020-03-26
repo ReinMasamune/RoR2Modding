@@ -1,12 +1,13 @@
-﻿using EntityStates;
-using RogueWispPlugin.Helpers;
+﻿#if ROGUEWISP
+using EntityStates;
+using Rein.RogueWispPlugin.Helpers;
 using RoR2;
 using UnityEngine;
 using UnityEngine.Networking;
 
-namespace RogueWispPlugin
+namespace Rein.RogueWispPlugin
 {
-#if ROGUEWISP
+
     internal partial class Main
     {
         public class PrepGaze : BaseState
@@ -100,5 +101,6 @@ namespace RogueWispPlugin
             public override void OnDeserialize( NetworkReader reader ) => base.OnDeserialize( reader );
         }
     }
-#endif
+
 }
+#endif

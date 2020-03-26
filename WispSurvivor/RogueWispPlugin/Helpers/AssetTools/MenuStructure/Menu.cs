@@ -2,7 +2,7 @@
 using System;
 using UnityEngine;
 
-namespace RogueWispPlugin.Helpers
+namespace Rein.RogueWispPlugin.Helpers
 {
     internal class Menu<TMenu>
     {

@@ -8,7 +8,7 @@ using RoR2;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace RogueWispPlugin
+namespace Rein.RogueWispPlugin
 {
 
     internal partial class Main

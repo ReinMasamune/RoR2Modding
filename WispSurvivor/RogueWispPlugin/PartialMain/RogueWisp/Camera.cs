@@ -1,10 +1,11 @@
-﻿using RoR2;
+﻿#if ROGUEWISP
+using RoR2;
 using UnityEngine;
 //using static RogueWispPlugin.Helpers.APIInterface;
 
-namespace RogueWispPlugin
+namespace Rein.RogueWispPlugin
 {
-#if ROGUEWISP
+
     internal partial class Main
     {
         partial void RW_Camera()
@@ -38,5 +39,6 @@ namespace RogueWispPlugin
             this.RW_body.GetComponent<CharacterBody>().aimOriginTransform = aimOrigin.transform;
         }
     }
-#endif
+
 }
+#endif

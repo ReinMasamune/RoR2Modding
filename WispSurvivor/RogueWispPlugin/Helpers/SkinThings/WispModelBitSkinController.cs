@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using ReinCore;
 
-namespace RogueWispPlugin.Helpers
+namespace Rein.RogueWispPlugin.Helpers
 {
     internal class WispModelBitSkinController : BitSkinController
     {

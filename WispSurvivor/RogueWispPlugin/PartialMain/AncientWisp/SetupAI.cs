@@ -3,7 +3,7 @@ using RoR2;
 using RoR2.CharacterAI;
 using System;
 
-namespace RogueWispPlugin
+namespace Rein.RogueWispPlugin
 {
 
     internal partial class Main

@@ -1,4 +1,5 @@
-﻿using EntityStates;
+﻿#if ROGUEWISP
+using EntityStates;
 using ReinCore;
 using RoR2;
 //using static RogueWispPlugin.Helpers.APIInterface;
@@ -6,9 +7,9 @@ using RoR2.Skills;
 using System;
 using UnityEngine;
 
-namespace RogueWispPlugin
+namespace Rein.RogueWispPlugin
 {
-#if ROGUEWISP
+
     internal partial class Main
     {
         private SkillFamily[] RW_skillFamilies;
@@ -295,5 +296,6 @@ namespace RogueWispPlugin
             fam.variants = variants;
         }
     }
-#endif
+
 }
+#endif

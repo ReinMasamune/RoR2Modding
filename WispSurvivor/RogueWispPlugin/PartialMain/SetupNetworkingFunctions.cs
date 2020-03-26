@@ -7,7 +7,7 @@ using System.Reflection;
 using UnityEngine.Networking;
 using static RoR2.NetworkExtensions;
 
-namespace RogueWispPlugin
+namespace Rein.RogueWispPlugin
 {
     internal partial class Main
     {

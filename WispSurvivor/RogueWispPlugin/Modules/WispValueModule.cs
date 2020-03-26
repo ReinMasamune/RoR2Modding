@@ -1,4 +1,4 @@
-﻿#define ALLOWVALUECHANGES
+﻿//#define ALLOWVALUECHANGES
 /*
 using System;
 

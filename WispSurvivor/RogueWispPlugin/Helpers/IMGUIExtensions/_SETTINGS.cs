@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 
-namespace RogueWispPlugin.Helpers.IMGUI
+namespace Rein.RogueWispPlugin.Helpers.IMGUI
 {
     internal static class Settings
     {

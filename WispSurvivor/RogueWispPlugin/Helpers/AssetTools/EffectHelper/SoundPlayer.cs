@@ -4,7 +4,7 @@ using System.Text;
 using UnityEngine;
 using System.Linq;
 
-namespace RogueWispPlugin.Helpers
+namespace Rein.RogueWispPlugin.Helpers
 {
     public class EffectSoundPlayer : MonoBehaviour
     {

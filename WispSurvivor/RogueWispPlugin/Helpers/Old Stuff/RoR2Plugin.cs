@@ -1,6 +1,6 @@
 ﻿using BepInEx;
 
-namespace RoR2Plugin
+namespace Rein.RoR2Plugin
 {
     public abstract partial class RoR2Plugin : BaseUnityPlugin
     {

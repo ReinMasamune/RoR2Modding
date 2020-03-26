@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
-namespace RogueWispPlugin.Helpers
+namespace Rein.RogueWispPlugin.Helpers
 {
     internal abstract class EffectElement : MonoBehaviour
     {
-        internal String name
+        internal new String name
         {
             get
             {

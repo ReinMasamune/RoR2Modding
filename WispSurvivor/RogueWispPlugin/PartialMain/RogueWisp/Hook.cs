@@ -15,7 +15,7 @@ using Mono.Cecil;
 using ReinCore;
 using BepInEx.Configuration;
 
-namespace RogueWispPlugin
+namespace Rein.RogueWispPlugin
 {
     internal partial class Main
     {

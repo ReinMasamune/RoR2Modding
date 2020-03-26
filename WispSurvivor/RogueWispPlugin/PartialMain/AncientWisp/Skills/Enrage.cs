@@ -1,13 +1,13 @@
 ﻿#if ANCIENTWISP
 using EntityStates;
-using RogueWispPlugin.Helpers;
+using Rein.RogueWispPlugin.Helpers;
 using RoR2;
 using RoR2.Projectile;
 using System;
 using UnityEngine;
 using System.Linq;
 
-namespace RogueWispPlugin
+namespace Rein.RogueWispPlugin
 {
 
     internal partial class Main

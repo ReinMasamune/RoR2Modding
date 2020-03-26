@@ -1,11 +1,12 @@
-﻿using EntityStates;
+﻿#if ROGUEWISP
+using EntityStates;
 using RoR2;
 using System;
 using UnityEngine;
 
-namespace RogueWispPlugin
+namespace Rein.RogueWispPlugin
 {
-#if ROGUEWISP
+
     internal partial class Main
     {
         public class Heatwave : BaseState, RoR2.Skills.SteppedSkillDef.IStepSetter
@@ -171,5 +172,6 @@ namespace RogueWispPlugin
             }
         }
     }
-#endif
+
 }
+#endif

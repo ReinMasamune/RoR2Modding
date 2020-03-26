@@ -1,12 +1,13 @@
-﻿using RoR2;
+﻿#if ROGUEWISP
+using RoR2;
 using System;
 using System.Reflection;
 using UnityEngine;
 //using static RogueWispPlugin.Helpers.APIInterface;
 
-namespace RogueWispPlugin
+namespace Rein.RogueWispPlugin
 {
-#if ROGUEWISP
+
     internal partial class Main
     {
         internal static Gradient[] fireGradients = new Gradient[8];
@@ -639,5 +640,6 @@ namespace RogueWispPlugin
             return mats;
         }
     }
-#endif
+
 }
+#endif

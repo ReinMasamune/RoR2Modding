@@ -7,7 +7,7 @@ using System.Reflection;
 using UnityEngine;
 using ReinCore;
 
-namespace RogueWispPlugin.Helpers
+namespace Rein.RogueWispPlugin.Helpers
 {
     internal abstract class PropertyWrapper<TMenu>
     {

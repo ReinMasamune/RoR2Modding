@@ -1,11 +1,11 @@
-﻿using RogueWispPlugin.Helpers;
+﻿using Rein.RogueWispPlugin.Helpers;
 using RoR2;
 using RoR2.Orbs;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RogueWispPlugin
+namespace Rein.RogueWispPlugin
 {
     internal partial class Main
     {

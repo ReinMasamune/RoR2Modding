@@ -3,7 +3,7 @@ using RogueWispPlugin.Helpers.IMGUI;
 using System;
 using UnityEngine;
 
-namespace RogueWispPlugin.Helpers
+namespace Rein.RogueWispPlugin.Helpers
 {
     internal class NamedColorTextEntry
     {

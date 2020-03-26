@@ -1,10 +1,11 @@
-﻿using RoR2;
+﻿#if ANCIENTWISP
+using RoR2;
 using System;
 using UnityEngine;
 
-namespace RogueWispPlugin
+namespace Rein.RogueWispPlugin
 {
-#if ANCIENTWISP
+
     internal partial class Main
     {
         public class UniversalHealOrb : RoR2.Orbs.Orb
@@ -139,5 +140,6 @@ namespace RogueWispPlugin
             }
         }
     }
-#endif
+
 }
+#endif

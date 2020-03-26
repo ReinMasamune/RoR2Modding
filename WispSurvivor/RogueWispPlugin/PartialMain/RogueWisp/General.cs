@@ -6,10 +6,10 @@ using RoR2.Networking;
 using System;
 using System.Reflection;
 using UnityEngine;
-using RogueWispPlugin.Helpers;
+using Rein.RogueWispPlugin.Helpers;
 //using static RogueWispPlugin.Helpers.APIInterface;
 
-namespace RogueWispPlugin
+namespace Rein.RogueWispPlugin
 {
 
     internal partial class Main

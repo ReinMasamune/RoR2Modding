@@ -1,12 +1,13 @@
 ﻿#if ANCIENTWISP
 using System;
 using EntityStates;
-using RogueWispPlugin.Helpers;
+using Rein.RogueWispPlugin.Helpers;
 using RoR2;
 using UnityEngine;
 using ReinCore;
+using Rein;
 
-namespace RogueWispPlugin
+namespace Rein.RogueWispPlugin
 {
     internal partial class Main
     {
@@ -55,11 +56,11 @@ namespace RogueWispPlugin
 
             var charBody = this.AW_body.GetComponent<CharacterBody>();
 
-            charBody.baseNameToken = "ANCIENT_WISP_BODY_NAME";
-            charBody.subtitleNameToken = "ANCIENT_WISP_BODY_SUBNAME";
+            charBody.baseNameToken = Properties.Tokens.ANCIENT_WISP_BODY_NAME;
+            charBody.subtitleNameToken = Properties.Tokens.ANCIENT_WISP_BODY_SUBNAME;
 
-            LanguageCore.AddLanguageToken( "ANCIENT_WISP_BODY_NAME", "Ancient Wisp" );
-            LanguageCore.AddLanguageToken( "ANCIENT_WISP_BODY_SUBNAME", "Banished and Chained" );
+            //LanguageCore.AddLanguageToken( "ANCIENT_WISP_BODY_NAME", "Ancient Wisp" );
+            //LanguageCore.AddLanguageToken( "ANCIENT_WISP_BODY_SUBNAME", "Banished and Chained" );
             //R2API.AssetPlus.Languages.AddToken( "ANCIENT_WISP_BODY_NAME", "Ancient Wisp" );
             //R2API.AssetPlus.Languages.AddToken( "ANCIENT_WISP_BODY_SUBNAME", "Banished and Chained" );
 

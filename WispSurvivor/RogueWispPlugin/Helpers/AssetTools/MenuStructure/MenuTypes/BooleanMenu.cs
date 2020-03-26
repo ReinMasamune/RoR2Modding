@@ -5,7 +5,7 @@ using System.Reflection;
 using UnityEngine;
 using RogueWispPlugin.Helpers.IMGUI;
 
-namespace RogueWispPlugin.Helpers
+namespace Rein.RogueWispPlugin.Helpers
 {
     /*
     internal static class BooleanMenu
