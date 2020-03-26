@@ -61,31 +61,38 @@ namespace Rein.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized string similar to This item is bad.
         /// </summary>
-        internal static byte[] icon {
+        internal static string lang__BAD_ITEM_DESC {
             get {
-                object obj = ResourceManager.GetObject("icon", resourceCulture);
-                return ((byte[])(obj));
+                return ResourceManager.GetString("lang__BAD_ITEM_DESC", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SomeTestString.
+        ///   Looks up a localized string similar to ReallyBadItem.
         /// </summary>
-        internal static string lang__RANDOMDUDE_BODY_NAME {
+        internal static string lang__BAD_ITEM_NAME {
             get {
-                return ResourceManager.GetString("lang__RANDOMDUDE_BODY_NAME", resourceCulture);
+                return ResourceManager.GetString("lang__BAD_ITEM_NAME", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized string similar to A Text thingy.
         /// </summary>
-        internal static byte[] NetLib {
+        internal static string lang__SOMETHINGELSE_BODY_NAME {
             get {
-                object obj = ResourceManager.GetObject("NetLib", resourceCulture);
-                return ((byte[])(obj));
+                return ResourceManager.GetString("lang__SOMETHINGELSE_BODY_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TextAndStuff.
+        /// </summary>
+        internal static string lang__THINGY_BODY_NAME {
+            get {
+                return ResourceManager.GetString("lang__THINGY_BODY_NAME", resourceCulture);
             }
         }
         
@@ -95,26 +102,6 @@ namespace Rein.Properties {
         internal static byte[] ReinCore {
             get {
                 object obj = ResourceManager.GetObject("ReinCore", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] wispscene {
-            get {
-                object obj = ResourceManager.GetObject("wispscene", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] wispsurvivor {
-            get {
-                object obj = ResourceManager.GetObject("wispsurvivor", resourceCulture);
                 return ((byte[])(obj));
             }
         }

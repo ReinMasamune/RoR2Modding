@@ -1,7 +1,7 @@
 ﻿namespace Rein.AlternateArtificer
 {
-	internal partial class Main
+	public static class Consts
 	{
-		public const string ver = "1.0.0.19";
+		public const string ver = "2.0.8.108";
 	}
 }

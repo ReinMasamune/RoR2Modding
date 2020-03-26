@@ -28,12 +28,6 @@ namespace Rein.AlternateArtificer
 
 
 
-    public class Stuff
-
-
-
-
-
 
 
 

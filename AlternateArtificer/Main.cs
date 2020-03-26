@@ -38,6 +38,7 @@ namespace AlternativeArtificer
             DoEffects();
             DoText();
 
+
             base.Logger.LogInfo( "Loaded successfully" );
         }
 

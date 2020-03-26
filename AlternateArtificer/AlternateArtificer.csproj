@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyVersion>1.0.0.19</AssemblyVersion>
-    <FileVersion>1.0.0.19</FileVersion>
+    <AssemblyVersion>1.0.0.25</AssemblyVersion>
+    <FileVersion>1.0.0.25</FileVersion>
     <RootNamespace>Rein</RootNamespace>
   </PropertyGroup>
 
@@ -278,14 +278,28 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Versioning.cs">
-      <DependentUpon>Versioning.tt</DependentUpon>
+    <Compile Update="AutomaticTokens.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
+      <DependentUpon>AutomaticTokens.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Versioning.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Versioning.tt</DependentUpon>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="AutomaticTokens.tt">
+      <LastGenOutput>AutomaticTokens.cs</LastGenOutput>
+      <Generator>TextTemplatingFileGenerator</Generator>
+    </None>
     <None Update="Versioning.tt">
       <LastGenOutput>Versioning.cs</LastGenOutput>
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -298,6 +312,13 @@
 
   <ItemGroup>
     <Folder Include="AlternateArtificer\States\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

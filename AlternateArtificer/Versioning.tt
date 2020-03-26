@@ -5,10 +5,10 @@
 <#@ output extension=".cs" #>
 namespace Rein.AlternateArtificer
 {
-	internal partial class Main
+	public static class Consts
 	{
 	<#
-		String path = "C:\\Users\\reinm\\source\\repos\\ReinRoR2Modding\\AlternateArtificer\\AlternateArtificer.csproj";
+		String path = "C:\\Users\\reinm\\source\\repos\\ReinRoR2Modding\\WispSurvivor\\WispSurvivor.csproj";
 		String vers = "";
 		XmlDocument xmldoc = new XmlDocument();
 		xmldoc.Load( path );

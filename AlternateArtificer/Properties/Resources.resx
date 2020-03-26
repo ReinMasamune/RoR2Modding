@@ -117,24 +117,20 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="lang__BAD_ITEM_DESC" xml:space="preserve">
+    <value>This item is bad</value>
+  </data>
+  <data name="lang__BAD_ITEM_NAME" xml:space="preserve">
+    <value>ReallyBadItem</value>
+  </data>
+  <data name="lang__SOMETHINGELSE_BODY_NAME" xml:space="preserve">
+    <value>A Text thingy</value>
+  </data>
+  <data name="lang__THINGY_BODY_NAME" xml:space="preserve">
+    <value>TextAndStuff</value>
+  </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>icon.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="lang__RANDOMDUDE_BODY_NAME" xml:space="preserve">
-    <value>SomeTestString</value>
-    <comment>The body name for RandomDude</comment>
-  </data>
-  <data name="NetLib" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>NetLib.dll;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="ReinCore" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>ReinCore.dll;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="wispscene" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>wispscene;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="wispsurvivor" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>wispsurvivor;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>

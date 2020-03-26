@@ -7,7 +7,7 @@ using ReinCore;
 namespace Rein.AlternateArtificer
 {
     [BepInDependency( AssemblyLoad.guid )]
-    [BepInPlugin( Main.guid, Main.name, Main.ver )]
+    [BepInPlugin( Main.guid, Main.name, Consts.ver )]
     internal partial class Main : CorePlugin
     {
         public const String guid = "com.Rein.AltArti";
