@@ -79,7 +79,7 @@ namespace Rein.RogueWispPlugin
                         baseDamage = damage,
                         baseForce = 0f,
                         bonusForce = Vector3.zero,
-                        canHurtAttacker = false,
+                        attackerFiltering = AttackerFiltering.Default,
                         crit = crit,
                         damageColorIndex = damageColor,
                         damageType = DamageType.Generic,

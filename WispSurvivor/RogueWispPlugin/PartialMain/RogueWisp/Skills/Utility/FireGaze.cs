@@ -153,8 +153,12 @@ namespace Rein.RogueWispPlugin
                 this.blazeOrbBundleSize = baseBlazeOrbBundleSize;
                 this.blazeOrbBonusBundlePercent = baseBlazeOrbBonusBundlePercent;
 
+                var obj = new GameObject();
+                obj.transform.position = this.orbOrigin;
+                this.passive.latestUtilityZone = obj;
 
                 //Unorganized shit
+                blaze.obj = obj;
                 blaze.origin = this.orbOrigin;
                 blaze.normal = this.orbNormal;
                 blaze.skin = this.skin;

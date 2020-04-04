@@ -163,7 +163,7 @@ namespace Rein.RogueWispPlugin
                         box = col.GetComponent<HurtBox>();
                         if( !box ) continue;
                         HealthComponent hcomp = box.healthComponent;
-                        if( !hcomp || mask.Contains( hcomp ) || TeamComponent.GetObjectTeam( hcomp.gameObject ) == this.team ) continue;
+                        if( !hcomp || mask.Contains( hcomp ) || !FriendlyFireManager.ShouldDirectHitProceed( hcomp, this.team ) || hcomp.gameObject == this.attacker ) continue;
 
                         DamageInfo dmg = new DamageInfo();
                         dmg.damage = this.damage;

@@ -11,6 +11,8 @@ namespace Rein.RogueWispPlugin
     {
         internal class BlazeOrb : RoR2.Orbs.Orb, IOrbFixedUpdateBehavior
         {
+            public GameObject obj;
+
             //Blaze settings
             public Single blazeTime = 1f;
             public Single blazeFreq = 1f;
@@ -152,7 +154,8 @@ namespace Rein.RogueWispPlugin
                 if( hb == null ) return;
                 var hc = hb.healthComponent;
                 if( hc == null ) return;
-                if( hc.body.teamComponent.teamIndex == this.team ) return;
+                if( !FriendlyFireManager.ShouldDirectHitProceed( hc, this.team ) ) return;
+                if( hc == this.attackerBody.healthComponent ) return;
 
                 this.targetBoxes.Add( hc, hb );
             }
@@ -164,7 +167,8 @@ namespace Rein.RogueWispPlugin
                 if( !this.targetBoxes.ContainsValue( hb ) ) return;
                 var hc = hb.healthComponent;
                 if( hc == null ) return;
-                if( hc.body.teamComponent.teamIndex == this.team ) return;
+                if( !FriendlyFireManager.ShouldDirectHitProceed( hc, this.team ) ) return;
+                if( hc == this.attackerBody.healthComponent ) return;
 
                 this.targetBoxes.RemoveValue( hb );
             }
@@ -252,7 +256,7 @@ namespace Rein.RogueWispPlugin
                 this.isActive = false;
 
                 this.hitDetection.Cleanup();
-
+                UnityEngine.Object.Destroy( this.obj );
             }
 
             public void AddStacks( Single stacks, IgnitionOrb i )
@@ -354,7 +358,7 @@ namespace Rein.RogueWispPlugin
                 RoR2.Orbs.OrbManager.instance.AddOrb( orb );
                 this.children.Add( orb );
 
-                enemy.healthComponent.gameObject.GetComponent<CharacterBody>().AddTimedBuff( this.b, this.igniteDuration );
+                enemy.healthComponent.body.AddTimedBuff( this.b, this.igniteDuration );
             }
         }
     }

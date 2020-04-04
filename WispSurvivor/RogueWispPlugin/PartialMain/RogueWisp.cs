@@ -29,6 +29,7 @@ namespace Rein.RogueWispPlugin
         partial void RW_Orb();
         partial void RW_Skill();
         partial void RW_Buff();
+        partial void RW_Master();
         partial void RW_Info();
 
 
@@ -48,6 +49,7 @@ namespace Rein.RogueWispPlugin
             this.RW_Orb();
             this.RW_Skill();
             this.RW_Buff();
+            this.RW_Master();
             this.RW_Info();
         }
     }

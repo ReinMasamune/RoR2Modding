@@ -51,10 +51,8 @@ namespace Rein.RogueWispPlugin
 
             WispPassiveController passive = this.RW_body.AddComponent<WispPassiveController>();
             this.RW_body.AddComponent<WispCrosshairManager>();
-            //this.RW_body.AddComponent<WispUIController>().passive = passive;
             this.RW_body.AddComponent<EntityStateMachine>().customName = "Gaze";
 
-            // GET components missing now.
         }
 
         private void RW_Misc()

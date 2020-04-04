@@ -3,8 +3,6 @@ using RoR2;
 using UnityEngine;
 using System.Collections.Generic;
 using RoR2.Navigation;
-using R2API;
-using R2API.Utils;
 using Mono.Cecil.Cil;
 using MonoMod.Cil;
 using System;
@@ -12,6 +10,7 @@ using System.Reflection;
 using EntityStates;
 using RoR2.Skills;
 using System.Collections;
+using ReinCore;
 
 namespace ReinGeneralFixes
 {
@@ -40,7 +39,7 @@ namespace ReinGeneralFixes
 
         private void GetNewCrosshairPrefab()
         {
-            this.newVisionsCrosshair = Resources.Load<GameObject>( "Prefabs/CharacterBodies/CommandoBody" ).GetComponent<CharacterBody>().crosshairPrefab.InstantiateClone( "VisionsCrosshair", false );
+            this.newVisionsCrosshair = Resources.Load<GameObject>( "Prefabs/CharacterBodies/CommandoBody" ).GetComponent<CharacterBody>().crosshairPrefab.ClonePrefab( "VisionsCrosshair", false );
         }
 
         private void PopulateBadCrosshairs()
@@ -50,17 +49,16 @@ namespace ReinGeneralFixes
 
         private void RemoveFixVisionsCrosshair()
         {
-            On.RoR2.Skills.LunarPrimaryReplacementSkill.OnAssigned -= this.LunarPrimaryReplacementSkill_OnAssigned;
-            On.RoR2.Skills.LunarPrimaryReplacementSkill.OnUnassigned -= this.LunarPrimaryReplacementSkill_OnUnassigned;
+            HooksCore.RoR2.Skills.LunarPrimaryReplacementSkill.OnAssigned.On -= this.OnAssigned_On1;
+            HooksCore.RoR2.Skills.LunarPrimaryReplacementSkill.OnUnassigned.On -= this.OnUnassigned_On;
         }
         private void AddFixVisionsCrosshair()
         {
-            On.RoR2.Skills.LunarPrimaryReplacementSkill.OnAssigned += this.LunarPrimaryReplacementSkill_OnAssigned;
-            On.RoR2.Skills.LunarPrimaryReplacementSkill.OnUnassigned += this.LunarPrimaryReplacementSkill_OnUnassigned;
+            HooksCore.RoR2.Skills.LunarPrimaryReplacementSkill.OnAssigned.On += this.OnAssigned_On1;
+            HooksCore.RoR2.Skills.LunarPrimaryReplacementSkill.OnUnassigned.On += this.OnUnassigned_On;
         }
 
-
-        private void LunarPrimaryReplacementSkill_OnUnassigned( On.RoR2.Skills.LunarPrimaryReplacementSkill.orig_OnUnassigned orig, LunarPrimaryReplacementSkill self, GenericSkill skillSlot )
+        private void OnUnassigned_On( HooksCore.RoR2.Skills.LunarPrimaryReplacementSkill.OnUnassigned.Orig orig, LunarPrimaryReplacementSkill self, GenericSkill skillSlot )
         {
             orig( self, skillSlot );
 
@@ -84,7 +82,8 @@ namespace ReinGeneralFixes
                 }
             }
         }
-        private SkillDef.BaseSkillInstanceData LunarPrimaryReplacementSkill_OnAssigned( On.RoR2.Skills.LunarPrimaryReplacementSkill.orig_OnAssigned orig, LunarPrimaryReplacementSkill self, GenericSkill skillSlot )
+
+        private SkillDef.BaseSkillInstanceData OnAssigned_On1( HooksCore.RoR2.Skills.LunarPrimaryReplacementSkill.OnAssigned.Orig orig, LunarPrimaryReplacementSkill self, GenericSkill skillSlot )
         {
             var ret = orig( self, skillSlot );
 

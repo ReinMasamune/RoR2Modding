@@ -21,6 +21,7 @@ namespace Rein.RogueWispPlugin
         private HealthComponent RW_healthComponent;
         private WispFlamesController RW_flameController;
         private WispPassiveController RW_passiveController;
+        private ParticleHolder RW_holder;
 
         private List<(Transform transform,String name)> pairsList = new List<(Transform transform,String name)>();
 
@@ -40,11 +41,19 @@ namespace Rein.RogueWispPlugin
             this.RW_healthComponent = this.RW_body.GetComponent<HealthComponent>();
             this.RW_flameController = this.RW_body.GetComponent<WispFlamesController>();
             this.RW_passiveController = this.RW_body.GetComponent<WispPassiveController>();
+            this.RW_holder = modelTransform.AddOrGetComponent<ParticleHolder>();
 
             foreach( var val in this.RW_charModel.baseLightInfos ) UnityEngine.Object.DestroyImmediate( val.light.gameObject );
             this.RW_charModel.baseLightInfos = Array.Empty<CharacterModel.LightInfo>();
-            foreach( var val in this.RW_charModel.baseParticleSystemInfos ) UnityEngine.Object.DestroyImmediate( val.particleSystem.gameObject );
-            this.RW_charModel.baseParticleSystemInfos = Array.Empty<CharacterModel.ParticleSystemInfo>();
+            //foreach( var val in this.RW_charModel.baseParticleSystemInfos ) UnityEngine.Object.DestroyImmediate( val.particleSystem.gameObject );
+            //this.RW_charModel.baseParticleSystemInfos = Array.Empty<CharacterModel.ParticleSystemInfo>();
+
+            foreach( var rend in this.RW_charModel.GetComponentsInChildren<ParticleSystemRenderer>() )
+            {
+                UnityEngine.Object.Destroy( rend.gameObject );
+            }
+
+
             UnityEngine.Object.DestroyImmediate( modelTransform.GetComponent<AncientWispFireController>() );
             foreach( var val in this.RW_boxGroup.hurtBoxes )
             {
@@ -1139,9 +1148,7 @@ namespace Rein.RogueWispPlugin
             psr.probeAnchor = null;
 
 
-            var ind = this.RW_charModel.baseParticleSystemInfos.Length;
-            Array.Resize( ref this.RW_charModel.baseParticleSystemInfos, ind + 1 );
-            this.RW_charModel.baseParticleSystemInfos[ind] = new CharacterModel.ParticleSystemInfo( ps );
+            this.RW_holder.Add( ps, psr );
 
 
             var psMain = ps.main;

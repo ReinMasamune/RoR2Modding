@@ -237,7 +237,7 @@ namespace Rein.RogueWispPlugin
 					tempBox = this.dicCheck( this.beamCols[i] ).Get( this.beamCols[i].gameObject );
 					if( !tempBox ) continue;
 					tempHc = tempBox.healthComponent;
-					if( !tempHc || this.beamMask.Contains( tempHc ) || TeamComponent.GetObjectTeam( tempHc.gameObject ) == this.team ) continue;
+					if( !tempHc || this.beamMask.Contains( tempHc ) || !FriendlyFireManager.ShouldDirectHitProceed( tempHc, this.team ) || tempHc == base.healthComponent ) continue;
 					this.beamMask.Add( tempHc );
 
 					tempDmgInfo = new DamageInfo

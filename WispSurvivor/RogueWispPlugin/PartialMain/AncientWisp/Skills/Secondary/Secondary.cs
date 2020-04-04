@@ -186,13 +186,14 @@ namespace Rein.RogueWispPlugin
                         foreach( var target in targetSet )
                         {
                             if( target == null ) continue;
-                            if( target.teamIndex == this.team ) continue;
                             var body = target.body;
                             if( body == null ) continue;
+                            if( body.gameObject == this.owner ) continue;
                             var hc = body.healthComponent;
                             if( hc == null ) continue;
                             if( this.mask.Contains( hc ) ) continue;
                             this.mask.Add( hc );
+                            if( !FriendlyFireManager.ShouldDirectHitProceed( hc, this.team ) ) continue;
 
                             var diff = hc.transform.position - this.position;
                             if( diff.y < -10f ) continue;
@@ -638,8 +639,6 @@ namespace Rein.RogueWispPlugin
 
                 if( this.enraged )
                 {
-
-
                     var vel = hc.body.characterMotor.velocity;
                     vel.y = 0f;
                     if( vel.magnitude == 0f )
@@ -673,10 +672,10 @@ namespace Rein.RogueWispPlugin
             private void UpdateTargets()
             {
                 //Main.LogC();
-                this.targets1 = base.GetTeam() == TeamIndex.Monster ? null : TeamComponent.GetTeamMembers( TeamIndex.Monster );
-                this.targets2 = base.GetTeam() == TeamIndex.Neutral ? null : TeamComponent.GetTeamMembers( TeamIndex.Neutral );
-                this.targets3 = base.GetTeam() == TeamIndex.None ? null : TeamComponent.GetTeamMembers( TeamIndex.None );
-                this.targets4 = base.GetTeam() == TeamIndex.Player ? null : TeamComponent.GetTeamMembers( TeamIndex.Player );
+                this.targets1 = TeamComponent.GetTeamMembers( TeamIndex.Monster );
+                this.targets2 = TeamComponent.GetTeamMembers( TeamIndex.Neutral );
+                this.targets3 = TeamComponent.GetTeamMembers( TeamIndex.None );
+                this.targets4 = TeamComponent.GetTeamMembers( TeamIndex.Player );
             }
 
             //private void DetonatePillars()

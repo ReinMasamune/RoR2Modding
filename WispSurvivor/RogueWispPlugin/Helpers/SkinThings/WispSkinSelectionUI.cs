@@ -12,7 +12,7 @@ namespace Rein.RogueWispPlugin.Helpers
         private const Single armorFlameGradSelectionFracW = 0.25f;      //0.5 left
 
         private static Texture2D colorPreview;
-        private Vector3[] corners = new Vector3[4];
+        //private Vector3[] corners = new Vector3[4];
         private RectTransform rectTransform;
         private Rect areaRect;
 
@@ -29,22 +29,23 @@ namespace Rein.RogueWispPlugin.Helpers
 
         private void OnEnable()
         {
-            //Main.LogI( "Selection UI On" );
+            //Main.LogW( "Selection UI On" );
             this.rectTransform = base.transform as RectTransform;
 
-            this.rectTransform.GetWorldCorners( this.corners );
-            Vector2 topLeft = this.corners[1];
-            Vector2 bottomRight = this.corners[3];
+            //this.rectTransform.GetWorldCorners( this.corners );
+            //Vector2 topLeft = this.corners[1];
+            //Vector2 bottomRight = this.corners[3];
+            var screenVec = new Vector2( Screen.width, Screen.height );
+            Vector2 topLeft = screenVec * new Vector2( 0.05f, 0.68f );
+            Vector2 bottomRight = screenVec * new Vector2( 0.37f, 0.15f );
+
+
             var size = topLeft - bottomRight;
             topLeft.y = Screen.height - topLeft.y;
             size.x = Mathf.Abs( size.x );
             size.y = Mathf.Abs( size.y );
             this.areaRect = new Rect( topLeft, size );
 
-            //Main.LogI( this.areaRect.x );
-            //Main.LogI( this.areaRect.y );
-            //Main.LogI( this.areaRect.width );
-            //Main.LogI( this.areaRect.height );
             if( colorPreview == null )
             {
                 colorPreview = new Texture2D( Mathf.FloorToInt( this.areaRect.width * 0.5f ), Mathf.FloorToInt( this.areaRect.height * 0.15f ) );
@@ -61,7 +62,7 @@ namespace Rein.RogueWispPlugin.Helpers
         }
         private void OnDisable()
         {
-            //Main.LogI( "Selection UI Off" );
+            //Main.LogW( "Selection UI Off" );
            
         }
         private Boolean dataSet = false;
@@ -140,6 +141,7 @@ namespace Rein.RogueWispPlugin.Helpers
         private Vector2 scroll;
         private void OnGUI()
         {
+            //Main.LogW( "GUI" );
             GUILayout.BeginArea( this.areaRect );
             {
                 this.scroll = GUILayout.BeginScrollView( this.scroll );

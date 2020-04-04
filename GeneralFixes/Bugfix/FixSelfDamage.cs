@@ -3,14 +3,13 @@ using RoR2;
 using UnityEngine;
 using System.Collections.Generic;
 using RoR2.Navigation;
-using R2API;
-using R2API.Utils;
 using Mono.Cecil.Cil;
 using MonoMod.Cil;
 using System;
 using System.Reflection;
 using EntityStates;
 using RoR2.Skills;
+using ReinCore;
 
 namespace ReinGeneralFixes
 {
@@ -24,14 +23,14 @@ namespace ReinGeneralFixes
 
         private void RemoveFixSelfDamage()
         {
-            IL.RoR2.HealthComponent.TakeDamage -= this.HealthComponent_TakeDamage1;
+            HooksCore.RoR2.HealthComponent.TakeDamage.Il -= this.TakeDamage_Il1;
         }
         private void AddFixSelfDamage()
         {
-            IL.RoR2.HealthComponent.TakeDamage += this.HealthComponent_TakeDamage1;
+            HooksCore.RoR2.HealthComponent.TakeDamage.Il += this.TakeDamage_Il1;
         }
 
-        private void HealthComponent_TakeDamage1( ILContext il )
+        private void TakeDamage_Il1( ILContext il )
         {
             ILCursor c = new ILCursor( il );
 

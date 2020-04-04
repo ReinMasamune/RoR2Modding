@@ -8,6 +8,13 @@ namespace Rein.RogueWispPlugin
     {
         public class WispPassiveController : MonoBehaviour
         {
+            public GameObject latestUtilityZone
+            {
+                set => this.onUtilityPlaced?.Invoke( value );
+            }
+            public event Action<GameObject> onUtilityPlaced;
+
+
             public struct ChargeState
             {
                 public Double chargeConsumed;

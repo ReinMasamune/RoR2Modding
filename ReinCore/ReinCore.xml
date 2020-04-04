@@ -557,5 +557,47 @@
             <param name="resourceDllName">The name of the file for use with [DllImport]. Should end in .dll</param>
             <param name="resourceBytes">The bytes returned from Properties.[resourcename]</param>
         </member>
+        <member name="T:Rein.Properties.Tools">
+            <summary>
+            A helper class for loading embedded resources into the game.
+            </summary>
+        </member>
+        <member name="M:Rein.Properties.Tools.LoadAssetBundle(System.Byte[])">
+            <summary>
+            Loads an embedded asset bundle
+            </summary>
+            <param name="resourceBytes">The bytes returned by Properties.Resources.ASSETNAME</param>
+            <returns>The loaded bundle</returns>
+        </member>
+        <member name="M:Rein.Properties.Tools.GetModPrefix(BepInEx.BaseUnityPlugin,System.String)">
+            <summary>
+            A simple helper to generate a unique mod prefix for you.
+            </summary>
+            <param name="plugin">A reference to your plugin. (this.GetModPrefix)</param>
+            <param name="bundleName">A unique name for the bundle (Unique within your mod)</param>
+            <returns>The generated prefix</returns>
+        </member>
+        <member name="M:Rein.Properties.Tools.LoadTexture2D(System.Byte[])">
+            <summary>
+            Loads an embedded .png or .jpg image as a Texture2D
+            </summary>
+            <param name="resourceBytes">The bytes returned by Properties.Resources.ASSETNAME</param>
+            <returns>The loaded texture</returns>
+        </member>
+        <member name="M:Rein.Properties.Tools.LoadAssembly(System.Byte[])">
+            <summary>
+            Loads an embedded managed assembly.
+            </summary>
+            <param name="resourceBytes">The bytes returned by Properties.Resources.ASSETNAME</param>
+            <returns>The loaded managed assembly</returns>
+        </member>
+        <member name="M:Rein.Properties.Tools.LoadUnmanagedAssembly(System.String,System.Byte[])">
+            <summary>
+            Loads an embedded unmanaged assembly.
+            </summary>
+            <param name="resourceDllName">The name of the dll. Must end in .dll</param>
+            <param name="resourceBytes">The bytes returned by Properties.Resources.ASSETNAME</param>
+            <returns>The directory that the unmanaged assembly is created in for later deletion</returns>
+        </member>
     </members>
 </doc>

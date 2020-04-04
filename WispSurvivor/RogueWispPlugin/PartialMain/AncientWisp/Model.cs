@@ -19,6 +19,8 @@ namespace Rein.RogueWispPlugin
             this.Load += this.AW_ChildSetup;
         }
 
+
+
         private void AW_Model1()
         {
             ModelLocator modelLocator = this.AW_body.GetComponent<ModelLocator>();
@@ -52,6 +54,7 @@ namespace Rein.RogueWispPlugin
         private RagdollController AW_ragdollController;
         private HurtBoxGroup AW_boxGroup;
         private HealthComponent AW_healthComponent;
+        private ParticleHolder AW_holder;
         //private WispFlamesController AW_flameController;
         //private WispPassiveController AW_passiveController;
 
@@ -66,6 +69,7 @@ namespace Rein.RogueWispPlugin
             this.AW_ragdollController = modelTransform.AddComponent<RagdollController>();
             this.AW_boxGroup = modelTransform.GetComponent<HurtBoxGroup>();
             this.AW_healthComponent = this.AW_body.GetComponent<HealthComponent>();
+            this.AW_holder = this.AW_charModel.AddOrGetComponent<ParticleHolder>();
             //this.AW_flameController = this.AW_body.GetComponent<WispFlamesController>();
             //this.AW_passiveController = this.AW_body.GetComponent<WispPassiveController>();
 
@@ -73,8 +77,13 @@ namespace Rein.RogueWispPlugin
 
             foreach( var val in this.AW_charModel.baseLightInfos ) UnityEngine.Object.DestroyImmediate( val.light.gameObject );
             this.AW_charModel.baseLightInfos = Array.Empty<CharacterModel.LightInfo>();
-            foreach( var val in this.AW_charModel.baseParticleSystemInfos ) UnityEngine.Object.DestroyImmediate( val.particleSystem.gameObject );
-            this.AW_charModel.baseParticleSystemInfos = Array.Empty<CharacterModel.ParticleSystemInfo>();
+            //foreach( var val in this.AW_charModel.re ) UnityEngine.Object.DestroyImmediate( val.particleSystem.gameObject );
+            //this.AW_charModel.baseParticleSystemInfos = Array.Empty<CharacterModel.ParticleSystemInfo>();
+            foreach( var rend in this.AW_charModel.GetComponentsInChildren<ParticleSystemRenderer>() )
+            {
+                UnityEngine.Object.Destroy( rend.gameObject );
+            }
+
             UnityEngine.Object.DestroyImmediate( modelTransform.GetComponent<AncientWispFireController>() );
             foreach( var val in this.AW_boxGroup.hurtBoxes )
             {
@@ -1195,9 +1204,10 @@ namespace Rein.RogueWispPlugin
             psr.probeAnchor = null;
 
 
-            var ind = this.AW_charModel.baseParticleSystemInfos.Length;
-            Array.Resize( ref this.AW_charModel.baseParticleSystemInfos, ind + 1 );
-            this.AW_charModel.baseParticleSystemInfos[ind] = new CharacterModel.ParticleSystemInfo( ps );
+            //var ind = this.AW_charModel.baseParticleSystemInfos.Length;
+            //Array.Resize( ref this.AW_charModel.baseParticleSystemInfos, ind + 1 );
+            //this.AW_charModel.baseParticleSystemInfos[ind] = new CharacterModel.ParticleSystemInfo( ps );
+            this.AW_holder.Add( ps, psr );
 
 
 

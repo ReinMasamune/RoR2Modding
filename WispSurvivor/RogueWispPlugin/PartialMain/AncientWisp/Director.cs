@@ -103,7 +103,7 @@ namespace Rein.RogueWispPlugin
 
         private void SpawnsCore_monsterEdits( ClassicStageInfo stageInfo, Run runInstance, DirectorCardCategorySelection monsterSelection )
         {
-            Main.LogI( "Monster" );
+            //Main.LogI( "Monster" );
             for( Int32 i = 0; i < monsterSelection.categories.Length; ++i )
             {
                 var category = monsterSelection.categories[i];

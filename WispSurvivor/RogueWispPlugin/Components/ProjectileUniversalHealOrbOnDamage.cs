@@ -42,7 +42,7 @@ namespace Rein.RogueWispPlugin
                 {
                     if( this.ownerHB )
                     {
-                        Main.LogI( this.skinInd );
+
                         OrbManager.instance.AddOrb( new UniversalHealOrb
                         (
                             this.ownerHB,

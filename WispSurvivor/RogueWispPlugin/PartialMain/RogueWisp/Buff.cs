@@ -33,6 +33,21 @@ namespace Rein.RogueWispPlugin
             BuffDef enrage = BuffCatalog.GetBuffDef(BuffIndex.EnrageAncientWisp);
             enrage.buffColor = new Color( 0.5f, 0.1f, 0.7f, 1f );
             enrage.iconPath = "Textures/BuffIcons/texMovespeedBuffIcon";
+
+            if( this.deathMarkStuff.Value )
+            {
+                var bleed = BuffCatalog.GetBuffDef( BuffIndex.Bleeding );
+                bleed.isDebuff = true;
+
+                var fire1 = BuffCatalog.GetBuffDef( BuffIndex.OnFire );
+                fire1.isDebuff = true;
+
+                var poison = BuffCatalog.GetBuffDef( BuffIndex.Poisoned );
+                poison.isDebuff = true;
+
+                var blight = BuffCatalog.GetBuffDef( BuffIndex.Blight );
+                blight.isDebuff = true;
+            }
         }
 
         private void RW_RegisterBuffs()

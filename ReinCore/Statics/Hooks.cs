@@ -41,8 +41,55 @@ public static event Hook On
     public static class HooksCore
     {
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+#pragma warning disable IDE1006 // Naming Styles
         public struct EntityStates
         {
+            public struct Commando
+            {
+                public static class DodgeState
+                {
+                    public struct OnEnter
+                    {
+                        private static MethodBase method = HookableHelpers.GetBase( typeof(OnEnter) );
+                        public delegate void Orig(global::EntityStates.Commando.DodgeState self );
+                        public delegate void Hook( Orig orig, global::EntityStates.Commando.DodgeState self );
+                        public static event ILContext.Manipulator Il
+                        {
+                            add => HookEndpointManager.Modify<Hook>( method, value );
+                            remove => HookEndpointManager.Unmodify<Hook>( method, value );
+                        }
+                        public static event Hook On
+                        {
+                            add => HookEndpointManager.Add<Hook>( method, value );
+                            remove => HookEndpointManager.Remove<Hook>( method, value );
+                        }
+                    }
+                }
+            }
+
+            public struct GoldGat
+            {
+                public static class BaseGoldGatState
+                {
+                    public struct FixedUpdate
+                    {
+                        private static MethodBase method = HookableHelpers.GetBase( typeof(FixedUpdate) );
+                        public delegate void Orig(global::EntityStates.GoldGat.BaseGoldGatState self );
+                        public delegate void Hook( Orig orig, global::EntityStates.GoldGat.BaseGoldGatState self );
+                        public static event ILContext.Manipulator Il
+                        {
+                            add => HookEndpointManager.Modify<Hook>( method, value );
+                            remove => HookEndpointManager.Unmodify<Hook>( method, value );
+                        }
+                        public static event Hook On
+                        {
+                            add => HookEndpointManager.Add<Hook>( method, value );
+                            remove => HookEndpointManager.Remove<Hook>( method, value );
+                        }
+                    }
+                }
+            }
+
             public struct Mage
             {
                 public struct Weapon
@@ -412,6 +459,47 @@ public static event Hook On
                     private static MethodBase method = HookableHelpers.GetBase( typeof(SpawnEffect___void_EffectIndex_EffectData_Boolean), true, CallingConventions.Standard,  typeof(global::RoR2.EffectIndex), typeof(global::RoR2.EffectData), typeof(global::System.Boolean) );
                     public delegate void Orig( global::RoR2.EffectIndex index, global::RoR2.EffectData data, global::System.Boolean transmit );
                     public delegate void Hook( Orig orig, global::RoR2.EffectIndex index, global::RoR2.EffectData data, global::System.Boolean transmit );
+
+                    public static event ILContext.Manipulator Il
+                    {
+                        add => HookEndpointManager.Modify<Hook>( method, value );
+                        remove => HookEndpointManager.Unmodify<Hook>( method, value );
+                    }
+                    public static event Hook On
+                    {
+                        add => HookEndpointManager.Add<Hook>( method, value );
+                        remove => HookEndpointManager.Remove<Hook>( method, value );
+                    }
+                }
+            }
+
+            public static class EquipmentSlot
+            {
+                public struct FixedUpdate
+                {
+                    private static MethodBase method = HookableHelpers.GetBase( typeof(FixedUpdate) );
+                    public delegate void Orig(global::RoR2.EquipmentSlot self );
+                    public delegate void Hook( Orig orig, global::RoR2.EquipmentSlot self );
+                    public static event ILContext.Manipulator Il
+                    {
+                        add => HookEndpointManager.Modify<Hook>( method, value );
+                        remove => HookEndpointManager.Unmodify<Hook>( method, value );
+                    }
+                    public static event Hook On
+                    {
+                        add => HookEndpointManager.Add<Hook>( method, value );
+                        remove => HookEndpointManager.Remove<Hook>( method, value );
+                    }
+                }
+            }
+
+            public static class GenericPickupController
+            {
+                public struct GrantEquipment
+                {
+                    private static MethodBase method = HookableHelpers.GetBase( typeof(GrantEquipment) );
+                    public delegate void Orig(global::RoR2.GenericPickupController self, global::RoR2.CharacterBody body, global::RoR2.Inventory inventory);
+                    public delegate void Hook( Orig orig, global::RoR2.GenericPickupController self, global::RoR2.CharacterBody body, global::RoR2.Inventory inventory );
                     public static event ILContext.Manipulator Il
                     {
                         add => HookEndpointManager.Modify<Hook>( method, value );
@@ -447,11 +535,102 @@ public static event Hook On
 
             public static class HealthComponent
             {
+                public static class RepeatHealComponent
+                {
+                    public struct FixedUpdate
+                    {
+                        private static MethodBase method = HookableHelpers.GetBase( typeof(FixedUpdate) );
+                        public delegate void Orig( System.Object self );
+                        public delegate void Hook( Orig orig, System.Object self );
+                        public static event ILContext.Manipulator Il
+                        {
+                            add => HookEndpointManager.Modify<Hook>( method, value );
+                            remove => HookEndpointManager.Unmodify<Hook>( method, value );
+                        }
+                        public static event Hook On
+                        {
+                            add => HookEndpointManager.Add<Hook>( method, value );
+                            remove => HookEndpointManager.Remove<Hook>( method, value );
+                        }
+                    }
+                }
+
+
+                public struct Heal
+                {
+                    private static MethodBase method = HookableHelpers.GetBase( typeof(Heal) );
+                    public delegate void Orig( global::RoR2.HealthComponent self, global::RoR2.ProcChainMask procChainMask, Boolean nonRegen );
+                    public delegate void Hook( Orig orig, global::RoR2.HealthComponent self, global::RoR2.ProcChainMask procChainMask, Boolean nonRegen );
+                    public static event ILContext.Manipulator Il
+                    {
+                        add => HookEndpointManager.Modify<Hook>( method, value );
+                        remove => HookEndpointManager.Unmodify<Hook>( method, value );
+                    }
+                    public static event Hook On
+                    {
+                        add => HookEndpointManager.Add<Hook>( method, value );
+                        remove => HookEndpointManager.Remove<Hook>( method, value );
+                    }
+                }
                 public struct TakeDamage
                 {
                     private static MethodBase method = HookableHelpers.GetBase( typeof(TakeDamage) );
                     public delegate void Orig( global::RoR2.HealthComponent self, global::RoR2.DamageInfo damageInfo );
                     public delegate void Hook( Orig orig, global::RoR2.HealthComponent self, global::RoR2.DamageInfo damageInfo );
+                    public static event ILContext.Manipulator Il
+                    {
+                        add => HookEndpointManager.Modify<Hook>( method, value );
+                        remove => HookEndpointManager.Unmodify<Hook>( method, value );
+                    }
+                    public static event Hook On
+                    {
+                        add => HookEndpointManager.Add<Hook>( method, value );
+                        remove => HookEndpointManager.Remove<Hook>( method, value );
+                    }
+                }
+            }
+
+            public static class Inventory
+            {
+                public struct CalculateEquipmentCooldownScale
+                {
+                    private static MethodBase method = HookableHelpers.GetBase( typeof(CalculateEquipmentCooldownScale) );
+                    public delegate Single Orig( global::RoR2.Inventory self );
+                    public delegate Single Hook( Orig orig, global::RoR2.Inventory self );
+                    public static event ILContext.Manipulator Il
+                    {
+                        add => HookEndpointManager.Modify<Hook>( method, value );
+                        remove => HookEndpointManager.Unmodify<Hook>( method, value );
+                    }
+                    public static event Hook On
+                    {
+                        add => HookEndpointManager.Add<Hook>( method, value );
+                        remove => HookEndpointManager.Remove<Hook>( method, value );
+                    }
+                }
+
+                public struct SetActiveEquipmentSlot
+                {
+                    private static MethodBase method = HookableHelpers.GetBase( typeof(SetActiveEquipmentSlot) );
+                    public delegate void Orig( global::RoR2.Inventory self, Byte slotIndex );
+                    public delegate void Hook( Orig orig, global::RoR2.Inventory self, Byte slotIndex );
+                    public static event ILContext.Manipulator Il
+                    {
+                        add => HookEndpointManager.Modify<Hook>( method, value );
+                        remove => HookEndpointManager.Unmodify<Hook>( method, value );
+                    }
+                    public static event Hook On
+                    {
+                        add => HookEndpointManager.Add<Hook>( method, value );
+                        remove => HookEndpointManager.Remove<Hook>( method, value );
+                    }
+                }
+
+                public struct UpdateEquipment
+                {
+                    private static MethodBase method = HookableHelpers.GetBase( typeof(UpdateEquipment) );
+                    public delegate void Orig( global::RoR2.Inventory self );
+                    public delegate void Hook( Orig orig, global::RoR2.Inventory self );
                     public static event ILContext.Manipulator Il
                     {
                         add => HookEndpointManager.Modify<Hook>( method, value );
@@ -488,6 +667,26 @@ public static event Hook On
                 }
             }
 
+            public static class Run
+            {
+                public struct Awake
+                {
+                    private static MethodBase method = HookableHelpers.GetBase( typeof(Awake) );
+                    public delegate void Orig( global::RoR2.Run self );
+                    public delegate void Hook( Orig orig, global::RoR2.Run self );
+                    public static event ILContext.Manipulator Il
+                    {
+                        add => HookEndpointManager.Modify<Hook>( method, value );
+                        remove => HookEndpointManager.Unmodify<Hook>( method, value );
+                    }
+                    public static event Hook On
+                    {
+                        add => HookEndpointManager.Add<Hook>( method, value );
+                        remove => HookEndpointManager.Remove<Hook>( method, value );
+                    }
+                }
+            }
+
             public static class SetStateOnHurt
             {
                 public struct OnTakeDamageServer
@@ -495,6 +694,63 @@ public static event Hook On
                     private static MethodBase method = HookableHelpers.GetBase( typeof(OnTakeDamageServer) );
                     public delegate void Orig( global::RoR2.SetStateOnHurt self, global::RoR2.DamageReport damageReport );
                     public delegate void Hook( Orig orig, global::RoR2.SetStateOnHurt self, global::RoR2.DamageReport damageReport );
+                    public static event ILContext.Manipulator Il
+                    {
+                        add => HookEndpointManager.Modify<Hook>( method, value );
+                        remove => HookEndpointManager.Unmodify<Hook>( method, value );
+                    }
+                    public static event Hook On
+                    {
+                        add => HookEndpointManager.Add<Hook>( method, value );
+                        remove => HookEndpointManager.Remove<Hook>( method, value );
+                    }
+                }
+            }
+
+            public static class SkillLocator
+            {
+                public struct ApplyAmmoPack
+                {
+                    private static MethodBase method = HookableHelpers.GetBase( typeof(ApplyAmmoPack) );
+                    public delegate void Orig( global::RoR2.SkillLocator self );
+                    public delegate void Hook( Orig orig, global::RoR2.SkillLocator self );
+                    public static event ILContext.Manipulator Il
+                    {
+                        add => HookEndpointManager.Modify<Hook>( method, value );
+                        remove => HookEndpointManager.Unmodify<Hook>( method, value );
+                    }
+                    public static event Hook On
+                    {
+                        add => HookEndpointManager.Add<Hook>( method, value );
+                        remove => HookEndpointManager.Remove<Hook>( method, value );
+                    }
+                }
+            }
+
+            public static class Stage
+            {
+                public struct OnEnable
+                {
+                    private static MethodBase method = HookableHelpers.GetBase( typeof(OnDisable) );
+                    public delegate void Orig( global::RoR2.Stage self );
+                    public delegate void Hook( Orig orig, global::RoR2.Stage self );
+                    public static event ILContext.Manipulator Il
+                    {
+                        add => HookEndpointManager.Modify<Hook>( method, value );
+                        remove => HookEndpointManager.Unmodify<Hook>( method, value );
+                    }
+                    public static event Hook On
+                    {
+                        add => HookEndpointManager.Add<Hook>( method, value );
+                        remove => HookEndpointManager.Remove<Hook>( method, value );
+                    }
+                }
+
+                public struct OnDisable
+                {
+                    private static MethodBase method = HookableHelpers.GetBase( typeof(OnDisable) );
+                    public delegate void Orig( global::RoR2.Stage self );
+                    public delegate void Hook( Orig orig, global::RoR2.Stage self );
                     public static event ILContext.Manipulator Il
                     {
                         add => HookEndpointManager.Modify<Hook>( method, value );
@@ -614,6 +870,46 @@ public static event Hook On
                 }
             }
 
+            public struct Skills
+            {
+                public static class LunarPrimaryReplacementSkill
+                {
+                    public struct OnAssigned
+                    {
+                        private static MethodBase method = HookableHelpers.GetBase( typeof(OnAssigned) );
+                        public delegate global::RoR2.Skills.SkillDef.BaseSkillInstanceData Orig(global::RoR2.Skills.LunarPrimaryReplacementSkill self, global::RoR2.GenericSkill skillSlot );
+                        public delegate global::RoR2.Skills.SkillDef.BaseSkillInstanceData Hook( Orig orig, global::RoR2.Skills.LunarPrimaryReplacementSkill self, global::RoR2.GenericSkill skillSlot );
+                        public static event ILContext.Manipulator Il
+                        {
+                            add => HookEndpointManager.Modify<Hook>( method, value );
+                            remove => HookEndpointManager.Unmodify<Hook>( method, value );
+                        }
+                        public static event Hook On
+                        {
+                            add => HookEndpointManager.Add<Hook>( method, value );
+                            remove => HookEndpointManager.Remove<Hook>( method, value );
+                        }
+                    }
+
+                    public struct OnUnassigned
+                    {
+                        private static MethodBase method = HookableHelpers.GetBase( typeof(OnUnassigned) );
+                        public delegate void Orig( global::RoR2.Skills.LunarPrimaryReplacementSkill self, global::RoR2.GenericSkill skillSlot );
+                        public delegate void Hook( Orig orig, global::RoR2.Skills.LunarPrimaryReplacementSkill self, global::RoR2.GenericSkill skillSlot );
+                        public static event ILContext.Manipulator Il
+                        {
+                            add => HookEndpointManager.Modify<Hook>( method, value );
+                            remove => HookEndpointManager.Unmodify<Hook>( method, value );
+                        }
+                        public static event Hook On
+                        {
+                            add => HookEndpointManager.Add<Hook>( method, value );
+                            remove => HookEndpointManager.Remove<Hook>( method, value );
+                        }
+                    }
+                }
+            }
+
             public struct UI
             {
                 public static class CharacterSelectController
@@ -709,8 +1005,66 @@ public static event Hook On
                         }
                     }
                 }
+
+                public static class PauseScreenController
+                {
+                    public struct OnEnable
+                    {
+                        private static MethodBase method = HookableHelpers.GetBase( typeof(OnEnable) );
+                        public delegate void Orig( global::RoR2.UI.PauseScreenController self );
+                        public delegate void Hook( Orig orig, global::RoR2.UI.PauseScreenController self );
+                        public static event ILContext.Manipulator Il
+                        {
+                            add => HookEndpointManager.Modify<Hook>( method, value );
+                            remove => HookEndpointManager.Unmodify<Hook>( method, value );
+                        }
+                        public static event Hook On
+                        {
+                            add => HookEndpointManager.Add<Hook>( method, value );
+                            remove => HookEndpointManager.Remove<Hook>( method, value );
+                        }
+                    }
+
+                    public struct OnDisable
+                    {
+                        private static MethodBase method = HookableHelpers.GetBase( typeof(OnDisable) );
+                        public delegate void Orig(global::RoR2.UI.PauseScreenController self);
+                        public delegate void Hook( Orig orig, global::RoR2.UI.PauseScreenController self );
+                        public static event ILContext.Manipulator Il
+                        {
+                            add => HookEndpointManager.Modify<Hook>( method, value );
+                            remove => HookEndpointManager.Unmodify<Hook>( method, value );
+                        }
+                        public static event Hook On
+                        {
+                            add => HookEndpointManager.Add<Hook>( method, value );
+                            remove => HookEndpointManager.Remove<Hook>( method, value );
+                        }
+                    }
+                }
+
+                public static class QuickPlayButtonController
+                {
+                    public struct Start
+                    {
+                        private static MethodBase method = HookableHelpers.GetBase( typeof(Start) );
+                        public delegate void Orig( global::RoR2.UI.QuickPlayButtonController self );
+                        public delegate void Hook( Orig orig, global::RoR2.UI.QuickPlayButtonController self );
+                        public static event ILContext.Manipulator Il
+                        {
+                            add => HookEndpointManager.Modify<Hook>( method, value );
+                            remove => HookEndpointManager.Unmodify<Hook>( method, value );
+                        }
+                        public static event Hook On
+                        {
+                            add => HookEndpointManager.Add<Hook>( method, value );
+                            remove => HookEndpointManager.Remove<Hook>( method, value );
+                        }
+                    }
+                }
             }
         }
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+#pragma warning restore IDE1006 // Naming Styles
     }
 }

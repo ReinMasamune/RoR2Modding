@@ -53,7 +53,7 @@ namespace ReinCore
 
         static Log()
         {
-            logger = BepInEx.Logging.Logger.CreateLogSource( nameof( ReinCore ) );
+            if( logger == null ) logger = BepInEx.Logging.Logger.CreateLogSource( nameof( ReinCore ) );
             loaded = true;
         }
 
@@ -69,7 +69,11 @@ namespace ReinCore
             } else
             {
                 var lv = Translate( level );
+#if ALLLOGS
+                logger.Log( level, data );
+#else
                 if( ReinCore.execLevel.HasFlag( lv ) && level != LogLevel.None ) logger.Log( level, data );
+#endif
             }
             if( ReinCore.execLevel.HasFlag( ExecutionLevel.FindLogs ) ) logger.Log( LogLevel.Info, String.Format( "{0} : {1}", member, line ) );
         }

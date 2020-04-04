@@ -343,24 +343,6 @@ namespace Rein.RogueWispPlugin
             }
         }
 
-        private ILHook randomHook;
-        private Int32 counter = 0;
-        private void RandomCrap( ILContext il = null )
-        {
-            if( il == null )
-            {
-                Main.LogE( "FirstCall" );
-                var self = MethodBase.GetCurrentMethod();
-                this.randomHook = new ILHook(self, this.RandomCrap );
-                this.randomHook.Apply();
-            } else
-            {
-                ILCursor c = new ILCursor( il );
-                var callNum = counter++;
-                c.EmitDelegate<Action>( () => Main.LogE( String.Format( "Call {0}", callNum ) ) );
-            }
-        }
-
         private static Texture2D uvTex;
         
         internal static Texture2D GetUVTexture()

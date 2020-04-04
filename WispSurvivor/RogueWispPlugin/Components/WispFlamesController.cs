@@ -10,18 +10,18 @@ namespace Rein.RogueWispPlugin
         public class WispFlamesController : MonoBehaviour
         {
             public WispPassiveController passive;
-            private CharacterModel model;
+            private ParticleHolder model;
             private ParticleSystem[] flames;
             private ParticleSystem.MinMaxCurve[] baseRates;
 
             private void Awake()
             {
-                this.model = base.gameObject.GetComponentInChildren<CharacterModel>();
-                this.flames = new ParticleSystem[this.model.baseParticleSystemInfos.Length];
-                this.baseRates = new ParticleSystem.MinMaxCurve[this.model.baseParticleSystemInfos.Length];
-                for( Int32 i = 0; i < this.model.baseParticleSystemInfos.Length; ++i )
+                this.model = base.gameObject.GetComponentInChildren<ParticleHolder>();
+                this.flames = new ParticleSystem[this.model.systems.Length];
+                this.baseRates = new ParticleSystem.MinMaxCurve[this.model.systems.Length];
+                for( Int32 i = 0; i < this.model.systems.Length; ++i )
                 {
-                    var temp = this.model.baseParticleSystemInfos[i].particleSystem;
+                    var temp = this.model.systems[i];
                     this.flames[i] = temp;
                     this.baseRates[i] = temp.emission.rateOverTime;
                 }

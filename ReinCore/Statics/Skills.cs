@@ -78,6 +78,8 @@ namespace ReinCore
             addedSkillFamilies.Add( skillFamily );
         }
 
+
+
         /// <summary>
         /// Accessor for GenericSkill.SkillFamily
         /// </summary>
@@ -129,7 +131,6 @@ namespace ReinCore
         private static StaticAccessor<Dictionary<Type,Int16>> stateTypeToIndex;
         private static BindingFlags allFlags = BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic;
         private static Dictionary<String,Int16> nameToIndexCache = new Dictionary<String, Int16>();
-
         private static Hook set_stateTypeHook;
         private static Hook set_typeNameHook;
         private delegate void set_stateTypeDelegate( ref SerializableEntityStateType self, Type value );

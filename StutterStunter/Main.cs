@@ -1,23 +1,18 @@
 ﻿using BepInEx;
 using BepInEx.Configuration;
-using R2API.Utils;
 using RoR2;
 using UnityEngine;
 using System;
 using UnityEngine.Scripting;
-using UnityEngine.SceneManagement;
 using System.Collections;
 using System.IO;
-using UnityEngine.Rendering.PostProcessing;
 
 namespace ReinStutterStunter
 {
-    [BepInDependency(R2API.R2API.PluginGUID, BepInDependency.DependencyFlags.HardDependency)]
-    [BepInPlugin("com.ReinThings.ReinStutterStunter", "ReinStutterStunter", "1.0.4")]
+    [BepInPlugin("com.ReinThings.ReinStutterStunter", "ReinStutterStunter", "2.0.0")]
+    [BepInDependency( Rein.AssemblyLoad.guid, BepInDependency.DependencyFlags.HardDependency )]
     public class ReinStutterStunterMain : BaseUnityPlugin
     {
-        private bool isGotoScary = false;
-
         private bool lockGCOn = false;
         private long memoryWarning = 1000;
         private long memoryCap = 2000;
@@ -27,24 +22,21 @@ namespace ReinStutterStunter
         private string folderPath;
         private string logPath;
         private bool log = true;
-        private bool disableProcess = true;
 
-        public static ConfigWrapper<bool> configWrappingPaper;
-        public static ConfigWrapper<long> memWarning;
-        public static ConfigWrapper<long> memCap;
-        public static ConfigWrapper<bool> disableProcessing;
-        public static ConfigWrapper<float> memCheckDelay;
+        public static ConfigWrapper<Boolean> configWrappingPaper;
+        public static ConfigWrapper<Int64> memWarning;
+        public static ConfigWrapper<Int64> memCap;
+        public static ConfigWrapper<Boolean> disableProcessing;
+        public static ConfigWrapper<Single> memCheckDelay;
 
         public void Awake()
         {
-            configWrappingPaper = Config.Wrap<bool>("Settings", "Enable Logging", "Should a csv file of memory usage be saved?", true);
-            memCheckDelay = Config.Wrap<float>("Settings", "Memory check delay", "How much time should there be between memory checks?", 30.0f);
-            disableProcessing = Config.Wrap<bool>("Settings", "Disable post processing", "Only use this if you know what you're doing", false);
-            memWarning = Config.Wrap<long>("Settings", "Memory Warning threshold", "Only change this if you know what you are doing.", 3000);
-            memCap = Config.Wrap<long>("Settings", "Memory use cap", "Only change this if you know what you are doing", 4000);
+            configWrappingPaper = base.Config.Wrap<Boolean>("Settings", "Enable Logging", "Should a csv file of memory usage be saved?", true);
+            memCheckDelay = base.Config.Wrap<Single>("Settings", "Memory check delay", "How much time should there be between memory checks?", 30.0f);
+            memWarning = base.Config.Wrap<Int64>("Settings", "Memory Warning threshold", "Only change this if you know what you are doing.", 3000);
+            memCap = base.Config.Wrap<Int64>("Settings", "Memory use cap", "Only change this if you know what you are doing", 4000);
 
             log = configWrappingPaper.Value;
-            disableProcess = disableProcessing.Value;
             memoryWarning = memWarning.Value;
             memoryCap = memCap.Value;
             checkDelay = memCheckDelay.Value;
@@ -58,55 +50,45 @@ namespace ReinStutterStunter
                 }
 
                 int i = 1;
-                if (isGotoScary)
+                do
                 {
-                    do
-                    {
-                        logPath = $"\\MemLog{i++}.csv";
-                    }
-                    while (File.Exists(folderPath + logPath));
-                }
-                else
-                {
-                CheckAgain:
                     logPath = $"\\MemLog{i++}.csv";
-                    if (File.Exists(folderPath + logPath)) goto CheckAgain;
                 }
-
+                while (File.Exists(folderPath + logPath));
                 logPath = folderPath + logPath;
             }
         }
         public void Start()
         {
-            On.RoR2.Stage.OnDisable += ( orig, self ) =>
+            ReinCore.HooksCore.RoR2.Stage.OnDisable.On += ( orig, self ) =>
             {
                 orig( self );
                 GC.Collect();
-                EnableGC( false );
+                this.EnableGC( false );
             };
-            On.RoR2.Stage.OnEnable += ( orig, self ) =>
+            ReinCore.HooksCore.RoR2.Stage.OnEnable.On += ( orig, self ) =>
             {
                 orig( self );
-                DisableGC();
+                this.DisableGC();
                 GC.Collect();
             };
-            On.RoR2.UI.PauseScreenController.OnEnable += (orig, self) =>
+            ReinCore.HooksCore.RoR2.UI.PauseScreenController.OnEnable.On += ( orig, self ) =>
             {
-                EnableGC(false);
+                this.EnableGC( false );
                 GC.Collect();
-                orig(self);
+                orig( self );
             };
-            On.RoR2.UI.PauseScreenController.OnDisable += (orig, self) =>
+            ReinCore.HooksCore.RoR2.UI.PauseScreenController.OnDisable.On += ( orig, self ) =>
             {
                 this.DisableGC();
-                orig(self);
+                orig( self );
             };
-            On.RoR2.Run.Awake += (orig, self) =>
+            ReinCore.HooksCore.RoR2.Run.Awake.On += ( orig, self ) =>
             {
-                AddALine(Time.fixedUnscaledTime.ToString() + ",Run awake");
-                orig(self);
+                this.AddALine( Time.fixedUnscaledTime.ToString() + ",Run awake" );
+                orig( self );
             };
-            StartCoroutine(MemoryMonitor());
+            base.StartCoroutine(this.MemoryMonitor());
         }
         private void DisableGC()
         {

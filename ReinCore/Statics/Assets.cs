@@ -15,6 +15,7 @@ namespace ReinCore
 		{
 			//var timer = new Stopwatch();
 			//timer.Start();
+
 			if( !AssetsCore.loaded )
 			{
 				throw new CoreNotLoadedException( nameof(AssetsCore) );

@@ -30,8 +30,8 @@ namespace Rein.RogueWispPlugin
         private void RW_CharBodyStats()
         {
             CharacterBody chbod = this.RW_body.GetComponent<CharacterBody>();
-            chbod.baseMaxHealth = 130.0f;
-            chbod.levelMaxHealth = 39.0f;
+            chbod.baseMaxHealth = 110.0f;
+            chbod.levelMaxHealth = 33.0f;
             chbod.baseRegen = 1f;
             chbod.levelRegen = 0.2f;
             chbod.baseMaxShield = 0f;

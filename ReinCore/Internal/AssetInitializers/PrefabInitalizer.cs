@@ -31,7 +31,7 @@ namespace ReinCore
 
             new AssetAccessor<GameObject>( PrefabIndex.refNullifierPreBombGhost, () =>
             {
-                return Resources.Load<GameObject>( "Prefabs/ProjectileGhosts/NullifierPreBombGhost" );
+                return Resources.Load<GameObject>( "Prefabs/ProjectileGhosts/NullifierPreBombGhost" ); ;
             }).RegisterAccessor();
 
 

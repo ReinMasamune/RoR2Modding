@@ -26,14 +26,17 @@ namespace Rein.RogueWispPlugin
         private const Single rootNumber = 4f;
         internal HashSet<CharacterBody> RW_BlockSprintCrosshair = new HashSet<CharacterBody>();
         private ConfigEntry<Boolean> chargeBarEnabled;
+        private ConfigEntry<Boolean> deathMarkStuff;
         partial void RW_Hook()
         {
             this.Enable += this.RW_AddHooks;
             this.Disable += this.RW_RemoveHooks;
             this.Load += this.Main_Load1;
-
             this.chargeBarEnabled = base.Config.Bind<Boolean>( "Visual (Client)", "SkillBarChargeIndicator", true, "Should a charge bar be displayed above the skill bar in addition to around the crosshair?" );
+            this.deathMarkStuff = base.Config.Bind<Boolean>( "Gameplay (Server)", "DeathMarkDebuffChange", true, "Should Death Mark use a new system that favors non-stacking debuffs over stacking Dots?" );
         }
+
+
 
         private void Main_Load1()
         {
@@ -60,6 +63,9 @@ namespace Rein.RogueWispPlugin
 
         private void RW_RemoveHooks()
         {
+
+
+
             if( this.r2apiPlugin != null && this.r2apiPlugin.Metadata.Version < System.Version.Parse( "2.4.1" ) )
             {
                 ilhook_R2API_LoadoutAPI_BodyLoadout_ToXml -= this.Main_ilhook_R2API_LoadoutAPI_BodyLoadout_ToXml;
@@ -74,13 +80,16 @@ namespace Rein.RogueWispPlugin
             HooksCore.RoR2.CameraRigController.Update.Il -= this.Update_Il;
             HooksCore.RoR2.SetStateOnHurt.OnTakeDamageServer.Il -= this.OnTakeDamageServer_Il;
             HooksCore.RoR2.GlobalEventManager.OnHitEnemy.Il -= this.OnHitEnemy_Il;
-            HooksCore.RoR2.GlobalEventManager.OnHitEnemy.On -= this.OnHitEnemy_On;
+            //HooksCore.RoR2.GlobalEventManager.OnHitEnemy.On -= this.OnHitEnemy_On;
         }
 
+        private static StaticAccessor<Dictionary<String,Dictionary<String,String>>> languageDictionaries = new StaticAccessor<Dictionary<string, Dictionary<string, string>>>( typeof(Language), "languageDictionaries" );
 
 
         private void RW_AddHooks()
         {
+            HooksCore.RoR2.UI.QuickPlayButtonController.Start.On += this.Start_On4;
+
             if( this.r2apiPlugin != null && this.r2apiPlugin.Metadata.Version < System.Version.Parse( "2.4.1" ) )
             {
                 ilhook_R2API_LoadoutAPI_BodyLoadout_ToXml += this.Main_ilhook_R2API_LoadoutAPI_BodyLoadout_ToXml;
@@ -95,7 +104,14 @@ namespace Rein.RogueWispPlugin
             HooksCore.RoR2.CameraRigController.Update.Il += this.Update_Il;
             HooksCore.RoR2.SetStateOnHurt.OnTakeDamageServer.Il += this.OnTakeDamageServer_Il;
             HooksCore.RoR2.GlobalEventManager.OnHitEnemy.Il += this.OnHitEnemy_Il;
-            HooksCore.RoR2.GlobalEventManager.OnHitEnemy.On += this.OnHitEnemy_On;
+            //HooksCore.RoR2.GlobalEventManager.OnHitEnemy.On += this.OnHitEnemy_On;
+        }
+
+        private void Start_On4( HooksCore.RoR2.UI.QuickPlayButtonController.Start.Orig orig, RoR2.UI.QuickPlayButtonController self )
+        {
+            self.gameObject.SetActive( false );
+            orig( self );
+            self.gameObject.SetActive( false );
         }
 
         private void OnHitEnemy_On( HooksCore.RoR2.GlobalEventManager.OnHitEnemy.Orig orig, GlobalEventManager self, DamageInfo damageInfo, GameObject victim )
@@ -116,12 +132,55 @@ namespace Rein.RogueWispPlugin
         }
         private void OnHitEnemy_Il( ILContext il )
         {
-            ILCursor c = new ILCursor(il);
-            c.GotoNext( MoveType.After,
-                x => x.MatchCallOrCallvirt( "RoR2.SetStateOnHurt", "SetStun" )
-                );
-            c.Index += -3;
-            c.RemoveRange( 3 );
+            ILCursor c = new ILCursor( il );
+
+
+            c.GotoNext( MoveType.Before, x => x.MatchLdloc( 17 ), x => x.MatchLdcI4( 1 ), x => x.MatchAdd(), x => x.MatchStloc( 17 ) );
+            c.Index++;
+
+            if( this.deathMarkStuff.Value )
+            {
+                c.Remove();
+                c.Emit( OpCodes.Ldloc_1 );
+                c.Emit( OpCodes.Ldloc, 64 );
+                c.EmitDelegate<Func<CharacterBody, BuffIndex, Int32>>( ( body, index ) =>
+                {
+                    if( body.HasBuff( index ) )
+                    {
+                        var def = BuffCatalog.GetBuffDef(index);
+                        if( def.canStack )
+                        {
+                            return body.GetBuffCount( index );
+                        } else
+                        {
+                            return 10;
+                        }
+                    }
+                    return 0;
+                } );
+            }
+
+            c.GotoNext( MoveType.After, x => x.MatchAdd(), x => x.MatchStloc( 64 ), x => x.MatchLdloc( 64 ), x => x.MatchLdcI4( 53 ) );
+            c.Index--;
+            c.Remove();
+            c.EmitDelegate<Func<Int32>>( () => BuffCatalog.buffCount );
+
+            c.GotoNext( MoveType.Before, x => x.MatchLdloc( 17 ), x => x.MatchLdcI4( 1 ), x => x.MatchAdd(), x => x.MatchStloc( 17 ) );
+            c.Index++;
+            if( this.deathMarkStuff.Value )
+            {
+                c.Remove();
+                c.Emit( OpCodes.Ldc_I4_0 );
+            }
+
+            c.GotoNext( MoveType.After, x => x.MatchLdloc( 17 ), x => x.MatchLdcI4( 4 ) );
+            c.Index--;
+            if( this.deathMarkStuff.Value )
+            {
+                c.Remove();
+                c.Emit( OpCodes.Ldc_I4, 30 );
+            }
+
         }
         private void OnTakeDamageServer_Il( ILContext il )
         {
@@ -172,7 +231,7 @@ namespace Rein.RogueWispPlugin
                 x => x.MatchLdcI4( 6 ),
                 x => x.MatchCallOrCallvirt<RoR2.CharacterBody>( "HasBuff" ),
                 x => x.MatchBrfalse( out _ ),
-                x => x.MatchLdloc( 47 )
+                x => x.MatchLdloc( 51 )
                 );
 
             c.Remove();
@@ -186,7 +245,7 @@ namespace Rein.RogueWispPlugin
                 Int32 count = self.GetBuffCount( RW_flameChargeBuff );
                 if( count > 0 )
                 {
-                    self.healthComponent.AddBarrier( Time.fixedDeltaTime * shieldRegenFrac * Mathf.Pow( count, 1f / rootNumber ) * self.maxHealth );
+                    self.healthComponent.AddBarrier( Time.fixedDeltaTime * shieldRegenFrac * Mathf.Pow( count, 1f / rootNumber ) * self.healthComponent.fullCombinedHealth );
                 }
             }
         }
@@ -199,12 +258,16 @@ namespace Rein.RogueWispPlugin
         {
             orig( self );
 
+
+
             if( self.hud != null )
             {
+
                 var par = self.hud.transform.Find( "MainContainer/MainUIArea/BottomRightCluster/Scaler" );
 
                 if( this.chargeBarEnabled.Value )
                 {
+
                     var inst = Instantiate<GameObject>( wispHudPrefab, par );
                     var bar3Rect = inst.GetComponent<RectTransform>();
                     bar3Rect.anchoredPosition = new Vector2( 14f, 140f );
@@ -216,10 +279,16 @@ namespace Rein.RogueWispPlugin
                     bar3Rect.localScale = Vector3.one;
                 }
 
-                var par2 = self.hud.transform.Find( "MainContainer/CrosshairCanvas");
+
+
+                var par2 = self.hud.transform.Find( "MainContainer/MainUIArea/CrosshairCanvas");
+
                 var cross1 = Instantiate<GameObject>( wispCrossBar1, par2 );
+
                 var bar1Rect = cross1.GetComponent<RectTransform>();
+
                 var cross2 = Instantiate<GameObject>( wispCrossBar2, par2 );
+
                 var bar2Rect = cross2.GetComponent<RectTransform>();
 
 

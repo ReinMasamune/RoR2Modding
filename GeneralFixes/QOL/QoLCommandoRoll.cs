@@ -3,14 +3,13 @@ using RoR2;
 using UnityEngine;
 using System.Collections.Generic;
 using RoR2.Navigation;
-using R2API;
-using R2API.Utils;
 using Mono.Cecil.Cil;
 using MonoMod.Cil;
 using System;
 using System.Reflection;
 using EntityStates;
 using RoR2.Skills;
+using ReinCore;
 
 namespace ReinGeneralFixes
 {
@@ -32,15 +31,15 @@ namespace ReinGeneralFixes
 
         private void RemoveCommandoRollEdits()
         {
-            On.EntityStates.Commando.DodgeState.OnEnter -= this.DodgeState_OnEnter1;
+            HooksCore.EntityStates.Commando.DodgeState.OnEnter.On -= OnEnter_On;
         }
 
         private void AddCommandoRollEdits()
         {
-            On.EntityStates.Commando.DodgeState.OnEnter += this.DodgeState_OnEnter1;
+            HooksCore.EntityStates.Commando.DodgeState.OnEnter.On += OnEnter_On;
         }
 
-        private void DodgeState_OnEnter1( On.EntityStates.Commando.DodgeState.orig_OnEnter orig, EntityStates.Commando.DodgeState self )
+        private static void OnEnter_On( HooksCore.EntityStates.Commando.DodgeState.OnEnter.Orig orig, EntityStates.Commando.DodgeState self )
         {
             self.outer.commonComponents.characterBody.isSprinting = true;
             self.finalSpeedCoefficient *= 0.8f;

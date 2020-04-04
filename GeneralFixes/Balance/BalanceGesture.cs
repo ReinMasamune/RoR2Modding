@@ -3,8 +3,6 @@ using RoR2;
 using UnityEngine;
 using System.Collections.Generic;
 using RoR2.Navigation;
-using R2API;
-using R2API.Utils;
 using Mono.Cecil.Cil;
 using MonoMod.Cil;
 using System;
@@ -13,6 +11,7 @@ using EntityStates;
 using RoR2.Skills;
 using System.Collections;
 using UnityEngine.Networking;
+using ReinCore;
 
 namespace ReinGeneralFixes
 {
@@ -27,6 +26,7 @@ namespace ReinGeneralFixes
             gestureBlacklist.Add( EquipmentIndex.GoldGat );
             gestureBlacklist.Add( EquipmentIndex.CrippleWard );
             gestureBlacklist.Add( EquipmentIndex.QuestVolatileBattery );
+            gestureBlacklist.Add( EquipmentIndex.Enigma );
 
             gestureBlacklist.Add( EquipmentIndex.AffixBlue );
             gestureBlacklist.Add( EquipmentIndex.AffixGold );
@@ -55,36 +55,28 @@ namespace ReinGeneralFixes
         private void RemoveGestureFix()
         {
             RoR2.EquipmentSlot.onServerEquipmentActivated -= this.EquipmentSlot_onServerEquipmentActivated;
-            IL.RoR2.Inventory.UpdateEquipment -= this.Inventory_UpdateEquipment;
-            IL.EntityStates.GoldGat.BaseGoldGatState.FixedUpdate -= this.BaseGoldGatState_FixedUpdate1;
+
+            //HooksCore.RoR2.Inventory.UpdateEquipment.Il -= this.UpdateEquipment_Il;
+            HooksCore.EntityStates.GoldGat.BaseGoldGatState.FixedUpdate.Il -= this.FixedUpdate_Il1;
+            HooksCore.RoR2.EquipmentSlot.FixedUpdate.Il -= this.FixedUpdate_Il2;
+            HooksCore.RoR2.Inventory.SetActiveEquipmentSlot.Il -= this.SetActiveEquipmentSlot_Il;
+            HooksCore.RoR2.GenericPickupController.GrantEquipment.Il -= this.GrantEquipment_Il;
         }
         private void AddGestureFix()
         {
-            IL.RoR2.Inventory.UpdateEquipment += this.Inventory_UpdateEquipment;
             RoR2.EquipmentSlot.onServerEquipmentActivated += this.EquipmentSlot_onServerEquipmentActivated;
-            IL.EntityStates.GoldGat.BaseGoldGatState.FixedUpdate += this.BaseGoldGatState_FixedUpdate1;
-            IL.RoR2.EquipmentSlot.FixedUpdate += this.EquipmentSlot_FixedUpdate;
-            IL.RoR2.Inventory.SetActiveEquipmentSlot += this.Inventory_SetActiveEquipmentSlot1;
-            IL.RoR2.GenericPickupController.GrantEquipment += this.GenericPickupController_GrantEquipment;
+
+            //HooksCore.RoR2.Inventory.UpdateEquipment.Il += this.UpdateEquipment_Il;
+            HooksCore.RoR2.Inventory.CalculateEquipmentCooldownScale.Il += this.CalculateEquipmentCooldownScale_Il;
+            HooksCore.EntityStates.GoldGat.BaseGoldGatState.FixedUpdate.Il += this.FixedUpdate_Il1;
+            HooksCore.RoR2.EquipmentSlot.FixedUpdate.Il += this.FixedUpdate_Il2;
+            HooksCore.RoR2.Inventory.SetActiveEquipmentSlot.Il += this.SetActiveEquipmentSlot_Il;
+            HooksCore.RoR2.GenericPickupController.GrantEquipment.Il += this.GrantEquipment_Il;
         }
 
-        private void Inventory_SetActiveEquipmentSlot1( ILContext il )
-        {
-            ILCursor c = new ILCursor( il );
 
-            c.GotoNext( MoveType.After, x => x.MatchLdarg(1) );
-            c.EmitDelegate<Action<Inventory, Byte>>( ( inv, slot ) =>
-            {
-                if( beingDestroyed.ContainsKey( inv.gameObject ) )
-                {
-                    TrueDestroyEquipment( inv );
-                }
-            } );
-            c.Emit( OpCodes.Ldarg_0 );
-            c.Emit( OpCodes.Ldarg_1 );
-        }
 
-        private void GenericPickupController_GrantEquipment( ILContext il )
+        private void GrantEquipment_Il( ILContext il )
         {
             ILCursor c = new ILCursor( il );
 
@@ -103,8 +95,22 @@ namespace ReinGeneralFixes
                 } else return index;
             } );
         }
+        private void SetActiveEquipmentSlot_Il( ILContext il )
+        {
+            ILCursor c = new ILCursor( il );
 
-        private void EquipmentSlot_FixedUpdate( ILContext il )
+            c.GotoNext( MoveType.After, x => x.MatchLdarg( 1 ) );
+            c.EmitDelegate<Action<Inventory, Byte>>( ( inv, slot ) =>
+            {
+                if( beingDestroyed.ContainsKey( inv.gameObject ) )
+                {
+                    TrueDestroyEquipment( inv );
+                }
+            } );
+            c.Emit( OpCodes.Ldarg_0 );
+            c.Emit( OpCodes.Ldarg_1 );
+        }
+        private void FixedUpdate_Il2( ILContext il )
         {
             ILCursor c = new ILCursor( il );
 
@@ -116,8 +122,7 @@ namespace ReinGeneralFixes
             c.Emit<RoR2.EquipmentSlot>( OpCodes.Call, "get_equipmentIndex" );
             c.EmitDelegate<Func<Int32, EquipmentIndex, Int32>>( ModGestureCount );
         }
-
-        private void BaseGoldGatState_FixedUpdate1( ILContext il )
+        private void FixedUpdate_Il1( ILContext il )
         {
             ILCursor c = new ILCursor( il );
 
@@ -128,6 +133,26 @@ namespace ReinGeneralFixes
             c.Emit( OpCodes.Pop );
             c.Emit( OpCodes.Ldc_I4_0 );
         }
+        private void UpdateEquipment_Il( ILContext il )
+        {
+            ILCursor c = new ILCursor( il );
+            base.Logger.LogWarning( "Check1" );
+            c.GotoNext( MoveType.After, x => x.MatchCallOrCallvirt<UnityEngine.Mathf>( "Pow" ) );
+            base.Logger.LogWarning( "Check2" );
+            c.GotoNext( MoveType.After, x => x.MatchLdcR4( 0.5f ) );
+            c.Remove();
+            c.Emit( OpCodes.Ldc_R4, 0.5f );
+        }
+
+        private void CalculateEquipmentCooldownScale_Il( ILContext il )
+        {
+            ILCursor c = new ILCursor( il );
+            c.GotoNext( MoveType.Before, x => x.MatchLdcR4( 0.5f ), x => x.MatchLdcR4( 0.85f ) );
+            c.Index++;
+            c.Remove();
+            c.Emit( OpCodes.Ldc_R4, 0.5f );
+        }
+
 
         private void EquipmentSlot_onServerEquipmentActivated( EquipmentSlot slot, EquipmentIndex equipInd )
         {
@@ -138,7 +163,7 @@ namespace ReinGeneralFixes
                 if( inv )
                 {
                     var gestureCount = inv.GetItemCount( ItemIndex.AutoCastEquipment );
-                    if( gestureCount > 0 )
+                    if( gestureCount > 0 && !RunArtifactManager.instance.IsArtifactEnabled(RoR2Content.Artifacts.enigmaArtifactDef) )
                     {
                         if( Util.CheckRoll( 100f * (1f - (Mathf.Pow( 1f - this.gestureBreakChance, gestureCount ))), body.master ) )
                         {
@@ -147,15 +172,6 @@ namespace ReinGeneralFixes
                     }
                 }
             }
-        }
-
-        private void Inventory_UpdateEquipment( ILContext il )
-        {
-            ILCursor c = new ILCursor( il );
-            c.GotoNext( MoveType.After, x => x.MatchCallOrCallvirt<UnityEngine.Mathf>( "Pow" ) );
-            c.GotoNext( MoveType.After, x => x.MatchLdcR4( 0.5f ) );
-            c.Remove();
-            c.Emit( OpCodes.Ldc_R4, 0.5f );
         }
 
         private static Int32 ModGestureCount( Int32 count, EquipmentIndex currentEquipment )

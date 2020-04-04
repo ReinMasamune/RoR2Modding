@@ -3,8 +3,6 @@ using RoR2;
 using UnityEngine;
 using System.Collections.Generic;
 using RoR2.Navigation;
-using R2API;
-using R2API.Utils;
 using Mono.Cecil.Cil;
 using MonoMod.Cil;
 using System;
@@ -15,28 +13,7 @@ using System.Runtime.CompilerServices;
 
 namespace ReinGeneralFixes
 {
-    [R2APISubmoduleDependency(
-        nameof( PrefabAPI ),
-        nameof( SurvivorAPI ),
-        nameof( OrbAPI ),
-        nameof( ItemAPI ),
-        nameof( AssetAPI ),
-        nameof( R2API.AssetPlus.AssetPlus ),
-        nameof( DifficultyAPI ),
-        nameof( DirectorAPI ),
-        nameof( EffectAPI ),
-        nameof( InventoryAPI ),
-        nameof( ItemDropAPI ),
-        nameof( LobbyConfigAPI ),
-        nameof( ModListAPI ),
-        nameof( OrbAPI ),
-        nameof( PlayerAPI ),
-        nameof( SkillAPI ),
-        nameof( LoadoutAPI ),
-        nameof( ResourcesAPI ),
-        nameof( SkinAPI )
-    )]
-    [BepInDependency("com.bepis.r2api")]
+    [BepInDependency( Rein.AssemblyLoad.guid, BepInDependency.DependencyFlags.HardDependency )]
     [BepInPlugin("com.Rein.GeneralBalance", "General Balance + Fixes", "2.1.0.32")]
     internal partial class Main : BaseUnityPlugin
     {

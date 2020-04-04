@@ -28,6 +28,7 @@ namespace ReinCore
                 if( this._cachedValue == null )
                 {
                     if( this.CanLoad() != true ) throw new AssetNotLoadableException( this.index );
+
                     this._cachedValue = this.accessDelegate();
                 }
                 return this._cachedValue;

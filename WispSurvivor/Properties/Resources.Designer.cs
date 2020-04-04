@@ -79,7 +79,7 @@ namespace Rein.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The Rogue Wisp is a short-ranged, low-mobility, and high-damage survivor. These descriptions are incredibly time consuming to write, so good luck!.
+        ///   Looks up a localized string similar to The Rogue Wisp is a short-ranged, low-mobility, and high-damage survivor. \n These descriptions are incredibly time consuming to write, so good luck!.
         /// </summary>
         internal static string lang__WISP_SURVIVOR_BODY_DESC {
             get {
@@ -97,7 +97,7 @@ namespace Rein.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;style=cIsUtility&gt;Flame Charge&lt;/style&gt; &lt;style=cIsDamage&gt;Empowers&lt;/style&gt; your abilities but decays over time. Gain &lt;style=cIsDamage&gt;Barrier&lt;/style&gt; based on &lt;style=cIsHealth&gt;Maximum Health&lt;/style&gt; whenever you regain &lt;style=cIsUtility&gt;Flame Charge.&lt;/style&gt;.
+        ///   Looks up a localized string similar to &lt;style=cIsUtility&gt;Flame Charge&lt;/style&gt; &lt;style=cIsDamage&gt;Empowers&lt;/style&gt; your abilities but decays over time.\nGain &lt;style=cIsDamage&gt;Barrier&lt;/style&gt; based on &lt;style=cIsHealth&gt;Maximum Health&lt;/style&gt; whenever you regain &lt;style=cIsUtility&gt;Flame Charge.&lt;/style&gt;.
         /// </summary>
         internal static string lang__WISP_SURVIVOR_PASSIVE_DESC {
             get {
@@ -106,7 +106,7 @@ namespace Rein.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cursed Flames.
+        ///   Looks up a localized string similar to .
         /// </summary>
         internal static string lang__WISP_SURVIVOR_PASSIVE_NAME {
             get {
@@ -124,7 +124,7 @@ namespace Rein.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Heatwave.
+        ///   Looks up a localized string similar to Runic Wave.
         /// </summary>
         internal static string lang__WISP_SURVIVOR_PRIMARY_1_NAME {
             get {
@@ -169,6 +169,15 @@ namespace Rein.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string lang__WISP_SURVIVOR_SUBTITLE_NAME {
+            get {
+                return ResourceManager.GetString("lang__WISP_SURVIVOR_SUBTITLE_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create an &lt;style=cIsDamage&gt;Inferno&lt;/style&gt; that &lt;style=cIsDamage&gt;Ignites&lt;/style&gt; all enemies for &lt;style=cIsDamage&gt;80% damage&lt;/style&gt; per second. While in an &lt;style=cIsDamage&gt;Inferno&lt;/style&gt;&lt;style=cIsUtility&gt; Move Faster&lt;/style&gt; and &lt;style=cIsUtility&gt;Gain Flame Charge&lt;/style&gt; from &lt;style=cIsDamage&gt;Ignited&lt;/style&gt; enemies..
         /// </summary>
         internal static string lang__WISP_SURVIVOR_UTILITY_1_DESC {
@@ -178,7 +187,7 @@ namespace Rein.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Burning Gaze.
+        ///   Looks up a localized string similar to Inferno.
         /// </summary>
         internal static string lang__WISP_SURVIVOR_UTILITY_1_NAME {
             get {

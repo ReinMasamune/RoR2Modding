@@ -26,6 +26,7 @@ namespace Rein.RogueWispPlugin.Helpers
         internal Color activeLightColor;
 
         private CharacterModel modelRef;
+        private ParticleHolder modelParticles;
         private WispBitSkin skin
         {
             get
@@ -82,10 +83,10 @@ namespace Rein.RogueWispPlugin.Helpers
             this.activeBossAreaExplosionMaterial = newSkin.bossExplosionAreaMaterial;
             this.activeLightColor = newSkin.mainColor;
 
-            if( KeyboardCore.loaded )
-            {
-                KeyboardCore.SetKey( GlobalKeys.AllKeys, this.activeLightColor );
-            }
+            //if( KeyboardCore.loaded )
+            //{
+            //    KeyboardCore.SetKey( GlobalKeys.AllKeys, this.activeLightColor );
+            //}
 
             //for( Byte r = 0; r < 6; ++r )
             //{
@@ -101,6 +102,7 @@ namespace Rein.RogueWispPlugin.Helpers
         private void Awake()
         {
             this.modelRef = base.GetComponent<CharacterModel>();
+            this.modelParticles = base.GetComponent<ParticleHolder>();
             if( this.modelRef.body != null )
             {
                 this.Apply(WispBitSkin.GetWispSkin( this.modelRef.body.skinIndex ));
@@ -129,10 +131,9 @@ namespace Rein.RogueWispPlugin.Helpers
             {
                 this.modelRef.baseLightInfos[i].defaultColor = this.activeLightColor;
             }
-            for( Int32 i = 0; i < this.modelRef.baseParticleSystemInfos.Length; ++i )
+            for( Int32 i = 0; i < this.modelParticles.systems.Length; ++i )
             {
-                this.modelRef.baseParticleSystemInfos[i].defaultMaterial = this.activeFlameMaterial;
-                this.modelRef.baseParticleSystemInfos[i].renderer.material = this.activeFlameMaterial;
+                this.modelParticles.renderers[i].material = this.activeFlameMaterial;
             }
         }
     }

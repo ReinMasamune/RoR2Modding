@@ -12,28 +12,28 @@ namespace Rein.Properties
     /// </summary>
     public static class Tools
     {
-        /// <summary>
-        /// Call this to automatically register all the language tokens in your string resources through assetplus
-        /// </summary>
-        /// <param name="logToConsoleOnRegistration">Should the registered tokens be logged to console?</param>
-        public static void RegisterLanguageTokens()
-        {
-            Type type = typeof(Properties.Resources);
-            if( type == null ) throw new NullReferenceException( "Could not find the resources type" );
+        ///// <summary>
+        ///// Call this to automatically register all the language tokens in your string resources through assetplus
+        ///// </summary>
+        ///// <param name="logToConsoleOnRegistration">Should the registered tokens be logged to console?</param>
+        //public static void RegisterLanguageTokens()
+        //{
+        //    Type type = typeof(Properties.Resources);
+        //    if( type == null ) throw new NullReferenceException( "Could not find the resources type" );
 
-            PropertyInfo[] properties = type.GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static );
-            for( Int32 i = 0; i < properties.Length; ++i )
-            {
-                var prop = properties[i];
-                if( prop.PropertyType != typeof( String ) ) continue;
-                var propName = prop.Name;
-                if( String.IsNullOrEmpty( propName ) || !propName.StartsWith( "lang__" ) ) continue;
-                var langKey = propName.Substring(6);
-                if( String.IsNullOrEmpty( langKey ) ) continue;
-                var langValue = (String)prop.GetValue(null);
-                ReinCore.LanguageCore.AddLanguageToken( langKey, langValue );
-            }
-        }
+        //    PropertyInfo[] properties = type.GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static );
+        //    for( Int32 i = 0; i < properties.Length; ++i )
+        //    {
+        //        var prop = properties[i];
+        //        if( prop.PropertyType != typeof( String ) ) continue;
+        //        var propName = prop.Name;
+        //        if( String.IsNullOrEmpty( propName ) || !propName.StartsWith( "lang__" ) ) continue;
+        //        var langKey = propName.Substring(6);
+        //        if( String.IsNullOrEmpty( langKey ) ) continue;
+        //        var langValue = (String)prop.GetValue(null);
+        //        ReinCore.LanguageCore.AddLanguageToken( langKey, langValue );
+        //    }
+        //}
 
 
         /// <summary>

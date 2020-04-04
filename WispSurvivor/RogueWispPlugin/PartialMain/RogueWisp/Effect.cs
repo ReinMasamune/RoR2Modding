@@ -55,13 +55,13 @@ namespace Rein.RogueWispPlugin
 
         private void RW_RegisterEffects()
         {
-            foreach( GameObject[] gs in genericImpactEffects )
-            {
-                foreach( GameObject g in gs )
-                {
-                    EffectsCore.AddEffect( g );
-                }
-            }
+            //foreach( GameObject[] gs in genericImpactEffects )
+            //{
+            //    foreach( GameObject g in gs )
+            //    {
+            //        EffectsCore.AddEffect( g );
+            //    }
+            //}
             //foreach( GameObject g in primaryOrbEffects )
             //{
             //    R2API.EffectAPI.AddEffect( g );

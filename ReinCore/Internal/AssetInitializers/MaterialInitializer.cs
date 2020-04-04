@@ -130,7 +130,7 @@ namespace ReinCore
             {
                 var trans = AssetLibrary<GameObject>.GetAsset(PrefabIndex.refNullifierPreBombGhost).transform;
                 ParticleSystemRenderer rend = null;
-                var pastFirst = false;
+                var pastFirst = true;
                 for( Int32 i = 0; i < trans.childCount; ++i )
                 {
                     var child = trans.GetChild( i );

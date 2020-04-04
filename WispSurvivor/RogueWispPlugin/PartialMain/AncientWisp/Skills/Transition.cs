@@ -50,7 +50,8 @@ namespace Rein.RogueWispPlugin
 
                 this.skinController = base.GetModelTransform().GetComponent<WispModelBitSkinController>();
                 var model = this.skinController.GetComponent<CharacterModel>();
-                this.bodyParticles = model.baseParticleSystemInfos[0].particleSystem;
+                var partHolder = model.GetComponent<ParticleHolder>();
+                this.bodyParticles = partHolder.systems[0];
                 this.flareSprite = base.gameObject.GetComponentInChildren<SpriteRenderer>();
                 this.eyeFlare = this.flareSprite.GetComponent<EyeFlare>();
 

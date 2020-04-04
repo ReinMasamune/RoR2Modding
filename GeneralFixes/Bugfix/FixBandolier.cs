@@ -3,14 +3,13 @@ using RoR2;
 using UnityEngine;
 using System.Collections.Generic;
 using RoR2.Navigation;
-using R2API;
-using R2API.Utils;
 using Mono.Cecil.Cil;
 using MonoMod.Cil;
 using System;
 using System.Reflection;
 using EntityStates;
 using RoR2.Skills;
+using ReinCore;
 
 namespace ReinGeneralFixes
 {
@@ -24,14 +23,14 @@ namespace ReinGeneralFixes
 
         private void RemoveBandolierFix()
         {
-            IL.RoR2.SkillLocator.ApplyAmmoPack -= this.SkillLocator_ApplyAmmoPack;
+            HooksCore.RoR2.SkillLocator.ApplyAmmoPack.Il -= this.ApplyAmmoPack_Il;
         }
         private void ApplyBandolierFix()
         {
-            IL.RoR2.SkillLocator.ApplyAmmoPack += this.SkillLocator_ApplyAmmoPack;
+            HooksCore.RoR2.SkillLocator.ApplyAmmoPack.Il += this.ApplyAmmoPack_Il;
         }
 
-        private void SkillLocator_ApplyAmmoPack( ILContext il )
+        private void ApplyAmmoPack_Il( ILContext il )
         {
             ILCursor c = new ILCursor( il );
             c.GotoNext( MoveType.Before, x => x.MatchCallOrCallvirt<RoR2.GenericSkill>( "AddOneStock" ) );

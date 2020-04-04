@@ -11,7 +11,6 @@ namespace ReinCore
 {
     internal static class HookableHelpers
     {
-        
         internal static MethodBase GetBase( Type self, Boolean useArgs = false, CallingConventions callInfo = CallingConventions.Standard, params Type[] arguments )
         {
             var name = self.FullName;
@@ -43,7 +42,6 @@ namespace ReinCore
 
 
             var type = ror2Assembly.GetType(typeName, true, false );
-
             var methodInfo = useArgs ? type.GetMethod(method, allFlags, null, callInfo, arguments, null ) : type.GetMethod( method, allFlags );
             if( methodInfo == null ) Log.Error( String.Format( "Could not find method: {0} in type {1}", method, typeName ) );
             return methodInfo;

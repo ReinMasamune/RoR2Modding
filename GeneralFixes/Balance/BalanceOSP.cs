@@ -3,14 +3,13 @@ using RoR2;
 using UnityEngine;
 using System.Collections.Generic;
 using RoR2.Navigation;
-using R2API;
-using R2API.Utils;
 using Mono.Cecil.Cil;
 using MonoMod.Cil;
 using System;
 using System.Reflection;
 using EntityStates;
 using RoR2.Skills;
+using ReinCore;
 
 namespace ReinGeneralFixes
 {
@@ -24,14 +23,14 @@ namespace ReinGeneralFixes
 
         private void RemoveOSPFix()
         {
-            IL.RoR2.HealthComponent.TakeDamage -= this.HealthComponent_TakeDamage;
+            HooksCore.RoR2.HealthComponent.TakeDamage.Il -= this.TakeDamage_Il;
         }
         private void AddOSPFix()
         {
-            IL.RoR2.HealthComponent.TakeDamage += this.HealthComponent_TakeDamage;
+            HooksCore.RoR2.HealthComponent.TakeDamage.Il += this.TakeDamage_Il;
         }
 
-        private void HealthComponent_TakeDamage( ILContext il )
+        private void TakeDamage_Il( ILContext il )
         {
             ILCursor c = new ILCursor( il );
 
@@ -53,7 +52,7 @@ namespace ReinGeneralFixes
                 {
                     return num;
                 }
-                temp -= healthComp.fullHealth * ( 1f + ( 1f / osp ) );
+                temp -= healthComp.fullHealth * (1f + (1f / osp));
                 temp = Mathf.Max( 0f, temp );
                 temp += protection;
                 temp += healthComp.shield;

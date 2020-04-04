@@ -3,14 +3,13 @@ using RoR2;
 using UnityEngine;
 using System.Collections.Generic;
 using RoR2.Navigation;
-using R2API;
-using R2API.Utils;
 using Mono.Cecil.Cil;
 using MonoMod.Cil;
 using System;
 using System.Reflection;
 using EntityStates;
 using RoR2.Skills;
+using ReinCore;
 
 namespace ReinGeneralFixes
 {
@@ -24,29 +23,29 @@ namespace ReinGeneralFixes
 
         private void RemoveCorpsebloomEdits()
         {
-            IL.RoR2.HealthComponent.Heal -= this.HealthComponent_Heal;
-            IL.RoR2.HealthComponent.RepeatHealComponent.FixedUpdate -= this.RepeatHealComponent_FixedUpdate;
+            HooksCore.RoR2.HealthComponent.Heal.Il -= this.Heal_Il;
+            HooksCore.RoR2.HealthComponent.RepeatHealComponent.FixedUpdate.Il -= this.FixedUpdate_Il;
         }
         private void AddCorpsebloomEdits()
         {
-            IL.RoR2.HealthComponent.Heal += this.HealthComponent_Heal;
-            IL.RoR2.HealthComponent.RepeatHealComponent.FixedUpdate += this.RepeatHealComponent_FixedUpdate;
+            HooksCore.RoR2.HealthComponent.Heal.Il += this.Heal_Il;
+            HooksCore.RoR2.HealthComponent.RepeatHealComponent.FixedUpdate.Il += this.FixedUpdate_Il;
         }
 
-        private void RepeatHealComponent_FixedUpdate( ILContext il )
+        private void FixedUpdate_Il( ILContext il )
         {
             ILCursor c = new ILCursor( il );
-            c.GotoNext( MoveType.Before, x => x.MatchCallOrCallvirt<RoR2.HealthComponent>( "get_fullHealth" ));
+            c.GotoNext( MoveType.Before, x => x.MatchCallOrCallvirt<RoR2.HealthComponent>( "get_fullHealth" ) );
             c.Remove();
             c.EmitDelegate<Func<HealthComponent, Single>>( CorpseMaxHPCalc );
         }
 
-        private void HealthComponent_Heal( ILContext il )
+        private void Heal_Il( ILContext il )
         {
             ILCursor c = new ILCursor( il );
-            c.GotoNext( MoveType.After, 
+            c.GotoNext( MoveType.After,
                 x => x.MatchLdfld<RoR2.HealthComponent>( "repeatHealComponent" ),
-                x => x.MatchLdcR4( 0.1f ) 
+                x => x.MatchLdcR4( 0.1f )
             );
             c.Index--;
             c.Remove();

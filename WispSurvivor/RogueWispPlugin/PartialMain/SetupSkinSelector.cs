@@ -111,7 +111,7 @@ namespace Rein.RogueWispPlugin
         private static Int32 defaultImagesLength;
         private static Int32 defaultTextLength;
         private static Boolean menuEditsInEffect = false;
-        private static HeaderNavigationController.Header wispySkinHeader;
+        private static HGHeaderNavigationController.Header wispySkinHeader;
         private static void ApplyMenuEdits( Int32 bodyIndex, CharacterSelectController controller )
         {
 
@@ -119,16 +119,21 @@ namespace Rein.RogueWispPlugin
             menuEditsInEffect = true;
 
 
+
             var headerPanelObj = controller.loadoutHeaderButton.transform.parent;
-            var headerNavController = headerPanelObj.GetComponent<HeaderNavigationController>();
+
+            var headerNavController = headerPanelObj.GetComponent<HGHeaderNavigationController>();
+
+
 
             if( headerNavController.headers.Length != 4 )
             {
 
+
                 if( String.IsNullOrEmpty(wispySkinHeader.headerName) )
                 {
 
-                    HeaderNavigationController.Header refHeader = default;
+                    HGHeaderNavigationController.Header refHeader = default;
                     Int32 counter = 0;
 
                     while( counter < 3 && String.IsNullOrEmpty( refHeader.headerName ) )
@@ -140,25 +145,34 @@ namespace Rein.RogueWispPlugin
                         }
                     }
 
+
                     if( !String.IsNullOrEmpty( refHeader.headerName ) )
                     {
-
                         var newButtonObj = UnityEngine.Object.Instantiate<GameObject>(refHeader.headerButton.gameObject, refHeader.headerButton.transform.parent );
-                        var newButton = newButtonObj.GetComponent<CustomButtonTransition>();
+                        var newButton = newButtonObj.GetComponent<HGButton>();
 
-                        var newButtonText = newButtonObj.transform.Find( "OverviewText" ).GetComponent<HGTextMeshProUGUI>();
-                        var newButtonLang = newButtonText.GetComponent<LanguageTextMeshController>();
+
+                        var buttonTrans = newButtonObj.transform.Find( "ButtonText" );
+
+                        var newButtonText = buttonTrans.GetComponent<HGTextMeshProUGUI>();
+
+                        var newButtonLang = newButtonObj.GetComponent<LanguageTextMeshController>();
+
                         newButtonLang.token = "LOADOUT_SKIN";
 
+
                         var newPanel = UnityEngine.Object.Instantiate<GameObject>(refHeader.headerRoot, refHeader.headerRoot.transform.parent );
+
                         var skinUI = newPanel.AddComponent<WispSkinSelectionUI>();
+
                         skinUI.SetData( bodyIndex, getLocalUser( controller ).userProfile );
 
                         var panelTextObj = newPanel.transform.Find("TextMeshPro Text" );
+
                         panelTextObj.GetComponent<HGTextMeshProUGUI>().text = "";
 
 
-                        wispySkinHeader = new HeaderNavigationController.Header
+                        wispySkinHeader = new HGHeaderNavigationController.Header
                         {
                             headerName = "Skins",
                             headerButton = newButton,
@@ -169,12 +183,15 @@ namespace Rein.RogueWispPlugin
                         Array.Resize<Image>( ref controller.primaryColorImages, defaultImagesLength + 1 );
 
                         controller.primaryColorImages[defaultImagesLength] = newButtonObj.GetComponent<Image>();
+                        
                     }
+
                 }
-                Array.Resize<HeaderNavigationController.Header>( ref headerNavController.headers, 4 );
+                Array.Resize<HGHeaderNavigationController.Header>( ref headerNavController.headers, 4 );
                 headerNavController.headers[3] = wispySkinHeader;
                 wispySkinHeader.headerButton.gameObject.SetActive( true );
             }
+
         }
 
         private static void RemoveMenuEdits( CharacterSelectController controller)
@@ -183,11 +200,11 @@ namespace Rein.RogueWispPlugin
             menuEditsInEffect = false;
 
             var headerPanelObj = controller.loadoutHeaderButton.transform.parent;
-            var headerNavController = headerPanelObj.GetComponent<HeaderNavigationController>();
+            var headerNavController = headerPanelObj.GetComponent<HGHeaderNavigationController>();
 
             if( headerNavController.headers.Length != 3 )
             {
-                Array.Resize<HeaderNavigationController.Header>( ref headerNavController.headers, 3 );
+                Array.Resize<HGHeaderNavigationController.Header>( ref headerNavController.headers, 3 );
                 wispySkinHeader.headerButton.gameObject.SetActive( false );
                 wispySkinHeader.headerRoot.gameObject.SetActive( false );
 

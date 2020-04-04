@@ -1,98 +1,98 @@
-﻿#if ROGUEWISP
-using ReinCore;
-using RoR2;
-using System;
-using UnityEngine;
-//using static RogueWispPlugin.Helpers.APIInterface;
+﻿//#if ROGUEWISP
+//using ReinCore;
+//using RoR2;
+//using System;
+//using UnityEngine;
+////using static RogueWispPlugin.Helpers.APIInterface;
 
-namespace Rein.RogueWispPlugin
-{
-    internal partial class Main
-    {
-        partial void RW_SpecialExplosionEffects() => this.Load += this.RW_CreateSpecialExplosionEffects;
+//namespace Rein.RogueWispPlugin
+//{
+//    internal partial class Main
+//    {
+//        partial void RW_SpecialExplosionEffects() => this.Load += this.RW_CreateSpecialExplosionEffects;
 
-        private void RW_CreateSpecialExplosionEffects()
-        {
-            GameObject baseFX = Resources.Load<GameObject>("Prefabs/Effects/BeamSphereExplosion");
+//        private void RW_CreateSpecialExplosionEffects()
+//        {
+//            GameObject baseFX = Resources.Load<GameObject>("Prefabs/Effects/BeamSphereExplosion");
 
-            for( Int32 i = 0; i < 8; i++ )
-            {
-                //specialExplosions[i] = CreateSpecialExplosion( baseFX, i );
-            }
-        }
+//            for( Int32 i = 0; i < 8; i++ )
+//            {
+//                //specialExplosions[i] = CreateSpecialExplosion( baseFX, i );
+//            }
+//        }
 
-        private static GameObject CreateSpecialExplosion( GameObject baseFX, Int32 skinIndex )
-        {
-            GameObject obj = baseFX.ClonePrefab("SpecialExplosion"+skinIndex.ToString(), false);
+//        private static GameObject CreateSpecialExplosion( GameObject baseFX, Int32 skinIndex )
+//        {
+//            GameObject obj = baseFX.ClonePrefab("SpecialExplosion"+skinIndex.ToString(), false);
 
-            VFXAttributes fx = obj.GetComponent<VFXAttributes>();
-            fx.vfxPriority = VFXAttributes.VFXPriority.Always;
-            fx.vfxIntensity = VFXAttributes.VFXIntensity.Low;
+//            VFXAttributes fx = obj.GetComponent<VFXAttributes>();
+//            fx.vfxPriority = VFXAttributes.VFXPriority.Always;
+//            fx.vfxIntensity = VFXAttributes.VFXIntensity.Low;
 
-            Transform burst = obj.transform.Find("InitialBurst");
-            Transform ring = burst.Find("Ring");
-            Transform chunks = burst.Find("Chunks, Sharp");
-            Transform flames = burst.Find("Flames");
-            Transform flash = burst.Find("Flash");
-            Transform light = burst.Find("Point light");
-            Transform zap = burst.Find("Lightning");
+//            Transform burst = obj.transform.Find("InitialBurst");
+//            Transform ring = burst.Find("Ring");
+//            Transform chunks = burst.Find("Chunks, Sharp");
+//            Transform flames = burst.Find("Flames");
+//            Transform flash = burst.Find("Flash");
+//            Transform light = burst.Find("Point light");
+//            Transform zap = burst.Find("Lightning");
 
-            ParticleSystem ringPS = ring.GetComponent<ParticleSystem>();
-            ParticleSystemRenderer ringPSR = ring.GetComponent<ParticleSystemRenderer>();
+//            ParticleSystem ringPS = ring.GetComponent<ParticleSystem>();
+//            ParticleSystemRenderer ringPSR = ring.GetComponent<ParticleSystemRenderer>();
 
-            ParticleSystem.ColorOverLifetimeModule ringCol = ringPS.colorOverLifetime;
-            ringCol.color = new ParticleSystem.MinMaxGradient
-            {
-                mode = ParticleSystemGradientMode.Gradient,
-                gradient = fireGradients[skinIndex]
-            };
+//            ParticleSystem.ColorOverLifetimeModule ringCol = ringPS.colorOverLifetime;
+//            ringCol.color = new ParticleSystem.MinMaxGradient
+//            {
+//                mode = ParticleSystemGradientMode.Gradient,
+//                gradient = fireGradients[skinIndex]
+//            };
 
-            ringPSR.material = fireMaterials[skinIndex][8];
-
-
-            ParticleSystem chunkPS = chunks.GetComponent<ParticleSystem>();
-
-            ParticleSystem.ColorOverLifetimeModule chunkCol = chunkPS.colorOverLifetime;
-            chunkCol.color = new ParticleSystem.MinMaxGradient
-            {
-                mode = ParticleSystemGradientMode.Gradient,
-                gradient = fireGradients[skinIndex]
-            };
+//            ringPSR.material = fireMaterials[skinIndex][8];
 
 
-            ParticleSystemRenderer flamesPSR = flames.GetComponent<ParticleSystemRenderer>();
-            flamesPSR.material = fireMaterials[skinIndex][9];
+//            ParticleSystem chunkPS = chunks.GetComponent<ParticleSystem>();
+
+//            ParticleSystem.ColorOverLifetimeModule chunkCol = chunkPS.colorOverLifetime;
+//            chunkCol.color = new ParticleSystem.MinMaxGradient
+//            {
+//                mode = ParticleSystemGradientMode.Gradient,
+//                gradient = fireGradients[skinIndex]
+//            };
 
 
-            ParticleSystem flashPS = flash.GetComponent<ParticleSystem>();
+//            ParticleSystemRenderer flamesPSR = flames.GetComponent<ParticleSystemRenderer>();
+//            flamesPSR.material = fireMaterials[skinIndex][9];
 
-            ParticleSystem.ColorOverLifetimeModule flashCol = flashPS.colorOverLifetime;
-            flashCol.color = new ParticleSystem.MinMaxGradient
-            {
-                mode = ParticleSystemGradientMode.Gradient,
-                gradient = new Gradient
-                {
-                    alphaKeys = new GradientAlphaKey[1]
-                    {
-                        new GradientAlphaKey( 1f, 0f )
-                    },
-                    colorKeys = new GradientColorKey[2]
-                    {
-                        new GradientColorKey( new Color( 1f, 1f, 1f ) , 0f ),
-                        new GradientColorKey( fireColors[skinIndex] , 0.25f )
-                    },
-                    mode = GradientMode.Blend
-                }
-            };
 
-            light.GetComponent<Light>().color = fireColors[skinIndex];
+//            ParticleSystem flashPS = flash.GetComponent<ParticleSystem>();
 
-            ParticleSystemRenderer zapPSR = zap.GetComponent<ParticleSystemRenderer>();
-            zapPSR.material = fireMaterials[skinIndex][10];
+//            ParticleSystem.ColorOverLifetimeModule flashCol = flashPS.colorOverLifetime;
+//            flashCol.color = new ParticleSystem.MinMaxGradient
+//            {
+//                mode = ParticleSystemGradientMode.Gradient,
+//                gradient = new Gradient
+//                {
+//                    alphaKeys = new GradientAlphaKey[1]
+//                    {
+//                        new GradientAlphaKey( 1f, 0f )
+//                    },
+//                    colorKeys = new GradientColorKey[2]
+//                    {
+//                        new GradientColorKey( new Color( 1f, 1f, 1f ) , 0f ),
+//                        new GradientColorKey( fireColors[skinIndex] , 0.25f )
+//                    },
+//                    mode = GradientMode.Blend
+//                }
+//            };
 
-            return obj;
-        }
-    }
+//            light.GetComponent<Light>().color = fireColors[skinIndex];
 
-}
-#endif
+//            ParticleSystemRenderer zapPSR = zap.GetComponent<ParticleSystemRenderer>();
+//            zapPSR.material = fireMaterials[skinIndex][10];
+
+//            return obj;
+//        }
+//    }
+
+//}
+//#endif

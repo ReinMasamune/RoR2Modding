@@ -135,7 +135,8 @@ namespace Rein.RogueWispPlugin
                 if( body == null ) return;
                 var tc = body.teamComponent;
                 if( tc == null ) return;
-                if( tc.teamIndex == this.team ) return;
+                if( !FriendlyFireManager.ShouldDirectHitProceed( hc, this.team ) ) return;
+                if( hc == this.attackerBody.healthComponent ) return;
 
                 var dist = (col.ClosestPoint(this.startPos) - this.startPos).magnitude;
                 if( !this.bestHits.ContainsKey( hc ) || dist < this.bestHits[hc].distance )
@@ -395,6 +396,8 @@ namespace Rein.RogueWispPlugin
                         return MonsterTier.Basic;
                     case "CLAY_BODY_NAME":
                         return MonsterTier.Basic;
+                    case "POD_BODY_NAME":
+                        return MonsterTier.Basic;
 
 
                     case "HERMIT_CRAB_BODY_NAME":
@@ -406,6 +409,8 @@ namespace Rein.RogueWispPlugin
                     case "VULTURE_BODY_NAME":
                         return MonsterTier.Small;
                     case "URCHINTURRET_BODY_NAME":
+                        return MonsterTier.Small;
+                    case "MINIMUSHROOM_BODY_NAME":
                         return MonsterTier.Small;
 
 
@@ -428,6 +433,8 @@ namespace Rein.RogueWispPlugin
                     case "ARCHWISP_BODY_NAME":
                         return MonsterTier.Miniboss;
                     case "NULLIFIER_BODY_NAME":
+                        return MonsterTier.Miniboss;
+                    case "PARENT_BODY_NAME":
                         return MonsterTier.Miniboss;
 
 
@@ -464,6 +471,8 @@ namespace Rein.RogueWispPlugin
                     case "SCAVLUNAR3_BODY_NAME":
                         return MonsterTier.SuperBoss;
                     case "SCAVLUNAR4_BODY_NAME":
+                        return MonsterTier.SuperBoss;
+                    case "ARTIFACTSHELL_BODY_NAME":
                         return MonsterTier.SuperBoss;
 
 
@@ -512,6 +521,10 @@ namespace Rein.RogueWispPlugin
                         return MonsterTier.Mid;
                     case "TREEBOT_BODY_NAME":
                         return MonsterTier.Mid;
+                    case "CROCO_BODY_NAME":
+                        return MonsterTier.Mid;
+                    case "ROGUE_WISP_BODY_NAME":
+                        return MonsterTier.Miniboss;
                     case "TURRET1_BODY_NAME":
                         return MonsterTier.Basic;
                     case "SQUIDTURRET_BODY_NAME":
@@ -526,6 +539,12 @@ namespace Rein.RogueWispPlugin
                         return MonsterTier.Mid;
                     case "DRONE_MISSILE_BODY_NAME":
                         return MonsterTier.Mid;
+                    case "TIMECRYSTAL_BODY_NAME":
+                        return MonsterTier.Mid;
+                    case "EMERGENCYDRONE_BODY_NAME":
+                        return MonsterTier.Mid;
+                    case "MAULINGROCK_BODY_NAME":
+                        return MonsterTier.Small;
 
                     case "POT2_BODY_NAME":
                         return MonsterTier.Other;
