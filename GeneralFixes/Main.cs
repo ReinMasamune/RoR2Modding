@@ -38,17 +38,24 @@ namespace ReinGeneralFixes
         partial void BalanceOSP();
         partial void BalanceGesture();
         partial void BalancePreGameShake();
+        partial void BalanceConvergence();
+        partial void BalanceDeathMark();
+        partial void BalanceWillOWisp();
+        partial void BalanceBlight();
+
 
         partial void FixBandolier();
         partial void FixSelfDamage();
-        partial void FixCircletModel();
+        partial void FixDoTs();
 
 
         partial void QoLCommandoRoll();
         partial void QoLVisionsCrosshair();
         partial void QoLOvergrownPrinters();
+        partial void QoLEngiTurretInheritance();
+        partial void QoLCloakedChestSacrifice();
 
-        partial void PerformanceKinCharController();
+        //partial void PerformanceKinCharController();
 
 
 #if PROFILER
@@ -71,17 +78,23 @@ namespace ReinGeneralFixes
             this.BalanceCorpsebloom();
             this.BalanceOSP();
             this.BalanceGesture();
-            this.BalancePreGameShake();
+            //this.BalancePreGameShake();
+            this.BalanceConvergence();
+            this.BalanceDeathMark();
+            this.BalanceWillOWisp();
+            this.BalanceBlight();
 
             this.FixBandolier();
             this.FixSelfDamage();
-            this.FixCircletModel();
+            this.FixDoTs();
 
             this.QoLCommandoRoll();
             this.QoLVisionsCrosshair();
             this.QoLOvergrownPrinters();
+            this.QoLCloakedChestSacrifice();
+            this.QoLEngiTurretInheritance();
 
-            this.PerformanceKinCharController();
+            //this.PerformanceKinCharController();
 
             //On.RoR2.Projectile.ProjectileController.Start += this.ProjectileController_Start;
 

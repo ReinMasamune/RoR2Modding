@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyVersion>1.0.0.226</AssemblyVersion>
-    <FileVersion>1.0.0.226</FileVersion>
+    <AssemblyVersion>1.0.0.233</AssemblyVersion>
+    <FileVersion>1.0.0.233</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -19,10 +19,15 @@
   <PropertyGroup>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+    <RootNamespace>Rein</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="ReinCore.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="..\__Standalone\ResourceTools.cs" Link="ResourceTools.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -418,5 +423,9 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="CD $(SolutionDir)" />
+  </Target>
 
 </Project>

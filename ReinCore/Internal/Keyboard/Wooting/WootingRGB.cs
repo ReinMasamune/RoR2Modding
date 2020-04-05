@@ -64,7 +64,7 @@ namespace ReinCore.Wooting
 
         private static void LoadAssembly()
         {
-            dllPath = ResourceTools.EmbeddedResourceHelpers.LoadUnmanagedLibrary( wootingDllName, Properties.Resources.wooting_rgb_sdk64 );
+            dllPath = ResourceTools.EmbeddedResourceHelpers.LoadUnmanagedLibrary( wootingDllName, Rein.Properties.Resources.wooting_rgb_sdk64 );
             SetupDisconnectCallback();
             disconnectCallback += OnDisconnect;
             assemblyLoaded = true;

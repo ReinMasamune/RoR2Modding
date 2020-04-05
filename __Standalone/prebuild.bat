@@ -1,0 +1,1 @@
+copy %1\libs\Rein\ReinCore.dll %2\Resources\ReinCore.dll

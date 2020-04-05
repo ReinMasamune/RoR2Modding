@@ -44,7 +44,7 @@ namespace Rein.Properties
         public static AssetBundle LoadAssetBundle( Byte[] resourceBytes )
         {
             if( resourceBytes == null ) throw new ArgumentNullException( nameof( resourceBytes ) );
-            return AssetBundle.LoadFromMemory(resourceBytes);
+            return AssetBundle.LoadFromMemory( resourceBytes );
         }
 
         /// <summary>
@@ -81,7 +81,7 @@ namespace Rein.Properties
         public static Assembly LoadAssembly( Byte[] resourceBytes )
         {
             if( resourceBytes == null ) throw new ArgumentNullException( nameof( resourceBytes ) );
-            return Assembly.Load(resourceBytes);
+            return Assembly.Load( resourceBytes );
         }
 
         /// <summary>

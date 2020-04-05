@@ -52,7 +52,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SkinStuff", "SkinStuff\Skin
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "StandaloneScripts", "StandaloneScripts", "{586AAB97-C3BD-4D9D-8890-AAA82D675242}"
 	ProjectSection(SolutionItems) = preProject
-		AssemblyLoader.cs = AssemblyLoader.cs
+		__Standalone\AssemblyLoader.cs = __Standalone\AssemblyLoader.cs
+		__Standalone\AutomaticTokens.tt = __Standalone\AutomaticTokens.tt
+		__Standalone\prebuild.bat = __Standalone\prebuild.bat
+		__Standalone\ResourceTools.cs = __Standalone\ResourceTools.cs
 	EndProjectSection
 EndProject
 Global

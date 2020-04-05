@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyVersion>1.0.0.7</AssemblyVersion>
-    <FileVersion>1.0.0.7</FileVersion>
+    <AssemblyVersion>1.0.0.8</AssemblyVersion>
+    <FileVersion>1.0.0.8</FileVersion>
     <RootNamespace>Rein</RootNamespace>
   </PropertyGroup>
 
@@ -26,7 +26,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="..\AssemblyLoader.cs" Link="AssemblyLoader.cs" />
+    <Compile Include="..\__Standalone\AssemblyLoader.cs" Link="AssemblyLoader.cs" />
+    <Compile Include="..\__Standalone\ResourceTools.cs" Link="ResourceTools.cs" />
   </ItemGroup>
   
   <ItemGroup>
@@ -406,5 +407,9 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="CD $(SolutionDir)__Standalone\&#xD;&#xA;CALL prebuild.bat $(SolutionDir) $(ProjectDir)" />
+  </Target>
 
 </Project>
