@@ -155,7 +155,8 @@ namespace Rein.RogueWispPlugin
 
                 var obj = new GameObject();
                 obj.transform.position = this.orbOrigin;
-                this.passive.latestUtilityZone = obj;
+                this.passive.latestUtilZone = obj;
+                this.passive.latestUtilRadius = this.blazeOrbRadius;
 
                 //Unorganized shit
                 blaze.obj = obj;

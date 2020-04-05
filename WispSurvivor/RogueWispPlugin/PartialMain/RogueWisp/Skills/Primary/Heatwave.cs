@@ -11,6 +11,7 @@ namespace Rein.RogueWispPlugin
     {
         public class Heatwave : BaseState, RoR2.Skills.SteppedSkillDef.IStepSetter
         {
+
             public enum Direction
             {
                 Left = 0,
@@ -23,7 +24,7 @@ namespace Rein.RogueWispPlugin
 
             const Single baseDuration = 0.875f;
             const Single fireStartFrac = 0.35f;
-            const Single maxRange = 80f;
+            public const Single maxRange = 80f;
             const Single noStockSpeedMult = 0.5f;
             const Single damageMult = 1.65f;
             const Single radius = 2.0f;
@@ -47,9 +48,12 @@ namespace Rein.RogueWispPlugin
             private WispPassiveController passive;
             private ClientOrbController orbControl;
 
+            private Boolean isDoppleganger;
+
             public override void OnEnter()
             {
                 base.OnEnter();
+
                 Transform modelTrans = base.GetModelTransform();
                 this.passive = base.gameObject.GetComponent<WispPassiveController>();
                 this.orbControl = base.gameObject.GetComponent<ClientOrbController>();
@@ -73,6 +77,8 @@ namespace Rein.RogueWispPlugin
                 base.characterBody.SetAimTimer( this.duration + 1f );
                 base.characterBody.isSprinting = false;
                 this.skin = base.characterBody.skinIndex;
+
+                this.isDoppleganger = base.characterBody.inventory.GetItemCount( ItemIndex.InvadingDoppelganger ) != 0;
             }
 
             public override void FixedUpdate()
@@ -102,6 +108,7 @@ namespace Rein.RogueWispPlugin
                 if( !this.hasFired )
                 {
                     this.FireOrb();
+                    base.PlayCrossfade( "Gesture", "Idle", 0.5f );
                 }
             }
 
@@ -115,7 +122,6 @@ namespace Rein.RogueWispPlugin
                 if( this.hasFired ) return;
                 this.hasFired = true;
                 if( !this.isAuthority ) return;
-
                 //this.GetTarget();
 
                 HeatwaveClientOrb snap = new HeatwaveClientOrb();
@@ -127,11 +133,11 @@ namespace Rein.RogueWispPlugin
                 snap.team = TeamComponent.GetObjectTeam( base.gameObject );
                 snap.attacker = base.gameObject;
                 snap.procCoef = 1.0f;
-                snap.radius = radius;
+                snap.radius = radius * ( this.isDoppleganger ? 0.65f : 1f );
                 snap.skin = this.skin;
                 Transform trans = base.FindModelChild("MuzzleRight");
                 snap.startPos = trans.position;
-                snap.speed = 250f;
+                snap.speed = 250f * ( this.isDoppleganger ? 0.35f : 1f );
                 //snap.targetPos = this.targetVec;
                 snap.useTargetPos = false;
                 snap.origin = aim.origin;

@@ -11,10 +11,21 @@ namespace Rein.RogueWispPlugin
         {
             private readonly List<BaseClientOrb> activeOrbs = new List<BaseClientOrb>();
             private readonly List<BaseClientOrb> destroy = new List<BaseClientOrb>();
+            private NetworkIdentity identity;
+
+            private Boolean isAuthority
+            {
+                get => RoR2.Util.HasEffectiveAuthority( this.identity );
+            }
+
+            private void Awake()
+            {
+                this.identity = base.GetComponent<NetworkIdentity>();
+            }
 
             public void AddClientOrb( BaseClientOrb newOrb )
             {
-                if( !this.hasAuthority )
+                if( !this.isAuthority )
                 {
                     //Debug.Log( "AddClientOrb called without authority" );
                     return;
@@ -40,7 +51,7 @@ namespace Rein.RogueWispPlugin
 
             private void UpdateClientOrb( BaseClientOrb orb, Single deltaT )
             {
-                if( !this.hasAuthority )
+                if( !this.isAuthority )
                 {
                     //Debug.Log( "UpdateClientOrb called without authority" );
                     return;
@@ -63,7 +74,7 @@ namespace Rein.RogueWispPlugin
 
             private void EndClientOrb( BaseClientOrb orb )
             {
-                if( !this.hasAuthority )
+                if( !this.isAuthority )
                 {
                     //Debug.Log( "EndClientOrb called without authority" );
                     return;
@@ -79,7 +90,7 @@ namespace Rein.RogueWispPlugin
 
             private void FixedUpdate()
             {
-                if( !this.hasAuthority ) return;
+                if( !this.isAuthority ) return;
 
                 Single deltaT = Time.fixedDeltaTime;
                 foreach( BaseClientOrb orb in this.activeOrbs )

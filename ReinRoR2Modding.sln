@@ -50,6 +50,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OtherStuff", "OtherStuff", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SkinStuff", "SkinStuff\SkinStuff.csproj", "{FA031B35-4BF2-4B2F-AF3C-A1DB077F6D1E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "StandaloneScripts", "StandaloneScripts", "{586AAB97-C3BD-4D9D-8890-AAA82D675242}"
+	ProjectSection(SolutionItems) = preProject
+		AssemblyLoader.cs = AssemblyLoader.cs
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

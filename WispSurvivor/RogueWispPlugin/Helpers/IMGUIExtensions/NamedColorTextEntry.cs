@@ -1,5 +1,5 @@
 ﻿#if MATEDITOR
-using RogueWispPlugin.Helpers.IMGUI;
+using Rein.RogueWispPlugin.Helpers.IMGUI;
 using System;
 using UnityEngine;
 

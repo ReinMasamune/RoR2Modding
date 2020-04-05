@@ -30,14 +30,109 @@ namespace Rein.RogueWispPlugin.Helpers
             new Color( 0.302f, 0f, 0f ),            //11u   Blood
             new Color( 0f, 0f, 0.2f ),              //12u   Midnight
             new Color( 0f, 0.302f, 0f ),            //13u   Forest
+            new Color( 0.075f, 0.58f, 0.6f ),        //14u   Soul
 
         };
         #endregion
         #region FLGrad
         private static Func<Color,Gradient>[] flameGradStyles = new Func<Color, Gradient>[]
         {
-            (col) =>                                //0u    Standard
+            (col) =>                                //0u    White Inline
             {
+                //col = new Color( col.r * col.r, col.g * col.g, col.b * col.b );
+                var grad = new Gradient();
+                var aKeys = new GradientAlphaKey[]
+                {
+                    new GradientAlphaKey( 0f, 0f ),
+                    new GradientAlphaKey( 1f, 1f ),
+                };
+
+                var cKeys = new GradientColorKey[]
+                {
+                    new GradientColorKey( Color.black, 0f ),
+                    new GradientColorKey( col, 0.5f ),
+                    new GradientColorKey( col, 0.95f ),
+                    new GradientColorKey( Color.white, 1f ),
+                };
+
+                grad.alphaKeys = aKeys;
+                grad.colorKeys = cKeys;
+                return grad;
+            },
+
+            (col) =>                                //1u    Black Outline
+            {
+                //col = new Color( col.r * col.r, col.g * col.g, col.b * col.b );
+                var grad = new Gradient();
+                var aKeys = new GradientAlphaKey[]
+                {
+                    new GradientAlphaKey( 0f, 0f ),
+                    new GradientAlphaKey( 1f, 1f ),
+                };
+
+                var cKeys = new GradientColorKey[]
+                {
+                    new GradientColorKey( Color.black, 0f ),
+                    new GradientColorKey( Color.black, 0.99f ),
+                    new GradientColorKey( col, 1f ),
+                };
+
+                grad.alphaKeys = aKeys;
+                grad.colorKeys = cKeys;
+                return grad;
+            },
+
+            (col) =>                                //2u    White Outline
+            {
+                //col = new Color( col.r * col.r, col.g * col.g, col.b * col.b );
+                var grad = new Gradient();
+                var aKeys = new GradientAlphaKey[]
+                {
+                    new GradientAlphaKey( 0f, 0f ),
+                    new GradientAlphaKey( 0f, 0.5f ),
+                    new GradientAlphaKey( 1f, 1f ),
+                };
+
+                var cKeys = new GradientColorKey[]
+                {
+                    new GradientColorKey( Color.black, 0f ),
+                    new GradientColorKey( Color.grey, 0.5f ),
+                    new GradientColorKey( col, 0.6f ),
+                    new GradientColorKey( col, 1f ),
+                };
+
+                grad.alphaKeys = aKeys;
+                grad.colorKeys = cKeys;
+                return grad;
+            },
+
+            (col) =>                                //3u    Black Inline
+            {
+                //col = new Color( col.r * col.r, col.g * col.g, col.b * col.b );
+                var grad = new Gradient();
+                var aKeys = new GradientAlphaKey[]
+                {
+                    new GradientAlphaKey( 0f, 0f ),
+                    new GradientAlphaKey( 1f, 1f ),
+                };
+
+                var cKeys = new GradientColorKey[]
+                {
+                    new GradientColorKey( Color.black, 0f ),
+                    new GradientColorKey( col, 0.35f ),
+                    new GradientColorKey( col, 0.5f ),
+                    new GradientColorKey( Color.black, 0.6f ),
+                    new GradientColorKey( Color.black, 1f ),
+                };
+
+                grad.alphaKeys = aKeys;
+                grad.colorKeys = cKeys;
+                return grad;
+            },
+
+            (col) =>                                //4u    Solid
+            {
+                //col = new Color( col.r * col.r, col.g * col.g, col.b * col.b );
                 var grad = new Gradient();
                 var aKeys = new GradientAlphaKey[]
                 {
@@ -75,94 +170,6 @@ namespace Rein.RogueWispPlugin.Helpers
                 return grad;
             },
 
-            (col) =>                                //1u    Black Outline
-            {
-                var grad = new Gradient();
-                var aKeys = new GradientAlphaKey[]
-                {
-                    new GradientAlphaKey( 0f, 0f ),
-                    new GradientAlphaKey( 1f, 1f ),
-                };
-
-                var cKeys = new GradientColorKey[]
-                {
-                    new GradientColorKey( Color.black, 0f ),
-                    new GradientColorKey( Color.black, 0.99f ),
-                    new GradientColorKey( col, 1f ),
-                };
-
-                grad.alphaKeys = aKeys;
-                grad.colorKeys = cKeys;
-                return grad;
-            },
-
-            (col) =>                                //2u    White Outline
-            {
-                var grad = new Gradient();
-                var aKeys = new GradientAlphaKey[]
-                {
-                    new GradientAlphaKey( 0f, 0f ),
-                    new GradientAlphaKey( 0f, 0.5f ),
-                    new GradientAlphaKey( 1f, 1f ),
-                };
-
-                var cKeys = new GradientColorKey[]
-                {
-                    new GradientColorKey( Color.black, 0f ),
-                    new GradientColorKey( Color.grey, 0.5f ),
-                    new GradientColorKey( col, 0.6f ),
-                    new GradientColorKey( col, 1f ),
-                };
-
-                grad.alphaKeys = aKeys;
-                grad.colorKeys = cKeys;
-                return grad;
-            },
-
-            (col) =>                                //3u    Black Inline
-            {
-                var grad = new Gradient();
-                var aKeys = new GradientAlphaKey[]
-                {
-                    new GradientAlphaKey( 0f, 0f ),
-                    new GradientAlphaKey( 1f, 1f ),
-                };
-
-                var cKeys = new GradientColorKey[]
-                {
-                    new GradientColorKey( Color.black, 0f ),
-                    new GradientColorKey( col, 0.35f ),
-                    new GradientColorKey( col, 0.5f ),
-                    new GradientColorKey( Color.black, 0.6f ),
-                    new GradientColorKey( Color.black, 1f ),
-                };
-
-                grad.alphaKeys = aKeys;
-                grad.colorKeys = cKeys;
-                return grad;
-            },
-
-            (col) =>                                //4u    White Inline
-            {
-                var grad = new Gradient();
-                var aKeys = new GradientAlphaKey[]
-                {
-                    new GradientAlphaKey( 0f, 0f ),
-                    new GradientAlphaKey( 1f, 1f ),
-                };
-
-                var cKeys = new GradientColorKey[]
-                {
-                    new GradientColorKey( Color.black, 0f ),
-                    new GradientColorKey( col, 0.5f ),
-                    new GradientColorKey( col, 0.95f ),
-                    new GradientColorKey( Color.white, 1f ),
-                };
-
-                grad.alphaKeys = aKeys;
-                grad.colorKeys = cKeys;
-                return grad;
-            },
         };
         #endregion
         #region ARMat
@@ -193,6 +200,14 @@ namespace Rein.RogueWispPlugin.Helpers
                 mat.specularExponent = 1.2f;
                 mat.specularStrength = 1f;
             },
+            (col, mat) =>       //3u            Vibrant
+            {
+                var arCol = Color.Lerp( col, new Color( 0.35f, 0.35f, 0.35f, 1f ), 0.5f );
+                mat.mainColor = arCol;
+                mat.specularStrength = 0.1f;
+                mat.specularExponent = 0.95f;
+                mat.fresnelPower = 0.1f;
+            }
         };
         #endregion
         #region Static Helpers
@@ -326,7 +341,7 @@ namespace Rein.RogueWispPlugin.Helpers
             skinLookup.Clear();
         }
 
-        #region Equality
+        #region Operators
         public static Boolean operator ==( WispBitSkin obj1, WispBitSkin obj2 )
         {
             if( obj1 is null && obj2 is null ) return true;
@@ -336,6 +351,24 @@ namespace Rein.RogueWispPlugin.Helpers
         public static Boolean operator !=( WispBitSkin obj1, WispBitSkin obj2 )
         {
             return !(obj1 == obj2);
+        }
+
+        public static WispBitSkin operator ~(WispBitSkin obj)
+        {
+            var val = obj.EncodeToSkinIndex();
+            var res = 0u;
+            var flags = (val & 0b1111_0000_0000_0000_0000_0000_0000_0000u) >> 28;
+
+            var color = (val & 0b0000_0000_0000_0011_1111_1111_1111_1111u);
+
+            var newColor = (flags & 0b0001u) > 0 ? ~color : (14u - color);
+
+            var newFlameGrad = (4u - (val &0b0000_0000_0001_1100_0000_0000_0000_0000)>>18)<<18;
+            var newArmorMat = (3u - (val&0b0000_1110_0000_0000_0000_0000_0000_0000)>>25)<<25;
+            var newFlags = flags<<28;
+
+            res = newColor | newFlameGrad | newArmorMat | newFlags;
+            return WispBitSkin.GetWispSkin( res );
         }
 
         #endregion
@@ -376,6 +409,11 @@ namespace Rein.RogueWispPlugin.Helpers
 
         private Boolean encoded;
         private UInt32 encodeValue;
+
+        public UInt32 skinIndex
+        {
+            get => encodeValue;
+        }
 
         internal WispBitSkin( Boolean isIridescent, /*Boolean isTransparent,*/ Boolean hasCracks, Boolean useCustomColor, WispColorIndex color, FlameGradientType flameType, ArmorMaterialType armorMatType, UInt32 encodedCustomColor = 0u )
         {
@@ -428,7 +466,7 @@ namespace Rein.RogueWispPlugin.Helpers
             flamesMain.mainTexture.texture = AssetsCore.LoadAsset<Texture2D>(Texture2DIndex.refTexGlowSoftCenterMask);
             flamesMain.remapTexture.texture = flameRampTex;
             flamesMain.softFactor = 0.5f;
-            flamesMain.brightnessBoost = 1.1f;
+            flamesMain.brightnessBoost = 0.85f; //1.1
             flamesMain.alphaBoost = 5f;
             flamesMain.alphaBias = 0f;
             flamesMain.useUV1 = false;
@@ -464,8 +502,8 @@ namespace Rein.RogueWispPlugin.Helpers
             tracerMat.mainTexture.texture = AssetsCore.LoadAsset<Texture2D>(Texture2DIndex.refTexParticleDust1Mask);
             tracerMat.remapTexture.texture = flameRampTex;
             tracerMat.softFactor = 1f;
-            tracerMat.brightnessBoost = 4f;
-            tracerMat.alphaBoost = 5.01f;
+            tracerMat.brightnessBoost = 3f; //4
+            tracerMat.alphaBoost = 3f; //5.01
             tracerMat.alphaBias = 0f;
             tracerMat.useUV1 = false;
             tracerMat.fadeClose = false;
@@ -500,8 +538,8 @@ namespace Rein.RogueWispPlugin.Helpers
             pillarMat.mainTexture.texture = AssetsCore.LoadAsset<Texture2D>(Texture2DIndex.refTexWillowispSpiral);
             pillarMat.remapTexture.texture = flameRampTex;
             pillarMat.softFactor = 1.038f;
-            pillarMat.brightnessBoost = 2f;
-            pillarMat.alphaBoost = 6.57f;
+            pillarMat.brightnessBoost = 1f; //2
+            pillarMat.alphaBoost = 4f; //6.57
             pillarMat.alphaBias = 0f;
             pillarMat.useUV1 = false;
             pillarMat.fadeClose = false;
@@ -538,11 +576,11 @@ namespace Rein.RogueWispPlugin.Helpers
             areaMat.cutoffScrollSpeed = new Vector4( 11f, -13f, -17f, 15f );
             areaMat.softFactor = 2f;
             areaMat.softPower = 1f;
-            areaMat.brightnessBoost = 5f;
-            areaMat.rimPower = 0.5f;
+            areaMat.brightnessBoost = 2f; //5
+            areaMat.rimPower = 1.25f; //0.5
             areaMat.rimStrength = 0.25f;
-            areaMat.alphaBoost = 3f;
-            areaMat.intersectionStrength = 18f;
+            areaMat.alphaBoost = 2.5f; //3
+            areaMat.intersectionStrength = 5f; //18
             areaMat.cull = MaterialBase.CullMode.Off;
             areaMat.externalAlpha = 1f;
             areaMat.vertexColorsOn = false;
@@ -1052,6 +1090,7 @@ namespace Rein.RogueWispPlugin.Helpers
             Blood = 11u,
             Midnight = 12u,
             Forest = 13u,
+            Soul = 14u
         }
         internal enum FlameGradientType : UInt32
         {
@@ -1059,13 +1098,14 @@ namespace Rein.RogueWispPlugin.Helpers
             BlackOut = 1u,
             WhiteOut = 2u,
             BlackIn = 3u,
-            WhiteIn = 4u,
+            Solid = 4u,
         }
         internal enum ArmorMaterialType : UInt32
         {
             Standard = 0u,
             Bone = 1u,
             Metal = 2u,
+            Vibrant = 3u,
         }
 #endregion
     }

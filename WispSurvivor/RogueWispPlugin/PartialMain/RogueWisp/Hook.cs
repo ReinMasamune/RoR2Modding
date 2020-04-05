@@ -22,8 +22,8 @@ namespace Rein.RogueWispPlugin
         private Accessor<CharacterBody,Single> armor = new Accessor<CharacterBody, Single>( "armor" );
         private Accessor<CharacterBody,Single> barrierDecayRate = new Accessor<CharacterBody,Single>( "<barrierDecayRate>k__BackingField" );
         private const Single barrierDecayMult = 0.5f;
-        private const Single shieldRegenFrac = 0.01f;
-        private const Single rootNumber = 4f;
+        private const Single shieldRegenFrac = 0.02f;
+        private const Single rootNumber = 6f;
         internal HashSet<CharacterBody> RW_BlockSprintCrosshair = new HashSet<CharacterBody>();
         private ConfigEntry<Boolean> chargeBarEnabled;
         private ConfigEntry<Boolean> deathMarkStuff;
@@ -80,6 +80,7 @@ namespace Rein.RogueWispPlugin
             HooksCore.RoR2.CameraRigController.Update.Il -= this.Update_Il;
             HooksCore.RoR2.SetStateOnHurt.OnTakeDamageServer.Il -= this.OnTakeDamageServer_Il;
             HooksCore.RoR2.GlobalEventManager.OnHitEnemy.Il -= this.OnHitEnemy_Il;
+            HooksCore.RoR2.CharacterModel.UpdateRendererMaterials.Il -= this.UpdateRendererMaterials_Il;
             //HooksCore.RoR2.GlobalEventManager.OnHitEnemy.On -= this.OnHitEnemy_On;
         }
 
@@ -104,7 +105,17 @@ namespace Rein.RogueWispPlugin
             HooksCore.RoR2.CameraRigController.Update.Il += this.Update_Il;
             HooksCore.RoR2.SetStateOnHurt.OnTakeDamageServer.Il += this.OnTakeDamageServer_Il;
             HooksCore.RoR2.GlobalEventManager.OnHitEnemy.Il += this.OnHitEnemy_Il;
+            HooksCore.RoR2.CharacterModel.UpdateRendererMaterials.Il += this.UpdateRendererMaterials_Il;
             //HooksCore.RoR2.GlobalEventManager.OnHitEnemy.On += this.OnHitEnemy_On;
+        }
+
+        private void UpdateRendererMaterials_Il( ILContext il )
+        {
+            ILCursor c = new ILCursor( il );
+            c.GotoNext( MoveType.After, x => x.MatchCallOrCallvirt<RoR2.CharacterModel>( "get_isDoppelganger" ) );
+            c.Emit( OpCodes.Ldarg_0 );
+            c.EmitDelegate<Func<CharacterModel, Boolean>>( ( model ) => model.body != null && model.body.baseNameToken != Properties.Tokens.WISP_SURVIVOR_BODY_NAME );
+            c.Emit( OpCodes.And );
         }
 
         private void Start_On4( HooksCore.RoR2.UI.QuickPlayButtonController.Start.Orig orig, RoR2.UI.QuickPlayButtonController self )
@@ -253,6 +264,17 @@ namespace Rein.RogueWispPlugin
         {
             orig( self );
             self.gameObject.AddComponent<WispBurnManager>();
+
+            if( self.baseNameToken == Properties.Tokens.WISP_SURVIVOR_BODY_NAME )
+            {
+                var inv = self.inventory;
+                if( inv && inv.GetItemCount(ItemIndex.InvadingDoppelganger) > 0 )
+                {
+                    var newSkin = ~Helpers.WispBitSkin.GetWispSkin( self.skinIndex );
+                    self.skinIndex = newSkin.EncodeToSkinIndex();
+                    self.modelLocator.modelTransform.GetComponent<Helpers.WispModelBitSkinController>().Apply( newSkin );
+                }
+            }
         }
         private void Start_On1( HooksCore.RoR2.CameraRigController.Start.Orig orig, CameraRigController self )
         {

@@ -1,6 +1,6 @@
 ﻿#if MATEDITOR
 using EntityStates;
-using RogueWispPlugin.Helpers;
+using Rein.RogueWispPlugin.Helpers;
 using RoR2;
 using RoR2.Skills;
 using System;

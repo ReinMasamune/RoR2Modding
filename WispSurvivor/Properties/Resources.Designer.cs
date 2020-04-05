@@ -97,7 +97,7 @@ namespace Rein.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;style=cIsUtility&gt;Flame Charge&lt;/style&gt; &lt;style=cIsDamage&gt;Empowers&lt;/style&gt; your abilities but decays over time.\nGain &lt;style=cIsDamage&gt;Barrier&lt;/style&gt; based on &lt;style=cIsHealth&gt;Maximum Health&lt;/style&gt; whenever you regain &lt;style=cIsUtility&gt;Flame Charge.&lt;/style&gt;.
+        ///   Looks up a localized string similar to &lt;style=cIsUtility&gt;Flame Charge&lt;/style&gt; &lt;style=cIsDamage&gt;Empowers&lt;/style&gt; your abilities but decays over time.\nGain &lt;style=cIsDamage&gt;Barrier&lt;/style&gt; whenever you regain &lt;style=cIsUtility&gt;Flame Charge.&lt;/style&gt;.
         /// </summary>
         internal static string lang__WISP_SURVIVOR_PASSIVE_DESC {
             get {
@@ -106,7 +106,7 @@ namespace Rein.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Unstable Conflagration.
         /// </summary>
         internal static string lang__WISP_SURVIVOR_PASSIVE_NAME {
             get {
@@ -169,7 +169,7 @@ namespace Rein.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Flare-Forged Sentience.
         /// </summary>
         internal static string lang__WISP_SURVIVOR_SUBTITLE_NAME {
             get {

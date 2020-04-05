@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
-using RogueWispPlugin.Helpers.IMGUI;
+using Rein.RogueWispPlugin.Helpers.IMGUI;
 
 namespace Rein.RogueWispPlugin.Helpers
 {

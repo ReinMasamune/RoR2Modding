@@ -8,12 +8,18 @@ namespace Rein.RogueWispPlugin
     {
         public class WispPassiveController : MonoBehaviour
         {
-            public GameObject latestUtilityZone
+            public GameObject latestUtilZone
             {
-                set => this.onUtilityPlaced?.Invoke( value );
+                set => this.onUtilPlaced?.Invoke( value );
             }
-            public event Action<GameObject> onUtilityPlaced;
+            public event Action<GameObject> onUtilPlaced;
+            public Single latestUtilRadius
+            {
+                set => this.onUtilRangeProvided?.Invoke( value );
+            }
+            public event Action<Single> onUtilRangeProvided;
 
+            public Boolean isDoppleganger { get; private set; }
 
             public struct ChargeState
             {
@@ -41,11 +47,16 @@ namespace Rein.RogueWispPlugin
                 this.buffInd = Main.RW_flameChargeBuff;
             }
 
+            public void Start()
+            {
+                this.isDoppleganger = ( base.GetComponent<CharacterBody>()?.inventory?.GetItemCount(ItemIndex.InvadingDoppelganger) ?? 1 ) != 0;
+            }
+
             public void FixedUpdate()
             {
                 Int32 buffStacks = this.body.GetBuffCount(this.buffInd);
-                this.charge = UpdateCharge( this.charge, Time.fixedDeltaTime * (Single)(buffStacks > 0 ? decayMultWithBuff : 1.0) );
-                this.charge += regenPsPs * buffStacks * Time.fixedDeltaTime;
+                this.charge = UpdateCharge( this.charge, Time.fixedDeltaTime * (Single)(buffStacks > 0 ? decayMultWithBuff : 1.0) * (this.isDoppleganger ? 0.25f : 1f) );
+                this.charge += regenPsPs * buffStacks * Time.fixedDeltaTime * (this.isDoppleganger ? 4f : 1f);
             }
 
             public void AddCharge( Double addedCharge ) => this.charge += addedCharge;

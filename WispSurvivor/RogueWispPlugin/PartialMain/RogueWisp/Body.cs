@@ -22,8 +22,8 @@ namespace Rein.RogueWispPlugin
             chbod.hullClassification = HullClassification.Human;
             chbod.isChampion = false;
             chbod.crosshairPrefab = this.RW_crosshair;
-            chbod.subtitleNameToken = "ReinThings.WispSurvivor";
-            chbod.baseNameToken = "WISP_SURVIVOR_BODY_NAME";
+            chbod.subtitleNameToken = Properties.Tokens.WISP_SURVIVOR_SUBTITLE_NAME;
+            chbod.baseNameToken = Properties.Tokens.WISP_SURVIVOR_BODY_NAME;
             chbod.preferredPodPrefab = CreateSurvivorPod();
             chbod.portraitIcon = this.RW_assetBundle.LoadAsset<Texture2D>( "Assets/__EXPORT/WispyIcon.png" );
         }

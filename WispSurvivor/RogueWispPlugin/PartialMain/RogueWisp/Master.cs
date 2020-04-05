@@ -65,16 +65,20 @@ namespace Rein.RogueWispPlugin
 
             var wispyManager = master.AddComponent<WispyAIManager>();
 
+
+            MasterCatalog.getAdditionalEntries += ( list ) => list.Add( master );
         }
 
         private void AddDrivers( GameObject master )
         {
+            //var holdSpecial = master.AddComponent<AISkillDriver>();
             var holdSpecial = master.AddComponent<WispySkillDriver>();
             holdSpecial.customName = "Hold down special until not able to be fired";
             holdSpecial.minCharge = 200.0;
             holdSpecial.maxCharge = Double.PositiveInfinity;
             holdSpecial.requiresCustomTarget = false;
             holdSpecial.SetRequiredStates( "Weapon", typeof( IncinerationWindup ), typeof( Incineration ) );
+
             holdSpecial.skillSlot = SkillSlot.Special;
             holdSpecial.requiredSkill = null; // TODO: Assign this
             holdSpecial.requireSkillReady = false;
@@ -112,12 +116,12 @@ namespace Rein.RogueWispPlugin
             utilDriver.minUserHealthFraction = Single.NegativeInfinity;
             utilDriver.maxUserHealthFraction = Single.PositiveInfinity;
             utilDriver.minTargetHealthFraction = Single.NegativeInfinity;
-            utilDriver.maxTargetHealthFraction = Single.NegativeInfinity;
+            utilDriver.maxTargetHealthFraction = Single.PositiveInfinity;
             utilDriver.minDistance = 0f;
             utilDriver.maxDistance = PrepGaze.maxRange;
             utilDriver.selectionRequiresTargetLoS = true;
             utilDriver.activationRequiresTargetLoS = true;
-            utilDriver.activationRequiresAimConfirmation = true;
+            utilDriver.activationRequiresAimConfirmation = false;
             utilDriver.movementType = AISkillDriver.MovementType.StrafeMovetarget;
             utilDriver.moveInputScale = 1f;
             utilDriver.aimType = AISkillDriver.AimType.AtCurrentEnemy;
@@ -133,7 +137,7 @@ namespace Rein.RogueWispPlugin
 
             var specialDriver = master.AddComponent<WispySkillDriver>();
             specialDriver.customName = "Fire special at target";
-            specialDriver.minCharge = 800.0;
+            specialDriver.minCharge = 3200.0;
             specialDriver.maxCharge = Double.PositiveInfinity;
             specialDriver.requiresCustomTarget = false;
             specialDriver.skillSlot = SkillSlot.Special;
@@ -164,8 +168,8 @@ namespace Rein.RogueWispPlugin
 
             var secondaryDriver = master.AddComponent<WispySkillDriver>();
             secondaryDriver.customName = "Fire secondary at target";
-            secondaryDriver.minCharge = 150.0;
-            secondaryDriver.maxCharge = 300.0;
+            secondaryDriver.minCharge = 180.0;
+            secondaryDriver.maxCharge = 350.0;
             secondaryDriver.requiresCustomTarget = false;
             secondaryDriver.skillSlot = SkillSlot.Secondary;
             secondaryDriver.requiredSkill = null; // TODO: Assign this
@@ -198,22 +202,24 @@ namespace Rein.RogueWispPlugin
             primaryMoveToZone.minCharge = Double.NegativeInfinity;
             primaryMoveToZone.maxCharge = Double.PositiveInfinity;
             primaryMoveToZone.requiresCustomTarget = true;
-            primaryMoveToZone.skillSlot = SkillSlot.Special;
+            primaryMoveToZone.SetEnemyRanges( 0f, Heatwave.maxRange, true );
+            primaryMoveToZone.useZoneRadiusForMinRange = true;
+            primaryMoveToZone.skillSlot = SkillSlot.Primary;
             primaryMoveToZone.requiredSkill = null; // TODO: Assign this
-            primaryMoveToZone.requireSkillReady = false;
+            primaryMoveToZone.requireSkillReady = true;
             primaryMoveToZone.requireEquipmentReady = false;
-            primaryMoveToZone.moveTargetType = AISkillDriver.TargetType.CurrentEnemy;
+            primaryMoveToZone.moveTargetType = AISkillDriver.TargetType.Custom;
             primaryMoveToZone.minUserHealthFraction = Single.NegativeInfinity;
             primaryMoveToZone.maxUserHealthFraction = Single.PositiveInfinity;
             primaryMoveToZone.minTargetHealthFraction = Single.NegativeInfinity;
             primaryMoveToZone.maxTargetHealthFraction = Single.PositiveInfinity;
             primaryMoveToZone.minDistance = 0f;
             primaryMoveToZone.maxDistance = Single.PositiveInfinity;
-            primaryMoveToZone.selectionRequiresTargetLoS = true;
-            primaryMoveToZone.activationRequiresTargetLoS = true;
+            primaryMoveToZone.selectionRequiresTargetLoS = false;
+            primaryMoveToZone.activationRequiresTargetLoS = false;
             primaryMoveToZone.activationRequiresAimConfirmation = false;
-            primaryMoveToZone.movementType = AISkillDriver.MovementType.Stop;
-            primaryMoveToZone.moveInputScale = 0f;
+            primaryMoveToZone.movementType = AISkillDriver.MovementType.ChaseMoveTarget;
+            primaryMoveToZone.moveInputScale = 1f;
             primaryMoveToZone.aimType = AISkillDriver.AimType.AtCurrentEnemy;
             primaryMoveToZone.ignoreNodeGraph = false;
             primaryMoveToZone.driverUpdateTimerOverride = -1f;
@@ -226,14 +232,86 @@ namespace Rein.RogueWispPlugin
 
             var primaryRetreat = master.AddComponent<AISkillDriver>();
             primaryRetreat.customName = "Fire primary while moving backwards";
+            primaryRetreat.skillSlot = SkillSlot.Primary;
+            primaryRetreat.requiredSkill = null; // TODO: Assign this
+            primaryRetreat.requireSkillReady = true;
+            primaryRetreat.requireEquipmentReady = false;
+            primaryRetreat.moveTargetType = AISkillDriver.TargetType.CurrentEnemy;
+            primaryRetreat.minUserHealthFraction = Single.NegativeInfinity;
+            primaryRetreat.maxUserHealthFraction = Single.PositiveInfinity;
+            primaryRetreat.minTargetHealthFraction = Single.NegativeInfinity;
+            primaryRetreat.maxTargetHealthFraction = Single.PositiveInfinity;
+            primaryRetreat.minDistance = 0f;
+            primaryRetreat.maxDistance = Heatwave.maxRange * 0.05f;
+            primaryRetreat.selectionRequiresTargetLoS = true;
+            primaryRetreat.activationRequiresTargetLoS = true;
+            primaryRetreat.activationRequiresAimConfirmation = true;
+            primaryRetreat.movementType = AISkillDriver.MovementType.FleeMoveTarget;
+            primaryRetreat.moveInputScale = 1f;
+            primaryRetreat.aimType = AISkillDriver.AimType.AtCurrentEnemy;
+            primaryRetreat.ignoreNodeGraph = false;
+            primaryRetreat.driverUpdateTimerOverride = -1f;
+            primaryRetreat.resetCurrentEnemyOnNextDriverSelection = false;
+            primaryRetreat.noRepeat = false;
+            primaryRetreat.shouldSprint = false;
+            primaryRetreat.shouldFireEquipment = false;
+            primaryRetreat.shouldTapButton = false;
 
 
             var primaryAdvance = master.AddComponent<AISkillDriver>();
             primaryAdvance.customName = "Fire primary while moving forwards";
+            primaryAdvance.skillSlot = SkillSlot.Primary;
+            primaryAdvance.requiredSkill = null; // TODO: Assign this
+            primaryAdvance.requireSkillReady = true;
+            primaryAdvance.requireEquipmentReady = false;
+            primaryAdvance.moveTargetType = AISkillDriver.TargetType.CurrentEnemy;
+            primaryAdvance.minUserHealthFraction = Single.NegativeInfinity;
+            primaryAdvance.maxUserHealthFraction = Single.PositiveInfinity;
+            primaryAdvance.minTargetHealthFraction = Single.NegativeInfinity;
+            primaryAdvance.maxTargetHealthFraction = Single.PositiveInfinity;
+            primaryAdvance.minDistance = Heatwave.maxRange * 0.35f;
+            primaryAdvance.maxDistance = Heatwave.maxRange;
+            primaryAdvance.selectionRequiresTargetLoS = true;
+            primaryAdvance.activationRequiresTargetLoS = true;
+            primaryAdvance.activationRequiresAimConfirmation = true;
+            primaryAdvance.movementType = AISkillDriver.MovementType.ChaseMoveTarget;
+            primaryAdvance.moveInputScale = 1f;
+            primaryAdvance.aimType = AISkillDriver.AimType.AtCurrentEnemy;
+            primaryAdvance.ignoreNodeGraph = false;
+            primaryAdvance.driverUpdateTimerOverride = -1f;
+            primaryAdvance.resetCurrentEnemyOnNextDriverSelection = false;
+            primaryAdvance.noRepeat = false;
+            primaryAdvance.shouldSprint = false;
+            primaryAdvance.shouldFireEquipment = false;
+            primaryAdvance.shouldTapButton = false;
 
 
             var primaryStrafe = master.AddComponent<AISkillDriver>();
             primaryStrafe.customName = "Fire primary while strafing";
+            primaryStrafe.skillSlot = SkillSlot.Primary;
+            primaryStrafe.requiredSkill = null; // TODO: Assign this
+            primaryStrafe.requireSkillReady = true;
+            primaryStrafe.requireEquipmentReady = false;
+            primaryStrafe.moveTargetType = AISkillDriver.TargetType.CurrentEnemy;
+            primaryStrafe.minUserHealthFraction = Single.NegativeInfinity;
+            primaryStrafe.maxUserHealthFraction = Single.PositiveInfinity;
+            primaryStrafe.minTargetHealthFraction = Single.NegativeInfinity;
+            primaryStrafe.maxTargetHealthFraction = Single.PositiveInfinity;
+            primaryStrafe.minDistance = 0f;
+            primaryStrafe.maxDistance = Heatwave.maxRange;
+            primaryStrafe.selectionRequiresTargetLoS = true;
+            primaryStrafe.activationRequiresTargetLoS = true;
+            primaryStrafe.activationRequiresAimConfirmation = true;
+            primaryStrafe.movementType = AISkillDriver.MovementType.StrafeMovetarget;
+            primaryStrafe.moveInputScale = 1f;
+            primaryStrafe.aimType = AISkillDriver.AimType.AtCurrentEnemy;
+            primaryStrafe.ignoreNodeGraph = false;
+            primaryStrafe.driverUpdateTimerOverride = -1f;
+            primaryStrafe.resetCurrentEnemyOnNextDriverSelection = false;
+            primaryStrafe.noRepeat = false;
+            primaryStrafe.shouldSprint = false;
+            primaryStrafe.shouldFireEquipment = false;
+            primaryStrafe.shouldTapButton = false;
 
 
             var moveToZone = master.AddComponent<WispySkillDriver>();
@@ -241,18 +319,115 @@ namespace Rein.RogueWispPlugin
             moveToZone.minCharge = Double.NegativeInfinity;
             moveToZone.maxCharge = Double.PositiveInfinity;
             moveToZone.requiresCustomTarget = true;
+            moveToZone.useZoneRadiusForMinRange = true;
+            moveToZone.skillSlot = SkillSlot.None;
+            moveToZone.requiredSkill = null; // TODO: Assign this
+            moveToZone.requireSkillReady = false;
+            moveToZone.requireEquipmentReady = false;
+            moveToZone.moveTargetType = AISkillDriver.TargetType.Custom;
+            moveToZone.minUserHealthFraction = Single.NegativeInfinity;
+            moveToZone.maxUserHealthFraction = Single.PositiveInfinity;
+            moveToZone.minTargetHealthFraction = Single.NegativeInfinity;
+            moveToZone.maxTargetHealthFraction = Single.PositiveInfinity;
+            moveToZone.minDistance = 0f;
+            moveToZone.maxDistance = Single.PositiveInfinity;
+            moveToZone.selectionRequiresTargetLoS = false;
+            moveToZone.activationRequiresTargetLoS = false;
+            moveToZone.activationRequiresAimConfirmation = false;
+            moveToZone.movementType = AISkillDriver.MovementType.ChaseMoveTarget;
+            moveToZone.moveInputScale = 1f;
+            moveToZone.aimType = AISkillDriver.AimType.MoveDirection;
+            moveToZone.ignoreNodeGraph = false;
+            moveToZone.driverUpdateTimerOverride = -1f;
+            moveToZone.resetCurrentEnemyOnNextDriverSelection = false;
+            moveToZone.noRepeat = false;
+            moveToZone.shouldSprint = true;
+            moveToZone.shouldFireEquipment = false;
+            moveToZone.shouldTapButton = false;
 
 
             var moveToTarget = master.AddComponent<AISkillDriver>();
             moveToTarget.customName = "Move closer to target";
+            moveToTarget.skillSlot = SkillSlot.None;
+            moveToTarget.requiredSkill = null; // TODO: Assign this
+            moveToTarget.requireSkillReady = false;
+            moveToTarget.requireEquipmentReady = false;
+            moveToTarget.moveTargetType = AISkillDriver.TargetType.CurrentEnemy;
+            moveToTarget.minUserHealthFraction = Single.NegativeInfinity;
+            moveToTarget.maxUserHealthFraction = Single.PositiveInfinity;
+            moveToTarget.minTargetHealthFraction = Single.NegativeInfinity;
+            moveToTarget.maxTargetHealthFraction = Single.PositiveInfinity;
+            moveToTarget.minDistance = Heatwave.maxRange * 0.35f;
+            moveToTarget.maxDistance = Single.PositiveInfinity;
+            moveToTarget.selectionRequiresTargetLoS = false;
+            moveToTarget.activationRequiresTargetLoS = false;
+            moveToTarget.activationRequiresAimConfirmation = false;
+            moveToTarget.movementType = AISkillDriver.MovementType.ChaseMoveTarget;
+            moveToTarget.moveInputScale = 1f;
+            moveToTarget.aimType = AISkillDriver.AimType.MoveDirection;
+            moveToTarget.ignoreNodeGraph = false;
+            moveToTarget.driverUpdateTimerOverride = -1f;
+            moveToTarget.resetCurrentEnemyOnNextDriverSelection = false;
+            moveToTarget.noRepeat = false;
+            moveToTarget.shouldSprint = true;
+            moveToTarget.shouldFireEquipment = false;
+            moveToTarget.shouldTapButton = false;
 
 
             var moveFromTarget = master.AddComponent<AISkillDriver>();
             moveFromTarget.customName = "Retreat from target";
+            moveFromTarget.skillSlot = SkillSlot.None;
+            moveFromTarget.requiredSkill = null; // TODO: Assign this
+            moveFromTarget.requireSkillReady = false;
+            moveFromTarget.requireEquipmentReady = false;
+            moveFromTarget.moveTargetType = AISkillDriver.TargetType.CurrentEnemy;
+            moveFromTarget.minUserHealthFraction = Single.NegativeInfinity;
+            moveFromTarget.maxUserHealthFraction = Single.PositiveInfinity;
+            moveFromTarget.minTargetHealthFraction = Single.NegativeInfinity;
+            moveFromTarget.maxTargetHealthFraction = Single.PositiveInfinity;
+            moveFromTarget.minDistance = 0f;
+            moveFromTarget.maxDistance = Heatwave.maxRange * 0.05f;
+            moveFromTarget.selectionRequiresTargetLoS = false;
+            moveFromTarget.activationRequiresTargetLoS = false;
+            moveFromTarget.activationRequiresAimConfirmation = false;
+            moveFromTarget.movementType = AISkillDriver.MovementType.FleeMoveTarget;
+            moveFromTarget.moveInputScale = 1f;
+            moveFromTarget.aimType = AISkillDriver.AimType.MoveDirection;
+            moveFromTarget.ignoreNodeGraph = false;
+            moveFromTarget.driverUpdateTimerOverride = -1f;
+            moveFromTarget.resetCurrentEnemyOnNextDriverSelection = false;
+            moveFromTarget.noRepeat = false;
+            moveFromTarget.shouldSprint = true;
+            moveFromTarget.shouldFireEquipment = false;
+            moveFromTarget.shouldTapButton = false;
 
 
             var strafeTarget = master.AddComponent<AISkillDriver>();
             strafeTarget.customName = "Strafe the target";
+            strafeTarget.skillSlot = SkillSlot.None;
+            strafeTarget.requiredSkill = null; // TODO: Assign this
+            strafeTarget.requireSkillReady = false;
+            strafeTarget.requireEquipmentReady = false;
+            strafeTarget.moveTargetType = AISkillDriver.TargetType.CurrentEnemy;
+            strafeTarget.minUserHealthFraction = Single.NegativeInfinity;
+            strafeTarget.maxUserHealthFraction = Single.PositiveInfinity;
+            strafeTarget.minTargetHealthFraction = Single.NegativeInfinity;
+            strafeTarget.maxTargetHealthFraction = Single.PositiveInfinity;
+            strafeTarget.minDistance = 0f;
+            strafeTarget.maxDistance = Single.PositiveInfinity;
+            strafeTarget.selectionRequiresTargetLoS = false;
+            strafeTarget.activationRequiresTargetLoS = false;
+            strafeTarget.activationRequiresAimConfirmation = false;
+            strafeTarget.movementType = AISkillDriver.MovementType.StrafeMovetarget;
+            strafeTarget.moveInputScale = 1f;
+            strafeTarget.aimType = AISkillDriver.AimType.AtCurrentEnemy;
+            strafeTarget.ignoreNodeGraph = false;
+            strafeTarget.driverUpdateTimerOverride = -1f;
+            strafeTarget.resetCurrentEnemyOnNextDriverSelection = false;
+            strafeTarget.noRepeat = false;
+            strafeTarget.shouldSprint = true;
+            strafeTarget.shouldFireEquipment = false;
+            strafeTarget.shouldTapButton = false;
         }
     }
 
@@ -267,15 +442,18 @@ namespace Rein.RogueWispPlugin
 
         public Boolean useEnemyRanges { get; private set; } = false;
         public Boolean requireEnemyLos { get; private set; } = false;
-        public Single minDistanceToEnemy { get; private set; }
-        public Single maxDistanceToEnemy { get; private set; }
+        public Single minDistanceToEnemySq { get; private set; }
+        public Single maxDistanceToEnemySq { get; private set; }
         public void SetEnemyRanges( Single min, Single max, Boolean requireLOS )
         {
             this.useEnemyRanges = true;
-            this.minDistanceToEnemy = min;
-            this.maxDistanceToEnemy = max;
+            this.minDistanceToEnemySq = min * min;
+            this.maxDistanceToEnemySq = max * max;
             this.requireEnemyLos = requireLOS;
         }
+
+
+        public Boolean useZoneRadiusForMinRange = false;
 
 
         public Boolean hasRequiredState { get; private set; } = false;
@@ -299,6 +477,7 @@ namespace Rein.RogueWispPlugin
         private CharacterMaster master;
         private BaseAI ai;
         private GameObject targetObj;
+        private Single zoneRadius;
         private void Awake()
         {
             this.ai = base.GetComponent<BaseAI>();
@@ -306,11 +485,19 @@ namespace Rein.RogueWispPlugin
             {
                 this.passive = body?.GetComponent<Main.WispPassiveController>();
                 this.stateMachines = body?.GetComponents<EntityStateMachine>();
-                if( this.passive != null ) this.passive.onUtilityPlaced += this.SetAICustomTarget;
+                if( this.passive != null )
+                {
+                    this.passive.onUtilPlaced += this.SetAICustomTarget;
+                    this.passive.onUtilRangeProvided += this.SetZoneRange;
+                }
             };
             this.ai.onBodyLost += (body) =>
             {
-                if( this.passive != null ) this.passive.onUtilityPlaced -= this.SetAICustomTarget;
+                if( this.passive != null )
+                {
+                    this.passive.onUtilPlaced -= this.SetAICustomTarget;
+                    this.passive.onUtilRangeProvided -= this.SetZoneRange;
+                }
                 this.passive = null;
                 this.stateMachines = null;
             };
@@ -333,11 +520,17 @@ namespace Rein.RogueWispPlugin
             this.targetObj = obj;
         }
 
+        private void SetZoneRange( Single range )
+        {
+            this.zoneRadius = range * 0.85f;
+        }
+
         private void FixedUpdate()
         {
             if( this.passive != null )
             {
                 var charge = this.passive.ReadCharge();
+                var aimOrig = this.ai.bodyInputBank.aimOrigin;
                 for( Int32 i = 0; i < this.drivers.Length; ++i )
                 {
                     var driver = this.drivers[i];
@@ -374,16 +567,30 @@ namespace Rein.RogueWispPlugin
                         }
                     }
 
-                    if( driver.requiresCustomTarget ) ableToActivate &= this.targetObj != null && this.targetObj;
+                    if( ableToActivate && driver.requiresCustomTarget ) ableToActivate &= this.targetObj != null && this.targetObj;
 
-                    if( driver.useEnemyRanges )
+                    if( ableToActivate && driver.useEnemyRanges )
                     {
                         var enemy = this.ai.currentEnemy;
-
+                        if( enemy == null || (driver.requireEnemyLos && !enemy.hasLoS) || enemy.gameObject == null || !enemy.gameObject )
+                        {
+                            ableToActivate &= false;
+                        } else
+                        {
+                            var dist = (enemy.gameObject.transform.position - this.ai.bodyInputBank.aimOrigin).sqrMagnitude;
+                            if( dist > driver.maxDistanceToEnemySq || dist < driver.minDistanceToEnemySq )
+                            {
+                                ableToActivate &= false;
+                            }
+                        }
                     }
 
-
                     ableToActivate &= !(charge < driver.minCharge || charge > driver.maxCharge);
+
+                    if( driver.useZoneRadiusForMinRange )
+                    {
+                        driver.minDistance = this.zoneRadius;
+                    }
 
                     if( ableToActivate)
                     {

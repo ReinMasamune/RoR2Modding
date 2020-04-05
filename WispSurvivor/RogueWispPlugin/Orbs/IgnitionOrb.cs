@@ -311,6 +311,39 @@ namespace Rein.RogueWispPlugin
                     case "SUPERROBOBALLBOSS_BODY_NAME":
                         return MonsterTier.HyperBoss;
 
+                    case "ENGI_BODY_NAME":
+                        return MonsterTier.Boss;
+                    case "BANDIT_BODY_NAME":
+                        return MonsterTier.Boss;
+                    case "BOMBER_BODY_NAME":
+                        return MonsterTier.Boss;
+                    case "COMMANDO_BODY_NAME":
+                        return MonsterTier.Boss;
+                    case "ENFORCER_BODY_NAME":
+                        return MonsterTier.Boss;
+                    case "HAND_BODY_NAME":
+                        return MonsterTier.Boss;
+                    case "HUNTRESS_BODY_NAME":
+                        return MonsterTier.Boss;
+                    case "LOADER_BODY_NAME":
+                        return MonsterTier.Boss;
+                    case "MAGE_BODY_NAME":
+                        return MonsterTier.Boss;
+                    case "MERC_BODY_NAME":
+                        return MonsterTier.Boss;
+                    case "SNIPER_BODY_NAME":
+                        return MonsterTier.Boss;
+                    case "TOOLBOT_BODY_NAME":
+                        return MonsterTier.Boss;
+                    case "TREEBOT_BODY_NAME":
+                        return MonsterTier.Boss;
+                    case "CROCO_BODY_NAME":
+                        return MonsterTier.Boss;
+                    case Rein.Properties.Tokens.WISP_SURVIVOR_BODY_NAME:
+                        return MonsterTier.Boss;
+
+
+
 
                     case "DRONE_BACKUP_BODY_NAME":
                         return MonsterTier.Basic;
@@ -322,36 +355,6 @@ namespace Rein.RogueWispPlugin
                         return MonsterTier.Basic;
                     case "ENGITURET_BODY_NAME":
                         return MonsterTier.Basic;
-                    case "ENGI_BODY_NAME":
-                        return MonsterTier.Mid;
-                    case "BANDIT_BODY_NAME":
-                        return MonsterTier.Mid;
-                    case "BOMBER_BODY_NAME":
-                        return MonsterTier.Mid;
-                    case "COMMANDO_BODY_NAME":
-                        return MonsterTier.Mid;
-                    case "ENFORCER_BODY_NAME":
-                        return MonsterTier.Mid;
-                    case "HAND_BODY_NAME":
-                        return MonsterTier.Mid;
-                    case "HUNTRESS_BODY_NAME":
-                        return MonsterTier.Mid;
-                    case "LOADER_BODY_NAME":
-                        return MonsterTier.Mid;
-                    case "MAGE_BODY_NAME":
-                        return MonsterTier.Mid;
-                    case "MERC_BODY_NAME":
-                        return MonsterTier.Mid;
-                    case "SNIPER_BODY_NAME":
-                        return MonsterTier.Mid;
-                    case "TOOLBOT_BODY_NAME":
-                        return MonsterTier.Mid;
-                    case "TREEBOT_BODY_NAME":
-                        return MonsterTier.Mid;
-                    case "CROCO_BODY_NAME":
-                        return MonsterTier.Mid;
-                    case "ROGUE_WISP_BODY_NAME":
-                        return MonsterTier.Miniboss;
                     case "TURRET1_BODY_NAME":
                         return MonsterTier.Basic;
                     case "SQUIDTURRET_BODY_NAME":

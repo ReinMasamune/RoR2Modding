@@ -392,6 +392,26 @@ public static event Hook On
                 }
             }
 
+            public static class CharacterModel
+            {
+                public struct UpdateRendererMaterials
+                {
+                    private static MethodBase method = HookableHelpers.GetBase( typeof(UpdateRendererMaterials) );
+                    public delegate Single Orig( global::RoR2.CharacterModel self, Renderer renderer, Material material, Boolean ignoreOverlays );
+                    public delegate Single Hook( Orig orig, global::RoR2.CharacterModel self, Renderer renderer, Material material, Boolean ignoreOverlays );
+                    public static event ILContext.Manipulator Il
+                    {
+                        add => HookEndpointManager.Modify<Hook>( method, value );
+                        remove => HookEndpointManager.Unmodify<Hook>( method, value );
+                    }
+                    public static event Hook On
+                    {
+                        add => HookEndpointManager.Add<Hook>( method, value );
+                        remove => HookEndpointManager.Remove<Hook>( method, value );
+                    }
+                }
+            }
+
             public static class CharacterSpawnCard
             {
                 public struct Awake
