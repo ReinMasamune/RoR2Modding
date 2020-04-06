@@ -363,9 +363,9 @@ namespace Rein.RogueWispPlugin.Helpers
 
             var newColor = (flags & 0b0001u) > 0 ? ~color : (14u - color);
 
-            var newFlameGrad = (4u - (val &0b0000_0000_0001_1100_0000_0000_0000_0000)>>18)<<18;
-            var newArmorMat = (3u - (val&0b0000_1110_0000_0000_0000_0000_0000_0000)>>25)<<25;
-            var newFlags = flags<<28;
+            var newFlameGrad = (4u - ((val &0b0000_0000_0001_1100_0000_0000_0000_0000)>>18))<<18;
+            var newArmorMat = (3u - ((val&0b0000_1110_0000_0000_0000_0000_0000_0000)>>25))<<25;
+            var newFlags = (flags&0b1101u)<<28;
 
             res = newColor | newFlameGrad | newArmorMat | newFlags;
             return WispBitSkin.GetWispSkin( res );

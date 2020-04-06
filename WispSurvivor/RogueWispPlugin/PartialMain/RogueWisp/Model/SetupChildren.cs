@@ -64,7 +64,9 @@ namespace Rein.RogueWispPlugin
             this.RW_boxGroup.bullseyeCount = 0;
             this.RW_ragdollController.bones = Array.Empty<Transform>();
             this.RW_flameController.passive = this.RW_passiveController;
-            this.AddFireParticlesToMesh( this.RW_body.GetComponentInChildren<SkinnedMeshRenderer>().transform );
+            var skinnedMeshRenderer = this.RW_body.GetComponentInChildren<SkinnedMeshRenderer>();
+            this.AddMeshHurtBox( skinnedMeshRenderer );
+            this.AddFireParticlesToMesh( skinnedMeshRenderer );
             //Path stuff here
             #region Transform paths
             var meshTransform = modelTransform.Find( "CannonPivot/AncientWispMesh" );
@@ -895,32 +897,60 @@ namespace Rein.RogueWispPlugin
             this.pairsList.Add((target,name));
         }
 
-        private void AddHurtBox( Transform parent, ICollider info, Boolean isMain = false, Boolean isBullseye = false, HurtBox.DamageModifier damageMod = HurtBox.DamageModifier.Normal )
+        private void AddMeshHurtBox( SkinnedMeshRenderer mesh )
         {
             var obj = new GameObject( "HurtBox" );
-            obj.transform.parent = parent;
+            obj.transform.parent = mesh.transform;
             obj.transform.localPosition = Vector3.zero;
-            obj.transform.localScale = Vector3.one;
             obj.transform.localRotation = Quaternion.identity;
+            obj.transform.localScale = Vector3.one;
             obj.layer = LayerIndex.entityPrecise.intVal;
 
-            var col = info.Apply( obj );
+            var col = obj.AddComponent<MeshCollider>();
+            col.sharedMesh = mesh.sharedMesh;
             col.isTrigger = false;
 
-            var hurtBox = obj.AddComponent<HurtBox>();
-            hurtBox.isBullseye = isBullseye;
-            hurtBox.healthComponent = this.RW_healthComponent;
-            hurtBox.damageModifier = damageMod;
-            hurtBox.hurtBoxGroup = this.RW_boxGroup;
+            var hb = obj.AddComponent<HurtBox>();
+            hb.isBullseye = true;
+            hb.healthComponent = this.RW_healthComponent;
+            hb.damageModifier = HurtBox.DamageModifier.Normal;
+            hb.hurtBoxGroup = this.RW_boxGroup;
 
-            if( isMain ) this.RW_boxGroup.mainHurtBox = hurtBox;
+            this.RW_boxGroup.mainHurtBox = hb;
 
             var ind = (Int16)this.RW_boxGroup.hurtBoxes.Length;
             Array.Resize<HurtBox>( ref this.RW_boxGroup.hurtBoxes, ind + 1 );
-            this.RW_boxGroup.hurtBoxes[ind] = hurtBox;
-            hurtBox.indexInGroup = ind;
+            this.RW_boxGroup.hurtBoxes[ind] = hb;
+            hb.indexInGroup = ind;
+            ++this.RW_boxGroup.bullseyeCount;
+        }
 
-            if( isBullseye ) ++this.RW_boxGroup.bullseyeCount;
+        private void AddHurtBox( Transform parent, ICollider info, Boolean isMain = false, Boolean isBullseye = false, HurtBox.DamageModifier damageMod = HurtBox.DamageModifier.Normal )
+        {
+            //var obj = new GameObject( "HurtBox" );
+            //obj.transform.parent = parent;
+            //obj.transform.localPosition = Vector3.zero;
+            //obj.transform.localScale = Vector3.one;
+            //obj.transform.localRotation = Quaternion.identity;
+            //obj.layer = LayerIndex.entityPrecise.intVal;
+
+            //var col = info.Apply( obj );
+            //col.isTrigger = false;
+
+            //var hurtBox = obj.AddComponent<HurtBox>();
+            //hurtBox.isBullseye = isBullseye;
+            //hurtBox.healthComponent = this.RW_healthComponent;
+            //hurtBox.damageModifier = damageMod;
+            //hurtBox.hurtBoxGroup = this.RW_boxGroup;
+
+            //if( isMain ) this.RW_boxGroup.mainHurtBox = hurtBox;
+
+            //var ind = (Int16)this.RW_boxGroup.hurtBoxes.Length;
+            //Array.Resize<HurtBox>( ref this.RW_boxGroup.hurtBoxes, ind + 1 );
+            //this.RW_boxGroup.hurtBoxes[ind] = hurtBox;
+            //hurtBox.indexInGroup = ind;
+
+            //if( isBullseye ) ++this.RW_boxGroup.bullseyeCount;
         }
 
         private void AddRagdollCollider( Transform parent, ICollider info )
@@ -1115,8 +1145,9 @@ namespace Rein.RogueWispPlugin
 
         }
 
-        private void AddFireParticlesToMesh( Transform model )
+        private void AddFireParticlesToMesh( SkinnedMeshRenderer meshRend )
         {
+            var model = meshRend.transform;
             var obj = new GameObject( "Particles" );
             obj.transform.parent = model.parent;
             obj.transform.localPosition = Vector3.zero;
@@ -1184,7 +1215,7 @@ namespace Rein.RogueWispPlugin
             var psShape = ps.shape;
             psShape.enabled = true;
             psShape.shapeType = ParticleSystemShapeType.SkinnedMeshRenderer;
-            psShape.skinnedMeshRenderer = model.GetComponent<SkinnedMeshRenderer>();
+            psShape.skinnedMeshRenderer = meshRend;
             psShape.meshShapeType = ParticleSystemMeshShapeType.Vertex;
             psShape.meshSpawnMode = ParticleSystemShapeMultiModeValue.Random;
             psShape.meshSpawnSpread = 0.05f;

@@ -31,6 +31,8 @@ namespace Rein.Properties
                 var langKey = propName.Substring(6);
                 if( String.IsNullOrEmpty( langKey ) ) continue;
                 var langValue = (String)prop.GetValue(null);
+                langValue = langValue.Replace( @"\n", Environment.NewLine );
+
                 ReinCore.LanguageCore.AddLanguageToken( langKey, langValue );
             }
         }

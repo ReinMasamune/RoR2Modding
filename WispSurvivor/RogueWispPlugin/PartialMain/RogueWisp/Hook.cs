@@ -106,7 +106,73 @@ namespace Rein.RogueWispPlugin
             HooksCore.RoR2.SetStateOnHurt.OnTakeDamageServer.Il += this.OnTakeDamageServer_Il;
             HooksCore.RoR2.GlobalEventManager.OnHitEnemy.Il += this.OnHitEnemy_Il;
             HooksCore.RoR2.CharacterModel.UpdateRendererMaterials.Il += this.UpdateRendererMaterials_Il;
+            HooksCore.RoR2.Artifacts.DoppelgangerInvasionManager.CreateDoppelganger.Il += this.CreateDoppelganger_Il;
             //HooksCore.RoR2.GlobalEventManager.OnHitEnemy.On += this.OnHitEnemy_On;
+        }
+
+        private void CreateDoppelganger_Il( ILContext il )
+        {
+            ILCursor c = new ILCursor( il );
+            Main.LogW( il );
+
+            c.GotoNext( MoveType.After, x => x.MatchLdloc(3),  x => x.MatchCallOrCallvirt<RoR2.DirectorCore>( "TrySpawnObject" ) );
+            c.Index--;
+            c.Remove();
+            c.EmitDelegate<Action<GameObject>>( ( obj ) =>
+            {
+                if( obj != null && obj )
+                {
+                    var master = obj.GetComponent<CharacterMaster>();
+                    if( master != null && master )
+                    {
+                        var loadout = master.loadout;
+                        if( loadout != null )
+                        {
+                            var bodyInd = BodyCatalog.FindBodyIndex(master.bodyPrefab);
+                            if( bodyInd >= 0 && bodyInd == Main.rogueWispBodyIndex )
+                            {
+                                var bodyLoadoutManager = loadout.bodyLoadoutManager;
+                                var skinInd = bodyLoadoutManager.GetSkinIndex( bodyInd );
+                                UInt32 newSkinInd;
+                                try
+                                {
+                                    var skin = ~Helpers.WispBitSkin.GetWispSkin( skinInd );
+                                    newSkinInd = skin.EncodeToSkinIndex();
+                                } catch
+                                {
+                                    Main.LogE( "Error inverting skin for wisp clone, please copy the line of 1s and 0s below and send them to me." );
+                                    Main.LogE( Convert.ToString( skinInd, 2 ).PadLeft( 32, '0' ));
+                                    newSkinInd = 0b0000_0000_0000_0000_0000_0000_0000_1000u;
+                                }
+
+                                bodyLoadoutManager.SetSkinIndex( bodyInd, newSkinInd );
+
+                                if( master.hasBody )
+                                {
+                                    Main.LogW( "Wisp clone body already spawned" );
+                                    var body = master.GetBody();
+                                    body.skinIndex = newSkinInd;
+                                    if( body != null && body )
+                                    {
+                                        var ml = body.modelLocator;
+                                        if( ml != null && ml )
+                                        {
+                                            var model = ml.modelTransform;
+                                            if( model != null && model )
+                                            {
+                                                var skinController = model.GetComponent<Helpers.WispModelBitSkinController>();
+                                                skinController?.Apply( Helpers.WispBitSkin.GetWispSkin( newSkinInd ) );
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            } );
+
+
         }
 
         private void UpdateRendererMaterials_Il( ILContext il )
@@ -265,16 +331,16 @@ namespace Rein.RogueWispPlugin
             orig( self );
             self.gameObject.AddComponent<WispBurnManager>();
 
-            if( self.baseNameToken == Properties.Tokens.WISP_SURVIVOR_BODY_NAME )
-            {
-                var inv = self.inventory;
-                if( inv && inv.GetItemCount(ItemIndex.InvadingDoppelganger) > 0 )
-                {
-                    var newSkin = ~Helpers.WispBitSkin.GetWispSkin( self.skinIndex );
-                    self.skinIndex = newSkin.EncodeToSkinIndex();
-                    self.modelLocator.modelTransform.GetComponent<Helpers.WispModelBitSkinController>().Apply( newSkin );
-                }
-            }
+            //if( self.baseNameToken == Properties.Tokens.WISP_SURVIVOR_BODY_NAME )
+            //{
+            //    var inv = self.inventory;
+            //    if( inv && inv.GetItemCount(ItemIndex.InvadingDoppelganger) > 0 )
+            //    {
+            //        var newSkin = ~Helpers.WispBitSkin.GetWispSkin( self.skinIndex );
+            //        self.skinIndex = newSkin.EncodeToSkinIndex();
+            //        self.modelLocator.modelTransform.GetComponent<Helpers.WispModelBitSkinController>().Apply( newSkin );
+            //    }
+            //}
         }
         private void Start_On1( HooksCore.RoR2.CameraRigController.Start.Orig orig, CameraRigController self )
         {

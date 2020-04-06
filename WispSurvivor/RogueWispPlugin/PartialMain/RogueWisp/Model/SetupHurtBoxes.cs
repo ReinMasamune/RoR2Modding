@@ -10,7 +10,7 @@ namespace Rein.RogueWispPlugin
     {
         partial void RW_SetupHurtBoxes()
         {
-            //this.Load += this.RW_DoHurtBoxSetup;
+            this.Load += this.RW_DoHurtBoxSetup;
         }
 
         private void RW_DoHurtBoxSetup()

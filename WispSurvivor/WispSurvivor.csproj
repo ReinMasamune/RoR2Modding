@@ -2,8 +2,8 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>RogueWisp</AssemblyName>
-    <AssemblyVersion>2.1.3.69</AssemblyVersion>
-    <FileVersion>2.1.3.69</FileVersion>
+    <AssemblyVersion>2.1.3.79</AssemblyVersion>
+    <FileVersion>2.1.3.79</FileVersion>
     <RootNamespace>Rein</RootNamespace>
     <UserSecretsId>392ba4cc-368a-4518-b19f-f550dca1e784</UserSecretsId>
     <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>

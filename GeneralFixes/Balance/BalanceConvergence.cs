@@ -28,7 +28,17 @@ namespace ReinGeneralFixes
         }
         private void Main_Enable6()
         {
-            
+            HooksCore.RoR2.HoldoutZoneController.FocusConvergenceController.ApplyRadius.Il += this.ApplyRadius_Il;
+            HooksCore.RoR2.HoldoutZoneController.FocusConvergenceController.ApplyRate.Il += this.ApplyRate_Il;
+        }
+
+        private void ApplyRate_Il( ILContext il )
+        {
+
+        }
+        private void ApplyRadius_Il( ILContext il )
+        {
+
         }
     }
 }

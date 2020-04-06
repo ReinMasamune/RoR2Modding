@@ -900,6 +900,29 @@ public static event Hook On
                 }
             }
 
+            public struct Artifacts
+            {
+                public static class DoppelgangerInvasionManager
+                {
+                    public struct CreateDoppelganger
+                    {
+                        private static MethodBase method = HookableHelpers.GetBase( typeof(CreateDoppelganger) );
+                        public delegate void Orig( global::RoR2.CharacterMaster srcCharacterMaster, global::Xoroshiro128Plus rng );
+                        public delegate void Hook( Orig orig, global::RoR2.CharacterMaster srcCharacterMaster, global::Xoroshiro128Plus rng );
+                        public static event ILContext.Manipulator Il
+                        {
+                            add => HookEndpointManager.Modify<Hook>( method, value );
+                            remove => HookEndpointManager.Unmodify<Hook>( method, value );
+                        }
+                        public static event Hook On
+                        {
+                            add => HookEndpointManager.Add<Hook>( method, value );
+                            remove => HookEndpointManager.Remove<Hook>( method, value );
+                        }
+                    }
+                }
+            }
+
             public struct Orbs
             {
                 public static class OrbCatalog

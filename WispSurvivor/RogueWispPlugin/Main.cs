@@ -251,6 +251,8 @@ namespace Rein.RogueWispPlugin
                 Main.LogF( "Rogue Wisp has failed to load properly and will not be enabled. See preceding errors." );
             }
 
+            this.FirstFrame += this.Main_FirstFrame2;
+
             this.Enable += IncState;
             this.FirstFrame += IncState;
             
@@ -258,7 +260,12 @@ namespace Rein.RogueWispPlugin
             //this.FirstFrame += this.TestingShit;
         }
 
-#region Boss dps timer stuff
+        private void Main_FirstFrame2()
+        {
+            rogueWispBodyIndex = BodyCatalog.FindBodyIndex( this.RW_body );
+        }
+
+        #region Boss dps timer stuff
 #if LV1DPSTEST
         private void GlobalEventManager_onCharacterDeathGlobal( DamageReport obj )
         {
@@ -331,7 +338,7 @@ namespace Rein.RogueWispPlugin
             }
         }
 #endif
-#endregion
+        #endregion
 
 
         internal static Texture2D debugTexture;

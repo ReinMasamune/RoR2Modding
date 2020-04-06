@@ -8,6 +8,9 @@ namespace Rein.RogueWispPlugin
 
     internal partial class Main
     {
+        internal static Int32 rogueWispBodyIndex;
+
+
         // TEMP
         private readonly UInt32[] restoreIndex = new UInt32[8];
 

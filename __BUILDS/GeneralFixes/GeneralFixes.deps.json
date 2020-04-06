@@ -10,7 +10,7 @@
       "GeneralFixes/1.0.0": {
         "dependencies": {
           "NETStandard.Library": "2.0.3",
-          "ReinCore": "1.0.0.233"
+          "ReinCore": "1.0.0.234"
         },
         "runtime": {
           "GeneralFixes.dll": {}
@@ -22,11 +22,11 @@
           "Microsoft.NETCore.Platforms": "1.1.0"
         }
       },
-      "ReinCore/1.0.0.233": {
+      "ReinCore/1.0.0.234": {
         "runtime": {
           "ReinCore.dll": {
-            "assemblyVersion": "1.0.0.233",
-            "fileVersion": "1.0.0.233"
+            "assemblyVersion": "1.0.0.234",
+            "fileVersion": "1.0.0.234"
           }
         }
       }
@@ -52,7 +52,7 @@
       "path": "netstandard.library/2.0.3",
       "hashPath": "netstandard.library.2.0.3.nupkg.sha512"
     },
-    "ReinCore/1.0.0.233": {
+    "ReinCore/1.0.0.234": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""
