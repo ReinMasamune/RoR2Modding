@@ -921,6 +921,26 @@ public static event Hook On
                         }
                     }
                 }
+
+                public static class DoppelgangerSpawnCard
+                {
+                    public struct FromMaster
+                    {
+                        private static MethodBase method = HookableHelpers.GetBase( typeof(FromMaster) );
+                        public delegate DoppelgangerSpawnCard Orig( global::RoR2.CharacterMaster srcCharacterMaster );
+                        public delegate DoppelgangerSpawnCard Hook( Orig orig, global::RoR2.CharacterMaster srcCharacterMaster );
+                        public static event ILContext.Manipulator Il
+                        {
+                            add => HookEndpointManager.Modify<Hook>( method, value );
+                            remove => HookEndpointManager.Unmodify<Hook>( method, value );
+                        }
+                        public static event Hook On
+                        {
+                            add => HookEndpointManager.Add<Hook>( method, value );
+                            remove => HookEndpointManager.Remove<Hook>( method, value );
+                        }
+                    }
+                }
             }
 
             public struct Orbs

@@ -48,6 +48,7 @@ namespace Rein.RogueWispPlugin.Helpers
             }
         }
         private WispBitSkin _skin;
+        private UInt32 currentSkinIndex;
 
 
         internal override void Apply( IBitSkin skin )
@@ -58,6 +59,10 @@ namespace Rein.RogueWispPlugin.Helpers
             }
 
             var tempSkin = skin as WispBitSkin;
+            if( this.modelRef && this.modelRef.isDoppelganger )
+            {
+                tempSkin = ~tempSkin;
+            }
             //var oldCode = Convert.ToString( this.skin.EncodeToSkinIndex(), 2).PadLeft( 32, '0' );
             //var newCode = Convert.ToString( tempSkin.EncodeToSkinIndex(), 2).PadLeft( 32, '0' );
             this.skin = tempSkin;
@@ -65,8 +70,18 @@ namespace Rein.RogueWispPlugin.Helpers
             //Main.LogI( String.Format( "Skin changed\n{0}\n{1}\n{2}", oldCode, newCode, appliedCode ) );
         }
 
+        private void FixedUpdate()
+        {
+            //if( this.modelRef && this.modelRef.body && this.modelRef.body.skinIndex != this.currentSkinIndex )
+            //{
+            //    this.Apply( WispBitSkin.GetWispSkin( this.modelRef.body.skinIndex ) );
+            //}
+        }
+
         private void OnSkinChanged( WispBitSkin newSkin )
         {
+            this.currentSkinIndex = newSkin.EncodeToSkinIndex();
+
             this.activeFlameMaterial = newSkin.flameMainMaterial;
             this.activeArmorMaterial = newSkin.armorMainMaterial;
             this.activeTracerMaterial = newSkin.tracerMaterial;
@@ -103,13 +118,13 @@ namespace Rein.RogueWispPlugin.Helpers
         {
             this.modelRef = base.GetComponent<CharacterModel>();
             this.modelParticles = base.GetComponent<ParticleHolder>();
-            if( this.modelRef.body != null )
-            {
-                this.Apply(WispBitSkin.GetWispSkin( this.modelRef.body.skinIndex ));
-            } else
-            {
-                this.Apply( WispBitSkin.GetWispSkin( 0u ) );
-            }
+            //if( this.modelRef.body != null )
+            //{
+            //    this.Apply(WispBitSkin.GetWispSkin( this.modelRef.body.skinIndex ));
+            //} else
+            //{
+            //    this.Apply( WispBitSkin.GetWispSkin( 0u ) );
+            //}
         }
 
         private void Start()
@@ -117,7 +132,14 @@ namespace Rein.RogueWispPlugin.Helpers
             this.modelRef = base.GetComponent<CharacterModel>();
             if( this.modelRef.body != null )
             {
-                this.Apply( WispBitSkin.GetWispSkin( this.modelRef.body.skinIndex ) );
+                var ind = this.modelRef.body.skinIndex;
+                if( this.modelRef.body.inventory.GetItemCount( ItemIndex.InvadingDoppelganger ) > 0 )
+                {
+                    ind = (~WispBitSkin.GetWispSkin( ind )).EncodeToSkinIndex();
+                    this.modelRef.body.master.loadout.bodyLoadoutManager.SetSkinIndex( Main.rogueWispBodyIndex, ind );
+                    this.modelRef.body.skinIndex = ind;
+                }
+                this.Apply( WispBitSkin.GetWispSkin( ind ) );
             }
         }
 

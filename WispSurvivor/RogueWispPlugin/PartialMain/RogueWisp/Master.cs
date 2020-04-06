@@ -1,5 +1,6 @@
 ﻿#if ROGUEWISP
 using System;
+using EntityStates;
 using ReinCore;
 using RoR2;
 using RoR2.CharacterAI;
@@ -12,6 +13,8 @@ namespace Rein.RogueWispPlugin
 
     internal partial class Main
     {
+        internal GameObject RW_master;
+
         partial void RW_Master()
         {
             this.Load += this.Main_Load3;
@@ -65,8 +68,8 @@ namespace Rein.RogueWispPlugin
 
             var wispyManager = master.AddComponent<WispyAIManager>();
 
-
-            MasterCatalog.getAdditionalEntries += ( list ) => list.Add( master );
+            this.RW_master = master;
+            MasterCatalog.getAdditionalEntries += ( list ) => list.Add( this.RW_master );
         }
 
         private void AddDrivers( GameObject master )
@@ -78,7 +81,6 @@ namespace Rein.RogueWispPlugin
             holdSpecial.maxCharge = Double.PositiveInfinity;
             holdSpecial.requiresCustomTarget = false;
             holdSpecial.SetRequiredStates( "Weapon", typeof( IncinerationWindup ), typeof( Incineration ) );
-
             holdSpecial.skillSlot = SkillSlot.Special;
             holdSpecial.requiredSkill = null; // TODO: Assign this
             holdSpecial.requireSkillReady = false;
@@ -91,9 +93,9 @@ namespace Rein.RogueWispPlugin
             holdSpecial.minDistance = 0f;
             holdSpecial.maxDistance = Incineration.baseMaxRange;
             holdSpecial.selectionRequiresTargetLoS = true;
-            holdSpecial.activationRequiresTargetLoS = true;
+            holdSpecial.activationRequiresTargetLoS = false;
             holdSpecial.activationRequiresAimConfirmation = false;
-            holdSpecial.movementType = AISkillDriver.MovementType.Stop;
+            holdSpecial.movementType = AISkillDriver.MovementType.StrafeMovetarget;
             holdSpecial.moveInputScale = 0f;
             holdSpecial.aimType = AISkillDriver.AimType.AtCurrentEnemy;
             holdSpecial.ignoreNodeGraph = false;
@@ -120,7 +122,7 @@ namespace Rein.RogueWispPlugin
             utilDriver.minDistance = 0f;
             utilDriver.maxDistance = PrepGaze.maxRange;
             utilDriver.selectionRequiresTargetLoS = true;
-            utilDriver.activationRequiresTargetLoS = true;
+            utilDriver.activationRequiresTargetLoS = false;
             utilDriver.activationRequiresAimConfirmation = false;
             utilDriver.movementType = AISkillDriver.MovementType.StrafeMovetarget;
             utilDriver.moveInputScale = 1f;
@@ -128,16 +130,16 @@ namespace Rein.RogueWispPlugin
             utilDriver.ignoreNodeGraph = false;
             utilDriver.driverUpdateTimerOverride = -1f;
             utilDriver.resetCurrentEnemyOnNextDriverSelection = false;
-            utilDriver.noRepeat = false;
+            utilDriver.noRepeat = true;
             utilDriver.shouldSprint = true;
             utilDriver.shouldFireEquipment = false;
-            utilDriver.shouldTapButton = true;
+            utilDriver.shouldTapButton = false;
 
 
 
             var specialDriver = master.AddComponent<WispySkillDriver>();
             specialDriver.customName = "Fire special at target";
-            specialDriver.minCharge = 3200.0;
+            specialDriver.minCharge = 800.0;
             specialDriver.maxCharge = Double.PositiveInfinity;
             specialDriver.requiresCustomTarget = false;
             specialDriver.skillSlot = SkillSlot.Special;
@@ -152,9 +154,9 @@ namespace Rein.RogueWispPlugin
             specialDriver.minDistance = 0f;
             specialDriver.maxDistance = Incineration.baseMaxRange;
             specialDriver.selectionRequiresTargetLoS = true;
-            specialDriver.activationRequiresTargetLoS = true;
-            specialDriver.activationRequiresAimConfirmation = true;
-            specialDriver.movementType = AISkillDriver.MovementType.Stop;
+            specialDriver.activationRequiresTargetLoS = false;
+            specialDriver.activationRequiresAimConfirmation = false;
+            specialDriver.movementType = AISkillDriver.MovementType.StrafeMovetarget;
             specialDriver.moveInputScale = 0f;
             specialDriver.aimType = AISkillDriver.AimType.AtCurrentEnemy;
             specialDriver.ignoreNodeGraph = false;
@@ -183,15 +185,15 @@ namespace Rein.RogueWispPlugin
             secondaryDriver.minDistance = 0f;
             secondaryDriver.maxDistance = TestSecondary.radius * 8f;
             secondaryDriver.selectionRequiresTargetLoS = true;
-            secondaryDriver.activationRequiresTargetLoS = true;
-            secondaryDriver.activationRequiresAimConfirmation = true;
+            secondaryDriver.activationRequiresTargetLoS = false;
+            secondaryDriver.activationRequiresAimConfirmation = false;
             secondaryDriver.movementType = AISkillDriver.MovementType.StrafeMovetarget;
             secondaryDriver.moveInputScale = 1f;
             secondaryDriver.aimType = AISkillDriver.AimType.AtCurrentEnemy;
             secondaryDriver.ignoreNodeGraph = false;
             secondaryDriver.driverUpdateTimerOverride = -1f;
             secondaryDriver.resetCurrentEnemyOnNextDriverSelection = false;
-            secondaryDriver.noRepeat = false;
+            secondaryDriver.noRepeat = true;
             secondaryDriver.shouldSprint = false;
             secondaryDriver.shouldFireEquipment = false;
             secondaryDriver.shouldTapButton = false;
@@ -244,8 +246,8 @@ namespace Rein.RogueWispPlugin
             primaryRetreat.minDistance = 0f;
             primaryRetreat.maxDistance = Heatwave.maxRange * 0.05f;
             primaryRetreat.selectionRequiresTargetLoS = true;
-            primaryRetreat.activationRequiresTargetLoS = true;
-            primaryRetreat.activationRequiresAimConfirmation = true;
+            primaryRetreat.activationRequiresTargetLoS = false;
+            primaryRetreat.activationRequiresAimConfirmation = false;
             primaryRetreat.movementType = AISkillDriver.MovementType.FleeMoveTarget;
             primaryRetreat.moveInputScale = 1f;
             primaryRetreat.aimType = AISkillDriver.AimType.AtCurrentEnemy;
@@ -272,8 +274,8 @@ namespace Rein.RogueWispPlugin
             primaryAdvance.minDistance = Heatwave.maxRange * 0.35f;
             primaryAdvance.maxDistance = Heatwave.maxRange;
             primaryAdvance.selectionRequiresTargetLoS = true;
-            primaryAdvance.activationRequiresTargetLoS = true;
-            primaryAdvance.activationRequiresAimConfirmation = true;
+            primaryAdvance.activationRequiresTargetLoS = false;
+            primaryAdvance.activationRequiresAimConfirmation = false;
             primaryAdvance.movementType = AISkillDriver.MovementType.ChaseMoveTarget;
             primaryAdvance.moveInputScale = 1f;
             primaryAdvance.aimType = AISkillDriver.AimType.AtCurrentEnemy;
@@ -300,8 +302,8 @@ namespace Rein.RogueWispPlugin
             primaryStrafe.minDistance = 0f;
             primaryStrafe.maxDistance = Heatwave.maxRange;
             primaryStrafe.selectionRequiresTargetLoS = true;
-            primaryStrafe.activationRequiresTargetLoS = true;
-            primaryStrafe.activationRequiresAimConfirmation = true;
+            primaryStrafe.activationRequiresTargetLoS = false;
+            primaryStrafe.activationRequiresAimConfirmation = false;
             primaryStrafe.movementType = AISkillDriver.MovementType.StrafeMovetarget;
             primaryStrafe.moveInputScale = 1f;
             primaryStrafe.aimType = AISkillDriver.AimType.AtCurrentEnemy;
@@ -440,10 +442,10 @@ namespace Rein.RogueWispPlugin
         public Boolean requiresCustomTarget;
 
 
-        public Boolean useEnemyRanges { get; private set; } = false;
-        public Boolean requireEnemyLos { get; private set; } = false;
-        public Single minDistanceToEnemySq { get; private set; }
-        public Single maxDistanceToEnemySq { get; private set; }
+        public Boolean useEnemyRanges = false;
+        public Boolean requireEnemyLos = false;
+        public Single minDistanceToEnemySq;
+        public Single maxDistanceToEnemySq;
         public void SetEnemyRanges( Single min, Single max, Boolean requireLOS )
         {
             this.useEnemyRanges = true;
@@ -456,15 +458,19 @@ namespace Rein.RogueWispPlugin
         public Boolean useZoneRadiusForMinRange = false;
 
 
-        public Boolean hasRequiredState { get; private set; } = false;
-        public String targetStateMachine { get; private set; }
-        public Type[] requiredStates { get; private set; }
+        public Boolean hasRequiredState = false;
+        public String targetStateMachine;
+        public SerializableEntityStateType[] requiredStates;
 
         public void SetRequiredStates( String stateMachineName, params Type[] types )
         {
             this.hasRequiredState = true;
             this.targetStateMachine = stateMachineName;
-            this.requiredStates = types;
+            this.requiredStates = new SerializableEntityStateType[types.Length];
+            for( Int32 i = 0; i < types.Length; ++i )
+            {
+                this.requiredStates[i] = new SerializableEntityStateType( types[i] );
+            }
         }
     }
 
@@ -472,7 +478,9 @@ namespace Rein.RogueWispPlugin
     {
         private WispySkillDriver[] drivers;
         private (Single minHp, Single maxHp)[] origHpConstraints;
+        private EntityStateMachine[] unsortedMachines;
         private EntityStateMachine[] stateMachines;
+        private Type[] prevType;
         private Main.WispPassiveController passive;
         private CharacterMaster master;
         private BaseAI ai;
@@ -484,7 +492,6 @@ namespace Rein.RogueWispPlugin
             this.ai.onBodyDiscovered += ( body ) =>
             {
                 this.passive = body?.GetComponent<Main.WispPassiveController>();
-                this.stateMachines = body?.GetComponents<EntityStateMachine>();
                 if( this.passive != null )
                 {
                     this.passive.onUtilPlaced += this.SetAICustomTarget;
@@ -499,12 +506,13 @@ namespace Rein.RogueWispPlugin
                     this.passive.onUtilRangeProvided -= this.SetZoneRange;
                 }
                 this.passive = null;
-                this.stateMachines = null;
+                this.stateMachines = new EntityStateMachine[this.drivers.Length];
             };
 
             this.drivers = base.GetComponents<WispySkillDriver>();
             this.origHpConstraints = new (Single minHp, Single maxHp)[this.drivers.Length];
             this.stateMachines = new EntityStateMachine[this.drivers.Length];
+            this.prevType = new Type[this.drivers.Length];
             for( Int32 i = 0; i < this.drivers.Length; ++i )
             {
                 var driver = this.drivers[i];
@@ -542,7 +550,11 @@ namespace Rein.RogueWispPlugin
                         if( this.stateMachines[i] == null )
                         {
                             var stateMachines = this.passive.GetComponents<EntityStateMachine>();
-                            for( Int32 j = 0; i < stateMachines.Length; ++i )
+                            if( stateMachines == null || stateMachines.Length == 0 )
+                            {
+                                Main.LogE( "No state machines found" );
+                            }
+                            for( Int32 j = 0; j < stateMachines.Length; ++j )
                             {
                                 var mach = stateMachines[j];
                                 if( mach.customName == driver.targetStateMachine )
@@ -555,37 +567,44 @@ namespace Rein.RogueWispPlugin
 
                         if( this.stateMachines[i] != null )
                         {
-                            var mach = this.stateMachines[i];
-                            for( Int32 j = 0; i < driver.requiredStates.Length; ++j )
+                            var curState = this.stateMachines[i].state.GetType();
+                            for( Int32 j = 0; j < driver.requiredStates.Length; ++j )
                             {
-                                if( mach.state.GetType() == driver.requiredStates[j] )
+                                if( curState == driver.requiredStates[j].stateType )
                                 {
+                                    Chat.AddMessage( "State found" );
                                     ableToActivate = true;
                                     break;
                                 }
                             }
+                        } else
+                        {
+                            Main.LogE( String.Format( "Did not find statemachine with name {0}", driver.targetStateMachine ) );
                         }
                     }
 
-                    if( ableToActivate && driver.requiresCustomTarget ) ableToActivate &= this.targetObj != null && this.targetObj;
+                    if( ableToActivate && driver.requiresCustomTarget ) ableToActivate = this.targetObj != null && this.targetObj;
 
                     if( ableToActivate && driver.useEnemyRanges )
                     {
                         var enemy = this.ai.currentEnemy;
                         if( enemy == null || (driver.requireEnemyLos && !enemy.hasLoS) || enemy.gameObject == null || !enemy.gameObject )
                         {
-                            ableToActivate &= false;
+                            ableToActivate = false;
                         } else
                         {
                             var dist = (enemy.gameObject.transform.position - this.ai.bodyInputBank.aimOrigin).sqrMagnitude;
                             if( dist > driver.maxDistanceToEnemySq || dist < driver.minDistanceToEnemySq )
                             {
-                                ableToActivate &= false;
+                                ableToActivate = false;
                             }
                         }
                     }
 
-                    ableToActivate &= !(charge < driver.minCharge || charge > driver.maxCharge);
+                    if( ableToActivate && (charge < driver.minCharge || charge > driver.maxCharge) )
+                    {
+                        ableToActivate = false;
+                    }
 
                     if( driver.useZoneRadiusForMinRange )
                     {

@@ -361,7 +361,7 @@ namespace Rein.RogueWispPlugin.Helpers
 
             var color = (val & 0b0000_0000_0000_0011_1111_1111_1111_1111u);
 
-            var newColor = (flags & 0b0001u) > 0 ? ~color : (14u - color);
+            var newColor = (flags & 0b0001u) > 0 ? (~color)&0b0000_0000_0011_1111_1111_1111_1111u : (14u - color);
 
             var newFlameGrad = (4u - ((val &0b0000_0000_0001_1100_0000_0000_0000_0000)>>18))<<18;
             var newArmorMat = (3u - ((val&0b0000_1110_0000_0000_0000_0000_0000_0000)>>25))<<25;

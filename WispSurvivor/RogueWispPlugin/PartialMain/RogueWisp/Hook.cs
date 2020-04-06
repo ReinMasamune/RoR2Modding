@@ -81,7 +81,6 @@ namespace Rein.RogueWispPlugin
             HooksCore.RoR2.SetStateOnHurt.OnTakeDamageServer.Il -= this.OnTakeDamageServer_Il;
             HooksCore.RoR2.GlobalEventManager.OnHitEnemy.Il -= this.OnHitEnemy_Il;
             HooksCore.RoR2.CharacterModel.UpdateRendererMaterials.Il -= this.UpdateRendererMaterials_Il;
-            //HooksCore.RoR2.GlobalEventManager.OnHitEnemy.On -= this.OnHitEnemy_On;
         }
 
         private static StaticAccessor<Dictionary<String,Dictionary<String,String>>> languageDictionaries = new StaticAccessor<Dictionary<string, Dictionary<string, string>>>( typeof(Language), "languageDictionaries" );
@@ -106,16 +105,33 @@ namespace Rein.RogueWispPlugin
             HooksCore.RoR2.SetStateOnHurt.OnTakeDamageServer.Il += this.OnTakeDamageServer_Il;
             HooksCore.RoR2.GlobalEventManager.OnHitEnemy.Il += this.OnHitEnemy_Il;
             HooksCore.RoR2.CharacterModel.UpdateRendererMaterials.Il += this.UpdateRendererMaterials_Il;
-            HooksCore.RoR2.Artifacts.DoppelgangerInvasionManager.CreateDoppelganger.Il += this.CreateDoppelganger_Il;
-            //HooksCore.RoR2.GlobalEventManager.OnHitEnemy.On += this.OnHitEnemy_On;
+        }
+
+        private void FromMaster_Il( ILContext il )
+        {
+            ILCursor c = new ILCursor( il );
+            c.GotoNext( MoveType.After, x => x.MatchCallOrCallvirt<RoR2.Loadout>( nameof( Loadout.Copy ) ) );
+
+            c.Emit( OpCodes.Ldloc_1 );
+            c.Emit( OpCodes.Ldfld, typeof( RoR2.CharacterSpawnCard ).GetField( "runtimeLoadout", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance ) );
+            c.Emit( OpCodes.Ldarg_0 );
+            c.EmitDelegate<Action<RoR2.Loadout, RoR2.CharacterMaster>>( ( dest, source ) =>
+            {
+                if( dest == null || source == null || !source ) return;
+                var sourceLoadout = source.loadout;
+                if( sourceLoadout == null ) return;
+
+                var sourceSkin = sourceLoadout.bodyLoadoutManager.GetSkinIndex(Main.rogueWispBodyIndex);
+                var invertedSkin = (~Helpers.WispBitSkin.GetWispSkin(sourceSkin)).EncodeToSkinIndex();
+                dest.bodyLoadoutManager.SetSkinIndex( Main.rogueWispBodyIndex, invertedSkin );
+            });
+
         }
 
         private void CreateDoppelganger_Il( ILContext il )
         {
             ILCursor c = new ILCursor( il );
-            Main.LogW( il );
-
-            c.GotoNext( MoveType.After, x => x.MatchLdloc(3),  x => x.MatchCallOrCallvirt<RoR2.DirectorCore>( "TrySpawnObject" ) );
+            c.GotoNext( MoveType.After, x => x.MatchCallOrCallvirt<RoR2.DirectorCore>( nameof( DirectorCore.TrySpawnObject ) ), x => x.MatchPop() );
             c.Index--;
             c.Remove();
             c.EmitDelegate<Action<GameObject>>( ( obj ) =>
@@ -149,7 +165,6 @@ namespace Rein.RogueWispPlugin
 
                                 if( master.hasBody )
                                 {
-                                    Main.LogW( "Wisp clone body already spawned" );
                                     var body = master.GetBody();
                                     body.skinIndex = newSkinInd;
                                     if( body != null && body )

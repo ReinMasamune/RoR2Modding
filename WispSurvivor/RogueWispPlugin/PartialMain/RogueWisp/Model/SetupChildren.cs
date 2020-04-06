@@ -65,7 +65,7 @@ namespace Rein.RogueWispPlugin
             this.RW_ragdollController.bones = Array.Empty<Transform>();
             this.RW_flameController.passive = this.RW_passiveController;
             var skinnedMeshRenderer = this.RW_body.GetComponentInChildren<SkinnedMeshRenderer>();
-            this.AddMeshHurtBox( skinnedMeshRenderer );
+            //this.AddMeshHurtBox( skinnedMeshRenderer );
             this.AddFireParticlesToMesh( skinnedMeshRenderer );
             //Path stuff here
             #region Transform paths
@@ -927,30 +927,30 @@ namespace Rein.RogueWispPlugin
 
         private void AddHurtBox( Transform parent, ICollider info, Boolean isMain = false, Boolean isBullseye = false, HurtBox.DamageModifier damageMod = HurtBox.DamageModifier.Normal )
         {
-            //var obj = new GameObject( "HurtBox" );
-            //obj.transform.parent = parent;
-            //obj.transform.localPosition = Vector3.zero;
-            //obj.transform.localScale = Vector3.one;
-            //obj.transform.localRotation = Quaternion.identity;
-            //obj.layer = LayerIndex.entityPrecise.intVal;
+            var obj = new GameObject( "HurtBox" );
+            obj.transform.parent = parent;
+            obj.transform.localPosition = Vector3.zero;
+            obj.transform.localScale = Vector3.one;
+            obj.transform.localRotation = Quaternion.identity;
+            obj.layer = LayerIndex.entityPrecise.intVal;
 
-            //var col = info.Apply( obj );
-            //col.isTrigger = false;
+            var col = info.Apply( obj );
+            col.isTrigger = false;
 
-            //var hurtBox = obj.AddComponent<HurtBox>();
-            //hurtBox.isBullseye = isBullseye;
-            //hurtBox.healthComponent = this.RW_healthComponent;
-            //hurtBox.damageModifier = damageMod;
-            //hurtBox.hurtBoxGroup = this.RW_boxGroup;
+            var hurtBox = obj.AddComponent<HurtBox>();
+            hurtBox.isBullseye = isBullseye;
+            hurtBox.healthComponent = this.RW_healthComponent;
+            hurtBox.damageModifier = damageMod;
+            hurtBox.hurtBoxGroup = this.RW_boxGroup;
 
-            //if( isMain ) this.RW_boxGroup.mainHurtBox = hurtBox;
+            if( isMain ) this.RW_boxGroup.mainHurtBox = hurtBox;
 
-            //var ind = (Int16)this.RW_boxGroup.hurtBoxes.Length;
-            //Array.Resize<HurtBox>( ref this.RW_boxGroup.hurtBoxes, ind + 1 );
-            //this.RW_boxGroup.hurtBoxes[ind] = hurtBox;
-            //hurtBox.indexInGroup = ind;
+            var ind = (Int16)this.RW_boxGroup.hurtBoxes.Length;
+            Array.Resize<HurtBox>( ref this.RW_boxGroup.hurtBoxes, ind + 1 );
+            this.RW_boxGroup.hurtBoxes[ind] = hurtBox;
+            hurtBox.indexInGroup = ind;
 
-            //if( isBullseye ) ++this.RW_boxGroup.bullseyeCount;
+            if( isBullseye ) ++this.RW_boxGroup.bullseyeCount;
         }
 
         private void AddRagdollCollider( Transform parent, ICollider info )
