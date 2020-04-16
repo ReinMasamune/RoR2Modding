@@ -4,9 +4,9 @@ namespace Rein.Properties
 {
 	public static class Tokens
 	{
-		public const String BAD_ITEM_DESC = "BAD_ITEM_DESC";
-		public const String BAD_ITEM_NAME = "BAD_ITEM_NAME";
-		public const String SOMETHINGELSE_BODY_NAME = "SOMETHINGELSE_BODY_NAME";
-		public const String THINGY_BODY_NAME = "THINGY_BODY_NAME";
+		#pragma warning disable IDE1006 // Naming Styles
+		#pragma warning disable CA1707 // Identifiers should not contain underscores
+		#pragma warning restore IDE1006 // Naming Styles
+		#pragma warning restore CA1707 // Identifiers should not contain underscores
 	}
 }

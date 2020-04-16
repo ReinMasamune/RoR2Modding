@@ -40,7 +40,7 @@ namespace Rein.RogueWispPlugin
             var flash1 = EffectHelper.AddFlash( obj, skin, MaterialType.Tracer );
 
 
-            var pillar = EffectHelper.AddFlamePillar( obj, skin, MaterialType.FlamePillar, 20f, 3.5f, 0.5f  );
+            var pillar = EffectHelper.AddFlamePillar( obj, skin, MaterialType.FlamePillar, 20f, 4f, 0.35f, 8  );
 
 
             var sparks = EffectHelper.AddSparks( obj, skin, MaterialType.Tracer, 100, 0.15f, 1.2f );
@@ -53,8 +53,7 @@ namespace Rein.RogueWispPlugin
             sparkShape.rotation = new Vector3( -90f, 0f, 0f );
 
 
-
-            var flashLines = EffectHelper.AddFlashLines( obj, skin, MaterialType.Tracer, 10, 0.2f );
+            var flashLines = EffectHelper.AddFlashLines( obj, skin, MaterialType.Tracer, 20, 0.2f );
             var flashLineShape = flashLines.shape;
             flashLineShape.enabled = true;
             flashLineShape.shapeType = ParticleSystemShapeType.Cone;
@@ -66,11 +65,11 @@ namespace Rein.RogueWispPlugin
 
 
 
-            var explosion = EffectHelper.AddExplosion( obj, skin, MaterialType.Explosion, 20, 0.3f, 5, 5f );
+            var explosion = EffectHelper.AddExplosion( obj, skin, MaterialType.Explosion, 40, 0.2f, 5, 8f );
             var explShape = explosion.shape;
             explShape.enabled = true;
             explShape.shapeType = ParticleSystemShapeType.Hemisphere;
-            explShape.radius = 0.5f;
+            explShape.radius = 0.75f;
             explShape.rotation = new Vector3( -90f, 0f, 0f );
 
 
@@ -79,7 +78,10 @@ namespace Rein.RogueWispPlugin
             EffectHelper.EditLightOverTime( light, 2f, AnimationCurve.EaseInOut( 0f, 1f, 1f, 0f ), AnimationCurve.EaseInOut( 0f, 1f, 1f, 0f ) );
 
 
-            var distortion = EffectHelper.AddDistortion( obj, skin, MaterialType.Distortion, 8f, 0.3f, 0f );
+            var distortion = EffectHelper.AddDistortion( obj, skin, MaterialType.DistortionHeavy, 12f, 0.35f, 0.1f );
+            var distEmis = distortion.emission;
+            distEmis.burstCount = 1;
+            distEmis.SetBurst( 0, new ParticleSystem.Burst( 0f, 1 ) );
 
 
 

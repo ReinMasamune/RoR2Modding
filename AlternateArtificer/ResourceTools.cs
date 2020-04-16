@@ -3,8 +3,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using UnityEngine;
-using ReinCore;
-
 namespace Rein.Properties
 {
     /// <summary>
@@ -31,7 +29,9 @@ namespace Rein.Properties
                 var langKey = propName.Substring(6);
                 if( String.IsNullOrEmpty( langKey ) ) continue;
                 var langValue = (String)prop.GetValue(null);
-                ReinCore.LanguageCore.AddLanguageToken( langKey, langValue );
+                langValue = langValue.Replace( @"\n", Environment.NewLine );
+
+                //ReinCore.LanguageCore.AddLanguageToken( langKey, langValue );
             }
         }
 
@@ -44,7 +44,7 @@ namespace Rein.Properties
         public static AssetBundle LoadAssetBundle( Byte[] resourceBytes )
         {
             if( resourceBytes == null ) throw new ArgumentNullException( nameof( resourceBytes ) );
-            return AssetBundle.LoadFromMemory(resourceBytes);
+            return AssetBundle.LoadFromMemory( resourceBytes );
         }
 
         /// <summary>
@@ -81,7 +81,7 @@ namespace Rein.Properties
         public static Assembly LoadAssembly( Byte[] resourceBytes )
         {
             if( resourceBytes == null ) throw new ArgumentNullException( nameof( resourceBytes ) );
-            return Assembly.Load(resourceBytes);
+            return Assembly.Load( resourceBytes );
         }
 
         /// <summary>

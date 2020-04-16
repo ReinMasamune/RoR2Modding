@@ -14,6 +14,7 @@ namespace Rein.RogueWispPlugin.Helpers
         internal Material activeTracerMaterial;
         internal Material activeFlamePillarMaterial;
         internal Material activeAreaIndicatorMaterial;
+        internal Material activeAreaIndicatorMaterial2;
         internal Material activeExplosionMaterial;
         internal Material activeBeamMaterial;
         internal Material activeDistortionLightMaterial;
@@ -23,6 +24,7 @@ namespace Rein.RogueWispPlugin.Helpers
         internal Material activeFlameTornadoMaterial;
         internal Material activeBossAreaIndicatorMaterial;
         internal Material activeBossAreaExplosionMaterial;
+        internal Material activeBurnMaterial;
         internal Color activeLightColor;
 
         private CharacterModel modelRef;
@@ -87,6 +89,7 @@ namespace Rein.RogueWispPlugin.Helpers
             this.activeTracerMaterial = newSkin.tracerMaterial;
             this.activeFlamePillarMaterial = newSkin.flamePillarMaterial;
             this.activeAreaIndicatorMaterial = newSkin.areaIndicatorMaterial;
+            this.activeAreaIndicatorMaterial2 = newSkin.areaIndicatorMaterial2;
             this.activeExplosionMaterial = newSkin.explosionMaterial;
             this.activeBeamMaterial = newSkin.beamMaterial;
             this.activeDistortionLightMaterial = newSkin.distortionLightMaterial;
@@ -97,6 +100,7 @@ namespace Rein.RogueWispPlugin.Helpers
             this.activeBossAreaIndicatorMaterial = newSkin.bossAreaIndicatorMaterial;
             this.activeBossAreaExplosionMaterial = newSkin.bossExplosionAreaMaterial;
             this.activeLightColor = newSkin.mainColor;
+            this.activeBurnMaterial = newSkin.burnParams.overlayMaterial;
 
             //if( KeyboardCore.loaded )
             //{

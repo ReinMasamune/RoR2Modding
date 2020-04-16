@@ -13,10 +13,7 @@ namespace AlternativeArtificer
 
     [R2APISubmoduleDependency(nameof(ItemAPI),nameof(AssetPlus),nameof(EffectAPI),nameof(PrefabAPI),nameof(LoadoutAPI))]
     [BepInDependency( "com.bepis.r2api" )]
-    [BepInIncompatibility( "com.examplemodder.ArtificerToggleHover" )]
-    [BepInIncompatibility( "com.Raus.IonUtility")]
-    [BepInIncompatibility( "com.PallesenProductions.ExpandedSkills" )]
-    [BepInPlugin( "com.ReinThings.AltArti", "Rein-AlternativeArtificer", "1.0.6.32" )]
+    [BepInPlugin( "com.ReinThings.AltArti", "Rein-AlternativeArtificer", "1.1.0.89" )]
     public partial class Main : BaseUnityPlugin
     {
         private GameObject artiBody;

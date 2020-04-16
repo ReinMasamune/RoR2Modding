@@ -53,6 +53,8 @@ namespace Rein.RogueWispPlugin
             this.RW_body.AddComponent<WispCrosshairManager>();
             this.RW_body.AddComponent<EntityStateMachine>().customName = "Gaze";
 
+            this.RW_body.AddComponent<CollisionFixer>();
+
         }
 
         private void RW_Misc()

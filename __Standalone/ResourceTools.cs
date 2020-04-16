@@ -18,7 +18,7 @@ namespace Rein.Properties
         /// <param name="logToConsoleOnRegistration">Should the registered tokens be logged to console?</param>
         public static void RegisterLanguageTokens()
         {
-            Type type = typeof(Properties.Resources);
+            Type type = typeof(Resources);
             if( type == null ) throw new NullReferenceException( "Could not find the resources type" );
 
             PropertyInfo[] properties = type.GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static );

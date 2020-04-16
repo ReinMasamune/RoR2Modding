@@ -24,7 +24,7 @@ namespace Rein.RogueWispPlugin
         {
             var master = PrefabsCore.CreatePrefab( "RogueWispMonsterMaster", true );
 
-            var netID = master.AddComponent<NetworkIdentity>();
+            var netID = master.AddOrGetComponent<NetworkIdentity>();
 
             var charMaster = master.AddComponent<CharacterMaster>();
             charMaster.masterIndex = (MasterCatalog.MasterIndex)(-1);
@@ -62,7 +62,7 @@ namespace Rein.RogueWispPlugin
             esm.initialStateType = new EntityStates.SerializableEntityStateType( typeof( EntityStates.AI.Walker.Wander ) );
             esm.mainStateType = new EntityStates.SerializableEntityStateType( typeof( EntityStates.AI.Walker.Wander ) );
 
-            var minionOwn = master.AddComponent<MinionOwnership>();
+            var minionOwn = master.AddOrGetComponent<MinionOwnership>();
 
             this.AddDrivers( master );
 

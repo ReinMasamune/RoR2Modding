@@ -39,6 +39,7 @@ namespace Rein.RogueWispPlugin
             destroyOnEnd.effectComp = effComp;
 
             EffectHelper.AddMeshIndicator( obj, skin, MaterialType.AreaIndicator, MeshIndex.Sphere, false );
+            EffectHelper.AddMeshIndicator( obj, skin, MaterialType.AreaIndicator2, MeshIndex.Sphere, false );
 
             //var tornado = EffectHelper.AddFlameTornado( obj, skin, MaterialType.FlameTornado, 1f, 10f, 7.5f, 7.5f );
             //var tornadoMain = tornado.main;
@@ -51,7 +52,7 @@ namespace Rein.RogueWispPlugin
             //tornadoSOL.y = new ParticleSystem.MinMaxCurve( 1f, AnimationCurve.Linear( 0f, 1f, 1f, 0f ) );
             //tornadoSOL.z = new ParticleSystem.MinMaxCurve( 1f, AnimationCurve.EaseInOut( 0f, 0.9f, 1f, 1f ) );
 
-            var fire = EffectHelper.AddFire( obj, skin, MaterialType.Flames, 6f, 1.5f, 30f, 0f, -1f, true );
+            var fire = EffectHelper.AddFire( obj, skin, MaterialType.Flames, 3f, 1.5f, 30f, 0f, -1f, true );
             var fireMain = fire.main;
             fireMain.scalingMode = ParticleSystemScalingMode.Local;
 

@@ -1,0 +1,247 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="Gauss_Diffuse" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Gauss_Diffuse.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Gauss_Emissive" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Gauss_Emissive.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Gauss_Metal" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Gauss_Metal.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Gauss_Normals" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Gauss_Normals.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="lang__LOADOUT_SNIPER_AMMO" xml:space="preserve">
+    <value>Ammo</value>
+  </data>
+  <data name="lang__LOADOUT_SNIPER_PASSIVE" xml:space="preserve">
+    <value>Passive</value>
+  </data>
+  <data name="lang__SNIPER_AMMO_PIERCING_DESC" xml:space="preserve">
+    <value>Pierces stuff!</value>
+  </data>
+  <data name="lang__SNIPER_AMMO_PIERCING_NAME" xml:space="preserve">
+    <value>Piercing Ammo</value>
+  </data>
+  <data name="lang__SNIPER_AMMO_STANDARD_DESC" xml:space="preserve">
+    <value>Does standard stuff!</value>
+  </data>
+  <data name="lang__SNIPER_AMMO_STANDARD_NAME" xml:space="preserve">
+    <value>Standard Ammo</value>
+  </data>
+  <data name="lang__SNIPER_DESC" xml:space="preserve">
+    <value>Maybe later \n</value>
+  </data>
+  <data name="lang__SNIPER_NAME" xml:space="preserve">
+    <value>Sniper</value>
+  </data>
+  <data name="lang__SNIPER_PASSIVE_CRITICAL_DESC" xml:space="preserve">
+    <value>Critical Strikes deal 20% more damage</value>
+  </data>
+  <data name="lang__SNIPER_PASSIVE_CRITICAL_NAME" xml:space="preserve">
+    <value>Precise Aim</value>
+  </data>
+  <data name="lang__SNIPER_PASSIVE_HEADSHOT_DESC" xml:space="preserve">
+    <value>Shooting enemies in the head deals 50% more damage</value>
+  </data>
+  <data name="lang__SNIPER_PASSIVE_HEADSHOT_NAME" xml:space="preserve">
+    <value>Headshot</value>
+  </data>
+  <data name="lang__SNIPER_PRIMARY_DASH_DESC" xml:space="preserve">
+    <value>Snip stuff and dash</value>
+  </data>
+  <data name="lang__SNIPER_PRIMARY_DASH_NAME" xml:space="preserve">
+    <value>Reposition</value>
+  </data>
+  <data name="lang__SNIPER_PRIMARY_DASH_RELOAD_DESC" xml:space="preserve">
+    <value>Reload your primary and do a cool slide</value>
+  </data>
+  <data name="lang__SNIPER_PRIMARY_DASH_RELOAD_NAME" xml:space="preserve">
+    <value>Sliding Reload</value>
+  </data>
+  <data name="lang__SNIPER_PRIMARY_SNIPE_DESC" xml:space="preserve">
+    <value>Snipe stuff</value>
+  </data>
+  <data name="lang__SNIPER_PRIMARY_SNIPE_NAME" xml:space="preserve">
+    <value>Snipe</value>
+  </data>
+  <data name="lang__SNIPER_PRIMARY_SNIPE_RELOAD_DESC" xml:space="preserve">
+    <value>Reload your primary</value>
+  </data>
+  <data name="lang__SNIPER_PRIMARY_SNIPE_RELOAD_NAME" xml:space="preserve">
+    <value>Reload</value>
+  </data>
+  <data name="lang__SNIPER_SECONDARY_QUICK_DESC" xml:space="preserve">
+    <value>Don't aim at all</value>
+  </data>
+  <data name="lang__SNIPER_SECONDARY_QUICK_NAME" xml:space="preserve">
+    <value>Quickscope</value>
+  </data>
+  <data name="lang__SNIPER_SECONDARY_STEADY_DESC" xml:space="preserve">
+    <value>Aim steadily</value>
+  </data>
+  <data name="lang__SNIPER_SECONDARY_STEADY_NAME" xml:space="preserve">
+    <value>Steady Aim</value>
+  </data>
+  <data name="lang__SNIPER_SPECIAL_DECOY_DESC" xml:space="preserve">
+    <value>Drop a decoy</value>
+  </data>
+  <data name="lang__SNIPER_SPECIAL_DECOY_NAME" xml:space="preserve">
+    <value>Decoy</value>
+  </data>
+  <data name="lang__SNIPER_SPECIAL_KNIFE_DESC" xml:space="preserve">
+    <value>Blink to a knife</value>
+  </data>
+  <data name="lang__SNIPER_SPECIAL_KNIFE_NAME" xml:space="preserve">
+    <value>Blink Knife</value>
+  </data>
+  <data name="lang__SNIPER_SUBTITLE" xml:space="preserve">
+    <value>[Insert cool thing here]</value>
+  </data>
+  <data name="lang__SNIPER_UTILITY_BACKFLIP_DESC" xml:space="preserve">
+    <value>Do a backflip</value>
+  </data>
+  <data name="lang__SNIPER_UTILITY_BACKFLIP_NAME" xml:space="preserve">
+    <value>Military Training</value>
+  </data>
+  <data name="ReinCore" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ReinCore.dll;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sniper" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sniper;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="SniperDiffuse" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SniperForPaint_initialShadingGroup_AlbedoTransparency.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="SniperNormal" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SniperForPaint_initialShadingGroup_Normal.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="SniperPrefabPath" xml:space="preserve">
+    <value>Assets/Prefabs/mdlSniper.prefab</value>
+  </data>
+  <data name="Sniper_Emissive_2__1_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sniper_Emissive_2 (1).png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="unknown__11_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\unknown (13).png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+</root>

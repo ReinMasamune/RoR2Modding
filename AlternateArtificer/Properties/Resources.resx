@@ -117,20 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="lang__BAD_ITEM_DESC" xml:space="preserve">
-    <value>This item is bad</value>
-  </data>
-  <data name="lang__BAD_ITEM_NAME" xml:space="preserve">
-    <value>ReallyBadItem</value>
-  </data>
-  <data name="lang__SOMETHINGELSE_BODY_NAME" xml:space="preserve">
-    <value>A Text thingy</value>
-  </data>
-  <data name="lang__THINGY_BODY_NAME" xml:space="preserve">
-    <value>TextAndStuff</value>
-  </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="passive_2__1_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>passive_2 (1).png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="ReinCore" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>ReinCore.dll;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\Resources\ReinCore.dll;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>

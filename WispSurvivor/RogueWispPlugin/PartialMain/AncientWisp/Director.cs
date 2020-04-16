@@ -10,13 +10,17 @@ namespace Rein.RogueWispPlugin
 {
     internal partial class Main
     {
-        //private ConfigEntry<Boolean> bossEnabled;
+#if CFGBOSS
+        private ConfigEntry<Boolean> bossEnabled;
+#endif
         partial void AW_Director()
         {
             this.Load += this.AW_SetupSpawns;
 
-            //this.bossEnabled = base.Config.Bind<Boolean>( "Main", "Enable new boss", true,
-            //    "Should the new boss spawn in game? Left as an option in case of major bugs or issues with early version of boss." );
+#if CFGBOSS
+            this.bossEnabled = base.Config.Bind<Boolean>( "Main", "Enable new boss", true,
+                "Should the new boss spawn in game? Left as an option in case of major bugs or issues with early version of boss." );
+#endif
         }
         // TODO: Director
         //private R2API.DirectorAPI.DirectorCardHolder AW_dirCardHolder;
@@ -29,7 +33,7 @@ namespace Rein.RogueWispPlugin
             HooksCore.RoR2.CharacterSpawnCard.Awake.On += this.Awake_On;
             var spawnCard = ScriptableObject.CreateInstance<CharacterSpawnCard>();
             HooksCore.RoR2.CharacterSpawnCard.Awake.On -= this.Awake_On;
-            spawnCard.directorCreditCost = 2000;
+            spawnCard.directorCreditCost = 4000;
             spawnCard.forbiddenAsBoss = false;
             spawnCard.forbiddenFlags = RoR2.Navigation.NodeFlags.NoCharacterSpawn;
             spawnCard.hullSize = HullClassification.Golem;
@@ -61,15 +65,19 @@ namespace Rein.RogueWispPlugin
             // TODO: Director
             //this.AW_dirCardHolder.SetMonsterCategory(R2API.DirectorAPI.MonsterCategory.Champions);
 
-            //if(this.bossEnabled.Value )
-            //{
+#if CFGBOSS
+            if(this.bossEnabled.Value )
+            {
+#endif
                 SpawnsCore.monsterEdits += this.SpawnsCore_monsterEdits;
                 SpawnsCore.familyEdits += this.SpawnsCore_familyEdits;
-                // TODO: Director
-                //R2API.DirectorAPI.MonsterActions += this.DirectorAPI_MonsterActions;
-                // TODO: Director
-                //R2API.DirectorAPI.FamilyActions += this.DirectorAPI_FamilyActions;
-            //}
+            // TODO: Director
+            //R2API.DirectorAPI.MonsterActions += this.DirectorAPI_MonsterActions;
+            // TODO: Director
+            //R2API.DirectorAPI.FamilyActions += this.DirectorAPI_FamilyActions;
+#if CFGBOSS
+            }
+#endif
         }
 
         private void Awake_On( HooksCore.RoR2.CharacterSpawnCard.Awake.Orig orig, CharacterSpawnCard self )

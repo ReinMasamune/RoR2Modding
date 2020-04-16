@@ -1,16 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using BepInEx;
-using ReinCore;
+﻿//using System;
+//using System.Collections.Generic;
+//using System.Text;
+//using BepInEx;
+//using ReinCore;
 
-namespace Rein.AlternateArtificer
-{
-    internal partial class Main
-    {
-        partial void Hooks()
-        {
+//namespace Rein.AlternateArtificer
+//{
+//    internal partial class Main
+//    {
+//        partial void Hooks()
+//        {
 
-        }
-    }
-}
+//        }
+//    }
+//}

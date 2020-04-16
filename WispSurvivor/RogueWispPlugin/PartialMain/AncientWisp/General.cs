@@ -56,8 +56,8 @@ namespace Rein.RogueWispPlugin
 
             var charBody = this.AW_body.GetComponent<CharacterBody>();
 
-            charBody.baseNameToken = Properties.Tokens.ANCIENT_WISP_BODY_NAME;
-            charBody.subtitleNameToken = Properties.Tokens.ANCIENT_WISP_BODY_SUBNAME;
+            charBody.baseNameToken = Rein.Properties.Tokens.ANCIENT_WISP_BODY_NAME;
+            charBody.subtitleNameToken = Rein.Properties.Tokens.ANCIENT_WISP_BODY_SUBNAME;
 
             //LanguageCore.AddLanguageToken( "ANCIENT_WISP_BODY_NAME", "Ancient Wisp" );
             //LanguageCore.AddLanguageToken( "ANCIENT_WISP_BODY_SUBNAME", "Banished and Chained" );

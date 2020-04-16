@@ -26,14 +26,13 @@ namespace Rein.RogueWispPlugin
         private const Single rootNumber = 6f;
         internal HashSet<CharacterBody> RW_BlockSprintCrosshair = new HashSet<CharacterBody>();
         private ConfigEntry<Boolean> chargeBarEnabled;
-        private ConfigEntry<Boolean> deathMarkStuff;
         partial void RW_Hook()
         {
             this.Enable += this.RW_AddHooks;
             this.Disable += this.RW_RemoveHooks;
             this.Load += this.Main_Load1;
             this.chargeBarEnabled = base.Config.Bind<Boolean>( "Visual (Client)", "SkillBarChargeIndicator", true, "Should a charge bar be displayed above the skill bar in addition to around the crosshair?" );
-            this.deathMarkStuff = base.Config.Bind<Boolean>( "Gameplay (Server)", "DeathMarkDebuffChange", true, "Should Death Mark use a new system that favors non-stacking debuffs over stacking Dots?" );
+            //this.deathMarkStuff = base.Config.Bind<Boolean>( "Gameplay (Server)", "DeathMarkDebuffChange", true, "Should Death Mark use a new system that favors non-stacking debuffs over stacking Dots?" );
         }
 
 
@@ -195,7 +194,7 @@ namespace Rein.RogueWispPlugin
             ILCursor c = new ILCursor( il );
             c.GotoNext( MoveType.After, x => x.MatchCallOrCallvirt<RoR2.CharacterModel>( "get_isDoppelganger" ) );
             c.Emit( OpCodes.Ldarg_0 );
-            c.EmitDelegate<Func<CharacterModel, Boolean>>( ( model ) => model.body != null && model.body.baseNameToken != Properties.Tokens.WISP_SURVIVOR_BODY_NAME );
+            c.EmitDelegate<Func<CharacterModel, Boolean>>( ( model ) => model.body != null && model.body.baseNameToken != Rein.Properties.Tokens.WISP_SURVIVOR_BODY_NAME );
             c.Emit( OpCodes.And );
         }
 
@@ -227,51 +226,51 @@ namespace Rein.RogueWispPlugin
             ILCursor c = new ILCursor( il );
 
 
-            c.GotoNext( MoveType.Before, x => x.MatchLdloc( 17 ), x => x.MatchLdcI4( 1 ), x => x.MatchAdd(), x => x.MatchStloc( 17 ) );
-            c.Index++;
+            //c.GotoNext( MoveType.Before, x => x.MatchLdloc( 17 ), x => x.MatchLdcI4( 1 ), x => x.MatchAdd(), x => x.MatchStloc( 17 ) );
+            //c.Index++;
 
-            if( this.deathMarkStuff.Value )
-            {
-                c.Remove();
-                c.Emit( OpCodes.Ldloc_1 );
-                c.Emit( OpCodes.Ldloc, 64 );
-                c.EmitDelegate<Func<CharacterBody, BuffIndex, Int32>>( ( body, index ) =>
-                {
-                    if( body.HasBuff( index ) )
-                    {
-                        var def = BuffCatalog.GetBuffDef(index);
-                        if( def.canStack )
-                        {
-                            return body.GetBuffCount( index );
-                        } else
-                        {
-                            return 10;
-                        }
-                    }
-                    return 0;
-                } );
-            }
+            //if( this.deathMarkStuff.Value )
+            //{
+            //    c.Remove();
+            //    c.Emit( OpCodes.Ldloc_1 );
+            //    c.Emit( OpCodes.Ldloc, 64 );
+            //    c.EmitDelegate<Func<CharacterBody, BuffIndex, Int32>>( ( body, index ) =>
+            //    {
+            //        if( body.HasBuff( index ) )
+            //        {
+            //            var def = BuffCatalog.GetBuffDef(index);
+            //            if( def.canStack )
+            //            {
+            //                return body.GetBuffCount( index );
+            //            } else
+            //            {
+            //                return 10;
+            //            }
+            //        }
+            //        return 0;
+            //    } );
+            //}
 
             c.GotoNext( MoveType.After, x => x.MatchAdd(), x => x.MatchStloc( 64 ), x => x.MatchLdloc( 64 ), x => x.MatchLdcI4( 53 ) );
             c.Index--;
             c.Remove();
             c.EmitDelegate<Func<Int32>>( () => BuffCatalog.buffCount );
 
-            c.GotoNext( MoveType.Before, x => x.MatchLdloc( 17 ), x => x.MatchLdcI4( 1 ), x => x.MatchAdd(), x => x.MatchStloc( 17 ) );
-            c.Index++;
-            if( this.deathMarkStuff.Value )
-            {
-                c.Remove();
-                c.Emit( OpCodes.Ldc_I4_0 );
-            }
+            //c.GotoNext( MoveType.Before, x => x.MatchLdloc( 17 ), x => x.MatchLdcI4( 1 ), x => x.MatchAdd(), x => x.MatchStloc( 17 ) );
+            //c.Index++;
+            //if( this.deathMarkStuff.Value )
+            //{
+            //    c.Remove();
+            //    c.Emit( OpCodes.Ldc_I4_0 );
+            //}
 
-            c.GotoNext( MoveType.After, x => x.MatchLdloc( 17 ), x => x.MatchLdcI4( 4 ) );
-            c.Index--;
-            if( this.deathMarkStuff.Value )
-            {
-                c.Remove();
-                c.Emit( OpCodes.Ldc_I4, 30 );
-            }
+            //c.GotoNext( MoveType.After, x => x.MatchLdloc( 17 ), x => x.MatchLdcI4( 4 ) );
+            //c.Index--;
+            //if( this.deathMarkStuff.Value )
+            //{
+            //    c.Remove();
+            //    c.Emit( OpCodes.Ldc_I4, 30 );
+            //}
 
         }
         private void OnTakeDamageServer_Il( ILContext il )

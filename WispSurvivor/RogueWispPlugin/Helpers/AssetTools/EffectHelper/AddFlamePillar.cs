@@ -9,7 +9,7 @@ namespace Rein.RogueWispPlugin.Helpers
     internal static partial class EffectHelper
     {
         private static Dictionary<GameObject, UInt32> flamePillarCounter = new Dictionary<GameObject, UInt32>();
-        internal static ParticleSystem AddFlamePillar( GameObject mainObj, WispSkinnedEffect skin, MaterialType matType, Single height, Single radius, Single lifetime )
+        internal static ParticleSystem AddFlamePillar( GameObject mainObj, WispSkinnedEffect skin, MaterialType matType, Single height, Single radius, Single lifetime, Int16 count = 4 )
         {
             var calcHeight = height * 0.15f;
             var calcRad = radius * 0.3f;
@@ -65,7 +65,7 @@ namespace Rein.RogueWispPlugin.Helpers
             var psEmis = ps.emission;
             psEmis.enabled = true;
             psEmis.burstCount = 1;
-            psEmis.SetBurst( 0, new ParticleSystem.Burst( 0f, 4, 4, 1, 0.01f ) );
+            psEmis.SetBurst( 0, new ParticleSystem.Burst( 0f, count, count, 1, 0.01f ) );
             psEmis.rateOverTime = 0f;
             psEmis.rateOverDistance = 0f;
 

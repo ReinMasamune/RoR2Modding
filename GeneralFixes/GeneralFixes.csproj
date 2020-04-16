@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyVersion>2.3.0.43</AssemblyVersion>
-    <FileVersion>2.3.0.43</FileVersion>
+    <AssemblyVersion>2.3.0.105</AssemblyVersion>
+    <FileVersion>2.3.0.105</FileVersion>
     <RootNamespace>Rein</RootNamespace>
   </PropertyGroup>
 
@@ -114,6 +114,7 @@
     </Reference>
     <Reference Include="ReinCore">
       <HintPath>..\libs\Rein\ReinCore.dll</HintPath>
+      <Private>false</Private>
     </Reference>
     <Reference Include="Rewired_Core">
       <HintPath>..\libs\Unity\Rewired_Core.dll</HintPath>

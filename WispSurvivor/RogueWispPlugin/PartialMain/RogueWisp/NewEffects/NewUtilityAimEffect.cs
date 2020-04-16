@@ -26,6 +26,7 @@ namespace Rein.RogueWispPlugin
             end.transform.localRotation = Quaternion.identity;
 
             EffectHelper.AddMeshIndicator( end, skin, MaterialType.AreaIndicator, MeshIndex.Sphere, false );
+            EffectHelper.AddMeshIndicator( end, skin, MaterialType.AreaIndicator2, MeshIndex.Sphere, false );
 
 
             utilityAim = obj;

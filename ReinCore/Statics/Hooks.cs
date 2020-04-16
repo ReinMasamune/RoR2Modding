@@ -91,6 +91,37 @@ public static event Hook On
                 }
             }
 
+            public struct Huntress
+            {
+                public struct HuntressWeapon
+                {
+                    public static class FireFlurrySeekingArrow
+                    {
+
+                    }
+
+                    public static class FireSeekingArrow
+                    {
+                        public struct FireOrbArrow
+                        {
+                            private static MethodBase method = HookableHelpers.GetBase( typeof(FireOrbArrow) );
+                            public delegate void Orig( global::EntityStates.Huntress.HuntressWeapon.FireSeekingArrow self );
+                            public delegate void Hook( Orig orig, global::EntityStates.Huntress.HuntressWeapon.FireSeekingArrow self );
+                            public static event ILContext.Manipulator Il
+                            {
+                                add => HookEndpointManager.Modify<Hook>( method, value );
+                                remove => HookEndpointManager.Unmodify<Hook>( method, value );
+                            }
+                            public static event Hook On
+                            {
+                                add => HookEndpointManager.Add<Hook>( method, value );
+                                remove => HookEndpointManager.Remove<Hook>( method, value );
+                            }
+                        }
+                    }
+                }
+            }
+
             public struct Mage
             {
                 public struct Weapon
@@ -821,6 +852,23 @@ public static event Hook On
                         remove => HookEndpointManager.Remove<Hook>( method, value );
                     }
                 }
+
+                public struct FindSkillSlot
+                {
+                    private static MethodBase method = HookableHelpers.GetBase( typeof(FindSkillSlot) );
+                    public delegate global::RoR2.SkillSlot Orig( global::RoR2.SkillLocator self, global::RoR2.GenericSkill skillComponent );
+                    public delegate global::RoR2.SkillSlot Hook( Orig orig, global::RoR2.SkillLocator self, global::RoR2.GenericSkill skillComponent );
+                    public static event ILContext.Manipulator Il
+                    {
+                        add => HookEndpointManager.Modify<Hook>( method, value );
+                        remove => HookEndpointManager.Unmodify<Hook>( method, value );
+                    }
+                    public static event Hook On
+                    {
+                        add => HookEndpointManager.Add<Hook>( method, value );
+                        remove => HookEndpointManager.Remove<Hook>( method, value );
+                    }
+                }
             }
 
             public static class Stage
@@ -1127,6 +1175,25 @@ public static event Hook On
 
                 public static class LoadoutPanelController
                 {
+                    public static class Row
+                    {
+                        public struct FromSkillSlot
+                        {
+                            private static MethodBase method = HookableHelpers.GetBase( typeof(FromSkillSlot) );
+                            public delegate System.Object Orig( global::RoR2.UI.LoadoutPanelController owner, Int32 bodyIndex, Int32 skillSlotIndex, global::RoR2.GenericSkill skillSlot );
+                            public delegate System.Object Hook( Orig orig, global::RoR2.UI.LoadoutPanelController owner, Int32 bodyIndex, Int32 skillSlotIndex, global::RoR2.GenericSkill skillSlot );
+                            public static event ILContext.Manipulator Il
+                            {
+                                add => HookEndpointManager.Modify<Hook>( method, value );
+                                remove => HookEndpointManager.Unmodify<Hook>( method, value );
+                            }
+                            public static event Hook On
+                            {
+                                add => HookEndpointManager.Add<Hook>( method, value );
+                                remove => HookEndpointManager.Remove<Hook>( method, value );
+                            }
+                        }
+                    }
                     public struct Rebuild
                     {
                         private static MethodBase method = HookableHelpers.GetBase( typeof(Rebuild) );

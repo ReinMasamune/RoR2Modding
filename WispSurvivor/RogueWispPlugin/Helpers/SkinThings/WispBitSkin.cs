@@ -310,9 +310,6 @@ namespace Rein.RogueWispPlugin.Helpers
             {
                 return skinLookup[ind];
             }
-
-
-
             var flags = (ind &          0b1111_0000_0000_0000_0000_0000_0000_0000u) >> 28;
             Boolean useCustomColor = ( (flags & 0b0001u ) >> 0 ) != 0u;
             Boolean isIridescent = ( (flags & 0b0010u ) >> 1 ) != 0u;
@@ -382,6 +379,7 @@ namespace Rein.RogueWispPlugin.Helpers
         internal Material tracerMaterial { get; private set; }
         internal Material flamePillarMaterial { get; private set; }
         internal Material areaIndicatorMaterial { get; private set; }
+        internal Material areaIndicatorMaterial2 { get; private set; }
         internal Material explosionMaterial { get; private set; }
         internal Material beamMaterial { get; private set; }
         internal Material distortionLightMaterial { get; private set; }
@@ -429,20 +427,19 @@ namespace Rein.RogueWispPlugin.Helpers
             this.flameGradientType = flameType;
             this.armorMaterialType = armorMatType;
 
-
+            Single r,g,b;
 
             if( this.useCustomColor )
             {
                 var encColor = this.encodedCustomColor & 0b0000_0000_0011_1111_1111_1111_1111u;
-                Single r = ((encColor & 0b11_1111_0000_0000_0000u)>>12) / (Single)(0b11_1111u);
-                Single g = ((encColor & 0b00_0000_1111_1100_0000u)>>6) / (Single)(0b11_1111u);
-                Single b = ((encColor & 0b00_0000_0000_0011_1111u) ) / (Single)(0b11_1111u);
+                r = ((encColor & 0b11_1111_0000_0000_0000u)>>12) / (Single)(0b11_1111u);
+                g = ((encColor & 0b00_0000_1111_1100_0000u)>>6) / (Single)(0b11_1111u);
+                b = ((encColor & 0b00_0000_0000_0011_1111u) ) / (Single)(0b11_1111u);
                 this.mainColor = new Color( r, g, b, 1f );
             } else
             {
                 this.mainColor = colors[(UInt32)this.color];
             }
-
             if( this.isIridescent )
             {
                 this.flameGradient = iridescentFlameGradient;
@@ -451,8 +448,53 @@ namespace Rein.RogueWispPlugin.Helpers
                 this.flameGradient = flameGradStyles[(UInt32)this.flameGradientType]( this.mainColor );
             }
 
+
+
+            Color.RGBToHSV(this.mainColor, out Single h, out Single s, out Single v );
+            r = this.mainColor.r;
+            g = this.mainColor.g;
+            b = this.mainColor.b;
+            var maxComp = Mathf.Max( r, g, b);
+            var minComp = Mathf.Min( r, g, b);
+            Single intensityValue = 1.0f - v;
+            Single satValue = s;
+
+            Single gradInt;
+
+            switch( flameType )
+            {
+                default:
+                    gradInt = 0.5f;
+                    break;
+                case FlameGradientType.BlackIn:
+                    gradInt = 1f;
+                    break;
+                case FlameGradientType.BlackOut:
+                    gradInt = 0.75f;
+                    break;
+                case FlameGradientType.Solid:
+                    gradInt = 0.5f;
+                    break;
+                case FlameGradientType.Standard:
+                    gradInt = 0.25f;
+                    break;
+                case FlameGradientType.WhiteOut:
+                    gradInt = 0f;
+                    break;
+            }
+            //intensityValue += gradInt;
+            //intensityValue /= 2;
+
+            //intensityValue = Mathf.Sqrt( intensityValue );
+
+
+
             var flameRampTex = TexturesCore.GenerateRampTexture( this.flameGradient );
             //Main.debugTexture = flameRampTex;
+
+            Single IntenVal( Single minVal, Single maxVal ) => Mathf.LerpUnclamped( minVal, maxVal, intensityValue );
+            Single GradVal( Single minVal, Single maxVal ) => Mathf.LerpUnclamped( minVal, maxVal, gradInt );
+            Single SaturVal( Single minVal, Single maxVal ) => Mathf.LerpUnclamped( minVal, maxVal, satValue );
 
 
 
@@ -467,8 +509,8 @@ namespace Rein.RogueWispPlugin.Helpers
             flamesMain.remapTexture.texture = flameRampTex;
             flamesMain.softFactor = 0.5f;
             flamesMain.brightnessBoost = 0.85f; //1.1
-            flamesMain.alphaBoost = 5f;
-            flamesMain.alphaBias = 0f;
+            flamesMain.alphaBoost = SaturVal(5, 9);
+            flamesMain.alphaBias = -0.05f;
             flamesMain.useUV1 = false;
             flamesMain.fadeClose = true;
             flamesMain.fadeCloseDistance = 0.5f;
@@ -537,19 +579,19 @@ namespace Rein.RogueWispPlugin.Helpers
             pillarMat.disableRemapping = false;
             pillarMat.mainTexture.texture = AssetsCore.LoadAsset<Texture2D>(Texture2DIndex.refTexWillowispSpiral);
             pillarMat.remapTexture.texture = flameRampTex;
-            pillarMat.softFactor = 1.038f;
-            pillarMat.brightnessBoost = 1f; //2
-            pillarMat.alphaBoost = 4f; //6.57
-            pillarMat.alphaBias = 0f;
+            pillarMat.softFactor = 1f;
+            pillarMat.brightnessBoost = 1.5f; //2
+            pillarMat.alphaBoost = IntenVal( 4.8f, 1f ); //6.57
+            pillarMat.alphaBias = 0.4f;
             pillarMat.useUV1 = false;
             pillarMat.fadeClose = false;
             pillarMat.fadeCloseDistance = 0.5f;
             pillarMat.cull = MaterialBase.CullMode.Off;
             pillarMat.cloudRemappingOn = true;
-            pillarMat.cloudDistortionOn = true;
+            pillarMat.cloudDistortionOn = false;
             pillarMat.distortionStrength = 0.12f;
-            pillarMat.cloudTexture1.texture = AssetsCore.LoadAsset<Texture2D>(Texture2DIndex.refTexCloudDifferenceBW2);
-            pillarMat.cloudTexture2.texture = AssetsCore.LoadAsset<Texture2D>(Texture2DIndex.refTexCloudOrganicNormal);
+            pillarMat.cloudTexture1.texture = AssetsCore.LoadAsset<Texture2D>(Texture2DIndex.refTexCloudSkulls);
+            pillarMat.cloudTexture2.texture = AssetsCore.LoadAsset<Texture2D>(Texture2DIndex.refTexMagmaCloud);
             pillarMat.cutoffScrollSpeed = new Vector4( 4f, 8f, 5f, 2f );
             pillarMat.vertexColorOn = true;
             pillarMat.vertexAlphaOn = false;
@@ -571,22 +613,50 @@ namespace Rein.RogueWispPlugin.Helpers
             areaMat.cloudTexture1.texture = AssetsCore.LoadAsset<Texture2D>(Texture2DIndex.refCaustics);
             areaMat.cloudTexture1.tiling = new Vector2( 0.1f, 0.1f );
             areaMat.cloudTexture2.texture = AssetsCore.LoadAsset<Texture2D>(Texture2DIndex.refTexArcaneCircle1Mask);
-            areaMat.cloudTexture2.tiling = new Vector2( 0.075f, 0.075f );
+            areaMat.cloudTexture2.tiling = new Vector2( 0.06f, 0.06f );
             areaMat.remapTexture.texture = flameRampTex;
             areaMat.cutoffScrollSpeed = new Vector4( 11f, -13f, -17f, 15f );
             areaMat.softFactor = 2f;
             areaMat.softPower = 1f;
-            areaMat.brightnessBoost = 2f; //5
-            areaMat.rimPower = 1.25f; //0.5
-            areaMat.rimStrength = 0.25f;
-            areaMat.alphaBoost = 2.5f; //3
-            areaMat.intersectionStrength = 5f; //18
+            areaMat.brightnessBoost = IntenVal(1f, 5f ); //5
+            areaMat.rimPower = 0f; //0.5
+            areaMat.rimStrength = 1f;
+            areaMat.alphaBoost = 0.1f; //3
+            areaMat.intersectionStrength = 10f; //18
             areaMat.cull = MaterialBase.CullMode.Off;
             areaMat.externalAlpha = 1f;
             areaMat.vertexColorsOn = false;
             areaMat.triplanarOn = true;
 
             this.areaIndicatorMaterial = areaMat.material;
+
+
+            var areaMat2 = new IntersectionCloudMaterial( "AreaIndicatorMaterial2" );
+            areaMat2.sourceBlend = UnityEngine.Rendering.BlendMode.One;
+            areaMat2.destinationBlend = UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha;
+            areaMat2.tintColor = Color.white;
+            areaMat2.mainTexture.texture = null;
+            areaMat2.cloudTexture1.texture = AssetsCore.LoadAsset<Texture2D>( Texture2DIndex.refCaustics );
+            areaMat2.cloudTexture1.tiling = new Vector2( 0.1f, 0.1f );
+            areaMat2.cloudTexture2.texture = AssetsCore.LoadAsset<Texture2D>( Texture2DIndex.refTexCloudCrackedIce );
+            areaMat2.cloudTexture2.tiling = new Vector2( 0.075f, 0.075f );
+            areaMat2.remapTexture.texture = flameRampTex;
+            areaMat2.cutoffScrollSpeed = new Vector4( 11f, -13f, -17f, 15f );
+            areaMat2.softFactor = 2f;
+            areaMat2.softPower = 1f;
+            areaMat2.brightnessBoost = 5f; //5
+            areaMat2.rimPower = 5f; //0.5
+            areaMat2.rimStrength = 0.1f;
+            areaMat2.alphaBoost = 1.75f; //3
+            areaMat2.intersectionStrength = 20f; //18
+            areaMat2.cull = MaterialBase.CullMode.Off;
+            areaMat2.externalAlpha = 1f;
+            areaMat2.vertexColorsOn = false;
+            areaMat2.triplanarOn = true;
+
+            this.areaIndicatorMaterial2 = areaMat2.material;
+
+
 
 
 
@@ -666,17 +736,17 @@ namespace Rein.RogueWispPlugin.Helpers
 
             var burnMat = new CloudMaterial( "BurnMaterial" );
             burnMat.sourceBlend = UnityEngine.Rendering.BlendMode.One;
-            burnMat.destinationBlend = UnityEngine.Rendering.BlendMode.One;
+            burnMat.destinationBlend = UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha;
             burnMat.internalSimpleBlendMode = 0f;
             burnMat.tintColor = Color.white;
             burnMat.disableRemapping = false;
-            burnMat.mainTexture.texture = AssetsCore.LoadAsset<Texture2D>(Texture2DIndex.refTexCloudDifferenceBW1);
-            burnMat.mainTexture.tiling = new Vector2( 12f, 12f );
+            burnMat.mainTexture.texture = AssetsCore.LoadAsset<Texture2D>(Texture2DIndex.refCaustics);
+            burnMat.mainTexture.tiling = new Vector2( 6f, 6f );
             burnMat.remapTexture.texture = flameRampTex;
             burnMat.softFactor = 0f;
-            burnMat.brightnessBoost = 2.98f;
-            burnMat.alphaBoost = 11.51f;
-            burnMat.alphaBias = 0.301f;
+            burnMat.brightnessBoost = 0.4f;
+            burnMat.alphaBoost = IntenVal( 1f, 10f );
+            burnMat.alphaBias = -0.05f;
             burnMat.useUV1 = true;
             burnMat.fadeClose = false;
             burnMat.fadeCloseDistance = 0.5f;
@@ -684,15 +754,15 @@ namespace Rein.RogueWispPlugin.Helpers
             burnMat.cloudRemappingOn = true;
             burnMat.cloudDistortionOn = false;
             burnMat.distortionStrength = 0.1f;
-            burnMat.cloudTexture1.texture = AssetsCore.LoadAsset<Texture2D>(Texture2DIndex.refTexCloudDifferenceBW1);
-            burnMat.cloudTexture1.tiling = new Vector2( 4f, 4f );
-            burnMat.cloudTexture2.texture = AssetsCore.LoadAsset<Texture2D>(Texture2DIndex.refTexCloudDifferenceBW1);
-            burnMat.cutoffScrollSpeed = new Vector4( 20f, -5f, 3f, 0f );
+            burnMat.cloudTexture1.texture = AssetsCore.LoadAsset<Texture2D>(Texture2DIndex.refTexGlowSkullMask);
+            burnMat.cloudTexture1.tiling = new Vector2( 5f, 5f );
+            burnMat.cloudTexture2.texture = AssetsCore.LoadAsset<Texture2D>(Texture2DIndex.refTexCloudDifferenceBW2);
+            burnMat.cutoffScrollSpeed = new Vector4( -3f, 5f, 3f, -5f );
             burnMat.vertexColorOn = false;
             burnMat.vertexAlphaOn = false;
-            burnMat.vertexOffset = false;
+            burnMat.vertexOffset = true;
             burnMat.luminanceForTextureAlpha = false;
-            burnMat.vertexOffsetAmount = 0f;
+            burnMat.vertexOffsetAmount = 0.125f;
             burnMat.externalAlpha = 1f;
 
             var firePrefab = Resources.Load<GameObject>("Prefabs/HelfireEffect").ClonePrefab("FireEffect", false);
@@ -718,8 +788,8 @@ namespace Rein.RogueWispPlugin.Helpers
             arcCircle.mainTexture.texture = AssetsCore.LoadAsset<Texture2D>(Texture2DIndex.refTexArcaneCircle1Mask);
             arcCircle.remapTexture.texture = flameRampTex;
             arcCircle.softFactor = 0f;
-            arcCircle.brightnessBoost = 3f;
-            arcCircle.alphaBoost = 5f;
+            arcCircle.brightnessBoost = 1f;
+            arcCircle.alphaBoost = IntenVal( 2f, 4f );
             arcCircle.alphaBias = 0f;
             arcCircle.useUV1 = false;
             arcCircle.fadeClose = true;

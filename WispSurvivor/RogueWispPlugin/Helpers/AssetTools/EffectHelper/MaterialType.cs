@@ -13,6 +13,8 @@ namespace Rein.RogueWispPlugin.Helpers
         Tracer,
         FlamePillar,
         AreaIndicator,
+        AreaIndicator2,
+        AimIndicator,
         Explosion,
         Beam,
         DistortionLight,
@@ -22,5 +24,6 @@ namespace Rein.RogueWispPlugin.Helpers
         FlameTornado,
         BossAreaIndicator,
         BossAreaExplosion,
+        Burn,
     }
 }

@@ -17,6 +17,14 @@ namespace ReinCore
             return job.OutputTextureAndDispose();
         }
 
+        public static Texture2D GenerateBarTexture( Int32 width, Int32 height, Boolean roundedCorners, Int32 cornerRadius, Int32 borderWidth, Color borderColor, Color bgColor, Byte sampleFactor = 0, params (Single start, Single end, Color color)[] regions )
+        {
+            if( !loaded ) throw new CoreNotLoadedException( nameof( TexturesCore ) );
+            var job = new BarTextureJob( width, height, roundedCorners, cornerRadius, borderWidth, borderColor, bgColor, regions );
+            job.Start().Complete();
+            return job.OutputTextureAndDispose();
+        }
+
 
 
         static TexturesCore()

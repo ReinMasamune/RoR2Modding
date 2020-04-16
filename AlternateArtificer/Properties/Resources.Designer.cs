@@ -61,38 +61,12 @@ namespace Rein.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This item is bad.
+        ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static string lang__BAD_ITEM_DESC {
+        internal static byte[] passive_2__1_ {
             get {
-                return ResourceManager.GetString("lang__BAD_ITEM_DESC", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to ReallyBadItem.
-        /// </summary>
-        internal static string lang__BAD_ITEM_NAME {
-            get {
-                return ResourceManager.GetString("lang__BAD_ITEM_NAME", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to A Text thingy.
-        /// </summary>
-        internal static string lang__SOMETHINGELSE_BODY_NAME {
-            get {
-                return ResourceManager.GetString("lang__SOMETHINGELSE_BODY_NAME", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to TextAndStuff.
-        /// </summary>
-        internal static string lang__THINGY_BODY_NAME {
-            get {
-                return ResourceManager.GetString("lang__THINGY_BODY_NAME", resourceCulture);
+                object obj = ResourceManager.GetObject("passive_2__1_", resourceCulture);
+                return ((byte[])(obj));
             }
         }
         

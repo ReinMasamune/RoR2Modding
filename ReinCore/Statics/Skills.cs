@@ -7,6 +7,7 @@ using EntityStates;
 using MonoMod.RuntimeDetour;
 using RoR2;
 using RoR2.Skills;
+using UnityEngine;
 
 namespace ReinCore
 {
@@ -78,7 +79,46 @@ namespace ReinCore
             addedSkillFamilies.Add( skillFamily );
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TState"></typeparam>
+        /// <param name="register"></param>
+        /// <returns></returns>
+        public static SerializableEntityStateType StateType<TState>( Boolean register = true ) where TState : EntityState
+        {
+            if( register ) AddSkill( typeof( TState ) );
+            return new SerializableEntityStateType( typeof( TState ) );
+        }
 
+        public static SkillFamily CreateSkillFamily( SkillDef defaultSkill, params (SkillDef skill, String unlockable)[] variants )
+        {
+            var family = ScriptableObject.CreateInstance<SkillFamily>();
+            family.variants = new SkillFamily.Variant[variants.Length + 1];
+            family.variants[0] = new SkillFamily.Variant
+            {
+                skillDef = defaultSkill,
+                unlockableName = "",
+                viewableNode = new ViewablesCatalog.Node( defaultSkill.skillName, false ),
+            };
+            AddSkillDef( defaultSkill );
+
+            for( Int32 i = 0; i < variants.Length; ++i )
+            {
+                var info = variants[i];
+                var skill = info.skill;
+                family.variants[i + 1] = new SkillFamily.Variant
+                {
+                    skillDef = skill,
+                    unlockableName = info.unlockable,
+                    viewableNode = new ViewablesCatalog.Node( skill.skillName, false ),
+                };
+                AddSkillDef( skill );
+            }
+
+            AddSkillFamily( family );
+            return family;
+        }
 
         /// <summary>
         /// Accessor for GenericSkill.SkillFamily
@@ -92,6 +132,7 @@ namespace ReinCore
         /// <returns></returns>
         public static SkillFamily GetSkillFamily( this GenericSkill skill )
         {
+            if( skill == null ) throw new ArgumentNullException( nameof( skill ) );
             return skillFamily.Get( skill );
         }
 

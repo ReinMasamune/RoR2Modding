@@ -34,6 +34,7 @@ namespace Rein.RogueWispPlugin
             private Transform modelTransform;
             private Transform refHeadTransform;
             private Transform refCannonTransform;
+            //private Collider headCollider;
 
             private delegate Vector2 ReadAimAnglesDelegate( AimAnimator animator );
             private static ReadAimAnglesDelegate ReadAimAngles;
@@ -67,6 +68,17 @@ namespace Rein.RogueWispPlugin
                 this.refCannonTransform = this.modelTransform;
                 this.cannonTransform = this.modelTransform.Find( "CannonPivot" );
                 this.headTransform = this.cannonTransform.Find( "AncientWispArmature" ).Find( "Head" );
+                //this.headCollider = this.headTransform.GetComponent<Collider>();
+                //if( !this.headCollider || this.headCollider.enabled == false )
+                //{
+                //    Main.LogW( "Head col not found, checking children" );
+                //    this.headCollider = this.headTransform.GetComponentInChildren<Collider>();
+                //    if( this.headCollider.enabled == false )
+                //    {
+                //        Main.LogW( "No enabled head colliders" );
+                //        this.headCollider = null;
+                //    }
+                //}
                 this.refHeadTransform = this.modelTransform;
 
                 this.baseCannonRot = this.cannonTransform.localRotation;
@@ -96,6 +108,9 @@ namespace Rein.RogueWispPlugin
                 if( this.transition )
                 {
                     this.timer += Time.deltaTime;
+                    
+
+
                     if( this.timer >= this.maxTime ) this.transition = false;
                 }
 

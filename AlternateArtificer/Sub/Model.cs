@@ -22,19 +22,17 @@
 
         private void EditModel()
         {
+            Int32 iii = 0;
             Transform model = artiBody.GetComponent<ModelLocator>().modelTransform;
-
             #region Remove jets
             var display = Resources.Load<GameObject>("Prefabs/CharacterDisplays/MageDisplay").transform.Find("mdlMage").GetComponent<CharacterModel>().baseRendererInfos;
             display[0].renderer.gameObject.SetActive( false );
             display[1].renderer.gameObject.SetActive( false );
             #endregion
-
             #region Edit Mesh
             SkinnedMeshRenderer meshRenderer = model.Find("MageMesh").GetComponent<SkinnedMeshRenderer>();
             this.artiDefaultMesh = meshRenderer.sharedMesh;
             this.artiChangedMesh = Instantiate<Mesh>(this.artiDefaultMesh);
-
             Int32[] tris = this.artiChangedMesh.triangles;
             Int32 size = 1902;
             Int32 start1 = 4916;
@@ -94,86 +92,87 @@
             this.artiChangedMesh.tangents = tanL.ToArray();
             this.artiChangedMesh.uv = uv1L.ToArray();
             #endregion
-
             #region Fix Skirt
             model.gameObject.AddComponent<Components.SkirtFix>();
             Resources.Load<GameObject>( "Prefabs/CharacterDisplays/MageDisplay" ).transform.Find( "mdlMage" ).gameObject.AddComponent<Components.SkirtFix>();
             Resources.Load<GameObject>( "Prefabs/NetworkedObjects/LockedMage" ).transform.Find( "ModelBase" ).Find( "mdlMage" ).gameObject.AddComponent<Components.SkirtFix>();
             #endregion
-
             #region Add Rotator
             model.Find( "MageArmature" ).gameObject.AddComponent<Components.Rotator>();
             #endregion
 
-            model.GetComponent<CharacterModel>().itemDisplayRuleSet = Resources.Load<GameObject>( "Prefabs/CharacterBodies/AncientWispBody" ).GetComponent<ModelLocator>().modelTransform.GetComponent<CharacterModel>().itemDisplayRuleSet;
-
+            //model.GetComponent<CharacterModel>().itemDisplayRuleSet = Resources.Load<GameObject>( "Prefabs/CharacterBodies/AncientWispBody" ).GetComponent<ModelLocator>().modelTransform.GetComponent<CharacterModel>().itemDisplayRuleSet;
             #region Skins
-            var skins = model.GetComponent<ModelSkinController>();
-            var baseSkin = skins.skins[0];
-            var masterySkin = skins.skins[1];
+            //var skins = model.GetComponent<ModelSkinController>();
+            //base.Logger.LogWarning( iii++ );
+            //var baseSkin = skins.skins[0];
+            //base.Logger.LogWarning( iii++ );
+            //var masterySkin = skins.skins[1];
+            //base.Logger.LogWarning( iii++ );
+            //var baseMaterial = baseSkin.rendererInfos[2].defaultMaterial;
+            //base.Logger.LogWarning( iii++ );
+            //var newMaterial = Instantiate<Material>(baseMaterial);
+            //base.Logger.LogWarning( iii++ );
+            //var masteryRIs = masterySkin.rendererInfos;
+            //base.Logger.LogWarning( iii++ );
+            //var rendererInfos = new CharacterModel.RendererInfo[2];
+            //base.Logger.LogWarning( iii++ );
+            //rendererInfos[0] = masteryRIs[0];
+            //base.Logger.LogWarning( iii++ );
+            //rendererInfos[1] = masteryRIs[1];
+            //base.Logger.LogWarning( iii++ );
+            //var texReturn = CreateArtiSkinTex();
+            //base.Logger.LogWarning( iii++ );
+            //this.mainTex = texReturn[0];
+            //base.Logger.LogWarning( iii++ );
 
-            var baseMaterial = baseSkin.rendererInfos[9].defaultMaterial;
-            var newMaterial = Instantiate<Material>(baseMaterial);
+            //newMaterial.SetTexture( "_MainTex", this.mainTex );
+            //base.Logger.LogWarning( iii++ );
+            //newMaterial.SetTexture( "_EmTex", texReturn[1] );
+            //base.Logger.LogWarning( iii++ );
 
-            var masteryRIs = masterySkin.rendererInfos;
-            var rendererInfos = new CharacterModel.RendererInfo[2];
+            //newMaterial.EnableKeyword( "_EMISSION" );
+            ////newMaterial.EnableKeyword( "FLOWMAP" );
 
-            rendererInfos[0] = masteryRIs[0];
-            rendererInfos[1] = masteryRIs[1];
+            //base.Logger.LogWarning( iii++ );
+            ////newMaterial.SetInt( "_DitherOn", 1 );
+            //newMaterial.SetInt( "_PrintDirection", 1 );
+            ////newMaterial.SetInt( "_RampInfo", 4 );
 
-            var texReturn = CreateArtiSkinTex();
-            this.mainTex = texReturn[0];
+            //base.Logger.LogWarning( iii++ );
+            //newMaterial.SetFloat( "_EmPower", 10f );
+            //newMaterial.SetFloat( "_PrintBias", 0.32f );
+            //newMaterial.SetFloat( "_PrintBoost", 3.85f );
+            ////newMaterial.SetFloat( "_SliceHeight", 0.6f );
+            ////newMaterial.SetFloat( "_Smoothness", 0.923f );
+            ////newMaterial.SetFloat( "_SpecularStrength", 0.818f );
 
+            //newMaterial.SetColor( "_EmColor", new Color( 1f, 1f, 1f, 1f ) );
+            ////newMaterial.SetColor( "_Color", new Color( 1f, 1f, 1f, 1f ) );
 
-            newMaterial.SetTexture( "_MainTex", this.mainTex );
-            newMaterial.SetTexture( "_EmTex", texReturn[1] );
+            //rendererInfos[0].defaultMaterial = newMaterial;
+            //rendererInfos[1].defaultMaterial = newMaterial;
+            //var spriteTex = baseSkin.icon.texture;
+            //LoadoutAPI.SkinDefInfo info = new LoadoutAPI.SkinDefInfo();
 
-
-            newMaterial.EnableKeyword( "_EMISSION" );
-            //newMaterial.EnableKeyword( "FLOWMAP" );
-
-
-            //newMaterial.SetInt( "_DitherOn", 1 );
-            newMaterial.SetInt( "_PrintDirection", 1 );
-            //newMaterial.SetInt( "_RampInfo", 4 );
-
-
-            newMaterial.SetFloat( "_EmPower", 10f );
-            newMaterial.SetFloat( "_PrintBias", 0.32f );
-            newMaterial.SetFloat( "_PrintBoost", 3.85f );
-            //newMaterial.SetFloat( "_SliceHeight", 0.6f );
-            //newMaterial.SetFloat( "_Smoothness", 0.923f );
-            //newMaterial.SetFloat( "_SpecularStrength", 0.818f );
-
-
-            newMaterial.SetColor( "_EmColor", new Color( 1f, 1f, 1f, 1f ) );
-            //newMaterial.SetColor( "_Color", new Color( 1f, 1f, 1f, 1f ) );
-
-
-            rendererInfos[0].defaultMaterial = newMaterial;
-            rendererInfos[1].defaultMaterial = newMaterial;
-            var spriteTex = baseSkin.icon.texture;
-
-            LoadoutAPI.SkinDefInfo info = new LoadoutAPI.SkinDefInfo();
-
-            SkinDef newSkin = LoadoutAPI.CreateNewSkinDef( info );
-            newSkin.baseSkins = masterySkin.baseSkins;
-            newSkin.icon = CreateSkinIcon( new Color( 0.4f, 0.4f, 0.4f ), new Color( 0.9f, 0.9f, 0.9f ), new Color( 0.2f, 0.2f, 0.2f ), new Color( 0.2f, 0.4f, 1f ), new Color( 0.4f, 0.4f, 0.4f ) );
-            newSkin.name = "NAME";
-            newSkin.nameToken = "REIN_ALTARTI_ALTMASTERYSKIN_NAME";
-            newSkin.rootObject = baseSkin.rootObject;
-            newSkin.unlockableName = masterySkin.unlockableName;
-            newSkin.rendererInfos = rendererInfos;
-            newSkin.gameObjectActivations = Array.Empty<SkinDef.GameObjectActivation>();
-            newSkin.meshReplacements = Array.Empty<SkinDef.MeshReplacement>();
-
-            var skinsArray = skins.skins;
-            Array.Resize<SkinDef>( ref skinsArray, skinsArray.Length + 1 );
-            skinsArray[skinsArray.Length - 1] = newSkin;
-            skins.skins = skinsArray;
-
-            addedSkins.Add( newSkin );
-
+            //SkinDef newSkin = LoadoutAPI.CreateNewSkinDef( info );
+            //newSkin.baseSkins = masterySkin.baseSkins;
+            //newSkin.icon = CreateSkinIcon( new Color( 0.4f, 0.4f, 0.4f ), new Color( 0.9f, 0.9f, 0.9f ), new Color( 0.2f, 0.2f, 0.2f ), new Color( 0.2f, 0.4f, 1f ), new Color( 0.4f, 0.4f, 0.4f ) );
+            //newSkin.name = "NAME";
+            //newSkin.nameToken = "REIN_ALTARTI_ALTMASTERYSKIN_NAME";
+            //newSkin.rootObject = baseSkin.rootObject;
+            //newSkin.unlockableName = masterySkin.unlockableName;
+            //newSkin.rendererInfos = rendererInfos;
+            //newSkin.gameObjectActivations = Array.Empty<SkinDef.GameObjectActivation>();
+            //newSkin.meshReplacements = Array.Empty<SkinDef.MeshReplacement>();
+            //base.Logger.LogWarning( iii++ );
+            //var skinsArray = skins.skins;
+            //Array.Resize<SkinDef>( ref skinsArray, skinsArray.Length + 1 );
+            //skinsArray[skinsArray.Length - 1] = newSkin;
+            //skins.skins = skinsArray;
+            //base.Logger.LogWarning( iii++ );
+            //addedSkins.Add( newSkin );
+            //base.Logger.LogWarning( iii++ );
             #endregion
 
             // TODO: Fix+Enable IDRS

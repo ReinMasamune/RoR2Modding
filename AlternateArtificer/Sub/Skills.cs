@@ -3,6 +3,7 @@
     using AlternateArtificer.SelectablePassive;
     using R2API;
     using R2API.Utils;
+    using Rein.Properties;
     using RoR2;
     using RoR2.Skills;
     using System;
@@ -69,6 +70,8 @@
 
             elementalIntensity.skillNameToken = "REIN_ALTARTI_PASSIVE_NAME";
             elementalIntensity.skillDescriptionToken = "REIN_ALTARTI_PASSIVE_DESC";
+            var tex = Tools.LoadTexture2D( Rein.Properties.Resources.passive_2__1_ );
+            elementalIntensity.icon = Sprite.Create(tex, new Rect(0f, 0f, tex.width, tex.height ), envSuit.icon.pivot );
 
             elementalIntensity.stateMachineDefaults = new PassiveSkillDef.StateMachineDefaults[1]
             {

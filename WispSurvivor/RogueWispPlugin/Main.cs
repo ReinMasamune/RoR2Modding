@@ -1,19 +1,10 @@
 ﻿using BepInEx;
-#if R2API
-using R2API.Utils;
-#endif
 using RoR2;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Runtime.CompilerServices;
-using System.Reflection;
 using UnityEngine;
-#if NETWORKING
-using MonoMod.RuntimeDetour;
-using MonoMod.Cil;
-using ReinCore;
-#endif
+
 namespace Rein.RogueWispPlugin
 {
 #pragma warning disable CA2243 // Attribute string literals should parse correctly
@@ -29,7 +20,7 @@ namespace Rein.RogueWispPlugin
         #region random vars
         private const String pluginGUID = "com.Rein.RogueWisp";
         private const String pluginName = "Rogue Wisp";
-        private const String pluginVersion = Consts.ver;
+        private const String pluginVersion = Properties.Info.ver;
         public String thing1;
         public String thing2;
         public String thing3;

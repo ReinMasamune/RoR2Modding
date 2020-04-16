@@ -18,11 +18,11 @@ namespace Rein.RogueWispPlugin
         {
             GameObject baseUI = Resources.Load<GameObject>("Prefabs/Crosshair/CrocoCrosshair").ClonePrefab("WispCrosshair", false);
             //var sprite = Resources.Load<GameObject>("Prefabs/Crosshair/HuntressSnipeCrosshair").transform.Find( "Center Circle" ).GetComponent<Image>().sprite;
-            var tex = TextureGenerator.GenerateCircleTexture( new Color32( 0, 0, 0, 0 ), new Color32( 0, 0, 0, 255 ), new Color32( 255, 255, 255, 255), new Vector2( 0f, -1f ), 1f, 0.95f, 0.75f, 0.7f, 512, 512 );
+            var tex = TextureGenerator.GenerateCircleTexture( new Color32( 0, 0, 0, 0 ), new Color32( 0, 0, 0, 255 ), new Color32( 255, 255, 255, 255), new Vector2( 0f, -1f ), 1f, 0.95f, 0.75f, 0.7f, 4096, 4096 );
             var sprite = Sprite.Create
             (
                 texture: tex,
-                rect: new Rect( 0f, 0f, 512f, 256f ),
+                rect: new Rect( 0f, 0f, tex.width, tex.height / 2f ),
                 pivot: new Vector2( 0.5f, 0.5f ),
                 pixelsPerUnit: 100f,
                 extrude: 0u,

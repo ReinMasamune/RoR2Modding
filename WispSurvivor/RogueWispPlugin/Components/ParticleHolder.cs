@@ -7,23 +7,19 @@ using UnityEngine.Networking;
 
 namespace Rein.RogueWispPlugin
 {
-    public class ParticleHolder : MonoBehaviour
+    public class CollisionFixer : MonoBehaviour
     {
-        [SerializeField]
-        public ParticleSystem[] systems = Array.Empty<ParticleSystem>();
-        [SerializeField]
-        public ParticleSystemRenderer[] renderers = Array.Empty<ParticleSystemRenderer>();
-
-        public void Add( ParticleSystem ps, ParticleSystemRenderer psr )
+        private void Awake()
         {
+            var cols = base.GetComponentsInChildren<Collider>();
 
-            var ind = this.systems.Length;
-
-            Array.Resize( ref this.systems, ind + 1 );
-            Array.Resize( ref this.renderers, ind + 1 );
-
-            this.systems[ind] = ps;
-            this.renderers[ind] = psr;
+            for( Int32 i = 0; i < cols.Length; ++i )
+            {
+                for( Int32 j = i+1; j < cols.Length; ++j )
+                {
+                    Physics.IgnoreCollision( cols[i], cols[j], true );
+                }
+            }
         }
     }
 

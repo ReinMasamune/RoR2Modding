@@ -24,8 +24,6 @@ namespace ReinCore
             loaded = true;
         }
 
-
-
         private static Int32 vanillaSurvivorsCount;
         private static Int32 vanillaSurvivorsCount2;
         private static StaticAccessor<SurvivorDef[]> survivorDefs = new StaticAccessor<SurvivorDef[]>( typeof(SurvivorCatalog), "survivorDefs" );

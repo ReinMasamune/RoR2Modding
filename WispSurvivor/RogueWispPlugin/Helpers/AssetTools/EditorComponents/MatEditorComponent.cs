@@ -50,6 +50,9 @@ namespace Rein.RogueWispPlugin.Helpers
         private IntersectionCloudMaterial indicatorMat;
         private Menu<IntersectionCloudMaterial> indicatorMatMenu;
 
+        private IntersectionCloudMaterial indicatorMat2;
+        private Menu<IntersectionCloudMaterial> indicatorMatMenu2;
+
         private CloudMaterial explosionMat;
         private Menu<CloudMaterial> explosionMatMenu;
 
@@ -77,6 +80,9 @@ namespace Rein.RogueWispPlugin.Helpers
         private CloudMaterial bossExplosionIndMat;
         private Menu<CloudMaterial> bossExplosionIndMatMenu;
 
+        private CloudMaterial burnMat;
+        private Menu<CloudMaterial> burnMatMenu;
+
 
         internal static GUIStyle windowStyle;
         private static Texture2D bgtex;
@@ -100,6 +106,7 @@ namespace Rein.RogueWispPlugin.Helpers
                 "Tracer",
                 "Pillar",
                 "Indicator",
+                "Indicator2",
                 "Explosion",
                 "Beam",
                 "DistortionLight",
@@ -109,6 +116,7 @@ namespace Rein.RogueWispPlugin.Helpers
                 "FlameTornado",
                 "BossIndicator",
                 "BossExplosionIndicator",
+                "Burn",
             };
             if( !bgtex )
             {
@@ -186,6 +194,12 @@ namespace Rein.RogueWispPlugin.Helpers
                 this.indicatorMatMenu = new Menu<IntersectionCloudMaterial>( this.indicatorMat );
             }
 
+            if( this.indicatorMat2 == null || this.indicatorMat2.material != this.skinController.activeAreaIndicatorMaterial2 )
+            {
+                this.indicatorMat2 = new IntersectionCloudMaterial( this.skinController.activeAreaIndicatorMaterial2 );
+                this.indicatorMatMenu2 = new Menu<IntersectionCloudMaterial>( this.indicatorMat2 );
+            }
+
             if( this.explosionMat == null || this.explosionMat.material != this.skinController.activeExplosionMaterial )
             {
                 this.explosionMat = new CloudMaterial( this.skinController.activeExplosionMaterial );
@@ -240,6 +254,11 @@ namespace Rein.RogueWispPlugin.Helpers
                 this.bossExplosionIndMatMenu = new Menu<CloudMaterial>( this.bossExplosionIndMat );
             }
 
+            if( this.burnMat == null || this.burnMat.material != this.skinController.activeBurnMaterial )
+            {
+                this.burnMat = new CloudMaterial( this.skinController.activeBurnMaterial );
+                this.burnMatMenu = new Menu<CloudMaterial>( this.burnMat );
+            }
             
         }
 
@@ -306,31 +325,37 @@ namespace Rein.RogueWispPlugin.Helpers
                     this.indicatorMatMenu?.Draw();
                     break;
                 case 7:
-                    this.explosionMatMenu?.Draw();
+                    this.indicatorMatMenu2?.Draw();
                     break;
                 case 8:
-                    this.beamMatMenu?.Draw();
+                    this.explosionMatMenu?.Draw();
                     break;
                 case 9:
-                    this.distortionLMatMenu?.Draw();
+                    this.beamMatMenu?.Draw();
                     break;
                 case 10:
-                    this.distortionMatMenu?.Draw();
+                    this.distortionLMatMenu?.Draw();
                     break;
                 case 11:
-                    this.distortionHMatMenu?.Draw();
+                    this.distortionMatMenu?.Draw();
                     break;
                 case 12:
-                    this.arcaneCircleMatMenu?.Draw();
+                    this.distortionHMatMenu?.Draw();
                     break;
                 case 13:
-                    this.flameTornadoMatMenu?.Draw();
+                    this.arcaneCircleMatMenu?.Draw();
                     break;
                 case 14:
-                    this.bossIndicatorMatMenu?.Draw();
+                    this.flameTornadoMatMenu?.Draw();
                     break;
                 case 15:
+                    this.bossIndicatorMatMenu?.Draw();
+                    break;
+                case 16:
                     this.bossExplosionIndMatMenu?.Draw();
+                    break;
+                case 17:
+                    this.burnMatMenu?.Draw();
                     break;
                 default:
                     break;

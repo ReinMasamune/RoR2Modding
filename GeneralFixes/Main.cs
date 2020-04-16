@@ -14,7 +14,7 @@ using System.Runtime.CompilerServices;
 namespace ReinGeneralFixes
 {
     [BepInDependency( Rein.AssemblyLoad.guid, BepInDependency.DependencyFlags.HardDependency )]
-    [BepInPlugin("com.Rein.GeneralBalance", "General Balance + Fixes", "2.1.0.32")]
+    [BepInPlugin("com.Rein.GeneralBalance", "General Balance + Fixes", "2.3.0.95")]
     internal partial class Main : BaseUnityPlugin
     {
         internal Single gestureBreakChance = 0.025f;
@@ -47,6 +47,7 @@ namespace ReinGeneralFixes
         partial void FixBandolier();
         partial void FixSelfDamage();
         partial void FixDoTs();
+        partial void FixHuntressFlurry();
 
 
         partial void QoLCommandoRoll();
@@ -77,7 +78,7 @@ namespace ReinGeneralFixes
             this.BalanceCommandoCDs();
             this.BalanceCorpsebloom();
             this.BalanceOSP();
-            this.BalanceGesture();
+            //this.BalanceGesture();
             //this.BalancePreGameShake();
             this.BalanceConvergence();
             this.BalanceDeathMark();
@@ -87,16 +88,20 @@ namespace ReinGeneralFixes
             this.FixBandolier();
             this.FixSelfDamage();
             this.FixDoTs();
+            //this.FixHuntressFlurry();
 
             this.QoLCommandoRoll();
             this.QoLVisionsCrosshair();
             this.QoLOvergrownPrinters();
-            this.QoLCloakedChestSacrifice();
+            //this.QoLCloakedChestSacrifice();
             this.QoLEngiTurretInheritance();
 
             //this.PerformanceKinCharController();
 
             //On.RoR2.Projectile.ProjectileController.Start += this.ProjectileController_Start;
+
+            RoR2.RoR2Application.isModded = true;
+            this.Tick += () => RoR2.RoR2Application.isModded = true;
 
 #if DPSMETER
             this.SetupDPSMeter();

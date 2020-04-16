@@ -13,6 +13,7 @@ namespace Rein.RogueWispPlugin.Helpers
         public Renderer[] tracerRenderers = Array.Empty<Renderer>();
         public Renderer[] flamePillarRenderers = Array.Empty<Renderer>();
         public Renderer[] areaIndicatorRenderers = Array.Empty<Renderer>();
+        public Renderer[] areaIndicatorRenderers2 = Array.Empty<Renderer>();
         public Renderer[] explosionRenderers = Array.Empty<Renderer>();
         public Renderer[] beamRenderers = Array.Empty<Renderer>();
         public Renderer[] distortionLightRenderers = Array.Empty<Renderer>();
@@ -22,6 +23,7 @@ namespace Rein.RogueWispPlugin.Helpers
         public Renderer[] flameTornadoRenderers = Array.Empty<Renderer>();
         public Renderer[] bossAreaIndicatorRenderers = Array.Empty<Renderer>();
         public Renderer[] bossAreaExplosionRenderers = Array.Empty<Renderer>();
+        public Renderer[] burnRenderers = Array.Empty<Renderer>();
         public Light[] lights = Array.Empty<Light>();
         public TrailRenderer[] trails = Array.Empty<TrailRenderer>();
 
@@ -30,6 +32,7 @@ namespace Rein.RogueWispPlugin.Helpers
         private Material activeTracerMaterial;
         private Material activeFlamePillarMaterial;
         private Material activeAreaIndicatorMaterial;
+        private Material activeAreaIndicatorMaterial2;
         private Material activeExplosionMaterial;
         private Material activeBeamMaterial;
         private Material activeDistortionLightMaterial;
@@ -39,6 +42,7 @@ namespace Rein.RogueWispPlugin.Helpers
         private Material activeFlameTornadoMaterial;
         private Material activeBossAreaIndicatorMaterial;
         private Material activeBossAreaExplosionMaterial;
+        private Material activeBurnMaterial;
         private Color activeColor;
         private Gradient activeColorGradient;
 
@@ -97,6 +101,11 @@ namespace Rein.RogueWispPlugin.Helpers
                     Array.Resize<Renderer>( ref this.areaIndicatorRenderers, ind + 1 );
                     this.areaIndicatorRenderers[ind] = renderer;
                     break;
+                case MaterialType.AreaIndicator2:
+                    ind = this.areaIndicatorRenderers2.Length;
+                    Array.Resize<Renderer>( ref this.areaIndicatorRenderers2, ind + 1 );
+                    this.areaIndicatorRenderers2[ind] = renderer;
+                    break;
                 case MaterialType.Explosion:
                     ind = this.explosionRenderers.Length;
                     Array.Resize<Renderer>( ref this.explosionRenderers, ind + 1 );
@@ -142,6 +151,11 @@ namespace Rein.RogueWispPlugin.Helpers
                     Array.Resize<Renderer>( ref this.bossAreaExplosionRenderers, ind + 1 );
                     this.bossAreaExplosionRenderers[ind] = renderer;
                     break;
+                case MaterialType.Burn:
+                    ind = this.burnRenderers.Length;
+                    Array.Resize<Renderer>( ref this.burnRenderers, ind + 1 );
+                    this.burnRenderers[ind] = renderer;
+                    break;
                     
             }
         }
@@ -181,6 +195,7 @@ namespace Rein.RogueWispPlugin.Helpers
             this.activeTracerMaterial = newSkin.tracerMaterial;
             this.activeFlamePillarMaterial = newSkin.flamePillarMaterial;
             this.activeAreaIndicatorMaterial = newSkin.areaIndicatorMaterial;
+            this.activeAreaIndicatorMaterial2 = newSkin.areaIndicatorMaterial2;
             this.activeExplosionMaterial = newSkin.explosionMaterial;
             this.activeBeamMaterial = newSkin.beamMaterial;
             this.activeDistortionLightMaterial = newSkin.distortionLightMaterial;
@@ -190,6 +205,7 @@ namespace Rein.RogueWispPlugin.Helpers
             this.activeFlameTornadoMaterial = newSkin.flameTornadoMaterial;
             this.activeBossAreaIndicatorMaterial = newSkin.bossAreaIndicatorMaterial;
             this.activeBossAreaExplosionMaterial = newSkin.bossExplosionAreaMaterial;
+            this.activeBurnMaterial = newSkin.burnParams.overlayMaterial;
             this.activeColor = newSkin.mainColor;
             this.activeColorGradient = newSkin.flameGradient;
             this.ApplyMaterials();
@@ -216,6 +232,10 @@ namespace Rein.RogueWispPlugin.Helpers
             foreach( var ren in this.areaIndicatorRenderers )
             {
                 ren.material = this.activeAreaIndicatorMaterial;
+            }
+            foreach( var ren in this.areaIndicatorRenderers2 )
+            {
+                ren.material = this.activeAreaIndicatorMaterial2;
             }
             foreach( var ren in this.explosionRenderers )
             {
@@ -252,6 +272,10 @@ namespace Rein.RogueWispPlugin.Helpers
             foreach( var ren in this.bossAreaExplosionRenderers )
             {
                 ren.material = this.activeBossAreaExplosionMaterial;
+            }
+            foreach( var ren in this.burnRenderers )
+            {
+                ren.material = this.activeBurnMaterial;
             }
 
 
