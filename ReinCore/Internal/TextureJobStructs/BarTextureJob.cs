@@ -11,26 +11,28 @@ namespace ReinCore
     internal struct BarTextureJob : IJobParallelFor
     {
         #region MAIN THREAD ONLY
-        internal BarTextureJob( Int32 width, Int32 height, Boolean roundedCorners, Int32 cornerRadius, Int32 borderWidth, Color borderColor, Color bgColor, (Single start, Single end, Color color)[] regions, Byte aaFactor = 0 )
+        internal BarTextureJob( Int32 width, Int32 height, Boolean roundedCorners, Int32 cornerRadius, Int32 borderWidth, Color borderColor, Color bgColor, ColorRegion[] regions, Byte aaFactor = 0 )
         {
             this.sampleFactor = (Int32)Mathf.Pow( 2f, aaFactor );
             this.texWidth = width * this.sampleFactor;
             this.texHeight = height * this.sampleFactor;
             this.roundedCorners = roundedCorners;
             this.borderWidth = borderWidth * this.sampleFactor;
-            this.borderColor = borderColor * this.sampleFactor;
+            this.borderColor = borderColor;
             this.bgColor = bgColor;
-            this.regions = new NativeArray<(Single start, Single end, Color color)>(regions, Allocator.TempJob );
+            this.regions = new NativeArray<ColorRegion>( regions, Allocator.TempJob );
             this.texArray = new NativeArray<Color>( this.texWidth * this.texHeight, Allocator.TempJob );
-            this.cornerRadSq = cornerRadius * cornerRadius * this.sampleFactor * this.sampleFactor;
+            this.cornerRadSq = cornerRadius *  this.sampleFactor;
             this.fillWidth = this.texWidth - this.borderWidth - this.borderWidth;
             this.cornerLeft = cornerRadius * this.sampleFactor;
             this.cornerRight = this.texWidth - cornerRadius * this.sampleFactor;
             this.cornerTop = cornerRadius * this.sampleFactor;
             this.cornerBot = this.texHeight - cornerRadius * this.sampleFactor;
-            this.borderSquare = this.borderWidth * -this.borderWidth;
+            //this.borderSquare = this.borderWidth * this.borderWidth;
+            this.outerColor = (this.borderWidth > 0 ? this.borderColor : this.bgColor);
+            this.outerColor.a = 0f;
         }
-        internal JobHandle Start(Int32 innerLoopCount = 1 )
+        internal JobHandle Start( Int32 innerLoopCount = 1 )
         {
             return this.Schedule( this.texWidth, innerLoopCount );
         }
@@ -39,7 +41,7 @@ namespace ReinCore
         {
             if( this.sampleFactor > 1 )
             {
-                var job = new AntiAliasJob( this.texWidth / this.sampleFactor, this.texHeight / this.sampleFactor, this.texArray );
+                var job = new AntiAliasJob( this.texWidth / this.sampleFactor, this.texHeight / this.sampleFactor, this.sampleFactor, this.texArray );
                 job.Start().Complete();
                 var tex = job.OutputTextureAndDispose();
                 this.regions.Dispose();
@@ -63,7 +65,7 @@ namespace ReinCore
         public void Execute( Int32 index )
         {
             var resColor = this.bgColor;
-            if( index < this.borderWidth || index > (this.texWidth - this.borderWidth ) )
+            if( index < this.borderWidth || index >= (this.texWidth - this.borderWidth) )
             {
                 resColor = this.borderColor;
             } else
@@ -80,13 +82,12 @@ namespace ReinCore
                     }
                 }
             }
-
-
             for( Int32 i = 0; i < this.texHeight; ++i )
             {
-                if( i < this.borderWidth || i > (this.texHeight - this.borderWidth) )
+                var resColor2 = resColor;
+                if( i < this.borderWidth || i >= (this.texHeight - this.borderWidth) )
                 {
-                    resColor = this.borderColor;
+                    resColor2 = this.borderColor;
                 }
 
                 if( this.roundedCorners )
@@ -101,56 +102,49 @@ namespace ReinCore
                     } else if( pos.x >= this.cornerRight )
                     {
                         corner.x = this.cornerRight;
-                    } else
-                    {
-                        shouldCompare = false;
-                    }
+                    } else shouldCompare = false;
 
-                    if( shouldCompare )
+                    if( pos.y <= this.cornerTop )
                     {
-                        if( pos.y <= this.cornerTop )
-                        {
-                            corner.y = this.cornerTop;
-                        } else if( pos.y >= this.cornerBot )
-                        {
-                            corner.y = this.cornerBot;
-                        } else
-                        {
-                            shouldCompare = false;
-                        }
+                        corner.y = this.cornerTop;
+                    } else if( pos.y >= this.cornerBot )
+                    {
+                        corner.y = this.cornerBot;
+                    } else shouldCompare = false;
 
-                        if( shouldCompare )
-                        {
-                            var dist = (pos-corner).sqrMagnitude - this.cornerRadSq;
-                            if( dist > 0f )
-                            {
-                                resColor = Color.clear;
-                            } else if( dist > this.borderSquare )
-                            {
-                                resColor = this.borderColor;
-                            }
-                        }
+                    var temp = pos - corner;
+
+                    var dist = Mathf.Sqrt(temp.x*temp.x + temp.y*temp.y);
+                    dist -= this.cornerRadSq;
+                    if( shouldCompare && dist >= 0f )
+                    {
+                        resColor2 = this.outerColor;
+                    } else if( shouldCompare && dist >= (-this.borderWidth) )
+                    {
+                        resColor2 = this.borderColor;
                     }
                 }
-                this.texArray[index + this.texWidth * i] = resColor;
+                this.texArray[index + (this.texWidth * i)] = resColor2;
             }
         }
         private NativeArray<Color> texArray;
-        private readonly NativeArray<(Single start, Single end, Color color)> regions;
+        private readonly NativeArray<ColorRegion> regions;
         private readonly Int32 texWidth;
         private readonly Int32 texHeight;
         private readonly Boolean roundedCorners;
         private readonly Int32 borderWidth;
         private readonly Color borderColor;
         private readonly Color bgColor;
+        private readonly Color outerColor;
         private readonly Int32 fillWidth;
         private readonly Single cornerRadSq;
         private readonly Int32 cornerTop;
         private readonly Int32 cornerBot;
         private readonly Int32 cornerLeft;
         private readonly Int32 cornerRight;
-        private readonly Int32 borderSquare;
+        //private readonly Int32 borderSquare;
         private readonly Int32 sampleFactor;
         #endregion
     }
+
 }

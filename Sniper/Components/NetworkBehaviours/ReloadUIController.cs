@@ -5,15 +5,16 @@ using BepInEx.Logging;
 using ReinCore;
 using RoR2;
 using Sniper.Data;
+using Sniper.Enums;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.UI;
 
 namespace Sniper.Components
 {
     internal class ReloadUIController : NetworkBehaviour
     {
         #region Static
-
         #region External
         internal static ReloadUIController FindController( CharacterBody body )
         {
@@ -23,10 +24,10 @@ namespace Sniper.Components
             }
             return null;
         }
-
-
         #endregion
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         #region Internal
+        private static Dictionary<CharacterBody, ReloadUIController> instances = new Dictionary<CharacterBody, ReloadUIController>();
         private static Dictionary<ReloadParams, Texture2D> cachedBarTextures = new Dictionary<ReloadParams, Texture2D>();
         private static Texture2D GetReloadTexture( ReloadParams reloadParams )
         {
@@ -43,9 +44,56 @@ namespace Sniper.Components
         }
 
 
-        private static Dictionary<CharacterBody, ReloadUIController> instances = new Dictionary<CharacterBody, ReloadUIController>();
+
         #endregion
         #endregion
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        #region Instance
+        #region External
+        internal void StartReload( ReloadParams reloadParams )
+        {
+            this.currentReloadParams = reloadParams;
+            this.isReloading = true;
+            this.reloadTimer = 0f;
+        }
+
+        internal ReloadTier StopReload( ReloadParams reloadParams )
+        {
+            return ReloadTier.None;
+        }
+
+
+
+
+        #endregion
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        #region Internal
+        private ReloadParams currentReloadParams;
+        private Boolean isReloading;
+        private Single reloadTimer;
+
+        private Texture2D barTexture
+        {
+            get => this._barTexture;
+            set
+            {
+                if( value != this._barTexture )
+                {
+                    this.OnBarTextureChanged( this._barTexture, value );
+                    this._barTexture = value;
+                }
+            }
+        }
+        private Texture2D _barTexture;
+        private void OnBarTextureChanged( Texture2D oldTex, Texture2D newTex )
+        {
+            // TODO: Assign to UI elements
+        }
+
+        private Image backgroundImage;
+        private Image handleImage;
+
 
 
         private void OnEnable()
@@ -56,5 +104,22 @@ namespace Sniper.Components
         {
 
         }
+
+        private void Awake()
+        {
+
+        }
+
+        private void Start()
+        {
+
+        }
+
+        private void Update()
+        {
+
+        }
+        #endregion
+        #endregion
     }
 }

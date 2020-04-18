@@ -25,7 +25,7 @@ namespace ReinSniperRework
 
             var baseSkin = modelSkins.skins[0];
 
-            var skinDef = SkinAPI.CreateNewSkinDef( new SkinAPI.SkinDefInfo() );
+            var skinDef = LoadoutAPI.CreateNewSkinDef( new LoadoutAPI.SkinDefInfo() );
 
             skinDef.baseSkins = Array.Empty<SkinDef>();
             skinDef.gameObjectActivations = Array.Empty<SkinDef.GameObjectActivation>();

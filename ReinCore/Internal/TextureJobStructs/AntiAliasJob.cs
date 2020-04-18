@@ -11,18 +11,18 @@ namespace ReinCore
     internal struct AntiAliasJob : IJobParallelFor
     {
         #region MAIN THREAD ONLY
-        internal AntiAliasJob( Int32 width, Int32 height, NativeArray<Color> samples  )
+        internal AntiAliasJob( Int32 width, Int32 height, Int32 sampleFactor, NativeArray<Color> samples )
         {
             this.samples = samples;
             this.texWidth = width;
             this.texHeight = height;
             this.texArray = new NativeArray<Color>( width * height, Allocator.TempJob );
-            this.blockSize = samples.Length / (width * height);
-            this.blockCount = (Int32)Mathf.Sqrt( this.blockSize );
+            this.blockSize = sampleFactor;
+            this.blockCount = this.blockSize * this.blockSize;
             this.sampleWidth = this.texWidth * this.blockSize;
             this.sampleHeight = this.texHeight * this.blockSize;
         }
-        internal JobHandle Start(Int32 innerLoopCount = 1 )
+        internal JobHandle Start( Int32 innerLoopCount = 1 )
         {
             return this.Schedule( this.texWidth * this.texHeight, innerLoopCount );
         }
@@ -35,7 +35,6 @@ namespace ReinCore
             tex.Apply();
 
             this.texArray.Dispose();
-            this.samples.Dispose();
             return tex;
         }
         #endregion
@@ -51,7 +50,7 @@ namespace ReinCore
             var blockXMax = blockXMin + this.blockSize;
             var blockYMax = blockYMin + this.blockSize;
 
-            Single r = 0f, g = 0f, b = 0f, a = 0f;
+            Color colAccum = new Color( 0f, 0f, 0f, 0f );
 
             for( var sampY = blockYMin; sampY < blockYMax; ++sampY )
             {
@@ -60,19 +59,14 @@ namespace ReinCore
                 {
                     var ind = yVal + sampX;
                     var col = this.samples[ind];
-                    r += col.r;
-                    g += col.g;
-                    b += col.b;
-                    a += col.a;
+                    colAccum += col;
                 }
             }
 
-            r /= this.blockSize;
-            g /= this.blockSize;
-            b /= this.blockSize;
-            a /= this.blockSize;
+            colAccum /= this.blockCount;
 
-            this.texArray[index] = new Color( r, g, b, a );
+
+            this.texArray[index] = colAccum;
         }
         private NativeArray<Color> texArray;
         private readonly NativeArray<Color> samples;

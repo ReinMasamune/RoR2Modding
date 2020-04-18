@@ -58,10 +58,6 @@ namespace ReinCore
             execLevel |= warningLogs ? ExecutionLevel.Warning : 0;
             execLevel |= errorLogs ? ExecutionLevel.Error : 0;
             execLevel |= fatalLogs ? ExecutionLevel.Fatal : 0;
-            if( doNetChecks )
-            {
-                NetworkCore.Check();
-            }
             Log.Message( String.Format( "{0} successfully loaded", nameof( ReinCore ) ) );
         }
 

@@ -12,6 +12,7 @@ using RoR2.Skills;
 using System.Reflection;
 using Sniper.Data;
 using Sniper.Enums;
+using Sniper.Components;
 
 namespace Sniper.Skills
 {
@@ -47,20 +48,6 @@ namespace Sniper.Skills
         [SerializeField]
         internal ReloadParams reloadParams;
         
-        internal void StartReload(SniperPrimaryInstanceData data)
-        {
-            data.isReloading = true;
-            data.reloadTimer = 0f;
-            data.delayTimer = 0f;
-
-        }
-
-        internal void StopReload(SniperPrimaryInstanceData data)
-        {
-            data.isReloading = false;
-            data.currentReloadTier = this.reloadParams.GetReloadTier( data.reloadTimer );
-        }
-
         public sealed override BaseSkillInstanceData OnAssigned( GenericSkill skillSlot )
         {
             EntityStateMachine reloadTargetStatemachine = null;
@@ -80,7 +67,7 @@ namespace Sniper.Skills
                 Log.Fatal( "No state machine found for reload" );
             }
 
-            return new SniperPrimaryInstanceData( reloadTargetStatemachine );
+            return new SniperPrimaryInstanceData( reloadTargetStatemachine, this.reloadParams );
         }
 
 
@@ -162,10 +149,10 @@ namespace Sniper.Skills
                 if( data.isReloading )
                 {
                     skillSlot.stock -= base.stockToConsume;
-                    this.StopReload(data);
+                    data.StopReload();
                 } else
                 {
-                    this.StartReload(data);
+                    data.StartReload();
                 }
                 var body = skillSlot.characterBody;
                 if( body )
@@ -182,12 +169,26 @@ namespace Sniper.Skills
 
         internal class SniperPrimaryInstanceData : BaseSkillInstanceData
         {
-            internal SniperPrimaryInstanceData(EntityStateMachine reloadTargetStatemachine)
+            internal SniperPrimaryInstanceData(EntityStateMachine reloadTargetStatemachine, ReloadParams reloadParams )
             {
                 this.reloadStatemachine = reloadTargetStatemachine;
+                this.reloadParams = reloadParams;
+            }
+
+            internal void StartReload()
+            {
+                this.isReloading = true;
+                this.reloadController.StartReload( this.reloadParams );
+            }
+            internal void StopReload()
+            {
+                this.isReloading = false;
+                this.currentReloadTier = this.reloadController.StopReload( this.reloadParams );
             }
 
             internal EntityStateMachine reloadStatemachine;
+            internal ReloadUIController reloadController;
+            internal ReloadParams reloadParams;
             internal ReloadTier currentReloadTier = ReloadTier.None;
             internal Boolean isReloading = true;
             internal Single reloadTimer = 0f;

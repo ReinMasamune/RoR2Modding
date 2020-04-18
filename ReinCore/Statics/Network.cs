@@ -1,143 +1,191 @@
 ﻿using System;
 using System.Collections.Generic;
-using BepInEx;
 using Mono.Cecil;
 using RoR2;
 using RoR2.Networking;
+using UnityEngine.Networking;
 
 namespace ReinCore
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    public static class NetworkCore
+    public static partial class NetworkCore
     {
-        internal static void Check()
+        public static Boolean loaded { get; internal set; } = false;
+        public static Int16 messageIndex { get => 27182; }
+        public static Int16 commandIndex { get => 8182; }
+        ////public static Int16 requestIndex { get => 8459; }
+        ////public static Int16 responseIndex { get => 04523; }
+        //public static Int32 channel { get => (Int32)QosType.Reliable; }
+
+        public static Boolean RegisterMessageType<TMessage>() where TMessage : INetMessage, new()
         {
-            var ror2asm = AssemblyDefinition.ReadAssembly(typeof(RoR2Application).Assembly.Location);
-            var handlerString = typeof(NetworkMessageHandlerAttribute).FullName;
-            var asmSet = new HashSet<AssemblyDefinition>();
-            asmSet.Add( ror2asm );
+            var inst = new TMessage();
+            var type = inst.GetType();
 
-            foreach( var pl in ReinCore.plugins )
+            var hash = GetNetworkCoreHash( type );
+            if( netMessages.ContainsKey( hash ) )
             {
-                if( pl == null ) continue;
-                var asm = AssemblyDefinition.ReadAssembly( pl.Location );
-                if( asm == null ) continue;
-                asmSet.Add( asm );
+                Log.Error( "Tried to register a message type with a duplicate hash" );
+                return false;
+            } else
+            {
+                netMessages[hash] = inst;
+                return true;
             }
+        }
 
-            var indexDict = new Dictionary<Int16,List<NetMemberInfo>>();
-            foreach( var asm in asmSet )
+        public static Boolean RegisterCommandType<TCommand>() where TCommand : INetCommand, new()
+        {
+            var inst = new TCommand();
+            var type = inst.GetType();
+            var hash = GetNetworkCoreHash( type );
+
+            if( netCommands.ContainsKey( hash ) )
             {
-                if( asm == null ) continue;
-                var mod = asm.MainModule;
-                if( mod == null ) continue;
-                foreach( var t in mod.Types )
-                {
-                    if( t == null ) continue;
-                    foreach( var m in t.Methods )
-                    {
-                        if( m == null || !m.HasCustomAttributes ) continue;
+                Log.Error( "Tried to register a command type with a duplicate hash" );
+                return false;
+            } else
+            {
+                netCommands[hash] = inst;
+                return true;
+            }
+        }
 
-                        foreach( var at in m.CustomAttributes )
-                        {
-                            if( at == null ) continue;
-                            var atType = at.AttributeType;
-                            if( atType.FullName != handlerString ) continue;
-                            var info = new NetMemberInfo( at, asm, t, m );
-                            List<NetMemberInfo> list = null;
-                            if( !indexDict.TryGetValue( info.msgIndex, out list ) )
-                            {
-                                list = indexDict[info.msgIndex] = new List<NetMemberInfo>();
-                            }
-                            list.Add( info );
-                        }
-                    }
+        static NetworkCore()
+        {
+            NetworkServer.RegisterHandler( messageIndex, HandleMessageServer );
+            NetworkServer.RegisterHandler( commandIndex, HandleCommandServer );
+            GameNetworkManager.onStartClientGlobal += RegisterClientMessages;
+
+            loaded = true;
+        }
+
+        internal static Int32 GetNetworkCoreHash( Type type )
+        {
+            return String.Format( "{0}{1}", type.Assembly.FullName, type.FullName ).GetHashCode();
+        }
+        private static NetworkWriter universalWriter { get; } = new NetworkWriter();
+        internal static Writer GetWriter( Int16 messageIndex, NetworkConnection connection, QosType qos )
+        {
+            return new Writer( universalWriter, messageIndex, connection, qos );
+        }
+        private static void RegisterClientMessages( NetworkClient client )
+        {
+            client.RegisterHandler( messageIndex, HandleMessageClient );
+            client.RegisterHandler( commandIndex, HandleCommandClient );
+        }
+        private static Dictionary<Int32,INetMessage> netMessages = new Dictionary<Int32, INetMessage>();
+        private static Dictionary<Int32,INetCommand> netCommands = new Dictionary<Int32, INetCommand>();
+
+        private static void HandleCommandServer( NetworkMessage mag )
+        {
+            var reader = mag.reader;
+            var header = reader.ReadNew<Header>();
+
+            if( header.destination.ShouldRun() )
+            {
+                header.RemoveDestination( NetworkDestination.Server );
+
+                if( netCommands.TryGetValue( header.typeCode, out var command ) )
+                {
+                    command.OnRecieved();
+                } else
+                {
+                    Log.Error( "Unhandled command recieved, you may be missing mods" );
                 }
             }
 
-            var serverProblemList = new List<NetMemberInfo>();
-            var clientProblemList = new List<NetMemberInfo>();
-
-            foreach( var kv in indexDict )
+            if( header.destination.ShouldSend() )
             {
-                var curIndex = kv.Key;
-                var list = kv.Value;
-
-                if( list.Count > 1 )
+                var recievedFrom = mag.conn.connectionId;
+                for( Int32 i = 0; i < NetworkServer.connections.Count; ++i )
                 {
-                    var serverCount = 0;
-                    var clientCount = 0;
-                    serverProblemList.Clear();
-                    clientProblemList.Clear();
-                    foreach( var info in list )
+                    if( i == recievedFrom ) continue;
+                    var conn = NetworkServer.connections[i];
+                    if( conn == null ) continue;
+                    using( var netWriter = GetWriter( commandIndex, conn, QosType.Reliable ) )
                     {
-                        if( info.server ) ++serverCount;
-                        if( info.client ) ++clientCount;
+                        NetworkWriter writer = netWriter;
+                        writer.Write( header );
                     }
+                }
+                
+            }
+        }
 
-                    if( serverCount > 1 || clientCount > 1 )
+        private static void HandleMessageServer( NetworkMessage msg )
+        {
+            var reader = msg.reader;
+            var header = reader.ReadNew<Header>();
+
+            if( header.destination.ShouldRun() )
+            {
+                header.RemoveDestination( NetworkDestination.Server );
+
+                if( netMessages.TryGetValue( header.typeCode, out var message ) )
+                {
+                    message.Deserialize( reader );
+                    message.OnRecieved();
+                } else
+                {
+                    Log.Error( "Unhandled message recieved, you may be missing mods" );
+                }
+            }
+
+            if( header.destination.ShouldSend() )
+            {
+                var recievedFrom = msg.conn.connectionId;
+                var bytes = reader.ReadBytes( (Int32)(reader.Length - reader.Position) );
+                for( Int32 i = 0; i < NetworkServer.connections.Count; ++i )
+                {
+                    if( i == recievedFrom ) continue;
+                    var conn = NetworkServer.connections[i];
+                    if( conn == null ) continue;
+
+                    using( var netWriter = GetWriter( messageIndex, conn, QosType.Reliable ) )
                     {
-                        Boolean oneIsBaseGame = false;
-                        Boolean selfConflictsFound = false;
-                        var tempset = new HashSet<AssemblyDefinition>();
-                        var selfconflictset = new HashSet<AssemblyDefinition>();
-                        foreach( var info in list )
-                        {
-                            if( info.assembly == ror2asm ) oneIsBaseGame = true;
-                            if( tempset.Contains( info.assembly ) )
-                            {
-                                selfconflictset.Add( info.assembly );
-                                tempset.Add( info.assembly );
-                                selfConflictsFound = true;
-                            }
-
-                            if( serverCount > 0 && info.server ) serverProblemList.Add( info );
-                            if( clientCount > 0 && info.client ) clientProblemList.Add( info );
-                        }
-
-                        if( !oneIsBaseGame )
-                        {
-                            Log.Fatal( "Duplicate handlers found for message index: " + curIndex + "\nThis can be caused by a few things:\n" +
-                                "1: Two or more installed mods are using the same message index.\n" +
-                                "Inform the authors so they can resolve.\n" +
-                                "2: Multiple instances of the same mod are running at once.\n" +
-                                "Double check your mods folder, if issue persists contact author\n" );
-                        } else
-                        {
-                            Log.Fatal( "Duplicate handlers found for vanilla message index: " + curIndex + "\n" +
-                                "This means that at least one mod has a networking conflict with the base game.\n" +
-                                "See list below to find which mod and inform the author." );
-                        }
-
-                        if( selfConflictsFound )
-                        {
-                            Log.Fatal( "In addition some instances of mods conflicting with themselves were found. See list below: " );
-                            foreach( var asm in selfconflictset )
-                            {
-                                Log.Fatal( asm.FullName );
-                            }
-                        }
-
-                        if( serverCount > 1 )
-                        {
-                            Log.Fatal( "List of duplicate server handlers: " );
-                            foreach( var info in serverProblemList )
-                            {
-                                Log.Fatal( "Method: " + info.method.Name + "\nAssembly: " + info.type.FullName );
-                            }
-                        }
-                        Log.Fatal( "" );
-                        if( clientCount > 1 )
-                        {
-                            Log.Fatal( "List of duplicate client handlers: " );
-                            foreach( var info in serverProblemList )
-                            {
-                                Log.Fatal( "Method: " + info.method.Name + "\nAssembly: " + info.type.FullName );
-                            }
-                        }
+                        NetworkWriter writer = netWriter;
+                        writer.Write( header );
+                        writer.WriteBytesFull( bytes );
                     }
+                }
+            }
+        }
+
+        private static void HandleCommandClient( NetworkMessage msg )
+        {
+            var reader = msg.reader;
+            var header = reader.ReadNew<Header>();
+
+            if( header.destination.ShouldRun() )
+            {
+                header.RemoveDestination( NetworkDestination.Clients );
+
+                if( netCommands.TryGetValue( header.typeCode, out var command ) )
+                {
+                    command.OnRecieved();
+                } else
+                {
+                    Log.Error( "Unhandled command recieved, you may be missing mods" );
+                }
+            }
+        }
+
+        private static void HandleMessageClient( NetworkMessage msg )
+        {
+            var reader = msg.reader;
+            var header = reader.ReadNew<Header>();
+
+            if( header.destination.ShouldRun() )
+            {
+                header.RemoveDestination( NetworkDestination.Clients );
+
+                if( netMessages.TryGetValue( header.typeCode, out var message ) )
+                {
+                    message.Deserialize( reader );
+                    message.OnRecieved();
+                } else
+                {
+                    Log.Error( "Unhandled message recieved, you may be missing mods" );
                 }
             }
         }

@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyVersion>1.0.0.265</AssemblyVersion>
-    <FileVersion>1.0.0.265</FileVersion>
+    <AssemblyVersion>1.0.0.272</AssemblyVersion>
+    <FileVersion>1.0.0.272</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

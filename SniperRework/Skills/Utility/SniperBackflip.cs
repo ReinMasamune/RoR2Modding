@@ -72,7 +72,7 @@ namespace ReinSniperRework
                         attacker = base.gameObject,
                         baseDamage = base.damageStat * damageCoef,
                         baseForce = baseForce,
-                        canHurtAttacker = false,
+                        attackerFiltering = AttackerFiltering.NeverHit,
                         bonusForce = Vector3.down * downForce,
                         crit = base.RollCrit(),
                         damageColorIndex = DamageColorIndex.Default,

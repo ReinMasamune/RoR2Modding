@@ -44,10 +44,10 @@ namespace ReinSniperRework
             var ind = skillLoc.special.skillFamily.variants.Length;
             Array.Resize<SkillFamily.Variant>( ref skillLoc.special.skillFamily.variants, ind + 1 );
             skillLoc.special.skillFamily.variants[ind] = variant;
-            SkillAPI.AddSkillDef( skillDef );
-            SkillAPI.AddSkill( typeof( SniperKnife ) );
-            SkillAPI.AddSkill( typeof( SniperKnifeBlink ) );
-            SkillAPI.AddSkill( typeof( SniperKnifeSlash ) );
+            LoadoutAPI.AddSkillDef( skillDef );
+            LoadoutAPI.AddSkill( typeof( SniperKnife ) );
+            LoadoutAPI.AddSkill( typeof( SniperKnifeBlink ) );
+            LoadoutAPI.AddSkill( typeof( SniperKnifeSlash ) );
 
             skillDef.activationState = new SerializableEntityStateType( typeof( SniperKnife ) );
             skillDef.activationStateMachineName = "Weapon";
@@ -101,8 +101,8 @@ namespace ReinSniperRework
             var ind = skillLoc.utility.skillFamily.variants.Length;
             Array.Resize<SkillFamily.Variant>( ref skillLoc.utility.skillFamily.variants, ind + 1 );
             skillLoc.utility.skillFamily.variants[ind] = variant;
-            SkillAPI.AddSkillDef( skillDef );
-            SkillAPI.AddSkill( typeof( SniperBackflip ) );
+            LoadoutAPI.AddSkillDef( skillDef );
+            LoadoutAPI.AddSkill( typeof( SniperBackflip ) );
 
             skillDef.activationState = new SerializableEntityStateType( typeof( SniperBackflip ) );
             skillDef.activationStateMachineName = "Body";
@@ -143,8 +143,8 @@ namespace ReinSniperRework
             var ind = skillLoc.secondary.skillFamily.variants.Length;
             Array.Resize<SkillFamily.Variant>( ref skillLoc.secondary.skillFamily.variants, ind + 1 );
             skillLoc.secondary.skillFamily.variants[ind] = variant;
-            SkillAPI.AddSkillDef( skillDef );
-            SkillAPI.AddSkill( typeof( SniperPrepSidearm ) );
+            LoadoutAPI.AddSkillDef( skillDef );
+            LoadoutAPI.AddSkill( typeof( SniperPrepSidearm ) );
 
             skillDef.activationState = new SerializableEntityStateType( typeof( SniperPrepSidearm ) );
             skillDef.activationStateMachineName = "Weapon";
@@ -185,8 +185,8 @@ namespace ReinSniperRework
             var ind = skillLoc.secondary.skillFamily.variants.Length;
             Array.Resize<SkillFamily.Variant>( ref skillLoc.secondary.skillFamily.variants, ind + 1 );
             skillLoc.secondary.skillFamily.variants[ind] = variant;
-            SkillAPI.AddSkillDef( skillDef );
-            SkillAPI.AddSkill( typeof( SniperCharging ) );
+            LoadoutAPI.AddSkillDef( skillDef );
+            LoadoutAPI.AddSkill( typeof( SniperCharging ) );
 
             skillDef.activationState = new SerializableEntityStateType( typeof( SniperCharging ) );
             skillDef.activationStateMachineName = "Scope";
@@ -227,10 +227,10 @@ namespace ReinSniperRework
             var ind = skillLoc.primary.skillFamily.variants.Length;
             Array.Resize<SkillFamily.Variant>( ref skillLoc.primary.skillFamily.variants, ind + 1 );
             skillLoc.primary.skillFamily.variants[ind] = variant;
-            SkillAPI.AddSkillDef( skillDef );
-            SkillAPI.AddSkill( typeof( SniperShoot ) );
-            SkillAPI.AddSkill( typeof( SniperReload ) );
-            SkillAPI.AddSkill( typeof( SniperLoaded ) );
+            LoadoutAPI.AddSkillDef( skillDef );
+            LoadoutAPI.AddSkill( typeof( SniperShoot ) );
+            LoadoutAPI.AddSkill( typeof( SniperReload ) );
+            LoadoutAPI.AddSkill( typeof( SniperLoaded ) );
 
             skillDef.activationState = new SerializableEntityStateType( typeof( SniperShoot ) );
             skillDef.activationStateMachineName = "Load";
@@ -265,10 +265,10 @@ namespace ReinSniperRework
             var utilityFamily = ScriptableObject.CreateInstance<SkillFamily>();
             var specialFamily = ScriptableObject.CreateInstance<SkillFamily>();
 
-            SkillAPI.AddSkillFamily( primaryFamily );
-            SkillAPI.AddSkillFamily( secondaryFamily );
-            SkillAPI.AddSkillFamily( utilityFamily );
-            SkillAPI.AddSkillFamily( specialFamily );
+            LoadoutAPI.AddSkillFamily( primaryFamily );
+            LoadoutAPI.AddSkillFamily( secondaryFamily );
+            LoadoutAPI.AddSkillFamily( utilityFamily );
+            LoadoutAPI.AddSkillFamily( specialFamily );
 
             var skillLoc = this.sniperBody.GetComponent<SkillLocator>();
             skillLoc.primary.SetFieldValue<SkillFamily>( "_skillFamily", primaryFamily );

@@ -15,6 +15,12 @@ namespace ReinSniperRework
         partial void Buffs()
         {
             this.Load += this.AddResetDebuff;
+            this.FirstFrame += this.Main_FirstFrame;
+        }
+
+        private void Main_FirstFrame()
+        {
+            this.resetDebuff = BuffCatalog.FindBuffIndex( "SniperResetDebuff" );
         }
 
         private void AddResetDebuff()
@@ -28,7 +34,7 @@ namespace ReinSniperRework
                 isDebuff = true,
                 name = "SniperResetDebuff"
             };
-            this.resetDebuff = (BuffIndex)ItemAPI.AddCustomBuff( new CustomBuff( resetdef.name, resetdef ) );
+            BuffCatalog.modHelper.getAdditionalEntries += ( list ) => list.Add( resetdef );
         }
     }
 }
