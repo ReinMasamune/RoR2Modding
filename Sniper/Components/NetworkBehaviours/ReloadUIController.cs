@@ -14,6 +14,10 @@ namespace Sniper.Components
 {
     internal class ReloadUIController : NetworkBehaviour
     {
+        internal static Color barBackgroundColor { get; } = new Color( 0.3f, 0.3f, 0.3f, 1f );
+        internal static Color barPerfectColor { get; } = new Color( 0.9f, 0.9f, 0.9f, 1f );
+        internal static Color barGoodColor { get; } = new Color( 0.5f, 0.5f, 0.5f, 1f );
+
         #region Static
         #region External
         internal static ReloadUIController FindController( CharacterBody body )
@@ -33,9 +37,9 @@ namespace Sniper.Components
         {
             if( !cachedBarTextures.ContainsKey( reloadParams ) )
             {
-                var tex = TexturesCore.GenerateBarTexture( 512, 64, true, 4, 2, Color.white, Color.black, 16,
-                    (reloadParams.perfectStart, reloadParams.perfectEnd, Color.white),
-                    (reloadParams.goodStart, reloadParams.goodEnd, Color.grey)
+                var tex = TexturesCore.GenerateBarTexture( 1280, 128, true, 18, 4, Color.black, barBackgroundColor, 2,
+                    (reloadParams.perfectStart, reloadParams.perfectEnd, barPerfectColor),
+                    (reloadParams.goodStart, reloadParams.goodEnd, barGoodColor)
                 );
 
                 cachedBarTextures[reloadParams] = tex;
@@ -53,9 +57,11 @@ namespace Sniper.Components
         #region External
         internal void StartReload( ReloadParams reloadParams )
         {
+            base.gameObject.SetActive( true );
             this.currentReloadParams = reloadParams;
             this.isReloading = true;
             this.reloadTimer = 0f;
+            this.barTexture = GetReloadTexture( this.currentReloadParams );
         }
 
         internal ReloadTier StopReload( ReloadParams reloadParams )
@@ -88,11 +94,11 @@ namespace Sniper.Components
         private Texture2D _barTexture;
         private void OnBarTextureChanged( Texture2D oldTex, Texture2D newTex )
         {
-            // TODO: Assign to UI elements
+            this.backgroundImage.sprite = Sprite.Create( newTex, new Rect( 0f, 0f, newTex.width, newTex.height ), new Vector2( 0.5f, 0.5f ) );
         }
 
         private Image backgroundImage;
-        private Image handleImage;
+        private Slider reloadSlider;
 
 
 
@@ -107,7 +113,8 @@ namespace Sniper.Components
 
         private void Awake()
         {
-
+            this.reloadSlider = base.GetComponent<Slider>();
+            this.backgroundImage = base.transform.Find( "Background" ).GetComponent<Image>();
         }
 
         private void Start()

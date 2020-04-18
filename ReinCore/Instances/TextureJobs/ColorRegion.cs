@@ -14,5 +14,15 @@ namespace ReinCore
         public Single end;
         [SerializeField]
         public Color color;
+
+        public static implicit operator ColorRegion( (Single start, Single end, Color color) tuple )
+        {
+            return new ColorRegion
+            {
+                start = tuple.start,
+                end = tuple.end,
+                color = tuple.color,
+            };
+        }
     }
 }

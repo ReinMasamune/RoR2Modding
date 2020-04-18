@@ -17,6 +17,8 @@ namespace Sniper.Modules
 {
     internal static class UIModule
     {
+        internal static Color reloadHandleColor { get; } = new Color( 1f, 1f, 1f, 1f );
+
         internal static GameObject GetDefaultDrosshair()
         {
             // TODO: Create default crosshair
@@ -52,7 +54,7 @@ namespace Sniper.Modules
         {
             var obj = PrefabsCore.CreatePrefab("ReloadBar", false, true);
             var objTrans = obj.transform as RectTransform;
-            objTrans.sizeDelta = new Vector2( 512f, 80f );
+            objTrans.sizeDelta = new Vector2( 640f, 80f );
             objTrans.anchorMin = new Vector2( 0.5f, 0.5f );
             objTrans.anchorMax = new Vector2( 0.5f, 0.5f );
             objTrans.pivot = new Vector2( 0.5f, 0.5f );
@@ -91,13 +93,13 @@ namespace Sniper.Modules
             var handleTrans = handle.transform as RectTransform;
             handleTrans.parent = slideAreaTrans;
             handleTrans.localPosition = Vector3.zero;
-            handleTrans.sizeDelta = new Vector2( 20f, 0f );
+            handleTrans.sizeDelta = new Vector2( 16f, 0f );
             handleTrans.pivot = new Vector2( 0.5f, 0.5f );
             var handleRend = handle.AddComponent<CanvasRenderer>();
             handleRend.cullTransparentMesh = false;
             var handleImg = handle.AddComponent<Image>();
-           
-            handleImg.sprite = null; // TODO: Assign
+            var tex = TexturesCore.GenerateBarTexture(128, 640, true, 64, 16, Color.black, reloadHandleColor, 4 );
+            handleImg.sprite = Sprite.Create( tex, new Rect( 0f, 0f, tex.width, tex.height ), new Vector2( 0.5f, 0.5f ) );
             handleImg.color = Color.white;
             handleImg.material = null;
             handleImg.raycastTarget = false;
