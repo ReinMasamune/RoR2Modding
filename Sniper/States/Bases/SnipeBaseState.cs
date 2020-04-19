@@ -18,9 +18,12 @@ namespace Sniper.Skills
 {
     internal abstract class SnipeBaseState : SniperSkillBaseState
     {
+        protected abstract Single baseDuration { get; }
+
         internal ReloadTier reloadTier { private get; set; }
 
         private Boolean bulletFired = false;
+        private Single duration;
 
         protected abstract ExpandableBulletAttack InitBullet( Ray aimRay, ReloadTier reloadTier );
 
@@ -36,6 +39,21 @@ namespace Sniper.Skills
 
             bullet.Fire();
             this.bulletFired = true;
+        }
+
+        public override void OnEnter()
+        {
+            base.OnEnter();
+            this.duration = this.baseDuration / base.characterBody.attackSpeed;
+        }
+
+        public override void FixedUpdate()
+        {
+            base.FixedUpdate();
+            if( base.isAuthority && base.fixedAge >= this.duration )
+            {
+                base.outer.SetNextStateToMain();
+            }
         }
     }
 }

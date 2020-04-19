@@ -15,8 +15,9 @@ using Sniper.Enums;
 
 namespace Sniper.Skills
 {
-    internal class DefaultSnipe : SnipeBaseState
+    internal class SlideSnipe : SnipeBaseState
     {
+        protected sealed override Single baseDuration { get; } = 0.2f;
         // TODO: Implement State
         protected override ExpandableBulletAttack InitBullet( Ray aimRay, ReloadTier reloadTier )
         {

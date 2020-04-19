@@ -33,6 +33,8 @@ namespace Sniper.Data
         [SerializeField]
         internal Single reloadDelay;
         [SerializeField]
+        internal Single reloadEndDelay;
+        [SerializeField]
         internal Single attackSpeedDecayCoef;
         [SerializeField]
         internal Single attackSpeedCap;

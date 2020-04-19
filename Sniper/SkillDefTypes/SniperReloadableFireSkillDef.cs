@@ -25,6 +25,7 @@ namespace Sniper.Skills
             var def = ScriptableObject.CreateInstance<SniperReloadableFireSkillDef>();
             def.activationState = SkillsCore.StateType<TFire>();
             def.activationStateMachineName = fireStateMachineName;
+            def.baseRechargeInterval = 1f;
             def.beginSkillCooldownOnSkillEnd = true;
             def.canceledFromSprinting = false;
             def.isCombatSkill = true;
@@ -36,7 +37,8 @@ namespace Sniper.Skills
             return def;
         }
 
-
+        [SerializeField]
+        internal Int32 stockToReload;
         [SerializeField]
         internal SerializableEntityStateType reloadActivationState;
         [SerializeField]
@@ -70,22 +72,6 @@ namespace Sniper.Skills
             return new SniperPrimaryInstanceData( reloadTargetStatemachine, this.reloadParams );
         }
 
-
-        public sealed override void OnFixedUpdate( GenericSkill skillSlot )
-        {
-            base.OnFixedUpdate(skillSlot);
-            var data = skillSlot.skillInstanceData as SniperPrimaryInstanceData;
-
-
-            if( data.isReloading && data.delayTimer >= this.reloadParams.reloadDelay )
-            {
-                data.reloadTimer = this.reloadParams.Update( Time.fixedDeltaTime, skillSlot.characterBody.attackSpeed, data.reloadTimer );
-            } else
-            {
-                data.delayTimer += Time.fixedDeltaTime;
-            }
-        }
-
         public sealed override Sprite GetCurrentIcon( GenericSkill skillSlot )
         {
             var data = skillSlot.skillInstanceData as SniperPrimaryInstanceData;
@@ -111,7 +97,7 @@ namespace Sniper.Skills
             var data = skillSlot.skillInstanceData as SniperPrimaryInstanceData;
             if( data.isReloading )
             {
-                return data.reloadTimer >= this.reloadParams.reloadDelay;
+                return data.CanReload();
             }
 
             return true;
@@ -148,11 +134,15 @@ namespace Sniper.Skills
             {
                 if( data.isReloading )
                 {
-                    skillSlot.stock -= base.stockToConsume;
                     data.StopReload();
+                    skillSlot.stock += this.stockToReload;
                 } else
                 {
-                    data.StartReload();
+                    skillSlot.stock -= base.stockToConsume;
+                    if( skillSlot.stock <= 0 )
+                    {
+                        data.StartReload();
+                    }
                 }
                 var body = skillSlot.characterBody;
                 if( body )
@@ -166,6 +156,11 @@ namespace Sniper.Skills
             }
         }
 
+        public sealed override void OnFixedUpdate( GenericSkill skillSlot )
+        {
+
+        }
+
 
         internal class SniperPrimaryInstanceData : BaseSkillInstanceData
         {
@@ -173,26 +168,41 @@ namespace Sniper.Skills
             {
                 this.reloadStatemachine = reloadTargetStatemachine;
                 this.reloadParams = reloadParams;
+                ReloadUIController.GetReloadTexture( this.reloadParams );
+                //this.reloadController = ReloadUIController.FindController( this.reloadStatemachine.commonComponents.characterBody );
             }
 
             internal void StartReload()
             {
+                if( this.reloadController == null )
+                {
+                    Log.Warning( "No ReloadController" );
+                    this.reloadController = ReloadUIController.FindController( this.reloadStatemachine.commonComponents.characterBody );
+                    if( this.reloadController == null )
+                    {
+                        Log.Error( "Unable to find reload controller" );
+                    }
+                }
                 this.isReloading = true;
                 this.reloadController.StartReload( this.reloadParams );
+
             }
             internal void StopReload()
             {
-                this.isReloading = false;
-                this.currentReloadTier = this.reloadController.StopReload( this.reloadParams );
+                this.currentReloadTier = this.reloadController.StopReload( this );
+            }
+
+            internal Boolean CanReload()
+            {
+                if( !this.reloadController ) return false;
+                return this.reloadController.CanReload();
             }
 
             internal EntityStateMachine reloadStatemachine;
             internal ReloadUIController reloadController;
             internal ReloadParams reloadParams;
             internal ReloadTier currentReloadTier = ReloadTier.None;
-            internal Boolean isReloading = true;
-            internal Single reloadTimer = 0f;
-            internal Single delayTimer = 0f;
+            internal Boolean isReloading = false;
         }
     }
 }

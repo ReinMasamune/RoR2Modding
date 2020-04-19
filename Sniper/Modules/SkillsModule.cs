@@ -67,36 +67,62 @@ namespace Sniper.Modules
 
             var snipe = SniperReloadableFireSkillDef.Create<DefaultSnipe,DefaultReload>("Weapon", "Weapon");
             snipe.baseMaxStock = 1;
-            snipe.baseRechargeInterval = 0f;
             snipe.icon = null; // TODO: Assign
             snipe.interruptPriority = InterruptPriority.Skill;
             snipe.isBullets = false;
-            snipe.rechargeStock = 1;
+            snipe.rechargeStock = 0;
             snipe.reloadIcon = null; // TODO: Assign
             snipe.reloadInterruptPriority = InterruptPriority.Skill;
-            snipe.reloadParams = default; // TODO: Assign
-            snipe.requiredStock = 0;
+            snipe.reloadParams = new ReloadParams
+            {
+                attackSpeedCap = 3f,
+                attackSpeedDecayCoef = 10f,
+                badMult = 0.8f,
+                baseDuration = 1.5f,
+                goodMult = 1.2f,
+                perfectMult = 2f,
+                reloadDelay = 0.3f,
+                reloadEndDelay = 0.1f,
+                perfectStart = 0.3f,
+                perfectEnd = 0.4f,
+                goodStart = 0.4f,
+                goodEnd = 0.6f,
+            };
+            snipe.requiredStock = 1;
             snipe.shootDelay = 0.0f;
             snipe.skillDescriptionToken = Tokens.SNIPER_PRIMARY_SNIPE_DESC;
             snipe.skillNameToken = Tokens.SNIPER_PRIMARY_SNIPE_NAME;
-            snipe.stockToConsume = 0;
+            snipe.stockToConsume = 1;
             skills.Add( snipe );
 
             var slide = SniperReloadableFireSkillDef.Create<SlideSnipe,SlideReload>("Weapon", "Body");
             slide.baseMaxStock = 1;
-            slide.baseRechargeInterval = 0f;
             slide.icon = null; // TODO: Assign
             slide.interruptPriority = InterruptPriority.Skill;
             slide.isBullets = false;
-            slide.rechargeStock = 1;
+            slide.rechargeStock = 0;
             slide.reloadIcon = null; // TODO: Assign
             slide.reloadInterruptPriority = InterruptPriority.Skill;
-            slide.reloadParams = default; // TODO: Assign
-            slide.requiredStock = 0;
+            slide.reloadParams = new ReloadParams
+            {
+                attackSpeedCap = 3f,
+                attackSpeedDecayCoef = 10f,
+                badMult = 0.8f,
+                baseDuration = 1.5f,
+                goodMult = 1.2f,
+                perfectMult = 2f,
+                reloadDelay = 0.3f,
+                reloadEndDelay = 0.1f,
+                perfectStart = 0.3f,
+                perfectEnd = 0.4f,
+                goodStart = 0.4f,
+                goodEnd = 0.6f,
+            };
+            slide.requiredStock = 1;
             slide.shootDelay = 0.0f;
             slide.skillDescriptionToken = Tokens.SNIPER_PRIMARY_DASH_DESC;
             slide.skillNameToken = Tokens.SNIPER_PRIMARY_DASH_NAME;
-            slide.stockToConsume = 0;
+            slide.stockToConsume = 1;
             skills.Add( slide );
 
             SkillFamiliesModule.primarySkills = skills;

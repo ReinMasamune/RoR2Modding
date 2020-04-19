@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using BepInEx.Logging;
 using ReinCore;
 using RoR2;
+using RoR2.UI;
 using Sniper.Data;
 using Sniper.Enums;
 using UnityEngine;
@@ -22,18 +24,23 @@ namespace Sniper.Components
         #region External
         internal static ReloadUIController FindController( CharacterBody body )
         {
+            if( body == null )
+            {
+                return null;
+            }
             if( instances.TryGetValue( body, out var controller ) )
             {
                 return controller;
             }
-            return null;
+            var res = body.master.playerCharacterMasterController.networkUser.cameraRigController.hud.GetComponentInChildren<ReloadUIController>();
+            if( res != null )
+            {
+                instances[body] = res;
+                res.Init( body );
+            }
+            return res;
         }
-        #endregion
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        #region Internal
-        private static Dictionary<CharacterBody, ReloadUIController> instances = new Dictionary<CharacterBody, ReloadUIController>();
-        private static Dictionary<ReloadParams, Texture2D> cachedBarTextures = new Dictionary<ReloadParams, Texture2D>();
-        private static Texture2D GetReloadTexture( ReloadParams reloadParams )
+        internal static Texture2D GetReloadTexture( ReloadParams reloadParams )
         {
             if( !cachedBarTextures.ContainsKey( reloadParams ) )
             {
@@ -46,6 +53,12 @@ namespace Sniper.Components
             }
             return cachedBarTextures[reloadParams];
         }
+        #endregion
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        #region Internal
+        private static Dictionary<CharacterBody, ReloadUIController> instances = new Dictionary<CharacterBody, ReloadUIController>();
+        private static Dictionary<ReloadParams, Texture2D> cachedBarTextures = new Dictionary<ReloadParams, Texture2D>();
+
 
 
 
@@ -55,18 +68,32 @@ namespace Sniper.Components
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         #region Instance
         #region External
-        internal void StartReload( ReloadParams reloadParams )
+        internal void Init( CharacterBody body )
         {
-            base.gameObject.SetActive( true );
-            this.currentReloadParams = reloadParams;
-            this.isReloading = true;
-            this.reloadTimer = 0f;
-            this.barTexture = GetReloadTexture( this.currentReloadParams );
+            this.body = body;
+            instances[this.body] = this;
+            this.showBar = false;
         }
 
-        internal ReloadTier StopReload( ReloadParams reloadParams )
+        internal void StartReload( ReloadParams reloadParams )
         {
-            return ReloadTier.None;
+            this.currentReloadParams = reloadParams;
+            this.reloadTimer = 0f;
+            this.reloadSlider.value = 0f;
+            this.barTexture = GetReloadTexture( this.currentReloadParams );
+            base.StartCoroutine( this.ReloadStartDelay( this.currentReloadParams.reloadDelay / this.body.attackSpeed ) );
+        }
+
+        internal ReloadTier StopReload( Skills.SniperReloadableFireSkillDef.SniperPrimaryInstanceData data )
+        {
+            this.isReloading = false;
+            base.StartCoroutine( this.ReloadStopDelay( this.currentReloadParams.reloadEndDelay / this.body.attackSpeed, data ) );
+            return this.currentReloadParams.GetReloadTier(this.reloadTimer);
+        }
+
+        internal Boolean CanReload()
+        {
+            return this.isReloading;
         }
 
 
@@ -78,6 +105,17 @@ namespace Sniper.Components
         private ReloadParams currentReloadParams;
         private Boolean isReloading;
         private Single reloadTimer;
+        private GameObject barHolder;
+        private Image backgroundImage;
+        private Slider reloadSlider;
+        private CharacterBody body;
+        private Boolean showBar
+        {
+            set
+            {
+                this.barHolder?.SetActive( value );
+            }
+        }
 
         private Texture2D barTexture
         {
@@ -97,11 +135,6 @@ namespace Sniper.Components
             this.backgroundImage.sprite = Sprite.Create( newTex, new Rect( 0f, 0f, newTex.width, newTex.height ), new Vector2( 0.5f, 0.5f ) );
         }
 
-        private Image backgroundImage;
-        private Slider reloadSlider;
-
-
-
         private void OnEnable()
         {
 
@@ -113,18 +146,40 @@ namespace Sniper.Components
 
         private void Awake()
         {
-            this.reloadSlider = base.GetComponent<Slider>();
-            this.backgroundImage = base.transform.Find( "Background" ).GetComponent<Image>();
-        }
+            this.barHolder = base.transform.Find( "BarHolder" ).gameObject;
+            this.reloadSlider = this.barHolder.GetComponent<Slider>();
+            this.backgroundImage = this.barHolder.transform.Find( "Background" ).GetComponent<Image>();
 
-        private void Start()
-        {
-
+            this.showBar = false;
         }
 
         private void Update()
         {
+            if( this.isReloading )
+            {
+                this.reloadTimer = this.currentReloadParams.Update( Time.deltaTime, this.body.attackSpeed, this.reloadTimer );
+                this.reloadSlider.value = Mathf.Clamp01( this.reloadTimer / this.currentReloadParams.baseDuration );
+            }
+        }
 
+        private void Start()
+        {
+            //base.gameObject.SetActive( false );
+        }
+        #endregion
+
+        #region Coroutines
+        private IEnumerator ReloadStartDelay(Single delayTime)
+        {
+            yield return new WaitForSeconds( delayTime );
+            this.showBar = true;
+            this.isReloading = true;
+        }
+        private IEnumerator ReloadStopDelay( Single delayTime, Skills.SniperReloadableFireSkillDef.SniperPrimaryInstanceData data )
+        {
+            yield return new WaitForSeconds( delayTime );
+            this.showBar = false;
+            data.isReloading = false;
         }
         #endregion
         #endregion

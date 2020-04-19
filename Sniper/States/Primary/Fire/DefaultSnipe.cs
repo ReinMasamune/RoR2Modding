@@ -15,13 +15,22 @@ using Sniper.Enums;
 
 namespace Sniper.Skills
 {
-    internal class SlideSnipe : SnipeBaseState
+    internal class DefaultSnipe : SnipeBaseState
     {
+        protected sealed override Single baseDuration { get; } = 0.2f;
+
+
         // TODO: Implement State
         protected override ExpandableBulletAttack InitBullet( Ray aimRay, ReloadTier reloadTier )
         {
             // TODO: Implement method
             return null;
+        }
+
+        public override void OnEnter()
+        {
+            base.OnEnter();
+            Log.Message( "Default Snipe OnEnter" );
         }
     }
 }

@@ -6,6 +6,7 @@ using Mono.Cecil.Cil;
 using MonoMod.Cil;
 using ReinCore;
 using RoR2;
+using Sniper.Components;
 using UnityEngine;
 
 namespace Sniper.Modules
@@ -20,8 +21,28 @@ namespace Sniper.Modules
         {
             HooksCore.RoR2.UI.LoadoutPanelController.Row.FromSkillSlot.Il += FromSkillSlot_Il;
             HooksCore.RoR2.SkillLocator.FindSkillSlot.Il += FindSkillSlot_Il;
+
+            HooksCore.RoR2.CameraRigController.Start.On += Start_On;
         }
 
+        // TODO: Refactor into Core for Hud edits
+        private static void Start_On( HooksCore.RoR2.CameraRigController.Start.Orig orig, CameraRigController self )
+        {
+            orig( self );
+
+            if( self.hud == null )
+            {
+                return;
+            }
+
+            var reloadBar = UIModule.GetRelodBar();
+
+            var par = self.hud.transform.Find( "MainContainer/MainUIArea/BottomCenterCluster" );
+            var barTrans = reloadBar.transform as RectTransform;
+            barTrans.SetParent(par, false);
+            barTrans.localPosition = new Vector3( 0f, 256f, 0f );
+            barTrans.localScale = new Vector3( 0.5f, 0.5f, 1f );
+        }
 
         internal static void AddReturnoverride( GenericSkill skill )
         {

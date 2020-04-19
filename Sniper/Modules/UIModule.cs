@@ -50,9 +50,10 @@ namespace Sniper.Modules
             return null;
         }
 
-        internal static GameObject GetRelodBar()
+        private static GameObject reloadBarPrefab;
+        internal static void CreateReloadBarPrefab()
         {
-            var obj = PrefabsCore.CreatePrefab("ReloadBar", false, true);
+            var obj = PrefabsCore.CreateUIPrefab("ReloadBar", false );
             var objTrans = obj.transform as RectTransform;
             objTrans.sizeDelta = new Vector2( 640f, 80f );
             objTrans.anchorMin = new Vector2( 0.5f, 0.5f );
@@ -60,9 +61,18 @@ namespace Sniper.Modules
             objTrans.pivot = new Vector2( 0.5f, 0.5f );
             objTrans.localPosition = Vector3.zero;
 
-            var background = PrefabsCore.CreatePrefab( "Background", false, true );
+            var holder = PrefabsCore.CreateUIPrefab( "BarHolder", false );
+            var holderTrans = holder.transform as RectTransform;
+            holderTrans.SetParent( objTrans, false );
+            holderTrans.sizeDelta = Vector2.zero;
+            holderTrans.anchorMax = Vector2.one;
+            holderTrans.anchorMin = Vector2.zero;
+            holderTrans.pivot= new Vector2( 0.5f, 0.5f );
+            holderTrans.localPosition = Vector3.zero;
+
+            var background = PrefabsCore.CreateUIPrefab( "Background", false );
             var bgTrans = background.transform as RectTransform;
-            bgTrans.parent = objTrans;
+            bgTrans.SetParent( holderTrans, false );
             bgTrans.localPosition = Vector3.zero;
             bgTrans.sizeDelta = Vector2.zero;
             bgTrans.anchorMin = new Vector2( 0f, 0.1f );
@@ -80,18 +90,18 @@ namespace Sniper.Modules
             bgImg.preserveAspect = false;
 
 
-            var slideArea = PrefabsCore.CreatePrefab( "Handle Slide Area", false, true );
+            var slideArea = PrefabsCore.CreateUIPrefab( "Handle Slide Area", false );
             var slideAreaTrans = slideArea.transform as RectTransform;
-            slideAreaTrans.parent = objTrans;
+            slideAreaTrans.SetParent( holderTrans, false );
             slideAreaTrans.localPosition = Vector3.zero;
             slideAreaTrans.sizeDelta = Vector2.zero;
             slideAreaTrans.anchorMin = new Vector2( 0f, 0f );
             slideAreaTrans.anchorMax = new Vector2( 1f, 1f );
             slideAreaTrans.pivot = new Vector2( 0.5f, 0.5f );
 
-            var handle = PrefabsCore.CreatePrefab( "Handle", false, true );
+            var handle = PrefabsCore.CreateUIPrefab( "Handle", false );
             var handleTrans = handle.transform as RectTransform;
-            handleTrans.parent = slideAreaTrans;
+            handleTrans.SetParent( slideAreaTrans, false );
             handleTrans.localPosition = Vector3.zero;
             handleTrans.sizeDelta = new Vector2( 16f, 0f );
             handleTrans.pivot = new Vector2( 0.5f, 0.5f );
@@ -107,7 +117,7 @@ namespace Sniper.Modules
             handleImg.useSpriteMesh = false;
             handleImg.preserveAspect = false;
 
-            var slider = obj.AddComponent<Slider>();
+            var slider = holder.AddComponent<Slider>();
             slider.interactable = false;
             slider.transition = Selectable.Transition.None;
             slider.navigation = new Navigation { mode = Navigation.Mode.None };
@@ -121,8 +131,23 @@ namespace Sniper.Modules
 
             obj.AddComponent<ReloadUIController>();
 
+            reloadBarPrefab = obj;
+        }
 
-            return obj;
+        internal static GameObject GetRelodBar()
+        {
+            if( !reloadBarPrefab )
+            {
+                CreateReloadBarPrefab();
+            }
+            var bar = UnityEngine.Object.Instantiate<GameObject>( reloadBarPrefab );
+            return bar;
+        }
+
+        //public static GameObject hudPrefab;
+        internal static void EditHudPrefab()
+        {
+            //hudPrefab = Resources.Load<GameObject>( "Prefabs/HUDSimple" );
         }
     }
 }

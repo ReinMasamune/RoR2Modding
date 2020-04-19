@@ -27,11 +27,9 @@ namespace Sniper.Modules
                 unlockableName = "",
             };
 
-            Log.Message( "Queued add of Sniper to survivor catalog" );
             SurvivorCatalog.getAdditionalSurvivorDefs += ( list ) =>
             {
                 list.Add( survivorDef );
-                Log.Message( "Sniper added to SurvivorCatalog" );
             };
         }
 

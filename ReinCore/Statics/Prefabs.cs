@@ -56,19 +56,35 @@ namespace ReinCore
         /// <param name="member"></param>
         /// <param name="line"></param>
         /// <returns></returns>
-        public static GameObject CreatePrefab( String name, Boolean registerNetwork, Boolean isUI = false, [CallerFilePath] string file = "", [CallerMemberName] string member = "", [CallerLineNumber] int line = 0 )
+        public static GameObject CreatePrefab( String name, Boolean registerNetwork, [CallerFilePath] string file = "", [CallerMemberName] string member = "", [CallerLineNumber] int line = 0 )
         {
             if( parent == null || loaded == false ) throw new CoreNotLoadedException( nameof( PrefabsCore ) );
+            var obj = new GameObject( name );
+            obj.transform.SetParent( parentTransform, true );
 
-            GameObject obj;
-            if( isUI )
+            if( registerNetwork )
             {
-                obj = new GameObject( name, typeof( RectTransform ) );
-            } else
-            {
-                obj = new GameObject( name );
+                obj.AddComponent<NetworkIdentity>();
+                hashedObjects.Add( new HashedObject( obj, file, member, line ) );
             }
-            obj.transform.parent = parentTransform;
+
+            return obj;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="registerNetwork"></param>
+        /// <param name="file"></param>
+        /// <param name="member"></param>
+        /// <param name="line"></param>
+        /// <returns></returns>
+        public static GameObject CreateUIPrefab( String name, Boolean registerNetwork, [CallerFilePath] string file = "", [CallerMemberName] string member = "", [CallerLineNumber] int line = 0 )
+        {
+            if( parent == null || loaded == false ) throw new CoreNotLoadedException( nameof( PrefabsCore ) );
+            var obj = new GameObject( name, typeof( RectTransform ) );
+            obj.transform.SetParent( parentTransform, false );
 
             if( registerNetwork )
             {

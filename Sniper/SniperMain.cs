@@ -6,6 +6,7 @@ using ReinCore;
 using UnityEngine;
 using Sniper.Modules;
 using BepInEx;
+using RoR2;
 
 namespace Sniper
 {
@@ -29,6 +30,9 @@ namespace Sniper
                 SetModdedModule.SetModded();
 
                 Properties.Tools.RegisterLanguageTokens();
+
+                UIModule.EditHudPrefab();
+
 
                 PrefabModule.CreatePrefab();
                 DisplayModule.CreateDisplayPrefab();
