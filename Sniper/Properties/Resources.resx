@@ -136,14 +136,14 @@
   <data name="lang__LOADOUT_SNIPER_PASSIVE" xml:space="preserve">
     <value>Passive</value>
   </data>
-  <data name="lang__SNIPER_AMMO_PIERCING_DESC" xml:space="preserve">
-    <value>Pierces stuff!</value>
+  <data name="lang__SNIPER_AMMO_EXPLOSIVE_DESC" xml:space="preserve">
+    <value>Explodes, except it doesn't work.</value>
   </data>
-  <data name="lang__SNIPER_AMMO_PIERCING_NAME" xml:space="preserve">
-    <value>Piercing Ammo</value>
+  <data name="lang__SNIPER_AMMO_EXPLOSIVE_NAME" xml:space="preserve">
+    <value>Explosive Ammo</value>
   </data>
   <data name="lang__SNIPER_AMMO_STANDARD_DESC" xml:space="preserve">
-    <value>Does standard stuff!</value>
+    <value>100% Damage Multiplier, Pierces(Eventually), and can Ricochet(Eventually)</value>
   </data>
   <data name="lang__SNIPER_AMMO_STANDARD_NAME" xml:space="preserve">
     <value>Standard Ammo</value>

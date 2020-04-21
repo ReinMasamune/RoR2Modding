@@ -69,7 +69,7 @@ namespace Sniper.Skills
                 Log.Fatal( "No state machine found for reload" );
             }
 
-            return new SniperPrimaryInstanceData( reloadTargetStatemachine, this.reloadParams );
+            return new SniperPrimaryInstanceData( this, reloadTargetStatemachine, this.reloadParams );
         }
 
         public sealed override Sprite GetCurrentIcon( GenericSkill skillSlot )
@@ -100,7 +100,7 @@ namespace Sniper.Skills
                 return data.CanReload();
             }
 
-            return true;
+            return data.CanShoot();
         }
 
         protected sealed override EntityState InstantiateNextState( GenericSkill skillSlot )
@@ -111,6 +111,11 @@ namespace Sniper.Skills
             if( skillState != null )
             {
                 skillState.activatorSkillSlot = skillSlot;
+            }
+            var snipeState = state as  SnipeBaseState;
+            if( snipeState != null )
+            {
+                snipeState.reloadParams = this.reloadParams;
             }
             return state;
         }
@@ -139,6 +144,7 @@ namespace Sniper.Skills
                 } else
                 {
                     skillSlot.stock -= base.stockToConsume;
+                    data.delayTimer = 0f;
                     if( skillSlot.stock <= 0 )
                     {
                         data.StartReload();
@@ -158,17 +164,20 @@ namespace Sniper.Skills
 
         public sealed override void OnFixedUpdate( GenericSkill skillSlot )
         {
-
+            var data = skillSlot.skillInstanceData as SniperPrimaryInstanceData;
+            data.delayTimer += Time.fixedDeltaTime * skillSlot.characterBody.attackSpeed;
         }
 
 
         internal class SniperPrimaryInstanceData : BaseSkillInstanceData
         {
-            internal SniperPrimaryInstanceData(EntityStateMachine reloadTargetStatemachine, ReloadParams reloadParams )
+            internal SniperPrimaryInstanceData(SniperReloadableFireSkillDef def, EntityStateMachine reloadTargetStatemachine, ReloadParams reloadParams )
             {
+                this.def = def;
                 this.reloadStatemachine = reloadTargetStatemachine;
                 this.reloadParams = reloadParams;
                 ReloadUIController.GetReloadTexture( this.reloadParams );
+                this.secondarySlot = this.reloadStatemachine.commonComponents.characterBody.skillLocator.secondary;
                 //this.reloadController = ReloadUIController.FindController( this.reloadStatemachine.commonComponents.characterBody );
             }
 
@@ -198,11 +207,19 @@ namespace Sniper.Skills
                 return this.reloadController.CanReload();
             }
 
+            internal Boolean CanShoot()
+            {
+                return this.delayTimer >= this.def.shootDelay;
+            }
+
+            internal SniperReloadableFireSkillDef def;
             internal EntityStateMachine reloadStatemachine;
             internal ReloadUIController reloadController;
+            internal GenericSkill secondarySlot;
             internal ReloadParams reloadParams;
             internal ReloadTier currentReloadTier = ReloadTier.None;
             internal Boolean isReloading = false;
+            internal Single delayTimer;
         }
     }
 }

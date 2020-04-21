@@ -14,3 +14,6 @@ csharp_prefer_braces = when_multiline:silent
 
 # CS0618: Type or member is obsolete
 dotnet_diagnostic.CS0618.severity = error
+
+# IDE0044: Add readonly modifier
+dotnet_style_readonly_field = true:warning

@@ -18,11 +18,11 @@ namespace Sniper.Skills
     internal class SlideSnipe : SnipeBaseState
     {
         protected sealed override Single baseDuration { get; } = 0.2f;
+        protected sealed override Single recoilStrength { get; } = 5f;
         // TODO: Implement State
-        protected override ExpandableBulletAttack InitBullet( Ray aimRay, ReloadTier reloadTier )
+        protected override void ModifyBullet( ExpandableBulletAttack bullet )
         {
             // TODO: Implement method
-            return null;
         }
     }
 }

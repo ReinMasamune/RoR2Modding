@@ -119,25 +119,25 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Pierces stuff!.
+        ///   Looks up a localized string similar to Explodes, except it doesn&apos;t work..
         /// </summary>
-        internal static string lang__SNIPER_AMMO_PIERCING_DESC {
+        internal static string lang__SNIPER_AMMO_EXPLOSIVE_DESC {
             get {
-                return ResourceManager.GetString("lang__SNIPER_AMMO_PIERCING_DESC", resourceCulture);
+                return ResourceManager.GetString("lang__SNIPER_AMMO_EXPLOSIVE_DESC", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Piercing Ammo.
+        ///   Looks up a localized string similar to Explosive Ammo.
         /// </summary>
-        internal static string lang__SNIPER_AMMO_PIERCING_NAME {
+        internal static string lang__SNIPER_AMMO_EXPLOSIVE_NAME {
             get {
-                return ResourceManager.GetString("lang__SNIPER_AMMO_PIERCING_NAME", resourceCulture);
+                return ResourceManager.GetString("lang__SNIPER_AMMO_EXPLOSIVE_NAME", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Does standard stuff!.
+        ///   Looks up a localized string similar to 100% Damage Multiplier, Pierces(Eventually), and can Ricochet(Eventually).
         /// </summary>
         internal static string lang__SNIPER_AMMO_STANDARD_DESC {
             get {

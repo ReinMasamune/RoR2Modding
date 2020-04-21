@@ -12,6 +12,9 @@ using RoR2.Skills;
 using Sniper.Skills;
 using Sniper.Data;
 using Sniper.Properties;
+using Sniper.Expansions;
+using Sniper.Components;
+using UnityEngine.Networking;
 
 namespace Sniper.Modules
 {
@@ -21,19 +24,76 @@ namespace Sniper.Modules
         {
             var skills = new List<SkillDef>();
 
-            var standardAmmo = SniperAmmoSkillDef.Create( null, BulletModifier.identity );
+            var standardModifier = BulletModifier.identity;
+            standardModifier.stopperMaskRemove = LayerIndex.entityPrecise.mask;
+            OnBulletDelegate standardStop = new OnBulletDelegate( (bullet, hit) =>
+            {
+                if( hit.collider )
+                {
+                    var v1 = hit.direction;
+                    var v2 = hit.surfaceNormal;
+                    var dot = v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;
+                    var chance = Mathf.Clamp( Mathf.Acos( dot ) / 0.02f / Mathf.PI, 0f, 100f);
+                    if( Util.CheckRoll( 100f - chance, bullet.attackerBody.master ) )
+                    {
+                        var newDir = -2f * dot * v2 + v1;
+                        var newBul = bullet.Clone() as ExpandableBulletAttack;
+                        newBul.origin = hit.point;
+                        newBul.aimVector = newDir;
+                        newBul.weapon = new GameObject("temp", typeof(NetworkIdentity) );
+                        if( hit.damageModifier == HurtBox.DamageModifier.SniperTarget ) newBul.damage *= 1.5f;
+                        RicochetController.QueueRicochet( newBul, (UInt32)(hit.distance / 10f) + 1u );
+                    }
+                }
+            });
+            var standardAmmo = SniperAmmoSkillDef.Create( null, standardStop, standardModifier, null, VFXModule.GetStandardAmmoTracer() );
             standardAmmo.icon = null;
             standardAmmo.skillName = "Standard Ammo";
             standardAmmo.skillNameToken = Tokens.SNIPER_AMMO_STANDARD_NAME;
             standardAmmo.skillDescriptionToken = Tokens.SNIPER_AMMO_STANDARD_DESC;
             skills.Add( standardAmmo );
 
-            var pierceAmmo = SniperAmmoSkillDef.Create( null, BulletModifier.identity );
-            pierceAmmo.icon = null;
-            pierceAmmo.skillName = "Piercing Ammo";
-            pierceAmmo.skillNameToken = Tokens.SNIPER_AMMO_PIERCING_NAME;
-            pierceAmmo.skillDescriptionToken = Tokens.SNIPER_AMMO_PIERCING_DESC;
-            skills.Add( pierceAmmo );
+            var explosiveModifier = BulletModifier.identity;
+            explosiveModifier.damageMultiplier = 0.6f;
+            explosiveModifier.procMultiplier = 0.6f;
+            explosiveModifier.forceMultiplier = 0.25f;
+            OnBulletDelegate explosiveOnHit = new OnBulletDelegate((bullet, hit) =>
+            {
+                EffectManager.SpawnEffect(VFXModule.GetExplosiveAmmoExplosionPrefab(), new EffectData
+                {
+                    origin = hit.point,
+                    scale = 4f,
+                    rotation = Util.QuaternionSafeLookRotation(hit.direction)
+                }, true);
+                var blast = new BlastAttack
+                {
+                    attacker = bullet.owner,
+                    attackerFiltering = AttackerFiltering.Default,
+                    baseDamage = bullet.damage * 0.5f,
+                    baseForce = 1f,
+                    bonusForce = Vector3.zero,
+                    crit = bullet.isCrit,
+                    damageColorIndex = DamageColorIndex.Item,
+                    damageType = bullet.damageType,
+                    falloffModel = BlastAttack.FalloffModel.Linear,
+                    impactEffect = EffectIndex.Invalid, // TODO: Explosive Ammo Impact Effect
+                    inflictor = null,
+                    losType = BlastAttack.LoSType.None,
+                    position = hit.point,
+                    procChainMask = bullet.procChainMask,
+                    procCoefficient = bullet.procCoefficient * 0.5f,
+                    radius = 4f,
+                    teamIndex = TeamComponent.GetObjectTeam(bullet.owner),
+                };
+
+                blast.Fire();
+            });
+            var explosive = SniperAmmoSkillDef.Create( explosiveOnHit, null, explosiveModifier, null, VFXModule.GetExplosiveAmmoTracer() );
+            explosive.icon = null;
+            explosive.skillName = "Piercing Ammo";
+            explosive.skillNameToken = Tokens.SNIPER_AMMO_EXPLOSIVE_NAME;
+            explosive.skillDescriptionToken = Tokens.SNIPER_AMMO_EXPLOSIVE_DESC;
+            skills.Add( explosive );
 
             SkillFamiliesModule.ammoSkills = skills;
         }
@@ -79,20 +139,21 @@ namespace Sniper.Modules
                 attackSpeedDecayCoef = 10f,
                 badMult = 0.8f,
                 baseDuration = 1.5f,
-                goodMult = 1.2f,
+                goodMult = 1.4f,
                 perfectMult = 2f,
                 reloadDelay = 0.3f,
-                reloadEndDelay = 0.1f,
-                perfectStart = 0.3f,
-                perfectEnd = 0.4f,
-                goodStart = 0.4f,
+                reloadEndDelay = 0.2f,
+                perfectStart = 0.25f,
+                perfectEnd = 0.35f,
+                goodStart = 0.35f,
                 goodEnd = 0.6f,
             };
             snipe.requiredStock = 1;
-            snipe.shootDelay = 0.0f;
+            snipe.shootDelay = 0.15f;
             snipe.skillDescriptionToken = Tokens.SNIPER_PRIMARY_SNIPE_DESC;
             snipe.skillNameToken = Tokens.SNIPER_PRIMARY_SNIPE_NAME;
             snipe.stockToConsume = 1;
+            snipe.stockToReload = 4;
             skills.Add( snipe );
 
             var slide = SniperReloadableFireSkillDef.Create<SlideSnipe,SlideReload>("Weapon", "Body");
@@ -142,11 +203,15 @@ namespace Sniper.Modules
             charge.skillDescriptionToken = Tokens.SNIPER_SECONDARY_STEADY_DESC;
             charge.skillName = "Steady Aim";
             charge.skillNameToken = Tokens.SNIPER_SECONDARY_STEADY_NAME;
+            charge.stockToConsumeOnFire = 0;
+            charge.stockRequiredToKeepZoom = 0;
+            charge.stockRequiredToModifyFire = 0;
+            charge.beginSkillCooldownOnSkillEnd = false;
             skills.Add( charge );
 
             var quick = SniperScopeSkillDef.Create<DefaultScope>( UIModule.GetQuickScope(), default ); // TODO: Zoom params
             quick.baseMaxStock = 1;
-            quick.baseRechargeInterval = 0f;
+            quick.baseRechargeInterval = 8f;
             quick.icon = null; // TODO: Assign
             quick.isBullets = false;
             quick.rechargeStock = 1;
@@ -154,6 +219,10 @@ namespace Sniper.Modules
             quick.skillDescriptionToken = Tokens.SNIPER_SECONDARY_QUICK_DESC;
             quick.skillName = "Steady Aim";
             quick.skillNameToken = Tokens.SNIPER_SECONDARY_QUICK_NAME;
+            quick.stockToConsumeOnFire = 1;
+            quick.stockRequiredToKeepZoom = 1;
+            quick.stockRequiredToModifyFire = 1;
+            quick.beginSkillCooldownOnSkillEnd = true;
             skills.Add( quick );
 
 

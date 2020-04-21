@@ -8,8 +8,8 @@ namespace Sniper.Properties
 		#pragma warning disable CA1707 // Identifiers should not contain underscores
 		public const String LOADOUT_SNIPER_AMMO = "LOADOUT_SNIPER_AMMO";
 		public const String LOADOUT_SNIPER_PASSIVE = "LOADOUT_SNIPER_PASSIVE";
-		public const String SNIPER_AMMO_PIERCING_DESC = "SNIPER_AMMO_PIERCING_DESC";
-		public const String SNIPER_AMMO_PIERCING_NAME = "SNIPER_AMMO_PIERCING_NAME";
+		public const String SNIPER_AMMO_EXPLOSIVE_DESC = "SNIPER_AMMO_EXPLOSIVE_DESC";
+		public const String SNIPER_AMMO_EXPLOSIVE_NAME = "SNIPER_AMMO_EXPLOSIVE_NAME";
 		public const String SNIPER_AMMO_STANDARD_DESC = "SNIPER_AMMO_STANDARD_DESC";
 		public const String SNIPER_AMMO_STANDARD_NAME = "SNIPER_AMMO_STANDARD_NAME";
 		public const String SNIPER_DESC = "SNIPER_DESC";

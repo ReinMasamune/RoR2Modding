@@ -14,7 +14,7 @@ using System.Runtime.CompilerServices;
 namespace ReinGeneralFixes
 {
     [BepInDependency( Rein.AssemblyLoad.guid, BepInDependency.DependencyFlags.HardDependency )]
-    [BepInPlugin("com.Rein.GeneralBalance", "General Balance + Fixes", "2.3.0.95")]
+    [BepInPlugin("com.Rein.GeneralBalance", "General Balance + Fixes", "2.3.2.4")]
     internal partial class Main : BaseUnityPlugin
     {
         internal Single gestureBreakChance = 0.025f;
@@ -42,6 +42,8 @@ namespace ReinGeneralFixes
         partial void BalanceDeathMark();
         partial void BalanceWillOWisp();
         partial void BalanceBlight();
+        partial void BalanceEngiTurrets();
+        partial void BalanceGame();
 
 
         partial void FixBandolier();
@@ -78,12 +80,14 @@ namespace ReinGeneralFixes
             this.BalanceCommandoCDs();
             this.BalanceCorpsebloom();
             this.BalanceOSP();
-            //this.BalanceGesture();
+            this.BalanceGesture();
             //this.BalancePreGameShake();
             this.BalanceConvergence();
             this.BalanceDeathMark();
             this.BalanceWillOWisp();
             this.BalanceBlight();
+            //this.BalanceEngiTurrets();
+            this.BalanceGame();
 
             this.FixBandolier();
             this.FixSelfDamage();

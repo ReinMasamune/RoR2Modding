@@ -22,7 +22,7 @@ namespace Sniper.Modules
         internal static GameObject GetDefaultDrosshair()
         {
             // TODO: Create default crosshair
-            return null;
+            return Resources.Load<GameObject>( "Prefabs/CharacterBodies/CrocoBody" ).GetComponent<CharacterBody>().crosshairPrefab;
         }
 
         internal static GameObject GetScopeCrosshair()

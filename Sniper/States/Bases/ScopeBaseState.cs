@@ -21,6 +21,13 @@ namespace Sniper.Skills
     {
         internal SniperScopeSkillDef.ScopeInstanceData instanceData;
 
+
+
+        internal abstract Boolean usesCharge { get; }
+        internal abstract Single currentCharge { get; }
+        internal abstract Boolean usesStock { get; }
+        internal abstract UInt32 currentStock { get; }
+
         internal abstract BulletModifier ReadModifier();
         internal abstract void OnFired();
 
@@ -29,6 +36,34 @@ namespace Sniper.Skills
             var mod = this.ReadModifier();
             this.OnFired();
             return mod;
+        }
+
+        internal void ForceScopeEnd()
+        {
+            if( base.isAuthority )
+            {
+                base.outer.SetNextStateToMain();
+            }
+        }
+
+        public override void FixedUpdate()
+        {
+            base.FixedUpdate();
+            if( base.isAuthority && ( !base.IsKeyDownAuthority() || base.characterBody.isSprinting ) )
+            {
+                base.outer.SetNextStateToMain();
+            }
+        }
+
+        public override void Update()
+        {
+            base.Update();
+        }
+
+        public override void OnExit()
+        {
+            this.instanceData.Invalidate();
+            base.OnExit();
         }
     }
 }

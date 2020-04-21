@@ -5,6 +5,7 @@ using BepInEx.Logging;
 using ReinCore;
 using RoR2;
 using Sniper.Enums;
+using Sniper.Expansions;
 using UnityEngine;
 
 namespace Sniper.Data
@@ -80,6 +81,26 @@ namespace Sniper.Data
                 return ReloadTier.Good;
             }
             return ReloadTier.Bad;
+        }
+
+        internal void ModifyBullet( ExpandableBulletAttack bullet, ReloadTier tier )
+        {
+            switch( tier )
+            {
+                default:
+                    Log.Error( "Unknown reload tier" );
+                    bullet.damage *= this.badMult;
+                    break;
+                case ReloadTier.Bad:
+                    bullet.damage *= this.badMult;
+                    break;
+                case ReloadTier.Good:
+                    bullet.damage *= this.goodMult;
+                    break;
+                case ReloadTier.Perfect:
+                    bullet.damage *= this.perfectMult;
+                    break;
+            }
         }
     }
 }

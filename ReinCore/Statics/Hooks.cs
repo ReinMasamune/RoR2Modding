@@ -812,6 +812,23 @@ public static event Hook On
                         remove => HookEndpointManager.Remove<Hook>( method, value );
                     }
                 }
+
+                public struct OnFixedUpdate
+                {
+                    private static MethodBase method = HookableHelpers.GetBase( typeof(OnFixedUpdate) );
+                    public delegate void Orig( global::RoR2.Run self );
+                    public delegate void Hook( Orig orig, global::RoR2.Run self );
+                    public static event ILContext.Manipulator Il
+                    {
+                        add => HookEndpointManager.Modify<Hook>( method, value );
+                        remove => HookEndpointManager.Unmodify<Hook>( method, value );
+                    }
+                    public static event Hook On
+                    {
+                        add => HookEndpointManager.Add<Hook>( method, value );
+                        remove => HookEndpointManager.Remove<Hook>( method, value );
+                    }
+                }
             }
 
             public static class SetStateOnHurt

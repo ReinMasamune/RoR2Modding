@@ -3,14 +3,14 @@ using RoR2;
 using UnityEngine;
 using System.Collections.Generic;
 using RoR2.Navigation;
-using Mono.Cecil.Cil;
-using MonoMod.Cil;
 using System;
 using System.Reflection;
 using EntityStates;
 using RoR2.Skills;
 using System.Collections;
 using ReinCore;
+using MonoMod.Cil;
+using Mono.Cecil.Cil;
 
 namespace ReinGeneralFixes
 {
@@ -36,6 +36,9 @@ namespace ReinGeneralFixes
 
             var blight = BuffCatalog.GetBuffDef( BuffIndex.Blight );
             blight.isDebuff = true;
+
+            var mark = BuffCatalog.GetBuffDef( BuffIndex.DeathMark );
+            mark.canStack = true;
         }
 
         private void Main_Disable5()
@@ -85,14 +88,43 @@ namespace ReinGeneralFixes
                 }
                 return 0;
             } );
+
+            var c2 = c.Clone();
+            c2.GotoPrev( MoveType.AfterLabel, x => x.MatchLdcI4( 1 ), x => x.MatchStloc( 18 ), x => x.MatchBr( out _ ) );
+            c2.Remove();
+            c2.Emit( OpCodes.Ldloc_1 );
+            c2.EmitDelegate<Func<CharacterBody, Int32>>( ( body ) => body.GetBuffCount( BuffIndex.DeathMark ) );
+            c2.Index++;
+            c2.Remove();
+
+
             c.GotoNext( MoveType.Before, x => x.MatchLdloc( 17 ), x => x.MatchLdcI4( 1 ), x => x.MatchAdd(), x => x.MatchStloc( 17 ) );
             c.Index++;
             c.Remove();
             c.Emit( OpCodes.Ldc_I4_0 );
+
+            c.GotoNext( MoveType.After, x => x.MatchLdloc( 18 ) );
+            c.Emit( OpCodes.Ldloc, 16 );
+            c.EmitDelegate<Func<Int32, Int32, Int32>>( ( count, itemCount ) =>
+            {
+                return itemCount > count ? 0 : 1;
+            } );
+
             c.GotoNext( MoveType.After, x => x.MatchLdloc( 17 ), x => x.MatchLdcI4( 4 ) );
             c.Index--;
             c.Remove();
-            c.Emit( OpCodes.Ldc_I4, 30 );
+            c.Emit( OpCodes.Ldc_I4, 35 );
+
+            c.GotoNext( MoveType.AfterLabel, x => x.MatchLdcI4( 0 ), x => x.MatchStloc( 67 ) );
+            c.Emit( OpCodes.Ldloc_1 );
+            c.Emit( OpCodes.Ldloc, 18 );
+            c.EmitDelegate<Action<CharacterBody, Int32>>( ( body, count ) =>
+            {
+                for( Int32 i = 0; i < count; ++i )
+                {
+                    body.RemoveBuff( BuffIndex.DeathMark );
+                }
+            });
         }
     }
 }

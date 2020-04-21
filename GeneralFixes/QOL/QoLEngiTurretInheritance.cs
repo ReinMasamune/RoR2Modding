@@ -16,17 +16,6 @@ namespace ReinGeneralFixes
 {
     internal partial class Main
     {
-        private static HashSet<ItemIndex> turretInheritBlacklist = new HashSet<ItemIndex>
-        {
-            ItemIndex.WardOnLevel,
-            ItemIndex.CrippleWardOnLevel,
-            ItemIndex.BeetleGland,
-            ItemIndex.TPHealingNova,
-            ItemIndex.TitanGoldDuringTP,
-            ItemIndex.TreasureCache,
-            ItemIndex.FocusConvergence,
-        };
-
         private static Boolean ShouldInheritEquipment( EquipmentIndex index )
         {
             var eliteInd = EliteCatalog.GetEquipmentEliteIndex( index );
@@ -53,14 +42,12 @@ namespace ReinGeneralFixes
             ILCursor c = new ILCursor( il );
 
             c.GotoNext( MoveType.After, x => x.MatchCallOrCallvirt<RoR2.CharacterMaster>( "get_inventory" ) );
-            c.Remove();
-            c.Index += 2;
-            c.RemoveRange( 12 );
-            c.EmitDelegate<Action<Inventory, Inventory>>( ( newInv, oldInv ) =>
+            c.Index += 3;
+            c.Emit( OpCodes.Dup );
+            c.EmitDelegate<Func<Inventory, Inventory, Inventory>>( ( newInv, oldInv ) =>
             {
-                newInv.CopyItemsFrom( oldInv );
-                foreach( var ind in turretInheritBlacklist ) newInv.ResetItem( ind );
                 if( ShouldInheritEquipment( oldInv.currentEquipmentIndex ) ) newInv.CopyEquipmentFrom( oldInv );
+                return newInv;
             });
         }
     }

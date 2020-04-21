@@ -18,10 +18,14 @@ namespace Sniper.Skills
 {
     internal class QuickScope : ScopeBaseState
     {
+        internal override Boolean usesCharge { get; } = false;
+        internal override Boolean usesStock { get; } = true;
+        internal override Single currentCharge { get; }
+        internal override UInt32 currentStock { get; }
         // TODO: Implement
         internal override void OnFired()
         {
-
+            
         }
         internal override BulletModifier ReadModifier()
         {

@@ -25,7 +25,6 @@ namespace Sniper.Skills
             def.zoomParams = zoomParams;
             def.activationState = SkillsCore.StateType<TSecondary>();
             def.activationStateMachineName = "Scope";
-            def.beginSkillCooldownOnSkillEnd = false;
             def.canceledFromSprinting = true;
             def.fullRestockOnAssign = true;
             def.interruptPriority = InterruptPriority.Skill;
@@ -41,10 +40,17 @@ namespace Sniper.Skills
         internal GameObject scopeUIPrefab;
         [SerializeField]
         internal ZoomParams zoomParams;
+        [SerializeField]
+        internal Int32 stockToConsumeOnFire;
+        [SerializeField]
+        internal Int32 stockRequiredToModifyFire;
+        [SerializeField]
+        internal Int32 stockRequiredToKeepZoom;
+
 
         public sealed override BaseSkillInstanceData OnAssigned( GenericSkill skillSlot )
         {
-            return new ScopeInstanceData( this, skillSlot.characterBody );
+            return new ScopeInstanceData( this, skillSlot );
         }
 
         protected sealed override EntityState InstantiateNextState( GenericSkill skillSlot )
@@ -56,14 +62,16 @@ namespace Sniper.Skills
         }
 
 
+
         internal class ScopeInstanceData : BaseSkillInstanceData
         {
-            internal ScopeInstanceData( SniperScopeSkillDef scopeSkill, CharacterBody attachedBody )
+            internal ScopeInstanceData( SniperScopeSkillDef scopeSkill, GenericSkill skillSlot )
             {
                 this.scopeSkill = scopeSkill;
                 this.zoomParams = scopeSkill.zoomParams;
+                this.skillSlot = skillSlot;
 
-
+                var attachedBody = skillSlot.characterBody;
                 if( attachedBody.localPlayerAuthority )
                 {
                     this.scopeUIController = ScopeUIController.Create( scopeSkill.scopeUIPrefab, attachedBody );
@@ -72,7 +80,7 @@ namespace Sniper.Skills
 
             internal Boolean shouldModify
             {
-                get => this.stateInstance != null;
+                get => this.stateInstance != null && this.skillSlot.stock >= this.scopeSkill.stockRequiredToModifyFire;
             }
 
             internal BulletModifier currentBulletModifier
@@ -82,7 +90,13 @@ namespace Sniper.Skills
 
             internal BulletModifier SendFired()
             {
-                return this.stateInstance.SendFired();
+                var mod = this.stateInstance.SendFired();
+                this.skillSlot.DeductStock( this.scopeSkill.stockToConsumeOnFire );
+                if( this.skillSlot.stock < this.scopeSkill.stockRequiredToKeepZoom )
+                {
+                    this.stateInstance.ForceScopeEnd();
+                }
+                return mod;
             }
 
             internal void Invalidate()
@@ -114,6 +128,7 @@ namespace Sniper.Skills
 
             private ScopeUIController scopeUIController;
             private SniperScopeSkillDef scopeSkill;
+            private GenericSkill skillSlot;
             internal ZoomParams zoomParams { get; private set; }
         }
     }

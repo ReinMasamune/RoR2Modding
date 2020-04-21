@@ -67,5 +67,10 @@ namespace Sniper.Components
             }
         }
         private GenericSkill _passiveSlot;
+
+        internal SniperScopeSkillDef.ScopeInstanceData scopeInstanceData
+        {
+            get => base.skillLocator.secondary.skillInstanceData as SniperScopeSkillDef.ScopeInstanceData;
+        }
     }
 }

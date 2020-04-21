@@ -17,7 +17,7 @@ namespace ReinGeneralFixes
     internal partial class Main
     {
         const Single radiusMult = 0.75f;
-        const Single rateMult = 0.75f;
+        const Single rateMult = 0.9f;
 
         partial void BalanceConvergence()
         {

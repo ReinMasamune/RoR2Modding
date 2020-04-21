@@ -16,13 +16,12 @@ namespace Sniper.Skills
 {
     internal class SniperAmmoSkillDef : SniperSkillDef
     {
-        internal static BulletAttack.HitCallback defaultBulletHit { get; private set; }
-
-        internal static SniperAmmoSkillDef Create( ExpandableBulletAttack.OnHitDelegate onHit, Data.BulletModifier modifier, GameObject hitEffect = null, GameObject tracerEffect = null )
+        internal static SniperAmmoSkillDef Create( OnBulletDelegate onHit, OnBulletDelegate onStop, Data.BulletModifier modifier, GameObject hitEffect = null, GameObject tracerEffect = null )
         {
             var def = ScriptableObject.CreateInstance<SniperAmmoSkillDef>();
 
             def.onHitEffect = onHit;
+            def.onEndEffect = onStop;
             def.bulletModifier = modifier;
             def.hitEffectPrefab = hitEffect;
             def.tracerEffectPrefab = tracerEffect;
@@ -48,43 +47,14 @@ namespace Sniper.Skills
             return def;
         }
 
-
-        private static Int32 currentIndex = 0;
-        private static List<ExpandableBulletAttack.OnHitDelegate> hitCallbacksLookup = new List<ExpandableBulletAttack.OnHitDelegate>();
-        private static Int32 AddCallback( ExpandableBulletAttack.OnHitDelegate onHit )
-        {
-            if( onHit == null )
-            {
-                return -1;
-            }
-            hitCallbacksLookup.Add( onHit );
-            return currentIndex++;
-        }
-
         [SerializeField]
         private Data.BulletModifier bulletModifier;
-        private ExpandableBulletAttack.OnHitDelegate onHitEffect
-        {
-            get
-            {
-                if( this.callbackIndex < 0 )
-                {
-                    return null;
-                }
-                if( this.callbackIndex > hitCallbacksLookup.Count )
-                {
-                    Log.Error( "Out of range callback index, returning null" );
-                    return null;
-                }
-                return hitCallbacksLookup[this.callbackIndex];
-            }
-            set
-            {
-                this.callbackIndex = AddCallback( value );
-            }
-        }
+
         [SerializeField]
-        private Int32 callbackIndex;
+        private OnBulletDelegate onHitEffect;
+
+        [SerializeField]
+        private OnBulletDelegate onEndEffect;
 
         [SerializeField]
         private GameObject hitEffectPrefab;
@@ -95,7 +65,11 @@ namespace Sniper.Skills
         internal void ModifyBullet( ExpandableBulletAttack bulletAttack )
         {
             var onHit = this.onHitEffect;
-            if( onHit != null ) bulletAttack.onHit += onHit;
+            if( onHit != null )
+            {
+                bulletAttack.onHit += onHit;
+            }
+            if( this.onEndEffect != null ) bulletAttack.onStop += this.onEndEffect;
             if( this.hitEffectPrefab != null ) bulletAttack.hitEffectPrefab = this.hitEffectPrefab;
             if( this.tracerEffectPrefab != null ) bulletAttack.tracerEffectPrefab = this.tracerEffectPrefab;
             this.bulletModifier.Apply( bulletAttack );
