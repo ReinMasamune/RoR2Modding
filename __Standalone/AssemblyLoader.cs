@@ -9,7 +9,7 @@ namespace Rein
     {
         public const String guid = "___AssemblyLoader-com.Rein.Core";
         public const String version = ReinCore.ReinCore.ver;
-        private static Assembly coreAssembly;
+        private static readonly Assembly coreAssembly;
         static AssemblyLoad()
         {
             coreAssembly = Assembly.Load( Properties.Resources.ReinCore );

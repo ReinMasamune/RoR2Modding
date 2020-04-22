@@ -18,7 +18,7 @@ namespace ReinGeneralFixes
     {
         private static Boolean ShouldInheritEquipment( EquipmentIndex index )
         {
-            var eliteInd = EliteCatalog.GetEquipmentEliteIndex( index );
+            EliteIndex eliteInd = EliteCatalog.GetEquipmentEliteIndex( index );
             return eliteInd != EliteIndex.None;
         }
 
@@ -28,27 +28,21 @@ namespace ReinGeneralFixes
             this.Disable += this.Main_Disable2;
         }
 
-        private void Main_Disable2()
-        {
-            HooksCore.RoR2.CharacterBody.HandleConstructTurret.Il -= this.HandleConstructTurret_Il;
-        }
-        private void Main_Enable2()
-        {
-            HooksCore.RoR2.CharacterBody.HandleConstructTurret.Il += this.HandleConstructTurret_Il;
-        }
+        private void Main_Disable2() => HooksCore.RoR2.CharacterBody.HandleConstructTurret.Il -= this.HandleConstructTurret_Il;
+        private void Main_Enable2() => HooksCore.RoR2.CharacterBody.HandleConstructTurret.Il += this.HandleConstructTurret_Il;
 
         private void HandleConstructTurret_Il( ILContext il )
         {
-            ILCursor c = new ILCursor( il );
+            var c = new ILCursor( il );
 
-            c.GotoNext( MoveType.After, x => x.MatchCallOrCallvirt<RoR2.CharacterMaster>( "get_inventory" ) );
+            _ = c.GotoNext( MoveType.After, x => x.MatchCallOrCallvirt<CharacterMaster>( "get_inventory" ) );
             c.Index += 3;
-            c.Emit( OpCodes.Dup );
-            c.EmitDelegate<Func<Inventory, Inventory, Inventory>>( ( newInv, oldInv ) =>
-            {
-                if( ShouldInheritEquipment( oldInv.currentEquipmentIndex ) ) newInv.CopyEquipmentFrom( oldInv );
-                return newInv;
-            });
+            _ = c.Emit( OpCodes.Dup );
+            _ = c.EmitDelegate<Func<Inventory, Inventory, Inventory>>( ( newInv, oldInv ) =>
+              {
+                  if( ShouldInheritEquipment( oldInv.currentEquipmentIndex ) ) newInv.CopyEquipmentFrom( oldInv );
+                  return newInv;
+              } );
         }
     }
 }

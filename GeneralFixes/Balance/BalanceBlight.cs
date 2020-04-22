@@ -16,7 +16,7 @@ namespace ReinGeneralFixes
 {
     internal partial class Main
     {
-        private static Dictionary<CharacterBody,CrocoDamageTypeController> componentCache = new Dictionary<CharacterBody, CrocoDamageTypeController>();
+        private static readonly Dictionary<CharacterBody,CrocoDamageTypeController> componentCache = new Dictionary<CharacterBody, CrocoDamageTypeController>();
         private static Int32 crocoBodyIndex;
 
         partial void BalanceBlight()
@@ -41,17 +41,17 @@ namespace ReinGeneralFixes
 
         private void OnHitEnemy_Il1( ILContext il )
         {
-            ILCursor c = new ILCursor( il );
-            c.GotoNext( MoveType.AfterLabel, x => x.MatchLdarg(1), x => x.MatchLdfld( typeof(DamageInfo).GetField(nameof(DamageInfo.damageType)) ), x => x.MatchLdcI4( 1048576) );
-            c.RemoveRange( 24 );
+            var c = new ILCursor( il );
+            _ = c.GotoNext( MoveType.AfterLabel, x => x.MatchLdarg( 1 ), x => x.MatchLdfld( typeof( DamageInfo ).GetField( nameof( DamageInfo.damageType ) ) ), x => x.MatchLdcI4( 1048576 ) );
+            _ = c.RemoveRange( 24 );
         }
 
         private static void BlightFromAcridHit( DamageInfo damage, CharacterBody attacker, CharacterBody victim )
         {
             if( damage.dotIndex != DotController.DotIndex.None ) return;
             if( !ShouldApplyBlight( attacker ) ) return;
-            var dist = Math.Max( 0f, Vector3.Distance(damage.position, attacker.corePosition) - 10f );
-            var mult = 0.7f * ( 10 / (10+dist) );
+            Single dist = Math.Max( 0f, Vector3.Distance(damage.position, attacker.corePosition) - 10f );
+            Single mult = 0.7f * ( 10 / (10+dist) );
             DotController.InflictDot( victim.gameObject, attacker.gameObject, DotController.DotIndex.Blight, 5f * damage.procCoefficient, mult );
         }
 
@@ -68,7 +68,7 @@ namespace ReinGeneralFixes
             {
                 componentCache[body] = body.GetComponent<CrocoDamageTypeController>();
             }
-            var controller = componentCache[body];
+            CrocoDamageTypeController controller = componentCache[body];
             return controller.passiveSkillSlot.skillDef == controller.blightSkillDef;
         }
     }

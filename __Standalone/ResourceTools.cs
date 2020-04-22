@@ -24,13 +24,13 @@ namespace Rein.Properties
             PropertyInfo[] properties = type.GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static );
             for( Int32 i = 0; i < properties.Length; ++i )
             {
-                var prop = properties[i];
+                PropertyInfo prop = properties[i];
                 if( prop.PropertyType != typeof( String ) ) continue;
-                var propName = prop.Name;
+                String propName = prop.Name;
                 if( String.IsNullOrEmpty( propName ) || !propName.StartsWith( "lang__" ) ) continue;
-                var langKey = propName.Substring(6);
+                String langKey = propName.Substring(6);
                 if( String.IsNullOrEmpty( langKey ) ) continue;
-                var langValue = (String)prop.GetValue(null);
+                String langValue = (String)prop.GetValue(null);
                 langValue = langValue.Replace( @"\n", Environment.NewLine );
 
                 ReinCore.LanguageCore.AddLanguageToken( langKey, langValue );

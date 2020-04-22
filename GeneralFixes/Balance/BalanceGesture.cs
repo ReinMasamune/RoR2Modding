@@ -17,24 +17,24 @@ namespace ReinGeneralFixes
 {
     internal partial class Main
     {
-        private static HashSet<EquipmentIndex> gestureBlacklist = new HashSet<EquipmentIndex>();
-        private static Dictionary<EquipmentIndex,Single> equipDestroyDelays = new Dictionary<EquipmentIndex, Single>();
-        private static Dictionary<GameObject,Coroutine> beingDestroyed = new Dictionary<GameObject, Coroutine>();
+        private static readonly HashSet<EquipmentIndex> gestureBlacklist = new HashSet<EquipmentIndex>();
+        private static readonly Dictionary<EquipmentIndex,Single> equipDestroyDelays = new Dictionary<EquipmentIndex, Single>();
+        private static readonly Dictionary<GameObject,Coroutine> beingDestroyed = new Dictionary<GameObject, Coroutine>();
 
         partial void BalanceGesture()
         {
-            gestureBlacklist.Add( EquipmentIndex.GoldGat );
-            gestureBlacklist.Add( EquipmentIndex.CrippleWard );
-            gestureBlacklist.Add( EquipmentIndex.QuestVolatileBattery );
-            gestureBlacklist.Add( EquipmentIndex.Enigma );
+            _ = gestureBlacklist.Add( EquipmentIndex.GoldGat );
+            _ = gestureBlacklist.Add( EquipmentIndex.CrippleWard );
+            _ = gestureBlacklist.Add( EquipmentIndex.QuestVolatileBattery );
+            _ = gestureBlacklist.Add( EquipmentIndex.Enigma );
 
-            gestureBlacklist.Add( EquipmentIndex.AffixBlue );
-            gestureBlacklist.Add( EquipmentIndex.AffixGold );
-            gestureBlacklist.Add( EquipmentIndex.AffixHaunted );
-            gestureBlacklist.Add( EquipmentIndex.AffixPoison );
-            gestureBlacklist.Add( EquipmentIndex.AffixRed );
-            gestureBlacklist.Add( EquipmentIndex.AffixWhite );
-            gestureBlacklist.Add( EquipmentIndex.AffixYellow );
+            _ = gestureBlacklist.Add( EquipmentIndex.AffixBlue );
+            _ = gestureBlacklist.Add( EquipmentIndex.AffixGold );
+            _ = gestureBlacklist.Add( EquipmentIndex.AffixHaunted );
+            _ = gestureBlacklist.Add( EquipmentIndex.AffixPoison );
+            _ = gestureBlacklist.Add( EquipmentIndex.AffixRed );
+            _ = gestureBlacklist.Add( EquipmentIndex.AffixWhite );
+            _ = gestureBlacklist.Add( EquipmentIndex.AffixYellow );
 
             equipDestroyDelays[EquipmentIndex.None] = 0f;
             equipDestroyDelays[EquipmentIndex.BFG] = 2f;
@@ -78,94 +78,94 @@ namespace ReinGeneralFixes
 
         private void GrantEquipment_Il( ILContext il )
         {
-            ILCursor c = new ILCursor( il );
+            var c = new ILCursor( il );
 
-            c.GotoNext( MoveType.After, x => x.MatchCallOrCallvirt<RoR2.Inventory>( "get_currentEquipmentIndex" ) );
-            c.Emit( OpCodes.Ldarg_2 );
-            c.EmitDelegate<Func<EquipmentIndex, Inventory, EquipmentIndex>>( ( index, inv ) =>
-            {
-                if( index == EquipmentIndex.None ) return index;
+            _ = c.GotoNext( MoveType.After, x => x.MatchCallOrCallvirt<Inventory>( "get_currentEquipmentIndex" ) );
+            _ = c.Emit( OpCodes.Ldarg_2 );
+            _ = c.EmitDelegate<Func<EquipmentIndex, Inventory, EquipmentIndex>>( ( index, inv ) =>
+              {
+                  if( index == EquipmentIndex.None )
+                      return index;
 
-                var obj = inv.gameObject;
-                if( beingDestroyed.ContainsKey( obj ) )
-                {
-                    TrueDestroyEquipment( inv );
+                  GameObject obj = inv.gameObject;
+                  if( beingDestroyed.ContainsKey( obj ) )
+                  {
+                      TrueDestroyEquipment( inv );
 
-                    return EquipmentIndex.None;
-                } else return index;
-            } );
+                      return EquipmentIndex.None;
+                  }
+                  return index;
+              } );
         }
         private void SetActiveEquipmentSlot_Il( ILContext il )
         {
-            ILCursor c = new ILCursor( il );
+            var c = new ILCursor( il );
 
-            c.GotoNext( MoveType.After, x => x.MatchLdarg( 1 ) );
-            c.EmitDelegate<Action<Inventory, Byte>>( ( inv, slot ) =>
-            {
-                if( beingDestroyed.ContainsKey( inv.gameObject ) )
-                {
-                    TrueDestroyEquipment( inv );
-                }
-            } );
-            c.Emit( OpCodes.Ldarg_0 );
-            c.Emit( OpCodes.Ldarg_1 );
+            _ = c.GotoNext( MoveType.After, x => x.MatchLdarg( 1 ) );
+            _ = c.EmitDelegate<Action<Inventory, Byte>>( ( inv, slot ) =>
+              {
+                  if( beingDestroyed.ContainsKey( inv.gameObject ) )
+                  {
+                      TrueDestroyEquipment( inv );
+                  }
+              } );
+            _ = c.Emit( OpCodes.Ldarg_0 );
+            _ = c.Emit( OpCodes.Ldarg_1 );
         }
         private void FixedUpdate_Il2( ILContext il )
         {
-            ILCursor c = new ILCursor( il );
+            var c = new ILCursor( il );
 
-            c.GotoNext( MoveType.After,
+            _ = c.GotoNext( MoveType.After,
                 x => x.MatchLdcI4( (Int32)ItemIndex.AutoCastEquipment ),
-                x => x.MatchCallOrCallvirt<RoR2.Inventory>( "GetItemCount" )
+                x => x.MatchCallOrCallvirt<Inventory>( "GetItemCount" )
             );
-            c.Emit( OpCodes.Ldarg_0 );
-            c.Emit<RoR2.EquipmentSlot>( OpCodes.Call, "get_equipmentIndex" );
-            c.EmitDelegate<Func<Int32, EquipmentIndex, Int32>>( ModGestureCount );
+            _ = c.Emit( OpCodes.Ldarg_0 );
+            _ = c.Emit<EquipmentSlot>( OpCodes.Call, "get_equipmentIndex" );
+            _ = c.EmitDelegate<Func<Int32, EquipmentIndex, Int32>>( ModGestureCount );
         }
         private void FixedUpdate_Il1( ILContext il )
         {
-            ILCursor c = new ILCursor( il );
+            var c = new ILCursor( il );
 
-            c.GotoNext( MoveType.After,
+            _ = c.GotoNext( MoveType.After,
                 x => x.MatchLdcI4( (Int32)ItemIndex.AutoCastEquipment ),
-                x => x.MatchCallOrCallvirt<RoR2.Inventory>( "GetItemCount" )
+                x => x.MatchCallOrCallvirt<Inventory>( "GetItemCount" )
             );
-            c.Emit( OpCodes.Pop );
-            c.Emit( OpCodes.Ldc_I4_0 );
+            _ = c.Emit( OpCodes.Pop );
+            _ = c.Emit( OpCodes.Ldc_I4_0 );
         }
         private void UpdateEquipment_Il( ILContext il )
         {
-            ILCursor c = new ILCursor( il );
-            base.Logger.LogWarning( "Check1" );
-            c.GotoNext( MoveType.After, x => x.MatchCallOrCallvirt<UnityEngine.Mathf>( "Pow" ) );
-            base.Logger.LogWarning( "Check2" );
-            c.GotoNext( MoveType.After, x => x.MatchLdcR4( 0.5f ) );
-            c.Remove();
-            c.Emit( OpCodes.Ldc_R4, 0.5f );
+            var c = new ILCursor( il );
+            _ = c.GotoNext( MoveType.After, x => x.MatchCallOrCallvirt<Mathf>( "Pow" ) );
+            _ = c.GotoNext( MoveType.After, x => x.MatchLdcR4( 0.5f ) );
+            _ = c.Remove();
+            _ = c.Emit( OpCodes.Ldc_R4, 0.5f );
         }
 
         private void CalculateEquipmentCooldownScale_Il( ILContext il )
         {
-            ILCursor c = new ILCursor( il );
-            c.GotoNext( MoveType.Before, x => x.MatchLdcR4( 0.5f ), x => x.MatchLdcR4( 0.85f ) );
+            var c = new ILCursor( il );
+            _ = c.GotoNext( MoveType.Before, x => x.MatchLdcR4( 0.5f ), x => x.MatchLdcR4( 0.85f ) );
             c.Index++;
-            c.Remove();
-            c.Emit( OpCodes.Ldc_R4, 0.5f );
+            _ = c.Remove();
+            _ = c.Emit( OpCodes.Ldc_R4, 0.5f );
         }
 
 
         private void EquipmentSlot_onServerEquipmentActivated( EquipmentSlot slot, EquipmentIndex equipInd )
         {
-            var body = slot.characterBody;
+            CharacterBody body = slot.characterBody;
             if( body )
             {
-                var inv = body.inventory;
+                Inventory inv = body.inventory;
                 if( inv )
                 {
-                    var gestureCount = inv.GetItemCount( ItemIndex.AutoCastEquipment );
+                    Int32 gestureCount = inv.GetItemCount( ItemIndex.AutoCastEquipment );
                     if( gestureCount > 0 && !RunArtifactManager.instance.IsArtifactEnabled(RoR2Content.Artifacts.enigmaArtifactDef) )
                     {
-                        if( Util.CheckRoll( 100f * (1f - (Mathf.Pow( 1f - this.gestureBreakChance, gestureCount ))), body.master ) )
+                        if( Util.CheckRoll( 100f * ( 1f -  Mathf.Pow( 1f - this.gestureBreakChance, gestureCount )  ), body.master ) )
                         {
                             DestroyEquipment( inv, equipInd );
                         }
@@ -174,10 +174,7 @@ namespace ReinGeneralFixes
             }
         }
 
-        private static Int32 ModGestureCount( Int32 count, EquipmentIndex currentEquipment )
-        {
-            if( gestureBlacklist.Contains( currentEquipment ) ) return 0; else return count;
-        }
+        private static Int32 ModGestureCount( Int32 count, EquipmentIndex currentEquipment ) => gestureBlacklist.Contains( currentEquipment ) ? 0 : count;
 
         private static void DestroyEquipment( Inventory inv, EquipmentIndex index )
         {
@@ -185,7 +182,7 @@ namespace ReinGeneralFixes
 
             if( !equipDestroyDelays.ContainsKey( index ) ) index = EquipmentIndex.None;
 
-            Util.PlaySound( "Play_item_proc_armorReduction_shatter", inv.gameObject );
+            _ = Util.PlaySound( "Play_item_proc_armorReduction_shatter", inv.gameObject );
             beingDestroyed[inv.gameObject] = inv.StartCoroutine( EquipDestroyer( inv, equipDestroyDelays[index] + 0.25f ) );
         }
 
@@ -202,8 +199,9 @@ namespace ReinGeneralFixes
         private static void TrueDestroyEquipment( Inventory inv )
         {
             inv.SetEquipmentIndex( EquipmentIndex.None );
-            Util.PlaySound( "Play_item_proc_armorReduction_shatter", inv.gameObject );
-            if( beingDestroyed.ContainsKey( inv.gameObject ) ) beingDestroyed.Remove( inv.gameObject );
+            _ = Util.PlaySound( "Play_item_proc_armorReduction_shatter", inv.gameObject );
+            if( beingDestroyed.ContainsKey( inv.gameObject ) )
+                _ = beingDestroyed.Remove( inv.gameObject );
         }
     }
 }

@@ -21,7 +21,7 @@ namespace ReinGeneralFixes
 
         partial void BalanceConvergence()
         {
-            var type = typeof(HoldoutZoneController).GetNestedType( "FocusConvergenceController", BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic );
+            Type type = typeof(HoldoutZoneController).GetNestedType( "FocusConvergenceController", BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic );
             cap = new StaticAccessor<Int32>( type, "cap" );
             this.Enable += this.Main_Enable6;
             this.Disable += this.Main_Disable6;
@@ -46,34 +46,34 @@ namespace ReinGeneralFixes
 
         private void ApplyRate_Il( ILContext il )
         {
-            ILCursor c = new ILCursor( il );
-            c.GotoNext( MoveType.After, x => x.MatchLdcI4( 0 ) );
+            var c = new ILCursor( il );
+            _ = c.GotoNext( MoveType.After, x => x.MatchLdcI4( 0 ) );
             c.Index += 4;
-            c.RemoveRange( 2 );
+            _ = c.RemoveRange( 2 );
             c.Index += 2;
-            c.RemoveRange( 4 );
-            c.EmitDelegate<Func<Single, Int32, Single>>( ( rate, count ) =>
-            {
-                var mult = 1f / Mathf.Pow( rateMult, count );
-                rate *= mult;
-                return rate;
-            });
+            _ = c.RemoveRange( 4 );
+            _ = c.EmitDelegate<Func<Single, Int32, Single>>( ( rate, count ) =>
+              {
+                  Single mult = 1f / Mathf.Pow( rateMult, count );
+                  rate *= mult;
+                  return rate;
+              } );
         }
         private void ApplyRadius_Il( ILContext il )
         {
 
-            ILCursor c = new ILCursor( il );
-            c.GotoNext( MoveType.After, x => x.MatchLdcI4( 0 ) );
+            var c = new ILCursor( il );
+            _ = c.GotoNext( MoveType.After, x => x.MatchLdcI4( 0 ) );
             c.Index += 4;
-            c.Remove();
+            _ = c.Remove();
             c.Index += 2;
-            c.RemoveRange( 3 );
-            c.EmitDelegate<Func<Single, Int32, Single>>( ( rad, count ) =>
-            {
-                var mult = Mathf.Pow( radiusMult, count );
-                rad *= mult;
-                return rad;
-            } );
+            _ = c.RemoveRange( 3 );
+            _ = c.EmitDelegate<Func<Single, Int32, Single>>( ( rad, count ) =>
+              {
+                  Single mult = Mathf.Pow( radiusMult, count );
+                  rad *= mult;
+                  return rad;
+              } );
         }
     }
 }

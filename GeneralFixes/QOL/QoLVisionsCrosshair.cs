@@ -27,8 +27,8 @@ namespace ReinGeneralFixes
 
 
         private GameObject newVisionsCrosshair;
-        private Dictionary<LunarPrimaryReplacementSkill, VisionsContextData> origCrosshairLookup = new Dictionary<LunarPrimaryReplacementSkill, VisionsContextData>();
-        private HashSet<String> badCrosshairs = new HashSet<String>();
+        private readonly Dictionary<LunarPrimaryReplacementSkill, VisionsContextData> origCrosshairLookup = new Dictionary<LunarPrimaryReplacementSkill, VisionsContextData>();
+        private readonly HashSet<String> badCrosshairs = new HashSet<String>();
         //private HashSet<String> ignoredCrosshairs = new HashSet<String>();
 
         private class VisionsContextData
@@ -37,15 +37,9 @@ namespace ReinGeneralFixes
             public Coroutine checkCoroutine;
         }
 
-        private void GetNewCrosshairPrefab()
-        {
-            this.newVisionsCrosshair = Resources.Load<GameObject>( "Prefabs/CharacterBodies/CommandoBody" ).GetComponent<CharacterBody>().crosshairPrefab.ClonePrefab( "VisionsCrosshair", false );
-        }
+        private void GetNewCrosshairPrefab() => this.newVisionsCrosshair = Resources.Load<GameObject>( "Prefabs/CharacterBodies/CommandoBody" ).GetComponent<CharacterBody>().crosshairPrefab.ClonePrefab( "VisionsCrosshair", false );
 
-        private void PopulateBadCrosshairs()
-        {
-            this.badCrosshairs.Add( "SimpleDotCrosshair" );
-        }
+        private void PopulateBadCrosshairs() => _ = this.badCrosshairs.Add( "SimpleDotCrosshair" );
 
         private void RemoveFixVisionsCrosshair()
         {
@@ -64,16 +58,16 @@ namespace ReinGeneralFixes
 
             if( this.origCrosshairLookup.ContainsKey( self ) )
             {
-                var data = this.origCrosshairLookup[self];
+                VisionsContextData data = this.origCrosshairLookup[self];
                 if( data.origCrosshair != null )
                 {
-                    var crosshair = skillSlot.characterBody.crosshairPrefab;
+                    GameObject crosshair = skillSlot.characterBody.crosshairPrefab;
                     if( crosshair.name == this.newVisionsCrosshair.name )
                     {
                         skillSlot.characterBody.crosshairPrefab = data.origCrosshair;
                     } else
                     {
-                        skillSlot.StartCoroutine( this.CheckCrosshairUnset( skillSlot.characterBody, data ) );
+                        _ = skillSlot.StartCoroutine( this.CheckCrosshairUnset( skillSlot.characterBody, data ) );
                     }
                 }
                 if( data.checkCoroutine != null )
@@ -85,9 +79,9 @@ namespace ReinGeneralFixes
 
         private SkillDef.BaseSkillInstanceData OnAssigned_On1( HooksCore.RoR2.Skills.LunarPrimaryReplacementSkill.OnAssigned.Orig orig, LunarPrimaryReplacementSkill self, GenericSkill skillSlot )
         {
-            var ret = orig( self, skillSlot );
+            SkillDef.BaseSkillInstanceData ret = orig( self, skillSlot );
 
-            var crosshair = skillSlot.characterBody.crosshairPrefab;
+            GameObject crosshair = skillSlot.characterBody.crosshairPrefab;
             if( crosshair != null )
             {
                 if( !this.origCrosshairLookup.ContainsKey( self ) || this.origCrosshairLookup[self] == null )

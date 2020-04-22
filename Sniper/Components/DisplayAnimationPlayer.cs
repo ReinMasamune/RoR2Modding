@@ -12,7 +12,7 @@ namespace Sniper.Components
     {
         private void Awake()
         {
-            var animator = base.GetComponentInChildren<Animator>();
+            Animator animator = base.GetComponentInChildren<Animator>();
             animator.Play( "DisplayEnter" );
         }
     }

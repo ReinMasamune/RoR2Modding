@@ -24,20 +24,14 @@ namespace ReinGeneralFixes
 
         private void AdjustRollSettings()
         {
-            var def = Resources.Load<GameObject>("Prefabs/CharacterBodies/CommandoBody").GetComponent<SkillLocator>().utility.skillFamily.variants[0].skillDef;
+            SkillDef def = Resources.Load<GameObject>("Prefabs/CharacterBodies/CommandoBody").GetComponent<SkillLocator>().utility.skillFamily.variants[0].skillDef;
             def.noSprint = false;
             
         }
 
-        private void RemoveCommandoRollEdits()
-        {
-            HooksCore.EntityStates.Commando.DodgeState.OnEnter.On -= OnEnter_On;
-        }
+        private void RemoveCommandoRollEdits() => HooksCore.EntityStates.Commando.DodgeState.OnEnter.On -= OnEnter_On;
 
-        private void AddCommandoRollEdits()
-        {
-            HooksCore.EntityStates.Commando.DodgeState.OnEnter.On += OnEnter_On;
-        }
+        private void AddCommandoRollEdits() => HooksCore.EntityStates.Commando.DodgeState.OnEnter.On += OnEnter_On;
 
         private static void OnEnter_On( HooksCore.EntityStates.Commando.DodgeState.OnEnter.Orig orig, EntityStates.Commando.DodgeState self )
         {

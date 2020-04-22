@@ -42,18 +42,18 @@ namespace ReinGeneralFixes
 
         private void SpawnsCore_interactableEdits( ClassicStageInfo stageInfo, Run runInstance, DirectorCardCategorySelection interactableSelection )
         {
-            var isSacrifice = RunArtifactManager.instance.IsArtifactEnabled( RoR2Content.Artifacts.sacrificeArtifactDef );
+            Boolean isSacrifice = RunArtifactManager.instance.IsArtifactEnabled( RoR2Content.Artifacts.sacrificeArtifactDef );
             if( isSacrifice )
             {
-                var cats = interactableSelection.categories;
+                DirectorCardCategorySelection.Category[] cats = interactableSelection.categories;
                 stageInfo.sceneDirectorInteractibleCredits *= 2;
                 for( Int32 i = 0; i < cats.Length; ++i )
                 {
-                    var cat = cats[i];
+                    DirectorCardCategorySelection.Category cat = cats[i];
                     if( cat.name == "Rare" )
                     {
                         cat.selectionWeight *= 10f;
-                        foreach( var card in cat.cards )
+                        foreach( DirectorCard card in cat.cards )
                         {
                             if( card.spawnCard.name == "iscChest1Stealthed" )
                             {

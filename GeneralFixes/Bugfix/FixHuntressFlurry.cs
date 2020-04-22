@@ -35,19 +35,19 @@ namespace ReinGeneralFixes
 
         private void FireOrbArrow_Il( ILContext il )
         {
-            var type = typeof(FireSeekingArrow);
-            var allFlags = BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic;
-            var arrowReloadDuration = type.GetField( "arrowReloadDuration", allFlags );
-            var arrowReloadTimer = type.GetField( "arrowReloadTimer", allFlags );
+            Type type = typeof(FireSeekingArrow);
+            BindingFlags allFlags = BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic;
+            FieldInfo arrowReloadDuration = type.GetField( "arrowReloadDuration", allFlags );
+            FieldInfo arrowReloadTimer = type.GetField( "arrowReloadTimer", allFlags );
 
 
-            ILCursor c = new ILCursor( il );
+            var c = new ILCursor( il );
             ILLabel label = null;
-            c.GotoNext( x => x.MatchCallOrCallvirt( typeof( NetworkServer ), "get_active" ), x => x.MatchBrtrue( out label ) );
+            _ = c.GotoNext( x => x.MatchCallOrCallvirt( typeof( NetworkServer ), "get_active" ), x => x.MatchBrtrue( out label ) );
 
-            c.GotoLabel( label );
-            c.GotoNext( MoveType.Before, x => x.MatchLdarg( 0 ), x => x.MatchLdarg( 0 ), x => x.MatchLdfld( typeof( FireSeekingArrow ), "arrowReloadDuration" ) );
-            c.Emit( OpCodes.Ldarg_0 );
+            _ = c.GotoLabel( label );
+            _ = c.GotoNext( MoveType.Before, x => x.MatchLdarg( 0 ), x => x.MatchLdarg( 0 ), x => x.MatchLdfld( typeof( FireSeekingArrow ), "arrowReloadDuration" ) );
+            _ = c.Emit( OpCodes.Ldarg_0 );
             c.Index += 2;
 
         }

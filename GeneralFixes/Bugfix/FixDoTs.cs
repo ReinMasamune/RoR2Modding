@@ -31,29 +31,22 @@ namespace ReinGeneralFixes
             onHitEffects += PercentBurnFromDamageType;
         }
 
-        private void Main_Disable7()
-        {
-            HooksCore.RoR2.GlobalEventManager.OnHitEnemy.Il -= this.OnHitEnemy_Il2;
-        }
-        private void Main_Enable7()
-        {
-            HooksCore.RoR2.GlobalEventManager.OnHitEnemy.Il += this.OnHitEnemy_Il2;
-            
-        }
+        private void Main_Disable7() => HooksCore.RoR2.GlobalEventManager.OnHitEnemy.Il -= this.OnHitEnemy_Il2;
+        private void Main_Enable7() => HooksCore.RoR2.GlobalEventManager.OnHitEnemy.Il += this.OnHitEnemy_Il2;
 
         private void OnHitEnemy_Il2( ILContext il )
         {
-            ILCursor c = new ILCursor( il );
-            c.GotoNext( MoveType.AfterLabel, x => x.MatchLdarg( 1 ), x => x.MatchLdflda( typeof( DamageInfo ).GetField( nameof( DamageInfo.procChainMask ) ) ), x => x.MatchLdcI4( 5 ),
-               x => x.MatchCallOrCallvirt<RoR2.ProcChainMask>( "HasProc" ) );
-            c.Emit( OpCodes.Ldarg_1 );
-            c.Emit( OpCodes.Ldloc_0 );
-            c.Emit( OpCodes.Ldloc_1 );
-            c.EmitDelegate<OnHitDelegate>( ( damageInfo, attacker, victim ) => onHitEffects?.Invoke( damageInfo, attacker, victim ) );
-            c.RemoveRange( 50 );
+            var c = new ILCursor( il );
+            _ = c.GotoNext( MoveType.AfterLabel, x => x.MatchLdarg( 1 ), x => x.MatchLdflda( typeof( DamageInfo ).GetField( nameof( DamageInfo.procChainMask ) ) ), x => x.MatchLdcI4( 5 ),
+               x => x.MatchCallOrCallvirt<ProcChainMask>( "HasProc" ) );
+            _ = c.Emit( OpCodes.Ldarg_1 );
+            _ = c.Emit( OpCodes.Ldloc_0 );
+            _ = c.Emit( OpCodes.Ldloc_1 );
+            _ = c.EmitDelegate<OnHitDelegate>( ( damageInfo, attacker, victim ) => onHitEffects?.Invoke( damageInfo, attacker, victim ) );
+            _ = c.RemoveRange( 50 );
 
-            c.GotoNext( MoveType.AfterLabel, x => x.MatchLdarg( 1 ), x => x.MatchLdfld( typeof( DamageInfo ).GetField( nameof( DamageInfo.damageType ) ) ), x => x.MatchLdcI4( 128 ) );
-            c.RemoveRange( 34 );
+            _ = c.GotoNext( MoveType.AfterLabel, x => x.MatchLdarg( 1 ), x => x.MatchLdfld( typeof( DamageInfo ).GetField( nameof( DamageInfo.damageType ) ) ), x => x.MatchLdcI4( 128 ) );
+            _ = c.RemoveRange( 34 );
 
             //c.EmitDelegate<OnHitDelegate>( onHitEffects );
         }
@@ -66,14 +59,14 @@ namespace ReinGeneralFixes
 
         private static void BleedFromTriTip( DamageInfo damage, CharacterBody attacker, CharacterBody victim )
         {
-            var master = attacker.master;
+            CharacterMaster master = attacker.master;
             if( !master ) return;
-            var inv = attacker.inventory;
+            Inventory inv = attacker.inventory;
             if( !inv ) return;
-            var itemCount = inv.GetItemCount( ItemIndex.BleedOnHit );
+            Int32 itemCount = inv.GetItemCount( ItemIndex.BleedOnHit );
             if( itemCount <= 0 ) return;
-            var coef = Mathf.Sqrt(damage.procCoefficient);
-            var chance = Mathf.Min(100f, ( 15f * itemCount ) * coef );
+            Single coef = Mathf.Sqrt(damage.procCoefficient);
+            Single chance = Mathf.Min(100f,  15f * itemCount  * coef );
             if( !Util.CheckRoll( chance, attacker.master ) ) return;
             DotController.InflictDot( victim.gameObject, attacker.gameObject, DotController.DotIndex.Bleed, 3f * coef, 1f );
         }

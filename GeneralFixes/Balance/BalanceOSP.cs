@@ -21,45 +21,39 @@ namespace ReinGeneralFixes
             this.Disable += this.RemoveOSPFix;
         }
 
-        private void RemoveOSPFix()
-        {
-            HooksCore.RoR2.HealthComponent.TakeDamage.Il -= this.TakeDamage_Il;
-        }
-        private void AddOSPFix()
-        {
-            HooksCore.RoR2.HealthComponent.TakeDamage.Il += this.TakeDamage_Il;
-        }
+        private void RemoveOSPFix() => HooksCore.RoR2.HealthComponent.TakeDamage.Il -= this.TakeDamage_Il;
+        private void AddOSPFix() => HooksCore.RoR2.HealthComponent.TakeDamage.Il += this.TakeDamage_Il;
 
         private void TakeDamage_Il( ILContext il )
         {
-            ILCursor c = new ILCursor( il );
+            var c = new ILCursor( il );
 
-            c.GotoNext( MoveType.After, x => x.MatchCallOrCallvirt<RoR2.HealthComponent>( "get_hasOneshotProtection" ) );
-            c.GotoNext( MoveType.Before, x => x.MatchCallOrCallvirt<RoR2.HealthComponent>( "get_fullCombinedHealth" ) );
-            c.RemoveRange( 2 );
-            c.GotoNext( MoveType.Before, x => x.MatchLdfld<RoR2.HealthComponent>( "barrier" ) );
-            c.RemoveRange( 2 );
-            c.GotoNext( MoveType.Before, x => x.MatchMul() );
-            c.RemoveRange( 2 );
-            c.EmitDelegate<Func<Single, HealthComponent, Single, Single>>( ( num, healthComp, osp ) =>
-            {
-                var temp = num;
-                temp -= healthComp.shield;
-                temp -= healthComp.barrier;
+            _ = c.GotoNext( MoveType.After, x => x.MatchCallOrCallvirt<HealthComponent>( "get_hasOneshotProtection" ) );
+            _ = c.GotoNext( MoveType.Before, x => x.MatchCallOrCallvirt<HealthComponent>( "get_fullCombinedHealth" ) );
+            _ = c.RemoveRange( 2 );
+            _ = c.GotoNext( MoveType.Before, x => x.MatchLdfld<HealthComponent>( "barrier" ) );
+            _ = c.RemoveRange( 2 );
+            _ = c.GotoNext( MoveType.Before, x => x.MatchMul() );
+            _ = c.RemoveRange( 2 );
+            _ = c.EmitDelegate<Func<Single, HealthComponent, Single, Single>>( ( num, healthComp, osp ) =>
+              {
+                  Single temp = num;
+                  temp -= healthComp.shield;
+                  temp -= healthComp.barrier;
 
-                var protection = healthComp.fullHealth * osp;
-                if( temp <= protection )
-                {
-                    return num;
-                }
-                temp -= healthComp.fullHealth * (1f + (1f / osp));
-                temp = Mathf.Max( 0f, temp );
-                temp += protection;
-                temp += healthComp.shield;
-                temp += healthComp.barrier;
+                  Single protection = healthComp.fullHealth * osp;
+                  if( temp <= protection )
+                  {
+                      return num;
+                  }
+                  temp -= healthComp.fullHealth * ( 1f + ( 1f / osp ) );
+                  temp = Mathf.Max( 0f, temp );
+                  temp += protection;
+                  temp += healthComp.shield;
+                  temp += healthComp.barrier;
 
-                return temp;
-            } );
+                  return temp;
+              } );
         }
     }
 }

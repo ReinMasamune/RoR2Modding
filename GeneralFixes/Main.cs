@@ -23,6 +23,7 @@ namespace ReinGeneralFixes
 
 
 
+#pragma warning disable IDE1006 // Naming Styles
         private event Action Load;
         private event Action Enable;
         private event Action Disable;
@@ -31,6 +32,7 @@ namespace ReinGeneralFixes
         private event Action PostFrame;
         private event Action Tick;
         private event Action GUI;
+#pragma warning restore IDE1006 // Naming Styles
 
 
         partial void BalanceCommandoCDs();

@@ -14,14 +14,11 @@ namespace ReinGeneralFixes
 {
     internal partial class Main
     {
-        partial void BalanceCommandoCDs()
-        {
-            this.FirstFrame += this.EditCommandoSecondaryCooldown;
-        }
+        partial void BalanceCommandoCDs() => this.FirstFrame += this.EditCommandoSecondaryCooldown;
 
         private void EditCommandoSecondaryCooldown()
         {
-            var family = Resources.Load<GameObject>("Prefabs/CharacterBodies/CommandoBody").GetComponent<SkillLocator>().secondary.skillFamily;
+            SkillFamily family = Resources.Load<GameObject>("Prefabs/CharacterBodies/CommandoBody").GetComponent<SkillLocator>().secondary.skillFamily;
             family.variants[0].skillDef.baseRechargeInterval = 2f;
             family.variants[1].skillDef.baseRechargeInterval = 3f;
 

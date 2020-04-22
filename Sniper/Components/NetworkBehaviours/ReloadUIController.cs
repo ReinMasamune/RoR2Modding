@@ -28,7 +28,7 @@ namespace Sniper.Components
             {
                 return null;
             }
-            if( instances.TryGetValue( body, out var controller ) )
+            if( instances.TryGetValue( body, out ReloadUIController controller ) )
             {
                 return controller;
             }
