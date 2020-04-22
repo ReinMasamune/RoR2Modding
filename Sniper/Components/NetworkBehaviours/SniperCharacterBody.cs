@@ -5,7 +5,7 @@ using BepInEx.Logging;
 using ReinCore;
 using RoR2;
 using UnityEngine;
-using Sniper.Skills;
+using Sniper.SkillDefs;
 
 namespace Sniper.Components
 {

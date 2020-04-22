@@ -10,8 +10,10 @@ using KinematicCharacterController;
 using EntityStates;
 using RoR2.Skills;
 using System.Reflection;
+using Sniper.States.Bases;
+using Sniper.SkillDefTypes.Bases;
 
-namespace Sniper.Skills
+namespace Sniper.SkillDefs
 {
     internal class DecoySkillData : SkillData
     {

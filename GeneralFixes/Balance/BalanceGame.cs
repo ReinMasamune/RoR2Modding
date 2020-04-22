@@ -16,7 +16,7 @@ namespace ReinGeneralFixes
 {
     internal partial class Main
     {
-        const Single diffMod = 0.0000000000000000000025f;
+        const Single diffMod = 0.99f;
         partial void BalanceGame()
         {
             this.Enable += this.Main_Enable9;
@@ -41,7 +41,7 @@ namespace ReinGeneralFixes
                       total += NetworkUser.readOnlyInstancesList[i].NetworknetLunarCoins;
                   }
 
-                  return 2f - ( 1f / ( 1f + Mathf.Pow( diffMod, 1f / (Single)total ) ) );
+                  return 2f - ( 1f / ( 1f + Mathf.Pow( diffMod, Mathf.Log(total+1) ) ) );
               } );
             _ = c.Emit( OpCodes.Mul );
         }

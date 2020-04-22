@@ -14,8 +14,9 @@ using Sniper.Expansions;
 using Sniper.Enums;
 using Sniper.Data;
 using UnityEngine.Networking;
+using Sniper.States.Bases;
 
-namespace Sniper.Skills
+namespace Sniper.States.Secondary
 {
     internal class DefaultScope : ScopeBaseState
     {
@@ -44,9 +45,7 @@ namespace Sniper.Skills
             base.OnEnter();
 
             if( NetworkServer.active )
-            {
-                base.characterBody.AddBuff( BuffIndex.Slow50 );
-            }
+                characterBody.AddBuff( BuffIndex.Slow50 );
         }
 
         public override void FixedUpdate()
@@ -54,9 +53,8 @@ namespace Sniper.Skills
             base.FixedUpdate();
 
             if( this.charge < maxCharge )
-            {
-                this.charge += Time.fixedDeltaTime * chargePerSecond * base.characterBody.attackSpeed;
-            } else
+                this.charge += Time.fixedDeltaTime * chargePerSecond * characterBody.attackSpeed;
+            else
             {
                 this.charge = maxCharge;
             }
@@ -71,11 +69,9 @@ namespace Sniper.Skills
         public override void OnExit()
         {
             base.OnExit();
-            
+
             if( NetworkServer.active )
-            {
-                base.characterBody.RemoveBuff( BuffIndex.Slow50 );
-            }
+                characterBody.RemoveBuff( BuffIndex.Slow50 );
         }
     }
 }

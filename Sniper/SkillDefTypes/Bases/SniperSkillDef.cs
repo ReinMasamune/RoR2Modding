@@ -10,19 +10,20 @@ using KinematicCharacterController;
 using EntityStates;
 using RoR2.Skills;
 using System.Reflection;
+using Sniper.States.Bases;
 
-namespace Sniper.Skills
+namespace Sniper.SkillDefTypes.Bases
 {
     internal class SniperSkillDef : SkillDef
     {
         internal static SniperSkillDef Create<TActivationState>( String stateMachineName ) where TActivationState : SniperSkillBaseState
         {
-            var def = ScriptableObject.CreateInstance<SniperSkillDef>();
+            var def = CreateInstance<SniperSkillDef>();
             def.activationState = SkillsCore.StateType<TActivationState>();
             def.activationStateMachineName = stateMachineName;
 
             return def;
         }
-        
+
     }
 }

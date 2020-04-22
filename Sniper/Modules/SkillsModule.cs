@@ -9,12 +9,18 @@ using UnityEngine;
 using KinematicCharacterController;
 using EntityStates;
 using RoR2.Skills;
-using Sniper.Skills;
 using Sniper.Data;
 using Sniper.Properties;
 using Sniper.Expansions;
 using Sniper.Components;
 using UnityEngine.Networking;
+using Sniper.SkillDefs;
+using Sniper.States.Primary.Fire;
+using Sniper.States.Primary.Reload;
+using Sniper.States.Secondary;
+using Sniper.States.Special;
+using Sniper.States.Utility;
+using Sniper.SkillDefTypes.Bases;
 
 namespace Sniper.Modules
 {

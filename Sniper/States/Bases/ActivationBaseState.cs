@@ -11,8 +11,9 @@ using EntityStates;
 using RoR2.Skills;
 using System.Reflection;
 using Sniper.Components;
+using Sniper.SkillDefTypes.Bases;
 
-namespace Sniper.Skills
+namespace Sniper.States.Bases
 {
     internal abstract class ActivationBaseState<TSkillData> : SniperSkillBaseState where TSkillData : SkillData, new()
     {

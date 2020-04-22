@@ -11,10 +11,9 @@ using EntityStates;
 using RoR2.Skills;
 using System.Reflection;
 using Sniper.Expansions;
-using Sniper.Skills;
 using Sniper.Enums;
 
-namespace Sniper.Skills
+namespace Sniper.States.Bases
 {
     internal interface ISniperReloadState
     {

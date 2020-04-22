@@ -22,10 +22,10 @@ dotnet_separate_import_directive_groups = true
 dotnet_sort_system_directives_first = true
 
 # this. and Me. preferences
-dotnet_style_qualification_for_event = true:silent
-dotnet_style_qualification_for_field = true:silent
-dotnet_style_qualification_for_method = true:silent
-dotnet_style_qualification_for_property = true:silent
+dotnet_style_qualification_for_event = true:warning
+dotnet_style_qualification_for_field = true:warning
+dotnet_style_qualification_for_method = true:warning
+dotnet_style_qualification_for_property = true:warning
 
 # Language keywords vs BCL types preferences
 dotnet_style_predefined_type_for_locals_parameters_members = false:warning
@@ -247,3 +247,6 @@ dotnet_naming_style.camel_case.capitalization = camel_case
 
 # IDE0001: Simplify Names
 dotnet_diagnostic.IDE0001.severity = warning
+
+# IDE0005: Using directive is unnecessary.
+dotnet_diagnostic.IDE0005.severity = warning

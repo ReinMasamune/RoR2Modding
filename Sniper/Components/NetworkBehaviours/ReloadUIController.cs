@@ -84,7 +84,7 @@ namespace Sniper.Components
             base.StartCoroutine( this.ReloadStartDelay( this.currentReloadParams.reloadDelay / this.body.attackSpeed ) );
         }
 
-        internal ReloadTier StopReload( Skills.SniperReloadableFireSkillDef.SniperPrimaryInstanceData data )
+        internal ReloadTier StopReload( SkillDefs.SniperReloadableFireSkillDef.SniperPrimaryInstanceData data )
         {
             this.isReloading = false;
             base.StartCoroutine( this.ReloadStopDelay( this.currentReloadParams.reloadEndDelay / this.body.attackSpeed, data ) );
@@ -175,7 +175,7 @@ namespace Sniper.Components
             this.showBar = true;
             this.isReloading = true;
         }
-        private IEnumerator ReloadStopDelay( Single delayTime, Skills.SniperReloadableFireSkillDef.SniperPrimaryInstanceData data )
+        private IEnumerator ReloadStopDelay( Single delayTime, SkillDefs.SniperReloadableFireSkillDef.SniperPrimaryInstanceData data )
         {
             yield return new WaitForSeconds( delayTime );
             this.showBar = false;

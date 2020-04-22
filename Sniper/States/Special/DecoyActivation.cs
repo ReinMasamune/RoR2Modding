@@ -12,8 +12,10 @@ using RoR2.Skills;
 using System.Reflection;
 using Sniper.Expansions;
 using Sniper.Enums;
+using Sniper.SkillDefs;
+using Sniper.States.Bases;
 
-namespace Sniper.Skills
+namespace Sniper.States.Special
 {
     internal class DecoyActivation : ActivationBaseState<DecoySkillData>
     {

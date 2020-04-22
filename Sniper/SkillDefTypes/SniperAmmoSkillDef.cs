@@ -11,8 +11,9 @@ using EntityStates;
 using RoR2.Skills;
 using System.Reflection;
 using Sniper.Expansions;
+using Sniper.SkillDefTypes.Bases;
 
-namespace Sniper.Skills
+namespace Sniper.SkillDefs
 {
     internal class SniperAmmoSkillDef : SniperSkillDef
     {

@@ -12,8 +12,10 @@ using RoR2.Skills;
 using System.Reflection;
 using Sniper.Expansions;
 using Sniper.Enums;
+using Sniper.States.Bases;
+using Sniper.SkillDefs;
 
-namespace Sniper.Skills
+namespace Sniper.States.Special
 {
     internal class KnifeReactivation : ReactivationBaseState<KnifeSkillData>
     {

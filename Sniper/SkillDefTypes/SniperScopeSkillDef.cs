@@ -13,8 +13,10 @@ using System.Reflection;
 using Sniper.Expansions;
 using Sniper.Data;
 using Sniper.Components;
+using Sniper.SkillDefTypes.Bases;
+using Sniper.States.Bases;
 
-namespace Sniper.Skills
+namespace Sniper.SkillDefs
 {
     internal class SniperScopeSkillDef : SniperSkillDef
     {
@@ -74,7 +76,7 @@ namespace Sniper.Skills
                 var attachedBody = skillSlot.characterBody;
                 if( attachedBody.localPlayerAuthority )
                 {
-                    this.scopeUIController = ScopeUIController.Create( scopeSkill.scopeUIPrefab, attachedBody );
+                    this.scopeUIController = ScopeUIController.Create( scopeSkill.scopeUIPrefab, attachedBody, this.zoomParams );
                 }
             }
 
@@ -102,21 +104,22 @@ namespace Sniper.Skills
             internal void Invalidate()
             {
                 this.stateInstance = null;
+                this.scopeUIController?.EndZoomSession();
             }
 
-            internal void UpdateCameraParams( CharacterCameraParams cameraParams, Single zoom )
+            internal void UpdateCameraParams( CameraTargetParams cameraParams, Single zoomInput )
             {
-                this.zoomParams.UpdateCameraParams( cameraParams, zoom );
-                if( this.scopeUIController != null )
-                {
-                    this.scopeUIController.zoom = zoom;
-                }
+                this.zoom = this.zoomParams.UpdateZoom( zoomInput, this.zoom );
+                this.scopeUIController?.UpdateUI( cameraParams, this.zoom );
             }
 
             internal void StateCreated( ScopeBaseState stateInstance )
             {
+                // TODO: Config for zoom resetting on scope start
+                this.zoom = this.zoomParams.defaultZoom;
                 this.stateInstance = stateInstance;
                 stateInstance.instanceData = this;
+                this.scopeUIController?.StartZoomSession( stateInstance );
             }
 
             internal void SetScopeActive( Boolean active )
@@ -126,9 +129,10 @@ namespace Sniper.Skills
 
             private ScopeBaseState stateInstance;
 
-            private ScopeUIController scopeUIController;
-            private SniperScopeSkillDef scopeSkill;
-            private GenericSkill skillSlot;
+            private readonly ScopeUIController scopeUIController;
+            private readonly SniperScopeSkillDef scopeSkill;
+            private readonly GenericSkill skillSlot;
+            private Single zoom;
             internal ZoomParams zoomParams { get; private set; }
         }
     }

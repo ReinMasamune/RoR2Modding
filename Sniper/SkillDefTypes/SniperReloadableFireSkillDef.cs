@@ -13,8 +13,10 @@ using System.Reflection;
 using Sniper.Data;
 using Sniper.Enums;
 using Sniper.Components;
+using Sniper.SkillDefTypes.Bases;
+using Sniper.States.Bases;
 
-namespace Sniper.Skills
+namespace Sniper.SkillDefs
 {
     internal class SniperReloadableFireSkillDef : SniperSkillDef
     {

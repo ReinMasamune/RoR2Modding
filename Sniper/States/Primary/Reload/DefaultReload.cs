@@ -10,8 +10,9 @@ using KinematicCharacterController;
 using EntityStates;
 using RoR2.Skills;
 using System.Reflection;
+using Sniper.States.Bases;
 
-namespace Sniper.Skills
+namespace Sniper.States.Primary.Reload
 {
     internal class DefaultReload : SniperSkillBaseState, ISniperReloadState
     {

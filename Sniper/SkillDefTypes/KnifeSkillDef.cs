@@ -10,8 +10,10 @@ using KinematicCharacterController;
 using EntityStates;
 using RoR2.Skills;
 using System.Reflection;
+using Sniper.SkillDefTypes.Bases;
+using Sniper.States.Bases;
 
-namespace Sniper.Skills
+namespace Sniper.SkillDefs
 {
     internal class KnifeSkillDef : ReactivatedSkillDef<KnifeSkillData>
     {

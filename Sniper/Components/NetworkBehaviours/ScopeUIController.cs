@@ -4,6 +4,8 @@ using System.Runtime.CompilerServices;
 using BepInEx.Logging;
 using ReinCore;
 using RoR2;
+using Sniper.Data;
+using Sniper.States.Bases;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -13,13 +15,34 @@ namespace Sniper.Components
     {
         // TODO: Add all functionality
 
-        internal static ScopeUIController Create( GameObject prefab, CharacterBody body )
+        internal static ScopeUIController Create( GameObject prefab, CharacterBody body, ZoomParams zoomParams )
         {
             // TODO: Implement
             return null;
         }
 
-        internal Single zoom { private get; set; }
+
+
+
+
+
+
+        internal void StartZoomSession(ScopeBaseState state)
+        {
+
+        }
+
+        internal void UpdateUI( CameraTargetParams cameraParams, Single zoom )
+        {
+
+        }
+
+        internal void EndZoomSession()
+        {
+
+        }
+
+
 
         internal void SetActivity( Boolean active )
         {

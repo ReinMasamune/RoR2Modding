@@ -11,11 +11,11 @@ using EntityStates;
 using RoR2.Skills;
 using System.Reflection;
 using Sniper.Expansions;
-using Sniper.Skills;
 using Sniper.Enums;
 using Sniper.Data;
+using Sniper.SkillDefs;
 
-namespace Sniper.Skills
+namespace Sniper.States.Bases
 {
     internal abstract class ScopeBaseState : SniperSkillBaseState
     {
@@ -40,24 +40,21 @@ namespace Sniper.Skills
 
         internal void ForceScopeEnd()
         {
-            if( base.isAuthority )
-            {
-                base.outer.SetNextStateToMain();
-            }
+            if( isAuthority )
+                outer.SetNextStateToMain();
         }
 
         public override void FixedUpdate()
         {
             base.FixedUpdate();
-            if( base.isAuthority && ( !base.IsKeyDownAuthority() || base.characterBody.isSprinting ) )
-            {
-                base.outer.SetNextStateToMain();
-            }
+            if( isAuthority && ( !IsKeyDownAuthority() || characterBody.isSprinting ) )
+                outer.SetNextStateToMain();
         }
 
         public override void Update()
         {
             base.Update();
+            this.instanceData.UpdateCameraParams( cameraTargetParams, Input.mouseScrollDelta.y );
         }
 
         public override void OnExit()

@@ -11,7 +11,7 @@ using EntityStates;
 using RoR2.Skills;
 using System.Reflection;
 
-namespace Sniper.Skills
+namespace Sniper.SkillDefTypes.Bases
 {
     internal abstract class SkillData
     {

@@ -12,7 +12,7 @@ using RoR2.Skills;
 using System.Reflection;
 using Sniper.Components;
 
-namespace Sniper.Skills
+namespace Sniper.States.Bases
 {
     internal abstract class SniperSkillBaseState : BaseSkillState
     {

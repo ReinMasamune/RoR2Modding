@@ -13,8 +13,9 @@ using System.Reflection;
 using Sniper.Expansions;
 using Sniper.Enums;
 using Sniper.Data;
+using Sniper.States.Bases;
 
-namespace Sniper.Skills
+namespace Sniper.States.Secondary
 {
     internal class QuickScope : ScopeBaseState
     {
@@ -25,7 +26,7 @@ namespace Sniper.Skills
         // TODO: Implement
         internal override void OnFired()
         {
-            
+
         }
         internal override BulletModifier ReadModifier()
         {
