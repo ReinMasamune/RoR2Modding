@@ -59,59 +59,61 @@ namespace Sniper
 
 
         #region static event mappings
-        internal static event Action Awake
+#pragma warning disable IDE1006 // Naming Styles
+        internal new static event Action Awake
         {
             add => instance.awake += value;
             remove => instance.awake -= value;
         }
 
-        internal static event Action Start
+        internal new static event Action Start
         {
             add => instance.start += value;
             remove => instance.start -= value;
         }
 
-        internal static event Action OnEnable
+        internal new static event Action OnEnable
         {
             add => instance.enable += value;
             remove => instance.enable -= value;
         }
 
-        internal static event Action OnDisable
+        internal new static event Action OnDisable
         {
             add => instance.disable += value;
             remove => instance.disable -= value;
         }
 
-        internal static event Action Update
+        internal new static event Action Update
         {
             add => instance.update += value;
             remove => instance.disable -= value;
         }
 
-        internal static event Action FixedUpdate
+        internal new static event Action FixedUpdate
         {
             add => instance.fixedUpdate += value;
             remove => instance.fixedUpdate -= value;
         }
 
-        internal static event Action LateUpdate
+        internal new static event Action LateUpdate
         {
             add => instance.lateUpdate += value;
             remove => instance.lateUpdate -= value;
         }
 
-        internal static event Action OnDestroy
+        internal new static event Action OnDestroy
         {
             add => instance.destroy += value;
             remove => instance.destroy -= value;
         }
+        internal new static event Action OnGUI
 
-        internal static event Action OnGUI
         {
             add => instance.gui += value;
             remove => instance.gui -= value;
         }
+#pragma warning restore IDE1006 // Naming Styles
         #endregion
     }
 

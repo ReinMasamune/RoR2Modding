@@ -4,6 +4,7 @@ using System.Runtime.CompilerServices;
 using BepInEx.Logging;
 using ReinCore;
 using RoR2;
+using Sniper.ScriptableObjects;
 using UnityEngine;
 
 namespace Sniper.Modules
@@ -18,7 +19,7 @@ namespace Sniper.Modules
 
         internal static CharacterCameraParams GetCharCameraParams()
         {
-            var param = ScriptableObject.CreateInstance<CharacterCameraParams>();
+            var param = SniperCameraParams.Create( new Vector3( 1f, 0.8f, -3f ) );
             param.name = "ccpSniper";
             param.minPitch = -70f;
             param.maxPitch = 70f;

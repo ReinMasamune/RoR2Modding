@@ -159,7 +159,7 @@ namespace Sniper.Modules
             snipe.skillDescriptionToken = Tokens.SNIPER_PRIMARY_SNIPE_DESC;
             snipe.skillNameToken = Tokens.SNIPER_PRIMARY_SNIPE_NAME;
             snipe.stockToConsume = 1;
-            snipe.stockToReload = 4;
+            snipe.stockToReload = 1;
             skills.Add( snipe );
 
             var slide = SniperReloadableFireSkillDef.Create<SlideSnipe,SlideReload>("Weapon", "Body");
@@ -199,7 +199,10 @@ namespace Sniper.Modules
         {
             var skills = new List<SkillDef>();
 
-            var charge = SniperScopeSkillDef.Create<DefaultScope>( UIModule.GetChargeScope(), default ); // TODO: Zoom params
+            var charge = SniperScopeSkillDef.Create<DefaultScope>( UIModule.GetChargeScope(), new ZoomParams(shoulderStart: 1f, shoulderEnd: 2.5f,
+                                                                                                             scopeStart: 3f, scopeEnd: 8f,
+                                                                                                             shoulderFrac: 0.1f, defaultZoom: 0f,
+                                                                                                             inputScale: 0.01f, baseFoV: 60f) ); // TODO: Zoom params
             charge.baseMaxStock = 1;
             charge.baseRechargeInterval = 0f;
             charge.icon = null; // TODO: Assign

@@ -1,27 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using BepInEx.Logging;
-using ReinCore;
-using RoR2;
-using RoR2.Networking;
-using UnityEngine;
-using KinematicCharacterController;
 using EntityStates;
-using RoR2.Skills;
-using System.Reflection;
-using Sniper.Expansions;
-using Sniper.Enums;
+using RoR2;
 using Sniper.Data;
 using Sniper.SkillDefs;
+using UnityEngine;
 
 namespace Sniper.States.Bases
 {
     internal abstract class ScopeBaseState : SniperSkillBaseState
     {
         internal SniperScopeSkillDef.ScopeInstanceData instanceData;
-
-
 
         internal abstract Boolean usesCharge { get; }
         internal abstract Single currentCharge { get; }
@@ -31,36 +19,54 @@ namespace Sniper.States.Bases
         internal abstract BulletModifier ReadModifier();
         internal abstract void OnFired();
 
+        internal CameraTargetParams cameraTarget { get => base.cameraTargetParams; }
+
         internal BulletModifier SendFired()
         {
-            var mod = this.ReadModifier();
+            BulletModifier mod = this.ReadModifier();
             this.OnFired();
             return mod;
         }
 
         internal void ForceScopeEnd()
         {
-            if( isAuthority )
-                outer.SetNextStateToMain();
+            if( base.isAuthority )
+            {
+                base.outer.SetNextStateToMain();
+            }
+
+        }
+
+        public override void OnEnter()
+        {
+            base.OnEnter();
         }
 
         public override void FixedUpdate()
         {
             base.FixedUpdate();
-            if( isAuthority && ( !IsKeyDownAuthority() || characterBody.isSprinting ) )
-                outer.SetNextStateToMain();
+            if( base.isAuthority && ( !base.IsKeyDownAuthority() || base.characterBody.isSprinting ) )
+            {
+                base.outer.SetNextStateToMain();
+            }
+
         }
 
         public override void Update()
         {
             base.Update();
-            this.instanceData.UpdateCameraParams( cameraTargetParams, Input.mouseScrollDelta.y );
+            this.instanceData.UpdateCameraParams( Input.mouseScrollDelta.y );
         }
 
         public override void OnExit()
         {
-            this.instanceData.Invalidate();
             base.OnExit();
+            this.instanceData.Invalidate();
+        }
+
+        public override InterruptPriority GetMinimumInterruptPriority()
+        {
+            return InterruptPriority.PrioritySkill;
         }
     }
 }

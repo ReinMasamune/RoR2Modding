@@ -36,8 +36,9 @@ namespace ReinGeneralFixes
             var c = new ILCursor( il );
 
             _ = c.GotoNext( MoveType.After, x => x.MatchCallOrCallvirt<CharacterMaster>( "get_inventory" ) );
-            c.Index += 3;
             _ = c.Emit( OpCodes.Dup );
+            c.Index += 3;
+            //_ = c.Emit( OpCodes.Dup );
             _ = c.EmitDelegate<Func<Inventory, Inventory, Inventory>>( ( newInv, oldInv ) =>
               {
                   if( ShouldInheritEquipment( oldInv.currentEquipmentIndex ) ) newInv.CopyEquipmentFrom( oldInv );

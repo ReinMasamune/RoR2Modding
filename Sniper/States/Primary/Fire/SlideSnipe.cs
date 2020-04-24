@@ -18,12 +18,16 @@ namespace Sniper.States.Primary.Fire
 {
     internal class SlideSnipe : SnipeBaseState
     {
+        const Single damageRatio = 1f;
+        const Single force = 100f;
+
         protected sealed override Single baseDuration { get; } = 0.2f;
-        protected sealed override Single recoilStrength { get; } = 5f;
+        protected sealed override Single recoilStrength { get; } = 4f;
         // TODO: Implement State
         protected override void ModifyBullet( ExpandableBulletAttack bullet )
         {
-            // TODO: Implement method
+            bullet.damage *= damageRatio;
+            bullet.force = force;
         }
     }
 }

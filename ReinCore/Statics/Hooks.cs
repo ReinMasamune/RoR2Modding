@@ -370,6 +370,26 @@ public static event Hook On
                 }
             }
 
+            public static class CameraTargetParams
+            {
+                public struct Update
+                {
+                    private static MethodBase method = HookableHelpers.GetBase( typeof(Update) );
+                    public delegate void Orig( global::RoR2.CameraTargetParams self );
+                    public delegate void Hook( Orig orig, global::RoR2.CameraTargetParams self );
+                    public static event ILContext.Manipulator Il
+                    {
+                        add => HookEndpointManager.Modify<Hook>( method, value );
+                        remove => HookEndpointManager.Unmodify<Hook>( method, value );
+                    }
+                    public static event Hook On
+                    {
+                        add => HookEndpointManager.Add<Hook>( method, value );
+                        remove => HookEndpointManager.Remove<Hook>( method, value );
+                    }
+                }
+            }
+
             public static class CharacterBody
             {
                 public struct FixedUpdate

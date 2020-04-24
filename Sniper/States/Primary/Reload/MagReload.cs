@@ -16,6 +16,29 @@ namespace Sniper.States.Primary.Reload
 {
     internal class MagReload : SniperSkillBaseState, ISniperReloadState
     {
+        const Single baseDuration = 0.75f;
+
+
+        private Single duration;
+
         // TODO: Implement state
+
+        public override void OnEnter()
+        {
+            base.OnEnter();
+            this.duration = baseDuration / this.attackSpeedStat;
+
+            // TODO: Play Animation
+            // TODO: Play Sound
+        }
+
+        public override void FixedUpdate()
+        {
+            base.FixedUpdate();
+            if( base.isAuthority && base.fixedAge >= this.duration )
+            {
+                base.outer.SetNextStateToMain();
+            }
+        }
     }
 }

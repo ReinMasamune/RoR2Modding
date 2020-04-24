@@ -39,13 +39,13 @@ namespace Sniper.Modules
 
             var cameraPivot = new GameObject( "CameraPivot" );
             cameraPivot.transform.parent = modelBase.transform;
-            cameraPivot.transform.localPosition = new Vector3( 0f, 1.5f, 0f ); // TODO: Camera pivot position
+            cameraPivot.transform.localPosition = new Vector3( 0f, 2f, 0f ); // TODO: Camera pivot position
             cameraPivot.transform.localRotation = Quaternion.identity;
             cameraPivot.transform.localScale = Vector3.one;
 
             var aimOrigin = new GameObject( "AimOrigin" );
             aimOrigin.transform.parent = modelBase.transform;
-            aimOrigin.transform.localPosition = new Vector3( 0f, 1.2f, 0f ); // TODO: Aim origin position
+            aimOrigin.transform.localPosition = new Vector3( 0f, 1.8f, 0f ); // TODO: Aim origin position
             aimOrigin.transform.localRotation = Quaternion.identity;
             aimOrigin.transform.localScale = Vector3.one;
 

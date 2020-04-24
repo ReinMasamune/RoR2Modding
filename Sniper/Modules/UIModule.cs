@@ -25,10 +25,14 @@ namespace Sniper.Modules
             return Resources.Load<GameObject>( "Prefabs/CharacterBodies/CrocoBody" ).GetComponent<CharacterBody>().crosshairPrefab;
         }
 
+        private static GameObject scopeCrosshair;
         internal static GameObject GetScopeCrosshair()
         {
-            // TODO: Create scope crosshair
-            return null;
+            if( scopeCrosshair == null )
+            {
+                scopeCrosshair = UICreationModule.CreateScopeCrosshair();
+            }
+            return scopeCrosshair;
         }
 
         internal static Texture GetPortraitIcon()
@@ -41,13 +45,13 @@ namespace Sniper.Modules
         internal static GameObject GetQuickScope()
         {
             // TODO: Quick scope UI
-            return null;
+            return GetScopeCrosshair();
         }
 
         internal static GameObject GetChargeScope()
         {
             // TODO: Charge scope UI
-            return null;
+            return GetScopeCrosshair();
         }
 
         private static GameObject reloadBarPrefab;

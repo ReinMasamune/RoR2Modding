@@ -22,6 +22,8 @@ namespace Sniper.States.Secondary
     {
         const Single maxCharge = 1f;
         const Single chargePerSecond = 0.15f;
+        const Single minModifier = 1f;
+        const Single maxModifier = 5f;
 
         internal override Boolean usesCharge { get; } = true;
         internal override Boolean usesStock { get; } = false;
@@ -36,7 +38,10 @@ namespace Sniper.States.Secondary
         }
         internal override BulletModifier ReadModifier()
         {
-            return default;
+            var mod = BulletModifier.identity;
+            mod.damageMultiplier = this.GetDamageMultiplier();
+
+            return mod;
         }
 
 
@@ -73,5 +78,8 @@ namespace Sniper.States.Secondary
             if( NetworkServer.active )
                 characterBody.RemoveBuff( BuffIndex.Slow50 );
         }
+
+
+        private Single GetDamageMultiplier() => Mathf.Lerp( minModifier, maxModifier, this.currentCharge );
     }
 }

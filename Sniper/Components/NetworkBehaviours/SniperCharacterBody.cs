@@ -72,5 +72,8 @@ namespace Sniper.Components
         {
             get => base.skillLocator.secondary.skillInstanceData as SniperScopeSkillDef.ScopeInstanceData;
         }
+
+        [field:SerializeField]
+        internal Transform scopeAimOriginParent { get; set; }
     }
 }
