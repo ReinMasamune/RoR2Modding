@@ -8,6 +8,7 @@ namespace ReinCore
     /// <summary>
     /// A material using CloudRemap. Generally for particle effects.
     /// </summary>
+    [Serializable]
     public class CloudMaterial : MaterialBase
     {
         // TODO: _BumpScale
@@ -64,17 +65,6 @@ namespace ReinCore
         /// Unknown
         /// </summary>
         [Menu( sectionName = "Uncategorized" )]
-        public Single alphaThreshold
-        {
-            get => base.GetSingle( "_AlphaThreshold" );
-            set => base.SetSingle( "_AlphaThreshold", value );
-        }
-
-
-        /// <summary>
-        /// Unknown
-        /// </summary>
-        [Menu( sectionName = "Uncategorized" )]
         [Obsolete]
         public Single brightnessBoost
         {
@@ -104,16 +94,6 @@ namespace ReinCore
             set => base.SetSingle( "_Cull", (Single)value );
         }
 
-
-        /// <summary>
-        /// Unknown
-        /// </summary>
-        [Menu( sectionName = "Uncategorized" )]
-        public Single cutoff
-        {
-            get => base.GetSingle( "_Cutoff" );
-            set => base.SetSingle( "_Cutoff", value );
-        }
 
 
         /// <summary>
@@ -175,17 +155,6 @@ namespace ReinCore
         /// Unknown
         /// </summary>
         [Menu( sectionName = "Uncategorized" )]
-        public Single glossiness
-        {
-            get => base.GetSingle( "_Glossiness" );
-            set => base.SetSingle( "_Glossiness", value );
-        }
-
-
-        /// <summary>
-        /// Unknown
-        /// </summary>
-        [Menu( sectionName = "Uncategorized" )]
         public Single internalSimpleBlendMode
         {
             get => base.GetSingle( "_InternalSimpleBlendMode" );
@@ -224,17 +193,6 @@ namespace ReinCore
         {
             get => base.GetSingle( "_OffsetAmount" );
             set => base.SetSingle( "_OffsetAmount", value );
-        }
-
-
-        /// <summary>
-        /// Unknown
-        /// </summary>
-        [Menu( sectionName = "Uncategorized" )]
-        public Single parallax
-        {
-            get => base.GetSingle( "_Parallax" );
-            set => base.SetSingle( "_Parallax", value );
         }
 
 

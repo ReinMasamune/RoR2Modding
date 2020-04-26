@@ -42,7 +42,8 @@ namespace Sniper.Effects
             Transform trail = new GameObject( "trail" ).transform;
             trail.parent = tailRotate;
             trail.localPosition = Vector3.zero;
-            trail.localEulerAngles = new Vector3( 0f, 90f, 0f );
+            trail.localRotation = Quaternion.identity;
+            trail.localScale = Vector3.one;
 
 
             EffectComponent effectComp = obj.AddComponent<EffectComponent>();
@@ -56,8 +57,6 @@ namespace Sniper.Effects
             EventFunctions eventFuncs = obj.AddComponent<EventFunctions>();
 
             VFXAttributes vfxAtrib = obj.AddComponent<VFXAttributes>();
-
-
 
             Rigidbody headRb = tracerHead.AddComponent<Rigidbody>();
 
@@ -89,21 +88,21 @@ namespace Sniper.Effects
             tracer.startTransform = null;
             tracer.beamObject = null;
             tracer.beamDensity = 0f;
-            tracer.speed = 400f;
+            tracer.speed = 600f;
             tracer.headTransform = tracerHead;
             tracer.tailTransform = tracerTail;
             tracer.length = 1f;
             tracer.reverse = false;
-            tracer.onTailReachedDestination = new UnityEngine.Events.UnityEvent();
+            //tracer.onTailReachedDestination = new UnityEngine.Events.UnityEvent();
             //tracer.onTailReachedDestination.AddListener( new UnityEngine.Events.UnityAction( () => eventFuncs.UnparentTransform(smokeBeam) ) );
-            tracer.onTailReachedDestination.AddListener( new UnityEngine.Events.UnityAction( () => eventFuncs.DestroySelf() ) );
+            //tracer.onTailReachedDestination.AddListener( new UnityEngine.Events.UnityAction( () => eventFuncs.DestroySelf() ) );
 
             //beamPoints.target = line;
             //beamPoints._SetPointTransforms( tracerHead, tracerTail );
 
             // TODO: Line Renderer setup
 
-            rotator.rotationSpeed = new Vector3( 0f, 0f, 360f );
+            rotator.rotationSpeed = new Vector3( 0f, 0f, 2880f );
 
 
             headRb.isKinematic = true;
@@ -142,7 +141,7 @@ namespace Sniper.Effects
             mainPsMain.useUnscaledTime = false;
             mainPsMain.playOnAwake = true;
             mainPsMain.emitterVelocityMode = ParticleSystemEmitterVelocityMode.Transform;
-            mainPsMain.maxParticles = 200;
+            mainPsMain.maxParticles = 20000;
             mainPsMain.stopAction = ParticleSystemStopAction.None;
             mainPsMain.cullingMode = ParticleSystemCullingMode.AlwaysSimulate;
             mainPsMain.ringBufferMode = ParticleSystemRingBufferMode.Disabled;
@@ -245,9 +244,12 @@ namespace Sniper.Effects
             ParticleSystem.CustomDataModule mainPsData = mainPs.customData;
             mainPsData.enabled = false;
 
+            CloudMaterial mainMat = MaterialModule.GetStandardTracerMaterial();
+            obj.AddComponent<CloudMaterialHolder>().cloudMaterial = mainMat;
+
             mainPsr.renderMode = ParticleSystemRenderMode.Mesh;
             mainPsr.mesh = AssetsCore.LoadAsset<Mesh>( MeshIndex.Quad );
-            mainPsr.material = MaterialModule.GetStandardTracerMaterial();
+            mainPsr.material = mainMat.material;
             mainPsr.trailMaterial = null;
             mainPsr.sortMode = ParticleSystemSortMode.None;
             mainPsr.sortingFudge = 0;
@@ -273,10 +275,10 @@ namespace Sniper.Effects
             trailPsMain.loop = true;
             trailPsMain.prewarm = false;
             trailPsMain.startDelay = 0f;
-            trailPsMain.startLifetime = 1f;
-            trailPsMain.startSpeed = 2.5f;
+            trailPsMain.startLifetime = 1.5f;
+            trailPsMain.startSpeed = 0.35f;
             trailPsMain.startSize3D = false;
-            trailPsMain.startSize = 0.5f;
+            trailPsMain.startSize = 1f;
             trailPsMain.startRotation3D = false;
             trailPsMain.startRotation = 0f;
             trailPsMain.flipRotation = 0f;
@@ -289,14 +291,14 @@ namespace Sniper.Effects
             trailPsMain.emitterVelocityMode = ParticleSystemEmitterVelocityMode.Rigidbody;
             trailPsMain.maxParticles = 1000000;
             trailPsMain.stopAction = ParticleSystemStopAction.None;
-            trailPsMain.cullingMode = ParticleSystemCullingMode.Automatic;
+            trailPsMain.cullingMode = ParticleSystemCullingMode.AlwaysSimulate;
             trailPsMain.ringBufferMode = ParticleSystemRingBufferMode.Disabled;
             trailPsMain.scalingMode = ParticleSystemScalingMode.Hierarchy;
 
             ParticleSystem.EmissionModule trailPsEmis = trailPs.emission;
             trailPsEmis.enabled = true;
             trailPsEmis.rateOverTime = 0f;
-            trailPsEmis.rateOverDistance = 1f;
+            trailPsEmis.rateOverDistance = 3f;
             trailPsEmis.burstCount = 0;
 
             ParticleSystem.ShapeModule trailPsShape = trailPs.shape;
@@ -304,6 +306,18 @@ namespace Sniper.Effects
 
             ParticleSystem.VelocityOverLifetimeModule trailPsVol = trailPs.velocityOverLifetime;
             trailPsVol.enabled = false;
+            trailPsVol.orbitalOffsetX = 0f;
+            trailPsVol.orbitalOffsetY = 0.083f;
+            trailPsVol.orbitalOffsetZ = 0f;
+            trailPsVol.orbitalX = 10f;
+            trailPsVol.orbitalY = 0f;
+            trailPsVol.orbitalZ = 0f;
+            trailPsVol.radial = new ParticleSystem.MinMaxCurve( 0.001f, AnimationCurve.Linear( 0f, 0f, 1f, 1f ) );
+            trailPsVol.space = ParticleSystemSimulationSpace.Local;
+            trailPsVol.speedModifier = 10f;
+            trailPsVol.x = 0f;
+            trailPsVol.y = 0f;
+            trailPsVol.z = 0f;
 
             ParticleSystem.LimitVelocityOverLifetimeModule trailPsLvol = trailPs.limitVelocityOverLifetime;
             trailPsLvol.enabled = false;
@@ -322,7 +336,7 @@ namespace Sniper.Effects
                 alphaKeys = new[]
                 {
                     new GradientAlphaKey( 1f, 0f ),
-                    new GradientAlphaKey( 1f, 0.5f ),
+                    new GradientAlphaKey( 1f, 0.35f ),
                     new GradientAlphaKey( 0f, 1f ),
                 },
                 colorKeys = new[]
@@ -351,18 +365,20 @@ namespace Sniper.Effects
             trailPsExt.enabled = false;
 
             ParticleSystem.NoiseModule trailPsNoise = trailPs.noise;
-            trailPsNoise.enabled = true;
-            trailPsNoise.separateAxes = false;
-            trailPsNoise.strength = 0.9f;
-            trailPsNoise.frequency = 0.5f;
-            trailPsNoise.scrollSpeed = 0.5f;
+            trailPsNoise.enabled = false;
+            trailPsNoise.separateAxes = true;
+            trailPsNoise.strengthX = 0f;
+            trailPsNoise.strengthY = 1f;
+            trailPsNoise.strengthZ = 1f;
+            trailPsNoise.frequency = 0.25f;
+            trailPsNoise.scrollSpeed = 0.25f;
             trailPsNoise.damping = false;
             trailPsNoise.octaveCount = 1;
             trailPsNoise.octaveMultiplier = 0.5f;
             trailPsNoise.octaveScale = 2f;
             trailPsNoise.quality = ParticleSystemNoiseQuality.High;
             trailPsNoise.remapEnabled = false;
-            trailPsNoise.positionAmount = 0.75f;
+            trailPsNoise.positionAmount = 0.25f;
             trailPsNoise.sizeAmount = 0f;
 
 
@@ -387,24 +403,23 @@ namespace Sniper.Effects
             trailPsTrail.ribbonCount = 1;
             trailPsTrail.splitSubEmitterRibbons = false;
             trailPsTrail.attachRibbonsToTransform = false;
-            trailPsTrail.textureMode = ParticleSystemTrailTextureMode.Stretch;
-            trailPsTrail.sizeAffectsWidth = false;
+            trailPsTrail.textureMode = ParticleSystemTrailTextureMode.Tile;
+            trailPsTrail.sizeAffectsWidth = true;
             trailPsTrail.inheritParticleColor = false;
-            //trailPsTrail.colorOverLifetime = new ParticleSystem.MinMaxGradient( new Gradient
-            //{
-            //    mode = GradientMode.Blend,
-            //    alphaKeys = new[]
-            //    {
-            //        new GradientAlphaKey( 1f, 0f ),
-            //        new GradientAlphaKey( 1f, 0.5f ),
-            //        new GradientAlphaKey( 0f, 1f ),
-            //    },
-            //    colorKeys = new[]
-            //    {
-            //        new GradientColorKey( Color.white, 0f ),
-            //        new GradientColorKey( Color.white, 1f ),
-            //    }
-            //} );
+            trailPsTrail.colorOverLifetime = new ParticleSystem.MinMaxGradient( new Gradient
+            {
+                mode = GradientMode.Blend,
+                alphaKeys = new[]
+                {
+                    new GradientAlphaKey( 1f, 0f ),
+                    new GradientAlphaKey( 0f, 1f ),
+                },
+                colorKeys = new[]
+                {
+                    new GradientColorKey( Color.white, 0f ),
+                    new GradientColorKey( Color.white, 1f ),
+                }
+            } );
             //trailPsTrail.colorOverTrail = new ParticleSystem.MinMaxGradient( new Gradient
             //{
             //    mode = GradientMode.Blend,
@@ -429,9 +444,12 @@ namespace Sniper.Effects
             ParticleSystem.CustomDataModule trailPsData = trailPs.customData;
             trailPsData.enabled = false;
 
+            CloudMaterial trailMat = MaterialModule.GetStandardTracerTrailMaterial();
+            obj.AddComponent<CloudMaterialHolder>().cloudMaterial = trailMat;
+
             trailPsr.renderMode = ParticleSystemRenderMode.None;
             trailPsr.material = null;
-            trailPsr.trailMaterial = MaterialModule.GetStandardTracerTrailMaterial();
+            trailPsr.trailMaterial = trailMat.material;
             trailPsr.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
             trailPsr.receiveShadows = false;
             trailPsr.motionVectorGenerationMode = MotionVectorGenerationMode.Object;
@@ -441,14 +459,16 @@ namespace Sniper.Effects
             trailPsr.reflectionProbeUsage = UnityEngine.Rendering.ReflectionProbeUsage.Off;
 
 
+            trail.localEulerAngles = new Vector3( 90f, 0f, 0f );
+
             var trail2 = UnityEngine.Object.Instantiate<GameObject>( trail.gameObject, tailRotate ).transform;
-            trail2.localEulerAngles = new Vector3( 0f, -90f, 0f );
+            trail2.localEulerAngles = new Vector3( -30f, -90f, 0f );
 
             var trail3 = UnityEngine.Object.Instantiate<GameObject>( trail.gameObject, tailRotate ).transform;
-            trail3.localEulerAngles = new Vector3( 90f, 0f, 0f );
+            trail3.localEulerAngles = new Vector3( -150f, -90f, 0f );
 
-            var trail4 = UnityEngine.Object.Instantiate<GameObject>( trail.gameObject, tailRotate ).transform;
-            trail4.localEulerAngles = new Vector3( -90f, 0f, 0f );
+            //var trail4 = UnityEngine.Object.Instantiate<GameObject>( trail.gameObject, tailRotate ).transform;
+            //trail4.localEulerAngles = new Vector3( -90f, 0f, 0f );
 
             return obj;
         }

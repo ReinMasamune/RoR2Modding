@@ -48,7 +48,7 @@ namespace Sniper.Modules
                         newBul.aimVector = newDir;
                         newBul.weapon = new GameObject("temp", typeof(NetworkIdentity) );
                         if( hit.damageModifier == HurtBox.DamageModifier.SniperTarget ) newBul.damage *= 1.5f;
-                        RicochetController.QueueRicochet( newBul, (UInt32)(hit.distance / 10f) + 1u );
+                        RicochetController.QueueRicochet( newBul, (UInt32)(hit.distance / 6f) + 1u );
                     }
                 }
             });

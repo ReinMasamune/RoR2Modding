@@ -14,56 +14,40 @@ namespace Sniper.Modules
 {
     internal static class MaterialModule
     {
-        internal static Material GetStandardTracerMaterial()
+        internal static CloudMaterial GetStandardTracerMaterial()
         {
             var mat = new CloudMaterial( "StandardAmmoTracer" )
             {
                 alphaBias = 0f,
-                alphaBoost = 1.81f,
-                alphaThreshold = 0.03f,
-                boost = 2.92f,
+                alphaBoost = 1f,
+                boost = 15f,
                 calcTexAlpha = false,
-                cloudRemappingOn = true,
-                cull = 0f,
-                cutoff = 0.855f,
-                //_DetailNormalMapScale 1f
-                disableRemapping = false,
-                distortionStrength = 0.1f,
-                destinationBlend = UnityEngine.Rendering.BlendMode.One,
-                externalAlpha = 1f,
-                //_Fade 1f
-                fadeCloseDistance = 0.5f,
-                fadeClose = false,
-                fresnelPower = 0f,
-                //_GlossMapScale 1f
-                glossiness = 0.5f,
-                //_GlossyReflections 1f
-                internalSimpleBlendMode = 0f,
-                invFade = 2.7f,
-                //_Metallic 0f
-                //_Mode 0f
-                //_OcclusionStrength 1f
-                //_OffsetAlpha 0f
-                vertexOffsetAmount = 0f,
-                parallax = 0.02f,
-                //_SkyboxOnly 0
-                //_SmoothnessTextureChannel 0
-                //_SpecularHighlights
-                sourceBlend = UnityEngine.Rendering.BlendMode.Zero,
-                vertexAlphaOn = false,
-                vertexColorOn = true,
-                vertexOffset = false,
-                useUV1 = false,
                 cloudDistortionOn = false,
-                emissionOn = true,
+                cloudRemappingOn = true,
+                cull = MaterialBase.CullMode.Off,
+                destinationBlend = UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha,
+                fadeClose = false,
+                externalAlpha = 1f,
+                disableRemapping = false,
+                distortionStrength = 0f,
+                emissionOn = false,
+                fadeCloseDistance = 0.5f,
                 fresnelFade = false,
-
+                fresnelPower = 0f,
+                internalSimpleBlendMode = 0f,
+                invFade = 0f,
+                sourceBlend = UnityEngine.Rendering.BlendMode.SrcAlpha,
+                useUV1 = false,
+                vertexOffsetAmount = 0f,
+                vertexAlphaOn = true,
+                vertexColorOn = false,
+                vertexOffset = false,
                 color = Color.white,
                 cutoffScrollSpeed = new Vector4( 15f, 15f, 13f, 13f ),
-                emissionColor = Color.black,
+                emissionColor = Color.white,
                 tintColor = Color.white
             };
-            mat.mainTexture.texture = AssetsCore.LoadAsset<Texture2D>( Texture2DIndex.refTexOmniExplosion2Mask );
+            mat.mainTexture.texture = AssetsCore.LoadAsset<Texture2D>( Texture2DIndex.refTexParticleDust2Mask );
             mat.remapTexture.texture = TexturesCore.GenerateRampTexture( new Gradient
             {
                 mode = GradientMode.Blend,
@@ -80,63 +64,50 @@ namespace Sniper.Modules
                     new GradientColorKey(Color.white, 1f ),
                 },
             } );
-            mat.cloudTexture1.texture = null;
-            mat.cloudTexture2.texture = AssetsCore.LoadAsset<Texture2D>( Texture2DIndex.refTexCloudDifferenceBW2 );
+            mat.cloudTexture1.texture = AssetsCore.LoadAsset<Texture2D>( Texture2DIndex.refTexCloudDifferenceBW2 );
+            mat.cloudTexture1.tiling = new Vector2( 1f, 1f );
+            mat.cloudTexture2.texture = AssetsCore.LoadAsset<Texture2D>( Texture2DIndex.refTexCloudIce );
+            mat.cloudTexture2.tiling = new Vector2( 1f, 1f );
 
 
-            return AssetsCore.LoadAsset<Material>( MaterialIndex.refMatGolemExplosion );
+            //return AssetsCore.LoadAsset<Material>( MaterialIndex.refMatGolemExplosion );
+            return mat;
         }
 
-        internal static Material GetStandardTracerTrailMaterial()
+        internal static CloudMaterial GetStandardTracerTrailMaterial()
         {
             var mat = new CloudMaterial( "StandardAmmoTracerTrail" )
             {
-                alphaBias = 0.185f,
-                alphaBoost = 5.69f,
-                alphaThreshold = 0f,
-                boost = 1f,
+                alphaBias = 0f,
+                alphaBoost = 2f,
+                boost = 5f,
                 calcTexAlpha = false,
+                cloudDistortionOn = false,
                 cloudRemappingOn = true,
-                cull = 0f,
-                cutoff = 0.164f,
-                //_DetailNormalMapScale 1f
+                cull = MaterialBase.CullMode.Off,
+                destinationBlend = UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha,
+                fadeClose = false,
+                externalAlpha = 1f,
                 disableRemapping = false,
                 distortionStrength = 0f,
-                destinationBlend = UnityEngine.Rendering.BlendMode.One,
-                externalAlpha = 1f,
-                //_Fade 1f
-                fadeCloseDistance = 0.5f,
-                fadeClose = false,
-                fresnelPower = 0f,
-                //_GlossMapScale 1f
-                glossiness = 0.5f,
-                //_GlossyReflections 1f
-                internalSimpleBlendMode = 0f,
-                invFade = 16.5f,
-                //_Metallic 0f
-                //_Mode 0f
-                //_OcclusionStrength 1f
-                //_OffsetAlpha 0f
-                vertexOffsetAmount = 0f,
-                parallax = 0.02f,
-                //_SkyboxOnly 0
-                //_SmoothnessTextureChannel 0
-                //_SpecularHighlights
-                sourceBlend = UnityEngine.Rendering.BlendMode.Zero,
-                vertexAlphaOn = false,
-                vertexColorOn = true,
-                vertexOffset = false,
-                useUV1 = false,
-                cloudDistortionOn = false,
                 emissionOn = false,
+                fadeCloseDistance = 0.5f,
                 fresnelFade = false,
-
+                fresnelPower = 0f,
+                internalSimpleBlendMode = 0f,
+                invFade = 0f,
+                sourceBlend = UnityEngine.Rendering.BlendMode.SrcAlpha,
+                useUV1 = false,
+                vertexOffsetAmount = 0f,
+                vertexAlphaOn = true,
+                vertexColorOn = false,
+                vertexOffset = false,
                 color = Color.white,
                 cutoffScrollSpeed = new Vector4( 15f, 15f, 13f, 13f ),
-                emissionColor = Color.black,
+                emissionColor = Color.white,
                 tintColor = Color.white
             };
-            mat.mainTexture.texture = AssetsCore.LoadAsset<Texture2D>( Texture2DIndex.refTexOmniExplosion2Mask );
+            mat.mainTexture.texture = AssetsCore.LoadAsset<Texture2D>( Texture2DIndex.refTexAlphaGradient2Mask );
             mat.remapTexture.texture = TexturesCore.GenerateRampTexture( new Gradient
             {
                 mode = GradientMode.Blend,
@@ -153,12 +124,13 @@ namespace Sniper.Modules
                     new GradientColorKey(Color.white, 1f ),
                 },
             } );
-            mat.cloudTexture1.texture = null;
-            mat.cloudTexture2.texture = AssetsCore.LoadAsset<Texture2D>( Texture2DIndex.refTexCloudDifferenceBW2 );
+            mat.cloudTexture1.texture = AssetsCore.LoadAsset<Texture2D>( Texture2DIndex.refTexMageMatrixMaskDirectional );
+            mat.cloudTexture1.tiling = new Vector2( 0.11f, 1f );
+            mat.cloudTexture2.texture = AssetsCore.LoadAsset<Texture2D>( Texture2DIndex.refTexCloudWaterRipples );
+            mat.cloudTexture2.tiling = new Vector2( 0.13f, 1f );
 
-
-            //return mat.material;
-            return AssetsCore.LoadAsset<Material>( MaterialIndex.refMatGolemExplosion );
+            return mat;
+            //return AssetsCore.LoadAsset<Material>( MaterialIndex.refMatGolemExplosion );
         }
 
 

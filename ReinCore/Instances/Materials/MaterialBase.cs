@@ -100,7 +100,7 @@ namespace ReinCore
             this.material.SetVector( name, value );
         }
 
-
+        [Serializable]
         public class TextureData
         {
             public TextureData( Material mat, String propName )
@@ -126,12 +126,14 @@ namespace ReinCore
             public Material mat;
             public String propName;
 
+            [SerializeField]
             private Texture _texture;
         }
 
         /// <summary>
         /// Data for a texture with scale and offset settings
         /// </summary>
+        [Serializable]
         public class ScaleOffsetTextureData : TextureData
         {
             public ScaleOffsetTextureData( Material mat, String propName ) : base( mat, propName )
@@ -172,7 +174,9 @@ namespace ReinCore
             }
 
 #pragma warning disable IDE1006 // Naming Styles
+            [SerializeField]
             private Vector2 _tiling;
+            [SerializeField]
             private Vector2 _offset;
 #pragma warning restore IDE1006 // Naming Styles
         }
