@@ -19,8 +19,8 @@ namespace Rein.RogueWispPlugin
 {
     internal partial class Main
     {
-        private Accessor<CharacterBody,Single> armor = new Accessor<CharacterBody, Single>( "armor" );
-        private Accessor<CharacterBody,Single> barrierDecayRate = new Accessor<CharacterBody,Single>( "<barrierDecayRate>k__BackingField" );
+        private readonly Accessor<CharacterBody,Single> armor = new Accessor<CharacterBody, Single>( "armor" );
+        private readonly Accessor<CharacterBody,Single> barrierDecayRate = new Accessor<CharacterBody,Single>( "<barrierDecayRate>k__BackingField" );
         private const Single barrierDecayMult = 0.5f;
         private const Single shieldRegenFrac = 0.02f;
         private const Single rootNumber = 6f;
@@ -41,8 +41,8 @@ namespace Rein.RogueWispPlugin
         {
             if( this.r2apiPlugin != null )
             {
-                var r2apiType = r2apiPlugin.Instance.GetType();
-                var loadoutAPIType = r2apiType.Assembly.GetType("LoadoutAPI");
+                Type r2apiType = r2apiPlugin.Instance.GetType();
+                Type loadoutAPIType = r2apiType.Assembly.GetType("LoadoutAPI");
                 bodyloadouttoxmlbase = MethodBase.GetMethodFromHandle( loadoutAPIType.GetMethod( "BodyLoadout_ToXml", BindingFlags.Static | BindingFlags.NonPublic ).MethodHandle );
             }
         }
@@ -108,94 +108,94 @@ namespace Rein.RogueWispPlugin
 
         private void FromMaster_Il( ILContext il )
         {
-            ILCursor c = new ILCursor( il );
-            c.GotoNext( MoveType.After, x => x.MatchCallOrCallvirt<RoR2.Loadout>( nameof( Loadout.Copy ) ) );
+            var c = new ILCursor( il );
+            _ = c.GotoNext( MoveType.After, x => x.MatchCallOrCallvirt<RoR2.Loadout>( nameof( Loadout.Copy ) ) );
 
-            c.Emit( OpCodes.Ldloc_1 );
-            c.Emit( OpCodes.Ldfld, typeof( RoR2.CharacterSpawnCard ).GetField( "runtimeLoadout", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance ) );
-            c.Emit( OpCodes.Ldarg_0 );
-            c.EmitDelegate<Action<RoR2.Loadout, RoR2.CharacterMaster>>( ( dest, source ) =>
-            {
-                if( dest == null || source == null || !source ) return;
-                var sourceLoadout = source.loadout;
-                if( sourceLoadout == null ) return;
+            _ = c.Emit( OpCodes.Ldloc_1 );
+            _ = c.Emit( OpCodes.Ldfld, typeof( RoR2.CharacterSpawnCard ).GetField( "runtimeLoadout", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance ) );
+            _ = c.Emit( OpCodes.Ldarg_0 );
+            _ = c.EmitDelegate<Action<RoR2.Loadout, RoR2.CharacterMaster>>( ( dest, source ) =>
+              {
+                  if( dest == null || source == null || !source ) return;
+                  var sourceLoadout = source.loadout;
+                  if( sourceLoadout == null ) return;
 
-                var sourceSkin = sourceLoadout.bodyLoadoutManager.GetSkinIndex(Main.rogueWispBodyIndex);
-                var invertedSkin = (~Helpers.WispBitSkin.GetWispSkin(sourceSkin)).EncodeToSkinIndex();
-                dest.bodyLoadoutManager.SetSkinIndex( Main.rogueWispBodyIndex, invertedSkin );
-            });
+                  var sourceSkin = sourceLoadout.bodyLoadoutManager.GetSkinIndex(Main.rogueWispBodyIndex);
+                  var invertedSkin = (~Helpers.WispBitSkin.GetWispSkin(sourceSkin)).EncodeToSkinIndex();
+                  dest.bodyLoadoutManager.SetSkinIndex( Main.rogueWispBodyIndex, invertedSkin );
+              } );
 
         }
 
         private void CreateDoppelganger_Il( ILContext il )
         {
             ILCursor c = new ILCursor( il );
-            c.GotoNext( MoveType.After, x => x.MatchCallOrCallvirt<RoR2.DirectorCore>( nameof( DirectorCore.TrySpawnObject ) ), x => x.MatchPop() );
+            _ = c.GotoNext( MoveType.After, x => x.MatchCallOrCallvirt<RoR2.DirectorCore>( nameof( DirectorCore.TrySpawnObject ) ), x => x.MatchPop() );
             c.Index--;
-            c.Remove();
-            c.EmitDelegate<Action<GameObject>>( ( obj ) =>
-            {
-                if( obj != null && obj )
-                {
-                    var master = obj.GetComponent<CharacterMaster>();
-                    if( master != null && master )
-                    {
-                        var loadout = master.loadout;
-                        if( loadout != null )
-                        {
-                            var bodyInd = BodyCatalog.FindBodyIndex(master.bodyPrefab);
-                            if( bodyInd >= 0 && bodyInd == Main.rogueWispBodyIndex )
-                            {
-                                var bodyLoadoutManager = loadout.bodyLoadoutManager;
-                                var skinInd = bodyLoadoutManager.GetSkinIndex( bodyInd );
-                                UInt32 newSkinInd;
-                                try
-                                {
-                                    var skin = ~Helpers.WispBitSkin.GetWispSkin( skinInd );
-                                    newSkinInd = skin.EncodeToSkinIndex();
-                                } catch
-                                {
-                                    Main.LogE( "Error inverting skin for wisp clone, please copy the line of 1s and 0s below and send them to me." );
-                                    Main.LogE( Convert.ToString( skinInd, 2 ).PadLeft( 32, '0' ));
-                                    newSkinInd = 0b0000_0000_0000_0000_0000_0000_0000_1000u;
-                                }
+            _ = c.Remove();
+            _ = c.EmitDelegate<Action<GameObject>>( ( obj ) =>
+              {
+                  if( obj != null && obj )
+                  {
+                      var master = obj.GetComponent<CharacterMaster>();
+                      if( master != null && master )
+                      {
+                          var loadout = master.loadout;
+                          if( loadout != null )
+                          {
+                              var bodyInd = BodyCatalog.FindBodyIndex(master.bodyPrefab);
+                              if( bodyInd >= 0 && bodyInd == Main.rogueWispBodyIndex )
+                              {
+                                  var bodyLoadoutManager = loadout.bodyLoadoutManager;
+                                  var skinInd = bodyLoadoutManager.GetSkinIndex( bodyInd );
+                                  UInt32 newSkinInd;
+                                  try
+                                  {
+                                      var skin = ~Helpers.WispBitSkin.GetWispSkin( skinInd );
+                                      newSkinInd = skin.EncodeToSkinIndex();
+                                  } catch
+                                  {
+                                      Main.LogE( "Error inverting skin for wisp clone, please copy the line of 1s and 0s below and send them to me." );
+                                      Main.LogE( Convert.ToString( skinInd, 2 ).PadLeft( 32, '0' ) );
+                                      newSkinInd = 0b0000_0000_0000_0000_0000_0000_0000_1000u;
+                                  }
 
-                                bodyLoadoutManager.SetSkinIndex( bodyInd, newSkinInd );
+                                  bodyLoadoutManager.SetSkinIndex( bodyInd, newSkinInd );
 
-                                if( master.hasBody )
-                                {
-                                    var body = master.GetBody();
-                                    body.skinIndex = newSkinInd;
-                                    if( body != null && body )
-                                    {
-                                        var ml = body.modelLocator;
-                                        if( ml != null && ml )
-                                        {
-                                            var model = ml.modelTransform;
-                                            if( model != null && model )
-                                            {
-                                                var skinController = model.GetComponent<Helpers.WispModelBitSkinController>();
-                                                skinController?.Apply( Helpers.WispBitSkin.GetWispSkin( newSkinInd ) );
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            } );
+                                  if( master.hasBody )
+                                  {
+                                      var body = master.GetBody();
+                                      body.skinIndex = newSkinInd;
+                                      if( body != null && body )
+                                      {
+                                          var ml = body.modelLocator;
+                                          if( ml != null && ml )
+                                          {
+                                              var model = ml.modelTransform;
+                                              if( model != null && model )
+                                              {
+                                                  var skinController = model.GetComponent<Helpers.WispModelBitSkinController>();
+                                                  skinController?.Apply( Helpers.WispBitSkin.GetWispSkin( newSkinInd ) );
+                                              }
+                                          }
+                                      }
+                                  }
+                              }
+                          }
+                      }
+                  }
+              } );
 
 
         }
 
         private void UpdateRendererMaterials_Il( ILContext il )
         {
-            ILCursor c = new ILCursor( il );
-            c.GotoNext( MoveType.After, x => x.MatchCallOrCallvirt<RoR2.CharacterModel>( "get_isDoppelganger" ) );
-            c.Emit( OpCodes.Ldarg_0 );
-            c.EmitDelegate<Func<CharacterModel, Boolean>>( ( model ) => model.body != null && model.body.baseNameToken != Rein.Properties.Tokens.WISP_SURVIVOR_BODY_NAME );
-            c.Emit( OpCodes.And );
+            var c = new ILCursor( il );
+            _ = c.GotoNext( MoveType.After, x => x.MatchCallOrCallvirt<RoR2.CharacterModel>( "get_isDoppelganger" ) );
+            _ = c.Emit( OpCodes.Ldarg_0 );
+            _ = c.EmitDelegate<Func<CharacterModel, Boolean>>( ( model ) => model.body != null && model.body.baseNameToken != Rein.Properties.Tokens.WISP_SURVIVOR_BODY_NAME );
+            _ = c.Emit( OpCodes.And );
         }
 
         private void Start_On4( HooksCore.RoR2.UI.QuickPlayButtonController.Start.Orig orig, RoR2.UI.QuickPlayButtonController self )
@@ -251,10 +251,10 @@ namespace Rein.RogueWispPlugin
             //    } );
             //}
 
-            c.GotoNext( MoveType.After, x => x.MatchAdd(), x => x.MatchStloc( 64 ), x => x.MatchLdloc( 64 ), x => x.MatchLdcI4( 53 ) );
+            _ = c.GotoNext( MoveType.After, x => x.MatchAdd(), x => x.MatchStloc( 64 ), x => x.MatchLdloc( 64 ), x => x.MatchLdcI4( 53 ) );
             c.Index--;
-            c.Remove();
-            c.EmitDelegate<Func<Int32>>( () => BuffCatalog.buffCount );
+            _ = c.Remove();
+            _ = c.EmitDelegate<Func<Int32>>( () => BuffCatalog.buffCount );
 
             //c.GotoNext( MoveType.Before, x => x.MatchLdloc( 17 ), x => x.MatchLdcI4( 1 ), x => x.MatchAdd(), x => x.MatchStloc( 17 ) );
             //c.Index++;
@@ -275,29 +275,29 @@ namespace Rein.RogueWispPlugin
         }
         private void OnTakeDamageServer_Il( ILContext il )
         {
-            ILCursor c = new ILCursor( il );
-            c.GotoNext( MoveType.Before, x => x.MatchCallOrCallvirt<SetStateOnHurt>( "SetStun" ) );
-            c.Emit( OpCodes.Ldloc_0 );
-            c.EmitDelegate<Func<DamageInfo, Single>>( ( info ) => info.procCoefficient );
-            c.Emit( OpCodes.Mul );
+            var c = new ILCursor( il );
+            _ = c.GotoNext( MoveType.Before, x => x.MatchCallOrCallvirt<SetStateOnHurt>( "SetStun" ) );
+            _ = c.Emit( OpCodes.Ldloc_0 );
+            _ = c.EmitDelegate<Func<DamageInfo, Single>>( ( info ) => info.procCoefficient );
+            _ = c.Emit( OpCodes.Mul );
         }
         private void Update_Il( ILContext il )
         {
-            ILCursor c = new ILCursor( il );
+            var c = new ILCursor( il );
 
-            c.GotoNext( MoveType.After, x => x.MatchCallOrCallvirt<RoR2.CharacterBody>( "get_isSprinting" ) );
-            c.Emit( OpCodes.Ldarg_0 );
-            c.Emit<RoR2.CameraRigController>( OpCodes.Ldfld, "targetBody" );
-            c.EmitDelegate<Func<CharacterBody, Boolean>>( ( body ) => !this.RW_BlockSprintCrosshair.Contains( body ) );
-            c.Emit( OpCodes.And );
+            _ = c.GotoNext( MoveType.After, x => x.MatchCallOrCallvirt<RoR2.CharacterBody>( "get_isSprinting" ) );
+            _ = c.Emit( OpCodes.Ldarg_0 );
+            _ = c.Emit<RoR2.CameraRigController>( OpCodes.Ldfld, "targetBody" );
+            _ = c.EmitDelegate<Func<CharacterBody, Boolean>>( ( body ) => !this.RW_BlockSprintCrosshair.Contains( body ) );
+            _ = c.Emit( OpCodes.And );
         }
         private void UpdateCrosshair_Il( ILContext il )
         {
-            ILCursor c = new ILCursor( il );
-            c.GotoNext( MoveType.After, x => x.MatchCallOrCallvirt<RoR2.CharacterBody>( "get_isSprinting" ) );
-            c.Emit( OpCodes.Ldarg_1 );
-            c.EmitDelegate<Func<CharacterBody, Boolean>>( ( body ) => !this.RW_BlockSprintCrosshair.Contains( body ) );
-            c.Emit( OpCodes.And );
+            var c = new ILCursor( il );
+            _ = c.GotoNext( MoveType.After, x => x.MatchCallOrCallvirt<RoR2.CharacterBody>( "get_isSprinting" ) );
+            _ = c.Emit( OpCodes.Ldarg_1 );
+            _ = c.EmitDelegate<Func<CharacterBody, Boolean>>( ( body ) => !this.RW_BlockSprintCrosshair.Contains( body ) );
+            _ = c.Emit( OpCodes.And );
         }
         private void RecalculateStats_On( HooksCore.RoR2.CharacterBody.RecalculateStats.Orig orig, CharacterBody self )
         {
@@ -317,7 +317,7 @@ namespace Rein.RogueWispPlugin
         private void RecalculateStats_Il( ILContext il )
         {
             ILCursor c = new ILCursor(il);
-            c.GotoNext( MoveType.After,
+            _ = c.GotoNext( MoveType.After,
                 x => x.MatchLdarg( 0 ),
                 x => x.MatchLdcI4( 6 ),
                 x => x.MatchCallOrCallvirt<RoR2.CharacterBody>( "HasBuff" ),
@@ -325,8 +325,8 @@ namespace Rein.RogueWispPlugin
                 x => x.MatchLdloc( 51 )
                 );
 
-            c.Remove();
-            c.Emit( Mono.Cecil.Cil.OpCodes.Ldc_R4, 0.25f );
+            _ = c.Remove();
+            _ = c.Emit( Mono.Cecil.Cil.OpCodes.Ldc_R4, 0.25f );
         }
         private void FixedUpdate_On( HooksCore.RoR2.CharacterBody.FixedUpdate.Orig orig, CharacterBody self )
         {
@@ -370,8 +370,8 @@ namespace Rein.RogueWispPlugin
                 if( this.chargeBarEnabled.Value )
                 {
 
-                    var inst = Instantiate<GameObject>( wispHudPrefab, par );
-                    var bar3Rect = inst.GetComponent<RectTransform>();
+                    GameObject inst = Instantiate<GameObject>( wispHudPrefab, par );
+                    RectTransform bar3Rect = inst.GetComponent<RectTransform>();
                     bar3Rect.anchoredPosition = new Vector2( 14f, 140f );
                     bar3Rect.sizeDelta = new Vector2( 310f, 32f );
                     bar3Rect.anchorMin = new Vector2( 0.5f, 0.5f );
@@ -383,15 +383,15 @@ namespace Rein.RogueWispPlugin
 
 
 
-                var par2 = self.hud.transform.Find( "MainContainer/MainUIArea/CrosshairCanvas");
+                Transform par2 = self.hud.transform.Find( "MainContainer/MainUIArea/CrosshairCanvas");
 
-                var cross1 = Instantiate<GameObject>( wispCrossBar1, par2 );
+                GameObject cross1 = Instantiate<GameObject>( wispCrossBar1, par2 );
 
-                var bar1Rect = cross1.GetComponent<RectTransform>();
+                RectTransform bar1Rect = cross1.GetComponent<RectTransform>();
 
-                var cross2 = Instantiate<GameObject>( wispCrossBar2, par2 );
+                GameObject cross2 = Instantiate<GameObject>( wispCrossBar2, par2 );
 
-                var bar2Rect = cross2.GetComponent<RectTransform>();
+                RectTransform bar2Rect = cross2.GetComponent<RectTransform>();
 
 
                 bar1Rect.anchoredPosition = new Vector2( 96f, 0f );
@@ -418,18 +418,12 @@ namespace Rein.RogueWispPlugin
         }
         private void Main_ilhook_R2API_LoadoutAPI_BodyLoadout_ToXml( ILContext il )
         {
-            ILCursor c = new ILCursor( il );
-            ILLabel label = default;
-            c.GotoNext( MoveType.After, x => x.MatchLdloc( 1 ) );
-            c.Remove();
+            var c = new ILCursor( il );
+            _ = c.GotoNext( MoveType.After, x => x.MatchLdloc( 1 ) );
+            _ = c.Remove();
             ++c.Index;
-            c.Remove();
-            c.EmitDelegate<Func<ModelSkinController, UInt32, SkinDef>>( ( modelSkin, skinInd ) =>
-            {
-                if( modelSkin == null ) return null;
-                if( skinInd >= modelSkin.skins.Length ) return null;
-                return modelSkin.skins[skinInd];
-            } );
+            _ = c.Remove();
+            _ = c.EmitDelegate<Func<ModelSkinController, UInt32, SkinDef>>( ( modelSkin, skinInd ) => modelSkin == null ? null : skinInd >= modelSkin.skins.Length ? null : modelSkin.skins[skinInd] );
         }
     }
 }

@@ -1,9 +1,9 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyVersion>1.0.0.288</AssemblyVersion>
-    <FileVersion>1.0.0.288</FileVersion>
+    <AssemblyVersion>1.0.0.304</AssemblyVersion>
+    <FileVersion>1.0.0.304</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -427,5 +427,4 @@
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
     <Exec Command="CD $(SolutionDir)" />
   </Target>
-
 </Project>

@@ -461,6 +461,26 @@ public static event Hook On
                 }
             }
 
+            public static class CharacterMaster
+            {
+                public struct GetDeployableSameSlotLimit
+                {
+                    private static readonly MethodBase method = HookableHelpers.GetBase( typeof(GetDeployableSameSlotLimit) );
+                    public delegate Int32 Orig( global::RoR2.CharacterMaster self, global::RoR2.DeployableSlot slot );
+                    public delegate Int32 Hook( Orig orig, global::RoR2.CharacterMaster self, global::RoR2.DeployableSlot slot );
+                    public static event ILContext.Manipulator Il
+                    {
+                        add => HookEndpointManager.Modify<Hook>( method, value );
+                        remove => HookEndpointManager.Unmodify<Hook>( method, value );
+                    }
+                    public static event Hook On
+                    {
+                        add => HookEndpointManager.Add<Hook>( method, value );
+                        remove => HookEndpointManager.Remove<Hook>( method, value );
+                    }
+                }
+            }
+
             public static class CharacterModel
             {
                 public struct UpdateRendererMaterials

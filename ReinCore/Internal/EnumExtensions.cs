@@ -1,5 +1,6 @@
 ﻿using System;
 using BepInEx;
+using System.Linq;
 
 namespace ReinCore
 {
@@ -12,9 +13,16 @@ namespace ReinCore
             return (TValue)Convert.ChangeType(self, typeof(TValue) );
         }
 
-        internal static String GetName( this Enum self )
+        internal static String GetName( this Enum self ) => Enum.GetName( self.GetType(), self );
+
+        internal static TEnum GetMax<TEnum>() where TEnum : struct, Enum => ( Enum.GetValues( typeof( TEnum ) ) as TEnum[] ).Max();
+
+        internal static TEnum GetMin<TEnum>() where TEnum : struct, Enum => ( Enum.GetValues( typeof( TEnum ) ) as TEnum[] ).Min();
+
+        internal static (TEnum min, TEnum max) GetRange<TEnum>() where TEnum : struct, Enum
         {
-            return Enum.GetName( self.GetType(), self );
+            var vals = Enum.GetValues( typeof(TEnum) ) as TEnum[];
+            return (vals.Min(), vals.Max());
         }
     }
 

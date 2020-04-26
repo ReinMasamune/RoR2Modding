@@ -12,10 +12,7 @@ namespace ReinCore
         /// </summary>
         public String name
         {
-            get
-            {
-                return this.material?.name;
-            }
+            get => this.material?.name;
             set
             {
                 if( this.material ) this.material.name = value;
@@ -76,7 +73,7 @@ namespace ReinCore
         {
             return this.material.GetColor( name );
         }
-        public void SetKeyword( String keyword, Boolean value )
+        public void SetKeyword( String keyword, Boolean value, params String[] toggleNames )
         {
             if( value )
             {
@@ -84,6 +81,10 @@ namespace ReinCore
             } else
             {
                 this.material.DisableKeyword( keyword );
+            }
+            for( Int32 i = 0; i < toggleNames.Length; ++i )
+            {
+                this.material.SetFloat( toggleNames[i], value ? 1f : 0f );
             }
         }
         public Boolean GetKeyword( String keyword )
@@ -128,6 +129,9 @@ namespace ReinCore
             private Texture _texture;
         }
 
+        /// <summary>
+        /// Data for a texture with scale and offset settings
+        /// </summary>
         public class ScaleOffsetTextureData : TextureData
         {
             public ScaleOffsetTextureData( Material mat, String propName ) : base( mat, propName )
@@ -136,6 +140,9 @@ namespace ReinCore
                 this._tiling = base.mat.GetTextureScale( base.propName );
                 this._offset = base.mat.GetTextureOffset( base.propName );
             }
+            /// <summary>
+            /// The scale vector
+            /// </summary>
             public Vector2 tiling
             {
                 get => this._tiling;
@@ -148,6 +155,9 @@ namespace ReinCore
                     }
                 }
             }
+            /// <summary>
+            /// The offset vector
+            /// </summary>
             public Vector2 offset
             {
                 get => this._offset;
@@ -161,8 +171,10 @@ namespace ReinCore
                 }
             }
 
+#pragma warning disable IDE1006 // Naming Styles
             private Vector2 _tiling;
             private Vector2 _offset;
+#pragma warning restore IDE1006 // Naming Styles
         }
     }
 

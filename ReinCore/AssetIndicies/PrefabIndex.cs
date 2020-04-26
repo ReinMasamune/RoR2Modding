@@ -4,6 +4,9 @@ using System.Text;
 
 namespace ReinCore
 {
+    /// <summary>
+    /// Index for loading a mapped prefab
+    /// </summary>
     public enum PrefabIndex : UInt64
     {
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member

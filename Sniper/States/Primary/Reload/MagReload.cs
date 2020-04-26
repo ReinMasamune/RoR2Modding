@@ -11,6 +11,7 @@ using EntityStates;
 using RoR2.Skills;
 using System.Reflection;
 using Sniper.States.Bases;
+using Sniper.Enums;
 
 namespace Sniper.States.Primary.Reload
 {
@@ -20,6 +21,8 @@ namespace Sniper.States.Primary.Reload
 
 
         private Single duration;
+
+        public ReloadTier reloadTier { get; set; }
 
         // TODO: Implement state
 

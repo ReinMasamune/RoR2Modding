@@ -80,7 +80,7 @@ namespace ReinCore
         /// <param name="member"></param>
         /// <param name="line"></param>
         /// <returns></returns>
-        public static GameObject CreateUIPrefab( String name, Boolean registerNetwork, [CallerFilePath] string file = "", [CallerMemberName] string member = "", [CallerLineNumber] int line = 0 )
+        public static GameObject CreateUIPrefab( String name, Boolean registerNetwork, [CallerFilePath] String file = "", [CallerMemberName] String member = "", [CallerLineNumber] int line = 0 )
         {
             if( parent == null || loaded == false ) throw new CoreNotLoadedException( nameof( PrefabsCore ) );
             var obj = new GameObject( name, typeof( RectTransform ) );
@@ -102,7 +102,7 @@ namespace ReinCore
         /// <param name="file"></param>
         /// <param name="member"></param>
         /// <param name="line"></param>
-        public static void RegisterNetwork( this GameObject prefab, [CallerFilePath] string file = "", [CallerMemberName] string member = "", [CallerLineNumber] int line = 0 )
+        public static void RegisterNetwork( this GameObject prefab, [CallerFilePath] String file = "", [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 )
         {
             if( parent == null || loaded == false ) throw new CoreNotLoadedException( nameof( PrefabsCore ) );
             if( prefab.GetComponent<NetworkIdentity>() == null ) throw new ArgumentException( "Prefab must have a networkidentity, will not register" );

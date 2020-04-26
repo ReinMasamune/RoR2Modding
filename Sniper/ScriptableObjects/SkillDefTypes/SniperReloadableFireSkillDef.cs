@@ -56,10 +56,10 @@ namespace Sniper.SkillDefs
         {
             EntityStateMachine reloadTargetStatemachine = null;
 
-            var stateMachines = skillSlot.GetComponents<EntityStateMachine>();
+            EntityStateMachine[] stateMachines = skillSlot.GetComponents<EntityStateMachine>();
             for( Int32 i = 0; i < stateMachines.Length; ++i )
             {
-                var mach = stateMachines[i];
+                EntityStateMachine mach = stateMachines[i];
                 if( mach.customName == this.reloadStateMachineName )
                 {
                     reloadTargetStatemachine = mach;
@@ -77,17 +77,13 @@ namespace Sniper.SkillDefs
         public sealed override Sprite GetCurrentIcon( GenericSkill skillSlot )
         {
             var data = skillSlot.skillInstanceData as SniperPrimaryInstanceData;
-            if( data.isReloading )
-            {
-                return this.reloadIcon;
-            }
-            return base.icon;
+            return data.isReloading ? this.reloadIcon : base.icon;
         }
 
         public sealed override Boolean CanExecute( GenericSkill skillSlot )
         {
             var data = skillSlot.skillInstanceData as SniperPrimaryInstanceData;
-            var mach = data.isReloading ? data.reloadStatemachine : skillSlot.stateMachine;
+            EntityStateMachine mach = data.isReloading ? data.reloadStatemachine : skillSlot.stateMachine;
             return this.IsReady( skillSlot ) && 
                 mach && 
                 !mach.HasPendingState() && 
@@ -97,27 +93,24 @@ namespace Sniper.SkillDefs
         public sealed override Boolean IsReady( GenericSkill skillSlot )
         {
             var data = skillSlot.skillInstanceData as SniperPrimaryInstanceData;
-            if( data.isReloading )
-            {
-                return data.CanReload();
-            }
-
-            return data.CanShoot();
+            return data.isReloading ? data.CanReload() : data.CanShoot();
         }
 
         protected sealed override EntityState InstantiateNextState( GenericSkill skillSlot )
         {
             var data = skillSlot.skillInstanceData as SniperPrimaryInstanceData;
             var state = EntityState.Instantiate(data.isReloading ? this.reloadActivationState : base.activationState);
-            var skillState = (state as BaseSkillState);
-            if( skillState != null )
+            if( state is BaseSkillState skillState )
             {
                 skillState.activatorSkillSlot = skillSlot;
             }
-            var snipeState = state as  SnipeBaseState;
-            if( snipeState != null )
+            if( state is SnipeBaseState snipeState )
             {
                 snipeState.reloadParams = this.reloadParams;
+            }
+            if( state is ISniperReloadState reloadState )
+            {
+                reloadState.reloadTier = data.currentReloadTier;
             }
             return state;
         }
@@ -178,7 +171,7 @@ namespace Sniper.SkillDefs
                 this.def = def;
                 this.reloadStatemachine = reloadTargetStatemachine;
                 this.reloadParams = reloadParams;
-                ReloadUIController.GetReloadTexture( this.reloadParams );
+                _ = ReloadUIController.GetReloadTexture( this.reloadParams );
                 this.secondarySlot = this.reloadStatemachine.commonComponents.characterBody.skillLocator.secondary;
                 //this.reloadController = ReloadUIController.FindController( this.reloadStatemachine.commonComponents.characterBody );
             }

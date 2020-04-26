@@ -19,6 +19,8 @@ namespace Sniper.States.Secondary
 {
     internal class QuickScope : ScopeBaseState
     {
+        const Single damageMultiplier = 3f;
+
         internal override Boolean usesCharge { get; } = false;
         internal override Boolean usesStock { get; } = true;
         internal override Single currentCharge { get; }
@@ -30,6 +32,8 @@ namespace Sniper.States.Secondary
         }
         internal override BulletModifier ReadModifier()
         {
+            var mod = new BulletModifier();
+            mod.damageMultiplier = damageMultiplier;
             return default;
         }
     }

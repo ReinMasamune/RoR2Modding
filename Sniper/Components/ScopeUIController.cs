@@ -82,9 +82,8 @@ namespace Sniper.Components
         internal void UpdateUI( Single zoom )
         {
             this.scoped = this.zoomParams.IsInScope( zoom );
-            var fov = this.zoomParams.GetFoV( zoom );
-            Log.Warning( fov );
-            this.camTarget.fovOverride = fov;
+            Single fov = this.zoomParams.GetFoV( zoom );
+            if( this.camTarget ) this.camTarget.fovOverride = fov;
             // TODO: Camera position?
 
             this.chargeIndicator.fillAmount = this.stateInstance.currentCharge;

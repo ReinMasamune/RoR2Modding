@@ -74,9 +74,9 @@ namespace Sniper.Modules
                 return;
             }
 
-            var reloadBar = UIModule.GetRelodBar();
+            GameObject reloadBar = UIModule.GetRelodBar();
 
-            var par = self.hud.transform.Find( "MainContainer/MainUIArea/BottomCenterCluster" );
+            Transform par = self.hud.transform.Find( "MainContainer/MainUIArea/BottomCenterCluster" );
             var barTrans = reloadBar.transform as RectTransform;
             barTrans.SetParent(par, false);
             barTrans.localPosition = new Vector3( 0f, 256f, 0f );
@@ -91,7 +91,7 @@ namespace Sniper.Modules
         private static Dictionary<GenericSkill,SkillSlot> slotReturnOverrides = new Dictionary<GenericSkill, SkillSlot>();
         private static void FindSkillSlot_Il( ILContext il )
         {
-            ILCursor c = new ILCursor( il );
+            var c = new ILCursor( il );
             ILLabel label = null;
             _ = c.GotoNext( x => x.MatchBrtrue( out label ) );
             _ = c.GotoLabel( label );
@@ -108,8 +108,8 @@ namespace Sniper.Modules
 
         private static void FromSkillSlot_Il( MonoMod.Cil.ILContext il )
         {
-            ILCursor c = new ILCursor( il );
-            ILCursor c2 = new ILCursor( il );
+            var c = new ILCursor( il );
+            var c2 = new ILCursor( il );
             ILLabel endSwitchLabel = null;
             _ = c.GotoNext( x => x.MatchStloc( 3 ), x => x.MatchBr( out endSwitchLabel ) );
             ILLabel[] switchLabels = null;
@@ -136,6 +136,29 @@ namespace Sniper.Modules
 
             _ = c.Remove();
             _ = c.Emit( OpCodes.Switch, switchLabels );
+        }
+
+        private static void Example( ILContext il )
+        {
+            var cursor = new ILCursor( il );
+
+            ILLabel myBlockStart, myBlockEnd;
+            myBlockStart = myBlockEnd = null;
+
+            _ = cursor.GotoNext( MoveType.After,
+                instr => instr.MatchBrfalse( out myBlockStart ),
+                instr => instr.MatchLdcR4( 3f ),
+                instr => instr.MatchLdcR4( 1f ),
+                instr => instr.MatchLdarg( 0 )
+            );
+
+            _ = cursor.GotoLabel( myBlockStart );
+            _ = cursor.Emit( OpCodes.Nop );
+            myBlockEnd = cursor.Clone().MarkLabel(); //Clone needed because MarkLabel moves cursor
+
+            //Your IL here
+            //Anything that should exit your block should do this or something similar
+            _ = cursor.Emit( OpCodes.Brfalse_S, myBlockEnd );
         }
     }
 

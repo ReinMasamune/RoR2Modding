@@ -2,20 +2,20 @@
 using System.ComponentModel;
 using System.Linq.Expressions;
 using System.Reflection;
-using BepInEx;
-using UnityEngine;
 
 namespace ReinCore
 {
     /// <summary>
-    /// 
+    /// A wrapper for a get and set method on a particular class. Only works on Mono
     /// </summary>
+    /// <typeparam name="TInstance">The type of the instance you are accessing a field of</typeparam>
+    /// <typeparam name="TValue">The type of the member you are accessing</typeparam>
     public class Accessor<TInstance,TValue> where TInstance : class
     {
         /// <summary>
-        /// 
+        /// Creates an accessor for a member of the type
         /// </summary>
-        /// <param name="name"></param>
+        /// <param name="name">The name of the member</param>
         public Accessor( String name )
         {
             var instanceParam = Expression.Parameter(typeof(TInstance), "instance" );
@@ -89,28 +89,28 @@ namespace ReinCore
         }
 
         /// <summary>
-        /// 
+        /// The Get method for the accessed member
         /// </summary>
         public AccessorGetDelegate Get { get; private set; }
 
         /// <summary>
-        /// 
+        /// The Set method for the accessed member
         /// </summary>
         public AccessorSetDelegate Set { get; private set; }
 
         /// <summary>
-        /// 
+        /// The siguature of the Get method
         /// </summary>
-        /// <param name="instance"></param>
+        /// <param name="instance">The instance to get from</param>
         /// <returns></returns>
         [EditorBrowsable( EditorBrowsableState.Never )]
         public delegate TValue AccessorGetDelegate( TInstance instance );
 
         /// <summary>
-        /// 
+        /// The signature of the Set method
         /// </summary>
-        /// <param name="instance"></param>
-        /// <param name="value"></param>
+        /// <param name="instance">The instance to set</param>
+        /// <param name="value">The value to set</param>
         [EditorBrowsable( EditorBrowsableState.Never )]
         public delegate void AccessorSetDelegate( TInstance instance, TValue value );
     }

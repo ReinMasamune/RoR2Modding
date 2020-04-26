@@ -64,8 +64,8 @@ namespace Rein.RogueWispPlugin
             //R2API.AssetPlus.Languages.AddToken( "ANCIENT_WISP_BODY_NAME", "Ancient Wisp" );
             //R2API.AssetPlus.Languages.AddToken( "ANCIENT_WISP_BODY_SUBNAME", "Banished and Chained" );
 
-            charBody.baseMaxHealth = 6800;
-            charBody.levelMaxHealth = 2040;
+            charBody.baseMaxHealth = 2100;
+            charBody.levelMaxHealth = 630;
 
             charBody.baseRegen = 0f;
             charBody.levelRegen = 0f;

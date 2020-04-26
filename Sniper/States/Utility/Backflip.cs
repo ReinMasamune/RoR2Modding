@@ -17,18 +17,19 @@ using UnityEngine.Networking;
 
 namespace Sniper.States.Utility
 {
-    internal class Backflip : SniperSkillBaseState
+    internal class Backflip : GenericCharacterMain
     {
         private static readonly AnimationCurve backflipSpeedCurve = new AnimationCurve(
             new Keyframe( 0f, 0f ),
             new Keyframe( 0.05f, 0f ),
             new Keyframe( 0.15f, 1f ),
             new Keyframe( 0.3f, 0.9f ),
-            new Keyframe( 1f, 0f )
+            new Keyframe( 1f, 0.3f )
         );
 
-        const Single baseDuration = 1f;
+        const Single baseDuration = 0.75f;
         const Single speedMultiplier = 8f;
+        const Single upwardsBoost = 15f;
 
         private Single duration;
 
@@ -57,8 +58,11 @@ namespace Sniper.States.Utility
             // TODO: VFX
             // TODO: Damage?
 
+            base.characterMotor.Motor.ForceUnground();
             Single speed = this.currentSpeed;
-            base.characterMotor.velocity = this.direction * speed;
+            Vector3 boost = speed * this.direction;
+            boost += new Vector3( 0f, upwardsBoost, 0f );
+            base.characterMotor.velocity = boost;
         }
 
         public override void OnSerialize( NetworkWriter writer )
@@ -77,7 +81,10 @@ namespace Sniper.States.Utility
         {
             base.FixedUpdate();
             Single speed = this.currentSpeed;
-            base.characterMotor.velocity = this.direction * speed;
+            Single y = base.characterMotor.velocity.y;
+            Vector3 boost = speed * this.direction;
+            boost.y = y;
+            base.characterMotor.velocity = boost;
 
             if( base.isAuthority && base.fixedAge > this.duration )
             {

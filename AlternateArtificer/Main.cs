@@ -1,19 +1,19 @@
-﻿
+﻿using BepInEx;
+using RoR2;
+using UnityEngine;
+using R2API;
+using R2API.Utils;
+using R2API.AssetPlus;
+
 namespace AlternativeArtificer
 {
-    using BepInEx;
-    using RoR2;
-    using System;
-    using UnityEngine;
-    using R2API;
-    using R2API.Utils;
-    using R2API.AssetPlus;
-    using AlternateArtificer.SelectablePassive;
-    using AlternativeArtificer.States.Main;
-
+    // This isn't needed unless you are using specific submodules
     [R2APISubmoduleDependency(nameof(ItemAPI),nameof(AssetPlus),nameof(EffectAPI),nameof(PrefabAPI),nameof(LoadoutAPI))]
-    [BepInDependency( "com.bepis.r2api" )]
+    // This is needed
+    [BepInDependency( R2API.R2API.PluginGUID )]
+    // This is needed
     [BepInPlugin( "com.ReinThings.AltArti", "Rein-AlternativeArtificer", "1.1.0.89" )]
+    // partial is not needed, but the class must inherit BaseUnityPlugin
     public partial class Main : BaseUnityPlugin
     {
         private GameObject artiBody;

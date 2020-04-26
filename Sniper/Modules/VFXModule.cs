@@ -17,6 +17,7 @@ namespace Sniper.Modules
             if( standardAmmoTracerPrefab == null )
             {
                 standardAmmoTracerPrefab = Effects.EffectCreator.CreateStandardAmmoTracer();
+                EffectsCore.AddEffect( standardAmmoTracerPrefab );
             }
 
             return standardAmmoTracerPrefab;
@@ -28,6 +29,7 @@ namespace Sniper.Modules
             if( explosiveAmmoTracerPrefab == null )
             {
                 explosiveAmmoTracerPrefab = Effects.EffectCreator.CreateExplosiveAmmoTracer();
+                //EffectsCore.AddEffect( explosiveAmmoTracerPrefab );
             }
 
             return explosiveAmmoTracerPrefab;

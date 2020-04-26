@@ -33,7 +33,7 @@ namespace Rein.RogueWispPlugin
             HooksCore.RoR2.CharacterSpawnCard.Awake.On += this.Awake_On;
             var spawnCard = ScriptableObject.CreateInstance<CharacterSpawnCard>();
             HooksCore.RoR2.CharacterSpawnCard.Awake.On -= this.Awake_On;
-            spawnCard.directorCreditCost = 4000;
+            spawnCard.directorCreditCost = 600;
             spawnCard.forbiddenAsBoss = false;
             spawnCard.forbiddenFlags = RoR2.Navigation.NodeFlags.NoCharacterSpawn;
             spawnCard.hullSize = HullClassification.Golem;
@@ -49,10 +49,10 @@ namespace Rein.RogueWispPlugin
             var dirCard = new DirectorCard();
             dirCard.allowAmbushSpawn = true;
             dirCard.forbiddenUnlockable = "";
-            dirCard.minimumStageCompletions = 6;
+            dirCard.minimumStageCompletions = 0;
             dirCard.preventOverhead = false;
             dirCard.requiredUnlockable = "";
-            dirCard.selectionWeight = 1;
+            dirCard.selectionWeight = 100;
             dirCard.spawnCard = spawnCard;
             dirCard.spawnDistance = DirectorCore.MonsterSpawnDistance.Standard;
             this.AW_dirCard = dirCard;

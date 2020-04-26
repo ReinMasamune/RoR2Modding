@@ -16,7 +16,7 @@ namespace Sniper.SkillDefTypes.Bases
 {
     internal class SniperSkillDef : SkillDef
     {
-        internal static SniperSkillDef Create<TActivationState>( String stateMachineName ) where TActivationState : SniperSkillBaseState
+        internal static SniperSkillDef Create<TActivationState>( String stateMachineName ) where TActivationState : EntityState
         {
             var def = CreateInstance<SniperSkillDef>();
             def.activationState = SkillsCore.StateType<TActivationState>();

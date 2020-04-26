@@ -172,21 +172,21 @@ namespace Sniper.Modules
             slide.reloadInterruptPriority = InterruptPriority.Skill;
             slide.reloadParams = new ReloadParams
             {
-                attackSpeedCap = 3f,
+                attackSpeedCap = 2f,
                 attackSpeedDecayCoef = 10f,
                 badMult = 0.8f,
                 baseDuration = 1.5f,
-                goodMult = 1.2f,
-                perfectMult = 2f,
+                goodMult = 1.3f,
+                perfectMult = 1.9f,
                 reloadDelay = 0.3f,
-                reloadEndDelay = 0.1f,
-                perfectStart = 0.3f,
-                perfectEnd = 0.4f,
-                goodStart = 0.4f,
+                reloadEndDelay = 0.25f,
+                perfectStart = 0.25f,
+                perfectEnd = 0.35f,
+                goodStart = 0.35f,
                 goodEnd = 0.6f,
             };
             slide.requiredStock = 1;
-            slide.shootDelay = 0.0f;
+            slide.shootDelay = 0.15f;
             slide.skillDescriptionToken = Tokens.SNIPER_PRIMARY_DASH_DESC;
             slide.skillNameToken = Tokens.SNIPER_PRIMARY_DASH_NAME;
             slide.stockToConsume = 1;
@@ -201,7 +201,7 @@ namespace Sniper.Modules
 
             var charge = SniperScopeSkillDef.Create<DefaultScope>( UIModule.GetChargeScope(), new ZoomParams(shoulderStart: 1f, shoulderEnd: 2.5f,
                                                                                                              scopeStart: 3f, scopeEnd: 8f,
-                                                                                                             shoulderFrac: 0.1f, defaultZoom: 0f,
+                                                                                                             shoulderFrac: 1f, defaultZoom: 0f,
                                                                                                              inputScale: 0.01f, baseFoV: 60f) ); // TODO: Zoom params
             charge.baseMaxStock = 1;
             charge.baseRechargeInterval = 0f;
@@ -218,8 +218,11 @@ namespace Sniper.Modules
             charge.beginSkillCooldownOnSkillEnd = false;
             skills.Add( charge );
 
-            var quick = SniperScopeSkillDef.Create<DefaultScope>( UIModule.GetQuickScope(), default ); // TODO: Zoom params
-            quick.baseMaxStock = 1;
+            var quick = SniperScopeSkillDef.Create<DefaultScope>( UIModule.GetQuickScope(), new ZoomParams(shoulderStart: 1f, shoulderEnd: 2.5f,
+                                                                                                             scopeStart: 3f, scopeEnd: 8f,
+                                                                                                             shoulderFrac: 1f, defaultZoom: 0f,
+                                                                                                             inputScale: 0.01f, baseFoV: 60f) ); // TODO: Zoom params
+            quick.baseMaxStock = 4;
             quick.baseRechargeInterval = 8f;
             quick.icon = null; // TODO: Assign
             quick.isBullets = false;

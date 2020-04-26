@@ -14,64 +14,213 @@ namespace Sniper.Modules
 {
     internal static class MaterialModule
     {
+        internal static Material GetStandardTracerMaterial()
+        {
+            var mat = new CloudMaterial( "StandardAmmoTracer" )
+            {
+                alphaBias = 0f,
+                alphaBoost = 1.81f,
+                alphaThreshold = 0.03f,
+                boost = 2.92f,
+                calcTexAlpha = false,
+                cloudRemappingOn = true,
+                cull = 0f,
+                cutoff = 0.855f,
+                //_DetailNormalMapScale 1f
+                disableRemapping = false,
+                distortionStrength = 0.1f,
+                destinationBlend = UnityEngine.Rendering.BlendMode.One,
+                externalAlpha = 1f,
+                //_Fade 1f
+                fadeCloseDistance = 0.5f,
+                fadeClose = false,
+                fresnelPower = 0f,
+                //_GlossMapScale 1f
+                glossiness = 0.5f,
+                //_GlossyReflections 1f
+                internalSimpleBlendMode = 0f,
+                invFade = 2.7f,
+                //_Metallic 0f
+                //_Mode 0f
+                //_OcclusionStrength 1f
+                //_OffsetAlpha 0f
+                vertexOffsetAmount = 0f,
+                parallax = 0.02f,
+                //_SkyboxOnly 0
+                //_SmoothnessTextureChannel 0
+                //_SpecularHighlights
+                sourceBlend = UnityEngine.Rendering.BlendMode.Zero,
+                vertexAlphaOn = false,
+                vertexColorOn = true,
+                vertexOffset = false,
+                useUV1 = false,
+                cloudDistortionOn = false,
+                emissionOn = true,
+                fresnelFade = false,
+
+                color = Color.white,
+                cutoffScrollSpeed = new Vector4( 15f, 15f, 13f, 13f ),
+                emissionColor = Color.black,
+                tintColor = Color.white
+            };
+            mat.mainTexture.texture = AssetsCore.LoadAsset<Texture2D>( Texture2DIndex.refTexOmniExplosion2Mask );
+            mat.remapTexture.texture = TexturesCore.GenerateRampTexture( new Gradient
+            {
+                mode = GradientMode.Blend,
+                alphaKeys = new[]
+                {
+                    new GradientAlphaKey(0f, 0f),
+                    new GradientAlphaKey(0f, 0.5f),
+                    new GradientAlphaKey(1f, 1f ),
+                },
+                colorKeys = new[]
+                {
+                    new GradientColorKey(Color.black, 0f),
+                    new GradientColorKey(Color.black, 0.2f ),
+                    new GradientColorKey(Color.white, 1f ),
+                },
+            } );
+            mat.cloudTexture1.texture = null;
+            mat.cloudTexture2.texture = AssetsCore.LoadAsset<Texture2D>( Texture2DIndex.refTexCloudDifferenceBW2 );
+
+
+            return AssetsCore.LoadAsset<Material>( MaterialIndex.refMatGolemExplosion );
+        }
+
+        internal static Material GetStandardTracerTrailMaterial()
+        {
+            var mat = new CloudMaterial( "StandardAmmoTracerTrail" )
+            {
+                alphaBias = 0.185f,
+                alphaBoost = 5.69f,
+                alphaThreshold = 0f,
+                boost = 1f,
+                calcTexAlpha = false,
+                cloudRemappingOn = true,
+                cull = 0f,
+                cutoff = 0.164f,
+                //_DetailNormalMapScale 1f
+                disableRemapping = false,
+                distortionStrength = 0f,
+                destinationBlend = UnityEngine.Rendering.BlendMode.One,
+                externalAlpha = 1f,
+                //_Fade 1f
+                fadeCloseDistance = 0.5f,
+                fadeClose = false,
+                fresnelPower = 0f,
+                //_GlossMapScale 1f
+                glossiness = 0.5f,
+                //_GlossyReflections 1f
+                internalSimpleBlendMode = 0f,
+                invFade = 16.5f,
+                //_Metallic 0f
+                //_Mode 0f
+                //_OcclusionStrength 1f
+                //_OffsetAlpha 0f
+                vertexOffsetAmount = 0f,
+                parallax = 0.02f,
+                //_SkyboxOnly 0
+                //_SmoothnessTextureChannel 0
+                //_SpecularHighlights
+                sourceBlend = UnityEngine.Rendering.BlendMode.Zero,
+                vertexAlphaOn = false,
+                vertexColorOn = true,
+                vertexOffset = false,
+                useUV1 = false,
+                cloudDistortionOn = false,
+                emissionOn = false,
+                fresnelFade = false,
+
+                color = Color.white,
+                cutoffScrollSpeed = new Vector4( 15f, 15f, 13f, 13f ),
+                emissionColor = Color.black,
+                tintColor = Color.white
+            };
+            mat.mainTexture.texture = AssetsCore.LoadAsset<Texture2D>( Texture2DIndex.refTexOmniExplosion2Mask );
+            mat.remapTexture.texture = TexturesCore.GenerateRampTexture( new Gradient
+            {
+                mode = GradientMode.Blend,
+                alphaKeys = new[]
+                {
+                    new GradientAlphaKey(0f, 0f),
+                    new GradientAlphaKey(0f, 0.5f),
+                    new GradientAlphaKey(1f, 1f ),
+                },
+                colorKeys = new[]
+                {
+                    new GradientColorKey(Color.black, 0f),
+                    new GradientColorKey(Color.black, 0.2f ),
+                    new GradientColorKey(Color.white, 1f ),
+                },
+            } );
+            mat.cloudTexture1.texture = null;
+            mat.cloudTexture2.texture = AssetsCore.LoadAsset<Texture2D>( Texture2DIndex.refTexCloudDifferenceBW2 );
+
+
+            //return mat.material;
+            return AssetsCore.LoadAsset<Material>( MaterialIndex.refMatGolemExplosion );
+        }
+
+
         internal static Material[] GetSniperMaterials()
         {
-            var mat = new StandardMaterial("SniperMaterial");
+            var mat = new StandardMaterial( "SniperMaterial" )
+            {
+                blendDepth = 0.2f,
+                blueChannelBias = 0f,
+                blueChannelSmoothness = 0f,
+                cull = MaterialBase.CullMode.Off,
+                cutout = false,
+                decalLayer = StandardMaterial.DecalLayer.Character,
+                dither = false,
+                eliteBrightnessMax = 3.13f,
+                eliteBrightnessMin = -0.93f,
+                eliteIndex = EliteIndex.None,
+                emissionColor = new Color( 0f, 1f, 0.5937939f, 1f ),
+                emissionPower = 1.5f,
+                fadeBias = 0f,
+                flashColor = new Color( 0f, 0f, 0f, 1f ),
+                flowHeightBias = -0.04f,
+                flowHeightEmissionStrength = 1.51f,
+                flowHeightPower = 0f,
+                flowmapEnabled = false,
+                flowMaskStrength = 0f,
+                flowNormalStrength = 0f,
+                flowSpeed = 1f,
+                flowTextureScaleFactor = 1f,
+                fresnelBoost = 1f,
+                fresnelEmission = false,
+                fresnelPower = 1f,
+                greenChannelBias = 0f,
+                greenChannelSmoothness = 0f,
+                ignoreDiffuseAlphaForSpecular = false,
+                limbPrimeMask = 1f,
+                limbRemovalEnabled = false,
+                mainColor = new Color( 0.4f, 0.4f, 0.4f, 0.2f ),
+                normalStrength = 0.25f,
+                printAlphaBias = 0f,
+                printAlphaDepth = 0.1f,
+                printBandHeight = 1f,
+                printColorBoost = 0f,
+                printDirection = StandardMaterial.PrintDirection.BottomUp,
+                printEmissionToAlbedoLerp = 0f,
+                printingEnabled = false,
+                rampChoice = MaterialBase.RampInfo.TwoTone,
+                sliceHeight = 5f,
+                smoothness = 0f,
+                specularExponent = 3f,
+                specularStrength = 0.2f,
+                splatmapEnabled = false,
+                splatmapTileScale = 1f,
+                useVertexColors = false
+            };
 
-            mat.blendDepth = 0.2f;
-            mat.blueChannelBias = 0f;
-            mat.blueChannelSmoothness = 0f;
-            mat.cull = MaterialBase.CullMode.Off;
-            mat.cutout = false;
-            mat.decalLayer = StandardMaterial.DecalLayer.Character;
-            mat.dither = false;
-            mat.eliteBrightnessMax = 3.13f;
-            mat.eliteBrightnessMin = -0.93f;
-            mat.eliteIndex = EliteIndex.None;
-            mat.emissionColor = new Color( 0f, 1f, 0.5937939f, 1f );
-            mat.emissionPower = 1.5f;
-            mat.fadeBias = 0f;
-            mat.flashColor = new Color( 0f, 0f, 0f, 1f );
-            mat.flowHeightBias = -0.04f;
-            mat.flowHeightEmissionStrength = 1.51f;
-            mat.flowHeightPower = 0f;
-            mat.flowmapEnabled = false;
-            mat.flowMaskStrength = 0f;
-            mat.flowNormalStrength = 0f;
-            mat.flowSpeed = 1f;
-            mat.flowTextureScaleFactor = 1f;
-            mat.fresnelBoost = 1f;
-            mat.fresnelEmission = false;
-            mat.fresnelPower = 1f;
-            mat.greenChannelBias = 0f;
-            mat.greenChannelSmoothness = 0f;
-            mat.ignoreDiffuseAlphaForSpecular = false;
-            mat.limbPrimeMask = 1f;
-            mat.limbRemovalEnabled = false;
-            mat.mainColor = new Color( 0.4f, 0.4f, 0.4f, 0.2f );
-            mat.normalStrength = 0.25f;
-            mat.printAlphaBias = 0f;
-            mat.printAlphaDepth = 0.1f;
-            mat.printBandHeight = 1f;
-            mat.printColorBoost = 0f;
-            mat.printDirection = StandardMaterial.PrintDirection.BottomUp;
-            mat.printEmissionToAlbedoLerp = 0f;
-            mat.printingEnabled = false;
-            mat.rampChoice = MaterialBase.RampInfo.TwoTone;
-            mat.sliceHeight = 5f;
-            mat.smoothness = 0f;
-            mat.specularExponent = 3f;
-            mat.specularStrength = 0.2f;
-            mat.splatmapEnabled = false;
-            mat.splatmapTileScale = 1f;
-            mat.useVertexColors = false;
-
-            var mainTex = Tools.LoadTexture2D( Properties.Resources.SniperDiffuse, true, 1024, 1024 );
+            Texture2D mainTex = Tools.LoadTexture2D( Properties.Resources.SniperDiffuse, true, 1024, 1024 );
             mat.mainTexture.texture = mainTex;
             mat.normalMap.texture = Tools.LoadTexture2D( Properties.Resources.SniperNormal, true, 1024, 1024 );
             mat.emissionTexture.texture = Tools.LoadTexture2D( Properties.Resources.Sniper_Emissive_2__1_, true, 1024, 1024);
 
-            var material = mat.material;
+            Material material = mat.material;
             material.SetFloat( "_AOON", 0f );
             material.SetFloat( "_DiffuseBias", 0.5f );
             material.SetFloat( "_DiffuseExponent", 0f );
@@ -109,57 +258,58 @@ namespace Sniper.Modules
 
 
 
-            var mat2 = new StandardMaterial("SniperMaterial");
+            var mat2 = new StandardMaterial( "SniperMaterial" )
+            {
+                blendDepth = 0.2f,
+                blueChannelBias = 0f,
+                blueChannelSmoothness = 0f,
+                cull = MaterialBase.CullMode.Off,
+                cutout = false,
+                decalLayer = StandardMaterial.DecalLayer.Character,
+                dither = false,
+                eliteBrightnessMax = 3.13f,
+                eliteBrightnessMin = -0.93f,
+                eliteIndex = EliteIndex.None,
+                emissionColor = new Color( 0f, 1f, 0.5937939f, 1f ),
+                emissionPower = 1.5f,
+                fadeBias = 0f,
+                flashColor = new Color( 0f, 0f, 0f, 1f ),
+                flowHeightBias = -0.04f,
+                flowHeightEmissionStrength = 1.51f,
+                flowHeightPower = 0f,
+                flowmapEnabled = false,
+                flowMaskStrength = 0f,
+                flowNormalStrength = 0f,
+                flowSpeed = 1f,
+                flowTextureScaleFactor = 1f,
+                fresnelBoost = 1f,
+                fresnelEmission = false,
+                fresnelPower = 1f,
+                greenChannelBias = 0f,
+                greenChannelSmoothness = 0f,
+                ignoreDiffuseAlphaForSpecular = false,
+                limbPrimeMask = 1f,
+                limbRemovalEnabled = false,
+                mainColor = new Color( 0.4f, 0.4f, 0.4f, 0.2f ),
+                normalStrength = 0.25f,
+                printAlphaBias = 0f,
+                printAlphaDepth = 0.1f,
+                printBandHeight = 1f,
+                printColorBoost = 0f,
+                printDirection = StandardMaterial.PrintDirection.BottomUp,
+                printEmissionToAlbedoLerp = 0f,
+                printingEnabled = false,
+                rampChoice = MaterialBase.RampInfo.TwoTone,
+                sliceHeight = 5f,
+                smoothness = 0f,
+                specularExponent = 3f,
+                specularStrength = 0.2f,
+                splatmapEnabled = false,
+                splatmapTileScale = 1f,
+                useVertexColors = false
+            };
 
-            mat2.blendDepth = 0.2f;
-            mat2.blueChannelBias = 0f;
-            mat2.blueChannelSmoothness = 0f;
-            mat2.cull = MaterialBase.CullMode.Off;
-            mat2.cutout = false;
-            mat2.decalLayer = StandardMaterial.DecalLayer.Character;
-            mat2.dither = false;
-            mat2.eliteBrightnessMax = 3.13f;
-            mat2.eliteBrightnessMin = -0.93f;
-            mat2.eliteIndex = EliteIndex.None;
-            mat2.emissionColor = new Color( 0f, 1f, 0.5937939f, 1f );
-            mat2.emissionPower = 1.5f;
-            mat2.fadeBias = 0f;
-            mat2.flashColor = new Color( 0f, 0f, 0f, 1f );
-            mat2.flowHeightBias = -0.04f;
-            mat2.flowHeightEmissionStrength = 1.51f;
-            mat2.flowHeightPower = 0f;
-            mat2.flowmapEnabled = false;
-            mat2.flowMaskStrength = 0f;
-            mat2.flowNormalStrength = 0f;
-            mat2.flowSpeed = 1f;
-            mat2.flowTextureScaleFactor = 1f;
-            mat2.fresnelBoost = 1f;
-            mat2.fresnelEmission = false;
-            mat2.fresnelPower = 1f;
-            mat2.greenChannelBias = 0f;
-            mat2.greenChannelSmoothness = 0f;
-            mat2.ignoreDiffuseAlphaForSpecular = false;
-            mat2.limbPrimeMask = 1f;
-            mat2.limbRemovalEnabled = false;
-            mat2.mainColor = new Color( 0.4f, 0.4f, 0.4f, 0.2f );
-            mat2.normalStrength = 0.25f;
-            mat2.printAlphaBias = 0f;
-            mat2.printAlphaDepth = 0.1f;
-            mat2.printBandHeight = 1f;
-            mat2.printColorBoost = 0f;
-            mat2.printDirection = StandardMaterial.PrintDirection.BottomUp;
-            mat2.printEmissionToAlbedoLerp = 0f;
-            mat2.printingEnabled = false;
-            mat2.rampChoice = MaterialBase.RampInfo.TwoTone;
-            mat2.sliceHeight = 5f;
-            mat2.smoothness = 0f;
-            mat2.specularExponent = 3f;
-            mat2.specularStrength = 0.2f;
-            mat2.splatmapEnabled = false;
-            mat2.splatmapTileScale = 1f;
-            mat2.useVertexColors = false;
-
-            var mainTex2 = Tools.LoadTexture2D( Properties.Resources.SniperDiffuse, true, 1024, 1024 );
+            Texture2D mainTex2 = Tools.LoadTexture2D( Properties.Resources.SniperDiffuse, true, 1024, 1024 );
             mat2.mainTexture.texture = mainTex;
             mat2.normalMap.texture = Tools.LoadTexture2D( Properties.Resources.SniperNormal, true, 1024, 1024 );
             mat2.emissionTexture.texture = Tools.LoadTexture2D( Properties.Resources.Sniper_Emissive_2__1_, true, 1024, 1024 );
@@ -226,55 +376,56 @@ namespace Sniper.Modules
 
         internal static Material GetKnifeMaterial()
         {
-            var mat = new StandardMaterial("SniperMaterial");
-
-            mat.blendDepth = 0.2f;
-            mat.blueChannelBias = 0f;
-            mat.blueChannelSmoothness = 0f;
-            mat.cull = MaterialBase.CullMode.Off;
-            mat.cutout = false;
-            mat.decalLayer = StandardMaterial.DecalLayer.Character;
-            mat.dither = false;
-            mat.eliteBrightnessMax = 3.13f;
-            mat.eliteBrightnessMin = -0.93f;
-            mat.eliteIndex = EliteIndex.None;
-            mat.emissionColor = new Color( 0f, 1f, 0.5937939f, 1f );
-            mat.emissionPower = 1.5f;
-            mat.fadeBias = 0f;
-            mat.flashColor = new Color( 0f, 0f, 0f, 1f );
-            mat.flowHeightBias = -0.04f;
-            mat.flowHeightEmissionStrength = 1.51f;
-            mat.flowHeightPower = 0f;
-            mat.flowmapEnabled = false;
-            mat.flowMaskStrength = 0f;
-            mat.flowNormalStrength = 0f;
-            mat.flowSpeed = 1f;
-            mat.flowTextureScaleFactor = 1f;
-            mat.fresnelBoost = 1f;
-            mat.fresnelEmission = false;
-            mat.fresnelPower = 1f;
-            mat.greenChannelBias = 0f;
-            mat.greenChannelSmoothness = 0f;
-            mat.ignoreDiffuseAlphaForSpecular = false;
-            mat.limbPrimeMask = 1f;
-            mat.limbRemovalEnabled = false;
-            mat.mainColor = new Color( 0.4f, 0.4f, 0.4f, 0.2f );
-            mat.normalStrength = 0.25f;
-            mat.printAlphaBias = 0f;
-            mat.printAlphaDepth = 0.1f;
-            mat.printBandHeight = 1f;
-            mat.printColorBoost = 0f;
-            mat.printDirection = StandardMaterial.PrintDirection.BottomUp;
-            mat.printEmissionToAlbedoLerp = 0f;
-            mat.printingEnabled = false;
-            mat.rampChoice = MaterialBase.RampInfo.TwoTone;
-            mat.sliceHeight = 5f;
-            mat.smoothness = 0f;
-            mat.specularExponent = 3f;
-            mat.specularStrength = 0.2f;
-            mat.splatmapEnabled = false;
-            mat.splatmapTileScale = 1f;
-            mat.useVertexColors = false;
+            var mat = new StandardMaterial( "SniperMaterial" )
+            {
+                blendDepth = 0.2f,
+                blueChannelBias = 0f,
+                blueChannelSmoothness = 0f,
+                cull = MaterialBase.CullMode.Off,
+                cutout = false,
+                decalLayer = StandardMaterial.DecalLayer.Character,
+                dither = false,
+                eliteBrightnessMax = 3.13f,
+                eliteBrightnessMin = -0.93f,
+                eliteIndex = EliteIndex.None,
+                emissionColor = new Color( 0f, 1f, 0.5937939f, 1f ),
+                emissionPower = 1.5f,
+                fadeBias = 0f,
+                flashColor = new Color( 0f, 0f, 0f, 1f ),
+                flowHeightBias = -0.04f,
+                flowHeightEmissionStrength = 1.51f,
+                flowHeightPower = 0f,
+                flowmapEnabled = false,
+                flowMaskStrength = 0f,
+                flowNormalStrength = 0f,
+                flowSpeed = 1f,
+                flowTextureScaleFactor = 1f,
+                fresnelBoost = 1f,
+                fresnelEmission = false,
+                fresnelPower = 1f,
+                greenChannelBias = 0f,
+                greenChannelSmoothness = 0f,
+                ignoreDiffuseAlphaForSpecular = false,
+                limbPrimeMask = 1f,
+                limbRemovalEnabled = false,
+                mainColor = new Color( 0.4f, 0.4f, 0.4f, 0.2f ),
+                normalStrength = 0.25f,
+                printAlphaBias = 0f,
+                printAlphaDepth = 0.1f,
+                printBandHeight = 1f,
+                printColorBoost = 0f,
+                printDirection = StandardMaterial.PrintDirection.BottomUp,
+                printEmissionToAlbedoLerp = 0f,
+                printingEnabled = false,
+                rampChoice = MaterialBase.RampInfo.TwoTone,
+                sliceHeight = 5f,
+                smoothness = 0f,
+                specularExponent = 3f,
+                specularStrength = 0.2f,
+                splatmapEnabled = false,
+                splatmapTileScale = 1f,
+                useVertexColors = false
+            };
 
             var mainTex = Tools.LoadTexture2D( Properties.Resources.SniperDiffuse, true, 1024, 1024 );
             mat.mainTexture.texture = mainTex;

@@ -17,6 +17,6 @@ namespace Sniper.States.Bases
 {
     internal interface ISniperReloadState
     {
-
+        ReloadTier reloadTier { get; set; }
     }
 }

@@ -873,10 +873,10 @@ namespace Rein.RogueWispPlugin.Helpers
             bossAreaMat.cutoffScrollSpeed = new Vector4( 11f, -13f, -17f, 15f );
             bossAreaMat.softFactor = 1f;
             bossAreaMat.softPower = 5f;
-            bossAreaMat.brightnessBoost = 3f;
+            bossAreaMat.brightnessBoost = 2f;
             bossAreaMat.rimPower = 3f;
-            bossAreaMat.rimStrength = 1.5f;
-            bossAreaMat.alphaBoost = 2.5f;
+            bossAreaMat.rimStrength = 2f;
+            bossAreaMat.alphaBoost = 2f;
             bossAreaMat.intersectionStrength = 30f;
             bossAreaMat.cull = MaterialBase.CullMode.Off;
             bossAreaMat.externalAlpha = 1f;

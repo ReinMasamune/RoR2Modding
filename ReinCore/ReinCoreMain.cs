@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using BepInEx;
 using Mono.Cecil;
 using Mono.Cecil.Cil;
@@ -111,6 +112,10 @@ namespace ReinCore
         {
             // Do Nothing
         }
+
+        [MethodImpl(MethodImplOptions.ForwardRef)]
+        private static extern Int32 Square( Int32 number );
+
         private static void ParseSubmodules( HashSet<String> loadedSubmodules )
         {
             foreach( var sub in loadedSubmodules )
