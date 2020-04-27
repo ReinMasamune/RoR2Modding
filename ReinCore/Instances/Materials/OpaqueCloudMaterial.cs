@@ -270,6 +270,8 @@ namespace ReinCore
         {
 
         }
+
+        public OpaqueCloudMaterial() : base() { }
     }
 
 }

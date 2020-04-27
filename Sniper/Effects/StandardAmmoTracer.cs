@@ -75,7 +75,12 @@ namespace Sniper.Effects
 
             ParticleSystemRenderer trailPsr = trail.AddOrGetComponent<ParticleSystemRenderer>();
 
+            DestroyTracerOnDelay cleanup = obj.AddComponent<DestroyTracerOnDelay>();
+            cleanup.delay = 2f;
+            cleanup.tracer = tracer;
 
+            ZeroTracerLengthOverDuration zeroLength = obj.AddComponent<ZeroTracerLengthOverDuration>();
+            zeroLength.tracer = tracer;
 
 
             effectComp.effectIndex = EffectIndex.Invalid;
@@ -85,13 +90,14 @@ namespace Sniper.Effects
             effectComp.soundName = "";
             effectComp.disregardZScale = false;
 
+
             tracer.startTransform = null;
             tracer.beamObject = null;
             tracer.beamDensity = 0f;
             tracer.speed = 600f;
             tracer.headTransform = tracerHead;
             tracer.tailTransform = tracerTail;
-            tracer.length = 1f;
+            tracer.length = 20f;
             tracer.reverse = false;
             //tracer.onTailReachedDestination = new UnityEngine.Events.UnityEvent();
             //tracer.onTailReachedDestination.AddListener( new UnityEngine.Events.UnityAction( () => eventFuncs.UnparentTransform(smokeBeam) ) );
@@ -102,7 +108,7 @@ namespace Sniper.Effects
 
             // TODO: Line Renderer setup
 
-            rotator.rotationSpeed = new Vector3( 0f, 0f, 2880f );
+            rotator.rotationSpeed = new Vector3( 0f, 0f, 1440f );
 
 
             headRb.isKinematic = true;
@@ -275,8 +281,8 @@ namespace Sniper.Effects
             trailPsMain.loop = true;
             trailPsMain.prewarm = false;
             trailPsMain.startDelay = 0f;
-            trailPsMain.startLifetime = 1.5f;
-            trailPsMain.startSpeed = 0.35f;
+            trailPsMain.startLifetime = 1.25f;
+            trailPsMain.startSpeed = new ParticleSystem.MinMaxCurve( 0.3f, 0.7f );
             trailPsMain.startSize3D = false;
             trailPsMain.startSize = 1f;
             trailPsMain.startRotation3D = false;
@@ -298,7 +304,7 @@ namespace Sniper.Effects
             ParticleSystem.EmissionModule trailPsEmis = trailPs.emission;
             trailPsEmis.enabled = true;
             trailPsEmis.rateOverTime = 0f;
-            trailPsEmis.rateOverDistance = 3f;
+            trailPsEmis.rateOverDistance = 4f;
             trailPsEmis.burstCount = 0;
 
             ParticleSystem.ShapeModule trailPsShape = trailPs.shape;
@@ -329,7 +335,7 @@ namespace Sniper.Effects
             trailPsFol.enabled = false;
 
             ParticleSystem.ColorOverLifetimeModule trailPsCol = trailPs.colorOverLifetime;
-            trailPsCol.enabled = true;
+            trailPsCol.enabled = false;
             trailPsCol.color = new ParticleSystem.MinMaxGradient( new Gradient
             {
                 mode = GradientMode.Blend,
@@ -435,7 +441,7 @@ namespace Sniper.Effects
             //        new GradientColorKey( Color.white, 1f ),
             //    }
             //} );
-            trailPsTrail.colorOverLifetime = Color.white;
+            //trailPsTrail.colorOverLifetime = Color.white;
             trailPsTrail.colorOverTrail = Color.white;
             trailPsTrail.widthOverTrail = 0.25f;
             trailPsTrail.generateLightingData = true;

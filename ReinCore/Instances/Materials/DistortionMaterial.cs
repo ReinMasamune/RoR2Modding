@@ -73,10 +73,12 @@ namespace ReinCore
 
         }
 
-        public DistortionMaterial( Material mat ) : base( mat )
+        public DistortionMaterial( Material mat ) : base( mat ) 
         {
 
         }
+
+        public DistortionMaterial() : base() { }
     }
 
 }

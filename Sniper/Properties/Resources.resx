@@ -117,19 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="Gauss_Diffuse" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Gauss_Diffuse.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="Gauss_Emissive" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Gauss_Emissive.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="Gauss_Metal" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Gauss_Metal.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="Gauss_Normals" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Gauss_Normals.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="lang__LOADOUT_SNIPER_AMMO" xml:space="preserve">
     <value>Ammo</value>
   </data>
@@ -223,25 +210,14 @@
   <data name="lang__SNIPER_UTILITY_BACKFLIP_NAME" xml:space="preserve">
     <value>Military Training</value>
   </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="ReinCore" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ReinCore.dll;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="sniper" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\sniper;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="SniperDiffuse" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\SniperForPaint_initialShadingGroup_AlbedoTransparency.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="SniperNormal" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\SniperForPaint_initialShadingGroup_Normal.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="SniperPrefabPath" xml:space="preserve">
-    <value>Assets/Prefabs/mdlSniper.prefab</value>
-  </data>
-  <data name="Sniper_Emissive_2__1_" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Sniper_Emissive_2 (1).png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="unknown__11_" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\unknown (13).png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>Assets/__EXPORT/mdlSniper.prefab</value>
   </data>
 </root>

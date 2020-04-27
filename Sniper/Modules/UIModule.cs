@@ -38,8 +38,8 @@ namespace Sniper.Modules
         internal static Texture GetPortraitIcon()
         {
             // TODO: Portrait Icon
-            return Properties.Tools.LoadTexture2D(Properties.Resources.unknown__11_);
-            //return null;
+            //return Properties.Tools.LoadTexture2D(Properties.Resources.unknown__11_);
+            return null;
         }
 
         internal static GameObject GetQuickScope()

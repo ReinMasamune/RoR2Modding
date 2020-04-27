@@ -241,6 +241,8 @@ namespace ReinCore
         {
 
         }
+
+        public IntersectionCloudMaterial() : base() { }
     }
 
 }

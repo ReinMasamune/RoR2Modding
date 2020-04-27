@@ -86,6 +86,8 @@ namespace ReinCore
         {
 
         }
+
+        public WavingGrassMaterial() : base() { }
     }
 
 }

@@ -29,6 +29,12 @@ namespace ReinCore
         /// </summary>
         public Material material { get; private set; }
 
+        public void Init( Material mat, String name )
+        {
+            this.material = mat;
+            this.name = name;
+        }
+
         public MaterialBase( String name, ShaderIndex index )
         {
             this.shader = index;
@@ -41,6 +47,8 @@ namespace ReinCore
             this.material = mat;
             this.name = mat.name;
         }
+
+        public MaterialBase() { }
 
         public enum CullMode
         {

@@ -13,23 +13,53 @@ namespace Sniper.Modules
     {
         internal static GameObject GetModel()
         {
-            var bundle = Properties.Tools.LoadAssetBundle( Properties.Resources.sniper );
-            var model = bundle.LoadAsset<GameObject>( Properties.Resources.SniperPrefabPath );
+            GameObject model = AssetModule.GetSniperAssetBundle().LoadAsset<GameObject>( Properties.Resources.SniperPrefabPath );
 
-            var sniperMats = MaterialModule.GetSniperMaterials();
-            var rifleMat = MaterialModule.GetRifleMaterial();
-            var knifeMat = MaterialModule.GetKnifeMaterial();
-            foreach( var smr in model.GetComponentsInChildren<SkinnedMeshRenderer>() )
+            foreach( SkinnedMeshRenderer smr in model.GetComponentsInChildren<SkinnedMeshRenderer>() )
             {
-                if( smr.gameObject.name == "SniperMesh" )
+                switch( smr.name )
                 {
-                    smr.sharedMaterials = sniperMats;
-                } else if( smr.gameObject.name == "GuassGun" )
-                {
-                    smr.sharedMaterial = rifleMat;
-                } else
-                {
-                    smr.sharedMaterial = knifeMat;
+                    default:
+                    Log.Warning( String.Format( "{0} is not a handled renderer name", smr.name ) );
+                    break;
+
+                    case "SniperMesh":
+                    smr.sharedMaterial = null;
+                    break;
+
+                    case "ThrowKnife":
+                    break;
+
+                    case "Knife":
+                    break;
+
+                    case "RailGun":
+                    smr.sharedMaterial = MaterialModule.GetRailDefault();
+                    break;
+
+                    case "GaussGun":
+                    smr.sharedMaterial = null;
+                    break;
+
+                    case "AmmoMesh":
+                    smr.sharedMaterial = MaterialModule.GenerateAmmoMaterial( MaterialModule.GetSniperClassicBase() );
+                    break;
+
+                    case "ArmorMesh":
+                    smr.sharedMaterial = MaterialModule.GenerateArmorMaterial( MaterialModule.GetSniperClassicBase() );
+                    break;
+
+                    case "BodyMesh":
+                    smr.sharedMaterial = MaterialModule.GenerateBodyMaterial( MaterialModule.GetSniperClassicBase() );
+                    break;
+
+                    case "CloakMesh":
+                    smr.sharedMaterial = MaterialModule.GenerateCloakMaterial( MaterialModule.GetSniperClassicBase() );
+                    break;
+
+                    case "EmissionMesh":
+                    smr.sharedMaterial = MaterialModule.GenerateEmissionMaterial( MaterialModule.GetSniperClassicBase() );
+                    break;
                 }
             }
 

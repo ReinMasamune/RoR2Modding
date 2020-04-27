@@ -7,7 +7,8 @@ using UnityEngine;
 using Sniper.Modules;
 using BepInEx;
 using RoR2;
-
+#region Metadata
+#endregion
 namespace Sniper
 {
     [BepInDependency( Properties.AssemblyLoad.guid)]

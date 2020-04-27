@@ -495,6 +495,9 @@ namespace ReinCore
         {
 
         }
+
+        public CloudMaterial() : base() { }
+
     }
 
 }

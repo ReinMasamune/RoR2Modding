@@ -61,46 +61,6 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] Gauss_Diffuse {
-            get {
-                object obj = ResourceManager.GetObject("Gauss_Diffuse", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] Gauss_Emissive {
-            get {
-                object obj = ResourceManager.GetObject("Gauss_Emissive", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] Gauss_Metal {
-            get {
-                object obj = ResourceManager.GetObject("Gauss_Metal", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] Gauss_Normals {
-            get {
-                object obj = ResourceManager.GetObject("Gauss_Normals", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Ammo.
         /// </summary>
         internal static string lang__LOADOUT_SNIPER_AMMO {
@@ -400,51 +360,11 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] Sniper_Emissive_2__1_ {
-            get {
-                object obj = ResourceManager.GetObject("Sniper_Emissive_2__1_", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] SniperDiffuse {
-            get {
-                object obj = ResourceManager.GetObject("SniperDiffuse", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] SniperNormal {
-            get {
-                object obj = ResourceManager.GetObject("SniperNormal", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Assets/Prefabs/mdlSniper.prefab.
+        ///   Looks up a localized string similar to Assets/__EXPORT/mdlSniper.prefab.
         /// </summary>
         internal static string SniperPrefabPath {
             get {
                 return ResourceManager.GetString("SniperPrefabPath", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] unknown__11_ {
-            get {
-                object obj = ResourceManager.GetObject("unknown__11_", resourceCulture);
-                return ((byte[])(obj));
             }
         }
     }

@@ -773,6 +773,10 @@ namespace ReinCore
         {
 
         }
+
+
+        public StandardMaterial() : base() { }
+
     }
 
 }
