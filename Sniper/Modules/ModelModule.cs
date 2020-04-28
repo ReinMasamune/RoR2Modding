@@ -14,6 +14,63 @@ namespace Sniper.Modules
         internal static GameObject GetModel()
         {
             GameObject model = AssetModule.GetSniperAssetBundle().LoadAsset<GameObject>( Properties.Resources.SniperPrefabPath );
+            var charModel = model.GetComponent<CharacterModel>();
+
+            for( Int32 i = 0; i < charModel.baseRendererInfos.Length; ++i )
+            {
+                var info = charModel.baseRendererInfos[i];
+                var smr = info.renderer;
+                Material mat = null;
+                switch( smr.name )
+                {
+                    default:
+                    Log.Warning( String.Format( "{0} is not a handled renderer name", smr.name ) );
+                    break;
+
+                    case "SniperMesh":
+                    //
+                    break;
+
+                    case "ThrowKnife":
+                    mat = MaterialModule.GenerateArmorMaterial( MaterialModule.GetSniperClassicBase() );
+                    break;
+
+                    case "Knife":
+                    mat = MaterialModule.GenerateArmorMaterial( MaterialModule.GetSniperClassicBase() );
+                    break;
+
+                    case "RailGun":
+                    mat = MaterialModule.GetRailDefault();
+                    break;
+
+                    case "GaussGun":
+                    mat = null;
+                    break;
+
+                    case "AmmoMesh":
+                    mat = MaterialModule.GenerateAmmoMaterial( MaterialModule.GetSniperClassicBase() );
+                    break;
+
+                    case "ArmorMesh":
+                    mat = MaterialModule.GenerateArmorMaterial( MaterialModule.GetSniperClassicBase() );
+                    break;
+
+                    case "BodyMesh":
+                    mat = MaterialModule.GenerateBodyMaterial( MaterialModule.GetSniperClassicBase() );
+                    break;
+
+                    case "CloakMesh":
+                    mat = MaterialModule.GenerateCloakMaterial( MaterialModule.GetSniperClassicBase() );
+                    break;
+
+                    case "EmissionMesh":
+                    mat = MaterialModule.GenerateEmissionMaterial( MaterialModule.GetSniperClassicBase() );
+                    break;
+                }
+
+                info.defaultMaterial = mat;
+                charModel.baseRendererInfos[i] = info;
+            }
 
             foreach( SkinnedMeshRenderer smr in model.GetComponentsInChildren<SkinnedMeshRenderer>() )
             {

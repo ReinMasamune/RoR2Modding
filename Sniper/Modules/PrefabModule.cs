@@ -348,45 +348,30 @@ namespace Sniper.Modules
 
 
 
-            var charModel = model.AddComponent<CharacterModel>();
+            var charModel = model.AddOrGetComponent<CharacterModel>();
             charModel.body = body;
-            charModel.itemDisplayRuleSet = ItemDisplayModule.GetSniperItemDisplay();
-            charModel.autoPopulateLightInfos = true;
-            charModel.baseRendererInfos = null; // TODO: Assign
-            charModel.baseLightInfos = null; // TODO: Assign
 
 
-            var childLocator = model.AddComponent<ChildLocator>();
-            // TODO: Assign...
+            var childLocator = model.AddOrGetComponent<ChildLocator>();
 
 
-            var hurtBoxGroup = model.AddComponent<HurtBoxGroup>();
+            var hurtBoxGroup = model.AddOrGetComponent<HurtBoxGroup>();
 
-            var tempHurtBox = new GameObject("TempHurtbox");
-            tempHurtBox.layer = LayerIndex.entityPrecise.intVal;
-            tempHurtBox.transform.parent = modelTransform;
-            tempHurtBox.transform.localPosition = new Vector3( 0f, 0.841f, 0f );
-            tempHurtBox.transform.localRotation = Quaternion.identity;
-            tempHurtBox.transform.localScale = Vector3.one;
-
-            var tempHbCol = tempHurtBox.AddComponent<CapsuleCollider>();
-            tempHbCol.center = Vector3.zero;
-            tempHbCol.radius = 0.32f;
-            tempHbCol.height = 1.71f;
-            tempHbCol.direction = 1;
-
-            var tempHb = tempHurtBox.AddComponent<HurtBox>();
+            var tempHb = model.GetComponentInChildren<HurtBox>();
+            Log.Error( tempHb.gameObject.layer );
+            tempHb.gameObject.layer = LayerIndex.entityPrecise.intVal;
+            //var tempHb = tempHurtBox.AddComponent<HurtBox>();
             tempHb.healthComponent = health;
             tempHb.isBullseye = true;
             tempHb.damageModifier = HurtBox.DamageModifier.Normal;
             tempHb.hurtBoxGroup = hurtBoxGroup;
             tempHb.indexInGroup = 0;
 
-            hurtBoxGroup.hurtBoxes = new[]
-            {
-                tempHb,
-            };
-            hurtBoxGroup.mainHurtBox = tempHb;
+            //hurtBoxGroup.hurtBoxes = new[]
+            //{
+            //    tempHb,
+            //};
+            //hurtBoxGroup.mainHurtBox = tempHb;
             hurtBoxGroup.bullseyeCount = 1;
 
 
@@ -397,31 +382,22 @@ namespace Sniper.Modules
             footsteps.footstepDustPrefab = null; // TODO: Assign
 
 
-            var ragdoll = model.AddComponent<RagdollController>();
+            var ragdoll = model.AddOrGetComponent<RagdollController>();
             ragdoll.bones = null; // TODO: Assign
             ragdoll.componentsToDisableOnRagdoll = null; // Assign
 
 
-            var aimAnimator = model.AddComponent<AimAnimator>();
+            var aimAnimator = model.AddOrGetComponent<AimAnimator>();
             // TODO: Finalize values
             aimAnimator.inputBank = input;
             aimAnimator.directionComponent = direction;
-            aimAnimator.pitchRangeMin = -60f;
-            aimAnimator.pitchRangeMax = 60f;
-            aimAnimator.yawRangeMin = -90f;
-            aimAnimator.yawRangeMax = 90f;
+            
             aimAnimator.pitchGiveupRange = 30f;
             aimAnimator.yawGiveupRange = 10f;
             aimAnimator.giveupDuration = 3f;
-            aimAnimator.raisedApproachSpeed = 720f;
-            aimAnimator.loweredApproachSpeed = 360f;
-            aimAnimator.smoothTime = 0.1f;
-            aimAnimator.fullYaw = false;
-            aimAnimator.aimType = AimAnimator.AimType.Direct;
-            aimAnimator.enableAimWeight = false;
 
 
-            var skinController = model.AddComponent<ModelSkinController>();
+            var skinController = model.AddOrGetComponent<ModelSkinController>();
             skinController.skins = Array.Empty<SkinDef>(); // TODO: Assign
         }
     }

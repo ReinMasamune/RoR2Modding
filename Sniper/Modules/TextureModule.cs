@@ -26,8 +26,8 @@ namespace Sniper.Modules
                     colorKeys = new[]
                     {
                         new GradientColorKey(Color.black,0f),
-                        new GradientColorKey(new Color( 0.5f, 0.3f, 0.6f), 0.4f ),
-                        new GradientColorKey(new Color( 0.8f, 0.6f, 0.8f ), 0.95f ),
+                        new GradientColorKey(new Color( 0.3f, 0.5f, 0.3f), 0.4f ),
+                        new GradientColorKey(new Color( 0.6f, 0.8f, 0.6f ), 0.95f ),
                         new GradientColorKey(Color.white,1f),
                     },
                 } );

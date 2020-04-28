@@ -144,7 +144,7 @@ namespace Sniper.Modules
                     ignoreDiffuseAlphaForSpecular = false,
                     limbPrimeMask = 1f,
                     limbRemovalEnabled = false,
-                    mainColor = new Color( 0.4f, 0.4f, 0.4f, 0.2f ),
+                    mainColor = Color.white,
                     normalStrength = 0.25f,
                     printAlphaBias = 0f,
                     printAlphaDepth = 0.1f,
