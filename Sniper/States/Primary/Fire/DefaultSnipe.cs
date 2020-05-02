@@ -18,8 +18,8 @@ namespace Sniper.States.Primary.Fire
 {
     internal class DefaultSnipe : SnipeBaseState
     {
-        const Single damageRatio = 1f;
-        const Single force = 100f;
+        const Single damageRatio = 2.5f;
+        const Single force = 1000f;
 
 
         protected sealed override Single baseDuration { get; } = 0.2f;

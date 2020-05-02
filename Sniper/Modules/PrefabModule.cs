@@ -367,19 +367,19 @@ namespace Sniper.Modules
             tempHb.hurtBoxGroup = hurtBoxGroup;
             tempHb.indexInGroup = 0;
 
-            //hurtBoxGroup.hurtBoxes = new[]
-            //{
-            //    tempHb,
-            //};
-            //hurtBoxGroup.mainHurtBox = tempHb;
+            hurtBoxGroup.hurtBoxes = new[]
+            {
+                tempHb,
+            };
+            hurtBoxGroup.mainHurtBox = tempHb;
             hurtBoxGroup.bullseyeCount = 1;
 
 
             var footsteps = model.AddComponent<FootstepHandler>();
             footsteps.baseFootstepString = "Play_player_footstep";
             footsteps.sprintFootstepOverrideString = "";
-            footsteps.enableFootstepDust = false; // TODO: Enable
-            footsteps.footstepDustPrefab = null; // TODO: Assign
+            footsteps.enableFootstepDust = true;
+            footsteps.footstepDustPrefab = UnityEngine.Resources.Load<GameObject>( "Prefabs/GenericFootstepDust");
 
 
             var ragdoll = model.AddOrGetComponent<RagdollController>();
@@ -391,10 +391,14 @@ namespace Sniper.Modules
             // TODO: Finalize values
             aimAnimator.inputBank = input;
             aimAnimator.directionComponent = direction;
+            aimAnimator.pitchRangeMax = 55f;
+            aimAnimator.pitchRangeMin = -40f;
+            aimAnimator.yawRangeMin = -45f;
+            aimAnimator.yawRangeMax = 45f;
             
             aimAnimator.pitchGiveupRange = 30f;
             aimAnimator.yawGiveupRange = 10f;
-            aimAnimator.giveupDuration = 3f;
+            aimAnimator.giveupDuration = 8f;
 
 
             var skinController = model.AddOrGetComponent<ModelSkinController>();

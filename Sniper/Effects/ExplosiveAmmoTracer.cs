@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Sniper.Modules;
 using UnityEngine;
 
 namespace Sniper.Effects
@@ -9,8 +10,8 @@ namespace Sniper.Effects
     {
         internal static GameObject CreateExplosiveAmmoTracer()
         {
-            // TODO: Explosive ammo tracer
-            return Resources.Load<GameObject>( "Prefabs/Effects/Tracers/TracerCommandoDefault" );
+            var obj = CreateBaseAmmoTracer( MaterialModule.GetExplosiveTracerMaterial().material, MaterialModule.GetExplosiveTracerTrailMaterial().material );
+            return obj;
         }
     }
 }

@@ -11,6 +11,7 @@ using EntityStates;
 using RoR2.Skills;
 using System.Reflection;
 using Sniper.SkillDefTypes.Bases;
+using Sniper.Expansions;
 
 namespace Sniper.SkillDefs
 {
@@ -55,7 +56,7 @@ namespace Sniper.SkillDefs
         private Single onCritDamageMultiplier;
 
 
-        internal void ModifyBullet( BulletAttack bulletAttack )
+        internal void ModifyBullet( ExpandableBulletAttack bulletAttack )
         {
             if( bulletAttack.isCrit ) bulletAttack.damage *= this.onCritDamageMultiplier;
             bulletAttack.sniper = this.canHeadshot;

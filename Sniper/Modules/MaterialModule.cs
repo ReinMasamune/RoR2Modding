@@ -105,6 +105,97 @@ namespace Sniper.Modules
             //return AssetsCore.LoadAsset<Material>( MaterialIndex.refMatGolemExplosion );
         }
 
+        // TODO: Cache this
+        internal static CloudMaterial GetExplosiveTracerMaterial()
+        {
+            var mat = new CloudMaterial( "ExplosiveAmmoTracer" )
+            {
+                alphaBias = 0f,
+                alphaBoost = 1f,
+                boost = 15f,
+                calcTexAlpha = false,
+                cloudDistortionOn = false,
+                cloudRemappingOn = true,
+                cull = MaterialBase.CullMode.Off,
+                destinationBlend = UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha,
+                fadeClose = false,
+                externalAlpha = 1f,
+                disableRemapping = false,
+                distortionStrength = 0f,
+                emissionOn = false,
+                fadeCloseDistance = 0.5f,
+                fresnelFade = false,
+                fresnelPower = 0f,
+                internalSimpleBlendMode = 0f,
+                invFade = 0f,
+                sourceBlend = UnityEngine.Rendering.BlendMode.SrcAlpha,
+                useUV1 = false,
+                vertexOffsetAmount = 0f,
+                vertexAlphaOn = true,
+                vertexColorOn = false,
+                vertexOffset = false,
+                color = Color.white,
+                cutoffScrollSpeed = new Vector4( 15f, 15f, 13f, 13f ),
+                emissionColor = Color.white,
+                tintColor = Color.white
+            };
+            mat.mainTexture.texture = AssetsCore.LoadAsset<Texture2D>( Texture2DIndex.refTexParticleDust2Mask );
+            mat.remapTexture.texture = TextureModule.GetExplosiveAmmoRamp();
+            mat.cloudTexture1.texture = AssetsCore.LoadAsset<Texture2D>( Texture2DIndex.refTexCloudDifferenceBW2 );
+            mat.cloudTexture1.tiling = new Vector2( 1f, 1f );
+            mat.cloudTexture2.texture = AssetsCore.LoadAsset<Texture2D>( Texture2DIndex.refTexCloudIce );
+            mat.cloudTexture2.tiling = new Vector2( 1f, 1f );
+
+
+            //return AssetsCore.LoadAsset<Material>( MaterialIndex.refMatGolemExplosion );
+            return mat;
+        }
+
+        // TODO: Cache this
+        internal static CloudMaterial GetExplosiveTracerTrailMaterial()
+        {
+            var mat = new CloudMaterial( "ExplosiveAmmoTracerTrail" )
+            {
+                alphaBias = 0f,
+                alphaBoost = 2f,
+                boost = 5f,
+                calcTexAlpha = false,
+                cloudDistortionOn = false,
+                cloudRemappingOn = true,
+                cull = MaterialBase.CullMode.Off,
+                destinationBlend = UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha,
+                fadeClose = false,
+                externalAlpha = 1f,
+                disableRemapping = false,
+                distortionStrength = 0f,
+                emissionOn = false,
+                fadeCloseDistance = 0.5f,
+                fresnelFade = false,
+                fresnelPower = 0f,
+                internalSimpleBlendMode = 0f,
+                invFade = 0f,
+                sourceBlend = UnityEngine.Rendering.BlendMode.SrcAlpha,
+                useUV1 = false,
+                vertexOffsetAmount = 0f,
+                vertexAlphaOn = true,
+                vertexColorOn = false,
+                vertexOffset = false,
+                color = Color.white,
+                cutoffScrollSpeed = new Vector4( 15f, 15f, 13f, 13f ),
+                emissionColor = Color.white,
+                tintColor = Color.white
+            };
+            mat.mainTexture.texture = AssetsCore.LoadAsset<Texture2D>( Texture2DIndex.refTexAlphaGradient2Mask );
+            mat.remapTexture.texture = TextureModule.GetExplosiveAmmoRamp();
+            mat.cloudTexture1.texture = AssetsCore.LoadAsset<Texture2D>( Texture2DIndex.refTexMageMatrixMaskDirectional );
+            mat.cloudTexture1.tiling = new Vector2( 0.13f, 1f );
+            mat.cloudTexture2.texture = AssetsCore.LoadAsset<Texture2D>( Texture2DIndex.refTexCloudWaterRipples );
+            mat.cloudTexture2.tiling = new Vector2( 0.17f, 1f );
+
+            return mat;
+            //return AssetsCore.LoadAsset<Material>( MaterialIndex.refMatGolemExplosion );
+        }
+
 
 
         #region Sniper
@@ -170,51 +261,64 @@ namespace Sniper.Modules
         private static StandardMaterial _sniperBase;
 
 
-        internal static StandardMaterial GetSniperClassicBase()
+        internal static StandardMaterial GetSniperDefaultBase()
         {
-            if( _sniperClassicBase == null )
+            if( _sniperDefaultBase == null )
             {
                 var baseMat = GetSniperBase().Clone();
-                var set = TextureModule.GetSniperClassicTextures();
+                var set = TextureModule.GetSniperDefaultTextures();
                 set.Apply( baseMat );
-                _sniperClassicBase = baseMat;
+
+                baseMat.mainColor *= 0.8f;
+                _sniperDefaultBase = baseMat;
             }
 
-            return _sniperClassicBase;
+            return _sniperDefaultBase;
         }
-        private static StandardMaterial _sniperClassicBase;
+        private static StandardMaterial _sniperDefaultBase;
 
-        internal static StandardMaterial GetSniperRedBase()
+        internal static StandardMaterial GetSniperSkin1Base()
         {
-            if( _sniperRedBase == null )
+            if( _sniperSkin1Base == null )
             {
                 var baseMat = GetSniperBase().Clone();
-                var set = TextureModule.GetSniperRedTextures();
+                var set = TextureModule.GetSniperSkin1Textures();
                 set.Apply( baseMat );
-                _sniperRedBase = baseMat;
+                _sniperSkin1Base = baseMat;
             }
 
-            return _sniperRedBase;
+            return _sniperSkin1Base;
         }
-        private static StandardMaterial _sniperRedBase;
+        private static StandardMaterial _sniperSkin1Base;
 
-        internal static StandardMaterial GetSniperRedBlackBase()
+        internal static StandardMaterial GetSniperSkin2Base()
         {
-            if( _sniperRedBlackBase == null )
+            if( _sniperSkin2Base == null )
             {
                 var baseMat = GetSniperBase().Clone();
-                var set = TextureModule.GetSniperRedBlackTextures();
+                var set = TextureModule.GetSniperSkin2Textures();
                 set.Apply( baseMat );
-                _sniperRedBlackBase = baseMat;
+                _sniperSkin2Base = baseMat;
             }
 
-            return _sniperRedBlackBase;
+            return _sniperSkin2Base;
         }
-        private static StandardMaterial _sniperRedBlackBase;
+        private static StandardMaterial _sniperSkin2Base;
 
         internal static Material GenerateAmmoMaterial( StandardMaterial baseMaterial )
         {
             var mat = baseMaterial.Clone();
+
+            mat.mainColor = Color.white;
+            mat.emissionColor = new Color( 0f, 1f, 0f, 1f );
+            mat.normalStrength = 0.05f;
+            mat.emissionPower = 5f;
+            mat.smoothness = 0.5f;
+            mat.ignoreDiffuseAlphaForSpecular = true;
+            mat.rampChoice = MaterialBase.RampInfo.TwoTone;
+            mat.specularStrength = 0.75f;
+            mat.specularExponent = 2f;
+            mat.cull = MaterialBase.CullMode.Back;
 
             return mat.material;
         }
@@ -223,12 +327,34 @@ namespace Sniper.Modules
         {
             var mat = baseMaterial.Clone();
 
+            mat.mainColor = Color.white;
+            mat.normalStrength = 0.3f;
+            mat.emissionColor = Color.white;
+            mat.emissionPower = 1f;
+            mat.smoothness = 1f;
+            mat.ignoreDiffuseAlphaForSpecular = true;
+            mat.rampChoice = MaterialBase.RampInfo.SmoothedTwoTone;
+            mat.specularStrength = 0.1f;
+            mat.specularExponent = 1f;
+            mat.cull = MaterialBase.CullMode.Back;
+
             return mat.material;
         }
 
         internal static Material GenerateCloakMaterial( StandardMaterial baseMaterial )
         {
             var mat = baseMaterial.Clone();
+
+            mat.mainColor = Color.white;
+            mat.normalStrength = 0.6f;
+            mat.emissionColor = Color.clear;
+            mat.emissionPower = 0f;
+            mat.smoothness = 0f;
+            mat.ignoreDiffuseAlphaForSpecular = true;
+            mat.rampChoice = MaterialBase.RampInfo.SubSurface;
+            mat.specularStrength = 0.05f;
+            mat.specularExponent = 3f;
+            mat.cull = MaterialBase.CullMode.Off;
 
             return mat.material;
         }
@@ -237,12 +363,36 @@ namespace Sniper.Modules
         {
             var mat = baseMaterial.Clone();
 
+            mat.mainColor = new Color( 0.7f, 0.7f, 0.7f, 1f );
+            mat.emissionColor = Color.clear;
+            mat.emissionPower = 0f;
+            mat.normalStrength = 0.8f;
+            mat.smoothness = 0.25f;
+            mat.rampChoice = MaterialBase.RampInfo.SmoothedTwoTone;
+            mat.ignoreDiffuseAlphaForSpecular = true;
+            mat.specularStrength = 0.5f;
+            mat.specularExponent = 3f;
+            mat.cull = MaterialBase.CullMode.Back;
+
+
             return mat.material;
         }
 
         internal static Material GenerateEmissionMaterial( StandardMaterial baseMaterial )
         {
             var mat = baseMaterial.Clone();
+
+            mat.emissionColor = Color.white;
+            mat.emissionPower = 1f;
+            mat.mainColor = Color.white;
+            mat.smoothness = 0f;
+            mat.cull = MaterialBase.CullMode.Back;
+            mat.specularExponent = 1f;
+            mat.specularStrength = 0f;
+            mat.rampChoice = MaterialBase.RampInfo.Unlitish;
+            mat.normalStrength = 0f;
+
+
 
             return mat.material;
         }
@@ -290,17 +440,141 @@ namespace Sniper.Modules
             if( _railDefault == null )
             {
                 var mat = GetRailBase().Clone();
-                var tex = TextureModule.GetSniperRailTextures();
+                var tex = TextureModule.GetRailDefaultTextures();
                 tex.Apply( mat );
+
+                mat.mainColor = Color.white;
+                mat.normalStrength = 1f;
+                mat.emissionColor = new Color( 0f, 1f, 0.48f, 1f );
+                mat.emissionPower = 1f;
+                mat.smoothness = 0.5f;
+                mat.ignoreDiffuseAlphaForSpecular = true;
+                mat.rampChoice = MaterialBase.RampInfo.SmoothedTwoTone;
+                mat.specularStrength = 0.3f;
+                mat.specularExponent = 3f;
+                mat.cull = MaterialBase.CullMode.Back;
+
+
+
+
+
                 _railDefault = mat;
             }
 
             return _railDefault.material;
         }
         private static StandardMaterial _railDefault;
+
+
+        internal static Material GetRailAlt1()
+        {
+            if( _railAlt1 == null )
+            {
+                var mat = GetRailBase().Clone();
+                var tex = TextureModule.GetRailAlt1Textures();
+                tex.Apply( mat );
+                _railAlt1 = mat;
+            }
+            return _railAlt1.material;
+        }
+        private static StandardMaterial _railAlt1;
+
+        internal static Material GetRailAlt2()
+        {
+            if( _railAlt2 == null )
+            {
+                var mat = GetRailBase().Clone();
+                var tex = TextureModule.GetRailAlt2Textures();
+                tex.Apply( mat );
+                _railAlt2 = mat;
+            }
+
+            return _railAlt2.material;
+        }
+        private static StandardMaterial _railAlt2;
         #endregion
 
-        
+        #region Throw Knife
+        private static StandardMaterial GetThrowKnifeBase()
+        {
+            if( _throwKnifeBase == null )
+            {
+                var mat = new StandardMaterial( "SniperBase" )
+                {
+                    blendDepth = 0.2f,
+                    blueChannelBias = 0f,
+                    blueChannelSmoothness = 0f,
+                    cull = MaterialBase.CullMode.Off,
+                    cutout = false,
+                    decalLayer = StandardMaterial.DecalLayer.Character,
+                    dither = false,
+                    eliteBrightnessMax = 3.13f,
+                    eliteBrightnessMin = -0.93f,
+                    eliteIndex = EliteIndex.None,
+                    emissionColor = new Color( 0f, 1f, 0.5937939f, 1f ),
+                    emissionPower = 1.5f,
+                    fadeBias = 0f,
+                    flashColor = new Color( 0f, 0f, 0f, 1f ),
+                    flowHeightBias = -0.04f,
+                    flowHeightEmissionStrength = 1.51f,
+                    flowHeightPower = 0f,
+                    flowmapEnabled = false,
+                    flowMaskStrength = 0f,
+                    flowNormalStrength = 0f,
+                    flowSpeed = 1f,
+                    flowTextureScaleFactor = 1f,
+                    fresnelBoost = 1f,
+                    fresnelEmission = false,
+                    fresnelPower = 1f,
+                    greenChannelBias = 0f,
+                    greenChannelSmoothness = 0f,
+                    ignoreDiffuseAlphaForSpecular = false,
+                    limbPrimeMask = 1f,
+                    limbRemovalEnabled = false,
+                    mainColor = Color.white,
+                    normalStrength = 0.25f,
+                    printAlphaBias = 0f,
+                    printAlphaDepth = 0.1f,
+                    printBandHeight = 1f,
+                    printColorBoost = 0f,
+                    printDirection = StandardMaterial.PrintDirection.BottomUp,
+                    printEmissionToAlbedoLerp = 0f,
+                    printingEnabled = false,
+                    rampChoice = MaterialBase.RampInfo.TwoTone,
+                    sliceHeight = 5f,
+                    smoothness = 0f,
+                    specularExponent = 3f,
+                    specularStrength = 0.2f,
+                    splatmapEnabled = false,
+                    splatmapTileScale = 1f,
+                    useVertexColors = false
+                };
+
+                _throwKnifeBase = mat;
+            }
+
+            return _throwKnifeBase;
+        }
+        private static StandardMaterial _throwKnifeBase;
+
+
+
+
+        internal static Material GetThrowKnifeDefault()
+        {
+            if( _throwKnifeDefault == null )
+            {
+                var mat = GetThrowKnifeBase().Clone();
+                var tex = TextureModule.GetThrowKnifeDefaultTextures();
+                tex.Apply( mat );
+                _throwKnifeDefault = mat;
+            }
+            return _throwKnifeDefault.material;
+        }
+        private static StandardMaterial _throwKnifeDefault;
+
+
+        #endregion
 
         public struct SamplerJob : IJobParallelFor, IDisposable
         {

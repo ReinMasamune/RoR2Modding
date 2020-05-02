@@ -13,6 +13,7 @@ using System.Reflection;
 using Sniper.States.Bases;
 using UnityEngine.Networking;
 using Sniper.Enums;
+using Sniper.Modules;
 
 namespace Sniper.States.Primary.Reload
 {
@@ -48,7 +49,8 @@ namespace Sniper.States.Primary.Reload
         public override void OnEnter()
         {
             base.OnEnter();
-
+            base.StartAimMode( 1f, false );
+            base.modelAnimator.SetBool( "shouldAim", true );
             if( base.isAuthority )
             {
                 if( base.inputBank )
@@ -59,6 +61,7 @@ namespace Sniper.States.Primary.Reload
                 }
             }
 
+            SoundModule.PlayLoad( base.gameObject );
 
             this.duration = baseDuration / base.attackSpeedStat;
 
@@ -69,12 +72,18 @@ namespace Sniper.States.Primary.Reload
                 this.speedMultiplier *= reloadMults[(Byte)this.reloadTier + 1];
                 this.isSliding = true;
 
+
+
                 Single speed = this.currentSpeed;
                 Vector3 boost = this.slideDirection * speed;
                 boost += base.characterMotor.isGrounded ? Vector3.zero : Vector3.up * midairUpSpeedBoost;
                 base.characterMotor.velocity = boost;
 
-                // TODO: Slide animation
+
+
+                base.PlayAnimation( "Gesture, Override", "ReloadDash" );
+                
+
                 // TODO: Slide sounds
                 // TODO: Slide VFX
             } else
@@ -84,6 +93,8 @@ namespace Sniper.States.Primary.Reload
                 // TODO: No slide sounds
                 // TODO: No Slide VFX
             }
+
+            base.StartAimMode( this.duration * 2f, false );
 
         }
 

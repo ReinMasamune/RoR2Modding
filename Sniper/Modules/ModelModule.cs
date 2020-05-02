@@ -14,109 +14,70 @@ namespace Sniper.Modules
         internal static GameObject GetModel()
         {
             GameObject model = AssetModule.GetSniperAssetBundle().LoadAsset<GameObject>( Properties.Resources.SniperPrefabPath );
-            var charModel = model.GetComponent<CharacterModel>();
+            CharacterModel charModel = model.GetComponent<CharacterModel>();
 
             for( Int32 i = 0; i < charModel.baseRendererInfos.Length; ++i )
             {
-                var info = charModel.baseRendererInfos[i];
-                var smr = info.renderer;
-                Material mat = null;
+                CharacterModel.RendererInfo info = charModel.baseRendererInfos[i];
+                Renderer smr = info.renderer;
+                Material defaultMat;
+                Material skin1Mat;
+                Material skin2Mat;
                 switch( smr.name )
                 {
                     default:
                     Log.Warning( String.Format( "{0} is not a handled renderer name", smr.name ) );
+                    defaultMat = null;
                     break;
 
                     case "SniperMesh":
-                    //
+                    defaultMat = null;
                     break;
 
                     case "ThrowKnife":
-                    mat = MaterialModule.GenerateArmorMaterial( MaterialModule.GetSniperClassicBase() );
+                    defaultMat = MaterialModule.GetThrowKnifeDefault();
                     break;
 
                     case "Knife":
-                    mat = MaterialModule.GenerateArmorMaterial( MaterialModule.GetSniperClassicBase() );
+                    defaultMat = MaterialModule.GenerateArmorMaterial( MaterialModule.GetSniperDefaultBase() );
                     break;
 
                     case "RailGun":
-                    mat = MaterialModule.GetRailDefault();
+                    defaultMat = MaterialModule.GetRailDefault();
                     break;
 
                     case "GaussGun":
-                    mat = null;
+                    defaultMat = null;
                     break;
 
                     case "AmmoMesh":
-                    mat = MaterialModule.GenerateAmmoMaterial( MaterialModule.GetSniperClassicBase() );
+                    defaultMat = MaterialModule.GenerateAmmoMaterial( MaterialModule.GetSniperDefaultBase() );
                     break;
 
                     case "ArmorMesh":
-                    mat = MaterialModule.GenerateArmorMaterial( MaterialModule.GetSniperClassicBase() );
+                    defaultMat = MaterialModule.GenerateArmorMaterial( MaterialModule.GetSniperDefaultBase() );
                     break;
 
                     case "BodyMesh":
-                    mat = MaterialModule.GenerateBodyMaterial( MaterialModule.GetSniperClassicBase() );
+                    defaultMat = MaterialModule.GenerateBodyMaterial( MaterialModule.GetSniperDefaultBase() );
                     break;
 
                     case "CloakMesh":
-                    mat = MaterialModule.GenerateCloakMaterial( MaterialModule.GetSniperClassicBase() );
+                    defaultMat = MaterialModule.GenerateCloakMaterial( MaterialModule.GetSniperDefaultBase() );
                     break;
 
                     case "EmissionMesh":
-                    mat = MaterialModule.GenerateEmissionMaterial( MaterialModule.GetSniperClassicBase() );
+                    defaultMat = MaterialModule.GenerateEmissionMaterial( MaterialModule.GetSniperDefaultBase() );
                     break;
                 }
-
-                info.defaultMaterial = mat;
+                smr.material = defaultMat;
+                info.defaultMaterial = defaultMat;
                 charModel.baseRendererInfos[i] = info;
-            }
-
-            foreach( SkinnedMeshRenderer smr in model.GetComponentsInChildren<SkinnedMeshRenderer>() )
-            {
-                switch( smr.name )
+                if( defaultMat != null )
                 {
-                    default:
-                    Log.Warning( String.Format( "{0} is not a handled renderer name", smr.name ) );
-                    break;
-
-                    case "SniperMesh":
-                    smr.sharedMaterial = null;
-                    break;
-
-                    case "ThrowKnife":
-                    break;
-
-                    case "Knife":
-                    break;
-
-                    case "RailGun":
-                    smr.sharedMaterial = MaterialModule.GetRailDefault();
-                    break;
-
-                    case "GaussGun":
-                    smr.sharedMaterial = null;
-                    break;
-
-                    case "AmmoMesh":
-                    smr.sharedMaterial = MaterialModule.GenerateAmmoMaterial( MaterialModule.GetSniperClassicBase() );
-                    break;
-
-                    case "ArmorMesh":
-                    smr.sharedMaterial = MaterialModule.GenerateArmorMaterial( MaterialModule.GetSniperClassicBase() );
-                    break;
-
-                    case "BodyMesh":
-                    smr.sharedMaterial = MaterialModule.GenerateBodyMaterial( MaterialModule.GetSniperClassicBase() );
-                    break;
-
-                    case "CloakMesh":
-                    smr.sharedMaterial = MaterialModule.GenerateCloakMaterial( MaterialModule.GetSniperClassicBase() );
-                    break;
-
-                    case "EmissionMesh":
-                    smr.sharedMaterial = MaterialModule.GenerateEmissionMaterial( MaterialModule.GetSniperClassicBase() );
-                    break;
+                    var holder1 = smr.gameObject.AddComponent<StandardMaterialHolder>();
+                    //var holder2 = smr.gameObject.AddComponent<BaseMaterialHolder<StandardMaterial>>();
+                    holder1.standardMaterial = new StandardMaterial( defaultMat );
                 }
             }
 

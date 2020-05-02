@@ -26,6 +26,7 @@ namespace Sniper.States.Secondary
         internal override Single currentCharge { get; }
         internal override UInt32 currentStock { get; }
         // TODO: Implement
+
         internal override void OnFired()
         {
 

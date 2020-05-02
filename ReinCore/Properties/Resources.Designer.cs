@@ -63,6 +63,16 @@ namespace Rein.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] RoR2ScriptForwarding {
+            get {
+                object obj = ResourceManager.GetObject("RoR2ScriptForwarding", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] wooting_rgb_sdk64 {
             get {
                 object obj = ResourceManager.GetObject("wooting_rgb_sdk64", resourceCulture);

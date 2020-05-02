@@ -56,46 +56,46 @@ namespace Rein.RogueWispPlugin
 
         //private void CheckNetHandlers()
         //{
-        private void DoStuff()
-        {
-            AssemblyDefinition ror2asm = AssemblyDefinition.ReadAssembly(typeof(RoR2Application).Assembly.Location);
-            String handlerString = typeof(NetworkMessageHandlerAttribute).FullName;
+        //private void DoStuff()
+        //{
+        //    AssemblyDefinition ror2asm = AssemblyDefinition.ReadAssembly(typeof(RoR2Application).Assembly.Location);
+        //    String handlerString = typeof(NetworkMessageHandlerAttribute).FullName;
 
-            this.asmSet.Add( ror2asm );
-            for( Int32 i = 0; i < this.plugins.Count; ++i )
-            {
-                var p = this.plugins[i];
-                if( p == null ) continue;
-                var asm = AssemblyDefinition.ReadAssembly( p.Location );
-                if( asm == null ) continue;
-                this.asmSet.Add( asm );
-            }
+        //    this.asmSet.Add( ror2asm );
+        //    for( Int32 i = 0; i < this.plugins.Count; ++i )
+        //    {
+        //        var p = this.plugins[i];
+        //        if( p == null ) continue;
+        //        var asm = AssemblyDefinition.ReadAssembly( p.Location );
+        //        if( asm == null ) continue;
+        //        this.asmSet.Add( asm );
+        //    }
 
-            //var indexDict = new Dictionary<Int16,List<NetMemberInfo>>();
-            foreach( AssemblyDefinition asm in this.asmSet )
-            {
-                if( asm == null ) continue;
-                ModuleDefinition mod = asm.MainModule;
-                if( mod == null ) continue;
-                foreach( TypeDefinition t in mod.Types )
-                {
-                    if( t == null ) continue;
-                    foreach( MethodDefinition m in t.Methods )
-                    {
-                        if( m == null || !m.HasCustomAttributes ) continue;
+        //    //var indexDict = new Dictionary<Int16,List<NetMemberInfo>>();
+        //    foreach( AssemblyDefinition asm in this.asmSet )
+        //    {
+        //        if( asm == null ) continue;
+        //        ModuleDefinition mod = asm.MainModule;
+        //        if( mod == null ) continue;
+        //        foreach( TypeDefinition t in mod.Types )
+        //        {
+        //            if( t == null ) continue;
+        //            foreach( MethodDefinition m in t.Methods )
+        //            {
+        //                if( m == null || !m.HasCustomAttributes ) continue;
 
-                        foreach( CustomAttribute at in m.CustomAttributes )
-                        {
-                            if( at == null ) continue;
-                            TypeReference atType = at.AttributeType;
-                            if( atType.FullName != handlerString ) continue;
-                            //var info = new NetMemberInfo( at, asm, t, m );
-                            //indexDict[info.msgIndex].Add( info );
-                        }
-                    }
-                }
-            }
-        }
+        //                foreach( CustomAttribute at in m.CustomAttributes )
+        //                {
+        //                    if( at == null ) continue;
+        //                    TypeReference atType = at.AttributeType;
+        //                    if( atType.FullName != handlerString ) continue;
+        //                    //var info = new NetMemberInfo( at, asm, t, m );
+        //                    //indexDict[info.msgIndex].Add( info );
+        //                }
+        //            }
+        //        }
+        //    }
+        //}
 
 
     //    var good = true;

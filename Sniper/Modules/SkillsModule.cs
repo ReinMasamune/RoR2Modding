@@ -53,29 +53,30 @@ namespace Sniper.Modules
                 }
             });
             var standardAmmo = SniperAmmoSkillDef.Create( null, standardStop, standardModifier, null, VFXModule.GetStandardAmmoTracer() );
-            standardAmmo.icon = null;
+            standardAmmo.icon = UIModule.GetStandardAmmoIcon();
             standardAmmo.skillName = "Standard Ammo";
             standardAmmo.skillNameToken = Tokens.SNIPER_AMMO_STANDARD_NAME;
             standardAmmo.skillDescriptionToken = Tokens.SNIPER_AMMO_STANDARD_DESC;
             skills.Add( standardAmmo );
 
-            var explosiveModifier = BulletModifier.identity;
+            BulletModifier explosiveModifier = BulletModifier.identity;
             explosiveModifier.damageMultiplier = 0.6f;
             explosiveModifier.procMultiplier = 0.6f;
-            explosiveModifier.forceMultiplier = 0.25f;
+            explosiveModifier.forceMultiplier = 0.5f;
             OnBulletDelegate explosiveOnHit = new OnBulletDelegate((bullet, hit) =>
             {
+                var rad = 4f * ( 1f + (4f * bullet.chargeLevel) );
                 EffectManager.SpawnEffect(VFXModule.GetExplosiveAmmoExplosionPrefab(), new EffectData
                 {
                     origin = hit.point,
-                    scale = 4f,
+                    scale = rad,
                     rotation = Util.QuaternionSafeLookRotation(hit.direction)
                 }, true);
                 var blast = new BlastAttack
                 {
                     attacker = bullet.owner,
                     attackerFiltering = AttackerFiltering.Default,
-                    baseDamage = bullet.damage * 0.5f,
+                    baseDamage = bullet.damage * 1f,
                     baseForce = 1f,
                     bonusForce = Vector3.zero,
                     crit = bullet.isCrit,
@@ -88,14 +89,14 @@ namespace Sniper.Modules
                     position = hit.point,
                     procChainMask = bullet.procChainMask,
                     procCoefficient = bullet.procCoefficient * 0.5f,
-                    radius = 4f,
+                    radius = rad,
                     teamIndex = TeamComponent.GetObjectTeam(bullet.owner),
                 };
 
                 blast.Fire();
             });
             var explosive = SniperAmmoSkillDef.Create( explosiveOnHit, null, explosiveModifier, null, VFXModule.GetExplosiveAmmoTracer() );
-            explosive.icon = null;
+            explosive.icon = UIModule.GetExplosiveAmmoIcon();
             explosive.skillName = "Piercing Ammo";
             explosive.skillNameToken = Tokens.SNIPER_AMMO_EXPLOSIVE_NAME;
             explosive.skillDescriptionToken = Tokens.SNIPER_AMMO_EXPLOSIVE_DESC;
@@ -109,14 +110,14 @@ namespace Sniper.Modules
             var skills = new List<SkillDef>();
 
             var critPassive = SniperPassiveSkillDef.Create( BulletModifier.identity, false, 1.2f );
-            critPassive.icon = null;
+            critPassive.icon = UIModule.GetCritPassiveIcon();
             critPassive.skillName = "Precise Aim";
             critPassive.skillNameToken = Tokens.SNIPER_PASSIVE_CRITICAL_NAME;
             critPassive.skillDescriptionToken = Tokens.SNIPER_PASSIVE_CRITICAL_DESC;
             skills.Add( critPassive );
 
             var headshot = SniperPassiveSkillDef.Create( BulletModifier.identity, true, 1.0f );
-            headshot.icon = null;
+            headshot.icon = UIModule.GetHeadshotPassiveIcon();
             headshot.skillName = "Headshot";
             headshot.skillNameToken = Tokens.SNIPER_PASSIVE_HEADSHOT_NAME;
             headshot.skillDescriptionToken = Tokens.SNIPER_PASSIVE_HEADSHOT_DESC;
@@ -133,11 +134,11 @@ namespace Sniper.Modules
 
             var snipe = SniperReloadableFireSkillDef.Create<DefaultSnipe,DefaultReload>("Weapon", "Weapon");
             snipe.baseMaxStock = 1;
-            snipe.icon = null; // TODO: Assign
+            snipe.icon = UIModule.GetSnipeIcon(); // TODO: Assign
             snipe.interruptPriority = InterruptPriority.Skill;
             snipe.isBullets = false;
             snipe.rechargeStock = 0;
-            snipe.reloadIcon = null; // TODO: Assign
+            snipe.reloadIcon = UIModule.GetSnipeReloadIcon(); // TODO: Assign
             snipe.reloadInterruptPriority = InterruptPriority.Skill;
             snipe.reloadParams = new ReloadParams
             {
@@ -205,7 +206,7 @@ namespace Sniper.Modules
                                                                                                              inputScale: 0.01f, baseFoV: 60f) ); // TODO: Zoom params
             charge.baseMaxStock = 1;
             charge.baseRechargeInterval = 0f;
-            charge.icon = null; // TODO: Assign
+            charge.icon = UIModule.GetSteadyAimIcon(); // TODO: Assign
             charge.isBullets = false;
             charge.rechargeStock = 1;
             charge.requiredStock = 0;

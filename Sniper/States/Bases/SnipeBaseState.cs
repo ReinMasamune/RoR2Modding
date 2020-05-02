@@ -13,6 +13,7 @@ using System.Reflection;
 using Sniper.Expansions;
 using Sniper.Enums;
 using Sniper.Data;
+using Sniper.Modules;
 
 namespace Sniper.States.Bases
 {
@@ -52,7 +53,7 @@ namespace Sniper.States.Bases
                 maxDistance = 1000f,
                 maxSpread = 0f,
                 minSpread = 0f,
-                muzzleName = "",
+                muzzleName = "MuzzleRailgun",
                 origin = aimRay.origin,
                 owner = gameObject,
                 procChainMask = default,
@@ -73,8 +74,8 @@ namespace Sniper.States.Bases
             characterBody.passive.ModifyBullet( bullet );
 
             var data = characterBody.scopeInstanceData;
-            if( data != null && data.shouldModify )
-                data.SendFired().Apply( bullet );
+            if( data != null && data.shouldModify ) data.SendFired().Apply( bullet );
+
 
 
             bullet.Fire();
@@ -85,9 +86,14 @@ namespace Sniper.States.Bases
         public override void OnEnter()
         {
             base.OnEnter();
+            base.GetModelAnimator().SetBool( "shouldAim", true );
             this.duration = this.baseDuration / characterBody.attackSpeed;
-            if( isAuthority )
-                this.FireBullet();
+            base.StartAimMode( 8f, false );
+            base.PlayAnimation( "Gesture, Additive", "Shoot" );
+            if( isAuthority ) this.FireBullet();
+
+            SoundModule.PlayFire( base.gameObject, 0f );
+
         }
 
         public override void FixedUpdate()

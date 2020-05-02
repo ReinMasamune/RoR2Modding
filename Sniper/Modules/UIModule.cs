@@ -12,11 +12,59 @@ using RoR2.Skills;
 using RoR2.UI;
 using UnityEngine.UI;
 using Sniper.Components;
+using System.Linq.Expressions;
 
 namespace Sniper.Modules
 {
     internal static class UIModule
     {
+        internal static Sprite GetStandardAmmoIcon()
+        {
+            var tex = Properties.Tools.LoadTexture2D(Properties.Resources.Ammo_Standard_3);
+            return Sprite.Create( tex, new Rect( 0f, 0f, tex.width, tex.height ), new Vector2( 0.5f, 0.5f ) );
+        }
+        internal static Sprite GetExplosiveAmmoIcon()
+        {
+            var tex = Properties.Tools.LoadTexture2D(Properties.Resources.Ammo_Explosion_3);
+            return Sprite.Create( tex, new Rect( 0f, 0f, tex.width, tex.height ), new Vector2( 0.5f, 0.5f ) );
+        }
+        internal static Sprite GetSnipeIcon()
+        {
+            var tex = Properties.Tools.LoadTexture2D(Properties.Resources.m1 );
+            return Sprite.Create( tex, new Rect( 0f, 0f, tex.width, tex.height ), new Vector2( 0.5f, 0.5f ) );
+        }
+        internal static Sprite GetSnipeReloadIcon()
+        {
+            var tex = Properties.Tools.LoadTexture2D(Properties.Resources.reload);
+            return Sprite.Create( tex, new Rect( 0f, 0f, tex.width, tex.height ), new Vector2( 0.5f, 0.5f ) );
+        }
+        internal static Sprite GetSteadyAimIcon()
+        {
+            var tex = Properties.Tools.LoadTexture2D(Properties.Resources.a);
+            return Sprite.Create( tex, new Rect( 0f, 0f, tex.width, tex.height ), new Vector2( 0.5f, 0.5f ) );
+        }
+        internal static Sprite GetCritPassiveIcon()
+        {
+            var tex = Properties.Tools.LoadTexture2D(Properties.Resources.critical_2);
+            return Sprite.Create( tex, new Rect( 0f, 0f, tex.width, tex.height ), new Vector2( 0.5f, 0.5f ) );
+        }
+        internal static Sprite GetHeadshotPassiveIcon()
+        {
+            var tex = Properties.Tools.LoadTexture2D(Properties.Resources.headshot_1);
+            return Sprite.Create( tex, new Rect( 0f, 0f, tex.width, tex.height ), new Vector2( 0.5f, 0.5f ) );
+        }
+
+
+
+
+
+
+
+
+
+
+
+
         internal static Color reloadHandleColor { get; } = new Color( 1f, 1f, 1f, 1f );
 
         internal static GameObject GetDefaultDrosshair()
@@ -37,9 +85,8 @@ namespace Sniper.Modules
 
         internal static Texture GetPortraitIcon()
         {
-            // TODO: Portrait Icon
-            //return Properties.Tools.LoadTexture2D(Properties.Resources.unknown__11_);
-            return null;
+            return Properties.Tools.LoadTexture2D(Properties.Resources.u1nknown);
+            //return null;
         }
 
         internal static GameObject GetQuickScope()

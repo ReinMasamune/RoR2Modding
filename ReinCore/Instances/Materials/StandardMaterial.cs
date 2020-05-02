@@ -8,6 +8,7 @@ namespace ReinCore
     /// <summary>
     /// A material for normal objects in game like enemies.
     /// </summary>
+    [Serializable]
     public class StandardMaterial : MaterialBase
     {
         [Menu(sectionName = "Main")]
@@ -45,6 +46,7 @@ namespace ReinCore
                 return this._mainTexture;
             }
         }
+        [SerializeField]
         private ScaleOffsetTextureData _mainTexture;
 
         [Menu( sectionName = "Main" )]
@@ -72,6 +74,7 @@ namespace ReinCore
                 return this._normalMap;
             }
         }
+        [SerializeField]
         private ScaleOffsetTextureData _normalMap;
 
         [Menu( sectionName = "Main" )]
@@ -99,6 +102,7 @@ namespace ReinCore
                 return this._emissionTexture;
             }
         }
+        [SerializeField]
         private TextureData _emissionTexture;
 
         [Menu( sectionName = "Main" )]
@@ -233,6 +237,7 @@ namespace ReinCore
                 return this._fresnelRamp;
             }
         }
+        [SerializeField]
         private TextureData _fresnelRamp;
 
         [Menu( sectionName = "Fresnel Emission" )]
@@ -260,6 +265,7 @@ namespace ReinCore
                 return this._fresnelMask;
             }
         }
+        [SerializeField]
         private TextureData _fresnelMask;
 
         [Menu( sectionName = "Fresnel Emission" )]
@@ -327,6 +333,7 @@ namespace ReinCore
                 return this._printAlphaTexture;
             }
         }
+        [SerializeField]
         private ScaleOffsetTextureData _printAlphaTexture;
 
         [Menu( sectionName = "Printing" )]
@@ -390,6 +397,7 @@ namespace ReinCore
                 return this._printRampTexture;
             }
         }
+        [SerializeField]
         private TextureData _printRampTexture;
 
         [Menu( sectionName = "Printing" )]
@@ -467,6 +475,7 @@ namespace ReinCore
                 return this._splatmapTexture;
             }
         }
+        [SerializeField]
         private ScaleOffsetTextureData _splatmapTexture;
 
         [Menu( sectionName = "Splatmap" )]
@@ -494,6 +503,7 @@ namespace ReinCore
                 return this._greenChannelTexture;
             }
         }
+        [SerializeField]
         private TextureData _greenChannelTexture;
 
         [Menu( sectionName = "Splatmap" )]
@@ -511,6 +521,7 @@ namespace ReinCore
                 return this._greenChannelNormalmap;
             }
         }
+        [SerializeField]
         private TextureData _greenChannelNormalmap;
 
         [Menu( sectionName = "Splatmap" )]
@@ -548,6 +559,7 @@ namespace ReinCore
                 return this._blueChannelTexture;
             }
         }
+        [SerializeField]
         private TextureData _blueChannelTexture;
 
         [Menu( sectionName = "Splatmap" )]
@@ -565,6 +577,7 @@ namespace ReinCore
                 return this._blueChannelNormalmap;
             }
         }
+        [SerializeField]
         private TextureData _blueChannelNormalmap;
 
         [Menu( sectionName = "Splatmap" )]
@@ -612,6 +625,7 @@ namespace ReinCore
                 return this._flowmapTexture;
             }
         }
+        [SerializeField]
         private TextureData _flowmapTexture;
 
         [Menu( sectionName = "Flowmap" )]
@@ -629,12 +643,14 @@ namespace ReinCore
                 return this._flowmapHeightmap;
             }
         }
+        [SerializeField]
         private ScaleOffsetTextureData _flowmapHeightmap;
 
-        [Menu( sectionName = "Flowmap", isRampTexture = true )]
+
         /// <summary>
         /// Unknown
         /// </summary>
+        [Menu( sectionName = "Flowmap", isRampTexture = true )]
         public ScaleOffsetTextureData flowmapHeightRamp
         {
             get
@@ -646,6 +662,7 @@ namespace ReinCore
                 return this._flowmapHeightRamp;
             }
         }
+        [SerializeField]
         private ScaleOffsetTextureData _flowmapHeightRamp;
 
         [Menu( sectionName = "Flowmap" )]

@@ -4,6 +4,7 @@ using System.Runtime.CompilerServices;
 using BepInEx.Logging;
 using ReinCore;
 using RoR2;
+using Sniper.Expansions;
 using UnityEngine;
 
 namespace Sniper.Data
@@ -13,7 +14,9 @@ namespace Sniper.Data
     {
         internal static BulletModifier identity = new BulletModifier();
 
-        internal void Apply( BulletAttack bullet )
+        internal Single charge;
+
+        internal void Apply( ExpandableBulletAttack bullet )
         {
             if( this.applyCountMultiplier ) bullet.bulletCount = (UInt32)( bullet.bulletCount * this.countMultiplier );
             if( this.applyDamageMultiplier ) bullet.damage *= this.damageMultiplier;
@@ -31,6 +34,7 @@ namespace Sniper.Data
             if( this.applySpreadYaw ) bullet.spreadYawScale = (bullet.spreadYawScale == 0f) ? this.spreadYaw : bullet.spreadYawScale * this.spreadYaw;
             if( this.applyStopperMaskRemove ) bullet.stopperMask &= ~this.stopperMaskRemove;
             if( this.applyStopperMaskAdd ) bullet.stopperMask |= this.stopperMaskAdd;
+            bullet.chargeLevel = Mathf.Max( bullet.chargeLevel, this.charge );
         }
 
 

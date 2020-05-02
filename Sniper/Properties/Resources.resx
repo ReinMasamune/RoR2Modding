@@ -117,6 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="a" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\a.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Ammo_Explosion_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\ammo_explosion 3.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Ammo_Standard_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\ammo_standard 3.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="critical_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\critical 2.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="headshot_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\headshot 1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="lang__LOADOUT_SNIPER_AMMO" xml:space="preserve">
     <value>Ammo</value>
   </data>
@@ -124,19 +140,19 @@
     <value>Passive</value>
   </data>
   <data name="lang__SNIPER_AMMO_EXPLOSIVE_DESC" xml:space="preserve">
-    <value>Explodes, except it doesn't work.</value>
+    <value>Explodes on hit for damage to all nearby enemies.</value>
   </data>
   <data name="lang__SNIPER_AMMO_EXPLOSIVE_NAME" xml:space="preserve">
     <value>Explosive Ammo</value>
   </data>
   <data name="lang__SNIPER_AMMO_STANDARD_DESC" xml:space="preserve">
-    <value>100% Damage Multiplier, Pierces(Eventually), and can Ricochet(Eventually)</value>
+    <value>Ammo that can pierce and ricochet</value>
   </data>
   <data name="lang__SNIPER_AMMO_STANDARD_NAME" xml:space="preserve">
-    <value>Standard Ammo</value>
+    <value>Full Metal Jacket</value>
   </data>
   <data name="lang__SNIPER_DESC" xml:space="preserve">
-    <value>Maybe later \n</value>
+    <value>TODO  \n</value>
   </data>
   <data name="lang__SNIPER_NAME" xml:space="preserve">
     <value>Sniper</value>
@@ -154,37 +170,37 @@
     <value>Headshot</value>
   </data>
   <data name="lang__SNIPER_PRIMARY_DASH_DESC" xml:space="preserve">
-    <value>Snip stuff and dash</value>
+    <value>Fire, and dash when reloading</value>
   </data>
   <data name="lang__SNIPER_PRIMARY_DASH_NAME" xml:space="preserve">
     <value>Reposition</value>
   </data>
   <data name="lang__SNIPER_PRIMARY_DASH_RELOAD_DESC" xml:space="preserve">
-    <value>Reload your primary and do a cool slide</value>
+    <value>Reload and dash</value>
   </data>
   <data name="lang__SNIPER_PRIMARY_DASH_RELOAD_NAME" xml:space="preserve">
     <value>Sliding Reload</value>
   </data>
   <data name="lang__SNIPER_PRIMARY_SNIPE_DESC" xml:space="preserve">
-    <value>Snipe stuff</value>
+    <value>Shoot enemies</value>
   </data>
   <data name="lang__SNIPER_PRIMARY_SNIPE_NAME" xml:space="preserve">
     <value>Snipe</value>
   </data>
   <data name="lang__SNIPER_PRIMARY_SNIPE_RELOAD_DESC" xml:space="preserve">
-    <value>Reload your primary</value>
+    <value>Reload</value>
   </data>
   <data name="lang__SNIPER_PRIMARY_SNIPE_RELOAD_NAME" xml:space="preserve">
     <value>Reload</value>
   </data>
   <data name="lang__SNIPER_SECONDARY_QUICK_DESC" xml:space="preserve">
-    <value>Don't aim at all</value>
+    <value>Fire off a quick to aim, powerful shot while maintaining mobility</value>
   </data>
   <data name="lang__SNIPER_SECONDARY_QUICK_NAME" xml:space="preserve">
     <value>Quickscope</value>
   </data>
   <data name="lang__SNIPER_SECONDARY_STEADY_DESC" xml:space="preserve">
-    <value>Aim steadily</value>
+    <value>Charge up a powerful shot for up to 1000% primary damage</value>
   </data>
   <data name="lang__SNIPER_SECONDARY_STEADY_NAME" xml:space="preserve">
     <value>Steady Aim</value>
@@ -210,14 +226,88 @@
   <data name="lang__SNIPER_UTILITY_BACKFLIP_NAME" xml:space="preserve">
     <value>Military Training</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="m1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\m1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="RailgunAlt1_Diffuse" xml:space="preserve">
+    <value>Assets/Textures/Railgun/RailGun_BlackRed/BlackGold_RailGun_D.png</value>
+  </data>
+  <data name="RailgunAlt1_Emissive" xml:space="preserve">
+    <value>Assets/Textures/Railgun/RailGun_BlackRed/BlackGold_RailGun_E.png</value>
+  </data>
+  <data name="RailgunAlt1_Normal" xml:space="preserve">
+    <value>Assets/Textures/Railgun/Railgun_GreenGoldUrban/GreenGoldUrban_N.png</value>
+  </data>
+  <data name="RailgunAlt2_Diffuse" xml:space="preserve">
+    <value>Assets/Textures/Railgun/Railgun_GreenGoldUrban/GreenGoldUrban_D.png</value>
+  </data>
+  <data name="RailgunAlt2_Emissive" xml:space="preserve">
+    <value>Assets/Textures/Railgun/Railgun_GreenGoldUrban/GreenGoldUrban_E.png</value>
+  </data>
+  <data name="RailgunAlt2_Normal" xml:space="preserve">
+    <value>Assets/Textures/Railgun/Railgun_GreenGoldUrban/GreenGoldUrban_N.png</value>
+  </data>
+  <data name="RailgunDefault_Diffuse" xml:space="preserve">
+    <value>Assets/Textures/Railgun/RailGun_Stealth/RailGun_Stealth_D.png</value>
+  </data>
+  <data name="RailgunDefault_Emissive" xml:space="preserve">
+    <value>Assets/Textures/Railgun/RailGun_Stealth/RailGun_Stealth_E.png</value>
+  </data>
+  <data name="RailgunDefault_Normal" xml:space="preserve">
+    <value>Assets/Textures/Railgun/Railgun_GreenGoldUrban/GreenGoldUrban_N.png</value>
+  </data>
   <data name="ReinCore" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ReinCore.dll;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Rein_Sniper_Bank" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Rein_Sniper_Bank.bnk;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="reload" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\reload.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="sniper" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\sniper;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="SniperDefault_Diffuse" xml:space="preserve">
+    <value>Assets/Textures/Armor/UrbanCamo/UrbanCamo_D.png</value>
+  </data>
+  <data name="SniperDefault_Emissive" xml:space="preserve">
+    <value>Assets/Textures/Armor/UrbanCamo/UrbanCamo_E.png</value>
+  </data>
+  <data name="SniperDefault_Normal" xml:space="preserve">
+    <value>Assets/Textures/Armor/GreenCamo/GreenCamo_N.png</value>
+  </data>
   <data name="SniperPrefabPath" xml:space="preserve">
     <value>Assets/__EXPORT/mdlSniper.prefab</value>
+  </data>
+  <data name="SniperSkin1_Diffuse" xml:space="preserve">
+    <value>Assets/Textures/Armor/GreenCamo/GreenCamo_D.png</value>
+  </data>
+  <data name="SniperSkin1_Emissive" xml:space="preserve">
+    <value>Assets/Textures/Armor/GreenCamo/GreenCamo_E.png</value>
+  </data>
+  <data name="SniperSkin1_Normal" xml:space="preserve">
+    <value>Assets/Textures/Armor/GreenCamo/GreenCamo_N.png</value>
+  </data>
+  <data name="SniperSkin2_Diffuse" xml:space="preserve">
+    <value>Assets/Textures/Armor/RedBlack/RedBlack_D.png</value>
+  </data>
+  <data name="SniperSkin2_Emissive" xml:space="preserve">
+    <value>Assets/Textures/Armor/RedBlack/RedBlack_E.png</value>
+  </data>
+  <data name="SniperSkin2_Normal" xml:space="preserve">
+    <value>Assets/Textures/Armor/RedBlack/RedBlack_N.png</value>
+  </data>
+  <data name="ThrowKnifeDefault_Diffuse" xml:space="preserve">
+    <value>Assets/Textures/Knife/ThrowingKnife_AlbedoTransparency.png</value>
+  </data>
+  <data name="ThrowKnifeDefault_Emissive" xml:space="preserve">
+    <value>Assets/Textures/Knife/ThrowingKnife_Emission.png</value>
+  </data>
+  <data name="ThrowKnifeDefault_Normal" xml:space="preserve">
+    <value>Assets/Textures/Knife/ThrowingKnife_Normal.png</value>
+  </data>
+  <data name="u1nknown" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\u1nknown.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>

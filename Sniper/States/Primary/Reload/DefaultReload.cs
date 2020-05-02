@@ -12,6 +12,7 @@ using RoR2.Skills;
 using System.Reflection;
 using Sniper.States.Bases;
 using Sniper.Enums;
+using Sniper.Modules;
 
 namespace Sniper.States.Primary.Reload
 {
@@ -32,7 +33,7 @@ namespace Sniper.States.Primary.Reload
             this.duration = baseDuration / this.attackSpeedStat;
 
             // TODO: Play Animation
-            // TODO: Play Sound
+            SoundModule.PlayLoad( base.gameObject );
         }
 
         public override void FixedUpdate()

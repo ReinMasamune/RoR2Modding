@@ -73,6 +73,7 @@ namespace ReinCore
         static ReinCore()
         {
             HooksCore.RoR2.RoR2Application.UnitySystemConsoleRedirector.Redirect.On += Redirect_On;
+            _ = ResourceTools.EmbeddedResourceHelpers.LoadAssembly( Rein.Properties.Resources.RoR2ScriptForwarding );
             if( !Log.loaded ) throw new CoreNotLoadedException( nameof( Log ) );
 
             CheckPlugins();
@@ -81,7 +82,7 @@ namespace ReinCore
             loaded = true;
             managerObject = new GameObject( "coremanager" );
             MonoBehaviour.DontDestroyOnLoad( managerObject );
-            managerObject.AddComponent<CoreManager>();
+            _ = managerObject.AddComponent<CoreManager>();
         }
 
 

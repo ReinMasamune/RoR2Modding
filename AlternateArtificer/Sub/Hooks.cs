@@ -358,9 +358,9 @@
         {
             orig( self );
             GameObject obj = self.outer.gameObject;
-            if( AltArtiPassive.instanceLookup.ContainsKey( obj ) )
+            if( AltArtiPassive.instanceLookup.TryGetValue( obj, out var passive ) )
             {
-                AltArtiPassive.instanceLookup[obj].SkillCast();
+                passive.SkillCast();
             }
         }
         #endregion

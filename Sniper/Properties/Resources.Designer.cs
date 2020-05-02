@@ -61,6 +61,56 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] a {
+            get {
+                object obj = ResourceManager.GetObject("a", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] Ammo_Explosion_3 {
+            get {
+                object obj = ResourceManager.GetObject("Ammo_Explosion_3", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] Ammo_Standard_3 {
+            get {
+                object obj = ResourceManager.GetObject("Ammo_Standard_3", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] critical_2 {
+            get {
+                object obj = ResourceManager.GetObject("critical_2", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] headshot_1 {
+            get {
+                object obj = ResourceManager.GetObject("headshot_1", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ammo.
         /// </summary>
         internal static string lang__LOADOUT_SNIPER_AMMO {
@@ -79,7 +129,7 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Explodes, except it doesn&apos;t work..
+        ///   Looks up a localized string similar to Explodes on hit for damage to all nearby enemies..
         /// </summary>
         internal static string lang__SNIPER_AMMO_EXPLOSIVE_DESC {
             get {
@@ -97,7 +147,7 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 100% Damage Multiplier, Pierces(Eventually), and can Ricochet(Eventually).
+        ///   Looks up a localized string similar to Ammo that can pierce and ricochet.
         /// </summary>
         internal static string lang__SNIPER_AMMO_STANDARD_DESC {
             get {
@@ -106,7 +156,7 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Standard Ammo.
+        ///   Looks up a localized string similar to Full Metal Jacket.
         /// </summary>
         internal static string lang__SNIPER_AMMO_STANDARD_NAME {
             get {
@@ -115,7 +165,7 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Maybe later \n.
+        ///   Looks up a localized string similar to TODO  \n.
         /// </summary>
         internal static string lang__SNIPER_DESC {
             get {
@@ -169,7 +219,7 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Snip stuff and dash.
+        ///   Looks up a localized string similar to Fire, and dash when reloading.
         /// </summary>
         internal static string lang__SNIPER_PRIMARY_DASH_DESC {
             get {
@@ -187,7 +237,7 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Reload your primary and do a cool slide.
+        ///   Looks up a localized string similar to Reload and dash.
         /// </summary>
         internal static string lang__SNIPER_PRIMARY_DASH_RELOAD_DESC {
             get {
@@ -205,7 +255,7 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Snipe stuff.
+        ///   Looks up a localized string similar to Shoot enemies.
         /// </summary>
         internal static string lang__SNIPER_PRIMARY_SNIPE_DESC {
             get {
@@ -223,7 +273,7 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Reload your primary.
+        ///   Looks up a localized string similar to Reload.
         /// </summary>
         internal static string lang__SNIPER_PRIMARY_SNIPE_RELOAD_DESC {
             get {
@@ -241,7 +291,7 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Don&apos;t aim at all.
+        ///   Looks up a localized string similar to Fire off a quick to aim, powerful shot while maintaining mobility.
         /// </summary>
         internal static string lang__SNIPER_SECONDARY_QUICK_DESC {
             get {
@@ -259,7 +309,7 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Aim steadily.
+        ///   Looks up a localized string similar to Charge up a powerful shot for up to 1000% primary damage.
         /// </summary>
         internal static string lang__SNIPER_SECONDARY_STEADY_DESC {
             get {
@@ -342,9 +392,120 @@ namespace Sniper.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] m1 {
+            get {
+                object obj = ResourceManager.GetObject("m1", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Assets/Textures/Railgun/RailGun_BlackRed/BlackGold_RailGun_D.png.
+        /// </summary>
+        internal static string RailgunAlt1_Diffuse {
+            get {
+                return ResourceManager.GetString("RailgunAlt1_Diffuse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Assets/Textures/Railgun/RailGun_BlackRed/BlackGold_RailGun_E.png.
+        /// </summary>
+        internal static string RailgunAlt1_Emissive {
+            get {
+                return ResourceManager.GetString("RailgunAlt1_Emissive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Assets/Textures/Railgun/Railgun_GreenGoldUrban/GreenGoldUrban_N.png.
+        /// </summary>
+        internal static string RailgunAlt1_Normal {
+            get {
+                return ResourceManager.GetString("RailgunAlt1_Normal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Assets/Textures/Railgun/Railgun_GreenGoldUrban/GreenGoldUrban_D.png.
+        /// </summary>
+        internal static string RailgunAlt2_Diffuse {
+            get {
+                return ResourceManager.GetString("RailgunAlt2_Diffuse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Assets/Textures/Railgun/Railgun_GreenGoldUrban/GreenGoldUrban_E.png.
+        /// </summary>
+        internal static string RailgunAlt2_Emissive {
+            get {
+                return ResourceManager.GetString("RailgunAlt2_Emissive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Assets/Textures/Railgun/Railgun_GreenGoldUrban/GreenGoldUrban_N.png.
+        /// </summary>
+        internal static string RailgunAlt2_Normal {
+            get {
+                return ResourceManager.GetString("RailgunAlt2_Normal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Assets/Textures/Railgun/RailGun_Stealth/RailGun_Stealth_D.png.
+        /// </summary>
+        internal static string RailgunDefault_Diffuse {
+            get {
+                return ResourceManager.GetString("RailgunDefault_Diffuse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Assets/Textures/Railgun/RailGun_Stealth/RailGun_Stealth_E.png.
+        /// </summary>
+        internal static string RailgunDefault_Emissive {
+            get {
+                return ResourceManager.GetString("RailgunDefault_Emissive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Assets/Textures/Railgun/Railgun_GreenGoldUrban/GreenGoldUrban_N.png.
+        /// </summary>
+        internal static string RailgunDefault_Normal {
+            get {
+                return ResourceManager.GetString("RailgunDefault_Normal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] Rein_Sniper_Bank {
+            get {
+                object obj = ResourceManager.GetObject("Rein_Sniper_Bank", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] ReinCore {
             get {
                 object obj = ResourceManager.GetObject("ReinCore", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] reload {
+            get {
+                object obj = ResourceManager.GetObject("reload", resourceCulture);
                 return ((byte[])(obj));
             }
         }
@@ -360,11 +521,129 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Assets/Textures/Armor/UrbanCamo/UrbanCamo_D.png.
+        /// </summary>
+        internal static string SniperDefault_Diffuse {
+            get {
+                return ResourceManager.GetString("SniperDefault_Diffuse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Assets/Textures/Armor/UrbanCamo/UrbanCamo_E.png.
+        /// </summary>
+        internal static string SniperDefault_Emissive {
+            get {
+                return ResourceManager.GetString("SniperDefault_Emissive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Assets/Textures/Armor/GreenCamo/GreenCamo_N.png.
+        /// </summary>
+        internal static string SniperDefault_Normal {
+            get {
+                return ResourceManager.GetString("SniperDefault_Normal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Assets/__EXPORT/mdlSniper.prefab.
         /// </summary>
         internal static string SniperPrefabPath {
             get {
                 return ResourceManager.GetString("SniperPrefabPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Assets/Textures/Armor/GreenCamo/GreenCamo_D.png.
+        /// </summary>
+        internal static string SniperSkin1_Diffuse {
+            get {
+                return ResourceManager.GetString("SniperSkin1_Diffuse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Assets/Textures/Armor/GreenCamo/GreenCamo_E.png.
+        /// </summary>
+        internal static string SniperSkin1_Emissive {
+            get {
+                return ResourceManager.GetString("SniperSkin1_Emissive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Assets/Textures/Armor/GreenCamo/GreenCamo_N.png.
+        /// </summary>
+        internal static string SniperSkin1_Normal {
+            get {
+                return ResourceManager.GetString("SniperSkin1_Normal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Assets/Textures/Armor/RedBlack/RedBlack_D.png.
+        /// </summary>
+        internal static string SniperSkin2_Diffuse {
+            get {
+                return ResourceManager.GetString("SniperSkin2_Diffuse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Assets/Textures/Armor/RedBlack/RedBlack_E.png.
+        /// </summary>
+        internal static string SniperSkin2_Emissive {
+            get {
+                return ResourceManager.GetString("SniperSkin2_Emissive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Assets/Textures/Armor/RedBlack/RedBlack_N.png.
+        /// </summary>
+        internal static string SniperSkin2_Normal {
+            get {
+                return ResourceManager.GetString("SniperSkin2_Normal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Assets/Textures/Knife/ThrowingKnife_AlbedoTransparency.png.
+        /// </summary>
+        internal static string ThrowKnifeDefault_Diffuse {
+            get {
+                return ResourceManager.GetString("ThrowKnifeDefault_Diffuse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Assets/Textures/Knife/ThrowingKnife_Emission.png.
+        /// </summary>
+        internal static string ThrowKnifeDefault_Emissive {
+            get {
+                return ResourceManager.GetString("ThrowKnifeDefault_Emissive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Assets/Textures/Knife/ThrowingKnife_Normal.png.
+        /// </summary>
+        internal static string ThrowKnifeDefault_Normal {
+            get {
+                return ResourceManager.GetString("ThrowKnifeDefault_Normal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] u1nknown {
+            get {
+                object obj = ResourceManager.GetObject("u1nknown", resourceCulture);
+                return ((byte[])(obj));
             }
         }
     }

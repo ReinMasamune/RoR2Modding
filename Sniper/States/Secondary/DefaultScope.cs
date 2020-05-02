@@ -23,7 +23,12 @@ namespace Sniper.States.Secondary
         const Single maxCharge = 1f;
         const Single chargePerSecond = 0.15f;
         const Single minModifier = 1f;
-        const Single maxModifier = 5f;
+        const Single maxModifier = 10f;
+        const Single speedScalar = 0.6f;
+
+        //private static AnimationCurve damageCurve = new AnimationCurve()
+
+
 
         internal override Boolean usesCharge { get; } = true;
         internal override Boolean usesStock { get; } = false;
@@ -40,6 +45,7 @@ namespace Sniper.States.Secondary
         {
             var mod = BulletModifier.identity;
             mod.damageMultiplier = this.GetDamageMultiplier();
+            mod.charge = this.charge;
 
             return mod;
         }
@@ -49,16 +55,19 @@ namespace Sniper.States.Secondary
         {
             base.OnEnter();
 
-            if( NetworkServer.active )
-                characterBody.AddBuff( BuffIndex.Slow50 );
+            base.StartAimMode( 2f );
+            if( NetworkServer.active ) characterBody.AddBuff( BuffIndex.Slow80 );
+
         }
 
         public override void FixedUpdate()
         {
             base.FixedUpdate();
 
-            if( this.charge < maxCharge )
-                this.charge += Time.fixedDeltaTime * chargePerSecond * characterBody.attackSpeed;
+            base.characterBody.SetAimTimer( 2f );
+
+            if( this.charge < maxCharge ) this.charge += Time.fixedDeltaTime * chargePerSecond * characterBody.attackSpeed / ( 1f + (base.characterMotor.velocity.magnitude * speedScalar ));
+
             else
             {
                 this.charge = maxCharge;
@@ -75,8 +84,8 @@ namespace Sniper.States.Secondary
         {
             base.OnExit();
 
-            if( NetworkServer.active )
-                characterBody.RemoveBuff( BuffIndex.Slow50 );
+            if( NetworkServer.active ) characterBody.RemoveBuff( BuffIndex.Slow80 ); 
+
         }
 
 

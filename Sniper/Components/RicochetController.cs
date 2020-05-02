@@ -6,6 +6,7 @@ using BepInEx.Logging;
 using ReinCore;
 using RoR2;
 using Sniper.Expansions;
+using Sniper.Modules;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -37,8 +38,9 @@ namespace Sniper.Components
             {
                 yield return new WaitForFixedUpdate();
             }
+            SoundModule.PlayRicochet( bullet.weapon );
             bullet.Fire();
-            DestroyImmediate( bullet.weapon );
+            Destroy( bullet.weapon );
         }
     }
 }

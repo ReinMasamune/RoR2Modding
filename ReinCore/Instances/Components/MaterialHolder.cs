@@ -12,4 +12,9 @@ namespace ReinCore
     {
         public CloudMaterial cloudMaterial;
     }
+
+    public class StandardMaterialHolder : MonoBehaviour
+    {
+        public StandardMaterial standardMaterial;
+    }
 }

@@ -53,6 +53,7 @@ namespace Sniper.States.Utility
                 this.direction = this.direction.normalized;
             }
 
+            base.PlayAnimation( "Gesture, Override", "Backflip" );
             // TODO: Play Animation
             // TODO: Play Sound
             // TODO: VFX

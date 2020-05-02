@@ -31,6 +31,7 @@ namespace Sniper
                 SetModdedModule.SetModded();
 
                 Properties.Tools.RegisterLanguageTokens();
+                SoundModule.LoadBank();
 
                 UIModule.EditHudPrefab();
 

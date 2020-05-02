@@ -1,0 +1,24 @@
+Event	ID	Name			Wwise Object Path	Notes
+	763788813	Bolt_Normal_Shot			\Default Work Unit\Big Bolt Events\Bolt_Normal_Shot	
+	1389001356	Bolt_Open_Chamber			\Default Work Unit\Big Bolt Events\Bolt_Open_Chamber	
+	3672228492	Bolt_Ricochet			\Default Work Unit\Big Bolt Events\Bolt_Ricochet	
+	3762476189	Bolt_New_Bullet_and_close			\Default Work Unit\Big Bolt Events\Bolt_New_Bullet_and_close	
+
+Game Parameter	ID	Name			Wwise Object Path	Notes
+	135031646	Sniper_Charge_Amount			\Default Work Unit\Sniper_Charge_Amount	
+	3673881719	Volume_SFX			\Default Work Unit\Volume_SFX	
+	3695994288	Volume_Master			\Default Work Unit\Volume_Master	
+
+Effect plug-ins	ID	Name	Type				Notes
+	145028528	Static_Sibilance_Remover_Female	Wwise Parametric EQ			
+	484890516	Church_Small_Wood	Wwise RoomVerb			
+
+In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
+	275942184	Ricochet 2	C:\Users\Lucas\Documents\WwiseProjects\ROR2 SniperRework Rein\.cache\Windows\SFX\Ricochet 2_46BD80C9.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX MASTER MIXXER\Sniper Shot\Ricochet\Ricochet 2		23806
+	311692024	Ricochet 1	C:\Users\Lucas\Documents\WwiseProjects\ROR2 SniperRework Rein\.cache\Windows\SFX\Ricochet 1_46BD80C9.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX MASTER MIXXER\Sniper Shot\Ricochet\Ricochet 1		23963
+	524362489	Big Bolt Shot	C:\Users\Lucas\Documents\WwiseProjects\ROR2 SniperRework Rein\.cache\Windows\SFX\Big Bolt Shot_46BD80C9.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX MASTER MIXXER\Sniper Shot\Big Bolt Shot		34236
+	609958632	Big Bolt Bass Layer	C:\Users\Lucas\Documents\WwiseProjects\ROR2 SniperRework Rein\.cache\Windows\SFX\Bolt Shot bass layer_46BD80C9.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX MASTER MIXXER\Sniper Shot\Big Bolt Bass Layer		31622
+	705091675	Big Bolt New Bullet	C:\Users\Lucas\Documents\WwiseProjects\ROR2 SniperRework Rein\.cache\Windows\SFX\big bolt insert new bullet_46BD80C9.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX MASTER MIXXER\Sniper Reload\Reload mixxer\Big Bolt\Big Bolt New Bullet		14470
+	791715103	Ricochet 3	C:\Users\Lucas\Documents\WwiseProjects\ROR2 SniperRework Rein\.cache\Windows\SFX\Ricochet 3_46BD80C9.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX MASTER MIXXER\Sniper Shot\Ricochet\Ricochet 3		30534
+	1072949341	Big Bolt open	C:\Users\Lucas\Documents\WwiseProjects\ROR2 SniperRework Rein\.cache\Windows\SFX\big bolt open_46BD80C9.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX MASTER MIXXER\Sniper Reload\Reload mixxer\Big Bolt\Big Bolt open		24001
+

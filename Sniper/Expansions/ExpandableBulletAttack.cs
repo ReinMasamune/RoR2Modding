@@ -16,6 +16,11 @@ namespace Sniper.Expansions
         internal event OnBulletDelegate onStop;
         internal CharacterBody attackerBody;
 
+
+        internal Single chargeLevel = 0f;
+
+        internal ExpandableBulletData data;
+
         internal ExpandableBulletAttack() : base()
         {
             base.hitCallback = this.ExpandableHitCallback;
@@ -87,5 +92,7 @@ namespace Sniper.Expansions
             }
             return res;
         }
+
+        internal abstract class ExpandableBulletData { }
     }
 }

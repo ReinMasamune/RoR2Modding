@@ -8,6 +8,7 @@ using RoR2;
 using RoR2.UI;
 using Sniper.Data;
 using Sniper.Enums;
+using Sniper.Modules;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
@@ -174,6 +175,7 @@ namespace Sniper.Components
             yield return new WaitForSeconds( delayTime );
             this.showBar = true;
             this.isReloading = true;
+            SoundModule.PlayOpenReload( this.body.gameObject );
         }
         private IEnumerator ReloadStopDelay( Single delayTime, SkillDefs.SniperReloadableFireSkillDef.SniperPrimaryInstanceData data )
         {

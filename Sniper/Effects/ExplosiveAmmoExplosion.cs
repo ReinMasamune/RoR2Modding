@@ -10,7 +10,7 @@ namespace Sniper.Effects
         internal static GameObject CreateExplosiveAmmoExplosion()
         {
             // TODO: Explosive Ammo Explosion
-            return Resources.Load<GameObject>( "Prefabs/Effects/OmniEffect/OmniExplosionVFXCommandoGrenade" );
+            return Resources.Load<GameObject>( "Prefabs/Effects/OmniEffect/OmniExplosionVFXToolbotQuick" );
         }
     }
 }
