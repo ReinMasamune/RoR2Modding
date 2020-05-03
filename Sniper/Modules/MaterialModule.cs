@@ -199,7 +199,7 @@ namespace Sniper.Modules
 
 
         #region Sniper
-        private static StandardMaterial GetSniperBase()
+        internal static StandardMaterial GetSniperBase()
         {
             if( _sniperBase == null )
             {
@@ -305,101 +305,10 @@ namespace Sniper.Modules
         }
         private static StandardMaterial _sniperSkin2Base;
 
-        internal static Material GenerateAmmoMaterial( StandardMaterial baseMaterial )
-        {
-            var mat = baseMaterial.Clone();
-
-            mat.mainColor = Color.white;
-            mat.emissionColor = new Color( 0f, 1f, 0f, 1f );
-            mat.normalStrength = 0.05f;
-            mat.emissionPower = 5f;
-            mat.smoothness = 0.5f;
-            mat.ignoreDiffuseAlphaForSpecular = true;
-            mat.rampChoice = MaterialBase.RampInfo.TwoTone;
-            mat.specularStrength = 0.75f;
-            mat.specularExponent = 2f;
-            mat.cull = MaterialBase.CullMode.Back;
-
-            return mat.material;
-        }
-
-        internal static Material GenerateArmorMaterial( StandardMaterial baseMaterial )
-        {
-            var mat = baseMaterial.Clone();
-
-            mat.mainColor = Color.white;
-            mat.normalStrength = 0.3f;
-            mat.emissionColor = Color.white;
-            mat.emissionPower = 1f;
-            mat.smoothness = 1f;
-            mat.ignoreDiffuseAlphaForSpecular = true;
-            mat.rampChoice = MaterialBase.RampInfo.SmoothedTwoTone;
-            mat.specularStrength = 0.1f;
-            mat.specularExponent = 1f;
-            mat.cull = MaterialBase.CullMode.Back;
-
-            return mat.material;
-        }
-
-        internal static Material GenerateCloakMaterial( StandardMaterial baseMaterial )
-        {
-            var mat = baseMaterial.Clone();
-
-            mat.mainColor = Color.white;
-            mat.normalStrength = 0.6f;
-            mat.emissionColor = Color.clear;
-            mat.emissionPower = 0f;
-            mat.smoothness = 0f;
-            mat.ignoreDiffuseAlphaForSpecular = true;
-            mat.rampChoice = MaterialBase.RampInfo.SubSurface;
-            mat.specularStrength = 0.05f;
-            mat.specularExponent = 3f;
-            mat.cull = MaterialBase.CullMode.Off;
-
-            return mat.material;
-        }
-
-        internal static Material GenerateBodyMaterial( StandardMaterial baseMaterial )
-        {
-            var mat = baseMaterial.Clone();
-
-            mat.mainColor = new Color( 0.7f, 0.7f, 0.7f, 1f );
-            mat.emissionColor = Color.clear;
-            mat.emissionPower = 0f;
-            mat.normalStrength = 0.8f;
-            mat.smoothness = 0.25f;
-            mat.rampChoice = MaterialBase.RampInfo.SmoothedTwoTone;
-            mat.ignoreDiffuseAlphaForSpecular = true;
-            mat.specularStrength = 0.5f;
-            mat.specularExponent = 3f;
-            mat.cull = MaterialBase.CullMode.Back;
-
-
-            return mat.material;
-        }
-
-        internal static Material GenerateEmissionMaterial( StandardMaterial baseMaterial )
-        {
-            var mat = baseMaterial.Clone();
-
-            mat.emissionColor = Color.white;
-            mat.emissionPower = 1f;
-            mat.mainColor = Color.white;
-            mat.smoothness = 0f;
-            mat.cull = MaterialBase.CullMode.Back;
-            mat.specularExponent = 1f;
-            mat.specularStrength = 0f;
-            mat.rampChoice = MaterialBase.RampInfo.Unlitish;
-            mat.normalStrength = 0f;
-
-
-
-            return mat.material;
-        }
         #endregion
 
         #region Railgun
-        private static StandardMaterial GetRailBase()
+        internal static StandardMaterial GetRailBase()
         {
             if( _railBase == null )
             {
@@ -412,7 +321,7 @@ namespace Sniper.Modules
                     emissionPower = 0.6f,
                     smoothness = 1f,
                     ignoreDiffuseAlphaForSpecular = false,
-                    rampChoice = MaterialBase.RampInfo.SmoothedTwoTone,
+                    //rampChoice = MaterialBase.RampInfo.SmoothedTwoTone,
                     decalLayer = StandardMaterial.DecalLayer.Default,
                     specularStrength = 1f,
                     specularExponent = 1f,
@@ -443,17 +352,6 @@ namespace Sniper.Modules
                 var tex = TextureModule.GetRailDefaultTextures();
                 tex.Apply( mat );
 
-                mat.mainColor = Color.white;
-                mat.normalStrength = 1f;
-                mat.emissionColor = new Color( 0f, 1f, 0.48f, 1f );
-                mat.emissionPower = 1f;
-                mat.smoothness = 0.5f;
-                mat.ignoreDiffuseAlphaForSpecular = true;
-                mat.rampChoice = MaterialBase.RampInfo.SmoothedTwoTone;
-                mat.specularStrength = 0.3f;
-                mat.specularExponent = 3f;
-                mat.cull = MaterialBase.CullMode.Back;
-
 
 
 
@@ -464,38 +362,10 @@ namespace Sniper.Modules
             return _railDefault.material;
         }
         private static StandardMaterial _railDefault;
-
-
-        internal static Material GetRailAlt1()
-        {
-            if( _railAlt1 == null )
-            {
-                var mat = GetRailBase().Clone();
-                var tex = TextureModule.GetRailAlt1Textures();
-                tex.Apply( mat );
-                _railAlt1 = mat;
-            }
-            return _railAlt1.material;
-        }
-        private static StandardMaterial _railAlt1;
-
-        internal static Material GetRailAlt2()
-        {
-            if( _railAlt2 == null )
-            {
-                var mat = GetRailBase().Clone();
-                var tex = TextureModule.GetRailAlt2Textures();
-                tex.Apply( mat );
-                _railAlt2 = mat;
-            }
-
-            return _railAlt2.material;
-        }
-        private static StandardMaterial _railAlt2;
         #endregion
 
         #region Throw Knife
-        private static StandardMaterial GetThrowKnifeBase()
+        internal static StandardMaterial GetThrowKnifeBase()
         {
             if( _throwKnifeBase == null )
             {
@@ -504,7 +374,7 @@ namespace Sniper.Modules
                     blendDepth = 0.2f,
                     blueChannelBias = 0f,
                     blueChannelSmoothness = 0f,
-                    cull = MaterialBase.CullMode.Off,
+                    //cull = MaterialBase.CullMode.Back,
                     cutout = false,
                     decalLayer = StandardMaterial.DecalLayer.Character,
                     dither = false,
@@ -556,24 +426,6 @@ namespace Sniper.Modules
             return _throwKnifeBase;
         }
         private static StandardMaterial _throwKnifeBase;
-
-
-
-
-        internal static Material GetThrowKnifeDefault()
-        {
-            if( _throwKnifeDefault == null )
-            {
-                var mat = GetThrowKnifeBase().Clone();
-                var tex = TextureModule.GetThrowKnifeDefaultTextures();
-                tex.Apply( mat );
-                _throwKnifeDefault = mat;
-            }
-            return _throwKnifeDefault.material;
-        }
-        private static StandardMaterial _throwKnifeDefault;
-
-
         #endregion
 
         public struct SamplerJob : IJobParallelFor, IDisposable

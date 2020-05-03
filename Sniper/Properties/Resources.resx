@@ -117,21 +117,29 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="a" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\a.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="BackflipIcon" xml:space="preserve">
+    <value>Assets/__EXPORT/Icons/Utility/Backflip.png</value>
   </data>
-  <data name="Ammo_Explosion_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\ammo_explosion 3.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="CritPassiveIcon" xml:space="preserve">
+    <value>Assets/__EXPORT/Icons/passive 2/Precise Aim.png</value>
   </data>
-  <data name="Ammo_Standard_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\ammo_standard 3.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="DecoyIcon" xml:space="preserve">
+    <value />
   </data>
-  <data name="critical_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\critical 2.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="DecoyReactivateIcon" xml:space="preserve">
+    <value />
   </data>
-  <data name="headshot_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\headshot 1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="ExplosiveAmmoIcon" xml:space="preserve">
+    <value>Assets/__EXPORT/Icons/Passive 1/Explosive Ammo.png</value>
+  </data>
+  <data name="HeadshotIcon" xml:space="preserve">
+    <value>Assets/__EXPORT/Icons/passive 2/Headshot.png</value>
+  </data>
+  <data name="KnifeIcon" xml:space="preserve">
+    <value />
+  </data>
+  <data name="KnifeReactivateIcon" xml:space="preserve">
+    <value />
   </data>
   <data name="lang__LOADOUT_SNIPER_AMMO" xml:space="preserve">
     <value>Ammo</value>
@@ -205,6 +213,15 @@
   <data name="lang__SNIPER_SECONDARY_STEADY_NAME" xml:space="preserve">
     <value>Steady Aim</value>
   </data>
+  <data name="lang__SNIPER_SKIN_ALT1_NAME" xml:space="preserve">
+    <value>Unnamed1</value>
+  </data>
+  <data name="lang__SNIPER_SKIN_ALT2_NAME" xml:space="preserve">
+    <value>Unnamed2</value>
+  </data>
+  <data name="lang__SNIPER_SKIN_DEFAULT_NAME" xml:space="preserve">
+    <value>Default</value>
+  </data>
   <data name="lang__SNIPER_SPECIAL_DECOY_DESC" xml:space="preserve">
     <value>Drop a decoy</value>
   </data>
@@ -226,88 +243,113 @@
   <data name="lang__SNIPER_UTILITY_BACKFLIP_NAME" xml:space="preserve">
     <value>Military Training</value>
   </data>
-  <data name="m1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\m1.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="PortraitIcon" xml:space="preserve">
+    <value>Assets/__EXPORT/Icons/Other/portraitIcon.png</value>
+  </data>
+  <data name="QuickscopeIcon" xml:space="preserve">
+    <value />
   </data>
   <data name="RailgunAlt1_Diffuse" xml:space="preserve">
-    <value>Assets/Textures/Railgun/RailGun_BlackRed/BlackGold_RailGun_D.png</value>
+    <value>Railgun_GreenGoldUrban_MainTex</value>
   </data>
   <data name="RailgunAlt1_Emissive" xml:space="preserve">
-    <value>Assets/Textures/Railgun/RailGun_BlackRed/BlackGold_RailGun_E.png</value>
+    <value>Railgun_GreenGoldUrban_Emission</value>
   </data>
   <data name="RailgunAlt1_Normal" xml:space="preserve">
-    <value>Assets/Textures/Railgun/Railgun_GreenGoldUrban/GreenGoldUrban_N.png</value>
+    <value>Railgun_GreenGoldUrban_Normal</value>
   </data>
   <data name="RailgunAlt2_Diffuse" xml:space="preserve">
-    <value>Assets/Textures/Railgun/Railgun_GreenGoldUrban/GreenGoldUrban_D.png</value>
+    <value>Railgun_BlackGold_MainTex</value>
   </data>
   <data name="RailgunAlt2_Emissive" xml:space="preserve">
-    <value>Assets/Textures/Railgun/Railgun_GreenGoldUrban/GreenGoldUrban_E.png</value>
+    <value>Railgun_BlackGold_Emission</value>
   </data>
   <data name="RailgunAlt2_Normal" xml:space="preserve">
-    <value>Assets/Textures/Railgun/Railgun_GreenGoldUrban/GreenGoldUrban_N.png</value>
+    <value>Railgun_GreenGoldUrban_Normal</value>
   </data>
   <data name="RailgunDefault_Diffuse" xml:space="preserve">
-    <value>Assets/Textures/Railgun/RailGun_Stealth/RailGun_Stealth_D.png</value>
+    <value>Railgun_Stealth_MainTex</value>
   </data>
   <data name="RailgunDefault_Emissive" xml:space="preserve">
-    <value>Assets/Textures/Railgun/RailGun_Stealth/RailGun_Stealth_E.png</value>
+    <value>Railgun_Stealth_Emission</value>
   </data>
   <data name="RailgunDefault_Normal" xml:space="preserve">
-    <value>Assets/Textures/Railgun/Railgun_GreenGoldUrban/GreenGoldUrban_N.png</value>
+    <value>Railgun_GreenGoldUrban_Normal</value>
   </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="ReinCore" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ReinCore.dll;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Rein_Sniper_Bank" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Rein_Sniper_Bank.bnk;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="reload" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\reload.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="ReloadIcon" xml:space="preserve">
+    <value>Assets/__EXPORT/Icons/M1/Reload.png</value>
+  </data>
+  <data name="SlideIcon" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SlideReloadIcon" xml:space="preserve">
+    <value>Assets/__EXPORT/Icons/M1/Reload.png</value>
+  </data>
+  <data name="SnipeIcon" xml:space="preserve">
+    <value>Assets/__EXPORT/Icons/M1/Snipe.png</value>
   </data>
   <data name="sniper" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\sniper;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="SniperDefault_Diffuse" xml:space="preserve">
-    <value>Assets/Textures/Armor/UrbanCamo/UrbanCamo_D.png</value>
+    <value>Sniper_UrbanCamo_MainTex</value>
   </data>
   <data name="SniperDefault_Emissive" xml:space="preserve">
-    <value>Assets/Textures/Armor/UrbanCamo/UrbanCamo_E.png</value>
+    <value>Sniper_UrbanCamo_Emission</value>
   </data>
   <data name="SniperDefault_Normal" xml:space="preserve">
-    <value>Assets/Textures/Armor/GreenCamo/GreenCamo_N.png</value>
+    <value>Sniper_GreenCamo_Normal</value>
   </data>
   <data name="SniperPrefabPath" xml:space="preserve">
     <value>Assets/__EXPORT/mdlSniper.prefab</value>
   </data>
   <data name="SniperSkin1_Diffuse" xml:space="preserve">
-    <value>Assets/Textures/Armor/GreenCamo/GreenCamo_D.png</value>
+    <value>Sniper_GreenCamo_MainTex</value>
   </data>
   <data name="SniperSkin1_Emissive" xml:space="preserve">
-    <value>Assets/Textures/Armor/GreenCamo/GreenCamo_E.png</value>
+    <value>Sniper_GreenCamo_Emission</value>
   </data>
   <data name="SniperSkin1_Normal" xml:space="preserve">
-    <value>Assets/Textures/Armor/GreenCamo/GreenCamo_N.png</value>
+    <value>Sniper_GreenCamo_Normal</value>
   </data>
   <data name="SniperSkin2_Diffuse" xml:space="preserve">
-    <value>Assets/Textures/Armor/RedBlack/RedBlack_D.png</value>
+    <value>Sniper_RedBlack_MainTex</value>
   </data>
   <data name="SniperSkin2_Emissive" xml:space="preserve">
-    <value>Assets/Textures/Armor/RedBlack/RedBlack_E.png</value>
+    <value>Sniper_RedBlack_Emission</value>
   </data>
   <data name="SniperSkin2_Normal" xml:space="preserve">
-    <value>Assets/Textures/Armor/RedBlack/RedBlack_N.png</value>
+    <value>Sniper_RedBlack_Normal</value>
+  </data>
+  <data name="SniperSkin3_Diffuse" xml:space="preserve">
+    <value>Sniper_Red_MainTex</value>
+  </data>
+  <data name="SniperSkin3_Emissive" xml:space="preserve">
+    <value>Sniper_Red_Emission</value>
+  </data>
+  <data name="SniperSkin3_Normal" xml:space="preserve">
+    <value>Sniper_Red_Normal</value>
+  </data>
+  <data name="StandardAmmoIcon" xml:space="preserve">
+    <value>Assets/__EXPORT/Icons/Passive 1/Standard Ammo.png</value>
+  </data>
+  <data name="SteadyAimIcon" xml:space="preserve">
+    <value>Assets/__EXPORT/Icons/M2/Steady Aim.png</value>
   </data>
   <data name="ThrowKnifeDefault_Diffuse" xml:space="preserve">
-    <value>Assets/Textures/Knife/ThrowingKnife_AlbedoTransparency.png</value>
+    <value>ThrowKnife_GreenBlack_MainTex</value>
   </data>
   <data name="ThrowKnifeDefault_Emissive" xml:space="preserve">
-    <value>Assets/Textures/Knife/ThrowingKnife_Emission.png</value>
+    <value>ThrowKnife_GreenBlack_Emission</value>
   </data>
   <data name="ThrowKnifeDefault_Normal" xml:space="preserve">
-    <value>Assets/Textures/Knife/ThrowingKnife_Normal.png</value>
-  </data>
-  <data name="u1nknown" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\u1nknown.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>ThrowKnife_GreenBlack_Normal</value>
   </data>
 </root>

@@ -20,38 +20,28 @@ namespace Sniper.Modules
     {
         internal static Sprite GetStandardAmmoIcon()
         {
-            var tex = Properties.Tools.LoadTexture2D(Properties.Resources.Ammo_Standard_3);
-            return Sprite.Create( tex, new Rect( 0f, 0f, tex.width, tex.height ), new Vector2( 0.5f, 0.5f ) );
+            return AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>( Properties.Resources.StandardAmmoIcon );
         }
-        internal static Sprite GetExplosiveAmmoIcon()
-        {
-            var tex = Properties.Tools.LoadTexture2D(Properties.Resources.Ammo_Explosion_3);
-            return Sprite.Create( tex, new Rect( 0f, 0f, tex.width, tex.height ), new Vector2( 0.5f, 0.5f ) );
-        }
+        internal static Sprite GetExplosiveAmmoIcon() => AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>( Properties.Resources.ExplosiveAmmoIcon );
         internal static Sprite GetSnipeIcon()
         {
-            var tex = Properties.Tools.LoadTexture2D(Properties.Resources.m1 );
-            return Sprite.Create( tex, new Rect( 0f, 0f, tex.width, tex.height ), new Vector2( 0.5f, 0.5f ) );
+            return AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>( Properties.Resources.SnipeIcon );
         }
         internal static Sprite GetSnipeReloadIcon()
         {
-            var tex = Properties.Tools.LoadTexture2D(Properties.Resources.reload);
-            return Sprite.Create( tex, new Rect( 0f, 0f, tex.width, tex.height ), new Vector2( 0.5f, 0.5f ) );
+            return AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>( Properties.Resources.ReloadIcon );
         }
         internal static Sprite GetSteadyAimIcon()
         {
-            var tex = Properties.Tools.LoadTexture2D(Properties.Resources.a);
-            return Sprite.Create( tex, new Rect( 0f, 0f, tex.width, tex.height ), new Vector2( 0.5f, 0.5f ) );
+            return AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>( Properties.Resources.SteadyAimIcon );
         }
         internal static Sprite GetCritPassiveIcon()
         {
-            var tex = Properties.Tools.LoadTexture2D(Properties.Resources.critical_2);
-            return Sprite.Create( tex, new Rect( 0f, 0f, tex.width, tex.height ), new Vector2( 0.5f, 0.5f ) );
+            return AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>( Properties.Resources.CritPassiveIcon );
         }
         internal static Sprite GetHeadshotPassiveIcon()
         {
-            var tex = Properties.Tools.LoadTexture2D(Properties.Resources.headshot_1);
-            return Sprite.Create( tex, new Rect( 0f, 0f, tex.width, tex.height ), new Vector2( 0.5f, 0.5f ) );
+            return AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>( Properties.Resources.HeadshotIcon );
         }
 
 
@@ -85,7 +75,7 @@ namespace Sniper.Modules
 
         internal static Texture GetPortraitIcon()
         {
-            return Properties.Tools.LoadTexture2D(Properties.Resources.u1nknown);
+            return AssetModule.GetSniperAssetBundle().LoadAsset<Texture2D>( Properties.Resources.PortraitIcon );
             //return null;
         }
 

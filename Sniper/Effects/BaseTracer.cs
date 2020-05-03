@@ -52,26 +52,17 @@ namespace Sniper.Effects
 
             Tracer tracer = obj.AddComponent<Tracer>();
 
-            //BeamPointsFromTransforms beamPoints = obj.AddComponent<BeamPointsFromTransforms>();
-
-            //LineRenderer line = obj.AddComponent<LineRenderer>();
-
-            EventFunctions eventFuncs = obj.AddComponent<EventFunctions>();
-
             VFXAttributes vfxAtrib = obj.AddComponent<VFXAttributes>();
 
             Rigidbody headRb = tracerHead.AddComponent<Rigidbody>();
 
             Rigidbody tailRb = tracerTail.AddComponent<Rigidbody>();
 
-
             RotateObject rotator = tailRotate.AddComponent<RotateObject>();
-
 
             ParticleSystem mainPs = headBeam.AddComponent<ParticleSystem>();
 
             ParticleSystemRenderer mainPsr = headBeam.AddOrGetComponent<ParticleSystemRenderer>();
-
 
             ParticleSystem trailPs = trail.AddComponent<ParticleSystem>();
 
@@ -104,14 +95,6 @@ namespace Sniper.Effects
             tracer.tailTransform = tracerTail;
             tracer.length = 20f;
             tracer.reverse = false;
-            //tracer.onTailReachedDestination = new UnityEngine.Events.UnityEvent();
-            //tracer.onTailReachedDestination.AddListener( new UnityEngine.Events.UnityAction( () => eventFuncs.UnparentTransform(smokeBeam) ) );
-            //tracer.onTailReachedDestination.AddListener( new UnityEngine.Events.UnityAction( () => eventFuncs.DestroySelf() ) );
-
-            //beamPoints.target = line;
-            //beamPoints._SetPointTransforms( tracerHead, tracerTail );
-
-            // TODO: Line Renderer setup
 
             rotator.rotationSpeed = new Vector3( 0f, 0f, 1440f );
 
@@ -128,8 +111,113 @@ namespace Sniper.Effects
             vfxAtrib.vfxPriority = VFXAttributes.VFXPriority.Always;
 
 
+            mainPs.SetupTracerMain();
+            mainPs.SetupTracerEmission();
+            mainPs.SetupTracerShape();
+            mainPs.SetupTracerColorOverLifetime();
+            mainPs.SetupTracerSizeOverLifetime();
+            mainPsr.SetupTracerRenderer( mainMat );
 
-            ParticleSystem.MainModule mainPsMain = mainPs.main;
+            ParticleSystem.VelocityOverLifetimeModule mainPsVol = mainPs.velocityOverLifetime;
+            mainPsVol.enabled = false;
+            ParticleSystem.LimitVelocityOverLifetimeModule mainPsLvol = mainPs.limitVelocityOverLifetime;
+            mainPsLvol.enabled = false;
+            ParticleSystem.InheritVelocityModule mainPsIvel = mainPs.inheritVelocity;
+            mainPsIvel.enabled = false;
+            ParticleSystem.ForceOverLifetimeModule mainPsFol = mainPs.forceOverLifetime;
+            mainPsFol.enabled = false;
+            ParticleSystem.ColorBySpeedModule mainPsCbs = mainPs.colorBySpeed;
+            mainPsCbs.enabled = false;
+            ParticleSystem.SizeBySpeedModule mainPsSbs = mainPs.sizeBySpeed;
+            mainPsSbs.enabled = false;
+            ParticleSystem.RotationOverLifetimeModule mainPsRol = mainPs.rotationOverLifetime;
+            mainPsRol.enabled = false;
+            ParticleSystem.RotationBySpeedModule mainPsRbs = mainPs.rotationBySpeed;
+            mainPsRbs.enabled = false;
+            ParticleSystem.ExternalForcesModule mainPsExt = mainPs.externalForces;
+            mainPsExt.enabled = false;
+            ParticleSystem.NoiseModule mainPsNoise = mainPs.noise;
+            mainPsNoise.enabled = false;
+            ParticleSystem.CollisionModule mainPsColl = mainPs.collision;
+            mainPsColl.enabled = false;
+            ParticleSystem.TriggerModule mainPsTrig = mainPs.trigger;
+            mainPsTrig.enabled = false;
+            ParticleSystem.SubEmittersModule mainPsSub = mainPs.subEmitters;
+            mainPsSub.enabled = false;
+            ParticleSystem.TextureSheetAnimationModule mainPsTex = mainPs.textureSheetAnimation;
+            mainPsTex.enabled = false;
+            ParticleSystem.LightsModule mainPsLigh = mainPs.lights;
+            mainPsLigh.enabled = false;
+            ParticleSystem.TrailModule mainPsTrail = mainPs.trails;
+            mainPsTrail.enabled = false;
+            ParticleSystem.CustomDataModule mainPsData = mainPs.customData;
+            mainPsData.enabled = false;
+
+
+            trailPs.PlayOnStart();
+
+            trailPs.SetupTracerTrailMain();
+            trailPs.SetupTracerTrailEmission();
+            trailPs.SetupTracerTrailTrail();
+            trailPsr.SetupTracerTrailRenderer( trailMat );
+
+            ParticleSystem.ShapeModule trailPsShape = trailPs.shape;
+            trailPsShape.enabled = false;
+            ParticleSystem.VelocityOverLifetimeModule trailPsVol = trailPs.velocityOverLifetime;
+            trailPsVol.enabled = false;
+            ParticleSystem.LimitVelocityOverLifetimeModule trailPsLvol = trailPs.limitVelocityOverLifetime;
+            trailPsLvol.enabled = false;
+            ParticleSystem.InheritVelocityModule trailPsIvel = trailPs.inheritVelocity;
+            trailPsIvel.enabled = false;
+            ParticleSystem.ForceOverLifetimeModule trailPsFol = trailPs.forceOverLifetime;
+            trailPsFol.enabled = false;
+            ParticleSystem.ColorOverLifetimeModule trailPsCol = trailPs.colorOverLifetime;
+            trailPsCol.enabled = false;
+            ParticleSystem.ColorBySpeedModule trailPsCbs = trailPs.colorBySpeed;
+            trailPsCbs.enabled = false;
+            ParticleSystem.SizeOverLifetimeModule trailPsSol = trailPs.sizeOverLifetime;
+            trailPsSol.enabled = false;
+            ParticleSystem.SizeBySpeedModule trailPsSbs = trailPs.sizeBySpeed;
+            trailPsSbs.enabled = false;
+            ParticleSystem.RotationOverLifetimeModule trailPsRol = trailPs.rotationOverLifetime;
+            trailPsRol.enabled = false;
+            ParticleSystem.RotationBySpeedModule trailPsRbs = trailPs.rotationBySpeed;
+            trailPsRbs.enabled = false;
+            ParticleSystem.ExternalForcesModule trailPsExt = trailPs.externalForces;
+            trailPsExt.enabled = false;
+            ParticleSystem.NoiseModule trailPsNoise = trailPs.noise;
+            trailPsNoise.enabled = false;
+            ParticleSystem.CollisionModule trailPsColl = trailPs.collision;
+            trailPsColl.enabled = false;
+            ParticleSystem.TriggerModule trailPsTrig = trailPs.trigger;
+            trailPsTrig.enabled = false;
+            ParticleSystem.SubEmittersModule trailPsSub = trailPs.subEmitters;
+            trailPsSub.enabled = false;
+            ParticleSystem.TextureSheetAnimationModule trailPsTex = trailPs.textureSheetAnimation;
+            trailPsTex.enabled = false;
+            ParticleSystem.LightsModule trailPsLigh = trailPs.lights;
+            trailPsLigh.enabled = false;
+            ParticleSystem.CustomDataModule trailPsData = trailPs.customData;
+            trailPsData.enabled = false;
+
+
+
+
+
+            trail.localEulerAngles = new Vector3( 90f, 0f, 0f );
+
+            var trail2 = UnityEngine.Object.Instantiate<GameObject>( trail.gameObject, tailRotate ).transform;
+            trail2.localEulerAngles = new Vector3( -30f, -90f, 0f );
+
+            var trail3 = UnityEngine.Object.Instantiate<GameObject>( trail.gameObject, tailRotate ).transform;
+            trail3.localEulerAngles = new Vector3( -150f, -90f, 0f );
+
+            return obj;
+        }
+
+        private static void SetupTracerMain( this ParticleSystem particles )
+        {
+            ParticleSystem.MainModule mainPsMain = particles.main;
             mainPsMain.duration = 2f;
             mainPsMain.loop = true;
             mainPsMain.prewarm = false;
@@ -157,14 +245,20 @@ namespace Sniper.Effects
             mainPsMain.cullingMode = ParticleSystemCullingMode.AlwaysSimulate;
             mainPsMain.ringBufferMode = ParticleSystemRingBufferMode.Disabled;
             mainPsMain.scalingMode = ParticleSystemScalingMode.Hierarchy;
+        }
 
-            ParticleSystem.EmissionModule mainPsEmis = mainPs.emission;
+        private static void SetupTracerEmission( this ParticleSystem particles )
+        {
+            ParticleSystem.EmissionModule mainPsEmis = particles.emission;
             mainPsEmis.enabled = true;
             mainPsEmis.rateOverTime = 0f;
             mainPsEmis.rateOverDistance = 9f;
             mainPsEmis.burstCount = 0;
+        }
 
-            ParticleSystem.ShapeModule mainPsShape = mainPs.shape;
+        private static void SetupTracerShape( this ParticleSystem particles )
+        {
+            ParticleSystem.ShapeModule mainPsShape = particles.shape;
             mainPsShape.enabled = true;
             mainPsShape.shapeType = ParticleSystemShapeType.SingleSidedEdge;
             mainPsShape.radius = 0.1f;
@@ -178,20 +272,11 @@ namespace Sniper.Effects
             mainPsShape.randomDirectionAmount = 0f;
             mainPsShape.randomPositionAmount = 0f;
             mainPsShape.sphericalDirectionAmount = 0f;
+        }
 
-            ParticleSystem.VelocityOverLifetimeModule mainPsVol = mainPs.velocityOverLifetime;
-            mainPsVol.enabled = false;
-
-            ParticleSystem.LimitVelocityOverLifetimeModule mainPsLvol = mainPs.limitVelocityOverLifetime;
-            mainPsLvol.enabled = false;
-
-            ParticleSystem.InheritVelocityModule mainPsIvel = mainPs.inheritVelocity;
-            mainPsIvel.enabled = false;
-
-            ParticleSystem.ForceOverLifetimeModule mainPsFol = mainPs.forceOverLifetime;
-            mainPsFol.enabled = false;
-
-            ParticleSystem.ColorOverLifetimeModule mainPsCol = mainPs.colorOverLifetime;
+        private static void SetupTracerColorOverLifetime( this ParticleSystem particles )
+        {
+            ParticleSystem.ColorOverLifetimeModule mainPsCol = particles.colorOverLifetime;
             mainPsCol.enabled = true;
             mainPsCol.color = new ParticleSystem.MinMaxGradient( new Gradient
             {
@@ -208,77 +293,43 @@ namespace Sniper.Effects
                     new GradientColorKey( Color.white, 1f ),
                 }
             } );
+        }
 
-            ParticleSystem.ColorBySpeedModule mainPsCbs = mainPs.colorBySpeed;
-            mainPsCbs.enabled = false;
-
-            ParticleSystem.SizeOverLifetimeModule mainPsSol = mainPs.sizeOverLifetime;
+        private static void SetupTracerSizeOverLifetime( this ParticleSystem particles )
+        {
+            ParticleSystem.SizeOverLifetimeModule mainPsSol = particles.sizeOverLifetime;
             mainPsSol.enabled = true;
             mainPsSol.separateAxes = true;
             mainPsSol.x = 1f;
             mainPsSol.y = new ParticleSystem.MinMaxCurve( 1f, AnimationCurve.EaseInOut( 0f, 1f, 1f, 0f ) );
             mainPsSol.z = 1f;
+        }
 
-            ParticleSystem.SizeBySpeedModule mainPsSbs = mainPs.sizeBySpeed;
-            mainPsSbs.enabled = false;
+        private static void SetupTracerRenderer( this ParticleSystemRenderer renderer, Material material )
+        {
+            renderer.renderMode = ParticleSystemRenderMode.Mesh;
+            renderer.mesh = AssetsCore.LoadAsset<Mesh>( MeshIndex.Quad );
+            renderer.material = material;
+            renderer.trailMaterial = null;
+            renderer.sortMode = ParticleSystemSortMode.None;
+            renderer.sortingFudge = 0;
+            renderer.alignment = ParticleSystemRenderSpace.Local;
+            renderer.flip = Vector3.zero;
+            renderer.enableGPUInstancing = true;
+            renderer.pivot = Vector3.zero;
+            renderer.maskInteraction = SpriteMaskInteraction.None;
+            renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+            renderer.receiveShadows = false;
+            renderer.motionVectorGenerationMode = MotionVectorGenerationMode.Object;
+            renderer.sortingLayerID = LayerIndex.defaultLayer.intVal;
+            renderer.sortingOrder = 0;
+            renderer.lightProbeUsage = UnityEngine.Rendering.LightProbeUsage.Off;
+            renderer.reflectionProbeUsage = UnityEngine.Rendering.ReflectionProbeUsage.Off;
+        }
 
-            ParticleSystem.RotationOverLifetimeModule mainPsRol = mainPs.rotationOverLifetime;
-            mainPsRol.enabled = false;
-
-            ParticleSystem.RotationBySpeedModule mainPsRbs = mainPs.rotationBySpeed;
-            mainPsRbs.enabled = false;
-
-            ParticleSystem.ExternalForcesModule mainPsExt = mainPs.externalForces;
-            mainPsExt.enabled = false;
-
-            ParticleSystem.NoiseModule mainPsNoise = mainPs.noise;
-            mainPsNoise.enabled = false;
-
-            ParticleSystem.CollisionModule mainPsColl = mainPs.collision;
-            mainPsColl.enabled = false;
-
-            ParticleSystem.TriggerModule mainPsTrig = mainPs.trigger;
-            mainPsTrig.enabled = false;
-
-            ParticleSystem.SubEmittersModule mainPsSub = mainPs.subEmitters;
-            mainPsSub.enabled = false;
-
-            ParticleSystem.TextureSheetAnimationModule mainPsTex = mainPs.textureSheetAnimation;
-            mainPsTex.enabled = false;
-
-            ParticleSystem.LightsModule mainPsLigh = mainPs.lights;
-            mainPsLigh.enabled = false;
-
-            ParticleSystem.TrailModule mainPsTrail = mainPs.trails;
-            mainPsTrail.enabled = false;
-
-            ParticleSystem.CustomDataModule mainPsData = mainPs.customData;
-            mainPsData.enabled = false;
-
-            mainPsr.renderMode = ParticleSystemRenderMode.Mesh;
-            mainPsr.mesh = AssetsCore.LoadAsset<Mesh>( MeshIndex.Quad );
-            mainPsr.material = mainMat;
-            mainPsr.trailMaterial = null;
-            mainPsr.sortMode = ParticleSystemSortMode.None;
-            mainPsr.sortingFudge = 0;
-            mainPsr.alignment = ParticleSystemRenderSpace.Local;
-            mainPsr.flip = Vector3.zero;
-            mainPsr.enableGPUInstancing = true;
-            mainPsr.pivot = Vector3.zero;
-            mainPsr.maskInteraction = SpriteMaskInteraction.None;
-            mainPsr.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
-            mainPsr.receiveShadows = false;
-            mainPsr.motionVectorGenerationMode = MotionVectorGenerationMode.Object;
-            mainPsr.sortingLayerID = LayerIndex.defaultLayer.intVal;
-            mainPsr.sortingOrder = 0;
-            mainPsr.lightProbeUsage = UnityEngine.Rendering.LightProbeUsage.Off;
-            mainPsr.reflectionProbeUsage = UnityEngine.Rendering.ReflectionProbeUsage.Off;
-
-
-
-            trailPs.PlayOnStart();
-
-            ParticleSystem.MainModule trailPsMain = trailPs.main;
+        private static void SetupTracerTrailMain( this ParticleSystem particles )
+        {
+            ParticleSystem.MainModule trailPsMain = particles.main;
             trailPsMain.duration = 5f;
             trailPsMain.loop = true;
             trailPsMain.prewarm = false;
@@ -302,110 +353,20 @@ namespace Sniper.Effects
             trailPsMain.cullingMode = ParticleSystemCullingMode.AlwaysSimulate;
             trailPsMain.ringBufferMode = ParticleSystemRingBufferMode.Disabled;
             trailPsMain.scalingMode = ParticleSystemScalingMode.Hierarchy;
+        }
 
-            ParticleSystem.EmissionModule trailPsEmis = trailPs.emission;
+        private static void SetupTracerTrailEmission( this ParticleSystem particles )
+        {
+            ParticleSystem.EmissionModule trailPsEmis = particles.emission;
             trailPsEmis.enabled = true;
             trailPsEmis.rateOverTime = 0f;
             trailPsEmis.rateOverDistance = 4f;
             trailPsEmis.burstCount = 0;
+        }
 
-            ParticleSystem.ShapeModule trailPsShape = trailPs.shape;
-            trailPsShape.enabled = false;
-
-            ParticleSystem.VelocityOverLifetimeModule trailPsVol = trailPs.velocityOverLifetime;
-            trailPsVol.enabled = false;
-            trailPsVol.orbitalOffsetX = 0f;
-            trailPsVol.orbitalOffsetY = 0.083f;
-            trailPsVol.orbitalOffsetZ = 0f;
-            trailPsVol.orbitalX = 10f;
-            trailPsVol.orbitalY = 0f;
-            trailPsVol.orbitalZ = 0f;
-            trailPsVol.radial = new ParticleSystem.MinMaxCurve( 0.001f, AnimationCurve.Linear( 0f, 0f, 1f, 1f ) );
-            trailPsVol.space = ParticleSystemSimulationSpace.Local;
-            trailPsVol.speedModifier = 10f;
-            trailPsVol.x = 0f;
-            trailPsVol.y = 0f;
-            trailPsVol.z = 0f;
-
-            ParticleSystem.LimitVelocityOverLifetimeModule trailPsLvol = trailPs.limitVelocityOverLifetime;
-            trailPsLvol.enabled = false;
-
-            ParticleSystem.InheritVelocityModule trailPsIvel = trailPs.inheritVelocity;
-            trailPsIvel.enabled = false;
-
-            ParticleSystem.ForceOverLifetimeModule trailPsFol = trailPs.forceOverLifetime;
-            trailPsFol.enabled = false;
-
-            ParticleSystem.ColorOverLifetimeModule trailPsCol = trailPs.colorOverLifetime;
-            trailPsCol.enabled = false;
-            trailPsCol.color = new ParticleSystem.MinMaxGradient( new Gradient
-            {
-                mode = GradientMode.Blend,
-                alphaKeys = new[]
-                {
-                    new GradientAlphaKey( 1f, 0f ),
-                    new GradientAlphaKey( 1f, 0.35f ),
-                    new GradientAlphaKey( 0f, 1f ),
-                },
-                colorKeys = new[]
-                {
-                    new GradientColorKey( Color.white, 0f ),
-                    new GradientColorKey( Color.white, 1f ),
-                }
-            } );
-
-            ParticleSystem.ColorBySpeedModule trailPsCbs = trailPs.colorBySpeed;
-            trailPsCbs.enabled = false;
-
-            ParticleSystem.SizeOverLifetimeModule trailPsSol = trailPs.sizeOverLifetime;
-            trailPsSol.enabled = false;
-
-            ParticleSystem.SizeBySpeedModule trailPsSbs = trailPs.sizeBySpeed;
-            trailPsSbs.enabled = false;
-
-            ParticleSystem.RotationOverLifetimeModule trailPsRol = trailPs.rotationOverLifetime;
-            trailPsRol.enabled = false;
-
-            ParticleSystem.RotationBySpeedModule trailPsRbs = trailPs.rotationBySpeed;
-            trailPsRbs.enabled = false;
-
-            ParticleSystem.ExternalForcesModule trailPsExt = trailPs.externalForces;
-            trailPsExt.enabled = false;
-
-            ParticleSystem.NoiseModule trailPsNoise = trailPs.noise;
-            trailPsNoise.enabled = false;
-            trailPsNoise.separateAxes = true;
-            trailPsNoise.strengthX = 0f;
-            trailPsNoise.strengthY = 1f;
-            trailPsNoise.strengthZ = 1f;
-            trailPsNoise.frequency = 0.25f;
-            trailPsNoise.scrollSpeed = 0.25f;
-            trailPsNoise.damping = false;
-            trailPsNoise.octaveCount = 1;
-            trailPsNoise.octaveMultiplier = 0.5f;
-            trailPsNoise.octaveScale = 2f;
-            trailPsNoise.quality = ParticleSystemNoiseQuality.High;
-            trailPsNoise.remapEnabled = false;
-            trailPsNoise.positionAmount = 0.25f;
-            trailPsNoise.sizeAmount = 0f;
-
-
-            ParticleSystem.CollisionModule trailPsColl = trailPs.collision;
-            trailPsColl.enabled = false;
-
-            ParticleSystem.TriggerModule trailPsTrig = trailPs.trigger;
-            trailPsTrig.enabled = false;
-
-            ParticleSystem.SubEmittersModule trailPsSub = trailPs.subEmitters;
-            trailPsSub.enabled = false;
-
-            ParticleSystem.TextureSheetAnimationModule trailPsTex = trailPs.textureSheetAnimation;
-            trailPsTex.enabled = false;
-
-            ParticleSystem.LightsModule trailPsLigh = trailPs.lights;
-            trailPsLigh.enabled = false;
-
-            ParticleSystem.TrailModule trailPsTrail = trailPs.trails;
+        private static void SetupTracerTrailTrail( this ParticleSystem particles )
+        {
+            ParticleSystem.TrailModule trailPsTrail = particles.trails;
             trailPsTrail.enabled = true;
             trailPsTrail.mode = ParticleSystemTrailMode.Ribbon;
             trailPsTrail.ribbonCount = 1;
@@ -428,54 +389,24 @@ namespace Sniper.Effects
                     new GradientColorKey( Color.white, 1f ),
                 }
             } );
-            //trailPsTrail.colorOverTrail = new ParticleSystem.MinMaxGradient( new Gradient
-            //{
-            //    mode = GradientMode.Blend,
-            //    alphaKeys = new[]
-            //    {
-            //        new GradientAlphaKey( 1f, 0f ),
-            //        new GradientAlphaKey( 1f, 0.5f ),
-            //        new GradientAlphaKey( 0f, 1f ),
-            //    },
-            //    colorKeys = new[]
-            //    {
-            //        new GradientColorKey( Color.white, 0f ),
-            //        new GradientColorKey( Color.white, 1f ),
-            //    }
-            //} );
-            //trailPsTrail.colorOverLifetime = Color.white;
             trailPsTrail.colorOverTrail = Color.white;
             trailPsTrail.widthOverTrail = 0.25f;
             trailPsTrail.generateLightingData = true;
             trailPsTrail.shadowBias = 0.5f;
+        }
 
-            ParticleSystem.CustomDataModule trailPsData = trailPs.customData;
-            trailPsData.enabled = false;
-
-            trailPsr.renderMode = ParticleSystemRenderMode.None;
-            trailPsr.material = null;
-            trailPsr.trailMaterial = trailMat;
-            trailPsr.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
-            trailPsr.receiveShadows = false;
-            trailPsr.motionVectorGenerationMode = MotionVectorGenerationMode.Object;
-            trailPsr.sortingLayerID = LayerIndex.defaultLayer.intVal;
-            trailPsr.sortingOrder = 0;
-            trailPsr.lightProbeUsage = UnityEngine.Rendering.LightProbeUsage.Off;
-            trailPsr.reflectionProbeUsage = UnityEngine.Rendering.ReflectionProbeUsage.Off;
-
-
-            trail.localEulerAngles = new Vector3( 90f, 0f, 0f );
-
-            var trail2 = UnityEngine.Object.Instantiate<GameObject>( trail.gameObject, tailRotate ).transform;
-            trail2.localEulerAngles = new Vector3( -30f, -90f, 0f );
-
-            var trail3 = UnityEngine.Object.Instantiate<GameObject>( trail.gameObject, tailRotate ).transform;
-            trail3.localEulerAngles = new Vector3( -150f, -90f, 0f );
-
-            //var trail4 = UnityEngine.Object.Instantiate<GameObject>( trail.gameObject, tailRotate ).transform;
-            //trail4.localEulerAngles = new Vector3( -90f, 0f, 0f );
-
-            return obj;
+        private static void SetupTracerTrailRenderer( this ParticleSystemRenderer renderer, Material material )
+        {
+            renderer.renderMode = ParticleSystemRenderMode.None;
+            renderer.material = null;
+            renderer.trailMaterial = material;
+            renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+            renderer.receiveShadows = false;
+            renderer.motionVectorGenerationMode = MotionVectorGenerationMode.Object;
+            renderer.sortingLayerID = LayerIndex.defaultLayer.intVal;
+            renderer.sortingOrder = 0;
+            renderer.lightProbeUsage = UnityEngine.Rendering.LightProbeUsage.Off;
+            renderer.reflectionProbeUsage = UnityEngine.Rendering.ReflectionProbeUsage.Off;
         }
     }
 }

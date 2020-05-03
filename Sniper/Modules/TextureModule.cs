@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
+using System.IO;
 using System.Runtime.CompilerServices;
 using BepInEx.Logging;
 using ReinCore;
 using RoR2;
 using Sniper.Data;
+using Sniper.ScriptableObjects.Custom;
 using UnityEngine;
 
 namespace Sniper.Modules
@@ -65,14 +68,51 @@ namespace Sniper.Modules
 
 
 
+        private static SniperTextureSet masterSet;
+        
+        private static void ScanAndLoadPacks()
+        {
+            var embeddedBundle = AssetModule.GetSniperAssetBundle();
+            masterSet = embeddedBundle.LoadAllAssets<SniperTextureSet>()[0];
+
+            var path = Assembly.GetExecutingAssembly().Location;
+            var dir = new FileInfo( path ).Directory;
+
+            foreach( var file in dir.EnumerateFiles("*-tex") )
+            {
+                Log.Warning( file.FullName );
+                try
+                {
+                    var bundle = AssetBundle.LoadFromFile(file.FullName);
+                    foreach( var set in bundle.LoadAllAssets<SniperTextureSet>() )
+                    {
+                        masterSet.MergeAndReplace( set );
+                    }
+                } catch( Exception e ) 
+                {
+                    Log.Error( e );
+                }
+            }
+
+        }
+
+
+        private static SniperTextureSet GetMasterSet()
+        {
+            if( masterSet == null ) ScanAndLoadPacks();
+
+            return masterSet;
+        }
+
+
         internal static TextureSet GetSniperDefaultTextures()
         {
             if( _sniperDefaultTextures == null )
             {
-                var bundle = AssetModule.GetSniperAssetBundle();
-                var tex1 = bundle.LoadAsset<Texture2D>(Properties.Resources.SniperDefault_Diffuse);
-                var tex2 = bundle.LoadAsset<Texture2D>(Properties.Resources.SniperDefault_Normal);
-                var tex3 = bundle.LoadAsset<Texture2D>(Properties.Resources.SniperDefault_Emissive);
+                var set = GetMasterSet();
+                var tex1 = set[Properties.Resources.SniperDefault_Diffuse];
+                var tex2 = set[Properties.Resources.SniperDefault_Normal];
+                var tex3 = set[Properties.Resources.SniperDefault_Emissive];
 
                 _sniperDefaultTextures = new TextureSet( tex1, tex2, tex3 );
             }
@@ -85,10 +125,10 @@ namespace Sniper.Modules
         {
             if( _sniperSkin1Textures == null )
             {
-                var bundle = AssetModule.GetSniperAssetBundle();
-                var tex1 = bundle.LoadAsset<Texture2D>(Properties.Resources.SniperSkin1_Diffuse);
-                var tex2 = bundle.LoadAsset<Texture2D>(Properties.Resources.SniperSkin1_Normal);
-                var tex3 = bundle.LoadAsset<Texture2D>(Properties.Resources.SniperSkin1_Emissive);
+                var set = GetMasterSet();
+                var tex1 = set[Properties.Resources.SniperSkin1_Diffuse];
+                var tex2 = set[Properties.Resources.SniperSkin1_Normal];
+                var tex3 = set[Properties.Resources.SniperSkin1_Emissive];
 
                 _sniperSkin1Textures = new TextureSet( tex1, tex2, tex3 );
             }
@@ -101,10 +141,10 @@ namespace Sniper.Modules
         {
             if( _sniperSkin2Textures == null )
             {
-                var bundle = AssetModule.GetSniperAssetBundle();
-                var tex1 = bundle.LoadAsset<Texture2D>(Properties.Resources.SniperSkin2_Diffuse);
-                var tex2 = bundle.LoadAsset<Texture2D>(Properties.Resources.SniperSkin2_Normal);
-                var tex3 = bundle.LoadAsset<Texture2D>(Properties.Resources.SniperSkin2_Emissive);
+                var set = GetMasterSet();
+                var tex1 = set[Properties.Resources.SniperSkin2_Diffuse];
+                var tex2 = set[Properties.Resources.SniperSkin2_Normal];
+                var tex3 = set[Properties.Resources.SniperSkin2_Emissive];
 
                 _sniperSkin2Textures = new TextureSet( tex1, tex2, tex3 );
             }
@@ -113,14 +153,30 @@ namespace Sniper.Modules
         }
         private static TextureSet _sniperSkin2Textures;
 
+        internal static TextureSet GetSniperSkin3Textures()
+        {
+            if( _sniperSkin3Textures == null )
+            {
+                var set = GetMasterSet();
+                var tex1 = set[Properties.Resources.SniperSkin3_Diffuse];
+                var tex2 = set[Properties.Resources.SniperSkin3_Normal];
+                var tex3 = set[Properties.Resources.SniperSkin3_Emissive];
+
+                _sniperSkin3Textures = new TextureSet( tex1, tex2, tex3 );
+            }
+
+            return _sniperSkin3Textures;
+        }
+        private static TextureSet _sniperSkin3Textures;
+
         internal static TextureSet GetRailDefaultTextures()
         {
             if( _railDefaultTextures == null )
             {
-                var bundle = AssetModule.GetSniperAssetBundle();
-                var tex1 = bundle.LoadAsset<Texture2D>(Properties.Resources.RailgunDefault_Diffuse);
-                var tex2 = bundle.LoadAsset<Texture2D>(Properties.Resources.RailgunDefault_Normal);
-                var tex3 = bundle.LoadAsset<Texture2D>(Properties.Resources.RailgunDefault_Emissive);
+                var set = GetMasterSet();
+                var tex1 = set[Properties.Resources.RailgunDefault_Diffuse];
+                var tex2 = set[Properties.Resources.RailgunDefault_Normal];
+                var tex3 = set[Properties.Resources.RailgunDefault_Emissive];
 
                 _railDefaultTextures = new TextureSet( tex1, tex2, tex3 );
             }
@@ -133,10 +189,10 @@ namespace Sniper.Modules
         {
             if( _railAlt1Textures == null )
             {
-                var bundle = AssetModule.GetSniperAssetBundle();
-                var tex1 = bundle.LoadAsset<Texture2D>(Properties.Resources.RailgunAlt1_Diffuse);
-                var tex2 = bundle.LoadAsset<Texture2D>(Properties.Resources.RailgunAlt1_Normal);
-                var tex3 = bundle.LoadAsset<Texture2D>(Properties.Resources.RailgunAlt1_Emissive);
+                var set = GetMasterSet();
+                var tex1 = set[Properties.Resources.RailgunAlt1_Diffuse];
+                var tex2 = set[Properties.Resources.RailgunAlt1_Normal];
+                var tex3 = set[Properties.Resources.RailgunAlt1_Emissive];
 
                 _railAlt1Textures = new TextureSet( tex1, tex2, tex3 );
             }
@@ -149,10 +205,10 @@ namespace Sniper.Modules
         {
             if( _railAlt2Textures == null )
             {
-                var bundle = AssetModule.GetSniperAssetBundle();
-                var tex1 = bundle.LoadAsset<Texture2D>(Properties.Resources.RailgunAlt2_Diffuse);
-                var tex2 = bundle.LoadAsset<Texture2D>(Properties.Resources.RailgunAlt2_Normal);
-                var tex3 = bundle.LoadAsset<Texture2D>(Properties.Resources.RailgunAlt2_Emissive);
+                var set = GetMasterSet();
+                var tex1 = set[Properties.Resources.RailgunAlt2_Diffuse];
+                var tex2 = set[Properties.Resources.RailgunAlt2_Normal];
+                var tex3 = set[Properties.Resources.RailgunAlt2_Emissive];
 
                 _railAlt2Textures = new TextureSet( tex1, tex2, tex3 );
             }
@@ -168,10 +224,10 @@ namespace Sniper.Modules
         {
             if( _throwKnifeDefaultTextures == null )
             {
-                var bundle = AssetModule.GetSniperAssetBundle();
-                var tex1 = bundle.LoadAsset<Texture2D>(Properties.Resources.ThrowKnifeDefault_Diffuse);
-                var tex2 = bundle.LoadAsset<Texture2D>(Properties.Resources.ThrowKnifeDefault_Normal);
-                var tex3 = bundle.LoadAsset<Texture2D>(Properties.Resources.ThrowKnifeDefault_Emissive);
+                var set = GetMasterSet();
+                var tex1 = set[Properties.Resources.ThrowKnifeDefault_Diffuse];
+                var tex2 = set[Properties.Resources.ThrowKnifeDefault_Normal];
+                var tex3 = set[Properties.Resources.ThrowKnifeDefault_Emissive];
 
                 _throwKnifeDefaultTextures = new TextureSet( tex1, tex2, tex3 );
             }

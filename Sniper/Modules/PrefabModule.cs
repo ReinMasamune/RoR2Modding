@@ -356,11 +356,11 @@ namespace Sniper.Modules
 
 
             var hurtBoxGroup = model.AddOrGetComponent<HurtBoxGroup>();
-
             var tempHb = model.GetComponentInChildren<HurtBox>();
-            Log.Error( tempHb.gameObject.layer );
+
+
+            //var tempHb = model.transform.Find("TempHurtBox").AddComponent<HurtBox>();
             tempHb.gameObject.layer = LayerIndex.entityPrecise.intVal;
-            //var tempHb = tempHurtBox.AddComponent<HurtBox>();
             tempHb.healthComponent = health;
             tempHb.isBullseye = true;
             tempHb.damageModifier = HurtBox.DamageModifier.Normal;
@@ -402,7 +402,6 @@ namespace Sniper.Modules
 
 
             var skinController = model.AddOrGetComponent<ModelSkinController>();
-            skinController.skins = Array.Empty<SkinDef>(); // TODO: Assign
         }
     }
 }

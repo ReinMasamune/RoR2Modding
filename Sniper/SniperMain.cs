@@ -20,6 +20,14 @@ namespace Sniper
         internal static BepInEx.Logging.ManualLogSource logSource;
         private static SniperMain instance;
 
+        internal List<StandardMaterial> sniperMaterials = new List<StandardMaterial>();
+
+        internal static void AddMaterial( StandardMaterial mat, String name )
+        {
+            mat.name = name;
+            SniperMain.instance.sniperMaterials.Add( mat );
+        }
+
         protected sealed override void Init()
         {
             logSource = base.logger;

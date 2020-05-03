@@ -7,8 +7,8 @@
   <PropertyGroup>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
-    <AssemblyVersion>1.0.0.617</AssemblyVersion>
-    <FileVersion>1.0.0.617</FileVersion>
+    <AssemblyVersion>1.0.0.649</AssemblyVersion>
+    <FileVersion>1.0.0.649</FileVersion>
     <RootNamespace>Sniper</RootNamespace>
   </PropertyGroup>
 
@@ -21,7 +21,6 @@
   <ItemGroup>
     <Compile Include="..\__Standalone\Base Plugin Class\CorePlugin.cs" Link="CorePlugin.cs" />
     <Compile Include="..\__Standalone\Base Plugin Class\State.cs" Link="State.cs" />
-    <Compile Include="..\__Standalone\ResourceTools.cs" Link="ResourceTools.cs" />
   </ItemGroup>
 
   <ItemGroup>
