@@ -214,10 +214,16 @@
     <value>Steady Aim</value>
   </data>
   <data name="lang__SNIPER_SKIN_ALT1_NAME" xml:space="preserve">
-    <value>Unnamed1</value>
+    <value>Classic</value>
   </data>
   <data name="lang__SNIPER_SKIN_ALT2_NAME" xml:space="preserve">
+    <value>Unnamed</value>
+  </data>
+  <data name="lang__SNIPER_SKIN_ALT3_NAME" xml:space="preserve">
     <value>Unnamed2</value>
+  </data>
+  <data name="lang__SNIPER_SKIN_ALT4_NAME" xml:space="preserve">
+    <value>Unnamed3</value>
   </data>
   <data name="lang__SNIPER_SKIN_DEFAULT_NAME" xml:space="preserve">
     <value>Default</value>
@@ -311,10 +317,10 @@
     <value>Assets/__EXPORT/mdlSniper.prefab</value>
   </data>
   <data name="SniperSkin1_Diffuse" xml:space="preserve">
-    <value>Sniper_GreenCamo_MainTex</value>
+    <value>Sniper_Classic_MainTex</value>
   </data>
   <data name="SniperSkin1_Emissive" xml:space="preserve">
-    <value>Sniper_GreenCamo_Emission</value>
+    <value>Sniper_Classic_Emission</value>
   </data>
   <data name="SniperSkin1_Normal" xml:space="preserve">
     <value>Sniper_GreenCamo_Normal</value>
@@ -329,12 +335,30 @@
     <value>Sniper_RedBlack_Normal</value>
   </data>
   <data name="SniperSkin3_Diffuse" xml:space="preserve">
-    <value>Sniper_Red_MainTex</value>
+    <value>Sniper_GreenCamo_MainTex</value>
   </data>
   <data name="SniperSkin3_Emissive" xml:space="preserve">
-    <value>Sniper_Red_Emission</value>
+    <value>Sniper_GreenCamo_Emission</value>
   </data>
   <data name="SniperSkin3_Normal" xml:space="preserve">
+    <value>Sniper_GreenCamo_Normal</value>
+  </data>
+  <data name="SniperSkin4_Diffuse" xml:space="preserve">
+    <value>Sniper_Red_MainTex</value>
+  </data>
+  <data name="SniperSkin4_Emissive" xml:space="preserve">
+    <value>Sniper_Red_Emission</value>
+  </data>
+  <data name="SniperSkin4_Normal" xml:space="preserve">
+    <value>Sniper_Red_Normal</value>
+  </data>
+  <data name="SniperSkin5_Diffuse" xml:space="preserve">
+    <value>Sniper_Red_MainTex</value>
+  </data>
+  <data name="SniperSkin5_Emissive" xml:space="preserve">
+    <value>Sniper_Red_Emission</value>
+  </data>
+  <data name="SniperSkin5_Normal" xml:space="preserve">
     <value>Sniper_Red_Normal</value>
   </data>
   <data name="StandardAmmoIcon" xml:space="preserve">

@@ -7,9 +7,11 @@ using System.Linq;
 
 namespace ReinCore
 {
-    internal struct GradientTextureJob : IJobParallelFor
+    internal struct GradientTextureJob : ITextureJob
     {
         #region MAIN THREAD ONLY
+        internal JobHandle handle;
+        [Obsolete]
         internal GradientTextureJob(Gradient gradient, Boolean outputSquared, Int32 width, Int32 height )
         {
             this.texWidth = width;
@@ -20,6 +22,10 @@ namespace ReinCore
 
             this.texArray = new NativeArray<Color>( width * height, Allocator.TempJob );
             this.outputSquared = outputSquared;
+
+            this.handle = default;
+
+            this.handle = this.Schedule( this.texWidth, 1 );
         }
         internal GradientTextureJob( GradientAlphaKey[] aKeys, GradientColorKey[] cKeys, Boolean outputSquared, Int32 width, Int32 height )
         {
@@ -29,15 +35,16 @@ namespace ReinCore
             this.texHeight = height;
             this.texArray = new NativeArray<Color>( width * height, Allocator.TempJob );
             this.outputSquared = outputSquared;
+
+
+            this.handle = default;
+
+            this.handle = this.Schedule( this.texWidth, 1 );
         }
 
-        internal JobHandle Start(Int32 innerLoopCount = 1 )
+        public Texture2D OutputTextureAndDispose()
         {
-            return this.Schedule( this.texWidth, innerLoopCount );
-        }
-
-        internal Texture2D OutputTextureAndDispose()
-        {
+            this.handle.Complete();
             var tex = new Texture2D( this.texWidth, this.texHeight, TextureFormat.RGBAFloat, false );
             tex.wrapMode = TextureWrapMode.Clamp;
             tex.LoadRawTextureData<Color>( this.texArray );

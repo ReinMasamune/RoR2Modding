@@ -80,7 +80,6 @@ namespace Sniper.Modules
 
             foreach( var file in dir.EnumerateFiles("*-tex") )
             {
-                Log.Warning( file.FullName );
                 try
                 {
                     var bundle = AssetBundle.LoadFromFile(file.FullName);
@@ -168,6 +167,42 @@ namespace Sniper.Modules
             return _sniperSkin3Textures;
         }
         private static TextureSet _sniperSkin3Textures;
+
+
+        internal static TextureSet GetSniperSkin4Textures()
+        {
+            if( _sniperSkin4Textures == null )
+            {
+                var set = GetMasterSet();
+                var tex1 = set[Properties.Resources.SniperSkin4_Diffuse];
+                var tex2 = set[Properties.Resources.SniperSkin4_Normal];
+                var tex3 = set[Properties.Resources.SniperSkin4_Emissive];
+
+                _sniperSkin4Textures = new TextureSet( tex1, tex2, tex3 );
+            }
+
+            return _sniperSkin4Textures;
+        }
+        private static TextureSet _sniperSkin4Textures;
+
+        internal static TextureSet GetSniperSkin5Textures()
+        {
+            if( _sniperSkin5Textures == null )
+            {
+                var set = GetMasterSet();
+                var tex1 = set[Properties.Resources.SniperSkin5_Diffuse];
+                var tex2 = set[Properties.Resources.SniperSkin5_Normal];
+                var tex3 = set[Properties.Resources.SniperSkin5_Emissive];
+
+                _sniperSkin5Textures = new TextureSet( tex1, tex2, tex3 );
+            }
+
+            return _sniperSkin5Textures;
+        }
+        private static TextureSet _sniperSkin5Textures;
+
+
+
 
         internal static TextureSet GetRailDefaultTextures()
         {

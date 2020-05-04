@@ -349,7 +349,7 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unnamed1.
+        ///   Looks up a localized string similar to Classic.
         /// </summary>
         internal static string lang__SNIPER_SKIN_ALT1_NAME {
             get {
@@ -358,11 +358,29 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unnamed2.
+        ///   Looks up a localized string similar to Unnamed.
         /// </summary>
         internal static string lang__SNIPER_SKIN_ALT2_NAME {
             get {
                 return ResourceManager.GetString("lang__SNIPER_SKIN_ALT2_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unnamed2.
+        /// </summary>
+        internal static string lang__SNIPER_SKIN_ALT3_NAME {
+            get {
+                return ResourceManager.GetString("lang__SNIPER_SKIN_ALT3_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unnamed3.
+        /// </summary>
+        internal static string lang__SNIPER_SKIN_ALT4_NAME {
+            get {
+                return ResourceManager.GetString("lang__SNIPER_SKIN_ALT4_NAME", resourceCulture);
             }
         }
         
@@ -640,7 +658,7 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sniper_GreenCamo_MainTex.
+        ///   Looks up a localized string similar to Sniper_Classic_MainTex.
         /// </summary>
         internal static string SniperSkin1_Diffuse {
             get {
@@ -649,7 +667,7 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sniper_GreenCamo_Emission.
+        ///   Looks up a localized string similar to Sniper_Classic_Emission.
         /// </summary>
         internal static string SniperSkin1_Emissive {
             get {
@@ -694,7 +712,7 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sniper_Red_MainTex.
+        ///   Looks up a localized string similar to Sniper_GreenCamo_MainTex.
         /// </summary>
         internal static string SniperSkin3_Diffuse {
             get {
@@ -703,7 +721,7 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sniper_Red_Emission.
+        ///   Looks up a localized string similar to Sniper_GreenCamo_Emission.
         /// </summary>
         internal static string SniperSkin3_Emissive {
             get {
@@ -712,11 +730,65 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sniper_Red_Normal.
+        ///   Looks up a localized string similar to Sniper_GreenCamo_Normal.
         /// </summary>
         internal static string SniperSkin3_Normal {
             get {
                 return ResourceManager.GetString("SniperSkin3_Normal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sniper_Red_MainTex.
+        /// </summary>
+        internal static string SniperSkin4_Diffuse {
+            get {
+                return ResourceManager.GetString("SniperSkin4_Diffuse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sniper_Red_Emission.
+        /// </summary>
+        internal static string SniperSkin4_Emissive {
+            get {
+                return ResourceManager.GetString("SniperSkin4_Emissive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sniper_Red_Normal.
+        /// </summary>
+        internal static string SniperSkin4_Normal {
+            get {
+                return ResourceManager.GetString("SniperSkin4_Normal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sniper_Red_MainTex.
+        /// </summary>
+        internal static string SniperSkin5_Diffuse {
+            get {
+                return ResourceManager.GetString("SniperSkin5_Diffuse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sniper_Red_Emission.
+        /// </summary>
+        internal static string SniperSkin5_Emissive {
+            get {
+                return ResourceManager.GetString("SniperSkin5_Emissive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sniper_Red_Normal.
+        /// </summary>
+        internal static string SniperSkin5_Normal {
+            get {
+                return ResourceManager.GetString("SniperSkin5_Normal", resourceCulture);
             }
         }
         

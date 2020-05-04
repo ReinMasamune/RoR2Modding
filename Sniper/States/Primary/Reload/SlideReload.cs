@@ -60,8 +60,9 @@ namespace Sniper.States.Primary.Reload
                     this.slideDirection = slideDirection.normalized;
                 }
             }
+            base.PlayAnimation( "Gesture, Additive", "Reload" );
 
-            SoundModule.PlayLoad( base.gameObject );
+            SoundModule.PlayLoad( base.gameObject, this.reloadTier );
 
             this.duration = baseDuration / base.attackSpeedStat;
 
@@ -80,8 +81,51 @@ namespace Sniper.States.Primary.Reload
                 base.characterMotor.velocity = boost;
 
 
-
-                base.PlayAnimation( "Gesture, Override", "ReloadDash" );
+                var ax = Mathf.Abs( this.slideDirection.x );
+                var az = Mathf.Abs( this.slideDirection.z );
+                if( base.characterMotor.isGrounded )
+                {
+                    if( az >= ax )
+                    {
+                        if( this.slideDirection.z > 0f )
+                        {
+                            base.PlayAnimation( "Gesture, Override", "ReloadDash FG" );
+                        } else
+                        {
+                            base.PlayAnimation( "Gesture, Override", "ReloadDash BG" );
+                        }
+                    } else
+                    {
+                        if( this.slideDirection.x > 0f )
+                        {
+                            base.PlayAnimation( "Gesture, Override", "ReloadDash RG" );
+                        } else
+                        {
+                            base.PlayAnimation( "Gesture, Override", "ReloadDash LG" );
+                        }
+                    }
+                } else
+                {
+                    if( az >= ax )
+                    {
+                        if( this.slideDirection.z > 0f )
+                        {
+                            base.PlayAnimation( "Gesture, Override", "ReloadDash FA" );
+                        } else
+                        {
+                            base.PlayAnimation( "Gesture, Override", "ReloadDash BA" );
+                        }
+                    } else
+                    {
+                        if( this.slideDirection.x > 0f )
+                        {
+                            base.PlayAnimation( "Gesture, Override", "ReloadDash RA" );
+                        } else
+                        {
+                            base.PlayAnimation( "Gesture, Override", "ReloadDash LA" );
+                        }
+                    }
+                }
                 
 
                 // TODO: Slide sounds

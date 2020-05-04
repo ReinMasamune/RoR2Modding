@@ -8,10 +8,12 @@ using Unity.Burst;
 
 namespace ReinCore
 {
-    internal struct AntiAliasJob : IJobParallelFor
+    internal struct AntiAliasJob : ITextureJob
     {
         #region MAIN THREAD ONLY
-        internal AntiAliasJob( Int32 width, Int32 height, Int32 sampleFactor, NativeArray<Color> samples )
+        internal JobHandle handle { get; private set; }
+
+        internal AntiAliasJob( Int32 width, Int32 height, Int32 sampleFactor, NativeArray<Color> samples, JobHandle prereq = default )
         {
             this.samples = samples;
             this.texWidth = width;
@@ -21,14 +23,14 @@ namespace ReinCore
             this.blockCount = this.blockSize * this.blockSize;
             this.sampleWidth = this.texWidth * this.blockSize;
             this.sampleHeight = this.texHeight * this.blockSize;
-        }
-        internal JobHandle Start( Int32 innerLoopCount = 1 )
-        {
-            return this.Schedule( this.texWidth * this.texHeight, innerLoopCount );
+            this.handle = default;
+
+            this.handle = this.Schedule( this.texWidth * this.texHeight, 1, prereq );
         }
 
-        internal Texture2D OutputTextureAndDispose()
+        public Texture2D OutputTextureAndDispose()
         {
+            this.handle.Complete();
             var tex = new Texture2D( this.texWidth, this.texHeight, TextureFormat.RGBAFloat, false );
             tex.wrapMode = TextureWrapMode.Clamp;
             tex.LoadRawTextureData<Color>( this.texArray );

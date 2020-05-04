@@ -8,9 +8,12 @@ using Unity.Burst;
 
 namespace ReinCore
 {
-    internal struct BarTextureJob : IJobParallelFor
+    internal struct BarTextureJob : ITextureJob
     {
         #region MAIN THREAD ONLY
+        public JobHandle handle { get; private set; }
+
+        private ITextureJob aaJob;
         internal BarTextureJob( Int32 width, Int32 height, Boolean roundedCorners, Int32 cornerRadius, Int32 borderWidth, Color borderColor, Color bgColor, ColorRegion[] regions, Byte aaFactor = 0 )
         {
             this.sampleFactor = (Int32)Mathf.Pow( 2f, aaFactor );
@@ -31,24 +34,29 @@ namespace ReinCore
             //this.borderSquare = this.borderWidth * this.borderWidth;
             this.outerColor = (this.borderWidth > 0 ? this.borderColor : this.bgColor);
             this.outerColor.a = 0f;
-        }
-        internal JobHandle Start( Int32 innerLoopCount = 1 )
-        {
-            return this.Schedule( this.texWidth, innerLoopCount );
+
+            this.handle = default;
+
+            this.aaJob = default;
+
+            this.handle = this.Schedule( this.texWidth * this.texHeight, 1 );
+            if( this.sampleFactor > 1 )
+            {
+                this.aaJob = new AntiAliasJob( this.texWidth / this.sampleFactor, this.texHeight / this.sampleFactor, this.sampleFactor, this.texArray, this.handle );
+            }
         }
 
-        internal Texture2D OutputTextureAndDispose()
+        public Texture2D OutputTextureAndDispose()
         {
             if( this.sampleFactor > 1 )
             {
-                var job = new AntiAliasJob( this.texWidth / this.sampleFactor, this.texHeight / this.sampleFactor, this.sampleFactor, this.texArray );
-                job.Start().Complete();
-                var tex = job.OutputTextureAndDispose();
+                var tex = this.aaJob.OutputTextureAndDispose();
                 this.regions.Dispose();
                 this.texArray.Dispose();
                 return tex;
             } else
             {
+                this.handle.Complete();
                 var tex = new Texture2D( this.texWidth / this.sampleFactor, this.texHeight / this.sampleFactor, TextureFormat.RGBAFloat, false );
                 tex.wrapMode = TextureWrapMode.Clamp;
                 tex.LoadRawTextureData<Color>( this.texArray );

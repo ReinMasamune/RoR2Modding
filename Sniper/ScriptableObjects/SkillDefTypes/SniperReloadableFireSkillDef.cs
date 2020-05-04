@@ -110,7 +110,8 @@ namespace Sniper.SkillDefs
             }
             if( state is ISniperReloadState reloadState )
             {
-                reloadState.reloadTier = data.currentReloadTier;
+                
+                reloadState.reloadTier = data.ReadReload();
             }
             return state;
         }
@@ -193,7 +194,13 @@ namespace Sniper.SkillDefs
             }
             internal void StopReload()
             {
-                this.currentReloadTier = this.reloadController.StopReload( this );
+                this.reloadController.StopReload( this );
+            }
+
+            internal ReloadTier ReadReload()
+            {
+                this.currentReloadTier = this.reloadController.ReadReload();
+                return this.currentReloadTier;
             }
 
             internal Boolean CanReload()

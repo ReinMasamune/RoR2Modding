@@ -85,11 +85,15 @@ namespace Sniper.Components
             base.StartCoroutine( this.ReloadStartDelay( this.currentReloadParams.reloadDelay / this.body.attackSpeed ) );
         }
 
-        internal ReloadTier StopReload( SkillDefs.SniperReloadableFireSkillDef.SniperPrimaryInstanceData data )
+        internal ReloadTier ReadReload()
+        {
+            return this.currentReloadParams.GetReloadTier( this.reloadTimer );
+        }
+
+        internal void StopReload( SkillDefs.SniperReloadableFireSkillDef.SniperPrimaryInstanceData data )
         {
             this.isReloading = false;
             base.StartCoroutine( this.ReloadStopDelay( this.currentReloadParams.reloadEndDelay / this.body.attackSpeed, data ) );
-            return this.currentReloadParams.GetReloadTier(this.reloadTimer);
         }
 
         internal Boolean CanReload()

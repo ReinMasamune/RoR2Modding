@@ -32,8 +32,8 @@ namespace Sniper.States.Primary.Reload
             base.OnEnter();
             this.duration = baseDuration / this.attackSpeedStat;
 
-            // TODO: Play Animation
-            SoundModule.PlayLoad( base.gameObject );
+            base.PlayAnimation( "Gesture, Additive", "Reload" );
+            SoundModule.PlayLoad( base.gameObject, this.reloadTier );
         }
 
         public override void FixedUpdate()

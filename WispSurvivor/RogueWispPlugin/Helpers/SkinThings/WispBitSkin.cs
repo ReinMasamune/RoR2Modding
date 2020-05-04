@@ -489,7 +489,7 @@ namespace Rein.RogueWispPlugin.Helpers
 
 
 
-            var flameRampTex = TexturesCore.GenerateRampTexture( this.flameGradient );
+            Texture2D flameRampTex = TexturesCore.GenerateRampTexture( this.flameGradient, true, 4096, 4096 );
             //Main.debugTexture = flameRampTex;
 
             Single IntenVal( Single minVal, Single maxVal ) => Mathf.LerpUnclamped( minVal, maxVal, intensityValue );
