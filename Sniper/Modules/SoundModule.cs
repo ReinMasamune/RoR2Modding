@@ -29,7 +29,7 @@ namespace Sniper.Modules
         internal static void PlayFire( GameObject source, Single chargeLevel )
         {
             UInt32 id = AkSoundEngine.PostEvent( bolt_normal_shot, source );
-            _ = AkSoundEngine.SetRTPCValueByPlayingID( sniper_charge_amount, chargeLevel, id );
+            _ = AkSoundEngine.SetRTPCValueByPlayingID( sniper_charge_amount, 0.25f + (chargeLevel * 0.75f), id );
             //_ = AkSoundEngine.SetRTPCValueByPlayingID( volume_master, 100f, id );
             //id = AkSoundEngine.PostEvent( bolt_normal_shot, source );
             //_ = AkSoundEngine.SetRTPCValueByPlayingID( sniper_charge_amount, chargeLevel, id );

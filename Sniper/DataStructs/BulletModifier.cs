@@ -18,6 +18,7 @@ namespace Sniper.Data
 
         internal void Apply( ExpandableBulletAttack bullet )
         {
+            bullet.chargeLevel = Mathf.Max( bullet.chargeLevel, this.charge );
             if( this.applyCountMultiplier ) bullet.bulletCount = (UInt32)( bullet.bulletCount * this.countMultiplier );
             if( this.applyDamageMultiplier ) bullet.damage *= this.damageMultiplier;
             if( this.applyDamageColor ) bullet.damageColorIndex = this.damageColor;
@@ -34,7 +35,6 @@ namespace Sniper.Data
             if( this.applySpreadYaw ) bullet.spreadYawScale = (bullet.spreadYawScale == 0f) ? this.spreadYaw : bullet.spreadYawScale * this.spreadYaw;
             if( this.applyStopperMaskRemove ) bullet.stopperMask &= ~this.stopperMaskRemove;
             if( this.applyStopperMaskAdd ) bullet.stopperMask |= this.stopperMaskAdd;
-            bullet.chargeLevel = Mathf.Max( bullet.chargeLevel, this.charge );
         }
 
 

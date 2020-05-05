@@ -12,8 +12,8 @@ namespace Sniper.Expansions
     internal class ExpandableBulletAttack : BulletAttack, ICloneable
     {
 
-        internal event OnBulletDelegate onHit;
-        internal event OnBulletDelegate onStop;
+        internal OnBulletDelegate onHit;
+        internal OnBulletDelegate onStop;
         internal CharacterBody attackerBody;
 
 
@@ -30,9 +30,9 @@ namespace Sniper.Expansions
         {
             var result = base.DefaultHitCallback( ref hitInfo );
             this.onHit?.Invoke( this, hitInfo );
-            if( !result && this.onStop != null )
+            if( !result )
             {
-                this.onStop( this, hitInfo );
+                this.onStop?.Invoke( this, hitInfo );
             }
             return result;
         }
@@ -73,23 +73,8 @@ namespace Sniper.Expansions
                 weapon = this.weapon,
             };
 
-            if( this.onHit != null )
-            {
-                foreach( var v in this.onHit.GetInvocationList() )
-                {
-                    var del = v as OnBulletDelegate;
-                    if( del != null ) res.onHit += del;
-                }
-            }
+            res.onHit = this.onHit;
 
-            if( this.onStop != null )
-            {
-                foreach( var v in this.onStop.GetInvocationList() )
-                {
-                    var del = v as OnBulletDelegate;
-                    if( del != null ) res.onStop += del;
-                }
-            }
             return res;
         }
 

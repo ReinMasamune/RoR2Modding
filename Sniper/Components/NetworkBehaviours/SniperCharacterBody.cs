@@ -6,6 +6,7 @@ using ReinCore;
 using RoR2;
 using UnityEngine;
 using Sniper.SkillDefs;
+using UnityEngine.Networking;
 
 namespace Sniper.Components
 {
@@ -75,5 +76,20 @@ namespace Sniper.Components
 
         [field:SerializeField]
         internal Transform scopeAimOriginParent { get; set; }
+
+
+
+        internal void SummonDecoy()
+        {
+#if ASSERT
+            if( !NetworkServer.active )
+            {
+                Log.ErrorL( "Called on server" );
+                return;
+            }
+#endif
+
+
+        }
     }
 }

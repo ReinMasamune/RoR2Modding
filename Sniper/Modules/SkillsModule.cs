@@ -30,19 +30,19 @@ namespace Sniper.Modules
         {
             var skills = new List<SkillDef>();
 
-            var standardModifier = BulletModifier.identity;
+            BulletModifier standardModifier = BulletModifier.identity;
             standardModifier.stopperMaskRemove = LayerIndex.entityPrecise.mask;
             OnBulletDelegate standardStop = new OnBulletDelegate( (bullet, hit) =>
             {
                 if( hit.collider )
                 {
-                    var v1 = hit.direction;
-                    var v2 = hit.surfaceNormal;
-                    var dot = v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;
-                    var chance = Mathf.Clamp( Mathf.Acos( dot ) / 0.02f / Mathf.PI, 0f, 100f);
+                    Vector3 v1 = hit.direction;
+                    Vector3 v2 = hit.surfaceNormal;
+                    Single dot = (v1.x * v2.x) + (v1.y * v2.y) + (v1.z * v2.z);
+                    Single chance = Mathf.Clamp( Mathf.Acos( dot ) / 0.02f / Mathf.PI, 0f, 100f);
                     if( Util.CheckRoll( 100f - chance, bullet.attackerBody.master ) )
                     {
-                        var newDir = -2f * dot * v2 + v1;
+                        Vector3 newDir = (-2f * dot * v2) + v1;
                         var newBul = bullet.Clone() as ExpandableBulletAttack;
                         newBul.origin = hit.point;
                         newBul.aimVector = newDir;
@@ -65,7 +65,7 @@ namespace Sniper.Modules
             explosiveModifier.forceMultiplier = 0.5f;
             OnBulletDelegate explosiveOnHit = new OnBulletDelegate((bullet, hit) =>
             {
-                var rad = 4f * ( 1f + (4f * bullet.chargeLevel) );
+                Single rad = 4f * ( 1f + (4f * bullet.chargeLevel) );
                 EffectManager.SpawnEffect(VFXModule.GetExplosiveAmmoExplosionPrefab(), new EffectData
                 {
                     origin = hit.point,
@@ -93,7 +93,7 @@ namespace Sniper.Modules
                     teamIndex = TeamComponent.GetObjectTeam(bullet.owner),
                 };
 
-                blast.Fire();
+                _ = blast.Fire();
             });
             var explosive = SniperAmmoSkillDef.Create( explosiveOnHit, null, explosiveModifier, null, VFXModule.GetExplosiveAmmoTracer() );
             explosive.icon = UIModule.GetExplosiveAmmoIcon();
@@ -134,15 +134,15 @@ namespace Sniper.Modules
 
             var snipe = SniperReloadableFireSkillDef.Create<DefaultSnipe,DefaultReload>("Weapon", "Weapon");
             snipe.baseMaxStock = 1;
-            snipe.icon = UIModule.GetSnipeIcon(); // TODO: Assign
+            snipe.icon = UIModule.GetSnipeIcon();
             snipe.interruptPriority = InterruptPriority.Skill;
             snipe.isBullets = false;
             snipe.rechargeStock = 0;
-            snipe.reloadIcon = UIModule.GetSnipeReloadIcon(); // TODO: Assign
+            snipe.reloadIcon = UIModule.GetSnipeReloadIcon();
             snipe.reloadInterruptPriority = InterruptPriority.Skill;
             snipe.reloadParams = new ReloadParams
             {
-                attackSpeedCap = 3f,
+                attackSpeedCap = 2f,
                 attackSpeedDecayCoef = 10f,
                 badMult = 0.8f,
                 baseDuration = 1.5f,
@@ -175,12 +175,12 @@ namespace Sniper.Modules
             {
                 attackSpeedCap = 2f,
                 attackSpeedDecayCoef = 10f,
-                badMult = 0.8f,
+                badMult = 0.4f,
                 baseDuration = 1.5f,
-                goodMult = 1.3f,
-                perfectMult = 1.9f,
-                reloadDelay = 0.3f,
-                reloadEndDelay = 0.25f,
+                goodMult = 1f,
+                perfectMult = 2f,
+                reloadDelay = 0.4f,
+                reloadEndDelay = 0.5f,
                 perfectStart = 0.25f,
                 perfectEnd = 0.35f,
                 goodStart = 0.35f,
@@ -191,6 +191,7 @@ namespace Sniper.Modules
             slide.skillDescriptionToken = Tokens.SNIPER_PRIMARY_DASH_DESC;
             slide.skillNameToken = Tokens.SNIPER_PRIMARY_DASH_NAME;
             slide.stockToConsume = 1;
+            slide.stockToReload = 1;
             skills.Add( slide );
 
             SkillFamiliesModule.primarySkills = skills;
@@ -200,13 +201,13 @@ namespace Sniper.Modules
         {
             var skills = new List<SkillDef>();
 
-            var charge = SniperScopeSkillDef.Create<DefaultScope>( UIModule.GetChargeScope(), new ZoomParams(shoulderStart: 1f, shoulderEnd: 2.5f,
+            var charge = SniperScopeSkillDef.Create<DefaultScope>( UIModule.GetChargeScope(), new ZoomParams(shoulderStart: 1f, shoulderEnd: 5f,
                                                                                                              scopeStart: 3f, scopeEnd: 8f,
                                                                                                              shoulderFrac: 1f, defaultZoom: 0f,
                                                                                                              inputScale: 0.01f, baseFoV: 60f) ); // TODO: Zoom params
             charge.baseMaxStock = 1;
             charge.baseRechargeInterval = 0f;
-            charge.icon = UIModule.GetSteadyAimIcon(); // TODO: Assign
+            charge.icon = UIModule.GetSteadyAimIcon();
             charge.isBullets = false;
             charge.rechargeStock = 1;
             charge.requiredStock = 0;
@@ -219,13 +220,13 @@ namespace Sniper.Modules
             charge.beginSkillCooldownOnSkillEnd = false;
             skills.Add( charge );
 
-            var quick = SniperScopeSkillDef.Create<DefaultScope>( UIModule.GetQuickScope(), new ZoomParams(shoulderStart: 1f, shoulderEnd: 2.5f,
+            var quick = SniperScopeSkillDef.Create<DefaultScope>( UIModule.GetQuickScope(), new ZoomParams(shoulderStart: 1f, shoulderEnd: 5f,
                                                                                                              scopeStart: 3f, scopeEnd: 8f,
                                                                                                              shoulderFrac: 1f, defaultZoom: 0f,
                                                                                                              inputScale: 0.01f, baseFoV: 60f) ); // TODO: Zoom params
             quick.baseMaxStock = 4;
             quick.baseRechargeInterval = 8f;
-            quick.icon = null; // TODO: Assign
+            quick.icon = UIModule.GetQuickScopeIcon();
             quick.isBullets = false;
             quick.rechargeStock = 1;
             quick.requiredStock = 0;
@@ -253,7 +254,7 @@ namespace Sniper.Modules
             backflip.beginSkillCooldownOnSkillEnd = true;
             backflip.canceledFromSprinting = false;
             backflip.fullRestockOnAssign = true;
-            backflip.icon = null; // TODO: Assign
+            backflip.icon = UIModule.GetBackflipIcon(); // TODO: Assign
             backflip.interruptPriority = InterruptPriority.Skill;
             backflip.isBullets = false;
             backflip.isCombatSkill = true;
@@ -280,13 +281,13 @@ namespace Sniper.Modules
             decoy.baseRechargeInterval = 18f;
             decoy.beginSkillCooldownOnSkillEnd = true;
             decoy.fullRestockOnAssign = true;
-            decoy.icon = null; // TODO: Assign
+            decoy.icon = UIModule.GetDecoyIcon(); // TODO: Assign
             decoy.interruptPriority = InterruptPriority.Skill;
             decoy.isCombatSkill = false;
-            decoy.maxReactivationTimer = 10f;
+            decoy.maxReactivationTimer = 6f;
             decoy.minReactivationTimer = 2f;
             decoy.noSprint = false;
-            decoy.reactivationIcon = null; // TODO: Assign
+            decoy.reactivationIcon = UIModule.GetDecoyReactivationIcon(); // TODO: Assign
             decoy.reactivationInterruptPriority = InterruptPriority.Skill;
             decoy.reactivationRequiredStock = 0;
             decoy.reactivationStockToConsume = 0;
@@ -304,13 +305,13 @@ namespace Sniper.Modules
             knife.baseRechargeInterval = 14f;
             knife.beginSkillCooldownOnSkillEnd = true;
             knife.fullRestockOnAssign = true;
-            knife.icon = null; // TODO: Assign
+            knife.icon = UIModule.GetKnifeIcon(); // TODO: Assign
             knife.interruptPriority = InterruptPriority.Skill;
             knife.isCombatSkill = true;
             knife.maxReactivationTimer = 6f;
             knife.minReactivationTimer = 0.5f;
             knife.noSprint = true;
-            knife.reactivationIcon = null; // TODO: Assign
+            knife.reactivationIcon = UIModule.GetKnifeReactivationIcon(); // TODO: Assign
             knife.reactivationInterruptPriority = InterruptPriority.Skill;
             knife.reactivationRequiredStock = 0;
             knife.reactivationStockToConsume = 0;

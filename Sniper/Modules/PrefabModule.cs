@@ -16,11 +16,11 @@ namespace Sniper.Modules
 {
     internal static class PrefabModule
     {
-        private static Accessor<NetworkStateMachine,EntityStateMachine[]> stateMachines = new Accessor<NetworkStateMachine, EntityStateMachine[]>( "stateMachines" );
-        private static Accessor<KinematicCharacterMotor,Single> capsuleRadius = new Accessor<KinematicCharacterMotor, Single>( "CapsuleRadius" );
-        private static Accessor<KinematicCharacterMotor,Single> capsuleHeight = new Accessor<KinematicCharacterMotor, Single>( "CapsuleHeight" );
-        private static Accessor<KinematicCharacterMotor,Single> capsuleYOffset = new Accessor<KinematicCharacterMotor, Single>( "CapsuleYOffset" );
-        private static Accessor<KinematicCharacterMotor,PhysicMaterial> capsulePhysicsMaterial = new Accessor<KinematicCharacterMotor, PhysicMaterial>("CapsulePhysicsMaterial");
+        private static readonly Accessor<NetworkStateMachine,EntityStateMachine[]> stateMachines = new Accessor<NetworkStateMachine, EntityStateMachine[]>( "stateMachines" );
+        private static readonly Accessor<KinematicCharacterMotor,Single> capsuleRadius = new Accessor<KinematicCharacterMotor, Single>( "CapsuleRadius" );
+        private static readonly Accessor<KinematicCharacterMotor,Single> capsuleHeight = new Accessor<KinematicCharacterMotor, Single>( "CapsuleHeight" );
+        private static readonly Accessor<KinematicCharacterMotor,Single> capsuleYOffset = new Accessor<KinematicCharacterMotor, Single>( "CapsuleYOffset" );
+        private static readonly Accessor<KinematicCharacterMotor,PhysicMaterial> capsulePhysicsMaterial = new Accessor<KinematicCharacterMotor, PhysicMaterial>("CapsulePhysicsMaterial");
 
         internal static void CreatePrefab()
         {
@@ -33,19 +33,19 @@ namespace Sniper.Modules
 
             var modelBase = new GameObject("ModelBase");
             modelBase.transform.parent = obj.transform;
-            modelBase.transform.localPosition = Vector3.zero;
+            modelBase.transform.localPosition = new Vector3(0f, -0.8f, 0f);
             modelBase.transform.localRotation = Quaternion.identity;
-            modelBase.transform.localScale = Vector3.one;
+            modelBase.transform.localScale = new Vector3( 1f, 1f, 1f );
 
             var cameraPivot = new GameObject( "CameraPivot" );
             cameraPivot.transform.parent = modelBase.transform;
-            cameraPivot.transform.localPosition = new Vector3( 0f, 2f, 0f ); // TODO: Camera pivot position
+            cameraPivot.transform.localPosition = new Vector3( 0f, 1.6f, 0f );
             cameraPivot.transform.localRotation = Quaternion.identity;
             cameraPivot.transform.localScale = Vector3.one;
 
             var aimOrigin = new GameObject( "AimOrigin" );
             aimOrigin.transform.parent = modelBase.transform;
-            aimOrigin.transform.localPosition = new Vector3( 0f, 1.8f, 0f ); // TODO: Aim origin position
+            aimOrigin.transform.localPosition = new Vector3( 0f, 1.4f, 0f );
             aimOrigin.transform.localRotation = Quaternion.identity;
             aimOrigin.transform.localScale = Vector3.one;
 
@@ -66,7 +66,7 @@ namespace Sniper.Modules
             direction.rootMotionAccumulator = null;
             direction.modelAnimator = null;
             direction.driveFromRootRotation = false;
-            direction.turnSpeed = 720f;
+            direction.turnSpeed = 720f; // TODO: Turn speed
 
 
             var body = obj.AddOrGetComponent<SniperCharacterBody>();
@@ -184,8 +184,8 @@ namespace Sniper.Modules
 
             var reloadMachine = obj.AddComponent<EntityStateMachine>();
             reloadMachine.customName = "Reload";
-            reloadMachine.initialStateType = SkillsCore.StateType<Idle>(); // TODO: SkillsStuff
-            reloadMachine.mainStateType = SkillsCore.StateType<Idle>(); // TODO: SkillsStuff
+            reloadMachine.initialStateType = SkillsCore.StateType<Idle>();
+            reloadMachine.mainStateType = SkillsCore.StateType<Idle>();
 
 
             var allStateMachines = new[] { bodyMachine, weaponMachine, scopeMachine, reloadMachine };
@@ -304,7 +304,7 @@ namespace Sniper.Modules
             var col = obj.AddOrGetComponent<CapsuleCollider>();
             col.isTrigger = false;
             col.material = null;
-            col.center = new Vector3( 0f, 0.8f, 0f );
+            col.center = new Vector3( 0f, 0f, 0f );
             col.radius = 0.5f;
             col.height = 1.82f;
             col.direction = 1;
@@ -316,7 +316,7 @@ namespace Sniper.Modules
             kinCharMot.Rigidbody = rb;
             capsuleRadius.Set( kinCharMot, 0.5f );
             capsuleHeight.Set( kinCharMot, 1.82f );
-            capsuleYOffset.Set( kinCharMot, 0.8f );
+            capsuleYOffset.Set( kinCharMot, 0f );
             capsulePhysicsMaterial.Set( kinCharMot, null );
             kinCharMot.DetectDiscreteCollisions = false;
             kinCharMot.GroundDetectionExtraDistance = 0f;

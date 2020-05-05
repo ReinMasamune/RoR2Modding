@@ -21,12 +21,17 @@ namespace Sniper.States.Secondary
     internal class DefaultScope : ScopeBaseState
     {
         const Single maxCharge = 1f;
-        const Single chargePerSecond = 0.15f;
+        const Single chargePerSecond = 0.2f;
         const Single minModifier = 1f;
         const Single maxModifier = 10f;
-        const Single speedScalar = 0.6f;
+        const Single speedScalar = 0.25f;
 
-        //private static AnimationCurve damageCurve = new AnimationCurve()
+        private static AnimationCurve damageCurve = new AnimationCurve
+        (
+            new Keyframe(0f, minModifier, 0f, 0f ),
+            new Keyframe(0.2f, minModifier, 0f, 0f ),
+            new Keyframe(1f, maxModifier, 0.5f, 0f )
+        );
 
 
 
@@ -74,12 +79,6 @@ namespace Sniper.States.Secondary
             }
         }
 
-        public override void Update()
-        {
-            base.Update();
-        }
-
-
         public override void OnExit()
         {
             base.OnExit();
@@ -89,6 +88,6 @@ namespace Sniper.States.Secondary
         }
 
 
-        private Single GetDamageMultiplier() => Mathf.Lerp( minModifier, maxModifier, this.currentCharge );
+        private Single GetDamageMultiplier() => damageCurve.Evaluate( this.charge / maxCharge );
     }
 }

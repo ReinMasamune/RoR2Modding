@@ -19,7 +19,7 @@ namespace Sniper.SkillDefs
     {
         internal static SniperAmmoSkillDef Create( OnBulletDelegate onHit, OnBulletDelegate onStop, Data.BulletModifier modifier, GameObject hitEffect = null, GameObject tracerEffect = null )
         {
-            var def = ScriptableObject.CreateInstance<SniperAmmoSkillDef>();
+            SniperAmmoSkillDef def = ScriptableObject.CreateInstance<SniperAmmoSkillDef>();
 
             def.onHitEffect = onHit;
             def.onEndEffect = onStop;
@@ -51,10 +51,8 @@ namespace Sniper.SkillDefs
         [SerializeField]
         private Data.BulletModifier bulletModifier;
 
-        [SerializeField]
         private OnBulletDelegate onHitEffect;
 
-        [SerializeField]
         private OnBulletDelegate onEndEffect;
 
         [SerializeField]
@@ -63,14 +61,13 @@ namespace Sniper.SkillDefs
         [SerializeField]
         private GameObject tracerEffectPrefab;
 
+
+        // TODO: Switch to having ammo initialize the bullet
+
         internal void ModifyBullet( ExpandableBulletAttack bulletAttack )
         {
-            var onHit = this.onHitEffect;
-            if( onHit != null )
-            {
-                bulletAttack.onHit += onHit;
-            }
-            if( this.onEndEffect != null ) bulletAttack.onStop += this.onEndEffect;
+            bulletAttack.onHit = this.onHitEffect;
+            bulletAttack.onStop = this.onEndEffect;
             if( this.hitEffectPrefab != null ) bulletAttack.hitEffectPrefab = this.hitEffectPrefab;
             if( this.tracerEffectPrefab != null ) bulletAttack.tracerEffectPrefab = this.tracerEffectPrefab;
             this.bulletModifier.Apply( bulletAttack );

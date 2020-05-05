@@ -29,11 +29,14 @@
             var novaSimp = novaProj.GetComponent<ProjectileSimple>();
             novaSimp.velocity *= 1.25f;
 
+            var rb = novaProj.GetComponent<Rigidbody>();
+            rb.useGravity = true;
+            rb.drag = 1f;
             novaProj.GetComponent<Rigidbody>().useGravity = true;
 
             var novaImpact = novaProj.GetComponent<ProjectileImpactExplosion>();
             novaImpact.blastDamageCoefficient = 1.0f;
-            //novaImpact.falloffModel = RoR2.BlastAttack.FalloffModel.Linear;
+            novaImpact.falloffModel = RoR2.BlastAttack.FalloffModel.None;
             novaImpact.blastRadius = 15f;
 
             var novaBeams = novaProj.GetComponent<ProjectileProximityBeamController>();

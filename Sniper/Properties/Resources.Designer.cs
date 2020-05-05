@@ -412,7 +412,7 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Blink to a knife.
+        ///   Looks up a localized string similar to Dennis.
         /// </summary>
         internal static string lang__SNIPER_SPECIAL_KNIFE_DESC {
             get {
@@ -421,7 +421,7 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Blink Knife.
+        ///   Looks up a localized string similar to DENNIS.
         /// </summary>
         internal static string lang__SNIPER_SPECIAL_KNIFE_NAME {
             get {

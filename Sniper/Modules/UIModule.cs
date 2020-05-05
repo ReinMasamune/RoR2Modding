@@ -18,6 +18,14 @@ namespace Sniper.Modules
 {
     internal static class UIModule
     {
+        private static Sprite GetUnfinishedIcon()
+        {
+            var texJob = TexturesCore.GenerateCrossTextureBatch( 512, 512, 64, 16, 2, Color.black, Color.red, Color.white, Color.white, Color.white, Color.white );
+
+            return Sprite.Create( texJob.OutputTextureAndDispose(), new Rect( 0f, 0f, 512f, 512f ), new Vector2( 0.5f, 0.5f ) );
+        }
+
+
         internal static Sprite GetStandardAmmoIcon()
         {
             return AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>( Properties.Resources.StandardAmmoIcon );
@@ -44,6 +52,35 @@ namespace Sniper.Modules
             return AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>( Properties.Resources.HeadshotIcon );
         }
 
+        internal static Sprite GetBackflipIcon()
+        {
+            return AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>( Properties.Resources.BackflipIcon );
+        }
+
+        internal static Sprite GetQuickScopeIcon()
+        {
+            return GetUnfinishedIcon();
+        }
+
+        internal static Sprite GetKnifeIcon()
+        {
+            return GetUnfinishedIcon();
+        }
+
+        internal static Sprite GetKnifeReactivationIcon()
+        {
+            return GetUnfinishedIcon();
+        }
+
+        internal static Sprite GetDecoyIcon()
+        {
+            return GetUnfinishedIcon();
+        }
+
+        internal static Sprite GetDecoyReactivationIcon()
+        {
+            return GetUnfinishedIcon();
+        }
 
 
 

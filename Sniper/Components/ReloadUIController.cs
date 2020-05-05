@@ -17,9 +17,10 @@ namespace Sniper.Components
 {
     internal class ReloadUIController : MonoBehaviour
     {
-        internal static Color barBackgroundColor { get; } = new Color( 0.3f, 0.3f, 0.3f, 1f );
-        internal static Color barPerfectColor { get; } = new Color( 0.9f, 0.9f, 0.9f, 1f );
-        internal static Color barGoodColor { get; } = new Color( 0.5f, 0.5f, 0.5f, 1f );
+        //[property: MethodImpl( MethodImplOptions.AggressiveInlining )]
+        internal static Color barBackgroundColor { [MethodImpl(MethodImplOptions.AggressiveInlining)]get; } = new Color( 0.05f, 0.05f, 0.05f, 1f );
+        internal static Color barPerfectColor { [MethodImpl( MethodImplOptions.AggressiveInlining )]get; } = new Color( 0.7f, 0.9f, 0.8f, 1f );
+        internal static Color barGoodColor { [MethodImpl( MethodImplOptions.AggressiveInlining )]get; } = new Color( 0.5f, 0.5f, 0.5f, 1f );
 
         #region Static
         #region External
@@ -33,7 +34,7 @@ namespace Sniper.Components
             {
                 return controller;
             }
-            var res = body.master.playerCharacterMasterController.networkUser.cameraRigController.hud.GetComponentInChildren<ReloadUIController>();
+            ReloadUIController res = body.master.playerCharacterMasterController.networkUser.cameraRigController.hud.GetComponentInChildren<ReloadUIController>();
             if( res != null )
             {
                 instances[body] = res;
@@ -45,12 +46,12 @@ namespace Sniper.Components
         {
             if( !cachedBarTextures.ContainsKey( reloadParams ) )
             {
-                var tex = TexturesCore.GenerateBarTexture( 1280, 128, true, 18, 4, Color.black, barBackgroundColor, 2,
+                ITextureJob tex = TexturesCore.GenerateBarTextureBatch( 1280, 128, true, 18, 4, Color.black, barBackgroundColor, 2,
                     (reloadParams.perfectStart, reloadParams.perfectEnd, barPerfectColor),
                     (reloadParams.goodStart, reloadParams.goodEnd, barGoodColor)
                 );
 
-                cachedBarTextures[reloadParams] = tex;
+                cachedBarTextures[reloadParams] = tex.OutputTextureAndDispose();
             }
             return cachedBarTextures[reloadParams];
         }

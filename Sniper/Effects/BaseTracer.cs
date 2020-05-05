@@ -83,7 +83,7 @@ namespace Sniper.Effects
             effectComp.positionAtReferencedTransform = false;
             effectComp.parentToReferencedTransform = false;
             effectComp.applyScale = false;
-            effectComp.soundName = "";
+            effectComp.soundName = null;
             effectComp.disregardZScale = false;
 
 
@@ -110,7 +110,7 @@ namespace Sniper.Effects
             vfxAtrib.vfxIntensity = VFXAttributes.VFXIntensity.Low;
             vfxAtrib.vfxPriority = VFXAttributes.VFXPriority.Always;
 
-
+            mainPs.PlayOnStart();
             mainPs.SetupTracerMain();
             mainPs.SetupTracerEmission();
             mainPs.SetupTracerShape();
@@ -222,7 +222,7 @@ namespace Sniper.Effects
             mainPsMain.loop = true;
             mainPsMain.prewarm = false;
             mainPsMain.startDelay = 0f;
-            mainPsMain.startLifetime = new ParticleSystem.MinMaxCurve( 0.4f, 0.42f );
+            mainPsMain.startLifetime = new ParticleSystem.MinMaxCurve( 0.1f, 0.12f );
             mainPsMain.startSpeed = new ParticleSystem.MinMaxCurve( 0.1f, 0.1f );
             mainPsMain.startSize3D = true;
             mainPsMain.startSizeX = 4f;
@@ -235,10 +235,10 @@ namespace Sniper.Effects
             mainPsMain.flipRotation = 0f;
             mainPsMain.startColor = Color.white;
             mainPsMain.gravityModifier = 0f;
-            mainPsMain.simulationSpace = ParticleSystemSimulationSpace.Local;
+            mainPsMain.simulationSpace = ParticleSystemSimulationSpace.World;
             mainPsMain.simulationSpeed = 1f;
             mainPsMain.useUnscaledTime = false;
-            mainPsMain.playOnAwake = true;
+            mainPsMain.playOnAwake = false;
             mainPsMain.emitterVelocityMode = ParticleSystemEmitterVelocityMode.Transform;
             mainPsMain.maxParticles = 20000;
             mainPsMain.stopAction = ParticleSystemStopAction.None;
@@ -252,7 +252,7 @@ namespace Sniper.Effects
             ParticleSystem.EmissionModule mainPsEmis = particles.emission;
             mainPsEmis.enabled = true;
             mainPsEmis.rateOverTime = 0f;
-            mainPsEmis.rateOverDistance = 9f;
+            mainPsEmis.rateOverDistance = 14f;
             mainPsEmis.burstCount = 0;
         }
 
@@ -334,8 +334,8 @@ namespace Sniper.Effects
             trailPsMain.loop = true;
             trailPsMain.prewarm = false;
             trailPsMain.startDelay = 0f;
-            trailPsMain.startLifetime = 1.25f;
-            trailPsMain.startSpeed = new ParticleSystem.MinMaxCurve( 0.3f, 0.7f );
+            trailPsMain.startLifetime = 0.35f;
+            trailPsMain.startSpeed = new ParticleSystem.MinMaxCurve( 0.8f, 1.7f );
             trailPsMain.startSize3D = false;
             trailPsMain.startSize = 1f;
             trailPsMain.startRotation3D = false;
@@ -348,9 +348,9 @@ namespace Sniper.Effects
             trailPsMain.useUnscaledTime = false;
             trailPsMain.playOnAwake = false;
             trailPsMain.emitterVelocityMode = ParticleSystemEmitterVelocityMode.Rigidbody;
-            trailPsMain.maxParticles = 1000000;
+            trailPsMain.maxParticles = 10000;
             trailPsMain.stopAction = ParticleSystemStopAction.None;
-            trailPsMain.cullingMode = ParticleSystemCullingMode.AlwaysSimulate;
+            trailPsMain.cullingMode = ParticleSystemCullingMode.Automatic;
             trailPsMain.ringBufferMode = ParticleSystemRingBufferMode.Disabled;
             trailPsMain.scalingMode = ParticleSystemScalingMode.Hierarchy;
         }

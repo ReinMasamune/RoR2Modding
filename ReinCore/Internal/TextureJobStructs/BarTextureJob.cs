@@ -13,7 +13,7 @@ namespace ReinCore
         #region MAIN THREAD ONLY
         public JobHandle handle { get; private set; }
 
-        private ITextureJob aaJob;
+        private AntiAliasJob aaJob;
         internal BarTextureJob( Int32 width, Int32 height, Boolean roundedCorners, Int32 cornerRadius, Int32 borderWidth, Color borderColor, Color bgColor, ColorRegion[] regions, Byte aaFactor = 0 )
         {
             this.sampleFactor = (Int32)Mathf.Pow( 2f, aaFactor );
@@ -28,18 +28,17 @@ namespace ReinCore
             this.cornerRadSq = cornerRadius *  this.sampleFactor;
             this.fillWidth = this.texWidth - this.borderWidth - this.borderWidth;
             this.cornerLeft = cornerRadius * this.sampleFactor;
-            this.cornerRight = this.texWidth - cornerRadius * this.sampleFactor;
+            this.cornerRight = this.texWidth - (cornerRadius * this.sampleFactor);
             this.cornerTop = cornerRadius * this.sampleFactor;
-            this.cornerBot = this.texHeight - cornerRadius * this.sampleFactor;
-            //this.borderSquare = this.borderWidth * this.borderWidth;
-            this.outerColor = (this.borderWidth > 0 ? this.borderColor : this.bgColor);
+            this.cornerBot = this.texHeight - (cornerRadius * this.sampleFactor);
+            this.outerColor =  this.borderWidth > 0 ? this.borderColor : this.bgColor ;
             this.outerColor.a = 0f;
 
             this.handle = default;
 
             this.aaJob = default;
 
-            this.handle = this.Schedule( this.texWidth * this.texHeight, 1 );
+            this.handle = this.Schedule( this.texWidth, 1 );
             if( this.sampleFactor > 1 )
             {
                 this.aaJob = new AntiAliasJob( this.texWidth / this.sampleFactor, this.texHeight / this.sampleFactor, this.sampleFactor, this.texArray, this.handle );
@@ -50,15 +49,17 @@ namespace ReinCore
         {
             if( this.sampleFactor > 1 )
             {
-                var tex = this.aaJob.OutputTextureAndDispose();
+                Texture2D tex = this.aaJob.OutputTextureAndDispose();
                 this.regions.Dispose();
                 this.texArray.Dispose();
                 return tex;
             } else
             {
                 this.handle.Complete();
-                var tex = new Texture2D( this.texWidth / this.sampleFactor, this.texHeight / this.sampleFactor, TextureFormat.RGBAFloat, false );
-                tex.wrapMode = TextureWrapMode.Clamp;
+                var tex = new Texture2D( this.texWidth / this.sampleFactor, this.texHeight / this.sampleFactor, TextureFormat.RGBAFloat, false )
+                {
+                    wrapMode = TextureWrapMode.Clamp
+                };
                 tex.LoadRawTextureData<Color>( this.texArray );
                 tex.Apply();
 
@@ -72,17 +73,17 @@ namespace ReinCore
         #region All threads
         public void Execute( Int32 index )
         {
-            var resColor = this.bgColor;
+            Color resColor = this.bgColor;
             if( index < this.borderWidth || index >= (this.texWidth - this.borderWidth) )
             {
                 resColor = this.borderColor;
             } else
             {
-                var frac = (Single)index / (Single)this.fillWidth;
+                Single frac = (Single)index / (Single)this.fillWidth;
 
                 for( Int32 i = 0; i < this.regions.Length; ++i )
                 {
-                    var reg = this.regions[i];
+                    ColorRegion reg = this.regions[i];
                     if( frac >= reg.start && frac <= reg.end )
                     {
                         resColor = reg.color;
@@ -92,7 +93,7 @@ namespace ReinCore
             }
             for( Int32 i = 0; i < this.texHeight; ++i )
             {
-                var resColor2 = resColor;
+                Color resColor2 = resColor;
                 if( i < this.borderWidth || i >= (this.texHeight - this.borderWidth) )
                 {
                     resColor2 = this.borderColor;
@@ -101,7 +102,7 @@ namespace ReinCore
                 if( this.roundedCorners )
                 {
                     var pos = new Vector2Int( index, i );
-                    var shouldCompare = true;
+                    Boolean shouldCompare = true;
                     Vector2Int corner = default;
 
                     if( pos.x <= this.cornerLeft )
@@ -120,9 +121,9 @@ namespace ReinCore
                         corner.y = this.cornerBot;
                     } else shouldCompare = false;
 
-                    var temp = pos - corner;
+                    Vector2Int temp = pos - corner;
 
-                    var dist = Mathf.Sqrt(temp.x*temp.x + temp.y*temp.y);
+                    Single dist = Mathf.Sqrt((temp.x * temp.x) + (temp.y*temp.y));
                     dist -= this.cornerRadSq;
                     if( shouldCompare && dist >= 0f )
                     {
@@ -150,7 +151,6 @@ namespace ReinCore
         private readonly Int32 cornerBot;
         private readonly Int32 cornerLeft;
         private readonly Int32 cornerRight;
-        //private readonly Int32 borderSquare;
         private readonly Int32 sampleFactor;
         #endregion
     }

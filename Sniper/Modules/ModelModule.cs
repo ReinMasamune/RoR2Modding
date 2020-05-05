@@ -7,14 +7,59 @@ using RoR2;
 using UnityEngine;
 using Sniper.Properties;
 using Sniper.Data;
+using Unity.Jobs;
 
 namespace Sniper.Modules
 {
     internal static class ModelModule
     {
+        private static readonly Color[] iconColors = new[]
+        {
+            new Color( 0.2452f, 0.2452f, 0.2452f ),
+            new Color( 0.1195f, 1f, 0f ),
+            new Color( 0.1037f, 0.1037f, 0.1037f ),
+            new Color( 0.6851f, 1f, 0.6273f ),
+
+            new Color( 0.1645f, 0f, 0.3018f ),
+            new Color( 0.6174f, 0f, 1f ),
+            new Color( 0.0660f, 0.0660f, 0.0660f ),
+            new Color( 0.8773f, 0.7122f, 1f ),
+
+            new Color( 0.1509f, 0.1509f, 0.1509f ),
+            new Color( 1f, 0.3397f, 0f ),
+            new Color( 0.3373f, 0.3373f, 0.3373f ),
+            new Color( 0.5566f, 0.5566f, 0.5566f ),
+
+            new Color( 0.1266f, 0.1266f, 0.1266f ),
+            new Color( 0.2984f, 1f, 0f ),
+            new Color( 0.1981f, 0.1118f, 0f ),
+            new Color( 0.0508f, 0.1603f, 0f ),
+
+            new Color( 0.0943f, 0.0943f, 0.0943f ),
+            new Color( 1f, 0f, 0f ),
+            new Color( 0.2547f, 0.2547f, 0.2547f ),
+            new Color( 0.2542f, 0f, 0f ),
+        };
+
         internal static GameObject GetModel()
         {
-            var defaultIcon = new SkinTextureJob( )
+            Int32 ind = 0;
+            ITextureJob defaultIconJob = TexturesCore.GenerateCrossTextureBatch( 512, 512, 100, 20, 3, new Color( 0.9f, 0.9f, 0.9f ), new Color( 0.4f, 0.4f, 0.4f ),
+                iconColors[ind++], iconColors[ind++], iconColors[ind++], iconColors[ind++] );
+
+            ITextureJob alt1IconJob = TexturesCore.GenerateCrossTextureBatch( 512, 512, 100, 20, 3, new Color( 0.9f, 0.9f, 0.9f ), new Color( 0.4f, 0.4f, 0.4f ),
+                iconColors[ind++], iconColors[ind++], iconColors[ind++], iconColors[ind++] );
+
+            ITextureJob alt2IconJob = TexturesCore.GenerateCrossTextureBatch( 512, 512, 100, 20, 3, new Color( 0.9f, 0.9f, 0.9f ), new Color( 0.4f, 0.4f, 0.4f ),
+                iconColors[ind++], iconColors[ind++], iconColors[ind++], iconColors[ind++] );
+
+            ITextureJob alt3IconJob = TexturesCore.GenerateCrossTextureBatch( 512, 512, 100, 20, 3, new Color( 0.9f, 0.9f, 0.9f ), new Color( 0.4f, 0.4f, 0.4f ),
+                iconColors[ind++], iconColors[ind++], iconColors[ind++], iconColors[ind++] );
+
+            ITextureJob alt4IconJob = TexturesCore.GenerateCrossTextureBatch( 512, 512, 100, 20, 3, new Color( 0.9f, 0.9f, 0.9f ), new Color( 0.4f, 0.4f, 0.4f ),
+                iconColors[ind++], iconColors[ind++], iconColors[ind++], iconColors[ind++] );
+
+            JobHandle.ScheduleBatchedJobs();
 
 
             GameObject model = AssetModule.GetSniperAssetBundle().LoadAsset<GameObject>( Properties.Resources.SniperPrefabPath );
@@ -78,19 +123,32 @@ namespace Sniper.Modules
             );
             alt4.ApplyAlt4SkinModifiers();
 
-            
 
 
-            defaultSkin.CreateAndAddSkin( charModel, Properties.Tokens.SNIPER_SKIN_DEFAULT_NAME, "", null );
-            alt1.CreateAndAddSkin( charModel, Properties.Tokens.SNIPER_SKIN_ALT1_NAME, "", null );
-            alt2.CreateAndAddSkin( charModel, Properties.Tokens.SNIPER_SKIN_ALT2_NAME, "", null );
-            alt3.CreateAndAddSkin( charModel, Properties.Tokens.SNIPER_SKIN_ALT3_NAME, "", null );
-            alt4.CreateAndAddSkin( charModel, Properties.Tokens.SNIPER_SKIN_ALT4_NAME, "", null );
+            Texture2D defaultTex = defaultIconJob.OutputTextureAndDispose();
+            defaultSkin.CreateAndAddSkin( charModel, Properties.Tokens.SNIPER_SKIN_DEFAULT_NAME, "", 
+                Sprite.Create( defaultTex, new Rect( 0f, 0f, defaultTex.width, defaultTex.height ), new Vector2( 0.5f, 0.5f ) ) );
 
-            var defaultSkinRenderers = charModel.GetComponent<ModelSkinController>().skins[0].rendererInfos;
+            Texture2D alt1Tex = alt1IconJob.OutputTextureAndDispose();
+            alt1.CreateAndAddSkin( charModel, Properties.Tokens.SNIPER_SKIN_ALT1_NAME, "",
+                Sprite.Create( alt1Tex, new Rect( 0f, 0f, alt1Tex.width, alt1Tex.height ), new Vector2( 0.5f, 0.5f ) ) );
+
+            Texture2D alt2Tex = alt2IconJob.OutputTextureAndDispose();
+            alt2.CreateAndAddSkin( charModel, Properties.Tokens.SNIPER_SKIN_ALT2_NAME, "",
+                Sprite.Create( alt2Tex, new Rect( 0f, 0f, alt2Tex.width, alt2Tex.height ), new Vector2( 0.5f, 0.5f ) ) );
+
+            Texture2D alt3Tex = alt3IconJob.OutputTextureAndDispose();
+            alt3.CreateAndAddSkin( charModel, Properties.Tokens.SNIPER_SKIN_ALT3_NAME, "",
+                Sprite.Create( alt3Tex, new Rect( 0f, 0f, alt3Tex.width, alt3Tex.height ), new Vector2( 0.5f, 0.5f ) ) );
+
+            Texture2D alt4Tex = alt4IconJob.OutputTextureAndDispose();
+            alt4.CreateAndAddSkin( charModel, Properties.Tokens.SNIPER_SKIN_ALT4_NAME, "",
+                Sprite.Create( alt4Tex, new Rect( 0f, 0f, alt4Tex.width, alt4Tex.height ), new Vector2( 0.5f, 0.5f ) ) );
+
+            CharacterModel.RendererInfo[] defaultSkinRenderers = charModel.GetComponent<ModelSkinController>().skins[0].rendererInfos;
             for( Int32 i = 0; i < defaultSkinRenderers.Length; ++i )
             {
-                var info = charModel.baseRendererInfos[i];
+                CharacterModel.RendererInfo info = charModel.baseRendererInfos[i];
                 info.defaultMaterial = defaultSkinRenderers[i].defaultMaterial;
                 charModel.baseRendererInfos[i] = info;
             }
@@ -420,7 +478,7 @@ namespace Sniper.Modules
         {
             alt4.AddMaterialModifier( SniperSkin.SniperMaterial.All, ( mat ) =>
             {
-                mat.mainColor = Color.white;
+                mat.mainColor = new Color( 0.6f, 0.6f, 0.6f, 1f );
                 mat.cull = MaterialBase.CullMode.Back;
                 mat.ignoreDiffuseAlphaForSpecular = true;
                 mat.rampChoice = MaterialBase.RampInfo.SmoothedTwoTone;

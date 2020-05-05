@@ -349,16 +349,16 @@
                 {
                     ProjectileManager.instance.FireProjectile( new FireProjectileInfo
                     {
-                        crit = passive.RollCrit(),
-                        damage = passive.damageStat * AltArtiPassive.lightningDamageMult,
+                        crit = passive.characterBody.RollCrit(),
+                        damage = passive.characterBody.damage * AltArtiPassive.lightningDamageMult,
                         damageColorIndex = DamageColorIndex.Default,
                         force = AltArtiPassive.lightningForce,
                         owner = passive.gameObject,
                         position = this.effect.transform.position,
-                        procChainMask = default( ProcChainMask ),
+                        procChainMask = default,
                         projectilePrefab = AltArtiPassive.lightningProjectile[this.nextProj.type],
                         rotation = this.effect.transform.rotation,
-                        target = target != null ? target.gameObject : null
+                        target = target?.gameObject
                     } );
                 }
                 UnityEngine.Object.Destroy( effect );
@@ -427,7 +427,7 @@
                 blast.transform.localScale = new Vector3( radius, radius, radius );
                 var delay = blast.GetComponent<DelayBlast>();
                 delay.position = position;
-                delay.baseDamage = base.damageStat;
+                delay.baseDamage = base.characterBody.damage;
                 delay.attacker = base.gameObject;
                 delay.radius = radius;
                 blast.GetComponent<TeamFilter>().teamIndex = base.teamComponent.teamIndex;

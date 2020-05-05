@@ -134,25 +134,49 @@ namespace Sniper
         {
             InternalLog( LogLevel.Debug, data, member, line );
         }
+        public static void DebugL( System.Object data, [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 )
+        {
+            InternalLogL( LogLevel.Debug, data, member, line );
+        }
         public static void Info( System.Object data, [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 )
         {
             InternalLog( LogLevel.Info, data, member, line );
+        }
+        public static void InfoL( System.Object data, [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 )
+        {
+            InternalLogL( LogLevel.Info, data, member, line );
         }
         public static void Message( System.Object data, [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 )
         {
             InternalLog( LogLevel.Message, data, member, line );
         }
+        public static void MessageL( System.Object data, [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 )
+        {
+            InternalLogL( LogLevel.Message, data, member, line );
+        }
         public static void Warning( System.Object data, [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 )
         {
             InternalLog( LogLevel.Warning, data, member, line );
+        }
+        public static void WarningL( System.Object data, [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 )
+        {
+            InternalLogL( LogLevel.Warning, data, member, line );
         }
         public static void Error( System.Object data, [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 )
         {
             InternalLog( LogLevel.Error, data, member, line );
         }
+        public static void ErrorL( System.Object data, [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 )
+        {
+            InternalLogL( LogLevel.Error, data, member, line );
+        }
         public static void Fatal( System.Object data, [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 )
         {
             InternalLog( LogLevel.Fatal, data, member, line );
+        }
+        public static void FatalL( System.Object data, [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 )
+        {
+            InternalLogL( LogLevel.Fatal, data, member, line );
         }
         public static void Counter( [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 )
         {
@@ -202,6 +226,42 @@ namespace Sniper
             if( log )
             {
                 SniperMain.logSource.Log( level, data );
+            }
+        }
+
+        private static void InternalLogL( LogLevel level, System.Object data, String member, Int32 line )
+        {
+
+            Boolean log = false;
+            switch( level )
+            {
+                case LogLevel.Debug:
+                log = true;
+                break;
+                case LogLevel.Info:
+                log = true;
+                break;
+                case LogLevel.Message:
+                log = true;
+                break;
+                case LogLevel.Warning:
+                log = true;
+                break;
+                case LogLevel.Error:
+                log = true;
+                break;
+                case LogLevel.Fatal:
+                log = true;
+                break;
+                default:
+                SniperMain.logSource.Log( LogLevel.Info, String.Format( "{0}; Line:{1}: {2}", member, line, data ) );
+                break;
+
+            }
+
+            if( log )
+            {
+                SniperMain.logSource.Log( level, String.Format( "{0}; Line:{1}: {2}", member, line, data ) );
             }
         }
     }

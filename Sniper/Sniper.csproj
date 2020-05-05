@@ -7,8 +7,8 @@
   <PropertyGroup>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
-    <AssemblyVersion>1.0.0.653</AssemblyVersion>
-    <FileVersion>1.0.0.653</FileVersion>
+    <AssemblyVersion>1.0.0.755</AssemblyVersion>
+    <FileVersion>1.0.0.755</FileVersion>
     <RootNamespace>Sniper</RootNamespace>
   </PropertyGroup>
 
@@ -16,6 +16,8 @@
     <OutputPath>C:\Users\reinm\source\repos\ReinRoR2Modding\__BUILDS\Sniper\</OutputPath>
     <DebugType>none</DebugType>
     <DebugSymbols>false</DebugSymbols>
+    <DefineConstants>ASSERT</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
   <ItemGroup>
@@ -463,6 +465,10 @@
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
     <Exec Command="CD $(SolutionDir)__Standalone\&#xD;&#xA;CALL prebuild.bat $(SolutionDir) $(ProjectDir)" />
+  </Target>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="del $(OutDir)\$(TargetName).deps.json" />
   </Target>
 
 </Project>

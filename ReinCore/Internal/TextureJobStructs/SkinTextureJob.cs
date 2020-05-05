@@ -12,7 +12,7 @@ namespace ReinCore
     {
         #region MAIN THREAD ONLY
         internal JobHandle handle { get; private set; }
-        internal ITextureJob aaJob { get; private set; }
+        internal AntiAliasJob aaJob { get; private set; }
         internal SkinTextureJob( Int32 width, Int32 height, Int32 crossWidth, Int32 borderWidth, Byte aaFactor,
             Color borderColor, Color crossColor, Color topColor, Color rightColor, Color bottomColor, Color leftColor )
         {
@@ -84,7 +84,7 @@ namespace ReinCore
             xFrac -= 0.5f;
             yFrac -= 0.5f;
 
-            if( Mathf.Abs( xFrac - yFrac ) <= crossValue )
+            if( Mathf.Min( Mathf.Abs( xFrac - (-yFrac) ), Mathf.Abs( xFrac - yFrac ) ) <= crossValue )
             {
                 color = this.crossColor;
                 goto OutputAndReturn;

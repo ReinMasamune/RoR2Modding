@@ -23,7 +23,7 @@ namespace Sniper.Modules
                 descriptionToken = Properties.Tokens.SNIPER_DESC,
                 displayPrefab = SniperMain.sniperDisplayPrefab,
                 name = "Sniper",
-                primaryColor = new Color( 1f, 1f, 1f, 1f ),
+                primaryColor = new Color( 0f, 0.3f, 0.1f, 1f ),
                 unlockableName = "",
             };
 

@@ -4,6 +4,7 @@
 <#@ import namespace="System.Xml" #>
 <#@ import namespace="System.IO" #>
 <#@ output extension=".cs" #>
+using System;
 <#
 	String fileName = "DEFAULTNAME";
 	String directory = this.Host.ResolvePath( "Versioning.tt" );
@@ -35,13 +36,13 @@
 		}
 	}
 #>
-namespace <#=rootName#>.<#=fileName#>.Properties
+namespace <#=rootName#>.Properties
 {
 	public static class Info
 	{
 		/// <summary>
 		/// The version of the library
 		/// </summary>
-		public const string ver = "<#=vers#>";
+		public const String ver = "<#=vers#>";
 	}
 }
