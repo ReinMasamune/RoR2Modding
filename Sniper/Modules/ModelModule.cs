@@ -43,6 +43,19 @@ namespace Sniper.Modules
 
         internal static GameObject GetModel()
         {
+            if( _model == null )
+            {
+                _model = CreateModel();
+            }
+
+            return _model;
+        }
+
+#pragma warning disable IDE1006 // Naming Styles
+        private static GameObject _model;
+#pragma warning restore IDE1006 // Naming Styles
+        private static GameObject CreateModel()
+        {
             Int32 ind = 0;
             ITextureJob defaultIconJob = TexturesCore.GenerateCrossTextureBatch( 512, 512, 100, 20, 3, new Color( 0.9f, 0.9f, 0.9f ), new Color( 0.4f, 0.4f, 0.4f ),
                 iconColors[ind++], iconColors[ind++], iconColors[ind++], iconColors[ind++] );
@@ -145,13 +158,16 @@ namespace Sniper.Modules
             alt4.CreateAndAddSkin( charModel, Properties.Tokens.SNIPER_SKIN_ALT4_NAME, "",
                 Sprite.Create( alt4Tex, new Rect( 0f, 0f, alt4Tex.width, alt4Tex.height ), new Vector2( 0.5f, 0.5f ) ) );
 
-            CharacterModel.RendererInfo[] defaultSkinRenderers = charModel.GetComponent<ModelSkinController>().skins[0].rendererInfos;
+            var skinsArray = charModel.GetComponent<ModelSkinController>().skins;
+            CharacterModel.RendererInfo[] defaultSkinRenderers = skinsArray[0].rendererInfos;
             for( Int32 i = 0; i < defaultSkinRenderers.Length; ++i )
             {
                 CharacterModel.RendererInfo info = charModel.baseRendererInfos[i];
                 info.defaultMaterial = defaultSkinRenderers[i].defaultMaterial;
                 charModel.baseRendererInfos[i] = info;
             }
+
+
             
             return model;
         }

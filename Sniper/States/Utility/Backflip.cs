@@ -54,7 +54,6 @@ namespace Sniper.States.Utility
             }
 
             base.PlayAnimation( "Gesture, Override", "Backflip" );
-            // TODO: Play Animation
             // TODO: Play Sound
             // TODO: VFX
             // TODO: Damage?

@@ -12,7 +12,7 @@ namespace Sniper.Modules
     {
         internal static GameObject CreateMaster()
         {
-            // TODO: Create Master
+            // TODO: Create sniper master for doppelganger
             return null;
         }
     }

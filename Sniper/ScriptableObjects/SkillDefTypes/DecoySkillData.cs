@@ -19,7 +19,7 @@ namespace Sniper.SkillDefs
     {
         internal override Boolean IsDataValid()
         {
-            // TODO: Implement
+            // TODO: Implement DecoySkillData.IsDataValid
             return true;
         }
     }

@@ -14,8 +14,18 @@ namespace Sniper.Modules
 {
     internal static class MaterialModule
     {
-        // TODO: Cache this
         internal static CloudMaterial GetStandardTracerMaterial()
+        {
+            if( _standardTracerMaterial == null )
+            {
+                _standardTracerMaterial = CreateStandardTracerMaterial();
+            }
+
+            return _standardTracerMaterial;
+        }
+
+        private static CloudMaterial _standardTracerMaterial;
+        private static CloudMaterial CreateStandardTracerMaterial()
         {
             var mat = new CloudMaterial( "StandardAmmoTracer" )
             {
@@ -60,8 +70,19 @@ namespace Sniper.Modules
             return mat;
         }
 
-        // TODO: Cache this
+
+
         internal static CloudMaterial GetStandardTracerTrailMaterial()
+        {
+            if( _standardTracerTrailMaterial == null )
+            {
+                _standardTracerTrailMaterial = CreateStandardTracerTrailMaterial();
+            }
+
+            return _standardTracerTrailMaterial;
+        }
+        private static CloudMaterial _standardTracerTrailMaterial;
+        private static CloudMaterial CreateStandardTracerTrailMaterial()
         {
             var mat = new CloudMaterial( "StandardAmmoTracerTrail" )
             {
@@ -105,8 +126,17 @@ namespace Sniper.Modules
             //return AssetsCore.LoadAsset<Material>( MaterialIndex.refMatGolemExplosion );
         }
 
-        // TODO: Cache this
+
         internal static CloudMaterial GetExplosiveTracerMaterial()
+        {
+            if( _explosiveTracerMaterial == null )
+            {
+                _explosiveTracerMaterial = CreateExplosiveTracerMaterial();
+            }
+            return _explosiveTracerMaterial;
+        }
+        private static CloudMaterial _explosiveTracerMaterial;
+        private static CloudMaterial CreateExplosiveTracerMaterial()
         {
             var mat = new CloudMaterial( "ExplosiveAmmoTracer" )
             {
@@ -151,8 +181,17 @@ namespace Sniper.Modules
             return mat;
         }
 
-        // TODO: Cache this
         internal static CloudMaterial GetExplosiveTracerTrailMaterial()
+        {
+            if( _explosiveTracerTrailMaterial == null )
+            {
+                _explosiveTracerTrailMaterial = CreateExplosiveTracerTrailMaterial();
+            }
+
+            return _explosiveTracerTrailMaterial;
+        }
+        private static CloudMaterial _explosiveTracerTrailMaterial;
+        private static CloudMaterial CreateExplosiveTracerTrailMaterial()
         {
             var mat = new CloudMaterial( "ExplosiveAmmoTracerTrail" )
             {
@@ -199,7 +238,7 @@ namespace Sniper.Modules
 
 
         #region Sniper
-        internal static StandardMaterial GetSniperBase()
+        internal static StandardMaterial CreateSniperBase()
         {
             if( _sniperBase == null )
             {
@@ -265,7 +304,7 @@ namespace Sniper.Modules
         {
             if( _sniperDefaultBase == null )
             {
-                var baseMat = GetSniperBase().Clone();
+                var baseMat = CreateSniperBase().Clone();
                 var set = TextureModule.GetSniperDefaultTextures();
                 set.Apply( baseMat );
 
@@ -281,7 +320,7 @@ namespace Sniper.Modules
         {
             if( _sniperSkin1Base == null )
             {
-                var baseMat = GetSniperBase().Clone();
+                var baseMat = CreateSniperBase().Clone();
                 var set = TextureModule.GetSniperSkin1Textures();
                 set.Apply( baseMat );
                 _sniperSkin1Base = baseMat;
@@ -295,7 +334,7 @@ namespace Sniper.Modules
         {
             if( _sniperSkin2Base == null )
             {
-                var baseMat = GetSniperBase().Clone();
+                var baseMat = CreateSniperBase().Clone();
                 var set = TextureModule.GetSniperSkin2Textures();
                 set.Apply( baseMat );
                 _sniperSkin2Base = baseMat;

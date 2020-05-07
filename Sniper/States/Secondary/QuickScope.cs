@@ -25,7 +25,7 @@ namespace Sniper.States.Secondary
         internal override Boolean usesStock { get; } = true;
         internal override Single currentCharge { get; }
         internal override UInt32 currentStock { get; }
-        // TODO: Implement
+        // TODO: Implement QuickScope state
 
         internal override void OnFired()
         {

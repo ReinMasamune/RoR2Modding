@@ -75,7 +75,7 @@ namespace Sniper.Components
 
             if( this.stateInstance.usesStock )
             {
-                // TODO: Implement
+                // TODO: Implement stock based scoping
             }
         }
 
@@ -84,7 +84,7 @@ namespace Sniper.Components
             this.scoped = this.zoomParams.IsInScope( zoom );
             Single fov = this.zoomParams.GetFoV( zoom );
             if( this.camTarget ) this.camTarget.fovOverride = fov;
-            // TODO: Camera position?
+            // TODO: Verify camera position for scope
 
             this.chargeIndicator.fillAmount = this.stateInstance.currentCharge;
         }

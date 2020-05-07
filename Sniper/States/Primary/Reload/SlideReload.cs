@@ -60,7 +60,7 @@ namespace Sniper.States.Primary.Reload
                     this.slideDirection = slideDirection.normalized;
                 }
             }
-            base.PlayAnimation( "Gesture, Additive", "Reload" );
+
 
             SoundModule.PlayLoad( base.gameObject, this.reloadTier );
 
@@ -133,8 +133,7 @@ namespace Sniper.States.Primary.Reload
             } else
             {
                 this.isSliding = false;
-                // TODO: No slide animation
-                // TODO: No slide sounds
+                base.PlayAnimation( "Gesture, Additive", "Reload" );
                 // TODO: No Slide VFX
             }
 

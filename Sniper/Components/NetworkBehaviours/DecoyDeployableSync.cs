@@ -10,11 +10,13 @@ using UnityEngine.Networking;
 
 namespace Sniper.Components
 {
-    internal class DecoyDeployableSync : NetworkBehaviour
+    internal class DecoyDeployableSync : NetworkBehaviour, IRuntimePrefabComponent
     {
         #region Networking
-        private static Int32 _rpcIndex_BodyKilled;
-        private static Int32 _rpcIndex_MasterSpawned;
+#pragma warning disable IDE1006 // Naming Styles
+        private static readonly Int32 _rpcIndex_BodyKilled;
+        private static readonly Int32 _rpcIndex_MasterSpawned;
+#pragma warning restore IDE1006 // Naming Styles
         static DecoyDeployableSync()
         {
             _rpcIndex_BodyKilled = 31415;
@@ -79,13 +81,45 @@ namespace Sniper.Components
 
         [SerializeField]
         private CharacterBody body;
+        [SerializeField]
+        private Deployable deployable;
+
 
         private CharacterMaster master;
         private void Awake()
         {
+
 #if ASSERT
             if( this.body == null ) Log.ErrorL( "Body was null" );
-#endif      
+            if( this.deployable == null ) Log.ErrorL( "Deployable was null" );
+#endif
+            this.deployable.onUndeploy = new UnityEngine.Events.UnityEvent();
+            this.deployable.onUndeploy.AddListener( new UnityEngine.Events.UnityAction( this.Suicide ) );
         }
+
+        private void Start()
+        {
+            this.master = this.body.master;
+
+
+#if ASSERT
+            if( this.master == null ) Log.ErrorL( "Master was null" );
+#endif
+        }
+
+
+        private void Suicide()
+        {
+            this.body.healthComponent.Suicide();
+        }
+
+        #region Prefab only
+        void IRuntimePrefabComponent.InitializePrefab()
+        {
+            this.body = base.gameObject.GetComponent<CharacterBody>();
+            this.deployable = base.gameObject.GetComponent<Deployable>();
+        }
+
+        #endregion
     }
 }

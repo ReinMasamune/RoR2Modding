@@ -3,12 +3,20 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyVersion>1.0.0.3</AssemblyVersion>
-    <FileVersion>1.0.0.3</FileVersion>
+    <AssemblyVersion>1.0.0.35</AssemblyVersion>
+    <FileVersion>1.0.0.35</FileVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
   <ItemGroup>
     <IL Include="**\*.il" Exclude="**\obj\**\*.il;**\bin\**\*.il" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <IL Remove="UnsafeHelpers.il" />
   </ItemGroup>
   <Target Name="ProcessILAfterCompile" AfterTargets="Compile">
     <CallTarget Targets="InitializeIL; CoreDecompile; CoreCompileIL" />

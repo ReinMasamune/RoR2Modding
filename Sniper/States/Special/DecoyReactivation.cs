@@ -14,11 +14,20 @@ using Sniper.Expansions;
 using Sniper.Enums;
 using Sniper.States.Bases;
 using Sniper.SkillDefs;
+using UnityEngine.Networking;
 
 namespace Sniper.States.Special
 {
     internal class DecoyReactivation : ReactivationBaseState<DecoySkillData>
     {
-        // TODO: Implement
+        public override void OnEnter()
+        {
+            base.OnEnter();
+
+            if( NetworkServer.active )
+            {
+                base.characterBody?.master?.minionOwnership?.gr
+            }
+        }
     }
 }

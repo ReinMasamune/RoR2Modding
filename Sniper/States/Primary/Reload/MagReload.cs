@@ -24,7 +24,6 @@ namespace Sniper.States.Primary.Reload
 
         public ReloadTier reloadTier { get; set; }
 
-        // TODO: Implement state
 
         public override void OnEnter()
         {

@@ -7,8 +7,8 @@
   <PropertyGroup>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
-    <AssemblyVersion>1.0.0.755</AssemblyVersion>
-    <FileVersion>1.0.0.755</FileVersion>
+    <AssemblyVersion>1.0.0.810</AssemblyVersion>
+    <FileVersion>1.0.0.810</FileVersion>
     <RootNamespace>Sniper</RootNamespace>
   </PropertyGroup>
 
@@ -460,7 +460,6 @@
 
   <ItemGroup>
     <Folder Include="Extensions\" />
-    <Folder Include="States\Other\" />
   </ItemGroup>
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">

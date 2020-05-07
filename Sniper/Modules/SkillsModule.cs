@@ -165,11 +165,11 @@ namespace Sniper.Modules
 
             var slide = SniperReloadableFireSkillDef.Create<SlideSnipe,SlideReload>("Weapon", "Body");
             slide.baseMaxStock = 1;
-            slide.icon = null; // TODO: Assign
+            slide.icon = null; // TODO: Slide snipe icon
             slide.interruptPriority = InterruptPriority.Skill;
             slide.isBullets = false;
             slide.rechargeStock = 0;
-            slide.reloadIcon = null; // TODO: Assign
+            slide.reloadIcon = null; // TODO: Slide Snipe Reload icon
             slide.reloadInterruptPriority = InterruptPriority.Skill;
             slide.reloadParams = new ReloadParams
             {
@@ -204,7 +204,7 @@ namespace Sniper.Modules
             var charge = SniperScopeSkillDef.Create<DefaultScope>( UIModule.GetChargeScope(), new ZoomParams(shoulderStart: 1f, shoulderEnd: 5f,
                                                                                                              scopeStart: 3f, scopeEnd: 8f,
                                                                                                              shoulderFrac: 1f, defaultZoom: 0f,
-                                                                                                             inputScale: 0.01f, baseFoV: 60f) ); // TODO: Zoom params
+                                                                                                             inputScale: 0.01f, baseFoV: 60f) ); // TODO: Verify and adjust zoom params
             charge.baseMaxStock = 1;
             charge.baseRechargeInterval = 0f;
             charge.icon = UIModule.GetSteadyAimIcon();
@@ -223,7 +223,7 @@ namespace Sniper.Modules
             var quick = SniperScopeSkillDef.Create<DefaultScope>( UIModule.GetQuickScope(), new ZoomParams(shoulderStart: 1f, shoulderEnd: 5f,
                                                                                                              scopeStart: 3f, scopeEnd: 8f,
                                                                                                              shoulderFrac: 1f, defaultZoom: 0f,
-                                                                                                             inputScale: 0.01f, baseFoV: 60f) ); // TODO: Zoom params
+                                                                                                             inputScale: 0.01f, baseFoV: 60f) ); // TODO: Verify and adjust Zoom params
             quick.baseMaxStock = 4;
             quick.baseRechargeInterval = 8f;
             quick.icon = UIModule.GetQuickScopeIcon();
@@ -254,7 +254,7 @@ namespace Sniper.Modules
             backflip.beginSkillCooldownOnSkillEnd = true;
             backflip.canceledFromSprinting = false;
             backflip.fullRestockOnAssign = true;
-            backflip.icon = UIModule.GetBackflipIcon(); // TODO: Assign
+            backflip.icon = UIModule.GetBackflipIcon();
             backflip.interruptPriority = InterruptPriority.Skill;
             backflip.isBullets = false;
             backflip.isCombatSkill = true;
@@ -281,13 +281,13 @@ namespace Sniper.Modules
             decoy.baseRechargeInterval = 18f;
             decoy.beginSkillCooldownOnSkillEnd = true;
             decoy.fullRestockOnAssign = true;
-            decoy.icon = UIModule.GetDecoyIcon(); // TODO: Assign
+            decoy.icon = UIModule.GetDecoyIcon();
             decoy.interruptPriority = InterruptPriority.Skill;
             decoy.isCombatSkill = false;
             decoy.maxReactivationTimer = 6f;
             decoy.minReactivationTimer = 2f;
             decoy.noSprint = false;
-            decoy.reactivationIcon = UIModule.GetDecoyReactivationIcon(); // TODO: Assign
+            decoy.reactivationIcon = UIModule.GetDecoyReactivationIcon();
             decoy.reactivationInterruptPriority = InterruptPriority.Skill;
             decoy.reactivationRequiredStock = 0;
             decoy.reactivationStockToConsume = 0;
@@ -305,13 +305,13 @@ namespace Sniper.Modules
             knife.baseRechargeInterval = 14f;
             knife.beginSkillCooldownOnSkillEnd = true;
             knife.fullRestockOnAssign = true;
-            knife.icon = UIModule.GetKnifeIcon(); // TODO: Assign
+            knife.icon = UIModule.GetKnifeIcon();
             knife.interruptPriority = InterruptPriority.Skill;
             knife.isCombatSkill = true;
             knife.maxReactivationTimer = 6f;
             knife.minReactivationTimer = 0.5f;
             knife.noSprint = true;
-            knife.reactivationIcon = UIModule.GetKnifeReactivationIcon(); // TODO: Assign
+            knife.reactivationIcon = UIModule.GetKnifeReactivationIcon();
             knife.reactivationInterruptPriority = InterruptPriority.Skill;
             knife.reactivationRequiredStock = 0;
             knife.reactivationStockToConsume = 0;

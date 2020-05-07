@@ -33,7 +33,7 @@ namespace Sniper.Modules
 
             var modelBase = new GameObject("ModelBase");
             modelBase.transform.parent = obj.transform;
-            modelBase.transform.localPosition = new Vector3(0f, -0.8f, 0f);
+            modelBase.transform.localPosition = new Vector3(0f, -0.81f, 0f);
             modelBase.transform.localRotation = Quaternion.identity;
             modelBase.transform.localScale = new Vector3( 1f, 1f, 1f );
 
@@ -66,7 +66,7 @@ namespace Sniper.Modules
             direction.rootMotionAccumulator = null;
             direction.modelAnimator = null;
             direction.driveFromRootRotation = false;
-            direction.turnSpeed = 720f; // TODO: Turn speed
+            direction.turnSpeed = 720f; // TODO: Decide on sniper turn speed
 
 
             var body = obj.AddOrGetComponent<SniperCharacterBody>();
@@ -149,7 +149,7 @@ namespace Sniper.Modules
             ctp.cameraPivotTransform = null;
             ctp.aimMode = CameraTargetParams.AimType.Standard;
             ctp.recoil = Vector2.zero;
-            ctp.idealLocalCameraPos = Vector3.zero; // TODO: localCameraPos
+            ctp.idealLocalCameraPos = Vector3.zero; // TODO: Decide on Sniper ideal local camera pos
             ctp.dontRaycastToPivot = false;
 
 
@@ -257,7 +257,7 @@ namespace Sniper.Modules
 
             var death = obj.AddOrGetComponent<CharacterDeathBehavior>();
             death.deathStateMachine = bodyMachine;
-            death.deathState = SkillsCore.StateType<EntityStates.Commando.DeathState>(); // TODO: SkillsStuff
+            death.deathState = SkillsCore.StateType<EntityStates.Commando.DeathState>(); // TODO: Setup sniper death state if needed
             death.idleStateMachine = nonBodyStateMachines;
 
 
@@ -274,7 +274,7 @@ namespace Sniper.Modules
 
 
             var emotes = obj.AddOrGetComponent<CharacterEmoteDefinitions>();
-            emotes.emoteDefinitions = null; // TODO: Emotes
+            emotes.emoteDefinitions = null; // TODO: Setup Sniper emotes
 
 
             var equip = obj.AddOrGetComponent<EquipmentSlot>();
@@ -339,8 +339,8 @@ namespace Sniper.Modules
             var hurt = obj.AddOrGetComponent<SetStateOnHurt>();
             hurt.hitThreshold = 5f;
             hurt.targetStateMachine = bodyMachine;
-            hurt.idleStateMachine = nonBodyStateMachines; // TODO: SkillsStuff
-            hurt.hurtState = SkillsCore.StateType<Idle>(); // TODO: SkillsStuff
+            hurt.idleStateMachine = nonBodyStateMachines; // TODO: ???SkillsStuff
+            hurt.hurtState = SkillsCore.StateType<Idle>(); // TODO: ???SkillsStuff
             hurt.canBeHitStunned = false;
             hurt.canBeStunned = false;
             hurt.canBeFrozen = true;
@@ -358,8 +358,6 @@ namespace Sniper.Modules
             var hurtBoxGroup = model.AddOrGetComponent<HurtBoxGroup>();
             var tempHb = model.GetComponentInChildren<HurtBox>();
 
-
-            //var tempHb = model.transform.Find("TempHurtBox").AddComponent<HurtBox>();
             tempHb.gameObject.layer = LayerIndex.entityPrecise.intVal;
             tempHb.healthComponent = health;
             tempHb.isBullseye = true;
@@ -383,12 +381,12 @@ namespace Sniper.Modules
 
 
             var ragdoll = model.AddOrGetComponent<RagdollController>();
-            ragdoll.bones = null; // TODO: Assign
-            ragdoll.componentsToDisableOnRagdoll = null; // Assign
+            ragdoll.bones = null; // TODO: Setup sniper ragdoll controller
+            ragdoll.componentsToDisableOnRagdoll = null;
 
 
             var aimAnimator = model.AddOrGetComponent<AimAnimator>();
-            // TODO: Finalize values
+            // TODO: Verify sniper AimAnimator values
             aimAnimator.inputBank = input;
             aimAnimator.directionComponent = direction;
             aimAnimator.pitchRangeMax = 55f;
@@ -402,6 +400,25 @@ namespace Sniper.Modules
 
 
             var skinController = model.AddOrGetComponent<ModelSkinController>();
+            var skinsArray = skinController.skins;
+            for( Int32 i = 0; i < skinsArray.Length; ++i )
+            {
+                SkinDef skin = skinsArray[i];
+                Log.Counter();
+                skin.minionSkinReplacements = new[]
+                {
+                    new SkinDef.MinionSkinReplacement
+                    {
+                        minionBodyPrefab = DecoyModule.GetDecoyPrefab(),
+                        minionSkin = skin
+                    },
+                };
+            }
+
+            foreach( var comp in obj.GetComponents<IRuntimePrefabComponent>() )
+            {
+                comp.InitializePrefab();
+            }
         }
     }
 }

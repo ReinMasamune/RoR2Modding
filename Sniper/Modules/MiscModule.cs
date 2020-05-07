@@ -13,11 +13,29 @@ namespace Sniper.Modules
     {
         internal static GameObject GetPodPrefab()
         {
-            // TODO: Create Pod Prefab
+            if( _podPrefab == null )
+            {
+                _podPrefab = CreatePodPrefab();
+            }
+            return _podPrefab;
+        }
+        private static GameObject _podPrefab;
+        private static GameObject CreatePodPrefab()
+        {
+            // TODO: Create sniper survivor pod prefab
             return null;
         }
 
         internal static CharacterCameraParams GetCharCameraParams()
+        {
+            if( _sniperCharCameraParams == null )
+            {
+                _sniperCharCameraParams = CreateSniperCharCameraParams();
+            }
+            return _sniperCharCameraParams;
+        }
+        private static CharacterCameraParams _sniperCharCameraParams;
+        private static CharacterCameraParams CreateSniperCharCameraParams()
         {
             var param = SniperCameraParams.Create( new Vector3( 1f, 0.8f, -3f ) );
             param.name = "ccpSniper";

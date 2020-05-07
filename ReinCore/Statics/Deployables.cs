@@ -56,10 +56,11 @@ namespace ReinCore
         {
             ILLabel endLabel = null;
             var cursor = new ILCursor( il );
-            _ = cursor.GotoNext( MoveType.AfterLabel,
+            _ = cursor.GotoNext( MoveType.Before,
                 instr => instr.MatchBr( out endLabel ),
                 insrt => insrt.MatchLdcI4( 4 )
             );
+            _ = cursor.Emit( OpCodes.Nop );
             cursor.Index--;
             ILLabel breakLabel = cursor.MarkLabel();
             _ = cursor.GotoPrev( MoveType.After,
@@ -73,10 +74,10 @@ namespace ReinCore
             cursor.EmitGetReference<Dictionary<DeployableSlot, DeployableSlotDef>>( loc1 );
             _ = cursor.Emit( OpCodes.Ldarg_1 );
             _ = cursor.Emit<Dictionary<DeployableSlot, DeployableSlotDef>>( OpCodes.Callvirt, "get_Item" );
-            _ = cursor.Emit<DeployableSlotDef>( OpCodes.Call, "get_GetLimit" );
+            _ = cursor.Emit<DeployableSlotDef>( OpCodes.Callvirt, "get_GetLimit" );
             _ = cursor.Emit( OpCodes.Ldarg_0 );
             _ = cursor.Emit<DeployableSlotLimitDelegate>( OpCodes.Callvirt, "Invoke" );
-            _ = cursor.Emit( OpCodes.Stloc_1 );
+            _ = cursor.Emit( OpCodes.Stloc_0 );
             _ = cursor.Emit( OpCodes.Br, endLabel );
         }
     }

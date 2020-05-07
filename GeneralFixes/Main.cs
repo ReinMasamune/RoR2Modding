@@ -108,7 +108,7 @@ namespace ReinGeneralFixes
 
             RoR2.RoR2Application.isModded = true;
             this.Tick += () => RoR2.RoR2Application.isModded = true;
-            this.FirstFrame += () => Screen.fullScreenMode = FullScreenMode.ExclusiveFullScreen;
+            //this.FirstFrame += () => Screen.fullScreenMode = FullScreenMode.ExclusiveFullScreen;
 
 #if DPSMETER
             this.SetupDPSMeter();

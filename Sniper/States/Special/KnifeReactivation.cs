@@ -19,6 +19,6 @@ namespace Sniper.States.Special
 {
     internal class KnifeReactivation : ReactivationBaseState<KnifeSkillData>
     {
-        // TODO: Implement
+        // TODO: Implement Knife Reactivation
     }
 }

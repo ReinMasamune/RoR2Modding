@@ -19,7 +19,7 @@ namespace Sniper.States.Special
 {
     internal class KnifeActivation : ActivationBaseState<KnifeSkillData>
     {
-        // TODO: Implement
+        // TODO: Implement Knife Activation
         internal override KnifeSkillData CreateSkillData()
         {
             base.data = new KnifeSkillData();

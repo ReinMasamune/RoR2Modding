@@ -73,6 +73,7 @@ namespace ReinCore
         static ReinCore()
         {
             HooksCore.RoR2.RoR2Application.UnitySystemConsoleRedirector.Redirect.On += Redirect_On;
+            HooksCore.RoR2.UI.QuickPlayButtonController.Start.On += Start_On;
             _ = ResourceTools.EmbeddedResourceHelpers.LoadAssembly( Rein.Properties.Resources.RoR2ScriptForwarding );
             if( !Log.loaded ) throw new CoreNotLoadedException( nameof( Log ) );
 
@@ -85,10 +86,12 @@ namespace ReinCore
             _ = managerObject.AddComponent<CoreManager>();
         }
 
-
-
-
-
+        private static void Start_On( HooksCore.RoR2.UI.QuickPlayButtonController.Start.Orig orig, RoR2.UI.QuickPlayButtonController self )
+        {
+            self.gameObject.SetActive( false );
+            orig( self );
+            self.gameObject.SetActive( false );
+        }
 
         internal static ExecutionLevel execLevel;
         internal static Boolean r2apiExists;

@@ -57,6 +57,8 @@ namespace Sniper
             base.disable += HooksModule.Remove;
             Log.Message( "Sniper loaded successfully" );
         }
+
+
         #region static vars
         internal static GameObject sniperBodyPrefab;
         internal static GameObject sniperDisplayPrefab;

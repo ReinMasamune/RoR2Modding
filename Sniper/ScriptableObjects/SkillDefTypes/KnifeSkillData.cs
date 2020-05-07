@@ -18,7 +18,7 @@ namespace Sniper.SkillDefs
     {
         internal override Boolean IsDataValid()
         {
-            // TODO: Implement
+            // TODO: Implement KnifeSkillData.IsDataValid
             return true;
         }
     }

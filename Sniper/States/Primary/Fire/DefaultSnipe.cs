@@ -25,8 +25,6 @@ namespace Sniper.States.Primary.Fire
         protected sealed override Single baseDuration { get; } = 0.2f;
         protected sealed override Single recoilStrength { get; } = 4f;
 
-
-        // TODO: Implement State
         protected override void ModifyBullet( ExpandableBulletAttack bullet )
         {
             bullet.damage *= damageRatio;

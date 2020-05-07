@@ -138,7 +138,7 @@ namespace Sniper.Data
 
         private Material GetBodyMaterial()
         {
-            var mat = MaterialModule.GetSniperBase().Clone();
+            var mat = MaterialModule.CreateSniperBase().Clone();
             this.sniperTextures.Apply( mat );
             foreach( var mod in this.materialModifiers[SniperMaterial.Body] ) mod( mat );
 
@@ -147,7 +147,7 @@ namespace Sniper.Data
         }
         private Material GetArmorMaterial()
         {
-            var mat = MaterialModule.GetSniperBase().Clone();
+            var mat = MaterialModule.CreateSniperBase().Clone();
             this.sniperTextures.Apply( mat );
             foreach( var mod in this.materialModifiers[SniperMaterial.Armor] ) mod( mat );
 
@@ -156,7 +156,7 @@ namespace Sniper.Data
         }
         private Material GetCloakMaterial()
         {
-            var mat = MaterialModule.GetSniperBase().Clone();
+            var mat = MaterialModule.CreateSniperBase().Clone();
             this.sniperTextures.Apply( mat );
             foreach( var mod in this.materialModifiers[SniperMaterial.Cloak] ) mod( mat );
 
@@ -165,7 +165,7 @@ namespace Sniper.Data
         }
         private Material GetAmmoMaterial()
         {
-            var mat = MaterialModule.GetSniperBase().Clone();
+            var mat = MaterialModule.CreateSniperBase().Clone();
             this.sniperTextures.Apply( mat );
             foreach( var mod in this.materialModifiers[SniperMaterial.Ammo] ) mod( mat );
 
@@ -174,7 +174,7 @@ namespace Sniper.Data
         }
         private Material GetEmissiveMaterial()
         {
-            var mat = MaterialModule.GetSniperBase().Clone();
+            var mat = MaterialModule.CreateSniperBase().Clone();
             this.sniperTextures.Apply( mat );
             foreach( var mod in this.materialModifiers[SniperMaterial.Emissive] ) mod( mat );
 
@@ -201,8 +201,8 @@ namespace Sniper.Data
         }
         private Material GetKnifeMaterial()
         {
-            // TODO: GetKnifeBase
-            var mat = MaterialModule.GetSniperBase().Clone();
+            // TODO: Knife base material
+            var mat = MaterialModule.CreateSniperBase().Clone();
             this.knifeTextures.Apply( mat );
             foreach( var mod in this.materialModifiers[SniperMaterial.Knife] ) mod( mat );
 
