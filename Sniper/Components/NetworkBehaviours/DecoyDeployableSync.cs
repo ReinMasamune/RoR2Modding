@@ -15,25 +15,17 @@ namespace Sniper.Components
         #region Networking
 #pragma warning disable IDE1006 // Naming Styles
         private static readonly Int32 _rpcIndex_BodyKilled;
-        private static readonly Int32 _rpcIndex_MasterSpawned;
 #pragma warning restore IDE1006 // Naming Styles
         static DecoyDeployableSync()
         {
-            _rpcIndex_BodyKilled = 31415;
-            _rpcIndex_MasterSpawned = 314159;
+            Log.Warning( "Registering decoy messages" );
+            _rpcIndex_BodyKilled = 3141755;
             NetworkBehaviour.RegisterRpcDelegate( typeof( DecoyDeployableSync ), _rpcIndex_BodyKilled, ClientReciever_InformBodyKilled );
-            NetworkBehaviour.RegisterRpcDelegate( typeof( DecoyDeployableSync ), _rpcIndex_MasterSpawned, ClientReciever_InformMasterSpawned );
         }
-
-        private static void ClientReciever_InformMasterSpawned(NetworkBehaviour obj, NetworkReader reader )
-        {
-            if( !NetworkClient.active ) return;
-            ( obj as DecoyDeployableSync ).MasterSpawned();
-        }
-
 
         private static void ClientReciever_InformBodyKilled( NetworkBehaviour obj, NetworkReader reader )
         {
+            Log.Warning( "InformKilled" );
             if( !NetworkClient.active ) return;
             ( obj as DecoyDeployableSync ).BodyKilled();
         }
@@ -44,6 +36,7 @@ namespace Sniper.Components
             {
                 if( NetworkServer.active )
                 {
+                    Log.Warning( "Sending body killed" );
                     var writer = new NetworkWriter();
                     writer.Write( 0 );
                     writer.Write( (Int16)( (UInt16)2 ) );
@@ -54,70 +47,51 @@ namespace Sniper.Components
                 } else Log.Error( "What are you???" );
             } else
             {
-
-            }
-        }
-
-        internal void MasterSpawned()
-        {
-            if( !NetworkClient.active )
-            {
-                if( NetworkServer.active )
+                Log.Warning( "Client body killed" );
+                var inst = ( this.owner?.GetBody()?.skillLocator?.special?.skillInstanceData as DecoySkillDef.ReactivationInstanceData );
+                if( inst != null )
                 {
-                    var writer = new NetworkWriter();
-                    writer.Write( 0 );
-                    writer.Write( (Int16)( (UInt16)2 ) );
-                    writer.WritePackedUInt32( (UInt32)_rpcIndex_MasterSpawned );
-                    writer.Write( base.netId );
-                    writer.FinishMessage();
-                    NetworkServer.SendWriterToReady( base.gameObject, writer, 0 );
-                } else Log.Error( "What are you???" );
-            } else
-            {
-
+                    inst.InvalidateReactivation();
+                    Log.Warning( "Success CD start" );
+                } else
+                {
+                    Log.Warning( "Errors  trying to start decoy CD" );
+                }
             }
         }
         #endregion
 
         [SerializeField]
         private CharacterBody body;
-        [SerializeField]
-        private Deployable deployable;
 
 
         private CharacterMaster master;
+        private CharacterMaster owner;
         private void Awake()
         {
 
 #if ASSERT
             if( this.body == null ) Log.ErrorL( "Body was null" );
-            if( this.deployable == null ) Log.ErrorL( "Deployable was null" );
 #endif
-            this.deployable.onUndeploy = new UnityEngine.Events.UnityEvent();
-            this.deployable.onUndeploy.AddListener( new UnityEngine.Events.UnityAction( this.Suicide ) );
         }
 
         private void Start()
         {
             this.master = this.body.master;
-
-
 #if ASSERT
             if( this.master == null ) Log.ErrorL( "Master was null" );
 #endif
-        }
 
-
-        private void Suicide()
-        {
-            this.body.healthComponent.Suicide();
+            this.owner = this.master.minionOwnership?.ownerMaster;
+#if ASSERT
+            if( this.owner == null ) Log.ErrorL( "Owner was null" );
+#endif
         }
 
         #region Prefab only
         void IRuntimePrefabComponent.InitializePrefab()
         {
             this.body = base.gameObject.GetComponent<CharacterBody>();
-            this.deployable = base.gameObject.GetComponent<Deployable>();
         }
 
         #endregion

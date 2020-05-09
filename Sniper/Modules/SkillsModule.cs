@@ -30,7 +30,7 @@ namespace Sniper.Modules
         {
             var skills = new List<SkillDef>();
 
-            BulletModifier standardModifier = BulletModifier.identity;
+            BulletModifier standardModifier = default;
             standardModifier.stopperMaskRemove = LayerIndex.entityPrecise.mask;
             OnBulletDelegate standardStop = new OnBulletDelegate( (bullet, hit) =>
             {
@@ -60,12 +60,12 @@ namespace Sniper.Modules
             skills.Add( standardAmmo );
 
             BulletModifier explosiveModifier = BulletModifier.identity;
-            explosiveModifier.damageMultiplier = 0.6f;
+            explosiveModifier.damageMultiplier = 0.65f;
             explosiveModifier.procMultiplier = 0.6f;
             explosiveModifier.forceMultiplier = 0.5f;
             OnBulletDelegate explosiveOnHit = new OnBulletDelegate((bullet, hit) =>
             {
-                Single rad = 4f * ( 1f + (4f * bullet.chargeLevel) );
+                Single rad = 6f * ( 1f + (4f * bullet.chargeLevel) );
                 EffectManager.SpawnEffect(VFXModule.GetExplosiveAmmoExplosionPrefab(), new EffectData
                 {
                     origin = hit.point,
@@ -133,7 +133,7 @@ namespace Sniper.Modules
 
 
             var snipe = SniperReloadableFireSkillDef.Create<DefaultSnipe,DefaultReload>("Weapon", "Weapon");
-            snipe.baseMaxStock = 1;
+            snipe.actualMaxStock = 1;
             snipe.icon = UIModule.GetSnipeIcon();
             snipe.interruptPriority = InterruptPriority.Skill;
             snipe.isBullets = false;
@@ -142,17 +142,17 @@ namespace Sniper.Modules
             snipe.reloadInterruptPriority = InterruptPriority.Skill;
             snipe.reloadParams = new ReloadParams
             {
-                attackSpeedCap = 2f,
+                attackSpeedCap = 1.25f,
                 attackSpeedDecayCoef = 10f,
                 badMult = 0.8f,
                 baseDuration = 1.5f,
                 goodMult = 1.4f,
                 perfectMult = 2f,
-                reloadDelay = 0.3f,
-                reloadEndDelay = 0.2f,
+                reloadDelay = 0.4f,
+                reloadEndDelay = 0.6f,
                 perfectStart = 0.25f,
-                perfectEnd = 0.35f,
-                goodStart = 0.35f,
+                perfectEnd = 0.4f,
+                goodStart = 0.4f,
                 goodEnd = 0.6f,
             };
             snipe.requiredStock = 1;
@@ -164,7 +164,7 @@ namespace Sniper.Modules
             skills.Add( snipe );
 
             var slide = SniperReloadableFireSkillDef.Create<SlideSnipe,SlideReload>("Weapon", "Body");
-            slide.baseMaxStock = 1;
+            slide.actualMaxStock = 1;
             slide.icon = null; // TODO: Slide snipe icon
             slide.interruptPriority = InterruptPriority.Skill;
             slide.isBullets = false;
@@ -173,17 +173,17 @@ namespace Sniper.Modules
             slide.reloadInterruptPriority = InterruptPriority.Skill;
             slide.reloadParams = new ReloadParams
             {
-                attackSpeedCap = 2f,
+                attackSpeedCap = 1.25f,
                 attackSpeedDecayCoef = 10f,
                 badMult = 0.4f,
                 baseDuration = 1.5f,
                 goodMult = 1f,
                 perfectMult = 2f,
-                reloadDelay = 0.4f,
-                reloadEndDelay = 0.5f,
+                reloadDelay = 0.5f,
+                reloadEndDelay = 0.75f,
                 perfectStart = 0.25f,
-                perfectEnd = 0.35f,
-                goodStart = 0.35f,
+                perfectEnd = 0.4f,
+                goodStart = 0.4f,
                 goodEnd = 0.6f,
             };
             slide.requiredStock = 1;
@@ -220,12 +220,12 @@ namespace Sniper.Modules
             charge.beginSkillCooldownOnSkillEnd = false;
             skills.Add( charge );
 
-            var quick = SniperScopeSkillDef.Create<DefaultScope>( UIModule.GetQuickScope(), new ZoomParams(shoulderStart: 1f, shoulderEnd: 5f,
+            var quick = SniperScopeSkillDef.Create<QuickScope>( UIModule.GetQuickScope(), new ZoomParams(shoulderStart: 1f, shoulderEnd: 5f,
                                                                                                              scopeStart: 3f, scopeEnd: 8f,
                                                                                                              shoulderFrac: 1f, defaultZoom: 0f,
                                                                                                              inputScale: 0.01f, baseFoV: 60f) ); // TODO: Verify and adjust Zoom params
             quick.baseMaxStock = 4;
-            quick.baseRechargeInterval = 8f;
+            quick.baseRechargeInterval = 4f;
             quick.icon = UIModule.GetQuickScopeIcon();
             quick.isBullets = false;
             quick.rechargeStock = 1;
@@ -284,7 +284,7 @@ namespace Sniper.Modules
             decoy.icon = UIModule.GetDecoyIcon();
             decoy.interruptPriority = InterruptPriority.Skill;
             decoy.isCombatSkill = false;
-            decoy.maxReactivationTimer = 6f;
+            decoy.maxReactivationTimer = -1f;
             decoy.minReactivationTimer = 2f;
             decoy.noSprint = false;
             decoy.reactivationIcon = UIModule.GetDecoyReactivationIcon();

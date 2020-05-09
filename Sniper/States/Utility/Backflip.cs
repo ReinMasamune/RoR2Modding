@@ -53,7 +53,7 @@ namespace Sniper.States.Utility
                 this.direction = this.direction.normalized;
             }
 
-            base.PlayAnimation( "Gesture, Override", "Backflip" );
+            base.PlayAnimation( "Gesture, Override", "Backflip", "rateBackflip", this.duration );
             // TODO: Play Sound
             // TODO: VFX
             // TODO: Damage?
@@ -63,6 +63,8 @@ namespace Sniper.States.Utility
             Vector3 boost = speed * this.direction;
             boost += new Vector3( 0f, upwardsBoost, 0f );
             base.characterMotor.velocity = boost;
+
+            base.StartAimMode( 2f );
         }
 
         public override void OnSerialize( NetworkWriter writer )

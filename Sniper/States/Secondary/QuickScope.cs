@@ -19,23 +19,38 @@ namespace Sniper.States.Secondary
 {
     internal class QuickScope : ScopeBaseState
     {
-        const Single damageMultiplier = 3f;
+        const Single baseStartDelay = 0.5f;
+        const Single damageMultiplier = 2f;
+
 
         internal override Boolean usesCharge { get; } = false;
         internal override Boolean usesStock { get; } = true;
         internal override Single currentCharge { get; }
         internal override UInt32 currentStock { get; }
-        // TODO: Implement QuickScope state
 
-        internal override void OnFired()
+        private Single startDelay;
+
+        public override void OnEnter()
         {
+            base.OnEnter();
 
+            this.startDelay = baseStartDelay / base.attackSpeedStat;
+        }
+
+        internal override Boolean OnFired()
+        {
+            return base.fixedAge >= this.startDelay;
         }
         internal override BulletModifier ReadModifier()
         {
-            var mod = new BulletModifier();
-            mod.damageMultiplier = damageMultiplier;
-            return default;
+            var mod = new BulletModifier
+            {
+                damageMultiplier = damageMultiplier,
+                charge = 0.5f,
+                
+            };
+            
+            return base.fixedAge >= this.startDelay ? mod : default;
         }
     }
 }

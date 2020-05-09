@@ -88,11 +88,13 @@ namespace Sniper.SkillDefs
 
             internal BulletModifier SendFired()
             {
-                var mod = this.stateInstance.SendFired();
-                this.skillSlot.DeductStock( this.scopeSkill.stockToConsumeOnFire );
-                if( this.skillSlot.stock < this.scopeSkill.stockRequiredToKeepZoom )
+                if( this.stateInstance.SendFired( out var mod ) )
                 {
-                    this.stateInstance.ForceScopeEnd();
+                    this.skillSlot.DeductStock( this.scopeSkill.stockToConsumeOnFire );
+                    if( this.skillSlot.stock < this.scopeSkill.stockRequiredToKeepZoom )
+                    {
+                        this.stateInstance.ForceScopeEnd();
+                    }
                 }
                 return mod;
             }

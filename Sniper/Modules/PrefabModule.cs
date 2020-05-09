@@ -390,9 +390,9 @@ namespace Sniper.Modules
             aimAnimator.inputBank = input;
             aimAnimator.directionComponent = direction;
             aimAnimator.pitchRangeMax = 55f;
-            aimAnimator.pitchRangeMin = -40f;
-            aimAnimator.yawRangeMin = -45f;
-            aimAnimator.yawRangeMax = 45f;
+            aimAnimator.pitchRangeMin = -50f;
+            aimAnimator.yawRangeMin = -44f;
+            aimAnimator.yawRangeMax = 44f;
             
             aimAnimator.pitchGiveupRange = 30f;
             aimAnimator.yawGiveupRange = 10f;

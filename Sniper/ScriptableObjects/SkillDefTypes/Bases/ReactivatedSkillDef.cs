@@ -51,12 +51,15 @@ namespace Sniper.SkillDefTypes.Bases
         internal Int32 reactivationRequiredStock;
         [SerializeField]
         internal Int32 reactivationStockToConsume;
+        
         public sealed override BaseSkillInstanceData OnAssigned( GenericSkill skillSlot )
         {
+            Log.Warning( "OnAssigned" );
             return new ReactivationInstanceData( this, skillSlot );
         }
         public sealed override Sprite GetCurrentIcon( GenericSkill skillSlot )
         {
+            //Log.Warning( "GetCurrentIcon" );
             var data = skillSlot.skillInstanceData as ReactivationInstanceData;
             if( data.waitingOnReactivation )
                 return this.reactivationIcon;
@@ -64,6 +67,7 @@ namespace Sniper.SkillDefTypes.Bases
         }
         public sealed override Boolean CanExecute( GenericSkill skillSlot )
         {
+            Log.Warning( "CanExecute" );
             var data = skillSlot.skillInstanceData as ReactivationInstanceData;
 
             if( data.waitingOnReactivation )
@@ -72,6 +76,7 @@ namespace Sniper.SkillDefTypes.Bases
         }
         public sealed override Boolean IsReady( GenericSkill skillSlot )
         {
+            //Log.Warning( "IsReady" );
             var data = skillSlot.skillInstanceData as ReactivationInstanceData;
             if( data.waitingOnReactivation )
                 return data.IsReady();
@@ -79,20 +84,26 @@ namespace Sniper.SkillDefTypes.Bases
         }
         protected sealed override EntityState InstantiateNextState( GenericSkill skillSlot )
         {
+
             var data = skillSlot.skillInstanceData as ReactivationInstanceData;
             if( data.waitingOnReactivation )
+            {
+                Log.Warning( "InstantiateNextState-reactiv" );
                 return data.InstantiateNextState();
+            }
             var state = base.InstantiateNextState( skillSlot ) as ActivationBaseState<TSkillData>;
             data.OnActivation( state );
             return state;
         }
         public sealed override void OnExecute( GenericSkill skillSlot )
         {
+            Log.Warning( "OnExecute" );
             var data = skillSlot.skillInstanceData as ReactivationInstanceData;
             var state = this.InstantiateNextState( skillSlot );
             var mach = data.waitingOnReactivation? data.reactivationStateMachine : skillSlot.stateMachine ;
             if( mach.SetInterruptState( state, data.waitingOnReactivation ? this.reactivationInterruptPriority : interruptPriority ) )
             {
+                Log.Warning( "OnExecute Success" );
                 skillSlot.stock -= data.waitingOnReactivation ? this.reactivationStockToConsume : stockToConsume;
                 if( !data.waitingOnReactivation )
                     data.OnExecution();
@@ -174,14 +185,24 @@ namespace Sniper.SkillDefTypes.Bases
             internal void RunRecharge( Single dt )
             {
                 this.reactivationTimer += dt;
-                if( !this.data.IsDataValid() || this.reactivationTimer > this.def.maxReactivationTimer )
+                if( !this.data.IsDataValid() || (this.def.maxReactivationTimer > 0f && this.reactivationTimer > this.def.maxReactivationTimer ) )
                     this.InvalidateReactivation();
             }
 
             internal void InvalidateReactivation()
             {
-                this.waitingOnReactivation = false;
-                this.data = null;
+                Log.Warning( "Invalidating" );
+                if( this.waitingOnReactivation )
+                {
+                    this.waitingOnReactivation = false;
+                    this.data = null;
+                } else
+                {
+                    Log.Warning( "Tried to invalidate when already invalid" );
+                    this.waitingOnReactivation = false;
+                    this.data = null;
+                }
+
             }
 
             internal Boolean waitingOnReactivation;

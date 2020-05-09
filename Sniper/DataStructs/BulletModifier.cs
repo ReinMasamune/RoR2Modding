@@ -18,7 +18,7 @@ namespace Sniper.Data
 
         internal void Apply( ExpandableBulletAttack bullet )
         {
-            bullet.chargeLevel = Mathf.Max( bullet.chargeLevel, this.charge );
+            bullet.chargeLevel = this.charge < 0f ? this.charge : Mathf.Max( bullet.chargeLevel, this.charge );
             if( this.applyCountMultiplier ) bullet.bulletCount = (UInt32)( bullet.bulletCount * this.countMultiplier );
             if( this.applyDamageMultiplier ) bullet.damage *= this.damageMultiplier;
             if( this.applyDamageColor ) bullet.damageColorIndex = this.damageColor;

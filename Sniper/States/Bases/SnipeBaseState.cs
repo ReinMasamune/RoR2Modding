@@ -15,35 +15,12 @@ using Sniper.Enums;
 using Sniper.Data;
 using Sniper.Modules;
 using System.Diagnostics;
+using UnityEngine.Networking;
 
 namespace Sniper.States.Bases
 {
     internal abstract class SnipeBaseState : SniperSkillBaseState
     {
-#if PROFILESNIPE
-        private static UInt64 timeTotal = 0ul;
-        private static Dictionary<String,(UInt64 counter, UInt64 ticks)> timeKeeper = new Dictionary<String, (UInt64 counter, UInt64 ticks)>();
-        private static void KeepTime( System.Diagnostics.Stopwatch timer, String method )
-        {
-            timer.Stop();
-            if( !timeKeeper.ContainsKey( method ) )
-            {
-                timeKeeper[method] = (0ul,0ul);
-                timer.Restart();
-                return;
-            }
-            var cur = timeKeeper[method];
-            cur.counter++;
-            var total = cur.ticks += (UInt64)timer.ElapsedTicks;
-            timeKeeper[method] = cur;
-            timeTotal += (UInt64)timer.ElapsedTicks;
-
-            Log.Warning( String.Format( "{0}:\nTotal Ticks: {1}\nTotal seconds: {2}\nPercent of time: {3}%\nAverage ticks: {4}\nTotalTimesCalled: {5}", method, total, (Double)total / (Double)Stopwatch.Frequency, 100.0 * (Double)total / (Double)timeTotal, (Double)total / cur.counter, cur.counter ) );
-     
-            timer.Reset();
-            timer.Start();
-        }
-#endif
         protected abstract Single baseDuration { get; }
         protected abstract Single recoilStrength { get; }
 
@@ -54,18 +31,15 @@ namespace Sniper.States.Bases
         private Boolean bulletFired = false;
         private Single duration;
 
+        private Single charge;
+
         protected abstract void ModifyBullet( ExpandableBulletAttack bullet );
 
         private void FireBullet()
         {
             if( this.bulletFired ) return;
-#if PROFILESNIPE
-            var timer = System.Diagnostics.Stopwatch.StartNew();
-#endif
             var aimRay = GetAimRay();
-#if PROFILESNIPE
-            KeepTime( timer, "GetAimRay" );
-#endif
+
             var bullet = new ExpandableBulletAttack
             {
                 aimVector = aimRay.direction,
@@ -98,58 +72,49 @@ namespace Sniper.States.Bases
                 tracerEffectPrefab = null,
                 weapon = null,
             };
-#if PROFILESNIPE
-            KeepTime( timer, "create" );
-#endif
             this.ModifyBullet( bullet );
-#if PROFILESNIPE
-            KeepTime( timer, "Mod1" );
-#endif
             this.reloadParams.ModifyBullet( bullet, this.reloadTier );
-#if PROFILESNIPE
-            KeepTime( timer, "Mod2" );
-#endif
             characterBody.ammo.ModifyBullet( bullet );
-#if PROFILESNIPE
-            KeepTime( timer, "Mod3" );
-#endif
             characterBody.passive.ModifyBullet( bullet );
-#if PROFILESNIPE
-            KeepTime( timer, "Mod4" );
-#endif
 
             var data = characterBody.scopeInstanceData;
-#if PROFILESNIPE
-            KeepTime( timer, "GetData" );
-#endif
+
             if( data != null && data.shouldModify ) data.SendFired().Apply( bullet );
-#if PROFILESNIPE
-            KeepTime( timer, "SendFired" );
-#endif
+
+            this.charge = bullet.chargeLevel;
             bullet.Fire();
-#if PROFILESNIPE
-            KeepTime( timer, "Fire" );
-#endif
+
             AddRecoil( -1f * this.recoilStrength, -3f * this.recoilStrength, -0.2f * this.recoilStrength, 0.2f * this.recoilStrength );
-#if PROFILESNIPE
-            KeepTime( timer, "Recoil" );
-            timer.Stop();
-#endif
+
             this.bulletFired = true;
         }
 
         public override void OnEnter()
         {
             base.OnEnter();
-            base.GetModelAnimator().SetBool( "shouldAim", true );
             this.duration = this.baseDuration / characterBody.attackSpeed;
-            base.StartAimMode( 8f, false );
-            base.PlayAnimation( "Gesture, Additive", "Shoot" );
-            if( isAuthority ) this.FireBullet();
+            base.StartAimMode( 2f, false );
 
-            SoundModule.PlayFire( base.gameObject, 0f );
+            if( isAuthority ) this.FireBullet();
+            base.PlayAnimation( "Gesture, Additive", "Shoot", "rateShoot", this.duration );
+
+            SoundModule.PlayFire( base.gameObject, this.charge );
 
         }
+
+        public override void OnSerialize( NetworkWriter writer )
+        {
+            base.OnSerialize( writer );
+            writer.Write( this.charge );
+        }
+
+        public override void OnDeserialize( NetworkReader reader )
+        {
+            base.OnDeserialize( reader );
+            this.charge = reader.ReadSingle();
+        }
+
+        
 
         public override void FixedUpdate()
         {

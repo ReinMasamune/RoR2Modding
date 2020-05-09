@@ -20,20 +20,22 @@ namespace Sniper.States.Secondary
 {
     internal class DefaultScope : ScopeBaseState
     {
-        const Single maxCharge = 1f;
-        const Single chargePerSecond = 0.2f;
-        const Single minModifier = 1f;
-        const Single maxModifier = 10f;
-        const Single speedScalar = 0.25f;
+        private const Single maxCharge = 1f;
+        private const Single baseStartDelay = 0.5f;
+        private const Single chargePerSecond = 0.2f;
+        private const Single minModifier = 1f;
+        private const Single maxModifier = 10f;
+        private const Single speedScalar = 0.25f;
 
-        private static AnimationCurve damageCurve = new AnimationCurve
+        private static readonly AnimationCurve damageCurve = new AnimationCurve
         (
-            new Keyframe(0f, minModifier, 0f, 0f ),
-            new Keyframe(0.2f, minModifier, 0f, 0f ),
-            new Keyframe(1f, maxModifier, 0.5f, 0f )
+            new Keyframe(0f, minModifier, 0f, 0f, 0f, 0.8f ),
+            //new Keyframe(0.2f, minModifier, 0f, 0f ),
+            new Keyframe(1f, maxModifier, 0f, 0f, 0f, 0f )
         );
 
 
+        private Single startDelay;
 
         internal override Boolean usesCharge { get; } = true;
         internal override Boolean usesStock { get; } = false;
@@ -41,26 +43,34 @@ namespace Sniper.States.Secondary
         internal override UInt32 currentStock { get; } = 0u;
         internal Single charge = 0f;
 
-        internal override void OnFired()
+        internal override Boolean OnFired()
         {
             this.charge = 0f;
+            return base.fixedAge >= this.startDelay;
         }
         internal override BulletModifier ReadModifier()
         {
-            var mod = BulletModifier.identity;
-            mod.damageMultiplier = this.GetDamageMultiplier();
-            mod.charge = this.charge;
-
-            return mod;
+            return base.fixedAge >= this.startDelay
+                ? new BulletModifier
+                {
+                    damageMultiplier = this.GetDamageMultiplier(),
+                    charge = this.charge,
+                }
+                : ( default );
         }
 
 
         public override void OnEnter()
         {
             base.OnEnter();
-
+            this.startDelay = baseStartDelay / base.attackSpeedStat;
             base.StartAimMode( 2f );
-            if( NetworkServer.active ) characterBody.AddBuff( BuffIndex.Slow80 );
+            Log.Warning( "OnEnter" );
+            if( NetworkServer.active )
+            {
+                Log.Warning( "OnEnterServer" );
+                characterBody.AddBuff( BuffIndex.Slow50 );
+            }
 
         }
 
@@ -69,24 +79,36 @@ namespace Sniper.States.Secondary
             base.FixedUpdate();
 
             base.characterBody.SetAimTimer( 2f );
-
-            if( this.charge < maxCharge ) this.charge += Time.fixedDeltaTime * chargePerSecond * characterBody.attackSpeed / ( 1f + (base.characterMotor.velocity.magnitude * speedScalar ));
-
-            else
+            if( base.fixedAge > this.startDelay )
             {
-                this.charge = maxCharge;
+                if( this.charge < maxCharge )
+                {
+                    this.charge += Time.fixedDeltaTime * chargePerSecond * characterBody.attackSpeed / ( 1f + ( base.characterMotor.velocity.magnitude * speedScalar ) );
+                } else
+                {
+                    this.charge = maxCharge;
+                }
             }
         }
 
         public override void OnExit()
         {
+            Log.Warning( "OnExit" );
+            if( NetworkServer.active )
+            {
+                Log.Warning( "OnExitServer" );
+                base.characterBody.RemoveBuff( BuffIndex.Slow50 );
+            }
             base.OnExit();
 
-            if( NetworkServer.active ) characterBody.RemoveBuff( BuffIndex.Slow80 ); 
+
 
         }
 
 
-        private Single GetDamageMultiplier() => damageCurve.Evaluate( this.charge / maxCharge );
+        private Single GetDamageMultiplier()
+        {
+            return damageCurve.Evaluate( this.charge / maxCharge );
+        }
     }
 }

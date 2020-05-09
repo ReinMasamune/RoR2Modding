@@ -475,7 +475,7 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Railgun_GreenGoldUrban_MainTex.
+        ///   Looks up a localized string similar to Railgun_Classic_MainTex.
         /// </summary>
         internal static string RailgunAlt1_Diffuse {
             get {
@@ -484,7 +484,7 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Railgun_GreenGoldUrban_Emission.
+        ///   Looks up a localized string similar to Railgun_White_Emission.
         /// </summary>
         internal static string RailgunAlt1_Emissive {
             get {
@@ -525,6 +525,33 @@ namespace Sniper.Properties {
         internal static string RailgunAlt2_Normal {
             get {
                 return ResourceManager.GetString("RailgunAlt2_Normal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Railgun_GreenGoldUrban_MainTex.
+        /// </summary>
+        internal static string RailgunAlt3_Diffuse {
+            get {
+                return ResourceManager.GetString("RailgunAlt3_Diffuse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Railgun_GreenGoldUrban_Emission.
+        /// </summary>
+        internal static string RailgunAlt3_Emissive {
+            get {
+                return ResourceManager.GetString("RailgunAlt3_Emissive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Railgun_GreenGoldUrban_Normal.
+        /// </summary>
+        internal static string RailgunAlt3_Normal {
+            get {
+                return ResourceManager.GetString("RailgunAlt3_Normal", resourceCulture);
             }
         }
         
@@ -757,7 +784,7 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sniper_Red_Normal.
+        ///   Looks up a localized string similar to Sniper_RedBlack_Normal.
         /// </summary>
         internal static string SniperSkin4_Normal {
             get {

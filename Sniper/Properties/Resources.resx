@@ -256,10 +256,10 @@
     <value />
   </data>
   <data name="RailgunAlt1_Diffuse" xml:space="preserve">
-    <value>Railgun_GreenGoldUrban_MainTex</value>
+    <value>Railgun_Classic_MainTex</value>
   </data>
   <data name="RailgunAlt1_Emissive" xml:space="preserve">
-    <value>Railgun_GreenGoldUrban_Emission</value>
+    <value>Railgun_White_Emission</value>
   </data>
   <data name="RailgunAlt1_Normal" xml:space="preserve">
     <value>Railgun_GreenGoldUrban_Normal</value>
@@ -271,6 +271,15 @@
     <value>Railgun_BlackGold_Emission</value>
   </data>
   <data name="RailgunAlt2_Normal" xml:space="preserve">
+    <value>Railgun_GreenGoldUrban_Normal</value>
+  </data>
+  <data name="RailgunAlt3_Diffuse" xml:space="preserve">
+    <value>Railgun_GreenGoldUrban_MainTex</value>
+  </data>
+  <data name="RailgunAlt3_Emissive" xml:space="preserve">
+    <value>Railgun_GreenGoldUrban_Emission</value>
+  </data>
+  <data name="RailgunAlt3_Normal" xml:space="preserve">
     <value>Railgun_GreenGoldUrban_Normal</value>
   </data>
   <data name="RailgunDefault_Diffuse" xml:space="preserve">
@@ -350,7 +359,7 @@
     <value>Sniper_Red_Emission</value>
   </data>
   <data name="SniperSkin4_Normal" xml:space="preserve">
-    <value>Sniper_Red_Normal</value>
+    <value>Sniper_RedBlack_Normal</value>
   </data>
   <data name="SniperSkin5_Diffuse" xml:space="preserve">
     <value>Sniper_Red_MainTex</value>

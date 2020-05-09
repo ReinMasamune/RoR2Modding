@@ -19,17 +19,19 @@ namespace Sniper.States.Primary.Reload
 {
     internal class SlideReload : GenericCharacterMain, ISniperReloadState
     {
-        private static readonly AnimationCurve speedCurve = AnimationCurve.Linear( 0f, 1f, 1f, 0.25f );
+        private static readonly AnimationCurve speedCurve = AnimationCurve.EaseInOut( 0f, 1f, 1f, 0.25f );
         private static readonly Single[] reloadMults = new[]
         {
-            0.3f,
+            0.2f,
             0.4f,
             0.65f,
             1f
         };
 
+        private enum Direction { Forward, Back, Left, Right }
+
         const Single baseDuration = 0.3f;
-        const Single slideDurationMult = 1.75f;
+        const Single slideDurationMult = 2f;
         const Single baseSpeedMultiplier = 5f;
         const Single midairUpSpeedBoost = 15f;
 
@@ -40,6 +42,9 @@ namespace Sniper.States.Primary.Reload
         private Single duration;
         private Boolean isSliding;
 
+        private Direction animDir;
+
+        private Transform gunTransform;
 
         private Single currentSpeed
         {
@@ -58,6 +63,18 @@ namespace Sniper.States.Primary.Reload
                     this.slideDirection = base.inputBank.moveVector;
                     this.slideDirection.y = 0f;
                     this.slideDirection = slideDirection.normalized;
+
+                    var dir = base.characterDirection;
+                    var forward = dir.forward;
+                    var up = Vector3.up;
+                    var right = Vector3.Cross( up, forward );
+
+                    var angX = Vector3.Dot( this.slideDirection, forward );
+                    var angY = Vector3.Dot( this.slideDirection, right );
+
+                    this.animDir = Mathf.Abs( angX ) > Mathf.Abs( angY )
+                        ? angX > 0f ? Direction.Forward : Direction.Back
+                        : angY > 0f ? Direction.Right : Direction.Left;
                 }
             }
 
@@ -81,59 +98,61 @@ namespace Sniper.States.Primary.Reload
                 base.characterMotor.velocity = boost;
 
 
-                var ax = Mathf.Abs( this.slideDirection.x );
-                var az = Mathf.Abs( this.slideDirection.z );
+                var animStr = "";
+
                 if( base.characterMotor.isGrounded )
                 {
-                    if( az >= ax )
+                    switch( this.animDir )
                     {
-                        if( this.slideDirection.z > 0f )
-                        {
-                            base.PlayAnimation( "Gesture, Override", "ReloadDash FG" );
-                        } else
-                        {
-                            base.PlayAnimation( "Gesture, Override", "ReloadDash BG" );
-                        }
-                    } else
-                    {
-                        if( this.slideDirection.x > 0f )
-                        {
-                            base.PlayAnimation( "Gesture, Override", "ReloadDash RG" );
-                        } else
-                        {
-                            base.PlayAnimation( "Gesture, Override", "ReloadDash LG" );
-                        }
+                        case Direction.Forward:
+                        animStr = "ReloadDash FG";
+                        break;
+
+                        case Direction.Back:
+                        animStr = "ReloadDash BG";
+                        break;
+
+                        case Direction.Right:
+                        animStr = "ReloadDash RG";
+                        break;
+
+                        case Direction.Left:
+                        animStr = "ReloadDash LG";
+                        break;
                     }
                 } else
                 {
-                    if( az >= ax )
+                    switch( this.animDir )
                     {
-                        if( this.slideDirection.z > 0f )
-                        {
-                            base.PlayAnimation( "Gesture, Override", "ReloadDash FA" );
-                        } else
-                        {
-                            base.PlayAnimation( "Gesture, Override", "ReloadDash BA" );
-                        }
-                    } else
-                    {
-                        if( this.slideDirection.x > 0f )
-                        {
-                            base.PlayAnimation( "Gesture, Override", "ReloadDash RA" );
-                        } else
-                        {
-                            base.PlayAnimation( "Gesture, Override", "ReloadDash LA" );
-                        }
+                        case Direction.Forward:
+                        animStr = "ReloadDash FA";
+                        break;
+
+                        case Direction.Back:
+                        animStr = "ReloadDash BA";
+                        break;
+
+                        case Direction.Right:
+                        animStr = "ReloadDash RA";
+                        break;
+
+                        case Direction.Left:
+                        animStr = "ReloadDash LA";
+                        break;
                     }
                 }
-                
+
+                base.PlayAnimation( "Gesture, Override", animStr, "rateReloadDash", this.duration );
+
 
                 // TODO: Slide sounds
                 // TODO: Slide VFX
             } else
             {
                 this.isSliding = false;
-                base.PlayAnimation( "Gesture, Additive", "Reload" );
+                base.PlayAnimation( "Gesture, Additive", "Reload", "rateReload", this.duration );
+                this.gunTransform = base.FindModelChild( "RailgunBone" );
+                this.gunTransform.SetParent( base.FindModelChild( "LeftWeapon" ), true );
                 // TODO: No Slide VFX
             }
 
@@ -146,6 +165,7 @@ namespace Sniper.States.Primary.Reload
             base.OnSerialize( writer );
             writer.Write( new PackedUnitVector3( this.slideDirection ) );
             writer.Write( (Byte)this.reloadTier );
+            writer.Write( (Byte)this.animDir );
         }
 
         public override void OnDeserialize( NetworkReader reader )
@@ -153,6 +173,7 @@ namespace Sniper.States.Primary.Reload
             base.OnDeserialize( reader );
             this.slideDirection = reader.ReadPackedUnitVector3().Unpack();
             this.reloadTier = (ReloadTier)reader.ReadByte();
+            this.animDir = (Direction)reader.ReadByte();
         }
 
         public override void FixedUpdate()
@@ -172,6 +193,23 @@ namespace Sniper.States.Primary.Reload
             {
                 base.outer.SetNextStateToMain();
             }
+        }
+
+        public override void OnExit()
+        {
+            base.OnExit();
+            if( this.gunTransform )
+            {
+                this.gunTransform.SetParent( base.FindModelChild( "RailgunDefaultPosition" ), true );
+                this.gunTransform.localPosition = Vector3.zero;
+                this.gunTransform.localRotation = Quaternion.identity;
+                this.gunTransform.localScale = Vector3.one;
+            }
+        }
+
+        public override InterruptPriority GetMinimumInterruptPriority()
+        {
+            return InterruptPriority.PrioritySkill;
         }
     }
 }

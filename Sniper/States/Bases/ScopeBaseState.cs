@@ -17,15 +17,22 @@ namespace Sniper.States.Bases
         internal abstract UInt32 currentStock { get; }
 
         internal abstract BulletModifier ReadModifier();
-        internal abstract void OnFired();
+        internal abstract Boolean OnFired();
 
         internal CameraTargetParams cameraTarget { get => base.cameraTargetParams; }
 
-        internal BulletModifier SendFired()
+        internal Boolean SendFired( out BulletModifier mod )
         {
-            BulletModifier mod = this.ReadModifier();
-            this.OnFired();
-            return mod;
+            var temp = this.ReadModifier();
+            if( this.OnFired() )
+            {
+                mod = temp;
+                return true;
+            } else
+            {
+                mod = default;
+                return false;
+            }
         }
 
         internal void ForceScopeEnd()

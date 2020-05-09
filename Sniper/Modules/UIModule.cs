@@ -59,7 +59,8 @@ namespace Sniper.Modules
 
         internal static Sprite GetQuickScopeIcon()
         {
-            return GetUnfinishedIcon();
+            return null;
+            //return GetUnfinishedIcon();
         }
 
         internal static Sprite GetKnifeIcon()
@@ -74,12 +75,14 @@ namespace Sniper.Modules
 
         internal static Sprite GetDecoyIcon()
         {
-            return GetUnfinishedIcon();
+            return null;
+            //return GetUnfinishedIcon();
         }
 
         internal static Sprite GetDecoyReactivationIcon()
         {
-            return GetUnfinishedIcon();
+            return null;
+            //return GetUnfinishedIcon();
         }
 
 

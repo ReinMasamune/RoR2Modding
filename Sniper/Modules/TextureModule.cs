@@ -252,6 +252,22 @@ namespace Sniper.Modules
         }
         private static TextureSet _railAlt2Textures;
 
+        internal static TextureSet GetRailAlt3Textures()
+        {
+            if( _railAlt3Textures == null )
+            {
+                var set = GetMasterSet();
+                var tex1 = set[Properties.Resources.RailgunAlt3_Diffuse];
+                var tex2 = set[Properties.Resources.RailgunAlt3_Normal];
+                var tex3 = set[Properties.Resources.RailgunAlt3_Emissive];
+
+                _railAlt3Textures = new TextureSet( tex1, tex2, tex3 );
+            }
+
+            return _railAlt3Textures;
+        }
+        private static TextureSet _railAlt3Textures;
+
 
 
 

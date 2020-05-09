@@ -69,6 +69,7 @@ namespace Sniper.Components
             this.camTarget = this.stateInstance.cameraTarget;
 
             this.chargeIndicator.enabled = this.stateInstance.usesCharge;
+            this.chargeIndicator.fillAmount = 0f;
             this.stockHolder?.SetActive( this.stateInstance.usesStock );
             this.scoped = false;
             this.OnScopedChange( false );
@@ -86,7 +87,10 @@ namespace Sniper.Components
             if( this.camTarget ) this.camTarget.fovOverride = fov;
             // TODO: Verify camera position for scope
 
-            this.chargeIndicator.fillAmount = this.stateInstance.currentCharge;
+            if( this.stateInstance != null && this.stateInstance.usesCharge )
+            {
+                this.chargeIndicator.fillAmount = this.stateInstance.currentCharge;
+            }
         }
 
         internal void EndZoomSession()

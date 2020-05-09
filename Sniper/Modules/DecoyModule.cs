@@ -8,6 +8,7 @@ using RoR2;
 using RoR2.CharacterAI;
 using RoR2.Networking;
 using Sniper.Components;
+using Sniper.States.Other;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -207,7 +208,7 @@ namespace Sniper.Modules
 
             CharacterDeathBehavior deathBehaviour = obj.AddOrGetComponent<CharacterDeathBehavior>();
             deathBehaviour.deathStateMachine = esm;
-            deathBehaviour.deathState = SkillsCore.StateType<GenericCharacterDeath>(); // TODO: Decoy death state (Explode?)
+            deathBehaviour.deathState = SkillsCore.StateType<DecoyDeathState>();
             deathBehaviour.idleStateMachine = Array.Empty<EntityStateMachine>();
 
 
@@ -238,10 +239,6 @@ namespace Sniper.Modules
             cap.radius = 0.5f;
             cap.height = 1.82f;
             cap.direction = 1;
-
-
-            Deployable deployable = obj.AddOrGetComponent<Deployable>();
-            // TODO: Need to add a component that will set this event to suicide on undeploy on awake
 
 
             SetStateOnHurt hurtState = obj.AddOrGetComponent<SetStateOnHurt>();

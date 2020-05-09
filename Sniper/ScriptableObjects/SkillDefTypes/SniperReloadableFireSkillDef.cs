@@ -36,9 +36,12 @@ namespace Sniper.SkillDefs
             def.noSprint = true;
             def.reloadActivationState = SkillsCore.StateType<TReload>();
             def.reloadStateMachineName = reloadStateMachineName;
+            def.baseMaxStock = 0;
             return def;
         }
 
+        [SerializeField]
+        internal Int32 actualMaxStock;
         [SerializeField]
         internal Int32 stockToReload;
         [SerializeField]
@@ -70,6 +73,8 @@ namespace Sniper.SkillDefs
             {
                 Log.Fatal( "No state machine found for reload" );
             }
+
+            skillSlot.stock = this.actualMaxStock;
 
             return new SniperPrimaryInstanceData( this, reloadTargetStatemachine, this.reloadParams );
         }
@@ -174,19 +179,13 @@ namespace Sniper.SkillDefs
                 this.reloadParams = reloadParams;
                 _ = ReloadUIController.GetReloadTexture( this.reloadParams );
                 this.secondarySlot = this.reloadStatemachine.commonComponents.characterBody.skillLocator.secondary;
-                //this.reloadController = ReloadUIController.FindController( this.reloadStatemachine.commonComponents.characterBody );
             }
 
             internal void StartReload()
             {
                 if( this.reloadController == null )
                 {
-                    Log.Warning( "No ReloadController" );
                     this.reloadController = ReloadUIController.FindController( this.reloadStatemachine.commonComponents.characterBody );
-                    if( this.reloadController == null )
-                    {
-                        Log.Error( "Unable to find reload controller" );
-                    }
                 }
                 this.isReloading = true;
                 this.reloadController.StartReload( this.reloadParams );

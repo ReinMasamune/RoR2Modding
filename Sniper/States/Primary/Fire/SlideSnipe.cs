@@ -18,7 +18,7 @@ namespace Sniper.States.Primary.Fire
 {
     internal class SlideSnipe : SnipeBaseState
     {
-        const Single damageRatio = 2f;
+        const Single damageRatio = 2.75f;
         const Single force = 500f;
 
         protected sealed override Single baseDuration { get; } = 0.2f;
