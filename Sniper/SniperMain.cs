@@ -15,13 +15,12 @@ namespace Sniper
     [BepInPlugin( SniperMain.guid, "Sniper", Properties.Info.ver)]
     internal sealed class SniperMain : CorePlugin
     {
-        const String guid = "com.Rein.Sniper";
+        private const String guid = "com.Rein.Sniper";
 
-        internal static BepInEx.Logging.ManualLogSource logSource;
+        internal static ManualLogSource logSource;
         private static SniperMain instance;
 
         internal List<StandardMaterial> sniperMaterials = new List<StandardMaterial>();
-
         internal static void AddMaterial( StandardMaterial mat, String name )
         {
             mat.name = name;
@@ -43,11 +42,8 @@ namespace Sniper
 
                 UIModule.EditHudPrefab();
 
-
                 PrefabModule.CreatePrefab();
                 DisplayModule.CreateDisplayPrefab();
-
-
 
                 CatalogModule.RegisterBody();
                 CatalogModule.RegisterSurvivor();
@@ -60,13 +56,9 @@ namespace Sniper
 
 
         #region static vars
+        // TODO: Refactor these into their modules
         internal static GameObject sniperBodyPrefab;
         internal static GameObject sniperDisplayPrefab;
-
-
-
-
-
         #endregion
 
 
@@ -77,50 +69,42 @@ namespace Sniper
             add => instance.awake += value;
             remove => instance.awake -= value;
         }
-
         internal new static event Action Start
         {
             add => instance.start += value;
             remove => instance.start -= value;
         }
-
         internal new static event Action OnEnable
         {
             add => instance.enable += value;
             remove => instance.enable -= value;
         }
-
         internal new static event Action OnDisable
         {
             add => instance.disable += value;
             remove => instance.disable -= value;
         }
-
         internal new static event Action Update
         {
             add => instance.update += value;
             remove => instance.disable -= value;
         }
-
         internal new static event Action FixedUpdate
         {
             add => instance.fixedUpdate += value;
             remove => instance.fixedUpdate -= value;
         }
-
         internal new static event Action LateUpdate
         {
             add => instance.lateUpdate += value;
             remove => instance.lateUpdate -= value;
         }
-
         internal new static event Action OnDestroy
         {
             add => instance.destroy += value;
             remove => instance.destroy -= value;
         }
         internal new static event Action OnGUI
-
         {
             add => instance.gui += value;
             remove => instance.gui -= value;
@@ -132,54 +116,41 @@ namespace Sniper
     #region Logging
     internal static class Log
     {
-        public static void Debug( System.Object data, [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 )
-        {
-            InternalLog( LogLevel.Debug, data, member, line );
-        }
-        public static void DebugL( System.Object data, [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 )
-        {
-            InternalLogL( LogLevel.Debug, data, member, line );
-        }
-        public static void Info( System.Object data, [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 )
-        {
-            InternalLog( LogLevel.Info, data, member, line );
-        }
-        public static void InfoL( System.Object data, [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 )
-        {
-            InternalLogL( LogLevel.Info, data, member, line );
-        }
-        public static void Message( System.Object data, [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 )
-        {
-            InternalLog( LogLevel.Message, data, member, line );
-        }
-        public static void MessageL( System.Object data, [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 )
-        {
-            InternalLogL( LogLevel.Message, data, member, line );
-        }
-        public static void Warning( System.Object data, [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 )
-        {
-            InternalLog( LogLevel.Warning, data, member, line );
-        }
-        public static void WarningL( System.Object data, [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 )
-        {
-            InternalLogL( LogLevel.Warning, data, member, line );
-        }
-        public static void Error( System.Object data, [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 )
-        {
-            InternalLog( LogLevel.Error, data, member, line );
-        }
-        public static void ErrorL( System.Object data, [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 )
-        {
-            InternalLogL( LogLevel.Error, data, member, line );
-        }
-        public static void Fatal( System.Object data, [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 )
-        {
-            InternalLog( LogLevel.Fatal, data, member, line );
-        }
-        public static void FatalL( System.Object data, [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 )
-        {
-            InternalLogL( LogLevel.Fatal, data, member, line );
-        }
+        public static void Debug( System.Object data ) => InternalLog( LogLevel.Debug, data );
+        public static void Info( System.Object data ) => InternalLog( LogLevel.Info, data);
+        public static void Message( System.Object data ) => InternalLog( LogLevel.Message, data );
+        public static void Warning( System.Object data ) => InternalLog( LogLevel.Warning, data );
+        public static void Error( System.Object data ) => InternalLog( LogLevel.Error, data );
+        public static void Fatal( System.Object data ) => InternalLog( LogLevel.Fatal, data );
+
+        public static void DebugF(String text, params System.Object[] data ) => InternalLog( LogLevel.Debug, String.Format( text, data ) );
+        public static void InfoF( String text, params System.Object[] data ) => InternalLog( LogLevel.Info, String.Format( text, data ) );
+        public static void MessageF( String text, params System.Object[] data ) => InternalLog( LogLevel.Message, String.Format( text, data ) );
+        public static void WarningF( String text, params System.Object[] data ) => InternalLog( LogLevel.Warning, String.Format( text, data ) );
+        public static void ErrorF( String text, params System.Object[] data ) => InternalLog( LogLevel.Error, String.Format( text, data ) );
+        public static void FatalF( String text, params System.Object[] data ) => InternalLog( LogLevel.Fatal, String.Format( text, data ) );
+
+        public static void DebugL( System.Object data, [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 ) => InternalLogL( LogLevel.Debug, data, member, line );
+        public static void InfoL( System.Object data, [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 ) => InternalLogL( LogLevel.Info, data, member, line );
+        public static void MessageL( System.Object data, [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 ) => InternalLogL( LogLevel.Message, data, member, line );
+        public static void WarningL( System.Object data, [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 ) => InternalLogL( LogLevel.Warning, data, member, line );
+        public static void ErrorL( System.Object data, [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 ) => InternalLogL( LogLevel.Error, data, member, line );
+        public static void FatalL( System.Object data, [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 ) => InternalLogL( LogLevel.Fatal, data, member, line );
+
+
+        [Obsolete]
+        public static void DebugT( System.Object data, [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 ) => InternalLogL( LogLevel.Debug, data, member, line );
+        [Obsolete]
+        public static void InfoT( System.Object data, [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 ) => InternalLogL( LogLevel.Info, data, member, line );
+        [Obsolete]
+        public static void MessageT( System.Object data, [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 ) => InternalLogL( LogLevel.Message, data, member, line );
+        [Obsolete]
+        public static void WarningT( System.Object data, [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 ) => InternalLogL( LogLevel.Warning, data, member, line );
+        [Obsolete]
+        public static void ErrorT( System.Object data, [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 ) => InternalLogL( LogLevel.Error, data, member, line );
+        [Obsolete]
+        public static void FatalT( System.Object data, [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 ) => InternalLogL( LogLevel.Fatal, data, member, line );       
+      
         public static void Counter( [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 )
         {
             if( !counters.ContainsKey( member ) ) counters[member] = 0UL;
@@ -194,8 +165,9 @@ namespace Sniper
                 InternalLog( LogLevel.None, String.Format( "Counter cleared for member: {0}, line: {1}", member, line ), member, line );
             }
         }
-        private static Dictionary<String,UInt64> counters = new Dictionary<String, UInt64>();
-        private static void InternalLog( LogLevel level, System.Object data, String member, Int32 line )
+        private static readonly Dictionary<String,UInt64> counters = new Dictionary<String, UInt64>();
+           
+        private static void InternalLog( LogLevel level, System.Object data )
         {
 
             Boolean log = false;
@@ -230,7 +202,43 @@ namespace Sniper
                 SniperMain.logSource.Log( level, data );
             }
         }
+#pragma warning disable IDE0060 // Remove unused parameter
+        private static void InternalLog( LogLevel level, System.Object data, String member, Int32 line )
+#pragma warning restore IDE0060 // Remove unused parameter
+        {
 
+            Boolean log = false;
+            switch( level )
+            {
+                case LogLevel.Debug:
+                log = true;
+                break;
+                case LogLevel.Info:
+                log = true;
+                break;
+                case LogLevel.Message:
+                log = true;
+                break;
+                case LogLevel.Warning:
+                log = true;
+                break;
+                case LogLevel.Error:
+                log = true;
+                break;
+                case LogLevel.Fatal:
+                log = true;
+                break;
+                default:
+                SniperMain.logSource.Log( LogLevel.Info, data );
+                break;
+
+            }
+
+            if( log )
+            {
+                SniperMain.logSource.Log( level, data );
+            }
+        }
         private static void InternalLogL( LogLevel level, System.Object data, String member, Int32 line )
         {
 

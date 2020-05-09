@@ -30,9 +30,6 @@ namespace Sniper.SkillDefTypes.Bases
             canceledFromSprinting = false;
         }
 
-        //MustKeyPress
-
-
         [SerializeField]
         internal SerializableEntityStateType reactivationState;
         [SerializeField]
@@ -54,7 +51,6 @@ namespace Sniper.SkillDefTypes.Bases
         
         public sealed override BaseSkillInstanceData OnAssigned( GenericSkill skillSlot )
         {
-            Log.Warning( "OnAssigned" );
             return new ReactivationInstanceData( this, skillSlot );
         }
         public sealed override Sprite GetCurrentIcon( GenericSkill skillSlot )
@@ -67,7 +63,6 @@ namespace Sniper.SkillDefTypes.Bases
         }
         public sealed override Boolean CanExecute( GenericSkill skillSlot )
         {
-            Log.Warning( "CanExecute" );
             var data = skillSlot.skillInstanceData as ReactivationInstanceData;
 
             if( data.waitingOnReactivation )
@@ -76,7 +71,6 @@ namespace Sniper.SkillDefTypes.Bases
         }
         public sealed override Boolean IsReady( GenericSkill skillSlot )
         {
-            //Log.Warning( "IsReady" );
             var data = skillSlot.skillInstanceData as ReactivationInstanceData;
             if( data.waitingOnReactivation )
                 return data.IsReady();
@@ -88,7 +82,6 @@ namespace Sniper.SkillDefTypes.Bases
             var data = skillSlot.skillInstanceData as ReactivationInstanceData;
             if( data.waitingOnReactivation )
             {
-                Log.Warning( "InstantiateNextState-reactiv" );
                 return data.InstantiateNextState();
             }
             var state = base.InstantiateNextState( skillSlot ) as ActivationBaseState<TSkillData>;
@@ -97,13 +90,11 @@ namespace Sniper.SkillDefTypes.Bases
         }
         public sealed override void OnExecute( GenericSkill skillSlot )
         {
-            Log.Warning( "OnExecute" );
             var data = skillSlot.skillInstanceData as ReactivationInstanceData;
-            var state = this.InstantiateNextState( skillSlot );
+            EntityState state = this.InstantiateNextState( skillSlot );
             var mach = data.waitingOnReactivation? data.reactivationStateMachine : skillSlot.stateMachine ;
             if( mach.SetInterruptState( state, data.waitingOnReactivation ? this.reactivationInterruptPriority : interruptPriority ) )
             {
-                Log.Warning( "OnExecute Success" );
                 skillSlot.stock -= data.waitingOnReactivation ? this.reactivationStockToConsume : stockToConsume;
                 if( !data.waitingOnReactivation )
                     data.OnExecution();
@@ -132,10 +123,10 @@ namespace Sniper.SkillDefTypes.Bases
                 this.waitingOnReactivation = false;
                 this.skillSlot = skillSlot;
                 this.reactivationTimer = 0f;
-                var machs = skillSlot.GetComponents<EntityStateMachine>();
+                EntityStateMachine[] machs = skillSlot.GetComponents<EntityStateMachine>();
                 for( Int32 i = 0; i < machs.Length; ++i )
                 {
-                    var mach = machs[i];
+                    EntityStateMachine mach = machs[i];
                     if( mach.customName == def.reactivationStateMachineName )
                     {
                         this.reactivationStateMachine = mach;
@@ -143,8 +134,7 @@ namespace Sniper.SkillDefTypes.Bases
                     }
                 }
 
-                if( this.reactivationStateMachine == null )
-                    Log.Error( "No matching statemachine found" );
+                if( this.reactivationStateMachine == null ) Log.Error( "No matching statemachine found" );
             }
 
             internal Boolean CanReactivate()
@@ -191,14 +181,12 @@ namespace Sniper.SkillDefTypes.Bases
 
             internal void InvalidateReactivation()
             {
-                Log.Warning( "Invalidating" );
                 if( this.waitingOnReactivation )
                 {
                     this.waitingOnReactivation = false;
                     this.data = null;
                 } else
                 {
-                    Log.Warning( "Tried to invalidate when already invalid" );
                     this.waitingOnReactivation = false;
                     this.data = null;
                 }

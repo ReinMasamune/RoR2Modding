@@ -23,35 +23,29 @@ namespace Sniper.States.Special
     {
         public unsafe override void OnEnter()
         {
-            Log.Warning( "Reactivation OnEnter" );
             base.OnEnter();
 
             if( NetworkServer.active )
             {
-                Log.Warning( "Reactiv server" );
-                var list = base.characterBody?.master?._GetDeployablesList();
+                List<DeployableInfo> list = base.characterBody?.master?._GetDeployablesList();
                 foreach( var v in list )
                 {
                     if( v.slot == DecoyModule.deployableSlot )
                     {
-                        Log.Warning( "Match found" );
-                        var dep = v.deployable;
+                        Deployable dep = v.deployable;
                         if( dep == null )
                         {
-                            Log.Warning( "Null Deployable" );
                             continue;
                         }
-                        var obj = dep.gameObject;
+                        GameObject obj = dep.gameObject;
                         if( obj == null )
                         {
-                            Log.Warning( "Null obj" );
                             continue;
                         }
-                        var master = obj.GetComponent<CharacterMaster>();
+                        CharacterMaster master = obj.GetComponent<CharacterMaster>();
                         if( master )
                         {
                             master.TrueKill();
-                            Log.Warning( "Master killed" );
                         }
                     }
                 }

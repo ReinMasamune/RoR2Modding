@@ -65,10 +65,8 @@ namespace Sniper.States.Secondary
             base.OnEnter();
             this.startDelay = baseStartDelay / base.attackSpeedStat;
             base.StartAimMode( 2f );
-            Log.Warning( "OnEnter" );
             if( NetworkServer.active )
             {
-                Log.Warning( "OnEnterServer" );
                 characterBody.AddBuff( BuffIndex.Slow50 );
             }
 
@@ -93,16 +91,11 @@ namespace Sniper.States.Secondary
 
         public override void OnExit()
         {
-            Log.Warning( "OnExit" );
             if( NetworkServer.active )
             {
-                Log.Warning( "OnExitServer" );
                 base.characterBody.RemoveBuff( BuffIndex.Slow50 );
             }
             base.OnExit();
-
-
-
         }
 
 

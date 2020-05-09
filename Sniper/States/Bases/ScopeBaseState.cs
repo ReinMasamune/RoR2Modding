@@ -23,7 +23,7 @@ namespace Sniper.States.Bases
 
         internal Boolean SendFired( out BulletModifier mod )
         {
-            var temp = this.ReadModifier();
+            BulletModifier temp = this.ReadModifier();
             if( this.OnFired() )
             {
                 mod = temp;
@@ -62,13 +62,13 @@ namespace Sniper.States.Bases
         public override void Update()
         {
             base.Update();
-            this.instanceData.UpdateCameraParams( Input.mouseScrollDelta.y );
+            this.instanceData?.UpdateCameraParams( Input.mouseScrollDelta.y );
         }
 
         public override void OnExit()
         {
             base.OnExit();
-            this.instanceData.Invalidate();
+            this.instanceData?.Invalidate();
         }
 
         public override InterruptPriority GetMinimumInterruptPriority()

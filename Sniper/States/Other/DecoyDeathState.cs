@@ -13,8 +13,8 @@ namespace Sniper.States.Other
 {
     internal class DecoyDeathState : GenericCharacterDeath
     {
-        const Single explosionRadius = 10f;
-        const Single damageRatio = 5f;
+        private const Single explosionRadius = 10f;
+        private const Single damageRatio = 5f;
 
         internal static GameObject explosionPrefab = VFXModule.GetExplosiveAmmoExplosionPrefab();
 
@@ -22,14 +22,10 @@ namespace Sniper.States.Other
         public override void OnEnter()
         {
             base.OnEnter();
-            Log.Warning( "DecoyDeath OnEnter" );
-            var sync = base.gameObject?.GetComponent<DecoyDeployableSync>();
+            DecoyDeployableSync sync = base.gameObject?.GetComponent<DecoyDeployableSync>();
             if( NetworkServer.active )
             {
-                Log.Warning( "DecoyDeath OnEnter server" );
-
-
-                var ownerBody = base.characterBody?.master?.minionOwnership?.ownerMaster?.GetBody();
+                CharacterBody ownerBody = base.characterBody?.master?.minionOwnership?.ownerMaster?.GetBody();
                 if( ownerBody != null )
                 {
                     if( explosionPrefab != null )
@@ -61,23 +57,12 @@ namespace Sniper.States.Other
                         radius = explosionRadius,
                         teamIndex = ownerBody.teamComponent.teamIndex,
                     }.Fire();
-
-
-                    // TODO: Play Sound
-                } else
-                {
-                    Log.Warning( "No owner found" );
                 }
-                this._SetRestStopwatch( 100f );
-                this._SetFallingStopwatch( 100f );
-
             }
+            this._SetRestStopwatch( 100f );
+            this._SetFallingStopwatch( 100f );
+            // TODO: Play Sound
             sync.BodyKilled();
-        }
-
-        public override void OnExit()
-        {
-            base.OnExit();
         }
 
         protected override void OnPreDestroyBodyServer()
