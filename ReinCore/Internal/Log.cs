@@ -10,6 +10,11 @@ namespace ReinCore
     {
         public static Boolean loaded { get; internal set; } = false;
 
+        public static void WarningSTR( Int32 data )
+        {
+            InternalLog( LogLevel.Warning, data, default, default );
+        }
+
         public static void Debug( System.Object data, [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 )
         {
             InternalLog( LogLevel.Debug, data, member, line );

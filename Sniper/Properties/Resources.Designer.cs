@@ -160,11 +160,65 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Explosive Ammo.
+        ///   Looks up a localized string similar to Explosive.
         /// </summary>
         internal static string lang__SNIPER_AMMO_EXPLOSIVE_NAME {
             get {
                 return ResourceManager.GetString("lang__SNIPER_AMMO_EXPLOSIVE_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deals no damage, but applies a stacking burn.
+        /// </summary>
+        internal static string lang__SNIPER_AMMO_PLASMA_DESC {
+            get {
+                return ResourceManager.GetString("lang__SNIPER_AMMO_PLASMA_DESC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Plasma.
+        /// </summary>
+        internal static string lang__SNIPER_AMMO_PLASMA_NAME {
+            get {
+                return ResourceManager.GetString("lang__SNIPER_AMMO_PLASMA_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fires a spread of low damage pellets.
+        /// </summary>
+        internal static string lang__SNIPER_AMMO_SCATTER_DESC {
+            get {
+                return ResourceManager.GetString("lang__SNIPER_AMMO_SCATTER_DESC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scatter.
+        /// </summary>
+        internal static string lang__SNIPER_AMMO_SCATTER_NAME {
+            get {
+                return ResourceManager.GetString("lang__SNIPER_AMMO_SCATTER_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chains to enemies near your target.
+        /// </summary>
+        internal static string lang__SNIPER_AMMO_SHOCK_DESC {
+            get {
+                return ResourceManager.GetString("lang__SNIPER_AMMO_SHOCK_DESC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shock.
+        /// </summary>
+        internal static string lang__SNIPER_AMMO_SHOCK_NAME {
+            get {
+                return ResourceManager.GetString("lang__SNIPER_AMMO_SHOCK_NAME", resourceCulture);
             }
         }
         
@@ -277,7 +331,7 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Shoot enemies.
+        ///   Looks up a localized string similar to Shoot enemies for 300% damage. Must be reloaded after firing. Reloading at the right time grants extra damage..
         /// </summary>
         internal static string lang__SNIPER_PRIMARY_SNIPE_DESC {
             get {

@@ -42,6 +42,47 @@ namespace Sniper.Modules
         {
 
         }
+
+        internal static DotController.DotIndex plasmaBurnIndex { get; private set; }
+        internal static DotController.DotIndex critPlasmaBurnIndex { get; private set; }
+        internal static void RegisterDoTType()
+        {
+            plasmaBurnIndex = ReinCore.DoTsCore.AddDotType( new DoTDef
+            {
+                associatedBuff = BuffIndex.Blight,
+                damageCoefficient = 0.2f,
+                interval = 0.2f,
+                damageColorIndex = DamageColorIndex.Heal,
+            }, DoTDamage );
+
+            critPlasmaBurnIndex = ReinCore.DoTsCore.AddDotType( new DoTDef
+            {
+                associatedBuff = BuffIndex.Blight,
+                damageCoefficient = 0.2f,
+                interval = 0.2f,
+                damageColorIndex = DamageColorIndex.CritHeal
+            }, CritDoTDamage );
+        }
+
+
+        private static void DoTDamage( HealthComponent health, DamageInfo damage )
+        {
+            damage.procCoefficient = 0.3f;
+
+            GlobalEventManager.instance.OnHitEnemy( damage, health.gameObject );
+            GlobalEventManager.instance.OnHitAll( damage, health.gameObject );
+            health.TakeDamage( damage );
+        }
+
+        private static void CritDoTDamage( HealthComponent health, DamageInfo damage )
+        {
+            damage.procCoefficient = 0.3f;
+            damage.crit = true;
+
+            GlobalEventManager.instance.OnHitEnemy( damage, health.gameObject );
+            GlobalEventManager.instance.OnHitAll( damage, health.gameObject );
+            health.TakeDamage( damage );
+        }
     }
 
 }

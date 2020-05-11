@@ -47,6 +47,16 @@ namespace Sniper
 
                 CatalogModule.RegisterBody();
                 CatalogModule.RegisterSurvivor();
+                CatalogModule.RegisterDoTType();
+            };
+
+            base.start += () =>
+            {
+                _ = TextureModule.GetExplosiveAmmoRamp();
+                _ = TextureModule.GetPlasmaAmmoRamp();
+                _ = TextureModule.GetStandardAmmoRamp();
+                _ = TextureModule.GetShockAmmoRamp();
+                _ = TextureModule.GetScatterAmmoRamp();
             };
 
             base.enable += HooksModule.Add;

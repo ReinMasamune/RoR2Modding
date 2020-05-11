@@ -35,6 +35,7 @@ namespace Sniper.Modules
         {
             return AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>( Properties.Resources.SnipeIcon );
         }
+
         internal static Sprite GetSnipeReloadIcon()
         {
             return AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>( Properties.Resources.ReloadIcon );
@@ -85,7 +86,20 @@ namespace Sniper.Modules
             //return GetUnfinishedIcon();
         }
 
+        internal static Sprite GetScatterAmmoIcon()
+        {
+            return null;
+        }
 
+        internal static Sprite GetPlasmaAmmoIcon()
+        {
+            return GetUnfinishedIcon();
+        }
+
+        internal static Sprite GetShockAmmoIcon()
+        {
+            return GetUnfinishedIcon();
+        }
 
 
 

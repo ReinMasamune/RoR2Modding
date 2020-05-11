@@ -9,6 +9,7 @@ using RoR2;
 using Sniper.Data;
 using Sniper.ScriptableObjects.Custom;
 using UnityEngine;
+using Unity.Jobs;
 
 namespace Sniper.Modules
 {
@@ -100,7 +101,7 @@ namespace Sniper.Modules
 				}
 			);
 
-
+            JobHandle.ScheduleBatchedJobs();
 		}
 		private static ITextureJob standardRamp;
 		private static ITextureJob explosiveRamp;

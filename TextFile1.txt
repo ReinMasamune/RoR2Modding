@@ -1,0 +1,193 @@
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\BepInEx\0Harmony.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\BepInEx\BepInEx.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\BepInEx\BepInEx.Harmony.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\BepInEx\BepInEx.MonoMod.Loader.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\BepInEx\BepInEx.Preloader.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\BepInEx\Mono.Cecil.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\BepInEx\Mono.Cecil.Mdb.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\BepInEx\Mono.Cecil.Pdb.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\BepInEx\Mono.Cecil.Rocks.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\BepInEx\MonoMod.RuntimeDetour.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\BepInEx\MonoMod.Utils.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\R2API\Assembly-CSharp.R2API.mm.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\R2API\MMHOOK_Assembly-CSharp.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\R2API\R2API.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Rein\NetLib.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Rein\ReinCore.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\RoR2\Assembly-CSharp.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Unity\Facepunch.Steamworks.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Unity\KdTreeLib.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Unity\Mono.Security.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Unity\pb_Stl.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Unity\Poly2Tri.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Unity\ProBuilderCore.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Unity\ProBuilderMeshOps.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Unity\Rewired_Core.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Unity\Rewired_CSharp.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Unity\Rewired_Windows_Lib.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Unity\Unity.Postprocessing.Runtime.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Unity\Unity.RenderPipelines.Core.Runtime.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Unity\Unity.RenderPipelines.Core.ShaderLibrary.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Unity\Unity.TextMeshPro.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Unity\UnityEngine.AccessibilityModule.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Unity\UnityEngine.AIModule.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Unity\UnityEngine.AnimationModule.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Unity\UnityEngine.ARModule.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Unity\UnityEngine.AssetBundleModule.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Unity\UnityEngine.AudioModule.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Unity\UnityEngine.BaselibModule.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Unity\UnityEngine.ClothModule.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Unity\UnityEngine.ClusterInputModule.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Unity\UnityEngine.ClusterRendererModule.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Unity\UnityEngine.CoreModule.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Unity\UnityEngine.CrashReportingModule.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Unity\UnityEngine.DirectorModule.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Unity\UnityEngine.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Unity\UnityEngine.FileSystemHttpModule.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Unity\UnityEngine.GameCenterModule.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Unity\UnityEngine.GridModule.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Unity\UnityEngine.HotReloadModule.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Unity\UnityEngine.ImageConversionModule.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Unity\UnityEngine.IMGUIModule.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Unity\UnityEngine.InputModule.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Unity\UnityEngine.JSONSerializeModule.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Unity\UnityEngine.LocalizationModule.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Unity\UnityEngine.Networking.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Unity\UnityEngine.ParticleSystemModule.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Unity\UnityEngine.PerformanceReportingModule.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Unity\UnityEngine.Physics2DModule.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Unity\UnityEngine.PhysicsModule.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Unity\UnityEngine.ProfilerModule.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Unity\UnityEngine.ScreenCaptureModule.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Unity\UnityEngine.SharedInternalsModule.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Unity\UnityEngine.SpatialTracking.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Unity\UnityEngine.SpriteMaskModule.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Unity\UnityEngine.SpriteShapeModule.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Unity\UnityEngine.StreamingModule.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Unity\UnityEngine.StyleSheetsModule.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Unity\UnityEngine.SubstanceModule.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Unity\UnityEngine.TerrainModule.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Unity\UnityEngine.TerrainPhysicsModule.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Unity\UnityEngine.TextCoreModule.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Unity\UnityEngine.TextRenderingModule.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Unity\UnityEngine.TilemapModule.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Unity\UnityEngine.Timeline.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Unity\UnityEngine.TimelineModule.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Unity\UnityEngine.TLSModule.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Unity\UnityEngine.UI.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Unity\UnityEngine.UIElementsModule.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Unity\UnityEngine.UIModule.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Unity\UnityEngine.UmbraModule.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Unity\UnityEngine.UNETModule.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Unity\UnityEngine.UnityAnalyticsModule.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Unity\UnityEngine.UnityConnectModule.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Unity\UnityEngine.UnityTestProtocolModule.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Unity\UnityEngine.UnityWebRequestAssetBundleModule.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Unity\UnityEngine.UnityWebRequestAudioModule.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Unity\UnityEngine.UnityWebRequestModule.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Unity\UnityEngine.UnityWebRequestTextureModule.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Unity\UnityEngine.UnityWebRequestWWWModule.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Unity\UnityEngine.VehiclesModule.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Unity\UnityEngine.VFXModule.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Unity\UnityEngine.VideoModule.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Unity\UnityEngine.VRModule.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Unity\UnityEngine.WindModule.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Unity\UnityEngine.XRModule.dll"
+#r "C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Unity\Wwise.dll"
+using RoR2;
+using System;
+using System.Linq.Expressions;
+using System.Reflection;
+using BepInEx;
+using MonoMod.Cil;
+using RoR2;
+public sealed class DoTDef
+{
+    public Single interval;
+    public Single damageCoefficient;
+    public DamageColorIndex damageColorIndex;
+    public BuffIndex associatedBuff = BuffIndex.None;
+}
+public delegate void AddNewDot( DoTDef dot );
+var dot = new DoTDef
+{
+    associatedBuff = BuffIndex.AffixBlue,
+    damageCoefficient = 1f,
+    damageColorIndex = DamageColorIndex.Bleed,
+    interval = 1f
+};
+
+
+
+
+
+public AddNewDot CreateDel()
+{
+    var allFlags = BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Static;
+    var controllerType = typeof(DotController);
+    var dotDefType = controllerType.GetNestedType( "DotDef", allFlags );
+    var dotDefArrayType = dotDefType.MakeArrayType();
+    var arrayField = controllerType.GetField( "dotDefs", allFlags );
+    var intervalField = dotDefType.GetField( "interval", allFlags );
+    var damageCoefField = dotDefType.GetField( "damageCoefficient", allFlags );
+    var damageColorIndexField = dotDefType.GetField( "damageColorIndex", allFlags );
+    var associatedBuffField = dotDefType.GetField( "associatedBuff", allFlags );
+    var custInterval = typeof(DoTDef).GetMember( nameof(DoTDef.interval), allFlags )[0];
+    var custDamageCoef = typeof(DoTDef).GetMember( nameof(DoTDef.damageCoefficient), allFlags )[0];
+    var custDamageColor = typeof(DoTDef).GetMember( nameof(DoTDef.damageColorIndex), allFlags )[0];
+    var custAssociatedBuff = typeof(DoTDef).GetMember( nameof(DoTDef.associatedBuff), allFlags )[0];
+    var constructionFuncType = typeof(Func<,>).MakeGenericType( typeof(DoTDef), dotDefType );
+
+    var inputParameter = Expression.Parameter( typeof(DoTDef), "NewDotDef" );
+    var inputInterval = Expression.MakeMemberAccess( inputParameter, custInterval );
+    var inputDamageCoef = Expression.MakeMemberAccess( inputParameter, custDamageCoef );
+    var inputDamageColor = Expression.MakeMemberAccess( inputParameter, custDamageColor );
+    var inputAssociatedBuff = Expression.MakeMemberAccess( inputParameter, custAssociatedBuff );
+    var intervalBind = Expression.Bind( intervalField, inputInterval );
+    var damageCoefBind = Expression.Bind( damageCoefField, inputDamageCoef );
+    var damageColorBind = Expression.Bind( damageColorIndexField, inputDamageColor );
+    var associatedBuffBind = Expression.Bind( associatedBuffField, inputAssociatedBuff );
+    var newDotDef = Expression.New( dotDefType );
+    var newDotDefInit = Expression.MemberInit(newDotDef, intervalBind, damageCoefBind, damageColorBind, associatedBuffBind );
+    var newDotDefFunc = Expression.Lambda( constructionFuncType, newDotDefInit, inputParameter );
+    var newDotDefInvoke = Expression.Invoke( newDotDefFunc, inputParameter );
+    var origArray = Expression.Field( null, arrayField );
+    var origLength = Expression.ArrayLength( origArray );
+    var length = Expression.Add( origLength, Expression.Constant(1) );
+    var initArray = Expression.NewArrayBounds(dotDefType, length);
+    var breakLabel = Expression.Label( dotDefArrayType, "return" );
+    var iteratorVar = Expression.Variable( typeof(Int32), "iterator" );
+    var newArrayVar = Expression.Variable( dotDefArrayType, "newArray" );
+    var compare1 = Expression.LessThan(iteratorVar, origLength);
+    var accessOld = Expression.ArrayAccess(origArray, iteratorVar );
+    var accessNew = Expression.ArrayAccess(newArrayVar, iteratorVar );
+    var assignFromOldToNew = Expression.Assign( accessNew, accessOld );
+    var iteratorInitialValue = Expression.Constant( 0 );
+    var assignInitialValueToIterator = Expression.Assign( iteratorVar, iteratorInitialValue );
+   
+    var incrementIterator = Expression.Increment( iteratorVar );
+    var assignInc = Expression.Assign( iteratorVar, incrementIterator );
+    var storeNewArrayInVar = Expression.Assign( newArrayVar, initArray );
+    var loopBlock1 = Expression.Block
+            (
+                assignFromOldToNew,
+                assignInc
+            );
+    var assignNewInputToNew = Expression.Assign( accessNew, newDotDefInvoke );
+    var returnExpression = Expression.Return( breakLabel, newArrayVar );
+    var loopBlock3 = Expression.Block
+            (
+                assignNewInputToNew,
+                returnExpression
+            );
+
+    var branch1 = Expression.IfThenElse( compare1, loopBlock1, loopBlock3 );
+    var mainLoop = Expression.Loop( branch1, breakLabel );
+    var mainBlock = Expression.Block( dotDefArrayType, new[] { iteratorVar, newArrayVar },
+                storeNewArrayInVar,
+                assignInitialValueToIterator,
+                mainLoop
+            );
+    var finalAssignment = Expression.Assign( origArray, mainBlock );
+    return Expression.Lambda<AddNewDot>( finalAssignment, inputParameter ).Compile();
+}

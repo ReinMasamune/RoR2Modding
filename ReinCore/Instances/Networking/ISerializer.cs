@@ -21,7 +21,7 @@ namespace ReinCore
             serializer.Serialize( writer, target );
         }
 
-        public static TObject Read<TObject>( this NetworkReader reader, TObject destination, ISerializer<TObject> serializer )
+        public static TObject Read<TObject>( this NetworkReader reader, ref TObject destination, ISerializer<TObject> serializer )
         {
             serializer.Deserialize( reader, destination );
             return destination;

@@ -20,7 +20,6 @@ namespace ReinCore
             AssetLibrary<TAsset>.AddAsset( this );
         }
 
-
         internal TAsset value
         {
             get
@@ -36,8 +35,6 @@ namespace ReinCore
         }
 
         internal Enum index { get; private set; }
-
-
 
         internal Boolean CanLoad()
         {

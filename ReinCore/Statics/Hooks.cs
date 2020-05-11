@@ -525,7 +525,7 @@ public static event Hook On
             {
                 public struct Awake
                 {
-                    private static MethodBase method = HookableHelpers.GetBase( typeof(Awake) );
+                    private static readonly MethodBase method = HookableHelpers.GetBase( typeof(Awake) );
                     public delegate void Orig( global::RoR2.ClassicStageInfo self );
                     public delegate void Hook( Orig orig, global::RoR2.ClassicStageInfo self );
                     public static event ILContext.Manipulator Il
@@ -538,6 +538,95 @@ public static event Hook On
                         add => HookEndpointManager.Add<Hook>( method, value );
                         remove => HookEndpointManager.Remove<Hook>( method, value );
                     }
+                }
+            }
+
+            public static class DotController
+            {
+                public struct AddDot
+                {
+                    private static MethodBase method = HookableHelpers.GetBase( typeof(AddDot) );
+                    public delegate void Orig( global::RoR2.DotController self, global::UnityEngine.GameObject attacker, global::System.Single duration, global::RoR2.DotController.DotIndex dotIndex, global::System.Single damageMultiplier  );
+                    public delegate void Hook( Orig orig, global::RoR2.DotController self, global::UnityEngine.GameObject attacker, global::System.Single duration, global::RoR2.DotController.DotIndex dotIndex, global::System.Single damageMultiplier );
+                    public static event ILContext.Manipulator Il
+                    {
+                        add => HookEndpointManager.Modify<Hook>( method, value );
+                        remove => HookEndpointManager.Unmodify<Hook>( method, value );
+                    }
+                    public static event Hook On
+                    {
+                        add => HookEndpointManager.Add<Hook>( method, value );
+                        remove => HookEndpointManager.Remove<Hook>( method, value );
+                    }
+                }
+
+                public struct Awake
+                {
+                    private static readonly MethodBase method = HookableHelpers.GetBase( typeof(Awake) );
+                    public delegate void Orig( global::RoR2.DotController self );
+                    public delegate void Hook( Orig orig, global::RoR2.DotController self );
+                    public static event ILContext.Manipulator Il
+                    {
+                        add => HookEndpointManager.Modify<Hook>( method, value );
+                        remove => HookEndpointManager.Unmodify<Hook>( method, value );
+                    }
+                    public static event Hook On
+                    {
+                        add => HookEndpointManager.Add<Hook>( method, value );
+                        remove => HookEndpointManager.Remove<Hook>( method, value );
+                    }
+                }
+
+                public struct EvaluateDotStacksForType
+                {
+                    private static MethodBase method = HookableHelpers.GetBase( typeof(EvaluateDotStacksForType) );
+                    public delegate void Orig( global::RoR2.DotController self, global::RoR2.DotController.DotIndex dotIndex, global::System.Single dt, out global::System.Int32 remainingActive );
+                    public delegate void Hook( Orig orig, global::RoR2.DotController self, global::RoR2.DotController.DotIndex dotIndex, global::System.Single dt, out global::System.Int32 remainingActive );
+                    public static event ILContext.Manipulator Il
+                    {
+                        add => HookEndpointManager.Modify<Hook>( method, value );
+                        remove => HookEndpointManager.Unmodify<Hook>( method, value );
+                    }
+                    public static event Hook On
+                    {
+                        add => HookEndpointManager.Add<Hook>( method, value );
+                        remove => HookEndpointManager.Remove<Hook>( method, value );
+                    }
+                }
+
+                public struct FixedUpdate
+                {
+                    private static readonly MethodBase method = HookableHelpers.GetBase( typeof(FixedUpdate) );
+                    public delegate void Orig( global::RoR2.DotController self );
+                    public delegate void Hook( Orig orig, global::RoR2.DotController self );
+                    public static event ILContext.Manipulator Il
+                    {
+                        add => HookEndpointManager.Modify<Hook>( method, value );
+                        remove => HookEndpointManager.Unmodify<Hook>( method, value );
+                    }
+                    public static event Hook On
+                    {
+                        add => HookEndpointManager.Add<Hook>( method, value );
+                        remove => HookEndpointManager.Remove<Hook>( method, value );
+                    }
+                }
+
+                public struct GetDotDef
+                {
+                    public static Boolean INLINED = true;
+                    //private static readonly MethodBase method = HookableHelpers.GetBase( typeof(GetDotDef) );
+                    //public delegate System.Object Orig( global::RoR2.DotController self, global::RoR2.DotController.DotIndex dotIndex );
+                    //public delegate System.Object Hook( Orig orig, global::RoR2.DotController self, global::RoR2.DotController.DotIndex dotIndex );
+                    //public static event ILContext.Manipulator Il
+                    //{
+                    //    add => HookEndpointManager.Modify<Hook>( method, value );
+                    //    remove => HookEndpointManager.Unmodify<Hook>( method, value );
+                    //}
+                    //public static event Hook On
+                    //{
+                    //    add => HookEndpointManager.Add<Hook>( method, value );
+                    //    remove => HookEndpointManager.Remove<Hook>( method, value );
+                    //}
                 }
             }
 

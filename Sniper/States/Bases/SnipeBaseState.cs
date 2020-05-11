@@ -40,43 +40,42 @@ namespace Sniper.States.Bases
             if( this.bulletFired ) return;
             var aimRay = GetAimRay();
 
-            var bullet = new ExpandableBulletAttack
-            {
-                aimVector = aimRay.direction,
-                attackerBody = characterBody,
-                bulletCount = 1,
-                damage = characterBody.damage,
-                damageColorIndex = DamageColorIndex.Default,
-                damageType = DamageType.Generic,
-                falloffModel = BulletAttack.FalloffModel.None,
-                force = 1f,
-                HitEffectNormal = true,
-                hitEffectPrefab = null,
-                hitMask = LayerIndex.entityPrecise.mask | LayerIndex.world.mask,
-                isCrit = RollCrit(),
-                maxDistance = 1000f,
-                maxSpread = 0f,
-                minSpread = 0f,
-                muzzleName = "MuzzleRailgun",
-                origin = aimRay.origin,
-                owner = gameObject,
-                procChainMask = default,
-                procCoefficient = 1f,
-                queryTriggerInteraction = QueryTriggerInteraction.UseGlobal,
-                radius = 1f,
-                smartCollision = true,
-                sniper = false,
-                spreadPitchScale = 1f,
-                spreadYawScale = 1f,
-                stopperMask = LayerIndex.world.mask | LayerIndex.entityPrecise.mask,
-                tracerEffectPrefab = null,
-                weapon = null,
-            };
+            var bullet = base.characterBody.ammo.CreateBullet( base.characterBody, this.reloadTier, aimRay, "MuzzleRailgun" );
+            //var bullet = new ExpandableBulletAttack
+            //{
+            //    aimVector = aimRay.direction,
+            //    attackerBody = characterBody,
+            //    bulletCount = 1,
+            //    damage = characterBody.damage,
+            //    damageColorIndex = DamageColorIndex.Default,
+            //    damageType = DamageType.Generic,
+            //    falloffModel = BulletAttack.FalloffModel.None,
+            //    force = 1f,
+            //    HitEffectNormal = true,
+            //    hitEffectPrefab = null,
+            //    hitMask = LayerIndex.entityPrecise.mask | LayerIndex.world.mask,
+            //    isCrit = RollCrit(),
+            //    maxDistance = 1000f,
+            //    maxSpread = 0f,
+            //    minSpread = 0f,
+            //    muzzleName = "MuzzleRailgun",
+            //    origin = aimRay.origin,
+            //    owner = gameObject,
+            //    procChainMask = default,
+            //    procCoefficient = 1f,
+            //    queryTriggerInteraction = QueryTriggerInteraction.UseGlobal,
+            //    radius = 1f,
+            //    smartCollision = true,
+            //    sniper = false,
+            //    spreadPitchScale = 1f,
+            //    spreadYawScale = 1f,
+            //    stopperMask = LayerIndex.world.mask | LayerIndex.entityPrecise.mask,
+            //    tracerEffectPrefab = null,
+            //    weapon = null,
+            //};
             this.ModifyBullet( bullet );
             this.reloadParams.ModifyBullet( bullet, this.reloadTier );
-            characterBody.ammo.ModifyBullet( bullet );
             characterBody.passive.ModifyBullet( bullet );
-
             var data = characterBody.scopeInstanceData;
 
             if( data != null && data.shouldModify ) data.SendFired().Apply( bullet );

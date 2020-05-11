@@ -21,6 +21,7 @@ using Sniper.States.Secondary;
 using Sniper.States.Special;
 using Sniper.States.Utility;
 using Sniper.SkillDefTypes.Bases;
+using Sniper.Enums;
 
 namespace Sniper.Modules
 {
@@ -30,9 +31,8 @@ namespace Sniper.Modules
         {
             var skills = new List<SkillDef>();
 
-            BulletModifier standardModifier = default;
-            standardModifier.stopperMaskRemove = LayerIndex.entityPrecise.mask;
-            OnBulletDelegate standardStop = new OnBulletDelegate( (bullet, hit) =>
+            #region Standard Ammo
+            var standardStop = new OnBulletDelegate( (bullet, hit) =>
             {
                 if( hit.collider )
                 {
@@ -52,18 +52,57 @@ namespace Sniper.Modules
                     }
                 }
             });
-            var standardAmmo = SniperAmmoSkillDef.Create( null, standardStop, standardModifier, null, VFXModule.GetStandardAmmoTracer() );
+            GameObject standardTracer = VFXModule.GetStandardAmmoTracer();
+            var standardCreate = new BulletCreationDelegate( (body, reload, aim, muzzle) =>
+            {
+                var bullet = new ExpandableBulletAttack
+                {
+                    aimVector = aim.direction,
+                    attackerBody = body,
+                    bulletCount = 1,
+                    chargeLevel = 0f,
+                    damage = body.damage,
+                    damageColorIndex = DamageColorIndex.Default,
+                    damageType = DamageType.Generic,
+                    falloffModel = BulletAttack.FalloffModel.None,
+                    force = 100f,
+                    HitEffectNormal = true,
+                    hitEffectPrefab = null, // TODO: Standard Ammo Hit Effect
+                    hitMask = LayerIndex.entityPrecise.mask,
+                    isCrit = body.RollCrit(),
+                    maxDistance = 1000f,
+                    maxSpread = 0f,
+                    minSpread = 0f,
+                    muzzleName = muzzle,
+                    onHit = null,
+                    onStop = standardStop,
+                    origin = aim.origin,
+                    owner = body.gameObject,
+                    procChainMask = default,
+                    procCoefficient = 1f,
+                    queryTriggerInteraction = QueryTriggerInteraction.UseGlobal,
+                    radius = 0.1f,
+                    smartCollision = true,
+                    sniper = false,
+                    spreadPitchScale = 1f,
+                    spreadYawScale = 1f,
+                    stopperMask = LayerIndex.world.mask,
+                    tracerEffectPrefab = standardTracer,
+                    weapon = null,
+                };
+                return bullet;
+            });
+            var standardAmmo = SniperAmmoSkillDef.Create( standardCreate );
             standardAmmo.icon = UIModule.GetStandardAmmoIcon();
             standardAmmo.skillName = "Standard Ammo";
             standardAmmo.skillNameToken = Tokens.SNIPER_AMMO_STANDARD_NAME;
             standardAmmo.skillDescriptionToken = Tokens.SNIPER_AMMO_STANDARD_DESC;
             skills.Add( standardAmmo );
+            #endregion
 
-            BulletModifier explosiveModifier = BulletModifier.identity;
-            explosiveModifier.damageMultiplier = 0.65f;
-            explosiveModifier.procMultiplier = 0.6f;
-            explosiveModifier.forceMultiplier = 0.5f;
-            OnBulletDelegate explosiveOnHit = new OnBulletDelegate((bullet, hit) =>
+
+            #region Explosive Ammo
+            var explosiveHit = new OnBulletDelegate((bullet, hit) =>
             {
                 Single rad = 6f * ( 1f + (4f * bullet.chargeLevel) );
                 EffectManager.SpawnEffect(VFXModule.GetExplosiveAmmoExplosionPrefab(), new EffectData
@@ -95,12 +134,174 @@ namespace Sniper.Modules
 
                 _ = blast.Fire();
             });
-            var explosive = SniperAmmoSkillDef.Create( explosiveOnHit, null, explosiveModifier, null, VFXModule.GetExplosiveAmmoTracer() );
+            GameObject explosiveTracer = VFXModule.GetExplosiveAmmoTracer();
+            var explosiveCreate = new BulletCreationDelegate( (body, reload, aim, muzzle) =>
+            {
+                var bullet = new ExpandableBulletAttack
+                {
+                    aimVector = aim.direction,
+                    attackerBody = body,
+                    bulletCount = 1,
+                    chargeLevel = 0f,
+                    damage = body.damage * 0.65f,
+                    damageColorIndex = DamageColorIndex.Default,
+                    damageType = DamageType.Generic,
+                    falloffModel = BulletAttack.FalloffModel.None,
+                    force = 500f,
+                    HitEffectNormal = true,
+                    hitEffectPrefab = null, // TODO: Explosive Ammo Hit Effect
+                    hitMask = LayerIndex.entityPrecise.mask,
+                    isCrit = body.RollCrit(),
+                    maxDistance = 1000f,
+                    maxSpread = 0f,
+                    minSpread = 0f,
+                    muzzleName = muzzle,
+                    onHit = explosiveHit,
+                    onStop = null,
+                    origin = aim.origin,
+                    owner = body.gameObject,
+                    procChainMask = default,
+                    procCoefficient = 0.6f,
+                    queryTriggerInteraction = QueryTriggerInteraction.UseGlobal,
+                    radius = 0.1f,
+                    smartCollision = true,
+                    sniper = false,
+                    spreadPitchScale = 1f,
+                    spreadYawScale = 1f,
+                    stopperMask = LayerIndex.world.mask | LayerIndex.entityPrecise.mask,
+                    tracerEffectPrefab = explosiveTracer,
+                    weapon = null,
+                };
+                return bullet;
+            });
+            var explosive = SniperAmmoSkillDef.Create( explosiveCreate );
             explosive.icon = UIModule.GetExplosiveAmmoIcon();
-            explosive.skillName = "Piercing Ammo";
+            explosive.skillName = "Explosive Ammo";
             explosive.skillNameToken = Tokens.SNIPER_AMMO_EXPLOSIVE_NAME;
             explosive.skillDescriptionToken = Tokens.SNIPER_AMMO_EXPLOSIVE_DESC;
             skills.Add( explosive );
+            #endregion
+
+
+            #region Scatter
+            //GameObject scatterTracer = VFXModule.GetScatterAmmoTracer();
+            GameObject scatterTracer = explosiveTracer;
+            var scatterCreate = new BulletCreationDelegate( (body, reload, aim, muzzle) =>
+            {
+                var bullet = new ExpandableBulletAttack
+                {
+                    aimVector = aim.direction,
+                    attackerBody = body,
+                    bulletCount = (UInt32)( 4 + ( (Int32)reload ) ),
+                    chargeLevel = 0f,
+                    damage = body.damage * 0.3f,
+                    damageColorIndex = DamageColorIndex.Default,
+                    damageType = DamageType.Generic,
+                    falloffModel = BulletAttack.FalloffModel.DefaultBullet,
+                    force = 100f,
+                    HitEffectNormal = true,
+                    hitEffectPrefab = null, // TODO: Explosive Ammo Hit Effect
+                    hitMask = LayerIndex.entityPrecise.mask,
+                    isCrit = body.RollCrit(),
+                    maxDistance = 200f,
+                    maxSpread = 4f,
+                    minSpread = 0f,
+                    muzzleName = muzzle,
+                    onHit = null,
+                    onStop = null,
+                    origin = aim.origin,
+                    owner = body.gameObject,
+                    procChainMask = default,
+                    procCoefficient = 0.6f,
+                    queryTriggerInteraction = QueryTriggerInteraction.UseGlobal,
+                    radius = 0.5f,
+                    smartCollision = true,
+                    sniper = false,
+                    spreadPitchScale = 1f,
+                    spreadYawScale = 1f,
+                    stopperMask = LayerIndex.world.mask | LayerIndex.entityPrecise.mask,
+                    tracerEffectPrefab = scatterTracer,
+                    weapon = null,
+                };
+                return bullet;
+            });
+            var scatter = SniperAmmoSkillDef.Create( scatterCreate );
+            scatter.icon = UIModule.GetScatterAmmoIcon();
+            scatter.skillName = "Scatter Ammo";
+            scatter.skillNameToken = Tokens.SNIPER_AMMO_SCATTER_NAME;
+            scatter.skillDescriptionToken = Tokens.SNIPER_AMMO_SCATTER_DESC;
+            skills.Add( scatter );
+
+
+
+            #endregion
+            #region Plasma
+            var plasmaHit = new OnBulletDelegate( (bullet, hit) =>
+            {
+                Log.Error( "Plasma?" );
+                var obj = hit.hitHurtBox?.healthComponent;
+                if( obj != null && obj )
+                {
+                    obj.ApplyDoT( bullet.attackerBody.gameObject, bullet.isCrit ? CatalogModule.critPlasmaBurnIndex : CatalogModule.plasmaBurnIndex, 12f, bullet.damage );
+                } else
+                {
+                    Log.Error( "Did not find hurtbox" );
+                }
+            });
+            GameObject plasmaTracer = explosiveTracer;
+            var plasmaCreate = new BulletCreationDelegate( (body, reload, aim, muzzle) =>
+            {
+                var bullet = new ExpandableBulletAttack
+                {
+                    aimVector = aim.direction,
+                    attackerBody = body,
+                    bulletCount = 1,
+                    chargeLevel = 0f,
+                    damage = 1f,
+                    damageColorIndex = DamageColorIndex.Default,
+                    damageType = DamageType.Generic,
+                    falloffModel = BulletAttack.FalloffModel.None,
+                    force = 0f,
+                    HitEffectNormal = true,
+                    hitEffectPrefab = null, // TODO: Plasma Ammo Hit Effect
+                    hitMask = LayerIndex.entityPrecise.mask,
+                    isCrit = body.RollCrit(),
+                    maxDistance = 1000f,
+                    maxSpread = 0f,
+                    minSpread = 0f,
+                    muzzleName = muzzle,
+                    onHit = plasmaHit,
+                    onStop = null,
+                    origin = aim.origin,
+                    owner = body.gameObject,
+                    procChainMask = default,
+                    procCoefficient = 0f,
+                    queryTriggerInteraction = QueryTriggerInteraction.UseGlobal,
+                    radius = 0.1f,
+                    smartCollision = true,
+                    sniper = false,
+                    spreadPitchScale = 1f,
+                    spreadYawScale = 1f,
+                    stopperMask = LayerIndex.world.mask | LayerIndex.entityPrecise.mask,
+                    tracerEffectPrefab = plasmaTracer,
+                    weapon = null,
+                };
+                return bullet;
+            });
+            var plasma = SniperAmmoSkillDef.Create( plasmaCreate );
+            plasma.icon = UIModule.GetScatterAmmoIcon();
+            plasma.skillName = "Plasma Ammo";
+            plasma.skillNameToken = Tokens.SNIPER_AMMO_PLASMA_NAME;
+            plasma.skillDescriptionToken = Tokens.SNIPER_AMMO_PLASMA_DESC;
+            skills.Add( plasma );
+
+            #endregion
+
+
+            #region Shock
+
+
+            #endregion
 
             SkillFamiliesModule.ammoSkills = skills;
         }

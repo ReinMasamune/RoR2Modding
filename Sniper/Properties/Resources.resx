@@ -151,7 +151,25 @@
     <value>Explodes on hit for damage to all nearby enemies.</value>
   </data>
   <data name="lang__SNIPER_AMMO_EXPLOSIVE_NAME" xml:space="preserve">
-    <value>Explosive Ammo</value>
+    <value>Explosive</value>
+  </data>
+  <data name="lang__SNIPER_AMMO_PLASMA_DESC" xml:space="preserve">
+    <value>Deals no damage, but applies a stacking burn</value>
+  </data>
+  <data name="lang__SNIPER_AMMO_PLASMA_NAME" xml:space="preserve">
+    <value>Plasma</value>
+  </data>
+  <data name="lang__SNIPER_AMMO_SCATTER_DESC" xml:space="preserve">
+    <value>Fires a spread of low damage pellets</value>
+  </data>
+  <data name="lang__SNIPER_AMMO_SCATTER_NAME" xml:space="preserve">
+    <value>Scatter</value>
+  </data>
+  <data name="lang__SNIPER_AMMO_SHOCK_DESC" xml:space="preserve">
+    <value>Chains to enemies near your target</value>
+  </data>
+  <data name="lang__SNIPER_AMMO_SHOCK_NAME" xml:space="preserve">
+    <value>Shock</value>
   </data>
   <data name="lang__SNIPER_AMMO_STANDARD_DESC" xml:space="preserve">
     <value>Ammo that can pierce and ricochet</value>
@@ -190,7 +208,7 @@
     <value>Sliding Reload</value>
   </data>
   <data name="lang__SNIPER_PRIMARY_SNIPE_DESC" xml:space="preserve">
-    <value>Shoot enemies</value>
+    <value>Shoot enemies for 300% damage. Must be reloaded after firing. Reloading at the right time grants extra damage.</value>
   </data>
   <data name="lang__SNIPER_PRIMARY_SNIPE_NAME" xml:space="preserve">
     <value>Snipe</value>

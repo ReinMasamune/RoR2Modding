@@ -12,20 +12,23 @@ using RoR2.Skills;
 using System.Reflection;
 using Sniper.Expansions;
 using Sniper.SkillDefTypes.Bases;
+using Sniper.Components;
+using Sniper.Enums;
 
 namespace Sniper.SkillDefs
 {
+    internal delegate ExpandableBulletAttack BulletCreationDelegate( SniperCharacterBody body, ReloadTier reload, Ray aim, String muzzleName );
     internal class SniperAmmoSkillDef : SniperSkillDef
     {
-        internal static SniperAmmoSkillDef Create( OnBulletDelegate onHit, OnBulletDelegate onStop, Data.BulletModifier modifier, GameObject hitEffect = null, GameObject tracerEffect = null )
+        internal static SniperAmmoSkillDef Create( BulletCreationDelegate createBullet )
         {
+#if ASSERT
+            if( createBullet == null ) Log.ErrorL( "Null Create delegate" );
+#endif
+
             SniperAmmoSkillDef def = ScriptableObject.CreateInstance<SniperAmmoSkillDef>();
 
-            def.onHitEffect = onHit;
-            def.onEndEffect = onStop;
-            def.bulletModifier = modifier;
-            def.hitEffectPrefab = hitEffect;
-            def.tracerEffectPrefab = tracerEffect;
+            def.createBullet = createBullet;
 
 
             def.activationState = SkillsCore.StateType<Idle>();
@@ -48,29 +51,14 @@ namespace Sniper.SkillDefs
             return def;
         }
 
-        [SerializeField]
-        private Data.BulletModifier bulletModifier;
-
-        private OnBulletDelegate onHitEffect;
-
-        private OnBulletDelegate onEndEffect;
-
-        [SerializeField]
-        private GameObject hitEffectPrefab;
-
-        [SerializeField]
-        private GameObject tracerEffectPrefab;
+        private BulletCreationDelegate createBullet;
 
 
-        // TODO: Switch to having ammo initialize the bullet
-
-        internal void ModifyBullet( ExpandableBulletAttack bulletAttack )
+        [MethodImpl( MethodImplOptions.AggressiveInlining )]
+        internal ExpandableBulletAttack CreateBullet( SniperCharacterBody body, ReloadTier tier, Ray aim, String muzzleName )
         {
-            bulletAttack.onHit = this.onHitEffect;
-            bulletAttack.onStop = this.onEndEffect;
-            if( this.hitEffectPrefab != null ) bulletAttack.hitEffectPrefab = this.hitEffectPrefab;
-            if( this.tracerEffectPrefab != null ) bulletAttack.tracerEffectPrefab = this.tracerEffectPrefab;
-            this.bulletModifier.Apply( bulletAttack );
+            ExpandableBulletAttack bullet = this.createBullet(body, tier, aim, muzzleName );
+            return bullet;
         }
     }
 }
