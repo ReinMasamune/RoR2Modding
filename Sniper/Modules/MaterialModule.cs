@@ -236,6 +236,227 @@ namespace Sniper.Modules
         }
 
 
+        internal static CloudMaterial GetPlasmaTracerMaterial()
+        {
+            if( _plasmaTracerMaterial == null )
+            {
+                _plasmaTracerMaterial = CreatePlasmaTracerMaterial();
+            }
+            return _plasmaTracerMaterial;
+        }
+        private static CloudMaterial _plasmaTracerMaterial;
+        private static CloudMaterial CreatePlasmaTracerMaterial()
+        {
+            var mat = new CloudMaterial( "PlasmaAmmoTracer" )
+            {
+                alphaBias = 0f,
+                alphaBoost = 1f,
+                boost = 15f,
+                calcTexAlpha = false,
+                cloudDistortionOn = false,
+                cloudRemappingOn = true,
+                cull = MaterialBase.CullMode.Off,
+                destinationBlend = UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha,
+                fadeClose = false,
+                externalAlpha = 1f,
+                disableRemapping = false,
+                distortionStrength = 0f,
+                emissionOn = false,
+                fadeCloseDistance = 0.5f,
+                fresnelFade = false,
+                fresnelPower = 0f,
+                internalSimpleBlendMode = 0f,
+                invFade = 0f,
+                sourceBlend = UnityEngine.Rendering.BlendMode.SrcAlpha,
+                useUV1 = false,
+                vertexOffsetAmount = 0f,
+                vertexAlphaOn = true,
+                vertexColorOn = false,
+                vertexOffset = false,
+                color = Color.white,
+                cutoffScrollSpeed = new Vector4( 15f, 15f, 13f, 13f ),
+                emissionColor = Color.white,
+                tintColor = Color.white
+            };
+            mat.mainTexture.texture = AssetsCore.LoadAsset<Texture2D>( Texture2DIndex.refTexParticleDust2Mask );
+            mat.remapTexture.texture = TextureModule.GetPlasmaAmmoRamp();
+            mat.cloudTexture1.texture = AssetsCore.LoadAsset<Texture2D>( Texture2DIndex.refTexCloudDifferenceBW2 );
+            mat.cloudTexture1.tiling = new Vector2( 1f, 1f );
+            mat.cloudTexture2.texture = AssetsCore.LoadAsset<Texture2D>( Texture2DIndex.refTexCloudIce );
+            mat.cloudTexture2.tiling = new Vector2( 1f, 1f );
+
+
+            //return AssetsCore.LoadAsset<Material>( MaterialIndex.refMatGolemExplosion );
+            return mat;
+        }
+
+        internal static CloudMaterial GetPlasmaTracerTrailMaterial()
+        {
+            if( _plasmaTracerTrailMaterial == null )
+            {
+                _plasmaTracerTrailMaterial = CreatePlasmaTracerTrailMaterial();
+            }
+
+            return _plasmaTracerTrailMaterial;
+        }
+        private static CloudMaterial _plasmaTracerTrailMaterial;
+        private static CloudMaterial CreatePlasmaTracerTrailMaterial()
+        {
+            var mat = new CloudMaterial( "PlasmaAmmoTracerTrail" )
+            {
+                alphaBias = 0f,
+                alphaBoost = 2f,
+                boost = 5f,
+                calcTexAlpha = false,
+                cloudDistortionOn = false,
+                cloudRemappingOn = true,
+                cull = MaterialBase.CullMode.Off,
+                destinationBlend = UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha,
+                fadeClose = false,
+                externalAlpha = 1f,
+                disableRemapping = false,
+                distortionStrength = 0f,
+                emissionOn = false,
+                fadeCloseDistance = 0.5f,
+                fresnelFade = false,
+                fresnelPower = 0f,
+                internalSimpleBlendMode = 0f,
+                invFade = 0f,
+                sourceBlend = UnityEngine.Rendering.BlendMode.SrcAlpha,
+                useUV1 = false,
+                vertexOffsetAmount = 0f,
+                vertexAlphaOn = true,
+                vertexColorOn = false,
+                vertexOffset = false,
+                color = Color.white,
+                cutoffScrollSpeed = new Vector4( 15f, 15f, 13f, 13f ),
+                emissionColor = Color.white,
+                tintColor = Color.white
+            };
+            mat.mainTexture.texture = AssetsCore.LoadAsset<Texture2D>( Texture2DIndex.refTexAlphaGradient2Mask );
+            mat.remapTexture.texture = TextureModule.GetPlasmaAmmoRamp();
+            mat.cloudTexture1.texture = AssetsCore.LoadAsset<Texture2D>( Texture2DIndex.refTexMageMatrixMaskDirectional );
+            mat.cloudTexture1.tiling = new Vector2( 0.13f, 1f );
+            mat.cloudTexture2.texture = AssetsCore.LoadAsset<Texture2D>( Texture2DIndex.refTexCloudWaterRipples );
+            mat.cloudTexture2.tiling = new Vector2( 0.17f, 1f );
+
+            return mat;
+            //return AssetsCore.LoadAsset<Material>( MaterialIndex.refMatGolemExplosion );
+        }
+
+
+
+        internal static CloudMaterial GetScatterTracerMaterial()
+        {
+            if( _scatterTracerMaterial == null )
+            {
+                _scatterTracerMaterial = CreateScatterTracerMaterial();
+            }
+            return _scatterTracerMaterial;
+        }
+        private static CloudMaterial _scatterTracerMaterial;
+        private static CloudMaterial CreateScatterTracerMaterial()
+        {
+            var mat = new CloudMaterial( "ScatterAmmoTracer" )
+            {
+                alphaBias = 0f,
+                alphaBoost = 1f,
+                boost = 15f,
+                calcTexAlpha = false,
+                cloudDistortionOn = false,
+                cloudRemappingOn = true,
+                cull = MaterialBase.CullMode.Off,
+                destinationBlend = UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha,
+                fadeClose = false,
+                externalAlpha = 1f,
+                disableRemapping = false,
+                distortionStrength = 0f,
+                emissionOn = false,
+                fadeCloseDistance = 0.5f,
+                fresnelFade = false,
+                fresnelPower = 0f,
+                internalSimpleBlendMode = 0f,
+                invFade = 0f,
+                sourceBlend = UnityEngine.Rendering.BlendMode.SrcAlpha,
+                useUV1 = false,
+                vertexOffsetAmount = 0f,
+                vertexAlphaOn = true,
+                vertexColorOn = false,
+                vertexOffset = false,
+                color = Color.white,
+                cutoffScrollSpeed = new Vector4( 15f, 15f, 13f, 13f ),
+                emissionColor = Color.white,
+                tintColor = Color.white
+            };
+            mat.mainTexture.texture = AssetsCore.LoadAsset<Texture2D>( Texture2DIndex.refTexParticleDust2Mask );
+            mat.remapTexture.texture = TextureModule.GetScatterAmmoRamp();
+            mat.cloudTexture1.texture = AssetsCore.LoadAsset<Texture2D>( Texture2DIndex.refTexCloudDifferenceBW2 );
+            mat.cloudTexture1.tiling = new Vector2( 1f, 1f );
+            mat.cloudTexture2.texture = AssetsCore.LoadAsset<Texture2D>( Texture2DIndex.refTexCloudIce );
+            mat.cloudTexture2.tiling = new Vector2( 1f, 1f );
+
+
+            //return AssetsCore.LoadAsset<Material>( MaterialIndex.refMatGolemExplosion );
+            return mat;
+        }
+
+        internal static CloudMaterial GetScatterTracerTrailMaterial()
+        {
+            if( _scatterTracerTrailMaterial == null )
+            {
+                _scatterTracerTrailMaterial = CreateScatterTracerTrailMaterial();
+            }
+
+            return _scatterTracerTrailMaterial;
+        }
+        private static CloudMaterial _scatterTracerTrailMaterial;
+        private static CloudMaterial CreateScatterTracerTrailMaterial()
+        {
+            var mat = new CloudMaterial( "ScatterAmmoTracerTrail" )
+            {
+                alphaBias = 0f,
+                alphaBoost = 2f,
+                boost = 5f,
+                calcTexAlpha = false,
+                cloudDistortionOn = false,
+                cloudRemappingOn = true,
+                cull = MaterialBase.CullMode.Off,
+                destinationBlend = UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha,
+                fadeClose = false,
+                externalAlpha = 1f,
+                disableRemapping = false,
+                distortionStrength = 0f,
+                emissionOn = false,
+                fadeCloseDistance = 0.5f,
+                fresnelFade = false,
+                fresnelPower = 0f,
+                internalSimpleBlendMode = 0f,
+                invFade = 0f,
+                sourceBlend = UnityEngine.Rendering.BlendMode.SrcAlpha,
+                useUV1 = false,
+                vertexOffsetAmount = 0f,
+                vertexAlphaOn = true,
+                vertexColorOn = false,
+                vertexOffset = false,
+                color = Color.white,
+                cutoffScrollSpeed = new Vector4( 15f, 15f, 13f, 13f ),
+                emissionColor = Color.white,
+                tintColor = Color.white
+            };
+            mat.mainTexture.texture = AssetsCore.LoadAsset<Texture2D>( Texture2DIndex.refTexAlphaGradient2Mask );
+            mat.remapTexture.texture = TextureModule.GetScatterAmmoRamp();
+            mat.cloudTexture1.texture = AssetsCore.LoadAsset<Texture2D>( Texture2DIndex.refTexMageMatrixMaskDirectional );
+            mat.cloudTexture1.tiling = new Vector2( 0.13f, 1f );
+            mat.cloudTexture2.texture = AssetsCore.LoadAsset<Texture2D>( Texture2DIndex.refTexCloudWaterRipples );
+            mat.cloudTexture2.tiling = new Vector2( 0.17f, 1f );
+
+            return mat;
+            //return AssetsCore.LoadAsset<Material>( MaterialIndex.refMatGolemExplosion );
+        }
+
+
+
+
 
         #region Sniper
         internal static StandardMaterial CreateSniperBase()

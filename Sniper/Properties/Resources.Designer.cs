@@ -79,7 +79,7 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Assets/__EXPORT/Icons/Special 1/Decoy.png.
         /// </summary>
         internal static string DecoyIcon {
             get {
@@ -88,7 +88,7 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Assets/__EXPORT/Icons/Special 1/Decoy_Reactivation.png.
         /// </summary>
         internal static string DecoyReactivateIcon {
             get {
@@ -111,6 +111,15 @@ namespace Sniper.Properties {
         internal static string HeadshotIcon {
             get {
                 return ResourceManager.GetString("HeadshotIcon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Assets/__EXPORT/KnifeProjectileGhost.prefab.
+        /// </summary>
+        internal static string KnifeGhostPrefabPath {
+            get {
+                return ResourceManager.GetString("KnifeGhostPrefabPath", resourceCulture);
             }
         }
         
@@ -151,7 +160,7 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Explodes on hit for damage to all nearby enemies..
+        ///   Looks up a localized string similar to Deals 65% damage. Explodes on hit for 65% additional damage to the target and nearby enemies..
         /// </summary>
         internal static string lang__SNIPER_AMMO_EXPLOSIVE_DESC {
             get {
@@ -169,7 +178,7 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Deals no damage, but applies a stacking burn.
+        ///   Looks up a localized string similar to Deals 0% damage, applies a stacking burn that deals 215% damage over 10 seconds..
         /// </summary>
         internal static string lang__SNIPER_AMMO_PLASMA_DESC {
             get {
@@ -187,7 +196,7 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Fires a spread of low damage pellets.
+        ///   Looks up a localized string similar to Deals up to 175% damage, fires a spread of pellets, damage falls off with range..
         /// </summary>
         internal static string lang__SNIPER_AMMO_SCATTER_DESC {
             get {
@@ -223,7 +232,7 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ammo that can pierce and ricochet.
+        ///   Looks up a localized string similar to Deals 100% damage, pierces enemies, and has a chance to ricochet..
         /// </summary>
         internal static string lang__SNIPER_AMMO_STANDARD_DESC {
             get {
@@ -888,6 +897,114 @@ namespace Sniper.Properties {
         internal static string SteadyAimIcon {
             get {
                 return ResourceManager.GetString("SteadyAimIcon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ThrowKnife_GreenBlack_MainTex.
+        /// </summary>
+        internal static string ThrowKnifeAlt1_Diffuse {
+            get {
+                return ResourceManager.GetString("ThrowKnifeAlt1_Diffuse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ThrowKnife_GreenBlack_Emission.
+        /// </summary>
+        internal static string ThrowKnifeAlt1_Emissive {
+            get {
+                return ResourceManager.GetString("ThrowKnifeAlt1_Emissive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ThrowKnife_GreenBlack_Normal.
+        /// </summary>
+        internal static string ThrowKnifeAlt1_Normal {
+            get {
+                return ResourceManager.GetString("ThrowKnifeAlt1_Normal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ThrowKnife_GreenBlack_MainTex.
+        /// </summary>
+        internal static string ThrowKnifeAlt2_Diffuse {
+            get {
+                return ResourceManager.GetString("ThrowKnifeAlt2_Diffuse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ThrowKnife_GreenBlack_Emission.
+        /// </summary>
+        internal static string ThrowKnifeAlt2_Emissive {
+            get {
+                return ResourceManager.GetString("ThrowKnifeAlt2_Emissive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ThrowKnife_GreenBlack_Normal.
+        /// </summary>
+        internal static string ThrowKnifeAlt2_Normal {
+            get {
+                return ResourceManager.GetString("ThrowKnifeAlt2_Normal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ThrowKnife_GreenBlack_MainTex.
+        /// </summary>
+        internal static string ThrowKnifeAlt3_Diffuse {
+            get {
+                return ResourceManager.GetString("ThrowKnifeAlt3_Diffuse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ThrowKnife_GreenBlack_Emission.
+        /// </summary>
+        internal static string ThrowKnifeAlt3_Emissive {
+            get {
+                return ResourceManager.GetString("ThrowKnifeAlt3_Emissive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ThrowKnife_GreenBlack_Normal.
+        /// </summary>
+        internal static string ThrowKnifeAlt3_Normal {
+            get {
+                return ResourceManager.GetString("ThrowKnifeAlt3_Normal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ThrowKnife_GreenBlack_MainTex.
+        /// </summary>
+        internal static string ThrowKnifeAlt4_Diffuse {
+            get {
+                return ResourceManager.GetString("ThrowKnifeAlt4_Diffuse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ThrowKnife_GreenBlack_Emission.
+        /// </summary>
+        internal static string ThrowKnifeAlt4_Emissive {
+            get {
+                return ResourceManager.GetString("ThrowKnifeAlt4_Emissive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ThrowKnife_GreenBlack_Normal.
+        /// </summary>
+        internal static string ThrowKnifeAlt4_Normal {
+            get {
+                return ResourceManager.GetString("ThrowKnifeAlt4_Normal", resourceCulture);
             }
         }
         

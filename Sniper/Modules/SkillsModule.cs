@@ -22,6 +22,7 @@ using Sniper.States.Special;
 using Sniper.States.Utility;
 using Sniper.SkillDefTypes.Bases;
 using Sniper.Enums;
+using System.Runtime.InteropServices.ComTypes;
 
 namespace Sniper.Modules
 {
@@ -184,27 +185,27 @@ namespace Sniper.Modules
 
 
             #region Scatter
-            //GameObject scatterTracer = VFXModule.GetScatterAmmoTracer();
-            GameObject scatterTracer = explosiveTracer;
+            GameObject scatterTracer = VFXModule.GetScatterAmmoTracer();
+            var scatterFalloff = BulletFalloffCore.AddFalloffModel( (dist) => Mathf.Pow((Mathf.InverseLerp( 200f, 10f, dist )),2f) );
             var scatterCreate = new BulletCreationDelegate( (body, reload, aim, muzzle) =>
             {
                 var bullet = new ExpandableBulletAttack
                 {
                     aimVector = aim.direction,
                     attackerBody = body,
-                    bulletCount = (UInt32)( 4 + ( (Int32)reload ) ),
+                    bulletCount = (UInt32)( 3 + ( 2 * (Int32)reload ) ),
                     chargeLevel = 0f,
-                    damage = body.damage * 0.3f,
+                    damage = body.damage * 0.25f,
                     damageColorIndex = DamageColorIndex.Default,
                     damageType = DamageType.Generic,
-                    falloffModel = BulletAttack.FalloffModel.DefaultBullet,
-                    force = 100f,
+                    falloffModel = scatterFalloff,
+                    force = 25f,
                     HitEffectNormal = true,
                     hitEffectPrefab = null, // TODO: Explosive Ammo Hit Effect
                     hitMask = LayerIndex.entityPrecise.mask,
                     isCrit = body.RollCrit(),
                     maxDistance = 200f,
-                    maxSpread = 4f,
+                    maxSpread = 3f,
                     minSpread = 0f,
                     muzzleName = muzzle,
                     onHit = null,
@@ -214,7 +215,7 @@ namespace Sniper.Modules
                     procChainMask = default,
                     procCoefficient = 0.6f,
                     queryTriggerInteraction = QueryTriggerInteraction.UseGlobal,
-                    radius = 0.5f,
+                    radius = 0.15f,
                     smartCollision = true,
                     sniper = false,
                     spreadPitchScale = 1f,
@@ -238,17 +239,17 @@ namespace Sniper.Modules
             #region Plasma
             var plasmaHit = new OnBulletDelegate( (bullet, hit) =>
             {
-                Log.Error( "Plasma?" );
                 var obj = hit.hitHurtBox?.healthComponent;
                 if( obj != null && obj )
                 {
-                    obj.ApplyDoT( bullet.attackerBody.gameObject, bullet.isCrit ? CatalogModule.critPlasmaBurnIndex : CatalogModule.plasmaBurnIndex, 12f, bullet.damage );
+                    var dmg = bullet.damage / bullet.attackerBody.damage;
+                    obj.ApplyDoT( bullet.attackerBody.gameObject, bullet.isCrit ? CatalogModule.critPlasmaBurnIndex : CatalogModule.plasmaBurnIndex, 10f, dmg );
                 } else
                 {
-                    Log.Error( "Did not find hurtbox" );
+                    Log.WarningT( "Did not find hurtbox" );
                 }
             });
-            GameObject plasmaTracer = explosiveTracer;
+            GameObject plasmaTracer = VFXModule.GetPlasmaAmmoTracer();
             var plasmaCreate = new BulletCreationDelegate( (body, reload, aim, muzzle) =>
             {
                 var bullet = new ExpandableBulletAttack
@@ -257,9 +258,9 @@ namespace Sniper.Modules
                     attackerBody = body,
                     bulletCount = 1,
                     chargeLevel = 0f,
-                    damage = 1f,
-                    damageColorIndex = DamageColorIndex.Default,
-                    damageType = DamageType.Generic,
+                    damage = body.damage * 0.075f,
+                    damageColorIndex = CatalogModule.plasmaDamageColor,
+                    damageType = DamageType.Generic | DamageType.Silent,
                     falloffModel = BulletAttack.FalloffModel.None,
                     force = 0f,
                     HitEffectNormal = true,
@@ -275,9 +276,9 @@ namespace Sniper.Modules
                     origin = aim.origin,
                     owner = body.gameObject,
                     procChainMask = default,
-                    procCoefficient = 0f,
+                    procCoefficient = 0.5f,
                     queryTriggerInteraction = QueryTriggerInteraction.UseGlobal,
-                    radius = 0.1f,
+                    radius = 0.15f,
                     smartCollision = true,
                     sniper = false,
                     spreadPitchScale = 1f,

@@ -1,25 +1,25 @@
-﻿using System;
-using BepInEx;
-using RoR2;
+﻿//using System;
+//using BepInEx;
+//using RoR2;
 
-namespace ReinCore
-{
-    public static class ProcsCore
-    {
-        public static Boolean loaded { get; internal set; } = false;
+//namespace ReinCore
+//{
+//    public static class ProcsCore
+//    {
+//        public static Boolean loaded { get; internal set; } = false;
 
         
 
        
 
-        static ProcsCore()
-        {
+//        static ProcsCore()
+//        {
 
 
-            loaded = true;
-        }
+//            loaded = true;
+//        }
 
 
 
-    }
-}
+//    }
+//}

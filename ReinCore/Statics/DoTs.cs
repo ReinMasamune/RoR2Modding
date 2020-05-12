@@ -17,7 +17,7 @@ namespace ReinCore
 
         public delegate void CustomDoTDamageDelegate( HealthComponent victim, DamageInfo damage );
 
-        public static DotController.DotIndex AddDotType( DoTDef dot, CustomDoTDamageDelegate customDamage = null )
+        public static DotController.DotIndex AddDotType( DoTDef dot, Boolean blockMergeTicks = false, CustomDoTDamageDelegate customDamage = null )
         {
             if( !loaded ) throw new CoreNotLoadedException( nameof( DoTsCore ) );
             if( dot == null ) throw new ArgumentNullException( nameof( dot ) );
@@ -28,6 +28,10 @@ namespace ReinCore
             if( customDamage != null )
             {
                 customDoTDamages[ind] = customDamage;
+            }
+            if( blockMergeTicks )
+            {
+                _ = mergeBlocked.Add( ind );
             }
 
             return ind;
@@ -122,7 +126,7 @@ namespace ReinCore
         private static FieldInfo arrayField;
 
         private static readonly Dictionary<DotController.DotIndex, CustomDoTDamageDelegate> customDoTDamages = new Dictionary<DotController.DotIndex, CustomDoTDamageDelegate>();
-
+        private static readonly HashSet<DotController.DotIndex> mergeBlocked = new HashSet<DotController.DotIndex>();
 
         private delegate void AddNewDotDefDelegate( DoTDef dot );
 
@@ -148,6 +152,52 @@ namespace ReinCore
                 return array.GetValue( index );
             } );
             _ = cursor.Emit( OpCodes.Stloc_1 );
+
+            _ = cursor.GotoNext( MoveType.AfterLabel, x => x.MatchCallOrCallvirt<DotController>( "AddPendingDamageEntry" ) );
+            ILLabel passLabel = cursor.MarkLabel();
+            cursor.Index++;
+            ILLabel overLabel = cursor.MarkLabel();
+            cursor.Index--;
+            _ = cursor.MoveBeforeLabels();
+
+
+            _ = cursor.EmitReference<HashSet<DotController.DotIndex>>( mergeBlocked );
+            _ = cursor.Emit( OpCodes.Ldarg_1 );
+            _ = cursor.Emit<HashSet<DotController.DotIndex>>( OpCodes.Call, "Contains" );
+            _ = cursor.Emit( OpCodes.Brfalse, passLabel );
+
+            var dotStackType = typeof(DotController).GetNestedType( "DotStack", BindingFlags.NonPublic );
+            var attackerField = dotStackType.GetField( "attackerObject" );
+            var damageField = dotStackType.GetField( "damage" );
+            var damageTypeField = dotStackType.GetField( "damageType" );
+
+
+            var pendingDamageType = typeof(DotController).GetNestedType("PendingDamage", BindingFlags.NonPublic );
+            var pendingAttackerField = pendingDamageType.GetField( "attackerObject" );
+            var pendingDamageField = pendingDamageType.GetField( "totalDamage" );
+            var pendingDamageTypeField = pendingDamageType.GetField( "damageType" );
+
+
+            var addMethod = typeof(List<>).MakeGenericType(pendingDamageType).GetMethod( "Add" );
+
+            _ = cursor.Emit( OpCodes.Pop );
+            _ = cursor.Emit( OpCodes.Pop );
+            _ = cursor.Emit( OpCodes.Pop );
+            _ = cursor.Emit( OpCodes.Newobj, pendingDamageType.GetConstructor( Array.Empty<Type>() ) );
+            _ = cursor.Emit( OpCodes.Dup );
+            _ = cursor.Emit( OpCodes.Ldloc_3 );
+            _ = cursor.Emit( OpCodes.Ldfld, attackerField );
+            _ = cursor.Emit( OpCodes.Stfld, pendingAttackerField );
+            _ = cursor.Emit( OpCodes.Dup );
+            _ = cursor.Emit( OpCodes.Ldloc_3 );
+            _ = cursor.Emit( OpCodes.Ldfld, damageField );
+            _ = cursor.Emit( OpCodes.Stfld, pendingDamageField );
+            _ = cursor.Emit( OpCodes.Dup );
+            _ = cursor.Emit( OpCodes.Ldloc_3 );
+            _ = cursor.Emit( OpCodes.Ldfld, damageTypeField );
+            _ = cursor.Emit( OpCodes.Stfld, pendingDamageTypeField );
+            _ = cursor.Emit( OpCodes.Callvirt, addMethod );
+            _ = cursor.Emit( OpCodes.Br_S, overLabel );
 
             MethodReference method = null;
             Int32 damageLoc = 0;

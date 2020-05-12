@@ -35,6 +35,32 @@ namespace Sniper.Modules
             return explosiveAmmoTracerPrefab;
         }
 
+        private static GameObject plasmaAmmoTracerPrefab;
+        internal static GameObject GetPlasmaAmmoTracer()
+        {
+            if( plasmaAmmoTracerPrefab == null )
+            {
+                plasmaAmmoTracerPrefab = Effects.EffectCreator.CreatePlasmaAmmoTracer();
+                EffectsCore.AddEffect( plasmaAmmoTracerPrefab );
+            }
+            return plasmaAmmoTracerPrefab;
+        }
+
+        private static GameObject scatterAmmoTracerPrefab;
+        internal static GameObject GetScatterAmmoTracer()
+        {
+            if( scatterAmmoTracerPrefab == null )
+            {
+                scatterAmmoTracerPrefab = Effects.EffectCreator.CreateScatterAmmoTracer();
+                EffectsCore.AddEffect( scatterAmmoTracerPrefab );
+            }
+            return scatterAmmoTracerPrefab;
+        }
+
+
+
+
+
         private static GameObject explosiveAmmoExplosionPrefab;
         private static EffectIndex explosiveAmmoExplosionEffectIndex = EffectIndex.Invalid;
         internal static GameObject GetExplosiveAmmoExplosionPrefab()

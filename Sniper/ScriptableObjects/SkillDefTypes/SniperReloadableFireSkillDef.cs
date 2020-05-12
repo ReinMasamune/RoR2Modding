@@ -179,6 +179,8 @@ namespace Sniper.SkillDefs
                 this.reloadParams = reloadParams;
                 _ = ReloadUIController.GetReloadTexture( this.reloadParams );
                 this.secondarySlot = this.reloadStatemachine.commonComponents.characterBody.skillLocator.secondary;
+                this.isReloading = false;
+                this.currentReloadTier = ReloadTier.Perfect;
             }
 
             internal void StartReload()

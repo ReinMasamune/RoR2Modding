@@ -4,6 +4,7 @@ using System.Text;
 using UnityEngine;
 using System.IO;
 using static ReinCore.Wooting.WootingRGBHelpers;
+using Rein.Properties;
 
 namespace ReinCore.Wooting
 {
@@ -64,7 +65,7 @@ namespace ReinCore.Wooting
 
         private static void LoadAssembly()
         {
-            dllPath = ResourceTools.EmbeddedResourceHelpers.LoadUnmanagedLibrary( wootingDllName, Rein.Properties.Resources.wooting_rgb_sdk64 );
+            dllPath = Tools.LoadUnmanagedAssembly( wootingDllName, Rein.Properties.Resources.wooting_rgb_sdk64 );
             SetupDisconnectCallback();
             disconnectCallback += OnDisconnect;
             assemblyLoaded = true;

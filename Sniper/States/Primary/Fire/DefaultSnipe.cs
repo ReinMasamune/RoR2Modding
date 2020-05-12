@@ -19,7 +19,7 @@ namespace Sniper.States.Primary.Fire
     internal class DefaultSnipe : SnipeBaseState
     {
         const Single damageRatio = 3f;
-        const Single force = 1000f;
+        const Single force = 10f;
 
 
         protected sealed override Single baseDuration { get; } = 0.2f;
@@ -28,7 +28,7 @@ namespace Sniper.States.Primary.Fire
         protected override void ModifyBullet( ExpandableBulletAttack bullet )
         {
             bullet.damage *= damageRatio;
-            bullet.force = force;
+            bullet.force *= force;
         }
     }
 }

@@ -124,16 +124,19 @@
     <value>Assets/__EXPORT/Icons/passive 2/Precise Aim.png</value>
   </data>
   <data name="DecoyIcon" xml:space="preserve">
-    <value />
+    <value>Assets/__EXPORT/Icons/Special 1/Decoy.png</value>
   </data>
   <data name="DecoyReactivateIcon" xml:space="preserve">
-    <value />
+    <value>Assets/__EXPORT/Icons/Special 1/Decoy_Reactivation.png</value>
   </data>
   <data name="ExplosiveAmmoIcon" xml:space="preserve">
     <value>Assets/__EXPORT/Icons/Passive 1/Explosive Ammo.png</value>
   </data>
   <data name="HeadshotIcon" xml:space="preserve">
     <value>Assets/__EXPORT/Icons/passive 2/Headshot.png</value>
+  </data>
+  <data name="KnifeGhostPrefabPath" xml:space="preserve">
+    <value>Assets/__EXPORT/KnifeProjectileGhost.prefab</value>
   </data>
   <data name="KnifeIcon" xml:space="preserve">
     <value />
@@ -148,19 +151,19 @@
     <value>Passive</value>
   </data>
   <data name="lang__SNIPER_AMMO_EXPLOSIVE_DESC" xml:space="preserve">
-    <value>Explodes on hit for damage to all nearby enemies.</value>
+    <value>Deals 65% damage. Explodes on hit for 65% additional damage to the target and nearby enemies.</value>
   </data>
   <data name="lang__SNIPER_AMMO_EXPLOSIVE_NAME" xml:space="preserve">
     <value>Explosive</value>
   </data>
   <data name="lang__SNIPER_AMMO_PLASMA_DESC" xml:space="preserve">
-    <value>Deals no damage, but applies a stacking burn</value>
+    <value>Deals 0% damage, applies a stacking burn that deals 215% damage over 10 seconds.</value>
   </data>
   <data name="lang__SNIPER_AMMO_PLASMA_NAME" xml:space="preserve">
     <value>Plasma</value>
   </data>
   <data name="lang__SNIPER_AMMO_SCATTER_DESC" xml:space="preserve">
-    <value>Fires a spread of low damage pellets</value>
+    <value>Deals up to 175% damage, fires a spread of pellets, damage falls off with range.</value>
   </data>
   <data name="lang__SNIPER_AMMO_SCATTER_NAME" xml:space="preserve">
     <value>Scatter</value>
@@ -172,7 +175,7 @@
     <value>Shock</value>
   </data>
   <data name="lang__SNIPER_AMMO_STANDARD_DESC" xml:space="preserve">
-    <value>Ammo that can pierce and ricochet</value>
+    <value>Deals 100% damage, pierces enemies, and has a chance to ricochet.</value>
   </data>
   <data name="lang__SNIPER_AMMO_STANDARD_NAME" xml:space="preserve">
     <value>Full Metal Jacket</value>
@@ -393,6 +396,42 @@
   </data>
   <data name="SteadyAimIcon" xml:space="preserve">
     <value>Assets/__EXPORT/Icons/M2/Steady Aim.png</value>
+  </data>
+  <data name="ThrowKnifeAlt1_Diffuse" xml:space="preserve">
+    <value>ThrowKnife_GreenBlack_MainTex</value>
+  </data>
+  <data name="ThrowKnifeAlt1_Emissive" xml:space="preserve">
+    <value>ThrowKnife_GreenBlack_Emission</value>
+  </data>
+  <data name="ThrowKnifeAlt1_Normal" xml:space="preserve">
+    <value>ThrowKnife_GreenBlack_Normal</value>
+  </data>
+  <data name="ThrowKnifeAlt2_Diffuse" xml:space="preserve">
+    <value>ThrowKnife_GreenBlack_MainTex</value>
+  </data>
+  <data name="ThrowKnifeAlt2_Emissive" xml:space="preserve">
+    <value>ThrowKnife_GreenBlack_Emission</value>
+  </data>
+  <data name="ThrowKnifeAlt2_Normal" xml:space="preserve">
+    <value>ThrowKnife_GreenBlack_Normal</value>
+  </data>
+  <data name="ThrowKnifeAlt3_Diffuse" xml:space="preserve">
+    <value>ThrowKnife_GreenBlack_MainTex</value>
+  </data>
+  <data name="ThrowKnifeAlt3_Emissive" xml:space="preserve">
+    <value>ThrowKnife_GreenBlack_Emission</value>
+  </data>
+  <data name="ThrowKnifeAlt3_Normal" xml:space="preserve">
+    <value>ThrowKnife_GreenBlack_Normal</value>
+  </data>
+  <data name="ThrowKnifeAlt4_Diffuse" xml:space="preserve">
+    <value>ThrowKnife_GreenBlack_MainTex</value>
+  </data>
+  <data name="ThrowKnifeAlt4_Emissive" xml:space="preserve">
+    <value>ThrowKnife_GreenBlack_Emission</value>
+  </data>
+  <data name="ThrowKnifeAlt4_Normal" xml:space="preserve">
+    <value>ThrowKnife_GreenBlack_Normal</value>
   </data>
   <data name="ThrowKnifeDefault_Diffuse" xml:space="preserve">
     <value>ThrowKnife_GreenBlack_MainTex</value>

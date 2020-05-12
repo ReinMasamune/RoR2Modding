@@ -1,26 +1,26 @@
-﻿using System;
-using BepInEx;
-using RoR2;
+﻿//using System;
+//using BepInEx;
+//using RoR2;
 
-namespace ReinCore
-{
-    public static class MeshCore
-    {
-        public static Boolean loaded { get; internal set; } = false;
+//namespace ReinCore
+//{
+//    public static class MeshCore
+//    {
+//        public static Boolean loaded { get; internal set; } = false;
 
         
 
 
 
 
-        static MeshCore()
-        {
+//        static MeshCore()
+//        {
 
 
 
 
 
-            loaded = true;
-        }
-    }
-}
+//            loaded = true;
+//        }
+//    }
+//}

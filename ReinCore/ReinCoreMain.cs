@@ -5,6 +5,7 @@ using BepInEx;
 using Mono.Cecil;
 using Mono.Cecil.Cil;
 using MonoMod.Cil;
+using Rein.Properties;
 using RoR2;
 using RoR2.Networking;
 using UnityEngine;
@@ -74,7 +75,7 @@ namespace ReinCore
         {
             HooksCore.RoR2.RoR2Application.UnitySystemConsoleRedirector.Redirect.On += Redirect_On;
             HooksCore.RoR2.UI.QuickPlayButtonController.Start.On += Start_On;
-            _ = ResourceTools.EmbeddedResourceHelpers.LoadAssembly( Rein.Properties.Resources.RoR2ScriptForwarding );
+            _ = Tools.LoadAssembly( Rein.Properties.Resources.RoR2ScriptForwarding );
             if( !Log.loaded ) throw new CoreNotLoadedException( nameof( Log ) );
 
             CheckPlugins();

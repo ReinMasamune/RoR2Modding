@@ -54,6 +54,12 @@ namespace ReinCore
         {
             NetworkServer.RegisterHandler( messageIndex, HandleMessageServer );
             NetworkServer.RegisterHandler( commandIndex, HandleCommandServer );
+
+            _ = RegisterMessageType<DamageMessage>();
+            _ = RegisterMessageType<BuffMessage>();
+            _ = RegisterMessageType<DoTMessage>();
+            _ = RegisterMessageType<OrbMessage>();
+
             GameNetworkManager.onStartClientGlobal += RegisterClientMessages;
 
             loaded = true;

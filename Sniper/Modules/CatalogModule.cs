@@ -50,25 +50,24 @@ namespace Sniper.Modules
             plasmaBurnIndex = ReinCore.DoTsCore.AddDotType( new DoTDef
             {
                 associatedBuff = BuffIndex.Blight,
-                damageCoefficient = 0.2f,
-                interval = 0.2f,
-                damageColorIndex = DamageColorIndex.Heal,
-            }, DoTDamage );
+                damageCoefficient = 1f,
+                interval = 0.35f,
+                damageColorIndex = plasmaDamageColor,
+            }, true, DoTDamage );
 
             critPlasmaBurnIndex = ReinCore.DoTsCore.AddDotType( new DoTDef
             {
                 associatedBuff = BuffIndex.Blight,
-                damageCoefficient = 0.2f,
-                interval = 0.2f,
-                damageColorIndex = DamageColorIndex.CritHeal
-            }, CritDoTDamage );
+                damageCoefficient = 1f,
+                interval = 0.35f,
+                damageColorIndex = plasmaDamageColor
+            }, true, CritDoTDamage );
         }
 
 
         private static void DoTDamage( HealthComponent health, DamageInfo damage )
         {
-            damage.procCoefficient = 0.3f;
-
+            damage.procCoefficient = 0.5f;
             GlobalEventManager.instance.OnHitEnemy( damage, health.gameObject );
             GlobalEventManager.instance.OnHitAll( damage, health.gameObject );
             health.TakeDamage( damage );
@@ -76,13 +75,19 @@ namespace Sniper.Modules
 
         private static void CritDoTDamage( HealthComponent health, DamageInfo damage )
         {
-            damage.procCoefficient = 0.3f;
+            damage.procCoefficient = 0.5f;
             damage.crit = true;
 
             GlobalEventManager.instance.OnHitEnemy( damage, health.gameObject );
             GlobalEventManager.instance.OnHitAll( damage, health.gameObject );
             health.TakeDamage( damage );
         }
+
+
+#pragma warning disable IDE1006 // Naming Styles
+        private static readonly Lazy<DamageColorIndex> _plasmaDamageColor = new Lazy<DamageColorIndex>( () => DamageColorsCore.AddDamageColor( new Color( 0.9f, 0.5f, 0.9f ) ));
+#pragma warning restore IDE1006 // Naming Styles
+        internal static DamageColorIndex plasmaDamageColor { get => _plasmaDamageColor.Value; }
     }
 
 }
