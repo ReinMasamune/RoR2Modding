@@ -1,27 +1,38 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
-using System.Reflection;
-using BepInEx;
-using Mono.Cecil;
-using Mono.Cecil.Cil;
-using MonoMod.Cil;
-using RoR2;
-using UnityEngine;
-
-namespace ReinCore
+﻿namespace ReinCore
 {
-    public static class BulletFalloffCore
-    {
-        public static Boolean loaded { get; internal set; } = false;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq.Expressions;
+    using System.Reflection;
+    using BepInEx;
+    using Mono.Cecil;
+    using Mono.Cecil.Cil;
+    using MonoMod.Cil;
+    using RoR2;
+    using UnityEngine;
 
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+    public static class BulletFalloffCore
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+    {
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+        public static Boolean loaded { get; internal set; } = false;
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public delegate Single FalloffDelegate( Single distance );
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public static BulletAttack.FalloffModel AddFalloffModel( FalloffDelegate falloffDelegate )
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
         {
-            if( !loaded ) throw new CoreNotLoadedException( nameof( FalloffDelegate ) );
+            if( !loaded )
+            {
+                throw new CoreNotLoadedException( nameof( FalloffDelegate ) );
+            }
 
             delegates.Add( falloffDelegate );
-            var ind = currentIndex++;
+            BulletAttack.FalloffModel ind = currentIndex++;
 
             if( hookApplied )
             {
@@ -57,20 +68,20 @@ namespace ReinCore
                 x => x.MatchBr( out breakLabel )
             );
 
-            var origCases = baseLabels.Length;
+            Int32 origCases = baseLabels.Length;
             Array.Resize<ILLabel>( ref baseLabels, origCases + delegates.Count );
 
             _ = cursor.GotoLabel( breakLabel, MoveType.Before, false );
 
-            var field = typeof( BulletAttack.BulletHit ).GetField( nameof(BulletAttack.BulletHit.distance), BindingFlags.Instance | BindingFlags.Public );
+            FieldInfo field = typeof( BulletAttack.BulletHit ).GetField( nameof(BulletAttack.BulletHit.distance), BindingFlags.Instance | BindingFlags.Public );
 
             for( Int32 i = 0; i < delegates.Count; ++i )
             {
-                var caseInd = origCases + i;
+                Int32 caseInd = origCases + i;
 
                 _ = cursor.Emit( OpCodes.Ldarg_1 );
                 cursor.Index--;
-                var label = cursor.MarkLabel();
+                ILLabel label = cursor.MarkLabel();
                 cursor.Index++;
                 _ = cursor.Emit( OpCodes.Ldfld, field );
                 _ = cursor.EmitDelegate<FalloffDelegate>( delegates[i] );

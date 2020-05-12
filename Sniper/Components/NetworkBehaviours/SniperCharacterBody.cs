@@ -1,20 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using BepInEx.Logging;
-using ReinCore;
-using RoR2;
-using UnityEngine;
-using Sniper.SkillDefs;
-using UnityEngine.Networking;
-using Sniper.Modules;
-using UnityEngine.Events;
-
-namespace Sniper.Components
+﻿namespace Sniper.Components
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Runtime.CompilerServices;
+    using BepInEx.Logging;
+    using ReinCore;
+    using RoR2;
+    using UnityEngine;
+    using Sniper.SkillDefs;
+    using UnityEngine.Networking;
+    using Sniper.Modules;
+    using UnityEngine.Events;
+
     internal class SniperCharacterBody : CharacterBody
     {
-        private static GameObject decoyMaster;
+        private static readonly GameObject decoyMaster;
         static SniperCharacterBody()
         {
             decoyMaster = DecoyModule.GetDecoyMaster();
@@ -28,13 +28,15 @@ namespace Sniper.Components
             {
                 if( this._ammo == null )
                 {
-                    var slot = this.ammoSlot;
+                    GenericSkill slot = this.ammoSlot;
                     this._ammo = slot.skillDef as SniperAmmoSkillDef;
                 }
                 return this._ammo;
             }
         }
+#pragma warning disable IDE1006 // Naming Styles
         private SniperAmmoSkillDef _ammo;
+#pragma warning restore IDE1006 // Naming Styles
 
         private GenericSkill ammoSlot
         {
@@ -48,7 +50,9 @@ namespace Sniper.Components
                 return this._ammoSlot;
             }
         }
+#pragma warning disable IDE1006 // Naming Styles
         private GenericSkill _ammoSlot;
+#pragma warning restore IDE1006 // Naming Styles
 
 
         internal SniperPassiveSkillDef passive
@@ -57,13 +61,15 @@ namespace Sniper.Components
             {
                 if( this._passive == null )
                 {
-                    var slot = this.passiveSlot;
+                    GenericSkill slot = this.passiveSlot;
                     this._passive = slot.skillDef as SniperPassiveSkillDef;
                 }
                 return this._passive;
             }
         }
+#pragma warning disable IDE1006 // Naming Styles
         private SniperPassiveSkillDef _passive;
+#pragma warning restore IDE1006 // Naming Styles
 
         private GenericSkill passiveSlot
         {
@@ -77,7 +83,9 @@ namespace Sniper.Components
                 return this._passiveSlot;
             }
         }
+#pragma warning disable IDE1006 // Naming Styles
         private GenericSkill _passiveSlot;
+#pragma warning restore IDE1006 // Naming Styles
 
         internal SniperScopeSkillDef.ScopeInstanceData scopeInstanceData
         {
@@ -102,7 +110,10 @@ namespace Sniper.Components
 #endif
 
             CharacterMaster summoningMaster = base.master;
-            if( summoningMaster == null ) return;
+            if( summoningMaster == null )
+            {
+                return;
+            }
 
             CharacterMaster summonedMaster = new MasterSummon
             {
@@ -114,8 +125,8 @@ namespace Sniper.Components
                 preSpawnSetupCallback = DecoySummonPreSetup
             }.Perform();
 
-            var masterInv = summoningMaster.inventory;
-            var decoyInv = summonedMaster.inventory;
+            Inventory masterInv = summoningMaster.inventory;
+            Inventory decoyInv = summonedMaster.inventory;
 
             decoyInv.CopyEquipmentFrom( masterInv );
             decoyInv.CopyItemsFrom( masterInv );

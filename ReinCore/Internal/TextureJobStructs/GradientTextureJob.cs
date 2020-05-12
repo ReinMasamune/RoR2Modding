@@ -1,12 +1,12 @@
-﻿using System;
-using BepInEx;
-using Unity.Collections;
-using Unity.Jobs;
-using UnityEngine;
-using System.Linq;
-
-namespace ReinCore
+﻿namespace ReinCore
 {
+    using System;
+    using BepInEx;
+    using Unity.Collections;
+    using Unity.Jobs;
+    using UnityEngine;
+    using System.Linq;
+
     internal struct GradientTextureJob : ITextureJob
     {
         #region MAIN THREAD ONLY
@@ -61,25 +61,25 @@ namespace ReinCore
         #region All threads
         public void Execute( Int32 index )
         {
-            var t = index / (Single)this.texWidth;
+            Single t = index / (Single)this.texWidth;
 
-            var alpha = 0f;
-            var bestDiff = Mathf.Infinity;
+            Single alpha = 0f;
+            Single bestDiff = Mathf.Infinity;
             for( Int32 i = 1; i < this.aKeys.Length; ++i )
             {
-                var key1 = this.aKeys[i];
-                var key2 = this.aKeys[i-1];
+                GradientAlphaKey key1 = this.aKeys[i];
+                GradientAlphaKey key2 = this.aKeys[i-1];
 
                 if( key1.time > t && key2.time <= t )
                 {
-                    var dif = key2.time - key1.time;
-                    var localT = (t - key1.time) / dif;
+                    Single dif = key2.time - key1.time;
+                    Single localT = (t - key1.time) / dif;
                     alpha = Mathf.Lerp( key1.alpha, key2.alpha, localT );
                     break;
                 } else
                 {
-                    var diff1 = Mathf.Abs( key1.time - t );
-                    var diff2 = Mathf.Abs( key2.time - t );
+                    Single diff1 = Mathf.Abs( key1.time - t );
+                    Single diff2 = Mathf.Abs( key2.time - t );
                     if( diff1 < bestDiff )
                     {
                         bestDiff = diff1;
@@ -97,19 +97,19 @@ namespace ReinCore
             bestDiff = Mathf.Infinity;
             for( Int32 i = 1; i < this.cKeys.Length; ++i )
             {
-                var key1 = this.cKeys[i];
-                var key2 = this.cKeys[i-1];
+                GradientColorKey key1 = this.cKeys[i];
+                GradientColorKey key2 = this.cKeys[i-1];
                 
                 if( key1.time > t && key2.time <= t )
                 {
-                    var dif = key2.time - key1.time;
-                    var localT = (t - key1.time) / dif;
+                    Single dif = key2.time - key1.time;
+                    Single localT = (t - key1.time) / dif;
                     color = ExpandedInterpolation.Interpolate( key1.color, key2.color, localT, ExpandedInterpolation.Mode.Squares, ExpandedInterpolation.Style.Linear, ExpandedInterpolation.Clamping.Unclamped );
                     break;
                 } else
                 {
-                    var diff1 = Mathf.Abs( key1.time - t );
-                    var diff2 = Mathf.Abs( key2.time - t );
+                    Single diff1 = Mathf.Abs( key1.time - t );
+                    Single diff2 = Mathf.Abs( key2.time - t );
                     if( diff1 < bestDiff )
                     {
                         bestDiff = diff1;
@@ -132,8 +132,8 @@ namespace ReinCore
 
             for( Int32 i = 0; i < this.texHeight; ++i )
             {
-                var loc = index + this.texWidth * i;
-                this.texArray[index + this.texWidth * i] = color;
+                _ = index + ( this.texWidth * i );
+                this.texArray[index + (this.texWidth * i)] = color;
             }
         }
         private NativeArray<Color> texArray;

@@ -1,22 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using UnityEngine;
-using System.Linq;
-
-namespace ReinCore.Wooting
+﻿namespace ReinCore.Wooting
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+    using UnityEngine;
+    using System.Linq;
+
     internal static class GlobalKeyExtensionsWooting
     {
-        internal static (Byte row, Byte col) GetWootingKeyCoords( this GlobalKeys key )
-        {
-            return keyMap[key];
-        }
-        
-        internal static IList<GlobalKeys> GetAllWootingKeys()
-        {
-            return keyMap.Keys.ToList();
-        }
+        internal static (Byte row, Byte col) GetWootingKeyCoords( this GlobalKeys key ) => keyMap[key];
+
+        internal static IList<GlobalKeys> GetAllWootingKeys() => keyMap.Keys.ToList();
 
 
 

@@ -14,8 +14,8 @@
     public partial class Main
     {
         //public static Func<Color,Single,Single,Color> remapFunc;
-        private Texture2D mainTex;
-        private HashSet<SkinDef> addedSkins = new HashSet<SkinDef>();
+        private readonly Texture2D mainTex;
+        private readonly HashSet<SkinDef> addedSkins = new HashSet<SkinDef>();
 
         private Mesh artiDefaultMesh;
         private Mesh artiChangedMesh;
@@ -23,9 +23,9 @@
         private void EditModel()
         {
             Int32 iii = 0;
-            Transform model = artiBody.GetComponent<ModelLocator>().modelTransform;
+            Transform model = this.artiBody.GetComponent<ModelLocator>().modelTransform;
             #region Remove jets
-            var display = Resources.Load<GameObject>("Prefabs/CharacterDisplays/MageDisplay").transform.Find("mdlMage").GetComponent<CharacterModel>().baseRendererInfos;
+            CharacterModel.RendererInfo[] display = Resources.Load<GameObject>("Prefabs/CharacterDisplays/MageDisplay").transform.Find("mdlMage").GetComponent<CharacterModel>().baseRendererInfos;
             display[0].renderer.gameObject.SetActive( false );
             display[1].renderer.gameObject.SetActive( false );
             #endregion
@@ -37,17 +37,17 @@
             Int32 size = 1902;
             Int32 start1 = 4916;
             Int32 start2 = 10054;
-            SortedSet<Int32> inds = new SortedSet<Int32>();
+            var inds = new SortedSet<Int32>();
             for( Int32 i = 0; i < size; i++ )
             {
                 Int32 indOff1 = (i + start1) * 3;
-                inds.Add( tris[indOff1] );
-                inds.Add( tris[indOff1 + 1] );
-                inds.Add( tris[indOff1 + 2] );
+                _ = inds.Add( tris[indOff1] );
+                _ = inds.Add( tris[indOff1 + 1] );
+                _ = inds.Add( tris[indOff1 + 2] );
                 Int32 indOff2 = (i + start2) * 3;
-                inds.Add( tris[indOff2] );
-                inds.Add( tris[indOff2 + 1] );
-                inds.Add( tris[indOff2 + 2] );
+                _ = inds.Add( tris[indOff2] );
+                _ = inds.Add( tris[indOff2 + 1] );
+                _ = inds.Add( tris[indOff2 + 2] );
             }
             var boneWL = this.artiChangedMesh.boneWeights.ToList();
             var colorL = this.artiChangedMesh.colors.ToList();
@@ -59,28 +59,67 @@
             var trisL = this.artiChangedMesh.triangles.ToList();
             foreach( Int32 i in inds.Reverse() )
             {
-                if( boneWL.Count >= i ) boneWL.RemoveAt( i );
-                if( colorL.Count >= i ) colorL.RemoveAt( i );
-                if( color32L.Count >= i ) color32L.RemoveAt( i );
-                if( normalL.Count >= i ) normalL.RemoveAt( i );
-                if( tanL.Count >= i ) tanL.RemoveAt( i );
-                if( uv1L.Count >= i ) uv1L.RemoveAt( i );
-                if( vertL.Count >= i ) vertL.RemoveAt( i );
+                if( boneWL.Count >= i )
+                {
+                    boneWL.RemoveAt( i );
+                }
+
+                if( colorL.Count >= i )
+                {
+                    colorL.RemoveAt( i );
+                }
+
+                if( color32L.Count >= i )
+                {
+                    color32L.RemoveAt( i );
+                }
+
+                if( normalL.Count >= i )
+                {
+                    normalL.RemoveAt( i );
+                }
+
+                if( tanL.Count >= i )
+                {
+                    tanL.RemoveAt( i );
+                }
+
+                if( uv1L.Count >= i )
+                {
+                    uv1L.RemoveAt( i );
+                }
+
+                if( vertL.Count >= i )
+                {
+                    vertL.RemoveAt( i );
+                }
+
                 Int32 offset = 0;
                 for( Int32 j = 0; j < trisL.Count + offset; j += 3 )
                 {
-                    var ind1 = trisL[j - offset];
-                    var ind2 = trisL[j + 1 - offset];
-                    var ind3 = trisL[j + 2 - offset];
+                    Int32 ind1 = trisL[j - offset];
+                    Int32 ind2 = trisL[j + 1 - offset];
+                    Int32 ind3 = trisL[j + 2 - offset];
                     if( ind1 == i || ind2 == i || ind3 == i )
                     {
                         trisL.RemoveRange( j - offset, 3 );
                         offset += 3;
                         continue;
                     }
-                    if( ind1 > i ) trisL[j - offset] -= 1;
-                    if( ind2 > i ) trisL[j + 1 - offset] -= 1;
-                    if( ind3 > i ) trisL[j + 2 - offset] -= 1;
+                    if( ind1 > i )
+                    {
+                        trisL[j - offset] -= 1;
+                    }
+
+                    if( ind2 > i )
+                    {
+                        trisL[j + 1 - offset] -= 1;
+                    }
+
+                    if( ind3 > i )
+                    {
+                        trisL[j + 2 - offset] -= 1;
+                    }
                 }
             }
             this.artiChangedMesh.triangles = trisL.ToArray();
@@ -93,12 +132,12 @@
             this.artiChangedMesh.uv = uv1L.ToArray();
             #endregion
             #region Fix Skirt
-            model.gameObject.AddComponent<Components.SkirtFix>();
-            Resources.Load<GameObject>( "Prefabs/CharacterDisplays/MageDisplay" ).transform.Find( "mdlMage" ).gameObject.AddComponent<Components.SkirtFix>();
-            Resources.Load<GameObject>( "Prefabs/NetworkedObjects/LockedMage" ).transform.Find( "ModelBase" ).Find( "mdlMage" ).gameObject.AddComponent<Components.SkirtFix>();
+            _ = model.gameObject.AddComponent<Components.SkirtFix>();
+            _ = Resources.Load<GameObject>( "Prefabs/CharacterDisplays/MageDisplay" ).transform.Find( "mdlMage" ).gameObject.AddComponent<Components.SkirtFix>();
+            _ = Resources.Load<GameObject>( "Prefabs/NetworkedObjects/LockedMage" ).transform.Find( "ModelBase" ).Find( "mdlMage" ).gameObject.AddComponent<Components.SkirtFix>();
             #endregion
             #region Add Rotator
-            model.Find( "MageArmature" ).gameObject.AddComponent<Components.Rotator>();
+            _ = model.Find( "MageArmature" ).gameObject.AddComponent<Components.Rotator>();
             #endregion
 
             //model.GetComponent<CharacterModel>().itemDisplayRuleSet = Resources.Load<GameObject>( "Prefabs/CharacterBodies/AncientWispBody" ).GetComponent<ModelLocator>().modelTransform.GetComponent<CharacterModel>().itemDisplayRuleSet;
@@ -209,7 +248,7 @@
 
         private static Texture2D GetReadableTextureCopy( Texture2D baseTex )
         {
-            var temp = RenderTexture.active;
+            RenderTexture temp = RenderTexture.active;
 
             var newRT = RenderTexture.GetTemporary( baseTex.width, baseTex.height, 0, RenderTextureFormat.ARGB32, RenderTextureReadWrite.Linear );
 
@@ -246,7 +285,7 @@
                     color3 = new Color( 0.04f, 0.04f, 0.04f )
 
                 };
-                var jobHandle = job.Schedule(tex.width * tex.height, 1);
+                JobHandle jobHandle = job.Schedule(tex.width * tex.height, 1);
                 watch.Stop();
                 UnityEngine.Debug.LogWarning( "Schedule " + watch.ElapsedMilliseconds );
                 watch.Start();
@@ -294,9 +333,9 @@
                 rColor.r *= rColor.r;
                 rColor.g *= rColor.g;
                 rColor.b *= rColor.b;
-                var outColor = this.def;
-                var intensity = ( rColor.r + rColor.g + rColor.b ) / 3;
-                var i = Mathf.Pow( intensity, 0.2f );
+                Color outColor = this.def;
+                Single intensity = ( rColor.r + rColor.g + rColor.b ) / 3;
+                Single i = Mathf.Pow( intensity, 0.2f );
                 Single a = rColor.a;
 
                 Single tr = 0f;
@@ -305,9 +344,20 @@
 
                 Single max = Mathf.Max( rColor.r , rColor.g , rColor.b );
 
-                if( rColor.r == max ) tr += 1f;
-                if( rColor.g == max ) tg += 1f;
-                if( rColor.b == max ) tb += 1f;
+                if( rColor.r == max )
+                {
+                    tr += 1f;
+                }
+
+                if( rColor.g == max )
+                {
+                    tg += 1f;
+                }
+
+                if( rColor.b == max )
+                {
+                    tb += 1f;
+                }
 
                 if( i <= 0.35f )
                 {
@@ -381,7 +431,7 @@
 
             public static Color Rebase( Color color, Color mod, Single inputIntensity )
             {
-                var modIntensity = ( mod.r + mod.g + mod.b ) / 3;
+                Single modIntensity = ( mod.r + mod.g + mod.b ) / 3;
                 mod.r -= modIntensity;
                 mod.g -= modIntensity;
                 mod.b -= modIntensity;
@@ -400,7 +450,7 @@
 
         private static Sprite CreateSkinIcon( Color top, Color right, Color bottom, Color left, Color cross )
         {
-            Texture2D tex = new Texture2D( 128, 128, TextureFormat.RGBA32, false );
+            var tex = new Texture2D( 128, 128, TextureFormat.RGBA32, false );
             new IconTexJob
             {
                 top = top,
@@ -463,11 +513,11 @@
 
         private static Texture2D[] CreateArtiSkinTex()
         {
-            Texture2D tex = new Texture2D( 512, 512, TextureFormat.RGBAFloat, false );
-            var texArray = tex.GetRawTextureData<Color>();
+            var tex = new Texture2D( 512, 512, TextureFormat.RGBAFloat, false );
+            NativeArray<Color> texArray = tex.GetRawTextureData<Color>();
             var texSize = new Vector2Int( tex.width, tex.height );
-            Texture2D tex2 = new Texture2D( 512, 512, TextureFormat.RGBAFloat, false );
-            var texArray2 = tex2.GetRawTextureData<Color>();
+            var tex2 = new Texture2D( 512, 512, TextureFormat.RGBAFloat, false );
+            NativeArray<Color> texArray2 = tex2.GetRawTextureData<Color>();
             var texSize2 = new Vector2Int( tex2.width, tex2.height );
 
             DrawBlock( texArray, new Color( 0.2f, 0.2f, 0.2f, 1.0f ), new RectInt( 0, 0, 512, 512 ), texSize ).Complete();  //Base
@@ -531,10 +581,10 @@
 
             public void Execute( Int32 index )
             {
-                var x = this.startX + ( index % this.sizeX );
-                var y = this.texSizeY - (this.startY + Mathf.FloorToInt( index / this.sizeX ) ) - 1;
+                Int32 x = this.startX + ( index % this.sizeX );
+                Int32 y = this.texSizeY - (this.startY + Mathf.FloorToInt( index / this.sizeX ) ) - 1;
                 //y = this.texSizeY - y - 1;
-                var id = ( x + y * this.texSizeX );
+                Int32 id =  x + (y * this.texSizeX) ;
 
                 this.tex[id] = this.color;
             }

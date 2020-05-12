@@ -1,20 +1,20 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using BepInEx.Logging;
-using ReinCore;
-using RoR2;
-using RoR2.UI;
-using Sniper.Data;
-using Sniper.Enums;
-using Sniper.Modules;
-using UnityEngine;
-using UnityEngine.Networking;
-using UnityEngine.UI;
-
-namespace Sniper.Components
+﻿namespace Sniper.Components
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Runtime.CompilerServices;
+    using BepInEx.Logging;
+    using ReinCore;
+    using RoR2;
+    using RoR2.UI;
+    using Sniper.Data;
+    using Sniper.Enums;
+    using Sniper.Modules;
+    using UnityEngine;
+    using UnityEngine.Networking;
+    using UnityEngine.UI;
+
     internal class ReloadUIController : MonoBehaviour
     {
         //[property: MethodImpl( MethodImplOptions.AggressiveInlining )]
@@ -58,8 +58,8 @@ namespace Sniper.Components
         #endregion
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         #region Internal
-        private static Dictionary<CharacterBody, ReloadUIController> instances = new Dictionary<CharacterBody, ReloadUIController>();
-        private static Dictionary<ReloadParams, Texture2D> cachedBarTextures = new Dictionary<ReloadParams, Texture2D>();
+        private static readonly Dictionary<CharacterBody, ReloadUIController> instances = new Dictionary<CharacterBody, ReloadUIController>();
+        private static readonly Dictionary<ReloadParams, Texture2D> cachedBarTextures = new Dictionary<ReloadParams, Texture2D>();
 
 
 
@@ -83,24 +83,18 @@ namespace Sniper.Components
             this.reloadTimer = 0f;
             this.reloadSlider.value = 0f;
             this.barTexture = GetReloadTexture( this.currentReloadParams );
-            base.StartCoroutine( this.ReloadStartDelay( this.currentReloadParams.reloadDelay / this.body.attackSpeed ) );
+            _ = base.StartCoroutine( this.ReloadStartDelay( this.currentReloadParams.reloadDelay / this.body.attackSpeed ) );
         }
 
-        internal ReloadTier ReadReload()
-        {
-            return this.currentReloadParams.GetReloadTier( this.reloadTimer );
-        }
+        internal ReloadTier ReadReload() => this.currentReloadParams.GetReloadTier( this.reloadTimer );
 
         internal void StopReload( SkillDefs.SniperReloadableFireSkillDef.SniperPrimaryInstanceData data )
         {
             this.isReloading = false;
-            base.StartCoroutine( this.ReloadStopDelay( this.currentReloadParams.reloadEndDelay / this.body.attackSpeed, data ) );
+            _ = base.StartCoroutine( this.ReloadStopDelay( this.currentReloadParams.reloadEndDelay / this.body.attackSpeed, data ) );
         }
 
-        internal Boolean CanReload()
-        {
-            return this.isReloading;
-        }
+        internal Boolean CanReload() => this.isReloading;
 
 
 
@@ -117,10 +111,7 @@ namespace Sniper.Components
         private CharacterBody body;
         private Boolean showBar
         {
-            set
-            {
-                this.barHolder?.SetActive( value );
-            }
+            set => this.barHolder?.SetActive( value );
         }
 
         private Texture2D barTexture
@@ -135,11 +126,10 @@ namespace Sniper.Components
                 }
             }
         }
+#pragma warning disable IDE1006 // Naming Styles
         private Texture2D _barTexture;
-        private void OnBarTextureChanged( Texture2D oldTex, Texture2D newTex )
-        {
-            this.backgroundImage.sprite = Sprite.Create( newTex, new Rect( 0f, 0f, newTex.width, newTex.height ), new Vector2( 0.5f, 0.5f ) );
-        }
+#pragma warning restore IDE1006 // Naming Styles
+        private void OnBarTextureChanged( Texture2D oldTex, Texture2D newTex ) => this.backgroundImage.sprite = Sprite.Create( newTex, new Rect( 0f, 0f, newTex.width, newTex.height ), new Vector2( 0.5f, 0.5f ) );
 
         private void OnEnable()
         {

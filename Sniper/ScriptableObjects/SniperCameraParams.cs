@@ -1,16 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using RoR2;
-using UnityEngine;
-
-namespace Sniper.ScriptableObjects
+﻿namespace Sniper.ScriptableObjects
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+    using RoR2;
+    using UnityEngine;
+
     internal class SniperCameraParams : CharacterCameraParams
     {
         internal static SniperCameraParams Create( Vector3 throwPosition )
         {
-            var obj = ScriptableObject.CreateInstance<SniperCameraParams>();
+            SniperCameraParams obj = ScriptableObject.CreateInstance<SniperCameraParams>();
             obj.throwLocalCameraPos = throwPosition;
 
             return obj;

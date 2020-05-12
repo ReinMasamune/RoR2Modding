@@ -1,21 +1,21 @@
-﻿using BepInEx;
-using RoR2;
-using UnityEngine;
-using System.Collections.Generic;
-using RoR2.Navigation;
-using Mono.Cecil.Cil;
-using MonoMod.Cil;
-using System;
-using System.Reflection;
-using EntityStates;
-using RoR2.Skills;
-using System.Collections;
-using ReinCore;
-using EntityStates.Huntress.HuntressWeapon;
-using UnityEngine.Networking;
-
-namespace ReinGeneralFixes
+﻿namespace ReinGeneralFixes
 {
+    using BepInEx;
+    using RoR2;
+    using UnityEngine;
+    using System.Collections.Generic;
+    using RoR2.Navigation;
+    using Mono.Cecil.Cil;
+    using MonoMod.Cil;
+    using System;
+    using System.Reflection;
+    using EntityStates;
+    using RoR2.Skills;
+    using System.Collections;
+    using ReinCore;
+    using EntityStates.Huntress.HuntressWeapon;
+    using UnityEngine.Networking;
+
     internal partial class Main
     {
         partial void FixHuntressFlurry()

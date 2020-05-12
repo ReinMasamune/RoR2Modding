@@ -1,19 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using BepInEx.Logging;
-using EntityStates;
-using ReinCore;
-using RoR2;
-using RoR2.CharacterAI;
-using RoR2.Networking;
-using Sniper.Components;
-using Sniper.States.Other;
-using UnityEngine;
-using UnityEngine.Networking;
-
-namespace Sniper.Modules
+﻿namespace Sniper.Modules
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Runtime.CompilerServices;
+    using BepInEx.Logging;
+    using EntityStates;
+    using ReinCore;
+    using RoR2;
+    using RoR2.CharacterAI;
+    using RoR2.Networking;
+    using Sniper.Components;
+    using Sniper.States.Other;
+    using UnityEngine;
+    using UnityEngine.Networking;
+
     internal static class DecoyModule
     {
         internal static readonly DeployableSlot deployableSlot;
@@ -151,7 +151,7 @@ namespace Sniper.Modules
 
 
             HurtBoxGroup hurtBoxGroup = model.AddOrGetComponent<HurtBoxGroup>();
-            var tempHb = model.GetComponentInChildren<HurtBox>();
+            HurtBox tempHb = model.GetComponentInChildren<HurtBox>();
 
             tempHb.gameObject.layer = LayerIndex.entityPrecise.intVal;
             tempHb.healthComponent = health;
@@ -255,7 +255,7 @@ namespace Sniper.Modules
             // TODO: Death sounds for decoy
 
 
-            var rb = obj.AddOrGetComponent<Rigidbody>();
+            Rigidbody rb = obj.AddOrGetComponent<Rigidbody>();
             rb.mass = 1000f;
             rb.drag = 0f;
             rb.angularDrag = 0f;
@@ -265,9 +265,9 @@ namespace Sniper.Modules
             rb.collisionDetectionMode = CollisionDetectionMode.Discrete;
 
 
-            var charMot = obj.AddOrGetComponent<CharacterMotor>();
+            CharacterMotor charMot = obj.AddOrGetComponent<CharacterMotor>();
             charMot.walkSpeedPenaltyCoefficient = 1f;
-            var charDir = charMot.characterDirection = obj.AddOrGetComponent<CharacterDirection>();
+            CharacterDirection charDir = charMot.characterDirection = obj.AddOrGetComponent<CharacterDirection>();
             charMot.muteWalkMotion = false;
             charMot.mass = 1000f;
             charMot.airControl = 0.25f;
@@ -287,7 +287,7 @@ namespace Sniper.Modules
             charDir.turnSpeed = 180f;
 
 
-            var kinCharMot = obj.AddOrGetComponent<KinematicCharacterController.KinematicCharacterMotor>();
+            KinematicCharacterController.KinematicCharacterMotor kinCharMot = obj.AddOrGetComponent<KinematicCharacterController.KinematicCharacterMotor>();
             kinCharMot.CharacterController = charMot;
             kinCharMot.Capsule = cap;
             kinCharMot.Rigidbody = rb;
@@ -318,7 +318,7 @@ namespace Sniper.Modules
             obj.layer = LayerIndex.fakeActor.intVal;
 
 
-            foreach( var comp in obj.GetComponents<IRuntimePrefabComponent>() )
+            foreach( IRuntimePrefabComponent comp in obj.GetComponents<IRuntimePrefabComponent>() )
             {
                 comp.InitializePrefab();
             }
@@ -409,7 +409,7 @@ namespace Sniper.Modules
             aiOwnership.ownerMaster = null;
 
 
-            foreach( var comp in master.GetComponents<IRuntimePrefabComponent>() )
+            foreach( IRuntimePrefabComponent comp in master.GetComponents<IRuntimePrefabComponent>() )
             {
                 comp.InitializePrefab();
             }

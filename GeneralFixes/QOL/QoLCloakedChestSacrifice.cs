@@ -1,19 +1,19 @@
-﻿using BepInEx;
-using RoR2;
-using UnityEngine;
-using System.Collections.Generic;
-using RoR2.Navigation;
-using Mono.Cecil.Cil;
-using MonoMod.Cil;
-using System;
-using System.Reflection;
-using EntityStates;
-using RoR2.Skills;
-using System.Collections;
-using ReinCore;
-
-namespace ReinGeneralFixes
+﻿namespace ReinGeneralFixes
 {
+    using BepInEx;
+    using RoR2;
+    using UnityEngine;
+    using System.Collections.Generic;
+    using RoR2.Navigation;
+    using Mono.Cecil.Cil;
+    using MonoMod.Cil;
+    using System;
+    using System.Reflection;
+    using EntityStates;
+    using RoR2.Skills;
+    using System.Collections;
+    using ReinCore;
+
     internal partial class Main
     {
         private InteractableSpawnCard stealthedISC;

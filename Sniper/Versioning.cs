@@ -1,7 +1,8 @@
-﻿using System;
-namespace Sniper.Properties
+﻿namespace Sniper.Properties
 {
-	public static class Info
+    using System;
+
+    public static class Info
 	{
 		/// <summary>
 		/// The version of the library

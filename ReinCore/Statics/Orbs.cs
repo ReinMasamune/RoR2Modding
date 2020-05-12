@@ -1,17 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using BepInEx;
-using RoR2.Orbs;
-
-namespace ReinCore
+﻿namespace ReinCore
 {
+    using System;
+    using System.Collections.Generic;
+    using BepInEx;
+    using RoR2.Orbs;
+
     /// <summary>
     /// 
     /// </summary>
     public static class OrbsCore
     {
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public static Boolean loaded { get; internal set; } = false;
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public static event Action<List<Type>> getAdditionalOrbs;
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
 
 
@@ -24,23 +28,30 @@ namespace ReinCore
 
 
 
-        private static StaticAccessor<Type[]> indexToType = new StaticAccessor<Type[]>( typeof(OrbCatalog), "indexToType" );
-        private static StaticAccessor<Dictionary<Type,Int32>> typeToIndex = new StaticAccessor<Dictionary<Type, Int32>>( typeof(OrbCatalog), "typeToIndex" );
+        private static readonly StaticAccessor<Type[]> indexToType = new StaticAccessor<Type[]>( typeof(OrbCatalog), "indexToType" );
+        private static readonly StaticAccessor<Dictionary<Type,Int32>> typeToIndex = new StaticAccessor<Dictionary<Type, Int32>>( typeof(OrbCatalog), "typeToIndex" );
 
         private static void GenerateCatalog_On( HooksCore.RoR2.Orbs.OrbCatalog.GenerateCatalog.Orig orig )
         {
             orig();
-            if( !loaded ) return;
+            if( !loaded )
+            {
+                return;
+            }
+
             var list = new List<Type>();
             getAdditionalOrbs?.Invoke( list );
 
-            var extra = list.Count;
-            if( extra <= 0 ) return;
+            Int32 extra = list.Count;
+            if( extra <= 0 )
+            {
+                return;
+            }
 
-            var orbs = indexToType.Get();
-            var lookup = typeToIndex.Get();
-            var start = orbs.Length;
-            var newTotal = start + extra;
+            Type[] orbs = indexToType.Get();
+            Dictionary<Type, Int32> lookup = typeToIndex.Get();
+            Int32 start = orbs.Length;
+            Int32 newTotal = start + extra;
             Array.Resize<Type>( ref orbs, newTotal );
             for( Int32 i = start; i < newTotal; ++i )
             {

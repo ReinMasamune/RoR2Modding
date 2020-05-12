@@ -1,9 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ReinCore
+﻿namespace ReinCore
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+
+    /// <summary>
+    /// Mesh asset lookup index
+    /// </summary>
     public enum MeshIndex : UInt64
     {
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member

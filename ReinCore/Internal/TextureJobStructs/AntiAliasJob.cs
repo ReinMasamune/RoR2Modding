@@ -1,13 +1,13 @@
-﻿using System;
-using BepInEx;
-using Unity.Collections;
-using Unity.Jobs;
-using UnityEngine;
-using System.Linq;
-using Unity.Burst;
-
-namespace ReinCore
+﻿namespace ReinCore
 {
+    using System;
+    using BepInEx;
+    using Unity.Collections;
+    using Unity.Jobs;
+    using UnityEngine;
+    using System.Linq;
+    using Unity.Burst;
+
     internal struct AntiAliasJob : ITextureJob
     {
         #region MAIN THREAD ONLY
@@ -44,23 +44,23 @@ namespace ReinCore
         #region All threads
         public void Execute( Int32 index )
         {
-            var x = index % this.texWidth;
-            var y = index / this.texWidth;
+            Int32 x = index % this.texWidth;
+            Int32 y = index / this.texWidth;
 
-            var blockXMin = x * this.blockSize;
-            var blockYMin = y * this.blockSize;
-            var blockXMax = blockXMin + this.blockSize;
-            var blockYMax = blockYMin + this.blockSize;
+            Int32 blockXMin = x * this.blockSize;
+            Int32 blockYMin = y * this.blockSize;
+            Int32 blockXMax = blockXMin + this.blockSize;
+            Int32 blockYMax = blockYMin + this.blockSize;
 
-            Color colAccum = new Color( 0f, 0f, 0f, 0f );
+            var colAccum = new Color( 0f, 0f, 0f, 0f );
 
-            for( var sampY = blockYMin; sampY < blockYMax; ++sampY )
+            for( Int32 sampY = blockYMin; sampY < blockYMax; ++sampY )
             {
-                var yVal = sampY * this.sampleWidth;
-                for( var sampX = blockXMin; sampX < blockXMax; ++sampX )
+                Int32 yVal = sampY * this.sampleWidth;
+                for( Int32 sampX = blockXMin; sampX < blockXMax; ++sampX )
                 {
-                    var ind = yVal + sampX;
-                    var col = this.samples[ind];
+                    Int32 ind = yVal + sampX;
+                    Color col = this.samples[ind];
                     colAccum += col;
                 }
             }

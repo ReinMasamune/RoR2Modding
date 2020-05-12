@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using ReinCore;
-using RoR2;
-using Sniper.Modules;
-using UnityEngine;
-
-namespace Sniper.Effects
+﻿namespace Sniper.Effects
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+    using ReinCore;
+    using RoR2;
+    using Sniper.Modules;
+    using UnityEngine;
+
     internal static partial class EffectCreator
     {
         internal static GameObject CreateBaseAmmoTracer( Material mainMat, Material trailMat )
@@ -75,7 +75,7 @@ namespace Sniper.Effects
             ZeroTracerLengthOverDuration zeroLength = obj.AddComponent<ZeroTracerLengthOverDuration>();
             zeroLength.tracer = tracer;
 
-            var timer = obj.AddComponent<DestroyOnTimer>();
+            DestroyOnTimer timer = obj.AddComponent<DestroyOnTimer>();
             timer.duration = 10f;
 
 
@@ -206,10 +206,10 @@ namespace Sniper.Effects
 
             trail.localEulerAngles = new Vector3( 90f, 0f, 0f );
 
-            var trail2 = UnityEngine.Object.Instantiate<GameObject>( trail.gameObject, tailRotate ).transform;
+            Transform trail2 = UnityEngine.Object.Instantiate<GameObject>( trail.gameObject, tailRotate ).transform;
             trail2.localEulerAngles = new Vector3( -30f, -90f, 0f );
 
-            var trail3 = UnityEngine.Object.Instantiate<GameObject>( trail.gameObject, tailRotate ).transform;
+            Transform trail3 = UnityEngine.Object.Instantiate<GameObject>( trail.gameObject, tailRotate ).transform;
             trail3.localEulerAngles = new Vector3( -150f, -90f, 0f );
 
             return obj;

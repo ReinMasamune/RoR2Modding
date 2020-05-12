@@ -1,12 +1,12 @@
-﻿using System;
-using EntityStates;
-using RoR2;
-using Sniper.Data;
-using Sniper.SkillDefs;
-using UnityEngine;
-
-namespace Sniper.States.Bases
+﻿namespace Sniper.States.Bases
 {
+    using System;
+    using EntityStates;
+    using RoR2;
+    using Sniper.Data;
+    using Sniper.SkillDefs;
+    using UnityEngine;
+
     internal abstract class ScopeBaseState : SniperSkillBaseState
     {
         internal SniperScopeSkillDef.ScopeInstanceData instanceData;
@@ -44,10 +44,7 @@ namespace Sniper.States.Bases
 
         }
 
-        public override void OnEnter()
-        {
-            base.OnEnter();
-        }
+        public override void OnEnter() => base.OnEnter();
 
         public override void FixedUpdate()
         {
@@ -71,9 +68,6 @@ namespace Sniper.States.Bases
             this.instanceData?.Invalidate();
         }
 
-        public override InterruptPriority GetMinimumInterruptPriority()
-        {
-            return InterruptPriority.PrioritySkill;
-        }
+        public override InterruptPriority GetMinimumInterruptPriority() => InterruptPriority.PrioritySkill;
     }
 }

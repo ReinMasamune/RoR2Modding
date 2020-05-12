@@ -1,19 +1,19 @@
-﻿using BepInEx;
-using RoR2;
-using UnityEngine;
-using System.Collections.Generic;
-using RoR2.Navigation;
-using Mono.Cecil.Cil;
-using MonoMod.Cil;
-using System;
-using System.Reflection;
-using EntityStates;
-using RoR2.Skills;
-using System.Collections;
-using ReinCore;
-
-namespace ReinGeneralFixes
+﻿namespace ReinGeneralFixes
 {
+    using BepInEx;
+    using RoR2;
+    using UnityEngine;
+    using System.Collections.Generic;
+    using RoR2.Navigation;
+    using Mono.Cecil.Cil;
+    using MonoMod.Cil;
+    using System;
+    using System.Reflection;
+    using EntityStates;
+    using RoR2.Skills;
+    using System.Collections;
+    using ReinCore;
+
     internal partial class Main
     {
         private delegate void OnHitDelegate(DamageInfo damage, CharacterBody attacker, CharacterBody victim);
@@ -53,39 +53,71 @@ namespace ReinGeneralFixes
 
         private static void BleedFromDamageType( DamageInfo damage, CharacterBody attacker, CharacterBody victim )
         {
-            if( (damage.damageType & DamageType.BleedOnHit) == 0 ) return;
+            if( (damage.damageType & DamageType.BleedOnHit) == 0 )
+            {
+                return;
+            }
+
             DotController.InflictDot( victim.gameObject, attacker.gameObject, DotController.DotIndex.Bleed, 3f * damage.procCoefficient, 1f );
         }
 
         private static void BleedFromTriTip( DamageInfo damage, CharacterBody attacker, CharacterBody victim )
         {
             CharacterMaster master = attacker.master;
-            if( !master ) return;
+            if( !master )
+            {
+                return;
+            }
+
             Inventory inv = attacker.inventory;
-            if( !inv ) return;
+            if( !inv )
+            {
+                return;
+            }
+
             Int32 itemCount = inv.GetItemCount( ItemIndex.BleedOnHit );
-            if( itemCount <= 0 ) return;
+            if( itemCount <= 0 )
+            {
+                return;
+            }
+
             Single coef = Mathf.Sqrt(damage.procCoefficient);
             Single chance = Mathf.Min(100f,  15f * itemCount  * coef );
-            if( !Util.CheckRoll( chance, attacker.master ) ) return;
+            if( !Util.CheckRoll( chance, attacker.master ) )
+            {
+                return;
+            }
+
             DotController.InflictDot( victim.gameObject, attacker.gameObject, DotController.DotIndex.Bleed, 3f * coef, 1f );
         }
 
         private static void BurnFromDamageType( DamageInfo damage, CharacterBody attacker, CharacterBody victim )
         {
-            if( (damage.damageType & DamageType.IgniteOnHit) == 0 ) return;
+            if( (damage.damageType & DamageType.IgniteOnHit) == 0 )
+            {
+                return;
+            }
+
             DotController.InflictDot( victim.gameObject, attacker.gameObject, DotController.DotIndex.Burn, 4f * damage.procCoefficient, 1f );
         }
 
         private static void PercentBurnFromDamageType( DamageInfo damage, CharacterBody attacker, CharacterBody victim )
         {
-            if( (damage.damageType & DamageType.PercentIgniteOnHit) == 0 ) return;
+            if( (damage.damageType & DamageType.PercentIgniteOnHit) == 0 )
+            {
+                return;
+            }
+
             DotController.InflictDot( victim.gameObject, attacker.gameObject, DotController.DotIndex.PercentBurn, 4f * damage.procCoefficient, 1f );
         }
 
         private static void PercentBurnFromAffix( DamageInfo damage, CharacterBody attacker, CharacterBody victim )
         {
-            if( !attacker.HasBuff( BuffIndex.AffixRed ) ) return;
+            if( !attacker.HasBuff( BuffIndex.AffixRed ) )
+            {
+                return;
+            }
+
             DotController.InflictDot( victim.gameObject, attacker.gameObject, DotController.DotIndex.PercentBurn, 4f * damage.procCoefficient, 1f );
         }
     }

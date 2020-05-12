@@ -1,21 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using BepInEx.Logging;
-using ReinCore;
-using RoR2;
-using RoR2.Networking;
-using UnityEngine;
-using KinematicCharacterController;
-using EntityStates;
-using RoR2.Skills;
-using System.Reflection;
-using Sniper.States.Bases;
-using Sniper.Enums;
-using Sniper.Modules;
-
-namespace Sniper.States.Primary.Reload
+﻿namespace Sniper.States.Primary.Reload
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Runtime.CompilerServices;
+    using BepInEx.Logging;
+    using ReinCore;
+    using RoR2;
+    using RoR2.Networking;
+    using UnityEngine;
+    using KinematicCharacterController;
+    using EntityStates;
+    using RoR2.Skills;
+    using System.Reflection;
+    using Sniper.States.Bases;
+    using Sniper.Enums;
+    using Sniper.Modules;
+
     internal class DefaultReload : SniperSkillBaseState, ISniperReloadState
     {
         const Single baseDuration = 0.75f;
@@ -26,7 +26,7 @@ namespace Sniper.States.Primary.Reload
         public ReloadTier reloadTier { get; set; }
 
         private Transform gunTransform;
-        private Transform origParent;
+        private readonly Transform origParent;
 
         public override void OnEnter()
         {
@@ -59,9 +59,6 @@ namespace Sniper.States.Primary.Reload
             this.gunTransform.localScale = Vector3.one;
         }
 
-        public override InterruptPriority GetMinimumInterruptPriority()
-        {
-            return InterruptPriority.PrioritySkill;
-        }
+        public override InterruptPriority GetMinimumInterruptPriority() => InterruptPriority.PrioritySkill;
     }
 }

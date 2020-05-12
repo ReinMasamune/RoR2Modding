@@ -12,48 +12,48 @@
 
     public partial class Main
     {
-        private HashSet<SkillDef> addedSkills = new HashSet<SkillDef>();
-        private HashSet<SkillFamily> addedSkillFamilies = new HashSet<SkillFamily>();
+        private readonly HashSet<SkillDef> addedSkills = new HashSet<SkillDef>();
+        private readonly HashSet<SkillFamily> addedSkillFamilies = new HashSet<SkillFamily>();
 
         private void EditSkills()
         {
-            artiSkillLocator.passiveSkill.enabled = false;
+            this.artiSkillLocator.passiveSkill.enabled = false;
 
-            SelectablePassive();
-            SetupStateMachines();
-            TempModSpecial();
+            this.SelectablePassive();
+            this.SetupStateMachines();
+            this.TempModSpecial();
         }
 
         private void SelectablePassive()
         {
-            var primary = artiSkillLocator.primary;
-            var secondary = artiSkillLocator.secondary;
-            var utility = artiSkillLocator.utility;
-            var special = artiSkillLocator.special;
+            GenericSkill primary = this.artiSkillLocator.primary;
+            GenericSkill secondary = this.artiSkillLocator.secondary;
+            GenericSkill utility = this.artiSkillLocator.utility;
+            GenericSkill special = this.artiSkillLocator.special;
 
-            var passiveFamily = ScriptableObject.CreateInstance<SkillFamily>();
-            var primaryFamily = primary.skillFamily;
-            var secondaryFamily = secondary.skillFamily;
-            var utilityFamily = utility.skillFamily;
-            var specialFamily = special.skillFamily;
+            SkillFamily passiveFamily = ScriptableObject.CreateInstance<SkillFamily>();
+            SkillFamily primaryFamily = primary.skillFamily;
+            SkillFamily secondaryFamily = secondary.skillFamily;
+            SkillFamily utilityFamily = utility.skillFamily;
+            SkillFamily specialFamily = special.skillFamily;
 
-            var passive = primary;
+            GenericSkill passive = primary;
             primary = secondary;
             secondary = utility;
             utility = special;
-            special = artiBody.AddComponent<GenericSkill>();
+            special = this.artiBody.AddComponent<GenericSkill>();
 
-            artiSkillLocator.primary = primary;
-            artiSkillLocator.secondary = secondary;
-            artiSkillLocator.utility = utility;
-            artiSkillLocator.special = special;
+            this.artiSkillLocator.primary = primary;
+            this.artiSkillLocator.secondary = secondary;
+            this.artiSkillLocator.utility = utility;
+            this.artiSkillLocator.special = special;
 
-            var envSuit = ScriptableObject.CreateInstance<PassiveSkillDef>();
-            var elementalIntensity = ScriptableObject.CreateInstance<PassiveSkillDef>();
+            PassiveSkillDef envSuit = ScriptableObject.CreateInstance<PassiveSkillDef>();
+            PassiveSkillDef elementalIntensity = ScriptableObject.CreateInstance<PassiveSkillDef>();
 
-            envSuit.skillNameToken = artiSkillLocator.passiveSkill.skillNameToken;
-            envSuit.skillDescriptionToken = artiSkillLocator.passiveSkill.skillDescriptionToken;
-            envSuit.icon = artiSkillLocator.passiveSkill.icon;
+            envSuit.skillNameToken = this.artiSkillLocator.passiveSkill.skillNameToken;
+            envSuit.skillDescriptionToken = this.artiSkillLocator.passiveSkill.skillDescriptionToken;
+            envSuit.icon = this.artiSkillLocator.passiveSkill.icon;
 
             envSuit.stateMachineDefaults = new PassiveSkillDef.StateMachineDefaults[1]
             {
@@ -70,7 +70,7 @@
 
             elementalIntensity.skillNameToken = "REIN_ALTARTI_PASSIVE_NAME";
             elementalIntensity.skillDescriptionToken = "REIN_ALTARTI_PASSIVE_DESC";
-            var tex = Tools.LoadTexture2D( Rein.Properties.Resources.passive_2__1_ );
+            Texture2D tex = Tools.LoadTexture2D( Rein.Properties.Resources.passive_2__1_ );
             elementalIntensity.icon = Sprite.Create(tex, new Rect(0f, 0f, tex.width, tex.height ), envSuit.icon.pivot );
 
             elementalIntensity.stateMachineDefaults = new PassiveSkillDef.StateMachineDefaults[1]
@@ -88,7 +88,7 @@
 
             elementalIntensity.applyVisuals = ( model ) =>
             {
-                var renderInfos = model.baseRendererInfos;
+                CharacterModel.RendererInfo[] renderInfos = model.baseRendererInfos;
                 if( renderInfos.Length == 10 )
                 {
                     ((SkinnedMeshRenderer)model.baseRendererInfos[9].renderer).sharedMesh = this.artiChangedMesh;
@@ -107,7 +107,7 @@
 
             elementalIntensity.removeVisuals = ( model ) =>
             {
-                var renderInfos = model.baseRendererInfos;
+                CharacterModel.RendererInfo[] renderInfos = model.baseRendererInfos;
                 if( renderInfos.Length == 10 )
                 {
                     try
@@ -142,13 +142,13 @@
                 }
             };
 
-            LoadoutAPI.AddSkillDef( envSuit );
-            LoadoutAPI.AddSkillDef( elementalIntensity );
-            LoadoutAPI.AddSkillFamily( passiveFamily );
+            _ = LoadoutAPI.AddSkillDef( envSuit );
+            _ = LoadoutAPI.AddSkillDef( elementalIntensity );
+            _ = LoadoutAPI.AddSkillFamily( passiveFamily );
 
-            addedSkills.Add( envSuit );
-            addedSkills.Add( elementalIntensity );
-            addedSkillFamilies.Add( passiveFamily );
+            _ = this.addedSkills.Add( envSuit );
+            _ = this.addedSkills.Add( elementalIntensity );
+            _ = this.addedSkillFamilies.Add( passiveFamily );
 
             passive.SetFieldValue<SkillFamily>( "_skillFamily", passiveFamily );
             primary.SetFieldValue<SkillFamily>( "_skillFamily", primaryFamily );
@@ -162,14 +162,14 @@
 
         private void RegisterSkillTypes()
         {
-            LoadoutAPI.AddSkill( typeof( States.Special.IonSurge ) );
-            LoadoutAPI.AddSkill( typeof( States.Main.AltArtiPassive ) );
+            _ = LoadoutAPI.AddSkill( typeof( States.Special.IonSurge ) );
+            _ = LoadoutAPI.AddSkill( typeof( States.Main.AltArtiPassive ) );
         }
 
         private void SetupStateMachines()
         {
-            var stateOnHurt = artiBody.GetComponent<SetStateOnHurt>();
-            var idles = stateOnHurt.idleStateMachine;
+            SetStateOnHurt stateOnHurt = this.artiBody.GetComponent<SetStateOnHurt>();
+            EntityStateMachine[] idles = stateOnHurt.idleStateMachine;
             Array.Resize<EntityStateMachine>( ref idles, 1 );
             stateOnHurt.idleStateMachine = idles;
         }
@@ -181,9 +181,9 @@
 
         private void TempModSpecial()
         {
-            SkillFamily specialFamily = artiSkillLocator.special.skillFamily;
+            SkillFamily specialFamily = this.artiSkillLocator.special.skillFamily;
 
-            var specialDef = specialFamily.variants[1].skillDef;
+            SkillDef specialDef = specialFamily.variants[1].skillDef;
             specialDef.activationState = new EntityStates.SerializableEntityStateType( typeof( States.Special.IonSurge ) );
 
             specialDef.skillNameToken = "REIN_ALTARTI_LIGHTNING_SPECIAL_NAME";

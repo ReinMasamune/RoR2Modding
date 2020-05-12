@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ReinCore.Wooting
+﻿namespace ReinCore.Wooting
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+
     internal enum DeviceType
     {
         /// 10 Keyless Keyboard. E.g. Wooting One

@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using UnityEngine;
-
-namespace Sniper.ScriptableObjects.Custom
+﻿namespace Sniper.ScriptableObjects.Custom
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+    using UnityEngine;
+
     [CreateAssetMenu( fileName = "TextureSet", menuName = "Rein/Sniper/SniperTextureSet", order = 1 )]
     public class SniperTextureSet : ScriptableObject
     {
@@ -30,7 +30,7 @@ namespace Sniper.ScriptableObjects.Custom
             for( Int32 i = 0; i < source.sniperTextures.Count; ++i )
             {
                 SniperTexture tex = source.sniperTextures[i];
-                if( this.lookup.TryGetValue( tex.textureName, out var existingEntry ) )
+                if( this.lookup.TryGetValue( tex.textureName, out (Int32 index, Texture2D texture) existingEntry ) )
                 {
                     this.sniperTextures[existingEntry.index] = tex;
                 } else
@@ -42,13 +42,13 @@ namespace Sniper.ScriptableObjects.Custom
             this.Build();
         }
 
-        private Dictionary<String,(Int32 index,Texture2D texture)> lookup = new Dictionary<String, (Int32 index, Texture2D texture)>();
+        private readonly Dictionary<String,(Int32 index,Texture2D texture)> lookup = new Dictionary<String, (Int32 index, Texture2D texture)>();
 
         private void Build()
         {
             for( Int32 i = 0; i < this.sniperTextures.Count; ++i )
             {
-                var tex = this.sniperTextures[i];
+                SniperTexture tex = this.sniperTextures[i];
                 this.lookup[tex.textureName] = (i, tex.texture);
             }
         }
@@ -58,7 +58,10 @@ namespace Sniper.ScriptableObjects.Custom
             var hash = new HashSet<String>();
             for( Int32 i = 0; i < this.sniperTextures.Count; ++i )
             {
-                if( !hash.Add( this.sniperTextures[i].textureName ) ) throw new ArgumentException( "Cannot have duplicate names for textures in a set" );
+                if( !hash.Add( this.sniperTextures[i].textureName ) )
+                {
+                    throw new ArgumentException( "Cannot have duplicate names for textures in a set" );
+                }
             }
         }
 

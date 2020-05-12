@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using RoR2;
-using ReinCore;
-using UnityEngine;
-using Sniper.Modules;
-
-namespace Sniper.Data
+﻿namespace Sniper.Data
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+    using RoR2;
+    using ReinCore;
+    using UnityEngine;
+    using Sniper.Modules;
+
     internal class SniperSkin
     {
         [Flags]
@@ -50,7 +50,13 @@ namespace Sniper.Data
 
         internal void AddMaterialModifier( SniperMaterial materialMask, MaterialModifier modifier )
         {
-            foreach( KeyValuePair<SniperMaterial, List<MaterialModifier>> kv in this.materialModifiers ) if( materialMask.Flag( kv.Key ) ) kv.Value.Add( modifier );
+            foreach( KeyValuePair<SniperMaterial, List<MaterialModifier>> kv in this.materialModifiers )
+            {
+                if( materialMask.Flag( kv.Key ) )
+                {
+                    kv.Value.Add( modifier );
+                }
+            }
         }
 
 
@@ -63,11 +69,11 @@ namespace Sniper.Data
         {
             using( var skin = Skin.Create( model ) )
             {
-                var rendInfos = skin.rendererInfos;         
+                CharacterModel.RendererInfo[] rendInfos = skin.rendererInfos;         
                 for( Int32 i = 0; i < rendInfos.Length; ++i )
                 {
-                    var info = rendInfos[i];
-                    var smr = info.renderer;
+                    CharacterModel.RendererInfo info = rendInfos[i];
+                    Renderer smr = info.renderer;
                     switch( smr.name )
                     {
                         default:
@@ -138,75 +144,99 @@ namespace Sniper.Data
 
         private Material GetBodyMaterial()
         {
-            var mat = MaterialModule.CreateSniperBase().Clone();
+            StandardMaterial mat = MaterialModule.CreateSniperBase().Clone();
             this.sniperTextures.Apply( mat );
-            foreach( var mod in this.materialModifiers[SniperMaterial.Body] ) mod( mat );
+            foreach( MaterialModifier mod in this.materialModifiers[SniperMaterial.Body] )
+            {
+                mod( mat );
+            }
 
-            SniperMain.AddMaterial( mat, String.Format( "{0} {1}", name, "Body" ) );
+            SniperMain.AddMaterial( mat, String.Format( "{0} {1}", this.name, "Body" ) );
             return mat.material;
         }
         private Material GetArmorMaterial()
         {
-            var mat = MaterialModule.CreateSniperBase().Clone();
+            StandardMaterial mat = MaterialModule.CreateSniperBase().Clone();
             this.sniperTextures.Apply( mat );
-            foreach( var mod in this.materialModifiers[SniperMaterial.Armor] ) mod( mat );
+            foreach( MaterialModifier mod in this.materialModifiers[SniperMaterial.Armor] )
+            {
+                mod( mat );
+            }
 
-            SniperMain.AddMaterial( mat, String.Format( "{0} {1}", name, "Armor" ) );
+            SniperMain.AddMaterial( mat, String.Format( "{0} {1}", this.name, "Armor" ) );
             return mat.material;
         }
         private Material GetCloakMaterial()
         {
-            var mat = MaterialModule.CreateSniperBase().Clone();
+            StandardMaterial mat = MaterialModule.CreateSniperBase().Clone();
             this.sniperTextures.Apply( mat );
-            foreach( var mod in this.materialModifiers[SniperMaterial.Cloak] ) mod( mat );
+            foreach( MaterialModifier mod in this.materialModifiers[SniperMaterial.Cloak] )
+            {
+                mod( mat );
+            }
 
-            SniperMain.AddMaterial( mat, String.Format( "{0} {1}", name, "Cloak" ) );
+            SniperMain.AddMaterial( mat, String.Format( "{0} {1}", this.name, "Cloak" ) );
             return mat.material;
         }
         private Material GetAmmoMaterial()
         {
-            var mat = MaterialModule.CreateSniperBase().Clone();
+            StandardMaterial mat = MaterialModule.CreateSniperBase().Clone();
             this.sniperTextures.Apply( mat );
-            foreach( var mod in this.materialModifiers[SniperMaterial.Ammo] ) mod( mat );
+            foreach( MaterialModifier mod in this.materialModifiers[SniperMaterial.Ammo] )
+            {
+                mod( mat );
+            }
 
-            SniperMain.AddMaterial( mat, String.Format( "{0} {1}", name, "Ammo" ) );
+            SniperMain.AddMaterial( mat, String.Format( "{0} {1}", this.name, "Ammo" ) );
             return mat.material;
         }
         private Material GetEmissiveMaterial()
         {
-            var mat = MaterialModule.CreateSniperBase().Clone();
+            StandardMaterial mat = MaterialModule.CreateSniperBase().Clone();
             this.sniperTextures.Apply( mat );
-            foreach( var mod in this.materialModifiers[SniperMaterial.Emissive] ) mod( mat );
+            foreach( MaterialModifier mod in this.materialModifiers[SniperMaterial.Emissive] )
+            {
+                mod( mat );
+            }
 
-            SniperMain.AddMaterial( mat, String.Format( "{0} {1}", name, "Emissive" ) );
+            SniperMain.AddMaterial( mat, String.Format( "{0} {1}", this.name, "Emissive" ) );
             return mat.material;
         }
         private Material GetRailMaterial()
         {
-            var mat = MaterialModule.GetRailBase().Clone();
+            StandardMaterial mat = MaterialModule.GetRailBase().Clone();
             this.railTextures.Apply( mat );
-            foreach( var mod in this.materialModifiers[SniperMaterial.Rail] ) mod( mat );
+            foreach( MaterialModifier mod in this.materialModifiers[SniperMaterial.Rail] )
+            {
+                mod( mat );
+            }
 
-            SniperMain.AddMaterial( mat, String.Format( "{0} {1}", name, "Railgun" ) );
+            SniperMain.AddMaterial( mat, String.Format( "{0} {1}", this.name, "Railgun" ) );
             return mat.material;
         }
         private Material GetThrowKnifeMaterial()
         {
-            var mat = MaterialModule.GetThrowKnifeBase().Clone();
+            StandardMaterial mat = MaterialModule.GetThrowKnifeBase().Clone();
             this.throwKnifeTextures.Apply( mat );
-            foreach( var mod in this.materialModifiers[SniperMaterial.ThrowKnife] ) mod( mat );
+            foreach( MaterialModifier mod in this.materialModifiers[SniperMaterial.ThrowKnife] )
+            {
+                mod( mat );
+            }
 
-            SniperMain.AddMaterial( mat, String.Format( "{0} {1}", name, "ThrowKnife" ) );
+            SniperMain.AddMaterial( mat, String.Format( "{0} {1}", this.name, "ThrowKnife" ) );
             return mat.material;
         }
         private Material GetKnifeMaterial()
         {
             // TODO: Knife base material
-            var mat = MaterialModule.CreateSniperBase().Clone();
+            StandardMaterial mat = MaterialModule.CreateSniperBase().Clone();
             this.knifeTextures.Apply( mat );
-            foreach( var mod in this.materialModifiers[SniperMaterial.Knife] ) mod( mat );
+            foreach( MaterialModifier mod in this.materialModifiers[SniperMaterial.Knife] )
+            {
+                mod( mat );
+            }
 
-            SniperMain.AddMaterial( mat, String.Format( "{0} {1}", name, "Knife" ) );
+            SniperMain.AddMaterial( mat, String.Format( "{0} {1}", this.name, "Knife" ) );
             return mat.material;
         }
     }

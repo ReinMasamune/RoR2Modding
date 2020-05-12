@@ -1,29 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using BepInEx.Logging;
-using ReinCore;
-using RoR2;
-using RoR2.Networking;
-using UnityEngine;
-using KinematicCharacterController;
-using EntityStates;
-using RoR2.Skills;
-using System.Reflection;
-using Sniper.Expansions;
-using Sniper.SkillDefTypes.Bases;
-using Sniper.Components;
-using Sniper.Enums;
-
-namespace Sniper.SkillDefs
+﻿namespace Sniper.SkillDefs
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Runtime.CompilerServices;
+    using BepInEx.Logging;
+    using ReinCore;
+    using RoR2;
+    using RoR2.Networking;
+    using UnityEngine;
+    using KinematicCharacterController;
+    using EntityStates;
+    using RoR2.Skills;
+    using System.Reflection;
+    using Sniper.Expansions;
+    using Sniper.SkillDefTypes.Bases;
+    using Sniper.Components;
+    using Sniper.Enums;
+
     internal delegate ExpandableBulletAttack BulletCreationDelegate( SniperCharacterBody body, ReloadTier reload, Ray aim, String muzzleName );
     internal class SniperAmmoSkillDef : SniperSkillDef
     {
         internal static SniperAmmoSkillDef Create( BulletCreationDelegate createBullet )
         {
 #if ASSERT
-            if( createBullet == null ) Log.ErrorL( "Null Create delegate" );
+            if( createBullet == null )
+            {
+                Log.ErrorL( "Null Create delegate" );
+            }
 #endif
 
             SniperAmmoSkillDef def = ScriptableObject.CreateInstance<SniperAmmoSkillDef>();

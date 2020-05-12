@@ -29,7 +29,7 @@
             this.rotationTime = time;
             this.rotationTimer = time;
             this.target = target;
-            rotStart = base.transform.rotation;
+            this.rotStart = base.transform.rotation;
         }
 
         public void ResetRotation( Single time )
@@ -38,7 +38,7 @@
             this.useTarget = false;
             this.rotationTime = time;
             this.rotationTimer = time;
-            rotStart = base.transform.rotation;
+            this.rotStart = base.transform.rotation;
         }
 
         public void Awake()
@@ -46,23 +46,26 @@
             this.baseRotation = base.transform.localRotation;
             this.basePosition = base.transform.localPosition;
 
-            this.baseOffset = base.transform.InverseTransformPoint( base.transform.parent.TransformPoint( centerPoint ) );
+            this.baseOffset = base.transform.InverseTransformPoint( base.transform.parent.TransformPoint( this.centerPoint ) );
         }
 
         public void LateUpdate()
         {
-            if( !this.rotating ) return;
+            if( !this.rotating )
+            {
+                return;
+            }
 
-            var start = rotationTimer;
-            rotationTimer -= Time.deltaTime;
-            rotationTimer = Math.Max( 0f, rotationTimer );
-            var delta = start - rotationTimer;
+            Single start = this.rotationTimer;
+            this.rotationTimer -= Time.deltaTime;
+            this.rotationTimer = Math.Max( 0f, this.rotationTimer );
+            _ = start - this.rotationTimer;
 
             this.internalTarget = this.useTarget ? this.target : base.transform.parent.rotation * this.baseRotation ;
 
-            base.transform.rotation = Quaternion.Lerp( this.rotStart, this.internalTarget, 1f - (rotationTimer / rotationTime) );
+            base.transform.rotation = Quaternion.Lerp( this.rotStart, this.internalTarget, 1f - ( this.rotationTimer / this.rotationTime ) );
 
-            Vector3 idealCenter = base.transform.parent.TransformPoint(centerPoint);
+            Vector3 idealCenter = base.transform.parent.TransformPoint(this.centerPoint);
             Vector3 currentCenter = base.transform.TransformPoint( this.baseOffset );
             Vector3 diff = idealCenter - currentCenter;
 
@@ -71,7 +74,7 @@
             if( this.rotationTimer <= 0.0f )
             {
                 this.rotating = false;
-                if( !useTarget )
+                if( !this.useTarget )
                 {
                     base.transform.localRotation = this.baseRotation;
                     base.transform.localPosition = this.basePosition;

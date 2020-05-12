@@ -1,10 +1,10 @@
-﻿using System;
-using RoR2;
-using UnityEngine;
-using UnityEngine.Networking;
-
-namespace ReinCore
+﻿namespace ReinCore
 {
+    using System;
+    using RoR2;
+    using UnityEngine;
+    using UnityEngine.Networking;
+
     internal struct DoTMessage : INetMessage
     {
         public void Serialize( NetworkWriter writer )

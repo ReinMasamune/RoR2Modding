@@ -1,17 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using BepInEx;
-using Mono.Cecil;
-using Mono.Cecil.Cil;
-using MonoMod.Cil;
-using Rein.Properties;
-using RoR2;
-using RoR2.Networking;
-using UnityEngine;
-
-namespace ReinCore
+﻿namespace ReinCore
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Runtime.CompilerServices;
+    using BepInEx;
+    using Mono.Cecil;
+    using Mono.Cecil.Cil;
+    using MonoMod.Cil;
+    using Rein.Properties;
+    using RoR2;
+    using RoR2.Networking;
+    using UnityEngine;
+
     /// <summary>
     /// 
     /// </summary>
@@ -35,10 +35,7 @@ namespace ReinCore
         /// </summary>
         /// <param name="guid"></param>
         /// <returns></returns>
-        public static Boolean IsPluginLoaded( String guid )
-        {
-            return pluginsByName.ContainsKey( guid );
-        }
+        public static Boolean IsPluginLoaded( String guid ) => pluginsByName.ContainsKey( guid );
 
         /// <summary>
         /// 
@@ -52,7 +49,11 @@ namespace ReinCore
         /// <param name="fatalLogs"></param>
         public static void Init( Boolean doNetChecks, Boolean debugLogs, Boolean infoLogs, Boolean messageLogs, Boolean warningLogs, Boolean errorLogs, Boolean fatalLogs )
         {
-            if( !loaded ) throw new CoreNotLoadedException( nameof( ReinCore ) );
+            if( !loaded )
+            {
+                throw new CoreNotLoadedException( nameof( ReinCore ) );
+            }
+
             ReinCore.execLevel = 0;
             execLevel |= debugLogs ? ExecutionLevel.Debug : 0;
             execLevel |= infoLogs ? ExecutionLevel.Info : 0;
@@ -64,9 +65,15 @@ namespace ReinCore
         }
 
 
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public static void SupplySubmoduleData( HashSet<String> submoduleNames )
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
         {
-            if( submoduleNames == null ) return;
+            if( submoduleNames == null )
+            {
+                return;
+            }
+
             ParseSubmodules( submoduleNames );
             onSubmoduleDataSupplied?.Invoke( activeSubmodules );
         }
@@ -76,7 +83,10 @@ namespace ReinCore
             HooksCore.RoR2.RoR2Application.UnitySystemConsoleRedirector.Redirect.On += Redirect_On;
             HooksCore.RoR2.UI.QuickPlayButtonController.Start.On += Start_On;
             _ = Tools.LoadAssembly( Rein.Properties.Resources.RoR2ScriptForwarding );
-            if( !Log.loaded ) throw new CoreNotLoadedException( nameof( Log ) );
+            if( !Log.loaded )
+            {
+                throw new CoreNotLoadedException( nameof( Log ) );
+            }
 
             CheckPlugins();
             r2apiExists = pluginsByName.ContainsKey( "com.bepis.r2api" );
@@ -110,8 +120,8 @@ namespace ReinCore
         internal static event Action destroy;
 
 
-        private static GameObject managerObject;
-        private static Dictionary<String,PluginInfo> pluginsByName = new Dictionary<String, PluginInfo>();
+        private static readonly GameObject managerObject;
+        private static readonly Dictionary<String,PluginInfo> pluginsByName = new Dictionary<String, PluginInfo>();
 
         private static void Redirect_On( HooksCore.RoR2.RoR2Application.UnitySystemConsoleRedirector.Redirect.Orig orig )
         {
@@ -123,7 +133,7 @@ namespace ReinCore
 
         private static void ParseSubmodules( HashSet<String> loadedSubmodules )
         {
-            foreach( var sub in loadedSubmodules )
+            foreach( String sub in loadedSubmodules )
             {
                 switch( sub )
                 {
@@ -193,11 +203,15 @@ namespace ReinCore
 
         private static void CheckPlugins()
         {
-            foreach( var kv in BepInEx.Bootstrap.Chainloader.PluginInfos )
+            foreach( KeyValuePair<String, PluginInfo> kv in BepInEx.Bootstrap.Chainloader.PluginInfos )
             {
-                var k = kv.Key;
-                var v = kv.Value;
-                if( String.IsNullOrEmpty( k ) || v == null ) continue;
+                String k = kv.Key;
+                PluginInfo v = kv.Value;
+                if( String.IsNullOrEmpty( k ) || v == null )
+                {
+                    continue;
+                }
+
                 pluginsByName[k] = v;
             }
         }

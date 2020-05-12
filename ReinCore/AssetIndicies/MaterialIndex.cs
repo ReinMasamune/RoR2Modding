@@ -1,10 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ReinCore
+﻿namespace ReinCore
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public enum MaterialIndex : UInt64
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     {
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 		#region Reference Materials

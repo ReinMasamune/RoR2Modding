@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using UnityEngine;
-
-namespace ReinCore
+﻿namespace ReinCore
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+    using UnityEngine;
+
     /// <summary>
     /// A component that plays a particle system on behaviour Start
     /// </summary>

@@ -1,9 +1,9 @@
-﻿using System;
-using RoR2;
-using UnityEngine.Networking;
-
-namespace ReinCore
+﻿namespace ReinCore
 {
+    using System;
+    using RoR2;
+    using UnityEngine.Networking;
+
     internal struct BuffMessage : INetMessage
     {
         public void Serialize( NetworkWriter writer )

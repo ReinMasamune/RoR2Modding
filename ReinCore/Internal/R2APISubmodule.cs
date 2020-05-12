@@ -1,8 +1,8 @@
-﻿using System;
-using BepInEx;
-
-namespace ReinCore
+﻿namespace ReinCore
 {
+    using System;
+    using BepInEx;
+
     [Flags]
     internal enum R2APISubmodule : UInt64
     {

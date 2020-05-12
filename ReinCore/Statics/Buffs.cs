@@ -1,18 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using BepInEx;
-using Mono.Cecil.Cil;
-using MonoMod.Cil;
-using RoR2;
-
-namespace ReinCore
+﻿namespace ReinCore
 {
-    public static class BuffsCore
-    {
-        public static Boolean loaded { get; internal set; } = false;
+    using System;
+    using System.Collections.Generic;
+    using BepInEx;
+    using Mono.Cecil.Cil;
+    using MonoMod.Cil;
+    using RoR2;
 
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+    public static class BuffsCore
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+    {
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+        public static Boolean loaded { get; internal set; } = false;
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public static event BuffAddDelegate getAdditionalEntries;
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public delegate void BuffAddDelegate( List<BuffDef> buffList );
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
         static BuffsCore()
         {
@@ -22,30 +30,39 @@ namespace ReinCore
         }
 
         private delegate void RegisterBuffDelegate( BuffIndex buffIndex, BuffDef buff );
-        private static RegisterBuffDelegate RegisterBuff;
-        private static StaticAccessor<BuffDef[]> buffDefs = new StaticAccessor<BuffDef[]>( typeof(BuffCatalog), "buffDefs" );
+#pragma warning disable IDE1006 // Naming Styles
+        private static readonly RegisterBuffDelegate RegisterBuff;
+#pragma warning restore IDE1006 // Naming Styles
+        private static readonly StaticAccessor<BuffDef[]> buffDefs = new StaticAccessor<BuffDef[]>( typeof(BuffCatalog), "buffDefs" );
 
         private static void Init_Il( ILContext il )
         {
-            ILCursor c = new ILCursor( il );
+            var c = new ILCursor( il );
 
-            c.GotoNext( MoveType.After,
+            _ = c.GotoNext( MoveType.After,
                 x => x.MatchLdsfld( typeof( BuffCatalog ), nameof( BuffCatalog.modHelper ) ),
                 x => x.MatchLdsflda( typeof( BuffCatalog ), "buffDefs" )
             );
             ++c.Index;
-            c.EmitDelegate<Action>( () =>
-            {
-                var l = new List<BuffDef>();
-                getAdditionalEntries?.Invoke( l );
-                var extras = l.Count;
-                if( extras <= 0 ) return;
-                var buffs = buffDefs.Get();
-                var startPoint = buffs.Length;
-                Array.Resize<BuffDef>( ref buffs, startPoint + extras );
-                buffDefs.Set( buffs );
-                for( Int32 i = 0; i < extras; ++i ) RegisterBuff( (BuffIndex)(i + startPoint), l[i] );
-            } );
+            _ = c.EmitDelegate<Action>( () =>
+              {
+                  var l = new List<BuffDef>();
+                  getAdditionalEntries?.Invoke( l );
+                  Int32 extras = l.Count;
+                  if( extras <= 0 )
+                  {
+                      return;
+                  }
+
+                  BuffDef[] buffs = buffDefs.Get();
+                  Int32 startPoint = buffs.Length;
+                  Array.Resize<BuffDef>( ref buffs, startPoint + extras );
+                  buffDefs.Set( buffs );
+                  for( Int32 i = 0; i < extras; ++i )
+                  {
+                      RegisterBuff( (BuffIndex)( i + startPoint ), l[i] );
+                  }
+              } );
         }
     }
 }

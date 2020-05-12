@@ -1,8 +1,8 @@
-﻿using System;
-using UnityEngine;
-
-namespace Sniper.Data
+﻿namespace Sniper.Data
 {
+    using System;
+    using UnityEngine;
+
     [Serializable]
     internal struct ZoomParams
     {
@@ -49,7 +49,7 @@ namespace Sniper.Data
 
         private Single GetScopeZoom( Single currentZoom ) => Mathf.Lerp( this.scopeZoomStart, this.scopeZoomEnd, ( currentZoom - this.shoulderFrac ) / ( 1f - this.shoulderFrac ) );
 
-        private Single GetShoulderZoom( Single currentZoom ) => Mathf.Lerp( this.shoulderZoomStart, this.shoulderZoomEnd, 1f - ( this.shoulderFrac - currentZoom ) / this.shoulderFrac );
+        private Single GetShoulderZoom( Single currentZoom ) => Mathf.Lerp( this.shoulderZoomStart, this.shoulderZoomEnd, 1f - (( this.shoulderFrac - currentZoom ) / this.shoulderFrac) );
 
         private Single ZoomToFoV( Single zoomFactor ) => Mathf.Atan( this.viewAngleStart / zoomFactor ) * Mathf.Rad2Deg;
     }

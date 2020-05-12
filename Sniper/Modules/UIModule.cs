@@ -1,105 +1,57 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using BepInEx.Logging;
-using ReinCore;
-using RoR2;
-using RoR2.Networking;
-using UnityEngine;
-using KinematicCharacterController;
-using EntityStates;
-using RoR2.Skills;
-using RoR2.UI;
-using UnityEngine.UI;
-using Sniper.Components;
-using System.Linq.Expressions;
-
-namespace Sniper.Modules
+﻿namespace Sniper.Modules
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Runtime.CompilerServices;
+    using BepInEx.Logging;
+    using ReinCore;
+    using RoR2;
+    using RoR2.Networking;
+    using UnityEngine;
+    using KinematicCharacterController;
+    using EntityStates;
+    using RoR2.Skills;
+    using RoR2.UI;
+    using UnityEngine.UI;
+    using Sniper.Components;
+    using System.Linq.Expressions;
+
     internal static class UIModule
     {
         private static Sprite GetUnfinishedIcon()
         {
-            var texJob = TexturesCore.GenerateCrossTextureBatch( 512, 512, 64, 16, 2, Color.black, Color.red, Color.white, Color.white, Color.white, Color.white );
+            ITextureJob texJob = TexturesCore.GenerateCrossTextureBatch( 512, 512, 64, 16, 2, Color.black, Color.red, Color.white, Color.white, Color.white, Color.white );
 
             return Sprite.Create( texJob.OutputTextureAndDispose(), new Rect( 0f, 0f, 512f, 512f ), new Vector2( 0.5f, 0.5f ) );
         }
 
 
-        internal static Sprite GetStandardAmmoIcon()
-        {
-            return AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>( Properties.Resources.StandardAmmoIcon );
-        }
+        internal static Sprite GetStandardAmmoIcon() => AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>( Properties.Resources.StandardAmmoIcon );
         internal static Sprite GetExplosiveAmmoIcon() => AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>( Properties.Resources.ExplosiveAmmoIcon );
-        internal static Sprite GetSnipeIcon()
-        {
-            return AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>( Properties.Resources.SnipeIcon );
-        }
+        internal static Sprite GetSnipeIcon() => AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>( Properties.Resources.SnipeIcon );
 
-        internal static Sprite GetSnipeReloadIcon()
-        {
-            return AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>( Properties.Resources.ReloadIcon );
-        }
-        internal static Sprite GetSteadyAimIcon()
-        {
-            return AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>( Properties.Resources.SteadyAimIcon );
-        }
-        internal static Sprite GetCritPassiveIcon()
-        {
-            return AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>( Properties.Resources.CritPassiveIcon );
-        }
-        internal static Sprite GetHeadshotPassiveIcon()
-        {
-            return AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>( Properties.Resources.HeadshotIcon );
-        }
+        internal static Sprite GetSnipeReloadIcon() => AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>( Properties.Resources.ReloadIcon );
+        internal static Sprite GetSteadyAimIcon() => AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>( Properties.Resources.SteadyAimIcon );
+        internal static Sprite GetCritPassiveIcon() => AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>( Properties.Resources.CritPassiveIcon );
+        internal static Sprite GetHeadshotPassiveIcon() => AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>( Properties.Resources.HeadshotIcon );
 
-        internal static Sprite GetBackflipIcon()
-        {
-            return AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>( Properties.Resources.BackflipIcon );
-        }
+        internal static Sprite GetBackflipIcon() => AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>( Properties.Resources.BackflipIcon );
 
-        internal static Sprite GetQuickScopeIcon()
-        {
-            return null;
-            //return GetUnfinishedIcon();
-        }
+        internal static Sprite GetQuickScopeIcon() => null;//return GetUnfinishedIcon();
 
-        internal static Sprite GetKnifeIcon()
-        {
-            return GetUnfinishedIcon();
-        }
+        internal static Sprite GetKnifeIcon() => GetUnfinishedIcon();
 
-        internal static Sprite GetKnifeReactivationIcon()
-        {
-            return GetUnfinishedIcon();
-        }
+        internal static Sprite GetKnifeReactivationIcon() => GetUnfinishedIcon();
 
-        internal static Sprite GetDecoyIcon()
-        {
-            return null;
-            //return GetUnfinishedIcon();
-        }
+        internal static Sprite GetDecoyIcon() => null;//return GetUnfinishedIcon();
 
-        internal static Sprite GetDecoyReactivationIcon()
-        {
-            return null;
-            //return GetUnfinishedIcon();
-        }
+        internal static Sprite GetDecoyReactivationIcon() => null;//return GetUnfinishedIcon();
 
-        internal static Sprite GetScatterAmmoIcon()
-        {
-            return null;
-        }
+        internal static Sprite GetScatterAmmoIcon() => null;
 
-        internal static Sprite GetPlasmaAmmoIcon()
-        {
-            return GetUnfinishedIcon();
-        }
+        internal static Sprite GetPlasmaAmmoIcon() => GetUnfinishedIcon();
 
-        internal static Sprite GetShockAmmoIcon()
-        {
-            return GetUnfinishedIcon();
-        }
+        internal static Sprite GetShockAmmoIcon() => GetUnfinishedIcon();
 
 
 
@@ -127,11 +79,7 @@ namespace Sniper.Modules
             return scopeCrosshair;
         }
 
-        internal static Texture GetPortraitIcon()
-        {
-            return AssetModule.GetSniperAssetBundle().LoadAsset<Texture2D>( Properties.Resources.PortraitIcon );
-            //return null;
-        }
+        internal static Texture GetPortraitIcon() => AssetModule.GetSniperAssetBundle().LoadAsset<Texture2D>( Properties.Resources.PortraitIcon );//return null;
 
         internal static GameObject GetQuickScope()
         {
@@ -148,7 +96,7 @@ namespace Sniper.Modules
         private static GameObject reloadBarPrefab;
         internal static void CreateReloadBarPrefab()
         {
-            var obj = PrefabsCore.CreateUIPrefab("ReloadBar", false );
+            GameObject obj = PrefabsCore.CreateUIPrefab("ReloadBar", false );
             var objTrans = obj.transform as RectTransform;
             objTrans.sizeDelta = new Vector2( 640f, 80f );
             objTrans.anchorMin = new Vector2( 0.5f, 0.5f );
@@ -156,7 +104,7 @@ namespace Sniper.Modules
             objTrans.pivot = new Vector2( 0.5f, 0.5f );
             objTrans.localPosition = Vector3.zero;
 
-            var holder = PrefabsCore.CreateUIPrefab( "BarHolder", false );
+            GameObject holder = PrefabsCore.CreateUIPrefab( "BarHolder", false );
             var holderTrans = holder.transform as RectTransform;
             holderTrans.SetParent( objTrans, false );
             holderTrans.sizeDelta = Vector2.zero;
@@ -165,7 +113,7 @@ namespace Sniper.Modules
             holderTrans.pivot= new Vector2( 0.5f, 0.5f );
             holderTrans.localPosition = Vector3.zero;
 
-            var background = PrefabsCore.CreateUIPrefab( "Background", false );
+            GameObject background = PrefabsCore.CreateUIPrefab( "Background", false );
             var bgTrans = background.transform as RectTransform;
             bgTrans.SetParent( holderTrans, false );
             bgTrans.localPosition = Vector3.zero;
@@ -173,9 +121,9 @@ namespace Sniper.Modules
             bgTrans.anchorMin = new Vector2( 0f, 0.1f );
             bgTrans.anchorMax = new Vector2( 1f, 0.9f );
             bgTrans.pivot = new Vector2( 0.5f, 0.5f );
-            var bgRend = background.AddComponent<CanvasRenderer>();
+            CanvasRenderer bgRend = background.AddComponent<CanvasRenderer>();
             bgRend.cullTransparentMesh = false;
-            var bgImg = background.AddComponent<Image>();
+            Image bgImg = background.AddComponent<Image>();
             bgImg.sprite = null;
             bgImg.color = Color.white;
             bgImg.material = null;
@@ -185,7 +133,7 @@ namespace Sniper.Modules
             bgImg.preserveAspect = false;
 
 
-            var slideArea = PrefabsCore.CreateUIPrefab( "Handle Slide Area", false );
+            GameObject slideArea = PrefabsCore.CreateUIPrefab( "Handle Slide Area", false );
             var slideAreaTrans = slideArea.transform as RectTransform;
             slideAreaTrans.SetParent( holderTrans, false );
             slideAreaTrans.localPosition = Vector3.zero;
@@ -194,16 +142,16 @@ namespace Sniper.Modules
             slideAreaTrans.anchorMax = new Vector2( 1f, 1f );
             slideAreaTrans.pivot = new Vector2( 0.5f, 0.5f );
 
-            var handle = PrefabsCore.CreateUIPrefab( "Handle", false );
+            GameObject handle = PrefabsCore.CreateUIPrefab( "Handle", false );
             var handleTrans = handle.transform as RectTransform;
             handleTrans.SetParent( slideAreaTrans, false );
             handleTrans.localPosition = Vector3.zero;
             handleTrans.sizeDelta = new Vector2( 16f, 0f );
             handleTrans.pivot = new Vector2( 0.5f, 0.5f );
-            var handleRend = handle.AddComponent<CanvasRenderer>();
+            CanvasRenderer handleRend = handle.AddComponent<CanvasRenderer>();
             handleRend.cullTransparentMesh = false;
-            var handleImg = handle.AddComponent<Image>();
-            var tex = TexturesCore.GenerateBarTexture(128, 640, true, 64, 16, Color.black, reloadHandleColor, 4 );
+            Image handleImg = handle.AddComponent<Image>();
+            Texture2D tex = TexturesCore.GenerateBarTexture(128, 640, true, 64, 16, Color.black, reloadHandleColor, 4 );
             handleImg.sprite = Sprite.Create( tex, new Rect( 0f, 0f, tex.width, tex.height ), new Vector2( 0.5f, 0.5f ) );
             handleImg.color = Color.white;
             handleImg.material = null;
@@ -212,7 +160,7 @@ namespace Sniper.Modules
             handleImg.useSpriteMesh = false;
             handleImg.preserveAspect = false;
 
-            var slider = holder.AddComponent<Slider>();
+            Slider slider = holder.AddComponent<Slider>();
             slider.interactable = false;
             slider.transition = Selectable.Transition.None;
             slider.navigation = new Navigation { mode = Navigation.Mode.None };
@@ -224,7 +172,7 @@ namespace Sniper.Modules
             slider.wholeNumbers = false;
             slider.value = 0f;
 
-            obj.AddComponent<ReloadUIController>();
+            _ = obj.AddComponent<ReloadUIController>();
 
             reloadBarPrefab = obj;
         }
@@ -235,7 +183,7 @@ namespace Sniper.Modules
             {
                 CreateReloadBarPrefab();
             }
-            var bar = UnityEngine.Object.Instantiate<GameObject>( reloadBarPrefab );
+            GameObject bar = UnityEngine.Object.Instantiate<GameObject>( reloadBarPrefab );
             return bar;
         }
 

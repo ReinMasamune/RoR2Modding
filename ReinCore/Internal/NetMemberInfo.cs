@@ -1,9 +1,9 @@
-﻿using System;
-using BepInEx;
-using Mono.Cecil;
-
-namespace ReinCore
+﻿namespace ReinCore
 {
+    using System;
+    using BepInEx;
+    using Mono.Cecil;
+
     internal class NetMemberInfo
     {
         internal Int16 msgIndex { get; private set; }
@@ -17,9 +17,9 @@ namespace ReinCore
             this.method = method;
             this.handler = attribute;
 
-            foreach( var f in this.handler.Fields )
+            foreach( CustomAttributeNamedArgument f in this.handler.Fields )
             {
-                var name = f.Name;
+                String name = f.Name;
                 if( f.Name == "msgType" )
                 {
                     this.msgIndex = (Int16)f.Argument.Value;

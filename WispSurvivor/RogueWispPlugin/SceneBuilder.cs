@@ -34,8 +34,9 @@ namespace BundledScripts
             var curScene = SceneManager.GetActiveScene().path;
             if( scenePrefabs.ContainsKey( curScene ) )
             {
-                foreach( var prefab in scenePrefabs[curScene] )
+                for( Int32 i = 0; i < scenePrefabs[curScene].Count; i++ )
                 {
+                    var prefab = scenePrefabs[curScene][i];
                     UnityEngine.Object.Instantiate<GameObject>( prefab, Vector3.zero, Quaternion.identity );
                 }
             }

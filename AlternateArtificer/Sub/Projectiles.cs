@@ -12,34 +12,34 @@
     {
         private void EditProjectiles()
         {
-            EditNovaBomb();
-            EditPlasmaBolt();
+            this.EditNovaBomb();
+            this.EditPlasmaBolt();
         }
 
         private void CreateProjectiles()
         {
-            CreateLightningSwords();
-            CreateIceExplosion();
+            this.CreateLightningSwords();
+            this.CreateIceExplosion();
         }
 
         private void EditNovaBomb()
         {
-            var novaProj = Resources.Load<GameObject>("Prefabs/Projectiles/MageLightningBombProjectile");
+            GameObject novaProj = Resources.Load<GameObject>("Prefabs/Projectiles/MageLightningBombProjectile");
 
-            var novaSimp = novaProj.GetComponent<ProjectileSimple>();
+            ProjectileSimple novaSimp = novaProj.GetComponent<ProjectileSimple>();
             novaSimp.velocity *= 1.25f;
 
-            var rb = novaProj.GetComponent<Rigidbody>();
+            Rigidbody rb = novaProj.GetComponent<Rigidbody>();
             rb.useGravity = true;
             rb.drag = 1f;
             novaProj.GetComponent<Rigidbody>().useGravity = true;
 
-            var novaImpact = novaProj.GetComponent<ProjectileImpactExplosion>();
+            ProjectileImpactExplosion novaImpact = novaProj.GetComponent<ProjectileImpactExplosion>();
             novaImpact.blastDamageCoefficient = 1.0f;
             novaImpact.falloffModel = RoR2.BlastAttack.FalloffModel.None;
             novaImpact.blastRadius = 15f;
 
-            var novaBeams = novaProj.GetComponent<ProjectileProximityBeamController>();
+            ProjectileProximityBeamController novaBeams = novaProj.GetComponent<ProjectileProximityBeamController>();
             novaBeams.attackRange *= 1.25f;
             novaBeams.attackInterval *= 0.9f;
             novaBeams.bounces += 1;
@@ -61,33 +61,33 @@
 
         private void CreateLightningSword(Int32 meshInd)
         {
-            GameObject ghost = CreateLightningSwordGhost(meshInd);
+            GameObject ghost = this.CreateLightningSwordGhost(meshInd);
             GameObject proj = Resources.Load<GameObject>("Prefabs/Projectiles/LunarNeedleProjectile" ).InstantiateClone( "LightningSwordProjectile" + meshInd.ToString() );
             ProjectileCatalog.getAdditionalEntries += ( list ) => list.Add( proj );
 
             AltArtiPassive.lightningProjectile[meshInd] = proj;
 
-            var projController = proj.GetComponent<ProjectileController>();
+            ProjectileController projController = proj.GetComponent<ProjectileController>();
             projController.ghostPrefab = ghost;
 
-            var projSimple = proj.GetComponent<ProjectileSimple>();
+            ProjectileSimple projSimple = proj.GetComponent<ProjectileSimple>();
             projSimple.enabled = true;
             projSimple.enableVelocityOverLifetime = false;
             projSimple.velocity = 60f;
 
-            var projTargetFind = proj.GetComponent<ProjectileDirectionalTargetFinder>();
+            ProjectileDirectionalTargetFinder projTargetFind = proj.GetComponent<ProjectileDirectionalTargetFinder>();
             projTargetFind.enabled = false;
 
-            var projSteering = proj.GetComponent<ProjectileSteerTowardTarget>();
+            ProjectileSteerTowardTarget projSteering = proj.GetComponent<ProjectileSteerTowardTarget>();
             projSteering.enabled = true;
             projSteering.rotationSpeed = 140f;
 
-            var projStick = proj.GetComponent<ProjectileStickOnImpact>();
+            ProjectileStickOnImpact projStick = proj.GetComponent<ProjectileStickOnImpact>();
             //projStick.ignoreCharacters = false;
             //projStick.ignoreWorld = false;
             projStick.alignNormals = false;
 
-            var projExpl = proj.GetComponent<ProjectileImpactExplosion>();
+            ProjectileImpactExplosion projExpl = proj.GetComponent<ProjectileImpactExplosion>();
             projExpl.impactEffect = Resources.Load<GameObject>("Prefabs/Effects/LightningStakeNova");
             projExpl.explosionSoundString = "Play_item_lunar_primaryReplace_impact";
             projExpl.lifetimeExpiredSoundString = "";
@@ -112,7 +112,7 @@
             projExpl.transformSpace = ProjectileImpactExplosion.TransformSpace.World;
             projExpl.projectileHealthComponent = null;
 
-            var projStimp = proj.GetComponent<ProjectileSingleTargetImpact>();
+            ProjectileSingleTargetImpact projStimp = proj.GetComponent<ProjectileSingleTargetImpact>();
             projStimp.destroyOnWorld = false;
             projStimp.hitSoundString = "Play_item_proc_dagger_impact";
             projStimp.enemyHitSoundString = "Play_item_proc_dagger_impact";
@@ -132,8 +132,8 @@
             component.procCoefficient = 1.0f;
             component.maxTimer = 1.25f;
             component.falloffModel = BlastAttack.FalloffModel.None;
-            component.explosionEffect = CreateIceExplosionEffect();
-            component.delayEffect = CreateIceDelayEffect();
+            component.explosionEffect = this.CreateIceExplosionEffect();
+            component.delayEffect = this.CreateIceDelayEffect();
             component.damageType = DamageType.Freeze2s;
             component.baseForce = 25f;
 

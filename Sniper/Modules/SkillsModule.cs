@@ -1,31 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using BepInEx.Logging;
-using ReinCore;
-using RoR2;
-using RoR2.Networking;
-using UnityEngine;
-using KinematicCharacterController;
-using EntityStates;
-using RoR2.Skills;
-using Sniper.Data;
-using Sniper.Properties;
-using Sniper.Expansions;
-using Sniper.Components;
-using UnityEngine.Networking;
-using Sniper.SkillDefs;
-using Sniper.States.Primary.Fire;
-using Sniper.States.Primary.Reload;
-using Sniper.States.Secondary;
-using Sniper.States.Special;
-using Sniper.States.Utility;
-using Sniper.SkillDefTypes.Bases;
-using Sniper.Enums;
-using System.Runtime.InteropServices.ComTypes;
-
-namespace Sniper.Modules
+﻿namespace Sniper.Modules
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Runtime.CompilerServices;
+    using BepInEx.Logging;
+    using ReinCore;
+    using RoR2;
+    using RoR2.Networking;
+    using UnityEngine;
+    using KinematicCharacterController;
+    using EntityStates;
+    using RoR2.Skills;
+    using Sniper.Data;
+    using Sniper.Properties;
+    using Sniper.Expansions;
+    using Sniper.Components;
+    using UnityEngine.Networking;
+    using Sniper.SkillDefs;
+    using Sniper.States.Primary.Fire;
+    using Sniper.States.Primary.Reload;
+    using Sniper.States.Secondary;
+    using Sniper.States.Special;
+    using Sniper.States.Utility;
+    using Sniper.SkillDefTypes.Bases;
+    using Sniper.Enums;
+    using System.Runtime.InteropServices.ComTypes;
+
     internal static class SkillsModule
     {
         internal static void CreateAmmoSkills()
@@ -48,7 +48,11 @@ namespace Sniper.Modules
                         newBul.origin = hit.point;
                         newBul.aimVector = newDir;
                         newBul.weapon = new GameObject("temp", typeof(NetworkIdentity) );
-                        if( hit.damageModifier == HurtBox.DamageModifier.SniperTarget ) newBul.damage *= 1.5f;
+                        if( hit.damageModifier == HurtBox.DamageModifier.SniperTarget )
+                        {
+                            newBul.damage *= 1.5f;
+                        }
+
                         RicochetController.QueueRicochet( newBul, (UInt32)(hit.distance / 6f) + 1u );
                     }
                 }
@@ -186,7 +190,7 @@ namespace Sniper.Modules
 
             #region Scatter
             GameObject scatterTracer = VFXModule.GetScatterAmmoTracer();
-            var scatterFalloff = BulletFalloffCore.AddFalloffModel( (dist) => Mathf.Pow((Mathf.InverseLerp( 200f, 10f, dist )),2f) );
+            BulletAttack.FalloffModel scatterFalloff = BulletFalloffCore.AddFalloffModel( (dist) => Mathf.Pow(Mathf.InverseLerp( 200f, 10f, dist ),2f) );
             var scatterCreate = new BulletCreationDelegate( (body, reload, aim, muzzle) =>
             {
                 var bullet = new ExpandableBulletAttack
@@ -239,10 +243,10 @@ namespace Sniper.Modules
             #region Plasma
             var plasmaHit = new OnBulletDelegate( (bullet, hit) =>
             {
-                var obj = hit.hitHurtBox?.healthComponent;
+                HealthComponent obj = hit.hitHurtBox?.healthComponent;
                 if( obj != null && obj )
                 {
-                    var dmg = bullet.damage / bullet.attackerBody.damage;
+                    Single dmg = bullet.damage / bullet.attackerBody.damage;
                     obj.ApplyDoT( bullet.attackerBody.gameObject, bullet.isCrit ? CatalogModule.critPlasmaBurnIndex : CatalogModule.plasmaBurnIndex, 10f, dmg );
                 } else
                 {

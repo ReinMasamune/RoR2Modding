@@ -1,11 +1,11 @@
-﻿using System;
-using System.Linq.Expressions;
-using System.Reflection;
-using BepInEx;
-using UnityEngine;
-
-namespace ReinCore
+﻿namespace ReinCore
 {
+    using System;
+    using System.Linq.Expressions;
+    using System.Reflection;
+    using BepInEx;
+    using UnityEngine;
+
     /// <summary>
     /// 
     /// </summary>
@@ -18,9 +18,9 @@ namespace ReinCore
         /// <param name="name"></param>
         public StaticAccessor( Type type, String name )
         {
-            var valueParam = Expression.Parameter( typeof(TValue), "value" );        
-            var allFlags = BindingFlags.Public | BindingFlags.Static | BindingFlags.NonPublic;
-            var memberArray = type.GetMember( name, MemberTypes.Property | MemberTypes.Field, allFlags );
+            ParameterExpression valueParam = Expression.Parameter( typeof(TValue), "value" );
+            BindingFlags allFlags = BindingFlags.Public | BindingFlags.Static | BindingFlags.NonPublic;
+            MemberInfo[] memberArray = type.GetMember( name, MemberTypes.Property | MemberTypes.Field, allFlags );
             MemberInfo member = null;
             if( memberArray.Length == 1 )
             {
@@ -31,7 +31,7 @@ namespace ReinCore
                 MemberInfo propMem = null;
                 for( Int32 i = 0; i < memberArray.Length; ++i )
                 {
-                    var mem = memberArray[i];
+                    MemberInfo mem = memberArray[i];
                     if( mem.MemberType == MemberTypes.Property )
                     {
                         propMem = mem;
@@ -53,28 +53,28 @@ namespace ReinCore
                 }
             }
 
-            var memberType = member.GetType();
+            Type memberType = member.GetType();
             if( member.MemberType == MemberTypes.Field )
             {
                 var field = member as FieldInfo;
-                var info = memberType.GetField( "attrs", BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic );
+                FieldInfo info = memberType.GetField( "attrs", BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic );
                 var val = (FieldAttributes)info.GetValue( member );
-                var temp = val;
+                FieldAttributes temp = val;
                 val &= ~FieldAttributes.InitOnly;
                 info.SetValue( member, val );
 
-                var fieldExpr = Expression.Field(null,field);
-                var assignExpr = Expression.Assign( fieldExpr, valueParam );
+                MemberExpression fieldExpr = Expression.Field(null,field);
+                BinaryExpression assignExpr = Expression.Assign( fieldExpr, valueParam );
                 this.Set = Expression.Lambda<StaticAccessorSetDelegate>( assignExpr, valueParam ).Compile();
                 this.Get = Expression.Lambda<StaticAccessorGetDelegate>( fieldExpr ).Compile();
                 info.SetValue( member, temp );
             } else if( member.MemberType == MemberTypes.Property )
             {
                 var prop = member as PropertyInfo;
-                var propExpr = Expression.Property(null, prop );
+                MemberExpression propExpr = Expression.Property(null, prop );
                 if( prop.CanWrite )
                 {
-                    var assignExpr = Expression.Assign( propExpr, valueParam );
+                    BinaryExpression assignExpr = Expression.Assign( propExpr, valueParam );
                     this.Set = Expression.Lambda<StaticAccessorSetDelegate>( assignExpr, valueParam ).Compile();
                 }
                 if( prop.CanRead )
@@ -90,11 +90,15 @@ namespace ReinCore
         /// <summary>
         /// 
         /// </summary>
+#pragma warning disable IDE1006 // Naming Styles
         public StaticAccessorGetDelegate Get;
+#pragma warning restore IDE1006 // Naming Styles
         /// <summary>
         /// 
         /// </summary>
+#pragma warning disable IDE1006 // Naming Styles
         public StaticAccessorSetDelegate Set;
+#pragma warning restore IDE1006 // Naming Styles
 
         /// <summary>
         /// 

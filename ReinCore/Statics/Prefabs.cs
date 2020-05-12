@@ -1,15 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
-using System.Runtime.CompilerServices;
-using System.Security.Cryptography;
-using System.Text;
-using BepInEx;
-using UnityEngine;
-using UnityEngine.Networking;
-
-namespace ReinCore
+﻿namespace ReinCore
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq.Expressions;
+    using System.Runtime.CompilerServices;
+    using System.Security.Cryptography;
+    using System.Text;
+    using BepInEx;
+    using UnityEngine;
+    using UnityEngine.Networking;
+
     // TODO: Docs for PrefabsCore
 
     /// <summary>
@@ -32,15 +32,22 @@ namespace ReinCore
         /// <param name="member"></param>
         /// <param name="line"></param>
         /// <returns></returns>
-        public static GameObject ClonePrefab( this GameObject orginal, String name, Boolean registerNetwork, [CallerFilePath] string file = "", [CallerMemberName] string member = "", [CallerLineNumber] int line = 0 )
+        public static GameObject ClonePrefab( this GameObject orginal, String name, Boolean registerNetwork, [CallerFilePath] String file = "", [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 )
         {
-            if( parent == null || loaded == false ) throw new CoreNotLoadedException( nameof( PrefabsCore ) );
+            if( parent == null || loaded == false )
+            {
+                throw new CoreNotLoadedException( nameof( PrefabsCore ) );
+            }
 
-            var obj = UnityEngine.Object.Instantiate<GameObject>( orginal, parentTransform );
+            GameObject obj = UnityEngine.Object.Instantiate<GameObject>( orginal, parentTransform );
             obj.name = name;
             if( registerNetwork )
             {
-                if( obj.GetComponent<NetworkIdentity>() == null ) throw new ArgumentException( "Cloned prefab did not have a network identity, will not register" );
+                if( obj.GetComponent<NetworkIdentity>() == null )
+                {
+                    throw new ArgumentException( "Cloned prefab did not have a network identity, will not register" );
+                }
+
                 hashedObjects.Add( new HashedObject( obj, file, member, line ) );
             }
 
@@ -56,15 +63,19 @@ namespace ReinCore
         /// <param name="member"></param>
         /// <param name="line"></param>
         /// <returns></returns>
-        public static GameObject CreatePrefab( String name, Boolean registerNetwork, [CallerFilePath] string file = "", [CallerMemberName] string member = "", [CallerLineNumber] int line = 0 )
+        public static GameObject CreatePrefab( String name, Boolean registerNetwork, [CallerFilePath] String file = "", [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 )
         {
-            if( parent == null || loaded == false ) throw new CoreNotLoadedException( nameof( PrefabsCore ) );
+            if( parent == null || loaded == false )
+            {
+                throw new CoreNotLoadedException( nameof( PrefabsCore ) );
+            }
+
             var obj = new GameObject( name );
             obj.transform.SetParent( parentTransform, true );
 
             if( registerNetwork )
             {
-                obj.AddComponent<NetworkIdentity>();
+                _ = obj.AddComponent<NetworkIdentity>();
                 hashedObjects.Add( new HashedObject( obj, file, member, line ) );
             }
 
@@ -80,15 +91,19 @@ namespace ReinCore
         /// <param name="member"></param>
         /// <param name="line"></param>
         /// <returns></returns>
-        public static GameObject CreateUIPrefab( String name, Boolean registerNetwork, [CallerFilePath] String file = "", [CallerMemberName] String member = "", [CallerLineNumber] int line = 0 )
+        public static GameObject CreateUIPrefab( String name, Boolean registerNetwork, [CallerFilePath] String file = "", [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 )
         {
-            if( parent == null || loaded == false ) throw new CoreNotLoadedException( nameof( PrefabsCore ) );
+            if( parent == null || loaded == false )
+            {
+                throw new CoreNotLoadedException( nameof( PrefabsCore ) );
+            }
+
             var obj = new GameObject( name, typeof( RectTransform ) );
             obj.transform.SetParent( parentTransform, false );
 
             if( registerNetwork )
             {
-                obj.AddComponent<NetworkIdentity>();
+                _ = obj.AddComponent<NetworkIdentity>();
                 hashedObjects.Add( new HashedObject( obj, file, member, line ) );
             }
 
@@ -104,8 +119,16 @@ namespace ReinCore
         /// <param name="line"></param>
         public static void RegisterNetwork( this GameObject prefab, [CallerFilePath] String file = "", [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 )
         {
-            if( parent == null || loaded == false ) throw new CoreNotLoadedException( nameof( PrefabsCore ) );
-            if( prefab.GetComponent<NetworkIdentity>() == null ) throw new ArgumentException( "Prefab must have a networkidentity, will not register" );
+            if( parent == null || loaded == false )
+            {
+                throw new CoreNotLoadedException( nameof( PrefabsCore ) );
+            }
+
+            if( prefab.GetComponent<NetworkIdentity>() == null )
+            {
+                throw new ArgumentException( "Prefab must have a networkidentity, will not register" );
+            }
+
             hashedObjects.Add( new HashedObject( prefab, file, member, line ) );
         }
 
@@ -116,10 +139,10 @@ namespace ReinCore
             UnityEngine.Object.DontDestroyOnLoad( parent );
             parentTransform = parent.transform;
 
-            var instanceParam1 = Expression.Parameter( typeof( NetworkIdentity), "instance" );
-            var valueParam1 = Expression.Parameter( typeof( NetworkHash128 ), "value" );
-            var fieldParam1 = Expression.Field( instanceParam1, typeof(NetworkIdentity), "m_AssetId" );
-            var assignExpr1 = Expression.Assign( fieldParam1, valueParam1 );
+            ParameterExpression instanceParam1 = Expression.Parameter( typeof( NetworkIdentity), "instance" );
+            ParameterExpression valueParam1 = Expression.Parameter( typeof( NetworkHash128 ), "value" );
+            MemberExpression fieldParam1 = Expression.Field( instanceParam1, typeof(NetworkIdentity), "m_AssetId" );
+            BinaryExpression assignExpr1 = Expression.Assign( fieldParam1, valueParam1 );
             set_AssetId = Expression.Lambda<SetAssetIdDelegate>( assignExpr1, instanceParam1, valueParam1 ).Compile();
 
             RoR2.Networking.GameNetworkManager.onStartGlobal += GameNetworkManager_onStartGlobal;
@@ -128,11 +151,7 @@ namespace ReinCore
             loaded = true;
         }
 
-        private static Boolean IsPrefab_On( HooksCore.RoR2.Util.IsPrefab.Orig orig, GameObject gameObject )
-        {
-            return orig( gameObject ) || gameObject.transform.IsChildOf( parentTransform );
-
-        }
+        private static Boolean IsPrefab_On( HooksCore.RoR2.Util.IsPrefab.Orig orig, GameObject gameObject ) => orig( gameObject ) || gameObject.transform.IsChildOf( parentTransform );
 
         private static readonly GameObject parent;
         private static readonly Transform parentTransform;
@@ -143,21 +162,24 @@ namespace ReinCore
 
         private struct HashedObject
         {
-            private static MD5 hashGen = MD5.Create();
+            private static readonly MD5 hashGen = MD5.Create();
 
             internal HashedObject( GameObject obj, String path, String member, Int32 line )
             {
-                if( obj == null ) throw new ArgumentNullException( "prefab" );
-                var netID = obj.GetComponent<NetworkIdentity>();
-                if( netID == null ) throw new ArgumentException( "prefab does not have a NetworkIdentity component" );
+                if( obj == null )
+                {
+                    throw new ArgumentNullException( "prefab" );
+                }
+
+                NetworkIdentity netID = obj.GetComponent<NetworkIdentity>();
                 this.prefab = obj;
-                this.netID = netID;
+                this.netID = netID ?? throw new ArgumentException( "prefab does not have a NetworkIdentity component" );
                 var sb = new StringBuilder();
-                sb.Append( this.prefab.name );
-                sb.Append( path );
-                sb.Append( member );
-                sb.Append( line );
-                var bytes = hashGen.ComputeHash( Encoding.UTF8.GetBytes(sb.ToString()) );
+                _ = sb.Append( this.prefab.name );
+                _ = sb.Append( path );
+                _ = sb.Append( member );
+                _ = sb.Append( line );
+                Byte[] bytes = hashGen.ComputeHash( Encoding.UTF8.GetBytes(sb.ToString()) );
                 this.hash = new NetworkHash128
                 {
                     i0 = bytes[0],
@@ -186,15 +208,15 @@ namespace ReinCore
                 ClientScene.RegisterPrefab( this.prefab, this.hash );
             }
 
-            private GameObject prefab;
-            private NetworkIdentity netID;
+            private readonly GameObject prefab;
+            private readonly NetworkIdentity netID;
             private NetworkHash128 hash;
         }
         private static void GameNetworkManager_onStartGlobal()
         {
             for( Int32 i = 0; i < hashedObjects.Count; ++i )
             {
-                var cur = hashedObjects[i];
+                HashedObject cur = hashedObjects[i];
                 cur.Register();
             }
         }

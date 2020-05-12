@@ -75,73 +75,43 @@
         #region Public Vars
         public CharacterBody ext_characterBody
         {
-            get
-            {
-                return base.characterBody;
-            }
+            get => base.characterBody;
         }
         public Single ext_attackSpeedStat
         {
-            get
-            {
-                return base.characterBody.attackSpeed;
-            }
+            get => base.characterBody.attackSpeed;
         }
         public Single ext_nanoBombInterval
         {
-            get
-            {
-                return nanoBombInterval;
-            }
+            get => nanoBombInterval;
         }
         public Single ext_nanoBombMinDelay
         {
-            get
-            {
-                return nanoBombMinDelay;
-            }
+            get => nanoBombMinDelay;
         }
         public Single ext_nanoBombMaxDelay
         {
-            get
-            {
-                return nanoBombMaxDelay;
-            }
+            get => nanoBombMaxDelay;
         }
         public Single ext_prepWallMinDelay
         {
-            get
-            {
-                return prepWallMinDelay;
-            }
+            get => prepWallMinDelay;
         }
         public Single ext_prepWallMaxDelay
         {
-            get
-            {
-                return prepWallMaxDelay;
-            }
+            get => prepWallMaxDelay;
         }
         public Single ext_flamethrowerInterval
         {
-            get
-            {
-                return flamethrowerInterval;
-            }
+            get => flamethrowerInterval;
         }
         public Int32 ext_nanoBombMaxPerTick
         {
-            get
-            {
-                return nanoBombMaxPerTick;
-            }
+            get => nanoBombMaxPerTick;
         }
         public Int32 ext_flamethrowerMaxPerTick
         {
-            get
-            {
-                return flamethrowerMaxPerTick;
-            }
+            get => flamethrowerMaxPerTick;
         }
         #endregion
 
@@ -158,8 +128,8 @@
 
         private HurtBox target;
 
-        private List<ProjectileNode> projNodes = new List<ProjectileNode>();
-        private BullseyeSearch search = new BullseyeSearch();
+        private readonly List<ProjectileNode> projNodes = new List<ProjectileNode>();
+        private readonly BullseyeSearch search = new BullseyeSearch();
         #endregion
 
 
@@ -204,14 +174,14 @@
             public Single rotation;
             public BatchHandle handle;
 
-            private Helpers.InstancedRandom random;
+            private readonly Helpers.InstancedRandom random;
 
             public ProjectileData(Helpers.InstancedRandom random, BatchHandle handle = null)
             {
                 this.random = random;
                 this.type = Mathf.FloorToInt( this.random.Range( 0f, 2f ) );
                 this.rotation = this.random.Range( 0f, 360f );
-                localPos = this.random.InsideUnitSphere();
+                this.localPos = this.random.InsideUnitSphere();
                 this.timerAssigned = true;
 
                 if( handle != null )
@@ -226,14 +196,22 @@
 
             public void AssignTimer()
             {
-                if( this.timerAssigned ) return;
+                if( this.timerAssigned )
+                {
+                    return;
+                }
+
                 this.timer = this.random.Range( this.timerMin, this.timerMax );
                 this.timerAssigned = true;
             }
 
             public void AssignRadius( Single radius )
             {
-                if( this.radiusAssigned ) return;
+                if( this.radiusAssigned )
+                {
+                    return;
+                }
+
                 this.localPos *= radius;
                 this.radiusAssigned = true;
             }
@@ -254,7 +232,7 @@
 
             private GameObject effect;
 
-            private AltArtiPassive passive;
+            private readonly AltArtiPassive passive;
 
             public ProjectileNode( Vector3 position, Transform parent, AltArtiPassive passive )
             {
@@ -271,10 +249,7 @@
                 this.passive = passive;
             }
 
-            public void AddToQueue(ProjectileData data )
-            {
-                queue.Add( data );
-            }
+            public void AddToQueue( ProjectileData data ) => this.queue.Add( data );
 
             public void AddImmediate( ProjectileData data )
             {
@@ -290,7 +265,11 @@
 
             public void UpdateNode( Single deltaT, HurtBox target, Vector3 direction )
             {
-                if( this.nextProj == null ) this.nextProj = this.TryGetNextProj();
+                if( this.nextProj == null )
+                {
+                    this.nextProj = this.TryGetNextProj();
+                }
+
                 if( this.nextProj == null )
                 {
                     this.timer = 0f;
@@ -325,8 +304,12 @@
 
             private ProjectileData TryGetNextProj()
             {
-                if( this.queue.Count <= 0 ) return null;
-                var temp = this.queue[0];
+                if( this.queue.Count <= 0 )
+                {
+                    return null;
+                }
+
+                ProjectileData temp = this.queue[0];
                 this.queue.RemoveAt( 0 );
 
                 if( temp != null )
@@ -343,17 +326,20 @@
             private void Fire( HurtBox target)
             {
                 this.timer = 0f;
-                if( effect == null ) CreateEffect( nextProj );
+                if( this.effect == null )
+                {
+                    this.CreateEffect( this.nextProj );
+                }
 
                 if( this.passive.isAuthority )
                 {
                     ProjectileManager.instance.FireProjectile( new FireProjectileInfo
                     {
-                        crit = passive.characterBody.RollCrit(),
-                        damage = passive.characterBody.damage * AltArtiPassive.lightningDamageMult,
+                        crit = this.passive.characterBody.RollCrit(),
+                        damage = this.passive.characterBody.damage * AltArtiPassive.lightningDamageMult,
                         damageColorIndex = DamageColorIndex.Default,
                         force = AltArtiPassive.lightningForce,
-                        owner = passive.gameObject,
+                        owner = this.passive.gameObject,
                         position = this.effect.transform.position,
                         procChainMask = default,
                         projectilePrefab = AltArtiPassive.lightningProjectile[this.nextProj.type],
@@ -361,7 +347,7 @@
                         target = target?.gameObject
                     } );
                 }
-                UnityEngine.Object.Destroy( effect );
+                UnityEngine.Object.Destroy( this.effect );
 
                 this.nextProj = null;
             }
@@ -384,15 +370,15 @@
         #region External Methods
         public void SkillCast(BatchHandle handle = null)
         {
-            DoLightning( this.lightningPower, handle );
-            DoFire( this.firePower );
+            this.DoLightning( this.lightningPower, handle );
+            this.DoFire( this.firePower );
         }
 
         public void DoExecute( DamageReport report )
         {
             if( this.icePower > Power.None )
             {
-                this.CreateIceBlast( report.damageInfo.position, iceBaseRadius + (Int32)this.icePower * iceRadScale );
+                this.CreateIceBlast( report.damageInfo.position, iceBaseRadius + ((Int32)this.icePower * iceRadScale) );
             }
         }
         #endregion
@@ -425,7 +411,7 @@
             {
                 GameObject blast = UnityEngine.Object.Instantiate<GameObject>( iceBlast , position, Quaternion.identity );
                 blast.transform.localScale = new Vector3( radius, radius, radius );
-                var delay = blast.GetComponent<DelayBlast>();
+                DelayBlast delay = blast.GetComponent<DelayBlast>();
                 delay.position = position;
                 delay.baseDamage = base.characterBody.damage;
                 delay.attacker = base.gameObject;
@@ -471,7 +457,7 @@
                     break;
             }
 
-            skill.onSkillChanged += ( s ) => GetPowers();
+            skill.onSkillChanged += ( s ) => this.GetPowers();
         }
 
         private void GenerateNodes()
@@ -486,18 +472,18 @@
                 ang *= nodeArcFrac;
                 Single x = Mathf.Sin( ang );
                 Single y = Mathf.Cos( ang );
-                Vector3 localPos = new Vector3( x, y, 0f );
+                var localPos = new Vector3( x, y, 0f );
                 localPos = Vector3.Normalize( localPos );
                 localPos *= radius;
                 localPos += new Vector3( 0f, nodeYOffset, 0f );
 
-                projNodes.Add( new ProjectileNode( localPos, this.modelTransform, this ) );
+                this.projNodes.Add( new ProjectileNode( localPos, this.modelTransform, this ) );
             }
         }
 
         private HurtBox GetTarget()
         {
-            var aimRay = base.GetAimRay();
+            Ray aimRay = base.GetAimRay();
             this.search.teamMaskFilter = TeamMask.all;
             this.search.teamMaskFilter.RemoveTeam( this.teamComponent.teamIndex );
             this.search.filterByLoS = true;
@@ -512,22 +498,28 @@
 
         private void AddProjectileToRandomNode( ProjectileData proj, Boolean immediate )
         {
-            List<Int32> counts = new List<Int32>();
+            var counts = new List<Int32>();
             for( Int32 i = 0; i < this.projNodes.Count; i++ )
             {
                 counts.Add( this.projNodes[i].queue.Count + ( this.projNodes[i].nextProj != null ? 5 : 0 ) );
             }
 
             Int32 min = counts.Min();
-            List<Int32> minInds = new List<Int32>();
+            var minInds = new List<Int32>();
             for( Int32 i = 0; i < counts.Count; i++ )
             {
-                if( counts[i] == min ) minInds.Add( i );
+                if( counts[i] == min )
+                {
+                    minInds.Add( i );
+                }
             }
 
             Int32 finalIndex = 0;
 
-            if( minInds.Count > 1 ) finalIndex = Mathf.FloorToInt( this.random.Range( 0, minInds.Count ) );
+            if( minInds.Count > 1 )
+            {
+                finalIndex = Mathf.FloorToInt( this.random.Range( 0, minInds.Count ) );
+            }
 
             if( immediate )
             {
@@ -554,15 +546,12 @@
             this.GenerateNodes();
         }
 
-        public override void Update()
-        {
-            base.Update();
-        }
+        public override void Update() => base.Update();
 
         public override void FixedUpdate()
         {
             base.FixedUpdate();
-            var deltaT = Time.fixedDeltaTime;
+            Single deltaT = Time.fixedDeltaTime;
 
             this.searchTimer += deltaT;
             if( this.searchTimer >= 1f / targetUpdateFreq )
@@ -572,7 +561,7 @@
             }
 
 
-            var direction = base.GetAimRay().direction;
+            Vector3 direction = base.GetAimRay().direction;
 
             foreach( ProjectileNode node in this.projNodes )
             {
@@ -582,9 +571,10 @@
 
         public override void OnExit()
         {
-            if( instanceLookup.ContainsKey( base.gameObject ) ) instanceLookup.Remove( base.gameObject );
-
-
+            if( instanceLookup.ContainsKey( base.gameObject ) )
+            {
+                _ = instanceLookup.Remove( base.gameObject );
+            }
 
             base.OnExit();
         }

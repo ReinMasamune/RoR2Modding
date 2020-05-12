@@ -1,23 +1,59 @@
-﻿using System;
-using System.ComponentModel;
-using System.Linq.Expressions;
-using System.Reflection;
-using BepInEx;
-using UnityEngine;
-
-namespace ReinCore
+﻿namespace ReinCore
 {
+    using System;
+    using System.ComponentModel;
+    using System.Linq.Expressions;
+    using System.Reflection;
+    using BepInEx;
+    using UnityEngine;
+
     // TODO: Finish Interpolation Library
 
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public static class ExpandedInterpolation
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     {
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public enum Mode { Standard, Squares, SquareRoots }
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public enum Style { Linear, Nearest, Polynomial, Spline, Spherical, Cubic }
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public enum Clamping { Clamped, Unclamped }
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public struct InterpolationSettings
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
         {
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
             public static InterpolationSettings standard = new InterpolationSettings( Mode.Standard, Style.Linear, Clamping.Clamped );
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
             public InterpolationSettings( Mode mode, Style style, Clamping clamping )
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
             {
                 this.mode = mode;
                 this.style = style;
@@ -35,8 +71,8 @@ namespace ReinCore
 
                 for( Int32 i = 0; i < settings.Length; ++i )
                 {
-                    var en = settings[i];
-                    var type = en.GetType();
+                    Enum en = settings[i];
+                    Type type = en.GetType();
                     if( type == typeof(Mode) )
                     {
                         this.mode = (Mode)en;
@@ -57,21 +93,24 @@ namespace ReinCore
             internal Clamping clamping { get; private set; }
         }
 
-        public static Color Interpolate( Color from, Color to, Single t, InterpolationSettings settings )
-        {
-            return Interpolate( from, to, t, settings.mode, settings.style, settings.clamping );
-        }
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+        public static Color Interpolate( Color from, Color to, Single t, InterpolationSettings settings ) => Interpolate( from, to, t, settings.mode, settings.style, settings.clamping );
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public static Color Interpolate( Color from, Color to, Single t, Mode mode = Mode.Standard, Style style = Style.Linear, Clamping clamp = Clamping.Unclamped )
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
         {
-            var r = Interpolate( from.r, to.r, t, mode, style, clamp );
-            var g = Interpolate( from.g, to.g, t, mode, style, clamp );
-            var b = Interpolate( from.b, to.b, t, mode, style, clamp );
-            var a = Interpolate( from.a, to.a, t, mode, style, clamp );
+            Single r = Interpolate( from.r, to.r, t, mode, style, clamp );
+            Single g = Interpolate( from.g, to.g, t, mode, style, clamp );
+            Single b = Interpolate( from.b, to.b, t, mode, style, clamp );
+            Single a = Interpolate( from.a, to.a, t, mode, style, clamp );
             return new Color( r, g, b, a );
         }
 
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public static Single Interpolate( Single from, Single to, Single t, Mode mode = Mode.Standard, Style style = Style.Linear, Clamping clamp = Clamping.Unclamped )
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
         {
             Single output = 0f;
             switch( mode )
@@ -95,7 +134,7 @@ namespace ReinCore
                     output = t < 0.5f ? from : to;
                     break;
                 case Style.Linear:
-                    output = from + (to - from) * t;
+                    output = from + ((to - from) * t);
                     break;
                 case Style.Polynomial:
                     throw new NotImplementedException();

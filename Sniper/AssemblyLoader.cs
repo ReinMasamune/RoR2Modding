@@ -1,9 +1,10 @@
-﻿using System;
-using System.Reflection;
-using BepInEx;
-namespace Sniper.Properties
+﻿namespace Sniper.Properties
 {
-	[BepInPlugin( AssemblyLoad.guid, "Rein Assembly-PreLoad", AssemblyLoad.version )]
+    using System;
+    using System.Reflection;
+    using BepInEx;
+
+    [BepInPlugin( AssemblyLoad.guid, "Rein Assembly-PreLoad", AssemblyLoad.version )]
     internal class AssemblyLoad : BaseUnityPlugin
     {
         public const String guid = "___AssemblyLoader-com.Rein.Core";

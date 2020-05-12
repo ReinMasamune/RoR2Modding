@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using UnityEngine;
-using System.IO;
-using static ReinCore.Wooting.WootingRGBHelpers;
-using Rein.Properties;
-
-namespace ReinCore.Wooting
+﻿namespace ReinCore.Wooting
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+    using UnityEngine;
+    using System.IO;
+    using static global::ReinCore.Wooting.WootingRGBHelpers;
+    using Rein.Properties;
+
     internal class WootingRGB : IKeyboardRGB, IDisposable
     {
         #region Constants
@@ -23,8 +23,16 @@ namespace ReinCore.Wooting
 
         internal WootingRGB( KeyboardType type )
         {
-            if( instance != null ) throw new Exception( String.Format( "Cannot create multiple instances of {0}", nameof( WootingRGB ) ) );
-            if( !this.CheckIsValid( type ) ) throw new ArgumentException( "Wrong keyboard type" );
+            if( instance != null )
+            {
+                throw new Exception( String.Format( "Cannot create multiple instances of {0}", nameof( WootingRGB ) ) );
+            }
+
+            if( !this.CheckIsValid( type ) )
+            {
+                throw new ArgumentException( "Wrong keyboard type" );
+            }
+
             instance = this;
         }
 
@@ -42,7 +50,7 @@ namespace ReinCore.Wooting
         #region Static Internal
         private static WootingRGB instance;
         private static Boolean assemblyLoaded = false;
-        private static Boolean updateRegistered = false;
+        private static readonly Boolean updateRegistered = false;
         private static Boolean polling = true;
         private static Boolean pendingChanges = false;
         private static String dllPath;
@@ -55,7 +63,7 @@ namespace ReinCore.Wooting
         {
             try
             {
-                AppExit();
+                _ = AppExit();
             } catch { }
             try
             {
@@ -100,17 +108,14 @@ namespace ReinCore.Wooting
         }
         #endregion
         #region Instance External
-        public Boolean CheckIsValid( KeyboardType type )
-        {
-            return type == KeyboardType.Wooting;
-        }
+        public Boolean CheckIsValid( KeyboardType type ) => type == KeyboardType.Wooting;
         public void LogDeviceInfo()
         {
 
         }
         public Boolean SetKeyRGB( GlobalKeys key, Color rgb )
         {
-            var temp = SetKey( key, rgb );
+            Boolean temp = SetKey( key, rgb );
             pendingChanges |= temp;
             return temp;
         }
@@ -125,17 +130,21 @@ namespace ReinCore.Wooting
         }
         public void Activate()
         {
-            if( !assemblyLoaded ) LoadAssembly();
+            if( !assemblyLoaded )
+            {
+                LoadAssembly();
+            }
 
             ReinCore.lateUpdate += LateUpdate;
         }
-        public void Deactivate()
-        {
-            ReinCore.lateUpdate -= LateUpdate;
-        }
+        public void Deactivate() => ReinCore.lateUpdate -= LateUpdate;
         public Boolean CheckConnected()
         {
-            if( !assemblyLoaded ) LoadAssembly();
+            if( !assemblyLoaded )
+            {
+                LoadAssembly();
+            }
+
             return IsConnected();
         }
         public void Dispose()

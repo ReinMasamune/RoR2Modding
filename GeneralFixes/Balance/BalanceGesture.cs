@@ -1,20 +1,20 @@
-﻿using BepInEx;
-using RoR2;
-using UnityEngine;
-using System.Collections.Generic;
-using RoR2.Navigation;
-using Mono.Cecil.Cil;
-using MonoMod.Cil;
-using System;
-using System.Reflection;
-using EntityStates;
-using RoR2.Skills;
-using System.Collections;
-using UnityEngine.Networking;
-using ReinCore;
-
-namespace ReinGeneralFixes
+﻿namespace ReinGeneralFixes
 {
+    using BepInEx;
+    using RoR2;
+    using UnityEngine;
+    using System.Collections.Generic;
+    using RoR2.Navigation;
+    using Mono.Cecil.Cil;
+    using MonoMod.Cil;
+    using System;
+    using System.Reflection;
+    using EntityStates;
+    using RoR2.Skills;
+    using System.Collections;
+    using UnityEngine.Networking;
+    using ReinCore;
+
     internal partial class Main
     {
         private static readonly HashSet<EquipmentIndex> gestureBlacklist = new HashSet<EquipmentIndex>();
@@ -85,7 +85,9 @@ namespace ReinGeneralFixes
             _ = c.EmitDelegate<Func<EquipmentIndex, Inventory, EquipmentIndex>>( ( index, inv ) =>
               {
                   if( index == EquipmentIndex.None )
+                  {
                       return index;
+                  }
 
                   GameObject obj = inv.gameObject;
                   if( beingDestroyed.ContainsKey( obj ) )
@@ -178,9 +180,15 @@ namespace ReinGeneralFixes
 
         private static void DestroyEquipment( Inventory inv, EquipmentIndex index )
         {
-            if( beingDestroyed.ContainsKey( inv.gameObject ) ) return;
+            if( beingDestroyed.ContainsKey( inv.gameObject ) )
+            {
+                return;
+            }
 
-            if( !equipDestroyDelays.ContainsKey( index ) ) index = EquipmentIndex.None;
+            if( !equipDestroyDelays.ContainsKey( index ) )
+            {
+                index = EquipmentIndex.None;
+            }
 
             _ = Util.PlaySound( "Play_item_proc_armorReduction_shatter", inv.gameObject );
             beingDestroyed[inv.gameObject] = inv.StartCoroutine( EquipDestroyer( inv, equipDestroyDelays[index] + 0.25f ) );
@@ -201,7 +209,9 @@ namespace ReinGeneralFixes
             inv.SetEquipmentIndex( EquipmentIndex.None );
             _ = Util.PlaySound( "Play_item_proc_armorReduction_shatter", inv.gameObject );
             if( beingDestroyed.ContainsKey( inv.gameObject ) )
+            {
                 _ = beingDestroyed.Remove( inv.gameObject );
+            }
         }
     }
 }

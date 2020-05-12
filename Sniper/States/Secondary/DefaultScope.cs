@@ -1,23 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using BepInEx.Logging;
-using ReinCore;
-using RoR2;
-using RoR2.Networking;
-using UnityEngine;
-using KinematicCharacterController;
-using EntityStates;
-using RoR2.Skills;
-using System.Reflection;
-using Sniper.Expansions;
-using Sniper.Enums;
-using Sniper.Data;
-using UnityEngine.Networking;
-using Sniper.States.Bases;
-
-namespace Sniper.States.Secondary
+﻿namespace Sniper.States.Secondary
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Runtime.CompilerServices;
+    using BepInEx.Logging;
+    using ReinCore;
+    using RoR2;
+    using RoR2.Networking;
+    using UnityEngine;
+    using KinematicCharacterController;
+    using EntityStates;
+    using RoR2.Skills;
+    using System.Reflection;
+    using Sniper.Expansions;
+    using Sniper.Enums;
+    using Sniper.Data;
+    using UnityEngine.Networking;
+    using Sniper.States.Bases;
+
     internal class DefaultScope : ScopeBaseState
     {
         private const Single maxCharge = 1f;
@@ -67,7 +67,7 @@ namespace Sniper.States.Secondary
             base.StartAimMode( 2f );
             if( NetworkServer.active )
             {
-                characterBody.AddBuff( BuffIndex.Slow50 );
+                this.characterBody.AddBuff( BuffIndex.Slow50 );
             }
 
         }
@@ -81,7 +81,7 @@ namespace Sniper.States.Secondary
             {
                 if( this.charge < maxCharge )
                 {
-                    this.charge += Time.fixedDeltaTime * chargePerSecond * characterBody.attackSpeed / ( 1f + ( base.characterMotor.velocity.magnitude * speedScalar ) );
+                    this.charge += Time.fixedDeltaTime * chargePerSecond * this.characterBody.attackSpeed / ( 1f + ( base.characterMotor.velocity.magnitude * speedScalar ) );
                 } else
                 {
                     this.charge = maxCharge;
@@ -99,9 +99,6 @@ namespace Sniper.States.Secondary
         }
 
 
-        private Single GetDamageMultiplier()
-        {
-            return damageCurve.Evaluate( this.charge / maxCharge );
-        }
+        private Single GetDamageMultiplier() => damageCurve.Evaluate( this.charge / maxCharge );
     }
 }

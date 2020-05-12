@@ -1,30 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using BepInEx.Logging;
-using ReinCore;
-using RoR2;
-using RoR2.Networking;
-using UnityEngine;
-using KinematicCharacterController;
-using EntityStates;
-using RoR2.Skills;
-using System.Reflection;
-using Sniper.Data;
-using Sniper.Enums;
-using Sniper.Components;
-using Sniper.SkillDefTypes.Bases;
-using Sniper.States.Bases;
-
-namespace Sniper.SkillDefs
+﻿namespace Sniper.SkillDefs
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Runtime.CompilerServices;
+    using BepInEx.Logging;
+    using ReinCore;
+    using RoR2;
+    using RoR2.Networking;
+    using UnityEngine;
+    using KinematicCharacterController;
+    using EntityStates;
+    using RoR2.Skills;
+    using System.Reflection;
+    using Sniper.Data;
+    using Sniper.Enums;
+    using Sniper.Components;
+    using Sniper.SkillDefTypes.Bases;
+    using Sniper.States.Bases;
+
     internal class SniperReloadableFireSkillDef : SniperSkillDef
     {
         internal static SniperReloadableFireSkillDef Create<TFire,TReload>(String fireStateMachineName, String reloadStateMachineName)
             where TFire : SnipeBaseState
             where TReload : EntityState,ISniperReloadState
         {
-            var def = ScriptableObject.CreateInstance<SniperReloadableFireSkillDef>();
+            SniperReloadableFireSkillDef def = ScriptableObject.CreateInstance<SniperReloadableFireSkillDef>();
             def.activationState = SkillsCore.StateType<TFire>();
             def.activationStateMachineName = fireStateMachineName;
             def.baseRechargeInterval = 1f;
@@ -124,7 +124,7 @@ namespace Sniper.SkillDefs
         public sealed override void OnExecute( GenericSkill skillSlot )
         {
             var data = skillSlot.skillInstanceData as SniperPrimaryInstanceData;
-            var state = this.InstantiateNextState(skillSlot);
+            EntityState state = this.InstantiateNextState(skillSlot);
             if( data.isReloading )
             {
                 var reloadState = state as ISniperReloadState;
@@ -134,7 +134,7 @@ namespace Sniper.SkillDefs
                 fireState.reloadTier = data.currentReloadTier;
             }
 
-            var machine = data.isReloading ? data.reloadStatemachine : skillSlot.stateMachine;
+            EntityStateMachine machine = data.isReloading ? data.reloadStatemachine : skillSlot.stateMachine;
 
             if( machine.SetInterruptState( state, data.isReloading ? this.reloadInterruptPriority : base.interruptPriority ) )
             {
@@ -151,7 +151,7 @@ namespace Sniper.SkillDefs
                         data.StartReload();
                     }
                 }
-                var body = skillSlot.characterBody;
+                CharacterBody body = skillSlot.characterBody;
                 if( body )
                 {
                     if( base.noSprint )
@@ -193,10 +193,7 @@ namespace Sniper.SkillDefs
                 this.reloadController.StartReload( this.reloadParams );
 
             }
-            internal void StopReload()
-            {
-                this.reloadController.StopReload( this );
-            }
+            internal void StopReload() => this.reloadController.StopReload( this );
 
             internal ReloadTier ReadReload()
             {
@@ -204,16 +201,9 @@ namespace Sniper.SkillDefs
                 return this.currentReloadTier;
             }
 
-            internal Boolean CanReload()
-            {
-                if( !this.reloadController ) return false;
-                return this.reloadController.CanReload();
-            }
+            internal Boolean CanReload() => !this.reloadController ? false : this.reloadController.CanReload();
 
-            internal Boolean CanShoot()
-            {
-                return this.delayTimer >= this.def.shootDelay;
-            }
+            internal Boolean CanShoot() => this.delayTimer >= this.def.shootDelay;
 
             internal SniperReloadableFireSkillDef def;
             internal EntityStateMachine reloadStatemachine;

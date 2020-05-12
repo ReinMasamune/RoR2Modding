@@ -1,13 +1,13 @@
-﻿using System;
-using BepInEx;
-using Unity.Collections;
-using Unity.Jobs;
-using UnityEngine;
-using System.Linq;
-using Unity.Burst;
-
-namespace ReinCore
+﻿namespace ReinCore
 {
+    using System;
+    using BepInEx;
+    using Unity.Collections;
+    using Unity.Jobs;
+    using UnityEngine;
+    using System.Linq;
+    using Unity.Burst;
+
     internal struct BarTextureJob : ITextureJob
     {
         #region MAIN THREAD ONLY
@@ -111,7 +111,10 @@ namespace ReinCore
                     } else if( pos.x >= this.cornerRight )
                     {
                         corner.x = this.cornerRight;
-                    } else shouldCompare = false;
+                    } else
+                    {
+                        shouldCompare = false;
+                    }
 
                     if( pos.y <= this.cornerTop )
                     {
@@ -119,7 +122,10 @@ namespace ReinCore
                     } else if( pos.y >= this.cornerBot )
                     {
                         corner.y = this.cornerBot;
-                    } else shouldCompare = false;
+                    } else
+                    {
+                        shouldCompare = false;
+                    }
 
                     Vector2Int temp = pos - corner;
 

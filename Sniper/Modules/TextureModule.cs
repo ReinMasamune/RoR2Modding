@@ -1,19 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Reflection;
-using System.IO;
-using System.Runtime.CompilerServices;
-using BepInEx.Logging;
-using ReinCore;
-using RoR2;
-using Sniper.Data;
-using Sniper.ScriptableObjects.Custom;
-using UnityEngine;
-using Unity.Jobs;
-
-namespace Sniper.Modules
+﻿namespace Sniper.Modules
 {
-	internal static class TextureModule
+    using System;
+    using System.Collections.Generic;
+    using System.Reflection;
+    using System.IO;
+    using System.Runtime.CompilerServices;
+    using BepInEx.Logging;
+    using ReinCore;
+    using RoR2;
+    using Sniper.Data;
+    using Sniper.ScriptableObjects.Custom;
+    using UnityEngine;
+    using Unity.Jobs;
+
+    internal static class TextureModule
 	{
 		static TextureModule()
 		{
@@ -199,9 +199,12 @@ namespace Sniper.Modules
 
 		private static SniperTextureSet GetMasterSet()
 		{
-			if( masterSet == null ) ScanAndLoadPacks();
+			if( masterSet == null )
+            {
+                ScanAndLoadPacks();
+            }
 
-			return masterSet;
+            return masterSet;
 		}
 
 

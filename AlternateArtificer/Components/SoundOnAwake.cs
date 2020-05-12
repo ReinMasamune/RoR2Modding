@@ -9,9 +9,6 @@
     public class SoundOnAwake : MonoBehaviour
     {
         public String sound;
-        public void Awake()
-        {
-            Util.PlaySound( sound, base.gameObject );
-        }
+        public void Awake() => Util.PlaySound( this.sound, base.gameObject );
     }
 }

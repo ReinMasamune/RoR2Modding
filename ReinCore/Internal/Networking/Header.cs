@@ -1,8 +1,8 @@
-﻿using System;
-using UnityEngine.Networking;
-
-namespace ReinCore
+﻿namespace ReinCore
 {
+    using System;
+    using UnityEngine.Networking;
+
     internal class Header : ISerializableObject
     {
         public Header() { }
@@ -15,12 +15,9 @@ namespace ReinCore
         internal Int32 typeCode { get; private set; }
         internal NetworkDestination destination { get; private set; }
 
-        internal void RemoveDestination( NetworkDestination destination )
-        {
-            this.destination &= ~destination;
-        }
+        internal void RemoveDestination( NetworkDestination destination ) => this.destination &= ~destination;
 
-        
+
         public void Serialize( NetworkWriter writer )
         {
             writer.Write( this.typeCode );

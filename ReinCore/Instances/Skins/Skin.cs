@@ -1,29 +1,46 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
-using System.Text;
-using RoR2;
-using UnityEngine;
-
-namespace ReinCore
+﻿namespace ReinCore
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq.Expressions;
+    using System.Text;
+    using RoR2;
+    using UnityEngine;
+
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public class Skin : IDisposable
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     {
         #region Static External
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public static Skin Create( CharacterModel character, params SkinDef[] baseSkins )
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
         {
-            if( character == null ) throw new ArgumentNullException( nameof( character ) );
-            GameObject root = character.gameObject;
-            if( root == null ) throw new ArgumentNullException( nameof( character ) );
-            ModelSkinController controller = root.AddOrGetComponent<ModelSkinController>();
-            if( controller == null ) throw new ArgumentNullException( nameof( character ) );
+            if( character == null )
+            {
+                throw new ArgumentNullException( nameof( character ) );
+            }
 
+            GameObject root = character.gameObject;
+            if( root == null )
+            {
+                throw new ArgumentNullException( nameof( character ) );
+            }
+
+            ModelSkinController controller = root.AddOrGetComponent<ModelSkinController>();
+            if( controller == null )
+            {
+                throw new ArgumentNullException( nameof( character ) );
+            }
 
             HooksCore.RoR2.SkinDef.Awake.On += DoNothing;
-            var def = ScriptableObject.CreateInstance<SkinDef>();
+            SkinDef def = ScriptableObject.CreateInstance<SkinDef>();
             HooksCore.RoR2.SkinDef.Awake.On -= DoNothing;
 
-            if( def == null ) throw new Exception( "Failed to create SkinDef" );
+            if( def == null )
+            {
+                throw new Exception( "Failed to create SkinDef" );
+            }
 
             def.rootObject = root;
             def.baseSkins = baseSkins;
@@ -48,59 +65,77 @@ namespace ReinCore
 
         static Skin()
         {
-            var instanceParam = Expression.Parameter( typeof(SkinDef), "instance" );
-            var body = Expression.Call( instanceParam, "Awake", null );
+            ParameterExpression instanceParam = Expression.Parameter( typeof(SkinDef), "instance" );
+            MethodCallExpression body = Expression.Call( instanceParam, "Awake", null );
             CallAwake = Expression.Lambda<SkinDefAwake>( body, instanceParam ).Compile();
         }
 
         #endregion
         #region Instance External
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public Sprite icon
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
         {
             set => this.wrappedSkin.icon = value;
         }
 
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public String nameToken
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
         {
             set => this.wrappedSkin.nameToken = value;
         }
 
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public String unlockableName
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
         {
             set => this.wrappedSkin.unlockableName = value;
         }
 
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public CharacterModel.RendererInfo[] rendererInfos
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
         {
             get => this.wrappedSkin.rendererInfos;
             set => this.wrappedSkin.rendererInfos = value;
         }
 
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public SkinDef.GameObjectActivation[] gameObjectActivations
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
         {
             get => this.wrappedSkin.gameObjectActivations;
             set => this.wrappedSkin.gameObjectActivations = value;
         }
 
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public SkinDef.MeshReplacement[] meshReplacements
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
         {
             get => this.wrappedSkin.meshReplacements;
             set => this.wrappedSkin.meshReplacements = value;
         }
 
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public SkinDef.ProjectileGhostReplacement[] projectileGhostReplacements
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
         {
             get => this.wrappedSkin.projectileGhostReplacements;
             set => this.wrappedSkin.projectileGhostReplacements = value;
         }
 
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public SkinDef.MinionSkinReplacement[] minionSkinReplacements
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
         {
             get => this.wrappedSkin.minionSkinReplacements;
             set => this.wrappedSkin.minionSkinReplacements = value;
         }
 
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public void Dispose()
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
         {
             try
             {
@@ -113,7 +148,7 @@ namespace ReinCore
                 return;
             }
 
-            var index = this.controller.skins.Length;
+            Int32 index = this.controller.skins.Length;
             Array.Resize( ref this.controller.skins, index + 1 );
             this.controller.skins[index] = this.wrappedSkin;
         }

@@ -1,17 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using UnityEngine;
-
-namespace ReinCore.Wooting
+﻿namespace ReinCore.Wooting
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+    using UnityEngine;
+
     internal struct KeyColour
     {
-        internal byte r;
-        internal byte g;
-        internal byte b;
+        internal Byte r;
+        internal Byte g;
+        internal Byte b;
 
-        internal KeyColour( byte r, byte g, byte b )
+        internal KeyColour( Byte r, Byte g, Byte b )
         {
             this.r = r;
             this.g = g;

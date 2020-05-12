@@ -1,19 +1,19 @@
-﻿using BepInEx;
-using RoR2;
-using UnityEngine;
-using System.Collections.Generic;
-using RoR2.Navigation;
-using Mono.Cecil.Cil;
-using MonoMod.Cil;
-using System;
-using System.Reflection;
-using EntityStates;
-using RoR2.Skills;
-using System.Collections;
-using ReinCore;
-
-namespace ReinGeneralFixes
+﻿namespace ReinGeneralFixes
 {
+    using BepInEx;
+    using RoR2;
+    using UnityEngine;
+    using System.Collections.Generic;
+    using RoR2.Navigation;
+    using Mono.Cecil.Cil;
+    using MonoMod.Cil;
+    using System;
+    using System.Reflection;
+    using EntityStates;
+    using RoR2.Skills;
+    using System.Collections;
+    using ReinCore;
+
     internal partial class Main
     {
         private static Boolean ShouldInheritEquipment( EquipmentIndex index )
@@ -40,7 +40,11 @@ namespace ReinGeneralFixes
             c.Index += 3;
             _ = c.EmitDelegate<Func<Inventory, Inventory, Inventory>>( ( newInv, oldInv ) =>
               {
-                  if( ShouldInheritEquipment( oldInv.currentEquipmentIndex ) ) newInv.CopyEquipmentFrom( oldInv );
+                  if( ShouldInheritEquipment( oldInv.currentEquipmentIndex ) )
+                  {
+                      newInv.CopyEquipmentFrom( oldInv );
+                  }
+
                   return oldInv;
               } );
         }

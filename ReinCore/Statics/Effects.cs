@@ -1,27 +1,46 @@
-﻿using System;
-using System.Collections.Generic;
-using BepInEx;
-using RoR2;
-using UnityEngine;
-
-namespace ReinCore
+﻿namespace ReinCore
 {
+    using System;
+    using System.Collections.Generic;
+    using BepInEx;
+    using RoR2;
+    using UnityEngine;
+
     // TODO: Docs for EffectsCore
     /// <summary>
     /// 
     /// </summary>
     public static class EffectsCore
     {
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public static Boolean loaded { get; internal set; } = false;
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public static void AddEffect( GameObject effect )
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
         {
-            if( !loaded ) throw new CoreNotLoadedException( nameof( EffectsCore ) );
-            if( effect == null ) throw new ArgumentNullException( "effect" );
-            var effectComp = effect.GetComponent<EffectComponent>();
-            if( effectComp == null ) throw new ArgumentException( "must have an EffectComponent", "effect" );
-            var vfx = effect.GetComponent<VFXAttributes>();
-            if( vfx == null ) throw new ArgumentException( "must have a VFXAttributesComponent", "effect" );
+            if( !loaded )
+            {
+                throw new CoreNotLoadedException( nameof( EffectsCore ) );
+            }
+
+            if( effect == null )
+            {
+                throw new ArgumentNullException( "effect" );
+            }
+
+            EffectComponent effectComp = effect.GetComponent<EffectComponent>();
+            if( effectComp == null )
+            {
+                throw new ArgumentException( "must have an EffectComponent", "effect" );
+            }
+
+            VFXAttributes vfx = effect.GetComponent<VFXAttributes>();
+            if( vfx == null )
+            {
+                throw new ArgumentException( "must have a VFXAttributesComponent", "effect" );
+            }
 
             AddEffect( new EffectDef
             {
@@ -33,12 +52,26 @@ namespace ReinCore
             } );
         }
 
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public static void AddEffect( EffectDef effect )
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
         {
-            if( !loaded ) throw new CoreNotLoadedException( nameof( EffectsCore ) );
-            if( effect == null ) throw new ArgumentNullException( "effect" );
-            if( addedEffectSet.Contains( effect ) ) return;
-            addedEffectSet.Add( effect );
+            if( !loaded )
+            {
+                throw new CoreNotLoadedException( nameof( EffectsCore ) );
+            }
+
+            if( effect == null )
+            {
+                throw new ArgumentNullException( "effect" );
+            }
+
+            if( addedEffectSet.Contains( effect ) )
+            {
+                return;
+            }
+
+            _ = addedEffectSet.Add( effect );
             addedEffects.Add( effect );
         }
 
@@ -52,10 +85,10 @@ namespace ReinCore
 
         private static EffectDef[] GetDefaultEffectDefs_On( HooksCore.RoR2.EffectCatalog.GetDefaultEffectDefs.Orig orig )
         {
-            var effects = orig();
+            EffectDef[] effects = orig();
 
-            var ind = effects.Length;
-            var newCount = addedEffects.Count;
+            Int32 ind = effects.Length;
+            Int32 newCount = addedEffects.Count;
             if( newCount > 0 )
             {
                 newCount += ind;
@@ -68,7 +101,7 @@ namespace ReinCore
             return effects;
         }
 
-        private static HashSet<EffectDef> addedEffectSet = new HashSet<EffectDef>();
-        private static List<EffectDef> addedEffects = new List<EffectDef>();
+        private static readonly HashSet<EffectDef> addedEffectSet = new HashSet<EffectDef>();
+        private static readonly List<EffectDef> addedEffects = new List<EffectDef>();
     }
 }

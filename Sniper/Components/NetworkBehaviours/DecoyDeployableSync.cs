@@ -1,15 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using BepInEx.Logging;
-using ReinCore;
-using RoR2;
-using UnityEngine;
-using Sniper.SkillDefs;
-using UnityEngine.Networking;
-
-namespace Sniper.Components
+﻿namespace Sniper.Components
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Runtime.CompilerServices;
+    using BepInEx.Logging;
+    using ReinCore;
+    using RoR2;
+    using UnityEngine;
+    using Sniper.SkillDefs;
+    using UnityEngine.Networking;
+
     internal class DecoyDeployableSync : NetworkBehaviour, IRuntimePrefabComponent
     {
         #region Networking
@@ -45,8 +45,7 @@ namespace Sniper.Components
                 //} else Log.Error( "What are you???" );
             } else
             {
-                var inst = ( this.owner?.GetBody()?.skillLocator?.special?.skillInstanceData as DecoySkillDef.ReactivationInstanceData );
-                if( inst != null )
+                if( this.owner?.GetBody()?.skillLocator?.special?.skillInstanceData is DecoySkillDef.ReactivationInstanceData inst )
                 {
                     inst.InvalidateReactivation();
                 }
@@ -64,7 +63,10 @@ namespace Sniper.Components
         {
 
 #if ASSERT
-            if( this.body == null ) Log.ErrorL( "Body was null" );
+            if( this.body == null )
+            {
+                Log.ErrorL( "Body was null" );
+            }
 #endif
         }
 
@@ -72,20 +74,23 @@ namespace Sniper.Components
         {
             this.master = this.body.master;
 #if ASSERT
-            if( this.master == null ) Log.ErrorL( "Master was null" );
+            if( this.master == null )
+            {
+                Log.ErrorL( "Master was null" );
+            }
 #endif
 
             this.owner = this.master.minionOwnership?.ownerMaster;
 #if ASSERT
-            if( this.owner == null ) Log.ErrorL( "Owner was null" );
+            if( this.owner == null )
+            {
+                Log.ErrorL( "Owner was null" );
+            }
 #endif
         }
 
         #region Prefab only
-        void IRuntimePrefabComponent.InitializePrefab()
-        {
-            this.body = base.gameObject.GetComponent<CharacterBody>();
-        }
+        void IRuntimePrefabComponent.InitializePrefab() => this.body = base.gameObject.GetComponent<CharacterBody>();
 
         #endregion
     }

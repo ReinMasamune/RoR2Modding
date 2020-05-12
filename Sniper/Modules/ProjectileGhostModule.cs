@@ -1,17 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using BepInEx.Logging;
-using ReinCore;
-using RoR2;
-using Sniper.ScriptableObjects;
-using UnityEngine;
-
-namespace Sniper.Modules
+﻿namespace Sniper.Modules
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Runtime.CompilerServices;
+    using BepInEx.Logging;
+    using ReinCore;
+    using RoR2;
+    using RoR2.Projectile;
+    using Sniper.ScriptableObjects;
+    using UnityEngine;
+
     internal static class ProjectileGhostModule
     {
+#pragma warning disable IDE1006 // Naming Styles
         private static GameObject _baseKnifeGhost;
+#pragma warning restore IDE1006 // Naming Styles
         private static GameObject GetBaseKnifeGhost()
         {
             if( _baseKnifeGhost == null )
@@ -23,23 +26,15 @@ namespace Sniper.Modules
         }
         private static GameObject CreateBaseKnifeGhost()
         {
-            var obj = PrefabsCore.CreatePrefab( "KnifeGhost", false );
+            GameObject obj = AssetModule.GetSniperAssetBundle().LoadAsset<GameObject>( Properties.Resources.KnifeGhostPrefabPath );
 
+            _ = obj.AddOrGetComponent<ProjectileGhostController>();
 
-            var knifeMesh = new GameObject( "KnifeMesh" ).transform;
-            knifeMesh.parent = obj.transform;
-            knifeMesh.localPosition = Vector3.zero;
-            knifeMesh.localScale = Vector3.one;
-            knifeMesh.localRotation = Quaternion.identity;
-
-
-
-            var knifeTrail = new GameObject( "Trail" ).transform;
-            knifeTrail.parent = obj.transform;
-            knifeTrail.localPosition = Vector3.zero;
-            knifeTrail.localScale = Vector3.one;
-            knifeTrail.localRotation = Quaternion.identity;
-
+            VFXAttributes vfx = obj.AddOrGetComponent<VFXAttributes>();
+            vfx.vfxPriority = VFXAttributes.VFXPriority.Always;
+            vfx.vfxIntensity = VFXAttributes.VFXIntensity.Low;
+            vfx.optionalLights = null;
+            vfx.secondaryParticleSystem = null;
 
             return obj;
         }

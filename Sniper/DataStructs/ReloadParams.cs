@@ -1,15 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using BepInEx.Logging;
-using ReinCore;
-using RoR2;
-using Sniper.Enums;
-using Sniper.Expansions;
-using UnityEngine;
-
-namespace Sniper.Data
+﻿namespace Sniper.Data
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Runtime.CompilerServices;
+    using BepInEx.Logging;
+    using ReinCore;
+    using RoR2;
+    using Sniper.Enums;
+    using Sniper.Expansions;
+    using UnityEngine;
+
     [Serializable]
     internal struct ReloadParams
     {
@@ -42,16 +42,14 @@ namespace Sniper.Data
 
         private Single AdjustAttackSpeed( Single rawAttackSpeed )
         {
-            if( rawAttackSpeed > 1f )
-            {
-                return 1f + (this.attackSpeedCap * (1f - (this.attackSpeedCap / (rawAttackSpeed + (this.attackSpeedCap - 1f)))));
-            }
-            return rawAttackSpeed;
+            return rawAttackSpeed > 1f
+                ? 1f + (this.attackSpeedCap * (1f - (this.attackSpeedCap / (rawAttackSpeed + (this.attackSpeedCap - 1f)))))
+                : rawAttackSpeed;
         }
 
         public override Int32 GetHashCode()
         {
-            var hash = this.goodStart.GetHashCode();
+            Int32 hash = this.goodStart.GetHashCode();
             unchecked
             {
                 hash += this.goodEnd.GetHashCode();
@@ -72,15 +70,9 @@ namespace Sniper.Data
         internal ReloadTier GetReloadTier( Single timer )
         {
             timer /= this.baseDuration;
-            if( timer >= this.perfectStart && timer <= this.perfectEnd )
-            {
-                return ReloadTier.Perfect;
-            }
-            if( timer >= this.goodStart && timer <= this.goodEnd )
-            {
-                return ReloadTier.Good;
-            }
-            return ReloadTier.Bad;
+            return timer >= this.perfectStart && timer <= this.perfectEnd
+                ? ReloadTier.Perfect
+                : timer >= this.goodStart && timer <= this.goodEnd ? ReloadTier.Good : ReloadTier.Bad;
         }
 
         internal void ModifyBullet( ExpandableBulletAttack bullet, ReloadTier tier )

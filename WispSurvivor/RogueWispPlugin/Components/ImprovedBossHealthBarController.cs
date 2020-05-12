@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 namespace Rein.RogueWispPlugin
 {
@@ -37,26 +38,21 @@ namespace Rein.RogueWispPlugin
                         this.bossHealthComps.Clear();
                         this._currentBossGroup = value;
 
-                        foreach( BossHealthBarSegment panel in this.barPanels )
+                        for( Int32 i = 0; i < this.barPanels.Count; i++ )
                         {
+                            var panel = this.barPanels[i];
                             panel.ResetMaxViewed();
                         }
 
                     }
                     if( value != null )
                     {
-                        foreach( CharacterMaster master in this.combatSquadMembersField.GetValue( value.combatSquad ) as List<CharacterMaster> )
-                        {
-                            CharacterBody body = master.GetBody();
-                            if( body )
-                            {
-                                HealthComponent hc = body.healthComponent;
-                                if( hc && !this.bossHealthComps.Contains( hc ) )
-                                {
-                                    this.bossHealthComps.Add( hc );
-                                }
-                            }
-                        }
+                        this.bossHealthComps.AddRange( from CharacterMaster master in this.combatSquadMembersField.GetValue( value.combatSquad ) as List<CharacterMaster>
+                                                       let body = master.GetBody()
+                                                       where body
+                                                       let hc = body.healthComponent
+                                                       where hc && !this.bossHealthComps.Contains( hc )
+                                                       select hc );
                     }
                 }
             }

@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using BepInEx.Logging;
-using ReinCore;
-using RoR2;
-using UnityEngine;
-
-namespace Sniper.Expansions
+﻿namespace Sniper.Expansions
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Runtime.CompilerServices;
+    using BepInEx.Logging;
+    using ReinCore;
+    using RoR2;
+    using UnityEngine;
+
     internal delegate void OnBulletDelegate( ExpandableBulletAttack bullet, BulletAttack.BulletHit hitInfo );
     internal class ExpandableBulletAttack : BulletAttack, ICloneable
     {
@@ -28,7 +28,7 @@ namespace Sniper.Expansions
 
         private Boolean ExpandableHitCallback( ref BulletHit hitInfo )
         {
-            var result = base.DefaultHitCallback( ref hitInfo );
+            Boolean result = base.DefaultHitCallback( ref hitInfo );
             this.onHit?.Invoke( this, hitInfo );
             if( !result )
             {

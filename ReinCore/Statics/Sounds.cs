@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.InteropServices;
-using BepInEx;
-using RoR2;
-
-namespace ReinCore
+﻿namespace ReinCore
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Runtime.InteropServices;
+    using BepInEx;
+    using RoR2;
+
     /// <summary>
     /// For adding soundbanks
     /// </summary>
@@ -15,18 +15,25 @@ namespace ReinCore
         /// Is this module loaded?
         /// </summary>
         public static Boolean loaded { get; internal set; } = false;
-        
+
         /// <summary>
         /// Loads a soundbank from a byte array
         /// </summary>
         /// <param name="bankBytes"></param>
-        /// <param name="id"></param>
+        /// <param name="onIndexRecieved"></param>
         public static void LoadSoundbank( Byte[] bankBytes, Action<UInt32> onIndexRecieved )
         {
-            if( !loaded ) throw new CoreNotLoadedException( nameof( SoundsCore ) );
-            if( banksLoaded ) throw new Exception( "Too late to add bank" );
+            if( !loaded )
+            {
+                throw new CoreNotLoadedException( nameof( SoundsCore ) );
+            }
 
-            var ptr = PointerArrayHolder.Create( bankBytes );
+            if( banksLoaded )
+            {
+                throw new Exception( "Too late to add bank" );
+            }
+
+            IntPtr ptr = PointerArrayHolder.Create( bankBytes );
             RoR2Application_onLoad += () =>
             {
                 AKRESULT res = AkSoundEngine.LoadBank( ptr, (UInt32)bankBytes.Length, out UInt32 outId );
@@ -42,13 +49,18 @@ namespace ReinCore
             };
         }
 
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public static void UnloadSoundbank( UInt32 index )
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
         {
-            if( !loaded ) throw new CoreNotLoadedException( nameof( SoundsCore ) );
+            if( !loaded )
+            {
+                throw new CoreNotLoadedException( nameof( SoundsCore ) );
+            }
 
             if( activeIndicies.TryGetValue( index, out IntPtr val ) )
             {
-                AkSoundEngine.UnloadBank( index, val );
+                _ = AkSoundEngine.UnloadBank( index, val );
             } else
             {
                 throw new Exception( "No bank with that index loaded" );
@@ -73,7 +85,7 @@ namespace ReinCore
 
         private static Boolean banksLoaded = false;
 
-        private static Dictionary<UInt32,IntPtr> activeIndicies = new Dictionary<UInt32, IntPtr>();
+        private static readonly Dictionary<UInt32,IntPtr> activeIndicies = new Dictionary<UInt32, IntPtr>();
 
 #pragma warning disable IDE1006 // Naming Styles
         private static event Action RoR2Application_onLoad
@@ -85,10 +97,10 @@ namespace ReinCore
 
         private struct PointerArrayHolder
         {
-            private static Dictionary<IntPtr,PointerArrayHolder> instances = new Dictionary<IntPtr, PointerArrayHolder>();
+            private static readonly Dictionary<IntPtr,PointerArrayHolder> instances = new Dictionary<IntPtr, PointerArrayHolder>();
             internal static IntPtr Create( Byte[] bytes )
             {
-                var ptr = Marshal.AllocHGlobal( bytes.Length );
+                IntPtr ptr = Marshal.AllocHGlobal( bytes.Length );
                 Marshal.Copy( bytes, 0, ptr, bytes.Length );
 
                 var holder = new PointerArrayHolder(null, ptr);
@@ -104,8 +116,8 @@ namespace ReinCore
                 this.pointer = ptr;
             }
 
-            private Byte[] bytes;
-            private IntPtr pointer;
+            private readonly Byte[] bytes;
+            private readonly IntPtr pointer;
         }
     }
 }

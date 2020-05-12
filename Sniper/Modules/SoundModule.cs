@@ -1,21 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using BepInEx.Logging;
-using ReinCore;
-using RoR2;
-using Sniper.Enums;
-using UnityEngine;
-
-namespace Sniper.Modules
+﻿namespace Sniper.Modules
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Runtime.CompilerServices;
+    using BepInEx.Logging;
+    using ReinCore;
+    using RoR2;
+    using Sniper.Enums;
+    using UnityEngine;
+
     internal static class SoundModule
     {
         internal static UInt32 bankIndex { get; private set; }
-        internal static void LoadBank()
-        {
-            SoundsCore.LoadSoundbank( Properties.Resources.Rein_Sniper_Bank, ( ind ) => bankIndex = ind );
-        }
+        internal static void LoadBank() => SoundsCore.LoadSoundbank( Properties.Resources.Rein_Sniper_Bank, ( ind ) => bankIndex = ind );
 
         internal static Single sfxVolume { private get; set; } = 1f;
         internal static Single masterVolume { private get; set; } = 1f;
@@ -41,15 +38,9 @@ namespace Sniper.Modules
         internal static void PlayOpenReload( GameObject source ) => _ = AkSoundEngine.PostEvent( bolt_open_chamber, source );
 
         private const UInt32 bolt_ricochet = 3672228492u;
-        internal static void PlayRicochet( GameObject source )
-        {
-            _ = AkSoundEngine.PostEvent( bolt_ricochet, source );
-        }
+        internal static void PlayRicochet( GameObject source ) => _ = AkSoundEngine.PostEvent( bolt_ricochet, source );
 
-        internal static void PlayLoad( GameObject source, ReloadTier reloadTier )
-        {
-            _ = AkSoundEngine.PostEvent( reloadTier.GetSound(), source );
-        }
+        internal static void PlayLoad( GameObject source, ReloadTier reloadTier ) => _ = AkSoundEngine.PostEvent( reloadTier.GetSound(), source );
 
         private const UInt32 bolt_reload_bad = 339887885u;
         private const UInt32 bolt_reload_good = 2811185582u;

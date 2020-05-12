@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.InteropServices;
-using System.Text;
-using UnityEngine;
-
-namespace ReinCore.Wooting.Native
+﻿namespace ReinCore.Wooting.Native
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Runtime.InteropServices;
+    using System.Text;
+    using UnityEngine;
+
     internal static class WootingRGBExtern
     {
         /// <summary>

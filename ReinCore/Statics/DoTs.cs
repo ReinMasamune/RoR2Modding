@@ -1,28 +1,43 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
-using System.Reflection;
-using BepInEx;
-using Mono.Cecil;
-using Mono.Cecil.Cil;
-using MonoMod.Cil;
-using RoR2;
-using UnityEngine;
-
-namespace ReinCore
+﻿namespace ReinCore
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq.Expressions;
+    using System.Reflection;
+    using BepInEx;
+    using Mono.Cecil;
+    using Mono.Cecil.Cil;
+    using MonoMod.Cil;
+    using RoR2;
+    using UnityEngine;
+
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public static class DoTsCore
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     {
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public static Boolean loaded { get; internal set; } = false;
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public delegate void CustomDoTDamageDelegate( HealthComponent victim, DamageInfo damage );
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public static DotController.DotIndex AddDotType( DoTDef dot, Boolean blockMergeTicks = false, CustomDoTDamageDelegate customDamage = null )
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
         {
-            if( !loaded ) throw new CoreNotLoadedException( nameof( DoTsCore ) );
-            if( dot == null ) throw new ArgumentNullException( nameof( dot ) );
+            if( !loaded )
+            {
+                throw new CoreNotLoadedException( nameof( DoTsCore ) );
+            }
 
-            var ind = currentIndex++;
+            if( dot == null )
+            {
+                throw new ArgumentNullException( nameof( dot ) );
+            }
+
+            DotController.DotIndex ind = currentIndex++;
 
             AddNewDotDef( dot );
             if( customDamage != null )
@@ -41,73 +56,73 @@ namespace ReinCore
 
         static DoTsCore()
         {
-            var allFlags = BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Static;
-            var controllerType = typeof(DotController);
-            var dotDefType = controllerType.GetNestedType( "DotDef", allFlags );
-            var dotDefArrayType = dotDefType.MakeArrayType();
+            BindingFlags allFlags = BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Static;
+            Type controllerType = typeof(DotController);
+            Type dotDefType = controllerType.GetNestedType( "DotDef", allFlags );
+            Type dotDefArrayType = dotDefType.MakeArrayType();
             arrayField = controllerType.GetField( "dotDefs", allFlags );
-            var intervalField = dotDefType.GetField( "interval", allFlags );
-            var damageCoefField = dotDefType.GetField( "damageCoefficient", allFlags );
-            var damageColorIndexField = dotDefType.GetField( "damageColorIndex", allFlags );
-            var associatedBuffField = dotDefType.GetField( "associatedBuff", allFlags );
-            var custInterval = typeof(DoTDef).GetMember( nameof(DoTDef.interval), allFlags )[0];
-            var custDamageCoef = typeof(DoTDef).GetMember( nameof(DoTDef.damageCoefficient), allFlags )[0];
-            var custDamageColor = typeof(DoTDef).GetMember( nameof(DoTDef.damageColorIndex), allFlags )[0];
-            var custAssociatedBuff = typeof(DoTDef).GetMember( nameof(DoTDef.associatedBuff), allFlags )[0];
-            var constructionFuncType = typeof(Func<,>).MakeGenericType( typeof(DoTDef), dotDefType );
+            FieldInfo intervalField = dotDefType.GetField( "interval", allFlags );
+            FieldInfo damageCoefField = dotDefType.GetField( "damageCoefficient", allFlags );
+            FieldInfo damageColorIndexField = dotDefType.GetField( "damageColorIndex", allFlags );
+            FieldInfo associatedBuffField = dotDefType.GetField( "associatedBuff", allFlags );
+            MemberInfo custInterval = typeof(DoTDef).GetMember( nameof(DoTDef.interval), allFlags )[0];
+            MemberInfo custDamageCoef = typeof(DoTDef).GetMember( nameof(DoTDef.damageCoefficient), allFlags )[0];
+            MemberInfo custDamageColor = typeof(DoTDef).GetMember( nameof(DoTDef.damageColorIndex), allFlags )[0];
+            MemberInfo custAssociatedBuff = typeof(DoTDef).GetMember( nameof(DoTDef.associatedBuff), allFlags )[0];
+            Type constructionFuncType = typeof(Func<,>).MakeGenericType( typeof(DoTDef), dotDefType );
 
-            var inputParameter = Expression.Parameter( typeof(DoTDef), "NewDotDef" );
-            var inputInterval = Expression.MakeMemberAccess( inputParameter, custInterval );
-            var inputDamageCoef = Expression.MakeMemberAccess( inputParameter, custDamageCoef );
-            var inputDamageColor = Expression.MakeMemberAccess( inputParameter, custDamageColor );
-            var inputAssociatedBuff = Expression.MakeMemberAccess( inputParameter, custAssociatedBuff );
-            var intervalBind = Expression.Bind( intervalField, inputInterval );
-            var damageCoefBind = Expression.Bind( damageCoefField, inputDamageCoef );
-            var damageColorBind = Expression.Bind( damageColorIndexField, inputDamageColor );
-            var associatedBuffBind = Expression.Bind( associatedBuffField, inputAssociatedBuff );
-            var newDotDef = Expression.New( dotDefType );
-            var newDotDefInit = Expression.MemberInit(newDotDef, intervalBind, damageCoefBind, damageColorBind, associatedBuffBind );
-            var newDotDefFunc = Expression.Lambda( constructionFuncType, newDotDefInit, inputParameter );
-            var newDotDefInvoke = Expression.Invoke( newDotDefFunc, inputParameter );
-            var origArray = Expression.Field( null, arrayField );
-            var origLength = Expression.ArrayLength( origArray );
-            var length = Expression.Add( origLength, Expression.Constant(1) );
-            var initArray = Expression.NewArrayBounds(dotDefType, length);
-            var breakLabel = Expression.Label( dotDefArrayType, "return" );
-            var iteratorVar = Expression.Variable( typeof(Int32), "iterator" );
-            var newArrayVar = Expression.Variable( dotDefArrayType, "newArray" );
-            var compare1 = Expression.LessThan(iteratorVar, origLength);
-            var accessOld = Expression.ArrayAccess(origArray, iteratorVar );
-            var accessNew = Expression.ArrayAccess(newArrayVar, iteratorVar );
-            var assignFromOldToNew = Expression.Assign( accessNew, accessOld );
-            var iteratorInitialValue = Expression.Constant( 0 );
-            var assignInitialValueToIterator = Expression.Assign( iteratorVar, iteratorInitialValue );
+            ParameterExpression inputParameter = Expression.Parameter( typeof(DoTDef), "NewDotDef" );
+            MemberExpression inputInterval = Expression.MakeMemberAccess( inputParameter, custInterval );
+            MemberExpression inputDamageCoef = Expression.MakeMemberAccess( inputParameter, custDamageCoef );
+            MemberExpression inputDamageColor = Expression.MakeMemberAccess( inputParameter, custDamageColor );
+            MemberExpression inputAssociatedBuff = Expression.MakeMemberAccess( inputParameter, custAssociatedBuff );
+            MemberAssignment intervalBind = Expression.Bind( intervalField, inputInterval );
+            MemberAssignment damageCoefBind = Expression.Bind( damageCoefField, inputDamageCoef );
+            MemberAssignment damageColorBind = Expression.Bind( damageColorIndexField, inputDamageColor );
+            MemberAssignment associatedBuffBind = Expression.Bind( associatedBuffField, inputAssociatedBuff );
+            NewExpression newDotDef = Expression.New( dotDefType );
+            MemberInitExpression newDotDefInit = Expression.MemberInit(newDotDef, intervalBind, damageCoefBind, damageColorBind, associatedBuffBind );
+            LambdaExpression newDotDefFunc = Expression.Lambda( constructionFuncType, newDotDefInit, inputParameter );
+            InvocationExpression newDotDefInvoke = Expression.Invoke( newDotDefFunc, inputParameter );
+            MemberExpression origArray = Expression.Field( null, arrayField );
+            UnaryExpression origLength = Expression.ArrayLength( origArray );
+            BinaryExpression length = Expression.Add( origLength, Expression.Constant(1) );
+            NewArrayExpression initArray = Expression.NewArrayBounds(dotDefType, length);
+            LabelTarget breakLabel = Expression.Label( dotDefArrayType, "return" );
+            ParameterExpression iteratorVar = Expression.Variable( typeof(Int32), "iterator" );
+            ParameterExpression newArrayVar = Expression.Variable( dotDefArrayType, "newArray" );
+            BinaryExpression compare1 = Expression.LessThan(iteratorVar, origLength);
+            IndexExpression accessOld = Expression.ArrayAccess(origArray, iteratorVar );
+            IndexExpression accessNew = Expression.ArrayAccess(newArrayVar, iteratorVar );
+            BinaryExpression assignFromOldToNew = Expression.Assign( accessNew, accessOld );
+            ConstantExpression iteratorInitialValue = Expression.Constant( 0 );
+            BinaryExpression assignInitialValueToIterator = Expression.Assign( iteratorVar, iteratorInitialValue );
 
-            var incrementIterator = Expression.Increment( iteratorVar );
-            var assignInc = Expression.Assign( iteratorVar, incrementIterator );
-            var storeNewArrayInVar = Expression.Assign( newArrayVar, initArray );
-            var loopBlock1 = Expression.Block
+            UnaryExpression incrementIterator = Expression.Increment( iteratorVar );
+            BinaryExpression assignInc = Expression.Assign( iteratorVar, incrementIterator );
+            BinaryExpression storeNewArrayInVar = Expression.Assign( newArrayVar, initArray );
+            BlockExpression loopBlock1 = Expression.Block
             (
                 assignFromOldToNew,
                 assignInc
             );
-            var assignNewInputToNew = Expression.Assign( accessNew, newDotDefInvoke );
-            var returnExpression = Expression.Return( breakLabel, newArrayVar );
-            var loopBlock3 = Expression.Block
+            BinaryExpression assignNewInputToNew = Expression.Assign( accessNew, newDotDefInvoke );
+            GotoExpression returnExpression = Expression.Return( breakLabel, newArrayVar );
+            BlockExpression loopBlock3 = Expression.Block
             (
                 assignNewInputToNew,
                 returnExpression
             );
 
-            var branch1 = Expression.IfThenElse( compare1, loopBlock1, loopBlock3 );
-            var mainLoop = Expression.Loop( branch1, breakLabel );
-            var mainBlock = Expression.Block
+            ConditionalExpression branch1 = Expression.IfThenElse( compare1, loopBlock1, loopBlock3 );
+            LoopExpression mainLoop = Expression.Loop( branch1, breakLabel );
+            BlockExpression mainBlock = Expression.Block
             (   dotDefArrayType, new[] { iteratorVar, newArrayVar },
                 storeNewArrayInVar,
                 assignInitialValueToIterator,
                 mainLoop
             );
-            var finalAssignment = Expression.Assign( origArray, mainBlock );
+            BinaryExpression finalAssignment = Expression.Assign( origArray, mainBlock );
             AddNewDotDef = Expression.Lambda<AddNewDotDefDelegate>( finalAssignment, inputParameter ).Compile();
 
 
@@ -123,7 +138,7 @@ namespace ReinCore
 
         private static readonly DotController.DotIndex startingIndex = EnumExtensions.GetMax<DotController.DotIndex>();
         private static DotController.DotIndex currentIndex = startingIndex;
-        private static FieldInfo arrayField;
+        private static readonly FieldInfo arrayField;
 
         private static readonly Dictionary<DotController.DotIndex, CustomDoTDamageDelegate> customDoTDamages = new Dictionary<DotController.DotIndex, CustomDoTDamageDelegate>();
         private static readonly HashSet<DotController.DotIndex> mergeBlocked = new HashSet<DotController.DotIndex>();
@@ -146,7 +161,10 @@ namespace ReinCore
             _ = cursor.Emit( OpCodes.Ldarg_1 );
             _ = cursor.EmitDelegate<Func<System.Object, System.Object, Int32, System.Object>>( ( val, r, index ) =>
             {
-                if( val != null ) return val;
+                if( val != null )
+                {
+                    return val;
+                }
 
                 var array = (Array)r;
                 return array.GetValue( index );
@@ -166,19 +184,19 @@ namespace ReinCore
             _ = cursor.Emit<HashSet<DotController.DotIndex>>( OpCodes.Call, "Contains" );
             _ = cursor.Emit( OpCodes.Brfalse, passLabel );
 
-            var dotStackType = typeof(DotController).GetNestedType( "DotStack", BindingFlags.NonPublic );
-            var attackerField = dotStackType.GetField( "attackerObject" );
-            var damageField = dotStackType.GetField( "damage" );
-            var damageTypeField = dotStackType.GetField( "damageType" );
+            Type dotStackType = typeof(DotController).GetNestedType( "DotStack", BindingFlags.NonPublic );
+            FieldInfo attackerField = dotStackType.GetField( "attackerObject" );
+            FieldInfo damageField = dotStackType.GetField( "damage" );
+            FieldInfo damageTypeField = dotStackType.GetField( "damageType" );
 
 
-            var pendingDamageType = typeof(DotController).GetNestedType("PendingDamage", BindingFlags.NonPublic );
-            var pendingAttackerField = pendingDamageType.GetField( "attackerObject" );
-            var pendingDamageField = pendingDamageType.GetField( "totalDamage" );
-            var pendingDamageTypeField = pendingDamageType.GetField( "damageType" );
+            Type pendingDamageType = typeof(DotController).GetNestedType("PendingDamage", BindingFlags.NonPublic );
+            FieldInfo pendingAttackerField = pendingDamageType.GetField( "attackerObject" );
+            FieldInfo pendingDamageField = pendingDamageType.GetField( "totalDamage" );
+            FieldInfo pendingDamageTypeField = pendingDamageType.GetField( "damageType" );
 
 
-            var addMethod = typeof(List<>).MakeGenericType(pendingDamageType).GetMethod( "Add" );
+            MethodInfo addMethod = typeof(List<>).MakeGenericType(pendingDamageType).GetMethod( "Add" );
 
             _ = cursor.Emit( OpCodes.Pop );
             _ = cursor.Emit( OpCodes.Pop );
@@ -239,7 +257,10 @@ namespace ReinCore
             _ = cursor.Emit( OpCodes.Ldloc_1 );
             _ = cursor.EmitDelegate<Func<System.Object, System.Object, Int32, System.Object>>( ( val, r, ind ) =>
             {
-                if( val != null ) return val;
+                if( val != null )
+                {
+                    return val;
+                }
 
                 var array = (Array)r;
                 return array.GetValue( ind );

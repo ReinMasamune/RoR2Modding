@@ -1,13 +1,13 @@
-﻿using System;
-using BepInEx;
-using Unity.Collections;
-using Unity.Jobs;
-using UnityEngine;
-using System.Linq;
-using Unity.Burst;
-
-namespace ReinCore
+﻿namespace ReinCore
 {
+    using System;
+    using BepInEx;
+    using Unity.Collections;
+    using Unity.Jobs;
+    using UnityEngine;
+    using System.Linq;
+    using Unity.Burst;
+
     internal struct SkinTextureJob : ITextureJob
     {
         #region MAIN THREAD ONLY
@@ -46,7 +46,7 @@ namespace ReinCore
         {
             if( this.sampleFactor > 1 )
             {
-                var tex = this.aaJob.OutputTextureAndDispose();
+                Texture2D tex = this.aaJob.OutputTextureAndDispose();
                 this.texArray.Dispose();
                 return tex;
             } else
@@ -66,8 +66,8 @@ namespace ReinCore
         #region All threads
         public void Execute( Int32 index )
         {
-            var x = index % this.texWidth;
-            var y = index / this.texWidth;
+            Int32 x = index % this.texWidth;
+            Int32 y = index / this.texWidth;
             Color color;
 
 
@@ -77,9 +77,9 @@ namespace ReinCore
                 goto OutputAndReturn;
             }
 
-            var xFrac = (Single)(x - this.borderWidth) / (Single)(this.texWidth - (1 + (2 * this.borderWidth)));
-            var yFrac = (Single)(y - this.borderWidth) / (Single)(this.texHeight - (1 + (2 * this.borderWidth)));
-            var crossValue = (Single)this.crossSize / Mathf.Min( this.texWidth, this.texHeight );
+            Single xFrac = (Single)(x - this.borderWidth) / (Single)(this.texWidth - (1 + (2 * this.borderWidth)));
+            Single yFrac = (Single)(y - this.borderWidth) / (Single)(this.texHeight - (1 + (2 * this.borderWidth)));
+            Single crossValue = (Single)this.crossSize / Mathf.Min( this.texWidth, this.texHeight );
 
             xFrac -= 0.5f;
             yFrac -= 0.5f;

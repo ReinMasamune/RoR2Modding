@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using BepInEx.Logging;
-using ReinCore;
-using RoR2;
-using UnityEngine;
-
-namespace Sniper.Data
+﻿namespace Sniper.Data
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Runtime.CompilerServices;
+    using BepInEx.Logging;
+    using ReinCore;
+    using RoR2;
+    using UnityEngine;
+
     internal class TextureSet
     {
         internal TextureSet( Texture2D dif, Texture2D nor, Texture2D emi )

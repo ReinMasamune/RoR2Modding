@@ -1,28 +1,28 @@
-﻿using BepInEx;
-using BepInEx.Configuration;
-using RoR2;
-using UnityEngine;
-using System;
-using UnityEngine.Scripting;
-using System.Collections;
-using System.IO;
-using ReinCore;
-
-namespace ReinStutterStunter
+﻿namespace ReinStutterStunter
 {
+    using BepInEx;
+    using BepInEx.Configuration;
+    using RoR2;
+    using UnityEngine;
+    using System;
+    using UnityEngine.Scripting;
+    using System.Collections;
+    using System.IO;
+    using ReinCore;
+
     [BepInPlugin("com.ReinThings.ReinStutterStunter", "ReinStutterStunter", "2.0.0")]
     [BepInDependency( Rein.AssemblyLoad.guid, BepInDependency.DependencyFlags.HardDependency )]
     public class ReinStutterStunterMain : BaseUnityPlugin
     {
-        private bool lockGCOn = false;
-        private long memoryWarning = 1000;
-        private long memoryCap = 2000;
-        private const long div = 1048576;
-        private float checkDelay = 30.0f;
+        private readonly Boolean lockGCOn = false;
+        private readonly Int64 memoryWarning = 1000;
+        private readonly Int64 memoryCap = 2000;
+        private const Int64 div = 1048576;
+        private readonly Single checkDelay = 30.0f;
 
-        private string folderPath;
-        private string logPath;
-        private bool log = true;
+        private readonly String folderPath;
+        private readonly String logPath;
+        private readonly Boolean log = true;
 
         //public static ConfigWrapper<Boolean> configWrappingPaper;
         //public static ConfigWrapper<Int64> memWarning;

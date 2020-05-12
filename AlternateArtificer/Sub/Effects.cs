@@ -10,10 +10,7 @@
 
     public partial class Main
     {
-        private void DoEffects()
-        {
-            CreateLightningPreFire();
-        }
+        private void DoEffects() => this.CreateLightningPreFire();
 
         private void CreateLightningPreFire()
         {
@@ -42,10 +39,7 @@
             Color color2 = trailRen.endColor;
 
             this.DoMesh( model, meshInd, color1, color2 );
-
-
-
-            Material mat = Instantiate<Material>(trailRen.material);
+            _ = Instantiate<Material>( trailRen.material );
             model.GetComponent<MeshRenderer>().material = trailRen.material;
 
             return obj;
@@ -169,38 +163,42 @@
 
         private GameObject CreateIceDelayEffect()
         {
-            CreateIceBombTex();
+            this.CreateIceBombTex();
 
             GameObject obj = Resources.Load<GameObject>( "Prefabs/Effects/AffixWhiteDelayEffect" ).InstantiateClone( "iceDelay" , false );
-            var sphere = obj.transform.Find("Nova Sphere").GetComponent<ParticleSystemRenderer>();
+            ParticleSystemRenderer sphere = obj.transform.Find("Nova Sphere").GetComponent<ParticleSystemRenderer>();
             Material mat = UnityEngine.Object.Instantiate<Material>(sphere.material);
             mat.SetTexture( "_RemapTex", this.iceBombTex );
             sphere.material = mat;
 
 
-            EffectAPI.AddEffect( obj );
+            _ = EffectAPI.AddEffect( obj );
             return obj;
         }
 
         private GameObject CreateIceExplosionEffect()
         {
-            CreateIceBombTex();
+            this.CreateIceBombTex();
 
             GameObject obj = Resources.Load<GameObject>("Prefabs/Effects/ImpactEffects/AffixWhiteExplosion").InstantiateClone( "IceExplosion", false );
-            var sphere = obj.transform.Find("Nova Sphere").GetComponent<ParticleSystemRenderer>();
+            ParticleSystemRenderer sphere = obj.transform.Find("Nova Sphere").GetComponent<ParticleSystemRenderer>();
             Material mat = UnityEngine.Object.Instantiate<Material>(sphere.material);
             mat.SetTexture( "_RemapTex", this.iceBombTex );
             sphere.material = mat;
 
-            EffectAPI.AddEffect( obj );
+            _ = EffectAPI.AddEffect( obj );
             return obj;
         }
 
         private Texture2D iceBombTex;
         private void CreateIceBombTex()
         {
-            if( this.iceBombTex != null ) return;
-            Gradient iceGrad = new Gradient
+            if( this.iceBombTex != null )
+            {
+                return;
+            }
+
+            var iceGrad = new Gradient
             {
                 mode = GradientMode.Blend,
                 alphaKeys = new GradientAlphaKey[8]
@@ -232,10 +230,10 @@
 
         private static Texture2D CreateNewRampTex( Gradient grad )
         {
-            Texture2D tex = new Texture2D(256, 8, TextureFormat.RGBA32, false);
+            var tex = new Texture2D(256, 8, TextureFormat.RGBA32, false);
 
             Color tempC;
-            Color[] tempCs = new Color[8];
+            var tempCs = new Color[8];
 
             for( Int32 i = 0; i < 256; i++ )
             {

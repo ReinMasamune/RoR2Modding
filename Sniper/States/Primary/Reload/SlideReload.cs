@@ -1,22 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using BepInEx.Logging;
-using ReinCore;
-using RoR2;
-using RoR2.Networking;
-using UnityEngine;
-using KinematicCharacterController;
-using EntityStates;
-using RoR2.Skills;
-using System.Reflection;
-using Sniper.States.Bases;
-using UnityEngine.Networking;
-using Sniper.Enums;
-using Sniper.Modules;
-
-namespace Sniper.States.Primary.Reload
+﻿namespace Sniper.States.Primary.Reload
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Runtime.CompilerServices;
+    using BepInEx.Logging;
+    using ReinCore;
+    using RoR2;
+    using RoR2.Networking;
+    using UnityEngine;
+    using KinematicCharacterController;
+    using EntityStates;
+    using RoR2.Skills;
+    using System.Reflection;
+    using Sniper.States.Bases;
+    using UnityEngine.Networking;
+    using Sniper.Enums;
+    using Sniper.Modules;
+
     internal class SlideReload : GenericCharacterMain, ISniperReloadState
     {
         private static readonly AnimationCurve speedCurve = AnimationCurve.EaseInOut( 0f, 1f, 1f, 0.25f );
@@ -48,7 +48,7 @@ namespace Sniper.States.Primary.Reload
 
         private Single currentSpeed
         {
-            get => speedMultiplier * base.moveSpeedStat * speedCurve.Evaluate( base.fixedAge / this.duration );
+            get => this.speedMultiplier * base.moveSpeedStat * speedCurve.Evaluate( base.fixedAge / this.duration );
         }
 
         public override void OnEnter()
@@ -62,15 +62,15 @@ namespace Sniper.States.Primary.Reload
                 {
                     this.slideDirection = base.inputBank.moveVector;
                     this.slideDirection.y = 0f;
-                    this.slideDirection = slideDirection.normalized;
+                    this.slideDirection = this.slideDirection.normalized;
 
-                    var dir = base.characterDirection;
-                    var forward = dir.forward;
-                    var up = Vector3.up;
+                    CharacterDirection dir = base.characterDirection;
+                    Vector3 forward = dir.forward;
+                    Vector3 up = Vector3.up;
                     var right = Vector3.Cross( up, forward );
 
-                    var angX = Vector3.Dot( this.slideDirection, forward );
-                    var angY = Vector3.Dot( this.slideDirection, right );
+                    Single angX = Vector3.Dot( this.slideDirection, forward );
+                    Single angY = Vector3.Dot( this.slideDirection, right );
 
                     this.animDir = Mathf.Abs( angX ) > Mathf.Abs( angY )
                         ? angX > 0f ? Direction.Forward : Direction.Back
@@ -98,7 +98,7 @@ namespace Sniper.States.Primary.Reload
                 base.characterMotor.velocity = boost;
 
 
-                var animStr = "";
+                String animStr = "";
 
                 if( base.characterMotor.isGrounded )
                 {
@@ -207,9 +207,6 @@ namespace Sniper.States.Primary.Reload
             }
         }
 
-        public override InterruptPriority GetMinimumInterruptPriority()
-        {
-            return InterruptPriority.PrioritySkill;
-        }
+        public override InterruptPriority GetMinimumInterruptPriority() => InterruptPriority.PrioritySkill;
     }
 }

@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using BepInEx.Logging;
-using ReinCore;
-using RoR2;
-using UnityEngine;
-
-namespace Sniper.Modules
+﻿namespace Sniper.Modules
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Runtime.CompilerServices;
+    using BepInEx.Logging;
+    using ReinCore;
+    using RoR2;
+    using UnityEngine;
+
     internal static class CatalogModule
     {
         internal static void RegisterSurvivor()
@@ -27,16 +27,10 @@ namespace Sniper.Modules
                 unlockableName = "",
             };
 
-            SurvivorCatalog.getAdditionalSurvivorDefs += ( list ) =>
-            {
-                list.Add( survivorDef );
-            };
+            SurvivorCatalog.getAdditionalSurvivorDefs += ( list ) => list.Add( survivorDef );
         }
 
-        internal static void RegisterBody()
-        {
-            BodyCatalog.getAdditionalEntries += ( list ) => list.Add( SniperMain.sniperBodyPrefab );
-        }
+        internal static void RegisterBody() => BodyCatalog.getAdditionalEntries += ( list ) => list.Add( SniperMain.sniperBodyPrefab );
 
         internal static void RegisterMaster()
         {
@@ -47,7 +41,7 @@ namespace Sniper.Modules
         internal static DotController.DotIndex critPlasmaBurnIndex { get; private set; }
         internal static void RegisterDoTType()
         {
-            plasmaBurnIndex = ReinCore.DoTsCore.AddDotType( new DoTDef
+            plasmaBurnIndex = DoTsCore.AddDotType( new DoTDef
             {
                 associatedBuff = BuffIndex.Blight,
                 damageCoefficient = 1f,
@@ -55,7 +49,7 @@ namespace Sniper.Modules
                 damageColorIndex = plasmaDamageColor,
             }, true, DoTDamage );
 
-            critPlasmaBurnIndex = ReinCore.DoTsCore.AddDotType( new DoTDef
+            critPlasmaBurnIndex = DoTsCore.AddDotType( new DoTDef
             {
                 associatedBuff = BuffIndex.Blight,
                 damageCoefficient = 1f,

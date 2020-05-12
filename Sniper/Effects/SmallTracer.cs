@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using ReinCore;
-using RoR2;
-using Sniper.Modules;
-using UnityEngine;
-
-namespace Sniper.Effects
+﻿namespace Sniper.Effects
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+    using ReinCore;
+    using RoR2;
+    using Sniper.Modules;
+    using UnityEngine;
+
     internal static partial class EffectCreator
     {
         internal static GameObject CreateSmallAmmoTracer( Material mainMat, Material trailMat )
@@ -67,7 +67,7 @@ namespace Sniper.Effects
             ZeroTracerLengthOverDuration zeroLength = obj.AddComponent<ZeroTracerLengthOverDuration>();
             zeroLength.tracer = tracer;
 
-            var timer = obj.AddComponent<DestroyOnTimer>();
+            DestroyOnTimer timer = obj.AddComponent<DestroyOnTimer>();
             timer.duration = 10f;
 
 
@@ -351,7 +351,7 @@ namespace Sniper.Effects
 
         private static void SetupSmallTracerTrailNoise( this ParticleSystem particles )
         {
-            var noise = particles.noise;
+            ParticleSystem.NoiseModule noise = particles.noise;
             noise.enabled = true;
             noise.separateAxes = true;
             noise.strengthX = 1f;

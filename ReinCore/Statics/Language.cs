@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using BepInEx;
-
-namespace ReinCore
+﻿namespace ReinCore
 {
+    using System;
+    using System.Collections.Generic;
+    using BepInEx;
+
     // TODO: LanguageCore docs
 
     /// <summary>
@@ -26,11 +26,11 @@ namespace ReinCore
         {
             RoR2.Language.onCurrentLanguageChanged += () =>
             {
-                var cur = RoR2.Language.currentLanguage;
+                String cur = RoR2.Language.currentLanguage;
                 if( cur == language || String.IsNullOrEmpty( language ) )
                 {
-                    var langDict = languageDictionaries.Get();
-                    if( langDict.TryGetValue( cur, out var dict ) )
+                    Dictionary<String, Dictionary<String, String>> langDict = languageDictionaries.Get();
+                    if( langDict.TryGetValue( cur, out Dictionary<String, String> dict ) )
                     {
                         dict[key] = value;
                     }
@@ -47,6 +47,6 @@ namespace ReinCore
             loaded = true;
         }
 
-        private static StaticAccessor<Dictionary<String,Dictionary<String,String>>> languageDictionaries = new StaticAccessor<Dictionary<String, Dictionary<String, String>>>( typeof(RoR2.Language), "languageDictionaries" );
+        private static readonly StaticAccessor<Dictionary<String,Dictionary<String,String>>> languageDictionaries = new StaticAccessor<Dictionary<String, Dictionary<String, String>>>( typeof(RoR2.Language), "languageDictionaries" );
     }
 }

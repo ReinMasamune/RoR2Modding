@@ -1,9 +1,9 @@
-﻿using System;
-using BepInEx;
-using RoR2;
-
-namespace ReinCore
+﻿namespace ReinCore
 {
+    using System;
+    using BepInEx;
+    using RoR2;
+
     // TODO: Docs for SurvivorsCore
     /// <summary>
     /// 
@@ -24,21 +24,25 @@ namespace ReinCore
             loaded = true;
         }
 
-        private static Int32 vanillaSurvivorsCount;
-        private static Int32 vanillaSurvivorsCount2;
-        private static StaticAccessor<SurvivorDef[]> survivorDefs = new StaticAccessor<SurvivorDef[]>( typeof(SurvivorCatalog), "survivorDefs" );
+        private static readonly Int32 vanillaSurvivorsCount;
+        private static readonly Int32 vanillaSurvivorsCount2;
+        private static readonly StaticAccessor<SurvivorDef[]> survivorDefs = new StaticAccessor<SurvivorDef[]>( typeof(SurvivorCatalog), "survivorDefs" );
 
         private static void Init_On( HooksCore.RoR2.SurvivorCatalog.Init.Orig orig )
         {
             orig();
-            if( !loaded ) return;
-            var defs = survivorDefs.Get();
+            if( !loaded )
+            {
+                return;
+            }
+
+            SurvivorDef[] defs = survivorDefs.Get();
 
 
             if( vanillaSurvivorsCount <= defs.Length )
             {
-                var extraBoxesCount = vanillaSurvivorsCount2 - vanillaSurvivorsCount;
-                var startIndex = vanillaSurvivorsCount;
+                Int32 extraBoxesCount = vanillaSurvivorsCount2 - vanillaSurvivorsCount;
+                Int32 startIndex = vanillaSurvivorsCount;
                 Array.Resize<SurvivorIndex>( ref SurvivorCatalog.idealSurvivorOrder, defs.Length - 1 );
                 for( Int32 i = startIndex; i < SurvivorCatalog.idealSurvivorOrder.Length; ++i )
                 {

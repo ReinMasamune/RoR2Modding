@@ -1,24 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using BepInEx.Logging;
-using ReinCore;
-using RoR2;
-using RoR2.Networking;
-using UnityEngine;
-using KinematicCharacterController;
-using EntityStates;
-using RoR2.Skills;
-using System.Reflection;
-using Sniper.Expansions;
-using Sniper.Enums;
-using Sniper.Data;
-using Sniper.Modules;
-using System.Diagnostics;
-using UnityEngine.Networking;
-
-namespace Sniper.States.Bases
+﻿namespace Sniper.States.Bases
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Runtime.CompilerServices;
+    using BepInEx.Logging;
+    using ReinCore;
+    using RoR2;
+    using RoR2.Networking;
+    using UnityEngine;
+    using KinematicCharacterController;
+    using EntityStates;
+    using RoR2.Skills;
+    using System.Reflection;
+    using Sniper.Expansions;
+    using Sniper.Enums;
+    using Sniper.Data;
+    using Sniper.Modules;
+    using System.Diagnostics;
+    using UnityEngine.Networking;
+
     internal abstract class SnipeBaseState : SniperSkillBaseState
     {
         protected abstract Single baseDuration { get; }
@@ -37,10 +37,14 @@ namespace Sniper.States.Bases
 
         private void FireBullet()
         {
-            if( this.bulletFired ) return;
-            var aimRay = GetAimRay();
+            if( this.bulletFired )
+            {
+                return;
+            }
 
-            var bullet = base.characterBody.ammo.CreateBullet( base.characterBody, this.reloadTier, aimRay, "MuzzleRailgun" );
+            Ray aimRay = this.GetAimRay();
+
+            ExpandableBulletAttack bullet = base.characterBody.ammo.CreateBullet( base.characterBody, this.reloadTier, aimRay, "MuzzleRailgun" );
             //var bullet = new ExpandableBulletAttack
             //{
             //    aimVector = aimRay.direction,
@@ -75,15 +79,18 @@ namespace Sniper.States.Bases
             //};
             this.ModifyBullet( bullet );
             this.reloadParams.ModifyBullet( bullet, this.reloadTier );
-            characterBody.passive.ModifyBullet( bullet );
-            var data = characterBody.scopeInstanceData;
+            this.characterBody.passive.ModifyBullet( bullet );
+            SkillDefs.SniperScopeSkillDef.ScopeInstanceData data = this.characterBody.scopeInstanceData;
 
-            if( data != null && data.shouldModify ) data.SendFired().Apply( bullet );
+            if( data != null && data.shouldModify )
+            {
+                data.SendFired().Apply( bullet );
+            }
 
             this.charge = bullet.chargeLevel;
             bullet.Fire();
 
-            AddRecoil( -1f * this.recoilStrength, -3f * this.recoilStrength, -0.2f * this.recoilStrength, 0.2f * this.recoilStrength );
+            this.AddRecoil( -1f * this.recoilStrength, -3f * this.recoilStrength, -0.2f * this.recoilStrength, 0.2f * this.recoilStrength );
 
             this.bulletFired = true;
         }
@@ -91,10 +98,14 @@ namespace Sniper.States.Bases
         public override void OnEnter()
         {
             base.OnEnter();
-            this.duration = this.baseDuration / characterBody.attackSpeed;
+            this.duration = this.baseDuration / this.characterBody.attackSpeed;
             base.StartAimMode( 2f, false );
 
-            if( isAuthority ) this.FireBullet();
+            if( this.isAuthority )
+            {
+                this.FireBullet();
+            }
+
             base.PlayAnimation( "Gesture, Additive", "Shoot", "rateShoot", this.duration );
 
             SoundModule.PlayFire( base.gameObject, this.charge );
@@ -118,8 +129,10 @@ namespace Sniper.States.Bases
         public override void FixedUpdate()
         {
             base.FixedUpdate();
-            if( isAuthority && fixedAge >= this.duration )
-                outer.SetNextStateToMain();
+            if( this.isAuthority && this.fixedAge >= this.duration )
+            {
+                this.outer.SetNextStateToMain();
+            }
         }
     }
 }

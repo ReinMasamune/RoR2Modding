@@ -1,20 +1,22 @@
-﻿using System;
-using System.ComponentModel;
-using System.Linq.Expressions;
-using System.Reflection;
-using BepInEx;
-using RoR2;
-using UnityEngine;
-using UnityEngine.Networking;
-
-namespace ReinCore
+﻿namespace ReinCore
 {
+    using System;
+    using System.ComponentModel;
+    using System.Linq.Expressions;
+    using System.Reflection;
+    using BepInEx;
+    using RoR2;
+    using UnityEngine;
+    using UnityEngine.Networking;
+
     /// <summary>
     /// Helper functions for various RoR2 networking needs
     /// </summary>
     public static class NetworkingHelpers
     {
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public static void DealDamage( this DamageInfo damage, HurtBox target, Boolean callDamage, Boolean callHitEnemy, Boolean callHitWorld )
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
         {
             if( NetworkServer.active )
             {
@@ -44,7 +46,9 @@ namespace ReinCore
             }
         }
 
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public static void ApplyBuff( this CharacterBody body, BuffIndex buff, Int32 stacks = 1, Single duration = -1f )
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
         {
             if( NetworkServer.active )
             {
@@ -70,7 +74,9 @@ namespace ReinCore
             }
         }
 
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public static void ApplyDoT( this HealthComponent victim, GameObject attacker, DotController.DotIndex dotIndex, Single duration = 8f, Single damageMultiplier = 1f )
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
         {
             if( NetworkServer.active )
             {
@@ -81,9 +87,8 @@ namespace ReinCore
             }
         }
 
-        public static void CreateOrb( )
-        {
-            throw new NotImplementedException();
-        }
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+        public static void CreateOrb() => throw new NotImplementedException();
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     }
 }

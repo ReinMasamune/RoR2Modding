@@ -1,14 +1,17 @@
-﻿using System;
-using BepInEx;
-using System.Linq;
-
-namespace ReinCore
+﻿namespace ReinCore
 {
+    using System;
+    using BepInEx;
+    using System.Linq;
+
     internal static class EnumExtensions
     {
         internal static TValue GetValue<TValue>( this Enum self ) where TValue : struct, IComparable, IComparable<TValue>, IConvertible, IEquatable<TValue>, IFormattable
         {
-            if( self.GetTypeCode() != default( TValue ).GetTypeCode() ) throw new ArgumentException( "Incorrect value type" );
+            if( self.GetTypeCode() != default( TValue ).GetTypeCode() )
+            {
+                throw new ArgumentException( "Incorrect value type" );
+            }
 
             return (TValue)Convert.ChangeType(self, typeof(TValue) );
         }

@@ -1,17 +1,17 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using BepInEx.Logging;
-using ReinCore;
-using RoR2;
-using Sniper.Expansions;
-using UnityEngine;
-using UnityEngine.Networking;
-using UnityEngine.UI;
-
-namespace Sniper.Components
+﻿namespace Sniper.Components
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Runtime.CompilerServices;
+    using BepInEx.Logging;
+    using ReinCore;
+    using RoR2;
+    using Sniper.Expansions;
+    using UnityEngine;
+    using UnityEngine.Networking;
+    using UnityEngine.UI;
+
     internal class UIStockController : MonoBehaviour
     {
         [SerializeField]
@@ -33,7 +33,9 @@ namespace Sniper.Components
                 }
             }
         }
+#pragma warning disable IDE1006 // Naming Styles
         private Int32 _currentStock = 0;
+#pragma warning restore IDE1006 // Naming Styles
         private void OnCurrentStockChanged( Int32 oldStock, Int32 newStock )
         {
 
@@ -51,7 +53,9 @@ namespace Sniper.Components
                 }
             }
         }
+#pragma warning disable IDE1006 // Naming Styles
         private Int32 _maxStock = 0;
+#pragma warning restore IDE1006 // Naming Styles
         private void OnMaxStockChanged( Int32 oldStock, Int32 newStock )
         {
 

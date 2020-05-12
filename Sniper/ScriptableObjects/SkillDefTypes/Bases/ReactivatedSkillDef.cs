@@ -1,19 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using BepInEx.Logging;
-using ReinCore;
-using RoR2;
-using RoR2.Networking;
-using UnityEngine;
-using KinematicCharacterController;
-using EntityStates;
-using RoR2.Skills;
-using System.Reflection;
-using Sniper.States.Bases;
-
-namespace Sniper.SkillDefTypes.Bases
+﻿namespace Sniper.SkillDefTypes.Bases
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Runtime.CompilerServices;
+    using BepInEx.Logging;
+    using ReinCore;
+    using RoR2;
+    using RoR2.Networking;
+    using UnityEngine;
+    using KinematicCharacterController;
+    using EntityStates;
+    using RoR2.Skills;
+    using System.Reflection;
+    using Sniper.States.Bases;
+
     internal abstract class ReactivatedSkillDef<TSkillData> : SniperSkillDef
         where TSkillData : SkillData, new()
     {
@@ -21,13 +21,13 @@ namespace Sniper.SkillDefTypes.Bases
             where TActivation : ActivationBaseState<TSkillData>
             where TReactivation : ReactivationBaseState<TSkillData>
         {
-            activationState = SkillsCore.StateType<TActivation>();
+            this.activationState = SkillsCore.StateType<TActivation>();
             this.reactivationState = SkillsCore.StateType<TReactivation>();
-            activationStateMachineName = activationMachine;
+            this.activationStateMachineName = activationMachine;
             this.reactivationStateMachineName = reactivationMachine;
-            mustKeyPress = true;
-            isBullets = false;
-            canceledFromSprinting = false;
+            this.mustKeyPress = true;
+            this.isBullets = false;
+            this.canceledFromSprinting = false;
         }
 
         [SerializeField]
@@ -48,33 +48,24 @@ namespace Sniper.SkillDefTypes.Bases
         internal Int32 reactivationRequiredStock;
         [SerializeField]
         internal Int32 reactivationStockToConsume;
-        
-        public sealed override BaseSkillInstanceData OnAssigned( GenericSkill skillSlot )
-        {
-            return new ReactivationInstanceData( this, skillSlot );
-        }
+
+        public sealed override BaseSkillInstanceData OnAssigned( GenericSkill skillSlot ) => new ReactivationInstanceData( this, skillSlot );
         public sealed override Sprite GetCurrentIcon( GenericSkill skillSlot )
         {
             //Log.Warning( "GetCurrentIcon" );
             var data = skillSlot.skillInstanceData as ReactivationInstanceData;
-            if( data.waitingOnReactivation )
-                return this.reactivationIcon;
-            return icon;
+            return data.waitingOnReactivation ? this.reactivationIcon : this.icon;
         }
         public sealed override Boolean CanExecute( GenericSkill skillSlot )
         {
             var data = skillSlot.skillInstanceData as ReactivationInstanceData;
 
-            if( data.waitingOnReactivation )
-                return data.CanReactivate();
-            return base.CanExecute( skillSlot );
+            return data.waitingOnReactivation ? data.CanReactivate() : base.CanExecute( skillSlot );
         }
         public sealed override Boolean IsReady( GenericSkill skillSlot )
         {
             var data = skillSlot.skillInstanceData as ReactivationInstanceData;
-            if( data.waitingOnReactivation )
-                return data.IsReady();
-            return base.IsReady( skillSlot );
+            return data.waitingOnReactivation ? data.IsReady() : base.IsReady( skillSlot );
         }
         protected sealed override EntityState InstantiateNextState( GenericSkill skillSlot )
         {
@@ -92,26 +83,33 @@ namespace Sniper.SkillDefTypes.Bases
         {
             var data = skillSlot.skillInstanceData as ReactivationInstanceData;
             EntityState state = this.InstantiateNextState( skillSlot );
-            var mach = data.waitingOnReactivation? data.reactivationStateMachine : skillSlot.stateMachine ;
-            if( mach.SetInterruptState( state, data.waitingOnReactivation ? this.reactivationInterruptPriority : interruptPriority ) )
+            EntityStateMachine mach = data.waitingOnReactivation? data.reactivationStateMachine : skillSlot.stateMachine ;
+            if( mach.SetInterruptState( state, data.waitingOnReactivation ? this.reactivationInterruptPriority : this.interruptPriority ) )
             {
-                skillSlot.stock -= data.waitingOnReactivation ? this.reactivationStockToConsume : stockToConsume;
+                skillSlot.stock -= data.waitingOnReactivation ? this.reactivationStockToConsume : this.stockToConsume;
                 if( !data.waitingOnReactivation )
+                {
                     data.OnExecution();
+                }
+
                 if( skillSlot.characterBody )
+                {
                     skillSlot.characterBody.OnSkillActivated( skillSlot );
+                }
             }
         }
         public sealed override void OnFixedUpdate( GenericSkill skillSlot )
         {
             var data = skillSlot.skillInstanceData as ReactivationInstanceData;
-            var dt = Time.fixedDeltaTime;
+            Single dt = Time.fixedDeltaTime;
 
             if( data.waitingOnReactivation )
             {
                 data.RunRecharge( dt );
                 if( this.startCooldownAfterReactivation )
+                {
                     return;
+                }
             }
             skillSlot.RunRecharge( dt );
         }
@@ -134,7 +132,10 @@ namespace Sniper.SkillDefTypes.Bases
                     }
                 }
 
-                if( this.reactivationStateMachine == null ) Log.Error( "No matching statemachine found" );
+                if( this.reactivationStateMachine == null )
+                {
+                    Log.Error( "No matching statemachine found" );
+                }
             }
 
             internal Boolean CanReactivate()
@@ -161,10 +162,7 @@ namespace Sniper.SkillDefTypes.Bases
                 return state;
             }
 
-            internal void OnActivation( ActivationBaseState<TSkillData> state )
-            {
-                this.data = state.CreateSkillData();
-            }
+            internal void OnActivation( ActivationBaseState<TSkillData> state ) => this.data = state.CreateSkillData();
 
             internal void OnExecution()
             {
@@ -176,7 +174,9 @@ namespace Sniper.SkillDefTypes.Bases
             {
                 this.reactivationTimer += dt;
                 if( !this.data.IsDataValid() || (this.def.maxReactivationTimer > 0f && this.reactivationTimer > this.def.maxReactivationTimer ) )
+                {
                     this.InvalidateReactivation();
+                }
             }
 
             internal void InvalidateReactivation()
@@ -197,8 +197,8 @@ namespace Sniper.SkillDefTypes.Bases
             internal Single reactivationTimer;
             private TSkillData data;
             internal EntityStateMachine reactivationStateMachine;
-            private ReactivatedSkillDef<TSkillData> def;
-            private GenericSkill skillSlot;
+            private readonly ReactivatedSkillDef<TSkillData> def;
+            private readonly GenericSkill skillSlot;
         }
 
     }

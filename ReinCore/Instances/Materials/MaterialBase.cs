@@ -1,11 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using UnityEngine;
-
-namespace ReinCore
+﻿namespace ReinCore
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+    using UnityEngine;
+
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public abstract class MaterialBase
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     {
         /// <summary>
         /// The name of the material
@@ -15,7 +17,10 @@ namespace ReinCore
             get => this.material?.name;
             set
             {
-                if( this.material ) this.material.name = value;
+                if( this.material )
+                {
+                    this.material.name = value;
+                }
             }
         }
 
@@ -29,59 +34,83 @@ namespace ReinCore
         /// </summary>
         public Material material { get; private set; }
 
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public void Init( Material mat, String name )
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
         {
             this.material = mat;
             this.name = name;
         }
 
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public MaterialBase( String name, ShaderIndex index )
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
         {
             this.shader = index;
             this.material = new Material( AssetLibrary<Shader>.GetAsset(index) );
             this.name = name;
         }
 
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public MaterialBase( Material mat )
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
         {
             this.material = mat;
             this.name = mat.name;
         }
 
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public MaterialBase() { }
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public enum CullMode
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
         {
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
             Off = 0,
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
             Front = 1,
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
             Back = 2
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
         }
 
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public enum RampInfo
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
         {
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
             TwoTone = 0,
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
             SmoothedTwoTone = 1,
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
             Unlitish = 3,
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
             SubSurface = 4,
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
         }
 
-        public void SetSingle( String name, Single value )
-        {
-            this.material.SetFloat( name, value );
-        }
-        public Single GetSingle( String name )
-        {
-            return this.material.GetFloat( name );
-        }
-        public void SetColor( String name, Color value )
-        {
-            this.material.SetColor( name, value );
-        }
-        public Color GetColor( String name )
-        {
-            return this.material.GetColor( name );
-        }
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+        public void SetSingle( String name, Single value ) => this.material.SetFloat( name, value );
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+        public Single GetSingle( String name ) => this.material.GetFloat( name );
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+        public void SetColor( String name, Color value ) => this.material.SetColor( name, value );
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+        public Color GetColor( String name ) => this.material.GetColor( name );
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public void SetKeyword( String keyword, Boolean value, params String[] toggleNames )
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
         {
             if( value )
             {
@@ -95,30 +124,33 @@ namespace ReinCore
                 this.material.SetFloat( toggleNames[i], value ? 1f : 0f );
             }
         }
-        public Boolean GetKeyword( String keyword )
-        {
-            return this.material.IsKeywordEnabled( keyword );
-        }
-        public Vector4 GetVector4( String name )
-        {
-            return this.material.GetVector( name );
-        }
-        public void SetVector4( String name, Vector4 value )
-        {
-            this.material.SetVector( name, value );
-        }
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+        public Boolean GetKeyword( String keyword ) => this.material.IsKeywordEnabled( keyword );
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+        public Vector4 GetVector4( String name ) => this.material.GetVector( name );
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+        public void SetVector4( String name, Vector4 value ) => this.material.SetVector( name, value );
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
         [Serializable]
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public class TextureData
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
         {
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
             public TextureData( Material mat, String propName )
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
             {
                 this.mat = mat;
                 this.propName = propName;
                 this._texture = this.mat.GetTexture( this.propName );
             }
 
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
             public Texture texture
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
             {
                 get => this._texture;
                 set
@@ -131,11 +163,17 @@ namespace ReinCore
                 }
             }
 
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
             public Material mat;
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
             public String propName;
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
             [SerializeField]
+#pragma warning disable IDE1006 // Naming Styles
             private Texture _texture;
+#pragma warning restore IDE1006 // Naming Styles
         }
 
         /// <summary>
@@ -144,7 +182,9 @@ namespace ReinCore
         [Serializable]
         public class ScaleOffsetTextureData : TextureData
         {
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
             public ScaleOffsetTextureData( Material mat, String propName ) : base( mat, propName )
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
             {
 
                 this._tiling = base.mat.GetTextureScale( base.propName );

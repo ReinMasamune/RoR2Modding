@@ -1,18 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using BepInEx.Logging;
-using ReinCore;
-using RoR2;
-using RoR2.UI;
-using Sniper.Data;
-using Sniper.States.Bases;
-using UnityEngine;
-using UnityEngine.Networking;
-using UnityEngine.UI;
-
-namespace Sniper.Components
+﻿namespace Sniper.Components
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Runtime.CompilerServices;
+    using BepInEx.Logging;
+    using ReinCore;
+    using RoR2;
+    using RoR2.UI;
+    using Sniper.Data;
+    using Sniper.States.Bases;
+    using UnityEngine;
+    using UnityEngine.Networking;
+    using UnityEngine.UI;
+
     [RequireComponent(typeof(HudElement), typeof(CrosshairController))]
     internal class ScopeUIController : MonoBehaviour
     {
@@ -47,7 +47,7 @@ namespace Sniper.Components
         private Transform origParent;
         private Vector3 origPos;
         private Quaternion origRot;
-        private Transform scopeParent;
+        private readonly Transform scopeParent;
 
 
 
@@ -84,7 +84,10 @@ namespace Sniper.Components
         {
             this.scoped = this.zoomParams.IsInScope( zoom );
             Single fov = this.zoomParams.GetFoV( zoom );
-            if( this.camTarget ) this.camTarget.fovOverride = fov;
+            if( this.camTarget )
+            {
+                this.camTarget.fovOverride = fov;
+            }
             // TODO: Verify camera position for scope
 
             if( this.stateInstance != null && this.stateInstance.usesCharge )
@@ -122,12 +125,21 @@ namespace Sniper.Components
                 }
             }
         }
+#pragma warning disable IDE1006 // Naming Styles
         private Boolean _scoped;
+#pragma warning restore IDE1006 // Naming Styles
         private void OnScopedChange( Boolean enabled )
         {
             this.camTarget.aimMode = enabled ? CameraTargetParams.AimType.FirstPerson : CameraTargetParams.AimType.AimThrow;
-            if( this.scopeActive != null ) this.scopeActive.SetActive( enabled );
-            if( this.scopeInactive != null ) this.scopeInactive.SetActive( !enabled );
+            if( this.scopeActive != null )
+            {
+                this.scopeActive.SetActive( enabled );
+            }
+
+            if( this.scopeInactive != null )
+            {
+                this.scopeInactive.SetActive( !enabled );
+            }
         }
 
     }

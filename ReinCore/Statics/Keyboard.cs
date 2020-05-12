@@ -1,28 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Runtime.InteropServices;
-using Unity.Collections;
-using Unity.Jobs;
-using UnityEngine;
-
-namespace ReinCore
+﻿namespace ReinCore
 {
-    public static class KeyboardCore
-    {
-        public static Boolean loaded { get; internal set; } = false;
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Runtime.InteropServices;
+    using Unity.Collections;
+    using Unity.Jobs;
+    using UnityEngine;
 
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+    public static class KeyboardCore
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+    {
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+        public static Boolean loaded { get; internal set; } = false;
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public static Boolean SetKey( GlobalKeys key, Color color )
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
         {
             if( key == GlobalKeys.AllKeys )
             {
-                var list = activeKeyboardRGB.GetAllKeys();
-                var flag = true;
+                IList<GlobalKeys> list = activeKeyboardRGB.GetAllKeys();
+                Boolean flag = true;
                 for( Int32 i = 0; i < list.Count; ++i )
                 {
-                    var k = list[i];
+                    GlobalKeys k = list[i];
                     
-                    if( k != GlobalKeys.AllKeys ) flag |= SetKey( k, color );
+                    if( k != GlobalKeys.AllKeys )
+                    {
+                        flag |= SetKey( k, color );
+                    }
                 }
                 return flag;
             } else
@@ -50,10 +59,10 @@ namespace ReinCore
 
         internal static void UpdateConnectedKeyboard()
         {
-            foreach( var types in rgbOptions )
+            foreach( KeyValuePair<KeyboardType, IKeyboardRGB> types in rgbOptions )
             {
-                var type = types.Key;
-                var keyboard = types.Value;
+                _ = types.Key;
+                IKeyboardRGB keyboard = types.Value;
 
                 if( keyboard.CheckConnected() )
                 {
@@ -66,7 +75,7 @@ namespace ReinCore
 
 
 
-        private static Dictionary<KeyboardType,IKeyboardRGB> rgbOptions = new Dictionary<KeyboardType, IKeyboardRGB>();
+        private static readonly Dictionary<KeyboardType,IKeyboardRGB> rgbOptions = new Dictionary<KeyboardType, IKeyboardRGB>();
 
         private static IKeyboardRGB activeKeyboardRGB
         {
@@ -81,6 +90,8 @@ namespace ReinCore
                 }
             }
         }
+#pragma warning disable IDE1006 // Naming Styles
         private static IKeyboardRGB _activeKeyboardRGB;
+#pragma warning restore IDE1006 // Naming Styles
     }
 }

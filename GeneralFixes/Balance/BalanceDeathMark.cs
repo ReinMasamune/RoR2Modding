@@ -1,19 +1,19 @@
-﻿using BepInEx;
-using RoR2;
-using UnityEngine;
-using System.Collections.Generic;
-using RoR2.Navigation;
-using System;
-using System.Reflection;
-using EntityStates;
-using RoR2.Skills;
-using System.Collections;
-using ReinCore;
-using MonoMod.Cil;
-using Mono.Cecil.Cil;
-
-namespace ReinGeneralFixes
+﻿namespace ReinGeneralFixes
 {
+    using BepInEx;
+    using RoR2;
+    using UnityEngine;
+    using System.Collections.Generic;
+    using RoR2.Navigation;
+    using System;
+    using System.Reflection;
+    using EntityStates;
+    using RoR2.Skills;
+    using System.Collections;
+    using ReinCore;
+    using MonoMod.Cil;
+    using Mono.Cecil.Cil;
+
     internal partial class Main
     {
         partial void BalanceDeathMark()

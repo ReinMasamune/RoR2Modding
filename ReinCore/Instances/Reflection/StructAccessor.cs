@@ -1,11 +1,11 @@
-﻿using System;
-using System.Linq.Expressions;
-using System.Reflection;
-using BepInEx;
-using UnityEngine;
-
-namespace ReinCore
+﻿namespace ReinCore
 {
+    using System;
+    using System.Linq.Expressions;
+    using System.Reflection;
+    using BepInEx;
+    using UnityEngine;
+
     /// <summary>
     /// 
     /// </summary>
@@ -14,17 +14,16 @@ namespace ReinCore
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="type"></param>
         /// <param name="name"></param>
         public StructAccessor( String name )
         {
-            var miscLabel = Expression.Label();
-            var instanceParam = Expression.Parameter(typeof(System.Object), "instance" );
-            var unboxedInstance = Expression.Unbox( instanceParam, typeof(TInstance) );
-            var valueParam = Expression.Parameter( typeof( TValue ), "value" );
-            var type = typeof( TInstance );
-            var allFlags = BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic;
-            var memberArray = type.GetMember( name, MemberTypes.Property | MemberTypes.Field, allFlags );
+            LabelTarget miscLabel = Expression.Label();
+            ParameterExpression instanceParam = Expression.Parameter(typeof(System.Object), "instance" );
+            UnaryExpression unboxedInstance = Expression.Unbox( instanceParam, typeof(TInstance) );
+            ParameterExpression valueParam = Expression.Parameter( typeof( TValue ), "value" );
+            Type type = typeof( TInstance );
+            BindingFlags allFlags = BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic;
+            MemberInfo[] memberArray = type.GetMember( name, MemberTypes.Property | MemberTypes.Field, allFlags );
             MemberInfo member = null;
             if( memberArray.Length == 1 )
             {
@@ -35,7 +34,7 @@ namespace ReinCore
                 MemberInfo propMem = null;
                 for( Int32 i = 0; i < memberArray.Length; ++i )
                 {
-                    var mem = memberArray[i];
+                    MemberInfo mem = memberArray[i];
                     if( mem.MemberType == MemberTypes.Property )
                     {
                         propMem = mem;
@@ -56,19 +55,19 @@ namespace ReinCore
                     throw new MissingMemberException( type.AssemblyQualifiedName, name );
                 }
             }
-            var memberType = member.GetType();
+            Type memberType = member.GetType();
             if( member.MemberType == MemberTypes.Field )
             {
                 var field = member as FieldInfo;
-                var info = memberType.GetField( "attrs", BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic );
+                FieldInfo info = memberType.GetField( "attrs", BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic );
                 var val = (FieldAttributes)info.GetValue( member );
-                var temp = val;
+                FieldAttributes temp = val;
                 val &= ~FieldAttributes.InitOnly;
                 info.SetValue( member, val );
 
 
-                var fieldExpr = Expression.Field( unboxedInstance, field );
-                var assignExpr = Expression.Assign( fieldExpr, valueParam );
+                MemberExpression fieldExpr = Expression.Field( unboxedInstance, field );
+                BinaryExpression assignExpr = Expression.Assign( fieldExpr, valueParam );
                 this.internalSet = Expression.Lambda<StructInternalSetDelegate>( assignExpr, instanceParam, valueParam ).Compile();
                 this.internalGet = Expression.Lambda<StructInternalGetDelegate>( fieldExpr, instanceParam ).Compile();
 
@@ -76,10 +75,10 @@ namespace ReinCore
             } else if( member.MemberType == MemberTypes.Property )
             {
                 var prop = member as PropertyInfo;
-                var propExpr = Expression.Property( unboxedInstance, prop );
+                MemberExpression propExpr = Expression.Property( unboxedInstance, prop );
                 if( prop.CanWrite )
                 {
-                    var assignExpr = Expression.Assign( propExpr, valueParam );
+                    BinaryExpression assignExpr = Expression.Assign( propExpr, valueParam );
                     this.internalSet = Expression.Lambda<StructInternalSetDelegate>( assignExpr, instanceParam, valueParam ).Compile();
                 }
                 if( prop.CanRead )
@@ -101,7 +100,7 @@ namespace ReinCore
                 this.Get = new StructAccessorGetDelegate( ( ref TInstance instance ) =>
                 {
                     System.Object inst = instance;
-                    var val = this.internalGet( inst );
+                    TValue val = this.internalGet( inst );
                     instance = (TInstance)inst;
                     return val;
                 } );
@@ -121,11 +120,15 @@ namespace ReinCore
         /// <summary>
         /// 
         /// </summary>
+#pragma warning disable IDE1006 // Naming Styles
         public StructAccessorGetDelegate Get;
+#pragma warning restore IDE1006 // Naming Styles
         /// <summary>
         /// 
         /// </summary>
+#pragma warning disable IDE1006 // Naming Styles
         public StructAccessorSetDelegate Set;
+#pragma warning restore IDE1006 // Naming Styles
 
         /// <summary>
         /// 
@@ -141,8 +144,8 @@ namespace ReinCore
 
         private delegate TValue StructInternalGetDelegate( System.Object instance );
         private delegate void StructInternalSetDelegate( System.Object instance, TValue value );
-        private StructInternalGetDelegate internalGet;
-        private StructInternalSetDelegate internalSet;
+        private readonly StructInternalGetDelegate internalGet;
+        private readonly StructInternalSetDelegate internalSet;
     }
 
 }

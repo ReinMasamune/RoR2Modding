@@ -23,7 +23,7 @@
 
         private Single duration;
         private Single stepTime;
-        private Single[] stepTimes = new Single[steps+1];
+        private readonly Single[] stepTimes = new Single[steps+1];
 
         private Boolean halting = true;
         private Boolean haltingFirst = false;
@@ -35,51 +35,57 @@
         private Components.Rotator rotator;
         private Transform modelTransform;
         private AltArtiPassive passive;
-        private AltArtiPassive.BatchHandle[] handles = new AltArtiPassive.BatchHandle[steps];
+        private readonly AltArtiPassive.BatchHandle[] handles = new AltArtiPassive.BatchHandle[steps];
 
         public override void OnEnter()
         {
             base.OnEnter();
 
-            inputSpace = new GameObject( "inputSpace" ).transform;
-            inputSpace.position = Vector3.zero;
-            inputSpace.rotation = Quaternion.identity;
-            inputSpace.localScale = Vector3.one;
+            this.inputSpace = new GameObject( "inputSpace" ).transform;
+            this.inputSpace.position = Vector3.zero;
+            this.inputSpace.rotation = Quaternion.identity;
+            this.inputSpace.localScale = Vector3.one;
 
-            stepTime = stepHalt + dashTime;
-            duration = stepTime * steps - stepHalt;
+            this.stepTime = stepHalt + dashTime;
+            this.duration = ( this.stepTime * steps) - stepHalt;
             for( Int32 i = 0; i < steps; i++ )
             {
-                stepTimes[i] = stepTime * i - stepHalt;
+                this.stepTimes[i] = ( this.stepTime * i) - stepHalt;
             }
-            stepTimes[steps] = duration;
-            stepTime = (duration / steps) - stepHalt;
+            this.stepTimes[steps] = this.duration;
+            this.stepTime = ( this.duration / steps) - stepHalt;
 
-            modelTransform = base.GetModelTransform();
-            this.rotator = modelTransform.Find( "MageArmature" ).GetComponent<Components.Rotator>();
+            this.modelTransform = base.GetModelTransform();
+            this.rotator = this.modelTransform.Find( "MageArmature" ).GetComponent<Components.Rotator>();
 
             base.characterMotor.useGravity = false;
             base.cameraTargetParams.aimMode = CameraTargetParams.AimType.Aura;
 
             if( AltArtiPassive.instanceLookup.ContainsKey( base.gameObject ) )
             {
-                passive = AltArtiPassive.instanceLookup[base.gameObject];
+                this.passive = AltArtiPassive.instanceLookup[base.gameObject];
             }
         }
 
         public override void FixedUpdate()
         {
             base.FixedUpdate();
-            if( base.fixedAge >= this.duration && base.isAuthority ) base.outer.SetNextStateToMain();
+            if( base.fixedAge >= this.duration && base.isAuthority )
+            {
+                base.outer.SetNextStateToMain();
+            }
         }
 
         public override void OnExit()
         {
-            rotator.ResetRotation( 0.5f );
+            this.rotator.ResetRotation( 0.5f );
             base.characterMotor.useGravity = true;
             base.cameraTargetParams.aimMode = CameraTargetParams.AimType.Standard;
 
-            if( inputSpace ) UnityEngine.Object.Destroy( inputSpace.gameObject );
+            if( this.inputSpace )
+            {
+                UnityEngine.Object.Destroy( this.inputSpace.gameObject );
+            }
 
             if( NetworkServer.active && !base.characterBody.bodyFlags.HasFlag( CharacterBody.BodyFlags.IgnoreFallDamage ) )
             {
@@ -114,23 +120,23 @@
         {
             base.HandleMovements();
 
-            if( halting )
+            if( this.halting )
             {
-                if( this.haltingFirst && base.fixedAge >= stepTimes[stepCounter] + stepHalt )
+                if( this.haltingFirst && base.fixedAge >= this.stepTimes[this.stepCounter] + stepHalt )
                 {
                     //base.passive.SkillCast( skillLocator.special );
                     this.haltingFirst = false;
                 }
-                if( base.fixedAge >= stepTimes[stepCounter] + stepHalt )
+                if( base.fixedAge >= this.stepTimes[this.stepCounter] + stepHalt )
                 {
                     Vector3 aimDir = base.GetAimRay().direction;
-                    Vector3 moveDir = inputBank.moveVector;
-                    Vector3 aimOrientation = new Vector3( aimDir.x , 0f, aimDir.z );
+                    Vector3 moveDir = this.inputBank.moveVector;
+                    var aimOrientation = new Vector3( aimDir.x , 0f, aimDir.z );
                     aimOrientation = Vector3.Normalize( aimOrientation );
-                    inputSpace.rotation = Quaternion.LookRotation( aimOrientation, Vector3.up );
+                    this.inputSpace.rotation = Quaternion.LookRotation( aimOrientation, Vector3.up );
 
-                    aimDir = inputSpace.InverseTransformDirection( aimDir );
-                    moveDir = inputSpace.InverseTransformDirection( moveDir );
+                    aimDir = this.inputSpace.InverseTransformDirection( aimDir );
+                    moveDir = this.inputSpace.InverseTransformDirection( moveDir );
 
                     Vector3 forward;
                     if( moveDir.sqrMagnitude != 0 )
@@ -138,13 +144,16 @@
                         forward = aimDir * moveDir.z;
                         forward.x = moveDir.x;
 
-                    } else forward = aimDir;
+                    } else
+                    {
+                        forward = aimDir;
+                    }
 
-                    forward.y += inputBank.jump.down ? 1f : 0f;
+                    forward.y += this.inputBank.jump.down ? 1f : 0f;
                     forward = Vector3.Normalize( forward );
-                    this.flyVector = inputSpace.TransformDirection( forward );
+                    this.flyVector = this.inputSpace.TransformDirection( forward );
 
-                    Util.PlaySound( FlyUpState.beginSoundString, base.gameObject );
+                    _ = Util.PlaySound( FlyUpState.beginSoundString, base.gameObject );
                     this.CreateBlinkEffect( Util.GetCorePosition( base.gameObject ) );
                     base.PlayCrossfade( "Body", "FlyUp", "FlyUp.playbackRate", dashTime, 0.1f );
                     base.characterMotor.Motor.ForceUnground();
@@ -152,36 +161,36 @@
                     EffectManager.SimpleMuzzleFlash( FlyUpState.muzzleflashEffect, base.gameObject, "MuzzleLeft", false );
                     EffectManager.SimpleMuzzleFlash( FlyUpState.muzzleflashEffect, base.gameObject, "MuzzleRight", false );
 
-                    rotator.SetRotation( Quaternion.LookRotation( this.flyVector, Vector3.up ), dashTime );
+                    this.rotator.SetRotation( Quaternion.LookRotation( this.flyVector, Vector3.up ), dashTime );
 
                     base.characterBody.isSprinting = true;
-                    halting = false;
-                    stepCounter++;
+                    this.halting = false;
+                    this.stepCounter++;
 
-                    handles[stepCounter-1] = new AltArtiPassive.BatchHandle();
-                    if( passive != null )
+                    this.handles[this.stepCounter -1] = new AltArtiPassive.BatchHandle();
+                    if( this.passive != null )
                     {
-                        passive.SkillCast( handles[stepCounter-1] );
+                        this.passive.SkillCast( this.handles[this.stepCounter -1] );
                     }
                 }
             } else
             {
-                if( base.fixedAge >= stepTimes[stepCounter] )
+                if( base.fixedAge >= this.stepTimes[this.stepCounter] )
                 {
-                    if( passive != null )
+                    if( this.passive != null )
                     {
-                        handles[stepCounter - 1].Fire( stepHalt / 4f, stepHalt / 2f );
+                        this.handles[this.stepCounter - 1].Fire( stepHalt / 4f, stepHalt / 2f );
                     }
-                    if( stepCounter < steps )
+                    if( this.stepCounter < steps )
                     {
                         this.halting = true;
-                        Util.PlaySound( FlyUpState.endSoundString, base.gameObject );
+                        _ = Util.PlaySound( FlyUpState.endSoundString, base.gameObject );
                         this.rotator.ResetRotation( stepHalt );
                         this.haltingFirst = true;
                         base.characterBody.isSprinting = false;
                     }
                 }
-                Single speedCoef = base.moveSpeedStat * speedConst * FlyUpState.speedCoefficientCurve.Evaluate( (base.fixedAge - stepTimes[stepCounter]) / dashTime ) / dashTime;
+                Single speedCoef = base.moveSpeedStat * speedConst * FlyUpState.speedCoefficientCurve.Evaluate( (base.fixedAge - this.stepTimes[this.stepCounter]) / dashTime ) / dashTime;
                 base.characterMotor.rootMotion += this.flyVector * speedCoef * Time.fixedDeltaTime;
 
             }
@@ -192,7 +201,7 @@
 
         private void CreateBlinkEffect( Vector3 origin )
         {
-            EffectData data = new EffectData();
+            var data = new EffectData();
             data.rotation = Util.QuaternionSafeLookRotation( this.flyVector );
             data.origin = origin;
             EffectManager.SpawnEffect( FlyUpState.blinkPrefab, data, false );

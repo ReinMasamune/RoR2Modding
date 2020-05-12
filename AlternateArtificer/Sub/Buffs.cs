@@ -12,11 +12,8 @@
         public BuffIndex fireBuff;
         public BuffIndex burnBuff;
         public DotController.DotIndex burnDot;
-        
-        private void DoBuffs()
-        {
-            this.AddFireBuff();
-        }
+
+        private void DoBuffs() => this.AddFireBuff();
 
         private void AddFireBuff()
         {
@@ -31,7 +28,7 @@
 
             this.burnBuff = BuffIndex.OnFire;
             this.burnDot = DotController.DotIndex.Burn;
-            AltArtiPassive.fireBuff = fireBuff;
+            AltArtiPassive.fireBuff = this.fireBuff;
         }
     }
 }

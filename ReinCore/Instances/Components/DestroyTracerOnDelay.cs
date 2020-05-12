@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Text;
-using UnityEngine;
-
-namespace ReinCore
+﻿namespace ReinCore
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Text;
+    using UnityEngine;
+
     /// <summary>
     /// A component destroys a tracer after it has reached destination
     /// </summary>
@@ -22,7 +22,10 @@ namespace ReinCore
 
         private void Awake()
         {
-            if( this.tracer.onTailReachedDestination == null ) this.tracer.onTailReachedDestination = new UnityEngine.Events.UnityEvent();
+            if( this.tracer.onTailReachedDestination == null )
+            {
+                this.tracer.onTailReachedDestination = new UnityEngine.Events.UnityEvent();
+            }
 
             UnityEngine.Events.UnityEvent uEvent = this.tracer.onTailReachedDestination;
             uEvent.AddListener( new UnityEngine.Events.UnityAction( () => this.StartCoroutine(this.DestroyOnTimer(this.delay)) ) );

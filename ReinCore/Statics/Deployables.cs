@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using BepInEx;
-using Mono.Cecil.Cil;
-using MonoMod.Cil;
-using RoR2;
-using System.Linq;
-
-namespace ReinCore
+﻿namespace ReinCore
 {
+    using System;
+    using System.Collections.Generic;
+    using BepInEx;
+    using Mono.Cecil.Cil;
+    using MonoMod.Cil;
+    using RoR2;
+    using System.Linq;
+
     /// <summary>
     /// 
     /// </summary>
@@ -25,8 +25,15 @@ namespace ReinCore
         /// <returns></returns>
         public static DeployableSlot AddDeployableSlot(DeployableSlotDef def)
         {
-            if( !loaded ) throw new CoreNotLoadedException( nameof( DeployablesCore ) );
-            if( def is null ) throw new ArgumentNullException( nameof( def ) );
+            if( !loaded )
+            {
+                throw new CoreNotLoadedException( nameof( DeployablesCore ) );
+            }
+
+            if( def is null )
+            {
+                throw new ArgumentNullException( nameof( def ) );
+            }
 
             DeployableSlot slot = nextSlot;
             addedDeployables[slot] = def;

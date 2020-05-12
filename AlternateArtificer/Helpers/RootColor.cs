@@ -37,10 +37,7 @@
 
         public Single intensity
         {
-            get
-            {
-                return (this.r + this.g + this.b) / 3f;
-            }
+            get => ( this.r + this.g + this.b ) / 3f;
         }
 
         public Single r;
@@ -74,13 +71,13 @@
 
         public RootColor Rebase( RootColor modifier )
         {
-            var mod = modifier.clone;
-            var inputIntensity = this.intensity;
-            var modIntensity = mod.intensity;
+            RootColor mod = modifier.clone;
+            Single inputIntensity = this.intensity;
+            Single modIntensity = mod.intensity;
 
-            var modR = mod.r;
-            var modG = mod.g;
-            var modB = mod.b;
+            Single modR = mod.r;
+            Single modG = mod.g;
+            Single modB = mod.b;
 
             modR -= modIntensity;
             modG -= modIntensity;

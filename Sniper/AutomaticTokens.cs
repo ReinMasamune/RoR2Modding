@@ -1,8 +1,8 @@
-﻿using System;
-
-namespace Sniper.Properties
+﻿namespace Sniper.Properties
 {
-	public static class Tokens
+    using System;
+
+    public static class Tokens
 	{
 		#pragma warning disable IDE1006 // Naming Styles
 		#pragma warning disable CA1707 // Identifiers should not contain underscores

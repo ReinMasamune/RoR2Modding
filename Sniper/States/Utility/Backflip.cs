@@ -1,22 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using BepInEx.Logging;
-using ReinCore;
-using RoR2;
-using RoR2.Networking;
-using UnityEngine;
-using KinematicCharacterController;
-using EntityStates;
-using RoR2.Skills;
-using System.Reflection;
-using Sniper.Expansions;
-using Sniper.Enums;
-using Sniper.States.Bases;
-using UnityEngine.Networking;
-
-namespace Sniper.States.Utility
+﻿namespace Sniper.States.Utility
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Runtime.CompilerServices;
+    using BepInEx.Logging;
+    using ReinCore;
+    using RoR2;
+    using RoR2.Networking;
+    using UnityEngine;
+    using KinematicCharacterController;
+    using EntityStates;
+    using RoR2.Skills;
+    using System.Reflection;
+    using Sniper.Expansions;
+    using Sniper.Enums;
+    using Sniper.States.Bases;
+    using UnityEngine.Networking;
+
     internal class Backflip : GenericCharacterMain
     {
         private static readonly AnimationCurve backflipSpeedCurve = new AnimationCurve(

@@ -25,7 +25,7 @@
         {
             this.applyVisuals?.Invoke( skillSlot.characterBody.modelLocator.modelTransform.GetComponent<CharacterModel>() );
 
-            var stateMachines = skillSlot.GetComponents<EntityStateMachine>();
+            EntityStateMachine[] stateMachines = skillSlot.GetComponents<EntityStateMachine>();
             foreach( StateMachineDefaults def in this.stateMachineDefaults )
             {
                 foreach( EntityStateMachine mach in stateMachines )
@@ -55,7 +55,7 @@
                 this.applyVisuals?.Invoke( skillSlot.characterBody.modelLocator.modelTransform.GetComponent<CharacterModel>() );
             }
 
-            var stateMachines = skillSlot.GetComponents<EntityStateMachine>();
+            EntityStateMachine[] stateMachines = skillSlot.GetComponents<EntityStateMachine>();
             foreach( StateMachineDefaults def in this.stateMachineDefaults )
             {
                 foreach( EntityStateMachine mach in stateMachines )
@@ -81,7 +81,7 @@
 
         public Action<CharacterModel> applyVisuals;
         public Action<CharacterModel> removeVisuals;
-        private Dictionary<CharacterModel, Boolean> isDisplayed = new Dictionary<CharacterModel, Boolean>();
+        private readonly Dictionary<CharacterModel, Boolean> isDisplayed = new Dictionary<CharacterModel, Boolean>();
 
         public void OnAssignDisplay(CharacterModel model)
         {

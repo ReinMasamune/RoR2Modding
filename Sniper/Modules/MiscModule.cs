@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using BepInEx.Logging;
-using ReinCore;
-using RoR2;
-using Sniper.ScriptableObjects;
-using UnityEngine;
-
-namespace Sniper.Modules
+﻿namespace Sniper.Modules
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Runtime.CompilerServices;
+    using BepInEx.Logging;
+    using ReinCore;
+    using RoR2;
+    using Sniper.ScriptableObjects;
+    using UnityEngine;
+
     internal static class MiscModule
     {
         internal static GameObject GetPodPrefab()
@@ -19,12 +19,12 @@ namespace Sniper.Modules
             }
             return _podPrefab;
         }
+#pragma warning disable IDE1006 // Naming Styles
         private static GameObject _podPrefab;
-        private static GameObject CreatePodPrefab()
-        {
+#pragma warning restore IDE1006 // Naming Styles
+        private static GameObject CreatePodPrefab() =>
             // TODO: Create sniper survivor pod prefab
-            return null;
-        }
+            null;
 
         internal static CharacterCameraParams GetCharCameraParams()
         {
@@ -34,7 +34,9 @@ namespace Sniper.Modules
             }
             return _sniperCharCameraParams;
         }
+#pragma warning disable IDE1006 // Naming Styles
         private static CharacterCameraParams _sniperCharCameraParams;
+#pragma warning restore IDE1006 // Naming Styles
         private static CharacterCameraParams CreateSniperCharCameraParams()
         {
             var param = SniperCameraParams.Create( new Vector3( 1f, 0.8f, -3f ) );

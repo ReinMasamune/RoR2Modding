@@ -1,9 +1,9 @@
-﻿using System;
-using System.Reflection;
-using BepInEx;
-
-namespace Rein
+﻿namespace Rein
 {
+    using System;
+    using System.Reflection;
+    using BepInEx;
+
     [BepInPlugin( AssemblyLoad.guid, "Rein Assembly-PreLoad", AssemblyLoad.version )]
     internal class AssemblyLoad : BaseUnityPlugin
     {

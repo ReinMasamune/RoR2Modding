@@ -1,16 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using BepInEx.Logging;
-using ReinCore;
-using RoR2;
-using UnityEngine;
-using Sniper.Properties;
-using Sniper.Data;
-using Unity.Jobs;
-
-namespace Sniper.Modules
+﻿namespace Sniper.Modules
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Runtime.CompilerServices;
+    using BepInEx.Logging;
+    using ReinCore;
+    using RoR2;
+    using UnityEngine;
+    using Sniper.Properties;
+    using Sniper.Data;
+    using Unity.Jobs;
+
     internal static class ModelModule
     {
         private static readonly Color[] iconColors = new[]
@@ -161,7 +161,7 @@ namespace Sniper.Modules
                 Sprite.Create( alt4Tex, new Rect( 0f, 0f, alt4Tex.width, alt4Tex.height ), new Vector2( 0.5f, 0.5f ) ) );
 
 
-            var skinsArray = charModel.GetComponent<ModelSkinController>().skins;
+            SkinDef[] skinsArray = charModel.GetComponent<ModelSkinController>().skins;
             CharacterModel.RendererInfo[] defaultSkinRenderers = skinsArray[0].rendererInfos;
             for( Int32 i = 0; i < defaultSkinRenderers.Length; ++i )
             {

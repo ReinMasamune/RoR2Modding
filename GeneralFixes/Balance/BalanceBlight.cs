@@ -1,19 +1,19 @@
-﻿using BepInEx;
-using RoR2;
-using UnityEngine;
-using System.Collections.Generic;
-using RoR2.Navigation;
-using Mono.Cecil.Cil;
-using MonoMod.Cil;
-using System;
-using System.Reflection;
-using EntityStates;
-using RoR2.Skills;
-using System.Collections;
-using ReinCore;
-
-namespace ReinGeneralFixes
+﻿namespace ReinGeneralFixes
 {
+    using BepInEx;
+    using RoR2;
+    using UnityEngine;
+    using System.Collections.Generic;
+    using RoR2.Navigation;
+    using Mono.Cecil.Cil;
+    using MonoMod.Cil;
+    using System;
+    using System.Reflection;
+    using EntityStates;
+    using RoR2.Skills;
+    using System.Collections;
+    using ReinCore;
+
     internal partial class Main
     {
         private static readonly Dictionary<CharacterBody,CrocoDamageTypeController> componentCache = new Dictionary<CharacterBody, CrocoDamageTypeController>();
@@ -48,8 +48,16 @@ namespace ReinGeneralFixes
 
         private static void BlightFromAcridHit( DamageInfo damage, CharacterBody attacker, CharacterBody victim )
         {
-            if( damage.dotIndex != DotController.DotIndex.None ) return;
-            if( !ShouldApplyBlight( attacker ) ) return;
+            if( damage.dotIndex != DotController.DotIndex.None )
+            {
+                return;
+            }
+
+            if( !ShouldApplyBlight( attacker ) )
+            {
+                return;
+            }
+
             Single dist = Math.Max( 0f, Vector3.Distance(damage.position, attacker.corePosition) - 10f );
             Single mult = 0.7f * ( 10 / (10+dist) );
             DotController.InflictDot( victim.gameObject, attacker.gameObject, DotController.DotIndex.Blight, 5f * damage.procCoefficient, mult );
@@ -57,13 +65,21 @@ namespace ReinGeneralFixes
 
         private static void BlightFromDamageType( DamageInfo damage, CharacterBody attacker, CharacterBody victim )
         {
-            if( (damage.damageType & DamageType.BlightOnHit) == 0 ) return;
+            if( (damage.damageType & DamageType.BlightOnHit) == 0 )
+            {
+                return;
+            }
+
             DotController.InflictDot( victim.gameObject, attacker.gameObject, DotController.DotIndex.Blight, 5f * damage.procCoefficient, 0.7f );
         }
 
         private static Boolean ShouldApplyBlight( CharacterBody body )
         {
-            if( body.bodyIndex != crocoBodyIndex ) return false;
+            if( body.bodyIndex != crocoBodyIndex )
+            {
+                return false;
+            }
+
             if( !componentCache.ContainsKey( body ) )
             {
                 componentCache[body] = body.GetComponent<CrocoDamageTypeController>();

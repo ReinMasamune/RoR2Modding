@@ -1,16 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using BepInEx.Logging;
-using ReinCore;
-using UnityEngine;
-using Sniper.Modules;
-using BepInEx;
-using RoR2;
-#region Metadata
+﻿#region Metadata
 #endregion
 namespace Sniper
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Runtime.CompilerServices;
+    using BepInEx.Logging;
+    using ReinCore;
+    using UnityEngine;
+    using Sniper.Modules;
+    using BepInEx;
+    using RoR2;
+
     [BepInDependency( Properties.AssemblyLoad.guid)]
     [BepInPlugin( SniperMain.guid, "Sniper", Properties.Info.ver)]
     internal sealed class SniperMain : CorePlugin
@@ -163,12 +164,20 @@ namespace Sniper
       
         public static void Counter( [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 )
         {
-            if( !counters.ContainsKey( member ) ) counters[member] = 0UL;
+            if( !counters.ContainsKey( member ) )
+            {
+                counters[member] = 0UL;
+            }
+
             InternalLog( LogLevel.None, String.Format( "{0}, member: {1}, line: {2}", counters[member]++, member, line ), member, line );
         }
         public static void ClearCounter( Boolean toConsole = false, [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 )
         {
-            if( !counters.ContainsKey( member ) ) return;
+            if( !counters.ContainsKey( member ) )
+            {
+                return;
+            }
+
             counters[member] = 0UL;
             if( toConsole )
             {

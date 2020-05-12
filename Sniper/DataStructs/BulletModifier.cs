@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using BepInEx.Logging;
-using ReinCore;
-using RoR2;
-using Sniper.Expansions;
-using UnityEngine;
-
-namespace Sniper.Data
+﻿namespace Sniper.Data
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Runtime.CompilerServices;
+    using BepInEx.Logging;
+    using ReinCore;
+    using RoR2;
+    using Sniper.Expansions;
+    using UnityEngine;
+
     [Serializable]
     internal struct BulletModifier
     {
@@ -19,22 +19,85 @@ namespace Sniper.Data
         internal void Apply( ExpandableBulletAttack bullet )
         {
             bullet.chargeLevel = this.charge < 0f ? this.charge : Mathf.Max( bullet.chargeLevel, this.charge );
-            if( this.applyCountMultiplier ) bullet.bulletCount = (UInt32)( bullet.bulletCount * this.countMultiplier );
-            if( this.applyDamageMultiplier ) bullet.damage *= this.damageMultiplier;
-            if( this.applyDamageColor ) bullet.damageColorIndex = this.damageColor;
-            if( this.applyDamageTypeRemove ) bullet.damageType &= ~this.damageTypeRemove;
-            if( this.applyDamageTypeAdd ) bullet.damageType |= this.damageTypeAdd;
-            if( this.applyForceMultiplier ) bullet.force *= this.forceMultiplier;
-            if( this.applyHitMaskRemove ) bullet.hitMask &= ~this.hitMaskRemove;
-            if( this.applyHitMaskAdd ) bullet.hitMask |= this.hitMaskAdd;
-            if( this.applyMaxSpread ) bullet.maxSpread *= this.maxSpread;
-            if( this.applyMinSpread ) bullet.minSpread *= this.minSpread;
-            if( this.applyProcMultiplier ) bullet.procCoefficient *= this.procMultiplier;
-            if( this.applyRadiusMultiplier ) bullet.radius = (bullet.radius == 0f) ? this.radiusMultiplier : bullet.radius * this.radiusMultiplier;
-            if( this.applySpreadPitch ) bullet.spreadPitchScale = (bullet.spreadPitchScale == 0f) ? this.spreadPitch : bullet.spreadPitchScale * this.spreadPitch;
-            if( this.applySpreadYaw ) bullet.spreadYawScale = (bullet.spreadYawScale == 0f) ? this.spreadYaw : bullet.spreadYawScale * this.spreadYaw;
-            if( this.applyStopperMaskRemove ) bullet.stopperMask &= ~this.stopperMaskRemove;
-            if( this.applyStopperMaskAdd ) bullet.stopperMask |= this.stopperMaskAdd;
+            if( this.applyCountMultiplier )
+            {
+                bullet.bulletCount = (UInt32)( bullet.bulletCount * this.countMultiplier );
+            }
+
+            if( this.applyDamageMultiplier )
+            {
+                bullet.damage *= this.damageMultiplier;
+            }
+
+            if( this.applyDamageColor )
+            {
+                bullet.damageColorIndex = this.damageColor;
+            }
+
+            if( this.applyDamageTypeRemove )
+            {
+                bullet.damageType &= ~this.damageTypeRemove;
+            }
+
+            if( this.applyDamageTypeAdd )
+            {
+                bullet.damageType |= this.damageTypeAdd;
+            }
+
+            if( this.applyForceMultiplier )
+            {
+                bullet.force *= this.forceMultiplier;
+            }
+
+            if( this.applyHitMaskRemove )
+            {
+                bullet.hitMask &= ~this.hitMaskRemove;
+            }
+
+            if( this.applyHitMaskAdd )
+            {
+                bullet.hitMask |= this.hitMaskAdd;
+            }
+
+            if( this.applyMaxSpread )
+            {
+                bullet.maxSpread *= this.maxSpread;
+            }
+
+            if( this.applyMinSpread )
+            {
+                bullet.minSpread *= this.minSpread;
+            }
+
+            if( this.applyProcMultiplier )
+            {
+                bullet.procCoefficient *= this.procMultiplier;
+            }
+
+            if( this.applyRadiusMultiplier )
+            {
+                bullet.radius = (bullet.radius == 0f) ? this.radiusMultiplier : bullet.radius * this.radiusMultiplier;
+            }
+
+            if( this.applySpreadPitch )
+            {
+                bullet.spreadPitchScale = (bullet.spreadPitchScale == 0f) ? this.spreadPitch : bullet.spreadPitchScale * this.spreadPitch;
+            }
+
+            if( this.applySpreadYaw )
+            {
+                bullet.spreadYawScale = (bullet.spreadYawScale == 0f) ? this.spreadYaw : bullet.spreadYawScale * this.spreadYaw;
+            }
+
+            if( this.applyStopperMaskRemove )
+            {
+                bullet.stopperMask &= ~this.stopperMaskRemove;
+            }
+
+            if( this.applyStopperMaskAdd )
+            {
+                bullet.stopperMask |= this.stopperMaskAdd;
+            }
         }
 
 
@@ -48,7 +111,9 @@ namespace Sniper.Data
             }
         }
         [SerializeField]
+#pragma warning disable IDE1006 // Naming Styles
         private Single _countMultiplier;
+#pragma warning restore IDE1006 // Naming Styles
         [SerializeField]
         private Boolean applyCountMultiplier;
 
@@ -63,7 +128,9 @@ namespace Sniper.Data
             }
         }
         [SerializeField]
+#pragma warning disable IDE1006 // Naming Styles
         private Single _damageMultiplier;
+#pragma warning restore IDE1006 // Naming Styles
         [SerializeField]
         private Boolean applyDamageMultiplier;
 
@@ -78,7 +145,9 @@ namespace Sniper.Data
             }
         }
         [SerializeField]
+#pragma warning disable IDE1006 // Naming Styles
         private DamageColorIndex _damageColor;
+#pragma warning restore IDE1006 // Naming Styles
         [SerializeField]
         private Boolean applyDamageColor;
 
@@ -93,7 +162,9 @@ namespace Sniper.Data
             }
         }
         [SerializeField]
+#pragma warning disable IDE1006 // Naming Styles
         private DamageType _damageTypeAdd;
+#pragma warning restore IDE1006 // Naming Styles
         [SerializeField]
         private Boolean applyDamageTypeAdd;
 
@@ -108,7 +179,9 @@ namespace Sniper.Data
             }
         }
         [SerializeField]
+#pragma warning disable IDE1006 // Naming Styles
         private DamageType _damageTypeRemove;
+#pragma warning restore IDE1006 // Naming Styles
         [SerializeField]
         private Boolean applyDamageTypeRemove;
 
@@ -123,7 +196,9 @@ namespace Sniper.Data
             }
         }
         [SerializeField]
+#pragma warning disable IDE1006 // Naming Styles
         private Single _forceMultiplier;
+#pragma warning restore IDE1006 // Naming Styles
         [SerializeField]
         private Boolean applyForceMultiplier;
 
@@ -138,7 +213,9 @@ namespace Sniper.Data
             }
         }
         [SerializeField]
+#pragma warning disable IDE1006 // Naming Styles
         private LayerMask _hitMaskRemove;
+#pragma warning restore IDE1006 // Naming Styles
         [SerializeField]
         private Boolean applyHitMaskRemove;
 
@@ -153,7 +230,9 @@ namespace Sniper.Data
             }
         }
         [SerializeField]
+#pragma warning disable IDE1006 // Naming Styles
         private LayerMask _hitMaskAdd;
+#pragma warning restore IDE1006 // Naming Styles
         [SerializeField]
         private Boolean applyHitMaskAdd;
 
@@ -168,7 +247,9 @@ namespace Sniper.Data
             }
         }
         [SerializeField]
+#pragma warning disable IDE1006 // Naming Styles
         private Single _maxSpread;
+#pragma warning restore IDE1006 // Naming Styles
         [SerializeField]
         private Boolean applyMaxSpread;
 
@@ -183,7 +264,9 @@ namespace Sniper.Data
             }
         }
         [SerializeField]
+#pragma warning disable IDE1006 // Naming Styles
         private Single _minSpread;
+#pragma warning restore IDE1006 // Naming Styles
         [SerializeField]
         private Boolean applyMinSpread;
 
@@ -198,7 +281,9 @@ namespace Sniper.Data
             }
         }
         [SerializeField]
+#pragma warning disable IDE1006 // Naming Styles
         private Single _procMultiplier;
+#pragma warning restore IDE1006 // Naming Styles
         [SerializeField]
         private Boolean applyProcMultiplier;
 
@@ -213,7 +298,9 @@ namespace Sniper.Data
             }
         }
         [SerializeField]
+#pragma warning disable IDE1006 // Naming Styles
         private Single _radiusMultiplier;
+#pragma warning restore IDE1006 // Naming Styles
         [SerializeField]
         private Boolean applyRadiusMultiplier;
 
@@ -228,7 +315,9 @@ namespace Sniper.Data
             }
         }
         [SerializeField]
+#pragma warning disable IDE1006 // Naming Styles
         private Single _spreadPitch;
+#pragma warning restore IDE1006 // Naming Styles
         [SerializeField]
         private Boolean applySpreadPitch;
 
@@ -243,7 +332,9 @@ namespace Sniper.Data
             }
         }
         [SerializeField]
+#pragma warning disable IDE1006 // Naming Styles
         private Single _spreadYaw;
+#pragma warning restore IDE1006 // Naming Styles
         [SerializeField]
         private Boolean applySpreadYaw;
 
@@ -258,7 +349,9 @@ namespace Sniper.Data
             }
         }
         [SerializeField]
+#pragma warning disable IDE1006 // Naming Styles
         private LayerMask _stopperMaskRemove;
+#pragma warning restore IDE1006 // Naming Styles
         [SerializeField]
         private Boolean applyStopperMaskRemove;
 
@@ -273,7 +366,9 @@ namespace Sniper.Data
             }
         }
         [SerializeField]
+#pragma warning disable IDE1006 // Naming Styles
         private LayerMask _stopperMaskAdd;
+#pragma warning restore IDE1006 // Naming Styles
         [SerializeField]
         private Boolean applyStopperMaskAdd;
     }

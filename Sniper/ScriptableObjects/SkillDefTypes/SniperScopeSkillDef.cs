@@ -1,28 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using BepInEx.Logging;
-using ReinCore;
-using RoR2;
-using RoR2.Networking;
-using UnityEngine;
-using KinematicCharacterController;
-using EntityStates;
-using RoR2.Skills;
-using System.Reflection;
-using Sniper.Expansions;
-using Sniper.Data;
-using Sniper.Components;
-using Sniper.SkillDefTypes.Bases;
-using Sniper.States.Bases;
-
-namespace Sniper.SkillDefs
+﻿namespace Sniper.SkillDefs
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Runtime.CompilerServices;
+    using BepInEx.Logging;
+    using ReinCore;
+    using RoR2;
+    using RoR2.Networking;
+    using UnityEngine;
+    using KinematicCharacterController;
+    using EntityStates;
+    using RoR2.Skills;
+    using System.Reflection;
+    using Sniper.Expansions;
+    using Sniper.Data;
+    using Sniper.Components;
+    using Sniper.SkillDefTypes.Bases;
+    using Sniper.States.Bases;
+
     internal class SniperScopeSkillDef : SniperSkillDef
     {
         internal static SniperScopeSkillDef Create<TSecondary>( GameObject scopeUIPrefab, ZoomParams zoomParams ) where TSecondary : ScopeBaseState
         {
-            var def = ScriptableObject.CreateInstance<SniperScopeSkillDef>();
+            SniperScopeSkillDef def = ScriptableObject.CreateInstance<SniperScopeSkillDef>();
             def.scopeCrosshair = scopeUIPrefab;
             def.zoomParams = zoomParams;
             def.activationState = SkillsCore.StateType<TSecondary>();
@@ -51,10 +51,7 @@ namespace Sniper.SkillDefs
         internal Int32 stockRequiredToKeepZoom;
 
 
-        public sealed override BaseSkillInstanceData OnAssigned( GenericSkill skillSlot )
-        {
-            return new ScopeInstanceData( this, skillSlot );
-        }
+        public sealed override BaseSkillInstanceData OnAssigned( GenericSkill skillSlot ) => new ScopeInstanceData( this, skillSlot );
 
         protected sealed override EntityState InstantiateNextState( GenericSkill skillSlot )
         {
@@ -88,7 +85,7 @@ namespace Sniper.SkillDefs
 
             internal BulletModifier SendFired()
             {
-                if( this.stateInstance.SendFired( out var mod ) )
+                if( this.stateInstance.SendFired( out BulletModifier mod ) )
                 {
                     this.skillSlot.DeductStock( this.scopeSkill.stockToConsumeOnFire );
                     if( this.skillSlot.stock < this.scopeSkill.stockRequiredToKeepZoom )
@@ -138,7 +135,7 @@ namespace Sniper.SkillDefs
             private readonly GenericSkill skillSlot;
             private Single zoom;
             internal ZoomParams zoomParams { get; private set; }
-            private GameObject defaultCrosshair;
+            private readonly GameObject defaultCrosshair;
         }
     }
 }

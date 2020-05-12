@@ -1,9 +1,9 @@
-﻿using System;
-using RoR2;
-using UnityEngine.Networking;
-
-namespace ReinCore
+﻿namespace ReinCore
 {
+    using System;
+    using RoR2;
+    using UnityEngine.Networking;
+
     internal struct DamageMessage : INetMessage
     {
         public void Serialize( NetworkWriter writer )
@@ -32,10 +32,7 @@ namespace ReinCore
             this.callHitWorld = ( flags & mask ) > 0;
         }
 
-        public void OnRecieved()
-        {
-            NetworkingHelpers.DealDamage( damage, target, callDamage, callHitEnemy, callHitWorld );
-        }
+        public void OnRecieved() => NetworkingHelpers.DealDamage( this.damage, this.target, this.callDamage, this.callHitEnemy, this.callHitWorld );
 
         internal DamageMessage( DamageInfo damage, HurtBox target, Boolean callDamage, Boolean callHitEnemy, Boolean callHitWorld )
         {

@@ -1,16 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using EntityStates;
-using RoR2;
-using Sniper.Components;
-using Sniper.Modules;
-using UnityEngine;
-using UnityEngine.Networking;
-using ReinCore;
-
-namespace Sniper.States.Other
+﻿namespace Sniper.States.Other
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+    using EntityStates;
+    using RoR2;
+    using Sniper.Components;
+    using Sniper.Modules;
+    using UnityEngine;
+    using UnityEngine.Networking;
+    using ReinCore;
+
     internal class DecoyDeathState : GenericCharacterDeath
     {
         private const Single explosionRadius = 10f;

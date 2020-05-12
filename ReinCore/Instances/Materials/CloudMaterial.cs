@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using UnityEngine;
-
-namespace ReinCore
+﻿namespace ReinCore
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+    using UnityEngine;
+
     /// <summary>
     /// A material using CloudRemap. Generally for particle effects.
     /// </summary>
@@ -281,7 +281,9 @@ namespace ReinCore
                 return this._cloudTexture1;
             }
         }
+#pragma warning disable IDE1006 // Naming Styles
         private ScaleOffsetTextureData _cloudTexture1;
+#pragma warning restore IDE1006 // Naming Styles
 
 
         /// <summary>
@@ -299,7 +301,9 @@ namespace ReinCore
                 return this._cloudTexture2;
             }
         }
+#pragma warning disable IDE1006 // Naming Styles
         private ScaleOffsetTextureData _cloudTexture2;
+#pragma warning restore IDE1006 // Naming Styles
 
 
         /// <summary>
@@ -317,7 +321,9 @@ namespace ReinCore
                 return this._mainTexture;
             }
         }
+#pragma warning disable IDE1006 // Naming Styles
         private ScaleOffsetTextureData _mainTexture;
+#pragma warning restore IDE1006 // Naming Styles
 
 
         /// <summary>
@@ -335,7 +341,9 @@ namespace ReinCore
                 return this._remapTexture;
             }
         }
+#pragma warning disable IDE1006 // Naming Styles
         private ScaleOffsetTextureData _remapTexture;
+#pragma warning restore IDE1006 // Naming Styles
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -401,7 +409,9 @@ namespace ReinCore
 
 
         [Menu( sectionName = "Uncategorized" )]
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public Boolean emissionOn
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
         {
             get => base.GetKeyword( "_EMISSION" );
             set => base.SetKeyword( "_EMISSION", value );
@@ -491,12 +501,16 @@ namespace ReinCore
 
         }
 
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public CloudMaterial( Material mat ) : base( mat )
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
         {
 
         }
 
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public CloudMaterial() : base() { }
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
     }
 

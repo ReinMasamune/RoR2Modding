@@ -1,31 +1,50 @@
-﻿using System;
-using BepInEx;
-using BepInEx.Logging;
-using System.Runtime.CompilerServices;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Linq.Expressions;
-
-namespace ReinCore
+﻿namespace ReinCore
 {
+    using System;
+    using BepInEx;
+    using BepInEx.Logging;
+    using System.Runtime.CompilerServices;
+    using System.Collections.Generic;
+    using System.Reflection;
+    using System.Linq.Expressions;
+
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public struct JobDelegate<TDelegate> where TDelegate : System.Delegate
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     {
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public JobDelegate( TDelegate function )
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
         {
-            if( function == null ) throw new ArgumentNullException( nameof(function) );
-            if( function.Target != null ) throw new ArgumentException( "Must be a static method", nameof(function) );
-            var method = function.Method;
-            if( method == null ) throw new ArgumentNullException( nameof( function ) );
-            if( !method.IsStatic ) throw new ArgumentNullException( "Must be a static method", nameof( function ) );
+            if( function == null )
+            {
+                throw new ArgumentNullException( nameof(function) );
+            }
+
+            if( function.Target != null )
+            {
+                throw new ArgumentException( "Must be a static method", nameof(function) );
+            }
+
+            MethodInfo method = function.Method;
+            if( method == null )
+            {
+                throw new ArgumentNullException( nameof( function ) );
+            }
+
+            if( !method.IsStatic )
+            {
+                throw new ArgumentNullException( "Must be a static method", nameof( function ) );
+            }
+
             this.methodHandle = method.MethodHandle;
 
 
 
         }
-        public System.Object Invoke( params System.Object[] args )
-        {
-            return FastInvoker.Invoker(this.methodHandle, null, args ).result;
-        }
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+        public System.Object Invoke( params System.Object[] args ) => FastInvoker.Invoker( this.methodHandle, null, args ).result;
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
         private readonly RuntimeMethodHandle methodHandle;
     }
 
@@ -35,31 +54,33 @@ namespace ReinCore
         {
             if( !initialized )
             {
-                var monoMethod = MethodBase.GetCurrentMethod().GetType();
-                var method = monoMethod.GetMethod("InternalInvoke", BindingFlags.NonPublic | BindingFlags.Instance );
+                Type monoMethod = MethodBase.GetCurrentMethod().GetType();
+                MethodInfo method = monoMethod.GetMethod("InternalInvoke", BindingFlags.NonPublic | BindingFlags.Instance );
 
-                var monoMethodConstructor = monoMethod.GetConstructor(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static, default, new[]{ typeof(RuntimeMethodHandle) }, default);
+                ConstructorInfo monoMethodConstructor = monoMethod.GetConstructor(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static, default, new[]{ typeof(RuntimeMethodHandle) }, default);
 
-                var exceptionMember = typeof(InvokerResult).GetMember("exception", MemberTypes.Method, BindingFlags.NonPublic | BindingFlags.Instance )[0];
-                var retMember = typeof(InvokerResult).GetMember("ret", MemberTypes.Method, BindingFlags.NonPublic | BindingFlags.Instance )[0];
+                MemberInfo exceptionMember = typeof(InvokerResult).GetMember("exception", MemberTypes.Method, BindingFlags.NonPublic | BindingFlags.Instance )[0];
+                MemberInfo retMember = typeof(InvokerResult).GetMember("ret", MemberTypes.Method, BindingFlags.NonPublic | BindingFlags.Instance )[0];
 
-                var instanceParam = Expression.Parameter(typeof(RuntimeMethodHandle), "handle" );
-                var argsParam = Expression.Parameter(typeof(System.Object[]), "args" );
-                var exceptionOut = Expression.Variable( typeof(Exception), "exception" );
-                var resultOut = Expression.Variable( typeof(System.Object), "result" );
-                var newMonoMethod = Expression.New(monoMethodConstructor, instanceParam );
-                var call = Expression.Call(newMonoMethod,method,argsParam,exceptionOut);
-                var newExpr = Expression.New( typeof(InvokerResult));
-                var resultBind = Expression.Bind( retMember, call );
-                var exceptionBind = Expression.Bind( exceptionMember, exceptionOut );
-                var memberInit = Expression.MemberInit(newExpr,resultBind,exceptionBind);
+                ParameterExpression instanceParam = Expression.Parameter(typeof(RuntimeMethodHandle), "handle" );
+                ParameterExpression argsParam = Expression.Parameter(typeof(System.Object[]), "args" );
+                ParameterExpression exceptionOut = Expression.Variable( typeof(Exception), "exception" );
+                _ = Expression.Variable( typeof( System.Object ), "result" );
+                NewExpression newMonoMethod = Expression.New(monoMethodConstructor, instanceParam );
+                MethodCallExpression call = Expression.Call(newMonoMethod,method,argsParam,exceptionOut);
+                NewExpression newExpr = Expression.New( typeof(InvokerResult));
+                MemberAssignment resultBind = Expression.Bind( retMember, call );
+                MemberAssignment exceptionBind = Expression.Bind( exceptionMember, exceptionOut );
+                MemberInitExpression memberInit = Expression.MemberInit(newExpr,resultBind,exceptionBind);
 
                 Invoker = Expression.Lambda<InvokerDelegate>( memberInit, instanceParam, argsParam ).Compile();
                 initialized = true;
             }
         }
         internal delegate InvokerResult InvokerDelegate( RuntimeMethodHandle handle, System.Object instance, System.Object[] args );
+#pragma warning disable IDE1006 // Naming Styles
         internal static InvokerDelegate Invoker { get; private set; }
+#pragma warning restore IDE1006 // Naming Styles
 
         internal struct InvokerResult
         {
@@ -67,12 +88,16 @@ namespace ReinCore
             {
                 get
                 {
-                    if( this.exception != null ) throw this.exception;
+                    if( this.exception != null )
+                    {
+                        throw this.exception;
+                    }
+
                     return this.ret;
                 }
             }
-            private Exception exception;
-            private System.Object ret;
+            private readonly Exception exception;
+            private readonly System.Object ret;
         }
 
 

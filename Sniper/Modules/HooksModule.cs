@@ -1,18 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using System.Reflection;
-using BepInEx.Logging;
-using Mono.Cecil.Cil;
-using MonoMod.Cil;
-using ReinCore;
-using RoR2;
-using Sniper.Components;
-using Sniper.ScriptableObjects;
-using UnityEngine;
-
-namespace Sniper.Modules
+﻿namespace Sniper.Modules
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Runtime.CompilerServices;
+    using System.Reflection;
+    using BepInEx.Logging;
+    using Mono.Cecil.Cil;
+    using MonoMod.Cil;
+    using ReinCore;
+    using RoR2;
+    using Sniper.Components;
+    using Sniper.ScriptableObjects;
+    using UnityEngine;
+
     internal static class HooksModule
     {
         internal static void Remove()
@@ -83,12 +83,9 @@ namespace Sniper.Modules
             barTrans.localScale = new Vector3( 0.5f, 0.5f, 1f );
         }
 
-        internal static void AddReturnoverride( GenericSkill skill )
-        {
-            slotReturnOverrides[skill] = (SkillSlot)(counter++);
-        }
+        internal static void AddReturnoverride( GenericSkill skill ) => slotReturnOverrides[skill] = (SkillSlot) counter++ ;
         private static Int32 counter = (Int32)SkillSlot.Special + 1;
-        private static Dictionary<GenericSkill,SkillSlot> slotReturnOverrides = new Dictionary<GenericSkill, SkillSlot>();
+        private static readonly Dictionary<GenericSkill,SkillSlot> slotReturnOverrides = new Dictionary<GenericSkill, SkillSlot>();
         private static void FindSkillSlot_Il( ILContext il )
         {
             var c = new ILCursor( il );

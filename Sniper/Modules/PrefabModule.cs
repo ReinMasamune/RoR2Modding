@@ -1,19 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using BepInEx.Logging;
-using ReinCore;
-using RoR2;
-using RoR2.Networking;
-using UnityEngine;
-using KinematicCharacterController;
-using EntityStates;
-using Sniper.Properties;
-using UnityEngine.Networking;
-using Sniper.Components;
-
-namespace Sniper.Modules
+﻿namespace Sniper.Modules
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Runtime.CompilerServices;
+    using BepInEx.Logging;
+    using ReinCore;
+    using RoR2;
+    using RoR2.Networking;
+    using UnityEngine;
+    using KinematicCharacterController;
+    using EntityStates;
+    using Sniper.Properties;
+    using UnityEngine.Networking;
+    using Sniper.Components;
+
     internal static class PrefabModule
     {
         private static readonly Accessor<NetworkStateMachine,EntityStateMachine[]> stateMachines = new Accessor<NetworkStateMachine, EntityStateMachine[]>( "stateMachines" );
@@ -25,9 +25,9 @@ namespace Sniper.Modules
         internal static void CreatePrefab()
         {
             SniperMain.sniperBodyPrefab = PrefabsCore.CreatePrefab( "Sniper", true );
-            var obj = SniperMain.sniperBodyPrefab;
+            GameObject obj = SniperMain.sniperBodyPrefab;
 
-            var netId = obj.AddOrGetComponent<NetworkIdentity>();
+            NetworkIdentity netId = obj.AddOrGetComponent<NetworkIdentity>();
             netId.localPlayerAuthority = true;
 
 
@@ -49,17 +49,17 @@ namespace Sniper.Modules
             aimOrigin.transform.localRotation = Quaternion.identity;
             aimOrigin.transform.localScale = Vector3.one;
 
-            var model = ModelModule.GetModel();
-            var modelTransform = model.transform;
+            GameObject model = ModelModule.GetModel();
+            Transform modelTransform = model.transform;
             modelTransform.parent = modelBase.transform;
             modelTransform.localPosition = Vector3.zero;
             modelTransform.localScale = Vector3.one;
             modelTransform.localRotation = Quaternion.identity;
 
-            
 
 
-            var direction = obj.AddOrGetComponent<CharacterDirection>();
+
+            CharacterDirection direction = obj.AddOrGetComponent<CharacterDirection>();
             direction.moveVector = Vector3.zero;
             direction.targetTransform = modelBase.transform;
             direction.overrideAnimatorForwardTransform = null;
@@ -69,7 +69,7 @@ namespace Sniper.Modules
             direction.turnSpeed = 720f; // TODO: Decide on sniper turn speed
 
 
-            var body = obj.AddOrGetComponent<SniperCharacterBody>();
+            SniperCharacterBody body = obj.AddOrGetComponent<SniperCharacterBody>();
             body.bodyIndex = -1;
             body.baseNameToken = Tokens.SNIPER_NAME;
             body.subtitleNameToken = Tokens.SNIPER_SUBTITLE;
@@ -125,7 +125,7 @@ namespace Sniper.Modules
             body.skinIndex = 0u;
 
 
-            var motor = obj.AddOrGetComponent<CharacterMotor>();
+            CharacterMotor motor = obj.AddOrGetComponent<CharacterMotor>();
             motor.walkSpeedPenaltyCoefficient = 1f;
             motor.characterDirection = direction;
             motor.muteWalkMotion = false;
@@ -137,14 +137,14 @@ namespace Sniper.Modules
             motor.isFlying = false;
 
 
-            var input = obj.AddOrGetComponent<InputBankTest>();
+            InputBankTest input = obj.AddOrGetComponent<InputBankTest>();
             input.moveVector = Vector3.zero;
 
 
 
 
 
-            var ctp = obj.AddOrGetComponent<CameraTargetParams>();
+            CameraTargetParams ctp = obj.AddOrGetComponent<CameraTargetParams>();
             ctp.cameraParams = MiscModule.GetCharCameraParams();
             ctp.cameraPivotTransform = null;
             ctp.aimMode = CameraTargetParams.AimType.Standard;
@@ -153,7 +153,7 @@ namespace Sniper.Modules
             ctp.dontRaycastToPivot = false;
 
 
-            var modelLocator = obj.AddOrGetComponent<ModelLocator>();
+            ModelLocator modelLocator = obj.AddOrGetComponent<ModelLocator>();
             modelLocator.modelTransform = modelTransform;
             modelLocator.modelBaseTransform = modelBase.transform;
             modelLocator.dontReleaseModelOnDeath = false;
@@ -164,61 +164,61 @@ namespace Sniper.Modules
             modelLocator.preserveModel = false;
 
 
-            var bodyMachine = obj.AddOrGetComponent<EntityStateMachine>();
+            EntityStateMachine bodyMachine = obj.AddOrGetComponent<EntityStateMachine>();
             bodyMachine.customName = "Body";
             bodyMachine.initialStateType = SkillsCore.StateType<SpawnTeleporterState>();
             bodyMachine.mainStateType = SkillsCore.StateType<GenericCharacterMain>();
 
 
-            var weaponMachine = obj.AddComponent<EntityStateMachine>();
+            EntityStateMachine weaponMachine = obj.AddComponent<EntityStateMachine>();
             weaponMachine.customName = "Weapon";
             weaponMachine.initialStateType = SkillsCore.StateType<Idle>();
             weaponMachine.mainStateType = SkillsCore.StateType<Idle>();
 
 
-            var scopeMachine = obj.AddComponent<EntityStateMachine>();
+            EntityStateMachine scopeMachine = obj.AddComponent<EntityStateMachine>();
             scopeMachine.customName = "Scope";
             scopeMachine.initialStateType = SkillsCore.StateType<Idle>();
             scopeMachine.mainStateType = SkillsCore.StateType<Idle>();
 
 
-            var reloadMachine = obj.AddComponent<EntityStateMachine>();
+            EntityStateMachine reloadMachine = obj.AddComponent<EntityStateMachine>();
             reloadMachine.customName = "Reload";
             reloadMachine.initialStateType = SkillsCore.StateType<Idle>();
             reloadMachine.mainStateType = SkillsCore.StateType<Idle>();
 
 
-            var allStateMachines = new[] { bodyMachine, weaponMachine, scopeMachine, reloadMachine };
-            var nonBodyStateMachines = new[] { weaponMachine, scopeMachine, reloadMachine };
+            EntityStateMachine[] allStateMachines = new[] { bodyMachine, weaponMachine, scopeMachine, reloadMachine };
+            EntityStateMachine[] nonBodyStateMachines = new[] { weaponMachine, scopeMachine, reloadMachine };
 
 
-            var ammoSkill = obj.AddOrGetComponent<GenericSkill>();
+            GenericSkill ammoSkill = obj.AddOrGetComponent<GenericSkill>();
             ammoSkill.SetSkillFamily( SkillFamiliesModule.GetAmmoSkillFamily() );
             HooksModule.AddReturnoverride( ammoSkill );
 
 
-            var passiveSkill = obj.AddComponent<GenericSkill>();
+            GenericSkill passiveSkill = obj.AddComponent<GenericSkill>();
             passiveSkill.SetSkillFamily( SkillFamiliesModule.GetPassiveSkillFamily() );
             HooksModule.AddReturnoverride( passiveSkill );
 
 
-            var primarySkill = obj.AddComponent<GenericSkill>();
+            GenericSkill primarySkill = obj.AddComponent<GenericSkill>();
             primarySkill.SetSkillFamily( SkillFamiliesModule.GetPrimarySkillFamily() );
 
 
-            var secondarySkill = obj.AddComponent<GenericSkill>();
+            GenericSkill secondarySkill = obj.AddComponent<GenericSkill>();
             secondarySkill.SetSkillFamily( SkillFamiliesModule.GetSecondarySkillFamily() );
 
 
-            var utilitySkill = obj.AddComponent<GenericSkill>();
+            GenericSkill utilitySkill = obj.AddComponent<GenericSkill>();
             utilitySkill.SetSkillFamily( SkillFamiliesModule.GetUtilitySkillFamily() );
 
 
-            var specialSkill = obj.AddComponent<GenericSkill>();
+            GenericSkill specialSkill = obj.AddComponent<GenericSkill>();
             specialSkill.SetSkillFamily( SkillFamiliesModule.GetSpecialSkillFamily() );
 
 
-            var skillLocator = obj.AddOrGetComponent<SkillLocator>();
+            SkillLocator skillLocator = obj.AddOrGetComponent<SkillLocator>();
             skillLocator.primary = primarySkill;
             skillLocator.secondary = secondarySkill;
             skillLocator.utility = utilitySkill;
@@ -232,12 +232,12 @@ namespace Sniper.Modules
             };
 
 
-            var team = obj.AddOrGetComponent<TeamComponent>();
+            TeamComponent team = obj.AddOrGetComponent<TeamComponent>();
             team.hideAllyCardDisplay = false;
             team.teamIndex = TeamIndex.None;
 
 
-            var health = obj.AddOrGetComponent<HealthComponent>();
+            HealthComponent health = obj.AddOrGetComponent<HealthComponent>();
             health.health = 100;
             health.shield = 0;
             health.barrier = 0;
@@ -247,21 +247,21 @@ namespace Sniper.Modules
             health.globalDeathEventChanceCoefficient = 1f;
 
 
-            var interactor = obj.AddOrGetComponent<Interactor>();
+            Interactor interactor = obj.AddOrGetComponent<Interactor>();
             interactor.maxInteractionDistance = 3f;
 
 
-            var interaction = obj.AddOrGetComponent<InteractionDriver>();
+            InteractionDriver interaction = obj.AddOrGetComponent<InteractionDriver>();
             interaction.highlightInteractor = true;
 
 
-            var death = obj.AddOrGetComponent<CharacterDeathBehavior>();
+            CharacterDeathBehavior death = obj.AddOrGetComponent<CharacterDeathBehavior>();
             death.deathStateMachine = bodyMachine;
             death.deathState = SkillsCore.StateType<EntityStates.Commando.DeathState>(); // TODO: Setup sniper death state if needed
             death.idleStateMachine = nonBodyStateMachines;
 
 
-            var netTrans = obj.AddOrGetComponent<CharacterNetworkTransform>();
+            CharacterNetworkTransform netTrans = obj.AddOrGetComponent<CharacterNetworkTransform>();
             netTrans.positionTransmitInterval = 0.05f;
             netTrans.lastPositionTransmitTime = Single.MinValue;
             netTrans.interpolationFactor = 3f;
@@ -269,18 +269,18 @@ namespace Sniper.Modules
             netTrans.debugSnapshotReceived = false;
 
 
-            var netStates = obj.AddOrGetComponent<NetworkStateMachine>();
+            NetworkStateMachine netStates = obj.AddOrGetComponent<NetworkStateMachine>();
             stateMachines.Set( netStates, allStateMachines );
 
 
-            var emotes = obj.AddOrGetComponent<CharacterEmoteDefinitions>();
+            CharacterEmoteDefinitions emotes = obj.AddOrGetComponent<CharacterEmoteDefinitions>();
             emotes.emoteDefinitions = null; // TODO: Setup Sniper emotes
 
 
-            var equip = obj.AddOrGetComponent<EquipmentSlot>();
+            EquipmentSlot equip = obj.AddOrGetComponent<EquipmentSlot>();
 
 
-            var sfx = obj.AddOrGetComponent<SfxLocator>();
+            SfxLocator sfx = obj.AddOrGetComponent<SfxLocator>();
             sfx.deathSound = "Play_ui_player_death";
             sfx.barkSound = "";
             sfx.openSound = "";
@@ -290,7 +290,7 @@ namespace Sniper.Modules
             sfx.aliveLoopStop = "";
 
 
-            var rb = obj.AddOrGetComponent<Rigidbody>();
+            Rigidbody rb = obj.AddOrGetComponent<Rigidbody>();
             rb.mass = 100f;
             rb.drag = 0f;
             rb.angularDrag = 0f;
@@ -301,7 +301,7 @@ namespace Sniper.Modules
             rb.constraints = RigidbodyConstraints.None;
 
 
-            var col = obj.AddOrGetComponent<CapsuleCollider>();
+            CapsuleCollider col = obj.AddOrGetComponent<CapsuleCollider>();
             col.isTrigger = false;
             col.material = null;
             col.center = new Vector3( 0f, 0f, 0f );
@@ -310,7 +310,7 @@ namespace Sniper.Modules
             col.direction = 1;
 
 
-            var kinCharMot = obj.AddOrGetComponent<KinematicCharacterMotor>();
+            KinematicCharacterMotor kinCharMot = obj.AddOrGetComponent<KinematicCharacterMotor>();
             kinCharMot.CharacterController = motor;
             kinCharMot.Capsule = col;
             kinCharMot.Rigidbody = rb;
@@ -336,7 +336,7 @@ namespace Sniper.Modules
             kinCharMot.SafeMovement = false;
 
 
-            var hurt = obj.AddOrGetComponent<SetStateOnHurt>();
+            SetStateOnHurt hurt = obj.AddOrGetComponent<SetStateOnHurt>();
             hurt.hitThreshold = 5f;
             hurt.targetStateMachine = bodyMachine;
             hurt.idleStateMachine = nonBodyStateMachines; // TODO: ???SkillsStuff
@@ -348,15 +348,13 @@ namespace Sniper.Modules
 
 
 
-            var charModel = model.AddOrGetComponent<CharacterModel>();
+            CharacterModel charModel = model.AddOrGetComponent<CharacterModel>();
             charModel.body = body;
+            _ = model.AddOrGetComponent<ChildLocator>();
 
 
-            var childLocator = model.AddOrGetComponent<ChildLocator>();
-
-
-            var hurtBoxGroup = model.AddOrGetComponent<HurtBoxGroup>();
-            var tempHb = model.GetComponentInChildren<HurtBox>();
+            HurtBoxGroup hurtBoxGroup = model.AddOrGetComponent<HurtBoxGroup>();
+            HurtBox tempHb = model.GetComponentInChildren<HurtBox>();
 
             tempHb.gameObject.layer = LayerIndex.entityPrecise.intVal;
             tempHb.healthComponent = health;
@@ -373,19 +371,19 @@ namespace Sniper.Modules
             hurtBoxGroup.bullseyeCount = 1;
 
 
-            var footsteps = model.AddComponent<FootstepHandler>();
+            FootstepHandler footsteps = model.AddComponent<FootstepHandler>();
             footsteps.baseFootstepString = "Play_player_footstep";
             footsteps.sprintFootstepOverrideString = "";
             footsteps.enableFootstepDust = true;
             footsteps.footstepDustPrefab = UnityEngine.Resources.Load<GameObject>( "Prefabs/GenericFootstepDust");
 
 
-            var ragdoll = model.AddOrGetComponent<RagdollController>();
+            RagdollController ragdoll = model.AddOrGetComponent<RagdollController>();
             ragdoll.bones = null; // TODO: Setup sniper ragdoll controller
             ragdoll.componentsToDisableOnRagdoll = null;
 
 
-            var aimAnimator = model.AddOrGetComponent<AimAnimator>();
+            AimAnimator aimAnimator = model.AddOrGetComponent<AimAnimator>();
             // TODO: Verify sniper AimAnimator values
             aimAnimator.inputBank = input;
             aimAnimator.directionComponent = direction;
@@ -399,8 +397,8 @@ namespace Sniper.Modules
             aimAnimator.giveupDuration = 8f;
 
 
-            var skinController = model.AddOrGetComponent<ModelSkinController>();
-            var skinsArray = skinController.skins;
+            ModelSkinController skinController = model.AddOrGetComponent<ModelSkinController>();
+            SkinDef[] skinsArray = skinController.skins;
             for( Int32 i = 0; i < skinsArray.Length; ++i )
             {
                 SkinDef skin = skinsArray[i];
@@ -415,7 +413,7 @@ namespace Sniper.Modules
                 };
             }
 
-            foreach( var comp in obj.GetComponents<IRuntimePrefabComponent>() )
+            foreach( IRuntimePrefabComponent comp in obj.GetComponents<IRuntimePrefabComponent>() )
             {
                 comp.InitializePrefab();
             }

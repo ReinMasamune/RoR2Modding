@@ -47,15 +47,15 @@
         {
             Action<CharacterModel,Loadout,Int32> emittedAction = ( model, loadout, body ) =>
             {
-                var skills = BodyCatalog.GetBodyPrefabSkillSlots(body);
+                GenericSkill[] skills = BodyCatalog.GetBodyPrefabSkillSlots(body);
                 for( Int32 i = 0; i < skills.Length; i++ )
                 {
                     UInt32 selectedSkillIndex = loadout.bodyLoadoutManager.GetSkillVariant( body, i );
-                    var slot = skills[i];
+                    GenericSkill slot = skills[i];
 
                     for( Int32 j = 0; j < slot.skillFamily.variants.Length; j++ )
                     {
-                        var skillDef = slot.skillFamily.variants[j].skillDef;
+                        SkillDef skillDef = slot.skillFamily.variants[j].skillDef;
 
                         if( skillDef != null && skillDef is PassiveSkillDef )
                         {
@@ -73,34 +73,34 @@
 
             };
 
-            ILCursor c = new ILCursor( il );
+            var c = new ILCursor( il );
 
-            c.GotoNext( MoveType.After, x => x.MatchCallOrCallvirt<RoR2.SkinDef>( "Apply" ) );
-            c.Emit( OpCodes.Ldloc, 6 );
-            c.Emit( OpCodes.Ldloc, 2 );
-            c.Emit( OpCodes.Ldloc, 3 );
-            c.EmitDelegate<Action<CharacterModel, Loadout, Int32>>( emittedAction );
+            _ = c.GotoNext( MoveType.After, x => x.MatchCallOrCallvirt<RoR2.SkinDef>( "Apply" ) );
+            _ = c.Emit( OpCodes.Ldloc, 6 );
+            _ = c.Emit( OpCodes.Ldloc, 2 );
+            _ = c.Emit( OpCodes.Ldloc, 3 );
+            _ = c.EmitDelegate<Action<CharacterModel, Loadout, Int32>>( emittedAction );
         }
 
         private System.Xml.Linq.XElement BodyLoadout_ToXml( On.RoR2.Loadout.BodyLoadoutManager.BodyLoadout.orig_ToXml orig, System.Object self, String elementName )
         {
             Int32 bodyIndex = self.GetFieldValue<Int32>("bodyIndex");
-            var bodySkinController = BodyCatalog.GetBodyPrefab( bodyIndex ).GetComponent<ModelLocator>().modelTransform.GetComponent<ModelSkinController>();
+            ModelSkinController bodySkinController = BodyCatalog.GetBodyPrefab( bodyIndex ).GetComponent<ModelLocator>().modelTransform.GetComponent<ModelSkinController>();
             UInt32 skinPreference = self.GetFieldValue<UInt32>("skinPreference" );
             if( this.addedSkins.Contains(bodySkinController.skins[skinPreference] ) )
             {
                 self.SetFieldValue<UInt32>( "skinPreference", 0u );
             }
             UInt32[] skillPreferences = self.GetFieldValue<UInt32[]>("skillPreferences" );
-            var allBodyInfosObj = typeof( Loadout.BodyLoadoutManager ).GetFieldValue<object>( "allBodyInfos" );
-            var allBodyInfos = ((Array)allBodyInfosObj).Cast<object>().ToArray();
-            var currentInfo = allBodyInfos[bodyIndex];
-            var prefabSkillSlotsObj = currentInfo.GetFieldValue<object>( "prefabSkillSlots" );
-            var prefabSkillSlots = ((Array)prefabSkillSlotsObj).Cast<object>().ToArray();
-            var skillFamilyIndices = currentInfo.GetFieldValue<Int32[]>( "skillFamilyIndices" );
+            System.Object allBodyInfosObj = typeof( Loadout.BodyLoadoutManager ).GetFieldValue<System.Object>( "allBodyInfos" );
+            System.Object[] allBodyInfos = ((Array)allBodyInfosObj).Cast<System.Object>().ToArray();
+            System.Object currentInfo = allBodyInfos[bodyIndex];
+            System.Object prefabSkillSlotsObj = currentInfo.GetFieldValue<System.Object>( "prefabSkillSlots" );
+            System.Object[] prefabSkillSlots = ((Array)prefabSkillSlotsObj).Cast<System.Object>().ToArray();
+            Int32[] skillFamilyIndices = currentInfo.GetFieldValue<Int32[]>( "skillFamilyIndices" );
             for( Int32 i = 0; i < prefabSkillSlots.Length; i++ )
             {
-                var skillFamilyIndex = skillFamilyIndices[i];
+                Int32 skillFamilyIndex = skillFamilyIndices[i];
                 SkillFamily family = SkillCatalog.GetSkillFamily( skillFamilyIndex );
                 SkillDef def = family.variants[skillPreferences[i]].skillDef;
                 if( this.addedSkills.Contains( def ) )
@@ -127,7 +127,7 @@
             }
         }
 
-        private Dictionary<GameObject, GameObject> frozenBy = new Dictionary<GameObject, GameObject>();
+        private readonly Dictionary<GameObject, GameObject> frozenBy = new Dictionary<GameObject, GameObject>();
 
         private void GlobalEventManager_OnCharacterDeath( DamageReport damageReport )
         {
@@ -137,12 +137,12 @@
                 {
                     if( damageReport.victimBody.healthComponent.isInFrozenState )
                     {
-                        if( frozenBy.ContainsKey( damageReport.victim.gameObject ) )
+                        if( this.frozenBy.ContainsKey( damageReport.victim.gameObject ) )
                         {
-                            var body = frozenBy[damageReport.victim.gameObject];
+                            GameObject body = this.frozenBy[damageReport.victim.gameObject];
                             if( AltArtiPassive.instanceLookup.ContainsKey( body ) )
                             {
-                                var passive = AltArtiPassive.instanceLookup[body];
+                                AltArtiPassive passive = AltArtiPassive.instanceLookup[body];
                                 passive.DoExecute( damageReport );
                             }
                         }
@@ -160,21 +160,21 @@
         {
             if( damageInfo.damageType.HasFlag(DamageType.Freeze2s) )
             {
-                frozenBy[self.gameObject] = damageInfo.attacker;
+                this.frozenBy[self.gameObject] = damageInfo.attacker;
             }
 
             if( damageInfo.dotIndex == this.burnDot )
             {
                 if( damageInfo.attacker )
                 {
-                    var attackerBody = damageInfo.attacker.GetComponent<CharacterBody>();
+                    CharacterBody attackerBody = damageInfo.attacker.GetComponent<CharacterBody>();
                     if( attackerBody )
                     {
                         Int32 buffCount = attackerBody.GetBuffCount( this.fireBuff );
 
                         if( buffCount >= 0 )
                         {
-                            damageInfo.damage *= 1f + AltArtiPassive.burnDamageMult * buffCount;
+                            damageInfo.damage *= 1f + (AltArtiPassive.burnDamageMult * buffCount);
                         }
                     }
                 }
@@ -194,25 +194,25 @@
                 this.timer = 0f;
             }
         }
-        private Dictionary<Flamethrower, FlamethrowerContext> flamethrowerContext = new Dictionary<Flamethrower, FlamethrowerContext>();
+        private readonly Dictionary<Flamethrower, FlamethrowerContext> flamethrowerContext = new Dictionary<Flamethrower, FlamethrowerContext>();
         private void Flamethrower_OnEnter( On.EntityStates.Mage.Weapon.Flamethrower.orig_OnEnter orig, Flamethrower self )
         {
             orig( self );
             GameObject obj = self.outer.gameObject;
             if( AltArtiPassive.instanceLookup.ContainsKey( obj ) )
             {
-                var passive = AltArtiPassive.instanceLookup[obj];
+                AltArtiPassive passive = AltArtiPassive.instanceLookup[obj];
                 var context = new FlamethrowerContext( passive );
                 passive.SkillCast();
-                flamethrowerContext[self] = context;
+                this.flamethrowerContext[self] = context;
             }
         }
         private void Flamethrower_FixedUpdate( On.EntityStates.Mage.Weapon.Flamethrower.orig_FixedUpdate orig, Flamethrower self )
         {
             orig( self );
-            if( flamethrowerContext.ContainsKey( self ) )
+            if( this.flamethrowerContext.ContainsKey( self ) )
             {
-                var context = flamethrowerContext[self];
+                FlamethrowerContext context = this.flamethrowerContext[self];
                 context.timer += Time.fixedDeltaTime * context.passive.ext_attackSpeedStat;
                 Int32 count = 0;
                 while( context.timer >= context.passive.ext_flamethrowerInterval && count <= context.passive.ext_flamethrowerMaxPerTick )
@@ -226,11 +226,11 @@
         private void Flamethrower_OnExit( On.EntityStates.Mage.Weapon.Flamethrower.orig_OnExit orig, Flamethrower self )
         {
             orig( self );
-            if( flamethrowerContext.ContainsKey( self ) )
+            if( this.flamethrowerContext.ContainsKey( self ) )
             {
-                var context = flamethrowerContext[self];
+                FlamethrowerContext context = this.flamethrowerContext[self];
                 context.passive.SkillCast();
-                flamethrowerContext.Remove( self );
+                _ = this.flamethrowerContext.Remove( self );
             }
         }
         #endregion
@@ -246,28 +246,28 @@
                 this.handle = handle;
             }
         }
-        private Dictionary<PrepWall,PrepWallContext> prepWallContext = new Dictionary<PrepWall, PrepWallContext>();
+        private readonly Dictionary<PrepWall,PrepWallContext> prepWallContext = new Dictionary<PrepWall, PrepWallContext>();
         private void PrepWall_OnEnter( On.EntityStates.Mage.Weapon.PrepWall.orig_OnEnter orig, PrepWall self )
         {
             orig( self );
             GameObject obj = self.outer.gameObject;
             if( AltArtiPassive.instanceLookup.ContainsKey( obj ) )
             {
-                var passive = AltArtiPassive.instanceLookup[obj];
+                AltArtiPassive passive = AltArtiPassive.instanceLookup[obj];
                 var handle = new AltArtiPassive.BatchHandle();
                 passive.SkillCast( handle );
                 var context = new PrepWallContext( passive, handle );
-                prepWallContext[self] = context;
+                this.prepWallContext[self] = context;
             }
         }
         private void PrepWall_OnExit( On.EntityStates.Mage.Weapon.PrepWall.orig_OnExit orig, PrepWall self )
         {
             orig( self );
-            if( prepWallContext.ContainsKey( self ) )
+            if( this.prepWallContext.ContainsKey( self ) )
             {
-                var context = prepWallContext[self];
+                PrepWallContext context = this.prepWallContext[self];
                 context.handle.Fire( context.passive.ext_prepWallMinDelay, context.passive.ext_prepWallMaxDelay );
-                prepWallContext.Remove( self );
+                _ = this.prepWallContext.Remove( self );
             }
         }
         #endregion
@@ -284,26 +284,26 @@
                 this.timer = 0f;
             }
         }
-        private Dictionary<ChargeNovabomb, NanoBombContext> nanoBombContext = new Dictionary<ChargeNovabomb, NanoBombContext>();
+        private readonly Dictionary<ChargeNovabomb, NanoBombContext> nanoBombContext = new Dictionary<ChargeNovabomb, NanoBombContext>();
         private void ChargeNovabomb_OnEnter( On.EntityStates.Mage.Weapon.ChargeNovabomb.orig_OnEnter orig, ChargeNovabomb self )
         {
             orig( self );
             GameObject obj = self.outer.gameObject;
             if( AltArtiPassive.instanceLookup.ContainsKey( obj ) )
             {
-                var passive = AltArtiPassive.instanceLookup[obj];
+                AltArtiPassive passive = AltArtiPassive.instanceLookup[obj];
                 var handle = new AltArtiPassive.BatchHandle();
                 var context = new NanoBombContext( passive, handle);
-                nanoBombContext[self] = context;
+                this.nanoBombContext[self] = context;
                 passive.SkillCast( handle );
             }
         }
         private void ChargeNovabomb_FixedUpdate( On.EntityStates.Mage.Weapon.ChargeNovabomb.orig_FixedUpdate orig, ChargeNovabomb self )
         {
             orig( self );
-            if( nanoBombContext.ContainsKey( self ) )
+            if( this.nanoBombContext.ContainsKey( self ) )
             {
-                var context = nanoBombContext[self];
+                NanoBombContext context = this.nanoBombContext[self];
                 context.timer += Time.fixedDeltaTime * context.passive.ext_attackSpeedStat;
                 Int32 count = 0;
                 while( context.timer >= context.passive.ext_nanoBombInterval && count <= context.passive.ext_nanoBombMaxPerTick )
@@ -317,9 +317,9 @@
         private void ChargeNovabomb_FireNovaBomb( On.EntityStates.Mage.Weapon.ChargeNovabomb.orig_FireNovaBomb orig, ChargeNovabomb self )
         {
             orig( self );
-            if( nanoBombContext.ContainsKey( self ) )
+            if( this.nanoBombContext.ContainsKey( self ) )
             {
-                var context = nanoBombContext[self];
+                NanoBombContext context = this.nanoBombContext[self];
 
                 Int32 count = 0;
                 while( context.timer >= context.passive.ext_nanoBombInterval && count <= context.passive.ext_nanoBombMaxPerTick )
@@ -330,15 +330,15 @@
                 }
 
                 context.handle.Fire( context.passive.ext_nanoBombMinDelay, context.passive.ext_nanoBombMaxDelay );
-                nanoBombContext.Remove( self );
+                _ = this.nanoBombContext.Remove( self );
             }
         }
         private void ChargeNovabomb_OnExit( On.EntityStates.Mage.Weapon.ChargeNovabomb.orig_OnExit orig, ChargeNovabomb self )
         {
             orig( self );
-            if( nanoBombContext.ContainsKey( self ) )
+            if( this.nanoBombContext.ContainsKey( self ) )
             {
-                var context = nanoBombContext[self];
+                NanoBombContext context = this.nanoBombContext[self];
 
                 Int32 count = 0;
                 while( context.timer >= context.passive.ext_nanoBombInterval && count <= context.passive.ext_nanoBombMaxPerTick )
@@ -349,7 +349,7 @@
                 }
 
                 context.handle.Fire( context.passive.ext_nanoBombMinDelay, context.passive.ext_nanoBombMaxDelay );
-                nanoBombContext.Remove( self );
+                _ = this.nanoBombContext.Remove( self );
             }
         }
         #endregion
@@ -358,7 +358,7 @@
         {
             orig( self );
             GameObject obj = self.outer.gameObject;
-            if( AltArtiPassive.instanceLookup.TryGetValue( obj, out var passive ) )
+            if( AltArtiPassive.instanceLookup.TryGetValue( obj, out AltArtiPassive passive ) )
             {
                 passive.SkillCast();
             }

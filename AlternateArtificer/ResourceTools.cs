@@ -1,10 +1,11 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using UnityEngine;
-namespace Rein.Properties
+﻿namespace Rein.Properties
 {
+    using System;
+    using System.IO;
+    using System.Linq;
+    using System.Reflection;
+    using UnityEngine;
+
     /// <summary>
     /// A helper class for loading embedded resources into the game.
     /// </summary>
@@ -17,19 +18,34 @@ namespace Rein.Properties
         public static void RegisterLanguageTokens()
         {
             Type type = typeof(Properties.Resources);
-            if( type == null ) throw new NullReferenceException( "Could not find the resources type" );
+            if( type == null )
+            {
+                throw new NullReferenceException( "Could not find the resources type" );
+            }
 
             PropertyInfo[] properties = type.GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static );
             for( Int32 i = 0; i < properties.Length; ++i )
             {
-                var prop = properties[i];
-                if( prop.PropertyType != typeof( String ) ) continue;
-                var propName = prop.Name;
-                if( String.IsNullOrEmpty( propName ) || !propName.StartsWith( "lang__" ) ) continue;
-                var langKey = propName.Substring(6);
-                if( String.IsNullOrEmpty( langKey ) ) continue;
-                var langValue = (String)prop.GetValue(null);
-                langValue = langValue.Replace( @"\n", Environment.NewLine );
+                PropertyInfo prop = properties[i];
+                if( prop.PropertyType != typeof( String ) )
+                {
+                    continue;
+                }
+
+                String propName = prop.Name;
+                if( String.IsNullOrEmpty( propName ) || !propName.StartsWith( "lang__" ) )
+                {
+                    continue;
+                }
+
+                String langKey = propName.Substring(6);
+                if( String.IsNullOrEmpty( langKey ) )
+                {
+                    continue;
+                }
+
+                String langValue = (String)prop.GetValue(null);
+                _ = langValue.Replace( @"\n", Environment.NewLine );
 
                 //ReinCore.LanguageCore.AddLanguageToken( langKey, langValue );
             }
@@ -43,7 +59,11 @@ namespace Rein.Properties
         /// <returns>The loaded bundle</returns>
         public static AssetBundle LoadAssetBundle( Byte[] resourceBytes )
         {
-            if( resourceBytes == null ) throw new ArgumentNullException( nameof( resourceBytes ) );
+            if( resourceBytes == null )
+            {
+                throw new ArgumentNullException( nameof( resourceBytes ) );
+            }
+
             return AssetBundle.LoadFromMemory( resourceBytes );
         }
 
@@ -53,10 +73,7 @@ namespace Rein.Properties
         /// <param name="plugin">A reference to your plugin. (this.GetModPrefix)</param>
         /// <param name="bundleName">A unique name for the bundle (Unique within your mod)</param>
         /// <returns>The generated prefix</returns>
-        public static String GetModPrefix( this BepInEx.BaseUnityPlugin plugin, String bundleName )
-        {
-            return String.Format( "@{0}+{1}", plugin.Info.Metadata.Name, bundleName );
-        }
+        public static String GetModPrefix( this BepInEx.BaseUnityPlugin plugin, String bundleName ) => String.Format( "@{0}+{1}", plugin.Info.Metadata.Name, bundleName );
 
         /// <summary>
         /// Loads an embedded .png or .jpg image as a Texture2D
@@ -65,10 +82,13 @@ namespace Rein.Properties
         /// <returns>The loaded texture</returns>
         public static Texture2D LoadTexture2D( Byte[] resourceBytes )
         {
-            if( resourceBytes == null ) throw new ArgumentNullException( nameof( resourceBytes ) );
+            if( resourceBytes == null )
+            {
+                throw new ArgumentNullException( nameof( resourceBytes ) );
+            }
 
             var tempTex = new Texture2D( 128, 128, TextureFormat.RGBAFloat, false );
-            tempTex.LoadImage( resourceBytes, false );
+            _ = tempTex.LoadImage( resourceBytes, false );
 
             return tempTex;
         }
@@ -80,7 +100,11 @@ namespace Rein.Properties
         /// <returns>The loaded managed assembly</returns>
         public static Assembly LoadAssembly( Byte[] resourceBytes )
         {
-            if( resourceBytes == null ) throw new ArgumentNullException( nameof( resourceBytes ) );
+            if( resourceBytes == null )
+            {
+                throw new ArgumentNullException( nameof( resourceBytes ) );
+            }
+
             return Assembly.Load( resourceBytes );
         }
 
@@ -92,20 +116,40 @@ namespace Rein.Properties
         /// <returns>The directory that the unmanaged assembly is created in for later deletion</returns>
         public static String LoadUnmanagedAssembly( String resourceDllName, Byte[] resourceBytes )
         {
-            if( resourceBytes == null ) throw new ArgumentNullException( nameof( resourceBytes ) );
-            if( String.IsNullOrEmpty( resourceDllName ) ) throw new ArgumentException( "Must not be null or empty", nameof( resourceDllName ) );
-            if( !resourceDllName.EndsWith( ".dll" ) ) throw new ArgumentException( "Must end in .dll", nameof( resourceDllName ) );
+            if( resourceBytes == null )
+            {
+                throw new ArgumentNullException( nameof( resourceBytes ) );
+            }
 
-            var assemblyName = Assembly.GetExecutingAssembly()?.GetName();
-            if( assemblyName == null ) throw new Exception( "GetExecutingAssembly returned null... wut?" );
+            if( String.IsNullOrEmpty( resourceDllName ) )
+            {
+                throw new ArgumentException( "Must not be null or empty", nameof( resourceDllName ) );
+            }
 
-            var directory = String.Format( "{0}.{1}", assemblyName.Name, assemblyName.Version );
-            if( !Directory.Exists( directory ) ) Directory.CreateDirectory( directory );
+            if( !resourceDllName.EndsWith( ".dll" ) )
+            {
+                throw new ArgumentException( "Must end in .dll", nameof( resourceDllName ) );
+            }
 
-            var environmentPath = Environment.GetEnvironmentVariable( "PATH" );
-            if( !environmentPath.Split( ';' ).Contains( directory ) ) Environment.SetEnvironmentVariable( "PATH", String.Format( "{0};{1}", directory, environmentPath ) );
+            AssemblyName assemblyName = Assembly.GetExecutingAssembly()?.GetName();
+            if( assemblyName == null )
+            {
+                throw new Exception( "GetExecutingAssembly returned null... wut?" );
+            }
 
-            var dllPath = Path.Combine( directory, resourceDllName );
+            String directory = String.Format( "{0}.{1}", assemblyName.Name, assemblyName.Version );
+            if( !Directory.Exists( directory ) )
+            {
+                _ = Directory.CreateDirectory( directory );
+            }
+
+            String environmentPath = Environment.GetEnvironmentVariable( "PATH" );
+            if( !environmentPath.Split( ';' ).Contains( directory ) )
+            {
+                Environment.SetEnvironmentVariable( "PATH", String.Format( "{0};{1}", directory, environmentPath ) );
+            }
+
+            String dllPath = Path.Combine( directory, resourceDllName );
 
             if( !File.Exists( dllPath ) || !resourceBytes.SequenceEqual( File.ReadAllBytes( dllPath ) ) )
             {

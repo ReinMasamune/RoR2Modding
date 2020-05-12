@@ -1,10 +1,10 @@
-﻿using System;
-using System.ComponentModel;
-using System.Linq.Expressions;
-using System.Reflection;
-
-namespace ReinCore
+﻿namespace ReinCore
 {
+    using System;
+    using System.ComponentModel;
+    using System.Linq.Expressions;
+    using System.Reflection;
+
     /// <summary>
     /// A wrapper for a get and set method on a particular class. Only works on Mono
     /// </summary>
@@ -18,11 +18,11 @@ namespace ReinCore
         /// <param name="name">The name of the member</param>
         public Accessor( String name )
         {
-            var instanceParam = Expression.Parameter(typeof(TInstance), "instance" );
-            var valueParam = Expression.Parameter( typeof( TValue ), "value" );
-            var type = typeof( TInstance );
-            var allFlags = BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic;
-            var memberArray = type.GetMember( name, MemberTypes.Property | MemberTypes.Field, allFlags );
+            ParameterExpression instanceParam = Expression.Parameter(typeof(TInstance), "instance" );
+            ParameterExpression valueParam = Expression.Parameter( typeof( TValue ), "value" );
+            Type type = typeof( TInstance );
+            BindingFlags allFlags = BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic;
+            MemberInfo[] memberArray = type.GetMember( name, MemberTypes.Property | MemberTypes.Field, allFlags );
             MemberInfo member = null;
             if( memberArray.Length == 1 )
             {
@@ -33,7 +33,7 @@ namespace ReinCore
                 MemberInfo propMem = null;
                 for( Int32 i = 0; i < memberArray.Length; ++i )
                 {
-                    var mem = memberArray[i];
+                    MemberInfo mem = memberArray[i];
                     if( mem.MemberType == MemberTypes.Property )
                     {
                         propMem = mem;
@@ -54,28 +54,28 @@ namespace ReinCore
                     throw new MissingMemberException( type.AssemblyQualifiedName, name );
                 }
             }
-            var memberType = member.GetType();
+            Type memberType = member.GetType();
             if( member.MemberType == MemberTypes.Field )
             {
                 var field = member as FieldInfo;
-                var info = memberType.GetField( "attrs", BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic );
+                FieldInfo info = memberType.GetField( "attrs", BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic );
                 var val = (FieldAttributes)info.GetValue( member );
-                var temp = val;
+                FieldAttributes temp = val;
                 val &= ~FieldAttributes.InitOnly;
                 info.SetValue( member, val );
 
-                var fieldExpr = Expression.Field( instanceParam, field );
-                var assignExpr = Expression.Assign( fieldExpr, valueParam );
+                MemberExpression fieldExpr = Expression.Field( instanceParam, field );
+                BinaryExpression assignExpr = Expression.Assign( fieldExpr, valueParam );
                 this.Set = Expression.Lambda<AccessorSetDelegate>( assignExpr, instanceParam, valueParam ).Compile();
                 this.Get = Expression.Lambda<AccessorGetDelegate>( fieldExpr, instanceParam ).Compile();
                 info.SetValue( member, temp );
             } else if( member.MemberType == MemberTypes.Property )
             {
                 var prop = member as PropertyInfo;
-                var propExpr = Expression.Property( instanceParam, prop );
+                MemberExpression propExpr = Expression.Property( instanceParam, prop );
                 if( prop.CanWrite )
                 {
-                    var assignExpr = Expression.Assign( propExpr, valueParam );
+                    BinaryExpression assignExpr = Expression.Assign( propExpr, valueParam );
                     this.Set = Expression.Lambda<AccessorSetDelegate>( assignExpr, instanceParam, valueParam ).Compile();
                 }
                 if( prop.CanRead )
@@ -91,12 +91,16 @@ namespace ReinCore
         /// <summary>
         /// The Get method for the accessed member
         /// </summary>
+#pragma warning disable IDE1006 // Naming Styles
         public AccessorGetDelegate Get { get; private set; }
+#pragma warning restore IDE1006 // Naming Styles
 
         /// <summary>
         /// The Set method for the accessed member
         /// </summary>
+#pragma warning disable IDE1006 // Naming Styles
         public AccessorSetDelegate Set { get; private set; }
+#pragma warning restore IDE1006 // Naming Styles
 
         /// <summary>
         /// The siguature of the Get method

@@ -21,7 +21,7 @@
             Single s2z = 0.4f;
             Single s3z = 0.4f;
 
-            Transform skirtParent = gameObject.transform.Find("MageArmature").Find("ROOT").Find("base").Find("pelvis");
+            Transform skirtParent = this.gameObject.transform.Find("MageArmature").Find("ROOT").Find("base").Find("pelvis");
             skirtParent.localScale = new Vector3( pWscale, 1f, pDscale );
 
             Transform tl = skirtParent.Find( "thigh.l" );
@@ -38,15 +38,15 @@
             cr.localScale = new Vector3( cWscale / (pWscale * tWscale), 1f, cDscale / (pDscale * tDscale) );
 
 
-            Vector3 back1Scale = new Vector3( 1f, 1.2f, s1z / pDscale );
-            Vector3 back2Scale = new Vector3( 1f, 1.2f, s2z / pDscale );
-            Vector3 back3Scale = new Vector3( 1f, 1.2f, s3z / pDscale );
-            Vector3 frontScale = new Vector3( 1f, 1f, 1f / pDscale );
+            var back1Scale = new Vector3( 1f, 1.2f, s1z / pDscale );
+            var back2Scale = new Vector3( 1f, 1.2f, s2z / pDscale );
+            var back3Scale = new Vector3( 1f, 1.2f, s3z / pDscale );
+            var frontScale = new Vector3( 1f, 1f, 1f / pDscale );
 
-            Vector3 back1Offset = new Vector3( 0f, -0.065f, 0f );
-            Vector3 back2Offset = new Vector3( 0f, -0.065f, 0f );
-            Vector3 back3Offset = new Vector3( 0f, -0.065f, 0f );
-            Vector3 frontOffset = new Vector3( 0f, 0f, 0f );
+            var back1Offset = new Vector3( 0f, -0.065f, 0f );
+            var back2Offset = new Vector3( 0f, -0.065f, 0f );
+            var back3Offset = new Vector3( 0f, -0.065f, 0f );
+            var frontOffset = new Vector3( 0f, 0f, 0f );
 
             Transform back1l = skirtParent.Find("ClothA.1.l");
             Transform back1r = skirtParent.Find("ClothA.1.r");
@@ -74,13 +74,13 @@
             front.localPosition += frontOffset;
 
 
-            GameObject skirt = new GameObject("skirt");
+            var skirt = new GameObject("skirt");
             skirt.transform.parent = skirtParent;
             skirt.transform.localScale = Vector3.one;
             skirt.transform.localPosition = new Vector3( 0f, 0f, 0f );
             skirt.transform.localRotation = Quaternion.identity;
 
-            DynamicBone bone = GetComponent<DynamicBone>();
+            DynamicBone bone = this.GetComponent<DynamicBone>();
             bone.m_Root = skirt.transform;
             bone.m_Elasticity *= 0.5f;
         }

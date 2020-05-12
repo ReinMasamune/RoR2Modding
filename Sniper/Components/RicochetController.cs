@@ -1,23 +1,20 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using BepInEx.Logging;
-using ReinCore;
-using RoR2;
-using Sniper.Expansions;
-using Sniper.Modules;
-using UnityEngine;
-using UnityEngine.Networking;
-
-namespace Sniper.Components
+﻿namespace Sniper.Components
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Runtime.CompilerServices;
+    using BepInEx.Logging;
+    using ReinCore;
+    using RoR2;
+    using Sniper.Expansions;
+    using Sniper.Modules;
+    using UnityEngine;
+    using UnityEngine.Networking;
+
     internal class RicochetController : MonoBehaviour
     {
-        internal static void QueueRicochet( ExpandableBulletAttack bullet, UInt32 delay )
-        {
-            instance?.StartCoroutine( instance.Ricochet( bullet, delay ) );
-        }
+        internal static void QueueRicochet( ExpandableBulletAttack bullet, UInt32 delay ) => instance?.StartCoroutine( instance.Ricochet( bullet, delay ) );
 
         private static RicochetController instance
         {
@@ -30,7 +27,9 @@ namespace Sniper.Components
                 return _instance;
             }
         }
+#pragma warning disable IDE1006 // Naming Styles
         private static RicochetController _instance;
+#pragma warning restore IDE1006 // Naming Styles
 
         private IEnumerator Ricochet( ExpandableBulletAttack bullet, UInt32 frameDelay )
         {

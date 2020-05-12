@@ -1,23 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.InteropServices;
-using System.Text;
-
-namespace ReinCore.Wooting
+﻿namespace ReinCore.Wooting
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Runtime.InteropServices;
+    using System.Text;
+
     [StructLayout( LayoutKind.Sequential )]
     internal struct RGBDeviceInfo
     {
-        public bool Connected { get; private set; }
+#pragma warning disable IDE1006 // Naming Styles
+        public Boolean Connected { get; private set; }
+#pragma warning restore IDE1006 // Naming Styles
 
-        public string Model { get; private set; }
+#pragma warning disable IDE1006 // Naming Styles
+        public String Model { get; private set; }
+#pragma warning restore IDE1006 // Naming Styles
 
-        public byte MaxRows { get; private set; }
+#pragma warning disable IDE1006 // Naming Styles
+        public Byte MaxRows { get; private set; }
+#pragma warning restore IDE1006 // Naming Styles
 
-        public byte MaxColumns { get; private set; }
+#pragma warning disable IDE1006 // Naming Styles
+        public Byte MaxColumns { get; private set; }
+#pragma warning restore IDE1006 // Naming Styles
 
-        public byte KeycodeLimit { get; private set; }
+#pragma warning disable IDE1006 // Naming Styles
+        public Byte KeycodeLimit { get; private set; }
+#pragma warning restore IDE1006 // Naming Styles
 
+#pragma warning disable IDE1006 // Naming Styles
         public DeviceType DeviceType { get; private set; }
+#pragma warning restore IDE1006 // Naming Styles
     }
 }
