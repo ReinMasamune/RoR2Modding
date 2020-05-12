@@ -1,8 +1,7 @@
 ﻿namespace AlternativeArtificer.Components
 {
     using System;
-    using System.Collections.Generic;
-    using System.Text;
+
     using UnityEngine;
 
     public class SkirtFix : MonoBehaviour
@@ -34,8 +33,8 @@
 
             Transform cl = tl.Find( "calf.l" );
             Transform cr = tr.Find( "calf.r" );
-            cl.localScale = new Vector3( cWscale / (pWscale * tWscale), 1f, cDscale / (pDscale * tDscale) );
-            cr.localScale = new Vector3( cWscale / (pWscale * tWscale), 1f, cDscale / (pDscale * tDscale) );
+            cl.localScale = new Vector3( cWscale / ( pWscale * tWscale ), 1f, cDscale / ( pDscale * tDscale ) );
+            cr.localScale = new Vector3( cWscale / ( pWscale * tWscale ), 1f, cDscale / ( pDscale * tDscale ) );
 
 
             var back1Scale = new Vector3( 1f, 1.2f, s1z / pDscale );

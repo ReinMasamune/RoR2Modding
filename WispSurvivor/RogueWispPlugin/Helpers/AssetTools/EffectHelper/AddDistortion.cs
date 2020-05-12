@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+
 using UnityEngine;
 
 namespace Rein.RogueWispPlugin.Helpers
@@ -9,7 +9,7 @@ namespace Rein.RogueWispPlugin.Helpers
     {
         private static Dictionary<GameObject, UInt32> distortionCounter = new Dictionary<GameObject, UInt32>();
         internal static ParticleSystem AddDistortion( GameObject mainObj, WispSkinnedEffect skin, MaterialType matType, Single radius, Single duration, Single spinSpeed )
-        { 
+        {
             if( !distortionCounter.ContainsKey( mainObj ) ) distortionCounter[mainObj] = 0u;
             var obj = new GameObject( "Distortion" + distortionCounter[mainObj]++ );
             obj.transform.parent = mainObj.transform;
@@ -23,7 +23,7 @@ namespace Rein.RogueWispPlugin.Helpers
             {
                 skin.AddRenderer( psr, matType );
             }
-            
+
 
             BasicSetup( ps );
 
@@ -83,8 +83,8 @@ namespace Rein.RogueWispPlugin.Helpers
             psROL.x = 0f;
             psROL.y = 0f;
             psROL.z = spinSpeed;
-           
-            
+
+
 
             psr.renderMode = ParticleSystemRenderMode.Billboard;
             psr.normalDirection = 1f;

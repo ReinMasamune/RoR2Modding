@@ -1,17 +1,14 @@
 ﻿namespace ReinGeneralFixes
 {
-    using BepInEx;
-    using RoR2;
-    using UnityEngine;
-    using System.Collections.Generic;
-    using RoR2.Navigation;
-    using Mono.Cecil.Cil;
-    using MonoMod.Cil;
     using System;
-    using System.Reflection;
-    using EntityStates;
-    using RoR2.Skills;
+
+    using MonoMod.Cil;
+
     using ReinCore;
+
+    using RoR2;
+
+    using UnityEngine;
 
     internal partial class Main
     {

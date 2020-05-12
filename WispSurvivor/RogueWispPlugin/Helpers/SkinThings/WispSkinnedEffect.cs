@@ -1,7 +1,5 @@
-﻿
-using RoR2;
-using System;
-using System.Collections.Generic;
+﻿using System;
+
 using UnityEngine;
 
 namespace Rein.RogueWispPlugin.Helpers
@@ -74,89 +72,89 @@ namespace Rein.RogueWispPlugin.Helpers
             switch( matType )
             {
                 default:
-                    Main.LogE( "Unhandled MaterialType: " + matType.ToString() );
-                    break;
+                Main.LogE( "Unhandled MaterialType: " + matType.ToString() );
+                break;
                 case MaterialType.Armor:
-                    ind = this.armorRenderers.Length;
-                    Array.Resize<Renderer>( ref this.armorRenderers, ind + 1 );
-                    this.armorRenderers[ind] = renderer;
-                    break;
+                ind = this.armorRenderers.Length;
+                Array.Resize<Renderer>( ref this.armorRenderers, ind + 1 );
+                this.armorRenderers[ind] = renderer;
+                break;
                 case MaterialType.Flames:
-                    ind = this.flameRenderers.Length;
-                    Array.Resize<Renderer>( ref this.flameRenderers, ind + 1 );
-                    this.flameRenderers[ind] = renderer;
-                    break;
+                ind = this.flameRenderers.Length;
+                Array.Resize<Renderer>( ref this.flameRenderers, ind + 1 );
+                this.flameRenderers[ind] = renderer;
+                break;
                 case MaterialType.Tracer:
-                    ind = this.tracerRenderers.Length;
-                    Array.Resize<Renderer>( ref this.tracerRenderers, ind + 1 );
-                    this.tracerRenderers[ind] = renderer;
-                    break;
+                ind = this.tracerRenderers.Length;
+                Array.Resize<Renderer>( ref this.tracerRenderers, ind + 1 );
+                this.tracerRenderers[ind] = renderer;
+                break;
                 case MaterialType.FlamePillar:
-                    ind = this.flamePillarRenderers.Length;
-                    Array.Resize<Renderer>( ref this.flamePillarRenderers, ind + 1 );
-                    this.flamePillarRenderers[ind] = renderer;
-                    break;
+                ind = this.flamePillarRenderers.Length;
+                Array.Resize<Renderer>( ref this.flamePillarRenderers, ind + 1 );
+                this.flamePillarRenderers[ind] = renderer;
+                break;
                 case MaterialType.AreaIndicator:
-                    ind = this.areaIndicatorRenderers.Length;
-                    Array.Resize<Renderer>( ref this.areaIndicatorRenderers, ind + 1 );
-                    this.areaIndicatorRenderers[ind] = renderer;
-                    break;
+                ind = this.areaIndicatorRenderers.Length;
+                Array.Resize<Renderer>( ref this.areaIndicatorRenderers, ind + 1 );
+                this.areaIndicatorRenderers[ind] = renderer;
+                break;
                 case MaterialType.AreaIndicator2:
-                    ind = this.areaIndicatorRenderers2.Length;
-                    Array.Resize<Renderer>( ref this.areaIndicatorRenderers2, ind + 1 );
-                    this.areaIndicatorRenderers2[ind] = renderer;
-                    break;
+                ind = this.areaIndicatorRenderers2.Length;
+                Array.Resize<Renderer>( ref this.areaIndicatorRenderers2, ind + 1 );
+                this.areaIndicatorRenderers2[ind] = renderer;
+                break;
                 case MaterialType.Explosion:
-                    ind = this.explosionRenderers.Length;
-                    Array.Resize<Renderer>( ref this.explosionRenderers, ind + 1 );
-                    this.explosionRenderers[ind] = renderer;
-                    break;
+                ind = this.explosionRenderers.Length;
+                Array.Resize<Renderer>( ref this.explosionRenderers, ind + 1 );
+                this.explosionRenderers[ind] = renderer;
+                break;
                 case MaterialType.Beam:
-                    ind = this.beamRenderers.Length;
-                    Array.Resize<Renderer>( ref this.beamRenderers, ind + 1 );
-                    this.beamRenderers[ind] = renderer;
-                    break;
+                ind = this.beamRenderers.Length;
+                Array.Resize<Renderer>( ref this.beamRenderers, ind + 1 );
+                this.beamRenderers[ind] = renderer;
+                break;
                 case MaterialType.DistortionLight:
-                    ind = this.distortionLightRenderers.Length;
-                    Array.Resize<Renderer>( ref this.distortionLightRenderers, ind + 1 );
-                    this.distortionLightRenderers[ind] = renderer;
-                    break;
+                ind = this.distortionLightRenderers.Length;
+                Array.Resize<Renderer>( ref this.distortionLightRenderers, ind + 1 );
+                this.distortionLightRenderers[ind] = renderer;
+                break;
                 case MaterialType.Distortion:
-                    ind = this.distortionRenderers.Length;
-                    Array.Resize<Renderer>( ref this.distortionRenderers, ind + 1 );
-                    this.distortionRenderers[ind] = renderer;
-                    break;
+                ind = this.distortionRenderers.Length;
+                Array.Resize<Renderer>( ref this.distortionRenderers, ind + 1 );
+                this.distortionRenderers[ind] = renderer;
+                break;
                 case MaterialType.DistortionHeavy:
-                    ind = this.distortionHeavyRenderers.Length;
-                    Array.Resize<Renderer>( ref this.distortionHeavyRenderers, ind + 1 );
-                    this.distortionHeavyRenderers[ind] = renderer;
-                    break;
+                ind = this.distortionHeavyRenderers.Length;
+                Array.Resize<Renderer>( ref this.distortionHeavyRenderers, ind + 1 );
+                this.distortionHeavyRenderers[ind] = renderer;
+                break;
                 case MaterialType.ArcaneCircle:
-                    ind = this.arcaneCircleRenderers.Length;
-                    Array.Resize<Renderer>( ref this.arcaneCircleRenderers, ind + 1 );
-                    this.arcaneCircleRenderers[ind] = renderer;
-                    break;
+                ind = this.arcaneCircleRenderers.Length;
+                Array.Resize<Renderer>( ref this.arcaneCircleRenderers, ind + 1 );
+                this.arcaneCircleRenderers[ind] = renderer;
+                break;
                 case MaterialType.FlameTornado:
-                    ind = this.flameTornadoRenderers.Length;
-                    Array.Resize<Renderer>( ref this.flameTornadoRenderers, ind + 1 );
-                    this.flameTornadoRenderers[ind] = renderer;
-                    break;
+                ind = this.flameTornadoRenderers.Length;
+                Array.Resize<Renderer>( ref this.flameTornadoRenderers, ind + 1 );
+                this.flameTornadoRenderers[ind] = renderer;
+                break;
                 case MaterialType.BossAreaIndicator:
-                    ind = this.bossAreaIndicatorRenderers.Length;
-                    Array.Resize<Renderer>( ref this.bossAreaIndicatorRenderers, ind + 1 );
-                    this.bossAreaIndicatorRenderers[ind] = renderer;
-                    break;
+                ind = this.bossAreaIndicatorRenderers.Length;
+                Array.Resize<Renderer>( ref this.bossAreaIndicatorRenderers, ind + 1 );
+                this.bossAreaIndicatorRenderers[ind] = renderer;
+                break;
                 case MaterialType.BossAreaExplosion:
-                    ind = this.bossAreaExplosionRenderers.Length;
-                    Array.Resize<Renderer>( ref this.bossAreaExplosionRenderers, ind + 1 );
-                    this.bossAreaExplosionRenderers[ind] = renderer;
-                    break;
+                ind = this.bossAreaExplosionRenderers.Length;
+                Array.Resize<Renderer>( ref this.bossAreaExplosionRenderers, ind + 1 );
+                this.bossAreaExplosionRenderers[ind] = renderer;
+                break;
                 case MaterialType.Burn:
-                    ind = this.burnRenderers.Length;
-                    Array.Resize<Renderer>( ref this.burnRenderers, ind + 1 );
-                    this.burnRenderers[ind] = renderer;
-                    break;
-                    
+                ind = this.burnRenderers.Length;
+                Array.Resize<Renderer>( ref this.burnRenderers, ind + 1 );
+                this.burnRenderers[ind] = renderer;
+                break;
+
             }
         }
 
@@ -176,7 +174,7 @@ namespace Rein.RogueWispPlugin.Helpers
 
         internal override void Apply( IBitSkin skin )
         {
-            if( !(skin is WispBitSkin) )
+            if( !( skin is WispBitSkin ) )
             {
                 throw new ArgumentException( "Provided skin was not a WispBitSkin" );
             }

@@ -22,7 +22,7 @@
 //        }
 //        public delegate void DamageTypeDelegate();
 
-        
+
 //        // TODO: Add a hook to actually do damage type stuff
 
 //        static DamageTypesCore()

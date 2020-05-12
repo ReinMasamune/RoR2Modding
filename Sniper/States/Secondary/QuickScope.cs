@@ -1,26 +1,14 @@
 ﻿namespace Sniper.States.Secondary
 {
     using System;
-    using System.Collections.Generic;
-    using System.Runtime.CompilerServices;
-    using BepInEx.Logging;
-    using ReinCore;
-    using RoR2;
-    using RoR2.Networking;
-    using UnityEngine;
-    using KinematicCharacterController;
-    using EntityStates;
-    using RoR2.Skills;
-    using System.Reflection;
-    using Sniper.Expansions;
-    using Sniper.Enums;
+
     using Sniper.Data;
     using Sniper.States.Bases;
 
     internal class QuickScope : ScopeBaseState
     {
-        const Single baseStartDelay = 0.5f;
-        const Single damageMultiplier = 2f;
+        private const Single baseStartDelay = 0.5f;
+        private const Single damageMultiplier = 2f;
 
 
         internal override Boolean usesCharge { get; } = false;
@@ -44,9 +32,9 @@
             {
                 damageMultiplier = damageMultiplier,
                 charge = 0.5f,
-                
+
             };
-            
+
             return base.fixedAge >= this.startDelay ? mod : default;
         }
     }

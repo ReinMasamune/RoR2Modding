@@ -1,9 +1,10 @@
 ﻿#if ROGUEWISP
-using ReinCore;
 using Rein.RogueWispPlugin.Helpers;
+
+using ReinCore;
+
 using RoR2;
-using System;
-using System.Reflection;
+
 using UnityEngine;
 //using static RogueWispPlugin.Helpers.APIInterface;
 

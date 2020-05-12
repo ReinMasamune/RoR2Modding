@@ -1,15 +1,18 @@
 ﻿namespace AlternativeArtificer
 {
-    using R2API;
-    using RoR2;
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using UnityEngine;
-    using AlternativeArtificer.Helpers;
-    using Unity.Jobs;
-    using Unity.Collections;
     using System.Diagnostics;
+    using System.Linq;
+
+    using AlternativeArtificer.Helpers;
+
+    using RoR2;
+
+    using Unity.Collections;
+    using Unity.Jobs;
+
+    using UnityEngine;
 
     public partial class Main
     {
@@ -22,7 +25,6 @@
 
         private void EditModel()
         {
-            Int32 iii = 0;
             Transform model = this.artiBody.GetComponent<ModelLocator>().modelTransform;
             #region Remove jets
             CharacterModel.RendererInfo[] display = Resources.Load<GameObject>("Prefabs/CharacterDisplays/MageDisplay").transform.Find("mdlMage").GetComponent<CharacterModel>().baseRendererInfos;
@@ -32,7 +34,7 @@
             #region Edit Mesh
             SkinnedMeshRenderer meshRenderer = model.Find("MageMesh").GetComponent<SkinnedMeshRenderer>();
             this.artiDefaultMesh = meshRenderer.sharedMesh;
-            this.artiChangedMesh = Instantiate<Mesh>(this.artiDefaultMesh);
+            this.artiChangedMesh = Instantiate<Mesh>( this.artiDefaultMesh );
             Int32[] tris = this.artiChangedMesh.triangles;
             Int32 size = 1902;
             Int32 start1 = 4916;
@@ -421,7 +423,7 @@
                     }
                 }
 
-                End:
+            End:
                 outColor.r = Mathf.Sqrt( outColor.r );
                 outColor.g = Mathf.Sqrt( outColor.g );
                 outColor.b = Mathf.Sqrt( outColor.b );
@@ -481,7 +483,7 @@
             {
                 Int32 x = (index % 128) - 64;
                 Int32 y = ( index / 128 ) - 64;
-                if( Math.Abs(Math.Abs(y) - Math.Abs(x)) <= 2 )
+                if( Math.Abs( Math.Abs( y ) - Math.Abs( x ) ) <= 2 )
                 {
                     this.texOutput[index] = this.cross;
                     return;

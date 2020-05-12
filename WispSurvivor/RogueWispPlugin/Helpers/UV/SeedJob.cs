@@ -1,8 +1,8 @@
-﻿using RoR2;
-using System;
-using System.Collections.Generic;
+﻿using System;
+
 using Unity.Collections;
 using Unity.Jobs;
+
 using UnityEngine;
 
 namespace Rein.RogueWispPlugin.Helpers
@@ -17,7 +17,7 @@ namespace Rein.RogueWispPlugin.Helpers
             this.minVector = min;
             this.maxVector = max;
             this.sizeVector = max - min;
-            this.midVector = (max + min) / 2f;
+            this.midVector = ( max + min ) / 2f;
 
             var maxComp = Mathf.Max( this.sizeVector.x, this.sizeVector.y, this.sizeVector.z );
 

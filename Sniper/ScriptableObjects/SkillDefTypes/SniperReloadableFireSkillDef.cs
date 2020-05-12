@@ -1,28 +1,26 @@
 ﻿namespace Sniper.SkillDefs
 {
     using System;
-    using System.Collections.Generic;
-    using System.Runtime.CompilerServices;
-    using BepInEx.Logging;
-    using ReinCore;
-    using RoR2;
-    using RoR2.Networking;
-    using UnityEngine;
-    using KinematicCharacterController;
+
     using EntityStates;
-    using RoR2.Skills;
-    using System.Reflection;
+
+    using ReinCore;
+
+    using RoR2;
+
+    using Sniper.Components;
     using Sniper.Data;
     using Sniper.Enums;
-    using Sniper.Components;
     using Sniper.SkillDefTypes.Bases;
     using Sniper.States.Bases;
 
+    using UnityEngine;
+
     internal class SniperReloadableFireSkillDef : SniperSkillDef
     {
-        internal static SniperReloadableFireSkillDef Create<TFire,TReload>(String fireStateMachineName, String reloadStateMachineName)
+        internal static SniperReloadableFireSkillDef Create<TFire, TReload>( String fireStateMachineName, String reloadStateMachineName )
             where TFire : SnipeBaseState
-            where TReload : EntityState,ISniperReloadState
+            where TReload : EntityState, ISniperReloadState
         {
             SniperReloadableFireSkillDef def = ScriptableObject.CreateInstance<SniperReloadableFireSkillDef>();
             def.activationState = SkillsCore.StateType<TFire>();
@@ -54,7 +52,7 @@
         internal Sprite reloadIcon;
         [SerializeField]
         internal ReloadParams reloadParams;
-        
+
         public sealed override BaseSkillInstanceData OnAssigned( GenericSkill skillSlot )
         {
             EntityStateMachine reloadTargetStatemachine = null;
@@ -89,9 +87,9 @@
         {
             var data = skillSlot.skillInstanceData as SniperPrimaryInstanceData;
             EntityStateMachine mach = data.isReloading ? data.reloadStatemachine : skillSlot.stateMachine;
-            return this.IsReady( skillSlot ) && 
-                mach && 
-                !mach.HasPendingState() && 
+            return this.IsReady( skillSlot ) &&
+                mach &&
+                !mach.HasPendingState() &&
                 mach.CanInterruptState( data.isReloading ? this.reloadInterruptPriority : base.interruptPriority );
         }
 
@@ -115,7 +113,7 @@
             }
             if( state is ISniperReloadState reloadState )
             {
-                
+
                 reloadState.reloadTier = data.ReadReload();
             }
             return state;
@@ -172,7 +170,7 @@
 
         internal class SniperPrimaryInstanceData : BaseSkillInstanceData
         {
-            internal SniperPrimaryInstanceData(SniperReloadableFireSkillDef def, EntityStateMachine reloadTargetStatemachine, ReloadParams reloadParams )
+            internal SniperPrimaryInstanceData( SniperReloadableFireSkillDef def, EntityStateMachine reloadTargetStatemachine, ReloadParams reloadParams )
             {
                 this.def = def;
                 this.reloadStatemachine = reloadTargetStatemachine;

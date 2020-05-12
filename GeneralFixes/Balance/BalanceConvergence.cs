@@ -1,23 +1,20 @@
 ﻿namespace ReinGeneralFixes
 {
-    using BepInEx;
-    using RoR2;
-    using UnityEngine;
-    using System.Collections.Generic;
-    using RoR2.Navigation;
-    using Mono.Cecil.Cil;
-    using MonoMod.Cil;
     using System;
     using System.Reflection;
-    using EntityStates;
-    using RoR2.Skills;
-    using System.Collections;
+
+    using MonoMod.Cil;
+
     using ReinCore;
+
+    using RoR2;
+
+    using UnityEngine;
 
     internal partial class Main
     {
-        const Single radiusMult = 0.75f;
-        const Single rateMult = 0.9f;
+        private const Single radiusMult = 0.75f;
+        private const Single rateMult = 0.9f;
 
         partial void BalanceConvergence()
         {

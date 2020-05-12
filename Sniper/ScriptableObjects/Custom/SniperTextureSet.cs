@@ -2,7 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Text;
+
     using UnityEngine;
 
     [CreateAssetMenu( fileName = "TextureSet", menuName = "Rein/Sniper/SniperTextureSet", order = 1 )]

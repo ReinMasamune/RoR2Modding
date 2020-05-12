@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using UnityEngine;
+
 using ReinCore;
+
+using UnityEngine;
 
 namespace Rein.RogueWispPlugin.Helpers
 {
@@ -81,7 +82,7 @@ namespace Rein.RogueWispPlugin.Helpers
                         psSOL.z = scaleX ? new ParticleSystem.MinMaxCurve( 1f, AnimationCurve.EaseInOut( 0f, 0f, frac, 1f ) ) : 1f;
                     }
 
-                    
+
                 }
 
             } else
@@ -95,7 +96,7 @@ namespace Rein.RogueWispPlugin.Helpers
             if( matType != MaterialType.Constant )
             {
                 skin.AddRenderer( renderer, matType );
-            }            
+            }
             return renderer;
         }
     }

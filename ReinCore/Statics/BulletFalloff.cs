@@ -2,14 +2,13 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq.Expressions;
     using System.Reflection;
-    using BepInEx;
-    using Mono.Cecil;
+
     using Mono.Cecil.Cil;
+
     using MonoMod.Cil;
+
     using RoR2;
-    using UnityEngine;
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public static class BulletFalloffCore
@@ -63,7 +62,7 @@
 
             ILLabel[] baseLabels = null;
             ILLabel breakLabel = null;
-            _ = cursor.GotoNext( MoveType.AfterLabel, 
+            _ = cursor.GotoNext( MoveType.AfterLabel,
                 x => x.MatchSwitch( out baseLabels ),
                 x => x.MatchBr( out breakLabel )
             );

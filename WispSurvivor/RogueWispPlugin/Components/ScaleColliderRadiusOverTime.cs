@@ -1,11 +1,7 @@
 ﻿#if ANCIENTWISP
-using RoR2;
-using RoR2.Orbs;
-using RoR2.Projectile;
 using System;
-using System.Collections.Generic;
+
 using UnityEngine;
-using UnityEngine.Networking;
 
 namespace Rein.RogueWispPlugin
 {

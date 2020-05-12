@@ -1,136 +1,134 @@
 ﻿namespace ReinCore
 {
     using System;
-    using System.Collections.Generic;
-    using System.Text;
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public enum MaterialIndex : UInt64
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     {
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-		#region Reference Materials
-		#region Direct Load
-		refMatShatteredGlass,
+        #region Reference Materials
+        #region Direct Load
+        refMatShatteredGlass,
 
-		refMatVagrantEnergized,
-		refMatTPInOut,
-		refMatMercEnergized,
-		refMatElitePoisonParticleSystemReplacement,
-		refMatOnHelfire,
-		#endregion
+        refMatVagrantEnergized,
+        refMatTPInOut,
+        refMatMercEnergized,
+        refMatElitePoisonParticleSystemReplacement,
+        refMatOnHelfire,
+        #endregion
 
-		#region Prefab Dependencies
-		refMatTracer,
-		refMatTracerBright,
-		refMatDebris1,
-		refMatDistortionFaded,
-		refMatInverseDistortion,
-		refMatOpagueDustSpeckledLarge,
+        #region Prefab Dependencies
+        refMatTracer,
+        refMatTracerBright,
+        refMatDebris1,
+        refMatDistortionFaded,
+        refMatInverseDistortion,
+        refMatOpagueDustSpeckledLarge,
 
-		refMatNullifierStarParticle,
-		refMatNullifierStarTrail,
-		refMatNullifierStarPortalEdge,
-		refMatNullifierExplosionAreaIndicatorSoft,
-		refMatNullifierExplosionAreaIndicatorHard,
-		refMatNullBombAreaIndicator,
-		refMatNullifierGemPortal,
+        refMatNullifierStarParticle,
+        refMatNullifierStarTrail,
+        refMatNullifierStarPortalEdge,
+        refMatNullifierExplosionAreaIndicatorSoft,
+        refMatNullifierExplosionAreaIndicatorHard,
+        refMatNullBombAreaIndicator,
+        refMatNullifierGemPortal,
 
-		refMatWillowispSpiral,
-		refMatWillowispRadial,
+        refMatWillowispSpiral,
+        refMatWillowispRadial,
 
-		refMatBazaarIceCore,
-		refMatBazaarIceDistortion,
+        refMatBazaarIceCore,
+        refMatBazaarIceDistortion,
 
-		refMatGenericFlash,
-		refMatDustDirectionalDark,
-		refMatFireRingRunes,
+        refMatGenericFlash,
+        refMatDustDirectionalDark,
+        refMatFireRingRunes,
 
-		refMatGolemExplosion,
-		refMatTitanBeam,
-		refMatArcaneCircle1,
-		refMatDistortion,
+        refMatGolemExplosion,
+        refMatTitanBeam,
+        refMatArcaneCircle1,
+        refMatDistortion,
 
 
 
-		refMatAngelFeather,
+        refMatAngelFeather,
 
-		refMatStealthkitSparks,
+        refMatStealthkitSparks,
 
-		refMatRoboBallParticleRingHuge,
+        refMatRoboBallParticleRingHuge,
 
-		refMatFireStaticLarge,
+        refMatFireStaticLarge,
 
-		refMatOmniRing2Generic,
+        refMatOmniRing2Generic,
 
-		refMatMercSwipe2,
+        refMatMercSwipe2,
 
-		refMatSuspendedInTime,
+        refMatSuspendedInTime,
 
-		refMatTPShockwave,
+        refMatTPShockwave,
 
-		refMatOpagueDustTrail,
+        refMatOpagueDustTrail,
 
-		refMatLizardBiteTrail,
+        refMatLizardBiteTrail,
 
-		refMatAngelEffect,
+        refMatAngelEffect,
 
-		refMatCutExplosion,
+        refMatCutExplosion,
 
-		refMatOpagueWaterFoam,
+        refMatOpagueWaterFoam,
 
-		refMatBootWaveEnergy,
+        refMatBootWaveEnergy,
 
-		refMatEngiTrail,
-		refMatGenericFire,
+        refMatEngiTrail,
+        refMatGenericFire,
 
-		refMatTeleportOut,
-		refMatDustSoft,
+        refMatTeleportOut,
+        refMatDustSoft,
 
-		refMatHealingCross,
-		refMatJellyfishChunks,
+        refMatHealingCross,
+        refMatJellyfishChunks,
 
-		refMatImpSwipe,
-		refMatImpBossPortal,
+        refMatImpSwipe,
+        refMatImpBossPortal,
 
-		refMatHauntedAura,
-		refMatSkullFire,
+        refMatHauntedAura,
+        refMatSkullFire,
 
-		refMatSonicBoomGroundDust,
+        refMatSonicBoomGroundDust,
 
-		refMatMageMatrixDirectionalLightning,
-		refMatMageMatrixLightning, 
+        refMatMageMatrixDirectionalLightning,
+        refMatMageMatrixLightning,
 
-		refMatMatrixTriFire,
+        refMatMatrixTriFire,
 
-		refMatCleanseCore,
-		refMatCleanseWater,
+        refMatCleanseCore,
+        refMatCleanseWater,
 
-		refMatLaserTurbineTargetingLaser,
-		refMatOmniRadialSlash1Merc,
-		refMatOmniHitspark2Merc,
+        refMatLaserTurbineTargetingLaser,
+        refMatOmniRadialSlash1Merc,
+        refMatOmniHitspark2Merc,
 
-		refMatOmniHitspark1,
-		refMatOpagueDust,
+        refMatOmniHitspark1,
+        refMatOpagueDust,
 
-		refMatOmniRing1Generic,
-		refMatOmniHitspark4Merc,
+        refMatOmniRing1Generic,
+        refMatOmniHitspark4Merc,
 
-		refMatBloodClayLarge,
-		refMatClayGooFizzle,
-		refMatClayBubbleBillboard,
+        refMatBloodClayLarge,
+        refMatClayGooFizzle,
+        refMatClayBubbleBillboard,
 
-		refMatOpagueDustLargeDirectional,
-		refMatOpagueDustLarge,
+        refMatOpagueDustLargeDirectional,
+        refMatOpagueDustLarge,
 
-		refMatGenericLaser,
+        refMatGenericLaser,
 
-		refMatEngiShieldShards,
-		refMatOmniExplosion1,
-		refMatRoboChunks,
-		#endregion
-		#endregion
+        refMatEngiShieldShards,
+        refMatOmniExplosion1,
+        refMatRoboChunks,
+        #endregion
+        #endregion
 
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
-	}
+    }
 }

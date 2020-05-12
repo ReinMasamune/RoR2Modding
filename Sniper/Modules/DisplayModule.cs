@@ -1,12 +1,11 @@
 ﻿namespace Sniper.Modules
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Runtime.CompilerServices;
-    using BepInEx.Logging;
     using ReinCore;
+
     using RoR2;
+
     using Sniper.Components;
+
     using UnityEngine;
 
     internal static class DisplayModule

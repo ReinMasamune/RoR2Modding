@@ -1,9 +1,9 @@
-﻿using RoR2;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
+
 using Unity.Collections;
 using Unity.Jobs;
+
 using UnityEngine;
 
 namespace Rein.RogueWispPlugin.Helpers
@@ -108,7 +108,7 @@ namespace Rein.RogueWispPlugin.Helpers
 
         internal void PreCache()
         {
-            
+
             for( Int32 i = 0; i < this.verticies.Length; ++i )
             {
                 var bone = GetBoneIndexFromWeights( this.boneWeights[i] );
@@ -288,7 +288,7 @@ namespace Rein.RogueWispPlugin.Helpers
             return uvs;
         }
 
-        
+
         private void WaitForJobs()
         {
             while( this.activeJobs.Count > 0 )

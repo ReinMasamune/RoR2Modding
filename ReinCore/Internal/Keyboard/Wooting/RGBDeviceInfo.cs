@@ -1,9 +1,7 @@
 ﻿namespace ReinCore.Wooting
 {
     using System;
-    using System.Collections.Generic;
     using System.Runtime.InteropServices;
-    using System.Text;
 
     [StructLayout( LayoutKind.Sequential )]
     internal struct RGBDeviceInfo

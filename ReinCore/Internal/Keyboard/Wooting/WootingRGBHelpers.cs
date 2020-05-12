@@ -1,10 +1,8 @@
 ﻿namespace ReinCore.Wooting
 {
     using System;
-    using System.Collections.Generic;
     using System.Runtime.InteropServices;
-    using System.Text;
-    using UnityEngine;
+
     using static global::ReinCore.Wooting.Native.WootingRGBExtern;
 
     internal static class WootingRGBHelpers
@@ -36,8 +34,8 @@
         internal static Boolean SetKey( GlobalKeys key, KeyColour color )
         {
             (Byte row, Byte col) coord = key.GetWootingKeyCoords();
-            
-            return wooting_rgb_array_set_single(coord.row, coord.col, color.r, color.g, color.b );
+
+            return wooting_rgb_array_set_single( coord.row, coord.col, color.r, color.g, color.b );
         }
 
         internal static Boolean ResetKey( GlobalKeys key )

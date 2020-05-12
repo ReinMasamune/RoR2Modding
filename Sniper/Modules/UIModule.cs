@@ -1,20 +1,13 @@
 ﻿namespace Sniper.Modules
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Runtime.CompilerServices;
-    using BepInEx.Logging;
     using ReinCore;
+
     using RoR2;
-    using RoR2.Networking;
-    using UnityEngine;
-    using KinematicCharacterController;
-    using EntityStates;
-    using RoR2.Skills;
-    using RoR2.UI;
-    using UnityEngine.UI;
+
     using Sniper.Components;
-    using System.Linq.Expressions;
+
+    using UnityEngine;
+    using UnityEngine.UI;
 
     internal static class UIModule
     {
@@ -110,7 +103,7 @@
             holderTrans.sizeDelta = Vector2.zero;
             holderTrans.anchorMax = Vector2.one;
             holderTrans.anchorMin = Vector2.zero;
-            holderTrans.pivot= new Vector2( 0.5f, 0.5f );
+            holderTrans.pivot = new Vector2( 0.5f, 0.5f );
             holderTrans.localPosition = Vector3.zero;
 
             GameObject background = PrefabsCore.CreateUIPrefab( "Background", false );

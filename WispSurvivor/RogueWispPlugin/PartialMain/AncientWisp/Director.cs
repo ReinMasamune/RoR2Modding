@@ -1,10 +1,11 @@
 ﻿#if ANCIENTWISP
-using BepInEx.Configuration;
-using RoR2;
 using System;
-using System.Collections.Generic;
-using UnityEngine;
+
 using ReinCore;
+
+using RoR2;
+
+using UnityEngine;
 
 namespace Rein.RogueWispPlugin
 {
@@ -69,8 +70,8 @@ namespace Rein.RogueWispPlugin
             if(this.bossEnabled.Value )
             {
 #endif
-                SpawnsCore.monsterEdits += this.SpawnsCore_monsterEdits;
-                SpawnsCore.familyEdits += this.SpawnsCore_familyEdits;
+            SpawnsCore.monsterEdits += this.SpawnsCore_monsterEdits;
+            SpawnsCore.familyEdits += this.SpawnsCore_familyEdits;
             // TODO: Director
             //R2API.DirectorAPI.MonsterActions += this.DirectorAPI_MonsterActions;
             // TODO: Director

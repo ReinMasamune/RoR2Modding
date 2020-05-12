@@ -1,22 +1,20 @@
 ﻿namespace ReinGeneralFixes
 {
-    using BepInEx;
-    using RoR2;
-    using UnityEngine;
-    using System.Collections.Generic;
-    using RoR2.Navigation;
-    using Mono.Cecil.Cil;
-    using MonoMod.Cil;
     using System;
-    using System.Reflection;
-    using EntityStates;
-    using RoR2.Skills;
-    using System.Collections;
+
+    using Mono.Cecil.Cil;
+
+    using MonoMod.Cil;
+
     using ReinCore;
+
+    using RoR2;
+
+    using UnityEngine;
 
     internal partial class Main
     {
-        private delegate void OnHitDelegate(DamageInfo damage, CharacterBody attacker, CharacterBody victim);
+        private delegate void OnHitDelegate( DamageInfo damage, CharacterBody attacker, CharacterBody victim );
         private static event OnHitDelegate onHitEffects;
 
         partial void FixDoTs()
@@ -53,7 +51,7 @@
 
         private static void BleedFromDamageType( DamageInfo damage, CharacterBody attacker, CharacterBody victim )
         {
-            if( (damage.damageType & DamageType.BleedOnHit) == 0 )
+            if( ( damage.damageType & DamageType.BleedOnHit ) == 0 )
             {
                 return;
             }
@@ -93,7 +91,7 @@
 
         private static void BurnFromDamageType( DamageInfo damage, CharacterBody attacker, CharacterBody victim )
         {
-            if( (damage.damageType & DamageType.IgniteOnHit) == 0 )
+            if( ( damage.damageType & DamageType.IgniteOnHit ) == 0 )
             {
                 return;
             }
@@ -103,7 +101,7 @@
 
         private static void PercentBurnFromDamageType( DamageInfo damage, CharacterBody attacker, CharacterBody victim )
         {
-            if( (damage.damageType & DamageType.PercentIgniteOnHit) == 0 )
+            if( ( damage.damageType & DamageType.PercentIgniteOnHit ) == 0 )
             {
                 return;
             }

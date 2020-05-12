@@ -2,11 +2,12 @@
 {
     using System;
     using System.Collections.Generic;
-    using BepInEx;
+
     using Mono.Cecil.Cil;
+
     using MonoMod.Cil;
+
     using RoR2;
-    using System.Linq;
 
     /// <summary>
     /// 
@@ -23,7 +24,7 @@
         /// </summary>
         /// <param name="def"></param>
         /// <returns></returns>
-        public static DeployableSlot AddDeployableSlot(DeployableSlotDef def)
+        public static DeployableSlot AddDeployableSlot( DeployableSlotDef def )
         {
             if( !loaded )
             {

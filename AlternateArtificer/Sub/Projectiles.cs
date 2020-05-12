@@ -1,11 +1,14 @@
 ﻿namespace AlternativeArtificer
 {
+    using System;
+
     using AlternativeArtificer.States.Main;
-    using BepInEx;
+
     using R2API;
+
     using RoR2;
     using RoR2.Projectile;
-    using System;
+
     using UnityEngine;
 
     public partial class Main
@@ -59,7 +62,7 @@
             }
         }
 
-        private void CreateLightningSword(Int32 meshInd)
+        private void CreateLightningSword( Int32 meshInd )
         {
             GameObject ghost = this.CreateLightningSwordGhost(meshInd);
             GameObject proj = Resources.Load<GameObject>("Prefabs/Projectiles/LunarNeedleProjectile" ).InstantiateClone( "LightningSwordProjectile" + meshInd.ToString() );
@@ -88,7 +91,7 @@
             projStick.alignNormals = false;
 
             ProjectileImpactExplosion projExpl = proj.GetComponent<ProjectileImpactExplosion>();
-            projExpl.impactEffect = Resources.Load<GameObject>("Prefabs/Effects/LightningStakeNova");
+            projExpl.impactEffect = Resources.Load<GameObject>( "Prefabs/Effects/LightningStakeNova" );
             projExpl.explosionSoundString = "Play_item_lunar_primaryReplace_impact";
             projExpl.lifetimeExpiredSoundString = "";
             projExpl.offsetForLifetimeExpiredSound = 0f;

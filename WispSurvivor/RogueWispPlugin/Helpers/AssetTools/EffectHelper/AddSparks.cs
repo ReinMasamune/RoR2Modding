@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+
 using UnityEngine;
 
 namespace Rein.RogueWispPlugin.Helpers
@@ -25,7 +25,7 @@ namespace Rein.RogueWispPlugin.Helpers
             {
                 skin.AddRenderer( psr, matType );
             }
-            
+
 
             BasicSetup( ps );
 
@@ -49,7 +49,7 @@ namespace Rein.RogueWispPlugin.Helpers
             psMain.scalingMode = ParticleSystemScalingMode.Hierarchy;
             psMain.playOnAwake = true;
             psMain.emitterVelocityMode = ParticleSystemEmitterVelocityMode.Transform;
-            psMain.maxParticles = Mathf.Abs(count) * 2;
+            psMain.maxParticles = Mathf.Abs( count ) * 2;
             psMain.stopAction = ParticleSystemStopAction.None;
             psMain.cullingMode = ParticleSystemCullingMode.AlwaysSimulate;
             psMain.ringBufferMode = ParticleSystemRingBufferMode.Disabled;
@@ -96,7 +96,7 @@ namespace Rein.RogueWispPlugin.Helpers
 
             var psCOL = ps.colorOverLifetime;
             psCOL.enabled = true;
-            psCOL.color = new ParticleSystem.MinMaxGradient(new Gradient
+            psCOL.color = new ParticleSystem.MinMaxGradient( new Gradient
             {
                 mode = GradientMode.Blend,
                 alphaKeys = new[]

@@ -1,13 +1,10 @@
 ﻿namespace Sniper.Modules
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Runtime.CompilerServices;
-    using BepInEx.Logging;
     using ReinCore;
+
     using RoR2;
     using RoR2.Projectile;
-    using Sniper.ScriptableObjects;
+
     using UnityEngine;
 
     internal static class ProjectileGhostModule

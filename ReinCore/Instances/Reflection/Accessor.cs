@@ -10,7 +10,7 @@
     /// </summary>
     /// <typeparam name="TInstance">The type of the instance you are accessing a field of</typeparam>
     /// <typeparam name="TValue">The type of the member you are accessing</typeparam>
-    public class Accessor<TInstance,TValue> where TInstance : class
+    public class Accessor<TInstance, TValue> where TInstance : class
     {
         /// <summary>
         /// Creates an accessor for a member of the type

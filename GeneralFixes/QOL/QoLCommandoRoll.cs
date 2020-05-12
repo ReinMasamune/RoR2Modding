@@ -1,17 +1,11 @@
 ﻿namespace ReinGeneralFixes
 {
-    using BepInEx;
-    using RoR2;
-    using UnityEngine;
-    using System.Collections.Generic;
-    using RoR2.Navigation;
-    using Mono.Cecil.Cil;
-    using MonoMod.Cil;
-    using System;
-    using System.Reflection;
-    using EntityStates;
-    using RoR2.Skills;
     using ReinCore;
+
+    using RoR2;
+    using RoR2.Skills;
+
+    using UnityEngine;
 
     internal partial class Main
     {
@@ -26,7 +20,7 @@
         {
             SkillDef def = Resources.Load<GameObject>("Prefabs/CharacterBodies/CommandoBody").GetComponent<SkillLocator>().utility.skillFamily.variants[0].skillDef;
             def.noSprint = false;
-            
+
         }
 
         private void RemoveCommandoRollEdits() => HooksCore.EntityStates.Commando.DodgeState.OnEnter.On -= OnEnter_On;

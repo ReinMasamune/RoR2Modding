@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+
 using UnityEngine;
 
 namespace Rein.RogueWispPlugin.Helpers
@@ -23,7 +23,7 @@ namespace Rein.RogueWispPlugin.Helpers
             {
                 skin.AddRenderer( psr, matType );
             }
-            
+
 
             BasicSetup( ps );
 
@@ -61,7 +61,7 @@ namespace Rein.RogueWispPlugin.Helpers
 
             var psCOL = ps.colorOverLifetime;
             psCOL.enabled = true;
-            psCOL.color = new ParticleSystem.MinMaxGradient(new Gradient
+            psCOL.color = new ParticleSystem.MinMaxGradient( new Gradient
             {
                 mode = GradientMode.Blend,
                 alphaKeys = new[]

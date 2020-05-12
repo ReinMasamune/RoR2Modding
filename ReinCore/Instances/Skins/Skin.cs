@@ -1,10 +1,10 @@
 ﻿namespace ReinCore
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq.Expressions;
-    using System.Text;
+
     using RoR2;
+
     using UnityEngine;
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -160,13 +160,13 @@
         private readonly ModelSkinController controller;
         private readonly CharacterModel model;
 
-        
 
 
 
 
 
-        private Skin(SkinDef skin, GameObject rootObject, CharacterModel model, ModelSkinController controller )
+
+        private Skin( SkinDef skin, GameObject rootObject, CharacterModel model, ModelSkinController controller )
         {
             this.wrappedSkin = skin;
             this.controller = controller;

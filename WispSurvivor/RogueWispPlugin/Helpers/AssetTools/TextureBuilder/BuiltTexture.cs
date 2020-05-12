@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+
 using UnityEngine;
 
 namespace Rein.RogueWispPlugin.Helpers
@@ -13,6 +12,6 @@ namespace Rein.RogueWispPlugin.Helpers
         }
         internal Texture2D tex;
 
-       
+
     }
 }

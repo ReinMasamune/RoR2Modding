@@ -1,11 +1,7 @@
-﻿using RoR2.ConVar;
-using RoR2.UI;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
+
 using UnityEngine;
-using UnityEngine.Networking;
-using UnityEngine.UI;
 
 namespace Rein.RogueWispPlugin
 {
@@ -152,7 +148,7 @@ namespace Rein.RogueWispPlugin
                     var powerInd = (UInt32)Math.Floor( Math.Log( unbasedCharge, 2 ) );
                     var curStart = Math.Pow( 2, powerInd++ );
                     unbasedCharge -= curStart;
-                    this.fillFrac = (Single)(unbasedCharge / curStart);
+                    this.fillFrac = (Single)( unbasedCharge / curStart );
                     this.bgColor = barColors[powerInd++ % barColors.Length];
                     this.fgColor = barColors[powerInd % barColors.Length];
                 }

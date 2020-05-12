@@ -1,7 +1,6 @@
 ﻿namespace ReinCore
 {
     using System;
-    using BepInEx;
     using System.Linq;
 
     internal static class EnumExtensions
@@ -13,7 +12,7 @@
                 throw new ArgumentException( "Incorrect value type" );
             }
 
-            return (TValue)Convert.ChangeType(self, typeof(TValue) );
+            return (TValue)Convert.ChangeType( self, typeof( TValue ) );
         }
 
         internal static String GetName( this Enum self ) => Enum.GetName( self.GetType(), self );

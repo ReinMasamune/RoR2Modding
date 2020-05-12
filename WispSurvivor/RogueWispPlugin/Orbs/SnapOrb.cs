@@ -1,4 +1,5 @@
 ﻿using RoR2;
+
 using UnityEngine;
 
 namespace Rein.RogueWispPlugin

@@ -1,7 +1,5 @@
-﻿using RoR2;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System;
+
 using UnityEngine;
 
 namespace Rein.RogueWispPlugin.Helpers
@@ -10,8 +8,8 @@ namespace Rein.RogueWispPlugin.Helpers
     [System.Serializable]
     public struct SoundEvent
     {
-        public Single time 
-        { 
+        public Single time
+        {
             get => this.intTime;
         }
 
@@ -28,7 +26,7 @@ namespace Rein.RogueWispPlugin.Helpers
         public String rtpcName;
         [SerializeField]
         public Single rtpcValue;
-        
+
         internal SoundEvent( Single time, String soundName )
         {
             this.intTime = time;
@@ -49,7 +47,7 @@ namespace Rein.RogueWispPlugin.Helpers
             this.rtpcName = default;
             this.rtpcValue = scale;
             this.scaleOn = true;
-            
+
         }
 
         internal SoundEvent( Single time, String soundName, String rtpcName, Single rtpcValue )
@@ -80,6 +78,6 @@ namespace Rein.RogueWispPlugin.Helpers
             return obj;
         }
 
-        
+
     }
 }

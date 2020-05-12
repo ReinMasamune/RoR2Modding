@@ -1,8 +1,7 @@
 ﻿namespace ReinCore
 {
     using System;
-    using System.Collections.Generic;
-    using System.Text;
+
     using RoR2;
 
     /// <summary>
@@ -30,13 +29,13 @@
         /// <param name="limit"></param>
         public DeployableSlotDef( Int32 limit )
         {
-            this.GetLimit = new DeployableSlotLimitDelegate( (_) => limit );
+            this.GetLimit = new DeployableSlotLimitDelegate( ( _ ) => limit );
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public DeployableSlot slot { get; internal set; } = (DeployableSlot)(-1);
+        public DeployableSlot slot { get; internal set; } = (DeployableSlot)( -1 );
 
 #pragma warning disable IDE1006 // Naming Styles
         internal DeployableSlotLimitDelegate GetLimit { get; private set; }

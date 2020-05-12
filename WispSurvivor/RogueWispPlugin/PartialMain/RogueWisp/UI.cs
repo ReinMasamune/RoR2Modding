@@ -1,10 +1,10 @@
 ﻿#if ROGUEWISP
-using System;
-using RoR2.UI;
+using Rein.RogueWispPlugin.Helpers;
+
+using ReinCore;
+
 using UnityEngine;
 using UnityEngine.UI;
-using Rein.RogueWispPlugin.Helpers;
-using ReinCore;
 
 namespace Rein.RogueWispPlugin
 {
@@ -31,8 +31,8 @@ namespace Rein.RogueWispPlugin
                 generateFallbackPhysicsShape: false
             );
             //Main.debugTexture = tex;
-            
-            
+
+
             var temp = baseUI.transform.Find("Image");
 
             var bar = new GameObject().ClonePrefab("WispHudChunk", false );
@@ -152,7 +152,7 @@ namespace Rein.RogueWispPlugin
 
 
 
-            temp = Resources.Load<GameObject>("Prefabs/HudSimple").transform.Find( "MainContainer/MainUIArea/BottomRightCluster/Scaler/Outline" );
+            temp = Resources.Load<GameObject>( "Prefabs/HudSimple" ).transform.Find( "MainContainer/MainUIArea/BottomRightCluster/Scaler/Outline" );
 
             var bar3 = Instantiate<GameObject>( temp.gameObject, bar.transform );
             bar3.SetActive( true );

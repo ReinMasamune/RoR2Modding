@@ -1,5 +1,7 @@
-﻿using RoR2.ConVar;
-using System;
+﻿using System;
+
+using RoR2.ConVar;
+
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -88,7 +90,7 @@ namespace Rein.RogueWispPlugin
             {
                 Single temp = 0f;
 
-                if( Screen.width != this.width || Screen.height != this.height || (TextSerialization.TryParseInvariant( this.scaleVar.GetString(), out temp ) && temp != this.scale) )
+                if( Screen.width != this.width || Screen.height != this.height || ( TextSerialization.TryParseInvariant( this.scaleVar.GetString(), out temp ) && temp != this.scale ) )
                 {
                     this.RecalcBarRect();
                 }
@@ -122,14 +124,14 @@ namespace Rein.RogueWispPlugin
                 this.boxesStartH = this.width * this.barPosHFrac;
 
                 Single barV = this.height * this.barPosVFrac;
-                this.boxesStartV = barV - (barHeight / 4f);
+                this.boxesStartV = barV - ( barHeight / 4f );
 
                 this.texW = Mathf.CeilToInt( this.boxesW / 2f );
                 this.texH = Mathf.CeilToInt( this.boxesH / 2f );
 
                 for( Int32 i = 0; i < 10; i++ )
                 {
-                    this.boxes[i] = new Rect( this.boxesStartH, this.boxesStartV + (i * (spaceSize)), this.boxesW, this.boxesH );
+                    this.boxes[i] = new Rect( this.boxesStartH, this.boxesStartV + ( i * ( spaceSize ) ), this.boxesW, this.boxesH );
                 }
 
                 this.CreateTextures();
@@ -168,10 +170,10 @@ namespace Rein.RogueWispPlugin
                 Int32 cStep = 10;
                 while( val < c )
                 {
-                    cStep = val <= 200 ? 10 : (cStep * 2);
+                    cStep = val <= 200 ? 10 : ( cStep * 2 );
                     for( Int32 i = 0; i < 10; i++ )
                     {
-                        newColors[i] += (c - val) >= cStep ? 1u : 0u;
+                        newColors[i] += ( c - val ) >= cStep ? 1u : 0u;
                         val += cStep;
                     }
                 }

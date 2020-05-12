@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using BepInEx;
 
     // TODO: LanguageCore docs
 

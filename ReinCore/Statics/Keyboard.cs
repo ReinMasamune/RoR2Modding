@@ -2,10 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.IO;
-    using System.Runtime.InteropServices;
-    using Unity.Collections;
-    using Unity.Jobs;
+
     using UnityEngine;
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -27,7 +24,7 @@
                 for( Int32 i = 0; i < list.Count; ++i )
                 {
                     GlobalKeys k = list[i];
-                    
+
                     if( k != GlobalKeys.AllKeys )
                     {
                         flag |= SetKey( k, color );

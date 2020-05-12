@@ -2,8 +2,7 @@
 {
     using System;
     using System.Collections;
-    using System.Collections.Generic;
-    using System.Text;
+
     using UnityEngine;
 
     /// <summary>
@@ -28,7 +27,7 @@
             }
 
             UnityEngine.Events.UnityEvent uEvent = this.tracer.onTailReachedDestination;
-            uEvent.AddListener( new UnityEngine.Events.UnityAction( () => this.StartCoroutine(this.DestroyOnTimer(this.delay)) ) );
+            uEvent.AddListener( new UnityEngine.Events.UnityAction( () => this.StartCoroutine( this.DestroyOnTimer( this.delay ) ) ) );
         }
 
         private IEnumerator DestroyOnTimer( Single delay )

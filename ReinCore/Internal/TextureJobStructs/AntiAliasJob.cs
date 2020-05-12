@@ -1,12 +1,11 @@
 ﻿namespace ReinCore
 {
     using System;
-    using BepInEx;
+
     using Unity.Collections;
     using Unity.Jobs;
+
     using UnityEngine;
-    using System.Linq;
-    using Unity.Burst;
 
     internal struct AntiAliasJob : ITextureJob
     {
@@ -31,8 +30,10 @@
         public Texture2D OutputTextureAndDispose()
         {
             this.handle.Complete();
-            var tex = new Texture2D( this.texWidth, this.texHeight, TextureFormat.RGBAFloat, false );
-            tex.wrapMode = TextureWrapMode.Clamp;
+            var tex = new Texture2D( this.texWidth, this.texHeight, TextureFormat.RGBAFloat, false )
+            {
+                wrapMode = TextureWrapMode.Clamp
+            };
             tex.LoadRawTextureData<Color>( this.texArray );
             tex.Apply();
 

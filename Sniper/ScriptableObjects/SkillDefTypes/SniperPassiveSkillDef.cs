@@ -1,23 +1,19 @@
 ﻿namespace Sniper.SkillDefs
 {
     using System;
-    using System.Collections.Generic;
-    using System.Runtime.CompilerServices;
-    using BepInEx.Logging;
-    using ReinCore;
-    using RoR2;
-    using RoR2.Networking;
-    using UnityEngine;
-    using KinematicCharacterController;
+
     using EntityStates;
-    using RoR2.Skills;
-    using System.Reflection;
-    using Sniper.SkillDefTypes.Bases;
+
+    using ReinCore;
+
     using Sniper.Expansions;
+    using Sniper.SkillDefTypes.Bases;
+
+    using UnityEngine;
 
     internal class SniperPassiveSkillDef : SniperSkillDef
     {
-        
+
         internal static SniperPassiveSkillDef Create( Data.BulletModifier modifier, Boolean headshots, Single critMultiplier )
         {
             SniperPassiveSkillDef def = ScriptableObject.CreateInstance<SniperPassiveSkillDef>();

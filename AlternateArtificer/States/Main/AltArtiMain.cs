@@ -1,14 +1,5 @@
 ﻿namespace AlternativeArtificer.States.Main
 {
-    using AlternateArtificer.SelectablePassive;
-    using EntityStates;
-    using EntityStates.Mage;
-    using RoR2;
-    using System;
-    using System.Collections.Generic;
-    using System.Reflection;
-    using System.Text;
-    using UnityEngine;
 
     /*
     public class AltArtiMain : GenericCharacterMain

@@ -1,9 +1,9 @@
 ﻿namespace ReinCore
 {
     using System;
-    using BepInEx;
-    using RoR2;
+
     using Unity.Jobs;
+
     using UnityEngine;
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member

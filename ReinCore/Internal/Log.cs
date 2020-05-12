@@ -1,10 +1,10 @@
 ﻿namespace ReinCore
 {
     using System;
-    using BepInEx;
-    using BepInEx.Logging;
-    using System.Runtime.CompilerServices;
     using System.Collections.Generic;
+    using System.Runtime.CompilerServices;
+
+    using BepInEx.Logging;
 
     internal static class Log
     {
@@ -20,14 +20,14 @@
         public static void Fatal( System.Object data, [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 ) => InternalLog( LogLevel.Fatal, data, member, line );
         public static void Counter( [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 )
         {
-            if( !counters.ContainsKey(member) )
+            if( !counters.ContainsKey( member ) )
             {
                 counters[member] = 0UL;
             }
 
             InternalLog( LogLevel.None, String.Format( "{0}, member: {1}, line: {2}", counters[member]++, member, line ), member, line );
         }
-        public static void ClearCounter( Boolean toConsole = false, [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0)
+        public static void ClearCounter( Boolean toConsole = false, [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 )
         {
             if( !counters.ContainsKey( member ) )
             {
@@ -40,7 +40,7 @@
                 InternalLog( LogLevel.None, String.Format( "Counter cleared for member: {0}, line: {1}", member, line ), member, line );
             }
         }
-        
+
 
 
         static Log()

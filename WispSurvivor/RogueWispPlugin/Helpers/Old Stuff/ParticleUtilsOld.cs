@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+
 using UnityEngine;
 
 namespace Rein.RogueWispPlugin.Helpers

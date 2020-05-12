@@ -1,8 +1,11 @@
 ﻿#if ROGUEWISP
+using System.Collections.Generic;
+
 using EntityStates;
+
 using RoR2;
 using RoR2.Orbs;
-using System.Collections.Generic;
+
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -99,7 +102,7 @@ namespace Rein.RogueWispPlugin
             {
                 base.Update();
                 //Scale flare down based on time / flareTime
-                this.flare.intensity = 1f - (this.age / flareTime);
+                this.flare.intensity = 1f - ( this.age / flareTime );
             }
 
             public override void FixedUpdate()

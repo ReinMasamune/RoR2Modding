@@ -10,7 +10,7 @@
 //    public abstract class PassiveSkillController : MonoBehaviour
 //    {
 //        #region Inherit
-        
+
 
 
 //        #endregion
@@ -42,7 +42,7 @@
 //            this.onPassiveSkillChanged?.Invoke( slot, prevSkill, newSkill );
 //        }
 
-        
+
 
 //        #endregion
 //        #region Statics

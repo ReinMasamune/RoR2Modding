@@ -1,12 +1,10 @@
 ﻿#if ROGUEWISP
 using ReinCore;
-using MonoMod.Cil;
+
 using RoR2;
 using RoR2.Networking;
-using System;
-using System.Reflection;
+
 using UnityEngine;
-using Rein.RogueWispPlugin.Helpers;
 //using static RogueWispPlugin.Helpers.APIInterface;
 
 namespace Rein.RogueWispPlugin
@@ -87,7 +85,7 @@ namespace Rein.RogueWispPlugin
                 displayPrefab = display,
                 primaryColor = new Color( 0.7f, 0.2f, 0.9f ),
             };
-            
+
             if( SurvivorsCore.loaded )
             {
                 SurvivorCatalog.getAdditionalSurvivorDefs += ( list ) => list.Add( this.RW_survivorDef );

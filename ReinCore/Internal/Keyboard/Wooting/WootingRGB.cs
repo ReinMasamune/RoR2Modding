@@ -2,11 +2,13 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Text;
-    using UnityEngine;
     using System.IO;
-    using static global::ReinCore.Wooting.WootingRGBHelpers;
+
     using Rein.Properties;
+
+    using UnityEngine;
+
+    using static global::ReinCore.Wooting.WootingRGBHelpers;
 
     internal class WootingRGB : IKeyboardRGB, IDisposable
     {
@@ -18,7 +20,7 @@
         #region Constructor
         static WootingRGB()
         {
-            
+
         }
 
         internal WootingRGB( KeyboardType type )
@@ -98,7 +100,7 @@
                 polling = false;
             }
         }
-        
+
         private static void LateUpdate()
         {
             if( pendingChanges )

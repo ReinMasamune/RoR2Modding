@@ -2,8 +2,9 @@
 {
     using System;
     using System.Collections.Generic;
-    using BepInEx;
+
     using RoR2;
+
     using UnityEngine;
 
     // TODO: Docs for EffectsCore

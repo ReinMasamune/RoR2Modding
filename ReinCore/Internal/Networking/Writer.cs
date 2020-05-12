@@ -1,11 +1,12 @@
 ﻿namespace ReinCore
 {
     using System;
+
     using UnityEngine.Networking;
 
     internal class Writer : IDisposable
     {
-        internal Writer(NetworkWriter writer, Int16 messageIndex, NetworkConnection target, QosType qos )
+        internal Writer( NetworkWriter writer, Int16 messageIndex, NetworkConnection target, QosType qos )
         {
             this.netWriter = writer;
             this.connection = target;
@@ -17,10 +18,7 @@
         private readonly NetworkConnection connection;
         private readonly QosType qos;
 
-        public static implicit operator NetworkWriter( Writer writer )
-        {
-            return writer.netWriter;
-        }
+        public static implicit operator NetworkWriter( Writer writer ) => writer.netWriter;
 
         public void Dispose()
         {

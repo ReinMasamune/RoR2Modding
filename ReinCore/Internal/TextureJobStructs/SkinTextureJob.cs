@@ -1,12 +1,11 @@
 ﻿namespace ReinCore
 {
     using System;
-    using BepInEx;
+
     using Unity.Collections;
     using Unity.Jobs;
+
     using UnityEngine;
-    using System.Linq;
-    using Unity.Burst;
 
     internal struct SkinTextureJob : ITextureJob
     {
@@ -24,7 +23,7 @@
             this.crossSize = crossWidth;
             this.borderMaxW = this.texWidth - this.borderWidth;
             this.borderMaxH = this.texHeight - this.borderWidth;
-          
+
             this.borderColor = borderColor;
             this.crossColor = crossColor;
             this.topColor = topColor;
@@ -52,8 +51,10 @@
             } else
             {
                 this.handle.Complete();
-                var tex = new Texture2D( this.texWidth / this.sampleFactor, this.texHeight / this.sampleFactor, TextureFormat.RGBAFloat, false );
-                tex.wrapMode = TextureWrapMode.Clamp;
+                var tex = new Texture2D( this.texWidth / this.sampleFactor, this.texHeight / this.sampleFactor, TextureFormat.RGBAFloat, false )
+                {
+                    wrapMode = TextureWrapMode.Clamp
+                };
                 tex.LoadRawTextureData<Color>( this.texArray );
                 tex.Apply();
 
@@ -84,7 +85,7 @@
             xFrac -= 0.5f;
             yFrac -= 0.5f;
 
-            if( Mathf.Min( Mathf.Abs( xFrac - (-yFrac) ), Mathf.Abs( xFrac - yFrac ) ) <= crossValue )
+            if( Mathf.Min( Mathf.Abs( xFrac - ( -yFrac ) ), Mathf.Abs( xFrac - yFrac ) ) <= crossValue )
             {
                 color = this.crossColor;
                 goto OutputAndReturn;

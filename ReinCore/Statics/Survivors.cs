@@ -1,7 +1,7 @@
 ﻿namespace ReinCore
 {
     using System;
-    using BepInEx;
+
     using RoR2;
 
     // TODO: Docs for SurvivorsCore

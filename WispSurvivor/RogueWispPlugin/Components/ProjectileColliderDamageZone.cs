@@ -1,18 +1,18 @@
 ﻿#if ANCIENTWISP
-using RoR2;
-using RoR2.Orbs;
-using RoR2.Projectile;
-using System;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Networking;
-
 namespace Rein.RogueWispPlugin
 {
+    using System;
+    using System.Collections.Generic;
+
+    using RoR2;
+    using RoR2.Projectile;
+
+    using UnityEngine;
+    using UnityEngine.Networking;
 
     internal partial class Main
     {
-        [RequireComponent( typeof( ProjectileController) )]
+        [RequireComponent( typeof( ProjectileController ) )]
         [RequireComponent( typeof( ProjectileDamage ) )]
         internal class ProjectileColliderDamageZone : MonoBehaviour
         {
@@ -22,7 +22,7 @@ namespace Rein.RogueWispPlugin
             public Single radialForce = 0f;
             public Single normalForce = 0f;
             public Single tangentForce = 0f;
-           
+
 
 
 

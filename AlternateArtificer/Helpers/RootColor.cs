@@ -1,8 +1,7 @@
 ﻿namespace AlternativeArtificer.Helpers
 {
     using System;
-    using System.Collections.Generic;
-    using System.Text;
+
     using UnityEngine;
 
     public class RootColor
@@ -102,7 +101,7 @@
             return this;
         }
 
-        public static RootColor operator *(RootColor a, Single b)
+        public static RootColor operator *( RootColor a, Single b )
         {
             a.r *= b;
             a.g *= b;
@@ -110,7 +109,7 @@
             return a;
         }
 
-        public static RootColor operator /(RootColor a, Single b)
+        public static RootColor operator /( RootColor a, Single b )
         {
             a.r /= b;
             a.g /= b;

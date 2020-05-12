@@ -1,8 +1,10 @@
 ﻿#if ROGUEWISP
-using ReinCore;
 using Rein.RogueWispPlugin.Helpers;
+
+using ReinCore;
+
 using RoR2;
-using System;
+
 using UnityEngine;
 //using static RogueWispPlugin.Helpers.APIInterface;
 
@@ -72,7 +74,7 @@ namespace Rein.RogueWispPlugin
             sparksNoise.quality = ParticleSystemNoiseQuality.High;
             sparksNoise.scrollSpeed = 1f;
             sparksNoise.positionAmount = 3f;
-            
+
 
             primaryOrbEffect = obj;
             RegisterEffect( primaryOrbEffect );

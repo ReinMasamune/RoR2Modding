@@ -1,18 +1,16 @@
 ﻿namespace Sniper.SkillDefTypes.Bases
 {
     using System;
-    using System.Collections.Generic;
-    using System.Runtime.CompilerServices;
-    using BepInEx.Logging;
-    using ReinCore;
-    using RoR2;
-    using RoR2.Networking;
-    using UnityEngine;
-    using KinematicCharacterController;
+
     using EntityStates;
-    using RoR2.Skills;
-    using System.Reflection;
+
+    using ReinCore;
+
+    using RoR2;
+
     using Sniper.States.Bases;
+
+    using UnityEngine;
 
     internal abstract class ReactivatedSkillDef<TSkillData> : SniperSkillDef
         where TSkillData : SkillData, new()
@@ -173,7 +171,7 @@
             internal void RunRecharge( Single dt )
             {
                 this.reactivationTimer += dt;
-                if( !this.data.IsDataValid() || (this.def.maxReactivationTimer > 0f && this.reactivationTimer > this.def.maxReactivationTimer ) )
+                if( !this.data.IsDataValid() || ( this.def.maxReactivationTimer > 0f && this.reactivationTimer > this.def.maxReactivationTimer ) )
                 {
                     this.InvalidateReactivation();
                 }

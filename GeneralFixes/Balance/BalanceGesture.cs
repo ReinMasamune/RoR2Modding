@@ -1,19 +1,18 @@
 ﻿namespace ReinGeneralFixes
 {
-    using BepInEx;
-    using RoR2;
-    using UnityEngine;
-    using System.Collections.Generic;
-    using RoR2.Navigation;
-    using Mono.Cecil.Cil;
-    using MonoMod.Cil;
     using System;
-    using System.Reflection;
-    using EntityStates;
-    using RoR2.Skills;
     using System.Collections;
-    using UnityEngine.Networking;
+    using System.Collections.Generic;
+
+    using Mono.Cecil.Cil;
+
+    using MonoMod.Cil;
+
     using ReinCore;
+
+    using RoR2;
+
+    using UnityEngine;
 
     internal partial class Main
     {
@@ -165,9 +164,9 @@
                 if( inv )
                 {
                     Int32 gestureCount = inv.GetItemCount( ItemIndex.AutoCastEquipment );
-                    if( gestureCount > 0 && !RunArtifactManager.instance.IsArtifactEnabled(RoR2Content.Artifacts.enigmaArtifactDef) )
+                    if( gestureCount > 0 && !RunArtifactManager.instance.IsArtifactEnabled( RoR2Content.Artifacts.enigmaArtifactDef ) )
                     {
-                        if( Util.CheckRoll( 100f * ( 1f -  Mathf.Pow( 1f - this.gestureBreakChance, gestureCount )  ), body.master ) )
+                        if( Util.CheckRoll( 100f * ( 1f - Mathf.Pow( 1f - this.gestureBreakChance, gestureCount ) ), body.master ) )
                         {
                             DestroyEquipment( inv, equipInd );
                         }

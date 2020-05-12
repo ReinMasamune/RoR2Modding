@@ -1,12 +1,8 @@
 ﻿namespace ReinCore
 {
     using System;
-    using BepInEx;
-    using BepInEx.Logging;
-    using System.Runtime.CompilerServices;
-    using System.Collections.Generic;
-    using System.Reflection;
     using System.Linq.Expressions;
+    using System.Reflection;
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public struct JobDelegate<TDelegate> where TDelegate : System.Delegate
@@ -18,12 +14,12 @@
         {
             if( function == null )
             {
-                throw new ArgumentNullException( nameof(function) );
+                throw new ArgumentNullException( nameof( function ) );
             }
 
             if( function.Target != null )
             {
-                throw new ArgumentException( "Must be a static method", nameof(function) );
+                throw new ArgumentException( "Must be a static method", nameof( function ) );
             }
 
             MethodInfo method = function.Method;

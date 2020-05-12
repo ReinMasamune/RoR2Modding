@@ -1,7 +1,8 @@
 ﻿#if ANCIENTWISP
+using System;
+
 using RoR2;
 using RoR2.CharacterAI;
-using System;
 
 namespace Rein.RogueWispPlugin
 {

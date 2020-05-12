@@ -1,12 +1,11 @@
 ﻿namespace ReinCore
 {
     using System;
-    using BepInEx;
+
     using Unity.Collections;
     using Unity.Jobs;
+
     using UnityEngine;
-    using System.Linq;
-    using Unity.Burst;
 
     internal struct BarTextureJob : ITextureJob
     {
@@ -25,13 +24,13 @@
             this.bgColor = bgColor;
             this.regions = new NativeArray<ColorRegion>( regions, Allocator.TempJob );
             this.texArray = new NativeArray<Color>( this.texWidth * this.texHeight, Allocator.TempJob );
-            this.cornerRadSq = cornerRadius *  this.sampleFactor;
+            this.cornerRadSq = cornerRadius * this.sampleFactor;
             this.fillWidth = this.texWidth - this.borderWidth - this.borderWidth;
             this.cornerLeft = cornerRadius * this.sampleFactor;
-            this.cornerRight = this.texWidth - (cornerRadius * this.sampleFactor);
+            this.cornerRight = this.texWidth - ( cornerRadius * this.sampleFactor );
             this.cornerTop = cornerRadius * this.sampleFactor;
-            this.cornerBot = this.texHeight - (cornerRadius * this.sampleFactor);
-            this.outerColor =  this.borderWidth > 0 ? this.borderColor : this.bgColor ;
+            this.cornerBot = this.texHeight - ( cornerRadius * this.sampleFactor );
+            this.outerColor = this.borderWidth > 0 ? this.borderColor : this.bgColor;
             this.outerColor.a = 0f;
 
             this.handle = default;
@@ -74,7 +73,7 @@
         public void Execute( Int32 index )
         {
             Color resColor = this.bgColor;
-            if( index < this.borderWidth || index >= (this.texWidth - this.borderWidth) )
+            if( index < this.borderWidth || index >= ( this.texWidth - this.borderWidth ) )
             {
                 resColor = this.borderColor;
             } else
@@ -94,7 +93,7 @@
             for( Int32 i = 0; i < this.texHeight; ++i )
             {
                 Color resColor2 = resColor;
-                if( i < this.borderWidth || i >= (this.texHeight - this.borderWidth) )
+                if( i < this.borderWidth || i >= ( this.texHeight - this.borderWidth ) )
                 {
                     resColor2 = this.borderColor;
                 }
@@ -134,12 +133,12 @@
                     if( shouldCompare && dist >= 0f )
                     {
                         resColor2 = this.outerColor;
-                    } else if( shouldCompare && dist >= (-this.borderWidth) )
+                    } else if( shouldCompare && dist >= ( -this.borderWidth ) )
                     {
                         resColor2 = this.borderColor;
                     }
                 }
-                this.texArray[index + (this.texWidth * i)] = resColor2;
+                this.texArray[index + ( this.texWidth * i )] = resColor2;
             }
         }
         private NativeArray<Color> texArray;

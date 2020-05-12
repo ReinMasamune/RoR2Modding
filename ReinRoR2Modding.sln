@@ -8,14 +8,23 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReinArchwispDemo", "ReinArchwispDemo\ReinArchwispDemo.csproj", "{AAE032C4-4CF8-407A-89B0-F26581AB42CC}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeneralFixes", "GeneralFixes\GeneralFixes.csproj", "{7362BB6E-F261-4CEB-BA04-F611AE818E9C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{FFE533FA-760E-4409-B103-67F7F5EC59ED} = {FFE533FA-760E-4409-B103-67F7F5EC59ED}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StutterStunter", "StutterStunter\StutterStunter.csproj", "{B9018494-8A2C-4DD7-A898-A7B258CB187A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{FFE533FA-760E-4409-B103-67F7F5EC59ED} = {FFE533FA-760E-4409-B103-67F7F5EC59ED}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReinLunarWickedRing", "ReinLunarWickedRing\ReinLunarWickedRing.csproj", "{52721255-5AFA-4B1A-97A8-6464887A5D7D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HuntressSkills", "HuntressSkills\HuntressSkills.csproj", "{5957FF02-776C-47B8-AF9E-C945BA3BC4CC}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RogueWispPlugin", "WispSurvivor\RogueWispPlugin.csproj", "{3BDDA228-7CBC-4086-B32F-9D6592E5A53E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{FFE533FA-760E-4409-B103-67F7F5EC59ED} = {FFE533FA-760E-4409-B103-67F7F5EC59ED}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Deuterium Oxide", "Deuterium Oxide\Deuterium Oxide.csproj", "{FA176A06-C281-43BC-A0AA-7AF0CBFF4EFC}"
 EndProject
@@ -64,6 +73,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "StandaloneScripts", "Standa
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sniper", "Sniper\Sniper.csproj", "{396EC8E4-3BE6-4F6C-90AC-0D62294FC162}"
+	ProjectSection(ProjectDependencies) = postProject
+		{FFE533FA-760E-4409-B103-67F7F5EC59ED} = {FFE533FA-760E-4409-B103-67F7F5EC59ED}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IL", "IL", "{1F3A36C6-5E60-4EEA-B71B-942A1784DDD9}"
 EndProject

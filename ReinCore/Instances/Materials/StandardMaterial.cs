@@ -1,8 +1,7 @@
 ﻿namespace ReinCore
 {
     using System;
-    using System.Collections.Generic;
-    using System.Text;
+
     using UnityEngine;
 
     /// <summary>
@@ -11,10 +10,10 @@
     [Serializable]
     public class StandardMaterial : MaterialBase
     {
-        [Menu(sectionName = "Main")]
-        
+        [Menu( sectionName = "Main" )]
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -27,9 +26,9 @@
         }
 
         [Menu( sectionName = "Main" )]
-        
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -42,9 +41,9 @@
         }
 
         [Menu( sectionName = "Main" )]
-        
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -67,9 +66,9 @@
 #pragma warning restore IDE1006 // Naming Styles
 
         [Menu( sectionName = "Main" )]
-        
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -82,9 +81,9 @@
         }
 
         [Menu( sectionName = "Main" )]
-        
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -107,9 +106,9 @@
 #pragma warning restore IDE1006 // Naming Styles
 
         [Menu( sectionName = "Main" )]
-        
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -122,9 +121,9 @@
         }
 
         [Menu( sectionName = "Main" )]
-        
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -147,9 +146,9 @@
 #pragma warning restore IDE1006 // Naming Styles
 
         [Menu( sectionName = "Main" )]
-        
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -162,9 +161,9 @@
         }
 
         [Menu( sectionName = "Main" )]
-        
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -177,9 +176,9 @@
         }
 
         [Menu( sectionName = "Main" )]
-        
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -192,9 +191,9 @@
         }
 
         [Menu( sectionName = "Main" )]
-        
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -207,9 +206,9 @@
         }
 
         [Menu( sectionName = "Main" )]
-        
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -239,9 +238,9 @@
         }
 
         [Menu( sectionName = "Main" )]
-        
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -254,9 +253,9 @@
         }
 
         [Menu( sectionName = "Main" )]
-        
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -269,9 +268,9 @@
         }
 
         [Menu( sectionName = "Main" )]
-        
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -284,9 +283,9 @@
         }
 
         [Menu( sectionName = "Dithering" )]
-        
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -299,9 +298,9 @@
         }
 
         [Menu( sectionName = "Dithering" )]
-        
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -314,9 +313,9 @@
         }
 
         [Menu( sectionName = "Fresnel Emission" )]
-        
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -329,9 +328,9 @@
         }
 
         [Menu( sectionName = "Fresnel Emission", isRampTexture = true )]
-        
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -354,9 +353,9 @@
 #pragma warning restore IDE1006 // Naming Styles
 
         [Menu( sectionName = "Fresnel Emission" )]
-        
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -369,9 +368,9 @@
         }
 
         [Menu( sectionName = "Fresnel Emission" )]
-        
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -394,9 +393,9 @@
 #pragma warning restore IDE1006 // Naming Styles
 
         [Menu( sectionName = "Fresnel Emission" )]
-        
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -409,9 +408,9 @@
         }
 
         [Menu( sectionName = "Printing" )]
-        
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -424,9 +423,9 @@
         }
 
         [Menu( sectionName = "Printing" )]
-        
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -439,9 +438,9 @@
         }
 
         [Menu( sectionName = "Printing" )]
-        
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -454,9 +453,9 @@
         }
 
         [Menu( sectionName = "Printing" )]
-        
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -469,9 +468,9 @@
         }
 
         [Menu( sectionName = "Printing" )]
-        
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -494,9 +493,9 @@
 #pragma warning restore IDE1006 // Naming Styles
 
         [Menu( sectionName = "Printing" )]
-        
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -509,9 +508,9 @@
         }
 
         [Menu( sectionName = "Printing" )]
-        
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -524,9 +523,9 @@
         }
 
         [Menu( sectionName = "Printing" )]
-        
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -539,9 +538,9 @@
         }
 
         [Menu( sectionName = "Printing" )]
-        
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -568,9 +567,9 @@
         }
 
         [Menu( sectionName = "Printing", isRampTexture = true )]
-        
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -593,9 +592,9 @@
 #pragma warning restore IDE1006 // Naming Styles
 
         [Menu( sectionName = "Printing" )]
-        
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -603,14 +602,14 @@
 #pragma warning restore CS1587 // XML comment is not placed on a valid language element
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
         {
-            get => (RoR2.EliteIndex)(base.GetSingle( "_EliteIndex" ) - 1);
-            set => base.SetSingle( "_EliteIndex", ((Single)value) + 1 );
+            get => (RoR2.EliteIndex)( base.GetSingle( "_EliteIndex" ) - 1 );
+            set => base.SetSingle( "_EliteIndex", ( (Single)value ) + 1 );
         }
 
         [Menu( sectionName = "Printing" )]
-        
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -623,9 +622,9 @@
         }
 
         [Menu( sectionName = "Printing" )]
-        
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -638,9 +637,9 @@
         }
 
         [Menu( sectionName = "Splatmap" )]
-        
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -653,9 +652,9 @@
         }
 
         [Menu( sectionName = "Splatmap" )]
-        
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -668,9 +667,9 @@
         }
 
         [Menu( sectionName = "Splatmap" )]
-        
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -683,9 +682,9 @@
         }
 
         [Menu( sectionName = "Splatmap" )]
-        
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -708,9 +707,9 @@
 #pragma warning restore IDE1006 // Naming Styles
 
         [Menu( sectionName = "Splatmap" )]
-        
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -723,9 +722,9 @@
         }
 
         [Menu( sectionName = "Splatmap" )]
-        
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -748,9 +747,9 @@
 #pragma warning restore IDE1006 // Naming Styles
 
         [Menu( sectionName = "Splatmap" )]
-        
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -773,9 +772,9 @@
 #pragma warning restore IDE1006 // Naming Styles
 
         [Menu( sectionName = "Splatmap" )]
-        
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -788,9 +787,9 @@
         }
 
         [Menu( sectionName = "Splatmap" )]
-        
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -803,9 +802,9 @@
         }
 
         [Menu( sectionName = "Splatmap" )]
-        
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -828,9 +827,9 @@
 #pragma warning restore IDE1006 // Naming Styles
 
         [Menu( sectionName = "Splatmap" )]
-        
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -853,9 +852,9 @@
 #pragma warning restore IDE1006 // Naming Styles
 
         [Menu( sectionName = "Splatmap" )]
-        
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -868,9 +867,9 @@
         }
 
         [Menu( sectionName = "Splatmap" )]
-        
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -883,9 +882,9 @@
         }
 
         [Menu( sectionName = "Flowmap" )]
-        
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -898,9 +897,9 @@
         }
 
         [Menu( sectionName = "Flowmap" )]
-        
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -923,9 +922,9 @@
 #pragma warning restore IDE1006 // Naming Styles
 
         [Menu( sectionName = "Flowmap" )]
-        
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -969,9 +968,9 @@
 #pragma warning restore IDE1006 // Naming Styles
 
         [Menu( sectionName = "Flowmap" )]
-        
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -984,9 +983,9 @@
         }
 
         [Menu( sectionName = "Flowmap" )]
-        
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -999,9 +998,9 @@
         }
 
         [Menu( sectionName = "Flowmap" )]
-        
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -1014,9 +1013,9 @@
         }
 
         [Menu( sectionName = "Flowmap" )]
-        
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -1029,9 +1028,9 @@
         }
 
         [Menu( sectionName = "Flowmap" )]
-        
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -1044,9 +1043,9 @@
         }
 
         [Menu( sectionName = "Flowmap" )]
-        
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -1059,9 +1058,9 @@
         }
 
         [Menu( sectionName = "Flowmap" )]
-        
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -1074,9 +1073,9 @@
         }
 
         [Menu( sectionName = "Limb" )]
-        
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -1089,9 +1088,9 @@
         }
 
         [Menu( sectionName = "Limb" )]
-        
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -1104,9 +1103,9 @@
         }
 
         [Menu( sectionName = "Limb" )]
-        
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member

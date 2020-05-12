@@ -1,11 +1,9 @@
 ﻿#if ANCIENTWISP
-using RoR2;
-using RoR2.Orbs;
-using RoR2.Projectile;
 using System;
-using System.Collections.Generic;
+
+using RoR2;
+
 using UnityEngine;
-using UnityEngine.Networking;
 
 namespace Rein.RogueWispPlugin
 {
@@ -50,7 +48,7 @@ namespace Rein.RogueWispPlugin
                         bounds.center + new Vector3( extX, extY, extZ ),
                         bounds.center + new Vector3( extX, extY, -extZ ),
                     };
-                    
+
                     call.corners = corners;
                     call.line.SetPositions( corners );
                     call.line.loop = true;

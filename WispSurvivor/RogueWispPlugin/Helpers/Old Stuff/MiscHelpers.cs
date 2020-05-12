@@ -1,7 +1,4 @@
-﻿using System;
-using UnityEngine;
-
-namespace Rein.RoR2Plugin
+﻿namespace Rein.RoR2Plugin
 {
     internal partial class Main
     {

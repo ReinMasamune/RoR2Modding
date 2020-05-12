@@ -1,12 +1,15 @@
 ﻿#if ANCIENTWISP
 //using GeneralPluginStuff;
-using Rein.RogueWispPlugin.Helpers;
-using RoR2;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+
+using Rein.RogueWispPlugin.Helpers;
+
+using RoR2;
+
 using UnityEngine;
 
 namespace Rein.RogueWispPlugin

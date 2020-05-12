@@ -117,7 +117,7 @@
 //            }
 
 //            Material baseArmorMaterial = MonoBehaviour.Instantiate<Material>(Resources.Load<GameObject>("Prefabs/CharacterBodies/AncientWispBody").GetComponent<ModelLocator>().modelTransform.Find("AncientWispMesh").GetComponent<SkinnedMeshRenderer>().material);
-          
+
 //            baseArmorMaterial.DisableKeyword( "DITHER" );
 //            baseArmorMaterial.DisableKeyword( "_EMISSION" );
 //            baseArmorMaterial.EnableKeyword( "FLOWMAP" );

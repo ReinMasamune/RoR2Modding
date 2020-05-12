@@ -1,8 +1,10 @@
 ﻿#if ANCIENTWISP
+using System;
+
 using RoR2;
 using RoR2.Orbs;
 using RoR2.Projectile;
-using System;
+
 using UnityEngine;
 
 namespace Rein.RogueWispPlugin
@@ -10,7 +12,7 @@ namespace Rein.RogueWispPlugin
 
     internal partial class Main
     {
-        [RequireComponent( typeof( ProjectileController) )]
+        [RequireComponent( typeof( ProjectileController ) )]
         internal class ProjectileUniversalHealOrbOnDamage : MonoBehaviour, IOnDamageInflictedServerReceiver
         {
             public GameObject effectPrefab;
@@ -18,7 +20,7 @@ namespace Rein.RogueWispPlugin
             public UniversalHealOrb.HealType healType;
             public Single value;
             public Boolean useSkin = false;
-            
+
 
             private ProjectileController projectileController;
             private HurtBox ownerHB;
@@ -54,7 +56,7 @@ namespace Rein.RogueWispPlugin
                             50f,
                             this.healType,
                             this.healTarget
-                        ));
+                        ) );
                     }
                 }
             }

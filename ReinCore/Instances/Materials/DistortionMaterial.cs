@@ -1,8 +1,7 @@
 ﻿namespace ReinCore
 {
     using System;
-    using System.Collections.Generic;
-    using System.Text;
+
     using UnityEngine;
 
     /// <summary>
@@ -11,9 +10,9 @@
     public class DistortionMaterial : MaterialBase
     {
         [Menu( sectionName = "Uncategorized" )]
-        
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -26,9 +25,9 @@
         }
 
         [Menu( sectionName = "Uncategorized" )]
-        
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -50,9 +49,9 @@
 #pragma warning restore IDE1006 // Naming Styles
 
         [Menu( sectionName = "Uncategorized" )]
-        
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -73,10 +72,10 @@
         private ScaleOffsetTextureData _bumpTexture;
 #pragma warning restore IDE1006 // Naming Styles
 
-        [Menu(sectionName = "Uncategorized")]
-        
+        [Menu( sectionName = "Uncategorized" )]
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -98,7 +97,7 @@
         }
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-        public DistortionMaterial( Material mat ) : base( mat ) 
+        public DistortionMaterial( Material mat ) : base( mat )
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
         {
 

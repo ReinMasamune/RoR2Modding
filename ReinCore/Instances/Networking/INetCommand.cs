@@ -1,6 +1,7 @@
 ﻿namespace ReinCore
 {
     using System;
+
     using UnityEngine.Networking;
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member

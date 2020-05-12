@@ -1,11 +1,15 @@
 ﻿#if ANCIENTWISP
 using System;
+
 using EntityStates;
+
 using Rein.RogueWispPlugin.Helpers;
-using RoR2;
-using UnityEngine;
+
 using ReinCore;
-using Rein;
+
+using RoR2;
+
+using UnityEngine;
 
 namespace Rein.RogueWispPlugin
 {
@@ -125,22 +129,22 @@ namespace Rein.RogueWispPlugin
                 switch( esm.customName )
                 {
                     case "Body":
-                        netStates[0] = esm;
-                        esm.mainStateType = new SerializableEntityStateType( typeof( AWDefaultMain ) );//typeof( AWDefaultMain ).EntityStateType();
-                        esm.initialStateType = new SerializableEntityStateType( typeof( AWDefaultMain ) );//typeof( AWDefaultMain ).EntityStateType();
-                        hurtState.targetStateMachine = esm;
-                        death.deathStateMachine = esm;
-                        break;
+                    netStates[0] = esm;
+                    esm.mainStateType = new SerializableEntityStateType( typeof( AWDefaultMain ) );//typeof( AWDefaultMain ).EntityStateType();
+                    esm.initialStateType = new SerializableEntityStateType( typeof( AWDefaultMain ) );//typeof( AWDefaultMain ).EntityStateType();
+                    hurtState.targetStateMachine = esm;
+                    death.deathStateMachine = esm;
+                    break;
 
                     case "Weapon":
-                        esm.initialStateType = new SerializableEntityStateType( typeof( Idle ) );
-                        esm.mainStateType = new SerializableEntityStateType( typeof( Idle ) );
-                        netStates[1] = esm;
-                        death.idleStateMachine[0] = esm;
-                        break;
+                    esm.initialStateType = new SerializableEntityStateType( typeof( Idle ) );
+                    esm.mainStateType = new SerializableEntityStateType( typeof( Idle ) );
+                    netStates[1] = esm;
+                    death.idleStateMachine[0] = esm;
+                    break;
 
                     default:
-                        break;
+                    break;
                 }
             }
 

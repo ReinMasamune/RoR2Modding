@@ -1,11 +1,6 @@
 ﻿namespace ReinCore
 {
-    using System;
-    using System.Linq.Expressions;
-    using System.Reflection;
-    using BepInEx;
     using RoR2;
-    using UnityEngine;
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 #pragma warning disable IDE1006 // Naming Styles

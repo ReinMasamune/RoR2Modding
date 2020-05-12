@@ -1,5 +1,7 @@
-﻿using RoR2.Orbs;
-using System.Reflection;
+﻿using System.Reflection;
+
+using RoR2.Orbs;
+
 using UnityEngine;
 
 namespace Rein.RogueWispPlugin

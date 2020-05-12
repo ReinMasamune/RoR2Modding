@@ -1,7 +1,6 @@
 ﻿namespace ReinCore
 {
     using System;
-    using UnityEngine;
 
     [AttributeUsage( AttributeTargets.Property, AllowMultiple = false, Inherited = false )]
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member

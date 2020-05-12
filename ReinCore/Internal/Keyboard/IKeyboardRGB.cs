@@ -2,10 +2,10 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Text;
+
     using UnityEngine;
 
-    interface IKeyboardRGB
+    internal interface IKeyboardRGB
     {
         IList<GlobalKeys> GetAllKeys();
         Boolean CheckConnected();

@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Runtime.InteropServices;
-    using BepInEx;
+
     using RoR2;
 
     /// <summary>

@@ -1,10 +1,7 @@
 ﻿namespace ReinCore
 {
     using System;
-    using System.ComponentModel;
-    using System.Linq.Expressions;
-    using System.Reflection;
-    using BepInEx;
+
     using UnityEngine;
 
     // TODO: Finish Interpolation Library
@@ -73,7 +70,7 @@
                 {
                     Enum en = settings[i];
                     Type type = en.GetType();
-                    if( type == typeof(Mode) )
+                    if( type == typeof( Mode ) )
                     {
                         this.mode = (Mode)en;
                     } else if( type == typeof( Style ) )
@@ -116,63 +113,63 @@
             switch( mode )
             {
                 case Mode.Standard:
-                    break;
+                break;
                 case Mode.Squares:
-                    from *= from;
-                    to *= to;
-                    break;
+                from *= from;
+                to *= to;
+                break;
                 case Mode.SquareRoots:
-                    from = Mathf.Sqrt( from );
-                    to = Mathf.Sqrt( to );
-                    break;
+                from = Mathf.Sqrt( from );
+                to = Mathf.Sqrt( to );
+                break;
                 default:
-                    throw new ArgumentOutOfRangeException( nameof( mode ) );
+                throw new ArgumentOutOfRangeException( nameof( mode ) );
             }
             switch( style )
             {
                 case Style.Nearest:
-                    output = t < 0.5f ? from : to;
-                    break;
+                output = t < 0.5f ? from : to;
+                break;
                 case Style.Linear:
-                    output = from + ((to - from) * t);
-                    break;
+                output = from + ( ( to - from ) * t );
+                break;
                 case Style.Polynomial:
-                    throw new NotImplementedException();
-                    break;
+                throw new NotImplementedException();
+                break;
                 case Style.Spline:
-                    throw new NotImplementedException();
-                    break;
+                throw new NotImplementedException();
+                break;
                 case Style.Cubic:
-                    throw new NotImplementedException();
-                    break;
+                throw new NotImplementedException();
+                break;
                 case Style.Spherical:
-                    throw new NotImplementedException();
-                    break;
+                throw new NotImplementedException();
+                break;
                 default:
-                    throw new ArgumentOutOfRangeException( nameof( style ) );
+                throw new ArgumentOutOfRangeException( nameof( style ) );
             }
             switch( mode )
             {
                 case Mode.Standard:
-                    break;
+                break;
                 case Mode.Squares:
-                    output = Mathf.Sqrt( output );
-                    break;
+                output = Mathf.Sqrt( output );
+                break;
                 case Mode.SquareRoots:
-                    output *= output;
-                    break;
+                output *= output;
+                break;
                 default:
-                    throw new ArgumentOutOfRangeException( nameof( mode ) );
+                throw new ArgumentOutOfRangeException( nameof( mode ) );
             }
             switch( clamp )
             {
                 case Clamping.Unclamped:
-                    break;
+                break;
                 case Clamping.Clamped:
-                    output = Mathf.Clamp( output, Mathf.Min( from, to ), Mathf.Max( from, to ) );
-                    break;
+                output = Mathf.Clamp( output, Mathf.Min( from, to ), Mathf.Max( from, to ) );
+                break;
                 default:
-                    throw new ArgumentOutOfRangeException( nameof( clamp ) );
+                throw new ArgumentOutOfRangeException( nameof( clamp ) );
             }
             return output;
         }

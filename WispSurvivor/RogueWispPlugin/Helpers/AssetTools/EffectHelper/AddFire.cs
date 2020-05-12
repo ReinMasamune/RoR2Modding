@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+
 using UnityEngine;
 
 namespace Rein.RogueWispPlugin.Helpers
@@ -8,7 +8,7 @@ namespace Rein.RogueWispPlugin.Helpers
     internal static partial class EffectHelper
     {
         private static Dictionary<GameObject, UInt32> fireCounter = new Dictionary<GameObject, UInt32>();
-        internal static ParticleSystem AddFire( GameObject mainObj, WispSkinnedEffect skin, MaterialType matType, Single size, Single lifetime, Single timeRate, Single distRate,  Single gravity, Boolean inWorld = false )
+        internal static ParticleSystem AddFire( GameObject mainObj, WispSkinnedEffect skin, MaterialType matType, Single size, Single lifetime, Single timeRate, Single distRate, Single gravity, Boolean inWorld = false )
         {
             if( !fireCounter.ContainsKey( mainObj ) ) fireCounter[mainObj] = 0u;
             var obj = new GameObject( "Fire" + fireCounter[mainObj]++ );
@@ -22,7 +22,7 @@ namespace Rein.RogueWispPlugin.Helpers
             if( matType != MaterialType.Constant )
             {
                 skin.AddRenderer( psr, matType );
-            }  
+            }
             BasicSetup( ps );
 
             ps.useAutoRandomSeed = true;
@@ -69,7 +69,7 @@ namespace Rein.RogueWispPlugin.Helpers
 
             var psCOL = ps.colorOverLifetime;
             psCOL.enabled = true;
-            psCOL.color = new ParticleSystem.MinMaxGradient(new Gradient
+            psCOL.color = new ParticleSystem.MinMaxGradient( new Gradient
             {
                 mode = GradientMode.Blend,
                 alphaKeys = new[]

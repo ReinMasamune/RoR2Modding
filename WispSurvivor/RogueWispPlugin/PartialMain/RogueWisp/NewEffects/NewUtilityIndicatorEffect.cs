@@ -1,9 +1,10 @@
 ﻿#if ROGUEWISP
-using ReinCore;
 using Rein.RogueWispPlugin.Helpers;
+
+using ReinCore;
+
 using RoR2;
-using RoR2.Projectile;
-using System;
+
 using UnityEngine;
 //using static RogueWispPlugin.Helpers.APIInterface;
 
@@ -65,7 +66,7 @@ namespace Rein.RogueWispPlugin
             //var slow = obj.AddComponent<SlowDownProjectiles>();
             //slow.maxVelocityMagnitude = 20f;
             //slow.antiGravity = 0f;
-            
+
 
             utilityIndicator = obj;
             RegisterEffect( utilityIndicator );

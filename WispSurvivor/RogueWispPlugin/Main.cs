@@ -1,8 +1,11 @@
-﻿using BepInEx;
-using RoR2;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+
+using BepInEx;
+
+using RoR2;
+
 using UnityEngine;
 
 namespace Rein.RogueWispPlugin
@@ -136,14 +139,13 @@ namespace Rein.RogueWispPlugin
         partial void SetupMatEditor();
 #endif
         partial void SetupSkinSelector();
-        partial void SetupEffectSkinning();       
+        partial void SetupEffectSkinning();
         static Main()
         {
         }
         public Main()
         {
             instance = this;
-            var r2apiExists = false;
             HashSet<String> submodules = new HashSet<String>();
             //ReflectionOnlyAssemblyResolve
             for( Int32 i = 0; i < this.plugins.Count; ++i )
@@ -151,9 +153,8 @@ namespace Rein.RogueWispPlugin
                 var p = this.plugins[i];
                 if( p.Metadata.GUID == "com.bepis.r2api" )
                 {
-                    r2apiExists = true;
                 }
-                
+
             }
 
             this.thing1 = "Note that everything in this codebase that can be used safely is already part of R2API.";
@@ -246,7 +247,7 @@ namespace Rein.RogueWispPlugin
 
             this.Enable += IncState;
             this.FirstFrame += IncState;
-            
+
 
             //this.FirstFrame += this.TestingShit;
         }
@@ -342,13 +343,13 @@ namespace Rein.RogueWispPlugin
         }
 
         private static Texture2D uvTex;
-        
+
         internal static Texture2D GetUVTexture()
         {
             if( uvTex == null )
             {
                 uvTex = new Texture2D( 256, 256, TextureFormat.RGBAFloat, false );
-                
+
                 for( Int32 x = 0; x < uvTex.width; ++x )
                 {
                     var red = 0.85f * (Single)x / (Single)(uvTex.width-1);
@@ -389,7 +390,7 @@ namespace Rein.RogueWispPlugin
 
         private delegate void InvokeEffectsReloadDelegate( ConCommandArgs args );
         private InvokeEffectsReloadDelegate CCEffectsReload = (InvokeEffectsReloadDelegate)Delegate.CreateDelegate(typeof(InvokeEffectsReloadDelegate),typeof(EffectCatalog),"CCEffectsReload" );
-        private void Main_FirstFrame() => this.CCEffectsReload(default);
+        private void Main_FirstFrame() => this.CCEffectsReload( default );
 
 #pragma warning disable IDE0051 // Remove unused private members
         public void Awake() => this.Load?.Invoke();

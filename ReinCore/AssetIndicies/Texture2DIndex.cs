@@ -1,8 +1,6 @@
 ﻿namespace ReinCore
 {
     using System;
-    using System.Collections.Generic;
-    using System.Text;
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public enum Texture2DIndex : UInt64

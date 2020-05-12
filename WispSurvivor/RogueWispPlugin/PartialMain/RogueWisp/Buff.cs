@@ -1,8 +1,8 @@
 ﻿#if ROGUEWISP
 using ReinCore;
+
 using RoR2;
-using System;
-using System.Collections.Generic;
+
 using UnityEngine;
 //using static RogueWispPlugin.Helpers.APIInterface;
 

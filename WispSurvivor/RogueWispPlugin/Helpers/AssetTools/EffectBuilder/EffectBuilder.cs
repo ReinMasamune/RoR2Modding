@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using UnityEngine;
+
 using ReinCore;
+
+using UnityEngine;
 
 namespace Rein.RogueWispPlugin.Helpers
 {
@@ -15,7 +16,7 @@ namespace Rein.RogueWispPlugin.Helpers
             public String name;
             public Boolean useEffectComponent;
         }
-        internal EffectBuilder(EffectBaseParams parameters)
+        internal EffectBuilder( EffectBaseParams parameters )
         {
             if( materialLibrary == null )
             {
@@ -85,7 +86,7 @@ namespace Rein.RogueWispPlugin.Helpers
         }
 
 
-        private static void CopyCat( EffectCategory copy, EffectCategory old, Dictionary<String,EffectCategory> catIndex )
+        private static void CopyCat( EffectCategory copy, EffectCategory old, Dictionary<String, EffectCategory> catIndex )
         {
             var copyObj = copy.obj.transform;
             var copyRoot = catIndex[rootName].obj.transform;

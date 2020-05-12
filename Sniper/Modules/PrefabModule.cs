@@ -1,18 +1,21 @@
 ﻿namespace Sniper.Modules
 {
     using System;
-    using System.Collections.Generic;
-    using System.Runtime.CompilerServices;
-    using BepInEx.Logging;
+
+    using EntityStates;
+
+    using KinematicCharacterController;
+
     using ReinCore;
+
     using RoR2;
     using RoR2.Networking;
-    using UnityEngine;
-    using KinematicCharacterController;
-    using EntityStates;
-    using Sniper.Properties;
-    using UnityEngine.Networking;
+
     using Sniper.Components;
+    using Sniper.Properties;
+
+    using UnityEngine;
+    using UnityEngine.Networking;
 
     internal static class PrefabModule
     {
@@ -33,7 +36,7 @@
 
             var modelBase = new GameObject("ModelBase");
             modelBase.transform.parent = obj.transform;
-            modelBase.transform.localPosition = new Vector3(0f, -0.81f, 0f);
+            modelBase.transform.localPosition = new Vector3( 0f, -0.81f, 0f );
             modelBase.transform.localRotation = Quaternion.identity;
             modelBase.transform.localScale = new Vector3( 1f, 1f, 1f );
 
@@ -375,7 +378,7 @@
             footsteps.baseFootstepString = "Play_player_footstep";
             footsteps.sprintFootstepOverrideString = "";
             footsteps.enableFootstepDust = true;
-            footsteps.footstepDustPrefab = UnityEngine.Resources.Load<GameObject>( "Prefabs/GenericFootstepDust");
+            footsteps.footstepDustPrefab = UnityEngine.Resources.Load<GameObject>( "Prefabs/GenericFootstepDust" );
 
 
             RagdollController ragdoll = model.AddOrGetComponent<RagdollController>();
@@ -391,7 +394,7 @@
             aimAnimator.pitchRangeMin = -50f;
             aimAnimator.yawRangeMin = -44f;
             aimAnimator.yawRangeMax = 44f;
-            
+
             aimAnimator.pitchGiveupRange = 30f;
             aimAnimator.yawGiveupRange = 10f;
             aimAnimator.giveupDuration = 8f;

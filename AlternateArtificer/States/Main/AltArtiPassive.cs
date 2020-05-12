@@ -1,13 +1,14 @@
 ﻿namespace AlternativeArtificer.States.Main
 {
-    using EntityStates;
-    using RoR2;
-    using RoR2.Projectile;
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Reflection;
-    using System.Text;
+
+    using EntityStates;
+
+    using RoR2;
+    using RoR2.Projectile;
+
     using UnityEngine;
     using UnityEngine.Networking;
 
@@ -15,27 +16,26 @@
     {
         #region External Consts
         //External
-        const Single nanoBombInterval = 0.35f;
-        const Single nanoBombMinDelay = 0.3f;
-        const Single nanoBombMaxDelay = 0.7f;
-        const Single prepWallMaxDelay = 0.3f;
-        const Single prepWallMinDelay = 0.7f;
-        const Single flamethrowerInterval = 0.35f;
-        const Int32 nanoBombMaxPerTick = 10;
-        const Int32 flamethrowerMaxPerTick = 10;
+        private const Single nanoBombInterval = 0.35f;
+        private const Single nanoBombMinDelay = 0.3f;
+        private const Single nanoBombMaxDelay = 0.7f;
+        private const Single prepWallMaxDelay = 0.3f;
+        private const Single prepWallMinDelay = 0.7f;
+        private const Single flamethrowerInterval = 0.35f;
+        private const Int32 nanoBombMaxPerTick = 10;
+        private const Int32 flamethrowerMaxPerTick = 10;
         #endregion
 
         #region Internal Consts
-        const Single nodeYOffset = 1.6f;
-        const Single nodeArcFrac = 0.6f;
-        const Single nodeMinRadius = 1.15f;
-        const Single nodeMaxRadius = 1.6f;
-        const Single nodeFireRadius = 0.25f;
-        const Single nodeFireRate = 0.65f;
-        const Single nodeFireMin = -0.05f;
-        const Single nodeFireMax = 0.05f;
-
-        const Int32 nodesToCreate = 16;
+        private const Single nodeYOffset = 1.6f;
+        private const Single nodeArcFrac = 0.6f;
+        private const Single nodeMinRadius = 1.15f;
+        private const Single nodeMaxRadius = 1.6f;
+        private const Single nodeFireRadius = 0.25f;
+        private const Single nodeFireRate = 0.65f;
+        private const Single nodeFireMin = -0.05f;
+        private const Single nodeFireMax = 0.05f;
+        private const Int32 nodesToCreate = 16;
 
 
         #endregion
@@ -138,7 +138,7 @@
         {
             public List<ProjectileData> handledProjectiles = new List<ProjectileData>();
 
-            public void Fire(Single minDelay, Single maxDelay)
+            public void Fire( Single minDelay, Single maxDelay )
             {
                 foreach( ProjectileData proj in this.handledProjectiles )
                 {
@@ -176,7 +176,7 @@
 
             private readonly Helpers.InstancedRandom random;
 
-            public ProjectileData(Helpers.InstancedRandom random, BatchHandle handle = null)
+            public ProjectileData( Helpers.InstancedRandom random, BatchHandle handle = null )
             {
                 this.random = random;
                 this.type = Mathf.FloorToInt( this.random.Range( 0f, 2f ) );
@@ -226,7 +226,7 @@
 
             private Single timer = 0f;
 
-            
+
 
             public ProjectileData nextProj;
 
@@ -278,7 +278,7 @@
 
                 if( this.effect )
                 {
-                    this.effect.transform.rotation = Quaternion.AngleAxis( this.nextProj.rotation, direction ) * Util.QuaternionSafeLookRotation(direction);
+                    this.effect.transform.rotation = Quaternion.AngleAxis( this.nextProj.rotation, direction ) * Util.QuaternionSafeLookRotation( direction );
                 }
 
                 if( this.nextProj.isTriggered )
@@ -289,7 +289,7 @@
                         this.timer += deltaT;
                         if( this.timer >= this.nextProj.timer )
                         {
-                            this.Fire(target);
+                            this.Fire( target );
                         }
                     }
                 } else
@@ -297,7 +297,7 @@
                     this.timer += deltaT;
                     if( this.timer >= this.fireTime + this.nextProj.timer )
                     {
-                        this.Fire(target);
+                        this.Fire( target );
                     }
                 }
             }
@@ -323,7 +323,7 @@
                 return temp;
             }
 
-            private void Fire( HurtBox target)
+            private void Fire( HurtBox target )
             {
                 this.timer = 0f;
                 if( this.effect == null )
@@ -352,7 +352,7 @@
                 this.nextProj = null;
             }
 
-            private void CreateEffect(ProjectileData proj )
+            private void CreateEffect( ProjectileData proj )
             {
                 if( this.effect != null )
                 {
@@ -368,7 +368,7 @@
 
 
         #region External Methods
-        public void SkillCast(BatchHandle handle = null)
+        public void SkillCast( BatchHandle handle = null )
         {
             this.DoLightning( this.lightningPower, handle );
             this.DoFire( this.firePower );
@@ -378,7 +378,7 @@
         {
             if( this.icePower > Power.None )
             {
-                this.CreateIceBlast( report.damageInfo.position, iceBaseRadius + ((Int32)this.icePower * iceRadScale) );
+                this.CreateIceBlast( report.damageInfo.position, iceBaseRadius + ( (Int32)this.icePower * iceRadScale ) );
             }
         }
         #endregion
@@ -405,7 +405,7 @@
             }
         }
 
-        private void CreateIceBlast( Vector3 position, Single radius)
+        private void CreateIceBlast( Vector3 position, Single radius )
         {
             if( NetworkServer.active )
             {
@@ -444,17 +444,17 @@
             switch( name )
             {
                 default:
-                    Debug.Log( "Element: " + name + " is not handled" );
-                    break;
+                Debug.Log( "Element: " + name + " is not handled" );
+                break;
                 case "fire":
-                    this.firePower++;
-                    break;
+                this.firePower++;
+                break;
                 case "ice":
-                    this.icePower++;
-                    break;
+                this.icePower++;
+                break;
                 case "lightning":
-                    this.lightningPower++;
-                    break;
+                this.lightningPower++;
+                break;
             }
 
             skill.onSkillChanged += ( s ) => this.GetPowers();
@@ -536,7 +536,7 @@
         {
             base.OnEnter();
 
-            this.random = new Helpers.InstancedRandom((Int32)base.characterBody.netId.Value );
+            this.random = new Helpers.InstancedRandom( (Int32)base.characterBody.netId.Value );
 
             this.modelTransform = base.GetModelTransform();
 

@@ -1,14 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+
 using Mono.Cecil.Cil;
+
 using MonoMod.Cil;
+
 using Rein.RogueWispPlugin.Helpers;
+
+using ReinCore;
+
 using RoR2;
 using RoR2.Projectile;
+
 using UnityEngine;
-using UnityEngine.Networking;
-using ReinCore;
 
 namespace Rein.RogueWispPlugin
 {

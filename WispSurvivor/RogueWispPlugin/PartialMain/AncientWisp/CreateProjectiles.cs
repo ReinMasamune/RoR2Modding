@@ -1,9 +1,11 @@
 ﻿#if ANCIENTWISP
+using ReinCore;
+
 using RoR2;
 using RoR2.Projectile;
+
 using UnityEngine;
 using UnityEngine.Networking;
-using ReinCore;
 
 namespace Rein.RogueWispPlugin
 {
@@ -206,7 +208,7 @@ namespace Rein.RogueWispPlugin
             projControl.allowPrediction = true;
             projControl.procChainMask = default;
             projControl.procCoefficient = 1f;
-            
+
 
             var rb = obj.AddComponent<Rigidbody>();
             rb.mass = 1f;
@@ -216,7 +218,7 @@ namespace Rein.RogueWispPlugin
             rb.isKinematic = false;
             rb.interpolation = RigidbodyInterpolation.Interpolate;
             rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
-            
+
 
             var projNetTransform = obj.AddComponent<ProjectileNetworkTransform>();
             projNetTransform.positionTransmitInterval = 0.03333334f;
@@ -273,7 +275,7 @@ namespace Rein.RogueWispPlugin
 
 
             AW_primaryProjectile = obj;
-            RegisterProjectile( AW_primaryProjectile);
+            RegisterProjectile( AW_primaryProjectile );
         }
     }
 }

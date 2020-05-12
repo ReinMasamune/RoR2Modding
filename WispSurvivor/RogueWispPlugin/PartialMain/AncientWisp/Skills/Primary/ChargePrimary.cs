@@ -1,8 +1,12 @@
 ﻿#if ANCIENTWISP
-using EntityStates;
-using Rein.RogueWispPlugin.Helpers;
-using RoR2;
 using System;
+
+using EntityStates;
+
+using Rein.RogueWispPlugin.Helpers;
+
+using RoR2;
+
 using UnityEngine;
 
 namespace Rein.RogueWispPlugin

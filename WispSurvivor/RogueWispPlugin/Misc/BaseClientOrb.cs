@@ -1,6 +1,8 @@
-﻿using RoR2;
+﻿using System;
+
+using RoR2;
 using RoR2.Networking;
-using System;
+
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -42,7 +44,7 @@ namespace Rein.RogueWispPlugin
                     write.StartMessage( 53 );
                     write.Write( target );
                     WriteDmgInfo( write, damage );
-                    write.Write( (target.GetComponent<HealthComponent>() != null) );
+                    write.Write( ( target.GetComponent<HealthComponent>() != null ) );
                     write.FinishMessage();
                     ClientScene.readyConnection.SendWriter( write, QosChannelIndex.defaultReliable.intVal );
                 }
@@ -60,7 +62,7 @@ namespace Rein.RogueWispPlugin
                 writer.Write( damageInfo.procCoefficient );
                 writer.Write( (System.Byte)damageInfo.damageType );
                 writer.Write( (System.Byte)damageInfo.damageColorIndex );
-                writer.Write( (System.Byte)(damageInfo.dotIndex + 1) );
+                writer.Write( (System.Byte)( damageInfo.dotIndex + 1 ) );
             }
         }
     }

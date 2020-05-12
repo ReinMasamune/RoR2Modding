@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using BepInEx;
 
     internal static class AssetLibrary<TAsset> where TAsset : UnityEngine.Object
     {
@@ -26,7 +25,7 @@
         {
             if( !AssetsCore.MatchAssetIndexType( typeof( TAsset ), index.GetType() ) )
             {
-                throw new ArgumentException( "Incorrect index type.", nameof(index) );
+                throw new ArgumentException( "Incorrect index type.", nameof( index ) );
             }
 
             UInt64 ind = index.GetValue<UInt64>();
@@ -36,14 +35,14 @@
             } else
             {
                 throw new KeyNotFoundException( String.Format( "The Key:{0} was not found.", index.GetName() ) );
-            }         
+            }
         }
 
         internal static Boolean CanGetAsset( Enum index )
         {
             if( !AssetsCore.MatchAssetIndexType( typeof( TAsset ), index.GetType() ) )
             {
-                throw new ArgumentException( "Incorrect index type", nameof(index) );
+                throw new ArgumentException( "Incorrect index type", nameof( index ) );
             }
 
             UInt64 ind = index.GetValue<UInt64>();

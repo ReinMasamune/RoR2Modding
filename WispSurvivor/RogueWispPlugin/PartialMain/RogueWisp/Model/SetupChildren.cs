@@ -1,11 +1,14 @@
 ﻿#if ROGUEWISP
-using Rein.RogueWispPlugin.Helpers;
-using RoR2;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+
+using Rein.RogueWispPlugin.Helpers;
+
+using RoR2;
+
 using UnityEngine;
 //using static RogueWispPlugin.Helpers.APIInterface;
 
@@ -80,29 +83,29 @@ namespace Rein.RogueWispPlugin
                 {
                     var chestCannon1Transform = chestTransform.Find("ChestCannon1");
 
-                    this.AddFireParticles( 
-                        parent:     chestCannon1Transform, 
-                        position:   new Vector3( 0f, 1f, 0f ), 
-                        rotation:   new Vector3( 90f, 0f, 0f ), 
-                        scale:      new Vector3( 0.25f, 0.2f, 0.6f ) 
+                    this.AddFireParticles(
+                        parent: chestCannon1Transform,
+                        position: new Vector3( 0f, 1f, 0f ),
+                        rotation: new Vector3( 90f, 0f, 0f ),
+                        scale: new Vector3( 0.25f, 0.2f, 0.6f )
                         );
 
                     var colliderInfo01 = new BoxColliderInfo(
                         center:     new Vector3( 0f, 0.4f, 0f ),
-                        size:       new Vector3( 0.5f, 0.9f, 0.1f ) 
+                        size:       new Vector3( 0.5f, 0.9f, 0.1f )
                         );
 
                     this.AddRagdollCollider(
-                        parent:     chestCannon1Transform,
-                        info:       colliderInfo01 
+                        parent: chestCannon1Transform,
+                        info: colliderInfo01
                         );
 
                     this.AddHurtBox(
-                        parent:     chestCannon1Transform,
-                        info:       colliderInfo01,
-                        isMain:     true,
+                        parent: chestCannon1Transform,
+                        info: colliderInfo01,
+                        isMain: true,
                         isBullseye: true,
-                        damageMod:  HurtBox.DamageModifier.Normal 
+                        damageMod: HurtBox.DamageModifier.Normal
                         );
 
                     #region ChestCannonGuard1
@@ -115,13 +118,13 @@ namespace Rein.RogueWispPlugin
                             );
 
                         this.AddRagdollCollider(
-                            parent:     chestCannonGuard1Transform,
-                            info:       colliderInfo02
+                            parent: chestCannonGuard1Transform,
+                            info: colliderInfo02
                             );
 
                         this.AddHurtBox(
-                            parent:     chestCannonGuard1Transform,
-                            info:       colliderInfo02
+                            parent: chestCannonGuard1Transform,
+                            info: colliderInfo02
                             );
 
                         #region ChestCannonGuard1_end
@@ -139,11 +142,11 @@ namespace Rein.RogueWispPlugin
 
                     this.AddToChildLocator( chestTransform, "ChestCannon2" );
 
-                    this.AddFireParticles( 
-                        parent:     chestCannon2Transform,
-                        position:   new Vector3( 0f, 1f, 0f ),
-                        rotation:   new Vector3( 90f, 0f, 0f ),
-                        scale:      new Vector3( 0.25f, 0.2f, 0.6f ) 
+                    this.AddFireParticles(
+                        parent: chestCannon2Transform,
+                        position: new Vector3( 0f, 1f, 0f ),
+                        rotation: new Vector3( 90f, 0f, 0f ),
+                        scale: new Vector3( 0.25f, 0.2f, 0.6f )
                         );
 
                     var colliderInfo03 = new BoxColliderInfo(
@@ -152,16 +155,16 @@ namespace Rein.RogueWispPlugin
                         );
 
                     this.AddRagdollCollider(
-                        parent:     chestCannon2Transform,
-                        info:       colliderInfo03
+                        parent: chestCannon2Transform,
+                        info: colliderInfo03
                         );
 
                     this.AddHurtBox(
-                        parent:     chestCannon2Transform,
-                        info:       colliderInfo03,
-                        isMain:     false,
+                        parent: chestCannon2Transform,
+                        info: colliderInfo03,
+                        isMain: false,
                         isBullseye: false,
-                        damageMod:  HurtBox.DamageModifier.Normal
+                        damageMod: HurtBox.DamageModifier.Normal
                         );
 
                     #region ChestCannonGuard2
@@ -174,16 +177,16 @@ namespace Rein.RogueWispPlugin
                             );
 
                         this.AddRagdollCollider(
-                            parent:     chestCannonGuard2Transform,
-                            info:       colliderInfo04
+                            parent: chestCannonGuard2Transform,
+                            info: colliderInfo04
                             );
 
                         this.AddHurtBox(
-                            parent:     chestCannonGuard2Transform,
-                            info:       colliderInfo04,
-                            isMain:     false,
+                            parent: chestCannonGuard2Transform,
+                            info: colliderInfo04,
+                            isMain: false,
                             isBullseye: false,
-                            damageMod:  HurtBox.DamageModifier.Normal
+                            damageMod: HurtBox.DamageModifier.Normal
                             );
 
                         #region ChestCannonGuard2_end
@@ -203,11 +206,11 @@ namespace Rein.RogueWispPlugin
 
                 this.AddToChildLocator( headTransform, "Head" );
 
-                this.AddFireParticles( 
-                    parent:     headTransform, 
-                    position:   new Vector3( 0f, 0.15f, 0f ), 
-                    rotation:   new Vector3( 180f, 0f, 0f ), 
-                    scale:      new Vector3( 0.1f, 0.1f, 0.1f ) 
+                this.AddFireParticles(
+                    parent: headTransform,
+                    position: new Vector3( 0f, 0.15f, 0f ),
+                    rotation: new Vector3( 180f, 0f, 0f ),
+                    scale: new Vector3( 0.1f, 0.1f, 0.1f )
                     );
 
                 var colliderInfo05 = new CapsuleColliderInfo(
@@ -218,16 +221,16 @@ namespace Rein.RogueWispPlugin
                     );
 
                 this.AddRagdollCollider(
-                    parent:     headTransform,
-                    info:       colliderInfo05
+                    parent: headTransform,
+                    info: colliderInfo05
                     );
 
                 this.AddHurtBox(
-                    parent:     headTransform,
-                    info:       colliderInfo05,
-                    isMain:     false,
+                    parent: headTransform,
+                    info: colliderInfo05,
+                    isMain: false,
                     isBullseye: false,
-                    damageMod:  HurtBox.DamageModifier.Normal
+                    damageMod: HurtBox.DamageModifier.Normal
                     );
 
                 #region Head_end
@@ -249,16 +252,16 @@ namespace Rein.RogueWispPlugin
                     );
 
                 this.AddRagdollCollider(
-                    parent:     shoulderL,
-                    info:       colliderInfo06
+                    parent: shoulderL,
+                    info: colliderInfo06
                     );
 
                 this.AddHurtBox(
-                    parent:     shoulderL,
-                    info:       colliderInfo06,
-                    isMain:     false,
+                    parent: shoulderL,
+                    info: colliderInfo06,
+                    isMain: false,
                     isBullseye: false,
-                    damageMod:  HurtBox.DamageModifier.Normal
+                    damageMod: HurtBox.DamageModifier.Normal
                     );
 
                 #region upperArm1.l
@@ -266,9 +269,9 @@ namespace Rein.RogueWispPlugin
                     var upperArm1L = shoulderL.Find("upperArm1.l");
 
                     this.AddFireParticles( upperArm1L,
-                        position:   new Vector3( 0f, 0.4f, 0f ),
-                        rotation:   new Vector3( 90f, 0f, 0f ),
-                        scale:      new Vector3( 0.15f, 0.15f, 0.5f ) 
+                        position: new Vector3( 0f, 0.4f, 0f ),
+                        rotation: new Vector3( 90f, 0f, 0f ),
+                        scale: new Vector3( 0.15f, 0.15f, 0.5f )
                         );
 
                     var colliderInfo07 = new BoxColliderInfo(
@@ -277,16 +280,16 @@ namespace Rein.RogueWispPlugin
                         );
 
                     this.AddRagdollCollider(
-                        parent:     upperArm1L,
-                        info:       colliderInfo07
+                        parent: upperArm1L,
+                        info: colliderInfo07
                         );
 
                     this.AddHurtBox(
-                        parent:     upperArm1L,
-                        info:       colliderInfo07,
-                        isMain:     false,
+                        parent: upperArm1L,
+                        info: colliderInfo07,
+                        isMain: false,
                         isBullseye: false,
-                        damageMod:  HurtBox.DamageModifier.Normal
+                        damageMod: HurtBox.DamageModifier.Normal
                         );
 
 
@@ -300,16 +303,16 @@ namespace Rein.RogueWispPlugin
                             );
 
                         this.AddRagdollCollider(
-                            parent:     upperArm2L,
-                            info:       colliderInfo08
+                            parent: upperArm2L,
+                            info: colliderInfo08
                             );
 
                         this.AddHurtBox(
-                            parent:     upperArm2L,
-                            info:       colliderInfo08,
-                            isMain:     false,
+                            parent: upperArm2L,
+                            info: colliderInfo08,
+                            isMain: false,
                             isBullseye: false,
-                            damageMod:  HurtBox.DamageModifier.Normal
+                            damageMod: HurtBox.DamageModifier.Normal
                             );
 
                         #region lowerArm.l
@@ -328,16 +331,16 @@ namespace Rein.RogueWispPlugin
                                     );
 
                                 this.AddRagdollCollider(
-                                    parent:     finger1L,
-                                    info:       colliderInfo09
+                                    parent: finger1L,
+                                    info: colliderInfo09
                                     );
 
                                 this.AddHurtBox(
-                                    parent:     finger1L,
-                                    info:       colliderInfo09,
-                                    isMain:     false,
+                                    parent: finger1L,
+                                    info: colliderInfo09,
+                                    isMain: false,
                                     isBullseye: false,
-                                    damageMod:  HurtBox.DamageModifier.Normal
+                                    damageMod: HurtBox.DamageModifier.Normal
                                     );
 
                                 #region finger1.l_end
@@ -359,16 +362,16 @@ namespace Rein.RogueWispPlugin
                                     );
 
                                 this.AddRagdollCollider(
-                                    parent:     finger2L,
-                                    info:       colliderInfo10
+                                    parent: finger2L,
+                                    info: colliderInfo10
                                     );
 
                                 this.AddHurtBox(
-                                    parent:     finger2L,
-                                    info:       colliderInfo10,
-                                    isMain:     false,
+                                    parent: finger2L,
+                                    info: colliderInfo10,
+                                    isMain: false,
                                     isBullseye: false,
-                                    damageMod:  HurtBox.DamageModifier.Normal
+                                    damageMod: HurtBox.DamageModifier.Normal
                                     );
 
                                 #region finger2.l_end
@@ -390,16 +393,16 @@ namespace Rein.RogueWispPlugin
                                     );
 
                                 this.AddRagdollCollider(
-                                    parent:     thumbL,
-                                    info:       colliderInfo11
+                                    parent: thumbL,
+                                    info: colliderInfo11
                                     );
 
                                 this.AddHurtBox(
-                                    parent:     thumbL,
-                                    info:       colliderInfo11,
-                                    isMain:     false,
+                                    parent: thumbL,
+                                    info: colliderInfo11,
+                                    isMain: false,
                                     isBullseye: false,
-                                    damageMod:  HurtBox.DamageModifier.Normal
+                                    damageMod: HurtBox.DamageModifier.Normal
                                     );
 
                                 #region thumb.l_end
@@ -414,9 +417,9 @@ namespace Rein.RogueWispPlugin
                                 var muzzleLeft = lowerArmL.Find( "MuzzleLeft" );
 
                                 this.AddFireParticles( muzzleLeft,
-                                    position:   new Vector3( 0f, 0f, 0.1f ),
-                                    rotation:   new Vector3( 180f, 0f, 0f ),
-                                    scale:      new Vector3( 0.1f, 0.1f, 0.5f ) );
+                                    position: new Vector3( 0f, 0f, 0.1f ),
+                                    rotation: new Vector3( 180f, 0f, 0f ),
+                                    scale: new Vector3( 0.1f, 0.1f, 0.5f ) );
 
                                 this.AddToChildLocator( muzzleLeft, "MuzzleLeft" );
                             }
@@ -441,16 +444,16 @@ namespace Rein.RogueWispPlugin
                     );
 
                 this.AddRagdollCollider(
-                    parent:     shoulderR,
-                    info:       colliderInfo12
+                    parent: shoulderR,
+                    info: colliderInfo12
                     );
 
                 this.AddHurtBox(
-                    parent:     shoulderR,
-                    info:       colliderInfo12,
-                    isMain:     false,
+                    parent: shoulderR,
+                    info: colliderInfo12,
+                    isMain: false,
                     isBullseye: false,
-                    damageMod:  HurtBox.DamageModifier.Normal
+                    damageMod: HurtBox.DamageModifier.Normal
                     );
 
                 #region upperArm1.r
@@ -458,9 +461,9 @@ namespace Rein.RogueWispPlugin
                     var upperArm1R = shoulderR.Find( "upperArm1.r" );
 
                     this.AddFireParticles( upperArm1R,
-                        position:   new Vector3( 0f, 0.4f, 0f ),
-                        rotation:   new Vector3( 90f, 0f, 0f ),
-                        scale:      new Vector3( 0.15f, 0.15f, 0.5f ) 
+                        position: new Vector3( 0f, 0.4f, 0f ),
+                        rotation: new Vector3( 90f, 0f, 0f ),
+                        scale: new Vector3( 0.15f, 0.15f, 0.5f )
                         );
 
                     var colliderInfo13 = new BoxColliderInfo(
@@ -469,16 +472,16 @@ namespace Rein.RogueWispPlugin
                         );
 
                     this.AddRagdollCollider(
-                        parent:     upperArm1R,
-                        info:       colliderInfo13
+                        parent: upperArm1R,
+                        info: colliderInfo13
                         );
 
                     this.AddHurtBox(
-                        parent:     upperArm1R,
-                        info:       colliderInfo13,
-                        isMain:     false,
+                        parent: upperArm1R,
+                        info: colliderInfo13,
+                        isMain: false,
                         isBullseye: false,
-                        damageMod:  HurtBox.DamageModifier.Normal
+                        damageMod: HurtBox.DamageModifier.Normal
                         );
 
 
@@ -499,16 +502,16 @@ namespace Rein.RogueWispPlugin
                             );
 
                         this.AddRagdollCollider(
-                            parent:     upperArm2R,
-                            info:       colliderInfo14
+                            parent: upperArm2R,
+                            info: colliderInfo14
                             );
 
                         this.AddHurtBox(
-                            parent:     upperArm2R,
-                            info:       colliderInfo14,
-                            isMain:     false,
+                            parent: upperArm2R,
+                            info: colliderInfo14,
+                            isMain: false,
                             isBullseye: false,
-                            damageMod:  HurtBox.DamageModifier.Normal
+                            damageMod: HurtBox.DamageModifier.Normal
                             );
 
 
@@ -528,16 +531,16 @@ namespace Rein.RogueWispPlugin
                                     );
 
                                 this.AddRagdollCollider(
-                                    parent:     finger1R,
-                                    info:       colliderInfo15
+                                    parent: finger1R,
+                                    info: colliderInfo15
                                     );
 
                                 this.AddHurtBox(
-                                    parent:     finger1R,
-                                    info:       colliderInfo15,
-                                    isMain:     false,
+                                    parent: finger1R,
+                                    info: colliderInfo15,
+                                    isMain: false,
                                     isBullseye: false,
-                                    damageMod:  HurtBox.DamageModifier.Normal
+                                    damageMod: HurtBox.DamageModifier.Normal
                                     );
 
 
@@ -560,16 +563,16 @@ namespace Rein.RogueWispPlugin
                                     );
 
                                 this.AddRagdollCollider(
-                                    parent:     finger2R,
-                                    info:       colliderInfo16
+                                    parent: finger2R,
+                                    info: colliderInfo16
                                     );
 
                                 this.AddHurtBox(
-                                    parent:     finger2R,
-                                    info:       colliderInfo16,
-                                    isMain:     false,
+                                    parent: finger2R,
+                                    info: colliderInfo16,
+                                    isMain: false,
                                     isBullseye: false,
-                                    damageMod:  HurtBox.DamageModifier.Normal
+                                    damageMod: HurtBox.DamageModifier.Normal
                                     );
 
                                 #region finger2.r_end
@@ -591,16 +594,16 @@ namespace Rein.RogueWispPlugin
                                     );
 
                                 this.AddRagdollCollider(
-                                    parent:     thumbR,
-                                    info:       colliderInfo17
+                                    parent: thumbR,
+                                    info: colliderInfo17
                                     );
 
                                 this.AddHurtBox(
-                                    parent:     thumbR,
-                                    info:       colliderInfo17,
-                                    isMain:     false,
+                                    parent: thumbR,
+                                    info: colliderInfo17,
+                                    isMain: false,
                                     isBullseye: false,
-                                    damageMod:  HurtBox.DamageModifier.Normal
+                                    damageMod: HurtBox.DamageModifier.Normal
                                     );
 
                                 #region thumb.r_end
@@ -615,9 +618,9 @@ namespace Rein.RogueWispPlugin
                                 var muzzleRight = lowerArmR.Find( "MuzzleRight" );
 
                                 this.AddFireParticles( muzzleRight,
-                                    position:   new Vector3( 0f, 0f, 0f ),
-                                    rotation:   new Vector3( 180f, 0f, 0f ),
-                                    scale:      new Vector3( 0.1f, 0.1f, 0.5f ) );
+                                    position: new Vector3( 0f, 0f, 0f ),
+                                    rotation: new Vector3( 180f, 0f, 0f ),
+                                    scale: new Vector3( 0.1f, 0.1f, 0.5f ) );
 
                                 this.AddToChildLocator( muzzleRight, "MuzzleRight" );
 
@@ -643,16 +646,16 @@ namespace Rein.RogueWispPlugin
                     );
 
                 this.AddRagdollCollider(
-                    parent:     thighL,
-                    info:       colliderInfo18
+                    parent: thighL,
+                    info: colliderInfo18
                     );
 
                 this.AddHurtBox(
-                    parent:     thighL,
-                    info:       colliderInfo18,
-                    isMain:     false,
+                    parent: thighL,
+                    info: colliderInfo18,
+                    isMain: false,
                     isBullseye: false,
-                    damageMod:  HurtBox.DamageModifier.Normal
+                    damageMod: HurtBox.DamageModifier.Normal
                     );
 
 
@@ -660,11 +663,11 @@ namespace Rein.RogueWispPlugin
                 {
                     var calfL = thighL.Find( "calf.l" );
 
-                    this.AddFireParticles( 
-                        parent:     calfL,
-                        position:   new Vector3( 0f, 0.6f, 0f ),
-                        rotation:   new Vector3( 90f, 0f, 0f ),
-                        scale:      new Vector3( 0.1f, 0.1f, 0.5f ) 
+                    this.AddFireParticles(
+                        parent: calfL,
+                        position: new Vector3( 0f, 0.6f, 0f ),
+                        rotation: new Vector3( 90f, 0f, 0f ),
+                        scale: new Vector3( 0.1f, 0.1f, 0.5f )
                         );
 
                     var colliderInfo19 = new CapsuleColliderInfo(
@@ -675,16 +678,16 @@ namespace Rein.RogueWispPlugin
                         );
 
                     this.AddRagdollCollider(
-                        parent:     calfL,
-                        info:       colliderInfo19
+                        parent: calfL,
+                        info: colliderInfo19
                         );
 
                     this.AddHurtBox(
-                        parent:     calfL,
-                        info:       colliderInfo19,
-                        isMain:     false,
+                        parent: calfL,
+                        info: colliderInfo19,
+                        isMain: false,
                         isBullseye: false,
-                        damageMod:  HurtBox.DamageModifier.Normal
+                        damageMod: HurtBox.DamageModifier.Normal
                         );
 
 
@@ -698,16 +701,16 @@ namespace Rein.RogueWispPlugin
                             );
 
                         this.AddRagdollCollider(
-                            parent:     toe1L,
-                            info:       colliderInfo20
+                            parent: toe1L,
+                            info: colliderInfo20
                             );
 
                         this.AddHurtBox(
-                            parent:     toe1L,
-                            info:       colliderInfo20,
-                            isMain:     false,
+                            parent: toe1L,
+                            info: colliderInfo20,
+                            isMain: false,
                             isBullseye: false,
-                            damageMod:  HurtBox.DamageModifier.Normal
+                            damageMod: HurtBox.DamageModifier.Normal
                             );
 
                         #region toe1.l_end
@@ -727,16 +730,16 @@ namespace Rein.RogueWispPlugin
                             );
 
                         this.AddRagdollCollider(
-                            parent:     toe2L,
-                            info:       colliderInfo21
+                            parent: toe2L,
+                            info: colliderInfo21
                             );
 
                         this.AddHurtBox(
-                            parent:     toe2L,
-                            info:       colliderInfo21,
-                            isMain:     false,
+                            parent: toe2L,
+                            info: colliderInfo21,
+                            isMain: false,
                             isBullseye: false,
-                            damageMod:  HurtBox.DamageModifier.Normal
+                            damageMod: HurtBox.DamageModifier.Normal
                             );
 
                         #region toe2.l_end
@@ -762,16 +765,16 @@ namespace Rein.RogueWispPlugin
                     );
 
                 this.AddRagdollCollider(
-                    parent:     thighR,
-                    info:       colliderInfo22
+                    parent: thighR,
+                    info: colliderInfo22
                     );
 
                 this.AddHurtBox(
-                    parent:     thighR,
-                    info:       colliderInfo22,
-                    isMain:     false,
+                    parent: thighR,
+                    info: colliderInfo22,
+                    isMain: false,
                     isBullseye: false,
-                    damageMod:  HurtBox.DamageModifier.Normal
+                    damageMod: HurtBox.DamageModifier.Normal
                     );
 
                 #region calf.r
@@ -793,17 +796,17 @@ namespace Rein.RogueWispPlugin
                         );
 
                     this.AddRagdollCollider(
-                        parent:     calfR,
-                        info:       colliderInfo23
+                        parent: calfR,
+                        info: colliderInfo23
                         );
 
                     this.AddHurtBox
                     (
-                        parent:     calfR,
-                        info:       colliderInfo23,
-                        isMain:     false,
+                        parent: calfR,
+                        info: colliderInfo23,
+                        isMain: false,
                         isBullseye: false,
-                        damageMod:  HurtBox.DamageModifier.Normal
+                        damageMod: HurtBox.DamageModifier.Normal
                     );
 
                     #region toe1.r
@@ -816,16 +819,16 @@ namespace Rein.RogueWispPlugin
                             );
 
                         this.AddRagdollCollider(
-                            parent:     toe1R,
-                            info:       colliderInfo24
+                            parent: toe1R,
+                            info: colliderInfo24
                             );
 
                         this.AddHurtBox(
-                            parent:     toe1R,
-                            info:       colliderInfo24,
-                            isMain:     false,
+                            parent: toe1R,
+                            info: colliderInfo24,
+                            isMain: false,
                             isBullseye: false,
-                            damageMod:  HurtBox.DamageModifier.Normal
+                            damageMod: HurtBox.DamageModifier.Normal
                             );
 
                         #region toe1.r_end
@@ -845,16 +848,16 @@ namespace Rein.RogueWispPlugin
                             );
 
                         this.AddRagdollCollider(
-                            parent:     toe2R,
-                            info:       colliderInfo25
+                            parent: toe2R,
+                            info: colliderInfo25
                             );
 
                         this.AddHurtBox(
-                            parent:     toe2R,
-                            info:       colliderInfo25,
-                            isMain:     false,
+                            parent: toe2R,
+                            info: colliderInfo25,
+                            isMain: false,
                             isBullseye: false,
-                            damageMod:  HurtBox.DamageModifier.Normal
+                            damageMod: HurtBox.DamageModifier.Normal
                             );
 
                         #region toe2.r_end
@@ -894,7 +897,7 @@ namespace Rein.RogueWispPlugin
 
         private void AddToChildLocator( Transform target, String name )
         {
-            this.pairsList.Add((target,name));
+            this.pairsList.Add( (target, name) );
         }
 
         private void AddMeshHurtBox( SkinnedMeshRenderer mesh )

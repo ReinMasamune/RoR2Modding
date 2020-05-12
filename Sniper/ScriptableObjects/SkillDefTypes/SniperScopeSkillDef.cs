@@ -1,22 +1,19 @@
 ﻿namespace Sniper.SkillDefs
 {
     using System;
-    using System.Collections.Generic;
-    using System.Runtime.CompilerServices;
-    using BepInEx.Logging;
-    using ReinCore;
-    using RoR2;
-    using RoR2.Networking;
-    using UnityEngine;
-    using KinematicCharacterController;
+
     using EntityStates;
-    using RoR2.Skills;
-    using System.Reflection;
-    using Sniper.Expansions;
-    using Sniper.Data;
+
+    using ReinCore;
+
+    using RoR2;
+
     using Sniper.Components;
+    using Sniper.Data;
     using Sniper.SkillDefTypes.Bases;
     using Sniper.States.Bases;
+
+    using UnityEngine;
 
     internal class SniperScopeSkillDef : SniperSkillDef
     {

@@ -1,9 +1,13 @@
 ﻿#if ROGUEWISP
 using System;
+
 using EntityStates;
+
 using ReinCore;
+
 using RoR2;
 using RoR2.CharacterAI;
+
 using UnityEngine;
 using UnityEngine.Networking;
 //using static RogueWispPlugin.Helpers.APIInterface;
@@ -27,7 +31,7 @@ namespace Rein.RogueWispPlugin
             var netID = master.AddOrGetComponent<NetworkIdentity>();
 
             var charMaster = master.AddComponent<CharacterMaster>();
-            charMaster.masterIndex = (MasterCatalog.MasterIndex)(-1);
+            charMaster.masterIndex = (MasterCatalog.MasterIndex)( -1 );
             charMaster.bodyPrefab = this.RW_body;
             charMaster.spawnOnStart = false;
             charMaster.teamIndex = TeamIndex.Monster;
@@ -498,7 +502,7 @@ namespace Rein.RogueWispPlugin
                     this.passive.onUtilRangeProvided += this.SetZoneRange;
                 }
             };
-            this.ai.onBodyLost += (body) =>
+            this.ai.onBodyLost += ( body ) =>
             {
                 if( this.passive != null )
                 {
@@ -588,7 +592,7 @@ namespace Rein.RogueWispPlugin
                     if( ableToActivate && driver.useEnemyRanges )
                     {
                         var enemy = this.ai.currentEnemy;
-                        if( enemy == null || (driver.requireEnemyLos && !enemy.hasLoS) || enemy.gameObject == null || !enemy.gameObject )
+                        if( enemy == null || ( driver.requireEnemyLos && !enemy.hasLoS ) || enemy.gameObject == null || !enemy.gameObject )
                         {
                             ableToActivate = false;
                         } else
@@ -601,7 +605,7 @@ namespace Rein.RogueWispPlugin
                         }
                     }
 
-                    if( ableToActivate && (charge < driver.minCharge || charge > driver.maxCharge) )
+                    if( ableToActivate && ( charge < driver.minCharge || charge > driver.maxCharge ) )
                     {
                         ableToActivate = false;
                     }
@@ -611,7 +615,7 @@ namespace Rein.RogueWispPlugin
                         driver.minDistance = this.zoneRadius;
                     }
 
-                    if( ableToActivate)
+                    if( ableToActivate )
                     {
                         var orig = this.origHpConstraints[i];
                         driver.minUserHealthFraction = orig.minHp;

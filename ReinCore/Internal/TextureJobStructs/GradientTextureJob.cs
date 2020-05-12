@@ -1,18 +1,19 @@
 ﻿namespace ReinCore
 {
     using System;
-    using BepInEx;
+    using System.Linq;
+
     using Unity.Collections;
     using Unity.Jobs;
+
     using UnityEngine;
-    using System.Linq;
 
     internal struct GradientTextureJob : ITextureJob
     {
         #region MAIN THREAD ONLY
         internal JobHandle handle;
         [Obsolete]
-        internal GradientTextureJob(Gradient gradient, Boolean outputSquared, Int32 width, Int32 height )
+        internal GradientTextureJob( Gradient gradient, Boolean outputSquared, Int32 width, Int32 height )
         {
             this.texWidth = width;
             this.texHeight = height;
@@ -45,8 +46,10 @@
         public Texture2D OutputTextureAndDispose()
         {
             this.handle.Complete();
-            var tex = new Texture2D( this.texWidth, this.texHeight, TextureFormat.RGBAFloat, false );
-            tex.wrapMode = TextureWrapMode.Clamp;
+            var tex = new Texture2D( this.texWidth, this.texHeight, TextureFormat.RGBAFloat, false )
+            {
+                wrapMode = TextureWrapMode.Clamp
+            };
             tex.LoadRawTextureData<Color>( this.texArray );
             tex.Apply();
 
@@ -99,7 +102,7 @@
             {
                 GradientColorKey key1 = this.cKeys[i];
                 GradientColorKey key2 = this.cKeys[i-1];
-                
+
                 if( key1.time > t && key2.time <= t )
                 {
                     Single dif = key2.time - key1.time;
@@ -133,7 +136,7 @@
             for( Int32 i = 0; i < this.texHeight; ++i )
             {
                 _ = index + ( this.texWidth * i );
-                this.texArray[index + (this.texWidth * i)] = color;
+                this.texArray[index + ( this.texWidth * i )] = color;
             }
         }
         private NativeArray<Color> texArray;

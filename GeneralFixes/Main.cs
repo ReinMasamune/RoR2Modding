@@ -1,20 +1,12 @@
 ﻿namespace ReinGeneralFixes
 {
-    using BepInEx;
-    using RoR2;
-    using UnityEngine;
-    using System.Collections.Generic;
-    using RoR2.Navigation;
-    using Mono.Cecil.Cil;
-    using MonoMod.Cil;
     using System;
-    using System.Reflection;
-    using EntityStates;
-    using RoR2.Skills;
     using System.Runtime.CompilerServices;
 
+    using BepInEx;
+
     [BepInDependency( Rein.AssemblyLoad.guid, BepInDependency.DependencyFlags.HardDependency )]
-    [BepInPlugin("com.Rein.GeneralBalance", "General Balance + Fixes", "2.3.2.4")]
+    [BepInPlugin( "com.Rein.GeneralBalance", "General Balance + Fixes", "2.3.2.4" )]
     internal partial class Main : BaseUnityPlugin
     {
         internal Single gestureBreakChance = 0.025f;

@@ -1,9 +1,11 @@
 ﻿#if ROGUEWISP
-using RoR2;
 using System;
-using System.Collections.Generic;
-using UnityEngine;
+
 using Rein.RogueWispPlugin.Helpers;
+
+using RoR2;
+
+using UnityEngine;
 
 namespace Rein.RogueWispPlugin
 {
@@ -17,7 +19,7 @@ namespace Rein.RogueWispPlugin
             Mesh m = this.RW_body.GetComponent<ModelLocator>().modelTransform.Find("AncientWispMesh").GetComponent<SkinnedMeshRenderer>().sharedMesh;
 
             UVMapper.Map( m, true );
-            
+
             //Vector2[] newUvs = new Vector2[m.vertexCount];
             //Vector3[] verts = m.vertices;
             //Vector3[] norms = m.normals;
@@ -226,7 +228,7 @@ namespace Rein.RogueWispPlugin
                 this.yRange = this.yMax - this.yMin;
                 this.zRange = this.zMax - this.zMin;
 
-                this.center = 0.5f * (new Vector3( xMin, yMin, zMin ) + new Vector3( xMax, yMax, zMax ));
+                this.center = 0.5f * ( new Vector3( xMin, yMin, zMin ) + new Vector3( xMax, yMax, zMax ) );
             }
         }
     }

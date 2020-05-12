@@ -2,29 +2,28 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Runtime.CompilerServices;
-    using BepInEx.Logging;
-    using ReinCore;
-    using RoR2;
-    using RoR2.Networking;
-    using UnityEngine;
-    using KinematicCharacterController;
+
     using EntityStates;
+
+    using ReinCore;
+
+    using RoR2;
     using RoR2.Skills;
-    using Sniper.Data;
-    using Sniper.Properties;
-    using Sniper.Expansions;
+
     using Sniper.Components;
-    using UnityEngine.Networking;
+    using Sniper.Data;
+    using Sniper.Expansions;
+    using Sniper.Properties;
     using Sniper.SkillDefs;
+    using Sniper.SkillDefTypes.Bases;
     using Sniper.States.Primary.Fire;
     using Sniper.States.Primary.Reload;
     using Sniper.States.Secondary;
     using Sniper.States.Special;
     using Sniper.States.Utility;
-    using Sniper.SkillDefTypes.Bases;
-    using Sniper.Enums;
-    using System.Runtime.InteropServices.ComTypes;
+
+    using UnityEngine;
+    using UnityEngine.Networking;
 
     internal static class SkillsModule
     {
@@ -529,7 +528,7 @@
             knife.startCooldownAfterReactivation = true;
             knife.stockToConsume = 1;
             skills.Add( knife );
-            
+
             SkillFamiliesModule.specialSkills = skills;
         }
     }

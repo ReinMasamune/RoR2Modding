@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+
 using UnityEngine;
 
 namespace Rein.RogueWispPlugin.Helpers
@@ -61,7 +60,7 @@ namespace Rein.RogueWispPlugin.Helpers
         {
             return new ParticleElement( this, newObj, newParent );
         }
-        
+
         internal ParticleElement( String name, EffectCategory parent ) : base( name, parent )
         {
             this.partSys = base.obj.AddComponent<ParticleSystem>();

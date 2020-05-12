@@ -1,11 +1,13 @@
 ﻿#if ANCIENTWISP
-using EntityStates;
-using Rein.RogueWispPlugin.Helpers;
-using RoR2;
-using RoR2.Projectile;
 using System;
+
+using EntityStates;
+
+using Rein.RogueWispPlugin.Helpers;
+
+using RoR2;
+
 using UnityEngine;
-using System.Linq;
 using UnityEngine.Networking;
 
 namespace Rein.RogueWispPlugin
@@ -66,7 +68,7 @@ namespace Rein.RogueWispPlugin
                 this.animationStartTime = this.duration * animationStartFrac;
                 this.animationDuration = this.duration - this.animationStartTime;
                 this.animationSoundPlayTime = animationSoundPlayFrac;
-                this.animationParticleSurgeTime = this.animationStartTime + (this.animationDuration * animationParticleSurgeTimeFrac);
+                this.animationParticleSurgeTime = this.animationStartTime + ( this.animationDuration * animationParticleSurgeTimeFrac );
             }
 
             public override void FixedUpdate()
@@ -82,7 +84,7 @@ namespace Rein.RogueWispPlugin
                 var emis = this.bodyParticles.emission;
                 if( base.fixedAge <= this.delayTime )
                 {
-                    emis.rateOverTime = Mathf.Lerp( this.initialParticleIntensity, 0f, (base.fixedAge / this.delayTime) );
+                    emis.rateOverTime = Mathf.Lerp( this.initialParticleIntensity, 0f, ( base.fixedAge / this.delayTime ) );
                 }
 
                 if( base.fixedAge >= this.animationSoundPlayTime && !this.soundComplete )

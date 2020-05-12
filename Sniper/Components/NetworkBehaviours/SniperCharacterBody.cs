@@ -1,16 +1,17 @@
 ﻿namespace Sniper.Components
 {
     using System;
-    using System.Collections.Generic;
-    using System.Runtime.CompilerServices;
-    using BepInEx.Logging;
+
     using ReinCore;
+
     using RoR2;
-    using UnityEngine;
-    using Sniper.SkillDefs;
-    using UnityEngine.Networking;
+
     using Sniper.Modules;
+    using Sniper.SkillDefs;
+
+    using UnityEngine;
     using UnityEngine.Events;
+    using UnityEngine.Networking;
 
     internal class SniperCharacterBody : CharacterBody
     {
@@ -92,7 +93,7 @@
             get => base.skillLocator.secondary.skillInstanceData as SniperScopeSkillDef.ScopeInstanceData;
         }
 
-        [field:SerializeField]
+        [field: SerializeField]
         internal Transform scopeAimOriginParent { get; set; }
 
 

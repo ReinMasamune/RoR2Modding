@@ -1,11 +1,7 @@
 ﻿#if ANCIENTWISP
 using EntityStates;
-using Rein.RogueWispPlugin.Helpers;
-using RoR2;
-using RoR2.Projectile;
-using System;
+
 using UnityEngine;
-using System.Linq;
 
 namespace Rein.RogueWispPlugin
 {
@@ -16,7 +12,7 @@ namespace Rein.RogueWispPlugin
         {
 
             private SpriteRenderer flareSprite;
-            
+
             public override void OnEnter()
             {
                 base.OnEnter();

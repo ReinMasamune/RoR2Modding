@@ -1,9 +1,9 @@
 ﻿#if ROGUEWISP
 using Rein.RogueWispPlugin.Helpers;
-using RoR2;
-using System;
-using UnityEngine;
+
 using ReinCore;
+
+using UnityEngine;
 //using static RogueWispPlugin.Helpers.APIInterface;
 
 namespace Rein.RogueWispPlugin

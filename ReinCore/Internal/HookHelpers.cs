@@ -5,9 +5,6 @@
     using System.Reflection;
     using System.Text;
     using System.Text.RegularExpressions;
-    using BepInEx;
-    using MonoMod.Cil;
-    using UnityEngine;
 
     internal static class HookHelpers
     {
@@ -27,7 +24,7 @@
             {
                 Type nextType = curType.DeclaringType;
                 String s = "";
-                if( nextType != null && !typeMask.Contains(nextType) )
+                if( nextType != null && !typeMask.Contains( nextType ) )
                 {
                     s = nextType.IsClass ? "+" : ".";
                 } else

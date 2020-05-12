@@ -1,8 +1,8 @@
-﻿using RoR2;
-using System;
-using System.Collections.Generic;
+﻿using System;
+
 using Unity.Collections;
 using Unity.Jobs;
+
 using UnityEngine;
 
 namespace Rein.RogueWispPlugin.Helpers
@@ -28,7 +28,7 @@ namespace Rein.RogueWispPlugin.Helpers
             this.currentAcceptableErrorCoef = 0.00001f;
             this.errorMult = 1f;
             this.currentStepLength = 0.5f;
-            this.stepMult = 1f;  
+            this.stepMult = 1f;
         }
 
         public void Execute()
@@ -66,10 +66,10 @@ namespace Rein.RogueWispPlugin.Helpers
                 total += this.verticies[this.vertexInds[i]].position;
             }
             total /= this.vertexInds.Length;
-            return new SeedJob(this.verticies, this.vertexInds, total, min, max, this.uvDistPerUnit ).Schedule(this.vertexInds.Length, 1);
+            return new SeedJob( this.verticies, this.vertexInds, total, min, max, this.uvDistPerUnit ).Schedule( this.vertexInds.Length, 1 );
         }
 
-        
+
         private NativeArray<VertexData> verticies;
         private NativeArray<LinkData> links;
         private NativeArray<TriangleData> triangles;
@@ -145,7 +145,7 @@ namespace Rein.RogueWispPlugin.Helpers
 
                 } else passCounter++;
             }
-            
+
             if( this.boneIndex == 0 )
             {
                 Main.LogW( String.Format( "{0}% of links passed. {1} total error, {2}% failed nudges. Bone: {3} Iteration: {4}",
@@ -183,7 +183,7 @@ namespace Rein.RogueWispPlugin.Helpers
                 return Mathf.Abs( input ) <= margin;
             } else
             {
-                return SingleWithinMargin( (input / target) - 1f, 0f, margin );
+                return SingleWithinMargin( ( input / target ) - 1f, 0f, margin );
             }
         }
     }

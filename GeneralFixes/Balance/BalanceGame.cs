@@ -1,22 +1,20 @@
 ﻿namespace ReinGeneralFixes
 {
-    using BepInEx;
-    using RoR2;
-    using UnityEngine;
-    using System.Collections.Generic;
-    using RoR2.Navigation;
-    using Mono.Cecil.Cil;
-    using MonoMod.Cil;
     using System;
-    using System.Reflection;
-    using EntityStates;
-    using RoR2.Skills;
-    using System.Collections;
+
+    using Mono.Cecil.Cil;
+
+    using MonoMod.Cil;
+
     using ReinCore;
+
+    using RoR2;
+
+    using UnityEngine;
 
     internal partial class Main
     {
-        const Single diffMod = 0.99f;
+        private const Single diffMod = 0.99f;
         partial void BalanceGame()
         {
             this.Enable += this.Main_Enable9;
@@ -41,7 +39,7 @@
                       total += NetworkUser.readOnlyInstancesList[i].NetworknetLunarCoins;
                   }
 
-                  return 2f - ( 1f / ( 1f + Mathf.Pow( diffMod, Mathf.Log(total+1) ) ) );
+                  return 2f - ( 1f / ( 1f + Mathf.Pow( diffMod, Mathf.Log( total + 1 ) ) ) );
               } );
             _ = c.Emit( OpCodes.Mul );
         }

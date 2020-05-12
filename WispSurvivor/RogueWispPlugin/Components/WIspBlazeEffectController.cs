@@ -1,5 +1,7 @@
-﻿using RoR2;
-using System.Collections;
+﻿using System.Collections;
+
+using RoR2;
+
 using UnityEngine;
 
 namespace Rein.RogueWispPlugin

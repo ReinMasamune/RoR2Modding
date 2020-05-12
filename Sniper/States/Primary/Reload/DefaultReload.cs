@@ -1,24 +1,18 @@
 ﻿namespace Sniper.States.Primary.Reload
 {
     using System;
-    using System.Collections.Generic;
-    using System.Runtime.CompilerServices;
-    using BepInEx.Logging;
-    using ReinCore;
-    using RoR2;
-    using RoR2.Networking;
-    using UnityEngine;
-    using KinematicCharacterController;
+
     using EntityStates;
-    using RoR2.Skills;
-    using System.Reflection;
-    using Sniper.States.Bases;
+
     using Sniper.Enums;
     using Sniper.Modules;
+    using Sniper.States.Bases;
+
+    using UnityEngine;
 
     internal class DefaultReload : SniperSkillBaseState, ISniperReloadState
     {
-        const Single baseDuration = 0.75f;
+        private const Single baseDuration = 0.75f;
 
 
         private Single duration;

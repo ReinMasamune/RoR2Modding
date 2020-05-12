@@ -1,18 +1,15 @@
 ﻿namespace ReinCore
 {
     using System;
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
-    using System.Linq.Expressions;
-    using Mono.Cecil;
-    using RoR2;
-    using RoR2.Networking;
-    using UnityEngine.Networking;
-    using System.Linq;
-    using UnityEngine;
-    using MonoMod.Cil;
-    using Mono.Cecil.Cil;
     using System.Reflection;
+
+    using Mono.Cecil.Cil;
+
+    using MonoMod.Cil;
+
+    using RoR2;
+
+    using UnityEngine;
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public static class DamageColorsCore

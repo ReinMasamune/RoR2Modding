@@ -1,15 +1,16 @@
 ﻿namespace Sniper.Modules
 {
     using System;
-    using System.Collections.Generic;
-    using System.Runtime.CompilerServices;
-    using BepInEx.Logging;
+
     using ReinCore;
+
     using RoR2;
-    using UnityEngine;
-    using Sniper.Properties;
+
     using Sniper.Data;
+
     using Unity.Jobs;
+
+    using UnityEngine;
 
     internal static class ModelModule
     {
@@ -141,7 +142,7 @@
 
 
             Texture2D defaultTex = defaultIconJob.OutputTextureAndDispose();
-            defaultSkin.CreateAndAddSkin( charModel, Properties.Tokens.SNIPER_SKIN_DEFAULT_NAME, "", 
+            defaultSkin.CreateAndAddSkin( charModel, Properties.Tokens.SNIPER_SKIN_DEFAULT_NAME, "",
                 Sprite.Create( defaultTex, new Rect( 0f, 0f, defaultTex.width, defaultTex.height ), new Vector2( 0.5f, 0.5f ) ) );
 
             Texture2D alt1Tex = alt1IconJob.OutputTextureAndDispose();
@@ -171,7 +172,7 @@
             }
 
 
-            
+
             return model;
         }
 

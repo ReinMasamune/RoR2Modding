@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using UnityEngine;
-using System.Linq;
+
 using RoR2;
+
+using UnityEngine;
 
 namespace Rein.RogueWispPlugin.Helpers
 {
@@ -117,7 +116,7 @@ namespace Rein.RogueWispPlugin.Helpers
             scale1.z = dist;
             this.midTransform.localScale = scale1;
             var rateMult = dist * this.distRateRatio;
-            
+
             for( Int32 i = 0; i < this.emitters.Length; ++i )
             {
                 this.emitters[i].rateOverDistanceMultiplier = rateMult;

@@ -1,14 +1,11 @@
 ﻿namespace ReinCore
 {
     using System;
-    using System.ComponentModel;
     using System.Reflection;
-    using BepInEx;
+
     using MonoMod.Cil;
     using MonoMod.RuntimeDetour.HookGen;
-    using RoR2;
-    using RoR2.Projectile;
-    using RoR2.UI;
+
     using UnityEngine;
     using UnityEngine.Networking;
 
@@ -52,7 +49,7 @@ public static event Hook On
                     public struct OnEnter
                     {
                         private static readonly MethodBase method = HookHelpers.GetBase( typeof(OnEnter) );
-                        public delegate void Orig(global::EntityStates.Commando.DodgeState self );
+                        public delegate void Orig( global::EntityStates.Commando.DodgeState self );
                         public delegate void Hook( Orig orig, global::EntityStates.Commando.DodgeState self );
                         public static event ILContext.Manipulator Il
                         {
@@ -75,7 +72,7 @@ public static event Hook On
                     public struct FixedUpdate
                     {
                         private static readonly MethodBase method = HookHelpers.GetBase( typeof(FixedUpdate) );
-                        public delegate void Orig(global::EntityStates.GoldGat.BaseGoldGatState self );
+                        public delegate void Orig( global::EntityStates.GoldGat.BaseGoldGatState self );
                         public delegate void Hook( Orig orig, global::EntityStates.GoldGat.BaseGoldGatState self );
                         public static event ILContext.Manipulator Il
                         {
@@ -337,7 +334,7 @@ public static event Hook On
             {
                 public struct DefaultHitCallback
                 {
-                    private readonly static MethodBase method = HookHelpers.GetBase( typeof(DefaultHitCallback) );
+                    private static readonly MethodBase method = HookHelpers.GetBase( typeof(DefaultHitCallback) );
                     public delegate Boolean Orig( global::RoR2.BulletAttack self, ref global::RoR2.BulletAttack.BulletHit hitInfo );
                     public delegate Boolean Hook( Orig orig, global::RoR2.BulletAttack self, ref global::RoR2.BulletAttack.BulletHit hitInfo );
                     public static event ILContext.Manipulator Il
@@ -428,7 +425,7 @@ public static event Hook On
                         remove => HookEndpointManager.Remove<Hook>( method, value );
                     }
                 }
-                
+
                 public struct HandleConstructTurret
                 {
                     private static readonly MethodBase method = HookHelpers.GetBase( typeof(HandleConstructTurret) );
@@ -565,7 +562,7 @@ public static event Hook On
             {
                 public struct FindColor
                 {
-                    private readonly static MethodBase method = HookHelpers.GetBase( typeof(FindColor) );
+                    private static readonly MethodBase method = HookHelpers.GetBase( typeof(FindColor) );
                     public delegate void Orig( global::RoR2.DamageColorIndex colorIndex );
                     public delegate void Hook( Orig orig, global::RoR2.DamageColorIndex colorIndex );
                     public static event ILContext.Manipulator Il
@@ -588,7 +585,7 @@ public static event Hook On
                 public struct AddDot
                 {
                     private static readonly MethodBase method = HookHelpers.GetBase( typeof(AddDot) );
-                    public delegate void Orig( global::RoR2.DotController self, global::UnityEngine.GameObject attacker, global::System.Single duration, global::RoR2.DotController.DotIndex dotIndex, global::System.Single damageMultiplier  );
+                    public delegate void Orig( global::RoR2.DotController self, global::UnityEngine.GameObject attacker, global::System.Single duration, global::RoR2.DotController.DotIndex dotIndex, global::System.Single damageMultiplier );
                     public delegate void Hook( Orig orig, global::RoR2.DotController self, global::UnityEngine.GameObject attacker, global::System.Single duration, global::RoR2.DotController.DotIndex dotIndex, global::System.Single damageMultiplier );
                     public static event ILContext.Manipulator Il
                     {
@@ -718,7 +715,7 @@ public static event Hook On
                 public struct FixedUpdate
                 {
                     private static readonly MethodBase method = HookHelpers.GetBase( typeof(FixedUpdate) );
-                    public delegate void Orig(global::RoR2.EquipmentSlot self );
+                    public delegate void Orig( global::RoR2.EquipmentSlot self );
                     public delegate void Hook( Orig orig, global::RoR2.EquipmentSlot self );
                     public static event ILContext.Manipulator Il
                     {
@@ -738,7 +735,7 @@ public static event Hook On
                 public struct GrantEquipment
                 {
                     private static readonly MethodBase method = HookHelpers.GetBase( typeof(GrantEquipment) );
-                    public delegate void Orig(global::RoR2.GenericPickupController self, global::RoR2.CharacterBody body, global::RoR2.Inventory inventory);
+                    public delegate void Orig( global::RoR2.GenericPickupController self, global::RoR2.CharacterBody body, global::RoR2.Inventory inventory );
                     public delegate void Hook( Orig orig, global::RoR2.GenericPickupController self, global::RoR2.CharacterBody body, global::RoR2.Inventory inventory );
                     public static event ILContext.Manipulator Il
                     {
@@ -1272,7 +1269,7 @@ public static event Hook On
                     public struct OnAssigned
                     {
                         private static readonly MethodBase method = HookHelpers.GetBase( typeof(OnAssigned) );
-                        public delegate global::RoR2.Skills.SkillDef.BaseSkillInstanceData Orig(global::RoR2.Skills.LunarPrimaryReplacementSkill self, global::RoR2.GenericSkill skillSlot );
+                        public delegate global::RoR2.Skills.SkillDef.BaseSkillInstanceData Orig( global::RoR2.Skills.LunarPrimaryReplacementSkill self, global::RoR2.GenericSkill skillSlot );
                         public delegate global::RoR2.Skills.SkillDef.BaseSkillInstanceData Hook( Orig orig, global::RoR2.Skills.LunarPrimaryReplacementSkill self, global::RoR2.GenericSkill skillSlot );
                         public static event ILContext.Manipulator Il
                         {
@@ -1442,7 +1439,7 @@ public static event Hook On
                     public struct OnDisable
                     {
                         private static readonly MethodBase method = HookHelpers.GetBase( typeof(OnDisable) );
-                        public delegate void Orig(global::RoR2.UI.PauseScreenController self);
+                        public delegate void Orig( global::RoR2.UI.PauseScreenController self );
                         public delegate void Hook( Orig orig, global::RoR2.UI.PauseScreenController self );
                         public static event ILContext.Manipulator Il
                         {

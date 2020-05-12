@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using UnityEngine;
+
 using ReinCore;
+
+using UnityEngine;
 
 namespace Rein.RogueWispPlugin.Helpers
 {
@@ -28,7 +29,7 @@ namespace Rein.RogueWispPlugin.Helpers
             if( matType != MaterialType.Constant )
             {
                 skin.AddRenderer( psr, matType );
-            }  
+            }
             BasicSetup( ps );
 
             ps.useAutoRandomSeed = true;
@@ -76,7 +77,7 @@ namespace Rein.RogueWispPlugin.Helpers
 
             var psCOL = ps.colorOverLifetime;
             psCOL.enabled = true;
-            psCOL.color = new ParticleSystem.MinMaxGradient(new Gradient
+            psCOL.color = new ParticleSystem.MinMaxGradient( new Gradient
             {
                 mode = GradientMode.Blend,
                 alphaKeys = new[]
@@ -97,7 +98,7 @@ namespace Rein.RogueWispPlugin.Helpers
 
 
             psr.renderMode = ParticleSystemRenderMode.Mesh;
-            psr.mesh = AssetsCore.LoadAsset<Mesh>(MeshIndex.Quad);
+            psr.mesh = AssetsCore.LoadAsset<Mesh>( MeshIndex.Quad );
             psr.normalDirection = 1f;
             psr.sortMode = ParticleSystemSortMode.None;
             psr.minParticleSize = 0f;

@@ -2,11 +2,14 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Text;
-    using RoR2;
+
     using ReinCore;
-    using UnityEngine;
+
+    using RoR2;
+
     using Sniper.Modules;
+
+    using UnityEngine;
 
     internal class SniperSkin
     {
@@ -69,7 +72,7 @@
         {
             using( var skin = Skin.Create( model ) )
             {
-                CharacterModel.RendererInfo[] rendInfos = skin.rendererInfos;         
+                CharacterModel.RendererInfo[] rendInfos = skin.rendererInfos;
                 for( Int32 i = 0; i < rendInfos.Length; ++i )
                 {
                     CharacterModel.RendererInfo info = rendInfos[i];

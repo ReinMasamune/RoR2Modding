@@ -1,12 +1,11 @@
 ﻿namespace Sniper.Data
 {
     using System;
-    using System.Collections.Generic;
-    using System.Runtime.CompilerServices;
-    using BepInEx.Logging;
-    using ReinCore;
+
     using RoR2;
+
     using Sniper.Expansions;
+
     using UnityEngine;
 
     [Serializable]
@@ -76,17 +75,17 @@
 
             if( this.applyRadiusMultiplier )
             {
-                bullet.radius = (bullet.radius == 0f) ? this.radiusMultiplier : bullet.radius * this.radiusMultiplier;
+                bullet.radius = ( bullet.radius == 0f ) ? this.radiusMultiplier : bullet.radius * this.radiusMultiplier;
             }
 
             if( this.applySpreadPitch )
             {
-                bullet.spreadPitchScale = (bullet.spreadPitchScale == 0f) ? this.spreadPitch : bullet.spreadPitchScale * this.spreadPitch;
+                bullet.spreadPitchScale = ( bullet.spreadPitchScale == 0f ) ? this.spreadPitch : bullet.spreadPitchScale * this.spreadPitch;
             }
 
             if( this.applySpreadYaw )
             {
-                bullet.spreadYawScale = (bullet.spreadYawScale == 0f) ? this.spreadYaw : bullet.spreadYawScale * this.spreadYaw;
+                bullet.spreadYawScale = ( bullet.spreadYawScale == 0f ) ? this.spreadYaw : bullet.spreadYawScale * this.spreadYaw;
             }
 
             if( this.applyStopperMaskRemove )
@@ -101,7 +100,7 @@
         }
 
 
-        internal Single countMultiplier 
+        internal Single countMultiplier
         {
             get => this._countMultiplier;
             set

@@ -1,13 +1,6 @@
 ﻿namespace Sniper.Modules
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Runtime.CompilerServices;
-    using BepInEx.Logging;
-    using ReinCore;
     using RoR2;
-    using UnityEngine;
-    using Sniper.Properties;
 
     internal static class ItemDisplayModule
     {

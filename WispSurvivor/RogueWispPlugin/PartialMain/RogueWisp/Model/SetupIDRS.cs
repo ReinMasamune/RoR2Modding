@@ -2,7 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+
 using RoR2;
+
 using UnityEngine;
 //using static RogueWispPlugin.Helpers.APIInterface;
 
@@ -56,7 +58,7 @@ namespace Rein.RogueWispPlugin
             //{
             //    Main.LogW( kv.Key );
             //}
-            
+
         }
 
         private void RW_DoIDRSSetup()

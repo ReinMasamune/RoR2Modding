@@ -1,12 +1,11 @@
 ﻿
 using RoR2;
-using System;
-using System.Collections.Generic;
+
 using UnityEngine;
 
 namespace Rein.RogueWispPlugin.Helpers
 {
-    [RequireComponent(typeof(EffectComponent), typeof(WispSkinnedEffect))]
+    [RequireComponent( typeof( EffectComponent ), typeof( WispSkinnedEffect ) )]
     internal class EffectSkinApplier : MonoBehaviour
     {
         public WispSkinnedEffect skinController;
@@ -14,7 +13,7 @@ namespace Rein.RogueWispPlugin.Helpers
 
         private void Start()
         {
-            this.skinController.Apply(WispBitSkin.GetWispSkin(this.effectComponent.effectData.genericUInt) );
+            this.skinController.Apply( WispBitSkin.GetWispSkin( this.effectComponent.effectData.genericUInt ) );
         }
 
     }

@@ -1,8 +1,7 @@
 ﻿namespace ReinCore
 {
     using System;
-    using RoR2;
-    using UnityEngine;
+
     using UnityEngine.Networking;
 
     internal struct OrbMessage : INetMessage

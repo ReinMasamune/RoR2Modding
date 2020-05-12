@@ -1,11 +1,9 @@
 ﻿namespace Sniper.Effects
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
     using ReinCore;
+
     using RoR2;
-    using Sniper.Modules;
+
     using UnityEngine;
 
     internal static partial class EffectCreator

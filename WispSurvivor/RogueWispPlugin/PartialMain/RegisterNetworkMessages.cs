@@ -1,8 +1,8 @@
 ﻿#if NETWORKING
-using BepInEx;
 using System;
 using System.Reflection;
-using ReinCore;
+
+using BepInEx;
 
 namespace Rein.RogueWispPlugin
 {
@@ -24,7 +24,7 @@ namespace Rein.RogueWispPlugin
             if( !this.netLibInstalled )
             {
                 Main.LogM( "NetLib is not installed, loading fallback networking." );
-                
+
 
                 var loadedAssembly = Assembly.Load( Rein.Properties.Resources.NetLib );
 

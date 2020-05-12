@@ -1,8 +1,11 @@
-﻿using Rein.RogueWispPlugin.Helpers;
+﻿using System;
+using System.Collections.Generic;
+
+using Rein.RogueWispPlugin.Helpers;
+
 using RoR2;
 using RoR2.Orbs;
-using System;
-using System.Collections.Generic;
+
 using UnityEngine;
 
 namespace Rein.RogueWispPlugin
@@ -85,7 +88,7 @@ namespace Rein.RogueWispPlugin
                     this.box = box;
                 }
             }
-            
+
             private class TargetContext
             {
                 public Single timer;
@@ -185,7 +188,7 @@ namespace Rein.RogueWispPlugin
                     if( !this.targetContexts.ContainsKey( hc ) )
                     {
                         var burn = hc?.AddOrGetComponent<WispBurnManager>();
-                        this.targetContexts[hc] = new TargetContext(burn, hc, this.blazeResetInt );
+                        this.targetContexts[hc] = new TargetContext( burn, hc, this.blazeResetInt );
                     }
                     var context = this.targetContexts[hc];
                     context.timer += dt;
@@ -242,7 +245,7 @@ namespace Rein.RogueWispPlugin
                 if( this.isOwnerInside && this.stacks > 0 )
                 {
                     RestoreOrb orb = new RestoreOrb();
-                    orb.stacks = (UInt32)Mathf.CeilToInt( (this.stacks) / this.blazeExpireStacksMult );
+                    orb.stacks = (UInt32)Mathf.CeilToInt( ( this.stacks ) / this.blazeExpireStacksMult );
                     orb.length = this.blazeBuffDuration;
                     orb.origin = this.origin;
                     orb.skin = this.skin;
@@ -299,7 +302,7 @@ namespace Rein.RogueWispPlugin
 
             private void TickDamage( HurtBox enemy )
             {
-                (this.burnManagers.ContainsKey( enemy.healthComponent ) ? this.burnManagers[enemy.healthComponent] : (this.burnManagers[enemy.healthComponent] = enemy.healthComponent.GetComponent<WispBurnManager>())).SetSkinDuration( this.skin, this.igniteDuration );
+                ( this.burnManagers.ContainsKey( enemy.healthComponent ) ? this.burnManagers[enemy.healthComponent] : ( this.burnManagers[enemy.healthComponent] = enemy.healthComponent.GetComponent<WispBurnManager>() ) ).SetSkinDuration( this.skin, this.igniteDuration );
 
 
                 IgnitionOrb orb = new IgnitionOrb();
@@ -334,7 +337,7 @@ namespace Rein.RogueWispPlugin
                 if( enemy.burnManager != null )
                 {
                     enemy.burnManager.SetSkinDuration( this.skin, this.igniteDuration );
-                }   
+                }
                 IgnitionOrb orb = new IgnitionOrb();
 
                 orb.attacker = this.attacker;

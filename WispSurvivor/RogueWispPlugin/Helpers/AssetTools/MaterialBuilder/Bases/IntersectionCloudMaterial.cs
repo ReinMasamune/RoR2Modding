@@ -178,7 +178,7 @@
 //            get => base.GetSingle( "_AlphaBoost" );
 //            set => base.SetSingle( "_AlphaBoost", value );
 //        }
-        
+
 //        [Menu( sectionName = "Uncategorized")]
 //        /// <summary>
 //        /// Unknown

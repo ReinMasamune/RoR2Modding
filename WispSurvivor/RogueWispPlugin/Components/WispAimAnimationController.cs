@@ -1,11 +1,13 @@
 ﻿#if R2API
 using R2API.Utils;
 #endif
-using RoR2;
-using System.Reflection;
-using UnityEngine;
 using System;
 using System.Linq.Expressions;
+using System.Reflection;
+
+using RoR2;
+
+using UnityEngine;
 
 namespace Rein.RogueWispPlugin
 {
@@ -38,7 +40,7 @@ namespace Rein.RogueWispPlugin
 
             private delegate Vector2 ReadAimAnglesDelegate( AimAnimator animator );
             private static ReadAimAnglesDelegate ReadAimAngles;
-           
+
 
             private void Awake()
             {
@@ -59,7 +61,7 @@ namespace Rein.RogueWispPlugin
 
             public void Start()
             {
-                
+
 
                 this.input = this.GetComponent<InputBankTest>();
                 this.ml = this.gameObject.GetComponent<ModelLocator>();
@@ -108,7 +110,7 @@ namespace Rein.RogueWispPlugin
                 if( this.transition )
                 {
                     this.timer += Time.deltaTime;
-                    
+
 
 
                     if( this.timer >= this.maxTime ) this.transition = false;
@@ -133,7 +135,7 @@ namespace Rein.RogueWispPlugin
 
                     if( this.transition )
                     {
-                        this.cannonTransform.rotation = Quaternion.RotateTowards( this.cannonTransform.rotation, rotation, 90f * (Time.deltaTime / this.maxTime) );
+                        this.cannonTransform.rotation = Quaternion.RotateTowards( this.cannonTransform.rotation, rotation, 90f * ( Time.deltaTime / this.maxTime ) );
                         //headTransform.rotation = Quaternion.RotateTowards(headTransform.rotation, headRot, 90f * (Time.deltaTime / maxTime));
                     } else
                     {
@@ -145,7 +147,7 @@ namespace Rein.RogueWispPlugin
                 {
                     if( this.transition )
                     {
-                        this.cannonTransform.localRotation = Quaternion.RotateTowards( this.cannonTransform.localRotation, this.baseCannonRot, 90f * (Time.deltaTime / this.maxTime) );
+                        this.cannonTransform.localRotation = Quaternion.RotateTowards( this.cannonTransform.localRotation, this.baseCannonRot, 90f * ( Time.deltaTime / this.maxTime ) );
                     } else
                     {
                         this.cannonTransform.localRotation = this.baseCannonRot;

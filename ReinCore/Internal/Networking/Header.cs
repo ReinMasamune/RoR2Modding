@@ -1,6 +1,7 @@
 ﻿namespace ReinCore
 {
     using System;
+
     using UnityEngine.Networking;
 
     internal class Header : ISerializableObject

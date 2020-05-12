@@ -1,19 +1,17 @@
 ﻿namespace Sniper.Components
 {
     using System;
-    using System.Collections.Generic;
-    using System.Runtime.CompilerServices;
-    using BepInEx.Logging;
-    using ReinCore;
+
     using RoR2;
     using RoR2.UI;
+
     using Sniper.Data;
     using Sniper.States.Bases;
+
     using UnityEngine;
-    using UnityEngine.Networking;
     using UnityEngine.UI;
 
-    [RequireComponent(typeof(HudElement), typeof(CrosshairController))]
+    [RequireComponent( typeof( HudElement ), typeof( CrosshairController ) )]
     internal class ScopeUIController : MonoBehaviour
     {
         internal void HookUpComponents()
@@ -62,7 +60,7 @@
         }
 
 
-        internal void StartZoomSession(ScopeBaseState state, ZoomParams zoomParams)
+        internal void StartZoomSession( ScopeBaseState state, ZoomParams zoomParams )
         {
             this.stateInstance = state;
             this.zoomParams = zoomParams;

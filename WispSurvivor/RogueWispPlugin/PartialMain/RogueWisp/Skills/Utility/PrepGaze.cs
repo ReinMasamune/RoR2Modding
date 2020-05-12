@@ -1,7 +1,10 @@
 ﻿#if ROGUEWISP
 using EntityStates;
+
 using Rein.RogueWispPlugin.Helpers;
+
 using RoR2;
+
 using UnityEngine;
 using UnityEngine.Networking;
 

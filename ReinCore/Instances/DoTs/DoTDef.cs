@@ -1,8 +1,7 @@
 ﻿namespace ReinCore
 {
     using System;
-    using System.Collections.Generic;
-    using System.Text;
+
     using RoR2;
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member

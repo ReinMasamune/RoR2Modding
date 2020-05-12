@@ -3,9 +3,11 @@
     using System;
     using System.Collections.Generic;
     using System.Reflection;
-    using BepInEx;
+
     using MonoMod.RuntimeDetour;
+
     using RoR2;
+
     using UnityEngine;
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -93,7 +95,7 @@
         private static readonly Dictionary<GameObject,ValidSkinOverrideDelegate> validSkinOverrides = new Dictionary<GameObject, ValidSkinOverrideDelegate>();
         private static readonly Dictionary<GameObject,LockedSkinOverrideDelegate> lockedSkinOverrides = new Dictionary<GameObject, LockedSkinOverrideDelegate>();
 
-        private static Boolean IsSkinValid(System.Object self )
+        private static Boolean IsSkinValid( System.Object self )
         {
             Int32 bInd = bodyIndex.Get( self );
             UInt32 skinPref = skinPreference.Get( self );
@@ -103,7 +105,7 @@
                 : IsSkinValidOrig( self );
         }
 
-        private static Boolean IsSkinLocked(System.Object self, UserProfile userProfile)
+        private static Boolean IsSkinLocked( System.Object self, UserProfile userProfile )
         {
             Int32 bInd = bodyIndex.Get( self );
             UInt32 skinPref = skinPreference.Get( self );
@@ -113,7 +115,7 @@
                 : IsSkinLockedOrig( self, userProfile );
         }
 
-        private static void EnforceUnlockables(System.Object self, UserProfile userProfile)
+        private static void EnforceUnlockables( System.Object self, UserProfile userProfile )
         {
             _ = IsSkinValid( self );
             EnforceUnlockablesOrig( self, userProfile );

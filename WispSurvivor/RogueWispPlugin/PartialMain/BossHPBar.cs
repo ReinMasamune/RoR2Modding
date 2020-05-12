@@ -1,7 +1,8 @@
 ﻿#if BOSSHPBAR
+using ReinCore;
+
 using RoR2;
 using RoR2.UI;
-using ReinCore;
 //using static RogueWispPlugin.Helpers.APIInterface;
 
 namespace Rein.RogueWispPlugin

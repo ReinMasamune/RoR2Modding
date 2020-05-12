@@ -1,9 +1,12 @@
 ﻿#if ANCIENTWISP
 using Rein.RogueWispPlugin.Helpers;
+
+using ReinCore;
+
 using RoR2;
 using RoR2.Projectile;
+
 using UnityEngine;
-using ReinCore;
 
 namespace Rein.RogueWispPlugin
 {
@@ -51,7 +54,7 @@ namespace Rein.RogueWispPlugin
             effComp.soundName = "Play_gravekeeper_attack1_fire";
 
             var skin = obj.AddComponent<WispSkinnedEffect>();
-            
+
 
             var vfxAtrib = obj.AddComponent<VFXAttributes>();
             vfxAtrib.vfxPriority = VFXAttributes.VFXPriority.Always;
@@ -457,7 +460,7 @@ namespace Rein.RogueWispPlugin
             var timer = obj.AddComponent<DestroyOnEffectTimer>();
             timer.effectComp = effComp;
 
-            var indicator = EffectHelper.AddMeshIndicator( obj, skinner, MaterialType.BossAreaIndicator, MeshIndex.Cylinder, false, false, 0.5f, 1f, true, false, true ); 
+            var indicator = EffectHelper.AddMeshIndicator( obj, skinner, MaterialType.BossAreaIndicator, MeshIndex.Cylinder, false, false, 0.5f, 1f, true, false, true );
             indicator.transform.localScale = new Vector3( 1f, 1000f, 1f );
             indicator.transform.localPosition = new Vector3( 0f, 995f, 0f );
             //var indPS = indicator.GetComponent<ParticleSystem>();

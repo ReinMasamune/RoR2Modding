@@ -1,9 +1,7 @@
 ﻿namespace Sniper.ScriptableObjects
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
     using RoR2;
+
     using UnityEngine;
 
     internal class SniperCameraParams : CharacterCameraParams

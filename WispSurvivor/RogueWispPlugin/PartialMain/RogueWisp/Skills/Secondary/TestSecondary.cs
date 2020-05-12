@@ -1,8 +1,11 @@
 ﻿#if ROGUEWISP
+using System;
+
 using EntityStates;
+
 using RoR2;
 using RoR2.Orbs;
-using System;
+
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -111,7 +114,7 @@ namespace Rein.RogueWispPlugin
             {
                 if( this.hasFired ) return;
                 WispPassiveController.ChargeState chargeState = this.passive.UseCharge( chargeUsed, chargeScaler );
-                this.PlayCrossfade( "Gesture", "FireBomb", "ChargeBomb.playbackRate", this.duration * (1f - fireDelay), 0.2f );
+                this.PlayCrossfade( "Gesture", "FireBomb", "ChargeBomb.playbackRate", this.duration * ( 1f - fireDelay ), 0.2f );
                 this.hasFired = true;
                 if( !NetworkServer.active )
                 {

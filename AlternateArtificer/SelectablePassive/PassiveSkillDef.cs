@@ -1,12 +1,12 @@
 ﻿namespace AlternateArtificer.SelectablePassive
 {
-    using JetBrains.Annotations;
-    using RoR2;
-    using RoR2.Skills;
     using System;
     using System.Collections.Generic;
-    using System.Text;
-    using UnityEngine;
+
+    using JetBrains.Annotations;
+
+    using RoR2;
+    using RoR2.Skills;
 
     public class PassiveSkillDef : SkillDef
     {
@@ -83,7 +83,7 @@
         public Action<CharacterModel> removeVisuals;
         private readonly Dictionary<CharacterModel, Boolean> isDisplayed = new Dictionary<CharacterModel, Boolean>();
 
-        public void OnAssignDisplay(CharacterModel model)
+        public void OnAssignDisplay( CharacterModel model )
         {
             if( !this.isDisplayed.ContainsKey( model ) || !this.isDisplayed[model] )
             {
@@ -92,7 +92,7 @@
             }
         }
 
-        public void OnUnassignDisplay(CharacterModel model)
+        public void OnUnassignDisplay( CharacterModel model )
         {
             if( this.isDisplayed.ContainsKey( model ) && this.isDisplayed[model] )
             {
@@ -101,7 +101,7 @@
             }
         }
 
-     
+
 
 
     }

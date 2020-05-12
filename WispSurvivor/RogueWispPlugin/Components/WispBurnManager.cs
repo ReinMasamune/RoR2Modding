@@ -1,11 +1,12 @@
-﻿using RoR2;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
+
+using Rein.RogueWispPlugin.Helpers;
+
+using RoR2;
+
 using UnityEngine;
 using UnityEngine.Networking;
-using System.Linq;
-using Rein.RogueWispPlugin.Helpers;
 
 namespace Rein.RogueWispPlugin
 {
@@ -157,7 +158,7 @@ namespace Rein.RogueWispPlugin
 
                 foreach( var burnKV in this.skinTimers )
                 {
-                    if( burnKV.Value.PassTime(delta) )
+                    if( burnKV.Value.PassTime( delta ) )
                     {
                         temp.Enqueue( burnKV.Key );
                         this.dirty = true;

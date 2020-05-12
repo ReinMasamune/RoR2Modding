@@ -1,9 +1,7 @@
 ﻿namespace ReinCore
 {
     using System;
-    using System.Linq.Expressions;
-    using System.Reflection;
-    using BepInEx;
+
     using UnityEngine;
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -67,15 +65,15 @@
 
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-        public static T AddOrGetComponent<T>( this GameObject g ) where T : Component => (g.HasComponent<T>() ? g.GetComponent( typeof( T ) ) : g.AddComponent( typeof( T ) )) as T;
+        public static T AddOrGetComponent<T>( this GameObject g ) where T : Component => ( g.HasComponent<T>() ? g.GetComponent( typeof( T ) ) : g.AddComponent( typeof( T ) ) ) as T;
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-        public static T AddOrGetComponent<T>( this MonoBehaviour m ) where T : Component => (m.HasComponent<T>() ? m.GetComponent( typeof( T ) ) : m.gameObject.AddComponent( typeof( T ) )) as T;
+        public static T AddOrGetComponent<T>( this MonoBehaviour m ) where T : Component => ( m.HasComponent<T>() ? m.GetComponent( typeof( T ) ) : m.gameObject.AddComponent( typeof( T ) ) ) as T;
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-        public static T AddOrGetComponent<T>( this Transform t ) where T : Component => (t.HasComponent<T>() ? t.GetComponent( typeof( T ) ) : t.gameObject.AddComponent( typeof( T ) )) as T;
+        public static T AddOrGetComponent<T>( this Transform t ) where T : Component => ( t.HasComponent<T>() ? t.GetComponent( typeof( T ) ) : t.gameObject.AddComponent( typeof( T ) ) ) as T;
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     }
 }

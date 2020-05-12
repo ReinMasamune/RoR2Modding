@@ -15,7 +15,7 @@
 //        private GameObject artiBodyPrefab;
 //        private SkillLocator artiSkillLocator;
 //        private CharacterBody artiCharBody;
-        
+
 //        #endregion
 //        #endregion
 
@@ -37,7 +37,7 @@
 //        private static Texture2D iceRamp;
 //        private static Texture2D mainTex;
 //        private static Material swordMaterial;
-        
+
 
 //        #endregion
 //        #endregion

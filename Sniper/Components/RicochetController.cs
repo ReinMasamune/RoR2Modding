@@ -2,15 +2,11 @@
 {
     using System;
     using System.Collections;
-    using System.Collections.Generic;
-    using System.Runtime.CompilerServices;
-    using BepInEx.Logging;
-    using ReinCore;
-    using RoR2;
+
     using Sniper.Expansions;
     using Sniper.Modules;
+
     using UnityEngine;
-    using UnityEngine.Networking;
 
     internal class RicochetController : MonoBehaviour
     {

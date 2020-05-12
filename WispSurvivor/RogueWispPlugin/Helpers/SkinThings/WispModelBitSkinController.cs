@@ -1,9 +1,9 @@
 ﻿
-using RoR2;
 using System;
-using System.Collections.Generic;
+
+using RoR2;
+
 using UnityEngine;
-using ReinCore;
 
 namespace Rein.RogueWispPlugin.Helpers
 {
@@ -55,7 +55,7 @@ namespace Rein.RogueWispPlugin.Helpers
 
         internal override void Apply( IBitSkin skin )
         {
-            if( !(skin is WispBitSkin) )
+            if( !( skin is WispBitSkin ) )
             {
                 throw new ArgumentException( "Provided skin was not a WispBitSkin" );
             }
@@ -139,7 +139,7 @@ namespace Rein.RogueWispPlugin.Helpers
                 var ind = this.modelRef.body.skinIndex;
                 if( this.modelRef.body.inventory.GetItemCount( ItemIndex.InvadingDoppelganger ) > 0 )
                 {
-                    ind = (~WispBitSkin.GetWispSkin( ind )).EncodeToSkinIndex();
+                    ind = ( ~WispBitSkin.GetWispSkin( ind ) ).EncodeToSkinIndex();
                     this.modelRef.body.master.loadout.bodyLoadoutManager.SetSkinIndex( Main.rogueWispBodyIndex, ind );
                     this.modelRef.body.skinIndex = ind;
                 }

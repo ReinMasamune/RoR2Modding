@@ -1,8 +1,7 @@
 ﻿namespace AlternativeArtificer.Components
 {
     using System;
-    using System.Collections.Generic;
-    using System.Text;
+
     using UnityEngine;
 
     public class Rotator : MonoBehaviour
@@ -61,7 +60,7 @@
             this.rotationTimer = Math.Max( 0f, this.rotationTimer );
             _ = start - this.rotationTimer;
 
-            this.internalTarget = this.useTarget ? this.target : base.transform.parent.rotation * this.baseRotation ;
+            this.internalTarget = this.useTarget ? this.target : base.transform.parent.rotation * this.baseRotation;
 
             base.transform.rotation = Quaternion.Lerp( this.rotStart, this.internalTarget, 1f - ( this.rotationTimer / this.rotationTime ) );
 

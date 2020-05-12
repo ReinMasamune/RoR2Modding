@@ -1,13 +1,13 @@
-﻿using RoR2;
-using System;
+﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Text;
+
+using RoR2;
+
 using UnityEngine;
 
 namespace Rein.RogueWispPlugin.Helpers
 {
-    [RequireComponent(typeof(EffectComponent))]
+    [RequireComponent( typeof( EffectComponent ) )]
     internal class DestroyOnEffectTimer : MonoBehaviour
     {
         public EffectComponent effectComp;

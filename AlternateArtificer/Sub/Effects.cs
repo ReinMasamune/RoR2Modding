@@ -1,11 +1,13 @@
 ﻿namespace AlternativeArtificer
 {
-    using AlternativeArtificer.States.Main;
-    using BepInEx;
-    using R2API;
-    using RoR2;
-    using RoR2.Projectile;
     using System;
+
+    using AlternativeArtificer.States.Main;
+
+    using R2API;
+
+    using RoR2.Projectile;
+
     using UnityEngine;
 
     public partial class Main
@@ -54,110 +56,110 @@
             switch( meshInd )
             {
                 default:
-                    Debug.LogError( "Mesh index for sword out of range" );
-                    break;
+                Debug.LogError( "Mesh index for sword out of range" );
+                break;
                 case 0:
-                    model.transform.localScale = new Vector3( 0.5f, 0.5f, 1.5f );
+                model.transform.localScale = new Vector3( 0.5f, 0.5f, 1.5f );
 
-                    mesh = Instantiate<Mesh>(Resources.Load<GameObject>("Prefabs/PickupModels/PickupTriTip").transform.Find("mdlTriTip").GetComponent<MeshFilter>().sharedMesh);
-                    model.GetComponent<MeshFilter>().sharedMesh = mesh;
-                    baseUV = new Vector2( 0.5f, 0.5f );
-                    uvs = mesh.uv;
-                    colors = new Color[uvs.Length];
+                mesh = Instantiate<Mesh>( Resources.Load<GameObject>( "Prefabs/PickupModels/PickupTriTip" ).transform.Find( "mdlTriTip" ).GetComponent<MeshFilter>().sharedMesh );
+                model.GetComponent<MeshFilter>().sharedMesh = mesh;
+                baseUV = new Vector2( 0.5f, 0.5f );
+                uvs = mesh.uv;
+                colors = new Color[uvs.Length];
 
-                    for( Int32 i = 0; i < uvs.Length; i++ )
-                    {
-                        Vector2 uv = uvs[i];
-                        Single t = Mathf.Pow(uv.x - 0.5f, 2) + Mathf.Pow(uv.y - 0.5f, 2);
-                        colors[i] = Color.Lerp( color1, color2, Mathf.Sqrt( t ) );
-                        uvs[i] = baseUV;
-                        //colors[i] = 
-                    }
-                    mesh.uv = uvs;
-                    mesh.colors = colors;
-                    break;
+                for( Int32 i = 0; i < uvs.Length; i++ )
+                {
+                    Vector2 uv = uvs[i];
+                    Single t = Mathf.Pow(uv.x - 0.5f, 2) + Mathf.Pow(uv.y - 0.5f, 2);
+                    colors[i] = Color.Lerp( color1, color2, Mathf.Sqrt( t ) );
+                    uvs[i] = baseUV;
+                    //colors[i] = 
+                }
+                mesh.uv = uvs;
+                mesh.colors = colors;
+                break;
 
                 case 3:
-                    model.transform.localScale = new Vector3( 0.4f, 0.4f, 1.25f );
-                    model.transform.eulerAngles = new Vector3( 0f, 180f, 90f );
-                    mesh = Instantiate<Mesh>(Resources.Load<GameObject>("Prefabs/CharacterBodies/ClayBody").transform.Find("ModelBase/mdlClay/ClaymanArmature/ROOT/base/stomach/chest/clavicle.r/upper_arm.r/lower_arm.r/hand.r/sword/ClaymanSwordMesh").GetComponent<MeshFilter>().sharedMesh);
-                    model.GetComponent<MeshFilter>().sharedMesh = mesh;
-                    baseUV = new Vector2( 0.5f, 0.5f );
-                    uvs = mesh.uv;
-                    colors = new Color[uvs.Length];
+                model.transform.localScale = new Vector3( 0.4f, 0.4f, 1.25f );
+                model.transform.eulerAngles = new Vector3( 0f, 180f, 90f );
+                mesh = Instantiate<Mesh>( Resources.Load<GameObject>( "Prefabs/CharacterBodies/ClayBody" ).transform.Find( "ModelBase/mdlClay/ClaymanArmature/ROOT/base/stomach/chest/clavicle.r/upper_arm.r/lower_arm.r/hand.r/sword/ClaymanSwordMesh" ).GetComponent<MeshFilter>().sharedMesh );
+                model.GetComponent<MeshFilter>().sharedMesh = mesh;
+                baseUV = new Vector2( 0.5f, 0.5f );
+                uvs = mesh.uv;
+                colors = new Color[uvs.Length];
 
-                    for( Int32 i = 0; i < uvs.Length; i++ )
-                    {
-                        Vector2 uv = uvs[i];
-                        Single t = Mathf.Pow(uv.x - 0.5f, 2) + Mathf.Pow(uv.y - 0.5f, 2);
-                        colors[i] = Color.Lerp( color1, color2, Mathf.Sqrt( t ) );
-                        uvs[i] = baseUV;
-                        //colors[i] = 
-                    }
-                    mesh.uv = uvs;
-                    mesh.colors = colors;
-                    break;
+                for( Int32 i = 0; i < uvs.Length; i++ )
+                {
+                    Vector2 uv = uvs[i];
+                    Single t = Mathf.Pow(uv.x - 0.5f, 2) + Mathf.Pow(uv.y - 0.5f, 2);
+                    colors[i] = Color.Lerp( color1, color2, Mathf.Sqrt( t ) );
+                    uvs[i] = baseUV;
+                    //colors[i] = 
+                }
+                mesh.uv = uvs;
+                mesh.colors = colors;
+                break;
                 case 2:
-                    model.transform.localScale = new Vector3( 0.4f, 0.4f, 1.25f );
-                    model.transform.eulerAngles = new Vector3( 0f, 180f, 0f );
-                    mesh = Instantiate<Mesh>(Resources.Load<GameObject>("Prefabs/PickupModels/PickupDagger").transform.Find("mdlDagger").GetComponent<MeshFilter>().sharedMesh);
-                    model.GetComponent<MeshFilter>().sharedMesh = mesh;
-                    baseUV = new Vector2( 0.5f, 0.5f );
-                    uvs = mesh.uv;
-                    colors = new Color[uvs.Length];
+                model.transform.localScale = new Vector3( 0.4f, 0.4f, 1.25f );
+                model.transform.eulerAngles = new Vector3( 0f, 180f, 0f );
+                mesh = Instantiate<Mesh>( Resources.Load<GameObject>( "Prefabs/PickupModels/PickupDagger" ).transform.Find( "mdlDagger" ).GetComponent<MeshFilter>().sharedMesh );
+                model.GetComponent<MeshFilter>().sharedMesh = mesh;
+                baseUV = new Vector2( 0.5f, 0.5f );
+                uvs = mesh.uv;
+                colors = new Color[uvs.Length];
 
-                    for( Int32 i = 0; i < uvs.Length; i++ )
-                    {
-                        Vector2 uv = uvs[i];
-                        Single t = Mathf.Pow(uv.x - 0.5f, 2) + Mathf.Pow(uv.y - 0.5f, 2);
-                        colors[i] = Color.Lerp( color1, color2, Mathf.Sqrt( t ) );
-                        uvs[i] = baseUV;
-                        //colors[i] = 
-                    }
-                    mesh.uv = uvs;
-                    mesh.colors = colors;
-                    break;
-                
+                for( Int32 i = 0; i < uvs.Length; i++ )
+                {
+                    Vector2 uv = uvs[i];
+                    Single t = Mathf.Pow(uv.x - 0.5f, 2) + Mathf.Pow(uv.y - 0.5f, 2);
+                    colors[i] = Color.Lerp( color1, color2, Mathf.Sqrt( t ) );
+                    uvs[i] = baseUV;
+                    //colors[i] = 
+                }
+                mesh.uv = uvs;
+                mesh.colors = colors;
+                break;
+
                 case 1:
-                    model.transform.localScale = new Vector3( 1f, 1f, 1f );
-                    mesh = Instantiate<Mesh>(Resources.Load<GameObject>("Prefabs/CharacterBodies/MercBody").transform.Find("ModelBase/mdlMerc/MercSwordMesh").GetComponent<SkinnedMeshRenderer>().sharedMesh);
-                    model.GetComponent<MeshFilter>().sharedMesh = mesh;
-                    baseUV = new Vector2( 0.5f, 0.5f );
-                    uvs = mesh.uv;
-                    colors = new Color[uvs.Length];
+                model.transform.localScale = new Vector3( 1f, 1f, 1f );
+                mesh = Instantiate<Mesh>( Resources.Load<GameObject>( "Prefabs/CharacterBodies/MercBody" ).transform.Find( "ModelBase/mdlMerc/MercSwordMesh" ).GetComponent<SkinnedMeshRenderer>().sharedMesh );
+                model.GetComponent<MeshFilter>().sharedMesh = mesh;
+                baseUV = new Vector2( 0.5f, 0.5f );
+                uvs = mesh.uv;
+                colors = new Color[uvs.Length];
 
-                    for( Int32 i = 0; i < uvs.Length; i++ )
-                    {
-                        Vector2 uv = uvs[i];
-                        Single t = Mathf.Pow(uv.x - 0.5f, 2) + Mathf.Pow(uv.y - 0.5f, 2);
-                        colors[i] = Color.Lerp( color1, color2, Mathf.Sqrt( t ) );
-                        uvs[i] = baseUV;
-                        //colors[i] = 
-                    }
-                    mesh.uv = uvs;
-                    mesh.colors = colors;
-                    break;
-                
+                for( Int32 i = 0; i < uvs.Length; i++ )
+                {
+                    Vector2 uv = uvs[i];
+                    Single t = Mathf.Pow(uv.x - 0.5f, 2) + Mathf.Pow(uv.y - 0.5f, 2);
+                    colors[i] = Color.Lerp( color1, color2, Mathf.Sqrt( t ) );
+                    uvs[i] = baseUV;
+                    //colors[i] = 
+                }
+                mesh.uv = uvs;
+                mesh.colors = colors;
+                break;
+
                 case 4:
-                    model.transform.localScale = new Vector3( 0.06f, 0.06f, 0.15f );
-                    model.transform.eulerAngles = new Vector3( 0f, 180f, 0f );
-                    mesh = Instantiate<Mesh>(Resources.Load<GameObject>("Prefabs/CharacterBodies/TitanGoldBody").transform.Find("ModelBase/mdlTitan/TitanArmature/ROOT/base/stomach/chest/upper_arm.r/lower_arm.r/hand.r/RightFist/Sword").GetComponent<MeshFilter>().sharedMesh);
-                    model.GetComponent<MeshFilter>().sharedMesh = mesh;
-                    baseUV = new Vector2( 0.5f, 0.5f );
-                    uvs = mesh.uv;
-                    colors = new Color[uvs.Length];
+                model.transform.localScale = new Vector3( 0.06f, 0.06f, 0.15f );
+                model.transform.eulerAngles = new Vector3( 0f, 180f, 0f );
+                mesh = Instantiate<Mesh>( Resources.Load<GameObject>( "Prefabs/CharacterBodies/TitanGoldBody" ).transform.Find( "ModelBase/mdlTitan/TitanArmature/ROOT/base/stomach/chest/upper_arm.r/lower_arm.r/hand.r/RightFist/Sword" ).GetComponent<MeshFilter>().sharedMesh );
+                model.GetComponent<MeshFilter>().sharedMesh = mesh;
+                baseUV = new Vector2( 0.5f, 0.5f );
+                uvs = mesh.uv;
+                colors = new Color[uvs.Length];
 
-                    for( Int32 i = 0; i < uvs.Length; i++ )
-                    {
-                        Vector2 uv = uvs[i];
-                        Single t = Mathf.Pow(uv.x - 0.5f, 2) + Mathf.Pow(uv.y - 0.5f, 2);
-                        colors[i] = Color.Lerp( color1, color2, Mathf.Sqrt( t ) );
-                        uvs[i] = baseUV;
-                        //colors[i] = 
-                    }
-                    mesh.uv = uvs;
-                    mesh.colors = colors;
-                    break;
+                for( Int32 i = 0; i < uvs.Length; i++ )
+                {
+                    Vector2 uv = uvs[i];
+                    Single t = Mathf.Pow(uv.x - 0.5f, 2) + Mathf.Pow(uv.y - 0.5f, 2);
+                    colors[i] = Color.Lerp( color1, color2, Mathf.Sqrt( t ) );
+                    uvs[i] = baseUV;
+                    //colors[i] = 
+                }
+                mesh.uv = uvs;
+                mesh.colors = colors;
+                break;
             }
         }
 

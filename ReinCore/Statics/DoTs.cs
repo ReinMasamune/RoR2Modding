@@ -4,12 +4,13 @@
     using System.Collections.Generic;
     using System.Linq.Expressions;
     using System.Reflection;
-    using BepInEx;
+
     using Mono.Cecil;
     using Mono.Cecil.Cil;
+
     using MonoMod.Cil;
+
     using RoR2;
-    using UnityEngine;
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public static class DoTsCore
@@ -221,7 +222,7 @@
             Int32 damageLoc = 0;
 
             _ = cursor.GotoNext( MoveType.AfterLabel,
-                x => x.MatchLdarg(0),
+                x => x.MatchLdarg( 0 ),
                 x => x.MatchCallOrCallvirt( out method ),
                 x => x.MatchLdloc( out damageLoc ),
                 x => x.MatchCallOrCallvirt<RoR2.HealthComponent>( "TakeDamage" )

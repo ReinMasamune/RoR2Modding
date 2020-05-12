@@ -1,6 +1,7 @@
 ﻿namespace AlternativeArtificer.Helpers
 {
     using System;
+
     using UnityEngine;
     public class InstancedRandom
     {

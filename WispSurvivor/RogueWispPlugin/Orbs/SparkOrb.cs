@@ -1,6 +1,8 @@
-﻿using RoR2;
+﻿using System.Collections.Generic;
+
+using RoR2;
 using RoR2.Orbs;
-using System.Collections.Generic;
+
 using UnityEngine;
 
 namespace Rein.RogueWispPlugin
@@ -49,7 +51,7 @@ namespace Rein.RogueWispPlugin
                 if( this.hitMask == null ) this.hitMask = new HashSet<HealthComponent>();
 
                 Vector3 intermediate = this.origin + new Vector3(0f, this.stepHeight, 0f);
-                intermediate += this.direction * this.stepDist * (this.isFirst ? 0.5f : 1.0f);
+                intermediate += this.direction * this.stepDist * ( this.isFirst ? 0.5f : 1.0f );
                 Vector3 dir = intermediate - this.origin;
                 System.Single dist = dir.magnitude;
                 dir = Vector3.Normalize( dir );
@@ -119,7 +121,7 @@ namespace Rein.RogueWispPlugin
                     bdmg.crit = this.crit;
                     bdmg.damageColorIndex = this.damageColor;
                     bdmg.damageType = DamageType.Generic;
-                    bdmg.force = (this.direction + Vector3.up) * 50f;
+                    bdmg.force = ( this.direction + Vector3.up ) * 50f;
                     bdmg.inflictor = this.attacker;
                     bdmg.position = this.dest;
                     bdmg.procChainMask = this.procMask;
@@ -171,7 +173,7 @@ namespace Rein.RogueWispPlugin
                         dmg.crit = this.crit;
                         dmg.damageColorIndex = this.damageColor;
                         dmg.damageType = DamageType.Generic;
-                        dmg.force = (this.direction + Vector3.up) * 10f;
+                        dmg.force = ( this.direction + Vector3.up ) * 10f;
                         dmg.inflictor = this.attacker;
                         dmg.position = col.transform.position;
                         dmg.procChainMask = this.procMask;

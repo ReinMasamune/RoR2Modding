@@ -1,16 +1,19 @@
 ﻿#if ANCIENTWISP
+using EntityStates;
+
+using ReinCore;
+
 using RoR2;
 using RoR2.Skills;
+
 using UnityEngine;
-using ReinCore;
-using EntityStates;
 
 namespace Rein.RogueWispPlugin
 {
     // TODO: Skills
     internal partial class Main
     {
-        private static Accessor<GenericSkill,SkillFamily> skillFamily
+        private static Accessor<GenericSkill, SkillFamily> skillFamily
         {
             get
             {
@@ -35,7 +38,7 @@ namespace Rein.RogueWispPlugin
             SkillsCore.AddSkill( typeof( AWDefaultMain ) );
             SkillsCore.AddSkill( typeof( AWEnrageTransition ) );
             SkillsCore.AddSkill( typeof( AWEnrageMainState ) );
-        } 
+        }
 
         private void AW_SetupUtility()
         {
@@ -46,7 +49,7 @@ namespace Rein.RogueWispPlugin
             SkillsCore.AddSkillFamily( utilityFam );
             SkillsCore.AddSkill( typeof( AWChargeUtility ) );
             SkillsCore.AddSkill( typeof( AWFireUtility ) );
-            
+
 
             utilityDef.activationState = new SerializableEntityStateType( typeof( AWChargeUtility ) );
             utilityDef.activationStateMachineName = "Weapon";

@@ -1,23 +1,24 @@
 ﻿namespace AlternativeArtificer.States.Special
 {
+    using System;
+
     using AlternativeArtificer.States.Main;
+
     using EntityStates;
     using EntityStates.Mage;
+
     using RoR2;
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
+
     using UnityEngine;
     using UnityEngine.Networking;
 
     public class IonSurge : GenericCharacterMain
     {
         // TODO: Disable jumping during surge
-        const Int32 steps = 3;
-
-        const Single stepHalt = 0.75f;
-        const Single dashTime = 0.3f;
-        const Single speedConst = 0.3f;
+        private const Int32 steps = 3;
+        private const Single stepHalt = 0.75f;
+        private const Single dashTime = 0.3f;
+        private const Single speedConst = 0.3f;
 
         private Int32 stepCounter = 0;
 
@@ -47,13 +48,13 @@
             this.inputSpace.localScale = Vector3.one;
 
             this.stepTime = stepHalt + dashTime;
-            this.duration = ( this.stepTime * steps) - stepHalt;
+            this.duration = ( this.stepTime * steps ) - stepHalt;
             for( Int32 i = 0; i < steps; i++ )
             {
-                this.stepTimes[i] = ( this.stepTime * i) - stepHalt;
+                this.stepTimes[i] = ( this.stepTime * i ) - stepHalt;
             }
             this.stepTimes[steps] = this.duration;
-            this.stepTime = ( this.duration / steps) - stepHalt;
+            this.stepTime = ( this.duration / steps ) - stepHalt;
 
             this.modelTransform = base.GetModelTransform();
             this.rotator = this.modelTransform.Find( "MageArmature" ).GetComponent<Components.Rotator>();
@@ -167,10 +168,10 @@
                     this.halting = false;
                     this.stepCounter++;
 
-                    this.handles[this.stepCounter -1] = new AltArtiPassive.BatchHandle();
+                    this.handles[this.stepCounter - 1] = new AltArtiPassive.BatchHandle();
                     if( this.passive != null )
                     {
-                        this.passive.SkillCast( this.handles[this.stepCounter -1] );
+                        this.passive.SkillCast( this.handles[this.stepCounter - 1] );
                     }
                 }
             } else
@@ -201,9 +202,11 @@
 
         private void CreateBlinkEffect( Vector3 origin )
         {
-            var data = new EffectData();
-            data.rotation = Util.QuaternionSafeLookRotation( this.flyVector );
-            data.origin = origin;
+            var data = new EffectData
+            {
+                rotation = Util.QuaternionSafeLookRotation( this.flyVector ),
+                origin = origin
+            };
             EffectManager.SpawnEffect( FlyUpState.blinkPrefab, data, false );
         }
     }

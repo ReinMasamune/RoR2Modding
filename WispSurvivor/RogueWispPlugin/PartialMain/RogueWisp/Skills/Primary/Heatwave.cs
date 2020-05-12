@@ -1,7 +1,10 @@
 ﻿#if ROGUEWISP
-using EntityStates;
-using RoR2;
 using System;
+
+using EntityStates;
+
+using RoR2;
+
 using UnityEngine;
 
 namespace Rein.RogueWispPlugin
@@ -142,7 +145,7 @@ namespace Rein.RogueWispPlugin
                 snap.useTargetPos = false;
                 snap.origin = aim.origin;
                 snap.direction = aim.direction;
-                snap.chargeRestore = 5f / Mathf.Sqrt(Mathf.Max(1f, base.attackSpeedStat ) );
+                snap.chargeRestore = 5f / Mathf.Sqrt( Mathf.Max( 1f, base.attackSpeedStat ) );
                 snap.force = 100f;
                 snap.range = maxRange;
                 snap.falloffStart = falloffStart;

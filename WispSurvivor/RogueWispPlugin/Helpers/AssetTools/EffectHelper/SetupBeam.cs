@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+
 using UnityEngine;
 
 namespace Rein.RogueWispPlugin.Helpers
@@ -13,7 +13,7 @@ namespace Rein.RogueWispPlugin.Helpers
             if( !beamCounter.ContainsKey( mainObj ) ) beamCounter[mainObj] = 0u;
             var beamPar = new GameObject( "Beam" + beamCounter[mainObj]++ );
             beamPar.transform.parent = mainObj.transform;
-            beamPar.transform.localPosition = new Vector3( 0f, 0f, forwardOffset);
+            beamPar.transform.localPosition = new Vector3( 0f, 0f, forwardOffset );
             beamPar.transform.localScale = Vector3.one;
             beamPar.transform.localRotation = Quaternion.identity;
 

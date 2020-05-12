@@ -1,22 +1,13 @@
 ﻿namespace Sniper.States.Bases
 {
     using System;
-    using System.Collections.Generic;
-    using System.Runtime.CompilerServices;
-    using BepInEx.Logging;
-    using ReinCore;
-    using RoR2;
-    using RoR2.Networking;
-    using UnityEngine;
-    using KinematicCharacterController;
-    using EntityStates;
-    using RoR2.Skills;
-    using System.Reflection;
-    using Sniper.Expansions;
-    using Sniper.Enums;
+
     using Sniper.Data;
+    using Sniper.Enums;
+    using Sniper.Expansions;
     using Sniper.Modules;
-    using System.Diagnostics;
+
+    using UnityEngine;
     using UnityEngine.Networking;
 
     internal abstract class SnipeBaseState : SniperSkillBaseState
@@ -124,7 +115,7 @@
             this.charge = reader.ReadSingle();
         }
 
-        
+
 
         public override void FixedUpdate()
         {

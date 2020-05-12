@@ -1,11 +1,12 @@
 ﻿namespace AlternativeArtificer
 {
-    using BepInEx;
-    using RoR2;
-    using System;
-    using UnityEngine;
-    using R2API;
     using AlternativeArtificer.States.Main;
+
+    using R2API;
+
+    using RoR2;
+
+    using UnityEngine;
 
     public partial class Main
     {
@@ -24,7 +25,7 @@
                 iconPath = "Textures/BuffIcons/texBuffAffixRed",
                 isDebuff = false,
                 name = "AltArtiFireBuff"
-            } ));
+            } ) );
 
             this.burnBuff = BuffIndex.OnFire;
             this.burnDot = DotController.DotIndex.Burn;

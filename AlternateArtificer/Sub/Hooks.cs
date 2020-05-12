@@ -1,21 +1,26 @@
 ﻿namespace AlternativeArtificer
 {
-    using System.Collections.Generic;
-    using UnityEngine;
-    using EntityStates.Mage;
-    using EntityStates.Mage.Weapon;
-    using States.Main;
     using System;
-    using RoR2;
-    using MonoMod.Cil;
-    using Mono.Cecil.Cil;
-    using UnityEngine.Networking;
-    using System.Xml.Linq;
-    using R2API.Utils;
-    using RoR2.Skills;
+    using System.Collections.Generic;
     using System.Linq;
-    using RoR2.UI;
+
     using AlternateArtificer.SelectablePassive;
+
+    using EntityStates.Mage.Weapon;
+
+    using Mono.Cecil.Cil;
+
+    using MonoMod.Cil;
+
+    using R2API.Utils;
+
+    using RoR2;
+    using RoR2.Skills;
+
+    using States.Main;
+
+    using UnityEngine;
+    using UnityEngine.Networking;
 
     public partial class Main
     {
@@ -87,7 +92,7 @@
             Int32 bodyIndex = self.GetFieldValue<Int32>("bodyIndex");
             ModelSkinController bodySkinController = BodyCatalog.GetBodyPrefab( bodyIndex ).GetComponent<ModelLocator>().modelTransform.GetComponent<ModelSkinController>();
             UInt32 skinPreference = self.GetFieldValue<UInt32>("skinPreference" );
-            if( this.addedSkins.Contains(bodySkinController.skins[skinPreference] ) )
+            if( this.addedSkins.Contains( bodySkinController.skins[skinPreference] ) )
             {
                 self.SetFieldValue<UInt32>( "skinPreference", 0u );
             }
@@ -148,9 +153,9 @@
                         }
                     } else if( damageReport.damageInfo.damageType.HasFlag( DamageType.Freeze2s ) )
                     {
-                        if( AltArtiPassive.instanceLookup.ContainsKey(damageReport.attacker))
+                        if( AltArtiPassive.instanceLookup.ContainsKey( damageReport.attacker ) )
                         {
-                            AltArtiPassive.instanceLookup[damageReport.attacker].DoExecute( damageReport ); 
+                            AltArtiPassive.instanceLookup[damageReport.attacker].DoExecute( damageReport );
                         }
                     }
                 }
@@ -158,7 +163,7 @@
         }
         private void HealthComponent_TakeDamage( On.RoR2.HealthComponent.orig_TakeDamage orig, RoR2.HealthComponent self, RoR2.DamageInfo damageInfo )
         {
-            if( damageInfo.damageType.HasFlag(DamageType.Freeze2s) )
+            if( damageInfo.damageType.HasFlag( DamageType.Freeze2s ) )
             {
                 this.frozenBy[self.gameObject] = damageInfo.attacker;
             }
@@ -174,7 +179,7 @@
 
                         if( buffCount >= 0 )
                         {
-                            damageInfo.damage *= 1f + (AltArtiPassive.burnDamageMult * buffCount);
+                            damageInfo.damage *= 1f + ( AltArtiPassive.burnDamageMult * buffCount );
                         }
                     }
                 }

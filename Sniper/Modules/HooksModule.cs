@@ -2,15 +2,18 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Runtime.CompilerServices;
     using System.Reflection;
-    using BepInEx.Logging;
+
     using Mono.Cecil.Cil;
+
     using MonoMod.Cil;
+
     using ReinCore;
+
     using RoR2;
-    using Sniper.Components;
+
     using Sniper.ScriptableObjects;
+
     using UnityEngine;
 
     internal static class HooksModule
@@ -47,12 +50,12 @@
             ILLabel end = c.MarkLabel();
 
             _ = c.GotoPrev( MoveType.AfterLabel,
-                x => x.MatchLdfld<CharacterCameraParams>( nameof(CharacterCameraParams.standardLocalCameraPos) )
+                x => x.MatchLdfld<CharacterCameraParams>( nameof( CharacterCameraParams.standardLocalCameraPos ) )
             );
 
             ILLabel standard = c.MarkLabel();
 
-            _= c.GotoPrev( MoveType.After,
+            _ = c.GotoPrev( MoveType.After,
                 x => x.MatchLdarg( 0 ),
                 x => x.MatchLdfld<CameraTargetParams>( nameof( CameraTargetParams.cameraParams ) )
             );
@@ -78,12 +81,12 @@
 
             Transform par = self.hud.transform.Find( "MainContainer/MainUIArea/BottomCenterCluster" );
             var barTrans = reloadBar.transform as RectTransform;
-            barTrans.SetParent(par, false);
+            barTrans.SetParent( par, false );
             barTrans.localPosition = new Vector3( 0f, 256f, 0f );
             barTrans.localScale = new Vector3( 0.5f, 0.5f, 1f );
         }
 
-        internal static void AddReturnoverride( GenericSkill skill ) => slotReturnOverrides[skill] = (SkillSlot) counter++ ;
+        internal static void AddReturnoverride( GenericSkill skill ) => slotReturnOverrides[skill] = (SkillSlot)counter++;
         private static Int32 counter = (Int32)SkillSlot.Special + 1;
         private static readonly Dictionary<GenericSkill,SkillSlot> slotReturnOverrides = new Dictionary<GenericSkill, SkillSlot>();
         private static void FindSkillSlot_Il( ILContext il )

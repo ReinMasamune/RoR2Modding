@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using UnityEngine;
 using System.Linq;
+
+using UnityEngine;
 
 namespace Rein.RogueWispPlugin.Helpers
 {

@@ -1,10 +1,14 @@
 ﻿namespace Sniper.States.Bases
 {
     using System;
+
     using EntityStates;
+
     using RoR2;
+
     using Sniper.Data;
     using Sniper.SkillDefs;
+
     using UnityEngine;
 
     internal abstract class ScopeBaseState : SniperSkillBaseState

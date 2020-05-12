@@ -89,7 +89,7 @@
 //            trail.sortingOrder = 0;
 //            trail.lightmapIndex = -1;
 //            trail.realtimeLightmapIndex = -1;
-            
+
 
 
 //            //Material distortion = Resources.Load<GameObject>("Prefabs/Effects/ImpactEffects/LightningStrikeImpact").transform.Find("Distortion").GetComponent<ParticleSystemRenderer>().material;

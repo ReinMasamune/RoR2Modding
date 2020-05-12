@@ -1,5 +1,7 @@
-﻿using RoR2;
-using System;
+﻿using System;
+
+using RoR2;
+
 using UnityEngine;
 
 namespace Rein.RogueWispPlugin
@@ -49,14 +51,14 @@ namespace Rein.RogueWispPlugin
 
             public void Start()
             {
-                this.isDoppleganger = ( base.GetComponent<CharacterBody>()?.inventory?.GetItemCount(ItemIndex.InvadingDoppelganger) ?? 1 ) != 0;
+                this.isDoppleganger = ( base.GetComponent<CharacterBody>()?.inventory?.GetItemCount( ItemIndex.InvadingDoppelganger ) ?? 1 ) != 0;
             }
 
             public void FixedUpdate()
             {
                 Int32 buffStacks = this.body.GetBuffCount(this.buffInd);
-                this.charge = UpdateCharge( this.charge, Time.fixedDeltaTime * (Single)(buffStacks > 0 ? decayMultWithBuff : 1.0) * (this.isDoppleganger ? 0.25f : 1f) );
-                this.charge += regenPsPs * buffStacks * Time.fixedDeltaTime * (this.isDoppleganger ? 4f : 1f);
+                this.charge = UpdateCharge( this.charge, Time.fixedDeltaTime * (Single)( buffStacks > 0 ? decayMultWithBuff : 1.0 ) * ( this.isDoppleganger ? 0.25f : 1f ) );
+                this.charge += regenPsPs * buffStacks * Time.fixedDeltaTime * ( this.isDoppleganger ? 4f : 1f );
             }
 
             public void AddCharge( Double addedCharge ) => this.charge += addedCharge;
@@ -102,7 +104,7 @@ namespace Rein.RogueWispPlugin
                 state.chargeAtStart = startingCharge;
                 state.chargeConsumed = chargeToConsume;
                 state.chargeLeft = this.charge;
-                state.chargeScaler = GetDrainScaler( chargeToConsume, (rate * time), scaler );
+                state.chargeScaler = GetDrainScaler( chargeToConsume, ( rate * time ), scaler );
 
                 return state;
             }

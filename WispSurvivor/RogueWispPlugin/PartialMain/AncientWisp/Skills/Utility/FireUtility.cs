@@ -1,8 +1,10 @@
 ﻿#if ANCIENTWISP
+using System;
+
 using EntityStates;
+
 using RoR2;
 using RoR2.Projectile;
-using System;
 
 namespace Rein.RogueWispPlugin
 {
@@ -37,7 +39,7 @@ namespace Rein.RogueWispPlugin
                         procChainMask = default,
                         projectilePrefab = Main.AW_utilityProjectile,
                         rotation = Util.QuaternionSafeLookRotation( r.direction ),
-                    });
+                    } );
                 }
 
                 base.PlayCrossfade( "Gesture", "FireBomb", "FireBomb.playbackRate", this.duration, 0.2f );

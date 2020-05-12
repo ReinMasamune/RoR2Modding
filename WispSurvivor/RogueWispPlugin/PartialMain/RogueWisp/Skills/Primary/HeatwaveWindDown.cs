@@ -1,6 +1,7 @@
 ﻿#if ROGUEWISP
-using EntityStates;
 using System;
+
+using EntityStates;
 
 namespace Rein.RogueWispPlugin
 {

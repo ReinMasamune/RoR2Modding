@@ -1,13 +1,10 @@
 ﻿namespace Sniper.Data
 {
     using System;
-    using System.Collections.Generic;
-    using System.Runtime.CompilerServices;
-    using BepInEx.Logging;
-    using ReinCore;
-    using RoR2;
+
     using Sniper.Enums;
     using Sniper.Expansions;
+
     using UnityEngine;
 
     [Serializable]
@@ -43,7 +40,7 @@
         private Single AdjustAttackSpeed( Single rawAttackSpeed )
         {
             return rawAttackSpeed > 1f
-                ? 1f + (this.attackSpeedCap * (1f - (this.attackSpeedCap / (rawAttackSpeed + (this.attackSpeedCap - 1f)))))
+                ? 1f + ( this.attackSpeedCap * ( 1f - ( this.attackSpeedCap / ( rawAttackSpeed + ( this.attackSpeedCap - 1f ) ) ) ) )
                 : rawAttackSpeed;
         }
 
@@ -80,18 +77,18 @@
             switch( tier )
             {
                 default:
-                    Log.Error( "Unknown reload tier" );
-                    bullet.damage *= this.badMult;
-                    break;
+                Log.Error( "Unknown reload tier" );
+                bullet.damage *= this.badMult;
+                break;
                 case ReloadTier.Bad:
-                    bullet.damage *= this.badMult;
-                    break;
+                bullet.damage *= this.badMult;
+                break;
                 case ReloadTier.Good:
-                    bullet.damage *= this.goodMult;
-                    break;
+                bullet.damage *= this.goodMult;
+                break;
                 case ReloadTier.Perfect:
-                    bullet.damage *= this.perfectMult;
-                    break;
+                bullet.damage *= this.perfectMult;
+                break;
             }
         }
     }

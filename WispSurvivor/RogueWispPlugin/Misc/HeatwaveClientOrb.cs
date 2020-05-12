@@ -1,7 +1,9 @@
-﻿using RoR2;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+
+using RoR2;
+
 using UnityEngine;
 
 namespace Rein.RogueWispPlugin
@@ -122,7 +124,7 @@ namespace Rein.RogueWispPlugin
                 EffectManager.SpawnEffect( Main.primaryOrbEffect, effectData, true );
 
                 this.dist1 = this.range * this.falloffStart;
-                this.dist2 = this.range * (1f - this.falloffStart);
+                this.dist2 = this.range * ( 1f - this.falloffStart );
             }
             private void ColliderEnter( Collider col )
             {
@@ -150,12 +152,12 @@ namespace Rein.RogueWispPlugin
             {
                 //this.hitRb.position += this.velVec;
                 //this.hitRb.MovePosition(this.hitRb.position + this.velVec);
-                this.hitRb.MovePosition( Vector3.Lerp( this.startPos, this.targetPos, (this.totalDuration - base.remainingDuration) / this.totalDuration ) );
+                this.hitRb.MovePosition( Vector3.Lerp( this.startPos, this.targetPos, ( this.totalDuration - base.remainingDuration ) / this.totalDuration ) );
                 Single curDist = this.speed * (this.totalDuration - base.remainingDuration );
                 Single curMult = 1f;
                 if( curDist > this.dist1 )
                 {
-                    curMult -= ((curDist - this.dist1) / this.dist2) * (1f - this.endFalloffMult);
+                    curMult -= ( ( curDist - this.dist1 ) / this.dist2 ) * ( 1f - this.endFalloffMult );
                 }
 
                 foreach( var kv in this.bestHits )
@@ -264,7 +266,7 @@ namespace Rein.RogueWispPlugin
                 Single curMult = 1f;
                 if( curDist > this.dist1 )
                 {
-                    curMult -= ((curDist - this.dist1) / this.dist2) * (1f - this.endFalloffMult);
+                    curMult -= ( ( curDist - this.dist1 ) / this.dist2 ) * ( 1f - this.endFalloffMult );
                 }
 
 
@@ -334,34 +336,34 @@ namespace Rein.RogueWispPlugin
             {
                 Single temp = 1f;
 
-                temp *= 1f + (damageBoost / 10f);
+                temp *= 1f + ( damageBoost / 10f );
 
                 switch( this.GetMonsterTier( name ) )
                 {
                     case MonsterTier.Basic:
-                        temp *= 0.35f;
-                        break;
+                    temp *= 0.35f;
+                    break;
                     case MonsterTier.Small:
-                        temp *= 0.5f;
-                        break;
+                    temp *= 0.5f;
+                    break;
                     case MonsterTier.Mid:
-                        temp *= 0.65f;
-                        break;
+                    temp *= 0.65f;
+                    break;
                     case MonsterTier.Miniboss:
-                        temp *= 0.85f;
-                        break;
+                    temp *= 0.85f;
+                    break;
                     case MonsterTier.Boss:
-                        temp *= 1.0f;
-                        break;
+                    temp *= 1.0f;
+                    break;
                     case MonsterTier.SuperBoss:
-                        temp *= 6f;
-                        break;
+                    temp *= 6f;
+                    break;
                     case MonsterTier.HyperBoss:
-                        temp *= 1f;
-                        break;
+                    temp *= 1f;
+                    break;
                     case MonsterTier.Other:
-                        temp *= 0.1f;
-                        break;
+                    temp *= 0.1f;
+                    break;
                 }
                 return temp;
             }
@@ -383,176 +385,176 @@ namespace Rein.RogueWispPlugin
                 switch( name )
                 {
                     default:
-                        Main.LogM( name + " is not a handled monster" );
-                        return MonsterTier.Other;
+                    Main.LogM( name + " is not a handled monster" );
+                    return MonsterTier.Other;
 
                     case "LEMURIAN_BODY_NAME":
-                        return MonsterTier.Basic;
+                    return MonsterTier.Basic;
                     case "WISP_BODY_NAME":
-                        return MonsterTier.Basic;
+                    return MonsterTier.Basic;
                     case "BEETLE_BODY_NAME":
-                        return MonsterTier.Basic;
+                    return MonsterTier.Basic;
                     case "JELLYFISH_BODY_NAME":
-                        return MonsterTier.Basic;
+                    return MonsterTier.Basic;
                     case "CLAY_BODY_NAME":
-                        return MonsterTier.Basic;
+                    return MonsterTier.Basic;
                     case "POD_BODY_NAME":
-                        return MonsterTier.Basic;
+                    return MonsterTier.Basic;
 
 
                     case "HERMIT_CRAB_BODY_NAME":
-                        return MonsterTier.Small;
+                    return MonsterTier.Small;
                     case "IMP_BODY_NAME":
-                        return MonsterTier.Small;
+                    return MonsterTier.Small;
                     case "ROBOBALLMINI_BODY_NAME":
-                        return MonsterTier.Small;
+                    return MonsterTier.Small;
                     case "VULTURE_BODY_NAME":
-                        return MonsterTier.Small;
+                    return MonsterTier.Small;
                     case "URCHINTURRET_BODY_NAME":
-                        return MonsterTier.Small;
+                    return MonsterTier.Small;
                     case "MINIMUSHROOM_BODY_NAME":
-                        return MonsterTier.Small;
+                    return MonsterTier.Small;
 
 
                     case "GOLEM_BODY_NAME":
-                        return MonsterTier.Mid;
+                    return MonsterTier.Mid;
                     case "BEETLEGUARD_BODY_NAME":
-                        return MonsterTier.Mid;
+                    return MonsterTier.Mid;
                     case "BELL_BODY_NAME":
-                        return MonsterTier.Mid;
+                    return MonsterTier.Mid;
                     case "BISON_BODY_NAME":
-                        return MonsterTier.Mid;
+                    return MonsterTier.Mid;
 
 
                     case "LEMURIANBRUISER_BODY_NAME":
-                        return MonsterTier.Miniboss;
+                    return MonsterTier.Miniboss;
                     case "GREATERWISP_BODY_NAME":
-                        return MonsterTier.Miniboss;
+                    return MonsterTier.Miniboss;
                     case "CLAYBRUISER_BODY_NAME":
-                        return MonsterTier.Miniboss;
+                    return MonsterTier.Miniboss;
                     case "ARCHWISP_BODY_NAME":
-                        return MonsterTier.Miniboss;
+                    return MonsterTier.Miniboss;
                     case "NULLIFIER_BODY_NAME":
-                        return MonsterTier.Miniboss;
+                    return MonsterTier.Miniboss;
                     case "PARENT_BODY_NAME":
-                        return MonsterTier.Miniboss;
+                    return MonsterTier.Miniboss;
 
 
                     case "BEETLEQUEEN_BODY_NAME":
-                        return MonsterTier.Boss;
+                    return MonsterTier.Boss;
                     case "TITAN_BODY_NAME":
-                        return MonsterTier.Boss;
+                    return MonsterTier.Boss;
                     case "MAGMAWORM_BODY_NAME":
-                        return MonsterTier.Boss;
+                    return MonsterTier.Boss;
                     case "CLAYBOSS_BODY_NAME":
-                        return MonsterTier.Boss;
+                    return MonsterTier.Boss;
                     case "GRAVEKEEPER_BODY_NAME":
-                        return MonsterTier.Boss;
+                    return MonsterTier.Boss;
                     case "IMPBOSS_BODY_NAME":
-                        return MonsterTier.Boss;
+                    return MonsterTier.Boss;
                     case "ROBOBALLBOSS_BODY_NAME":
-                        return MonsterTier.Boss;
+                    return MonsterTier.Boss;
                     case "VAGRANT_BODY_NAME":
-                        return MonsterTier.Boss;
+                    return MonsterTier.Boss;
                     case "SCAV_BODY_NAME":
-                        return MonsterTier.Boss;
+                    return MonsterTier.Boss;
                     case "ANCIENT_WISP_BODY_NAME":
-                        return MonsterTier.Boss;
+                    return MonsterTier.Boss;
 
 
                     case "ELECTRICWORM_BODY_NAME":
-                        return MonsterTier.SuperBoss;
+                    return MonsterTier.SuperBoss;
                     case "SHOPKEEPER_BODY_NAME":
-                        return MonsterTier.SuperBoss;
+                    return MonsterTier.SuperBoss;
                     case "SCAVLUNAR1_BODY_NAME":
-                        return MonsterTier.SuperBoss;
+                    return MonsterTier.SuperBoss;
                     case "SCAVLUNAR2_BODY_NAME":
-                        return MonsterTier.SuperBoss;
+                    return MonsterTier.SuperBoss;
                     case "SCAVLUNAR3_BODY_NAME":
-                        return MonsterTier.SuperBoss;
+                    return MonsterTier.SuperBoss;
                     case "SCAVLUNAR4_BODY_NAME":
-                        return MonsterTier.SuperBoss;
+                    return MonsterTier.SuperBoss;
                     case "ARTIFACTSHELL_BODY_NAME":
-                        return MonsterTier.SuperBoss;
+                    return MonsterTier.SuperBoss;
 
 
 
                     case "FIRST_WISP_BODY_NAME":
-                        return MonsterTier.HyperBoss;
+                    return MonsterTier.HyperBoss;
                     case "TITANGOLD_BODY_NAME":
-                        return MonsterTier.HyperBoss;
+                    return MonsterTier.HyperBoss;
                     case "SUPERROBOBALLBOSS_BODY_NAME":
-                        return MonsterTier.HyperBoss;
+                    return MonsterTier.HyperBoss;
 
                     case "ENGI_BODY_NAME":
-                        return MonsterTier.Boss;
+                    return MonsterTier.Boss;
                     case "BANDIT_BODY_NAME":
-                        return MonsterTier.Boss;
+                    return MonsterTier.Boss;
                     case "BOMBER_BODY_NAME":
-                        return MonsterTier.Boss;
+                    return MonsterTier.Boss;
                     case "COMMANDO_BODY_NAME":
-                        return MonsterTier.Boss;
+                    return MonsterTier.Boss;
                     case "ENFORCER_BODY_NAME":
-                        return MonsterTier.Boss;
+                    return MonsterTier.Boss;
                     case "HAND_BODY_NAME":
-                        return MonsterTier.Boss;
+                    return MonsterTier.Boss;
                     case "HUNTRESS_BODY_NAME":
-                        return MonsterTier.Boss;
+                    return MonsterTier.Boss;
                     case "LOADER_BODY_NAME":
-                        return MonsterTier.Boss;
+                    return MonsterTier.Boss;
                     case "MAGE_BODY_NAME":
-                        return MonsterTier.Boss;
+                    return MonsterTier.Boss;
                     case "MERC_BODY_NAME":
-                        return MonsterTier.Boss;
+                    return MonsterTier.Boss;
                     case "SNIPER_BODY_NAME":
-                        return MonsterTier.Boss;
+                    return MonsterTier.Boss;
                     case "TOOLBOT_BODY_NAME":
-                        return MonsterTier.Boss;
+                    return MonsterTier.Boss;
                     case "TREEBOT_BODY_NAME":
-                        return MonsterTier.Boss;
+                    return MonsterTier.Boss;
                     case "CROCO_BODY_NAME":
-                        return MonsterTier.Boss;
+                    return MonsterTier.Boss;
                     case Rein.Properties.Tokens.WISP_SURVIVOR_BODY_NAME:
-                        return MonsterTier.Boss;
+                    return MonsterTier.Boss;
 
 
 
 
                     case "DRONE_BACKUP_BODY_NAME":
-                        return MonsterTier.Basic;
+                    return MonsterTier.Basic;
                     case "DRONEBACKUP_BODY_NAME":
-                        return MonsterTier.Basic;
+                    return MonsterTier.Basic;
                     case "DRONE_GUNNER_BODY_NAME":
-                        return MonsterTier.Basic;
+                    return MonsterTier.Basic;
                     case "DRONE_HEALING_BODY_NAME":
-                        return MonsterTier.Basic;
+                    return MonsterTier.Basic;
                     case "ENGITURET_BODY_NAME":
-                        return MonsterTier.Basic;
+                    return MonsterTier.Basic;
                     case "TURRET1_BODY_NAME":
-                        return MonsterTier.Basic;
+                    return MonsterTier.Basic;
                     case "SQUIDTURRET_BODY_NAME":
-                        return MonsterTier.Mid;
+                    return MonsterTier.Mid;
                     case "EQUIPMENTDRONE_BODY_NAME":
-                        return MonsterTier.Mid;
+                    return MonsterTier.Mid;
                     case "FLAMEDRONE_BODY_NAME":
-                        return MonsterTier.Mid;
+                    return MonsterTier.Mid;
                     case "POTMOBILE_BODY_NAME":
-                        return MonsterTier.Mid;
+                    return MonsterTier.Mid;
                     case "DRONE_MEGA_BODY_NAME":
-                        return MonsterTier.Mid;
+                    return MonsterTier.Mid;
                     case "DRONE_MISSILE_BODY_NAME":
-                        return MonsterTier.Mid;
+                    return MonsterTier.Mid;
                     case "TIMECRYSTAL_BODY_NAME":
-                        return MonsterTier.Mid;
+                    return MonsterTier.Mid;
                     case "EMERGENCYDRONE_BODY_NAME":
-                        return MonsterTier.Mid;
+                    return MonsterTier.Mid;
                     case "MAULINGROCK_BODY_NAME":
-                        return MonsterTier.Small;
+                    return MonsterTier.Small;
 
                     case "POT2_BODY_NAME":
-                        return MonsterTier.Other;
+                    return MonsterTier.Other;
                     case "":
-                        return MonsterTier.Other;
+                    return MonsterTier.Other;
                 }
             }
 

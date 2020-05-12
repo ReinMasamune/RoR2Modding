@@ -1,13 +1,5 @@
 ﻿namespace AlternateArtificer.SelectablePassive
 {
-    using AlternativeArtificer.States.Main;
-    using EntityStates;
-    using EntityStates.Mage;
-    using RoR2;
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-    using UnityEngine;
 
     /*
     public class PassiveComponent : MonoBehaviour

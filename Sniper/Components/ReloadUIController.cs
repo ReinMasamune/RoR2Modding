@@ -4,21 +4,22 @@
     using System.Collections;
     using System.Collections.Generic;
     using System.Runtime.CompilerServices;
-    using BepInEx.Logging;
+
     using ReinCore;
+
     using RoR2;
-    using RoR2.UI;
+
     using Sniper.Data;
     using Sniper.Enums;
     using Sniper.Modules;
+
     using UnityEngine;
-    using UnityEngine.Networking;
     using UnityEngine.UI;
 
     internal class ReloadUIController : MonoBehaviour
     {
         //[property: MethodImpl( MethodImplOptions.AggressiveInlining )]
-        internal static Color barBackgroundColor { [MethodImpl(MethodImplOptions.AggressiveInlining)]get; } = new Color( 0.05f, 0.05f, 0.05f, 1f );
+        internal static Color barBackgroundColor { [MethodImpl( MethodImplOptions.AggressiveInlining )]get; } = new Color( 0.05f, 0.05f, 0.05f, 1f );
         internal static Color barPerfectColor { [MethodImpl( MethodImplOptions.AggressiveInlining )]get; } = new Color( 0.7f, 0.9f, 0.8f, 1f );
         internal static Color barGoodColor { [MethodImpl( MethodImplOptions.AggressiveInlining )]get; } = new Color( 0.5f, 0.5f, 0.5f, 1f );
 
@@ -165,7 +166,7 @@
         #endregion
 
         #region Coroutines
-        private IEnumerator ReloadStartDelay(Single delayTime)
+        private IEnumerator ReloadStartDelay( Single delayTime )
         {
             yield return new WaitForSeconds( delayTime );
             this.showBar = true;

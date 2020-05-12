@@ -1,7 +1,6 @@
 ﻿namespace ReinCore
 {
     using System;
-    using BepInEx;
 
     internal delegate TAsset AssetAccessDelegate<TAsset>();
     internal class AssetAccessor<TAsset> where TAsset : UnityEngine.Object

@@ -1,19 +1,21 @@
 ﻿#if ROGUEWISP
+using System;
+using System.Collections.Generic;
+using System.Reflection;
+
+using BepInEx.Configuration;
+
 using Mono.Cecil.Cil;
+
 using MonoMod.Cil;
 using MonoMod.RuntimeDetour.HookGen;
+
+using ReinCore;
+
 using RoR2;
-using RoR2.Projectile;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq.Expressions;
-using System.Reflection;
+
 using UnityEngine;
 using UnityEngine.Networking;
-using Mono.Cecil;
-using ReinCore;
-using BepInEx.Configuration;
 
 namespace Rein.RogueWispPlugin
 {

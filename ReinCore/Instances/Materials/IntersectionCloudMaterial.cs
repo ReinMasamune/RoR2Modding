@@ -1,8 +1,7 @@
 ﻿namespace ReinCore
 {
     using System;
-    using System.Collections.Generic;
-    using System.Text;
+
     using UnityEngine;
 
     /// <summary>
@@ -11,9 +10,9 @@
     public class IntersectionCloudMaterial : MaterialBase
     {
         [Menu( sectionName = "Uncategorized" )]
-        
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -26,9 +25,9 @@
         }
 
         [Menu( sectionName = "Uncategorized" )]
-        
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -41,9 +40,9 @@
         }
 
         [Menu( sectionName = "Uncategorized" )]
-        
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -56,9 +55,9 @@
         }
 
         [Menu( sectionName = "Uncategorized" )]
-        
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -80,9 +79,9 @@
 #pragma warning restore IDE1006 // Naming Styles
 
         [Menu( sectionName = "Uncategorized" )]
-        
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -104,9 +103,9 @@
 #pragma warning restore IDE1006 // Naming Styles
 
         [Menu( sectionName = "Uncategorized" )]
-        
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -128,9 +127,9 @@
 #pragma warning restore IDE1006 // Naming Styles
 
         [Menu( sectionName = "Uncategorized", isRampTexture = true )]
-        
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -152,9 +151,9 @@
 #pragma warning restore IDE1006 // Naming Styles
 
         [Menu( sectionName = "Uncategorized" )]
-        
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -167,9 +166,9 @@
         }
 
         [Menu( sectionName = "Uncategorized" )]
-        
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -182,9 +181,9 @@
         }
 
         [Menu( sectionName = "Uncategorized" )]
-        
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -197,9 +196,9 @@
         }
 
         [Menu( sectionName = "Uncategorized" )]
-        
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -212,9 +211,9 @@
         }
 
         [Menu( sectionName = "Uncategorized" )]
-        
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -227,9 +226,9 @@
         }
 
         [Menu( sectionName = "Uncategorized" )]
-        
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -242,9 +241,9 @@
         }
 
         [Menu( sectionName = "Uncategorized" )]
-        
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -255,11 +254,11 @@
             get => base.GetSingle( "_AlphaBoost" );
             set => base.SetSingle( "_AlphaBoost", value );
         }
-        
-        [Menu( sectionName = "Uncategorized")]
-        
+
+        [Menu( sectionName = "Uncategorized" )]
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -271,10 +270,10 @@
             set => base.SetSingle( "_IntersectionStrength", value );
         }
 
-        [Menu(sectionName = "Uncategorized")]
-        
+        [Menu( sectionName = "Uncategorized" )]
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -286,10 +285,10 @@
             set => base.SetSingle( "_Cull", (Single)value );
         }
 
-        [Menu(sectionName = "Uncategorized")]
-        
+        [Menu( sectionName = "Uncategorized" )]
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -301,10 +300,10 @@
             set => base.SetSingle( "_ExternalAlpha", value );
         }
 
-        [Menu(sectionName = "Uncategorized" )]
-        
+        [Menu( sectionName = "Uncategorized" )]
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -316,10 +315,10 @@
             set => base.SetKeyword( "IGNORE_VERTEX_COLORS", value );
         }
 
-        [Menu(sectionName = "Uncategorized" )]
-        
+        [Menu( sectionName = "Uncategorized" )]
+
 #pragma warning disable CS1587 // XML comment is not placed on a valid language element
-/// <summary>
+        /// <summary>
         /// Unknown
         /// </summary>
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member

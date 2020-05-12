@@ -1,13 +1,14 @@
 ﻿#if ANCIENTWISP
-using EntityStates;
-using Rein.RogueWispPlugin.Helpers;
-using RoR2;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+
+using EntityStates;
+
+using RoR2;
+
 using UnityEngine;
 using UnityEngine.Networking;
-using System.Linq;
-using System.Collections.ObjectModel;
 
 namespace Rein.RogueWispPlugin
 {
@@ -80,7 +81,7 @@ namespace Rein.RogueWispPlugin
             private ReadOnlyCollection<TeamComponent> targets2;
             private ReadOnlyCollection<TeamComponent> targets3;
             private ReadOnlyCollection<TeamComponent> targets4;
-            
+
             //private Queue<Vector3> sequencePillars = new Queue<Vector3>();
 
             private Queue<PillarInfo> pillars = new Queue<PillarInfo>();
@@ -253,7 +254,7 @@ namespace Rein.RogueWispPlugin
 
                 public Dictionary<SubState,SubStateDef> stateDefs;
 
-                public SubStateData( SubState initalState, Action endAction, Dictionary<SubState,SubStateDef> stateDefs )
+                public SubStateData( SubState initalState, Action endAction, Dictionary<SubState, SubStateDef> stateDefs )
                 {
                     this.state = initalState;
                     this.stateDefs = stateDefs;
@@ -452,7 +453,7 @@ namespace Rein.RogueWispPlugin
                 return InterruptPriority.PrioritySkill;
             }
 
-    #region Warmup
+            #region Warmup
             private void WarmupStart()
             {
                 base.PlayCrossfade( "Body", "ChargeRain", "ChargeRain.playbackRate", this.warmupDuration, 0.2f );
@@ -465,8 +466,8 @@ namespace Rein.RogueWispPlugin
             {
 
             }
-    #endregion
-    #region PlacePillars
+            #endregion
+            #region PlacePillars
             private void PlacePillarsStart()
             {
                 base.PlayCrossfade( "Body", "ChannelRain", 0.3f );
@@ -485,12 +486,12 @@ namespace Rein.RogueWispPlugin
             {
 
             }
-    #endregion
-    #region PreDetonate
+            #endregion
+            #region PreDetonate
             private void PreDetonateStart()
             {
                 base.PlayCrossfade( "Gesture", "Enrage", "Enrage.playbackRate", this.preDetonateDuration, 0.2f );
-            }       
+            }
             private void PreDetonateUpdate()
             {
             }
@@ -498,8 +499,8 @@ namespace Rein.RogueWispPlugin
             {
 
             }
-    #endregion
-    #region Detonate
+            #endregion
+            #region Detonate
             private void DetonateStart()
             {
                 this.subState.subTimer = this.detonateInterval;
@@ -524,8 +525,8 @@ namespace Rein.RogueWispPlugin
             {
 
             }
-    #endregion
-    #region PostDetonate
+            #endregion
+            #region PostDetonate
             private void PostDetonateStart()
             {
                 base.PlayCrossfade( "Body", "EndRain", "EndRain.playbackRate", this.postDetonateDuration, 0.2f );
@@ -538,8 +539,8 @@ namespace Rein.RogueWispPlugin
             {
 
             }
-    #endregion
-    #region End
+            #endregion
+            #region End
             private void End()
             {
                 if( base.isAuthority )
@@ -547,7 +548,7 @@ namespace Rein.RogueWispPlugin
                     base.outer.SetNextStateToMain();
                 }
             }
-    #endregion
+            #endregion
 
             private void FindTargets( Single timeUntilDetonationStart )
             {

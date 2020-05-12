@@ -1,15 +1,18 @@
 ﻿namespace Sniper.States.Other
 {
     using System;
-    using System.Collections.Generic;
-    using System.Text;
+
     using EntityStates;
+
+    using ReinCore;
+
     using RoR2;
+
     using Sniper.Components;
     using Sniper.Modules;
+
     using UnityEngine;
     using UnityEngine.Networking;
-    using ReinCore;
 
     internal class DecoyDeathState : GenericCharacterDeath
     {

@@ -1,11 +1,9 @@
-﻿using RoR2;
-using RoR2.ConVar;
+﻿using System;
+
+using RoR2;
 using RoR2.UI;
-using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
+
 using UnityEngine;
-using UnityEngine.Networking;
 using UnityEngine.UI;
 
 namespace Rein.RogueWispPlugin

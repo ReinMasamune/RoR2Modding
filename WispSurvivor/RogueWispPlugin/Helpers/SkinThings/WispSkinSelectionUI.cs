@@ -1,7 +1,8 @@
 ﻿
-using RoR2;
 using System;
-using System.Collections.Generic;
+
+using RoR2;
+
 using UnityEngine;
 
 namespace Rein.RogueWispPlugin.Helpers
@@ -63,7 +64,7 @@ namespace Rein.RogueWispPlugin.Helpers
         private void OnDisable()
         {
             //Main.LogW( "Selection UI Off" );
-           
+
         }
         private Boolean dataSet = false;
         internal UserProfile profile;
@@ -87,9 +88,9 @@ namespace Rein.RogueWispPlugin.Helpers
         {
             var ind = 0b0000_0000_0000_0000_0000_0000_00000_0000u;
 
-            ind |= (this.armorCracks ? 1u : 0u) << 31;
-            ind |= (this.isIridescent ? 1u : 0u) << 29;
-            ind |= (this.isCustomColor ? 1u : 0u) << 28;
+            ind |= ( this.armorCracks ? 1u : 0u ) << 31;
+            ind |= ( this.isIridescent ? 1u : 0u ) << 29;
+            ind |= ( this.isCustomColor ? 1u : 0u ) << 28;
 
             if( this.isCustomColor )
             {
@@ -108,18 +109,18 @@ namespace Rein.RogueWispPlugin.Helpers
                 ind |= (UInt32)this.colorSelected;
             }
 
-            ind |= ((UInt32)this.flameGradSelected) << 18;
-            ind |= ((UInt32)this.armorSelected) << 25;
+            ind |= ( (UInt32)this.flameGradSelected ) << 18;
+            ind |= ( (UInt32)this.armorSelected ) << 25;
 
             return ind;
         }
         private void InitValues()
         {
-            this.armorCracks = 1u == (this.currentSkin & (1u << 31)) >> 31;
-            this.isIridescent = 1u == (this.currentSkin & (1u << 29)) >> 29;
-            this.isCustomColor = 1u == (this.currentSkin & (1u << 28)) >> 28;
-            this.flameGradSelected = (Int32)(this.currentSkin & (0b111u << 18)) >> 18;
-            this.armorSelected = (Int32)(this.currentSkin & (0b111u << 25)) >> 25;
+            this.armorCracks = 1u == ( this.currentSkin & ( 1u << 31 ) ) >> 31;
+            this.isIridescent = 1u == ( this.currentSkin & ( 1u << 29 ) ) >> 29;
+            this.isCustomColor = 1u == ( this.currentSkin & ( 1u << 28 ) ) >> 28;
+            this.flameGradSelected = (Int32)( this.currentSkin & ( 0b111u << 18 ) ) >> 18;
+            this.armorSelected = (Int32)( this.currentSkin & ( 0b111u << 25 ) ) >> 25;
 
             if( this.isCustomColor )
             {
@@ -133,7 +134,7 @@ namespace Rein.RogueWispPlugin.Helpers
             {
                 this.currentColor = Color.black;
                 this.inputColor = Color.black;
-                this.colorSelected = (Int32)(this.currentSkin & 0b1111_1111u);
+                this.colorSelected = (Int32)( this.currentSkin & 0b1111_1111u );
             }
         }
 
@@ -159,7 +160,7 @@ namespace Rein.RogueWispPlugin.Helpers
             {
                 this.DrawColorSelection();
 
-                GUILayout.BeginVertical(GUILayout.MaxWidth( armorFlameGradSelectionFracW * this.areaRect.width ) );
+                GUILayout.BeginVertical( GUILayout.MaxWidth( armorFlameGradSelectionFracW * this.areaRect.width ) );
                 {
                     this.DrawArmorMaterialSelection();
                     this.DrawFlameGradientTypeSelection();
@@ -197,7 +198,7 @@ namespace Rein.RogueWispPlugin.Helpers
                     this.ApplySkin();
                 }
 
-                this.colorSelectionScroll = GUILayout.BeginScrollView( this.colorSelectionScroll);
+                this.colorSelectionScroll = GUILayout.BeginScrollView( this.colorSelectionScroll );
                 {
                     var selectionInd = GUILayout.SelectionGrid( this.colorSelected, this.colorNames, 1 );
                     if( selectionInd != this.colorSelected )
@@ -217,7 +218,7 @@ namespace Rein.RogueWispPlugin.Helpers
         private String[] armorSelectionNames = Enum.GetNames( typeof(WispBitSkin.ArmorMaterialType));
         private void DrawArmorMaterialSelection()
         {
-            GUILayout.BeginVertical( GUILayout.MaxHeight(this.areaRect.height * 0.45f ) );
+            GUILayout.BeginVertical( GUILayout.MaxHeight( this.areaRect.height * 0.45f ) );
             {
                 CenteredLabel( "Armor" );
                 var tempCracks = GUILayout.Toggle(this.armorCracks, "Glow Cracks" );
@@ -345,7 +346,7 @@ namespace Rein.RogueWispPlugin.Helpers
                     this.currentColor = this.inputColor;
                     this.ApplySkin();
                 }
-                
+
 
                 GUILayout.FlexibleSpace();
 
@@ -354,13 +355,13 @@ namespace Rein.RogueWispPlugin.Helpers
                 GUILayout.Label( colorPreview, GUILayout.Height( colorPreview.height ), GUILayout.Width( colorPreview.width ) );
                 GUI.color = tempColor2;
 
-                
+
 
                 GUILayout.BeginHorizontal();
                 {
                     GUILayout.Label( "R", GUILayout.Width( 10f ) );
                     GUILayout.FlexibleSpace();
-                    GUILayout.Label( ((Int32)this.inputR).ToString(), GUILayout.Width( 30f ) );
+                    GUILayout.Label( ( (Int32)this.inputR ).ToString(), GUILayout.Width( 30f ) );
                     GUILayout.FlexibleSpace();
                     var tempSlider = GUILayout.HorizontalSlider( this.inputR, 0f, 255f, GUILayout.Width( this.areaRect.width * 0.5f * 0.5f ) );
                     if( tempSlider != this.inputR )
@@ -374,7 +375,7 @@ namespace Rein.RogueWispPlugin.Helpers
                 {
                     GUILayout.Label( "G", GUILayout.Width( 10f ) );
                     GUILayout.FlexibleSpace();
-                    GUILayout.Label( ((Int32)this.inputG).ToString(), GUILayout.Width( 30f ) );
+                    GUILayout.Label( ( (Int32)this.inputG ).ToString(), GUILayout.Width( 30f ) );
                     GUILayout.FlexibleSpace();
                     var tempSlider = GUILayout.HorizontalSlider( this.inputG, 0f, 255f, GUILayout.Width( this.areaRect.width * 0.5f * 0.5f ) );
                     if( tempSlider != this.inputG )
@@ -388,7 +389,7 @@ namespace Rein.RogueWispPlugin.Helpers
                 {
                     GUILayout.Label( "B", GUILayout.Width( 10f ) );
                     GUILayout.FlexibleSpace();
-                    GUILayout.Label( ((Int32)this.inputB).ToString(), GUILayout.Width( 30f ) );
+                    GUILayout.Label( ( (Int32)this.inputB ).ToString(), GUILayout.Width( 30f ) );
                     GUILayout.FlexibleSpace();
                     var tempSlider = GUILayout.HorizontalSlider( this.inputB, 0f, 255f, GUILayout.Width( this.areaRect.width * 0.5f * 0.5f ) );
                     if( tempSlider != this.inputB )

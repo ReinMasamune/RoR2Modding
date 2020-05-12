@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+
 using UnityEngine;
 
 namespace Rein.RogueWispPlugin.Helpers
@@ -16,7 +16,7 @@ namespace Rein.RogueWispPlugin.Helpers
             obj.transform.localPosition = Vector3.zero;
             obj.transform.localScale = Vector3.one;
             obj.transform.localRotation = Quaternion.identity;
-            obj.transform.forward = mainObj.transform.TransformDirection(spinAxis);
+            obj.transform.forward = mainObj.transform.TransformDirection( spinAxis );
 
 
             var rotation = obj.AddComponent<RotateObject>();

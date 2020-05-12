@@ -6,7 +6,7 @@
     using System.Runtime.CompilerServices;
     using System.Security.Cryptography;
     using System.Text;
-    using BepInEx;
+
     using UnityEngine;
     using UnityEngine.Networking;
 
@@ -200,7 +200,7 @@
                     i15 = bytes[15],
                 };
             }
-            
+
             internal void Register()
             {
                 ClientScene.UnregisterPrefab( this.prefab );

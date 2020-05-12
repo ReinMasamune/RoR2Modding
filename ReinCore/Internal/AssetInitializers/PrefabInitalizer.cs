@@ -1,8 +1,7 @@
 ﻿namespace ReinCore
 {
     using System;
-    using System.Collections.Generic;
-    using System.Text;
+
     using UnityEngine;
 
     internal static class PrefabInitializer
@@ -23,7 +22,7 @@
             new AssetAccessor<GameObject>( PrefabIndex.refNullifierPreBombGhost, () =>
             {
                 return Resources.Load<GameObject>( "Prefabs/ProjectileGhosts/NullifierPreBombGhost" ); ;
-            }).RegisterAccessor();
+            } ).RegisterAccessor();
 
 
             new AssetAccessor<GameObject>( PrefabIndex.refLockedMage, () => Resources.Load<GameObject>( "Prefabs/NetworkedObjects/LockedMage" ) ).RegisterAccessor();

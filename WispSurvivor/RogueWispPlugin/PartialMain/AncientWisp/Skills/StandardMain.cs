@@ -1,11 +1,14 @@
 ﻿#if ANCIENTWISP
-using EntityStates;
-using Rein.RogueWispPlugin.Helpers;
-using RoR2;
-using RoR2.Projectile;
 using System;
-using UnityEngine;
 using System.Linq;
+
+using EntityStates;
+
+using Rein.RogueWispPlugin.Helpers;
+
+using RoR2;
+
+using UnityEngine;
 
 namespace Rein.RogueWispPlugin
 {
@@ -20,7 +23,7 @@ namespace Rein.RogueWispPlugin
 
             const Single baseFlareIntensity = 0f;
             const Single baseEmissionRate = 750f;
-            
+
 
 
             private WispModelBitSkinController skinController;

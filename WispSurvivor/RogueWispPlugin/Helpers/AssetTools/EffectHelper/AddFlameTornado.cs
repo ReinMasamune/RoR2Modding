@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using UnityEngine;
+
 using ReinCore;
+
+using UnityEngine;
 
 namespace Rein.RogueWispPlugin.Helpers
 {
@@ -24,7 +25,7 @@ namespace Rein.RogueWispPlugin.Helpers
             {
                 skin.AddRenderer( psr, matType );
             }
-            
+
 
             BasicSetup( ps );
 
@@ -95,7 +96,7 @@ namespace Rein.RogueWispPlugin.Helpers
                     new GradientColorKey( Color.white, 1f ),
                 }
             } );
-            
+
 
             var psSOL = ps.sizeOverLifetime;
             psSOL.enabled = true;
@@ -116,7 +117,7 @@ namespace Rein.RogueWispPlugin.Helpers
 
 
             psr.renderMode = ParticleSystemRenderMode.Mesh;
-            psr.mesh = AssetsCore.LoadAsset<Mesh>(MeshIndex.TornadoMesh2);
+            psr.mesh = AssetsCore.LoadAsset<Mesh>( MeshIndex.TornadoMesh2 );
             //psr.normalDirection = 1f;
             //psr.sortMode = ParticleSystemSortMode.None;
             //psr.minParticleSize = 0f;

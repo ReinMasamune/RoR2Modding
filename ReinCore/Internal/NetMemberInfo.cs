@@ -1,7 +1,7 @@
 ﻿namespace ReinCore
 {
     using System;
-    using BepInEx;
+
     using Mono.Cecil;
 
     internal class NetMemberInfo

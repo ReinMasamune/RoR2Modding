@@ -1,20 +1,14 @@
 ﻿namespace Sniper.States.Utility
 {
     using System;
-    using System.Collections.Generic;
-    using System.Runtime.CompilerServices;
-    using BepInEx.Logging;
-    using ReinCore;
-    using RoR2;
-    using RoR2.Networking;
-    using UnityEngine;
-    using KinematicCharacterController;
+
     using EntityStates;
-    using RoR2.Skills;
-    using System.Reflection;
-    using Sniper.Expansions;
-    using Sniper.Enums;
-    using Sniper.States.Bases;
+
+    using ReinCore;
+
+    using RoR2;
+
+    using UnityEngine;
     using UnityEngine.Networking;
 
     internal class Backflip : GenericCharacterMain
@@ -26,10 +20,9 @@
             new Keyframe( 0.3f, 0.9f ),
             new Keyframe( 1f, 0.3f )
         );
-
-        const Single baseDuration = 0.75f;
-        const Single speedMultiplier = 8f;
-        const Single upwardsBoost = 15f;
+        private const Single baseDuration = 0.75f;
+        private const Single speedMultiplier = 8f;
+        private const Single upwardsBoost = 15f;
 
         private Single duration;
 
@@ -37,7 +30,7 @@
 
         private Single currentSpeed
         {
-            get =>  speedMultiplier * base.moveSpeedStat / base.characterBody.sprintingSpeedMultiplier * backflipSpeedCurve.Evaluate( base.fixedAge / this.duration );
+            get => speedMultiplier * base.moveSpeedStat / base.characterBody.sprintingSpeedMultiplier * backflipSpeedCurve.Evaluate( base.fixedAge / this.duration );
         }
 
         public override void OnEnter()

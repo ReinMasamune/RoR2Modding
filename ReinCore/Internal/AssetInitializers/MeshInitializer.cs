@@ -1,8 +1,7 @@
 ﻿namespace ReinCore
 {
     using System;
-    using System.Collections.Generic;
-    using System.Text;
+
     using UnityEngine;
 
     internal static class MeshInitializer
@@ -20,7 +19,7 @@
                 Mesh mesh = obj.GetComponent<MeshFilter>().mesh;
                 UnityEngine.Object.Destroy( obj );
                 return mesh;
-            }).RegisterAccessor();
+            } ).RegisterAccessor();
 
             new AssetAccessor<Mesh>( MeshIndex.Capsule, () =>
             {
@@ -28,7 +27,7 @@
                 Mesh mesh = obj.GetComponent<MeshFilter>().mesh;
                 UnityEngine.Object.Destroy( obj );
                 return mesh;
-            }).RegisterAccessor();
+            } ).RegisterAccessor();
 
             new AssetAccessor<Mesh>( MeshIndex.Cylinder, () =>
             {
@@ -36,7 +35,7 @@
                 Mesh mesh = obj.GetComponent<MeshFilter>().mesh;
                 UnityEngine.Object.Destroy( obj );
                 return mesh;
-            }).RegisterAccessor();
+            } ).RegisterAccessor();
 
             new AssetAccessor<Mesh>( MeshIndex.Cube, () =>
             {
@@ -44,7 +43,7 @@
                 Mesh mesh = obj.GetComponent<MeshFilter>().mesh;
                 UnityEngine.Object.Destroy( obj );
                 return mesh;
-            }).RegisterAccessor();
+            } ).RegisterAccessor();
 
             new AssetAccessor<Mesh>( MeshIndex.Plane, () =>
             {
@@ -52,7 +51,7 @@
                 Mesh mesh = obj.GetComponent<MeshFilter>().mesh;
                 UnityEngine.Object.Destroy( obj );
                 return mesh;
-            }).RegisterAccessor();
+            } ).RegisterAccessor();
 
             new AssetAccessor<Mesh>( MeshIndex.Quad, () =>
             {
@@ -60,7 +59,7 @@
                 Mesh mesh = obj.GetComponent<MeshFilter>().mesh;
                 UnityEngine.Object.Destroy( obj );
                 return mesh;
-            }).RegisterAccessor();
+            } ).RegisterAccessor();
             #endregion
             #region Hopoo Meshes       
             new AssetAccessor<Mesh>( MeshIndex.Spiral1, () =>

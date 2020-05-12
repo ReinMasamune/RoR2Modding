@@ -1,16 +1,16 @@
 ﻿namespace ReinStutterStunter
 {
-    using BepInEx;
-    using BepInEx.Configuration;
-    using RoR2;
-    using UnityEngine;
     using System;
-    using UnityEngine.Scripting;
-    using System.Collections;
-    using System.IO;
+
+    using BepInEx;
+
     using ReinCore;
 
-    [BepInPlugin("com.ReinThings.ReinStutterStunter", "ReinStutterStunter", "2.0.0")]
+    using RoR2;
+
+    using UnityEngine.Scripting;
+
+    [BepInPlugin( "com.ReinThings.ReinStutterStunter", "ReinStutterStunter", "2.0.0" )]
     [BepInDependency( Rein.AssemblyLoad.guid, BepInDependency.DependencyFlags.HardDependency )]
     public class ReinStutterStunterMain : BaseUnityPlugin
     {

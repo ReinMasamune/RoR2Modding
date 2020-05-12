@@ -3,13 +3,11 @@
     using System;
     using System.Collections.Generic;
     using System.Runtime.CompilerServices;
+
     using BepInEx;
-    using Mono.Cecil;
-    using Mono.Cecil.Cil;
-    using MonoMod.Cil;
+
     using Rein.Properties;
-    using RoR2;
-    using RoR2.Networking;
+
     using UnityEngine;
 
     /// <summary>
@@ -128,7 +126,7 @@
             // Do Nothing
         }
 
-        [MethodImpl(MethodImplOptions.ForwardRef)]
+        [MethodImpl( MethodImplOptions.ForwardRef )]
         private static extern Int32 Square( Int32 number );
 
         private static void ParseSubmodules( HashSet<String> loadedSubmodules )
@@ -138,65 +136,65 @@
                 switch( sub )
                 {
                     default:
-                        Log.Warning( String.Format( "Unknown submodule: {0}", sub ) );
-                        break;
+                    Log.Warning( String.Format( "Unknown submodule: {0}", sub ) );
+                    break;
                     case "AssetAPI":
-                        activeSubmodules |= R2APISubmodule.AssetAPI;
-                        break;
+                    activeSubmodules |= R2APISubmodule.AssetAPI;
+                    break;
                     case "DifficultyAPI":
-                        activeSubmodules |= R2APISubmodule.DifficultyAPI;
-                        break;
+                    activeSubmodules |= R2APISubmodule.DifficultyAPI;
+                    break;
                     case "DirectorAPI":
-                        activeSubmodules |= R2APISubmodule.DirectorAPI;
-                        break;
+                    activeSubmodules |= R2APISubmodule.DirectorAPI;
+                    break;
                     case "EffectAPI":
-                        activeSubmodules |= R2APISubmodule.EffectAPI;
-                        break;
+                    activeSubmodules |= R2APISubmodule.EffectAPI;
+                    break;
                     case "EntityAPI":
-                        activeSubmodules |= R2APISubmodule.EntityAPI;
-                        break;
+                    activeSubmodules |= R2APISubmodule.EntityAPI;
+                    break;
                     case "InventoryAPI":
-                        activeSubmodules |= R2APISubmodule.InventoryAPI;
-                        break;
+                    activeSubmodules |= R2APISubmodule.InventoryAPI;
+                    break;
                     case "ItemAPI":
-                        activeSubmodules |= R2APISubmodule.ItemAPI;
-                        break;
+                    activeSubmodules |= R2APISubmodule.ItemAPI;
+                    break;
                     case "ItemDropAPI":
-                        activeSubmodules |= R2APISubmodule.ItemDropAPI;
-                        break;
+                    activeSubmodules |= R2APISubmodule.ItemDropAPI;
+                    break;
                     case "LoadoutAPI":
-                        activeSubmodules |= R2APISubmodule.LoadoutAPI;
-                        break;
+                    activeSubmodules |= R2APISubmodule.LoadoutAPI;
+                    break;
                     case "LobbyConfigAPI":
-                        activeSubmodules |= R2APISubmodule.LobbyConfigAPI;
-                        break;
+                    activeSubmodules |= R2APISubmodule.LobbyConfigAPI;
+                    break;
                     case "ModListAPI":
-                        activeSubmodules |= R2APISubmodule.ModListAPI;
-                        break;
+                    activeSubmodules |= R2APISubmodule.ModListAPI;
+                    break;
                     case "OrbAPI":
-                        activeSubmodules |= R2APISubmodule.OrbAPI;
-                        break;
+                    activeSubmodules |= R2APISubmodule.OrbAPI;
+                    break;
                     case "PlayerAPI":
-                        activeSubmodules |= R2APISubmodule.PlayerAPI;
-                        break;
+                    activeSubmodules |= R2APISubmodule.PlayerAPI;
+                    break;
                     case "PrefabAPI":
-                        activeSubmodules |= R2APISubmodule.PrefabAPI;
-                        break;
+                    activeSubmodules |= R2APISubmodule.PrefabAPI;
+                    break;
                     case "ResourcesAPI":
-                        activeSubmodules |= R2APISubmodule.ResourcesAPI;
-                        break;
+                    activeSubmodules |= R2APISubmodule.ResourcesAPI;
+                    break;
                     case "SkillAPI":
-                        activeSubmodules |= R2APISubmodule.SkillAPI;
-                        break;
+                    activeSubmodules |= R2APISubmodule.SkillAPI;
+                    break;
                     case "SkinAPI":
-                        activeSubmodules |= R2APISubmodule.SkinAPI;
-                        break;
+                    activeSubmodules |= R2APISubmodule.SkinAPI;
+                    break;
                     case "SurvivorAPI":
-                        activeSubmodules |= R2APISubmodule.SurvivorAPI;
-                        break;
+                    activeSubmodules |= R2APISubmodule.SurvivorAPI;
+                    break;
                     case "AssetPlus":
-                        activeSubmodules |= R2APISubmodule.AssetPlus;
-                        break;
+                    activeSubmodules |= R2APISubmodule.AssetPlus;
+                    break;
                 }
             }
         }

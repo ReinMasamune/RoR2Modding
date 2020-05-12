@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using RoR2;
+
 using UnityEngine;
 
 namespace Rein.RogueWispPlugin
@@ -33,7 +32,7 @@ namespace Rein.RogueWispPlugin
                 for( System.Int32 i = 0; i < this.flames.Length; i++ )
                 {
                     var temp = this.flames[i].emission;
-                    temp.rateOverTimeMultiplier = this.baseRates[i].Evaluate(0f) * mult;
+                    temp.rateOverTimeMultiplier = this.baseRates[i].Evaluate( 0f ) * mult;
                 }
             }
         }

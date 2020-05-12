@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using UnityEngine;
+
 using ReinCore;
+
+using UnityEngine;
 
 namespace Rein.RogueWispPlugin.Helpers
 {
@@ -27,7 +28,7 @@ namespace Rein.RogueWispPlugin.Helpers
             {
                 skin.AddRenderer( psr, matType );
             }
-            
+
 
             BasicSetup( ps );
 
@@ -97,12 +98,12 @@ namespace Rein.RogueWispPlugin.Helpers
                     new GradientColorKey( Color.white, 1f ),
                 }
             } );
-            
+
 
             var psSOL = ps.sizeOverLifetime;
             psSOL.enabled = true;
             psSOL.separateAxes = true;
-            psSOL.x = new ParticleSystem.MinMaxCurve(1f, AnimationCurve.EaseInOut( 0f, 1f, 1f, 0f ));
+            psSOL.x = new ParticleSystem.MinMaxCurve( 1f, AnimationCurve.EaseInOut( 0f, 1f, 1f, 0f ) );
             psSOL.y = new ParticleSystem.MinMaxCurve( 1f, AnimationCurve.EaseInOut( 0f, 1f, 1f, 0f ) );
             psSOL.z = new ParticleSystem.MinMaxCurve( 1f, AnimationCurve.EaseInOut( 0.5f, 1f, 1f, 0.75f ) );
             //psSOL.size = new ParticleSystem.MinMaxCurve( 1f, AnimationCurve.Linear( 0f, 0.5f, 1f, 1f ) );
@@ -116,7 +117,7 @@ namespace Rein.RogueWispPlugin.Helpers
 
 
             psr.renderMode = ParticleSystemRenderMode.Mesh;
-            psr.mesh = AssetsCore.LoadAsset<Mesh>(MeshIndex.Spiral1);
+            psr.mesh = AssetsCore.LoadAsset<Mesh>( MeshIndex.Spiral1 );
             //psr.normalDirection = 1f;
             //psr.sortMode = ParticleSystemSortMode.None;
             //psr.minParticleSize = 0f;

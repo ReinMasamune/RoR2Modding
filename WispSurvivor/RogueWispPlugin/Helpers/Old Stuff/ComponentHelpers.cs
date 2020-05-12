@@ -1,4 +1,5 @@
 ﻿using System;
+
 using UnityEngine;
 
 namespace Rein.RogueWispPlugin
@@ -39,10 +40,10 @@ namespace Rein.RogueWispPlugin
 
 
 
-        public static T AddOrGetComponent<T>( this GameObject g ) where T : Component => (g.HasComponent<T>() ? g.GetComponent( typeof( T ) ) : g.AddComponent( typeof( T ) )) as T;
+        public static T AddOrGetComponent<T>( this GameObject g ) where T : Component => ( g.HasComponent<T>() ? g.GetComponent( typeof( T ) ) : g.AddComponent( typeof( T ) ) ) as T;
 
-        public static T AddOrGetComponent<T>( this MonoBehaviour m ) where T : Component => (m.HasComponent<T>() ? m.GetComponent( typeof( T ) ) : m.gameObject.AddComponent( typeof( T ) )) as T;
+        public static T AddOrGetComponent<T>( this MonoBehaviour m ) where T : Component => ( m.HasComponent<T>() ? m.GetComponent( typeof( T ) ) : m.gameObject.AddComponent( typeof( T ) ) ) as T;
 
-        public static T AddOrGetComponent<T>( this Transform t ) where T : Component => (t.HasComponent<T>() ? t.GetComponent( typeof( T ) ) : t.gameObject.AddComponent( typeof( T ) )) as T;
+        public static T AddOrGetComponent<T>( this Transform t ) where T : Component => ( t.HasComponent<T>() ? t.GetComponent( typeof( T ) ) : t.gameObject.AddComponent( typeof( T ) ) ) as T;
     }
 }

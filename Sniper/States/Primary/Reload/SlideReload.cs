@@ -1,21 +1,19 @@
 ﻿namespace Sniper.States.Primary.Reload
 {
     using System;
-    using System.Collections.Generic;
-    using System.Runtime.CompilerServices;
-    using BepInEx.Logging;
-    using ReinCore;
-    using RoR2;
-    using RoR2.Networking;
-    using UnityEngine;
-    using KinematicCharacterController;
+
     using EntityStates;
-    using RoR2.Skills;
-    using System.Reflection;
-    using Sniper.States.Bases;
-    using UnityEngine.Networking;
+
+    using ReinCore;
+
+    using RoR2;
+
     using Sniper.Enums;
     using Sniper.Modules;
+    using Sniper.States.Bases;
+
+    using UnityEngine;
+    using UnityEngine.Networking;
 
     internal class SlideReload : GenericCharacterMain, ISniperReloadState
     {
@@ -30,10 +28,10 @@
 
         private enum Direction { Forward, Back, Left, Right }
 
-        const Single baseDuration = 0.3f;
-        const Single slideDurationMult = 2f;
-        const Single baseSpeedMultiplier = 5f;
-        const Single midairUpSpeedBoost = 15f;
+        private const Single baseDuration = 0.3f;
+        private const Single slideDurationMult = 2f;
+        private const Single baseSpeedMultiplier = 5f;
+        private const Single midairUpSpeedBoost = 15f;
 
         public ReloadTier reloadTier { get; set; }
 

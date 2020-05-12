@@ -1,11 +1,9 @@
 ﻿namespace ReinCore
 {
     using System;
-    using System.ComponentModel;
-    using System.Linq.Expressions;
-    using System.Reflection;
-    using BepInEx;
+
     using RoR2;
+
     using UnityEngine;
     using UnityEngine.Networking;
 
@@ -38,7 +36,7 @@
 
                 if( callHitWorld )
                 {
-                    GlobalEventManager.instance.OnHitAll( damage,  target && target.healthComponent ? target.healthComponent.gameObject : null  );
+                    GlobalEventManager.instance.OnHitAll( damage, target && target.healthComponent ? target.healthComponent.gameObject : null );
                 }
             } else
             {

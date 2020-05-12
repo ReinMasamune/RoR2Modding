@@ -1,21 +1,11 @@
-﻿using BepInEx;
-using RoR2;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Reflection;
-using System.Text;
-using UnityEngine;
-using Unity.Collections;
-using System.Diagnostics;
-using Unity.Jobs;
 
 namespace Rein.RogueWispPlugin.Helpers
 {
-    public class AssociationMap<TKey,TValue>
+    public class AssociationMap<TKey, TValue>
     {
-        public HashSet<TValue> this[TKey key] 
+        public HashSet<TValue> this[TKey key]
         {
             get
             {

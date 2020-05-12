@@ -1,13 +1,18 @@
 ﻿namespace AlternativeArtificer
 {
-    using AlternateArtificer.SelectablePassive;
-    using R2API;
-    using R2API.Utils;
-    using Rein.Properties;
-    using RoR2;
-    using RoR2.Skills;
     using System;
     using System.Collections.Generic;
+
+    using AlternateArtificer.SelectablePassive;
+
+    using R2API;
+    using R2API.Utils;
+
+    using Rein.Properties;
+
+    using RoR2;
+    using RoR2.Skills;
+
     using UnityEngine;
 
     public partial class Main
@@ -64,14 +69,14 @@
                     mainState = new EntityStates.SerializableEntityStateType( typeof( EntityStates.Mage.MageCharacterMain ) ),
                     defaultInitalState = new EntityStates.SerializableEntityStateType( typeof( EntityStates.GenericCharacterMain ) ),
                     defaultMainState = new EntityStates.SerializableEntityStateType( typeof( EntityStates.GenericCharacterMain ) )
-                    
+
                 }
             };
 
             elementalIntensity.skillNameToken = "REIN_ALTARTI_PASSIVE_NAME";
             elementalIntensity.skillDescriptionToken = "REIN_ALTARTI_PASSIVE_DESC";
             Texture2D tex = Tools.LoadTexture2D( Rein.Properties.Resources.passive_2__1_ );
-            elementalIntensity.icon = Sprite.Create(tex, new Rect(0f, 0f, tex.width, tex.height ), envSuit.icon.pivot );
+            elementalIntensity.icon = Sprite.Create( tex, new Rect( 0f, 0f, tex.width, tex.height ), envSuit.icon.pivot );
 
             elementalIntensity.stateMachineDefaults = new PassiveSkillDef.StateMachineDefaults[1]
             {
@@ -91,14 +96,14 @@
                 CharacterModel.RendererInfo[] renderInfos = model.baseRendererInfos;
                 if( renderInfos.Length == 10 )
                 {
-                    ((SkinnedMeshRenderer)model.baseRendererInfos[9].renderer).sharedMesh = this.artiChangedMesh;
+                    ( (SkinnedMeshRenderer)model.baseRendererInfos[9].renderer ).sharedMesh = this.artiChangedMesh;
                     model.baseRendererInfos[2].renderer.gameObject.SetActive( false );
                     model.baseRendererInfos[3].renderer.gameObject.SetActive( false );
                     model.baseRendererInfos[5].renderer.gameObject.SetActive( false );
                     model.baseRendererInfos[6].renderer.gameObject.SetActive( false );
                 } else
                 {
-                    ((SkinnedMeshRenderer)model.baseRendererInfos[3].renderer).sharedMesh = this.artiChangedMesh;
+                    ( (SkinnedMeshRenderer)model.baseRendererInfos[3].renderer ).sharedMesh = this.artiChangedMesh;
                     model.baseRendererInfos[0].renderer.gameObject.SetActive( false );
                     model.baseRendererInfos[1].renderer.gameObject.SetActive( false );
                 }
@@ -112,7 +117,7 @@
                 {
                     try
                     {
-                        ((SkinnedMeshRenderer)model.baseRendererInfos[9].renderer).sharedMesh = this.artiDefaultMesh;
+                        ( (SkinnedMeshRenderer)model.baseRendererInfos[9].renderer ).sharedMesh = this.artiDefaultMesh;
                     } catch { }
                     model.baseRendererInfos[2].renderer.gameObject.SetActive( true );
                     model.baseRendererInfos[3].renderer.gameObject.SetActive( true );
@@ -120,7 +125,7 @@
                     model.baseRendererInfos[6].renderer.gameObject.SetActive( true );
                 } else
                 {
-                    ((SkinnedMeshRenderer)model.baseRendererInfos[3].renderer).sharedMesh = this.artiDefaultMesh;
+                    ( (SkinnedMeshRenderer)model.baseRendererInfos[3].renderer ).sharedMesh = this.artiDefaultMesh;
                     model.baseRendererInfos[0].renderer.gameObject.SetActive( true );
                     model.baseRendererInfos[1].renderer.gameObject.SetActive( true );
                 }

@@ -1,6 +1,8 @@
 ﻿#if ANCIENTWISP
-using RoR2;
 using System;
+
+using RoR2;
+
 using UnityEngine;
 
 namespace Rein.RogueWispPlugin
@@ -83,56 +85,56 @@ namespace Rein.RogueWispPlugin
                         switch( this.healTarget )
                         {
                             default:
-                                Main.LogE( "Unhandled HealTarget" );
-                                break;
+                            Main.LogE( "Unhandled HealTarget" );
+                            break;
                             case HealTarget.Health:
-                                context.current = hc.health;
-                                context.max = hc.fullHealth;
-                                break;
+                            context.current = hc.health;
+                            context.max = hc.fullHealth;
+                            break;
                             case HealTarget.Shield:
-                                context.current = hc.shield;
-                                context.max = hc.fullShield;
-                                break;
+                            context.current = hc.shield;
+                            context.max = hc.fullShield;
+                            break;
                             case HealTarget.Barrier:
-                                context.current = hc.barrier;
-                                context.max = hc.fullBarrier;
-                                break;
+                            context.current = hc.barrier;
+                            context.max = hc.fullBarrier;
+                            break;
                         }
 
                         var healValue = 0f;
                         switch( this.healType )
                         {
                             default:
-                                Main.LogE( "Unhandled HealType" );
-                                break;
+                            Main.LogE( "Unhandled HealType" );
+                            break;
                             case HealType.Flat:
-                                healValue = this.value;
-                                break;
+                            healValue = this.value;
+                            break;
                             case HealType.PercentMax:
-                                healValue = this.value * context.max;
-                                break;
+                            healValue = this.value * context.max;
+                            break;
                             case HealType.PercentCurrent:
-                                healValue = this.value * context.current;
-                                break;
+                            healValue = this.value * context.current;
+                            break;
                             case HealType.PercentMissing:
-                                healValue = this.value * (context.max - context.current);
-                                break;
+                            healValue = this.value * ( context.max - context.current );
+                            break;
                         }
 
                         switch( this.healTarget )
                         {
                             default:
-                                Main.LogE( "Unhandled HealType" );
-                                break;
+                            Main.LogE( "Unhandled HealType" );
+                            break;
                             case HealTarget.Health:
-                                hc.Heal( healValue, default, true );
-                                break;
+                            hc.Heal( healValue, default, true );
+                            break;
                             case HealTarget.Shield:
-                                hc.RechargeShield( healValue );
-                                break;
+                            hc.RechargeShield( healValue );
+                            break;
                             case HealTarget.Barrier:
-                                hc.AddBarrier( healValue );
-                                break;
+                            hc.AddBarrier( healValue );
+                            break;
                         }
 
                     }

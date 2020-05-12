@@ -1,6 +1,4 @@
 ﻿#if ROGUEWISP
-using RoR2;
-using System;
 using UnityEngine;
 //using static RogueWispPlugin.Helpers.APIInterface;
 

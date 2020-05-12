@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+
 using UnityEngine;
 
 namespace Rein.RogueWispPlugin.Helpers
@@ -24,21 +23,21 @@ namespace Rein.RogueWispPlugin.Helpers
                 switch( curve.mode )
                 {
                     default:
-                        Main.LogE( "Unhanded curve mode: " + curve.mode.ToString() );
-                        break;
+                    Main.LogE( "Unhanded curve mode: " + curve.mode.ToString() );
+                    break;
                     case ParticleSystemCurveMode.Constant:
-                        curve.constant *= clusterCount;
-                        break;
+                    curve.constant *= clusterCount;
+                    break;
                     case ParticleSystemCurveMode.Curve:
-                        curve.curveMultiplier *= clusterCount;
-                        break;
+                    curve.curveMultiplier *= clusterCount;
+                    break;
                     case ParticleSystemCurveMode.TwoConstants:
-                        curve.constantMin *= clusterCount;
-                        curve.constantMax *= clusterCount;
-                        break;
+                    curve.constantMin *= clusterCount;
+                    curve.constantMax *= clusterCount;
+                    break;
                     case ParticleSystemCurveMode.TwoCurves:
-                        curve.curveMultiplier *= clusterCount;
-                        break;
+                    curve.curveMultiplier *= clusterCount;
+                    break;
                 }
                 burst.count = curve;
                 bursts[i] = burst;
@@ -51,7 +50,7 @@ namespace Rein.RogueWispPlugin.Helpers
             if( psShape.enabled )
             {
                 psShape.radius = clusterRadius;
-                
+
             } else
             {
                 psShape.enabled = true;

@@ -1,12 +1,8 @@
 ﻿namespace Sniper.Expansions
 {
     using System;
-    using System.Collections.Generic;
-    using System.Runtime.CompilerServices;
-    using BepInEx.Logging;
-    using ReinCore;
+
     using RoR2;
-    using UnityEngine;
 
     internal delegate void OnBulletDelegate( ExpandableBulletAttack bullet, BulletAttack.BulletHit hitInfo );
     internal class ExpandableBulletAttack : BulletAttack, ICloneable

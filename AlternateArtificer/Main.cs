@@ -1,14 +1,17 @@
 ﻿namespace AlternativeArtificer
 {
     using BepInEx;
-    using RoR2;
-    using UnityEngine;
+
     using R2API;
-    using R2API.Utils;
     using R2API.AssetPlus;
+    using R2API.Utils;
+
+    using RoR2;
+
+    using UnityEngine;
 
     // This isn't needed unless you are using specific submodules
-    [R2APISubmoduleDependency(nameof(ItemAPI),nameof(AssetPlus),nameof(EffectAPI),nameof(PrefabAPI),nameof(LoadoutAPI))]
+    [R2APISubmoduleDependency( nameof( ItemAPI ), nameof( AssetPlus ), nameof( EffectAPI ), nameof( PrefabAPI ), nameof( LoadoutAPI ) )]
     // This is needed
     [BepInDependency( R2API.PluginGUID )]
     // This is needed
@@ -48,8 +51,8 @@
             var nova = EntityStates.EntityState.Instantiate( new EntityStates.SerializableEntityStateType( typeof( EntityStates.Mage.Weapon.ChargeNovabomb ) ) );
             var ice = EntityStates.EntityState.Instantiate( new EntityStates.SerializableEntityStateType( typeof( EntityStates.Mage.Weapon.ChargeIcebomb ) ) );
 
-            UnityEngine.Object.Destroy( ((EntityStates.Mage.Weapon.ChargeNovabomb)nova).chargeEffectPrefab.GetComponent<EffectComponent>() );
-            UnityEngine.Object.Destroy( ((EntityStates.Mage.Weapon.ChargeNovabomb)ice).chargeEffectPrefab.GetComponent<EffectComponent>() );
+            UnityEngine.Object.Destroy( ( (EntityStates.Mage.Weapon.ChargeNovabomb)nova ).chargeEffectPrefab.GetComponent<EffectComponent>() );
+            UnityEngine.Object.Destroy( ( (EntityStates.Mage.Weapon.ChargeNovabomb)ice ).chargeEffectPrefab.GetComponent<EffectComponent>() );
         }
     }
 }

@@ -1,36 +1,34 @@
 ﻿namespace Sniper.Modules
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Runtime.CompilerServices;
-    using BepInEx.Logging;
     using ReinCore;
+
     using RoR2;
     using RoR2.Projectile;
+
     using Sniper.Components;
-    using Sniper.ScriptableObjects;
+
     using UnityEngine;
     using UnityEngine.Networking;
 
     internal static class ProjectileModule
-	{
+    {
 #pragma warning disable IDE1006 // Naming Styles
-		private static GameObject _knifeProjectile;
+        private static GameObject _knifeProjectile;
 #pragma warning restore IDE1006 // Naming Styles
-		internal static GameObject GetKnifeProjectile()
-		{
-			if( _knifeProjectile == null )
-			{
-				_knifeProjectile = CreateKnifeProjectile();
-				ProjectileCatalog.getAdditionalEntries += ( list ) => list.Add( _knifeProjectile );
-			}
+        internal static GameObject GetKnifeProjectile()
+        {
+            if( _knifeProjectile == null )
+            {
+                _knifeProjectile = CreateKnifeProjectile();
+                ProjectileCatalog.getAdditionalEntries += ( list ) => list.Add( _knifeProjectile );
+            }
 
-			return _knifeProjectile;
-		}
+            return _knifeProjectile;
+        }
 
 
-		private static GameObject CreateKnifeProjectile()
-		{
+        private static GameObject CreateKnifeProjectile()
+        {
             GameObject obj = PrefabsCore.CreatePrefab( "KnifeProjectile", true );
 
             obj.layer = LayerIndex.projectile.intVal;
@@ -80,27 +78,27 @@
 
 
             ProjectileSimple projSimple = obj.AddOrGetComponent<ProjectileSimple>();
-			projSimple.enableVelocityOverLifetime = false;
-			projSimple.lifetime = 18f;
-			projSimple.updateAfterFiring = true;
-			projSimple.velocity = 100f;
-			projSimple.velocityOverLifetime = null;
+            projSimple.enableVelocityOverLifetime = false;
+            projSimple.lifetime = 18f;
+            projSimple.updateAfterFiring = true;
+            projSimple.velocity = 100f;
+            projSimple.velocityOverLifetime = null;
 
 
             SphereCollider col = obj.AddOrGetComponent<SphereCollider>();
-			col.center = Vector3.zero;
-			col.contactOffset = 0f;
-			col.isTrigger = false;
-			col.material = null;
-			col.radius = 0.3f;
+            col.center = Vector3.zero;
+            col.contactOffset = 0f;
+            col.isTrigger = false;
+            col.material = null;
+            col.radius = 0.3f;
 
 
             ProjectileDamage damage = obj.AddOrGetComponent<ProjectileDamage>();
-			damage.crit = false;
-			damage.damage = 0f;
-			damage.damageColorIndex = DamageColorIndex.Default;
-			damage.damageType = DamageType.Generic;
-			damage.force = 0f;
+            damage.crit = false;
+            damage.damage = 0f;
+            damage.damageColorIndex = DamageColorIndex.Default;
+            damage.damageType = DamageType.Generic;
+            damage.force = 0f;
             _ = obj.AddOrGetComponent<Deployable>();
             _ = obj.AddOrGetComponent<KnifeDeployableSync>();
 
@@ -109,10 +107,10 @@
 
 
             foreach( IRuntimePrefabComponent runtimePrefabComp in obj.GetComponents<IRuntimePrefabComponent>() )
-			{
-				runtimePrefabComp.InitializePrefab();
-			}
-			return obj;
-		}
-	}
+            {
+                runtimePrefabComp.InitializePrefab();
+            }
+            return obj;
+        }
+    }
 }

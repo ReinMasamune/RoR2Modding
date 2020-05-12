@@ -4,6 +4,7 @@
     using System.IO;
     using System.Linq;
     using System.Reflection;
+
     using UnityEngine;
 
     /// <summary>
@@ -80,7 +81,7 @@
         /// </summary>
         /// <param name="resourceBytes">The bytes returned by Properties.Resources.ASSETNAME</param>
         /// <returns>The loaded texture</returns>
-        public static Texture2D LoadTexture2D( Byte[] resourceBytes, Boolean mips = false, Int32 width = 128, Int32 height = 128  )
+        public static Texture2D LoadTexture2D( Byte[] resourceBytes, Boolean mips = false, Int32 width = 128, Int32 height = 128 )
         {
             if( resourceBytes == null )
             {

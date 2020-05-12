@@ -1,5 +1,7 @@
-﻿using RoR2;
-using System;
+﻿using System;
+
+using RoR2;
+
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -52,7 +54,7 @@ namespace Rein.RogueWispPlugin
                 this.startPosition = component.effectData.origin;
                 this.previousPosition = this.startPosition;
                 GameObject gameObject = component.effectData.ResolveHurtBoxReference();
-                this.targetTransform = (gameObject ? gameObject.transform : null);
+                this.targetTransform = ( gameObject ? gameObject.transform : null );
                 this.duration = component.effectData.genericFloat;
                 if( this.duration == 0f )
                 {
@@ -63,7 +65,7 @@ namespace Rein.RogueWispPlugin
                     UnityEngine.Object.Destroy( base.gameObject );
                     return;
                 }
-                this.lastKnownTargetPosition = (this.targetTransform ? this.targetTransform.position : component.effectData.start);
+                this.lastKnownTargetPosition = ( this.targetTransform ? this.targetTransform.position : component.effectData.start );
                 this.noTarget = !this.targetTransform;
                 if( component.effectData.genericBool )
                 {
@@ -108,7 +110,7 @@ namespace Rein.RogueWispPlugin
                     base.transform.forward = vector - this.previousPosition;
                 }
                 this.UpdateBezier();
-                if( num == 1f || (this.callArrivalIfTargetIsGone && this.targetTransform == null && !this.noTarget) )
+                if( num == 1f || ( this.callArrivalIfTargetIsGone && this.targetTransform == null && !this.noTarget ) )
                 {
                     if( this.playSound ) RoR2.Util.PlaySound( this.soundString, base.gameObject );
                     this.onArrival.Invoke();

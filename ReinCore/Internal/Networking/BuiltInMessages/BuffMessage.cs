@@ -1,7 +1,9 @@
 ﻿namespace ReinCore
 {
     using System;
+
     using RoR2;
+
     using UnityEngine.Networking;
 
     internal struct BuffMessage : INetMessage
@@ -24,7 +26,7 @@
 
         public void OnRecieved() => this.body.ApplyBuff( this.buff, this.stacks, this.duration );
 
-        internal BuffMessage( CharacterBody body, BuffIndex buff, Int32 stacks, Single duration  )
+        internal BuffMessage( CharacterBody body, BuffIndex buff, Int32 stacks, Single duration )
         {
             this.body = body;
             this.buff = buff;

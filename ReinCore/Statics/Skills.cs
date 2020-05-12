@@ -2,13 +2,15 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using System.Reflection;
-    using BepInEx;
+
     using EntityStates;
+
     using MonoMod.RuntimeDetour;
+
     using RoR2;
     using RoR2.Skills;
+
     using UnityEngine;
 
     // TODO: Docs for SkillsCore
@@ -224,7 +226,7 @@
 #pragma warning disable IDE1006 // Naming Styles
         private delegate void set_typeNameDelegate( ref SerializableEntityStateType self, String value );
 #pragma warning restore IDE1006 // Naming Styles
-       
+
 
         private static readonly set_stateTypeDelegate set_stateType = new set_stateTypeDelegate( (ref SerializableEntityStateType self, Type value ) =>
         {

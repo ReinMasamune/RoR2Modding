@@ -1,8 +1,7 @@
-﻿using RoR2;
-using System;
-using System.Collections.Generic;
+﻿using System;
+
 using Unity.Collections;
-using Unity.Jobs;
+
 using UnityEngine;
 
 namespace Rein.RogueWispPlugin.Helpers

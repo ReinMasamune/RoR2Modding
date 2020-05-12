@@ -1,10 +1,14 @@
 ﻿#if ROGUEWISP
+using System;
+
 using EntityStates;
+
 using ReinCore;
+
 using RoR2;
 //using static RogueWispPlugin.Helpers.APIInterface;
 using RoR2.Skills;
-using System;
+
 using UnityEngine;
 
 namespace Rein.RogueWispPlugin
@@ -129,7 +133,7 @@ namespace Rein.RogueWispPlugin
 
 
             SteppedSkillDef skill = ScriptableObject.CreateInstance<SteppedSkillDef>();
-            skill.activationState =  new SerializableEntityStateType( typeof( Heatwave ) );
+            skill.activationState = new SerializableEntityStateType( typeof( Heatwave ) );
             skill.activationStateMachineName = "Weapon";
 
             skill.baseMaxStock = 1;
@@ -175,7 +179,7 @@ namespace Rein.RogueWispPlugin
 
 
             EntityStateMachine[] netStates = this.stateMachines.Get( net );
-                
+
             Array.Resize<EntityStateMachine>( ref netStates, 3 );
 
             SetStateOnHurt hurtState = this.RW_body.GetComponent<SetStateOnHurt>();
@@ -190,29 +194,29 @@ namespace Rein.RogueWispPlugin
                 switch( esm.customName )
                 {
                     case "Body":
-                        esm.initialStateType = new SerializableEntityStateType( typeof( SpawnTeleporterState ) );
-                        esm.mainStateType = new SerializableEntityStateType(typeof( GenericCharacterMain ) );
-                        netStates[0] = esm;
-                        hurtState.targetStateMachine = esm;
-                        death.deathStateMachine = esm;
-                        break;
+                    esm.initialStateType = new SerializableEntityStateType( typeof( SpawnTeleporterState ) );
+                    esm.mainStateType = new SerializableEntityStateType( typeof( GenericCharacterMain ) );
+                    netStates[0] = esm;
+                    hurtState.targetStateMachine = esm;
+                    death.deathStateMachine = esm;
+                    break;
 
                     case "Weapon":
-                        esm.initialStateType = new SerializableEntityStateType( typeof( Idle ) );
-                        esm.mainStateType = new SerializableEntityStateType( typeof( Idle ) );
-                        netStates[1] = esm;
-                        death.idleStateMachine[0] = esm;
-                        break;
+                    esm.initialStateType = new SerializableEntityStateType( typeof( Idle ) );
+                    esm.mainStateType = new SerializableEntityStateType( typeof( Idle ) );
+                    netStates[1] = esm;
+                    death.idleStateMachine[0] = esm;
+                    break;
 
                     case "Gaze":
-                        esm.initialStateType = new SerializableEntityStateType( typeof( Idle ) );
-                        esm.mainStateType = new SerializableEntityStateType( typeof( Idle ) );
-                        netStates[2] = esm;
-                        death.idleStateMachine[1] = esm;
-                        break;
+                    esm.initialStateType = new SerializableEntityStateType( typeof( Idle ) );
+                    esm.mainStateType = new SerializableEntityStateType( typeof( Idle ) );
+                    netStates[2] = esm;
+                    death.idleStateMachine[1] = esm;
+                    break;
 
                     default:
-                        break;
+                    break;
                 }
             }
 

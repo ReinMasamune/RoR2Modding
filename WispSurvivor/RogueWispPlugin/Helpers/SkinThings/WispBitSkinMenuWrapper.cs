@@ -1,8 +1,8 @@
-﻿
-using RoR2;
-using System;
-using UnityEngine;
+﻿using System;
+
 using ReinCore;
+
+using UnityEngine;
 
 namespace Rein.RogueWispPlugin.Helpers
 {
@@ -33,7 +33,7 @@ namespace Rein.RogueWispPlugin.Helpers
         }
         private Boolean GetBit( Int32 ind )
         {
-            return 1u == ((this.backingValue >> ind) & firstBitMask);
+            return 1u == ( ( this.backingValue >> ind ) & firstBitMask );
         }
         private Boolean SetBits( Int32 start, Int32 end, UInt32 value, Boolean shouldUpdate = true )
         {
@@ -51,7 +51,7 @@ namespace Rein.RogueWispPlugin.Helpers
             var tempMask = 0u;
             for( Int32 i = start; i <= end; ++i )
             {
-                tempMask |= (firstBitMask << i);
+                tempMask |= ( firstBitMask << i );
             }
 
             var tempVal = this.backingValue & ~tempMask;
@@ -93,28 +93,28 @@ namespace Rein.RogueWispPlugin.Helpers
             this.controller.Apply( WispBitSkin.GetWispSkin( this.backingValue ) );
         }
 
-        [Menu(sectionName = "Flags" )]
+        [Menu( sectionName = "Flags" )]
         internal Boolean cracks
         {
             get => this.bit31;
             set => this.bit31 = value;
         }
 
-        [Menu(sectionName = "Flags")]
+        [Menu( sectionName = "Flags" )]
         internal Boolean transparent
         {
             get => this.bit30;
             set => this.bit30 = value;
         }
 
-        [Menu(sectionName = "Flags")]
+        [Menu( sectionName = "Flags" )]
         internal Boolean iridescent
         {
             get => this.bit29;
             set => this.bit29 = value;
         }
 
-        [Menu(sectionName = "Flags")]
+        [Menu( sectionName = "Flags" )]
         internal Boolean useCustomColor
         {
             get => this.bit28;
@@ -128,7 +128,7 @@ namespace Rein.RogueWispPlugin.Helpers
             }
         }
 
-        [Menu(sectionName = "Selections")]
+        [Menu( sectionName = "Selections" )]
         internal WispBitSkin.ArmorMaterialType armorMaterial
         {
             get => (WispBitSkin.ArmorMaterialType)this.GetBits( 25, 27 );
@@ -140,13 +140,13 @@ namespace Rein.RogueWispPlugin.Helpers
             get => (WispBitSkin.FlameGradientType)this.GetBits( 18, 20 );
             set => this.SetBits( 18, 20, (UInt32)value );
         }
-        [Menu(sectionName = "Selections" )]
+        [Menu( sectionName = "Selections" )]
         internal WispBitSkin.WispColorIndex color
         {
             get => (WispBitSkin.WispColorIndex)this.GetBits( 0, 3 );
             set => this.SetBits( 0, 3, (UInt32)value );
         }
-        [Menu(sectionName = "Custom Color" )]
+        [Menu( sectionName = "Custom Color" )]
         internal Color customColor
         {
             get
@@ -188,8 +188,8 @@ namespace Rein.RogueWispPlugin.Helpers
 
 
 
-        
-        
+
+
         [Menu()]
         internal Boolean bit21
         {
