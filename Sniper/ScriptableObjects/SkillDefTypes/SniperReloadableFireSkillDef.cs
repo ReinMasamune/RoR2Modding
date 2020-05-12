@@ -125,7 +125,7 @@
             EntityState state = this.InstantiateNextState(skillSlot);
             if( data.isReloading )
             {
-                var reloadState = state as ISniperReloadState;
+                //var reloadState = state as ISniperReloadState;
             } else
             {
                 var fireState = state as SnipeBaseState;

@@ -5,7 +5,7 @@
     using RoR2;
 
     using Sniper.Components;
-
+    using Unity.Jobs;
     using UnityEngine;
     using UnityEngine.UI;
 
@@ -89,6 +89,9 @@
         private static GameObject reloadBarPrefab;
         internal static void CreateReloadBarPrefab()
         {
+            ITextureJob texBatch = TexturesCore.GenerateBarTextureBatch( 128, 640, true, 64, 16, Color.black, reloadHandleColor, 4 );
+            JobHandle.ScheduleBatchedJobs();
+
             GameObject obj = PrefabsCore.CreateUIPrefab("ReloadBar", false );
             var objTrans = obj.transform as RectTransform;
             objTrans.sizeDelta = new Vector2( 640f, 80f );
@@ -144,7 +147,7 @@
             CanvasRenderer handleRend = handle.AddComponent<CanvasRenderer>();
             handleRend.cullTransparentMesh = false;
             Image handleImg = handle.AddComponent<Image>();
-            Texture2D tex = TexturesCore.GenerateBarTexture(128, 640, true, 64, 16, Color.black, reloadHandleColor, 4 );
+            Texture2D tex = texBatch.OutputTextureAndDispose();
             handleImg.sprite = Sprite.Create( tex, new Rect( 0f, 0f, tex.width, tex.height ), new Vector2( 0.5f, 0.5f ) );
             handleImg.color = Color.white;
             handleImg.material = null;

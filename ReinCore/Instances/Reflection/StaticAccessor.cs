@@ -19,7 +19,7 @@
             ParameterExpression valueParam = Expression.Parameter( typeof(TValue), "value" );
             BindingFlags allFlags = BindingFlags.Public | BindingFlags.Static | BindingFlags.NonPublic;
             MemberInfo[] memberArray = type.GetMember( name, MemberTypes.Property | MemberTypes.Field, allFlags );
-            MemberInfo member = null;
+            MemberInfo member;
             if( memberArray.Length == 1 )
             {
                 member = memberArray[0];

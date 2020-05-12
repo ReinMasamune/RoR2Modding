@@ -1,57 +1,61 @@
 ﻿namespace Sniper.Components
 {
-	using System;
+    using System;
 
-	using UnityEngine;
-	using UnityEngine.UI;
+    using UnityEngine;
+    using UnityEngine.UI;
 
-	internal class UIStockController : MonoBehaviour
-	{
-		[SerializeField]
-		internal GameObject stockPrefab;
-		[SerializeField]
-		internal GameObject[] stockHolders;
-		[SerializeField]
-		internal Image[] stockImages;
+    internal class UIStockController : MonoBehaviour
+    {
+        [SerializeField]
+        internal GameObject stockPrefab;
+        [SerializeField]
+        internal GameObject[] stockHolders;
+        [SerializeField]
+        internal Image[] stockImages;
 
-		internal Int32 currentStock
-		{
-			private get => this._currentStock;
-			set
-			{
-				if( value != this._currentStock )
-				{
-					this.OnCurrentStockChanged( this._currentStock, value );
-					this._currentStock = value;
-				}
-			}
-		}
+        internal Int32 currentStock
+        {
+            private get => this._currentStock;
+            set
+            {
+                if( value != this._currentStock )
+                {
+                    this.OnCurrentStockChanged( this._currentStock, value );
+                    this._currentStock = value;
+                }
+            }
+        }
 #pragma warning disable IDE1006 // Naming Styles
-		private Int32 _currentStock = 0;
+        private Int32 _currentStock = 0;
 #pragma warning restore IDE1006 // Naming Styles
-		private void OnCurrentStockChanged( Int32 oldStock, Int32 newStock )
-		{
+#pragma warning disable IDE0060 // Remove unused parameter
+        private void OnCurrentStockChanged( Int32 oldStock, Int32 newStock )
+#pragma warning restore IDE0060 // Remove unused parameter
+        {
 
-		}
+        }
 
-		internal Int32 maxStock
-		{
-			private get => this._maxStock;
-			set
-			{
-				if( value != this._maxStock )
-				{
-					this.OnMaxStockChanged( this._maxStock, value );
-					this._maxStock = value;
-				}
-			}
-		}
+        internal Int32 maxStock
+        {
+            private get => this._maxStock;
+            set
+            {
+                if( value != this._maxStock )
+                {
+                    this.OnMaxStockChanged( this._maxStock, value );
+                    this._maxStock = value;
+                }
+            }
+        }
 #pragma warning disable IDE1006 // Naming Styles
-		private Int32 _maxStock = 0;
+        private Int32 _maxStock = 0;
 #pragma warning restore IDE1006 // Naming Styles
-		private void OnMaxStockChanged( Int32 oldStock, Int32 newStock )
-		{
+#pragma warning disable IDE0060 // Remove unused parameter
+        private void OnMaxStockChanged( Int32 oldStock, Int32 newStock )
+#pragma warning restore IDE0060 // Remove unused parameter
+        {
 
-		}
-	}
+        }
+    }
 }

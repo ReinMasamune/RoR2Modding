@@ -13,6 +13,7 @@
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="instanceType"></param>
         /// <param name="name"></param>
         public Accessor( Type instanceType, String name )
         {
@@ -22,7 +23,7 @@
             Type type = instanceType;
             BindingFlags allFlags = BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic;
             MemberInfo[] memberArray = type.GetMember( name, MemberTypes.Property | MemberTypes.Field, allFlags );
-            MemberInfo member = null;
+            MemberInfo member;
             if( memberArray.Length == 1 )
             {
                 member = memberArray[0];

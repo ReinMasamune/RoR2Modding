@@ -431,7 +431,9 @@
                 this.texture[index] = outColor;
             }
 
+#pragma warning disable IDE0060 // Remove unused parameter
             public static Color Rebase( Color color, Color mod, Single inputIntensity )
+#pragma warning restore IDE0060 // Remove unused parameter
             {
                 Single modIntensity = ( mod.r + mod.g + mod.b ) / 3;
                 mod.r -= modIntensity;

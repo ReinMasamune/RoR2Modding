@@ -166,7 +166,9 @@
 
 
 
+#pragma warning disable IDE0060 // Remove unused parameter
         private Skin( SkinDef skin, GameObject rootObject, CharacterModel model, ModelSkinController controller )
+#pragma warning restore IDE0060 // Remove unused parameter
         {
             this.wrappedSkin = skin;
             this.controller = controller;

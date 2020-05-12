@@ -130,7 +130,9 @@
 #pragma warning disable IDE1006 // Naming Styles
         private Texture2D _barTexture;
 #pragma warning restore IDE1006 // Naming Styles
+#pragma warning disable IDE0060 // Remove unused parameter
         private void OnBarTextureChanged( Texture2D oldTex, Texture2D newTex ) => this.backgroundImage.sprite = Sprite.Create( newTex, new Rect( 0f, 0f, newTex.width, newTex.height ), new Vector2( 0.5f, 0.5f ) );
+#pragma warning restore IDE0060 // Remove unused parameter
 
         private void OnEnable()
         {

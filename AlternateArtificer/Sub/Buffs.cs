@@ -18,6 +18,7 @@
 
         private void AddFireBuff()
         {
+#pragma warning disable CS0618 // Type or member is obsolete
             this.fireBuff = (BuffIndex)ItemAPI.AddCustomBuff( new CustomBuff( "AltArtiFireBuff", new BuffDef
             {
                 buffColor = new Color( 0.9f, 0.2f, 0.2f ),
@@ -26,6 +27,7 @@
                 isDebuff = false,
                 name = "AltArtiFireBuff"
             } ) );
+#pragma warning restore CS0618 // Type or member is obsolete
 
             this.burnBuff = BuffIndex.OnFire;
             this.burnDot = DotController.DotIndex.Burn;

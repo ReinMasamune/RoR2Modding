@@ -247,9 +247,6 @@
                 {
                     Single dmg = bullet.damage / bullet.attackerBody.damage;
                     obj.ApplyDoT( bullet.attackerBody.gameObject, bullet.isCrit ? CatalogModule.critPlasmaBurnIndex : CatalogModule.plasmaBurnIndex, 10f, dmg );
-                } else
-                {
-                    Log.WarningT( "Did not find hurtbox" );
                 }
             });
             GameObject plasmaTracer = VFXModule.GetPlasmaAmmoTracer();

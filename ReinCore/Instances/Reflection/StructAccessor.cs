@@ -136,6 +136,7 @@
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="instance"></param>
         /// <param name="value"></param>
         public delegate void StructAccessorSetDelegate( ref TInstance instance, TValue value );
 

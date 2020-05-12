@@ -50,7 +50,7 @@
 
         private void CharacterSelectController_OnNetworkUserLoadoutChanged( ILContext il )
         {
-            Action<CharacterModel,Loadout,Int32> emittedAction = ( model, loadout, body ) =>
+            void emittedAction( CharacterModel model, Loadout loadout, Int32 body )
             {
                 GenericSkill[] skills = BodyCatalog.GetBodyPrefabSkillSlots(body);
                 for( Int32 i = 0; i < skills.Length; i++ )
@@ -76,7 +76,7 @@
                     }
                 }
 
-            };
+            }
 
             var c = new ILCursor( il );
 

@@ -109,7 +109,6 @@
         public static Single Interpolate( Single from, Single to, Single t, Mode mode = Mode.Standard, Style style = Style.Linear, Clamping clamp = Clamping.Unclamped )
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
         {
-            Single output = 0f;
             switch( mode )
             {
                 case Mode.Standard:
@@ -125,6 +124,7 @@
                 default:
                 throw new ArgumentOutOfRangeException( nameof( mode ) );
             }
+            Single output;
             switch( style )
             {
                 case Style.Nearest:
@@ -135,16 +135,12 @@
                 break;
                 case Style.Polynomial:
                 throw new NotImplementedException();
-                break;
                 case Style.Spline:
                 throw new NotImplementedException();
-                break;
                 case Style.Cubic:
                 throw new NotImplementedException();
-                break;
                 case Style.Spherical:
                 throw new NotImplementedException();
-                break;
                 default:
                 throw new ArgumentOutOfRangeException( nameof( style ) );
             }
