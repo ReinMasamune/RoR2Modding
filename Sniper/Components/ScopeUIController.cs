@@ -27,9 +27,9 @@
         [SerializeField]
         internal GameObject stockHolder;
         [SerializeField]
-        internal UIStockController stockController;
+        internal UIStockController stockController = null;
         [SerializeField]
-        internal GameObject stockChildPrefab;
+        internal GameObject stockChildPrefab = null;
         [SerializeField]
         internal HGTextMeshProUGUI rangeIndicator;
         [SerializeField]
@@ -37,9 +37,9 @@
         [SerializeField]
         internal Image chargeIndicator;
         [SerializeField]
-        internal GameObject scopeActive;
+        internal GameObject scopeActive = null;
         [SerializeField]
-        internal GameObject scopeInactive;
+        internal GameObject scopeInactive = null;
 
         private Transform camTargetTransform;
         private Transform origParent;

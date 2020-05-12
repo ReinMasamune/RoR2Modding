@@ -52,7 +52,7 @@
         #region Static Internal
         private static WootingRGB instance;
         private static Boolean assemblyLoaded = false;
-        private static readonly Boolean updateRegistered = false;
+        //private static readonly Boolean updateRegistered = false;
         private static Boolean polling = true;
         private static Boolean pendingChanges = false;
         private static String dllPath;

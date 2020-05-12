@@ -17,7 +17,7 @@
     public partial class Main
     {
         //public static Func<Color,Single,Single,Color> remapFunc;
-        private readonly Texture2D mainTex;
+        //private readonly Texture2D mainTex;
         private readonly HashSet<SkinDef> addedSkins = new HashSet<SkinDef>();
 
         private Mesh artiDefaultMesh;
