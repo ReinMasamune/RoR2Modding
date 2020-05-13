@@ -1,0 +1,48 @@
+﻿<#@ template debug="false" hostspecific="true" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="System.Xml" #>
+<#@ import namespace="System.Xml" #>
+<#@ import namespace="System.IO" #>
+<#@ output extension=".cs" #>
+using System;
+<#
+	String fileName = "DEFAULTNAME";
+	String directory = this.Host.ResolvePath( "Versioning.tt" );
+	var info = System.IO.Directory.GetParent( directory );
+	XmlDocument xmldoc = new XmlDocument();
+	foreach( var file in info.EnumerateFiles() )
+	{
+		if( file.Extension == ".csproj" )
+		{
+			xmldoc.Load( file.FullName );
+			fileName = file.Name.Remove(file.Name.IndexOf(".csproj"));
+			break;
+		}
+	}
+	String vers = "";
+	String rootName = "DEFAULTROOT";
+	var temp = xmldoc.OuterXml;
+	var read = temp.Split( '<' );
+	for( Int32 i = 0; i < read.Length; i++ )
+	{
+		var s = read[i];
+		if( s.Contains( "AssemblyVersion" ) && vers == "" )
+		{
+			vers = s.Split('>')[1];
+		}
+		if( s.Contains( "RootNamespace" ) && rootName == "DEFAULTROOT" )
+		{
+			rootName = s.Split('>')[1];
+		}
+	}
+#>
+namespace <#=rootName#>.Properties
+{
+	public static class Info
+	{
+		/// <summary>
+		/// The version of the library
+		/// </summary>
+		public const String ver = "<#=vers#>";
+	}
+}

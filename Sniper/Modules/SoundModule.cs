@@ -17,11 +17,23 @@
         internal static Single masterVolume { private get; set; } = 1f;
 
         private const UInt32 sniper_charge_amount = 135031646u;
+#pragma warning disable CA1823 // Avoid unused private fields
+#pragma warning disable IDE0051 // Remove unused private members
         private const UInt32 volume_sfx = 3673881719u;
+#pragma warning restore IDE0051 // Remove unused private members
+#pragma warning restore CA1823 // Avoid unused private fields
+#pragma warning disable IDE0051 // Remove unused private members
+#pragma warning disable CA1823 // Avoid unused private fields
         private const UInt32 volume_master = 3695994288u;
+#pragma warning restore CA1823 // Avoid unused private fields
+#pragma warning restore IDE0051 // Remove unused private members
 
         private const UInt32 bolt_normal_shot = 763788813u;
+#pragma warning disable IDE0051 // Remove unused private members
+#pragma warning disable CA1823 // Avoid unused private fields
         private const UInt32 bolt_quickscope = 800730984u;
+#pragma warning restore CA1823 // Avoid unused private fields
+#pragma warning restore IDE0051 // Remove unused private members
         internal static void PlayFire( GameObject source, Single chargeLevel )
         {
             UInt32 id = AkSoundEngine.PostEvent( bolt_normal_shot, source );

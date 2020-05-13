@@ -13,10 +13,14 @@
     using UnityEngine.Events;
     using UnityEngine.Networking;
 
+#pragma warning disable CA1812 // Avoid uninstantiated internal classes
     internal class SniperCharacterBody : CharacterBody
+#pragma warning restore CA1812 // Avoid uninstantiated internal classes
     {
         private static readonly GameObject decoyMaster;
+#pragma warning disable CA1810 // Initialize reference type static fields inline
         static SniperCharacterBody()
+#pragma warning restore CA1810 // Initialize reference type static fields inline
         {
             decoyMaster = DecoyModule.GetDecoyMaster();
         }

@@ -224,9 +224,7 @@ namespace Sniper
                 SniperMain.logSource.Log( level, data );
             }
         }
-#pragma warning disable IDE0060 // Remove unused parameter
         private static void InternalLog( LogLevel level, System.Object data, String member, Int32 line )
-#pragma warning restore IDE0060 // Remove unused parameter
         {
 
             Boolean log = false;

@@ -1,0 +1,60 @@
+﻿<#@ template debug="true" hostspecific="true" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="System.Xml" #>
+<#@ import namespace="System.Xml" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Text.RegularExpressions" #>
+<#@ output extension=".cs" #>
+using System;
+using System.Reflection;
+using BepInEx;
+<#
+	String fileName = "DEFAULTNAME";
+	String directory = this.Host.ResolvePath( "Versioning.tt" );
+	var info = System.IO.Directory.GetParent( directory );
+	XmlDocument xmldoc = new XmlDocument();
+	foreach( var file in info.EnumerateFiles() )
+	{
+		if( file.Extension == ".csproj" )
+		{
+			xmldoc.Load( file.FullName );
+			fileName = file.Name.Remove(file.Name.IndexOf(".csproj"));
+			break;
+		}
+	}
+	String rootName = "DEFAULTROOT";
+	var temp = xmldoc.OuterXml;
+	var read = temp.Split( '<' );
+	for( Int32 i = 0; i < read.Length; i++ )
+	{
+		var s = read[i];
+		if( s.Contains( "RootNamespace" ) && rootName == "DEFAULTROOT" )
+		{
+			rootName = s.Split('>')[1];
+		}
+	}
+#>
+namespace <#=rootName#>.Properties
+{
+	[BepInPlugin( AssemblyLoad.guid, "Rein Assembly-PreLoad", AssemblyLoad.version )]
+    internal class AssemblyLoad : BaseUnityPlugin
+    {
+        public const String guid = "___AssemblyLoader-com.Rein.Core";
+        public const String version = ReinCore.ReinCore.ver;
+        private static Assembly coreAssembly;
+        static AssemblyLoad()
+        {
+            coreAssembly = Assembly.Load( Resources.ReinCore );
+        }
+
+        private AssemblyLoad()
+        {
+            var InitCore = (InitCoreDelegate)Delegate.CreateDelegate( typeof(InitCoreDelegate), coreAssembly.GetType( "ReinCore.ReinCore" ).GetMethod( "Init" ) );
+
+            InitCore( true, false, false, true, true, true, true );
+        }
+
+        private delegate void InitCoreDelegate( Boolean net, Boolean debug, Boolean info, Boolean message, Boolean warning, Boolean error, Boolean fatal );
+    }
+}

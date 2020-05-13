@@ -5,14 +5,16 @@
     using UnityEngine;
     using UnityEngine.UI;
 
+#pragma warning disable CA1812 // Avoid uninstantiated internal classes
     internal class UIStockController : MonoBehaviour
+#pragma warning restore CA1812 // Avoid uninstantiated internal classes
     {
         [SerializeField]
-        internal GameObject stockPrefab;
+        internal GameObject stockPrefab = null;
         [SerializeField]
-        internal GameObject[] stockHolders;
+        internal GameObject[] stockHolders = null;
         [SerializeField]
-        internal Image[] stockImages;
+        internal Image[] stockImages = null;
 
         internal Int32 currentStock
         {

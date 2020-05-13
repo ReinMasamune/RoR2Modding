@@ -12,7 +12,9 @@
     using UnityEngine.UI;
 
     [RequireComponent( typeof( HudElement ), typeof( CrosshairController ) )]
+#pragma warning disable CA1812 // Avoid uninstantiated internal classes
     internal class ScopeUIController : MonoBehaviour
+#pragma warning restore CA1812 // Avoid uninstantiated internal classes
     {
         internal void HookUpComponents()
         {
@@ -25,7 +27,7 @@
         [SerializeField]
         internal CrosshairController crosshair;
         [SerializeField]
-        internal GameObject stockHolder;
+        internal GameObject stockHolder = null;
         [SerializeField]
         internal UIStockController stockController = null;
         [SerializeField]
@@ -123,9 +125,7 @@
                 }
             }
         }
-#pragma warning disable IDE1006 // Naming Styles
         private Boolean _scoped;
-#pragma warning restore IDE1006 // Naming Styles
         private void OnScopedChange( Boolean enabled )
         {
             this.camTarget.aimMode = enabled ? CameraTargetParams.AimType.FirstPerson : CameraTargetParams.AimType.AimThrow;

@@ -20,7 +20,6 @@
         public ReloadTier reloadTier { get; set; }
 
         private Transform gunTransform;
-        private readonly Transform origParent;
 
         public override void OnEnter()
         {

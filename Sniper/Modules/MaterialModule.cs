@@ -799,81 +799,76 @@
 
             public void Execute( Int32 index )
             {
-                try
+
+                Int32 x = index % this.width;
+                Int32 y = index / this.width;
+
+                Color32 firstPix = this.sourceTex[index];
+
+                Single r = firstPix.r, g = firstPix.g, b = firstPix.b, a = firstPix.a;
+                Int32 counter = 1;
+
+                for( Int32 i = 0; i < this.radius; ++i )
                 {
-                    Int32 x = index % this.width;
-                    Int32 y = index / this.width;
-
-                    Color32 firstPix = this.sourceTex[index];
-
-                    Single r = firstPix.r, g = firstPix.g, b = firstPix.b, a = firstPix.a;
-                    Int32 counter = 1;
-
-                    for( Int32 i = 0; i < this.radius; ++i )
+                    Int32 sampX = x + i;
+                    if( sampX >= 0 && sampX < this.width )
                     {
-                        Int32 sampX = x + i;
-                        if( sampX >= 0 && sampX < this.width )
+                        for( Int32 j = 0; j < this.radius; ++j )
                         {
-                            for( Int32 j = 0; j < this.radius; ++j )
+                            Int32 sampY = y + j;
+                            if( sampY >= 0 && sampY < this.height )
                             {
-                                Int32 sampY = y + j;
-                                if( sampY >= 0 && sampY < this.height )
-                                {
-                                    Color res = this.sourceTex[(sampY * this.width) + sampX];
-                                    a += res.r;
-                                    r += res.g;
-                                    g += res.b;
-                                    b += res.a;
-                                }
-
-                                sampY = y - j;
-                                if( sampY >= 0 && sampY < this.height )
-                                {
-                                    Color res = this.sourceTex[(sampY * this.width) + sampX];
-                                    a += res.r;
-                                    r += res.g;
-                                    g += res.b;
-                                    b += res.a;
-                                }
+                                Color res = this.sourceTex[(sampY * this.width) + sampX];
+                                a += res.r;
+                                r += res.g;
+                                g += res.b;
+                                b += res.a;
                             }
-                        }
-                        sampX = x - i;
-                        if( sampX >= 0 && sampX < this.width )
-                        {
-                            for( Int32 j = 0; j < this.radius; ++j )
-                            {
-                                Int32 sampY = y + j;
-                                if( sampY >= 0 && sampY < this.height )
-                                {
-                                    Color res = this.sourceTex[(sampY * this.width) + sampX];
-                                    a += res.r;
-                                    r += res.g;
-                                    g += res.b;
-                                    b += res.a;
-                                }
 
-                                sampY = y - j;
-                                if( sampY >= 0 && sampY < this.height )
-                                {
-                                    Color res = this.sourceTex[(sampY * this.width) + sampX];
-                                    a += res.r;
-                                    r += res.g;
-                                    g += res.b;
-                                    b += res.a;
-                                }
+                            sampY = y - j;
+                            if( sampY >= 0 && sampY < this.height )
+                            {
+                                Color res = this.sourceTex[(sampY * this.width) + sampX];
+                                a += res.r;
+                                r += res.g;
+                                g += res.b;
+                                b += res.a;
                             }
                         }
                     }
-                    r /= counter;
-                    g /= counter;
-                    b /= counter;
-                    a /= counter;
+                    sampX = x - i;
+                    if( sampX >= 0 && sampX < this.width )
+                    {
+                        for( Int32 j = 0; j < this.radius; ++j )
+                        {
+                            Int32 sampY = y + j;
+                            if( sampY >= 0 && sampY < this.height )
+                            {
+                                Color res = this.sourceTex[(sampY * this.width) + sampX];
+                                a += res.r;
+                                r += res.g;
+                                g += res.b;
+                                b += res.a;
+                            }
 
-                    this.destTex[index] = Color.Lerp( firstPix, new Color( r, g, b, a ), this.weight );
-                } catch
-                {
-                    Log.Error( index );
+                            sampY = y - j;
+                            if( sampY >= 0 && sampY < this.height )
+                            {
+                                Color res = this.sourceTex[(sampY * this.width) + sampX];
+                                a += res.r;
+                                r += res.g;
+                                g += res.b;
+                                b += res.a;
+                            }
+                        }
+                    }
                 }
+                r /= counter;
+                g /= counter;
+                b /= counter;
+                a /= counter;
+
+                this.destTex[index] = Color.Lerp( firstPix, new Color( r, g, b, a ), this.weight );
             }
 
             public void Dispose()

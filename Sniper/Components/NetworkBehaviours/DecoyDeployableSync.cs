@@ -7,7 +7,9 @@
     using UnityEngine;
     using UnityEngine.Networking;
 
+#pragma warning disable CA1812 // Avoid uninstantiated internal classes
     internal class DecoyDeployableSync : NetworkBehaviour, IRuntimePrefabComponent
+#pragma warning restore CA1812 // Avoid uninstantiated internal classes
     {
         #region Networking
 #pragma warning disable IDE1006 // Naming Styles

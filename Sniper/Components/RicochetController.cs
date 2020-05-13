@@ -8,7 +8,9 @@
 
     using UnityEngine;
 
+#pragma warning disable CA1812 // Avoid uninstantiated internal classes
     internal class RicochetController : MonoBehaviour
+#pragma warning restore CA1812 // Avoid uninstantiated internal classes
     {
         internal static void QueueRicochet( ExpandableBulletAttack bullet, UInt32 delay ) => instance?.StartCoroutine( instance.Ricochet( bullet, delay ) );
 

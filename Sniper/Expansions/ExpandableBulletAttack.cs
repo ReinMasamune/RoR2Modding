@@ -15,7 +15,7 @@
 
         internal Single chargeLevel = 0f;
 
-        internal ExpandableBulletData data;
+        internal ExpandableBulletData data = null;
 
         internal ExpandableBulletAttack() : base()
         {
