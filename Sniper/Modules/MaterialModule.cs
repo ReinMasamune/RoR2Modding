@@ -22,10 +22,7 @@
 
             return _standardTracerMaterial;
         }
-
-#pragma warning disable IDE1006 // Naming Styles
         private static CloudMaterial _standardTracerMaterial;
-#pragma warning restore IDE1006 // Naming Styles
         private static CloudMaterial CreateStandardTracerMaterial()
         {
             var mat = new CloudMaterial( "StandardAmmoTracer" )
@@ -70,9 +67,6 @@
             //return AssetsCore.LoadAsset<Material>( MaterialIndex.refMatGolemExplosion );
             return mat;
         }
-
-
-
         internal static CloudMaterial GetStandardTracerTrailMaterial()
         {
             if( _standardTracerTrailMaterial == null )
@@ -82,9 +76,7 @@
 
             return _standardTracerTrailMaterial;
         }
-#pragma warning disable IDE1006 // Naming Styles
         private static CloudMaterial _standardTracerTrailMaterial;
-#pragma warning restore IDE1006 // Naming Styles
         private static CloudMaterial CreateStandardTracerTrailMaterial()
         {
             var mat = new CloudMaterial( "StandardAmmoTracerTrail" )
@@ -128,8 +120,6 @@
             return mat;
             //return AssetsCore.LoadAsset<Material>( MaterialIndex.refMatGolemExplosion );
         }
-
-
         internal static CloudMaterial GetExplosiveTracerMaterial()
         {
             if( _explosiveTracerMaterial == null )
@@ -138,9 +128,7 @@
             }
             return _explosiveTracerMaterial;
         }
-#pragma warning disable IDE1006 // Naming Styles
         private static CloudMaterial _explosiveTracerMaterial;
-#pragma warning restore IDE1006 // Naming Styles
         private static CloudMaterial CreateExplosiveTracerMaterial()
         {
             var mat = new CloudMaterial( "ExplosiveAmmoTracer" )
@@ -185,7 +173,6 @@
             //return AssetsCore.LoadAsset<Material>( MaterialIndex.refMatGolemExplosion );
             return mat;
         }
-
         internal static CloudMaterial GetExplosiveTracerTrailMaterial()
         {
             if( _explosiveTracerTrailMaterial == null )
@@ -195,9 +182,7 @@
 
             return _explosiveTracerTrailMaterial;
         }
-#pragma warning disable IDE1006 // Naming Styles
         private static CloudMaterial _explosiveTracerTrailMaterial;
-#pragma warning restore IDE1006 // Naming Styles
         private static CloudMaterial CreateExplosiveTracerTrailMaterial()
         {
             var mat = new CloudMaterial( "ExplosiveAmmoTracerTrail" )
@@ -241,8 +226,6 @@
             return mat;
             //return AssetsCore.LoadAsset<Material>( MaterialIndex.refMatGolemExplosion );
         }
-
-
         internal static CloudMaterial GetPlasmaTracerMaterial()
         {
             if( _plasmaTracerMaterial == null )
@@ -251,9 +234,7 @@
             }
             return _plasmaTracerMaterial;
         }
-#pragma warning disable IDE1006 // Naming Styles
         private static CloudMaterial _plasmaTracerMaterial;
-#pragma warning restore IDE1006 // Naming Styles
         private static CloudMaterial CreatePlasmaTracerMaterial()
         {
             var mat = new CloudMaterial( "PlasmaAmmoTracer" )
@@ -298,7 +279,6 @@
             //return AssetsCore.LoadAsset<Material>( MaterialIndex.refMatGolemExplosion );
             return mat;
         }
-
         internal static CloudMaterial GetPlasmaTracerTrailMaterial()
         {
             if( _plasmaTracerTrailMaterial == null )
@@ -308,9 +288,7 @@
 
             return _plasmaTracerTrailMaterial;
         }
-#pragma warning disable IDE1006 // Naming Styles
         private static CloudMaterial _plasmaTracerTrailMaterial;
-#pragma warning restore IDE1006 // Naming Styles
         private static CloudMaterial CreatePlasmaTracerTrailMaterial()
         {
             var mat = new CloudMaterial( "PlasmaAmmoTracerTrail" )
@@ -354,9 +332,6 @@
             return mat;
             //return AssetsCore.LoadAsset<Material>( MaterialIndex.refMatGolemExplosion );
         }
-
-
-
         internal static CloudMaterial GetScatterTracerMaterial()
         {
             if( _scatterTracerMaterial == null )
@@ -365,9 +340,7 @@
             }
             return _scatterTracerMaterial;
         }
-#pragma warning disable IDE1006 // Naming Styles
         private static CloudMaterial _scatterTracerMaterial;
-#pragma warning restore IDE1006 // Naming Styles
         private static CloudMaterial CreateScatterTracerMaterial()
         {
             var mat = new CloudMaterial( "ScatterAmmoTracer" )
@@ -412,7 +385,6 @@
             //return AssetsCore.LoadAsset<Material>( MaterialIndex.refMatGolemExplosion );
             return mat;
         }
-
         internal static CloudMaterial GetScatterTracerTrailMaterial()
         {
             if( _scatterTracerTrailMaterial == null )
@@ -422,9 +394,7 @@
 
             return _scatterTracerTrailMaterial;
         }
-#pragma warning disable IDE1006 // Naming Styles
         private static CloudMaterial _scatterTracerTrailMaterial;
-#pragma warning restore IDE1006 // Naming Styles
         private static CloudMaterial CreateScatterTracerTrailMaterial()
         {
             var mat = new CloudMaterial( "ScatterAmmoTracerTrail" )
@@ -466,26 +436,26 @@
             mat.cloudTexture2.tiling = new Vector2( 0.17f, 1f );
 
             return mat;
-            //return AssetsCore.LoadAsset<Material>( MaterialIndex.refMatGolemExplosion );
         }
 
 
-        internal static CloudMaterial GetKnifeTrailMaterial( Texture2D ramp )
+
+
+
+        internal static CloudMaterial GetKnifeTrailMaterial( ITextureJob ramp )
         {
             if( _baseKnifeTrailMaterial == null )
             {
                 _baseKnifeTrailMaterial = CreateBaseKnifeTrailMaterial();
             }
-
             CloudMaterial mat = _baseKnifeTrailMaterial.Clone();
-
-            mat.remapTexture.texture = ramp;
+            mat.remapTexture.texture = ramp.OutputTextureAndDispose();
             return mat;
         }
 
-#pragma warning disable IDE1006 // Naming Styles
+
         private static CloudMaterial _baseKnifeTrailMaterial;
-#pragma warning restore IDE1006 // Naming Styles
+
 
         private static CloudMaterial CreateBaseKnifeTrailMaterial()
         {
@@ -593,9 +563,9 @@
 
             return _sniperBase;
         }
-#pragma warning disable IDE1006 // Naming Styles
+
         private static StandardMaterial _sniperBase;
-#pragma warning restore IDE1006 // Naming Styles
+
 
 
         internal static StandardMaterial GetSniperDefaultBase()
@@ -612,9 +582,9 @@
 
             return _sniperDefaultBase;
         }
-#pragma warning disable IDE1006 // Naming Styles
+
         private static StandardMaterial _sniperDefaultBase;
-#pragma warning restore IDE1006 // Naming Styles
+
 
         internal static StandardMaterial GetSniperSkin1Base()
         {
@@ -628,9 +598,9 @@
 
             return _sniperSkin1Base;
         }
-#pragma warning disable IDE1006 // Naming Styles
+
         private static StandardMaterial _sniperSkin1Base;
-#pragma warning restore IDE1006 // Naming Styles
+
 
         internal static StandardMaterial GetSniperSkin2Base()
         {
@@ -644,9 +614,9 @@
 
             return _sniperSkin2Base;
         }
-#pragma warning disable IDE1006 // Naming Styles
+
         private static StandardMaterial _sniperSkin2Base;
-#pragma warning restore IDE1006 // Naming Styles
+
 
         #endregion
 
@@ -685,9 +655,9 @@
 
             return _railBase;
         }
-#pragma warning disable IDE1006 // Naming Styles
+
         private static StandardMaterial _railBase;
-#pragma warning restore IDE1006 // Naming Styles
+
 
         internal static Material GetRailDefault()
         {
@@ -706,9 +676,9 @@
 
             return _railDefault.material;
         }
-#pragma warning disable IDE1006 // Naming Styles
+
         private static StandardMaterial _railDefault;
-#pragma warning restore IDE1006 // Naming Styles
+
         #endregion
 
         #region Throw Knife
@@ -772,9 +742,9 @@
 
             return _throwKnifeBase;
         }
-#pragma warning disable IDE1006 // Naming Styles
+
         private static StandardMaterial _throwKnifeBase;
-#pragma warning restore IDE1006 // Naming Styles
+
         #endregion
 
         public struct SamplerJob : IJobParallelFor, IDisposable

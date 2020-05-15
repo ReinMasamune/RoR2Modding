@@ -73,8 +73,70 @@
             ITextureJob alt4IconJob = TexturesCore.GenerateCrossTextureBatch( 512, 512, 100, 20, 3, new Color( 0.9f, 0.9f, 0.9f ), new Color( 0.4f, 0.4f, 0.4f ),
                 iconColors[ind++], iconColors[ind++], iconColors[ind++], iconColors[ind++] );
 
-            JobHandle.ScheduleBatchedJobs();
 
+
+            ITextureJob defaultRampJob = TexturesCore.GenerateRampTextureBatch( new[]
+            {
+                new GradientAlphaKey(0f, 0f),
+                new GradientAlphaKey(0.1f, 0.5f),
+                new GradientAlphaKey(1f, 1f),
+            },
+            new[]
+            {
+                new GradientColorKey( Color.black, 0f ),
+                new GradientColorKey( new Color( 0.4f, 1f, 0.4f ), 0.95f ),
+                new GradientColorKey( Color.white, 1f ),
+            } );
+
+            ITextureJob alt1RampJob = TexturesCore.GenerateRampTextureBatch( new[]
+            {
+                new GradientAlphaKey(0f, 0f),
+                new GradientAlphaKey(0.1f, 0.5f),
+                new GradientAlphaKey(1f, 1f),
+            },
+            new[]
+            {
+                new GradientColorKey( Color.black, 0f ),
+                new GradientColorKey( Color.green, 1f ),
+            } );
+
+            ITextureJob alt2RampJob = TexturesCore.GenerateRampTextureBatch( new[]
+            {
+                new GradientAlphaKey(0f, 0f),
+                new GradientAlphaKey(0.1f, 0.5f),
+                new GradientAlphaKey(1f, 1f),
+            },
+            new[]
+            {
+                new GradientColorKey( Color.black, 0f ),
+                new GradientColorKey( Color.green, 1f ),
+            } );
+
+            ITextureJob alt3RampJob = TexturesCore.GenerateRampTextureBatch( new[]
+            {
+                new GradientAlphaKey(0f, 0f),
+                new GradientAlphaKey(0.1f, 0.5f),
+                new GradientAlphaKey(1f, 1f),
+            },
+            new[]
+            {
+                new GradientColorKey( Color.black, 0f ),
+                new GradientColorKey( Color.green, 1f ),
+            } );
+
+            ITextureJob alt4RampJob = TexturesCore.GenerateRampTextureBatch( new[]
+            {
+                new GradientAlphaKey(0f, 0f),
+                new GradientAlphaKey(0.1f, 0.5f),
+                new GradientAlphaKey(1f, 1f),
+            },
+            new[]
+            {
+                new GradientColorKey( Color.black, 0f ),
+                new GradientColorKey( Color.green, 1f ),
+            } );
+
+            JobHandle.ScheduleBatchedJobs();
 
             GameObject model = AssetModule.GetSniperAssetBundle().LoadAsset<GameObject>( Properties.Resources.SniperPrefabPath );
             CharacterModel charModel = model.GetComponent<CharacterModel>();
@@ -91,7 +153,8 @@
                 TextureModule.GetSniperDefaultTextures(),
                 TextureModule.GetRailDefaultTextures(),
                 TextureModule.GetThrowKnifeDefaultTextures(),
-                TextureModule.GetSniperDefaultTextures()
+                TextureModule.GetSniperDefaultTextures(),
+                defaultRampJob
             );
             defaultSkin.ApplyDefaultSkinModifiers();
 
@@ -101,7 +164,8 @@
                 TextureModule.GetSniperSkin1Textures(),
                 TextureModule.GetRailAlt1Textures(),
                 TextureModule.GetThrowKnifeDefaultTextures(),
-                TextureModule.GetSniperSkin1Textures()
+                TextureModule.GetSniperSkin1Textures(),
+                alt1RampJob
             );
             alt1.ApplyAlt1SkinModifiers();
 
@@ -111,7 +175,8 @@
                 TextureModule.GetSniperSkin2Textures(),
                 TextureModule.GetRailAlt2Textures(),
                 TextureModule.GetThrowKnifeDefaultTextures(),
-                TextureModule.GetSniperSkin2Textures()
+                TextureModule.GetSniperSkin2Textures(),
+                alt2RampJob
             );
             alt2.ApplyAlt2SkinModifiers();
 
@@ -122,7 +187,8 @@
                 TextureModule.GetSniperSkin3Textures(),
                 TextureModule.GetRailAlt3Textures(),
                 TextureModule.GetThrowKnifeDefaultTextures(),
-                TextureModule.GetSniperSkin3Textures()
+                TextureModule.GetSniperSkin3Textures(),
+                alt3RampJob
             );
             alt3.ApplyAlt3SkinModifiers();
 
@@ -132,34 +198,38 @@
                 TextureModule.GetSniperSkin4Textures(),
                 TextureModule.GetRailAlt2Textures(),
                 TextureModule.GetThrowKnifeDefaultTextures(),
-                TextureModule.GetSniperSkin4Textures()
+                TextureModule.GetSniperSkin4Textures(),
+                alt4RampJob
 
             );
             alt4.ApplyAlt4SkinModifiers();
-
-
-
 
 
             Texture2D defaultTex = defaultIconJob.OutputTextureAndDispose();
             defaultSkin.CreateAndAddSkin( charModel, Properties.Tokens.SNIPER_SKIN_DEFAULT_NAME, "",
                 Sprite.Create( defaultTex, new Rect( 0f, 0f, defaultTex.width, defaultTex.height ), new Vector2( 0.5f, 0.5f ) ) );
 
+
             Texture2D alt1Tex = alt1IconJob.OutputTextureAndDispose();
             alt1.CreateAndAddSkin( charModel, Properties.Tokens.SNIPER_SKIN_ALT1_NAME, "",
                 Sprite.Create( alt1Tex, new Rect( 0f, 0f, alt1Tex.width, alt1Tex.height ), new Vector2( 0.5f, 0.5f ) ) );
+
 
             Texture2D alt2Tex = alt2IconJob.OutputTextureAndDispose();
             alt2.CreateAndAddSkin( charModel, Properties.Tokens.SNIPER_SKIN_ALT2_NAME, "",
                 Sprite.Create( alt2Tex, new Rect( 0f, 0f, alt2Tex.width, alt2Tex.height ), new Vector2( 0.5f, 0.5f ) ) );
 
+
             Texture2D alt3Tex = alt3IconJob.OutputTextureAndDispose();
             alt3.CreateAndAddSkin( charModel, Properties.Tokens.SNIPER_SKIN_ALT3_NAME, "",
                 Sprite.Create( alt3Tex, new Rect( 0f, 0f, alt3Tex.width, alt3Tex.height ), new Vector2( 0.5f, 0.5f ) ) );
 
+
+
             Texture2D alt4Tex = alt4IconJob.OutputTextureAndDispose();
             alt4.CreateAndAddSkin( charModel, Properties.Tokens.SNIPER_SKIN_ALT4_NAME, "",
                 Sprite.Create( alt4Tex, new Rect( 0f, 0f, alt4Tex.width, alt4Tex.height ), new Vector2( 0.5f, 0.5f ) ) );
+
 
 
             SkinDef[] skinsArray = charModel.GetComponent<ModelSkinController>().skins;
@@ -170,8 +240,6 @@
                 info.defaultMaterial = defaultSkinRenderers[i].defaultMaterial;
                 charModel.baseRendererInfos[i] = info;
             }
-
-
 
             return model;
         }
@@ -327,8 +395,6 @@
             } );
         }
 
-
-
         private static void ApplyAlt2SkinModifiers( this SniperSkin alt2 )
         {
             alt2.AddMaterialModifier( SniperSkin.SniperMaterial.All, ( mat ) =>
@@ -410,7 +476,6 @@
                 mat.specularExponent = 5f;
             } );
         }
-
 
         private static void ApplyAlt3SkinModifiers( this SniperSkin alt3 )
         {
@@ -656,7 +721,5 @@
                 mat.specularExponent = 5f;
             } );
         }
-
-
     }
 }

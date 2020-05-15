@@ -11,6 +11,7 @@
     using Sniper.Components;
     using Sniper.Data;
     using Sniper.Enums;
+    using Sniper.Modules;
     using Sniper.SkillDefTypes.Bases;
     using Sniper.States.Bases;
 
@@ -74,7 +75,7 @@
 
             skillSlot.stock = this.actualMaxStock;
 
-            return new SniperPrimaryInstanceData( this, reloadTargetStatemachine, this.reloadParams );
+            return new SniperPrimaryInstanceData( this, reloadTargetStatemachine, this.reloadParams, skillSlot );
         }
 
         public sealed override Sprite GetCurrentIcon( GenericSkill skillSlot )
@@ -170,7 +171,12 @@
 
         internal class SniperPrimaryInstanceData : BaseSkillInstanceData
         {
-            internal SniperPrimaryInstanceData( SniperReloadableFireSkillDef def, EntityStateMachine reloadTargetStatemachine, ReloadParams reloadParams )
+            internal SniperPrimaryInstanceData( 
+                SniperReloadableFireSkillDef def,
+                EntityStateMachine reloadTargetStatemachine, 
+                ReloadParams reloadParams,
+                GenericSkill skillSlot
+            )
             {
                 this.def = def;
                 this.reloadStatemachine = reloadTargetStatemachine;
@@ -179,6 +185,16 @@
                 this.secondarySlot = this.reloadStatemachine.commonComponents.characterBody.skillLocator.secondary;
                 this.isReloading = false;
                 this.currentReloadTier = ReloadTier.Perfect;
+                this.skillSlot = skillSlot;
+            }
+
+            internal void ForceReload( ReloadTier tier )
+            {
+                this.currentReloadTier = tier;
+                SoundModule.PlayLoad( this.secondarySlot.gameObject, tier );
+                this.isReloading = false;
+                this.skillSlot.stock = Mathf.Max( this.skillSlot.stock, Mathf.Min( this.skillSlot.stock + 1, this.def.actualMaxStock ) );
+                this.reloadController.ForceStopReload();
             }
 
             internal void StartReload()
@@ -206,6 +222,7 @@
             internal SniperReloadableFireSkillDef def;
             internal EntityStateMachine reloadStatemachine;
             internal ReloadUIController reloadController;
+            internal GenericSkill skillSlot;
             internal GenericSkill secondarySlot;
             internal ReloadParams reloadParams;
             internal ReloadTier currentReloadTier = ReloadTier.None;

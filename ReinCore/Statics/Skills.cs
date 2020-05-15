@@ -13,22 +13,11 @@
 
     using UnityEngine;
 
-    // TODO: Docs for SkillsCore
-    // TODO: Userprofile fixes for SkillsCore (If not fixed in next ror2 update)
-    /// <summary>
-    /// 
-    /// </summary>
     public static class SkillsCore
     {
-        /// <summary>
-        /// 
-        /// </summary>
+
         public static Boolean loaded { get; internal set; } = false;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="type"></param>
         public static void AddSkill( Type type )
         {
             if( !loaded )
@@ -68,10 +57,6 @@
             _ = addedSkillTypes.Add( type );
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="skillDef"></param>
         public static void AddSkillDef( SkillDef skillDef )
         {
             if( !loaded )
@@ -93,10 +78,6 @@
             _ = addedSkillDefs.Add( skillDef );
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="skillFamily"></param>
         public static void AddSkillFamily( SkillFamily skillFamily )
         {
             if( !loaded )
@@ -118,12 +99,6 @@
             _ = addedSkillFamilies.Add( skillFamily );
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <typeparam name="TState"></typeparam>
-        /// <param name="register"></param>
-        /// <returns></returns>
         public static SerializableEntityStateType StateType<TState>( Boolean register = true ) where TState : EntityState
         {
             if( register )
@@ -134,9 +109,7 @@
             return new SerializableEntityStateType( typeof( TState ) );
         }
 
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public static SkillFamily CreateSkillFamily( SkillDef defaultSkill, params (SkillDef skill, String unlockable)[] variants )
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
         {
             SkillFamily family = ScriptableObject.CreateInstance<SkillFamily>();
             family.variants = new SkillFamily.Variant[variants.Length + 1];
@@ -170,11 +143,7 @@
         /// </summary>
         public static Accessor<GenericSkill, SkillFamily> skillFamily { get; } = new Accessor<GenericSkill, SkillFamily>( "_skillFamily" );
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="skill"></param>
-        /// <returns></returns>
+
         public static SkillFamily GetSkillFamily( this GenericSkill skill )
         {
             if( skill == null )
@@ -185,11 +154,6 @@
             return skillFamily.Get( skill );
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="skill"></param>
-        /// <param name="family"></param>
         public static void SetSkillFamily( this GenericSkill skill, SkillFamily family ) => skillFamily.Set( skill, family );
 
 

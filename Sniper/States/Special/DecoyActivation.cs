@@ -1,7 +1,7 @@
 ﻿namespace Sniper.States.Special
 {
     using System;
-
+    using EntityStates;
     using RoR2;
 
     using Sniper.SkillDefs;
@@ -14,7 +14,6 @@
     {
         private const Single cloakDuration = 8f;
 
-        // TODO: Implement Decoy Activation
         internal override DecoySkillData CreateSkillData()
         {
             base.data = new DecoySkillData();
@@ -32,6 +31,8 @@
             {
                 this.position = base.transform.position;
                 this.rotation = base.transform.rotation;
+
+                base.outer.SetNextStateToMain();
             }
 
             if( NetworkServer.active )
@@ -55,5 +56,6 @@
             this.rotation = reader.ReadQuaternion();
         }
 
+        public override InterruptPriority GetMinimumInterruptPriority() => InterruptPriority.PrioritySkill;
     }
 }

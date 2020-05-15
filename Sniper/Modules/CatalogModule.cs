@@ -5,7 +5,8 @@
     using ReinCore;
 
     using RoR2;
-
+    using Sniper.Enums;
+    using Sniper.SkillDefs;
     using UnityEngine;
 
     internal static class CatalogModule
@@ -77,11 +78,76 @@
             health.TakeDamage( damage );
         }
 
-
-#pragma warning disable IDE1006 // Naming Styles
         private static readonly Lazy<DamageColorIndex> _plasmaDamageColor = new Lazy<DamageColorIndex>( () => DamageColorsCore.AddDamageColor( new Color( 0.9f, 0.5f, 0.9f ) ));
-#pragma warning restore IDE1006 // Naming Styles
         internal static DamageColorIndex plasmaDamageColor { get => _plasmaDamageColor.Value; }
+
+
+        internal static void RegisterDamageTypes()
+        {
+            sniperResetDamageType = DamageTypesCore.RegisterNewDamageType( DoNothing );
+            GlobalEventManager.onServerDamageDealt += GlobalEventManager_onServerDamageDealt;
+        }
+
+
+
+        internal static DamageType sniperResetDamageType { get; private set; }
+
+        private static void DoNothing() { }
+
+        private static void GlobalEventManager_onServerDamageDealt( DamageReport obj )
+        {
+            if( obj.damageInfo.damageType.Flag( sniperResetDamageType ) )
+            {
+                Log.WarningT( "Applying debuff" );
+                obj.victimBody.AddTimedBuff( sniperResetDebuff.Value, 4f );
+            }
+        }
+        
+
+
+        internal static void RegisterBuffTypes()
+        {
+            BuffsCore.getAdditionalEntries += BuffsCore_getAdditionalEntries;
+            GlobalEventManager.onCharacterDeathGlobal += GlobalEventManager_onCharacterDeathGlobal;
+        }
+
+
+
+        private static void BuffsCore_getAdditionalEntries( System.Collections.Generic.List<BuffDef> buffList )
+        {
+            // TODO: Add custom debuff for plasma dot
+            buffList.Add( new BuffDef
+            {
+                buffColor = new Color( 0.5f, 1f, 0.6f, 1f ),
+                canStack = false,
+                eliteIndex = EliteIndex.None,
+                iconPath = "Textures/BuffIcons/texBuffFullCritIcon",
+                isDebuff = true,
+                name = "SniperResetOnKillDebuff"
+            } );
+        }
+        private static Lazy<BuffIndex> sniperResetDebuff = new Lazy<BuffIndex>( () => BuffCatalog.FindBuffIndex( "SniperResetOnKillDebuff" ));
+
+        private static void GlobalEventManager_onCharacterDeathGlobal( DamageReport obj )
+        {
+            if( obj.victimBody.HasBuff( sniperResetDebuff.Value ) )
+            {
+                Log.WarningT( "Resetting" );
+
+                var loc = obj.attackerBody.skillLocator;
+                var primaryData = loc.primary.skillInstanceData as SniperReloadableFireSkillDef.SniperPrimaryInstanceData;
+                primaryData.ForceReload( ReloadTier.Perfect );
+                var sec = loc.secondary;
+                sec.stock = Mathf.Max( Mathf.Min( sec.maxStock, sec.stock + 1 ), sec.stock );
+                sec.rechargeStopwatch = sec.stock >= sec.maxStock ? 0f : sec.rechargeStopwatch;
+                var util = loc.utility;
+                util.stock = Mathf.Max( Mathf.Min( util.maxStock, util.stock + 1 ), util.stock );
+                util.rechargeStopwatch = util.stock >= util.maxStock ? 0f : util.rechargeStopwatch;
+                var spec = loc.special;
+                spec.stock = Mathf.Max( Mathf.Min( spec.maxStock, spec.stock + 1 ), spec.stock );
+                spec.rechargeStopwatch = spec.stock >= spec.maxStock ? 0f : spec.rechargeStopwatch;
+            }
+        }
     }
 
 }

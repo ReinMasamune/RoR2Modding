@@ -6,8 +6,19 @@
 
     internal class DecoySkillData : SkillData
     {
-        internal override Boolean IsDataValid() =>
-            // TODO: Implement DecoySkillData.IsDataValid
-            true;
+        internal override String targetStateMachineName { get; } = null;
+
+        // TODO: Implement DecoySkillData
+
+
+
+        internal override Boolean IsDataInitialized()
+        {
+            return true;
+        }
+        internal override Boolean IsDataValid()
+        {
+            return true;
+        }
     }
 }

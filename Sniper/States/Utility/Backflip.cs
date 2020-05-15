@@ -86,5 +86,7 @@
                 base.outer.SetNextStateToMain();
             }
         }
+
+        public override InterruptPriority GetMinimumInterruptPriority() => InterruptPriority.PrioritySkill;
     }
 }

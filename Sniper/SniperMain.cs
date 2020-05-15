@@ -4,15 +4,17 @@ namespace Sniper
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.Reflection;
     using System.Runtime.CompilerServices;
-
     using BepInEx;
     using BepInEx.Logging;
-
+    using EntityStates;
+    using Mono.Cecil.Cil;
+    using MonoMod.Cil;
+    using MonoMod.RuntimeDetour;
     using ReinCore;
-
     using Sniper.Modules;
-
     using UnityEngine;
 
     [BepInDependency( Properties.AssemblyLoad.guid )]
@@ -52,6 +54,8 @@ namespace Sniper
                 CatalogModule.RegisterBody();
                 CatalogModule.RegisterSurvivor();
                 CatalogModule.RegisterDoTType();
+                CatalogModule.RegisterDamageTypes();
+                CatalogModule.RegisterBuffTypes();
             };
 
             base.start += () =>
@@ -68,6 +72,8 @@ namespace Sniper
             Log.Message( "Sniper loaded successfully" );
         }
 
+
+        
 
         #region static vars
         // TODO: Refactor these into their modules

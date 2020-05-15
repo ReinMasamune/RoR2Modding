@@ -457,7 +457,7 @@
             backflip.canceledFromSprinting = false;
             backflip.fullRestockOnAssign = true;
             backflip.icon = UIModule.GetBackflipIcon();
-            backflip.interruptPriority = InterruptPriority.Skill;
+            backflip.interruptPriority = InterruptPriority.PrioritySkill;
             backflip.isBullets = false;
             backflip.isCombatSkill = true;
             backflip.mustKeyPress = true;
@@ -484,13 +484,13 @@
             decoy.beginSkillCooldownOnSkillEnd = true;
             decoy.fullRestockOnAssign = true;
             decoy.icon = UIModule.GetDecoyIcon();
-            decoy.interruptPriority = InterruptPriority.Skill;
+            decoy.interruptPriority = InterruptPriority.PrioritySkill;
             decoy.isCombatSkill = false;
             decoy.maxReactivationTimer = -1f;
             decoy.minReactivationTimer = 2f;
             decoy.noSprint = false;
             decoy.reactivationIcon = UIModule.GetDecoyReactivationIcon();
-            decoy.reactivationInterruptPriority = InterruptPriority.Skill;
+            decoy.reactivationInterruptPriority = InterruptPriority.PrioritySkill;
             decoy.reactivationRequiredStock = 0;
             decoy.reactivationStockToConsume = 0;
             decoy.rechargeStock = 1;
@@ -504,17 +504,17 @@
 
             var knife = KnifeSkillDef.Create<KnifeActivation,KnifeReactivation>( "Weapon", "Body" );
             knife.baseMaxStock = 1;
-            knife.baseRechargeInterval = 14f;
+            knife.baseRechargeInterval = 6f;
             knife.beginSkillCooldownOnSkillEnd = true;
             knife.fullRestockOnAssign = true;
             knife.icon = UIModule.GetKnifeIcon();
-            knife.interruptPriority = InterruptPriority.Skill;
+            knife.interruptPriority = InterruptPriority.PrioritySkill;
             knife.isCombatSkill = true;
-            knife.maxReactivationTimer = 6f;
-            knife.minReactivationTimer = 0.5f;
+            knife.maxReactivationTimer = 4f;
+            knife.minReactivationTimer = 0.2f;
             knife.noSprint = true;
             knife.reactivationIcon = UIModule.GetKnifeReactivationIcon();
-            knife.reactivationInterruptPriority = InterruptPriority.Skill;
+            knife.reactivationInterruptPriority = InterruptPriority.PrioritySkill;
             knife.reactivationRequiredStock = 0;
             knife.reactivationStockToConsume = 0;
             knife.rechargeStock = 1;
@@ -522,9 +522,12 @@
             knife.skillDescriptionToken = Tokens.SNIPER_SPECIAL_KNIFE_DESC;
             knife.skillName = "Blink Knife";
             knife.skillNameToken = Tokens.SNIPER_SPECIAL_KNIFE_NAME;
-            knife.startCooldownAfterReactivation = true;
+            knife.startCooldownAfterReactivation = false;
             knife.stockToConsume = 1;
             skills.Add( knife );
+            KnifeSkillData.interruptPriority = InterruptPriority.PrioritySkill;
+            KnifeSkillData.targetMachineName = "Weapon";
+            KnifeSkillData.slashState = SkillsCore.StateType<KnifePickupSlash>();
 
             SkillFamiliesModule.specialSkills = skills;
         }

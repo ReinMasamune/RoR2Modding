@@ -160,7 +160,7 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Deals 65% damage. Explodes on hit for 65% additional damage to the target and nearby enemies..
+        ///   Looks up a localized string similar to Deals 65% primary damage. Explodes on hit for an additional 65% primary damage to the target and nearby enemies..
         /// </summary>
         internal static string lang__SNIPER_AMMO_EXPLOSIVE_DESC {
             get {
@@ -178,7 +178,7 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Deals 0% damage, applies a stacking burn that deals 215% damage over 10 seconds..
+        ///   Looks up a localized string similar to Deals 0% primary damage, applies a stacking burn that deals 215% primary damage over 10 seconds..
         /// </summary>
         internal static string lang__SNIPER_AMMO_PLASMA_DESC {
             get {
@@ -196,7 +196,7 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Deals up to 175% damage, fires a spread of pellets, damage falls off with range..
+        ///   Looks up a localized string similar to Deals up to 175% primary damage, fires a spread of pellets, damage falls off with range..
         /// </summary>
         internal static string lang__SNIPER_AMMO_SCATTER_DESC {
             get {
@@ -232,7 +232,7 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Deals 100% damage, pierces enemies, and has a chance to ricochet..
+        ///   Looks up a localized string similar to Deals 100% primary damage, pierces enemies, and has a chance to ricochet..
         /// </summary>
         internal static string lang__SNIPER_AMMO_STANDARD_DESC {
             get {
@@ -520,6 +520,15 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string PlasmaAmmoIcon {
+            get {
+                return ResourceManager.GetString("PlasmaAmmoIcon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Assets/__EXPORT/Icons/Other/portraitIcon.png.
         /// </summary>
         internal static string PortraitIcon {
@@ -671,6 +680,24 @@ namespace Sniper.Properties {
         internal static string ReloadIcon {
             get {
                 return ResourceManager.GetString("ReloadIcon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string ScatterAmmoIcon {
+            get {
+                return ResourceManager.GetString("ScatterAmmoIcon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string ShockAmmoIcon {
+            get {
+                return ResourceManager.GetString("ShockAmmoIcon", resourceCulture);
             }
         }
         

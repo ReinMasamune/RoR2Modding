@@ -160,7 +160,34 @@
                 return state;
             }
 
-            internal void OnActivation( ActivationBaseState<TSkillData> state ) => this.data = state.CreateSkillData();
+            internal void OnActivation( ActivationBaseState<TSkillData> state )
+            {
+                this.data = state.CreateSkillData();
+
+                
+                if( this.dataStateMachine is null )
+                {
+                    var name = this.data.targetStateMachineName;
+                    if( !( name is null ) )
+                    {
+                        EntityStateMachine[] machs = this.skillSlot.GetComponents<EntityStateMachine>();
+                        for( Int32 i = 0; i < machs.Length; ++i )
+                        {
+                            EntityStateMachine mach = machs[i];
+                            if( mach.customName == name )
+                            {
+                                this.dataStateMachine = mach;
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                if( !( this.dataStateMachine is null ) )
+                {
+                    this.data.targetStateMachine = this.dataStateMachine;
+                }
+            }
 
             internal void OnExecution()
             {
@@ -171,7 +198,7 @@
             internal void RunRecharge( Single dt )
             {
                 this.reactivationTimer += dt;
-                if( !this.data.IsDataValid() || ( this.def.maxReactivationTimer > 0f && this.reactivationTimer > this.def.maxReactivationTimer ) )
+                if( (this.data.IsDataInitialized() && !this.data.IsDataValid()) || ( this.def.maxReactivationTimer > 0f && this.reactivationTimer > this.def.maxReactivationTimer ) )
                 {
                     this.InvalidateReactivation();
                 }
@@ -182,10 +209,12 @@
                 if( this.waitingOnReactivation )
                 {
                     this.waitingOnReactivation = false;
+                    this.data.OnInvalidate();
                     this.data = null;
                 } else
                 {
                     this.waitingOnReactivation = false;
+                    this.data.OnInvalidate();
                     this.data = null;
                 }
 
@@ -193,8 +222,9 @@
 
             internal Boolean waitingOnReactivation;
             internal Single reactivationTimer;
-            private TSkillData data;
+            internal TSkillData data;
             internal EntityStateMachine reactivationStateMachine;
+            internal EntityStateMachine dataStateMachine;
             private readonly ReactivatedSkillDef<TSkillData> def;
             private readonly GenericSkill skillSlot;
         }

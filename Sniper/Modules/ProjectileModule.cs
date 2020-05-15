@@ -49,7 +49,7 @@
 
             Rigidbody rb = obj.AddOrGetComponent<Rigidbody>();
             rb.mass = 1f;
-            rb.drag = 0.1f;
+            rb.drag = 0.3f;
             rb.angularDrag = 0.05f;
             rb.useGravity = true;
             rb.isKinematic = false;
@@ -67,6 +67,7 @@
             projStick.alignNormals = false;
             projStick.ignoreCharacters = false;
             projStick.ignoreWorld = false;
+            projStick.stickEvent = new UnityEngine.Events.UnityEvent();
 
 
             ProjectileSingleTargetImpact projImpact = obj.AddOrGetComponent<ProjectileSingleTargetImpact>();
@@ -80,7 +81,7 @@
             ProjectileSimple projSimple = obj.AddOrGetComponent<ProjectileSimple>();
             projSimple.enableVelocityOverLifetime = false;
             projSimple.lifetime = 18f;
-            projSimple.updateAfterFiring = true;
+            projSimple.updateAfterFiring = false;
             projSimple.velocity = 100f;
             projSimple.velocityOverLifetime = null;
 
@@ -99,10 +100,15 @@
             damage.damageColorIndex = DamageColorIndex.Default;
             damage.damageType = DamageType.Generic;
             damage.force = 0f;
+
             _ = obj.AddOrGetComponent<Deployable>();
+
             _ = obj.AddOrGetComponent<KnifeDeployableSync>();
 
 
+            SphereCollider ownerDetection = obj.AddComponent<SphereCollider>();
+            ownerDetection.isTrigger = true;
+            ownerDetection.radius = 10f;
 
 
 

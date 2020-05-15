@@ -30,13 +30,14 @@
         internal delegate void MaterialModifier( StandardMaterial material );
 
 
-        internal SniperSkin( String name, TextureSet sniper, TextureSet rail, TextureSet throwKnife, TextureSet knife )
+        internal SniperSkin( String name, TextureSet sniper, TextureSet rail, TextureSet throwKnife, TextureSet knife, ITextureJob knifeTrail )
         {
             this.name = name;
             this.sniperTextures = sniper;
             this.railTextures = rail;
             this.throwKnifeTextures = throwKnife;
             this.knifeTextures = knife;
+            this.knifeTrail = knifeTrail;
 
             this.materialModifiers = new Dictionary<SniperMaterial, List<MaterialModifier>>
             {
@@ -128,6 +129,15 @@
                 }
                 skin.rendererInfos = rendInfos;
 
+                skin.projectileGhostReplacements = new[]
+                {
+                    new SkinDef.ProjectileGhostReplacement
+                    {
+                        projectilePrefab = ProjectileModule.GetKnifeProjectile(),
+                        projectileGhostReplacementPrefab = ProjectileGhostModule.GetKnifeGhost( this.GetThrowKnifeMaterial(), this.knifeTrail ),
+                    },
+                };
+
 
                 skin.icon = icon;
                 skin.nameToken = nameToken;
@@ -143,6 +153,7 @@
         private readonly TextureSet knifeTextures;
         private readonly TextureSet throwKnifeTextures;
         private readonly TextureSet railTextures;
+        private readonly ITextureJob knifeTrail;
 
 
         private Material GetBodyMaterial()

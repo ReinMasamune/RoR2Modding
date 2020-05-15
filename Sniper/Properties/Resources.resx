@@ -151,19 +151,19 @@
     <value>Passive</value>
   </data>
   <data name="lang__SNIPER_AMMO_EXPLOSIVE_DESC" xml:space="preserve">
-    <value>Deals 65% damage. Explodes on hit for 65% additional damage to the target and nearby enemies.</value>
+    <value>Deals 65% primary damage. Explodes on hit for an additional 65% primary damage to the target and nearby enemies.</value>
   </data>
   <data name="lang__SNIPER_AMMO_EXPLOSIVE_NAME" xml:space="preserve">
     <value>Explosive</value>
   </data>
   <data name="lang__SNIPER_AMMO_PLASMA_DESC" xml:space="preserve">
-    <value>Deals 0% damage, applies a stacking burn that deals 215% damage over 10 seconds.</value>
+    <value>Deals 0% primary damage, applies a stacking burn that deals 215% primary damage over 10 seconds.</value>
   </data>
   <data name="lang__SNIPER_AMMO_PLASMA_NAME" xml:space="preserve">
     <value>Plasma</value>
   </data>
   <data name="lang__SNIPER_AMMO_SCATTER_DESC" xml:space="preserve">
-    <value>Deals up to 175% damage, fires a spread of pellets, damage falls off with range.</value>
+    <value>Deals up to 175% primary damage, fires a spread of pellets, damage falls off with range.</value>
   </data>
   <data name="lang__SNIPER_AMMO_SCATTER_NAME" xml:space="preserve">
     <value>Scatter</value>
@@ -175,7 +175,7 @@
     <value>Shock</value>
   </data>
   <data name="lang__SNIPER_AMMO_STANDARD_DESC" xml:space="preserve">
-    <value>Deals 100% damage, pierces enemies, and has a chance to ricochet.</value>
+    <value>Deals 100% primary damage, pierces enemies, and has a chance to ricochet.</value>
   </data>
   <data name="lang__SNIPER_AMMO_STANDARD_NAME" xml:space="preserve">
     <value>Full Metal Jacket</value>
@@ -270,6 +270,9 @@
   <data name="lang__SNIPER_UTILITY_BACKFLIP_NAME" xml:space="preserve">
     <value>Military Training</value>
   </data>
+  <data name="PlasmaAmmoIcon" xml:space="preserve">
+    <value />
+  </data>
   <data name="PortraitIcon" xml:space="preserve">
     <value>Assets/__EXPORT/Icons/Other/portraitIcon.png</value>
   </data>
@@ -321,6 +324,12 @@
   </data>
   <data name="ReloadIcon" xml:space="preserve">
     <value>Assets/__EXPORT/Icons/M1/Reload.png</value>
+  </data>
+  <data name="ScatterAmmoIcon" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ShockAmmoIcon" xml:space="preserve">
+    <value />
   </data>
   <data name="SlideIcon" xml:space="preserve">
     <value />

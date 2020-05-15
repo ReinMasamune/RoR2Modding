@@ -95,6 +95,13 @@
             _ = base.StartCoroutine( this.ReloadStopDelay( this.currentReloadParams.reloadEndDelay / this.body.attackSpeed, data ) );
         }
 
+        internal void ForceStopReload()
+        {
+            this.isReloading = false;
+            this.showBar = false;
+            this.StopAllCoroutines();
+        }
+
         internal Boolean CanReload() => this.isReloading;
 
 

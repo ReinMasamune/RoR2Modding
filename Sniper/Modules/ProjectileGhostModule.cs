@@ -36,12 +36,13 @@
             return obj;
         }
 
-        internal static GameObject GetKnifeGhost( StandardMaterial meshMaterial, CloudMaterial trailMaterial )
+        internal static GameObject GetKnifeGhost( Material meshMaterial, ITextureJob trailMaterial )
         {
             GameObject obj = GetBaseKnifeGhost().ClonePrefab( "KnifeGhost", false );
 
-            obj.GetComponentInChildren<MeshRenderer>().sharedMaterial = meshMaterial.material;
-            obj.GetComponentInChildren<TrailRenderer>().sharedMaterial = trailMaterial.material;
+            obj.GetComponentInChildren<MeshRenderer>().sharedMaterial = meshMaterial;
+          
+            obj.GetComponentInChildren<TrailRenderer>().sharedMaterial = MaterialModule.GetKnifeTrailMaterial( trailMaterial ).material;
 
             return obj;
         }

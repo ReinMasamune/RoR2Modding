@@ -15,7 +15,7 @@
 
     internal class DecoyReactivation : ReactivationBaseState<DecoySkillData>
     {
-        public override unsafe void OnEnter()
+        public override void OnEnter()
         {
             base.OnEnter();
 

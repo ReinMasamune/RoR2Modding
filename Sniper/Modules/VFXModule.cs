@@ -56,6 +56,29 @@
 
 
 
+        private static GameObject knifeBlinkPrefab;
+        internal static GameObject GetKnifeBlinkPrefab()
+        {
+            if( knifeBlinkPrefab == null )
+            {
+                knifeBlinkPrefab = Resources.Load<GameObject>( "Prefabs/Effects/HuntressBlinkEffect" );
+            }
+
+            return knifeBlinkPrefab;
+        }
+
+        private static GameObject knifeSlashPrefab;
+        internal static GameObject GetKnifeSlashPrefab()
+        {
+            if( knifeSlashPrefab == null )
+            {
+                knifeSlashPrefab = Resources.Load<GameObject>( "Prefabs/Effects/MercSwordFinisherSlash" );
+            }
+
+            return knifeSlashPrefab;
+        }
+
+
 
 
         private static GameObject explosiveAmmoExplosionPrefab;

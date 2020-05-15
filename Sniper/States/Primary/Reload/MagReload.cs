@@ -1,7 +1,7 @@
 ﻿namespace Sniper.States.Primary.Reload
 {
     using System;
-
+    using EntityStates;
     using Sniper.Enums;
     using Sniper.States.Bases;
 
@@ -32,5 +32,6 @@
                 base.outer.SetNextStateToMain();
             }
         }
+        public override InterruptPriority GetMinimumInterruptPriority() => InterruptPriority.PrioritySkill;
     }
 }
