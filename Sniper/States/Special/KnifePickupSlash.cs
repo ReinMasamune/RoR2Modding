@@ -13,7 +13,7 @@
     {
         private const Single baseDuration = 0.5f;
         private const Single damageMult = 2f;
-        private const Single slashRadius = 6f;
+        private const Single slashRadius = 15f;
 
         private Single duration;
 
@@ -30,7 +30,6 @@
 
             if( this.knifeObject != null )
             {
-                Log.WarningT( "Non null knife!" );
             }
 
             if( NetworkServer.active && this.knifeObject != null )
@@ -69,6 +68,8 @@
                 EffectManager.SpawnEffect( slashEffectPrefab, data, true );
 
             }
+
+            Util.PlaySound( "Play_merc_m1_hard_swing", base.gameObject );
         }
 
         public override void OnSerialize( NetworkWriter writer )

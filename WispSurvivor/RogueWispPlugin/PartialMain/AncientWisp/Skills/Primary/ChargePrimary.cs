@@ -40,7 +40,6 @@ namespace Rein.RogueWispPlugin
 
                 Util.PlayScaledSound( "Play_greater_wisp_attack", base.gameObject, base.attackSpeedStat * ( 2f / baseDuration ) );
                 Util.PlayScaledSound( "Play_greater_wisp_attack", base.gameObject, base.attackSpeedStat * ( 2f / baseDuration ) );
-                Util.PlayScaledSound( "Play_greater_wisp_attack", base.gameObject, base.attackSpeedStat * ( 2f / baseDuration ) );
             }
 
             public override void FixedUpdate()

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using ReinCore;
 
 using RoR2;
-
+using Unity.Jobs;
 using UnityEngine;
 
 namespace Rein.RogueWispPlugin.Helpers
@@ -451,9 +451,15 @@ namespace Rein.RogueWispPlugin.Helpers
 				this.flameGradient = flameGradStyles[(UInt32)this.flameGradientType]( this.mainColor );
 			}
 
+            var rampBatch = TexturesCore.GenerateRampTextureBatch( this.flameGradient, true, 4096, 4096 );
+            var feBatch = TexturesCore.GenerateRampTextureBatch( CreateFEGradient( this.mainColor ), true, 4096, 4096 );
+            var flowBatch = TexturesCore.GenerateRampTextureBatch( CreateFlowGradient( this.mainColor ), true, 4096, 4096 );
+
+            JobHandle.ScheduleBatchedJobs();
 
 
-			Color.RGBToHSV( this.mainColor, out Single h, out Single s, out Single v );
+
+            Color.RGBToHSV( this.mainColor, out Single h, out Single s, out Single v );
 			r = this.mainColor.r;
 			g = this.mainColor.g;
 			b = this.mainColor.b;
@@ -492,24 +498,63 @@ namespace Rein.RogueWispPlugin.Helpers
 
 
 
-			Texture2D flameRampTex = TexturesCore.GenerateRampTexture( this.flameGradient, true, 4096, 4096 );
+
 			//Main.debugTexture = flameRampTex;
 
 			Single IntenVal( Single minVal, Single maxVal ) => Mathf.LerpUnclamped( minVal, maxVal, intensityValue );
 			Single GradVal( Single minVal, Single maxVal ) => Mathf.LerpUnclamped( minVal, maxVal, gradInt );
 			Single SaturVal( Single minVal, Single maxVal ) => Mathf.LerpUnclamped( minVal, maxVal, satValue );
 
+            var distortL = new DistortionMaterial( "DistortionMat" );
+            distortL.bumpTexture.texture = AssetsCore.LoadAsset<Texture2D>( Texture2DIndex.refTexNormalSphereFaded );
+            distortL.mainTexture.texture = null;
+            distortL.magnitude = 0.65f;
+            var distLr = this.mainColor.r;
+            var distLg = this.mainColor.g;
+            var distLb = this.mainColor.b;
+            var distLa = 0.25f;
+            distortL.color = new Color( distLr, distLg, distLb, distLa );
+
+
+            this.distortionLightMaterial = distortL.material;
+
+            var distort = new DistortionMaterial( "DistortionMat" );
+            distort.bumpTexture.texture = AssetsCore.LoadAsset<Texture2D>( Texture2DIndex.refTexNormalSphere );
+            distort.mainTexture.texture = null;
+            distort.magnitude = 1.2f;
+            var distr = this.mainColor.r;
+            var distg = this.mainColor.g;
+            var distb = this.mainColor.b;
+            var dista = 0.25f;
+            distort.color = new Color( distr, distg, distb, dista );
+
+
+            this.distortionMaterial = distort.material;
+
+            var distortH = new DistortionMaterial( "DistortionMat" );
+            distortH.bumpTexture.texture = AssetsCore.LoadAsset<Texture2D>( Texture2DIndex.refTexNormalSphere );
+            distortH.mainTexture.texture = null;
+            distortH.magnitude = 4f;
+            var distHr = this.mainColor.r;
+            var distHg = this.mainColor.g;
+            var distHb = this.mainColor.b;
+            var distHa = 0.25f;
+            distortH.color = new Color( distHr, distHg, distHb, distHa );
+
+
+            this.distortionHeavyMaterial = distortH.material;
 
 
 
-			var flamesMain = new CloudMaterial( "FlamesMain" );
+
+            var flamesMain = new CloudMaterial( "FlamesMain" );
 			flamesMain.sourceBlend = UnityEngine.Rendering.BlendMode.One;
 			flamesMain.destinationBlend = UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha;
 			flamesMain.internalSimpleBlendMode = 0f;
 			flamesMain.tintColor = new Color( 1f, 1f, 1f, 1f );
 			flamesMain.disableRemapping = false;
 			flamesMain.mainTexture.texture = AssetsCore.LoadAsset<Texture2D>( Texture2DIndex.refTexGlowSoftCenterMask );
-			flamesMain.remapTexture.texture = flameRampTex;
+
 			flamesMain.softFactor = 0.5f;
 			flamesMain.brightnessBoost = 0.85f; //1.1
 			flamesMain.alphaBoost = SaturVal( 5, 9 );
@@ -533,19 +578,15 @@ namespace Rein.RogueWispPlugin.Helpers
 			flamesMain.vertexOffsetAmount = 0f;
 			flamesMain.externalAlpha = 1f;
 
-			this.flameMainMaterial = flamesMain.material;
 
-
-
-
-			var tracerMat = new CloudMaterial( "TracerMaterial" );
+            var tracerMat = new CloudMaterial( "TracerMaterial" );
 			tracerMat.sourceBlend = UnityEngine.Rendering.BlendMode.One;
 			tracerMat.destinationBlend = UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha;
 			tracerMat.internalSimpleBlendMode = 0f;
 			tracerMat.tintColor = Color.white;
 			tracerMat.disableRemapping = false;
 			tracerMat.mainTexture.texture = AssetsCore.LoadAsset<Texture2D>( Texture2DIndex.refTexParticleDust1Mask );
-			tracerMat.remapTexture.texture = flameRampTex;
+
 			tracerMat.softFactor = 1f;
 			tracerMat.brightnessBoost = 3f; //4
 			tracerMat.alphaBoost = 3f; //5.01
@@ -569,19 +610,15 @@ namespace Rein.RogueWispPlugin.Helpers
 			tracerMat.vertexOffsetAmount = 0f;
 			tracerMat.externalAlpha = 1f;
 
-			this.tracerMaterial = tracerMat.material;
 
 
-
-
-			var pillarMat = new CloudMaterial( "FlamePillar" );
+            var pillarMat = new CloudMaterial( "FlamePillar" );
 			pillarMat.sourceBlend = UnityEngine.Rendering.BlendMode.SrcAlpha;
 			pillarMat.destinationBlend = UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha;
 			pillarMat.internalSimpleBlendMode = 1f;
 			pillarMat.tintColor = Color.white;
 			pillarMat.disableRemapping = false;
 			pillarMat.mainTexture.texture = AssetsCore.LoadAsset<Texture2D>( Texture2DIndex.refTexWillowispSpiral );
-			pillarMat.remapTexture.texture = flameRampTex;
 			pillarMat.softFactor = 1f;
 			pillarMat.brightnessBoost = 1.5f; //2
 			pillarMat.alphaBoost = IntenVal( 4.8f, 1f ); //6.57
@@ -605,10 +642,11 @@ namespace Rein.RogueWispPlugin.Helpers
 			pillarMat.vertexOffsetAmount = 0f;
 			pillarMat.externalAlpha = 1f;
 
-			this.flamePillarMaterial = pillarMat.material;
 
 
-			var areaMat = new IntersectionCloudMaterial( "AreaIndicatorMaterial");
+
+
+            var areaMat = new IntersectionCloudMaterial( "AreaIndicatorMaterial");
 			areaMat.sourceBlend = UnityEngine.Rendering.BlendMode.One;
 			areaMat.destinationBlend = UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha;
 			areaMat.tintColor = Color.white;
@@ -617,7 +655,7 @@ namespace Rein.RogueWispPlugin.Helpers
 			areaMat.cloudTexture1.tiling = new Vector2( 0.1f, 0.1f );
 			areaMat.cloudTexture2.texture = AssetsCore.LoadAsset<Texture2D>( Texture2DIndex.refTexArcaneCircle1Mask );
 			areaMat.cloudTexture2.tiling = new Vector2( 0.06f, 0.06f );
-			areaMat.remapTexture.texture = flameRampTex;
+
 			areaMat.cutoffScrollSpeed = new Vector4( 11f, -13f, -17f, 15f );
 			areaMat.softFactor = 2f;
 			areaMat.softPower = 1f;
@@ -631,10 +669,10 @@ namespace Rein.RogueWispPlugin.Helpers
 			areaMat.vertexColorsOn = false;
 			areaMat.triplanarOn = true;
 
-			this.areaIndicatorMaterial = areaMat.material;
 
 
-			var areaMat2 = new IntersectionCloudMaterial( "AreaIndicatorMaterial2" );
+
+            var areaMat2 = new IntersectionCloudMaterial( "AreaIndicatorMaterial2" );
 			areaMat2.sourceBlend = UnityEngine.Rendering.BlendMode.One;
 			areaMat2.destinationBlend = UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha;
 			areaMat2.tintColor = Color.white;
@@ -643,7 +681,6 @@ namespace Rein.RogueWispPlugin.Helpers
 			areaMat2.cloudTexture1.tiling = new Vector2( 0.1f, 0.1f );
 			areaMat2.cloudTexture2.texture = AssetsCore.LoadAsset<Texture2D>( Texture2DIndex.refTexCloudCrackedIce );
 			areaMat2.cloudTexture2.tiling = new Vector2( 0.075f, 0.075f );
-			areaMat2.remapTexture.texture = flameRampTex;
 			areaMat2.cutoffScrollSpeed = new Vector4( 11f, -13f, -17f, 15f );
 			areaMat2.softFactor = 2f;
 			areaMat2.softPower = 1f;
@@ -657,20 +694,16 @@ namespace Rein.RogueWispPlugin.Helpers
 			areaMat2.vertexColorsOn = false;
 			areaMat2.triplanarOn = true;
 
-			this.areaIndicatorMaterial2 = areaMat2.material;
 
 
-
-
-
-			var explMat = new CloudMaterial( "ExplosionMaterial" );
+            var explMat = new CloudMaterial( "ExplosionMaterial" );
 			explMat.sourceBlend = UnityEngine.Rendering.BlendMode.SrcAlpha;
 			explMat.destinationBlend = UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha;
 			//explMat.internalSimpleBlendMode = 1f;
 			explMat.tintColor = new Color( 1f, 1f, 1f, 1f );
 			explMat.disableRemapping = false;
 			explMat.mainTexture.texture = AssetsCore.LoadAsset<Texture2D>( Texture2DIndex.refTexGlowSoftCenterMask );
-			explMat.remapTexture.texture = flameRampTex;
+
 			explMat.softFactor = 0f;
 			explMat.brightnessBoost = 1.5f;
 			explMat.alphaBoost = 5f;
@@ -696,19 +729,16 @@ namespace Rein.RogueWispPlugin.Helpers
 			explMat.vertexOffsetAmount = 0f;
 			explMat.externalAlpha = 1f;
 
-			this.explosionMaterial = explMat.material;
 
 
 
-
-			var beamMat = new CloudMaterial( "beamMaterial" );
+            var beamMat = new CloudMaterial( "beamMaterial" );
 			beamMat.sourceBlend = UnityEngine.Rendering.BlendMode.One;
 			beamMat.destinationBlend = UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha;
 			beamMat.internalSimpleBlendMode = 0f;
 			beamMat.tintColor = Color.white;
 			beamMat.disableRemapping = false;
 			beamMat.mainTexture.texture = AssetsCore.LoadAsset<Texture2D>( Texture2DIndex.refTexAlphaGradient3Mask );
-			beamMat.remapTexture.texture = flameRampTex;
 			beamMat.softFactor = 1f;
 			beamMat.brightnessBoost = 8f;
 			beamMat.alphaBoost = 10f;
@@ -733,11 +763,10 @@ namespace Rein.RogueWispPlugin.Helpers
 			beamMat.vertexOffsetAmount = 0f;
 			beamMat.externalAlpha = 1f;
 
-			this.beamMaterial = beamMat.material;
 
 
 
-			var burnMat = new CloudMaterial( "BurnMaterial" );
+            var burnMat = new CloudMaterial( "BurnMaterial" );
 			burnMat.sourceBlend = UnityEngine.Rendering.BlendMode.One;
 			burnMat.destinationBlend = UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha;
 			burnMat.internalSimpleBlendMode = 0f;
@@ -745,7 +774,7 @@ namespace Rein.RogueWispPlugin.Helpers
 			burnMat.disableRemapping = false;
 			burnMat.mainTexture.texture = AssetsCore.LoadAsset<Texture2D>( Texture2DIndex.refCaustics );
 			burnMat.mainTexture.tiling = new Vector2( 6f, 6f );
-			burnMat.remapTexture.texture = flameRampTex;
+
 			burnMat.softFactor = 0f;
 			burnMat.brightnessBoost = 0.4f;
 			burnMat.alphaBoost = IntenVal( 1f, 10f );
@@ -772,24 +801,16 @@ namespace Rein.RogueWispPlugin.Helpers
 			firePrefab.transform.Find( "Point light" ).GetComponent<Light>().color = this.mainColor;
 			firePrefab.transform.Find( "Point light Flash" ).GetComponent<Light>().color = this.mainColor;
 
-			this.burnParams = new BurnEffectController.EffectParams
-			{
-				fireEffectPrefab = firePrefab,
-				overlayMaterial = burnMat.material,
-				startSound = "Play_item_proc_igniteOnKill_Loop",
-				stopSound = "Stop_item_proc_igniteOnKill_Loop"
-			};
 
 
 
-			var arcCircle = new CloudMaterial( "ArcCircle" );
+            var arcCircle = new CloudMaterial( "ArcCircle" );
 			arcCircle.sourceBlend = UnityEngine.Rendering.BlendMode.One;
 			arcCircle.destinationBlend = UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha;
 			arcCircle.internalSimpleBlendMode = 0f;
 			arcCircle.tintColor = new Color( 1f, 1f, 1f, 1f );
 			arcCircle.disableRemapping = false;
 			arcCircle.mainTexture.texture = AssetsCore.LoadAsset<Texture2D>( Texture2DIndex.refTexArcaneCircle1Mask );
-			arcCircle.remapTexture.texture = flameRampTex;
 			arcCircle.softFactor = 0f;
 			arcCircle.brightnessBoost = 1f;
 			arcCircle.alphaBoost = IntenVal( 2f, 4f );
@@ -813,24 +834,17 @@ namespace Rein.RogueWispPlugin.Helpers
 			arcCircle.vertexOffsetAmount = 0f;
 			arcCircle.externalAlpha = 1f;
 
-			this.arcaneCircleMaterial = arcCircle.material;
 
 
 
-
-
-
-
-
-
-			var flameTornadoMat = new CloudMaterial( "flameTornadoMat" );
+            var flameTornadoMat = new CloudMaterial( "flameTornadoMat" );
 			flameTornadoMat.sourceBlend = UnityEngine.Rendering.BlendMode.One;
 			flameTornadoMat.destinationBlend = UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha;
 			flameTornadoMat.internalSimpleBlendMode = 0f;
 			flameTornadoMat.tintColor = new Color( 1f, 1f, 1f, 1f );
 			flameTornadoMat.disableRemapping = false;
 			flameTornadoMat.mainTexture.texture = null;
-			flameTornadoMat.remapTexture.texture = flameRampTex;
+			
 			flameTornadoMat.softFactor = 0.299f;
 			flameTornadoMat.brightnessBoost = 1f;
 			flameTornadoMat.alphaBoost = 2.16f;
@@ -856,14 +870,10 @@ namespace Rein.RogueWispPlugin.Helpers
 			flameTornadoMat.vertexOffsetAmount = 0f;
 			flameTornadoMat.externalAlpha = 1f;
 
-			this.flameTornadoMaterial = flameTornadoMat.material;
 
+            
 
-
-
-
-
-			var bossAreaMat = new IntersectionCloudMaterial( "AreaIndicatorMaterial");
+            var bossAreaMat = new IntersectionCloudMaterial( "AreaIndicatorMaterial");
 			bossAreaMat.sourceBlend = UnityEngine.Rendering.BlendMode.One;
 			bossAreaMat.destinationBlend = UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha;
 			bossAreaMat.tintColor = Color.white;
@@ -872,7 +882,7 @@ namespace Rein.RogueWispPlugin.Helpers
 			bossAreaMat.cloudTexture1.tiling = new Vector2( 0.1f, 0.1f );
 			bossAreaMat.cloudTexture2.texture = AssetsCore.LoadAsset<Texture2D>( Texture2DIndex.refCaustics );
 			bossAreaMat.cloudTexture2.tiling = new Vector2( 0.05f, 0.05f );
-			bossAreaMat.remapTexture.texture = flameRampTex;
+			
 			bossAreaMat.cutoffScrollSpeed = new Vector4( 11f, -13f, -17f, 15f );
 			bossAreaMat.softFactor = 1f;
 			bossAreaMat.softPower = 5f;
@@ -886,18 +896,15 @@ namespace Rein.RogueWispPlugin.Helpers
 			bossAreaMat.vertexColorsOn = false;
 			bossAreaMat.triplanarOn = true;
 
-			this.bossAreaIndicatorMaterial = bossAreaMat.material;
 
 
-
-			var bossExplosionAreaMat = new CloudMaterial( "bossExplosionAreaMat" );
+            var bossExplosionAreaMat = new CloudMaterial( "bossExplosionAreaMat" );
 			bossExplosionAreaMat.sourceBlend = UnityEngine.Rendering.BlendMode.One;
 			bossExplosionAreaMat.destinationBlend = UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha;
 			bossExplosionAreaMat.internalSimpleBlendMode = 0f;
 			bossExplosionAreaMat.tintColor = new Color( 1f, 1f, 1f, 1f );
 			bossExplosionAreaMat.disableRemapping = false;
 			bossExplosionAreaMat.mainTexture.texture = null;
-			bossExplosionAreaMat.remapTexture.texture = flameRampTex;
 			bossExplosionAreaMat.softFactor = 0.299f;
 			bossExplosionAreaMat.brightnessBoost = 1f;
 			bossExplosionAreaMat.alphaBoost = 2.16f;
@@ -922,60 +929,6 @@ namespace Rein.RogueWispPlugin.Helpers
 			bossExplosionAreaMat.fresnelPower = 0.1f;
 			bossExplosionAreaMat.vertexOffsetAmount = 0f;
 			bossExplosionAreaMat.externalAlpha = 1f;
-
-			this.bossExplosionAreaMaterial = bossExplosionAreaMat.material;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-			var distortL = new DistortionMaterial( "DistortionMat" );
-			distortL.bumpTexture.texture = AssetsCore.LoadAsset<Texture2D>( Texture2DIndex.refTexNormalSphereFaded );
-			distortL.mainTexture.texture = null;
-			distortL.magnitude = 0.65f;
-			var distLr = this.mainColor.r;
-			var distLg = this.mainColor.g;
-			var distLb = this.mainColor.b;
-			var distLa = 0.25f;
-			distortL.color = new Color( distLr, distLg, distLb, distLa );
-
-
-			this.distortionLightMaterial = distortL.material;
-
-			var distort = new DistortionMaterial( "DistortionMat" );
-			distort.bumpTexture.texture = AssetsCore.LoadAsset<Texture2D>( Texture2DIndex.refTexNormalSphere );
-			distort.mainTexture.texture = null;
-			distort.magnitude = 1.2f;
-			var distr = this.mainColor.r;
-			var distg = this.mainColor.g;
-			var distb = this.mainColor.b;
-			var dista = 0.25f;
-			distort.color = new Color( distr, distg, distb, dista );
-
-
-			this.distortionMaterial = distort.material;
-
-			var distortH = new DistortionMaterial( "DistortionMat" );
-			distortH.bumpTexture.texture = AssetsCore.LoadAsset<Texture2D>( Texture2DIndex.refTexNormalSphere );
-			distortH.mainTexture.texture = null;
-			distortH.magnitude = 4f;
-			var distHr = this.mainColor.r;
-			var distHg = this.mainColor.g;
-			var distHb = this.mainColor.b;
-			var distHa = 0.25f;
-			distortH.color = new Color( distHr, distHg, distHb, distHa );
-
-
-			this.distortionHeavyMaterial = distortH.material;
 
 
 			var main = new StandardMaterial( "ArmorMain" );
@@ -1038,7 +991,6 @@ namespace Rein.RogueWispPlugin.Helpers
 			main.dither = false;
 			main.fadeBias = 0f;
 			main.fresnelEmission = true;
-			main.fresnelRamp.texture = TexturesCore.GenerateRampTexture( CreateFEGradient( this.mainColor ) );
 			main.fresnelPower = 0.2f;
 			main.fresnelMask.texture = null;
 			main.fresnelBoost = 20f;
@@ -1047,7 +999,6 @@ namespace Rein.RogueWispPlugin.Helpers
 			main.flowmapEnabled = false;
 			main.flowmapTexture.texture = AssetsCore.LoadAsset<Texture2D>( Texture2DIndex.refCaustics );
 			main.flowmapHeightmap.texture = AssetsCore.LoadAsset<Texture2D>( Texture2DIndex.refCaustics );
-			main.flowmapHeightRamp.texture = TexturesCore.GenerateRampTexture( CreateFlowGradient( this.mainColor ) );
 			main.flowHeightBias = 0.2f;
 			main.flowHeightPower = 1.1f;
 			main.flowHeightEmissionStrength = 1.25f;
@@ -1056,23 +1007,56 @@ namespace Rein.RogueWispPlugin.Helpers
 			main.flowNormalStrength = 0.75f;
 			main.flowTextureScaleFactor = 1.15f;
 			main.flowmapEnabled = true;
-
 			main.limbRemovalEnabled = false;
 			main.limbPrimeMask = 1f;
 			main.flashColor = Color.clear;
 
-			//if( this.hasCracks )
-			//{
-			//    main.flowmapEnabled = true;
-			//} else
-			//{
-			//    main.flowmapEnabled = false;
-			//}
-
 			armorMaterials[(UInt32)this.armorMaterialType]( this.mainColor, main );
 #endif
+            var flameRampTex = rampBatch.OutputTextureAndDispose();
 
-			this.armorMainMaterial = main.material;
+            flamesMain.remapTexture.texture = flameRampTex;
+            tracerMat.remapTexture.texture = flameRampTex;
+            pillarMat.remapTexture.texture = flameRampTex;
+            areaMat.remapTexture.texture = flameRampTex;
+            areaMat2.remapTexture.texture = flameRampTex;
+            explMat.remapTexture.texture = flameRampTex;
+            beamMat.remapTexture.texture = flameRampTex;
+            burnMat.remapTexture.texture = flameRampTex;
+            arcCircle.remapTexture.texture = flameRampTex;
+            flameTornadoMat.remapTexture.texture = flameRampTex;
+            bossAreaMat.remapTexture.texture = flameRampTex;
+            bossExplosionAreaMat.remapTexture.texture = flameRampTex;
+
+
+            main.fresnelRamp.texture = feBatch.OutputTextureAndDispose();
+            main.flowmapHeightRamp.texture = flowBatch.OutputTextureAndDispose();
+
+
+
+
+
+
+            this.flameMainMaterial = flamesMain.material;
+            this.tracerMaterial = tracerMat.material;
+            this.flamePillarMaterial = pillarMat.material;
+            this.areaIndicatorMaterial = areaMat.material;
+            this.areaIndicatorMaterial2 = areaMat2.material;
+            this.explosionMaterial = explMat.material;
+            this.beamMaterial = beamMat.material;
+            this.burnParams = new BurnEffectController.EffectParams
+            {
+                fireEffectPrefab = firePrefab,
+                overlayMaterial = burnMat.material,
+                startSound = "Play_item_proc_igniteOnKill_Loop",
+                stopSound = "Stop_item_proc_igniteOnKill_Loop"
+            };
+
+            this.arcaneCircleMaterial = arcCircle.material;
+            this.flameTornadoMaterial = flameTornadoMat.material;
+            this.bossAreaIndicatorMaterial = bossAreaMat.material;
+            this.bossExplosionAreaMaterial = bossExplosionAreaMat.material;
+            this.armorMainMaterial = main.material;
 
 			skinLookup[this.EncodeToSkinIndex()] = this;
 		}

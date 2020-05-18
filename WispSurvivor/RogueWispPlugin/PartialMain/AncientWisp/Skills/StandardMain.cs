@@ -19,7 +19,7 @@ namespace Rein.RogueWispPlugin
         {
             const Single enrageStartFrac = 0.5f;
 
-            const UInt32 baseSkin = 0b0001_0000_0000_0010_1011_0111_0011_1111u;
+            internal const UInt32 baseSkin = 0b0001_0000_0000_0010_1011_0111_0011_1111u;
 
             const Single baseFlareIntensity = 0f;
             const Single baseEmissionRate = 750f;

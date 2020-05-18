@@ -14,7 +14,7 @@
     internal partial class Main
     {
         private const Single radiusMult = 0.75f;
-        private const Single rateMult = 0.9f;
+        private const Single rateMult = 0.8f;
 
         partial void BalanceConvergence()
         {

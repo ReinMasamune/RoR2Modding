@@ -3,7 +3,7 @@
     using System;
     using System.Collections;
     using System.Collections.Generic;
-
+    using BepInEx.Configuration;
     using Mono.Cecil.Cil;
 
     using MonoMod.Cil;
@@ -16,12 +16,15 @@
 
     internal partial class Main
     {
+        private static ConfigEntry<Boolean> gestureBreakEnabled;
+
         private static readonly HashSet<EquipmentIndex> gestureBlacklist = new HashSet<EquipmentIndex>();
         private static readonly Dictionary<EquipmentIndex,Single> equipDestroyDelays = new Dictionary<EquipmentIndex, Single>();
         private static readonly Dictionary<GameObject,Coroutine> beingDestroyed = new Dictionary<GameObject, Coroutine>();
 
         partial void BalanceGesture()
         {
+            gestureBreakEnabled = base.Config.Bind<Boolean>( "Temporary:", "Gesture break enabled", true, "This is a temporary option until I have time to set up a more consistent change for gesture. This option will not be staying once that is done" );
             _ = gestureBlacklist.Add( EquipmentIndex.GoldGat );
             _ = gestureBlacklist.Add( EquipmentIndex.CrippleWard );
             _ = gestureBlacklist.Add( EquipmentIndex.QuestVolatileBattery );
@@ -47,10 +50,12 @@
             equipDestroyDelays[EquipmentIndex.Meteor] = 20f;
             equipDestroyDelays[EquipmentIndex.Tonic] = 20f;
 
-            this.Enable += this.AddGestureFix;
-            this.Disable += this.RemoveGestureFix;
+            if( gestureBreakEnabled.Value )
+            {
+                this.Enable += this.AddGestureFix;
+                this.Disable += this.RemoveGestureFix;
+            }
         }
-
         private void RemoveGestureFix()
         {
             RoR2.EquipmentSlot.onServerEquipmentActivated -= this.EquipmentSlot_onServerEquipmentActivated;
@@ -166,7 +171,7 @@
                     Int32 gestureCount = inv.GetItemCount( ItemIndex.AutoCastEquipment );
                     if( gestureCount > 0 && !RunArtifactManager.instance.IsArtifactEnabled( RoR2Content.Artifacts.enigmaArtifactDef ) )
                     {
-                        if( Util.CheckRoll( 100f * ( 1f - Mathf.Pow( 1f - this.gestureBreakChance, gestureCount ) ), body.master ) )
+                        if( Util.CheckRoll( 100f * ( 1f - Mathf.Pow( 1f - gestureBreakChance, gestureCount ) ), body.master ) )
                         {
                             DestroyEquipment( inv, equipInd );
                         }

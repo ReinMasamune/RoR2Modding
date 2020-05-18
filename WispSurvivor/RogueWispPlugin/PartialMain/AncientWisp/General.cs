@@ -21,6 +21,13 @@ namespace Rein.RogueWispPlugin
             this.Load += this.AW_GetBody;
             this.Load += this.AW_GetMaster;
             this.Load += this.AW_Register;
+            this.Load += this.AW_CacheSkins;
+        }
+
+        private void AW_CacheSkins()
+        {
+            _ = WispBitSkin.GetWispSkin( AWDefaultMain.baseSkin );
+            _ = WispBitSkin.GetWispSkin( AWEnrageTransition.enrageSkinIndex );
         }
 
         private void AW_Register()

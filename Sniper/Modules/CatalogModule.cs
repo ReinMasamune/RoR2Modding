@@ -98,7 +98,6 @@
         {
             if( obj.damageInfo.damageType.Flag( sniperResetDamageType ) )
             {
-                Log.WarningT( "Applying debuff" );
                 obj.victimBody.AddTimedBuff( sniperResetDebuff.Value, 4f );
             }
         }
@@ -132,8 +131,6 @@
         {
             if( obj.victimBody.HasBuff( sniperResetDebuff.Value ) )
             {
-                Log.WarningT( "Resetting" );
-
                 var loc = obj.attackerBody.skillLocator;
                 var primaryData = loc.primary.skillInstanceData as SniperReloadableFireSkillDef.SniperPrimaryInstanceData;
                 primaryData.ForceReload( ReloadTier.Perfect );

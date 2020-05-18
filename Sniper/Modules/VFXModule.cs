@@ -72,7 +72,7 @@
         {
             if( knifeSlashPrefab == null )
             {
-                knifeSlashPrefab = Resources.Load<GameObject>( "Prefabs/Effects/MercSwordFinisherSlash" );
+                knifeSlashPrefab = Resources.Load<GameObject>( "Prefabs/Effects/MageLightningBombExplosion" );
             }
 
             return knifeSlashPrefab;

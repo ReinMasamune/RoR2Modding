@@ -7,7 +7,7 @@
     using BepInEx;
 
     using Rein.Properties;
-
+    using RoR2;
     using UnityEngine;
 
     /// <summary>
@@ -78,6 +78,8 @@
 
         static ReinCore()
         {
+            RoR2Application.isModded = true;
+            RoR2Application.onFixedUpdate += () => RoR2Application.isModded = true;
             HooksCore.RoR2.RoR2Application.UnitySystemConsoleRedirector.Redirect.On += Redirect_On;
             HooksCore.RoR2.UI.QuickPlayButtonController.Start.On += Start_On;
             _ = Tools.LoadAssembly( Rein.Properties.Resources.RoR2ScriptForwarding );

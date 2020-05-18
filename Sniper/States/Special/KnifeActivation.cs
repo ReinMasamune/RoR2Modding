@@ -53,7 +53,11 @@
             this.knifeDefault = base.FindModelChild( "ThrowKnifeDefaultPosition" );
             this.knifeBone = base.FindModelChild( "ThrowKnifeBone" );
             this.knifeRenderer = base.GetModelTransform().Find( "ThrowKnife" ).GetComponent<SkinnedMeshRenderer>();
-            base.data.knifeRenderer = this.knifeRenderer;
+
+            if( base.data != null )
+            {
+                base.data.knifeRenderer = this.knifeRenderer;
+            }
             // TODO: Knife throw sound
         }
 

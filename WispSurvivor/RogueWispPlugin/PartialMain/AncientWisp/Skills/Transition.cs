@@ -17,8 +17,8 @@ namespace Rein.RogueWispPlugin
     {
         internal class AWEnrageTransition : FlyState
         {
-            const Single transitionDuration = 1.8f;
-            const UInt32 enrageSkinIndex = 0b1001_0000_0000_0110_1011_0111_0011_1111u;
+            const Single transitionDuration = 2f;
+            internal const UInt32 enrageSkinIndex = 0b1001_0000_0000_0110_1011_0111_0011_1111u;
             const Single enrageFlareIntensity = 0f;
             const Single enrageEmissionRate = 1500f;
             const Single delayFrac = 0.15f;

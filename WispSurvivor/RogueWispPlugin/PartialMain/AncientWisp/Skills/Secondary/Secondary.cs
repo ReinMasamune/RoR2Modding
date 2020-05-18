@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 using EntityStates;
-
+using ReinCore;
 using RoR2;
 
 using UnityEngine;
@@ -85,13 +85,15 @@ namespace Rein.RogueWispPlugin
             //private Queue<Vector3> sequencePillars = new Queue<Vector3>();
 
             private Queue<PillarInfo> pillars = new Queue<PillarInfo>();
+            private static Collider[] colliderBuffer = new Collider[1000];
 
             private class PillarInfo
             {
                 private Boolean firstDetonationOver = false;
                 private Single timer;
                 private Vector3 position;
-                private HashSet<HealthComponent> mask = new HashSet<HealthComponent>();
+                // TODO: Stackalloc hash set needed
+                private static HashSet<HealthComponent> mask = new HashSet<HealthComponent>();
                 private TeamIndex team;
                 private GameObject owner;
                 private Boolean crit;
@@ -149,7 +151,7 @@ namespace Rein.RogueWispPlugin
                     return res;
                 }
 
-                internal void FirstExplosion( Vector3 force, Single procCoef, DamageType damageType, params IEnumerable<TeamComponent>[] validTargets )
+                internal void FirstExplosion( Vector3 force, Single procCoef, DamageType damageType)
                 {
                     var data = new EffectData
                     {
@@ -160,10 +162,10 @@ namespace Rein.RogueWispPlugin
                     };
                     EffectManager.SpawnEffect( Main.AW_secondaryInitialExplosion, data, true );
 
-                    this.Detonate( this.baseDamage * this.dmgMult1, force, procCoef, damageType, validTargets );
+                    this.Detonate( this.baseDamage * this.dmgMult1, force, procCoef, damageType );
                 }
 
-                internal void FinalExplosion( Vector3 force, Single procCoef, DamageType damageType, params IEnumerable<TeamComponent>[] validTargets )
+                internal void FinalExplosion( Vector3 force, Single procCoef, DamageType damageType )
                 {
                     var data = new EffectData
                     {
@@ -174,53 +176,75 @@ namespace Rein.RogueWispPlugin
                     };
                     EffectManager.SpawnEffect( Main.AW_secondaryExplosion, data, true );
 
-                    this.Detonate( this.baseDamage * this.dmgMult2, force, procCoef, damageType, validTargets );
+                    this.Detonate( this.baseDamage * this.dmgMult2, force, procCoef, damageType );
                 }
 
-                private void Detonate( Single damage, Vector3 force, Single procCoef, DamageType damageType, params IEnumerable<TeamComponent>[] validTargets )
+                private unsafe void Detonate( Single damage, Vector3 force, Single procCoef, DamageType damageType )
                 {
-                    this.mask.Clear();
+                    //StackSet<HealthComponent> mask;
+                    //unsafe
+                    //{
+                    //    var maskBacking = stackalloc Byte[256];
+                    //    mask = new StackSet<HealthComponent>( maskBacking, 256 );
+                    //}
+                    mask.Clear();
 
-                    foreach( var targetSet in validTargets )
+                    var count = Physics.OverlapCapsuleNonAlloc( this.position - new Vector3( 0f, 10f, 0f ), this.position + new Vector3( 0f, 1000f, 0f ), this.radius * 2f, colliderBuffer, LayerIndex.entityPrecise.mask );
+
+
+                    for( Int32 i = 0; i < count; ++i )
                     {
-                        if( targetSet == null ) continue;
-                        foreach( var target in targetSet )
-                        {
-                            if( target == null ) continue;
-                            var body = target.body;
-                            if( body == null ) continue;
-                            if( body.gameObject == this.owner ) continue;
-                            var hc = body.healthComponent;
-                            if( hc == null ) continue;
-                            if( this.mask.Contains( hc ) ) continue;
-                            this.mask.Add( hc );
-                            if( !FriendlyFireManager.ShouldDirectHitProceed( hc, this.team ) ) continue;
+                        var col = colliderBuffer[i];
+                        if( col is null ) continue;
+                        var hb = col.GetComponent<HurtBox>();
+                        if( hb is null ) continue;
+                        var hc = hb.healthComponent;
+                        if( hc is null || mask.Add( hc ) || !FriendlyFireManager.ShouldDirectHitProceed( hc, this.team ) ) continue;
 
-                            var diff = hc.transform.position - this.position;
-                            if( diff.y < -10f ) continue;
-                            diff.y = 0f;
-                            if( diff.magnitude <= this.radius )
-                            {
-                                var info = new DamageInfo
-                                {
-                                    attacker = this.owner,
-                                    crit = this.crit,
-                                    damage = damage,
-                                    damageColorIndex = DamageColorIndex.Default,
-                                    damageType = damageType,
-                                    dotIndex = DotController.DotIndex.None,
-                                    force = force,
-                                    inflictor = null,
-                                    position = hc.transform.position,
-                                    procChainMask = default,
-                                    procCoefficient = procCoef,
-                                };
-                                hc.TakeDamage( info );
-                                GlobalEventManager.instance.OnHitEnemy( info, hc.gameObject );
-                                GlobalEventManager.instance.OnHitAll( info, hc.gameObject );
-                            }
-                        }
+                        var info = new DamageInfo
+                        {
+                            attacker = this.owner,
+                            crit = this.crit,
+                            damage = damage,
+                            damageColorIndex = DamageColorIndex.Default,
+                            damageType = damageType,
+                            dotIndex = DotController.DotIndex.None,
+                            force = force,
+                            inflictor = null,
+                            position = hc.transform.position,
+                            procChainMask = default,
+                            procCoefficient = procCoef,
+                        };
+                        hc.TakeDamage( info );
+                        GlobalEventManager.instance.OnHitEnemy( info, hc.gameObject );
+                        GlobalEventManager.instance.OnHitAll( info, hc.gameObject );
                     }
+                    
+
+                    //foreach( var targetSet in validTargets )
+                    //{
+                    //    if( targetSet == null ) continue;
+                    //    foreach( var target in targetSet )
+                    //    {
+                    //        if( target == null ) continue;
+                    //        var body = target.body;
+                    //        if( body == null ) continue;
+                    //        if( body.gameObject == this.owner ) continue;
+                    //        var hc = body.healthComponent;
+                    //        if( hc == null ) continue;
+                    //        if( this.mask.Contains( hc ) ) continue;
+                    //        this.mask.Add( hc );
+                    //        if( !FriendlyFireManager.ShouldDirectHitProceed( hc, this.team ) ) continue;
+
+                    //        var diff = hc.transform.position - this.position;
+                    //        if( diff.y < -10f ) continue;
+                    //        diff.y = 0f;
+                    //        if( diff.magnitude <= this.radius )
+                    //        {
+
+                    //        }
+                    //    }
+                    //}
                 }
 
             }
@@ -375,7 +399,7 @@ namespace Rein.RogueWispPlugin
 
                 Util.PlayScaledSound( "Play_gravekeeper_attack1_open", base.gameObject, 0.7f );
                 Util.PlayScaledSound( "Play_gravekeeper_attack1_open", base.gameObject, 0.7f );
-                Util.PlayScaledSound( "Play_gravekeeper_attack1_open", base.gameObject, 0.7f );
+                //Util.PlayScaledSound( "Play_gravekeeper_attack1_open", base.gameObject, 0.7f );
 
                 var stateDict = new Dictionary<SubState,SubStateDef>();
 
@@ -431,7 +455,7 @@ namespace Rein.RogueWispPlugin
                     if( pillar.RunTime( Time.fixedDeltaTime ) )
                     {
                         this.UpdateTargets();
-                        pillar.FirstExplosion( Vector3.zero, pillarInitialDetonationProcCoef, DamageType.SlowOnHit, this.targets1, this.targets2, this.targets3, this.targets4 );
+                        pillar.FirstExplosion( Vector3.zero, pillarInitialDetonationProcCoef, DamageType.SlowOnHit | DamageType.AOE );
                     }
                 }
 
@@ -511,7 +535,7 @@ namespace Rein.RogueWispPlugin
                 {
                     this.subState.subTimer -= this.detonateInterval;
 
-                    this.pillars.Dequeue().FinalExplosion( Vector3.zero, 1.0f, DamageType.Generic, this.targets1, this.targets2, this.targets3, this.targets4 );
+                    this.pillars.Dequeue().FinalExplosion( Vector3.zero, 1.0f, DamageType.AOE );
                 }
                 if( this.pillars.Count == 0 )
                 {
@@ -673,10 +697,10 @@ namespace Rein.RogueWispPlugin
             private void UpdateTargets()
             {
                 //Main.LogC();
-                this.targets1 = TeamComponent.GetTeamMembers( TeamIndex.Monster );
-                this.targets2 = TeamComponent.GetTeamMembers( TeamIndex.Neutral );
-                this.targets3 = TeamComponent.GetTeamMembers( TeamIndex.None );
-                this.targets4 = TeamComponent.GetTeamMembers( TeamIndex.Player );
+                //this.targets1 = TeamComponent.GetTeamMembers( TeamIndex.Monster );
+                //this.targets2 = TeamComponent.GetTeamMembers( TeamIndex.Neutral );
+                //this.targets3 = TeamComponent.GetTeamMembers( TeamIndex.None );
+                //this.targets4 = TeamComponent.GetTeamMembers( TeamIndex.Player );
             }
 
             //private void DetonatePillars()

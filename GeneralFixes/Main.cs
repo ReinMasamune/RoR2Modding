@@ -6,10 +6,10 @@
     using BepInEx;
 
     [BepInDependency( Rein.AssemblyLoad.guid, BepInDependency.DependencyFlags.HardDependency )]
-    [BepInPlugin( "com.Rein.GeneralBalance", "General Balance + Fixes", "2.3.2.4" )]
+    [BepInPlugin( "com.Rein.GeneralBalance", "General Balance + Fixes", Rein.Properties.Info.ver )]
     internal partial class Main : BaseUnityPlugin
     {
-        internal Single gestureBreakChance = 0.025f;
+        internal const Single gestureBreakChance = 0.025f;
 
         internal static Main instance;
 

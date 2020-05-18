@@ -208,8 +208,8 @@
                     hitMask = LayerIndex.entityPrecise.mask,
                     isCrit = body.RollCrit(),
                     maxDistance = 200f,
-                    maxSpread = 3f,
-                    minSpread = 0f,
+                    maxSpread = 2.6f,
+                    minSpread = 1f,
                     muzzleName = muzzle,
                     onHit = null,
                     onStop = null,
@@ -363,6 +363,7 @@
             snipe.skillNameToken = Tokens.SNIPER_PRIMARY_SNIPE_NAME;
             snipe.stockToConsume = 1;
             snipe.stockToReload = 1;
+            snipe.skillName = "Snipe";
             skills.Add( snipe );
 
             var slide = SniperReloadableFireSkillDef.Create<SlideSnipe,SlideReload>("Weapon", "Body");
@@ -394,6 +395,7 @@
             slide.skillNameToken = Tokens.SNIPER_PRIMARY_DASH_NAME;
             slide.stockToConsume = 1;
             slide.stockToReload = 1;
+            slide.skillName = "Slide";
             skills.Add( slide );
 
             SkillFamiliesModule.primarySkills = skills;
@@ -433,7 +435,8 @@
             quick.rechargeStock = 1;
             quick.requiredStock = 0;
             quick.skillDescriptionToken = Tokens.SNIPER_SECONDARY_QUICK_DESC;
-            quick.skillName = "Steady Aim";
+            quick.skillName = "Quickscope" +
+                "";
             quick.skillNameToken = Tokens.SNIPER_SECONDARY_QUICK_NAME;
             quick.stockToConsumeOnFire = 1;
             quick.stockRequiredToKeepZoom = 1;
@@ -459,7 +462,7 @@
             backflip.icon = UIModule.GetBackflipIcon();
             backflip.interruptPriority = InterruptPriority.PrioritySkill;
             backflip.isBullets = false;
-            backflip.isCombatSkill = true;
+            backflip.isCombatSkill = false;
             backflip.mustKeyPress = true;
             backflip.noSprint = true;
             backflip.rechargeStock = 1;
@@ -504,13 +507,13 @@
 
             var knife = KnifeSkillDef.Create<KnifeActivation,KnifeReactivation>( "Weapon", "Body" );
             knife.baseMaxStock = 1;
-            knife.baseRechargeInterval = 6f;
+            knife.baseRechargeInterval = 18f;
             knife.beginSkillCooldownOnSkillEnd = true;
             knife.fullRestockOnAssign = true;
             knife.icon = UIModule.GetKnifeIcon();
             knife.interruptPriority = InterruptPriority.PrioritySkill;
             knife.isCombatSkill = true;
-            knife.maxReactivationTimer = 4f;
+            knife.maxReactivationTimer = 8f;
             knife.minReactivationTimer = 0.2f;
             knife.noSprint = true;
             knife.reactivationIcon = UIModule.GetKnifeReactivationIcon();
@@ -522,7 +525,7 @@
             knife.skillDescriptionToken = Tokens.SNIPER_SPECIAL_KNIFE_DESC;
             knife.skillName = "Blink Knife";
             knife.skillNameToken = Tokens.SNIPER_SPECIAL_KNIFE_NAME;
-            knife.startCooldownAfterReactivation = false;
+            knife.startCooldownAfterReactivation = true;
             knife.stockToConsume = 1;
             skills.Add( knife );
             KnifeSkillData.interruptPriority = InterruptPriority.PrioritySkill;

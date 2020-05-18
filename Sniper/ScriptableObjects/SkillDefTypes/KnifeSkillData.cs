@@ -47,7 +47,6 @@
         {
             if( this.knifeRenderer is null )
             {
-                Log.WarningT( "No knife renderer" );
                 return;
             }
             this.knifeRenderer.enabled = true;

@@ -16,7 +16,7 @@ namespace Rein.RogueWispPlugin
         internal class AWFirePrimary : BaseState
         {
             const Single baseDuration = 0.5f;
-            const Single damageCoef = 1f;
+            const Single damageCoef = 1.75f;
 
             private Single duration;
 

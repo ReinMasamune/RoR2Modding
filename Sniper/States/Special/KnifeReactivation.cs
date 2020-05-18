@@ -15,12 +15,15 @@
 		private const Single baseMovespeedMult = 30f;
 		private const Single maxDurationMult = 5f;
 		private const Single cancelDistance = 1f;
+        private const Single endSpeedCarryover = 10f;
 
 		private static GameObject blinkStartEffect = VFXModule.GetKnifeBlinkPrefab();
 		internal static GameObject blinkEndEffect;
 
 
 		private Single maxDuration;
+
+        private Vector3 lastDirection = Vector3.zero;
 
 		private Transform target;
 		private CharacterMotor charMotor;
@@ -72,6 +75,12 @@
                 dist = diff.magnitude;
                 var dir = diff.normalized;
 
+                if( dist > 5f )
+                {
+                    this.lastDirection = dir;
+                }
+
+
                 this.charMotor.rootMotion += dir * ( base.moveSpeedStat * baseMovespeedMult * Time.fixedDeltaTime );
             }
 
@@ -93,7 +102,8 @@
             {
                 this.hbGroup.hurtBoxesDeactivatorCounter--;
             }
-			//this.charMotor.muteWalkMotion = false;
+            //this.charMotor.muteWalkMotion = false;
+            this.charMotor.velocity = this.lastDirection * endSpeedCarryover;
 		}
 
 
@@ -105,13 +115,11 @@
                 rotation = Util.QuaternionSafeLookRotation( move.direction ),
                 origin = move.origin
             };
-            if( blinkStartEffect == null ) Log.WarningT( "Fuck me" );
             EffectManager.SpawnEffect( blinkStartEffect, data, true );
 		}
 
 		private void PlayEndEffects()
 		{
-			Log.WarningT( "Playing End effects" );
 		}
 
 

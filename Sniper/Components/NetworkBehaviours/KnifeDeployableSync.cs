@@ -27,7 +27,6 @@
 
         private void OnStick()
         {
-            Log.WarningT( "Stuck" );
             this.shouldAdjustKnife = true;
         }
 
@@ -39,9 +38,6 @@
                 this.knifeData = data;
                 this.knifeDataInstance = this.knifeData.data;
                 this.knifeDataInstance.Initialize( this );
-            } else
-            {
-                Log.WarningT( "No owner skill slot found" );
             }
 
             this.projGhost = this.projectileController.ghost.transform;
@@ -49,20 +45,12 @@
 
         private void OnDestroy()
         {
-            Log.WarningT( "Destroy" );
             if( this.knifeData != null )
             {
                 if( this.knifeData.data == this.knifeDataInstance )
                 {
                     this.knifeData.InvalidateReactivation();
-                    Log.WarningT( "Successfully invalidated reactivation" );
-                } else
-                {
-                    Log.WarningT( "Data was not the same" );
                 }
-            } else
-            {
-                Log.WarningT( "No knife data" );
             }
         }
 
@@ -89,8 +77,6 @@
 
             if( this.shouldAdjustKnife )
             {
-                // TODO: Adjust knife
-                Log.WarningT( "Adjusting knife position" );
 
                 var pos = base.transform.position;
                 var hitCol = this.projectileStick.stuckTransform.GetComponent<Collider>();
@@ -121,9 +107,6 @@
                     if( this.knifeDataInstance.targetStateMachine.SetInterruptState( this.knifeDataInstance.InstantiateNextState( this ), KnifeSkillData.interruptPriority ) )
                     {
                         this.shouldSetState = false;
-                    } else
-                    {
-                        Log.WarningT( "Failed to set state" );
                     }
                 }
             }
@@ -134,7 +117,6 @@
             if( col.gameObject == this.owner.gameObject )
             {
                 this.shouldSetState = true;
-                Log.WarningT( "Owner in range" );
             }
         }
 

@@ -102,3 +102,4 @@ using System.Diagnostics.CodeAnalysis;
 [assembly: SuppressMessage( "Style", "IDE1006:Naming Styles", Justification = "<Pending>", Scope = "member", Target = "~F:Sniper.Modules.MaterialModule._standardTracerMaterial" )]
 [assembly: SuppressMessage( "Style", "IDE1006:Naming Styles", Justification = "<Pending>", Scope = "member", Target = "~F:Sniper.Modules.MaterialModule._standardTracerTrailMaterial" )]
 [assembly: SuppressMessage( "Style", "IDE1006:Naming Styles", Justification = "<Pending>", Scope = "member", Target = "~F:Sniper.Modules.MaterialModule._throwKnifeBase" )]
+[assembly: SuppressMessage( "Performance", "CA1812:Avoid uninstantiated internal classes", Justification = "<Pending>", Scope = "type", Target = "~T:Sniper.States.Special.KnifePickupSlash" )]

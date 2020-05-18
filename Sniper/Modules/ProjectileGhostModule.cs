@@ -33,6 +33,8 @@
             vfx.optionalLights = null;
             vfx.secondaryParticleSystem = null;
 
+            obj.transform.localScale = new Vector3( 2f, 2f, 2f );
+
             return obj;
         }
 

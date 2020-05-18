@@ -1,10 +1,11 @@
-﻿namespace Rein.RogueWispPlugin.Properties
+﻿using System;
+namespace Rein.Properties
 {
 	public static class Info
 	{
 		/// <summary>
 		/// The version of the library
 		/// </summary>
-		public const string ver = "2.1.4.218";
+		public const String ver = "2.3.4.26";
 	}
 }

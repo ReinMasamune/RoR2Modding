@@ -232,7 +232,7 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Deals 100% primary damage, pierces enemies, and has a chance to ricochet..
+        ///   Looks up a localized string similar to Deals 110% primary damage, pierces enemies, and has a chance to ricochet..
         /// </summary>
         internal static string lang__SNIPER_AMMO_STANDARD_DESC {
             get {
@@ -286,7 +286,7 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Shooting enemies in the head deals 50% more damage.
+        ///   Looks up a localized string similar to Shooting enemies in the head deals 50% more damage (Unfinished for most enemies).
         /// </summary>
         internal static string lang__SNIPER_PASSIVE_HEADSHOT_DESC {
             get {
@@ -304,7 +304,7 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Fire, and dash when reloading.
+        ///   Looks up a localized string similar to Fire for 260% damage. Reloading at the right time grants up to double damage..
         /// </summary>
         internal static string lang__SNIPER_PRIMARY_DASH_DESC {
             get {
@@ -340,7 +340,7 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Shoot enemies for 300% damage. Must be reloaded after firing. Reloading at the right time grants extra damage..
+        ///   Looks up a localized string similar to Shoot enemies for 300% damage. Must be reloaded after firing. Reloading at the right time grants up to double damage..
         /// </summary>
         internal static string lang__SNIPER_PRIMARY_SNIPE_DESC {
             get {
@@ -376,7 +376,7 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Fire off a quick to aim, powerful shot while maintaining mobility.
+        ///   Looks up a localized string similar to Fire off a quick to aim, powerful shot dealing 200% primary damage while maintaining mobility.
         /// </summary>
         internal static string lang__SNIPER_SECONDARY_QUICK_DESC {
             get {
@@ -457,7 +457,7 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Drop a decoy.
+        ///   Looks up a localized string similar to Go invisible and drop a decoy that distracts enemies. On death, the decoy explodes for 500% damage, stunning and weakening nearby enemies..
         /// </summary>
         internal static string lang__SNIPER_SPECIAL_DECOY_DESC {
             get {
@@ -475,7 +475,7 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dennis.
+        ///   Looks up a localized string similar to Throw a knife that deals 100% damage and sticks on hit. Reactivate to teleport to the knife. When close to the knife, pick it up, deal 200% damage, and mark nearby enemies. Killing a marked enemy resets all your cooldowns..
         /// </summary>
         internal static string lang__SNIPER_SPECIAL_KNIFE_DESC {
             get {
@@ -484,7 +484,7 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to DENNIS.
+        ///   Looks up a localized string similar to Blink Knife.
         /// </summary>
         internal static string lang__SNIPER_SPECIAL_KNIFE_NAME {
             get {
@@ -502,7 +502,7 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Do a backflip.
+        ///   Looks up a localized string similar to Perform a backflip.
         /// </summary>
         internal static string lang__SNIPER_UTILITY_BACKFLIP_DESC {
             get {
@@ -511,7 +511,7 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Military Training.
+        ///   Looks up a localized string similar to Backflip.
         /// </summary>
         internal static string lang__SNIPER_UTILITY_BACKFLIP_NAME {
             get {

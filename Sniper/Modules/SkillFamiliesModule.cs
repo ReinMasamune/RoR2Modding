@@ -7,6 +7,7 @@
     using ReinCore;
 
     using RoR2.Skills;
+    using UnityEngine;
 
     internal static class SkillFamiliesModule
     {
@@ -18,7 +19,7 @@
                 SkillsModule.CreateAmmoSkills();
             }
 
-            return FromList( ammoSkills );
+            return FromList( ammoSkills, "SniperAmmoSkillFamily" );
         }
 
         internal static List<SkillDef> passiveSkills;
@@ -29,7 +30,7 @@
                 SkillsModule.CreatePassiveSkills();
             }
 
-            return FromList( passiveSkills );
+            return FromList( passiveSkills, "SniperPassiveSkillFamily" );
         }
 
         internal static List<SkillDef> primarySkills;
@@ -40,7 +41,7 @@
                 SkillsModule.CreatePrimarySkills();
             }
 
-            return FromList( primarySkills );
+            return FromList( primarySkills, "SniperPrimarySkillFamily" );
         }
 
         internal static List<SkillDef> secondarySkills;
@@ -51,7 +52,7 @@
                 SkillsModule.CreateSecondarySkills();
             }
 
-            return FromList( secondarySkills );
+            return FromList( secondarySkills, "SniperSecondarySkillFamily" );
         }
 
         internal static List<SkillDef> utilitySkills;
@@ -62,7 +63,7 @@
                 SkillsModule.CreateUtilitySkills();
             }
 
-            return FromList( utilitySkills );
+            return FromList( utilitySkills, "SniperUtilitySkillFamily" );
         }
 
         internal static List<SkillDef> specialSkills;
@@ -73,14 +74,20 @@
                 SkillsModule.CreateSpecialSkills();
             }
 
-            return FromList( specialSkills );
+            return FromList( specialSkills, "SniperSpecialSkillFamily" );
         }
 
-        private static SkillFamily FromList( List<SkillDef> defs )
+        private static SkillFamily FromList( List<SkillDef> defs, String name )
         {
+            foreach( var def in defs )
+            {
+                ( def as ScriptableObject ).name = def.skillName;
+            }
             SkillDef defaultSkill = defs[0];
-            (SkillDef def, String)[] variants = defs.GetRange(1, defs.Count - 1).Select( (def) => (def,"") ).ToArray();
-            return SkillsCore.CreateSkillFamily( defaultSkill, variants );
+            (SkillDef def, String)[] variants = defs.GetRange(1, defs.Count - 1).Select( (def) => (def,"") ).ToArray(); // TODO: Unlockable
+            var fam = SkillsCore.CreateSkillFamily( defaultSkill, variants );
+            ( fam as ScriptableObject ).name = name;
+            return fam;
         }
     }
 }

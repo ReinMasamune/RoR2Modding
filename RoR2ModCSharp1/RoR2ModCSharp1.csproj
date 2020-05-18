@@ -1,61 +1,29 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyVersion>1.0.0.571</AssemblyVersion>
-    <FileVersion>1.0.0.571</FileVersion>
+    <AssemblyVersion>1.0.0.10</AssemblyVersion>
+    <FileVersion>1.0.0.10</FileVersion>
+    <RootNamespace>RoR2ModCSharp1</RootNamespace>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Rein\ReinCore.xml</DocumentationFile>
-    <DefineConstants></DefineConstants>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <OutputPath>C:\Users\reinm\source\repos\ReinRoR2Modding\__BUILDS\</OutputPath>
     <DebugType>none</DebugType>
     <DebugSymbols>false</DebugSymbols>
-    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
-    <OutputPath>C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Rein\</OutputPath>
-  </PropertyGroup>
-
-  <PropertyGroup>
-    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-    <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
-    <RootNamespace>Rein</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="ReinCore.xml" />
+    <Compile Include="..\__Standalone\Base Plugin Class\CorePlugin.cs" Link="CorePlugin.cs" />
+    <Compile Include="..\__Standalone\Base Plugin Class\State.cs" Link="State.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="..\__Standalone\ResourceTools.cs" Link="ResourceTools.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="Properties\Resources.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Update="Versioning.cs">
-      <DependentUpon>Versioning.tt</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="Versioning.tt">
-      <LastGenOutput>Versioning.cs</LastGenOutput>
-      <Generator>TextTemplatingFileGenerator</Generator>
-    </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="EffectHelper\" />
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
@@ -85,6 +53,10 @@
     </Reference>
     <Reference Include="Facepunch.Steamworks">
       <HintPath>..\libs\Unity\Facepunch.Steamworks.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="KdTreeLib">
+      <HintPath>..\libs\Unity\KdTreeLib.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="Mono.Cecil">
@@ -119,12 +91,24 @@
       <HintPath>..\libs\BepInEx\MonoMod.Utils.dll</HintPath>
       <Private>false</Private>
     </Reference>
+    <Reference Include="pb_Stl">
+      <HintPath>..\libs\Unity\pb_Stl.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Poly2Tri">
+      <HintPath>..\libs\Unity\Poly2Tri.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
     <Reference Include="ProBuilderCore">
       <HintPath>..\libs\Unity\ProBuilderCore.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="ProBuilderMeshOps">
       <HintPath>..\libs\Unity\ProBuilderMeshOps.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="ReinCore">
+      <HintPath>..\libs\Rein\ReinCore.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="Rewired_Core">
@@ -418,13 +402,73 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="AssemblyLoader.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>AssemblyLoader.cs</LastGenOutput>
+    </None>
+    <None Update="AutomaticTokens.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>AutomaticTokens.cs</LastGenOutput>
+    </None>
+    <None Update="ResourceTools.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ResourceTools.cs</LastGenOutput>
+    </None>
+    <None Update="Versioning.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Versioning.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="AssemblyLoader.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AssemblyLoader.tt</DependentUpon>
+    </Compile>
+    <Compile Update="AutomaticTokens.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AutomaticTokens.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="ResourceTools.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ResourceTools.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Versioning.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Versioning.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
     <EmbeddedResource Update="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Resources\" />
+  </ItemGroup>
+
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="CD $(SolutionDir)" />
+    <Exec Command="CD $(SolutionDir)__Standalone\&#xD;&#xA;CALL prebuild.bat $(SolutionDir) $(ProjectDir)" />
   </Target>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="del $(OutDir)\$(TargetName).deps.json" />
+  </Target>
+
 </Project>
