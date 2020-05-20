@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>Net_Standard_2._1_AppDomain_test</RootNamespace>
+  </PropertyGroup>
+
+</Project>

@@ -225,7 +225,7 @@
             internal GenericSkill skillSlot;
             internal GenericSkill secondarySlot;
             internal ReloadParams reloadParams;
-            internal ReloadTier currentReloadTier = ReloadTier.None;
+            internal ReloadTier currentReloadTier;
             internal Boolean isReloading = false;
             internal Single delayTimer;
         }

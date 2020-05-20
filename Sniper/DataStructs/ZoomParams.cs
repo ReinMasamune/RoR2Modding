@@ -10,7 +10,7 @@
         [SerializeField]
         private readonly Single inputScale;
         [SerializeField]
-        private readonly Single defaultZoom;
+        internal Single defaultZoom;
         [SerializeField]
         private readonly Single shoulderFrac;
         [SerializeField]
