@@ -115,6 +115,43 @@ public static event Hook On
                                 remove => HookEndpointManager.Remove<Hook>( method, value );
                             }
                         }
+
+                        public struct OnEnter
+                        {
+                            private static readonly MethodBase method = HookHelpers.GetBase( typeof(OnEnter) );
+                            public delegate void Orig( global::EntityStates.Huntress.HuntressWeapon.FireSeekingArrow self );
+                            public delegate void Hook( Orig orig, global::EntityStates.Huntress.HuntressWeapon.FireSeekingArrow self );
+                            public static event ILContext.Manipulator Il
+                            {
+                                add => HookEndpointManager.Modify<Hook>( method, value );
+                                remove => HookEndpointManager.Unmodify<Hook>( method, value );
+                            }
+                            public static event Hook On
+                            {
+                                add => HookEndpointManager.Add<Hook>( method, value );
+                                remove => HookEndpointManager.Remove<Hook>( method, value );
+                            }
+                        }
+                    }
+
+                    public static class ThrowGlaive
+                    {
+                        public struct OnEnter
+                        {
+                            private static readonly MethodBase method = HookHelpers.GetBase( typeof(OnEnter) );
+                            public delegate void Orig( global::EntityStates.Huntress.HuntressWeapon.ThrowGlaive self );
+                            public delegate void Hook( Orig orig, global::EntityStates.Huntress.HuntressWeapon.ThrowGlaive self );
+                            public static event ILContext.Manipulator Il
+                            {
+                                add => HookEndpointManager.Modify<Hook>( method, value );
+                                remove => HookEndpointManager.Unmodify<Hook>( method, value );
+                            }
+                            public static event Hook On
+                            {
+                                add => HookEndpointManager.Add<Hook>( method, value );
+                                remove => HookEndpointManager.Remove<Hook>( method, value );
+                            }
+                        }
                     }
                 }
             }
@@ -881,6 +918,26 @@ public static event Hook On
                             add => HookEndpointManager.Add<Hook>( method, value );
                             remove => HookEndpointManager.Remove<Hook>( method, value );
                         }
+                    }
+                }
+            }
+
+            public static class HuntressTracker
+            {
+                public struct FixedUpdate
+                {
+                    private static readonly MethodBase method = HookHelpers.GetBase( typeof(FixedUpdate) );
+                    public delegate void Orig( global::RoR2.HuntressTracker self );
+                    public delegate void Hook( Orig orig, global::RoR2.HuntressTracker self );
+                    public static event ILContext.Manipulator Il
+                    {
+                        add => HookEndpointManager.Modify<Hook>( method, value );
+                        remove => HookEndpointManager.Unmodify<Hook>( method, value );
+                    }
+                    public static event Hook On
+                    {
+                        add => HookEndpointManager.Add<Hook>( method, value );
+                        remove => HookEndpointManager.Remove<Hook>( method, value );
                     }
                 }
             }

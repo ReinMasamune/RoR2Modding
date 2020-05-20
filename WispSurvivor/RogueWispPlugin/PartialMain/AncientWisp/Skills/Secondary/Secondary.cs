@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-
+using System.Diagnostics;
 using EntityStates;
 using ReinCore;
 using RoR2;
@@ -92,8 +92,7 @@ namespace Rein.RogueWispPlugin
                 private Boolean firstDetonationOver = false;
                 private Single timer;
                 private Vector3 position;
-                // TODO: Stackalloc hash set needed
-                private static HashSet<HealthComponent> mask = new HashSet<HealthComponent>();
+                //private static HashSet<HealthComponent> mask = new HashSet<HealthComponent>();
                 private TeamIndex team;
                 private GameObject owner;
                 private Boolean crit;
@@ -102,6 +101,7 @@ namespace Rein.RogueWispPlugin
                 private Single dmgMult1;
                 private Single dmgMult2;
                 private UInt32 skin;
+                private Single totalTime;
                 internal PillarInfo( Vector3 position, Single radius, Boolean crit, Single baseDamage, Single preMult, Single finalMult, Single firstDetonationTimer, Single totalTimer, TeamIndex team, GameObject owner, UInt32 skinIndex )
                 {
                     this.position = position;
@@ -114,16 +114,8 @@ namespace Rein.RogueWispPlugin
                     this.team = team;
                     this.owner = owner;
                     this.skin = skinIndex;
+                    this.totalTime = totalTimer - firstDetonationTimer;
 
-                    var data = new EffectData
-                    {
-                        genericUInt = this.skin,
-                        origin = this.position,
-                        rotation = Quaternion.identity,
-                        genericFloat = totalTimer,
-                        start = new Vector3( this.radius * 2f, 1f, this.radius * 2f )
-                    };
-                    EffectManager.SpawnEffect( Main.AW_secondaryPrediction, data, true );
 
                     var data2 = new EffectData
                     {
@@ -163,6 +155,16 @@ namespace Rein.RogueWispPlugin
                     EffectManager.SpawnEffect( Main.AW_secondaryInitialExplosion, data, true );
 
                     this.Detonate( this.baseDamage * this.dmgMult1, force, procCoef, damageType );
+
+                    var data2 = new EffectData
+                    {
+                        genericUInt = this.skin,
+                        origin = this.position,
+                        rotation = Quaternion.identity,
+                        genericFloat = this.totalTime,
+                        start = new Vector3( this.radius * 2f, 1f, this.radius * 2f )
+                    };
+                    EffectManager.SpawnEffect( Main.AW_secondaryPrediction, data2, true );
                 }
 
                 internal void FinalExplosion( Vector3 force, Single procCoef, DamageType damageType )
@@ -179,33 +181,55 @@ namespace Rein.RogueWispPlugin
                     this.Detonate( this.baseDamage * this.dmgMult2, force, procCoef, damageType );
                 }
 
-                private unsafe void Detonate( Single damage, Vector3 force, Single procCoef, DamageType damageType )
+                private void Detonate( Single damage, Vector3 force, Single procCoef, DamageType damageType )
                 {
-                    //StackSet<HealthComponent> mask;
-                    //unsafe
-                    //{
-                    //    var maskBacking = stackalloc Byte[256];
-                    //    mask = new StackSet<HealthComponent>( maskBacking, 256 );
-                    //}
-                    mask.Clear();
+                    StackSet<HealthComponent> mask;
+                    unsafe
+                    {
+                        var maskBacking = stackalloc Byte[256];
+                        mask = new StackSet<HealthComponent>( maskBacking, 256 );
+                    }
+                    //mask.Clear();
 
                     var count = Physics.OverlapCapsuleNonAlloc( this.position - new Vector3( 0f, 10f, 0f ), this.position + new Vector3( 0f, 1000f, 0f ), this.radius * 2f, colliderBuffer, LayerIndex.entityPrecise.mask );
-
 
                     for( Int32 i = 0; i < count; ++i )
                     {
                         var col = colliderBuffer[i];
-                        if( col is null ) continue;
+                        if( col is null )
+                        {
+                            //Main.LogW( "Null collider" );
+                            continue;
+                        }
                         var hb = col.GetComponent<HurtBox>();
-                        if( hb is null ) continue;
+                        if( hb is null )
+                        {
+                            //Main.LogW( "Null Hurtbox" );
+                            continue;
+                        }
                         var hc = hb.healthComponent;
-                        if( hc is null || mask.Add( hc ) || !FriendlyFireManager.ShouldDirectHitProceed( hc, this.team ) ) continue;
+                        if( hc is null )
+                        {
+                            //Main.LogW( "Null healthcomponent" );
+                            continue;
+                        }
+
+                        if( mask.Add( hc ) )
+                        {
+                            //Main.LogW( "Already hit" );
+                            continue;
+                        }
+                        if( !FriendlyFireManager.ShouldDirectHitProceed( hc, this.team ) )
+                        {
+                            //Main.LogW( "Cannot hit team" );
+                            continue;
+                        }
 
                         var info = new DamageInfo
                         {
                             attacker = this.owner,
                             crit = this.crit,
-                            damage = damage,
+                            damage = damage * 0f,
                             damageColorIndex = DamageColorIndex.Default,
                             damageType = damageType,
                             dotIndex = DotController.DotIndex.None,
@@ -219,8 +243,9 @@ namespace Rein.RogueWispPlugin
                         GlobalEventManager.instance.OnHitEnemy( info, hc.gameObject );
                         GlobalEventManager.instance.OnHitAll( info, hc.gameObject );
                     }
-                    
 
+
+                   
                     //foreach( var targetSet in validTargets )
                     //{
                     //    if( targetSet == null ) continue;
@@ -371,98 +396,106 @@ namespace Rein.RogueWispPlugin
 
             public override void OnEnter()
             {
-                base.OnEnter();
+                //Log.CallProf( "OnEnter", () =>
+                //{
 
-                this.team = base.GetTeam();
-                this.owner = base.gameObject;
-                this.skin = base.characterBody.skinIndex;
+                    base.OnEnter();
 
-                this.search = new BullseyeSearch();
-                this.search.teamMaskFilter = TeamMask.AllExcept( this.team );
-                this.search.maxDistanceFilter = searchRange;
-                this.search.maxAngleFilter = 180f;
-                this.search.filterByLoS = false;
-                //this.search.sortMode = BullseyeSearch.SortMode.Angle;
+                    this.team = base.GetTeam();
+                    this.owner = base.gameObject;
+                    this.skin = base.characterBody.skinIndex;
 
-
-                this.warmupDuration = baseWarmupTime;
-                this.placePillarDuration = basePlacePillarsTime / base.attackSpeedStat;
-                this.pillarInterval = this.placePillarDuration / totalPillars;
-                this.preDetonateDuration = basePreDetonateTime;
-                this.detonateDuration = baseDetonateTime;
-                this.postDetonateDuration = basePostDetonateTime;
-
-                this.detonateInterval = pillarSequentialDetonationInterval;
-
-                if( base.HasBuff( BuffIndex.EnrageAncientWisp ) ) this.enraged = true;
+                    this.search = new BullseyeSearch();
+                    this.search.teamMaskFilter = TeamMask.AllExcept( this.team );
+                    this.search.maxDistanceFilter = searchRange;
+                    this.search.maxAngleFilter = 180f;
+                    this.search.filterByLoS = false;
+                    //this.search.sortMode = BullseyeSearch.SortMode.Angle;
 
 
-                Util.PlayScaledSound( "Play_gravekeeper_attack1_open", base.gameObject, 0.7f );
-                Util.PlayScaledSound( "Play_gravekeeper_attack1_open", base.gameObject, 0.7f );
-                //Util.PlayScaledSound( "Play_gravekeeper_attack1_open", base.gameObject, 0.7f );
+                    this.warmupDuration = baseWarmupTime;
+                    this.placePillarDuration = basePlacePillarsTime / base.attackSpeedStat;
+                    this.pillarInterval = this.placePillarDuration / totalPillars;
+                    this.preDetonateDuration = basePreDetonateTime;
+                    this.detonateDuration = baseDetonateTime;
+                    this.postDetonateDuration = basePostDetonateTime;
 
-                var stateDict = new Dictionary<SubState,SubStateDef>();
+                    this.detonateInterval = pillarSequentialDetonationInterval;
 
-                stateDict[SubState.Warmup] = new SubStateDef
-                {
-                    stateDuration = this.warmupDuration,
-                    stateStart = this.WarmupStart,
-                    stateUpdate = this.WarmupUpdate,
-                    stateEnd = this.WarmupEnd
-                };
+                    if( base.HasBuff( BuffIndex.EnrageAncientWisp ) ) this.enraged = true;
 
-                stateDict[SubState.PlacePillars] = new SubStateDef
-                {
-                    stateDuration = this.placePillarDuration,
-                    stateStart = this.PlacePillarsStart,
-                    stateUpdate = this.PlacePillarsUpdate,
-                    stateEnd = this.PlacePillarsEnd,
-                };
 
-                stateDict[SubState.PreDetonate] = new SubStateDef
-                {
-                    stateDuration = this.preDetonateDuration,
-                    stateStart = this.PreDetonateStart,
-                    stateUpdate = this.PreDetonateUpdate,
-                    stateEnd = this.PreDetonateEnd
-                };
+                    Util.PlayScaledSound( "Play_gravekeeper_attack1_open", base.gameObject, 0.7f );
+                    Util.PlayScaledSound( "Play_gravekeeper_attack1_open", base.gameObject, 0.7f );
+                    //Util.PlayScaledSound( "Play_gravekeeper_attack1_open", base.gameObject, 0.7f );
 
-                stateDict[SubState.Detonate] = new SubStateDef
-                {
-                    stateDuration = this.detonateDuration,
-                    stateStart = this.DetonateStart,
-                    stateUpdate = this.DetonateUpdate,
-                    stateEnd = this.DetonateEnd,
-                };
+                    var stateDict = new Dictionary<SubState,SubStateDef>();
 
-                stateDict[SubState.PostDetonate] = new SubStateDef
-                {
-                    stateDuration = this.postDetonateDuration,
-                    stateStart = this.PostDetonateStart,
-                    stateUpdate = this.PostDetonateUpdate,
-                    stateEnd = this.PostDetonateEnd,
-                };
+                    stateDict[SubState.Warmup] = new SubStateDef
+                    {
+                        stateDuration = this.warmupDuration,
+                        stateStart = this.WarmupStart,
+                        stateUpdate = this.WarmupUpdate,
+                        stateEnd = this.WarmupEnd
+                    };
 
-                this.subState = new SubStateData( SubState.Warmup, this.End, stateDict );
+                    stateDict[SubState.PlacePillars] = new SubStateDef
+                    {
+                        stateDuration = this.placePillarDuration,
+                        stateStart = this.PlacePillarsStart,
+                        stateUpdate = this.PlacePillarsUpdate,
+                        stateEnd = this.PlacePillarsEnd,
+                    };
+
+                    stateDict[SubState.PreDetonate] = new SubStateDef
+                    {
+                        stateDuration = this.preDetonateDuration,
+                        stateStart = this.PreDetonateStart,
+                        stateUpdate = this.PreDetonateUpdate,
+                        stateEnd = this.PreDetonateEnd
+                    };
+
+                    stateDict[SubState.Detonate] = new SubStateDef
+                    {
+                        stateDuration = this.detonateDuration,
+                        stateStart = this.DetonateStart,
+                        stateUpdate = this.DetonateUpdate,
+                        stateEnd = this.DetonateEnd,
+                    };
+
+                    stateDict[SubState.PostDetonate] = new SubStateDef
+                    {
+                        stateDuration = this.postDetonateDuration,
+                        stateStart = this.PostDetonateStart,
+                        stateUpdate = this.PostDetonateUpdate,
+                        stateEnd = this.PostDetonateEnd,
+                    };
+
+                    this.subState = new SubStateData( SubState.Warmup, this.End, stateDict );
+                //});
             }
 
             public override void FixedUpdate()
             {
-                base.FixedUpdate();
+                //Log.CallProf( "FixedUpdate", () =>
+                //{
+                    base.FixedUpdate();
 
-                foreach( var pillar in this.pillars )
-                {
-                    if( pillar.RunTime( Time.fixedDeltaTime ) )
+                    foreach( var pillar in this.pillars )
                     {
-                        this.UpdateTargets();
-                        pillar.FirstExplosion( Vector3.zero, pillarInitialDetonationProcCoef, DamageType.SlowOnHit | DamageType.AOE );
+                        if( pillar.RunTime( Time.fixedDeltaTime ) )
+                        {
+                            this.UpdateTargets();
+                            //Log.CallProf( "Initial detonation", () =>
+                            pillar.FirstExplosion( Vector3.zero, pillarInitialDetonationProcCoef, DamageType.SlowOnHit | DamageType.AOE );
+                        }
                     }
-                }
 
-                this.subState.UpdateTime( Time.fixedDeltaTime );
-                this.subState.CallStart();
-                this.subState.CallUpdate();
-                this.subState.CallEnd();
+                    this.subState.UpdateTime( Time.fixedDeltaTime );
+                    this.subState.CallStart();
+                    this.subState.CallUpdate();
+                    this.subState.CallEnd();
+                //} );
             }
 
             public override void OnExit()
@@ -535,6 +568,7 @@ namespace Rein.RogueWispPlugin
                 {
                     this.subState.subTimer -= this.detonateInterval;
 
+                    //Log.CallProf( String.Format( "Final explosion {0}", this.pillars.Count ), () =>
                     this.pillars.Dequeue().FinalExplosion( Vector3.zero, 1.0f, DamageType.AOE );
                 }
                 if( this.pillars.Count == 0 )

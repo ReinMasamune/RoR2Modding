@@ -51,6 +51,7 @@
         partial void QoLOvergrownPrinters();
         partial void QoLEngiTurretInheritance();
         partial void QoLCloakedChestSacrifice();
+        partial void QoLHuntressTracking();
 
         //partial void PerformanceKinCharController();
 
@@ -86,21 +87,18 @@
             this.FixBandolier();
             this.FixSelfDamage();
             this.FixDoTs();
-            //this.FixHuntressFlurry();
+            this.FixHuntressFlurry();
 
             this.QoLCommandoRoll();
             this.QoLVisionsCrosshair();
-            this.QoLOvergrownPrinters();
+            //this.QoLOvergrownPrinters();
             //this.QoLCloakedChestSacrifice();
             this.QoLEngiTurretInheritance();
+            this.QoLHuntressTracking();
 
-            //this.PerformanceKinCharController();
-
-            //On.RoR2.Projectile.ProjectileController.Start += this.ProjectileController_Start;
 
             RoR2.RoR2Application.isModded = true;
             this.Tick += () => RoR2.RoR2Application.isModded = true;
-            //this.FirstFrame += () => Screen.fullScreenMode = FullScreenMode.ExclusiveFullScreen;
 
 #if DPSMETER
             this.SetupDPSMeter();
@@ -157,27 +155,16 @@
 Changelist:
 Commando Phase round 2s cooldown, phase blast 3s cooldown
 Commando dodge roll now counts as sprinting
-// TODO: Commando roll nosprint false
-// TODO: Commando roll movespeed mult down
 
 OSP now is applied after shields and barrier.
 OSP can now no longer block more than 180% of your max health in damage from any single hit.
-
-// TODO: Disable OP items
-// TODO: Disable UP items
-
 
 Gesture now has chance of breaking equipment on use.
 Gesture now reduces cooldown by 50% per stack.
 
 Visions now gives huntress and mercenary commandos crosshair to make aiming possible.
 
-Overgrown printers can now have any boss tier item, including fancy pearls and halcyon seeds.
 
-
-
-// TODO: Focus crystal + crowbar self damage
-// TODO: Add model to spectral circlet
 
 
 

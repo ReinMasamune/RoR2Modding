@@ -75,8 +75,8 @@ namespace Rein.RogueWispPlugin
             //R2API.AssetPlus.Languages.AddToken( "ANCIENT_WISP_BODY_NAME", "Ancient Wisp" );
             //R2API.AssetPlus.Languages.AddToken( "ANCIENT_WISP_BODY_SUBNAME", "Banished and Chained" );
 
-            charBody.baseMaxHealth = 2100;
-            charBody.levelMaxHealth = 630;
+            charBody.baseMaxHealth = 10000;
+            charBody.levelMaxHealth = 3000;
 
             charBody.baseRegen = 0f;
             charBody.levelRegen = 0f;
@@ -84,7 +84,7 @@ namespace Rein.RogueWispPlugin
             charBody.baseMaxShield = 0f;
             charBody.levelMaxShield = 0f;
 
-            charBody.baseMoveSpeed = 10f;
+            charBody.baseMoveSpeed = 15f;
             charBody.levelMoveSpeed = 0f;
 
             charBody.baseAcceleration = 10f;
@@ -92,8 +92,8 @@ namespace Rein.RogueWispPlugin
             charBody.baseJumpPower = 0f;
             charBody.levelJumpPower = 0f;
 
-            charBody.baseDamage = 30f;
-            charBody.levelDamage = 6f;
+            charBody.baseDamage = 40f;
+            charBody.levelDamage = 8f;
 
             charBody.baseAttackSpeed = 1f;
             charBody.levelAttackSpeed = 0f;
@@ -101,7 +101,7 @@ namespace Rein.RogueWispPlugin
             charBody.baseCrit = 0f;
             charBody.levelCrit = 0f;
 
-            charBody.baseArmor = 20f;
+            charBody.baseArmor = 30f;
             charBody.levelArmor = 0f;
 
             charBody.baseJumpCount = 0;

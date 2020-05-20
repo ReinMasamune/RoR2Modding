@@ -99,6 +99,7 @@ namespace Rein.RogueWispPlugin
         private void Main_Enable()
         {
             HooksCore.RoR2.Projectile.ProjectileController.Start.On += this.Start_On3;
+            //HooksCore.RoR2.EffectManager.SpawnEffect___void_EffectIndex_EffectData_Boolean.On += this.SpawnEffect___void_EffectIndex_EffectData_Boolean_On;
             HooksCore.RoR2.EffectManager.SpawnEffect___void_EffectIndex_EffectData_Boolean.Il += this.SpawnEffect___void_EffectIndex_EffectData_Boolean_Il;
             HooksCore.RoR2.Projectile.ProjectileImpactExplosion.FixedUpdate.Il += this.FixedUpdate_Il;
 
@@ -106,6 +107,8 @@ namespace Rein.RogueWispPlugin
             var field = Expression.Field( instanceParam, "projectileController" );
             getController = Expression.Lambda<Func<ProjectileImpactExplosion, ProjectileController>>( field, instanceParam ).Compile();
         }
+
+
 
         private void FixedUpdate_Il( ILContext il )
         {

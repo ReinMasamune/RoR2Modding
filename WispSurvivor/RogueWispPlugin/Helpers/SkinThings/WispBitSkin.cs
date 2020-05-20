@@ -11,6 +11,9 @@ namespace Rein.RogueWispPlugin.Helpers
 {
 	internal class WispBitSkin : IBitSkin
 	{
+        private const Int32 textureResX = 1024;
+        private const Int32 textureResY = 8;
+
 		#region Static
 		internal static HashSet<UInt32> validColorInds = new HashSet<UInt32>();
 		internal static HashSet<UInt32> validFlameStyles = new HashSet<UInt32>();
@@ -313,28 +316,31 @@ namespace Rein.RogueWispPlugin.Helpers
 			{
 				return skinLookup[ind];
 			}
-			var flags = (ind &          0b1111_0000_0000_0000_0000_0000_0000_0000u) >> 28;
-			Boolean useCustomColor = ( (flags & 0b0001u ) >> 0 ) != 0u;
-			Boolean isIridescent = ( (flags & 0b0010u ) >> 1 ) != 0u;
-			//Boolean isTransparent = ( (flags & 0b0100u ) >> 2 ) != 0u;
-			Boolean hasCracks = ( (flags & 0b1000u ) >> 3 ) != 0u;
+            //return Log.CallProf<WispBitSkin>( "Skin lookup", () =>
+            //{
+                var flags = (ind &          0b1111_0000_0000_0000_0000_0000_0000_0000u) >> 28;
+                Boolean useCustomColor = ( (flags & 0b0001u ) >> 0 ) != 0u;
+                Boolean isIridescent = ( (flags & 0b0010u ) >> 1 ) != 0u;
+                //Boolean isTransparent = ( (flags & 0b0100u ) >> 2 ) != 0u;
+                Boolean hasCracks = ( (flags & 0b1000u ) >> 3 ) != 0u;
 
-			WispColorIndex color = WispColorIndex.Ancient;
-			UInt32 encodedCustomColor = 0u;
-			if( useCustomColor )
-			{
-				encodedCustomColor = ( ind & 0b0000_0000_0000_0011_1111_1111_1111_1111u );
-			} else
-			{
-				color = (WispColorIndex)( ind & 0b0000_0000_0000_0000_0000_0000_0000_1111u );
-			}
+                WispColorIndex color = WispColorIndex.Ancient;
+                UInt32 encodedCustomColor = 0u;
+                if( useCustomColor )
+                {
+                    encodedCustomColor = ( ind & 0b0000_0000_0000_0011_1111_1111_1111_1111u );
+                } else
+                {
+                    color = (WispColorIndex)( ind & 0b0000_0000_0000_0000_0000_0000_0000_1111u );
+                }
 
-			FlameGradientType flameGrad = (FlameGradientType)( (ind & 0b0000_0000_0001_1100_0000_0000_0000_0000u ) >> 18 );
-			ArmorMaterialType armorMat = (ArmorMaterialType)(  (ind & 0b0000_1110_0000_0000_0000_0000_0000_0000u ) >> 25 );
+                FlameGradientType flameGrad = (FlameGradientType)( (ind & 0b0000_0000_0001_1100_0000_0000_0000_0000u ) >> 18 );
+                ArmorMaterialType armorMat = (ArmorMaterialType)(  (ind & 0b0000_1110_0000_0000_0000_0000_0000_0000u ) >> 25 );
 
-			var skin = new WispBitSkin( isIridescent, /*isTransparent ,*/ hasCracks, useCustomColor, color, flameGrad, armorMat, encodedCustomColor );
-			skinLookup[ind] = skin;
-			return skin;
+                var skin = new WispBitSkin( isIridescent, /*isTransparent ,*/ hasCracks, useCustomColor, color, flameGrad, armorMat, encodedCustomColor );
+                skinLookup[ind] = skin;
+                return skin;
+            //});
 		}
 		internal static void ClearCachedSkins()
 		{
@@ -451,9 +457,9 @@ namespace Rein.RogueWispPlugin.Helpers
 				this.flameGradient = flameGradStyles[(UInt32)this.flameGradientType]( this.mainColor );
 			}
 
-            var rampBatch = TexturesCore.GenerateRampTextureBatch( this.flameGradient, true, 4096, 4096 );
-            var feBatch = TexturesCore.GenerateRampTextureBatch( CreateFEGradient( this.mainColor ), true, 4096, 4096 );
-            var flowBatch = TexturesCore.GenerateRampTextureBatch( CreateFlowGradient( this.mainColor ), true, 4096, 4096 );
+            var rampBatch = TexturesCore.GenerateRampTextureBatch( this.flameGradient, true, textureResX, textureResY );
+            var feBatch = TexturesCore.GenerateRampTextureBatch( CreateFEGradient( this.mainColor ), true, textureResX, textureResY );
+            var flowBatch = TexturesCore.GenerateRampTextureBatch( CreateFlowGradient( this.mainColor ), true, textureResX, textureResY );
 
             JobHandle.ScheduleBatchedJobs();
 

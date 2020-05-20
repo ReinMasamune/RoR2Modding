@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="InterfaceThings">
+      <HintPath>..\InterfaceThings\bin\Release\netstandard2.0\InterfaceThings.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

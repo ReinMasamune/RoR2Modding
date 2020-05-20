@@ -1197,7 +1197,7 @@ namespace Rein.RogueWispPlugin
             psr.pivot = Vector3.zero;
             psr.maskInteraction = SpriteMaskInteraction.None;
             psr.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
-            psr.receiveShadows = true;
+            psr.receiveShadows = !this.AW_lowPerf.Value;
             psr.shadowBias = 0;
             psr.motionVectorGenerationMode = MotionVectorGenerationMode.Object;
             psr.sortingLayerID = LayerIndex.defaultLayer.intVal;
@@ -1222,26 +1222,26 @@ namespace Rein.RogueWispPlugin
             psMain.startLifetime = new ParticleSystem.MinMaxCurve( 0.35f, 0.6f );
             psMain.startSpeed = new ParticleSystem.MinMaxCurve( 0.2f, 1f );
             psMain.startSize3D = false;
-            psMain.startSize = 1f;
+            psMain.startSize = 1.25f;
             psMain.startRotation3D = false;
             psMain.startRotation = new ParticleSystem.MinMaxCurve( 0f, 360f );
             psMain.flipRotation = 0.5f;
             psMain.startColor = Color.white;
             psMain.gravityModifier = -1f;
-            psMain.simulationSpace = ParticleSystemSimulationSpace.World;
+            psMain.simulationSpace = this.AW_lowPerf.Value ? ParticleSystemSimulationSpace.Local : ParticleSystemSimulationSpace.World;
             psMain.simulationSpeed = 1f;
             psMain.useUnscaledTime = false;
             psMain.scalingMode = ParticleSystemScalingMode.Local;
             psMain.playOnAwake = true;
             psMain.emitterVelocityMode = ParticleSystemEmitterVelocityMode.Transform;
-            psMain.maxParticles = 100000;
+            psMain.maxParticles = 10000;
             psMain.stopAction = ParticleSystemStopAction.None;
-            psMain.cullingMode = ParticleSystemCullingMode.AlwaysSimulate;
+            psMain.cullingMode = ParticleSystemCullingMode.PauseAndCatchup;
             psMain.ringBufferMode = ParticleSystemRingBufferMode.Disabled;
 
             var psEmis = ps.emission;
             psEmis.enabled = true;
-            psEmis.rateOverTime = 1000f;
+            psEmis.rateOverTime = this.AW_lowPerf.Value ? 100f : 300f;
             psEmis.rateOverDistance = 0f;
 
             var psShape = ps.shape;
@@ -1262,7 +1262,7 @@ namespace Rein.RogueWispPlugin
             pslimVOL.enabled = false;
 
             var psInheritVel = ps.inheritVelocity;
-            psInheritVel.enabled = true;
+            psInheritVel.enabled = !this.AW_lowPerf.Value;
             psInheritVel.mode = ParticleSystemInheritVelocityMode.Current;
             psInheritVel.curve = new ParticleSystem.MinMaxCurve( 1f, new AnimationCurve
             {
@@ -1334,7 +1334,7 @@ namespace Rein.RogueWispPlugin
             psNoise.frequency = 1;
             psNoise.scrollSpeed = 1f;
             psNoise.damping = false;
-            psNoise.quality = ParticleSystemNoiseQuality.High;
+            psNoise.quality = this.AW_lowPerf.Value ? ParticleSystemNoiseQuality.Low : ParticleSystemNoiseQuality.High;
             psNoise.positionAmount = 0.1f;
 
             var psCollide = ps.collision;

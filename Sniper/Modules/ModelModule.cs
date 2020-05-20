@@ -232,7 +232,15 @@
 
 
 
+
+            var skinController = charModel.GetComponent<ModelSkinController>();
+            Array.Resize( ref skinController.skins, skinController.skins.Length + 5 );
+            for( Int32 i = skinController.skins.Length - 6; i < skinController.skins.Length; ++i )
+            {
+                skinController.skins[i] = skinController.skins[0];
+            }
             SkinDef[] skinsArray = charModel.GetComponent<ModelSkinController>().skins;
+
             CharacterModel.RendererInfo[] defaultSkinRenderers = skinsArray[0].rendererInfos;
             for( Int32 i = 0; i < defaultSkinRenderers.Length; ++i )
             {

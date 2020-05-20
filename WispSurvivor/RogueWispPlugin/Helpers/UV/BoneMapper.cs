@@ -148,12 +148,7 @@ namespace Rein.RogueWispPlugin.Helpers
 
             if( this.boneIndex == 0 )
             {
-                Main.LogW( String.Format( "{0}% of links passed. {1} total error, {2}% failed nudges. Bone: {3} Iteration: {4}",
-                    100f * (Single)passCounter / (Single)this.linkInds.Length,
-                    totalError,
-                    100f * (Single)failedNudgeCounter / (Single)this.linkInds.Length,
-                    this.boneIndex,
-                    this.iterationCounter ) );
+
             }
         }
 

@@ -136,6 +136,66 @@ namespace Sniper
     #region Logging
     internal static class Log
     {
+        private static Stack<Stopwatch> watches = new Stack<Stopwatch>();
+
+        private static Dictionary<String,TimerData> timerData = new Dictionary<String, TimerData>();
+        private struct TimerData
+        {
+            public TimerData( UInt64 ticks )
+            {
+                this.counter = 1ul;
+                this.ticks = ticks;
+                this.lastTicks = ticks;
+            }
+            public void Update( UInt64 ticks )
+            {
+                this.counter++;
+                this.ticks += ticks;
+                this.lastTicks = ticks;
+            }
+
+            public void DoLog( String name )
+            {
+                Log.Message( String.Format( "{0}:\n{1} ticks\n{2} average", name, this.lastTicks, (Double)this.ticks / (Double)this.counter ) );
+            }
+
+            private UInt64 lastTicks;
+            private UInt64 counter;
+            private UInt64 ticks;
+        }
+
+        public static void CallProf( String name, Action target )
+        {
+            Stopwatch timer = watches.Count > 0 ? watches.Pop() : new Stopwatch();
+            timer.Restart();
+            target();
+            timer.Stop();
+            if( !timerData.TryGetValue( name, out var data ) )
+            {
+                data = new TimerData();
+            }
+            data.Update( (UInt64)timer.ElapsedTicks );
+            timerData[name] = data;
+            data.DoLog( name );
+            watches.Push( timer );
+        }
+        public static TReturn CallProf<TReturn>( String name, Func<TReturn> target )
+        {
+            Stopwatch timer = watches.Count > 0 ? watches.Pop() : new Stopwatch();
+            timer.Restart();
+            TReturn ret = target();
+            timer.Stop();
+            if( !timerData.TryGetValue( name, out var data ) )
+            {
+                data = new TimerData();
+            }
+            data.Update( (UInt64)timer.ElapsedTicks );
+            timerData[name] = data;
+            data.DoLog( name );
+            watches.Push( timer );
+            return ret;
+        }
+
         public static void Debug( System.Object data ) => InternalLog( LogLevel.Debug, data );
         public static void Info( System.Object data ) => InternalLog( LogLevel.Info, data );
         public static void Message( System.Object data ) => InternalLog( LogLevel.Message, data );

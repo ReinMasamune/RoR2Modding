@@ -87,7 +87,10 @@ namespace Rein.RogueWispPlugin
 
             var skinner = obj.AddComponent<WispSkinnedEffect>();
 
-            var light = EffectHelper.AddLight( obj, skinner, true, 4f, 2f );
+            if( !this.AW_lowPerf.Value )
+            {
+                var light = EffectHelper.AddLight( obj, skinner, true, 4f, 2f );
+            }
 
             var chargeLines = EffectHelper.AddChargeSphereLines( obj, skinner, MaterialType.Tracer, 0.75f, 0.15f, 0.05f, 30f );
 
@@ -181,7 +184,11 @@ namespace Rein.RogueWispPlugin
             sound.mult = 2;
             //Play_greater_wisp_active_loop
             //Stop_greater_wisp_active_loop
-            var light = EffectHelper.AddLight( obj, skinner, true, 8f, 4f );
+
+            if( !this.AW_lowPerf.Value )
+            {
+                var light = EffectHelper.AddLight( obj, skinner, true, 8f, 4f );
+            }
 
             //var trail1 = EffectHelper.AddTrail( obj, skinner, MaterialType.Tracer, 0.5f, 1f, 0f, 0.5f, false );
             //var trail2 = EffectHelper.AddTrail( obj, skinner, MaterialType.Tracer, 0.5f, 1f, 0f, 0.5f, false );
@@ -204,7 +211,7 @@ namespace Rein.RogueWispPlugin
 
             var sound = obj.AddComponent<StartEndSound>();
             sound.startSound = "Play_item_proc_laserTurbine_explode";
-            sound.mult = 3;
+            sound.mult = 1;
 
 
 
@@ -220,7 +227,7 @@ namespace Rein.RogueWispPlugin
 
             var vfxAtrib = obj.AddComponent<VFXAttributes>();
             vfxAtrib.vfxPriority = VFXAttributes.VFXPriority.Always;
-            vfxAtrib.vfxIntensity = VFXAttributes.VFXIntensity.Low;
+            vfxAtrib.vfxIntensity = VFXAttributes.VFXIntensity.High;
 
             var timer = obj.AddComponent<DestroyOnTimer>();
             timer.duration = 1f;
@@ -232,18 +239,20 @@ namespace Rein.RogueWispPlugin
 
             var pillar = EffectHelper.AddFlamePillar( obj, skin, MaterialType.FlamePillar, 100f, 3f, 0.75f  );
 
-
-            var sparks = EffectHelper.AddSparks( obj, skin, MaterialType.Tracer, 10000, 0.15f, 1.2f );
-            var sparkMain = sparks.main;
-            sparkMain.scalingMode = ParticleSystemScalingMode.Shape;
-            sparkMain.maxParticles = 10000;
-            var sparkShape = sparks.shape;
-            sparkShape.enabled = true;
-            sparkShape.shapeType = ParticleSystemShapeType.ConeVolume;
-            sparkShape.angle = 0f;
-            sparkShape.radius = 2f;
-            sparkShape.length = 1000f;
-            sparkShape.rotation = new Vector3( -90f, 0f, 0f );
+            if( !this.AW_lowPerf.Value )
+            {
+                var sparks = EffectHelper.AddSparks( obj, skin, MaterialType.Tracer, 5000, 0.15f, 1.2f );
+                var sparkMain = sparks.main;
+                sparkMain.scalingMode = ParticleSystemScalingMode.Shape;
+                sparkMain.maxParticles = 10000;
+                var sparkShape = sparks.shape;
+                sparkShape.enabled = true;
+                sparkShape.shapeType = ParticleSystemShapeType.ConeVolume;
+                sparkShape.angle = 0f;
+                sparkShape.radius = 2f;
+                sparkShape.length = 1000f;
+                sparkShape.rotation = new Vector3( -90f, 0f, 0f );
+            }
 
 
 
@@ -351,7 +360,7 @@ namespace Rein.RogueWispPlugin
             effComp.positionAtReferencedTransform = false;
             effComp.parentToReferencedTransform = false;
             effComp.applyScale = false;
-            effComp.soundName = "";
+            effComp.soundName = null;
 
             var skin = obj.AddComponent<WispSkinnedEffect>();
 
@@ -382,17 +391,20 @@ namespace Rein.RogueWispPlugin
             var pillar = EffectHelper.AddFlamePillar( obj, skin, MaterialType.FlamePillar, 1000f, 3f, 0.75f  );
 
 
-            var sparks = EffectHelper.AddSparks( obj, skin, MaterialType.Tracer, 10000, 0.15f, 1.2f );
-            var sparkMain = sparks.main;
-            sparkMain.scalingMode = ParticleSystemScalingMode.Shape;
-            sparkMain.maxParticles = 10000;
-            var sparkShape = sparks.shape;
-            sparkShape.enabled = true;
-            sparkShape.shapeType = ParticleSystemShapeType.ConeVolume;
-            sparkShape.angle = 0f;
-            sparkShape.radius = 2f;
-            sparkShape.length = 1000f;
-            sparkShape.rotation = new Vector3( -90f, 0f, 0f );
+            if( !this.AW_lowPerf.Value )
+            {
+                var sparks = EffectHelper.AddSparks( obj, skin, MaterialType.Tracer, 5000, 0.15f, 1.2f );
+                var sparkMain = sparks.main;
+                sparkMain.scalingMode = ParticleSystemScalingMode.Shape;
+                sparkMain.maxParticles = 10000;
+                var sparkShape = sparks.shape;
+                sparkShape.enabled = true;
+                sparkShape.shapeType = ParticleSystemShapeType.ConeVolume;
+                sparkShape.angle = 0f;
+                sparkShape.radius = 2f;
+                sparkShape.length = 1000f;
+                sparkShape.rotation = new Vector3( -90f, 0f, 0f );
+            }
 
 
 
@@ -417,13 +429,17 @@ namespace Rein.RogueWispPlugin
             //explShape.radius = 0.5f;
             //explShape.rotation = new Vector3( -90f, 0f, 0f );
 
+            if( !this.AW_lowPerf.Value )
+            {
+                var light = EffectHelper.AddLight( obj, skin, true, 20f, 100f );
+                light.transform.localPosition += new Vector3( 0f, 3f, 0f );
+                EffectHelper.EditLightOverTime( light, 2f, AnimationCurve.EaseInOut( 0f, 1f, 1f, 0f ), AnimationCurve.EaseInOut( 0f, 1f, 1f, 0f ) );
+            }
 
-            var light = EffectHelper.AddLight( obj, skin, true, 20f, 100f );
-            light.transform.localPosition += new Vector3( 0f, 3f, 0f );
-            EffectHelper.EditLightOverTime( light, 2f, AnimationCurve.EaseInOut( 0f, 1f, 1f, 0f ), AnimationCurve.EaseInOut( 0f, 1f, 1f, 0f ) );
-
-
-            var distortion = EffectHelper.AddDistortion( obj, skin, MaterialType.Distortion, 8f, 0.3f, 0f );
+            if( !this.AW_lowPerf.Value )
+            {
+                var distortion = EffectHelper.AddDistortion( obj, skin, MaterialType.Distortion, 8f, 0.3f, 0f );
+            }
 
             AW_secondaryExplosion = obj;
             RegisterEffect( AW_secondaryExplosion );
@@ -450,8 +466,8 @@ namespace Rein.RogueWispPlugin
             vecScale.applyX = true;
             vecScale.applyY = false;
             vecScale.applyZ = true;
-            vecScale.scaleOverTime = false;
-            vecScale.durationFrac = 0.1f;
+            vecScale.scaleOverTime = true;
+            vecScale.durationFrac = 0.2f;
 
             var vfxAtrib = obj.AddComponent<VFXAttributes>();
             vfxAtrib.vfxPriority = VFXAttributes.VFXPriority.Always;
@@ -521,14 +537,17 @@ namespace Rein.RogueWispPlugin
             flashLineShape.rotation = new Vector3( -90f, 0f, 0f );
             flashLineShape.radiusThickness = 0.5f;
 
-            var distortion = EffectHelper.AddDistortion( obj, skinner, MaterialType.DistortionHeavy, 2f, 0.25f, 0f );
-            var distortionEmis = distortion.emission;
-            distortionEmis.enabled = true;
-            distortionEmis.burstCount = 1;
-            distortionEmis.SetBurst( 0, new ParticleSystem.Burst( 0f, 1f, 1, 0.1f ) );
-            var distortionSOL = distortion.sizeOverLifetime;
-            distortionSOL.enabled = true;
-            distortionSOL.size = new ParticleSystem.MinMaxCurve( 1f, AnimationCurve.Linear( 0f, 0f, 1f, 1f ) );
+            if( !this.AW_lowPerf.Value )
+            {
+                var distortion = EffectHelper.AddDistortion( obj, skinner, MaterialType.DistortionHeavy, 2f, 0.25f, 0f );
+                var distortionEmis = distortion.emission;
+                distortionEmis.enabled = true;
+                distortionEmis.burstCount = 1;
+                distortionEmis.SetBurst( 0, new ParticleSystem.Burst( 0f, 1f, 1, 0.1f ) );
+                var distortionSOL = distortion.sizeOverLifetime;
+                distortionSOL.enabled = true;
+                distortionSOL.size = new ParticleSystem.MinMaxCurve( 1f, AnimationCurve.Linear( 0f, 0f, 1f, 1f ) );
+            }
 
             var explosion =  EffectHelper.AddExplosion( obj, skinner, MaterialType.Explosion, 15, 0.25f, 5f, 1f );
             var explMain = explosion.main;
@@ -540,10 +559,12 @@ namespace Rein.RogueWispPlugin
             explShape.radius = 0.25f;
             explShape.rotation = new Vector3( -90f, 0f, 0f );
 
-
-            var light = EffectHelper.AddLight( obj, skinner, true, 10f, 10f );
-            light.transform.localPosition += new Vector3( 0f, 0.5f, 0f );
-            EffectHelper.EditLightOverTime( light, 0.5f, AnimationCurve.EaseInOut( 0f, 1f, 1f, 0f ), AnimationCurve.EaseInOut( 0f, 1f, 1f, 0f ) );
+            if( !this.AW_lowPerf.Value )
+            {
+                var light = EffectHelper.AddLight( obj, skinner, true, 10f, 10f );
+                light.transform.localPosition += new Vector3( 0f, 0.5f, 0f );
+                EffectHelper.EditLightOverTime( light, 0.5f, AnimationCurve.EaseInOut( 0f, 1f, 1f, 0f ), AnimationCurve.EaseInOut( 0f, 1f, 1f, 0f ) );
+            }
 
 
 
@@ -558,7 +579,10 @@ namespace Rein.RogueWispPlugin
 
             var skinner = obj.AddComponent<WispSkinnedEffect>();
 
-            var light = EffectHelper.AddLight( obj, skinner, true, 4f, 2f );
+            if( !this.AW_lowPerf.Value )
+            {
+                var light = EffectHelper.AddLight( obj, skinner, true, 4f, 2f );
+            }
 
             var chargeLines = EffectHelper.AddChargeSphereLines( obj, skinner, MaterialType.Tracer, 0.75f, 0.15f, 0.05f, 30f );
 
@@ -608,7 +632,10 @@ namespace Rein.RogueWispPlugin
             var ghostControl = obj.AddComponent<ProjectileGhostController>();
             var skinner = obj.AddComponent<WispSkinnedEffect>();
 
-            var light = EffectHelper.AddLight( obj, skinner, true, 8f, 4f );
+            if( !this.AW_lowPerf.Value )
+            {
+                var light = EffectHelper.AddLight( obj, skinner, true, 8f, 4f );
+            }
 
             var trail1 = EffectHelper.AddTrail( obj, skinner, MaterialType.Tracer, 0.5f, 1f, 0f, 0.5f, false );
             var trail2 = EffectHelper.AddTrail( obj, skinner, MaterialType.Tracer, 0.5f, 1f, 0f, 0.5f, false );
