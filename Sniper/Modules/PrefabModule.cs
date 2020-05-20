@@ -28,6 +28,7 @@
         internal static void CreatePrefab()
         {
             SniperMain.sniperBodyPrefab = PrefabsCore.CreatePrefab( "Sniper", true );
+            SniperMain.sniperBodyPrefab.tag = "Finish";
             GameObject obj = SniperMain.sniperBodyPrefab;
 
             NetworkIdentity netId = obj.AddOrGetComponent<NetworkIdentity>();

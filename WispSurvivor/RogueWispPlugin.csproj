@@ -2,8 +2,8 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>RogueWisp</AssemblyName>
-    <AssemblyVersion>2.1.4.251</AssemblyVersion>
-    <FileVersion>2.1.4.251</FileVersion>
+    <AssemblyVersion>2.1.4.254</AssemblyVersion>
+    <FileVersion>2.1.4.254</FileVersion>
     <RootNamespace>Rein</RootNamespace>
     <UserSecretsId>392ba4cc-368a-4518-b19f-f550dca1e784</UserSecretsId>
     <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
@@ -143,10 +143,6 @@
     </Reference>
     <Reference Include="MonoMod.Utils">
       <HintPath>..\libs\BepInEx\MonoMod.Utils.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-    <Reference Include="NetLib">
-      <HintPath>..\libs\Rein\NetLib.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="pb_Stl">

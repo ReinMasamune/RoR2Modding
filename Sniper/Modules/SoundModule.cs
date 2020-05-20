@@ -17,32 +17,22 @@
         internal static Single masterVolume { private get; set; } = 1f;
 
         private const UInt32 sniper_charge_amount = 135031646u;
-#pragma warning disable CA1823 // Avoid unused private fields
-#pragma warning disable IDE0051 // Remove unused private members
+
         private const UInt32 volume_sfx = 3673881719u;
-#pragma warning restore IDE0051 // Remove unused private members
-#pragma warning restore CA1823 // Avoid unused private fields
-#pragma warning disable IDE0051 // Remove unused private members
-#pragma warning disable CA1823 // Avoid unused private fields
+
         private const UInt32 volume_master = 3695994288u;
-#pragma warning restore CA1823 // Avoid unused private fields
-#pragma warning restore IDE0051 // Remove unused private members
+
 
         private const UInt32 bolt_normal_shot = 763788813u;
-#pragma warning disable IDE0051 // Remove unused private members
-#pragma warning disable CA1823 // Avoid unused private fields
+
         private const UInt32 bolt_quickscope = 800730984u;
-#pragma warning restore CA1823 // Avoid unused private fields
-#pragma warning restore IDE0051 // Remove unused private members
-        internal static void PlayFire( GameObject source, Single chargeLevel )
+
+        private const UInt32 bolt_scatter = 1314071446u;
+
+        internal static void PlayFire( GameObject source, Single chargeLevel, Boolean scatter )
         {
-            UInt32 id = AkSoundEngine.PostEvent( bolt_normal_shot, source );
+            UInt32 id = AkSoundEngine.PostEvent( scatter ? bolt_scatter : bolt_normal_shot, source );
             _ = AkSoundEngine.SetRTPCValueByPlayingID( sniper_charge_amount, chargeLevel, id );
-            //_ = AkSoundEngine.SetRTPCValueByPlayingID( volume_master, 100f, id );
-            //id = AkSoundEngine.PostEvent( bolt_normal_shot, source );
-            //_ = AkSoundEngine.SetRTPCValueByPlayingID( sniper_charge_amount, chargeLevel, id );
-            //id = AkSoundEngine.PostEvent( bolt_normal_shot, source );
-            //_ = AkSoundEngine.SetRTPCValueByPlayingID( sniper_charge_amount, chargeLevel, id );
         }
 
         private const UInt32 bolt_open_chamber = 1389001356u;
@@ -70,6 +60,33 @@
                 return bolt_reload_bad;
             }
         }
+
+
+        internal static void PlayKnifeHit( GameObject source, KnifeHitMaterial mat  )
+        {
+            _ = AkSoundEngine.PostEvent( mat.GetSound(), source );
+        }
+        private const UInt32 knife_hit_organic = 1183426810u;
+        private const UInt32 knife_hit_metallic = 2965791104u;
+        private static UInt32 GetSound( this KnifeHitMaterial mat )
+        {
+            switch( mat )
+            {
+                case KnifeHitMaterial.Metallic:
+                return knife_hit_organic;
+                case KnifeHitMaterial.Organic:
+                return knife_hit_organic;
+                default:
+                return knife_hit_organic;
+            }
+
+        }
+        internal enum KnifeHitMaterial
+        {
+            Organic,
+            Metallic,
+        }
+
     }
 
 }

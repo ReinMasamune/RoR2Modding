@@ -12,7 +12,7 @@ namespace Rein.RogueWispPlugin
 #pragma warning disable CA2243 // Attribute string literals should parse correctly
 #if NETWORKING
 
-    [BepInDependency( NetLib.NetLib.guid, BepInDependency.DependencyFlags.SoftDependency )]
+    //[BepInDependency( NetLib.NetLib.guid, BepInDependency.DependencyFlags.SoftDependency )]
 #endif
     [BepInDependency( Rein.AssemblyLoad.guid, BepInDependency.DependencyFlags.HardDependency )]
     [BepInPlugin( pluginGUID, pluginName, pluginVersion )]

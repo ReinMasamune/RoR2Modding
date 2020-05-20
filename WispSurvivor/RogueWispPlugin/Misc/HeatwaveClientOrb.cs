@@ -183,7 +183,7 @@ namespace Rein.RogueWispPlugin
                     };
                     dmg.ModifyDamageInfo( box.damageModifier );
 #if NETWORKING
-                    NetLib.BuiltIns.SendDamage.DealDamage( dmg, box );
+                    ReinCore.NetworkingHelpers.DealDamage( dmg, box, true, true, true );
 #else
                     base.SendDamage( dmg, box.healthComponent );
 #endif
@@ -288,7 +288,7 @@ namespace Rein.RogueWispPlugin
                     };
 
 #if NETWORKING
-                    NetLib.BuiltIns.SendDamage.DealDamage( dmg, null, false, false, true );
+                    ReinCore.NetworkingHelpers.DealDamage( dmg, null, false, false, true );
 #else
                     base.SendDamage( dmg, null);
 #endif
@@ -300,7 +300,7 @@ namespace Rein.RogueWispPlugin
             {
                 yield return new WaitForSeconds( delay );
 #if NETWORKING
-                NetLib.BuiltIns.SendBuff.AddTimedBuff( body, buff, duration, stacks );
+                ReinCore.NetworkingHelpers.ApplyBuff( body, buff, stacks, duration );
 #else
                 Main.AddTimedBuff( body, buff, duration, stacks );
 #endif

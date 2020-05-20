@@ -274,7 +274,7 @@ namespace Rein.RogueWispPlugin
             public static void DoNetworkedDamage( DamageInfo info, HurtBox target )
             {
 #if NETWORKING
-                NetLib.BuiltIns.SendDamage.DealDamage( info, target );
+                ReinCore.NetworkingHelpers.DealDamage( info, target, true, true, true );
 #else
 				HealthComponent targetHc = null;
 				GameObject targetObj = null;

@@ -2,9 +2,12 @@ Event	ID	Name			Wwise Object Path	Notes
 	339887885	Bolt_New_Bullet_Trash			\Default Work Unit\Big Bolt Events\Bolt_New_Bullet_Trash	
 	763788813	Bolt_Normal_Shot			\Default Work Unit\Big Bolt Events\Bolt_Normal_Shot	
 	800730984	Bolt_Quickscope			\Default Work Unit\Big Bolt Events\Bolt_Quickscope	
+	1183426810	Knife_Projectile_Organic_hit			\Default Work Unit\Knife\Knife_Projectile_Organic_hit	
+	1314071446	Bolt_Scatter_shot			\Default Work Unit\Big Bolt Events\Bolt_Scatter_shot	
 	1389001356	Bolt_Open_Chamber			\Default Work Unit\Big Bolt Events\Bolt_Open_Chamber	
 	1939097407	Bolt_New_Bullet_Best			\Default Work Unit\Big Bolt Events\Bolt_New_Bullet_Best	
 	2811185582	Bolt_New_Bullet_Good			\Default Work Unit\Big Bolt Events\Bolt_New_Bullet_Good	
+	2965791104	Knife_Projectile_Metallic_hit			\Default Work Unit\Knife\Knife_Projectile_Metallic_hit	
 	3672228492	Bolt_Ricochet			\Default Work Unit\Big Bolt Events\Bolt_Ricochet	
 
 Game Parameter	ID	Name			Wwise Object Path	Notes
@@ -18,17 +21,23 @@ Modulator Envelope	ID	Name			Wwise Object Path	Notes
 Effect plug-ins	ID	Name	Type				Notes
 	145028528	Static_Sibilance_Remover_Female	Wwise Parametric EQ			
 	484890516	Church_Small_Wood	Wwise RoomVerb			
+	1590660382	Nearly_Forever	Wwise Delay			
 	2547645744	Boost_3dB_100Hz	Wwise Parametric EQ			
 
 In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
+	900924	Stab enemy 1	C:\Users\Lucas\Documents\WwiseProjects\ROR2 SniperRework Rein\.cache\Windows\SFX\Knife\Stab enemy 1_46BD80C9.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX MASTER MIXXER\Knife\Knife projectile organic\Stab enemy 1		3649
 	63498037	Big Thunder	C:\Users\Lucas\Documents\WwiseProjects\ROR2 SniperRework Rein\.cache\Windows\SFX\Big Thunder_46BD80C9.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX MASTER MIXXER\Sniper Shot\Big Thunder		295770
 	71002053	Impact	C:\Users\Lucas\Documents\WwiseProjects\ROR2 SniperRework Rein\.cache\Windows\SFX\Extreme Impact_46BD80C9.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX MASTER MIXXER\Sniper Shot\Impact		38579
+	221920000	stab enemy 2	C:\Users\Lucas\Documents\WwiseProjects\ROR2 SniperRework Rein\.cache\Windows\SFX\Knife\stab enemy 2_46BD80C9.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX MASTER MIXXER\Knife\Knife projectile organic\stab enemy 2		3830
+	229376870	stab enemy 3	C:\Users\Lucas\Documents\WwiseProjects\ROR2 SniperRework Rein\.cache\Windows\SFX\Knife\stab enemy 3_46BD80C9.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX MASTER MIXXER\Knife\Knife projectile organic\stab enemy 3		4629
 	239340964	Quickscope big bolt	C:\Users\Lucas\Documents\WwiseProjects\ROR2 SniperRework Rein\.cache\Windows\SFX\Quickscope big bolt_46BD80C9.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX MASTER MIXXER\Sniper Shot\Quickscope big bolt		22327
 	275942184	Ricochet 2	C:\Users\Lucas\Documents\WwiseProjects\ROR2 SniperRework Rein\.cache\Windows\SFX\Ricochet 2_46BD80C9.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX MASTER MIXXER\Sniper Shot\Ricochet\Ricochet 2		23806
+	277658641	ScatterShot	C:\Users\Lucas\Documents\WwiseProjects\ROR2 SniperRework Rein\.cache\Windows\SFX\ScatterShot_46BD80C9.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX MASTER MIXXER\Sniper Shot\ScatterShot		27175
 	296320995	Big Bolt New Bullet Trash	C:\Users\Lucas\Documents\WwiseProjects\ROR2 SniperRework Rein\.cache\Windows\SFX\baddest reload big Bolt_46BD80C9.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX MASTER MIXXER\Sniper Reload\Reload mixxer\Big Bolt\Big Bolt New Bullet Trash		4678
 	311692024	Ricochet 1	C:\Users\Lucas\Documents\WwiseProjects\ROR2 SniperRework Rein\.cache\Windows\SFX\Ricochet 1_46BD80C9.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX MASTER MIXXER\Sniper Shot\Ricochet\Ricochet 1		23963
-	514696884	Big Bolt New Bullet Good	C:\Users\Lucas\Documents\WwiseProjects\ROR2 SniperRework Rein\.cache\Windows\SFX\bad reload big bolt_46BD80C9.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX MASTER MIXXER\Sniper Reload\Reload mixxer\Big Bolt\Big Bolt New Bullet Good		8799
+	514696884	Big Bolt New Bullet Go od	C:\Users\Lucas\Documents\WwiseProjects\ROR2 SniperRework Rein\.cache\Windows\SFX\bad reload big bolt_46BD80C9.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX MASTER MIXXER\Sniper Reload\Reload mixxer\Big Bolt\Big Bolt New Bullet Go od		8799
 	524362489	Big Bolt Shot	C:\Users\Lucas\Documents\WwiseProjects\ROR2 SniperRework Rein\.cache\Windows\SFX\Big Bolt Shot_46BD80C9.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX MASTER MIXXER\Sniper Shot\Big Bolt Shot		34236
+	601342344	Knife Projectile Hit Metal	C:\Users\Lucas\Documents\WwiseProjects\ROR2 SniperRework Rein\.cache\Windows\SFX\Knife\Knife Projectile Hit Metal_46BD80C9.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX MASTER MIXXER\Knife\Knife Projectile Hit Metal		21694
 	609958632	Big Bolt Bass Layer	C:\Users\Lucas\Documents\WwiseProjects\ROR2 SniperRework Rein\.cache\Windows\SFX\Bolt Shot bass layer_46BD80C9.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX MASTER MIXXER\Sniper Shot\Big Bolt Bass Layer		31622
 	705091675	Big Bolt New Bullet best	C:\Users\Lucas\Documents\WwiseProjects\ROR2 SniperRework Rein\.cache\Windows\SFX\big bolt insert new bullet_46BD80C9.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX MASTER MIXXER\Sniper Reload\Reload mixxer\Big Bolt\Big Bolt New Bullet best		16102
 	791715103	Ricochet 3	C:\Users\Lucas\Documents\WwiseProjects\ROR2 SniperRework Rein\.cache\Windows\SFX\Ricochet 3_46BD80C9.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX MASTER MIXXER\Sniper Shot\Ricochet\Ricochet 3		30534
