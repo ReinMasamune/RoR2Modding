@@ -8,19 +8,19 @@
     internal struct ZoomParams
     {
         [SerializeField]
-        internal Single inputScale;
+        private readonly Single inputScale;
         [SerializeField]
-        internal Single defaultZoom;
+        private readonly Single defaultZoom;
         [SerializeField]
-        internal Single shoulderFrac;
+        private readonly Single shoulderFrac;
         [SerializeField]
-        internal Single shoulderZoomStart;
+        private readonly Single shoulderZoomStart;
         [SerializeField]
-        internal Single shoulderZoomEnd;
+        private readonly Single shoulderZoomEnd;
         [SerializeField]
-        internal Single scopeZoomStart;
+        private readonly Single scopeZoomStart;
         [SerializeField]
-        internal Single scopeZoomEnd;
+        private readonly Single scopeZoomEnd;
 
 
         [SerializeField]
