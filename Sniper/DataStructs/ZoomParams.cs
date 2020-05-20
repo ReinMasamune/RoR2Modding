@@ -24,7 +24,7 @@
 
 
         [SerializeField]
-        internal Single viewAngleStart;
+        private readonly Single viewAngleStart;
 
         internal ZoomParams( Single shoulderStart, Single shoulderEnd, Single scopeStart, Single scopeEnd, Single shoulderFrac, Single defaultZoom, Single inputScale, Single baseFoV )
         {
