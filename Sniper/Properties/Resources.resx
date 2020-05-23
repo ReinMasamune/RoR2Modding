@@ -117,32 +117,62 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="BackflipIcon" xml:space="preserve">
+  <data name="icon__BackflipIcon" xml:space="preserve">
     <value>Assets/__EXPORT/Icons/Utility/Backflip.png</value>
   </data>
-  <data name="CritPassiveIcon" xml:space="preserve">
+  <data name="icon__CritPassiveIcon" xml:space="preserve">
     <value>Assets/__EXPORT/Icons/passive 2/Precise Aim.png</value>
   </data>
-  <data name="DecoyIcon" xml:space="preserve">
+  <data name="icon__DecoyIcon" xml:space="preserve">
     <value>Assets/__EXPORT/Icons/Special 1/Decoy.png</value>
   </data>
-  <data name="DecoyReactivateIcon" xml:space="preserve">
+  <data name="icon__DecoyReactivateIcon" xml:space="preserve">
     <value>Assets/__EXPORT/Icons/Special 1/Decoy_Reactivation.png</value>
   </data>
-  <data name="ExplosiveAmmoIcon" xml:space="preserve">
+  <data name="icon__ExplosiveAmmoIcon" xml:space="preserve">
     <value>Assets/__EXPORT/Icons/Passive 1/Explosive Ammo.png</value>
   </data>
-  <data name="HeadshotIcon" xml:space="preserve">
+  <data name="icon__HeadshotIcon" xml:space="preserve">
     <value>Assets/__EXPORT/Icons/passive 2/Headshot.png</value>
   </data>
-  <data name="KnifeGhostPrefabPath" xml:space="preserve">
-    <value>Assets/__EXPORT/KnifeProjectileGhost.prefab</value>
-  </data>
-  <data name="KnifeIcon" xml:space="preserve">
+  <data name="icon__KnifeIcon" xml:space="preserve">
     <value />
   </data>
-  <data name="KnifeReactivateIcon" xml:space="preserve">
+  <data name="icon__KnifeReactivateIcon" xml:space="preserve">
     <value />
+  </data>
+  <data name="icon__PlasmaAmmoIcon" xml:space="preserve">
+    <value />
+  </data>
+  <data name="icon__PortraitIcon" xml:space="preserve">
+    <value>Assets/__EXPORT/Icons/Other/portraitIcon.png</value>
+  </data>
+  <data name="icon__QuickscopeIcon" xml:space="preserve">
+    <value />
+  </data>
+  <data name="icon__ReloadIcon" xml:space="preserve">
+    <value>Assets/__EXPORT/Icons/M1/Reload.png</value>
+  </data>
+  <data name="icon__ScatterAmmoIcon" xml:space="preserve">
+    <value />
+  </data>
+  <data name="icon__ShockAmmoIcon" xml:space="preserve">
+    <value />
+  </data>
+  <data name="icon__SlideIcon" xml:space="preserve">
+    <value />
+  </data>
+  <data name="icon__SlideReloadIcon" xml:space="preserve">
+    <value>Assets/__EXPORT/Icons/M1/Reload.png</value>
+  </data>
+  <data name="icon__SnipeIcon" xml:space="preserve">
+    <value>Assets/__EXPORT/Icons/M1/Snipe.png</value>
+  </data>
+  <data name="icon__StandardAmmoIcon" xml:space="preserve">
+    <value>Assets/__EXPORT/Icons/Passive 1/Standard Ammo.png</value>
+  </data>
+  <data name="icon__SteadyAimIcon" xml:space="preserve">
+    <value>Assets/__EXPORT/Icons/M2/Steady Aim.png</value>
   </data>
   <data name="lang__LOADOUT_SNIPER_AMMO" xml:space="preserve">
     <value>Ammo</value>
@@ -246,6 +276,12 @@
   <data name="lang__SNIPER_SKIN_ALT4_NAME" xml:space="preserve">
     <value>Unnamed3</value>
   </data>
+  <data name="lang__SNIPER_SKIN_ALT5_NAME" xml:space="preserve">
+    <value>Jungle</value>
+  </data>
+  <data name="lang__SNIPER_SKIN_ALT6_NAME" xml:space="preserve">
+    <value>Snow</value>
+  </data>
   <data name="lang__SNIPER_SKIN_DEFAULT_NAME" xml:space="preserve">
     <value>Default</value>
   </data>
@@ -270,50 +306,11 @@
   <data name="lang__SNIPER_UTILITY_BACKFLIP_NAME" xml:space="preserve">
     <value>Backflip</value>
   </data>
-  <data name="PlasmaAmmoIcon" xml:space="preserve">
-    <value />
+  <data name="prefab__KnifeGhostPrefab" xml:space="preserve">
+    <value>Assets/__EXPORT/KnifeProjectileGhost.prefab</value>
   </data>
-  <data name="PortraitIcon" xml:space="preserve">
-    <value>Assets/__EXPORT/Icons/Other/portraitIcon.png</value>
-  </data>
-  <data name="QuickscopeIcon" xml:space="preserve">
-    <value />
-  </data>
-  <data name="RailgunAlt1_Diffuse" xml:space="preserve">
-    <value>Railgun_Classic_MainTex</value>
-  </data>
-  <data name="RailgunAlt1_Emissive" xml:space="preserve">
-    <value>Railgun_White_Emission</value>
-  </data>
-  <data name="RailgunAlt1_Normal" xml:space="preserve">
-    <value>Railgun_GreenGoldUrban_Normal</value>
-  </data>
-  <data name="RailgunAlt2_Diffuse" xml:space="preserve">
-    <value>Railgun_BlackGold_MainTex</value>
-  </data>
-  <data name="RailgunAlt2_Emissive" xml:space="preserve">
-    <value>Railgun_BlackGold_Emission</value>
-  </data>
-  <data name="RailgunAlt2_Normal" xml:space="preserve">
-    <value>Railgun_GreenGoldUrban_Normal</value>
-  </data>
-  <data name="RailgunAlt3_Diffuse" xml:space="preserve">
-    <value>Railgun_GreenGoldUrban_MainTex</value>
-  </data>
-  <data name="RailgunAlt3_Emissive" xml:space="preserve">
-    <value>Railgun_GreenGoldUrban_Emission</value>
-  </data>
-  <data name="RailgunAlt3_Normal" xml:space="preserve">
-    <value>Railgun_GreenGoldUrban_Normal</value>
-  </data>
-  <data name="RailgunDefault_Diffuse" xml:space="preserve">
-    <value>Railgun_Stealth_MainTex</value>
-  </data>
-  <data name="RailgunDefault_Emissive" xml:space="preserve">
-    <value>Railgun_Stealth_Emission</value>
-  </data>
-  <data name="RailgunDefault_Normal" xml:space="preserve">
-    <value>Railgun_GreenGoldUrban_Normal</value>
+  <data name="prefab__SniperPrefab" xml:space="preserve">
+    <value>Assets/__EXPORT/mdlSniper.prefab</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="ReinCore" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -322,133 +319,196 @@
   <data name="Rein_Sniper_Bank" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Rein_Sniper_Bank.bnk;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="ReloadIcon" xml:space="preserve">
-    <value>Assets/__EXPORT/Icons/M1/Reload.png</value>
+  <data name="skin__RailgunAlt1_Diffuse" xml:space="preserve">
+    <value>Railgun_Classic_MainTex</value>
   </data>
-  <data name="ScatterAmmoIcon" xml:space="preserve">
-    <value />
+  <data name="skin__RailgunAlt1_Emissive" xml:space="preserve">
+    <value>Railgun_White_Emission</value>
   </data>
-  <data name="ShockAmmoIcon" xml:space="preserve">
-    <value />
+  <data name="skin__RailgunAlt1_Normal" xml:space="preserve">
+    <value>Railgun_GreenGoldUrban_Normal</value>
   </data>
-  <data name="SlideIcon" xml:space="preserve">
-    <value />
+  <data name="skin__RailgunAlt2_Diffuse" xml:space="preserve">
+    <value>Railgun_BlackGold_MainTex</value>
   </data>
-  <data name="SlideReloadIcon" xml:space="preserve">
-    <value>Assets/__EXPORT/Icons/M1/Reload.png</value>
+  <data name="skin__RailgunAlt2_Emissive" xml:space="preserve">
+    <value>Railgun_White_Emission</value>
   </data>
-  <data name="SnipeIcon" xml:space="preserve">
-    <value>Assets/__EXPORT/Icons/M1/Snipe.png</value>
+  <data name="skin__RailgunAlt2_Normal" xml:space="preserve">
+    <value>Railgun_GreenGoldUrban_Normal</value>
+  </data>
+  <data name="skin__RailgunAlt3_Diffuse" xml:space="preserve">
+    <value>Railgun_GreenGoldUrban_MainTex</value>
+  </data>
+  <data name="skin__RailgunAlt3_Emissive" xml:space="preserve">
+    <value>Railgun_White_Emission</value>
+  </data>
+  <data name="skin__RailgunAlt3_Normal" xml:space="preserve">
+    <value>Railgun_GreenGoldUrban_Normal</value>
+  </data>
+  <data name="skin__RailgunAlt4_Diffuse" xml:space="preserve">
+    <value>Railgun_BlackGold_MainTex</value>
+  </data>
+  <data name="skin__RailgunAlt4_Emissive" xml:space="preserve">
+    <value>Railgun_White_Emission</value>
+  </data>
+  <data name="skin__RailgunAlt4_Normal" xml:space="preserve">
+    <value>Railgun_GreenGoldUrban_Normal</value>
+  </data>
+  <data name="skin__RailgunAlt5_Diffuse" xml:space="preserve">
+    <value>Railgun_Jungle_MainTex</value>
+  </data>
+  <data name="skin__RailgunAlt5_Emissive" xml:space="preserve">
+    <value>Railgun_White_Emission</value>
+  </data>
+  <data name="skin__RailgunAlt5_Normal" xml:space="preserve">
+    <value>Railgun_GreenGoldUrban_Normal</value>
+  </data>
+  <data name="skin__RailgunAlt6_Diffuse" xml:space="preserve">
+    <value>Railgun_Snow_MainTex</value>
+  </data>
+  <data name="skin__RailgunAlt6_Emissive" xml:space="preserve">
+    <value>Railgun_Snow_Emission</value>
+  </data>
+  <data name="skin__RailgunAlt6_Normal" xml:space="preserve">
+    <value>Railgun_GreenGoldUrban_Normal</value>
+  </data>
+  <data name="skin__Railgun_Diffuse" xml:space="preserve">
+    <value>Railgun_Stealth_MainTex</value>
+  </data>
+  <data name="skin__Railgun_Emissive" xml:space="preserve">
+    <value>Railgun_White_Emission</value>
+  </data>
+  <data name="skin__Railgun_Normal" xml:space="preserve">
+    <value>Railgun_GreenGoldUrban_Normal</value>
+  </data>
+  <data name="skin__SniperAlt1_Diffuse" xml:space="preserve">
+    <value>Sniper_Classic_MainTex</value>
+  </data>
+  <data name="skin__SniperAlt1_Emissive" xml:space="preserve">
+    <value>Sniper_Classic_Emission</value>
+  </data>
+  <data name="skin__SniperAlt1_Normal" xml:space="preserve">
+    <value>Sniper_RedBlack_Normal</value>
+  </data>
+  <data name="skin__SniperAlt2_Diffuse" xml:space="preserve">
+    <value>Sniper_RedBlack_MainTex</value>
+  </data>
+  <data name="skin__SniperAlt2_Emissive" xml:space="preserve">
+    <value>Sniper_RedBlack_Emission</value>
+  </data>
+  <data name="skin__SniperAlt2_Normal" xml:space="preserve">
+    <value>Sniper_RedBlack_Normal</value>
+  </data>
+  <data name="skin__SniperAlt3_Diffuse" xml:space="preserve">
+    <value>Sniper_GreenCamo_MainTex</value>
+  </data>
+  <data name="skin__SniperAlt3_Emissive" xml:space="preserve">
+    <value>Sniper_Uncolored_Emission</value>
+  </data>
+  <data name="skin__SniperAlt3_Normal" xml:space="preserve">
+    <value>Sniper_RedBlack_Normal</value>
+  </data>
+  <data name="skin__SniperAlt4_Diffuse" xml:space="preserve">
+    <value>Sniper_Red_MainTex</value>
+  </data>
+  <data name="skin__SniperAlt4_Emissive" xml:space="preserve">
+    <value>Sniper_Red_Emission</value>
+  </data>
+  <data name="skin__SniperAlt4_Normal" xml:space="preserve">
+    <value>Sniper_RedBlack_Normal</value>
+  </data>
+  <data name="skin__SniperAlt5_Diffuse" xml:space="preserve">
+    <value>Sniper_Jungle_MainTex</value>
+  </data>
+  <data name="skin__SniperAlt5_Emissive" xml:space="preserve">
+    <value>Sniper_Uncolored_Emission</value>
+  </data>
+  <data name="skin__SniperAlt5_Normal" xml:space="preserve">
+    <value>Sniper_RedBlack_Normal</value>
+  </data>
+  <data name="skin__SniperAlt6_Diffuse" xml:space="preserve">
+    <value>Sniper_Snow_MainTex</value>
+  </data>
+  <data name="skin__SniperAlt6_Emissive" xml:space="preserve">
+    <value>Sniper_Snow_Emission</value>
+  </data>
+  <data name="skin__SniperAlt6_Normal" xml:space="preserve">
+    <value>Sniper_Snow_Normal</value>
+  </data>
+  <data name="skin__Sniper_Diffuse" xml:space="preserve">
+    <value>Sniper_UrbanCamo_MainTex</value>
+  </data>
+  <data name="skin__Sniper_Emissive" xml:space="preserve">
+    <value>Sniper_Uncolored_Emission</value>
+  </data>
+  <data name="skin__Sniper_Normal" xml:space="preserve">
+    <value>Sniper_RedBlack_Normal</value>
+  </data>
+  <data name="skin__ThrowKnifeAlt1_Diffuse" xml:space="preserve">
+    <value>ThrowKnife_MainTex</value>
+  </data>
+  <data name="skin__ThrowKnifeAlt1_Emissive" xml:space="preserve">
+    <value>ThrowKnife_Emission</value>
+  </data>
+  <data name="skin__ThrowKnifeAlt1_Normal" xml:space="preserve">
+    <value>ThrowKnife_GreenBlack_Normal</value>
+  </data>
+  <data name="skin__ThrowKnifeAlt2_Diffuse" xml:space="preserve">
+    <value>ThrowKnife_MainTex</value>
+  </data>
+  <data name="skin__ThrowKnifeAlt2_Emissive" xml:space="preserve">
+    <value>ThrowKnife_Emission</value>
+  </data>
+  <data name="skin__ThrowKnifeAlt2_Normal" xml:space="preserve">
+    <value>ThrowKnife_GreenBlack_Normal</value>
+  </data>
+  <data name="skin__ThrowKnifeAlt3_Diffuse" xml:space="preserve">
+    <value>ThrowKnife_MainTex</value>
+  </data>
+  <data name="skin__ThrowKnifeAlt3_Emissive" xml:space="preserve">
+    <value>ThrowKnife_Emission</value>
+  </data>
+  <data name="skin__ThrowKnifeAlt3_Normal" xml:space="preserve">
+    <value>ThrowKnife_GreenBlack_Normal</value>
+  </data>
+  <data name="skin__ThrowKnifeAlt4_Diffuse" xml:space="preserve">
+    <value>ThrowKnife_MainTex</value>
+  </data>
+  <data name="skin__ThrowKnifeAlt4_Emissive" xml:space="preserve">
+    <value>ThrowKnife_Emission</value>
+  </data>
+  <data name="skin__ThrowKnifeAlt4_Normal" xml:space="preserve">
+    <value>ThrowKnife_GreenBlack_Normal</value>
+  </data>
+  <data name="skin__ThrowKnifeAlt5_Diffuse" xml:space="preserve">
+    <value>ThrowKnife_MainTex</value>
+  </data>
+  <data name="skin__ThrowKnifeAlt5_Emissive" xml:space="preserve">
+    <value>ThrowKnife_Emission</value>
+  </data>
+  <data name="skin__ThrowKnifeAlt5_Normal" xml:space="preserve">
+    <value>ThrowKnife_GreenBlack_Normal</value>
+  </data>
+  <data name="skin__ThrowKnifeAlt6_Diffuse" xml:space="preserve">
+    <value>ThrowKnife_MainTex</value>
+  </data>
+  <data name="skin__ThrowKnifeAlt6_Emissive" xml:space="preserve">
+    <value>ThrowKnife_Emission</value>
+  </data>
+  <data name="skin__ThrowKnifeAlt6_Normal" xml:space="preserve">
+    <value>ThrowKnife_GreenBlack_Normal</value>
+  </data>
+  <data name="skin__ThrowKnife_Diffuse" xml:space="preserve">
+    <value>ThrowKnife_MainTex</value>
+  </data>
+  <data name="skin__ThrowKnife_Emissive" xml:space="preserve">
+    <value>ThrowKnife_Emission</value>
+  </data>
+  <data name="skin__ThrowKnife_Normal" xml:space="preserve">
+    <value>ThrowKnife_GreenBlack_Normal</value>
   </data>
   <data name="sniper" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\sniper;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="SniperDefault_Diffuse" xml:space="preserve">
-    <value>Sniper_UrbanCamo_MainTex</value>
-  </data>
-  <data name="SniperDefault_Emissive" xml:space="preserve">
-    <value>Sniper_UrbanCamo_Emission</value>
-  </data>
-  <data name="SniperDefault_Normal" xml:space="preserve">
-    <value>Sniper_GreenCamo_Normal</value>
-  </data>
-  <data name="SniperPrefabPath" xml:space="preserve">
-    <value>Assets/__EXPORT/mdlSniper.prefab</value>
-  </data>
-  <data name="SniperSkin1_Diffuse" xml:space="preserve">
-    <value>Sniper_Classic_MainTex</value>
-  </data>
-  <data name="SniperSkin1_Emissive" xml:space="preserve">
-    <value>Sniper_Classic_Emission</value>
-  </data>
-  <data name="SniperSkin1_Normal" xml:space="preserve">
-    <value>Sniper_GreenCamo_Normal</value>
-  </data>
-  <data name="SniperSkin2_Diffuse" xml:space="preserve">
-    <value>Sniper_RedBlack_MainTex</value>
-  </data>
-  <data name="SniperSkin2_Emissive" xml:space="preserve">
-    <value>Sniper_RedBlack_Emission</value>
-  </data>
-  <data name="SniperSkin2_Normal" xml:space="preserve">
-    <value>Sniper_RedBlack_Normal</value>
-  </data>
-  <data name="SniperSkin3_Diffuse" xml:space="preserve">
-    <value>Sniper_GreenCamo_MainTex</value>
-  </data>
-  <data name="SniperSkin3_Emissive" xml:space="preserve">
-    <value>Sniper_GreenCamo_Emission</value>
-  </data>
-  <data name="SniperSkin3_Normal" xml:space="preserve">
-    <value>Sniper_GreenCamo_Normal</value>
-  </data>
-  <data name="SniperSkin4_Diffuse" xml:space="preserve">
-    <value>Sniper_Red_MainTex</value>
-  </data>
-  <data name="SniperSkin4_Emissive" xml:space="preserve">
-    <value>Sniper_Red_Emission</value>
-  </data>
-  <data name="SniperSkin4_Normal" xml:space="preserve">
-    <value>Sniper_RedBlack_Normal</value>
-  </data>
-  <data name="SniperSkin5_Diffuse" xml:space="preserve">
-    <value>Sniper_Red_MainTex</value>
-  </data>
-  <data name="SniperSkin5_Emissive" xml:space="preserve">
-    <value>Sniper_Red_Emission</value>
-  </data>
-  <data name="SniperSkin5_Normal" xml:space="preserve">
-    <value>Sniper_Red_Normal</value>
-  </data>
-  <data name="StandardAmmoIcon" xml:space="preserve">
-    <value>Assets/__EXPORT/Icons/Passive 1/Standard Ammo.png</value>
-  </data>
-  <data name="SteadyAimIcon" xml:space="preserve">
-    <value>Assets/__EXPORT/Icons/M2/Steady Aim.png</value>
-  </data>
-  <data name="ThrowKnifeAlt1_Diffuse" xml:space="preserve">
-    <value>ThrowKnife_GreenBlack_MainTex</value>
-  </data>
-  <data name="ThrowKnifeAlt1_Emissive" xml:space="preserve">
-    <value>ThrowKnife_GreenBlack_Emission</value>
-  </data>
-  <data name="ThrowKnifeAlt1_Normal" xml:space="preserve">
-    <value>ThrowKnife_GreenBlack_Normal</value>
-  </data>
-  <data name="ThrowKnifeAlt2_Diffuse" xml:space="preserve">
-    <value>ThrowKnife_GreenBlack_MainTex</value>
-  </data>
-  <data name="ThrowKnifeAlt2_Emissive" xml:space="preserve">
-    <value>ThrowKnife_GreenBlack_Emission</value>
-  </data>
-  <data name="ThrowKnifeAlt2_Normal" xml:space="preserve">
-    <value>ThrowKnife_GreenBlack_Normal</value>
-  </data>
-  <data name="ThrowKnifeAlt3_Diffuse" xml:space="preserve">
-    <value>ThrowKnife_GreenBlack_MainTex</value>
-  </data>
-  <data name="ThrowKnifeAlt3_Emissive" xml:space="preserve">
-    <value>ThrowKnife_GreenBlack_Emission</value>
-  </data>
-  <data name="ThrowKnifeAlt3_Normal" xml:space="preserve">
-    <value>ThrowKnife_GreenBlack_Normal</value>
-  </data>
-  <data name="ThrowKnifeAlt4_Diffuse" xml:space="preserve">
-    <value>ThrowKnife_GreenBlack_MainTex</value>
-  </data>
-  <data name="ThrowKnifeAlt4_Emissive" xml:space="preserve">
-    <value>ThrowKnife_GreenBlack_Emission</value>
-  </data>
-  <data name="ThrowKnifeAlt4_Normal" xml:space="preserve">
-    <value>ThrowKnife_GreenBlack_Normal</value>
-  </data>
-  <data name="ThrowKnifeDefault_Diffuse" xml:space="preserve">
-    <value>ThrowKnife_GreenBlack_MainTex</value>
-  </data>
-  <data name="ThrowKnifeDefault_Emissive" xml:space="preserve">
-    <value>ThrowKnife_GreenBlack_Emission</value>
-  </data>
-  <data name="ThrowKnifeDefault_Normal" xml:space="preserve">
-    <value>ThrowKnife_GreenBlack_Normal</value>
   </data>
 </root>

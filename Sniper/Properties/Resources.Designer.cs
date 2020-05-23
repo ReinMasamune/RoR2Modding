@@ -63,81 +63,171 @@ namespace Sniper.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Assets/__EXPORT/Icons/Utility/Backflip.png.
         /// </summary>
-        internal static string BackflipIcon {
+        internal static string icon__BackflipIcon {
             get {
-                return ResourceManager.GetString("BackflipIcon", resourceCulture);
+                return ResourceManager.GetString("icon__BackflipIcon", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Assets/__EXPORT/Icons/passive 2/Precise Aim.png.
         /// </summary>
-        internal static string CritPassiveIcon {
+        internal static string icon__CritPassiveIcon {
             get {
-                return ResourceManager.GetString("CritPassiveIcon", resourceCulture);
+                return ResourceManager.GetString("icon__CritPassiveIcon", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Assets/__EXPORT/Icons/Special 1/Decoy.png.
         /// </summary>
-        internal static string DecoyIcon {
+        internal static string icon__DecoyIcon {
             get {
-                return ResourceManager.GetString("DecoyIcon", resourceCulture);
+                return ResourceManager.GetString("icon__DecoyIcon", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Assets/__EXPORT/Icons/Special 1/Decoy_Reactivation.png.
         /// </summary>
-        internal static string DecoyReactivateIcon {
+        internal static string icon__DecoyReactivateIcon {
             get {
-                return ResourceManager.GetString("DecoyReactivateIcon", resourceCulture);
+                return ResourceManager.GetString("icon__DecoyReactivateIcon", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Assets/__EXPORT/Icons/Passive 1/Explosive Ammo.png.
         /// </summary>
-        internal static string ExplosiveAmmoIcon {
+        internal static string icon__ExplosiveAmmoIcon {
             get {
-                return ResourceManager.GetString("ExplosiveAmmoIcon", resourceCulture);
+                return ResourceManager.GetString("icon__ExplosiveAmmoIcon", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Assets/__EXPORT/Icons/passive 2/Headshot.png.
         /// </summary>
-        internal static string HeadshotIcon {
+        internal static string icon__HeadshotIcon {
             get {
-                return ResourceManager.GetString("HeadshotIcon", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Assets/__EXPORT/KnifeProjectileGhost.prefab.
-        /// </summary>
-        internal static string KnifeGhostPrefabPath {
-            get {
-                return ResourceManager.GetString("KnifeGhostPrefabPath", resourceCulture);
+                return ResourceManager.GetString("icon__HeadshotIcon", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string KnifeIcon {
+        internal static string icon__KnifeIcon {
             get {
-                return ResourceManager.GetString("KnifeIcon", resourceCulture);
+                return ResourceManager.GetString("icon__KnifeIcon", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string KnifeReactivateIcon {
+        internal static string icon__KnifeReactivateIcon {
             get {
-                return ResourceManager.GetString("KnifeReactivateIcon", resourceCulture);
+                return ResourceManager.GetString("icon__KnifeReactivateIcon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string icon__PlasmaAmmoIcon {
+            get {
+                return ResourceManager.GetString("icon__PlasmaAmmoIcon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Assets/__EXPORT/Icons/Other/portraitIcon.png.
+        /// </summary>
+        internal static string icon__PortraitIcon {
+            get {
+                return ResourceManager.GetString("icon__PortraitIcon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string icon__QuickscopeIcon {
+            get {
+                return ResourceManager.GetString("icon__QuickscopeIcon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Assets/__EXPORT/Icons/M1/Reload.png.
+        /// </summary>
+        internal static string icon__ReloadIcon {
+            get {
+                return ResourceManager.GetString("icon__ReloadIcon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string icon__ScatterAmmoIcon {
+            get {
+                return ResourceManager.GetString("icon__ScatterAmmoIcon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string icon__ShockAmmoIcon {
+            get {
+                return ResourceManager.GetString("icon__ShockAmmoIcon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string icon__SlideIcon {
+            get {
+                return ResourceManager.GetString("icon__SlideIcon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Assets/__EXPORT/Icons/M1/Reload.png.
+        /// </summary>
+        internal static string icon__SlideReloadIcon {
+            get {
+                return ResourceManager.GetString("icon__SlideReloadIcon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Assets/__EXPORT/Icons/M1/Snipe.png.
+        /// </summary>
+        internal static string icon__SnipeIcon {
+            get {
+                return ResourceManager.GetString("icon__SnipeIcon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Assets/__EXPORT/Icons/Passive 1/Standard Ammo.png.
+        /// </summary>
+        internal static string icon__StandardAmmoIcon {
+            get {
+                return ResourceManager.GetString("icon__StandardAmmoIcon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Assets/__EXPORT/Icons/M2/Steady Aim.png.
+        /// </summary>
+        internal static string icon__SteadyAimIcon {
+            get {
+                return ResourceManager.GetString("icon__SteadyAimIcon", resourceCulture);
             }
         }
         
@@ -448,6 +538,24 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Jungle.
+        /// </summary>
+        internal static string lang__SNIPER_SKIN_ALT5_NAME {
+            get {
+                return ResourceManager.GetString("lang__SNIPER_SKIN_ALT5_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Snow.
+        /// </summary>
+        internal static string lang__SNIPER_SKIN_ALT6_NAME {
+            get {
+                return ResourceManager.GetString("lang__SNIPER_SKIN_ALT6_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Default.
         /// </summary>
         internal static string lang__SNIPER_SKIN_DEFAULT_NAME {
@@ -520,137 +628,20 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Assets/__EXPORT/KnifeProjectileGhost.prefab.
         /// </summary>
-        internal static string PlasmaAmmoIcon {
+        internal static string prefab__KnifeGhostPrefab {
             get {
-                return ResourceManager.GetString("PlasmaAmmoIcon", resourceCulture);
+                return ResourceManager.GetString("prefab__KnifeGhostPrefab", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Assets/__EXPORT/Icons/Other/portraitIcon.png.
+        ///   Looks up a localized string similar to Assets/__EXPORT/mdlSniper.prefab.
         /// </summary>
-        internal static string PortraitIcon {
+        internal static string prefab__SniperPrefab {
             get {
-                return ResourceManager.GetString("PortraitIcon", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string QuickscopeIcon {
-            get {
-                return ResourceManager.GetString("QuickscopeIcon", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Railgun_Classic_MainTex.
-        /// </summary>
-        internal static string RailgunAlt1_Diffuse {
-            get {
-                return ResourceManager.GetString("RailgunAlt1_Diffuse", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Railgun_White_Emission.
-        /// </summary>
-        internal static string RailgunAlt1_Emissive {
-            get {
-                return ResourceManager.GetString("RailgunAlt1_Emissive", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Railgun_GreenGoldUrban_Normal.
-        /// </summary>
-        internal static string RailgunAlt1_Normal {
-            get {
-                return ResourceManager.GetString("RailgunAlt1_Normal", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Railgun_BlackGold_MainTex.
-        /// </summary>
-        internal static string RailgunAlt2_Diffuse {
-            get {
-                return ResourceManager.GetString("RailgunAlt2_Diffuse", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Railgun_BlackGold_Emission.
-        /// </summary>
-        internal static string RailgunAlt2_Emissive {
-            get {
-                return ResourceManager.GetString("RailgunAlt2_Emissive", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Railgun_GreenGoldUrban_Normal.
-        /// </summary>
-        internal static string RailgunAlt2_Normal {
-            get {
-                return ResourceManager.GetString("RailgunAlt2_Normal", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Railgun_GreenGoldUrban_MainTex.
-        /// </summary>
-        internal static string RailgunAlt3_Diffuse {
-            get {
-                return ResourceManager.GetString("RailgunAlt3_Diffuse", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Railgun_GreenGoldUrban_Emission.
-        /// </summary>
-        internal static string RailgunAlt3_Emissive {
-            get {
-                return ResourceManager.GetString("RailgunAlt3_Emissive", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Railgun_GreenGoldUrban_Normal.
-        /// </summary>
-        internal static string RailgunAlt3_Normal {
-            get {
-                return ResourceManager.GetString("RailgunAlt3_Normal", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Railgun_Stealth_MainTex.
-        /// </summary>
-        internal static string RailgunDefault_Diffuse {
-            get {
-                return ResourceManager.GetString("RailgunDefault_Diffuse", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Railgun_Stealth_Emission.
-        /// </summary>
-        internal static string RailgunDefault_Emissive {
-            get {
-                return ResourceManager.GetString("RailgunDefault_Emissive", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Railgun_GreenGoldUrban_Normal.
-        /// </summary>
-        internal static string RailgunDefault_Normal {
-            get {
-                return ResourceManager.GetString("RailgunDefault_Normal", resourceCulture);
+                return ResourceManager.GetString("prefab__SniperPrefab", resourceCulture);
             }
         }
         
@@ -675,56 +666,569 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Assets/__EXPORT/Icons/M1/Reload.png.
+        ///   Looks up a localized string similar to Railgun_Stealth_MainTex.
         /// </summary>
-        internal static string ReloadIcon {
+        internal static string skin__Railgun_Diffuse {
             get {
-                return ResourceManager.GetString("ReloadIcon", resourceCulture);
+                return ResourceManager.GetString("skin__Railgun_Diffuse", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Railgun_White_Emission.
         /// </summary>
-        internal static string ScatterAmmoIcon {
+        internal static string skin__Railgun_Emissive {
             get {
-                return ResourceManager.GetString("ScatterAmmoIcon", resourceCulture);
+                return ResourceManager.GetString("skin__Railgun_Emissive", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Railgun_GreenGoldUrban_Normal.
         /// </summary>
-        internal static string ShockAmmoIcon {
+        internal static string skin__Railgun_Normal {
             get {
-                return ResourceManager.GetString("ShockAmmoIcon", resourceCulture);
+                return ResourceManager.GetString("skin__Railgun_Normal", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Railgun_Classic_MainTex.
         /// </summary>
-        internal static string SlideIcon {
+        internal static string skin__RailgunAlt1_Diffuse {
             get {
-                return ResourceManager.GetString("SlideIcon", resourceCulture);
+                return ResourceManager.GetString("skin__RailgunAlt1_Diffuse", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Assets/__EXPORT/Icons/M1/Reload.png.
+        ///   Looks up a localized string similar to Railgun_White_Emission.
         /// </summary>
-        internal static string SlideReloadIcon {
+        internal static string skin__RailgunAlt1_Emissive {
             get {
-                return ResourceManager.GetString("SlideReloadIcon", resourceCulture);
+                return ResourceManager.GetString("skin__RailgunAlt1_Emissive", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Assets/__EXPORT/Icons/M1/Snipe.png.
+        ///   Looks up a localized string similar to Railgun_GreenGoldUrban_Normal.
         /// </summary>
-        internal static string SnipeIcon {
+        internal static string skin__RailgunAlt1_Normal {
             get {
-                return ResourceManager.GetString("SnipeIcon", resourceCulture);
+                return ResourceManager.GetString("skin__RailgunAlt1_Normal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Railgun_BlackGold_MainTex.
+        /// </summary>
+        internal static string skin__RailgunAlt2_Diffuse {
+            get {
+                return ResourceManager.GetString("skin__RailgunAlt2_Diffuse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Railgun_White_Emission.
+        /// </summary>
+        internal static string skin__RailgunAlt2_Emissive {
+            get {
+                return ResourceManager.GetString("skin__RailgunAlt2_Emissive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Railgun_GreenGoldUrban_Normal.
+        /// </summary>
+        internal static string skin__RailgunAlt2_Normal {
+            get {
+                return ResourceManager.GetString("skin__RailgunAlt2_Normal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Railgun_GreenGoldUrban_MainTex.
+        /// </summary>
+        internal static string skin__RailgunAlt3_Diffuse {
+            get {
+                return ResourceManager.GetString("skin__RailgunAlt3_Diffuse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Railgun_White_Emission.
+        /// </summary>
+        internal static string skin__RailgunAlt3_Emissive {
+            get {
+                return ResourceManager.GetString("skin__RailgunAlt3_Emissive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Railgun_GreenGoldUrban_Normal.
+        /// </summary>
+        internal static string skin__RailgunAlt3_Normal {
+            get {
+                return ResourceManager.GetString("skin__RailgunAlt3_Normal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Railgun_BlackGold_MainTex.
+        /// </summary>
+        internal static string skin__RailgunAlt4_Diffuse {
+            get {
+                return ResourceManager.GetString("skin__RailgunAlt4_Diffuse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Railgun_White_Emission.
+        /// </summary>
+        internal static string skin__RailgunAlt4_Emissive {
+            get {
+                return ResourceManager.GetString("skin__RailgunAlt4_Emissive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Railgun_GreenGoldUrban_Normal.
+        /// </summary>
+        internal static string skin__RailgunAlt4_Normal {
+            get {
+                return ResourceManager.GetString("skin__RailgunAlt4_Normal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Railgun_Jungle_MainTex.
+        /// </summary>
+        internal static string skin__RailgunAlt5_Diffuse {
+            get {
+                return ResourceManager.GetString("skin__RailgunAlt5_Diffuse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Railgun_White_Emission.
+        /// </summary>
+        internal static string skin__RailgunAlt5_Emissive {
+            get {
+                return ResourceManager.GetString("skin__RailgunAlt5_Emissive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Railgun_GreenGoldUrban_Normal.
+        /// </summary>
+        internal static string skin__RailgunAlt5_Normal {
+            get {
+                return ResourceManager.GetString("skin__RailgunAlt5_Normal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Railgun_Snow_MainTex.
+        /// </summary>
+        internal static string skin__RailgunAlt6_Diffuse {
+            get {
+                return ResourceManager.GetString("skin__RailgunAlt6_Diffuse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Railgun_Snow_Emission.
+        /// </summary>
+        internal static string skin__RailgunAlt6_Emissive {
+            get {
+                return ResourceManager.GetString("skin__RailgunAlt6_Emissive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Railgun_GreenGoldUrban_Normal.
+        /// </summary>
+        internal static string skin__RailgunAlt6_Normal {
+            get {
+                return ResourceManager.GetString("skin__RailgunAlt6_Normal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sniper_UrbanCamo_MainTex.
+        /// </summary>
+        internal static string skin__Sniper_Diffuse {
+            get {
+                return ResourceManager.GetString("skin__Sniper_Diffuse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sniper_Uncolored_Emission.
+        /// </summary>
+        internal static string skin__Sniper_Emissive {
+            get {
+                return ResourceManager.GetString("skin__Sniper_Emissive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sniper_RedBlack_Normal.
+        /// </summary>
+        internal static string skin__Sniper_Normal {
+            get {
+                return ResourceManager.GetString("skin__Sniper_Normal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sniper_Classic_MainTex.
+        /// </summary>
+        internal static string skin__SniperAlt1_Diffuse {
+            get {
+                return ResourceManager.GetString("skin__SniperAlt1_Diffuse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sniper_Classic_Emission.
+        /// </summary>
+        internal static string skin__SniperAlt1_Emissive {
+            get {
+                return ResourceManager.GetString("skin__SniperAlt1_Emissive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sniper_RedBlack_Normal.
+        /// </summary>
+        internal static string skin__SniperAlt1_Normal {
+            get {
+                return ResourceManager.GetString("skin__SniperAlt1_Normal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sniper_RedBlack_MainTex.
+        /// </summary>
+        internal static string skin__SniperAlt2_Diffuse {
+            get {
+                return ResourceManager.GetString("skin__SniperAlt2_Diffuse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sniper_RedBlack_Emission.
+        /// </summary>
+        internal static string skin__SniperAlt2_Emissive {
+            get {
+                return ResourceManager.GetString("skin__SniperAlt2_Emissive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sniper_RedBlack_Normal.
+        /// </summary>
+        internal static string skin__SniperAlt2_Normal {
+            get {
+                return ResourceManager.GetString("skin__SniperAlt2_Normal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sniper_GreenCamo_MainTex.
+        /// </summary>
+        internal static string skin__SniperAlt3_Diffuse {
+            get {
+                return ResourceManager.GetString("skin__SniperAlt3_Diffuse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sniper_Uncolored_Emission.
+        /// </summary>
+        internal static string skin__SniperAlt3_Emissive {
+            get {
+                return ResourceManager.GetString("skin__SniperAlt3_Emissive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sniper_RedBlack_Normal.
+        /// </summary>
+        internal static string skin__SniperAlt3_Normal {
+            get {
+                return ResourceManager.GetString("skin__SniperAlt3_Normal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sniper_Red_MainTex.
+        /// </summary>
+        internal static string skin__SniperAlt4_Diffuse {
+            get {
+                return ResourceManager.GetString("skin__SniperAlt4_Diffuse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sniper_Red_Emission.
+        /// </summary>
+        internal static string skin__SniperAlt4_Emissive {
+            get {
+                return ResourceManager.GetString("skin__SniperAlt4_Emissive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sniper_RedBlack_Normal.
+        /// </summary>
+        internal static string skin__SniperAlt4_Normal {
+            get {
+                return ResourceManager.GetString("skin__SniperAlt4_Normal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sniper_Jungle_MainTex.
+        /// </summary>
+        internal static string skin__SniperAlt5_Diffuse {
+            get {
+                return ResourceManager.GetString("skin__SniperAlt5_Diffuse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sniper_Uncolored_Emission.
+        /// </summary>
+        internal static string skin__SniperAlt5_Emissive {
+            get {
+                return ResourceManager.GetString("skin__SniperAlt5_Emissive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sniper_RedBlack_Normal.
+        /// </summary>
+        internal static string skin__SniperAlt5_Normal {
+            get {
+                return ResourceManager.GetString("skin__SniperAlt5_Normal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sniper_Snow_MainTex.
+        /// </summary>
+        internal static string skin__SniperAlt6_Diffuse {
+            get {
+                return ResourceManager.GetString("skin__SniperAlt6_Diffuse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sniper_Snow_Emission.
+        /// </summary>
+        internal static string skin__SniperAlt6_Emissive {
+            get {
+                return ResourceManager.GetString("skin__SniperAlt6_Emissive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sniper_Snow_Normal.
+        /// </summary>
+        internal static string skin__SniperAlt6_Normal {
+            get {
+                return ResourceManager.GetString("skin__SniperAlt6_Normal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ThrowKnife_MainTex.
+        /// </summary>
+        internal static string skin__ThrowKnife_Diffuse {
+            get {
+                return ResourceManager.GetString("skin__ThrowKnife_Diffuse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ThrowKnife_Emission.
+        /// </summary>
+        internal static string skin__ThrowKnife_Emissive {
+            get {
+                return ResourceManager.GetString("skin__ThrowKnife_Emissive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ThrowKnife_GreenBlack_Normal.
+        /// </summary>
+        internal static string skin__ThrowKnife_Normal {
+            get {
+                return ResourceManager.GetString("skin__ThrowKnife_Normal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ThrowKnife_MainTex.
+        /// </summary>
+        internal static string skin__ThrowKnifeAlt1_Diffuse {
+            get {
+                return ResourceManager.GetString("skin__ThrowKnifeAlt1_Diffuse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ThrowKnife_Emission.
+        /// </summary>
+        internal static string skin__ThrowKnifeAlt1_Emissive {
+            get {
+                return ResourceManager.GetString("skin__ThrowKnifeAlt1_Emissive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ThrowKnife_GreenBlack_Normal.
+        /// </summary>
+        internal static string skin__ThrowKnifeAlt1_Normal {
+            get {
+                return ResourceManager.GetString("skin__ThrowKnifeAlt1_Normal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ThrowKnife_MainTex.
+        /// </summary>
+        internal static string skin__ThrowKnifeAlt2_Diffuse {
+            get {
+                return ResourceManager.GetString("skin__ThrowKnifeAlt2_Diffuse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ThrowKnife_Emission.
+        /// </summary>
+        internal static string skin__ThrowKnifeAlt2_Emissive {
+            get {
+                return ResourceManager.GetString("skin__ThrowKnifeAlt2_Emissive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ThrowKnife_GreenBlack_Normal.
+        /// </summary>
+        internal static string skin__ThrowKnifeAlt2_Normal {
+            get {
+                return ResourceManager.GetString("skin__ThrowKnifeAlt2_Normal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ThrowKnife_MainTex.
+        /// </summary>
+        internal static string skin__ThrowKnifeAlt3_Diffuse {
+            get {
+                return ResourceManager.GetString("skin__ThrowKnifeAlt3_Diffuse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ThrowKnife_Emission.
+        /// </summary>
+        internal static string skin__ThrowKnifeAlt3_Emissive {
+            get {
+                return ResourceManager.GetString("skin__ThrowKnifeAlt3_Emissive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ThrowKnife_GreenBlack_Normal.
+        /// </summary>
+        internal static string skin__ThrowKnifeAlt3_Normal {
+            get {
+                return ResourceManager.GetString("skin__ThrowKnifeAlt3_Normal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ThrowKnife_MainTex.
+        /// </summary>
+        internal static string skin__ThrowKnifeAlt4_Diffuse {
+            get {
+                return ResourceManager.GetString("skin__ThrowKnifeAlt4_Diffuse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ThrowKnife_Emission.
+        /// </summary>
+        internal static string skin__ThrowKnifeAlt4_Emissive {
+            get {
+                return ResourceManager.GetString("skin__ThrowKnifeAlt4_Emissive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ThrowKnife_GreenBlack_Normal.
+        /// </summary>
+        internal static string skin__ThrowKnifeAlt4_Normal {
+            get {
+                return ResourceManager.GetString("skin__ThrowKnifeAlt4_Normal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ThrowKnife_MainTex.
+        /// </summary>
+        internal static string skin__ThrowKnifeAlt5_Diffuse {
+            get {
+                return ResourceManager.GetString("skin__ThrowKnifeAlt5_Diffuse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ThrowKnife_Emission.
+        /// </summary>
+        internal static string skin__ThrowKnifeAlt5_Emissive {
+            get {
+                return ResourceManager.GetString("skin__ThrowKnifeAlt5_Emissive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ThrowKnife_GreenBlack_Normal.
+        /// </summary>
+        internal static string skin__ThrowKnifeAlt5_Normal {
+            get {
+                return ResourceManager.GetString("skin__ThrowKnifeAlt5_Normal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ThrowKnife_MainTex.
+        /// </summary>
+        internal static string skin__ThrowKnifeAlt6_Diffuse {
+            get {
+                return ResourceManager.GetString("skin__ThrowKnifeAlt6_Diffuse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ThrowKnife_Emission.
+        /// </summary>
+        internal static string skin__ThrowKnifeAlt6_Emissive {
+            get {
+                return ResourceManager.GetString("skin__ThrowKnifeAlt6_Emissive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ThrowKnife_GreenBlack_Normal.
+        /// </summary>
+        internal static string skin__ThrowKnifeAlt6_Normal {
+            get {
+                return ResourceManager.GetString("skin__ThrowKnifeAlt6_Normal", resourceCulture);
             }
         }
         
@@ -735,330 +1239,6 @@ namespace Sniper.Properties {
             get {
                 object obj = ResourceManager.GetObject("sniper", resourceCulture);
                 return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Sniper_UrbanCamo_MainTex.
-        /// </summary>
-        internal static string SniperDefault_Diffuse {
-            get {
-                return ResourceManager.GetString("SniperDefault_Diffuse", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Sniper_UrbanCamo_Emission.
-        /// </summary>
-        internal static string SniperDefault_Emissive {
-            get {
-                return ResourceManager.GetString("SniperDefault_Emissive", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Sniper_GreenCamo_Normal.
-        /// </summary>
-        internal static string SniperDefault_Normal {
-            get {
-                return ResourceManager.GetString("SniperDefault_Normal", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Assets/__EXPORT/mdlSniper.prefab.
-        /// </summary>
-        internal static string SniperPrefabPath {
-            get {
-                return ResourceManager.GetString("SniperPrefabPath", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Sniper_Classic_MainTex.
-        /// </summary>
-        internal static string SniperSkin1_Diffuse {
-            get {
-                return ResourceManager.GetString("SniperSkin1_Diffuse", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Sniper_Classic_Emission.
-        /// </summary>
-        internal static string SniperSkin1_Emissive {
-            get {
-                return ResourceManager.GetString("SniperSkin1_Emissive", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Sniper_GreenCamo_Normal.
-        /// </summary>
-        internal static string SniperSkin1_Normal {
-            get {
-                return ResourceManager.GetString("SniperSkin1_Normal", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Sniper_RedBlack_MainTex.
-        /// </summary>
-        internal static string SniperSkin2_Diffuse {
-            get {
-                return ResourceManager.GetString("SniperSkin2_Diffuse", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Sniper_RedBlack_Emission.
-        /// </summary>
-        internal static string SniperSkin2_Emissive {
-            get {
-                return ResourceManager.GetString("SniperSkin2_Emissive", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Sniper_RedBlack_Normal.
-        /// </summary>
-        internal static string SniperSkin2_Normal {
-            get {
-                return ResourceManager.GetString("SniperSkin2_Normal", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Sniper_GreenCamo_MainTex.
-        /// </summary>
-        internal static string SniperSkin3_Diffuse {
-            get {
-                return ResourceManager.GetString("SniperSkin3_Diffuse", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Sniper_GreenCamo_Emission.
-        /// </summary>
-        internal static string SniperSkin3_Emissive {
-            get {
-                return ResourceManager.GetString("SniperSkin3_Emissive", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Sniper_GreenCamo_Normal.
-        /// </summary>
-        internal static string SniperSkin3_Normal {
-            get {
-                return ResourceManager.GetString("SniperSkin3_Normal", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Sniper_Red_MainTex.
-        /// </summary>
-        internal static string SniperSkin4_Diffuse {
-            get {
-                return ResourceManager.GetString("SniperSkin4_Diffuse", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Sniper_Red_Emission.
-        /// </summary>
-        internal static string SniperSkin4_Emissive {
-            get {
-                return ResourceManager.GetString("SniperSkin4_Emissive", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Sniper_RedBlack_Normal.
-        /// </summary>
-        internal static string SniperSkin4_Normal {
-            get {
-                return ResourceManager.GetString("SniperSkin4_Normal", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Sniper_Red_MainTex.
-        /// </summary>
-        internal static string SniperSkin5_Diffuse {
-            get {
-                return ResourceManager.GetString("SniperSkin5_Diffuse", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Sniper_Red_Emission.
-        /// </summary>
-        internal static string SniperSkin5_Emissive {
-            get {
-                return ResourceManager.GetString("SniperSkin5_Emissive", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Sniper_Red_Normal.
-        /// </summary>
-        internal static string SniperSkin5_Normal {
-            get {
-                return ResourceManager.GetString("SniperSkin5_Normal", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Assets/__EXPORT/Icons/Passive 1/Standard Ammo.png.
-        /// </summary>
-        internal static string StandardAmmoIcon {
-            get {
-                return ResourceManager.GetString("StandardAmmoIcon", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Assets/__EXPORT/Icons/M2/Steady Aim.png.
-        /// </summary>
-        internal static string SteadyAimIcon {
-            get {
-                return ResourceManager.GetString("SteadyAimIcon", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to ThrowKnife_GreenBlack_MainTex.
-        /// </summary>
-        internal static string ThrowKnifeAlt1_Diffuse {
-            get {
-                return ResourceManager.GetString("ThrowKnifeAlt1_Diffuse", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to ThrowKnife_GreenBlack_Emission.
-        /// </summary>
-        internal static string ThrowKnifeAlt1_Emissive {
-            get {
-                return ResourceManager.GetString("ThrowKnifeAlt1_Emissive", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to ThrowKnife_GreenBlack_Normal.
-        /// </summary>
-        internal static string ThrowKnifeAlt1_Normal {
-            get {
-                return ResourceManager.GetString("ThrowKnifeAlt1_Normal", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to ThrowKnife_GreenBlack_MainTex.
-        /// </summary>
-        internal static string ThrowKnifeAlt2_Diffuse {
-            get {
-                return ResourceManager.GetString("ThrowKnifeAlt2_Diffuse", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to ThrowKnife_GreenBlack_Emission.
-        /// </summary>
-        internal static string ThrowKnifeAlt2_Emissive {
-            get {
-                return ResourceManager.GetString("ThrowKnifeAlt2_Emissive", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to ThrowKnife_GreenBlack_Normal.
-        /// </summary>
-        internal static string ThrowKnifeAlt2_Normal {
-            get {
-                return ResourceManager.GetString("ThrowKnifeAlt2_Normal", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to ThrowKnife_GreenBlack_MainTex.
-        /// </summary>
-        internal static string ThrowKnifeAlt3_Diffuse {
-            get {
-                return ResourceManager.GetString("ThrowKnifeAlt3_Diffuse", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to ThrowKnife_GreenBlack_Emission.
-        /// </summary>
-        internal static string ThrowKnifeAlt3_Emissive {
-            get {
-                return ResourceManager.GetString("ThrowKnifeAlt3_Emissive", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to ThrowKnife_GreenBlack_Normal.
-        /// </summary>
-        internal static string ThrowKnifeAlt3_Normal {
-            get {
-                return ResourceManager.GetString("ThrowKnifeAlt3_Normal", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to ThrowKnife_GreenBlack_MainTex.
-        /// </summary>
-        internal static string ThrowKnifeAlt4_Diffuse {
-            get {
-                return ResourceManager.GetString("ThrowKnifeAlt4_Diffuse", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to ThrowKnife_GreenBlack_Emission.
-        /// </summary>
-        internal static string ThrowKnifeAlt4_Emissive {
-            get {
-                return ResourceManager.GetString("ThrowKnifeAlt4_Emissive", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to ThrowKnife_GreenBlack_Normal.
-        /// </summary>
-        internal static string ThrowKnifeAlt4_Normal {
-            get {
-                return ResourceManager.GetString("ThrowKnifeAlt4_Normal", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to ThrowKnife_GreenBlack_MainTex.
-        /// </summary>
-        internal static string ThrowKnifeDefault_Diffuse {
-            get {
-                return ResourceManager.GetString("ThrowKnifeDefault_Diffuse", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to ThrowKnife_GreenBlack_Emission.
-        /// </summary>
-        internal static string ThrowKnifeDefault_Emissive {
-            get {
-                return ResourceManager.GetString("ThrowKnifeDefault_Emissive", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to ThrowKnife_GreenBlack_Normal.
-        /// </summary>
-        internal static string ThrowKnifeDefault_Normal {
-            get {
-                return ResourceManager.GetString("ThrowKnifeDefault_Normal", resourceCulture);
             }
         }
     }

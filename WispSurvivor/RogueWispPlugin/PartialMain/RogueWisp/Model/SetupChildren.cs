@@ -873,25 +873,35 @@ namespace Rein.RogueWispPlugin
             #endregion
 
             #endregion
-            var allFlags = BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static;
-            var field = typeof(ChildLocator).GetField( "transformPairs", allFlags );
-            var arrayType = field.FieldType;
-            var pairType = arrayType.GetElementType();
-            var funcType = typeof(Func<,,>).MakeGenericType( typeof(String), typeof(Transform), pairType );
-            var nameField = pairType.GetField( "name", allFlags ) as MemberInfo;
-            var transformField = pairType.GetField( "transform", allFlags ) as MemberInfo;
-            var nameParam = Expression.Parameter( typeof(String), "name" );
-            var transformParam = Expression.Parameter( typeof(Transform), "transform" );
-            var newPair = Expression.New( pairType );
-            var assignName = Expression.Bind( nameField, nameParam );
-            var assignTransform = Expression.Bind( transformField, transformParam );
-            var init = Expression.MemberInit( newPair, assignName, assignTransform );
-            var initFunc = Expression.Lambda( funcType, init, nameParam, transformParam );
+
+            BindingFlags allFlags = BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static;
+            FieldInfo field = typeof(ChildLocator).GetField( "transformPairs", allFlags );
+            Type arrayType = field.FieldType;
+            Type pairType = arrayType.GetElementType();
+            Type funcType = typeof(Func<,,>).MakeGenericType( typeof(String), typeof(Transform), pairType );
+            MemberInfo nameField = pairType.GetField( "name", allFlags ) as MemberInfo;
+            MemberInfo transformField = pairType.GetField( "transform", allFlags ) as MemberInfo;
+
+            ParameterExpression nameParam = Expression.Parameter( typeof(String), "name" );
+            ParameterExpression transformParam = Expression.Parameter( typeof(Transform), "transform" );
+
+            NewExpression newPair = Expression.New( pairType );
+
+            MemberAssignment assignName = Expression.Bind( nameField, nameParam );
+            MemberAssignment assignTransform = Expression.Bind( transformField, transformParam );
+
+            MemberInitExpression init = Expression.MemberInit( newPair, assignName, assignTransform );
+
+            LambdaExpression initFunc = Expression.Lambda( funcType, init, nameParam, transformParam );
+
             Expression initArray = Expression.NewArrayInit( pairType,
                 this.pairsList.Select<(Transform transform, String name),Expression>(
                     (val) => Expression.Invoke( initFunc, Expression.Constant( val.name ), Expression.Constant( val.transform ) ) ) );
-            var childLocParam = Expression.Parameter( typeof(ChildLocator), "childLocator" );
-            var assignArray = Expression.Assign( Expression.Field( childLocParam, field ), initArray );
+
+            ParameterExpression childLocParam = Expression.Parameter( typeof(ChildLocator), "childLocator" );
+
+            BinaryExpression assignArray = Expression.Assign( Expression.Field( childLocParam, field ), initArray );
+
             Expression.Lambda<Action<ChildLocator>>( assignArray, childLocParam ).Compile()( this.RW_childLoc );
         }
 

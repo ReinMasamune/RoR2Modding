@@ -14,32 +14,60 @@
 
     internal static class ModelModule
     {
+        private static readonly Color defaultEmisColor = new Color( 0f, 1f, 0.48f, 1f );
+        private static readonly Color alt1EmisColor = new Color( 0.8f, 0.5f, 1f );
+        private static readonly Color alt2EmisColor = new Color( 0.88f, 0.31f, 0.11f );
+        private static readonly Color alt3EmisColor = new Color( 0.4f, 1f, 0f );
+        private static readonly Color alt4EmisColor = new Color( 1f, 0f, 0f );
+        private static readonly Color alt5EmisColor = new Color( 1f, 1f, 0f );
+        private static readonly Color alt6EmisColor = new Color( 0.4f, 0.78f, 1f );
+
+        private static Color Square( Color color )
+        {
+            return new Color( color.r * color.r, color.g * color.g, color.b * color.b, color.a * color.a );
+        }
+
+        private static Color Root( Color color )
+        {
+            return new Color( Mathf.Sqrt( color.r ), Mathf.Sqrt( color.g ), Mathf.Sqrt( color.b ), Mathf.Sqrt( color.a ) );
+        }
+
         private static readonly Color[] iconColors = new[]
         {
             new Color( 0.2452f, 0.2452f, 0.2452f ),
-            new Color( 0.1195f, 1f, 0f ),
+            new Color( 0.04f, 0.04f, 0.04f ),
             new Color( 0.1037f, 0.1037f, 0.1037f ),
-            new Color( 0.6851f, 1f, 0.6273f ),
+            Square(defaultEmisColor),
 
-            new Color( 0.1645f, 0f, 0.3018f ),
-            new Color( 0.6174f, 0f, 1f ),
+            new Color( 0.02f, 0.02f, 0.02f ),
+            new Color( 0.08f, 0.05f, 0.15f ),
             new Color( 0.0660f, 0.0660f, 0.0660f ),
-            new Color( 0.8773f, 0.7122f, 1f ),
+            Square(alt1EmisColor),
 
             new Color( 0.1509f, 0.1509f, 0.1509f ),
-            new Color( 1f, 0.3397f, 0f ),
+            new Color( 0.02f, 0.02f, 0.02f ),
             new Color( 0.3373f, 0.3373f, 0.3373f ),
-            new Color( 0.5566f, 0.5566f, 0.5566f ),
+            Square(alt2EmisColor),
 
             new Color( 0.1266f, 0.1266f, 0.1266f ),
-            new Color( 0.2984f, 1f, 0f ),
+            new Color( 0f, 0.25f, 0f ),
             new Color( 0.1981f, 0.1118f, 0f ),
-            new Color( 0.0508f, 0.1603f, 0f ),
+            Square(alt3EmisColor),
 
-            new Color( 0.0943f, 0.0943f, 0.0943f ),
-            new Color( 1f, 0f, 0f ),
-            new Color( 0.2547f, 0.2547f, 0.2547f ),
-            new Color( 0.2542f, 0f, 0f ),
+            new Color( 0.02f, 0.02f, 0.02f ),
+            new Color( 0.2f, 0f, 0f ),
+            new Color( 0.08f, 0f, 0f ),
+            Square(alt4EmisColor),
+
+            new Color( 0.75f, 0.5f, 0.19f ),
+            Square(new Color( 0.32f, 0.67f, 0.19f )),
+            new Color( 0.1f, 0.1f, 0.1f ),
+            Square(alt5EmisColor),
+
+            new Color( 1f, 1f, 1f ),
+            new Color( 0.6f, 0.6f, 0.6f ),
+            new Color( 0.2f, 0.2f, 0.2f ),
+            Square(alt6EmisColor),
         };
 
         internal static GameObject GetModel()
@@ -52,9 +80,7 @@
             return _model;
         }
 
-#pragma warning disable IDE1006 // Naming Styles
         private static GameObject _model;
-#pragma warning restore IDE1006 // Naming Styles
         private static GameObject CreateModel()
         {
             Int32 ind = 0;
@@ -73,6 +99,11 @@
             ITextureJob alt4IconJob = TexturesCore.GenerateCrossTextureBatch( 512, 512, 100, 20, 3, new Color( 0.9f, 0.9f, 0.9f ), new Color( 0.4f, 0.4f, 0.4f ),
                 iconColors[ind++], iconColors[ind++], iconColors[ind++], iconColors[ind++] );
 
+            ITextureJob alt5IconJob = TexturesCore.GenerateCrossTextureBatch( 512, 512, 100, 20, 3, new Color( 0.9f, 0.9f, 0.9f ), new Color( 0.4f, 0.4f, 0.4f ),
+                iconColors[ind++], iconColors[ind++], iconColors[ind++], iconColors[ind++] );
+
+            ITextureJob alt6IconJob = TexturesCore.GenerateCrossTextureBatch( 512, 512, 100, 20, 3, new Color( 0.9f, 0.9f, 0.9f ), new Color( 0.4f, 0.4f, 0.4f ),
+                iconColors[ind++], iconColors[ind++], iconColors[ind++], iconColors[ind++] );
 
 
             ITextureJob defaultRampJob = TexturesCore.GenerateRampTextureBatch( new[]
@@ -84,7 +115,7 @@
             new[]
             {
                 new GradientColorKey( Color.black, 0f ),
-                new GradientColorKey( new Color( 0.4f, 1f, 0.4f ), 0.95f ),
+                new GradientColorKey( defaultEmisColor, 0.95f ),
                 new GradientColorKey( Color.white, 1f ),
             } );
 
@@ -97,7 +128,8 @@
             new[]
             {
                 new GradientColorKey( Color.black, 0f ),
-                new GradientColorKey( Color.green, 1f ),
+                new GradientColorKey( alt1EmisColor, 0.95f ),
+                new GradientColorKey( Color.white, 1f ),
             } );
 
             ITextureJob alt2RampJob = TexturesCore.GenerateRampTextureBatch( new[]
@@ -109,7 +141,8 @@
             new[]
             {
                 new GradientColorKey( Color.black, 0f ),
-                new GradientColorKey( Color.green, 1f ),
+                new GradientColorKey( alt2EmisColor, 0.95f ),
+                new GradientColorKey( Color.white, 1f ),
             } );
 
             ITextureJob alt3RampJob = TexturesCore.GenerateRampTextureBatch( new[]
@@ -121,7 +154,8 @@
             new[]
             {
                 new GradientColorKey( Color.black, 0f ),
-                new GradientColorKey( Color.green, 1f ),
+                new GradientColorKey( alt3EmisColor, 0.95f ),
+                new GradientColorKey( Color.white, 1f ),
             } );
 
             ITextureJob alt4RampJob = TexturesCore.GenerateRampTextureBatch( new[]
@@ -133,12 +167,39 @@
             new[]
             {
                 new GradientColorKey( Color.black, 0f ),
-                new GradientColorKey( Color.green, 1f ),
+                new GradientColorKey( alt4EmisColor, 0.95f ),
+                new GradientColorKey( Color.white, 1f ),
+            } );
+
+            ITextureJob alt5RampJob = TexturesCore.GenerateRampTextureBatch( new[]
+            {
+                new GradientAlphaKey(0f, 0f),
+                new GradientAlphaKey(0.1f, 0.5f),
+                new GradientAlphaKey(1f, 1f),
+            },
+            new[]
+            {
+                new GradientColorKey( Color.black, 0f ),
+                new GradientColorKey( alt5EmisColor, 0.95f ),
+                new GradientColorKey( Color.white, 1f ),
+            } );
+
+            ITextureJob alt6RampJob = TexturesCore.GenerateRampTextureBatch( new[]
+            {
+                new GradientAlphaKey(0f, 0f),
+                new GradientAlphaKey(0.1f, 0.5f),
+                new GradientAlphaKey(1f, 1f),
+            },
+            new[]
+            {
+                new GradientColorKey( Color.black, 0f ),
+                new GradientColorKey( alt6EmisColor, 0.95f ),
+                new GradientColorKey( Color.white, 1f ),
             } );
 
             JobHandle.ScheduleBatchedJobs();
 
-            GameObject model = AssetModule.GetSniperAssetBundle().LoadAsset<GameObject>( Properties.Resources.SniperPrefabPath );
+            GameObject model = AssetModule.GetSniperAssetBundle().LoadAsset<GameObject>( Properties.Resources.prefab__SniperPrefab );
             CharacterModel charModel = model.GetComponent<CharacterModel>();
 
             for( Int32 i = 0; i < charModel.baseRendererInfos.Length; ++i )
@@ -150,10 +211,10 @@
             var defaultSkin = new SniperSkin
             (
                 "Default",
-                TextureModule.GetSniperDefaultTextures(),
-                TextureModule.GetRailDefaultTextures(),
-                TextureModule.GetThrowKnifeDefaultTextures(),
-                TextureModule.GetSniperDefaultTextures(),
+                TextureModule.GetSniperTextures(),
+                TextureModule.GetRailTextures(),
+                TextureModule.GetThrowKnifeTextures(),
+                TextureModule.GetSniperTextures(),
                 defaultRampJob
             );
             defaultSkin.ApplyDefaultSkinModifiers();
@@ -161,10 +222,10 @@
             var alt1 = new SniperSkin
             (
                 "Alt1",
-                TextureModule.GetSniperSkin1Textures(),
+                TextureModule.GetSniperAlt1Textures(),
                 TextureModule.GetRailAlt1Textures(),
-                TextureModule.GetThrowKnifeDefaultTextures(),
-                TextureModule.GetSniperSkin1Textures(),
+                TextureModule.GetThrowKnifeAlt1Textures(),
+                TextureModule.GetSniperAlt1Textures(),
                 alt1RampJob
             );
             alt1.ApplyAlt1SkinModifiers();
@@ -172,10 +233,10 @@
             var alt2 = new SniperSkin
             (
                 "Alt2",
-                TextureModule.GetSniperSkin2Textures(),
+                TextureModule.GetSniperAlt2Textures(),
                 TextureModule.GetRailAlt2Textures(),
-                TextureModule.GetThrowKnifeDefaultTextures(),
-                TextureModule.GetSniperSkin2Textures(),
+                TextureModule.GetThrowKnifeAlt2Textures(),
+                TextureModule.GetSniperAlt2Textures(),
                 alt2RampJob
             );
             alt2.ApplyAlt2SkinModifiers();
@@ -184,10 +245,10 @@
             var alt3 = new SniperSkin
             (
                 "Alt3",
-                TextureModule.GetSniperSkin3Textures(),
+                TextureModule.GetSniperAlt3Textures(),
                 TextureModule.GetRailAlt3Textures(),
-                TextureModule.GetThrowKnifeDefaultTextures(),
-                TextureModule.GetSniperSkin3Textures(),
+                TextureModule.GetThrowKnifeAlt3Textures(),
+                TextureModule.GetSniperAlt3Textures(),
                 alt3RampJob
             );
             alt3.ApplyAlt3SkinModifiers();
@@ -195,14 +256,36 @@
             var alt4 = new SniperSkin
             (
                 "Alt4",
-                TextureModule.GetSniperSkin4Textures(),
-                TextureModule.GetRailAlt2Textures(),
-                TextureModule.GetThrowKnifeDefaultTextures(),
-                TextureModule.GetSniperSkin4Textures(),
+                TextureModule.GetSniperAlt4Textures(),
+                TextureModule.GetRailAlt4Textures(),
+                TextureModule.GetThrowKnifeAlt4Textures(),
+                TextureModule.GetSniperAlt4Textures(),
                 alt4RampJob
-
             );
             alt4.ApplyAlt4SkinModifiers();
+
+            var alt5 = new SniperSkin
+            (
+                "Alt5",
+                TextureModule.GetSniperAlt5Textures(),
+                TextureModule.GetRailAlt5Textures(),
+                TextureModule.GetThrowKnifeAlt5Textures(),
+                TextureModule.GetSniperAlt5Textures(),
+                alt5RampJob
+            );
+            alt5.ApplyAlt5SkinModifiers();
+
+            var alt6 = new SniperSkin
+            (
+                "Alt4",
+                TextureModule.GetSniperAlt6Textures(),
+                TextureModule.GetRailAlt6Textures(),
+                TextureModule.GetThrowKnifeAlt6Textures(),
+                TextureModule.GetSniperAlt6Textures(),
+                alt6RampJob
+            );
+            alt6.ApplyAlt6SkinModifiers();
+
 
 
             Texture2D defaultTex = defaultIconJob.OutputTextureAndDispose();
@@ -225,10 +308,19 @@
                 Sprite.Create( alt3Tex, new Rect( 0f, 0f, alt3Tex.width, alt3Tex.height ), new Vector2( 0.5f, 0.5f ) ) );
 
 
-
             Texture2D alt4Tex = alt4IconJob.OutputTextureAndDispose();
             alt4.CreateAndAddSkin( charModel, Properties.Tokens.SNIPER_SKIN_ALT4_NAME, "",
                 Sprite.Create( alt4Tex, new Rect( 0f, 0f, alt4Tex.width, alt4Tex.height ), new Vector2( 0.5f, 0.5f ) ) );
+
+
+            Texture2D alt5Tex = alt5IconJob.OutputTextureAndDispose();
+            alt5.CreateAndAddSkin( charModel, Properties.Tokens.SNIPER_SKIN_ALT5_NAME, "",
+                Sprite.Create( alt5Tex, new Rect( 0f, 0f, alt5Tex.width, alt5Tex.height ), new Vector2( 0.5f, 0.5f ) ) );
+
+
+            Texture2D alt6Tex = alt6IconJob.OutputTextureAndDispose();
+            alt6.CreateAndAddSkin( charModel, Properties.Tokens.SNIPER_SKIN_ALT6_NAME, "",
+                Sprite.Create( alt6Tex, new Rect( 0f, 0f, alt6Tex.width, alt6Tex.height ), new Vector2( 0.5f, 0.5f ) ) );
 
 
 
@@ -252,30 +344,33 @@
             return model;
         }
 
-        private static void ApplyDefaultSkinModifiers( this SniperSkin defaultSkin )
+        private static void ApplyDefaultSkinModifiers( this SniperSkin skin )
         {
-            defaultSkin.AddMaterialModifier( SniperSkin.SniperMaterial.All, ( mat ) =>
+            skin.AddMaterialModifier( SniperSkin.SniperMaterial.All, ( mat ) =>
             {
                 mat.mainColor = Color.white;
                 mat.cull = MaterialBase.CullMode.Back;
                 mat.ignoreDiffuseAlphaForSpecular = true;
-                mat.rampChoice = MaterialBase.RampInfo.SmoothedTwoTone;
-                mat.specularExponent = 3f;
+                mat.rampChoice = MaterialBase.RampInfo.TwoTone;
+                mat.specularExponent = 2f;
                 mat.emissionPower = 1f;
                 mat.smoothness = 0f;
                 mat.emissionColor = Color.clear;
+                mat.flashColor = Color.clear;
             } );
 
-            defaultSkin.AddMaterialModifier( SniperSkin.SniperMaterial.Armor, ( mat ) =>
+            skin.AddMaterialModifier( SniperSkin.SniperMaterial.Armor, ( mat ) =>
             {
                 mat.cull = MaterialBase.CullMode.Off;
-                mat.emissionColor = Color.white;
-                mat.smoothness = 1f;
-                mat.specularStrength = 0.1f;
-                mat.specularExponent = 1f;
+                mat.emissionColor = defaultEmisColor;
+                mat.smoothness = 0.35f;
+                mat.emissionPower = 1.5f;
+                mat.specularStrength = 0.35f;
+                mat.specularExponent = 2f;
+                mat.normalStrength = 0.4f;
             } );
 
-            defaultSkin.AddMaterialModifier( SniperSkin.SniperMaterial.Ammo, ( mat ) =>
+            skin.AddMaterialModifier( SniperSkin.SniperMaterial.Ammo, ( mat ) =>
             {
                 mat.rampChoice = MaterialBase.RampInfo.TwoTone;
                 mat.smoothness = 0.5f;
@@ -286,68 +381,82 @@
                 mat.specularExponent = 2f;
             } );
 
-            defaultSkin.AddMaterialModifier( SniperSkin.SniperMaterial.Cloak, ( mat ) =>
+            skin.AddMaterialModifier( SniperSkin.SniperMaterial.Cloak, ( mat ) =>
             {
-                mat.rampChoice = MaterialBase.RampInfo.SubSurface;
+                mat.rampChoice = MaterialBase.RampInfo.TwoTone;
                 mat.cull = MaterialBase.CullMode.Off;
                 mat.emissionPower = 0f;
-                mat.specularStrength = 0.05f;
-                mat.normalStrength = 0.6f;
+                mat.specularStrength = 0.2f;
+                mat.normalStrength = 0.25f;
+                mat.smoothness = 0.5f;
+                mat.specularExponent = 2f;
             } );
 
-            defaultSkin.AddMaterialModifier( SniperSkin.SniperMaterial.Body, ( mat ) =>
+            skin.AddMaterialModifier( SniperSkin.SniperMaterial.Body, ( mat ) =>
             {
+                mat.mainColor = new Color( 0.5f, 0.5f, 0.5f );
                 mat.emissionPower = 0f;
-                mat.normalStrength = 0.8f;
-                mat.smoothness = 0.25f;
-                mat.specularStrength = 0.5f;
+                mat.normalStrength = 0.4f;
+                mat.smoothness = 0.1f;
+                mat.specularStrength = 0.35f;
+                mat.specularExponent = 2f;
             } );
 
-            defaultSkin.AddMaterialModifier( SniperSkin.SniperMaterial.Emissive, ( mat ) =>
+            skin.AddMaterialModifier( SniperSkin.SniperMaterial.Emissive, ( mat ) =>
             {
+                mat.mainColor = Color.clear;
                 mat.rampChoice = MaterialBase.RampInfo.Unlitish;
                 mat.normalStrength = 0f;
-                mat.emissionColor = Color.white;
+                mat.emissionColor = defaultEmisColor;
                 mat.specularExponent = 1f;
                 mat.specularStrength = 0f;
             } );
 
-            defaultSkin.AddMaterialModifier( SniperSkin.SniperMaterial.Rail, ( mat ) =>
+            skin.AddMaterialModifier( SniperSkin.SniperMaterial.Rail, ( mat ) =>
             {
                 mat.normalStrength = 1f;
-                mat.emissionColor = new Color( 0f, 1f, 0.48f, 1f );
+                mat.emissionColor = defaultEmisColor;
                 mat.smoothness = 0.5f;
-                mat.specularStrength = 0.3f;
+                mat.specularStrength = 0.15f;
+                mat.specularExponent = 2f;
+            } );
+
+
+            skin.AddMaterialModifier( SniperSkin.SniperMaterial.ThrowKnife, ( mat ) =>
+            {
+                mat.emissionColor = defaultEmisColor;
+                mat.emissionPower = 5f;
             } );
         }
 
-        private static void ApplyAlt1SkinModifiers( this SniperSkin alt1 )
+        private static void ApplyAlt1SkinModifiers( this SniperSkin skin )
         {
-            alt1.AddMaterialModifier( SniperSkin.SniperMaterial.All, ( mat ) =>
+            skin.AddMaterialModifier( SniperSkin.SniperMaterial.All, ( mat ) =>
             {
                 mat.mainColor = Color.white;
                 mat.cull = MaterialBase.CullMode.Back;
                 mat.ignoreDiffuseAlphaForSpecular = true;
-                mat.rampChoice = MaterialBase.RampInfo.SmoothedTwoTone;
+                mat.rampChoice = MaterialBase.RampInfo.TwoTone;
                 mat.specularExponent = 3f;
                 mat.emissionPower = 1f;
                 mat.smoothness = 0f;
                 mat.emissionColor = Color.clear;
             } );
 
-            alt1.AddMaterialModifier( SniperSkin.SniperMaterial.Armor, ( mat ) =>
+            skin.AddMaterialModifier( SniperSkin.SniperMaterial.Armor, ( mat ) =>
             {
-                mat.mainColor = new Color( 0.95f, 0.8f, 0.6f, 1f );
+                mat.mainColor = new Color( 0.55f, 0.55f, 0.55f, 1f );
                 mat.emissionColor = Color.white;
                 mat.emissionPower = 2f;
                 mat.smoothness = 0.5f;
-                mat.rampChoice = MaterialBase.RampInfo.SmoothedTwoTone;
-                mat.specularStrength = 0.15f;
-                mat.specularExponent = 3f;
+                mat.rampChoice = MaterialBase.RampInfo.TwoTone;
+                mat.specularStrength = 0.3f;
+                mat.specularExponent = 2f;
                 mat.cull = MaterialBase.CullMode.Off;
+                mat.normalStrength = 1f;
             } );
 
-            alt1.AddMaterialModifier( SniperSkin.SniperMaterial.Ammo, ( mat ) =>
+            skin.AddMaterialModifier( SniperSkin.SniperMaterial.Ammo, ( mat ) =>
             {
                 mat.rampChoice = MaterialBase.RampInfo.TwoTone;
                 mat.smoothness = 0.5f;
@@ -358,30 +467,30 @@
                 mat.specularExponent = 2f;
             } );
 
-            alt1.AddMaterialModifier( SniperSkin.SniperMaterial.Cloak, ( mat ) =>
+            skin.AddMaterialModifier( SniperSkin.SniperMaterial.Cloak, ( mat ) =>
             {
-                mat.mainColor = new Color( 0.95f, 0.8f, 0.6f, 1f );
-                mat.rampChoice = MaterialBase.RampInfo.SmoothedTwoTone;
+                mat.mainColor = new Color( 0.5f, 0.5f, 0.5f, 1f );
+                mat.rampChoice = MaterialBase.RampInfo.TwoTone;
                 mat.cull = MaterialBase.CullMode.Off;
                 mat.emissionPower = 0f;
-                mat.smoothness = 0.5f;
-                mat.specularStrength = 0.15f;
-                mat.normalStrength = 0.2f;
-                mat.specularExponent = 3f;
-            } );
-
-            alt1.AddMaterialModifier( SniperSkin.SniperMaterial.Body, ( mat ) =>
-            {
-                mat.mainColor = Color.white;
-                mat.emissionPower = 0f;
+                mat.smoothness = 0.2f;
+                mat.specularStrength = 0.2f;
                 mat.normalStrength = 0.05f;
-                mat.smoothness = 0.5f;
-                mat.specularStrength = 0.15f;
-                mat.rampChoice = MaterialBase.RampInfo.SmoothedTwoTone;
-                mat.specularExponent = 3f;
+                mat.specularExponent = 2f;
             } );
 
-            alt1.AddMaterialModifier( SniperSkin.SniperMaterial.Emissive, ( mat ) =>
+            skin.AddMaterialModifier( SniperSkin.SniperMaterial.Body, ( mat ) =>
+            {
+                mat.mainColor = Color.black;
+                mat.emissionPower = 0f;
+                mat.normalStrength = 1f;
+                mat.smoothness = 0.5f;
+                mat.specularStrength = 0.2f;
+                mat.rampChoice = MaterialBase.RampInfo.TwoTone;
+                mat.specularExponent = 2f;
+            } );
+
+            skin.AddMaterialModifier( SniperSkin.SniperMaterial.Emissive, ( mat ) =>
             {
                 mat.rampChoice = MaterialBase.RampInfo.Unlitish;
                 mat.normalStrength = 0f;
@@ -391,290 +500,474 @@
                 mat.emissionPower = 3.5f;
             } );
 
-            alt1.AddMaterialModifier( SniperSkin.SniperMaterial.Rail, ( mat ) =>
+            skin.AddMaterialModifier( SniperSkin.SniperMaterial.Rail, ( mat ) =>
             {
-                mat.mainColor = new Color( 0.76f, 0.76f, 0.76f, 1f );
+                mat.mainColor = new Color( 0.55f, 0.55f, 0.55f, 1f );
                 mat.normalStrength = 1f;
-                mat.emissionColor = new Color( 0.95f, 0.4f, 1f, 1f );
+                mat.emissionColor = alt1EmisColor;
                 mat.emissionPower = 3f;
-                mat.smoothness = 0.6f;
-                mat.specularStrength = 0.5f;
-                mat.specularExponent = 2f;
-            } );
-        }
-
-        private static void ApplyAlt2SkinModifiers( this SniperSkin alt2 )
-        {
-            alt2.AddMaterialModifier( SniperSkin.SniperMaterial.All, ( mat ) =>
-            {
-                mat.mainColor = Color.white;
-                mat.cull = MaterialBase.CullMode.Back;
-                mat.ignoreDiffuseAlphaForSpecular = true;
-                mat.rampChoice = MaterialBase.RampInfo.SmoothedTwoTone;
-                mat.specularExponent = 3f;
-                mat.emissionPower = 1f;
-                mat.smoothness = 0f;
-                mat.emissionColor = Color.clear;
-            } );
-
-            alt2.AddMaterialModifier( SniperSkin.SniperMaterial.Armor, ( mat ) =>
-            {
-                mat.mainColor = new Color( 0.68f, 0.68f, 0.68f, 1f );
-                mat.emissionColor = Color.white;
-                mat.emissionPower = 2f;
-                mat.smoothness = 0.5f;
-                mat.rampChoice = MaterialBase.RampInfo.TwoTone;
-                mat.specularStrength = 0.1f;
-                mat.specularExponent = 5f;
-                mat.cull = MaterialBase.CullMode.Off;
-            } );
-
-            alt2.AddMaterialModifier( SniperSkin.SniperMaterial.Ammo, ( mat ) =>
-            {
-                mat.rampChoice = MaterialBase.RampInfo.TwoTone;
-                mat.smoothness = 0.5f;
-                mat.normalStrength = 0.05f;
-                mat.emissionColor = Color.white;
-                mat.emissionPower = 5f;
-                mat.specularStrength = 0.75f;
-                mat.specularExponent = 2f;
-            } );
-
-            alt2.AddMaterialModifier( SniperSkin.SniperMaterial.Cloak, ( mat ) =>
-            {
-                mat.mainColor = new Color( 0.47f, 0.47f, 0.47f, 1f );
-                mat.rampChoice = MaterialBase.RampInfo.SmoothedTwoTone;
-                mat.cull = MaterialBase.CullMode.Off;
-                mat.emissionPower = 0f;
-                mat.smoothness = 0.5f;
-                mat.specularStrength = 0.15f;
-                mat.normalStrength = 0.2f;
-                mat.specularExponent = 5f;
-            } );
-
-            alt2.AddMaterialModifier( SniperSkin.SniperMaterial.Body, ( mat ) =>
-            {
-                mat.mainColor = new Color( 0.78f, 0.78f, 0.78f, 1f );
-                mat.emissionPower = 0f;
-                mat.normalStrength = 1f;
-                mat.smoothness = 0.5f;
-                mat.specularStrength = 0.5f;
-                mat.rampChoice = MaterialBase.RampInfo.SmoothedTwoTone;
-                mat.specularExponent = 5f;
-            } );
-
-            alt2.AddMaterialModifier( SniperSkin.SniperMaterial.Emissive, ( mat ) =>
-            {
-                mat.rampChoice = MaterialBase.RampInfo.Unlitish;
-                mat.normalStrength = 0f;
-                mat.emissionColor = Color.white;
-                mat.specularExponent = 1f;
-                mat.specularStrength = 0f;
-                mat.emissionPower = 3f;
-            } );
-
-            alt2.AddMaterialModifier( SniperSkin.SniperMaterial.Rail, ( mat ) =>
-            {
-                mat.mainColor = new Color( 0.76f, 0.76f, 0.76f, 1f );
-                mat.normalStrength = 1f;
-                mat.emissionColor = Color.white;
-                mat.emissionPower = 2f;
-                mat.smoothness = 0.6f;
-                mat.specularStrength = 0.15f;
-                mat.specularExponent = 5f;
-            } );
-        }
-
-        private static void ApplyAlt3SkinModifiers( this SniperSkin alt3 )
-        {
-            alt3.AddMaterialModifier( SniperSkin.SniperMaterial.All, ( mat ) =>
-            {
-                mat.mainColor = Color.white;
-                mat.cull = MaterialBase.CullMode.Back;
-                mat.ignoreDiffuseAlphaForSpecular = true;
-                mat.rampChoice = MaterialBase.RampInfo.SmoothedTwoTone;
-                mat.specularExponent = 3f;
-                mat.emissionPower = 1f;
-                mat.smoothness = 0f;
-                mat.emissionColor = Color.clear;
-            } );
-
-            alt3.AddMaterialModifier( SniperSkin.SniperMaterial.Armor, ( mat ) =>
-            {
-                mat.mainColor = new Color( 0.85f, 0.85f, 0.85f, 1f );
-                mat.emissionColor = Color.white;
-                mat.emissionPower = 2f;
-                mat.smoothness = 0.5f;
-                mat.rampChoice = MaterialBase.RampInfo.SmoothedTwoTone;
-                mat.specularStrength = 0.15f;
-                mat.specularExponent = 3f;
-                mat.cull = MaterialBase.CullMode.Off;
-            } );
-
-            alt3.AddMaterialModifier( SniperSkin.SniperMaterial.Ammo, ( mat ) =>
-            {
-                mat.rampChoice = MaterialBase.RampInfo.TwoTone;
-                mat.smoothness = 0.5f;
-                mat.normalStrength = 0.05f;
-                mat.emissionColor = Color.white;
-                mat.emissionPower = 5f;
-                mat.specularStrength = 0.75f;
-                mat.specularExponent = 2f;
-            } );
-
-            alt3.AddMaterialModifier( SniperSkin.SniperMaterial.Cloak, ( mat ) =>
-            {
-                mat.mainColor = Color.white;
-                mat.rampChoice = MaterialBase.RampInfo.SmoothedTwoTone;
-                mat.cull = MaterialBase.CullMode.Off;
-                mat.emissionPower = 0f;
-                mat.smoothness = 0.5f;
-                mat.specularStrength = 0.15f;
-                mat.normalStrength = 0.2f;
-                mat.specularExponent = 3f;
-            } );
-
-            alt3.AddMaterialModifier( SniperSkin.SniperMaterial.Body, ( mat ) =>
-            {
-                mat.mainColor = new Color( 0.5377358f, 0.3714074f, 0.2764774f, 1f );
-                mat.emissionPower = 0f;
-                mat.normalStrength = 1f;
-                mat.smoothness = 0.5f;
-                mat.specularStrength = 0.15f;
-                mat.rampChoice = MaterialBase.RampInfo.SmoothedTwoTone;
-                mat.specularExponent = 3f;
-            } );
-
-            alt3.AddMaterialModifier( SniperSkin.SniperMaterial.Emissive, ( mat ) =>
-            {
-                mat.rampChoice = MaterialBase.RampInfo.Unlitish;
-                mat.normalStrength = 0f;
-                mat.emissionColor = Color.white;
-                mat.specularExponent = 1f;
-                mat.specularStrength = 0f;
-                mat.emissionPower = 2f;
-            } );
-
-            alt3.AddMaterialModifier( SniperSkin.SniperMaterial.Rail, ( mat ) =>
-            {
-                mat.mainColor = Color.white;
-                mat.normalStrength = 1f;
-                mat.emissionColor = Color.white;
-                mat.emissionPower = 2f;
-                mat.smoothness = 0.6f;
-                mat.specularStrength = 0.35f;
-                mat.specularExponent = 3f;
-            } );
-        }
-
-        private static void ApplyAlt4SkinModifiers( this SniperSkin alt4 )
-        {
-            alt4.AddMaterialModifier( SniperSkin.SniperMaterial.All, ( mat ) =>
-            {
-                mat.mainColor = new Color( 0.6f, 0.6f, 0.6f, 1f );
-                mat.cull = MaterialBase.CullMode.Back;
-                mat.ignoreDiffuseAlphaForSpecular = true;
-                mat.rampChoice = MaterialBase.RampInfo.SmoothedTwoTone;
-                mat.specularExponent = 3f;
-                mat.emissionPower = 1f;
-                mat.smoothness = 0f;
-                mat.emissionColor = Color.clear;
-            } );
-
-            alt4.AddMaterialModifier( SniperSkin.SniperMaterial.Armor, ( mat ) =>
-            {
-                mat.cull = MaterialBase.CullMode.Off;
-                mat.emissionColor = new Color( 0.85f, 0.85f, 0.85f, 1f );
-                mat.emissionPower = 2f;
-                mat.smoothness = 0.25f;
-                mat.normalStrength = 3f;
-                mat.specularStrength = 0.15f;
-                mat.specularExponent = 3f;
-            } );
-
-            alt4.AddMaterialModifier( SniperSkin.SniperMaterial.Ammo, ( mat ) =>
-            {
-                mat.rampChoice = MaterialBase.RampInfo.TwoTone;
-                mat.smoothness = 0.5f;
-                mat.normalStrength = 0.05f;
-                mat.emissionColor = Color.white;
-                mat.emissionPower = 5f;
-                mat.specularStrength = 0.75f;
-                mat.specularExponent = 2f;
-            } );
-
-            alt4.AddMaterialModifier( SniperSkin.SniperMaterial.Cloak, ( mat ) =>
-            {
-                mat.rampChoice = MaterialBase.RampInfo.SmoothedTwoTone;
-                mat.cull = MaterialBase.CullMode.Off;
-                mat.emissionPower = 0f;
+                mat.smoothness = 0.3f;
                 mat.specularStrength = 0.3f;
                 mat.specularExponent = 2f;
-                mat.normalStrength = 0.1f;
-                mat.smoothness = 0.25f;
-
             } );
 
-            alt4.AddMaterialModifier( SniperSkin.SniperMaterial.Body, ( mat ) =>
+            skin.AddMaterialModifier( SniperSkin.SniperMaterial.ThrowKnife, ( mat ) =>
+            {
+                mat.emissionColor = alt1EmisColor;
+                mat.emissionPower = 5f;
+                mat.normalStrength = 1f;
+                mat.smoothness = 1f;
+                mat.specularStrength = 0.35f;
+                mat.specularExponent = 2f;
+            } );
+
+            skin.AddMaterialModifier( SniperSkin.SniperMaterial.Knife, ( mat ) =>
+            {
+                mat.mainColor = new Color( 0.55f, 0.55f, 0.55f );
+                mat.normalStrength = 1f;
+                mat.smoothness = 1f;
+                mat.specularStrength = 0.35f;
+                mat.specularExponent = 2f;
+            } );
+        }
+
+        private static void ApplyAlt2SkinModifiers( this SniperSkin skin )
+        {
+            skin.AddMaterialModifier( SniperSkin.SniperMaterial.All, ( mat ) =>
             {
                 mat.mainColor = Color.white;
+                mat.cull = MaterialBase.CullMode.Back;
+                mat.ignoreDiffuseAlphaForSpecular = true;
+                mat.rampChoice = MaterialBase.RampInfo.TwoTone;
+                mat.specularExponent = 3f;
+                mat.emissionPower = 1f;
+                mat.smoothness = 0f;
+                mat.emissionColor = Color.clear;
+            } );
+
+            skin.AddMaterialModifier( SniperSkin.SniperMaterial.Armor, ( mat ) =>
+            {
+                mat.mainColor = new Color( 0.6f, 0.6f, 0.6f, 1f );
+                mat.emissionColor = Color.white;
+                mat.emissionPower = 5f;
+                mat.smoothness = 0.1f;
+                mat.rampChoice = MaterialBase.RampInfo.TwoTone;
+                mat.specularStrength = 0.5f;
+                mat.specularExponent = 2f;
+                mat.cull = MaterialBase.CullMode.Off;
+                mat.normalStrength = 1f;
+            } );
+
+            skin.AddMaterialModifier( SniperSkin.SniperMaterial.Ammo, ( mat ) =>
+            {
+                mat.rampChoice = MaterialBase.RampInfo.TwoTone;
+                mat.smoothness = 0.5f;
+                mat.normalStrength = 0.05f;
+                mat.emissionColor = Color.white;
+                mat.emissionPower = 5f;
+                mat.specularStrength = 0.75f;
+                mat.specularExponent = 2f;
+            } );
+
+            skin.AddMaterialModifier( SniperSkin.SniperMaterial.Cloak, ( mat ) =>
+            {
+                mat.mainColor = new Color( 0.6f, 0.6f, 0.6f, 1f );
+                mat.rampChoice = MaterialBase.RampInfo.TwoTone;
+                mat.cull = MaterialBase.CullMode.Off;
+                mat.emissionPower = 0f;
+                mat.smoothness = 0.15f;
+                mat.specularStrength = 0.25f;
+                mat.normalStrength = 0.2f;
+                mat.specularExponent = 2f;
+            } );
+
+            skin.AddMaterialModifier( SniperSkin.SniperMaterial.Body, ( mat ) =>
+            {
+                mat.mainColor = new Color( 0.6f, 0.6f, 0.6f, 1f );
                 mat.emissionPower = 0f;
                 mat.normalStrength = 1f;
                 mat.smoothness = 0.1f;
-                mat.specularStrength = 0.05f;
-                mat.specularExponent = 3f;
+                mat.specularStrength = 0.5f;
                 mat.rampChoice = MaterialBase.RampInfo.TwoTone;
+                mat.specularExponent = 2f;
             } );
 
-            alt4.AddMaterialModifier( SniperSkin.SniperMaterial.Emissive, ( mat ) =>
+            skin.AddMaterialModifier( SniperSkin.SniperMaterial.Emissive, ( mat ) =>
             {
                 mat.rampChoice = MaterialBase.RampInfo.Unlitish;
                 mat.normalStrength = 0f;
                 mat.emissionColor = Color.white;
                 mat.specularExponent = 1f;
-                mat.emissionPower = 3f;
+                mat.specularStrength = 0f;
+                mat.emissionPower = 10f;
+            } );
+
+            skin.AddMaterialModifier( SniperSkin.SniperMaterial.Rail, ( mat ) =>
+            {
+                mat.mainColor = Color.white;
+                mat.normalStrength = 1f;
+                mat.emissionColor = alt2EmisColor;
+                mat.emissionPower = 2f;
+                mat.smoothness = 0f;
+                mat.specularStrength = 0.3f;
+                mat.specularExponent = 2f;
+            } );
+
+            skin.AddMaterialModifier( SniperSkin.SniperMaterial.ThrowKnife, ( mat ) =>
+            {
+                mat.emissionColor = alt2EmisColor;
+                mat.emissionPower = 5f;
+                mat.normalStrength = 1f;
+                mat.smoothness = 1f;
+                mat.specularStrength = 0.5f;
+                mat.specularExponent = 2f;
+            } );
+
+            skin.AddMaterialModifier( SniperSkin.SniperMaterial.Knife, ( mat ) =>
+            {
+                mat.mainColor = Color.black;
+                mat.normalStrength = 1f;
+                mat.smoothness = 1f;
+                mat.specularStrength = 0.5f;
+                mat.specularExponent = 2f;
+            } );
+        }
+
+        private static void ApplyAlt3SkinModifiers( this SniperSkin skin )
+        {
+            skin.AddMaterialModifier( SniperSkin.SniperMaterial.All, ( mat ) =>
+            {
+                mat.mainColor = Color.white;
+                mat.cull = MaterialBase.CullMode.Back;
+                mat.ignoreDiffuseAlphaForSpecular = true;
+                mat.rampChoice = MaterialBase.RampInfo.TwoTone;
+                mat.specularExponent = 3f;
+                mat.emissionPower = 1f;
+                mat.smoothness = 0f;
+                mat.emissionColor = Color.clear;
+            } );
+
+            skin.AddMaterialModifier( SniperSkin.SniperMaterial.Armor, ( mat ) =>
+            {
+                mat.mainColor = Color.white;
+                mat.emissionColor = alt3EmisColor;
+                mat.emissionPower = 4f;
+                mat.smoothness = 0f;
+                mat.rampChoice = MaterialBase.RampInfo.TwoTone;
+                mat.specularStrength = 0.2f;
+                mat.specularExponent = 2f;
+                mat.cull = MaterialBase.CullMode.Off;
+                mat.normalStrength = 1f;
+            } );
+
+            skin.AddMaterialModifier( SniperSkin.SniperMaterial.Ammo, ( mat ) =>
+            {
+                mat.rampChoice = MaterialBase.RampInfo.TwoTone;
+                mat.smoothness = 0.5f;
+                mat.normalStrength = 0.05f;
+                mat.emissionColor = Color.white;
+                mat.emissionPower = 5f;
+                mat.specularStrength = 0.75f;
+                mat.specularExponent = 2f;
+            } );
+
+            skin.AddMaterialModifier( SniperSkin.SniperMaterial.Cloak, ( mat ) =>
+            {
+                mat.mainColor = Color.white;
+                mat.rampChoice = MaterialBase.RampInfo.TwoTone;
+                mat.cull = MaterialBase.CullMode.Off;
+                mat.emissionPower = 0f;
+                mat.smoothness = 1f;
+                mat.specularStrength = 0.1f;
+                mat.normalStrength = 0.15f;
+                mat.specularExponent = 2f;
+            } );
+
+            skin.AddMaterialModifier( SniperSkin.SniperMaterial.Body, ( mat ) =>
+            {
+                mat.mainColor = new Color( 1f, 0.7f, 0.46f );
+                mat.emissionPower = 0f;
+                mat.normalStrength = 1f;
+                mat.smoothness = 0.25f;
+                mat.specularStrength = 0.15f;
+                mat.rampChoice = MaterialBase.RampInfo.TwoTone;
+                mat.specularExponent = 2f;
+            } );
+
+            skin.AddMaterialModifier( SniperSkin.SniperMaterial.Emissive, ( mat ) =>
+            {
+                mat.rampChoice = MaterialBase.RampInfo.Unlitish;
+                mat.normalStrength = 0f;
+                mat.emissionColor = alt3EmisColor;
+                mat.specularExponent = 1f;
+                mat.specularStrength = 0f;
+                mat.emissionPower = 4f;
+            } );
+
+            skin.AddMaterialModifier( SniperSkin.SniperMaterial.Rail, ( mat ) =>
+            {
+                mat.mainColor = Color.white;
+                mat.normalStrength = 1f;
+                mat.emissionColor = alt3EmisColor;
+                mat.emissionPower = 4f;
+                mat.smoothness = 0.2f;
+                mat.specularStrength = 0.2f;
+                mat.specularExponent = 2f;
+            } );
+
+            skin.AddMaterialModifier( SniperSkin.SniperMaterial.ThrowKnife, ( mat ) =>
+            {
+                mat.emissionColor = alt3EmisColor;
+                mat.emissionPower = 5f;
+                mat.normalStrength = 1f;
+                mat.smoothness = 1f;
+                mat.specularStrength = 0.5f;
+                mat.specularExponent = 2f;
+            } );
+
+            skin.AddMaterialModifier( SniperSkin.SniperMaterial.Knife, ( mat ) =>
+            {
+                mat.mainColor = Color.white;
+                mat.normalStrength = 1f;
+                mat.smoothness = 1f;
+                mat.specularStrength = 0.3f;
+                mat.specularExponent = 2f;
+            } );
+        }
+
+        private static void ApplyAlt4SkinModifiers( this SniperSkin skin )
+        {
+            skin.AddMaterialModifier( SniperSkin.SniperMaterial.All, ( mat ) =>
+            {
+                mat.mainColor = Color.white;
+                mat.cull = MaterialBase.CullMode.Back;
+                mat.ignoreDiffuseAlphaForSpecular = true;
+                mat.rampChoice = MaterialBase.RampInfo.TwoTone;
+                mat.specularExponent = 3f;
+                mat.emissionPower = 1f;
+                mat.smoothness = 0f;
+                mat.emissionColor = Color.clear;
+            } );
+
+            skin.AddMaterialModifier( SniperSkin.SniperMaterial.Armor, ( mat ) =>
+            {
+                mat.cull = MaterialBase.CullMode.Off;
+                mat.mainColor = new Color( 0.45f, 0.45f, 0.45f );
+                mat.emissionColor = Color.white;
+                mat.emissionPower = 2f;
+                mat.smoothness = 0.1f;
+                mat.normalStrength = 1f;
+                mat.specularStrength = 0.2f;
+                mat.specularExponent = 2f;
+            } );
+
+            skin.AddMaterialModifier( SniperSkin.SniperMaterial.Ammo, ( mat ) =>
+            {
+                mat.rampChoice = MaterialBase.RampInfo.TwoTone;
+                mat.smoothness = 0.5f;
+                mat.normalStrength = 0.05f;
+                mat.emissionColor = Color.white;
+                mat.emissionPower = 5f;
+                mat.specularStrength = 0.75f;
+                mat.specularExponent = 2f;
+            } );
+
+            skin.AddMaterialModifier( SniperSkin.SniperMaterial.Cloak, ( mat ) =>
+            {
+                mat.rampChoice = MaterialBase.RampInfo.TwoTone;
+                mat.cull = MaterialBase.CullMode.Off;
+                mat.emissionPower = 0f;
+                mat.specularStrength = 0.2f;
+                mat.specularExponent = 2f;
+                mat.normalStrength = 0.05f;
+                mat.smoothness = 0f;
+                mat.mainColor = new Color( 0.4f, 0.4f, 0.4f );
+
+            } );
+
+            skin.AddMaterialModifier( SniperSkin.SniperMaterial.Body, ( mat ) =>
+            {
+                mat.mainColor = new Color( 1f, 0f, 0f );
+                mat.emissionPower = 0f;
+                mat.normalStrength = 1f;
+                mat.smoothness = 0.1f;
+                mat.specularStrength = 0.2f;
+                mat.specularExponent = 2f;
+                mat.rampChoice = MaterialBase.RampInfo.TwoTone;
+            } );
+
+            skin.AddMaterialModifier( SniperSkin.SniperMaterial.Emissive, ( mat ) =>
+            {
+                mat.rampChoice = MaterialBase.RampInfo.Unlitish;
+                mat.normalStrength = 0f;
+                mat.emissionColor = Color.white;
+                mat.specularExponent = 1f;
+                mat.emissionPower = 10f;
                 mat.specularStrength = 0f;
             } );
 
-            alt4.AddMaterialModifier( SniperSkin.SniperMaterial.Rail, ( mat ) =>
+            skin.AddMaterialModifier( SniperSkin.SniperMaterial.Rail, ( mat ) =>
             {
                 mat.normalStrength = 1f;
-                mat.emissionColor = Color.white;
+                mat.emissionColor = alt4EmisColor;
                 mat.smoothness = 0.5f;
                 mat.specularStrength = 0.2f;
                 mat.specularExponent = 2f;
                 mat.emissionPower = 2f;
                 mat.mainColor = new Color( 0.8f, 0.8f, 0.8f, 1f );
             } );
+
+            skin.AddMaterialModifier( SniperSkin.SniperMaterial.ThrowKnife, ( mat ) =>
+            {
+                mat.emissionColor = alt4EmisColor;
+                mat.emissionPower = 5f;
+                mat.normalStrength = 1f;
+                mat.smoothness = 1f;
+                mat.specularStrength = 0.5f;
+                mat.specularExponent = 2f;
+            } );
+
+            skin.AddMaterialModifier( SniperSkin.SniperMaterial.Knife, ( mat ) =>
+            {
+                mat.mainColor = new Color( 0.4f, 0.4f, 0.4f );
+                mat.normalStrength = 1f;
+                mat.smoothness = 1f;
+                mat.specularStrength = 0.1f;
+                mat.specularExponent = 2f;
+            } );
         }
 
-        private static void ApplyAlt5SkinModifiers( this SniperSkin alt5 )
+        private static void ApplyAlt5SkinModifiers( this SniperSkin skin )
         {
-            alt5.AddMaterialModifier( SniperSkin.SniperMaterial.All, ( mat ) =>
+            skin.AddMaterialModifier( SniperSkin.SniperMaterial.All, ( mat ) =>
             {
                 mat.mainColor = Color.white;
                 mat.cull = MaterialBase.CullMode.Back;
                 mat.ignoreDiffuseAlphaForSpecular = true;
-                mat.rampChoice = MaterialBase.RampInfo.SmoothedTwoTone;
+                mat.rampChoice = MaterialBase.RampInfo.TwoTone;
                 mat.specularExponent = 3f;
                 mat.emissionPower = 1f;
                 mat.smoothness = 0f;
                 mat.emissionColor = Color.clear;
             } );
 
-            alt5.AddMaterialModifier( SniperSkin.SniperMaterial.Armor, ( mat ) =>
+            skin.AddMaterialModifier( SniperSkin.SniperMaterial.Armor, ( mat ) =>
             {
-                mat.mainColor = new Color( 0.55f, 0.55f, 0.55f, 1f );
-                mat.emissionColor = Color.white;
-                mat.emissionPower = 2f;
-                mat.smoothness = 0.5f;
+                mat.mainColor = Color.white;
+                mat.emissionColor = alt5EmisColor;
+                mat.emissionPower = 3f;
+                mat.smoothness = 0.1f;
                 mat.rampChoice = MaterialBase.RampInfo.TwoTone;
-                mat.specularStrength = 0.1f;
-                mat.specularExponent = 5f;
+                mat.specularStrength = 0.3f;
+                mat.specularExponent = 2f;
                 mat.cull = MaterialBase.CullMode.Off;
+                mat.normalStrength = 1f;
             } );
 
-            alt5.AddMaterialModifier( SniperSkin.SniperMaterial.Ammo, ( mat ) =>
+            skin.AddMaterialModifier( SniperSkin.SniperMaterial.Ammo, ( mat ) =>
+            {
+                
+                mat.rampChoice = MaterialBase.RampInfo.TwoTone;
+                mat.smoothness = 0.5f;
+                mat.normalStrength = 0.05f;
+                mat.emissionColor = Color.white;
+                mat.emissionPower = 5f;
+                mat.specularStrength = 0.75f;
+                mat.specularExponent = 2f;
+            } );
+
+            skin.AddMaterialModifier( SniperSkin.SniperMaterial.Cloak, ( mat ) =>
+            {
+                mat.mainColor = Color.white;
+                mat.rampChoice = MaterialBase.RampInfo.TwoTone;
+                mat.cull = MaterialBase.CullMode.Off;
+                mat.emissionPower = 0f;
+                mat.smoothness = 0.15f;
+                mat.specularStrength = 0.3f;
+                mat.normalStrength = 0.05f;
+                mat.specularExponent = 2f;
+            } );
+
+            skin.AddMaterialModifier( SniperSkin.SniperMaterial.Body, ( mat ) =>
+            {
+                mat.mainColor = new Color( 0.75f, 0.75f, 0.75f );
+                mat.emissionPower = 0f;
+                mat.normalStrength = 1f;
+                mat.smoothness = 0.2f;
+                mat.specularStrength = 0.2f;
+                mat.rampChoice = MaterialBase.RampInfo.TwoTone;
+                mat.specularExponent = 2f;
+            } );
+
+            skin.AddMaterialModifier( SniperSkin.SniperMaterial.Emissive, ( mat ) =>
+            {
+                mat.rampChoice = MaterialBase.RampInfo.Unlitish;
+                mat.normalStrength = 0f;
+                mat.emissionColor = alt5EmisColor;
+                mat.specularExponent = 1f;
+                mat.specularStrength = 0f;
+                mat.emissionPower = 4f;
+            } );
+
+            skin.AddMaterialModifier( SniperSkin.SniperMaterial.Rail, ( mat ) =>
+            {
+                mat.mainColor = Color.white;
+                mat.normalStrength = 1f;
+                mat.emissionColor = alt5EmisColor;
+                mat.emissionPower = 2f;
+                mat.smoothness = 0.3f;
+                mat.specularStrength = 0.2f;
+                mat.specularExponent = 2f;
+            } );
+
+            skin.AddMaterialModifier( SniperSkin.SniperMaterial.ThrowKnife, ( mat ) =>
+            {
+                mat.emissionColor = alt5EmisColor;
+                mat.emissionPower = 5f;
+                mat.normalStrength = 1f;
+                mat.smoothness = 1f;
+                mat.specularStrength = 0.5f;
+                mat.specularExponent = 2f;
+            } );
+
+            skin.AddMaterialModifier( SniperSkin.SniperMaterial.Knife, ( mat ) =>
+            {
+                mat.mainColor = Color.white;
+                mat.normalStrength = 1f;
+                mat.smoothness = 1f;
+                mat.specularStrength = 0.35f;
+                mat.specularExponent = 2f;
+            } );
+        }
+
+        private static void ApplyAlt6SkinModifiers( this SniperSkin skin )
+        {
+            skin.AddMaterialModifier( SniperSkin.SniperMaterial.All, ( mat ) =>
+            {
+                mat.mainColor = Color.white;
+                mat.cull = MaterialBase.CullMode.Back;
+                mat.ignoreDiffuseAlphaForSpecular = true;
+                mat.rampChoice = MaterialBase.RampInfo.TwoTone;
+                mat.specularExponent = 3f;
+                mat.emissionPower = 1f;
+                mat.smoothness = 0f;
+                mat.emissionColor = Color.clear;
+            } );
+
+            skin.AddMaterialModifier( SniperSkin.SniperMaterial.Armor, ( mat ) =>
+            {
+                mat.mainColor = Color.white;
+                mat.emissionColor = Color.white;
+                mat.emissionPower = 2.5f;
+                mat.smoothness = 0.3f;
+                mat.rampChoice = MaterialBase.RampInfo.TwoTone;
+                mat.specularStrength = 0.3f;
+                mat.specularExponent = 2f;
+                mat.cull = MaterialBase.CullMode.Off;
+                mat.normalStrength = 1f;
+            } );
+
+            skin.AddMaterialModifier( SniperSkin.SniperMaterial.Ammo, ( mat ) =>
             {
                 mat.rampChoice = MaterialBase.RampInfo.TwoTone;
                 mat.smoothness = 0.5f;
@@ -685,48 +978,67 @@
                 mat.specularExponent = 2f;
             } );
 
-            alt5.AddMaterialModifier( SniperSkin.SniperMaterial.Cloak, ( mat ) =>
+            skin.AddMaterialModifier( SniperSkin.SniperMaterial.Cloak, ( mat ) =>
             {
-                mat.mainColor = new Color( 0.47f, 0.47f, 0.47f, 1f );
-                mat.rampChoice = MaterialBase.RampInfo.SmoothedTwoTone;
+                mat.mainColor = Color.white;
+                mat.rampChoice = MaterialBase.RampInfo.TwoTone;
                 mat.cull = MaterialBase.CullMode.Off;
                 mat.emissionPower = 0f;
-                mat.smoothness = 0.5f;
-                mat.specularStrength = 0.15f;
-                mat.normalStrength = 0.2f;
-                mat.specularExponent = 5f;
+                mat.smoothness = 0.2f;
+                mat.specularStrength = 0.5f;
+                mat.normalStrength = 1f;
+                mat.specularExponent = 2f;
             } );
 
-            alt5.AddMaterialModifier( SniperSkin.SniperMaterial.Body, ( mat ) =>
+            skin.AddMaterialModifier( SniperSkin.SniperMaterial.Body, ( mat ) =>
             {
-                mat.mainColor = new Color( 0.78f, 0.78f, 0.78f, 1f );
+                mat.mainColor = Color.white;
                 mat.emissionPower = 0f;
                 mat.normalStrength = 1f;
-                mat.smoothness = 0.5f;
-                mat.specularStrength = 0.5f;
-                mat.rampChoice = MaterialBase.RampInfo.SmoothedTwoTone;
-                mat.specularExponent = 5f;
+                mat.smoothness = 0.3f;
+                mat.specularStrength = 0.3f;
+                mat.rampChoice = MaterialBase.RampInfo.TwoTone;
+                mat.specularExponent = 2f;
             } );
 
-            alt5.AddMaterialModifier( SniperSkin.SniperMaterial.Emissive, ( mat ) =>
+            skin.AddMaterialModifier( SniperSkin.SniperMaterial.Emissive, ( mat ) =>
             {
                 mat.rampChoice = MaterialBase.RampInfo.Unlitish;
                 mat.normalStrength = 0f;
                 mat.emissionColor = Color.white;
                 mat.specularExponent = 1f;
                 mat.specularStrength = 0f;
-                mat.emissionPower = 3f;
+                mat.emissionPower = 4f;
             } );
 
-            alt5.AddMaterialModifier( SniperSkin.SniperMaterial.Rail, ( mat ) =>
+            skin.AddMaterialModifier( SniperSkin.SniperMaterial.Rail, ( mat ) =>
             {
-                mat.mainColor = new Color( 0.76f, 0.76f, 0.76f, 1f );
+                mat.mainColor = Color.white;
                 mat.normalStrength = 1f;
                 mat.emissionColor = Color.white;
                 mat.emissionPower = 2f;
-                mat.smoothness = 0.6f;
-                mat.specularStrength = 0.15f;
-                mat.specularExponent = 5f;
+                mat.smoothness = 0.2f;
+                mat.specularStrength = 0.4f;
+                mat.specularExponent = 2f;
+            } );
+
+            skin.AddMaterialModifier( SniperSkin.SniperMaterial.ThrowKnife, ( mat ) =>
+            {
+                mat.emissionColor = alt6EmisColor;
+                mat.emissionPower = 5f;
+                mat.normalStrength = 1f;
+                mat.smoothness = 1f;
+                mat.specularStrength = 0.5f;
+                mat.specularExponent = 2f;
+            } );
+
+            skin.AddMaterialModifier( SniperSkin.SniperMaterial.Knife, ( mat ) =>
+            {
+                mat.mainColor = Color.white;
+                mat.normalStrength = 1f;
+                mat.smoothness = 1f;
+                mat.specularStrength = 0.9f;
+                mat.specularExponent = 2f;
             } );
         }
     }

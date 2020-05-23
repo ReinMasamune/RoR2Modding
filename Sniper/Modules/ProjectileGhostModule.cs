@@ -23,7 +23,7 @@
         }
         private static GameObject CreateBaseKnifeGhost()
         {
-            GameObject obj = AssetModule.GetSniperAssetBundle().LoadAsset<GameObject>( Properties.Resources.KnifeGhostPrefabPath );
+            GameObject obj = AssetModule.GetSniperAssetBundle().LoadAsset<GameObject>( Properties.Resources.prefab__KnifeGhostPrefab );
 
             _ = obj.AddOrGetComponent<ProjectileGhostController>();
 

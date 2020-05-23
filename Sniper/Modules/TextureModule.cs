@@ -208,210 +208,382 @@
         }
 
 
-        internal static TextureSet GetSniperDefaultTextures()
+        internal static TextureSet GetSniperTextures()
         {
-            if( _sniperDefaultTextures == null )
+            if( _sniperTextures == null )
             {
                 SniperTextureSet set = GetMasterSet();
-                Texture2D tex1 = set[Properties.Resources.SniperDefault_Diffuse];
-                Texture2D tex2 = set[Properties.Resources.SniperDefault_Normal];
-                Texture2D tex3 = set[Properties.Resources.SniperDefault_Emissive];
+                Texture2D tex1 = set[Properties.Resources.skin__Sniper_Diffuse];
+                Texture2D tex2 = set[Properties.Resources.skin__Sniper_Normal];
+                Texture2D tex3 = set[Properties.Resources.skin__Sniper_Emissive];
 
-                _sniperDefaultTextures = new TextureSet( tex1, tex2, tex3 );
+                _sniperTextures = new TextureSet( tex1, tex2, tex3 );
             }
 
-            return _sniperDefaultTextures;
+            return _sniperTextures;
         }
-#pragma warning disable IDE1006 // Naming Styles
-        private static TextureSet _sniperDefaultTextures;
-#pragma warning restore IDE1006 // Naming Styles
 
-        internal static TextureSet GetSniperSkin1Textures()
+        private static TextureSet _sniperTextures;
+
+
+        internal static TextureSet GetSniperAlt1Textures()
         {
-            if( _sniperSkin1Textures == null )
+            if( _sniperAlt1Textures == null )
             {
                 SniperTextureSet set = GetMasterSet();
-                Texture2D tex1 = set[Properties.Resources.SniperSkin1_Diffuse];
-                Texture2D tex2 = set[Properties.Resources.SniperSkin1_Normal];
-                Texture2D tex3 = set[Properties.Resources.SniperSkin1_Emissive];
+                Texture2D tex1 = set[Properties.Resources.skin__SniperAlt1_Diffuse];
+                Texture2D tex2 = set[Properties.Resources.skin__SniperAlt1_Normal];
+                Texture2D tex3 = set[Properties.Resources.skin__SniperAlt1_Emissive];
 
-                _sniperSkin1Textures = new TextureSet( tex1, tex2, tex3 );
+                _sniperAlt1Textures = new TextureSet( tex1, tex2, tex3 );
             }
 
-            return _sniperSkin1Textures;
+            return _sniperAlt1Textures;
         }
-#pragma warning disable IDE1006 // Naming Styles
-        private static TextureSet _sniperSkin1Textures;
-#pragma warning restore IDE1006 // Naming Styles
 
-        internal static TextureSet GetSniperSkin2Textures()
+        private static TextureSet _sniperAlt1Textures;
+
+
+        internal static TextureSet GetSniperAlt2Textures()
         {
-            if( _sniperSkin2Textures == null )
+            if( _sniperAlt2Textures == null )
             {
                 SniperTextureSet set = GetMasterSet();
-                Texture2D tex1 = set[Properties.Resources.SniperSkin2_Diffuse];
-                Texture2D tex2 = set[Properties.Resources.SniperSkin2_Normal];
-                Texture2D tex3 = set[Properties.Resources.SniperSkin2_Emissive];
+                Texture2D tex1 = set[Properties.Resources.skin__SniperAlt2_Diffuse];
+                Texture2D tex2 = set[Properties.Resources.skin__SniperAlt2_Normal];
+                Texture2D tex3 = set[Properties.Resources.skin__SniperAlt2_Emissive];
 
-                _sniperSkin2Textures = new TextureSet( tex1, tex2, tex3 );
+                _sniperAlt2Textures = new TextureSet( tex1, tex2, tex3 );
             }
 
-            return _sniperSkin2Textures;
+            return _sniperAlt2Textures;
         }
-#pragma warning disable IDE1006 // Naming Styles
-        private static TextureSet _sniperSkin2Textures;
-#pragma warning restore IDE1006 // Naming Styles
 
-        internal static TextureSet GetSniperSkin3Textures()
+        private static TextureSet _sniperAlt2Textures;
+
+
+        internal static TextureSet GetSniperAlt3Textures()
         {
-            if( _sniperSkin3Textures == null )
+            if( _sniperAlt3Textures == null )
             {
                 SniperTextureSet set = GetMasterSet();
-                Texture2D tex1 = set[Properties.Resources.SniperSkin3_Diffuse];
-                Texture2D tex2 = set[Properties.Resources.SniperSkin3_Normal];
-                Texture2D tex3 = set[Properties.Resources.SniperSkin3_Emissive];
+                Texture2D tex1 = set[Properties.Resources.skin__SniperAlt3_Diffuse];
+                Texture2D tex2 = set[Properties.Resources.skin__SniperAlt3_Normal];
+                Texture2D tex3 = set[Properties.Resources.skin__SniperAlt3_Emissive];
 
-                _sniperSkin3Textures = new TextureSet( tex1, tex2, tex3 );
+                _sniperAlt3Textures = new TextureSet( tex1, tex2, tex3 );
             }
 
-            return _sniperSkin3Textures;
+            return _sniperAlt3Textures;
         }
-#pragma warning disable IDE1006 // Naming Styles
-        private static TextureSet _sniperSkin3Textures;
-#pragma warning restore IDE1006 // Naming Styles
+
+        private static TextureSet _sniperAlt3Textures;
 
 
-        internal static TextureSet GetSniperSkin4Textures()
+
+        internal static TextureSet GetSniperAlt4Textures()
         {
-            if( _sniperSkin4Textures == null )
+            if( _sniperAlt4Textures == null )
             {
                 SniperTextureSet set = GetMasterSet();
-                Texture2D tex1 = set[Properties.Resources.SniperSkin4_Diffuse];
-                Texture2D tex2 = set[Properties.Resources.SniperSkin4_Normal];
-                Texture2D tex3 = set[Properties.Resources.SniperSkin4_Emissive];
+                Texture2D tex1 = set[Properties.Resources.skin__SniperAlt4_Diffuse];
+                Texture2D tex2 = set[Properties.Resources.skin__SniperAlt4_Normal];
+                Texture2D tex3 = set[Properties.Resources.skin__SniperAlt4_Emissive];
 
-                _sniperSkin4Textures = new TextureSet( tex1, tex2, tex3 );
+                _sniperAlt4Textures = new TextureSet( tex1, tex2, tex3 );
             }
 
-            return _sniperSkin4Textures;
+            return _sniperAlt4Textures;
         }
-#pragma warning disable IDE1006 // Naming Styles
-        private static TextureSet _sniperSkin4Textures;
-#pragma warning restore IDE1006 // Naming Styles
 
-        internal static TextureSet GetSniperSkin5Textures()
+        private static TextureSet _sniperAlt4Textures;
+
+
+        internal static TextureSet GetSniperAlt5Textures()
         {
-            if( _sniperSkin5Textures == null )
+            if( _sniperAlt5Textures == null )
             {
                 SniperTextureSet set = GetMasterSet();
-                Texture2D tex1 = set[Properties.Resources.SniperSkin5_Diffuse];
-                Texture2D tex2 = set[Properties.Resources.SniperSkin5_Normal];
-                Texture2D tex3 = set[Properties.Resources.SniperSkin5_Emissive];
+                Texture2D tex1 = set[Properties.Resources.skin__SniperAlt5_Diffuse];
+                Texture2D tex2 = set[Properties.Resources.skin__SniperAlt5_Normal];
+                Texture2D tex3 = set[Properties.Resources.skin__SniperAlt5_Emissive];
 
-                _sniperSkin5Textures = new TextureSet( tex1, tex2, tex3 );
+                _sniperAlt5Textures = new TextureSet( tex1, tex2, tex3 );
             }
 
-            return _sniperSkin5Textures;
+            return _sniperAlt5Textures;
         }
-#pragma warning disable IDE1006 // Naming Styles
-        private static TextureSet _sniperSkin5Textures;
-#pragma warning restore IDE1006 // Naming Styles
+
+        private static TextureSet _sniperAlt5Textures;
 
 
-
-
-        internal static TextureSet GetRailDefaultTextures()
+        internal static TextureSet GetSniperAlt6Textures()
         {
-            if( _railDefaultTextures == null )
+            if( _sniperAlt6Textures == null )
             {
                 SniperTextureSet set = GetMasterSet();
-                Texture2D tex1 = set[Properties.Resources.RailgunDefault_Diffuse];
-                Texture2D tex2 = set[Properties.Resources.RailgunDefault_Normal];
-                Texture2D tex3 = set[Properties.Resources.RailgunDefault_Emissive];
+                Texture2D tex1 = set[Properties.Resources.skin__SniperAlt6_Diffuse];
+                Texture2D tex2 = set[Properties.Resources.skin__SniperAlt6_Normal];
+                Texture2D tex3 = set[Properties.Resources.skin__SniperAlt6_Emissive];
 
-                _railDefaultTextures = new TextureSet( tex1, tex2, tex3 );
+                _sniperAlt6Textures = new TextureSet( tex1, tex2, tex3 );
             }
 
-            return _railDefaultTextures;
+            return _sniperAlt6Textures;
         }
-#pragma warning disable IDE1006 // Naming Styles
-        private static TextureSet _railDefaultTextures;
-#pragma warning restore IDE1006 // Naming Styles
+
+        private static TextureSet _sniperAlt6Textures;
+
+
+
+
+
+        internal static TextureSet GetRailTextures()
+        {
+            if( _railTextures == null )
+            {
+                SniperTextureSet set = GetMasterSet();
+                Texture2D tex1 = set[Properties.Resources.skin__Railgun_Diffuse];
+                Texture2D tex2 = set[Properties.Resources.skin__Railgun_Normal];
+                Texture2D tex3 = set[Properties.Resources.skin__Railgun_Emissive];
+
+                _railTextures = new TextureSet( tex1, tex2, tex3 );
+            }
+
+            return _railTextures;
+        }
+
+        private static TextureSet _railTextures;
+
 
         internal static TextureSet GetRailAlt1Textures()
         {
             if( _railAlt1Textures == null )
             {
                 SniperTextureSet set = GetMasterSet();
-                Texture2D tex1 = set[Properties.Resources.RailgunAlt1_Diffuse];
-                Texture2D tex2 = set[Properties.Resources.RailgunAlt1_Normal];
-                Texture2D tex3 = set[Properties.Resources.RailgunAlt1_Emissive];
+                Texture2D tex1 = set[Properties.Resources.skin__RailgunAlt1_Diffuse];
+                Texture2D tex2 = set[Properties.Resources.skin__RailgunAlt1_Normal];
+                Texture2D tex3 = set[Properties.Resources.skin__RailgunAlt1_Emissive];
 
                 _railAlt1Textures = new TextureSet( tex1, tex2, tex3 );
             }
 
             return _railAlt1Textures;
         }
-#pragma warning disable IDE1006 // Naming Styles
+
         private static TextureSet _railAlt1Textures;
-#pragma warning restore IDE1006 // Naming Styles
+
 
         internal static TextureSet GetRailAlt2Textures()
         {
             if( _railAlt2Textures == null )
             {
                 SniperTextureSet set = GetMasterSet();
-                Texture2D tex1 = set[Properties.Resources.RailgunAlt2_Diffuse];
-                Texture2D tex2 = set[Properties.Resources.RailgunAlt2_Normal];
-                Texture2D tex3 = set[Properties.Resources.RailgunAlt2_Emissive];
+                Texture2D tex1 = set[Properties.Resources.skin__RailgunAlt2_Diffuse];
+                Texture2D tex2 = set[Properties.Resources.skin__RailgunAlt2_Normal];
+                Texture2D tex3 = set[Properties.Resources.skin__RailgunAlt2_Emissive];
 
                 _railAlt2Textures = new TextureSet( tex1, tex2, tex3 );
             }
 
             return _railAlt2Textures;
         }
-#pragma warning disable IDE1006 // Naming Styles
+
         private static TextureSet _railAlt2Textures;
-#pragma warning restore IDE1006 // Naming Styles
+
 
         internal static TextureSet GetRailAlt3Textures()
         {
             if( _railAlt3Textures == null )
             {
                 SniperTextureSet set = GetMasterSet();
-                Texture2D tex1 = set[Properties.Resources.RailgunAlt3_Diffuse];
-                Texture2D tex2 = set[Properties.Resources.RailgunAlt3_Normal];
-                Texture2D tex3 = set[Properties.Resources.RailgunAlt3_Emissive];
+                Texture2D tex1 = set[Properties.Resources.skin__RailgunAlt3_Diffuse];
+                Texture2D tex2 = set[Properties.Resources.skin__RailgunAlt3_Normal];
+                Texture2D tex3 = set[Properties.Resources.skin__RailgunAlt3_Emissive];
 
                 _railAlt3Textures = new TextureSet( tex1, tex2, tex3 );
             }
 
             return _railAlt3Textures;
         }
-#pragma warning disable IDE1006 // Naming Styles
+
         private static TextureSet _railAlt3Textures;
-#pragma warning restore IDE1006 // Naming Styles
 
 
-
-
-        internal static TextureSet GetThrowKnifeDefaultTextures()
+        internal static TextureSet GetRailAlt4Textures()
         {
-            if( _throwKnifeDefaultTextures == null )
+            if( _railAlt4Textures == null )
             {
                 SniperTextureSet set = GetMasterSet();
-                Texture2D tex1 = set[Properties.Resources.ThrowKnifeDefault_Diffuse];
-                Texture2D tex2 = set[Properties.Resources.ThrowKnifeDefault_Normal];
-                Texture2D tex3 = set[Properties.Resources.ThrowKnifeDefault_Emissive];
+                Texture2D tex1 = set[Properties.Resources.skin__RailgunAlt4_Diffuse];
+                Texture2D tex2 = set[Properties.Resources.skin__RailgunAlt4_Normal];
+                Texture2D tex3 = set[Properties.Resources.skin__RailgunAlt4_Emissive];
 
-                _throwKnifeDefaultTextures = new TextureSet( tex1, tex2, tex3 );
+                _railAlt4Textures = new TextureSet( tex1, tex2, tex3 );
             }
 
-            return _throwKnifeDefaultTextures;
+            return _railAlt4Textures;
         }
-#pragma warning disable IDE1006 // Naming Styles
-        private static TextureSet _throwKnifeDefaultTextures;
-#pragma warning restore IDE1006 // Naming Styles
+
+        private static TextureSet _railAlt4Textures;
+
+
+        internal static TextureSet GetRailAlt5Textures()
+        {
+            if( _railAlt5Textures == null )
+            {
+                SniperTextureSet set = GetMasterSet();
+                Texture2D tex1 = set[Properties.Resources.skin__RailgunAlt5_Diffuse];
+                Texture2D tex2 = set[Properties.Resources.skin__RailgunAlt5_Normal];
+                Texture2D tex3 = set[Properties.Resources.skin__RailgunAlt5_Emissive];
+
+                _railAlt5Textures = new TextureSet( tex1, tex2, tex3 );
+            }
+
+            return _railAlt5Textures;
+        }
+
+        private static TextureSet _railAlt5Textures;
+
+
+        internal static TextureSet GetRailAlt6Textures()
+        {
+            if( _railAlt6Textures == null )
+            {
+                SniperTextureSet set = GetMasterSet();
+                Texture2D tex1 = set[Properties.Resources.skin__RailgunAlt6_Diffuse];
+                Texture2D tex2 = set[Properties.Resources.skin__RailgunAlt6_Normal];
+                Texture2D tex3 = set[Properties.Resources.skin__RailgunAlt6_Emissive];
+
+                _railAlt6Textures = new TextureSet( tex1, tex2, tex3 );
+            }
+
+            return _railAlt6Textures;
+        }
+
+        private static TextureSet _railAlt6Textures;
+
+
+
+
+
+        internal static TextureSet GetThrowKnifeTextures()
+        {
+            if( _throwKnifeTextures == null )
+            {
+                SniperTextureSet set = GetMasterSet();
+                Texture2D tex1 = set[Properties.Resources.skin__ThrowKnife_Diffuse];
+                Texture2D tex2 = set[Properties.Resources.skin__ThrowKnife_Normal];
+                Texture2D tex3 = set[Properties.Resources.skin__ThrowKnife_Emissive];
+
+                _throwKnifeTextures = new TextureSet( tex1, tex2, tex3 );
+            }
+
+            return _throwKnifeTextures;
+        }
+        private static TextureSet _throwKnifeTextures;
+
+        internal static TextureSet GetThrowKnifeAlt1Textures()
+        {
+            if( _throwKnifeAlt1Textures == null )
+            {
+                SniperTextureSet set = GetMasterSet();
+                Texture2D tex1 = set[Properties.Resources.skin__ThrowKnifeAlt1_Diffuse];
+                Texture2D tex2 = set[Properties.Resources.skin__ThrowKnifeAlt1_Normal];
+                Texture2D tex3 = set[Properties.Resources.skin__ThrowKnifeAlt1_Emissive];
+
+                _throwKnifeAlt1Textures = new TextureSet( tex1, tex2, tex3 );
+            }
+
+            return _throwKnifeAlt1Textures;
+        }
+        private static TextureSet _throwKnifeAlt1Textures;
+
+
+        internal static TextureSet GetThrowKnifeAlt2Textures()
+        {
+            if( _throwKnifeAlt2Textures == null )
+            {
+                SniperTextureSet set = GetMasterSet();
+                Texture2D tex1 = set[Properties.Resources.skin__ThrowKnifeAlt2_Diffuse];
+                Texture2D tex2 = set[Properties.Resources.skin__ThrowKnifeAlt2_Normal];
+                Texture2D tex3 = set[Properties.Resources.skin__ThrowKnifeAlt2_Emissive];
+
+                _throwKnifeAlt2Textures = new TextureSet( tex1, tex2, tex3 );
+            }
+
+            return _throwKnifeAlt2Textures;
+        }
+        private static TextureSet _throwKnifeAlt2Textures;
+
+
+        internal static TextureSet GetThrowKnifeAlt3Textures()
+        {
+            if( _throwKnifeAlt3Textures == null )
+            {
+                SniperTextureSet set = GetMasterSet();
+                Texture2D tex1 = set[Properties.Resources.skin__ThrowKnifeAlt3_Diffuse];
+                Texture2D tex2 = set[Properties.Resources.skin__ThrowKnifeAlt3_Normal];
+                Texture2D tex3 = set[Properties.Resources.skin__ThrowKnifeAlt3_Emissive];
+
+                _throwKnifeAlt3Textures = new TextureSet( tex1, tex2, tex3 );
+            }
+
+            return _throwKnifeAlt3Textures;
+        }
+        private static TextureSet _throwKnifeAlt3Textures;
+
+
+        internal static TextureSet GetThrowKnifeAlt4Textures()
+        {
+            if( _throwKnifeAlt4Textures == null )
+            {
+                SniperTextureSet set = GetMasterSet();
+                Texture2D tex1 = set[Properties.Resources.skin__ThrowKnifeAlt4_Diffuse];
+                Texture2D tex2 = set[Properties.Resources.skin__ThrowKnifeAlt4_Normal];
+                Texture2D tex3 = set[Properties.Resources.skin__ThrowKnifeAlt4_Emissive];
+
+                _throwKnifeAlt4Textures = new TextureSet( tex1, tex2, tex3 );
+            }
+
+            return _throwKnifeAlt4Textures;
+        }
+        private static TextureSet _throwKnifeAlt4Textures;
+
+
+        internal static TextureSet GetThrowKnifeAlt5Textures()
+        {
+            if( _throwKnifeAlt5Textures == null )
+            {
+                SniperTextureSet set = GetMasterSet();
+                Texture2D tex1 = set[Properties.Resources.skin__ThrowKnifeAlt5_Diffuse];
+                Texture2D tex2 = set[Properties.Resources.skin__ThrowKnifeAlt5_Normal];
+                Texture2D tex3 = set[Properties.Resources.skin__ThrowKnifeAlt5_Emissive];
+
+                _throwKnifeAlt5Textures = new TextureSet( tex1, tex2, tex3 );
+            }
+
+            return _throwKnifeAlt5Textures;
+        }
+        private static TextureSet _throwKnifeAlt5Textures;
+
+
+        internal static TextureSet GetThrowKnifeAlt6Textures()
+        {
+            if( _throwKnifeAlt6Textures == null )
+            {
+                SniperTextureSet set = GetMasterSet();
+                Texture2D tex1 = set[Properties.Resources.skin__ThrowKnifeAlt6_Diffuse];
+                Texture2D tex2 = set[Properties.Resources.skin__ThrowKnifeAlt6_Normal];
+                Texture2D tex3 = set[Properties.Resources.skin__ThrowKnifeAlt6_Emissive];
+
+                _throwKnifeAlt6Textures = new TextureSet( tex1, tex2, tex3 );
+            }
+
+            return _throwKnifeAlt6Textures;
+        }
+        private static TextureSet _throwKnifeAlt6Textures;
+
     }
 
 }

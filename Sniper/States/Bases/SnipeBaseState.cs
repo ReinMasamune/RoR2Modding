@@ -39,7 +39,7 @@
 
             var ammo = base.characterBody.ammo;
             this.isScatter = ammo.skillNameToken == Properties.Tokens.SNIPER_AMMO_SCATTER_NAME;
-            ExpandableBulletAttack bullet = base.characterBody.ammo.CreateBullet( base.characterBody, this.reloadTier, aimRay, "MuzzleRailgun" );
+            ExpandableBulletAttack bullet = ammo.CreateBullet( base.characterBody, this.reloadTier, aimRay, "MuzzleRailgun" );
             //var bullet = new ExpandableBulletAttack
             //{
             //    aimVector = aimRay.direction,

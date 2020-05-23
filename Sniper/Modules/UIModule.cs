@@ -19,19 +19,19 @@
         }
 
 
-        internal static Sprite GetStandardAmmoIcon() => AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>( Properties.Resources.StandardAmmoIcon );
-        internal static Sprite GetExplosiveAmmoIcon() => AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>( Properties.Resources.ExplosiveAmmoIcon );
-        internal static Sprite GetSnipeIcon() => AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>( Properties.Resources.SnipeIcon );
-        internal static Sprite GetSnipeReloadIcon() => AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>( Properties.Resources.ReloadIcon );
-        internal static Sprite GetSteadyAimIcon() => AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>( Properties.Resources.SteadyAimIcon );
-        internal static Sprite GetCritPassiveIcon() => AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>( Properties.Resources.CritPassiveIcon );
-        internal static Sprite GetHeadshotPassiveIcon() => AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>( Properties.Resources.HeadshotIcon );
-        internal static Sprite GetBackflipIcon() => AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>( Properties.Resources.BackflipIcon );
+        internal static Sprite GetStandardAmmoIcon() => AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>( Properties.Resources.icon__StandardAmmoIcon );
+        internal static Sprite GetExplosiveAmmoIcon() => AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>( Properties.Resources.icon__ExplosiveAmmoIcon );
+        internal static Sprite GetSnipeIcon() => AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>( Properties.Resources.icon__SnipeIcon );
+        internal static Sprite GetSnipeReloadIcon() => AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>( Properties.Resources.icon__ReloadIcon );
+        internal static Sprite GetSteadyAimIcon() => AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>( Properties.Resources.icon__SteadyAimIcon );
+        internal static Sprite GetCritPassiveIcon() => AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>( Properties.Resources.icon__CritPassiveIcon );
+        internal static Sprite GetHeadshotPassiveIcon() => AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>( Properties.Resources.icon__HeadshotIcon );
+        internal static Sprite GetBackflipIcon() => AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>( Properties.Resources.icon__BackflipIcon );
         internal static Sprite GetQuickScopeIcon() => null;//AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>( Properties.Resources.QuickscopeIcon );
         internal static Sprite GetKnifeIcon() => GetUnfinishedIcon();//AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>( Properties.Resources.KnifeIcon );
         internal static Sprite GetKnifeReactivationIcon() => GetUnfinishedIcon();//AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>( Properties.Resources.KnifeReactivationIcon );
-        internal static Sprite GetDecoyIcon() => AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>( Properties.Resources.DecoyIcon );
-        internal static Sprite GetDecoyReactivationIcon() => AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>( Properties.Resources.DecoyReactivateIcon );
+        internal static Sprite GetDecoyIcon() => AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>( Properties.Resources.icon__DecoyIcon );
+        internal static Sprite GetDecoyReactivationIcon() => AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>( Properties.Resources.icon__DecoyReactivateIcon );
         internal static Sprite GetPlasmaAmmoIcon() => null;//AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>( Properties.Resources.PlasmaAmmoIcon );
         internal static Sprite GetScatterAmmoIcon() => null;// AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>( Properties.Resources.ScatterAmmoIcon );
         internal static Sprite GetShockAmmoIcon() => GetUnfinishedIcon(); //AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>(Properties.Resources.ShockAmmoIcon );
@@ -62,7 +62,7 @@
             return scopeCrosshair;
         }
 
-        internal static Texture GetPortraitIcon() => AssetModule.GetSniperAssetBundle().LoadAsset<Texture2D>( Properties.Resources.PortraitIcon );//return null;
+        internal static Texture GetPortraitIcon() => AssetModule.GetSniperAssetBundle().LoadAsset<Texture2D>( Properties.Resources.icon__PortraitIcon );//return null;
 
         internal static GameObject GetQuickScope()
         {

@@ -31,6 +31,7 @@
             SurvivorCatalog.getAdditionalSurvivorDefs += ( list ) => list.Add( survivorDef );
         }
 
+        internal static Lazy<Int32> sniperBodyIndex = new Lazy<Int32>( () => BodyCatalog.FindBodyIndex( SniperMain.sniperBodyPrefab.GetComponent<CharacterBody>() ) );
         internal static void RegisterBody() => BodyCatalog.getAdditionalEntries += ( list ) => list.Add( SniperMain.sniperBodyPrefab );
 
         internal static void RegisterMaster()
@@ -129,20 +130,40 @@
 
         private static void GlobalEventManager_onCharacterDeathGlobal( DamageReport obj )
         {
-            if( obj.victimBody.HasBuff( sniperResetDebuff.Value ) )
+            if( obj.victimBody.HasBuff( sniperResetDebuff.Value ) && obj.attackerBodyIndex == sniperBodyIndex.Value )
             {
-                var loc = obj.attackerBody.skillLocator;
-                var primaryData = loc.primary.skillInstanceData as SniperReloadableFireSkillDef.SniperPrimaryInstanceData;
-                primaryData.ForceReload( ReloadTier.Perfect );
-                var sec = loc.secondary;
-                sec.stock = Mathf.Max( Mathf.Min( sec.maxStock, sec.stock + 1 ), sec.stock );
-                sec.rechargeStopwatch = sec.stock >= sec.maxStock ? 0f : sec.rechargeStopwatch;
-                var util = loc.utility;
-                util.stock = Mathf.Max( Mathf.Min( util.maxStock, util.stock + 1 ), util.stock );
-                util.rechargeStopwatch = util.stock >= util.maxStock ? 0f : util.rechargeStopwatch;
-                var spec = loc.special;
-                spec.stock = Mathf.Max( Mathf.Min( spec.maxStock, spec.stock + 1 ), spec.stock );
-                spec.rechargeStopwatch = spec.stock >= spec.maxStock ? 0f : spec.rechargeStopwatch;
+                SkillLocator loc = obj?.attackerBody?.skillLocator;
+                if( loc is null ) return;
+
+
+                GenericSkill pri = loc.primary;
+                if( pri.skillInstanceData is SniperReloadableFireSkillDef.SniperPrimaryInstanceData primaryData )
+                {
+                    primaryData.ForceReload( ReloadTier.Perfect );
+                } else if( pri != null )
+                {
+                    pri.stock = Mathf.Max( Mathf.Min( pri.maxStock, pri.stock + 1 ), pri.stock );
+                    pri.rechargeStopwatch = pri.stock >= pri.maxStock ? 0f : pri.rechargeStopwatch;
+                }
+
+                GenericSkill sec = loc.secondary;
+                if( sec != null )
+                {
+                    sec.stock = Mathf.Max( Mathf.Min( sec.maxStock, sec.stock + 1 ), sec.stock );
+                    sec.rechargeStopwatch = sec.stock >= sec.maxStock ? 0f : sec.rechargeStopwatch;
+                }
+                GenericSkill util = loc.utility;
+                if( util != null )
+                {
+                    util.stock = Mathf.Max( Mathf.Min( util.maxStock, util.stock + 1 ), util.stock );
+                    util.rechargeStopwatch = util.stock >= util.maxStock ? 0f : util.rechargeStopwatch;
+                }
+                GenericSkill spec = loc.special;
+                if( spec != null )
+                {
+                    spec.stock = Mathf.Max( Mathf.Min( spec.maxStock, spec.stock + 1 ), spec.stock );
+                    spec.rechargeStopwatch = spec.stock >= spec.maxStock ? 0f : spec.rechargeStopwatch;
+                }
             }
         }
     }

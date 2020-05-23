@@ -11,8 +11,6 @@
     [Serializable]
     internal struct BulletModifier
     {
-        internal static BulletModifier identity = new BulletModifier();
-
         internal Single charge;
 
         internal void Apply( ExpandableBulletAttack bullet )
@@ -110,9 +108,9 @@
             }
         }
         [SerializeField]
-#pragma warning disable IDE1006 // Naming Styles
+
         private Single _countMultiplier;
-#pragma warning restore IDE1006 // Naming Styles
+
         [SerializeField]
         private Boolean applyCountMultiplier;
 
@@ -127,9 +125,9 @@
             }
         }
         [SerializeField]
-#pragma warning disable IDE1006 // Naming Styles
+
         private Single _damageMultiplier;
-#pragma warning restore IDE1006 // Naming Styles
+
         [SerializeField]
         private Boolean applyDamageMultiplier;
 
@@ -144,9 +142,9 @@
             }
         }
         [SerializeField]
-#pragma warning disable IDE1006 // Naming Styles
+
         private DamageColorIndex _damageColor;
-#pragma warning restore IDE1006 // Naming Styles
+
         [SerializeField]
         private Boolean applyDamageColor;
 
@@ -161,9 +159,9 @@
             }
         }
         [SerializeField]
-#pragma warning disable IDE1006 // Naming Styles
+
         private DamageType _damageTypeAdd;
-#pragma warning restore IDE1006 // Naming Styles
+
         [SerializeField]
         private Boolean applyDamageTypeAdd;
 
@@ -178,9 +176,9 @@
             }
         }
         [SerializeField]
-#pragma warning disable IDE1006 // Naming Styles
+
         private DamageType _damageTypeRemove;
-#pragma warning restore IDE1006 // Naming Styles
+
         [SerializeField]
         private Boolean applyDamageTypeRemove;
 
@@ -195,9 +193,9 @@
             }
         }
         [SerializeField]
-#pragma warning disable IDE1006 // Naming Styles
+
         private Single _forceMultiplier;
-#pragma warning restore IDE1006 // Naming Styles
+
         [SerializeField]
         private Boolean applyForceMultiplier;
 
@@ -212,9 +210,9 @@
             }
         }
         [SerializeField]
-#pragma warning disable IDE1006 // Naming Styles
+
         private LayerMask _hitMaskRemove;
-#pragma warning restore IDE1006 // Naming Styles
+
         [SerializeField]
         private Boolean applyHitMaskRemove;
 
@@ -229,9 +227,9 @@
             }
         }
         [SerializeField]
-#pragma warning disable IDE1006 // Naming Styles
+
         private LayerMask _hitMaskAdd;
-#pragma warning restore IDE1006 // Naming Styles
+
         [SerializeField]
         private Boolean applyHitMaskAdd;
 
@@ -246,9 +244,9 @@
             }
         }
         [SerializeField]
-#pragma warning disable IDE1006 // Naming Styles
+
         private Single _maxSpread;
-#pragma warning restore IDE1006 // Naming Styles
+
         [SerializeField]
         private Boolean applyMaxSpread;
 
@@ -263,9 +261,9 @@
             }
         }
         [SerializeField]
-#pragma warning disable IDE1006 // Naming Styles
+
         private Single _minSpread;
-#pragma warning restore IDE1006 // Naming Styles
+
         [SerializeField]
         private Boolean applyMinSpread;
 
@@ -280,9 +278,9 @@
             }
         }
         [SerializeField]
-#pragma warning disable IDE1006 // Naming Styles
+
         private Single _procMultiplier;
-#pragma warning restore IDE1006 // Naming Styles
+
         [SerializeField]
         private Boolean applyProcMultiplier;
 
@@ -297,9 +295,9 @@
             }
         }
         [SerializeField]
-#pragma warning disable IDE1006 // Naming Styles
+
         private Single _radiusMultiplier;
-#pragma warning restore IDE1006 // Naming Styles
+
         [SerializeField]
         private Boolean applyRadiusMultiplier;
 
@@ -314,9 +312,9 @@
             }
         }
         [SerializeField]
-#pragma warning disable IDE1006 // Naming Styles
+
         private Single _spreadPitch;
-#pragma warning restore IDE1006 // Naming Styles
+
         [SerializeField]
         private Boolean applySpreadPitch;
 
@@ -331,9 +329,9 @@
             }
         }
         [SerializeField]
-#pragma warning disable IDE1006 // Naming Styles
+
         private Single _spreadYaw;
-#pragma warning restore IDE1006 // Naming Styles
+
         [SerializeField]
         private Boolean applySpreadYaw;
 
@@ -348,9 +346,9 @@
             }
         }
         [SerializeField]
-#pragma warning disable IDE1006 // Naming Styles
+
         private LayerMask _stopperMaskRemove;
-#pragma warning restore IDE1006 // Naming Styles
+
         [SerializeField]
         private Boolean applyStopperMaskRemove;
 
@@ -365,9 +363,9 @@
             }
         }
         [SerializeField]
-#pragma warning disable IDE1006 // Naming Styles
+
         private LayerMask _stopperMaskAdd;
-#pragma warning restore IDE1006 // Naming Styles
+
         [SerializeField]
         private Boolean applyStopperMaskAdd;
     }

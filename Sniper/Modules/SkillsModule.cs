@@ -72,7 +72,7 @@
                     force = 100f,
                     HitEffectNormal = true,
                     hitEffectPrefab = null, // TODO: Standard Ammo Hit Effect
-                    hitMask = LayerIndex.entityPrecise.mask,
+                    hitMask = LayerIndex.entityPrecise.mask | LayerIndex.world.mask,
                     isCrit = body.RollCrit(),
                     maxDistance = 1000f,
                     maxSpread = 0f,
@@ -154,7 +154,7 @@
                     force = 500f,
                     HitEffectNormal = true,
                     hitEffectPrefab = null, // TODO: Explosive Ammo Hit Effect
-                    hitMask = LayerIndex.entityPrecise.mask,
+                    hitMask = LayerIndex.entityPrecise.mask | LayerIndex.world.mask,
                     isCrit = body.RollCrit(),
                     maxDistance = 1000f,
                     maxSpread = 0f,
@@ -205,7 +205,7 @@
                     force = 25f,
                     HitEffectNormal = true,
                     hitEffectPrefab = null, // TODO: Explosive Ammo Hit Effect
-                    hitMask = LayerIndex.entityPrecise.mask,
+                    hitMask = LayerIndex.entityPrecise.mask | LayerIndex.world.mask,
                     isCrit = body.RollCrit(),
                     maxDistance = 200f,
                     maxSpread = 2.6f,
@@ -265,7 +265,7 @@
                     force = 0f,
                     HitEffectNormal = true,
                     hitEffectPrefab = null, // TODO: Plasma Ammo Hit Effect
-                    hitMask = LayerIndex.entityPrecise.mask,
+                    hitMask = LayerIndex.entityPrecise.mask | LayerIndex.world.mask,
                     isCrit = body.RollCrit(),
                     maxDistance = 1000f,
                     maxSpread = 0f,
@@ -311,14 +311,14 @@
         {
             var skills = new List<SkillDef>();
 
-            var critPassive = SniperPassiveSkillDef.Create( BulletModifier.identity, false, 1.2f );
+            var critPassive = SniperPassiveSkillDef.Create( default, false, 1.2f );
             critPassive.icon = UIModule.GetCritPassiveIcon();
             critPassive.skillName = "Precise Aim";
             critPassive.skillNameToken = Tokens.SNIPER_PASSIVE_CRITICAL_NAME;
             critPassive.skillDescriptionToken = Tokens.SNIPER_PASSIVE_CRITICAL_DESC;
             skills.Add( critPassive );
 
-            var headshot = SniperPassiveSkillDef.Create( BulletModifier.identity, true, 1.0f );
+            var headshot = SniperPassiveSkillDef.Create( default, true, 1.0f );
             headshot.icon = UIModule.GetHeadshotPassiveIcon();
             headshot.skillName = "Headshot";
             headshot.skillNameToken = Tokens.SNIPER_PASSIVE_HEADSHOT_NAME;

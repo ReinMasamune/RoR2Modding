@@ -573,7 +573,7 @@
             if( _sniperDefaultBase == null )
             {
                 StandardMaterial baseMat = CreateSniperBase().Clone();
-                Data.TextureSet set = TextureModule.GetSniperDefaultTextures();
+                Data.TextureSet set = TextureModule.GetSniperTextures();
                 set.Apply( baseMat );
 
                 baseMat.mainColor *= 0.8f;
@@ -591,7 +591,7 @@
             if( _sniperSkin1Base == null )
             {
                 StandardMaterial baseMat = CreateSniperBase().Clone();
-                Data.TextureSet set = TextureModule.GetSniperSkin1Textures();
+                Data.TextureSet set = TextureModule.GetSniperAlt1Textures();
                 set.Apply( baseMat );
                 _sniperSkin1Base = baseMat;
             }
@@ -607,7 +607,7 @@
             if( _sniperSkin2Base == null )
             {
                 StandardMaterial baseMat = CreateSniperBase().Clone();
-                Data.TextureSet set = TextureModule.GetSniperSkin2Textures();
+                Data.TextureSet set = TextureModule.GetSniperAlt2Textures();
                 set.Apply( baseMat );
                 _sniperSkin2Base = baseMat;
             }
@@ -664,7 +664,7 @@
             if( _railDefault == null )
             {
                 StandardMaterial mat = GetRailBase().Clone();
-                Data.TextureSet tex = TextureModule.GetRailDefaultTextures();
+                Data.TextureSet tex = TextureModule.GetRailTextures();
                 tex.Apply( mat );
 
 
