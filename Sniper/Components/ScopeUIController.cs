@@ -90,7 +90,7 @@
             }
             // TODO: Verify camera position for scope
 
-            if( this.stateInstance != null && this.stateInstance.usesCharge )
+            if( this.stateInstance != null && this.stateInstance.usesCharge && this.chargeIndicator != null && this.chargeIndicator.IsActive() )
             {
                 this.chargeIndicator.fillAmount = this.stateInstance.currentCharge;
             }

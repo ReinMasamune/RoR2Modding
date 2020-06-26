@@ -5,16 +5,10 @@
     using UnityEngine.Networking;
 
     [Flags]
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public enum NetworkDestination : Byte
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     {
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         Clients = 1,
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         Server = 2,
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     }
 
     internal static class DestinationExtensions

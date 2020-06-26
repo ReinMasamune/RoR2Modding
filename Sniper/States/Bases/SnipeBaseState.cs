@@ -24,7 +24,7 @@
 
         private Single charge;
 
-        private Boolean isScatter = false;
+        private SoundModule.FireType fireSoundType = SoundModule.FireType.Normal;
 
         protected abstract void ModifyBullet( ExpandableBulletAttack bullet );
 
@@ -38,7 +38,7 @@
             Ray aimRay = this.GetAimRay();
 
             var ammo = base.characterBody.ammo;
-            this.isScatter = ammo.skillNameToken == Properties.Tokens.SNIPER_AMMO_SCATTER_NAME;
+            this.fireSoundType = ammo.fireSoundType;
             ExpandableBulletAttack bullet = ammo.CreateBullet( base.characterBody, this.reloadTier, aimRay, "MuzzleRailgun" );
             //var bullet = new ExpandableBulletAttack
             //{
@@ -103,7 +103,7 @@
 
             base.PlayAnimation( "Gesture, Additive", "Shoot", "rateShoot", this.duration );
 
-            SoundModule.PlayFire( base.gameObject, this.charge, this.isScatter );
+            SoundModule.PlayFire( base.gameObject, this.charge, this.fireSoundType );
 
         }
 
@@ -111,14 +111,14 @@
         {
             base.OnSerialize( writer );
             writer.Write( this.charge );
-            writer.Write( this.isScatter );
+            writer.Write( (Byte)this.fireSoundType );
         }
 
         public override void OnDeserialize( NetworkReader reader )
         {
             base.OnDeserialize( reader );
             this.charge = reader.ReadSingle();
-            this.isScatter = reader.ReadBoolean();
+            this.fireSoundType = (SoundModule.FireType)reader.ReadByte();
         }
 
 

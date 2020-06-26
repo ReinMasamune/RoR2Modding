@@ -88,6 +88,9 @@
                 if( !data.waitingOnReactivation )
                 {
                     data.OnExecution();
+                } else
+                {
+                    data.InvalidateReactivation();
                 }
 
                 if( skillSlot.characterBody )
@@ -129,11 +132,12 @@
                         break;
                     }
                 }
-
+#if ASSERT
                 if( this.reactivationStateMachine == null )
                 {
                     Log.Error( "No matching statemachine found" );
                 }
+#endif
             }
 
             internal Boolean CanReactivate()
@@ -209,12 +213,12 @@
                 if( this.waitingOnReactivation )
                 {
                     this.waitingOnReactivation = false;
-                    this.data.OnInvalidate();
+                    if( this.data != null ) this.data.OnInvalidate();
                     this.data = null;
                 } else
                 {
                     this.waitingOnReactivation = false;
-                    this.data.OnInvalidate();
+                    if( this.data != null ) this.data.OnInvalidate();
                     this.data = null;
                 }
 

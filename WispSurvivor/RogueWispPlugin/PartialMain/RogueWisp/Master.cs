@@ -556,7 +556,7 @@ namespace Rein.RogueWispPlugin
                             var stateMachines = this.passive.GetComponents<EntityStateMachine>();
                             if( stateMachines == null || stateMachines.Length == 0 )
                             {
-                                Main.LogE( "No state machines found" );
+                                //Main.LogE( "No state machines found" );
                             }
                             for( Int32 j = 0; j < stateMachines.Length; ++j )
                             {
@@ -576,14 +576,14 @@ namespace Rein.RogueWispPlugin
                             {
                                 if( curState == driver.requiredStates[j].stateType )
                                 {
-                                    Chat.AddMessage( "State found" );
+                                    //Chat.AddMessage( "State found" );
                                     ableToActivate = true;
                                     break;
                                 }
                             }
                         } else
                         {
-                            Main.LogE( String.Format( "Did not find statemachine with name {0}", driver.targetStateMachine ) );
+                            //Main.LogE( String.Format( "Did not find statemachine with name {0}", driver.targetStateMachine ) );
                         }
                     }
 

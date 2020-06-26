@@ -7,8 +7,8 @@
   <PropertyGroup>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
-    <AssemblyVersion>1.0.0.1131</AssemblyVersion>
-    <FileVersion>1.0.0.1131</FileVersion>
+    <AssemblyVersion>1.0.0.1178</AssemblyVersion>
+    <FileVersion>1.0.0.1178</FileVersion>
     <RootNamespace>Sniper</RootNamespace>
   </PropertyGroup>
 
@@ -16,7 +16,7 @@
     <OutputPath>C:\Users\reinm\source\repos\ReinRoR2Modding\__BUILDS\Sniper\</OutputPath>
     <DebugType>none</DebugType>
     <DebugSymbols>false</DebugSymbols>
-    <DefineConstants>ASSERT</DefineConstants>
+    <DefineConstants></DefineConstants>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
@@ -413,6 +413,10 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>ResourceTools.cs</LastGenOutput>
     </None>
+    <None Update="SoundIDs.tt">
+      <LastGenOutput>SoundIDs.cs</LastGenOutput>
+      <Generator>TextTemplatingFileGenerator</Generator>
+    </None>
     <None Update="Versioning.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Versioning.cs</LastGenOutput>
@@ -443,6 +447,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>ResourceTools.tt</DependentUpon>
+    </Compile>
+    <Compile Update="SoundIDs.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>SoundIDs.tt</DependentUpon>
     </Compile>
     <Compile Update="Versioning.cs">
       <DesignTime>True</DesignTime>

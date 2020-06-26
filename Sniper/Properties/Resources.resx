@@ -181,7 +181,7 @@
     <value>Passive</value>
   </data>
   <data name="lang__SNIPER_AMMO_EXPLOSIVE_DESC" xml:space="preserve">
-    <value>Deals 65% primary damage. Explodes on hit for an additional 65% primary damage to the target and nearby enemies.</value>
+    <value>Deals 50% primary damage. Explodes on hit for an additional 50% primary damage to the target and nearby enemies.</value>
   </data>
   <data name="lang__SNIPER_AMMO_EXPLOSIVE_NAME" xml:space="preserve">
     <value>Explosive</value>
@@ -205,7 +205,7 @@
     <value>Shock</value>
   </data>
   <data name="lang__SNIPER_AMMO_STANDARD_DESC" xml:space="preserve">
-    <value>Deals 110% primary damage, pierces enemies, and has a chance to ricochet.</value>
+    <value>Deals 100% primary damage, pierces enemies, and has a chance to ricochet.</value>
   </data>
   <data name="lang__SNIPER_AMMO_STANDARD_NAME" xml:space="preserve">
     <value>Full Metal Jacket</value>
@@ -229,7 +229,7 @@
     <value>Headshot</value>
   </data>
   <data name="lang__SNIPER_PRIMARY_DASH_DESC" xml:space="preserve">
-    <value>Fire for 260% damage. Reloading at the right time grants up to double damage.</value>
+    <value>Fire for 280% damage. Reloading at the right time grants up to double damage.</value>
   </data>
   <data name="lang__SNIPER_PRIMARY_DASH_NAME" xml:space="preserve">
     <value>Reposition</value>
@@ -241,7 +241,7 @@
     <value>Sliding Reload</value>
   </data>
   <data name="lang__SNIPER_PRIMARY_SNIPE_DESC" xml:space="preserve">
-    <value>Shoot enemies for 300% damage. Must be reloaded after firing. Reloading at the right time grants up to double damage.</value>
+    <value>Shoot enemies for 320% damage. Must be reloaded after firing. Reloading at the right time grants up to double damage.</value>
   </data>
   <data name="lang__SNIPER_PRIMARY_SNIPE_NAME" xml:space="preserve">
     <value>Snipe</value>
@@ -292,7 +292,7 @@
     <value>Decoy</value>
   </data>
   <data name="lang__SNIPER_SPECIAL_KNIFE_DESC" xml:space="preserve">
-    <value>Throw a knife that deals 100% damage and sticks on hit. Reactivate to teleport to the knife. When close to the knife, pick it up, deal 200% damage, and mark nearby enemies. Killing a marked enemy resets all your cooldowns.</value>
+    <value>Throw a knife that deals 100% damage and sticks on hit. Reactivate to teleport to the knife, dealing 200% damage and marking nearby enemies. Killing a marked enemy resets all your cooldowns.</value>
   </data>
   <data name="lang__SNIPER_SPECIAL_KNIFE_NAME" xml:space="preserve">
     <value>Blink Knife</value>

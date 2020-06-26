@@ -46,6 +46,17 @@
         internal Int32 stockRequiredToModifyFire;
         [SerializeField]
         internal Int32 stockRequiredToKeepZoom;
+        [SerializeField]
+        internal Boolean chargeCanCarryOver;
+        [SerializeField]
+        internal Single decayValue;
+        [SerializeField]
+        internal DecayType decayType;
+        [SerializeField]
+        internal Single initialCarryoverLoss;
+
+
+        internal enum DecayType { Linear, Exponential }
 
 
         public sealed override BaseSkillInstanceData OnAssigned( GenericSkill skillSlot ) => new ScopeInstanceData( this, skillSlot );
@@ -58,9 +69,19 @@
             return state;
         }
 
+        public override void OnFixedUpdate( GenericSkill skillSlot )
+        {
+            base.OnFixedUpdate( skillSlot );
+            if( skillSlot.skillInstanceData is ScopeInstanceData data )
+            {
+                data.UpdateData( Time.fixedDeltaTime );
+            }
+        }
 
 
-        internal class ScopeInstanceData : BaseSkillInstanceData
+
+
+        internal class ScopeInstanceData : BaseSkillInstanceData 
         {
             internal ScopeInstanceData( SniperScopeSkillDef scopeSkill, GenericSkill skillSlot )
             {
@@ -93,11 +114,15 @@
                 return mod;
             }
 
-            internal void Invalidate()
+            internal void Invalidate( Single charge )
             {
                 this.stateInstance = null;
                 this.scopeUIController?.EndZoomSession();
                 this.skillSlot.characterBody.crosshairPrefab = this.defaultCrosshair;
+                if( this.scopeSkill.chargeCanCarryOver )
+                {
+                    this.carryoverCharge = charge * ( 1f - this.scopeSkill.initialCarryoverLoss );
+                }
             }
 
             internal void UpdateCameraParams( Single zoomInput )
@@ -114,6 +139,8 @@
                 this.zoom = this.zoomParams.defaultZoom;
                 stateInstance.instanceData = this;
                 this.stateInstance = stateInstance;
+                stateInstance.startingCharge = this.carryoverCharge;
+                this.carryoverCharge = 0f;
             }
 
             internal void CrosshairCheckIn( ScopeUIController uiController )
@@ -125,6 +152,31 @@
                 }
             }
 
+            internal void UpdateData( Single deltaTime )
+            {
+                if( this.carryoverCharge > 0f )
+                {
+                    var value = this.scopeSkill.decayValue * deltaTime;
+                    switch( this.scopeSkill.decayType )
+                    {
+                        case DecayType.Linear:
+                        this.carryoverCharge -= value;
+                        break;
+                        case DecayType.Exponential:
+                        this.carryoverCharge *= Mathf.Exp( -value );
+                        break;
+                        default:
+#if ASSERT
+                        Log.Warning( "Unknown decay type" );
+#endif
+                        break;
+                    }
+                } else
+                {
+                    this.carryoverCharge = 0f;
+                }
+            }
+
             private ScopeBaseState stateInstance;
 
             private ScopeUIController scopeUIController;
@@ -133,6 +185,8 @@
             private Single zoom;
             internal ZoomParams zoomParams { get; private set; }
             private readonly GameObject defaultCrosshair;
+
+            private Single carryoverCharge = 0f;
         }
     }
 }

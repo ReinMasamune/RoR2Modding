@@ -198,16 +198,6 @@ namespace Rein.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] NetLib {
-            get {
-                object obj = ResourceManager.GetObject("NetLib", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
         internal static byte[] ReinCore {
             get {
                 object obj = ResourceManager.GetObject("ReinCore", resourceCulture);

@@ -424,6 +424,7 @@ namespace Rein.RogueWispPlugin
             data.DoLog( name );
             watches.Push( timer );
             return ret;
+
         }
 
         public static void Debug( System.Object data ) => InternalLog( LogLevel.Debug, data );
@@ -592,6 +593,8 @@ namespace Rein.RogueWispPlugin
         }
     }
     #endregion
+
+    DOTHEFUCKINGSOUNDFORZONE
 }
 // Thought organization:::
 

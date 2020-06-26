@@ -7,7 +7,6 @@
     internal delegate void OnBulletDelegate( ExpandableBulletAttack bullet, BulletAttack.BulletHit hitInfo );
     internal class ExpandableBulletAttack : BulletAttack, ICloneable
     {
-
         internal OnBulletDelegate onHit;
         internal OnBulletDelegate onStop;
         internal CharacterBody attackerBody;
@@ -16,6 +15,11 @@
         internal Single chargeLevel = 0f;
 
         internal ExpandableBulletData data = null;
+
+        internal TeamIndex team
+        {
+            get => this.attackerBody.teamComponent.teamIndex;
+        }
 
         internal ExpandableBulletAttack() : base()
         {

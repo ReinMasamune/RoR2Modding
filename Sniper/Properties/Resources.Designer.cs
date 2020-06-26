@@ -250,7 +250,7 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Deals 65% primary damage. Explodes on hit for an additional 65% primary damage to the target and nearby enemies..
+        ///   Looks up a localized string similar to Deals 50% primary damage. Explodes on hit for an additional 50% primary damage to the target and nearby enemies..
         /// </summary>
         internal static string lang__SNIPER_AMMO_EXPLOSIVE_DESC {
             get {
@@ -322,7 +322,7 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Deals 110% primary damage, pierces enemies, and has a chance to ricochet..
+        ///   Looks up a localized string similar to Deals 100% primary damage, pierces enemies, and has a chance to ricochet..
         /// </summary>
         internal static string lang__SNIPER_AMMO_STANDARD_DESC {
             get {
@@ -394,7 +394,7 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Fire for 260% damage. Reloading at the right time grants up to double damage..
+        ///   Looks up a localized string similar to Fire for 280% damage. Reloading at the right time grants up to double damage..
         /// </summary>
         internal static string lang__SNIPER_PRIMARY_DASH_DESC {
             get {
@@ -430,7 +430,7 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Shoot enemies for 300% damage. Must be reloaded after firing. Reloading at the right time grants up to double damage..
+        ///   Looks up a localized string similar to Shoot enemies for 320% damage. Must be reloaded after firing. Reloading at the right time grants up to double damage..
         /// </summary>
         internal static string lang__SNIPER_PRIMARY_SNIPE_DESC {
             get {
@@ -583,7 +583,7 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Throw a knife that deals 100% damage and sticks on hit. Reactivate to teleport to the knife. When close to the knife, pick it up, deal 200% damage, and mark nearby enemies. Killing a marked enemy resets all your cooldowns..
+        ///   Looks up a localized string similar to Throw a knife that deals 100% damage and sticks on hit. Reactivate to teleport to the knife, dealing 200% damage and marking nearby enemies. Killing a marked enemy resets all your cooldowns..
         /// </summary>
         internal static string lang__SNIPER_SPECIAL_KNIFE_DESC {
             get {

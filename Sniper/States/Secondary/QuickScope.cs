@@ -7,7 +7,7 @@
 
     internal class QuickScope : ScopeBaseState
     {
-        private const Single baseStartDelay = 0.5f;
+        private const Single baseStartDelay = 0.25f;
         private const Single damageMultiplier = 2f;
 
 
@@ -31,7 +31,7 @@
             var mod = new BulletModifier
             {
                 damageMultiplier = damageMultiplier,
-                charge = 0.5f,
+                charge = 0.25f,
 
             };
 

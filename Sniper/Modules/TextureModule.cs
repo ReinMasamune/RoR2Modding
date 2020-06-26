@@ -181,16 +181,10 @@
 
             foreach( FileInfo file in dir.EnumerateFiles( "*-tex" ) )
             {
-                try
+                var bundle = AssetBundle.LoadFromFile(file.FullName);
+                foreach( SniperTextureSet set in bundle.LoadAllAssets<SniperTextureSet>() )
                 {
-                    var bundle = AssetBundle.LoadFromFile(file.FullName);
-                    foreach( SniperTextureSet set in bundle.LoadAllAssets<SniperTextureSet>() )
-                    {
-                        masterSet.MergeAndReplace( set );
-                    }
-                } catch( Exception e )
-                {
-                    Log.Error( e );
+                    masterSet.MergeAndReplace( set );
                 }
             }
 

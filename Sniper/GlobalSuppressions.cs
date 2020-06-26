@@ -148,3 +148,5 @@ using System.Diagnostics.CodeAnalysis;
 [assembly: SuppressMessage( "Style", "IDE1006:Naming Styles", Justification = "<Pending>", Scope = "member", Target = "~F:Sniper.Data.BulletModifier._spreadYaw" )]
 [assembly: SuppressMessage( "Style", "IDE1006:Naming Styles", Justification = "<Pending>", Scope = "member", Target = "~F:Sniper.Data.BulletModifier._stopperMaskAdd" )]
 [assembly: SuppressMessage( "Style", "IDE1006:Naming Styles", Justification = "<Pending>", Scope = "member", Target = "~F:Sniper.Data.BulletModifier._stopperMaskRemove" )]
+[assembly: SuppressMessage( "Style", "IDE1006:Naming Styles", Justification = "<Pending>", Scope = "member", Target = "~F:Sniper.Modules.CatalogModule._plasmaDamageColor" )]
+[assembly: SuppressMessage( "Performance", "CA1812:Avoid uninstantiated internal classes", Justification = "<Pending>", Scope = "type", Target = "~T:Sniper.Components.DecoyDeployableSync" )]

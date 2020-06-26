@@ -406,7 +406,6 @@
             for( Int32 i = 0; i < skinsArray.Length; ++i )
             {
                 SkinDef skin = skinsArray[i];
-                Log.Counter();
                 skin.minionSkinReplacements = new[]
                 {
                     new SkinDef.MinionSkinReplacement

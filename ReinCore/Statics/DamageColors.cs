@@ -2,26 +2,15 @@
 {
     using System;
     using System.Reflection;
-
     using Mono.Cecil.Cil;
-
     using MonoMod.Cil;
-
     using RoR2;
-
     using UnityEngine;
 
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public static class DamageColorsCore
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     {
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public static Boolean loaded { get; internal set; } = false;
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
-
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public static DamageColorIndex AddDamageColor( Color color )
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
         {
             if( !loaded )
             {

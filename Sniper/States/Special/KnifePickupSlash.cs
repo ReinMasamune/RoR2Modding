@@ -11,7 +11,7 @@
 
     internal class KnifePickupSlash : SniperSkillBaseState
     {
-        private const Single baseDuration = 0.5f;
+        private const Single baseDuration = 0.25f;
         private const Single damageMult = 2f;
         private const Single slashRadius = 15f;
 
@@ -19,7 +19,7 @@
 
         internal GameObject knifeObject;
 
-        private static GameObject slashEffectPrefab = VFXModule.GetKnifeSlashPrefab();
+        private static readonly GameObject slashEffectPrefab = VFXModule.GetKnifeSlashPrefab();
 
 
         public override void OnEnter()
@@ -75,7 +75,7 @@
         public override void OnSerialize( NetworkWriter writer )
         {
             base.OnSerialize( writer );
-            writer.Write( knifeObject );
+            writer.Write( this.knifeObject );
         }
 
         public override void OnDeserialize( NetworkReader reader )

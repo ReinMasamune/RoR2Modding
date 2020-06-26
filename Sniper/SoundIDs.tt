@@ -1,0 +1,64 @@
+﻿<#@ template debug="false" hostspecific="true" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="System.Xml" #>
+<#@ import namespace="System.Xml" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Text.RegularExpressions" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".cs" #>
+
+
+<#
+	var matchRegex = new Regex( @"\t(\d+)\t(\S+)\s*\\", RegexOptions.Compiled );
+	String filePath = this.Host.ResolvePath( "Resources\\Rein_Sniper_Bank.txt" );
+	var idList = new List<(String name, String val)>();
+		
+	foreach( var str in File.ReadAllLines( filePath ) )
+	{
+		var match = matchRegex.Match( str );
+		if( match.Success )
+		{
+			var name = match.Groups[2].Value;
+			var val = match.Groups[1].Value;
+			idList.Add( (name, val) );
+		}
+	}
+#>
+
+namespace Sniper.Properties
+{
+	using System;
+	using System.Runtime.CompilerServices;
+
+	internal static class SoundIDConsts
+	{
+		#pragma warning disable IDE1006 // Naming Styles
+<#
+	foreach( var pair in idList )
+	{
+		Write( String.Format("{0}internal const UInt32 {1} = {2}u;{3}", "\t\t" , pair.name, pair.val, Environment.NewLine ) );
+	}
+#>
+		#pragma warning restore IDE1006 // Naming Styles
+	}
+
+	internal enum Sounds : UInt32
+	{
+<#
+	foreach( var pair in idList )
+	{
+		Write( String.Format( "{0}{1} = {2}u,{3}", "\t\t", pair.name, pair.val, Environment.NewLine ) );
+	}
+#>
+	}
+
+	internal static class SoundsExtensions
+	{
+		[MethodImpl( MethodImplOptions.AggressiveInlining | (MethodImplOptions)512 )]
+		internal static UInt32 ID(this Sounds sound )
+		{
+			return (UInt32)sound;
+		}
+	}
+}

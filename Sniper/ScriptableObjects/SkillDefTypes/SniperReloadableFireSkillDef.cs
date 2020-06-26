@@ -68,10 +68,12 @@
                 }
             }
 
+#if ASSERT
             if( reloadTargetStatemachine == null )
             {
-                Log.Fatal( "No state machine found for reload" );
+                Log.Error( "No state machine found for reload" );
             }
+#endif
 
             skillSlot.stock = this.actualMaxStock;
 
@@ -194,7 +196,7 @@
                 SoundModule.PlayLoad( this.secondarySlot.gameObject, tier );
                 this.isReloading = false;
                 this.skillSlot.stock = Mathf.Max( this.skillSlot.stock, Mathf.Min( this.skillSlot.stock + 1, this.def.actualMaxStock ) );
-                this.reloadController.ForceStopReload();
+                this.reloadController?.ForceStopReload();
             }
 
             internal void StartReload()

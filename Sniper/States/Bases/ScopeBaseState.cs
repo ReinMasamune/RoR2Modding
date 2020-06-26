@@ -23,6 +23,8 @@
         internal abstract BulletModifier ReadModifier();
         internal abstract Boolean OnFired();
 
+        internal Single startingCharge { get; set; }
+
         internal CameraTargetParams cameraTarget { get => base.cameraTargetParams; }
 
         internal Boolean SendFired( out BulletModifier mod )
@@ -69,7 +71,7 @@
         public override void OnExit()
         {
             base.OnExit();
-            this.instanceData?.Invalidate();
+            this.instanceData?.Invalidate( this.currentCharge );
         }
 
         public override InterruptPriority GetMinimumInterruptPriority() => InterruptPriority.PrioritySkill;

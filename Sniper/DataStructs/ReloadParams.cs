@@ -77,7 +77,9 @@
             switch( tier )
             {
                 default:
+#if ASSERT
                 Log.Error( "Unknown reload tier" );
+#endif
                 bullet.damage *= this.badMult;
                 break;
                 case ReloadTier.Bad:

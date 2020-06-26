@@ -59,6 +59,18 @@
             execLevel |= warningLogs ? ExecutionLevel.Warning : 0;
             execLevel |= errorLogs ? ExecutionLevel.Error : 0;
             execLevel |= fatalLogs ? ExecutionLevel.Fatal : 0;
+
+            if( doNetChecks )
+            {
+                if( NetworkCore.loaded )
+                {
+                    Log.Message( String.Format( "{0} successfully loaded", nameof( NetworkCore ) ) );
+                } else
+                {
+                    Log.Error( String.Format( "{0} failed to load, multiplayer may not work as intended.", nameof( NetworkCore ) ) );
+                }
+            }
+
             Log.Message( String.Format( "{0} successfully loaded", nameof( ReinCore ) ) );
         }
 

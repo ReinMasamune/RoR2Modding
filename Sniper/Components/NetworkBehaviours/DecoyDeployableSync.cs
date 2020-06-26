@@ -1,48 +1,14 @@
 ﻿namespace Sniper.Components
 {
     using RoR2;
-
     using Sniper.SkillDefs;
-
     using UnityEngine;
     using UnityEngine.Networking;
-
-#pragma warning disable CA1812 // Avoid uninstantiated internal classes
     internal class DecoyDeployableSync : NetworkBehaviour, IRuntimePrefabComponent
-#pragma warning restore CA1812 // Avoid uninstantiated internal classes
     {
-        #region Networking
-#pragma warning disable IDE1006 // Naming Styles
-        //private static readonly Int32 _rpcIndex_BodyKilled;
-#pragma warning restore IDE1006 // Naming Styles
-        static DecoyDeployableSync()
-        {
-            //_rpcIndex_BodyKilled = 3141755;
-            //NetworkBehaviour.RegisterRpcDelegate( typeof( DecoyDeployableSync ), _rpcIndex_BodyKilled, ClientReciever_InformBodyKilled );
-        }
-
-        //private static void ClientReciever_InformBodyKilled( NetworkBehaviour obj, NetworkReader reader )
-        //{
-        //    if( !NetworkClient.active ) return;
-        //    ( obj as DecoyDeployableSync ).BodyKilled();
-        //}
-
         internal void BodyKilled()
         {
-            if( !NetworkClient.active )
-            {
-                //if( NetworkServer.active )
-                //{
-                //    Log.Warning( "Sending body killed" );
-                //    var writer = new NetworkWriter();
-                //    writer.Write( 0 );
-                //    writer.Write( (Int16)( (UInt16)2 ) );
-                //    writer.WritePackedUInt32( (UInt32)_rpcIndex_BodyKilled );
-                //    writer.Write( base.netId );
-                //    writer.FinishMessage();
-                //    NetworkServer.SendWriterToReady( base.gameObject, writer, 0 );
-                //} else Log.Error( "What are you???" );
-            } else
+            if( NetworkClient.active )
             {
                 if( this.owner?.GetBody()?.skillLocator?.special?.skillInstanceData is DecoySkillDef.ReactivationInstanceData inst )
                 {
@@ -50,7 +16,6 @@
                 }
             }
         }
-        #endregion
 
         [SerializeField]
         private CharacterBody body;

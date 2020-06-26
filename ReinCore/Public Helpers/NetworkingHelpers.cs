@@ -12,9 +12,7 @@
     /// </summary>
     public static class NetworkingHelpers
     {
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public static void DealDamage( this DamageInfo damage, HurtBox target, Boolean callDamage, Boolean callHitEnemy, Boolean callHitWorld )
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
         {
             if( NetworkServer.active )
             {
@@ -44,9 +42,7 @@
             }
         }
 
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public static void ApplyBuff( this CharacterBody body, BuffIndex buff, Int32 stacks = 1, Single duration = -1f )
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
         {
             if( NetworkServer.active )
             {
@@ -72,9 +68,7 @@
             }
         }
 
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public static void ApplyDoT( this HealthComponent victim, GameObject attacker, DotController.DotIndex dotIndex, Single duration = 8f, Single damageMultiplier = 1f )
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
         {
             if( NetworkServer.active )
             {
@@ -85,8 +79,6 @@
             }
         }
 
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public static void CreateOrb() => throw new NotImplementedException();
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     }
 }

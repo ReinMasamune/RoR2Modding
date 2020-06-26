@@ -5,9 +5,11 @@
     using ReinCore;
 
     using RoR2;
+    using Sniper.Components;
     using Sniper.Enums;
     using Sniper.SkillDefs;
     using UnityEngine;
+    using UnityEngine.Networking;
 
     internal static class CatalogModule
     {
@@ -15,7 +17,7 @@
         {
             if( !SurvivorsCore.loaded )
             {
-                Log.Error( "Cannot add survivor" );
+                Log.Fatal( "Cannot add survivor" );
                 return;
             }
             var survivorDef = new SurvivorDef
@@ -130,9 +132,55 @@
 
         private static void GlobalEventManager_onCharacterDeathGlobal( DamageReport obj )
         {
-            if( obj.victimBody.HasBuff( sniperResetDebuff.Value ) && obj.attackerBodyIndex == sniperBodyIndex.Value )
+            if( obj.victimBody.HasBuff( sniperResetDebuff.Value ) && obj.attackerBodyIndex == sniperBodyIndex.Value && obj.attackerBody != null && obj.attackerBody is SniperCharacterBody body )
             {
-                SkillLocator loc = obj?.attackerBody?.skillLocator;
+                ResetSkills( body  );
+
+                //SkillLocator loc = obj?.attackerBody?.skillLocator;
+                //if( loc is null ) return;
+
+
+                //GenericSkill pri = loc.primary;
+                //if( pri.skillInstanceData is SniperReloadableFireSkillDef.SniperPrimaryInstanceData primaryData )
+                //{
+                //    primaryData.ForceReload( ReloadTier.Perfect );
+                //} else if( pri != null )
+                //{
+                //    pri.stock = Mathf.Max( Mathf.Min( pri.maxStock, pri.stock + 1 ), pri.stock );
+                //    pri.rechargeStopwatch = pri.stock >= pri.maxStock ? 0f : pri.rechargeStopwatch;
+                //}
+
+                //GenericSkill sec = loc.secondary;
+                //if( sec != null )
+                //{
+                //    sec.stock = Mathf.Max( Mathf.Min( sec.maxStock, sec.stock + 1 ), sec.stock );
+                //    sec.rechargeStopwatch = sec.stock >= sec.maxStock ? 0f : sec.rechargeStopwatch;
+                //}
+                //GenericSkill util = loc.utility;
+                //if( util != null )
+                //{
+                //    util.stock = Mathf.Max( Mathf.Min( util.maxStock, util.stock + 1 ), util.stock );
+                //    util.rechargeStopwatch = util.stock >= util.maxStock ? 0f : util.rechargeStopwatch;
+                //}
+                //GenericSkill spec = loc.special;
+                //if( spec != null )
+                //{
+                //    spec.stock = Mathf.Max( Mathf.Min( spec.maxStock, spec.stock + 1 ), spec.stock );
+                //    spec.rechargeStopwatch = spec.stock >= spec.maxStock ? 0f : spec.rechargeStopwatch;
+                //}
+            }
+        }
+
+        internal static void ResetSkills( SniperCharacterBody body, Boolean canSend = true )
+        {
+            if( body is null || !body || body.networkIdentity is null || !body.networkIdentity )
+            {
+                return;
+            }
+
+            if( Util.HasEffectiveAuthority( body.networkIdentity ) )
+            {
+                SkillLocator loc = body.skillLocator;
                 if( loc is null ) return;
 
 
@@ -164,6 +212,9 @@
                     spec.stock = Mathf.Max( Mathf.Min( spec.maxStock, spec.stock + 1 ), spec.stock );
                     spec.rechargeStopwatch = spec.stock >= spec.maxStock ? 0f : spec.rechargeStopwatch;
                 }
+            } else if( NetworkServer.active && canSend )
+            {
+                new NetworkModule.ResetSkillsMessage( body ).Send( NetworkDestination.Clients );
             }
         }
     }

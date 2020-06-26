@@ -37,7 +37,7 @@
             {
                 this.knifeData = data;
                 this.knifeDataInstance = this.knifeData.data;
-                this.knifeDataInstance.Initialize( this );
+                this.knifeDataInstance?.Initialize( this );
             }
 
             this.projGhost = this.projectileController.ghost.transform;
@@ -61,19 +61,19 @@
                 base.transform.forward = this.rb.velocity.normalized;
             }
 
-            if( this.timer < triggerActivationDelay )
-            {
-                this.timer += Time.fixedDeltaTime;
-                if( this.timer >= triggerActivationDelay )
-                {
-                    this.timer += triggerActivationDelay;
+            //if( this.timer < triggerActivationDelay )
+            //{
+            //    this.timer += Time.fixedDeltaTime;
+            //    if( this.timer >= triggerActivationDelay )
+            //    {
+            //        this.timer += triggerActivationDelay;
 
-                    if( Util.HasEffectiveAuthority( this.owner ) )
-                    {
-                        this.ownerDetection.SetActive( true );
-                    }
-                }
-            }
+            //        if( Util.HasEffectiveAuthority( this.owner ) )
+            //        {
+            //            this.ownerDetection.SetActive( true );
+            //        }
+            //    }
+            //}
 
             if( this.shouldAdjustKnife )
             {
@@ -100,25 +100,25 @@
                 this.shouldAdjustKnife = false;
             }
 
-            if( this.shouldSetState )
-            {
-                if( this.knifeDataInstance.targetStateMachine.CanInterruptState( KnifeSkillData.interruptPriority ) )
-                {
-                    if( this.knifeDataInstance.targetStateMachine.SetInterruptState( this.knifeDataInstance.InstantiateNextState( this ), KnifeSkillData.interruptPriority ) )
-                    {
-                        this.shouldSetState = false;
-                    }
-                }
-            }
+            //if( this.shouldSetState )
+            //{
+            //    if( this.knifeDataInstance.targetStateMachine.CanInterruptState( KnifeSkillData.interruptPriority ) )
+            //    {
+            //        if( this.knifeDataInstance.targetStateMachine.SetInterruptState( this.knifeDataInstance.InstantiateNextState( this ), KnifeSkillData.interruptPriority ) )
+            //        {
+            //            this.shouldSetState = false;
+            //        }
+            //    }
+            //}
         }
 
-        private void CheckCollider( Collider col )
-        {
-            if( col.gameObject == this.owner.gameObject )
-            {
-                this.shouldSetState = true;
-            }
-        }
+        //private void CheckCollider( Collider col )
+        //{
+        //    if( col.gameObject == this.owner.gameObject )
+        //    {
+        //        this.shouldSetState = true;
+        //    }
+        //}
 
 
         private ReactivatedSkillDef<KnifeSkillData>.ReactivationInstanceData knifeData;
@@ -126,8 +126,8 @@
         private GameObject owner;
         private Transform projGhost;
         private Boolean shouldAdjustKnife = false;
-        private Single timer = 0f;
-        private Boolean shouldSetState = false;
+        //private Single timer = 0f;
+        //private Boolean shouldSetState = false;
 
 
         [SerializeField]
@@ -136,8 +136,8 @@
         private ProjectileStickOnImpact projectileStick;
         [SerializeField]
         private Collider hitCollider;
-        [SerializeField]
-        private GameObject ownerDetection;
+        //[SerializeField]
+        //private GameObject ownerDetection;
         [SerializeField]
         private Rigidbody rb;
         void IRuntimePrefabComponent.InitializePrefab()
@@ -165,59 +165,59 @@
                 throw new MissingComponentException( nameof( this.rb ) );
             }
 
-            var obj = new GameObject( "OwnerDetection" ).transform;
-            obj.parent = base.transform;
-            obj.localPosition = Vector3.zero;
-            obj.localRotation = Quaternion.identity;
-            obj.localScale = Vector3.one;
-            obj.gameObject.layer = LayerIndex.defaultLayer.intVal;
-            obj.gameObject.SetActive( false );
-            this.ownerDetection = obj.gameObject;
+            //var obj = new GameObject( "OwnerDetection" ).transform;
+            //obj.parent = base.transform;
+            //obj.localPosition = Vector3.zero;
+            //obj.localRotation = Quaternion.identity;
+            //obj.localScale = Vector3.one;
+            //obj.gameObject.layer = LayerIndex.defaultLayer.intVal;
+            //obj.gameObject.SetActive( false );
+            //this.ownerDetection = obj.gameObject;
 
-            var col = obj.AddComponent<SphereCollider>();
-            col.radius = ownerDetectionRadius;
-            col.isTrigger = true;
-            col.enabled = false;
-            var manager = obj.AddComponent<CollisionManager>();
-            manager.owner = this;
-            (manager as IRuntimePrefabComponent).InitializePrefab();
+            //var col = obj.AddComponent<SphereCollider>();
+            //col.radius = ownerDetectionRadius;
+            //col.isTrigger = true;
+            //col.enabled = false;
+            //var manager = obj.AddComponent<CollisionManager>();
+            //manager.owner = this;
+            //(manager as IRuntimePrefabComponent).InitializePrefab();
         }
 
-        private class CollisionManager : MonoBehaviour, IRuntimePrefabComponent
-        {
-            [SerializeField]
-            internal KnifeDeployableSync owner;
-            [SerializeField]
-            private Collider collider;
+        //private class CollisionManager : MonoBehaviour, IRuntimePrefabComponent
+        //{
+        //    [SerializeField]
+        //    internal KnifeDeployableSync owner;
+        //    [SerializeField]
+        //    private Collider collider;
 
-            private void OnEnable()
-            {
-                this.collider.enabled = true;
-            }
-            private void OnDisable()
-            {
-                this.collider.enabled = false;
-            }
+        //    private void OnEnable()
+        //    {
+        //        this.collider.enabled = true;
+        //    }
+        //    private void OnDisable()
+        //    {
+        //        this.collider.enabled = false;
+        //    }
 
-            private void OnTriggerEnter( Collider col )
-            {
-                if( col is null ) return;
+        //    private void OnTriggerEnter( Collider col )
+        //    {
+        //        if( col is null ) return;
 
-                this.owner.CheckCollider( col );
-            }
+        //        this.owner.CheckCollider( col );
+        //    }
 
-            void IRuntimePrefabComponent.InitializePrefab()
-            {
-                if( this.owner is null )
-                {
-                    throw new MissingComponentException(nameof(this.owner));
-                }
-                this.collider = base.GetComponent<Collider>();
-                if( this.collider is null )
-                {
-                    throw new MissingComponentException(nameof(this.collider));
-                }
-            }
-        }
+        //    void IRuntimePrefabComponent.InitializePrefab()
+        //    {
+        //        if( this.owner is null )
+        //        {
+        //            throw new MissingComponentException(nameof(this.owner));
+        //        }
+        //        this.collider = base.GetComponent<Collider>();
+        //        if( this.collider is null )
+        //        {
+        //            throw new MissingComponentException(nameof(this.collider));
+        //        }
+        //    }
+        //}
     }
 }

@@ -223,58 +223,19 @@ namespace Rein.RogueWispPlugin
             if( !stateOnHurt ) return;
             stateOnHurt.SetStun( sqCoef * 2f );
         }
-        private void OnHitEnemy_Il( ILContext il )
-        {
-            ILCursor c = new ILCursor( il );
-
-
-            //c.GotoNext( MoveType.Before, x => x.MatchLdloc( 17 ), x => x.MatchLdcI4( 1 ), x => x.MatchAdd(), x => x.MatchStloc( 17 ) );
-            //c.Index++;
-
-            //if( this.deathMarkStuff.Value )
-            //{
-            //    c.Remove();
-            //    c.Emit( OpCodes.Ldloc_1 );
-            //    c.Emit( OpCodes.Ldloc, 64 );
-            //    c.EmitDelegate<Func<CharacterBody, BuffIndex, Int32>>( ( body, index ) =>
-            //    {
-            //        if( body.HasBuff( index ) )
-            //        {
-            //            var def = BuffCatalog.GetBuffDef(index);
-            //            if( def.canStack )
-            //            {
-            //                return body.GetBuffCount( index );
-            //            } else
-            //            {
-            //                return 10;
-            //            }
-            //        }
-            //        return 0;
-            //    } );
-            //}
-
-            _ = c.GotoNext( MoveType.After, x => x.MatchAdd(), x => x.MatchStloc( 64 ), x => x.MatchLdloc( 64 ), x => x.MatchLdcI4( 53 ) );
-            c.Index--;
-            _ = c.Remove();
-            _ = c.EmitDelegate<Func<Int32>>( () => BuffCatalog.buffCount );
-
-            //c.GotoNext( MoveType.Before, x => x.MatchLdloc( 17 ), x => x.MatchLdcI4( 1 ), x => x.MatchAdd(), x => x.MatchStloc( 17 ) );
-            //c.Index++;
-            //if( this.deathMarkStuff.Value )
-            //{
-            //    c.Remove();
-            //    c.Emit( OpCodes.Ldc_I4_0 );
-            //}
-
-            //c.GotoNext( MoveType.After, x => x.MatchLdloc( 17 ), x => x.MatchLdcI4( 4 ) );
-            //c.Index--;
-            //if( this.deathMarkStuff.Value )
-            //{
-            //    c.Remove();
-            //    c.Emit( OpCodes.Ldc_I4, 30 );
-            //}
-
-        }
+private void OnHitEnemy_Il( ILContext il )
+{
+    ILCursor c = new ILCursor( il );
+    if( c.TryGotoNext( MoveType.After, x => x.MatchAdd(), x => x.MatchStloc( 64 ), x => x.MatchLdloc( 64 ), x => x.MatchLdcI4( 53 ) ) )
+    {
+        c.Index--;
+        _ = c.Remove();
+        _ = c.EmitDelegate<Func<Int32>>( () => BuffCatalog.buffCount );
+    } else
+    {
+        Log.Warning( "Modded buff death mark fix either was already applied by another mod, or failed to match" );
+    }
+}
         private void OnTakeDamageServer_Il( ILContext il )
         {
             var c = new ILCursor( il );

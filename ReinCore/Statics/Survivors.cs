@@ -1,18 +1,10 @@
 ﻿namespace ReinCore
 {
     using System;
-
     using RoR2;
 
-    // TODO: Docs for SurvivorsCore
-    /// <summary>
-    /// 
-    /// </summary>
     public static class SurvivorsCore
     {
-        /// <summary>
-        /// 
-        /// </summary>
         public static Boolean loaded { get; internal set; } = false;
 
         static SurvivorsCore()
@@ -31,13 +23,9 @@
         private static void Init_On( HooksCore.RoR2.SurvivorCatalog.Init.Orig orig )
         {
             orig();
-            if( !loaded )
-            {
-                return;
-            }
+            if( !loaded ) return;
 
             SurvivorDef[] defs = survivorDefs.Get();
-
 
             if( vanillaSurvivorsCount <= defs.Length )
             {

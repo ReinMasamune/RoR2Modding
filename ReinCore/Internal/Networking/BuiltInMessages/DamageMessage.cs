@@ -5,6 +5,7 @@
     using RoR2;
 
     using UnityEngine.Networking;
+    using static ISerializableObjectExtensions;
 
     internal struct DamageMessage : INetMessage
     {

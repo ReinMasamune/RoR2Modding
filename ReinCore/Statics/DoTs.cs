@@ -4,29 +4,16 @@
     using System.Collections.Generic;
     using System.Linq.Expressions;
     using System.Reflection;
-
     using Mono.Cecil;
     using Mono.Cecil.Cil;
-
     using MonoMod.Cil;
-
     using RoR2;
 
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public static class DoTsCore
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     {
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public static Boolean loaded { get; internal set; } = false;
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
-
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public delegate void CustomDoTDamageDelegate( HealthComponent victim, DamageInfo damage );
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
-
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public static DotController.DotIndex AddDotType( DoTDef dot, Boolean blockMergeTicks = false, CustomDoTDamageDelegate customDamage = null )
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
         {
             if( !loaded )
             {

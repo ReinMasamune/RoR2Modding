@@ -81,7 +81,9 @@
                     switch( smr.name )
                     {
                         default:
+#if ASSERT
                         Log.Warning( String.Format( "{0} is not a handled renderer name", smr.name ) );
+#endif
                         info.defaultMaterial = null;
                         break;
 

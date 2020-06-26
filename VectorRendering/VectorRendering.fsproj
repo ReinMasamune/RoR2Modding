@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyVersion>1.0.0.1</AssemblyVersion>
+    <FileVersion>1.0.0.1</FileVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OtherFlags>--standalone</OtherFlags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="General\Abbreviations.fs" />
+    <Compile Include="General\Extensions.fs" />
+    <Compile Include="Constructs\IDrawable.fs" />
+    <Compile Include="InternalHelpers\VertexType.fs" />
+    <Compile Include="InternalHelpers\Sign.fs" />
+    <Compile Include="InternalHelpers\PointLineRelationship.fs" />
+    <Compile Include="InternalHelpers\Geometry.fs" />
+    <Compile Include="Drawables\Circle.fs" />
+    <Compile Include="Drawables\Polygon.fs" />
+    <Compile Include="Drawables\Renderable.fs" />
+    <Compile Include="Main\SVGScene.fs" />
+    <Compile Include="Main\Renderer.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Numerics.Vectors" Version="4.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Update="FSharp.Core" Version="4.7.2" />
+  </ItemGroup>
+
+</Project>

@@ -3,10 +3,13 @@
     using System;
 
     using ReinCore;
-
+    using Sniper.Properties;
     using Sniper.Enums;
 
     using UnityEngine;
+
+    using Resources = UnityEngine.Resources;
+    using Object = System.Object;
 
     internal static class SoundModule
     {
@@ -16,23 +19,38 @@
         internal static Single sfxVolume { private get; set; } = 1f;
         internal static Single masterVolume { private get; set; } = 1f;
 
-        private const UInt32 sniper_charge_amount = 135031646u;
-
-        private const UInt32 volume_sfx = 3673881719u;
-
-        private const UInt32 volume_master = 3695994288u;
 
 
-        private const UInt32 bolt_normal_shot = 763788813u;
-
-        private const UInt32 bolt_quickscope = 800730984u;
-
-        private const UInt32 bolt_scatter = 1314071446u;
-
-        internal static void PlayFire( GameObject source, Single chargeLevel, Boolean scatter )
+        internal enum FireType
         {
-            UInt32 id = AkSoundEngine.PostEvent( scatter ? bolt_scatter : bolt_normal_shot, source );
-            _ = AkSoundEngine.SetRTPCValueByPlayingID( sniper_charge_amount, chargeLevel, id );
+            Normal,
+            Scatter,
+            Plasma
+        }
+
+        private static UInt32 GetFireID( FireType fireType )
+        {
+            switch( fireType )
+            {
+                case FireType.Normal:
+                return Sounds.Bolt_Normal_Shot.ID();
+
+                case FireType.Scatter:
+                return Sounds.Bolt_Scatter_shot.ID();
+
+                case FireType.Plasma:
+                return Sounds.Bolt_Plasma_Shot.ID();
+
+                default:
+                return Sounds.Bolt_Normal_Shot.ID();
+            }
+        }
+
+        internal static void PlayFire( GameObject source, Single chargeLevel, FireType fireType )
+        {
+            UInt32 id = AkSoundEngine.PostEvent( GetFireID( fireType ), source );
+            //Log.WarningT( String.Format( "Charge level: {0}", chargeLevel ));
+            _ = AkSoundEngine.SetRTPCValueByPlayingID( Sounds.Sniper_Charge_Amount.ID(), chargeLevel * 100f, id );
         }
 
         private const UInt32 bolt_open_chamber = 1389001356u;
@@ -43,21 +61,21 @@
 
         internal static void PlayLoad( GameObject source, ReloadTier reloadTier ) => _ = AkSoundEngine.PostEvent( reloadTier.GetSound(), source );
 
-        private const UInt32 bolt_reload_bad = 339887885u;
-        private const UInt32 bolt_reload_good = 2811185582u;
-        private const UInt32 bolt_reload_perfect = 1939097407u;
         private static UInt32 GetSound( this ReloadTier tier )
         {
             switch( tier )
             {
                 case ReloadTier.Bad:
-                return bolt_reload_bad;
+                return Sounds.Bolt_New_Bullet_Trash.ID();
+
                 case ReloadTier.Good:
-                return bolt_reload_good;
+                return Sounds.Bolt_New_Bullet_Good.ID();
+
                 case ReloadTier.Perfect:
-                return bolt_reload_perfect;
+                return Sounds.Bolt_New_Bullet_Best.ID();
+
                 default:
-                return bolt_reload_bad;
+                return Sounds.Bolt_New_Bullet_Trash.ID();
             }
         }
 
@@ -66,18 +84,17 @@
         {
             _ = AkSoundEngine.PostEvent( mat.GetSound(), source );
         }
-        private const UInt32 knife_hit_organic = 1183426810u;
-        private const UInt32 knife_hit_metallic = 2965791104u;
+
         private static UInt32 GetSound( this KnifeHitMaterial mat )
         {
             switch( mat )
             {
                 case KnifeHitMaterial.Metallic:
-                return knife_hit_organic;
+                return Sounds.Knife_Projectile_Metallic_hit.ID();
                 case KnifeHitMaterial.Organic:
-                return knife_hit_organic;
+                return Sounds.Knife_Projectile_Organic_hit.ID();
                 default:
-                return knife_hit_organic;
+                return Sounds.Knife_Projectile_Metallic_hit.ID();
             }
 
         }

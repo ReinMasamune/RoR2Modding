@@ -33,6 +33,8 @@ namespace Sniper
             SniperMain.instance.sniperMaterials.Add( mat );
         }
 
+        internal static Single dt { get; private set; }
+
         protected sealed override void Init()
         {
             logSource = base.logger;
@@ -45,6 +47,7 @@ namespace Sniper
 
                 Properties.Tools.RegisterLanguageTokens();
                 SoundModule.LoadBank();
+                NetworkModule.SetupNetworking();
 
                 UIModule.EditHudPrefab();
 
@@ -69,6 +72,7 @@ namespace Sniper
 
             base.enable += HooksModule.Add;
             base.disable += HooksModule.Remove;
+            base.fixedUpdate += () => dt = Time.fixedDeltaTime;
             Log.Message( "Sniper loaded successfully" );
         }
 
@@ -154,10 +158,7 @@ namespace Sniper
                 this.lastTicks = ticks;
             }
 
-            public void DoLog( String name )
-            {
-                Log.Message( String.Format( "{0}:\n{1} ticks\n{2} average", name, this.lastTicks, (Double)this.ticks / (Double)this.counter ) );
-            }
+            public void DoLog( String name ) => Log.Message( String.Format( "{0}:\n{1} ticks\n{2} average", name, this.lastTicks, (Double)this.ticks / (Double)this.counter ) );
 
             private UInt64 lastTicks;
             private UInt64 counter;
@@ -170,7 +171,7 @@ namespace Sniper
             timer.Restart();
             target();
             timer.Stop();
-            if( !timerData.TryGetValue( name, out var data ) )
+            if( !timerData.TryGetValue( name, out TimerData data ) )
             {
                 data = new TimerData();
             }
@@ -185,7 +186,7 @@ namespace Sniper
             timer.Restart();
             TReturn ret = target();
             timer.Stop();
-            if( !timerData.TryGetValue( name, out var data ) )
+            if( !timerData.TryGetValue( name, out TimerData data ) )
             {
                 data = new TimerData();
             }

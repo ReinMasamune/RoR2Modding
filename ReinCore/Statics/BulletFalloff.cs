@@ -3,27 +3,15 @@
     using System;
     using System.Collections.Generic;
     using System.Reflection;
-
     using Mono.Cecil.Cil;
-
     using MonoMod.Cil;
-
     using RoR2;
 
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public static class BulletFalloffCore
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     {
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public static Boolean loaded { get; internal set; } = false;
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
-
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public delegate Single FalloffDelegate( Single distance );
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public static BulletAttack.FalloffModel AddFalloffModel( FalloffDelegate falloffDelegate )
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
         {
             if( !loaded )
             {

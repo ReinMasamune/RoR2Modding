@@ -7,7 +7,7 @@
 
     internal class SlideSnipe : SnipeBaseState
     {
-        private const Single damageRatio = 2.6f;
+        private const Single damageRatio = 2.8f;
         private const Single force = 500f;
 
         protected sealed override Single baseDuration { get; } = 0.2f;

@@ -2,14 +2,10 @@
 {
     using System;
     using System.Collections.Generic;
-
     using EntityStates;
-
     using ReinCore;
-
     using RoR2;
     using RoR2.Skills;
-
     using Sniper.Components;
     using Sniper.Data;
     using Sniper.Expansions;
@@ -21,7 +17,6 @@
     using Sniper.States.Secondary;
     using Sniper.States.Special;
     using Sniper.States.Utility;
-
     using UnityEngine;
     using UnityEngine.Networking;
 
@@ -96,11 +91,17 @@
                 };
                 return bullet;
             });
-            var standardAmmo = SniperAmmoSkillDef.Create( standardCreate );
+            var standardCharge = new ChargeBulletModifierDelegate( (bullet) =>
+            {
+                bullet.radius *= 1f + ( 3f * bullet.chargeLevel );
+            });
+
+            var standardAmmo = SniperAmmoSkillDef.Create( standardCreate, standardCharge );
             standardAmmo.icon = UIModule.GetStandardAmmoIcon();
             standardAmmo.skillName = "Standard Ammo";
             standardAmmo.skillNameToken = Tokens.SNIPER_AMMO_STANDARD_NAME;
             standardAmmo.skillDescriptionToken = Tokens.SNIPER_AMMO_STANDARD_DESC;
+            standardAmmo.fireSoundType = SoundModule.FireType.Normal;
             skills.Add( standardAmmo );
             #endregion
 
@@ -108,7 +109,7 @@
             #region Explosive Ammo
             var explosiveHit = new OnBulletDelegate((bullet, hit) =>
             {
-                Single rad = 6f * ( 1f + (4f * bullet.chargeLevel) );
+                Single rad = 6f * ( 1f + (3f * bullet.chargeLevel) );
                 EffectManager.SpawnEffect(VFXModule.GetExplosiveAmmoExplosionPrefab(), new EffectData
                 {
                     origin = hit.point,
@@ -147,11 +148,11 @@
                     attackerBody = body,
                     bulletCount = 1,
                     chargeLevel = 0f,
-                    damage = body.damage * 0.65f,
+                    damage = body.damage * 0.5f,
                     damageColorIndex = DamageColorIndex.Default,
                     damageType = DamageType.Generic,
                     falloffModel = BulletAttack.FalloffModel.None,
-                    force = 500f,
+                    force = 100f,
                     HitEffectNormal = true,
                     hitEffectPrefab = null, // TODO: Explosive Ammo Hit Effect
                     hitMask = LayerIndex.entityPrecise.mask | LayerIndex.world.mask,
@@ -183,6 +184,7 @@
             explosive.skillName = "Explosive Ammo";
             explosive.skillNameToken = Tokens.SNIPER_AMMO_EXPLOSIVE_NAME;
             explosive.skillDescriptionToken = Tokens.SNIPER_AMMO_EXPLOSIVE_DESC;
+            explosive.fireSoundType = SoundModule.FireType.Normal;
             skills.Add( explosive );
             #endregion
 
@@ -229,11 +231,16 @@
                 };
                 return bullet;
             });
+            var scatterCharge = new ChargeBulletModifierDelegate( (bullet) =>
+            {
+                bullet.bulletCount += (UInt32)(4f * bullet.chargeLevel);
+            });
             var scatter = SniperAmmoSkillDef.Create( scatterCreate );
             scatter.icon = UIModule.GetScatterAmmoIcon();
             scatter.skillName = "Scatter Ammo";
             scatter.skillNameToken = Tokens.SNIPER_AMMO_SCATTER_NAME;
             scatter.skillDescriptionToken = Tokens.SNIPER_AMMO_SCATTER_DESC;
+            scatter.fireSoundType = SoundModule.FireType.Scatter;
             skills.Add( scatter );
 
 
@@ -243,7 +250,7 @@
             var plasmaHit = new OnBulletDelegate( (bullet, hit) =>
             {
                 HealthComponent obj = hit.hitHurtBox?.healthComponent;
-                if( obj != null && obj )
+                if( obj != null && obj && FriendlyFireManager.ShouldDirectHitProceed( obj, bullet.team ) )
                 {
                     Single dmg = bullet.damage / bullet.attackerBody.damage;
                     obj.ApplyDoT( bullet.attackerBody.gameObject, bullet.isCrit ? CatalogModule.critPlasmaBurnIndex : CatalogModule.plasmaBurnIndex, 10f, dmg );
@@ -294,6 +301,7 @@
             plasma.skillName = "Plasma Ammo";
             plasma.skillNameToken = Tokens.SNIPER_AMMO_PLASMA_NAME;
             plasma.skillDescriptionToken = Tokens.SNIPER_AMMO_PLASMA_DESC;
+            plasma.fireSoundType = SoundModule.FireType.Plasma;
             skills.Add( plasma );
 
             #endregion
@@ -422,6 +430,10 @@
             charge.stockRequiredToKeepZoom = 0;
             charge.stockRequiredToModifyFire = 0;
             charge.beginSkillCooldownOnSkillEnd = false;
+            charge.initialCarryoverLoss = 0.1f;
+            charge.decayType = SniperScopeSkillDef.DecayType.Exponential;
+            charge.decayValue = 0.1f;
+            charge.chargeCanCarryOver = true;
             skills.Add( charge );
 
             var quick = SniperScopeSkillDef.Create<QuickScope>( UIModule.GetQuickScope(), new ZoomParams(shoulderStart: 1f, shoulderEnd: 5f,

@@ -15,9 +15,10 @@
     using UnityEngine;
 
     internal delegate ExpandableBulletAttack BulletCreationDelegate( SniperCharacterBody body, ReloadTier reload, Ray aim, String muzzleName );
+    internal delegate void ChargeBulletModifierDelegate( ExpandableBulletAttack bullet );
     internal class SniperAmmoSkillDef : SniperSkillDef
     {
-        internal static SniperAmmoSkillDef Create( BulletCreationDelegate createBullet )
+        internal static SniperAmmoSkillDef Create( BulletCreationDelegate createBullet, ChargeBulletModifierDelegate chargeMod = null )
         {
 #if ASSERT
             if( createBullet == null )
@@ -29,6 +30,7 @@
             SniperAmmoSkillDef def = ScriptableObject.CreateInstance<SniperAmmoSkillDef>();
 
             def.createBullet = createBullet;
+            def.chargeModifier = chargeMod;
 
 
             def.activationState = SkillsCore.StateType<Idle>();
@@ -51,7 +53,12 @@
             return def;
         }
 
+        [SerializeField]
+        internal Modules.SoundModule.FireType fireSoundType;
+
+
         private BulletCreationDelegate createBullet;
+        private ChargeBulletModifierDelegate chargeModifier;
 
 
         [MethodImpl( MethodImplOptions.AggressiveInlining )]
@@ -60,5 +67,13 @@
             ExpandableBulletAttack bullet = this.createBullet(body, tier, aim, muzzleName );
             return bullet;
         }
+
+        [MethodImpl( MethodImplOptions.AggressiveInlining )]
+        internal void ApplyChargeModifiers( ExpandableBulletAttack bullet )
+        {
+            this.chargeModifier?.Invoke( bullet );
+        }
+
+
     }
 }
