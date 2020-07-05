@@ -6,17 +6,11 @@
 
     using UnityEngine;
 
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public static class AssetsCore
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     {
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public static Boolean loaded { get; internal set; } = false;
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public static TAsset LoadAsset<TAsset>( Enum index ) where TAsset : UnityEngine.Object
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
         {
             //var timer = new Stopwatch();
             //timer.Start();

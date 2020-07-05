@@ -30,6 +30,9 @@ namespace Rein.RogueWispPlugin
             effComp.applyScale = true;
             effComp.soundName = "";
 
+            EffectHelper.AddSound( obj, "Play_lemurianBruiser_m2_loop", "Stop_lemurianBruiser_m2_loop", 0.0f, 10.0f );
+
+
             var skin = obj.AddComponent<WispSkinnedEffect>();
 
             var vfxAtrib = obj.AddComponent<VFXAttributes>();

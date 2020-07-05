@@ -1,6 +1,6 @@
 ﻿namespace Sniper.Enums
 {
-    internal enum ReloadTier
+    public enum ReloadTier
     {
         Bad = 0,
         Good = 1,

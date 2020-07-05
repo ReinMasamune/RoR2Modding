@@ -15,10 +15,10 @@
     {
         internal SniperScopeSkillDef.ScopeInstanceData instanceData;
 
-        internal abstract Boolean usesCharge { get; }
         internal abstract Single currentCharge { get; }
-        internal abstract Boolean usesStock { get; }
-        internal abstract UInt32 currentStock { get; }
+
+        internal abstract Boolean isReady { get; }
+        internal abstract Single readyFrac { get; }
 
         internal abstract BulletModifier ReadModifier();
         internal abstract Boolean OnFired();
@@ -50,11 +50,17 @@
 
         }
 
-        public override void OnEnter() => base.OnEnter();
+        public override void OnEnter()
+        {
+            base.OnEnter();
+            this.instanceData?.ScopeStart( this );
+        }
 
         public override void FixedUpdate()
         {
             base.FixedUpdate();
+            base.characterBody.isSprinting = false;
+
             if( base.isAuthority && ( !base.IsKeyDownAuthority() || base.characterBody.isSprinting ) )
             {
                 base.outer.SetNextStateToMain();
@@ -65,13 +71,15 @@
         public override void Update()
         {
             base.Update();
-            this.instanceData?.UpdateCameraParams( Input.mouseScrollDelta.y );
+            var dist = 10000f;
+            if( base.inputBank.GetAimRaycast( dist, out var hit ) ) dist = hit.distance;
+            this.instanceData?.Update( Input.mouseScrollDelta.y, this.isReady ? this.currentCharge : this.readyFrac, this.isReady, dist );
         }
 
         public override void OnExit()
         {
-            base.OnExit();
             this.instanceData?.Invalidate( this.currentCharge );
+            base.OnExit();
         }
 
         public override InterruptPriority GetMinimumInterruptPriority() => InterruptPriority.PrioritySkill;

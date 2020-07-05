@@ -1190,6 +1190,29 @@ public static event Hook On
                 }
             }
 
+
+            public static class UnlockableCatalog
+            {
+                public struct Init
+                {
+                    private static readonly MethodBase method = HookHelpers.GetBase( typeof(Init) );
+                    public delegate void Orig();
+                    public delegate void Hook( Orig orig );
+                    public static event ILContext.Manipulator Il
+                    {
+                        add => HookEndpointManager.Modify<Hook>( method, value );
+                        remove => HookEndpointManager.Unmodify<Hook>( method, value );
+                    }
+                    public static event Hook On
+                    {
+                        add => HookEndpointManager.Add<Hook>( method, value );
+                        remove => HookEndpointManager.Remove<Hook>( method, value );
+                    }
+                }
+            }
+
+
+
             public static class Util
             {
                 public struct IsPrefab

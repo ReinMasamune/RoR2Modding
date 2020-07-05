@@ -5,16 +5,16 @@
     using Sniper.Data;
     using Sniper.States.Bases;
 
+    using UnityEngine;
+
     internal class QuickScope : ScopeBaseState
     {
-        private const Single baseStartDelay = 0.25f;
+        private const Single baseStartDelay = 0.35f;
         private const Single damageMultiplier = 2f;
 
-
-        internal override Boolean usesCharge { get; } = false;
-        internal override Boolean usesStock { get; } = true;
         internal override Single currentCharge { get; }
-        internal override UInt32 currentStock { get; }
+        internal override Boolean isReady { get => base.fixedAge >= this.startDelay; }
+        internal override Single readyFrac { get => Mathf.Clamp01( base.fixedAge / this.startDelay ); }
 
         private Single startDelay;
 

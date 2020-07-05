@@ -2,15 +2,22 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyVersion>1.0.0.1</AssemblyVersion>
-    <FileVersion>1.0.0.1</FileVersion>
+    <AssemblyVersion>1.0.0.8</AssemblyVersion>
+    <FileVersion>1.0.0.8</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <OtherFlags>--standalone</OtherFlags>
+    <OutputPath>C:\Users\reinm\source\repos\ReinRoR2Modding\libs\Rein\</OutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="General\Vectors.fs" />
     <Compile Include="General\Abbreviations.fs" />
     <Compile Include="General\Extensions.fs" />
     <Compile Include="Constructs\IDrawable.fs" />
@@ -23,10 +30,6 @@
     <Compile Include="Drawables\Renderable.fs" />
     <Compile Include="Main\SVGScene.fs" />
     <Compile Include="Main\Renderer.fs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="System.Numerics.Vectors" Version="4.5.0" />
   </ItemGroup>
 
   <ItemGroup>

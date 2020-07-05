@@ -7,7 +7,10 @@
 
     using ReinCore;
 
+    using Rewired;
+
     using RoR2;
+    using RoR2.UI;
 
     using Sniper.Data;
     using Sniper.Enums;
@@ -18,31 +21,10 @@
 
     internal class ReloadUIController : MonoBehaviour
     {
-        //[property: MethodImpl( MethodImplOptions.AggressiveInlining )]
-        internal static Color barBackgroundColor { [MethodImpl( MethodImplOptions.AggressiveInlining )]get; } = new Color( 0.05f, 0.05f, 0.05f, 1f );
-        internal static Color barPerfectColor { [MethodImpl( MethodImplOptions.AggressiveInlining )]get; } = new Color( 0.7f, 0.9f, 0.8f, 1f );
-        internal static Color barGoodColor { [MethodImpl( MethodImplOptions.AggressiveInlining )]get; } = new Color( 0.5f, 0.5f, 0.5f, 1f );
+        internal static Color barBackgroundColor { get; } = new Color( 0.05f, 0.05f, 0.05f, 1f );
+        internal static Color barPerfectColor { get; } = new Color( 0.7f, 0.9f, 0.8f, 1f );
+        internal static Color barGoodColor { get; } = new Color( 0.5f, 0.5f, 0.5f, 1f );
 
-        #region Static
-        #region External
-        internal static ReloadUIController FindController( CharacterBody body )
-        {
-            if( body == null )
-            {
-                return null;
-            }
-            if( instances.TryGetValue( body, out ReloadUIController controller ) )
-            {
-                return controller;
-            }
-            ReloadUIController res = body.master.playerCharacterMasterController.networkUser.cameraRigController.hud.GetComponentInChildren<ReloadUIController>();
-            if( res != null )
-            {
-                instances[body] = res;
-                res.Init( body );
-            }
-            return res;
-        }
         internal static Texture2D GetReloadTexture( ReloadParams reloadParams )
         {
             if( !cachedBarTextures.ContainsKey( reloadParams ) )
@@ -56,137 +38,58 @@
             }
             return cachedBarTextures[reloadParams];
         }
-        #endregion
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        #region Internal
-        private static readonly Dictionary<CharacterBody, ReloadUIController> instances = new Dictionary<CharacterBody, ReloadUIController>();
+
         private static readonly Dictionary<ReloadParams, Texture2D> cachedBarTextures = new Dictionary<ReloadParams, Texture2D>();
 
-
-
-
-        #endregion
-        #endregion
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        #region Instance
-        #region External
-        internal void Init( CharacterBody body )
+        internal Single barPosition
         {
-            this.body = body;
-            instances[this.body] = this;
-            this.showBar = false;
+            set => this.reloadSlider.value = value;
         }
 
-        internal void StartReload( ReloadParams reloadParams )
+        internal Boolean showBar
         {
-            this.currentReloadParams = reloadParams;
-            this.reloadTimer = 0f;
-            this.reloadSlider.value = 0f;
-            this.barTexture = GetReloadTexture( this.currentReloadParams );
-            _ = base.StartCoroutine( this.ReloadStartDelay( this.currentReloadParams.reloadDelay / this.body.attackSpeed ) );
+            set => this.barHolder.SetActive( value );
         }
 
-        internal ReloadTier ReadReload() => this.currentReloadParams.GetReloadTier( this.reloadTimer );
-
-        internal void StopReload( SkillDefs.SniperReloadableFireSkillDef.SniperPrimaryInstanceData data )
+        internal ReloadParams currentParams
         {
-            this.isReloading = false;
-            _ = base.StartCoroutine( this.ReloadStopDelay( this.currentReloadParams.reloadEndDelay / this.body.attackSpeed, data ) );
+            set
+            {
+                if( value == this._curParams ) return;
+                this._curParams = value;
+                var tex = GetReloadTexture( value );
+                this.backgroundImage.sprite = Sprite.Create( tex, new Rect( 0f, 0f, tex.width, tex.height ), new Vector2( 0.5f, 0.5f ) );
+            }
         }
-
-        internal void ForceStopReload()
-        {
-            this.isReloading = false;
-            this.showBar = false;
-            this.StopAllCoroutines();
-        }
-
-        internal Boolean CanReload() => this.isReloading;
-
-
-
-
-        #endregion
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        #region Internal
-        private ReloadParams currentReloadParams;
-        private Boolean isReloading;
-        private Single reloadTimer;
+        private ReloadParams _curParams;
         private GameObject barHolder;
         private Image backgroundImage;
         private Slider reloadSlider;
-        private CharacterBody body;
-        private Boolean showBar
-        {
-            set => this.barHolder?.SetActive( value );
-        }
 
-        private Texture2D barTexture
-        {
-            get => this._barTexture;
-            set
-            {
-                if( value != this._barTexture )
-                {
-                    this.OnBarTextureChanged( this._barTexture, value );
-                    this._barTexture = value;
-                }
-            }
-        }
-        private Texture2D _barTexture;
-
-        private void OnBarTextureChanged( Texture2D oldTex, Texture2D newTex ) => this.backgroundImage.sprite = Sprite.Create( newTex, new Rect( 0f, 0f, newTex.width, newTex.height ), new Vector2( 0.5f, 0.5f ) );
-
-
-        private void OnEnable()
-        {
-
-        }
-        private void OnDisable()
-        {
-
-        }
-
-        private void Awake()
+        protected void Awake()
         {
             this.barHolder = base.transform.Find( "BarHolder" ).gameObject;
             this.reloadSlider = this.barHolder.GetComponent<Slider>();
             this.backgroundImage = this.barHolder.transform.Find( "Background" ).GetComponent<Image>();
-
             this.showBar = false;
         }
+        protected void Start() => _ = base.StartCoroutine( this.Hookup() );
 
-        private void Update()
+        private IEnumerator Hookup()
         {
-            if( this.isReloading )
+            HUD hud = base.GetComponent<HUD>() ?? base.GetComponentInChildren<HUD>() ?? base.GetComponentInParent<HUD>();
+            while( hud is null )
             {
-                this.reloadTimer = this.currentReloadParams.Update( Time.deltaTime, this.body.attackSpeed, this.reloadTimer );
-                this.reloadSlider.value = Mathf.Clamp01( this.reloadTimer / this.currentReloadParams.baseDuration );
+                yield return new WaitForEndOfFrame();
+                hud = base.GetComponent<HUD>() ?? base.GetComponentInChildren<HUD>() ?? base.GetComponentInParent<HUD>();
             }
+            SniperCharacterBody sniperBody = null;
+            while( sniperBody is null )
+            {
+                yield return new WaitForEndOfFrame();
+                sniperBody = hud.targetMaster?.GetBody() as SniperCharacterBody;
+            }
+            sniperBody.reloadUI = this;
         }
-
-        private void Start()
-        {
-            //base.gameObject.SetActive( false );
-        }
-        #endregion
-
-        #region Coroutines
-        private IEnumerator ReloadStartDelay( Single delayTime )
-        {
-            yield return new WaitForSeconds( delayTime );
-            this.showBar = true;
-            this.isReloading = true;
-            SoundModule.PlayOpenReload( this.body.gameObject );
-        }
-        private IEnumerator ReloadStopDelay( Single delayTime, SkillDefs.SniperReloadableFireSkillDef.SniperPrimaryInstanceData data )
-        {
-            yield return new WaitForSeconds( delayTime );
-            this.showBar = false;
-            data.isReloading = false;
-        }
-        #endregion
-        #endregion
     }
 }

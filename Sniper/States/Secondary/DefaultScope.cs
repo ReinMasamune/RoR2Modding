@@ -2,6 +2,8 @@
 {
     using System;
 
+    using EntityStates.BeetleQueenMonster;
+
     using RoR2;
 
     using Sniper.Data;
@@ -13,27 +15,23 @@
     internal class DefaultScope : ScopeBaseState
     {
         private const Single maxCharge = 1f;
-        private const Single baseStartDelay = 0f;
-        private const Single chargePerSecond = 0.15f;
-        private const Single minModifier = 1f;
-        private const Single maxModifier = 10f;
-        private const Single speedScalar = 0.25f;
+        private const Single baseStartDelay = 0.35f;
+        private const Single chargePerSecond = 0.2f;
+        private const Single minModifier = 1.5f;
+        private const Single maxModifier = 6.5f;
+        private const Single speedScalar = 0.15f;
 
-        private static readonly AnimationCurve damageCurve = new AnimationCurve
-        (
-            new Keyframe(0f, minModifier, 0f, 0f, 0f, 0.8f ),
-            new Keyframe(0.3f, minModifier, 0f, 0f, 0f, 0.8f ),
-            //new Keyframe(0.2f, minModifier, 0f, 0f ),
-            new Keyframe(1f, maxModifier, 0f, 0f, 0f, 0f )
-        );
-
+        private static readonly AnimationCurve damageCurve = new AnimationCurve( new[]
+        {
+            new Keyframe( 0f, minModifier, 0f, 1.5f, 0f, 0.25f ),
+            new Keyframe( 1f, maxModifier, 0f, 0f, 0.2f, 0f ),
+        });
 
         private Single startDelay;
+        internal override Single currentCharge { get => (this.GetDamageMultiplier()-minModifier) / (maxModifier-minModifier); }
+        internal override Boolean isReady { get => base.fixedAge >= this.startDelay; }
+        internal override Single readyFrac { get => Mathf.Clamp01( base.fixedAge / this.startDelay ); }
 
-        internal override Boolean usesCharge { get; } = true;
-        internal override Boolean usesStock { get; } = true;
-        internal override Single currentCharge { get => this.charge; }
-        internal override UInt32 currentStock { get; } = 0u;
         internal Single charge = 0f;
 
 
@@ -41,19 +39,24 @@
 
         internal override Boolean OnFired()
         {
-            this.charge = 0f;
-            this.delayTimer = 0f;
+            //this.charge = 0f;
+            //this.delayTimer = 0f;
             return base.fixedAge >= this.startDelay;
         }
         internal override BulletModifier ReadModifier()
         {
-            return base.fixedAge >= this.startDelay
-                ? new BulletModifier
+#pragma warning disable IDE0046 // Convert to conditional expression
+#pragma warning disable IDE0011 // Add braces
+            if( base.fixedAge >= this.startDelay )
+            {
+                return new BulletModifier
                 {
                     damageMultiplier = this.GetDamageMultiplier(),
                     charge = this.charge,
-                }
-                : ( default );
+                };
+            } else return default;
+#pragma warning restore IDE0011 // Add braces
+#pragma warning restore IDE0046 // Convert to conditional expression
         }
 
 
@@ -78,7 +81,7 @@
             {
                 if( this.charge < maxCharge )
                 {
-                    this.charge += SniperMain.dt * chargePerSecond * this.characterBody.attackSpeed / ( 1f + ( base.characterMotor.velocity.magnitude * speedScalar ) );
+                    this.charge += SniperMain.dt * chargePerSecond * this.characterBody.attackSpeed / ( 1f +  Vector3.Scale( base.characterMotor.velocity, new Vector3(speedScalar,0f,speedScalar)).sqrMagnitude  );
                 } else
                 {
                     this.charge = maxCharge;

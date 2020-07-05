@@ -594,40 +594,12 @@ namespace Rein.RogueWispPlugin
     }
     #endregion
 
-    DOTHEFUCKINGSOUNDFORZONE
+    //DOTHEFUCKINGSOUNDFORZONE
 }
 // Thought organization:::
 
-// SKIN STUFF
-//  Need to hook in to CharacterModel.UpdateRendererMaterials and check for 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//379.63%
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
 //Particle builder
 //Builders for other material types
-//Remake all wisp vfx with improved materials
-//Create custom materials
-
-
-
 
 //For next release:
 
@@ -683,12 +655,10 @@ MinMaxCurve
 // Future plans and shit
 
 // TOD: IDRS not showing on server
-// TOD: Utility sounds (unsure what to do here)
 // TOD: Little Disciple and Will O Wisp color should change with skin
 // TOD: Body Animation smoothing params
 // TOD: Rewrite secondary
 // TOD: Character lobby description
-// TOD: Customize crosshair
 // TOD: Readme lore sillyness
 // TOD: Effects obscuring vision
 // TOD: Effect brightness settings

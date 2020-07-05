@@ -1,6 +1,7 @@
 ﻿namespace Sniper.States.Bases
 {
     using System;
+    using System.Diagnostics;
 
     using Sniper.Data;
     using Sniper.Enums;
@@ -28,13 +29,14 @@
 
         protected abstract void ModifyBullet( ExpandableBulletAttack bullet );
 
+        private static Stopwatch timer = new Stopwatch();
+
         private void FireBullet()
         {
             if( this.bulletFired )
             {
                 return;
             }
-
             Ray aimRay = this.GetAimRay();
 
             var ammo = base.characterBody.ammo;

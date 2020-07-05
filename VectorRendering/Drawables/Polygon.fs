@@ -4,7 +4,7 @@ open System
 open VectorRendering.Constructs
 open VectorRendering.General
 open VectorRendering.InternalHelpers
-open System.Numerics
+open VectorRendering.Vectors
 
 [<Struct>]
 type internal RenderResult =
@@ -73,28 +73,28 @@ type internal PolygonVertex =
                    | Convex -> Geometry.AngleBetweenTwoVectors normal1 normal2
                    | Concave -> -(Geometry.AngleBetweenTwoVectors normal1 normal2)
                    | Flat -> 0.0f
-        if angle = 0.0f then
-            PolygonVertex( existing.position, existing.index, VertexType.Flat, 0.0f, existing.position, 0.0f, 0.0f, 0.0f, 0.0f, existing.prev, existing.next, existing.otherPoints )
-        else if angle < 0.0f then
-            let dist = existing.circleRadius / (single <| Math.Sin( float <| -angle ) )
+        //if angle = 0.0f then
+        PolygonVertex( existing.position, existing.index, VertexType.Flat, 0.0f, existing.position, 0.0f, 0.0f, 0.0f, 0.0f, existing.prev, existing.next, existing.otherPoints )
+        //else if angle < 0.0f then
+        //    let dist = existing.circleRadius / (single <| Math.Sin( float <| -angle ) )
 
-            let distSquare = dist * dist
-            let hyp = single <| Math.Sqrt( float <| (distSquare - radiusSquare) )
-            let frac1 = hyp / dist1
-            let frac2 = hyp / dist2
-            let circlePos = existing.position + ( directionToCircle * dist)
-            let cornerDistSq = distSquare - radiusSquare
-            PolygonVertex( existing.position, existing.index, vertType, angle, circlePos, radiusSquare, cornerDistSq, frac1, frac2, existing.prev, existing.next, existing.otherPoints )
-        else
-            let dist = existing.circleRadius / (single <| Math.Sin( float <| angle ) )
+        //    let distSquare = dist * dist
+        //    let hyp = single <| Math.Sqrt( float <| (distSquare - radiusSquare) )
+        //    let frac1 = hyp / dist1
+        //    let frac2 = hyp / dist2
+        //    let circlePos = existing.position + ( directionToCircle * dist)
+        //    let cornerDistSq = distSquare - radiusSquare
+        //    PolygonVertex( existing.position, existing.index, vertType, angle, circlePos, radiusSquare, cornerDistSq, frac1, frac2, existing.prev, existing.next, existing.otherPoints )
+        //else
+        //    let dist = existing.circleRadius / (single <| Math.Sin( float <| angle ) )
 
-            let distSquare = dist * dist
-            let hyp = single <| Math.Sqrt( float <| (distSquare - radiusSquare) )
-            let frac1 = hyp / dist1
-            let frac2 = hyp / dist2
-            let circlePos = existing.position + ( directionToCircle * dist)
-            let cornerDistSq = distSquare - radiusSquare
-            PolygonVertex( existing.position, existing.index, vertType, angle, circlePos, radiusSquare, cornerDistSq, frac1, frac2, existing.prev, existing.next, existing.otherPoints )
+        //    let distSquare = dist * dist
+        //    let hyp = single <| Math.Sqrt( float <| (distSquare - radiusSquare) )
+        //    let frac1 = hyp / dist1
+        //    let frac2 = hyp / dist2
+        //    let circlePos = existing.position + ( directionToCircle * dist)
+        //    let cornerDistSq = distSquare - radiusSquare
+        //    PolygonVertex( existing.position, existing.index, vertType, angle, circlePos, radiusSquare, cornerDistSq, frac1, frac2, existing.prev, existing.next, existing.otherPoints )
 
 
 [<Struct>]

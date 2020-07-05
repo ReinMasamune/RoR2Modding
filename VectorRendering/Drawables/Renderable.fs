@@ -2,6 +2,7 @@
 
 open VectorRendering.Constructs
 open System.Numerics
+open VectorRendering.Vectors
 
 type public Renderable =
     | Circle of Circle

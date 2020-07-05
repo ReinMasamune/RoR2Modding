@@ -117,7 +117,7 @@
             body.wasLucky = false;
             body.spreadBloomDecayTime = 1f;
             body.spreadBloomCurve = AnimationCurve.EaseInOut( 0f, 0f, 1f, 1f );
-            body.crosshairPrefab = UIModule.GetDefaultDrosshair();
+            body.crosshairPrefab = UIModule.GetCrosshair();
             body.hideCrosshair = false;
             body.aimOriginTransform = aimOrigin.transform;
             body.hullClassification = HullClassification.Human;

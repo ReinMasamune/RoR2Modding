@@ -1,8 +1,8 @@
 ﻿namespace VectorRendering.Constructs
 
 open System
-open System.Numerics
 open VectorRendering.General
+open VectorRendering.Vectors
 
 type public IDrawable =
     interface

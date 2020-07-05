@@ -22,9 +22,18 @@
 
     internal static class SkillsModule
     {
+        private static (SkillDef,String) wip
+        {
+            get
+            {
+                var def = SkillDef.CreateInstance<SkillDef>();
+                return (def, "???");
+            }
+        }
+
         internal static void CreateAmmoSkills()
         {
-            var skills = new List<SkillDef>();
+            var skills = new List<(SkillDef,String)>();
 
             #region Standard Ammo
             var standardStop = new OnBulletDelegate( (bullet, hit) =>
@@ -102,7 +111,7 @@
             standardAmmo.skillNameToken = Tokens.SNIPER_AMMO_STANDARD_NAME;
             standardAmmo.skillDescriptionToken = Tokens.SNIPER_AMMO_STANDARD_DESC;
             standardAmmo.fireSoundType = SoundModule.FireType.Normal;
-            skills.Add( standardAmmo );
+            skills.Add( (standardAmmo,"") );
             #endregion
 
 
@@ -148,7 +157,7 @@
                     attackerBody = body,
                     bulletCount = 1,
                     chargeLevel = 0f,
-                    damage = body.damage * 0.5f,
+                    damage = body.damage * 0.45f,
                     damageColorIndex = DamageColorIndex.Default,
                     damageType = DamageType.Generic,
                     falloffModel = BulletAttack.FalloffModel.None,
@@ -185,124 +194,124 @@
             explosive.skillNameToken = Tokens.SNIPER_AMMO_EXPLOSIVE_NAME;
             explosive.skillDescriptionToken = Tokens.SNIPER_AMMO_EXPLOSIVE_DESC;
             explosive.fireSoundType = SoundModule.FireType.Normal;
-            skills.Add( explosive );
+            skills.Add( (explosive, "") );
             #endregion
 
 
             #region Scatter
-            GameObject scatterTracer = VFXModule.GetScatterAmmoTracer();
-            BulletAttack.FalloffModel scatterFalloff = BulletFalloffCore.AddFalloffModel( (dist) => Mathf.Pow(Mathf.InverseLerp( 200f, 10f, dist ),2f) );
-            var scatterCreate = new BulletCreationDelegate( (body, reload, aim, muzzle) =>
-            {
-                var bullet = new ExpandableBulletAttack
-                {
-                    aimVector = aim.direction,
-                    attackerBody = body,
-                    bulletCount = (UInt32)( 3 + ( 2 * (Int32)reload ) ),
-                    chargeLevel = 0f,
-                    damage = body.damage * 0.25f,
-                    damageColorIndex = DamageColorIndex.Default,
-                    damageType = DamageType.Generic,
-                    falloffModel = scatterFalloff,
-                    force = 25f,
-                    HitEffectNormal = true,
-                    hitEffectPrefab = null, // TODO: Explosive Ammo Hit Effect
-                    hitMask = LayerIndex.entityPrecise.mask | LayerIndex.world.mask,
-                    isCrit = body.RollCrit(),
-                    maxDistance = 200f,
-                    maxSpread = 2.6f,
-                    minSpread = 1f,
-                    muzzleName = muzzle,
-                    onHit = null,
-                    onStop = null,
-                    origin = aim.origin,
-                    owner = body.gameObject,
-                    procChainMask = default,
-                    procCoefficient = 0.6f,
-                    queryTriggerInteraction = QueryTriggerInteraction.UseGlobal,
-                    radius = 0.15f,
-                    smartCollision = true,
-                    sniper = false,
-                    spreadPitchScale = 1f,
-                    spreadYawScale = 1f,
-                    stopperMask = LayerIndex.world.mask | LayerIndex.entityPrecise.mask,
-                    tracerEffectPrefab = scatterTracer,
-                    weapon = null,
-                };
-                return bullet;
-            });
-            var scatterCharge = new ChargeBulletModifierDelegate( (bullet) =>
-            {
-                bullet.bulletCount += (UInt32)(4f * bullet.chargeLevel);
-            });
-            var scatter = SniperAmmoSkillDef.Create( scatterCreate );
-            scatter.icon = UIModule.GetScatterAmmoIcon();
-            scatter.skillName = "Scatter Ammo";
-            scatter.skillNameToken = Tokens.SNIPER_AMMO_SCATTER_NAME;
-            scatter.skillDescriptionToken = Tokens.SNIPER_AMMO_SCATTER_DESC;
-            scatter.fireSoundType = SoundModule.FireType.Scatter;
-            skills.Add( scatter );
+            //GameObject scatterTracer = VFXModule.GetScatterAmmoTracer();
+            //BulletAttack.FalloffModel scatterFalloff = BulletFalloffCore.AddFalloffModel( (dist) => Mathf.Pow(Mathf.InverseLerp( 200f, 10f, dist ),2f) );
+            //var scatterCreate = new BulletCreationDelegate( (body, reload, aim, muzzle) =>
+            //{
+            //    var bullet = new ExpandableBulletAttack
+            //    {
+            //        aimVector = aim.direction,
+            //        attackerBody = body,
+            //        bulletCount = (UInt32)( 3 + ( 2 * (Int32)reload ) ),
+            //        chargeLevel = 0f,
+            //        damage = body.damage * 0.25f,
+            //        damageColorIndex = DamageColorIndex.Default,
+            //        damageType = DamageType.Generic,
+            //        falloffModel = scatterFalloff,
+            //        force = 25f,
+            //        HitEffectNormal = true,
+            //        hitEffectPrefab = null, // TODO: Explosive Ammo Hit Effect
+            //        hitMask = LayerIndex.entityPrecise.mask | LayerIndex.world.mask,
+            //        isCrit = body.RollCrit(),
+            //        maxDistance = 200f,
+            //        maxSpread = 2.6f,
+            //        minSpread = 1f,
+            //        muzzleName = muzzle,
+            //        onHit = null,
+            //        onStop = null,
+            //        origin = aim.origin,
+            //        owner = body.gameObject,
+            //        procChainMask = default,
+            //        procCoefficient = 0.6f,
+            //        queryTriggerInteraction = QueryTriggerInteraction.UseGlobal,
+            //        radius = 0.15f,
+            //        smartCollision = true,
+            //        sniper = false,
+            //        spreadPitchScale = 1f,
+            //        spreadYawScale = 1f,
+            //        stopperMask = LayerIndex.world.mask | LayerIndex.entityPrecise.mask,
+            //        tracerEffectPrefab = scatterTracer,
+            //        weapon = null,
+            //    };
+            //    return bullet;
+            //});
+            //var scatterCharge = new ChargeBulletModifierDelegate( (bullet) =>
+            //{
+            //    bullet.bulletCount += (UInt32)(4f * bullet.chargeLevel);
+            //});
+            //var scatter = SniperAmmoSkillDef.Create( scatterCreate );
+            //scatter.icon = UIModule.GetScatterAmmoIcon();
+            //scatter.skillName = "Scatter Ammo";
+            //scatter.skillNameToken = Tokens.SNIPER_AMMO_SCATTER_NAME;
+            //scatter.skillDescriptionToken = Tokens.SNIPER_AMMO_SCATTER_DESC;
+            //scatter.fireSoundType = SoundModule.FireType.Scatter;
+            //skills.Add( scatter );
 
 
 
             #endregion
             #region Plasma
-            var plasmaHit = new OnBulletDelegate( (bullet, hit) =>
-            {
-                HealthComponent obj = hit.hitHurtBox?.healthComponent;
-                if( obj != null && obj && FriendlyFireManager.ShouldDirectHitProceed( obj, bullet.team ) )
-                {
-                    Single dmg = bullet.damage / bullet.attackerBody.damage;
-                    obj.ApplyDoT( bullet.attackerBody.gameObject, bullet.isCrit ? CatalogModule.critPlasmaBurnIndex : CatalogModule.plasmaBurnIndex, 10f, dmg );
-                }
-            });
-            GameObject plasmaTracer = VFXModule.GetPlasmaAmmoTracer();
-            var plasmaCreate = new BulletCreationDelegate( (body, reload, aim, muzzle) =>
-            {
-                var bullet = new ExpandableBulletAttack
-                {
-                    aimVector = aim.direction,
-                    attackerBody = body,
-                    bulletCount = 1,
-                    chargeLevel = 0f,
-                    damage = body.damage * 0.075f,
-                    damageColorIndex = CatalogModule.plasmaDamageColor,
-                    damageType = DamageType.Generic | DamageType.Silent,
-                    falloffModel = BulletAttack.FalloffModel.None,
-                    force = 0f,
-                    HitEffectNormal = true,
-                    hitEffectPrefab = null, // TODO: Plasma Ammo Hit Effect
-                    hitMask = LayerIndex.entityPrecise.mask | LayerIndex.world.mask,
-                    isCrit = body.RollCrit(),
-                    maxDistance = 1000f,
-                    maxSpread = 0f,
-                    minSpread = 0f,
-                    muzzleName = muzzle,
-                    onHit = plasmaHit,
-                    onStop = null,
-                    origin = aim.origin,
-                    owner = body.gameObject,
-                    procChainMask = default,
-                    procCoefficient = 0.5f,
-                    queryTriggerInteraction = QueryTriggerInteraction.UseGlobal,
-                    radius = 0.15f,
-                    smartCollision = true,
-                    sniper = false,
-                    spreadPitchScale = 1f,
-                    spreadYawScale = 1f,
-                    stopperMask = LayerIndex.world.mask | LayerIndex.entityPrecise.mask,
-                    tracerEffectPrefab = plasmaTracer,
-                    weapon = null,
-                };
-                return bullet;
-            });
-            var plasma = SniperAmmoSkillDef.Create( plasmaCreate );
-            plasma.icon = UIModule.GetScatterAmmoIcon();
-            plasma.skillName = "Plasma Ammo";
-            plasma.skillNameToken = Tokens.SNIPER_AMMO_PLASMA_NAME;
-            plasma.skillDescriptionToken = Tokens.SNIPER_AMMO_PLASMA_DESC;
-            plasma.fireSoundType = SoundModule.FireType.Plasma;
-            skills.Add( plasma );
+            //var plasmaHit = new OnBulletDelegate( (bullet, hit) =>
+            //{
+            //    HealthComponent obj = hit.hitHurtBox?.healthComponent;
+            //    if( obj != null && obj && FriendlyFireManager.ShouldDirectHitProceed( obj, bullet.team ) )
+            //    {
+            //        Single dmg = bullet.damage / bullet.attackerBody.damage;
+            //        obj.ApplyDoT( bullet.attackerBody.gameObject, bullet.isCrit ? CatalogModule.critPlasmaBurnIndex : CatalogModule.plasmaBurnIndex, 10f, dmg );
+            //    }
+            //});
+            //GameObject plasmaTracer = VFXModule.GetPlasmaAmmoTracer();
+            //var plasmaCreate = new BulletCreationDelegate( (body, reload, aim, muzzle) =>
+            //{
+            //    var bullet = new ExpandableBulletAttack
+            //    {
+            //        aimVector = aim.direction,
+            //        attackerBody = body,
+            //        bulletCount = 1,
+            //        chargeLevel = 0f,
+            //        damage = body.damage * 0.075f,
+            //        damageColorIndex = CatalogModule.plasmaDamageColor,
+            //        damageType = DamageType.Generic | DamageType.Silent,
+            //        falloffModel = BulletAttack.FalloffModel.None,
+            //        force = 0f,
+            //        HitEffectNormal = true,
+            //        hitEffectPrefab = null, // TODO: Plasma Ammo Hit Effect
+            //        hitMask = LayerIndex.entityPrecise.mask | LayerIndex.world.mask,
+            //        isCrit = body.RollCrit(),
+            //        maxDistance = 1000f,
+            //        maxSpread = 0f,
+            //        minSpread = 0f,
+            //        muzzleName = muzzle,
+            //        onHit = plasmaHit,
+            //        onStop = null,
+            //        origin = aim.origin,
+            //        owner = body.gameObject,
+            //        procChainMask = default,
+            //        procCoefficient = 0.5f,
+            //        queryTriggerInteraction = QueryTriggerInteraction.UseGlobal,
+            //        radius = 0.15f,
+            //        smartCollision = true,
+            //        sniper = false,
+            //        spreadPitchScale = 1f,
+            //        spreadYawScale = 1f,
+            //        stopperMask = LayerIndex.world.mask | LayerIndex.entityPrecise.mask,
+            //        tracerEffectPrefab = plasmaTracer,
+            //        weapon = null,
+            //    };
+            //    return bullet;
+            //});
+            //var plasma = SniperAmmoSkillDef.Create( plasmaCreate );
+            //plasma.icon = UIModule.GetScatterAmmoIcon();
+            //plasma.skillName = "Plasma Ammo";
+            //plasma.skillNameToken = Tokens.SNIPER_AMMO_PLASMA_NAME;
+            //plasma.skillDescriptionToken = Tokens.SNIPER_AMMO_PLASMA_DESC;
+            //plasma.fireSoundType = SoundModule.FireType.Plasma;
+            //skills.Add( plasma );
 
             #endregion
 
@@ -312,34 +321,39 @@
 
             #endregion
 
+            skills.Add( wip );
+            skills.Add( wip );
+            skills.Add( wip );
+
             SkillFamiliesModule.ammoSkills = skills;
         }
 
         internal static void CreatePassiveSkills()
         {
-            var skills = new List<SkillDef>();
+            var skills = new List<(SkillDef,String)>();
 
             var critPassive = SniperPassiveSkillDef.Create( default, false, 1.2f );
             critPassive.icon = UIModule.GetCritPassiveIcon();
             critPassive.skillName = "Precise Aim";
             critPassive.skillNameToken = Tokens.SNIPER_PASSIVE_CRITICAL_NAME;
             critPassive.skillDescriptionToken = Tokens.SNIPER_PASSIVE_CRITICAL_DESC;
-            skills.Add( critPassive );
+            skills.Add( (critPassive,"") );
 
-            var headshot = SniperPassiveSkillDef.Create( default, true, 1.0f );
-            headshot.icon = UIModule.GetHeadshotPassiveIcon();
-            headshot.skillName = "Headshot";
-            headshot.skillNameToken = Tokens.SNIPER_PASSIVE_HEADSHOT_NAME;
-            headshot.skillDescriptionToken = Tokens.SNIPER_PASSIVE_HEADSHOT_DESC;
-            skills.Add( headshot );
+            //var headshot = SniperPassiveSkillDef.Create( default, true, 1.0f );
+            //headshot.icon = UIModule.GetHeadshotPassiveIcon();
+            //headshot.skillName = "Headshot";
+            //headshot.skillNameToken = Tokens.SNIPER_PASSIVE_HEADSHOT_NAME;
+            //headshot.skillDescriptionToken = Tokens.SNIPER_PASSIVE_HEADSHOT_DESC;
+            //skills.Add( headshot );
 
+            skills.Add( wip );
 
             SkillFamiliesModule.passiveSkills = skills;
         }
 
         internal static void CreatePrimarySkills()
         {
-            var skills = new List<SkillDef>();
+            var skills = new List<(SkillDef,String)>();
 
 
             var snipe = SniperReloadableFireSkillDef.Create<DefaultSnipe,DefaultReload>("Weapon", "Weapon");
@@ -372,89 +386,91 @@
             snipe.stockToConsume = 1;
             snipe.stockToReload = 1;
             snipe.skillName = "Snipe";
-            skills.Add( snipe );
+            skills.Add( (snipe,"") );
 
-            var slide = SniperReloadableFireSkillDef.Create<SlideSnipe,SlideReload>("Weapon", "Body");
-            slide.actualMaxStock = 1;
-            slide.icon = null; // TODO: Slide snipe icon
-            slide.interruptPriority = InterruptPriority.Skill;
-            slide.isBullets = false;
-            slide.rechargeStock = 0;
-            slide.reloadIcon = null; // TODO: Slide Snipe Reload icon
-            slide.reloadInterruptPriority = InterruptPriority.Skill;
-            slide.reloadParams = new ReloadParams
-            {
-                attackSpeedCap = 1.25f,
-                attackSpeedDecayCoef = 10f,
-                badMult = 0.4f,
-                baseDuration = 1.5f,
-                goodMult = 1f,
-                perfectMult = 2f,
-                reloadDelay = 0.5f,
-                reloadEndDelay = 0.75f,
-                perfectStart = 0.25f,
-                perfectEnd = 0.4f,
-                goodStart = 0.4f,
-                goodEnd = 0.6f,
-            };
-            slide.requiredStock = 1;
-            slide.shootDelay = 0.15f;
-            slide.skillDescriptionToken = Tokens.SNIPER_PRIMARY_DASH_DESC;
-            slide.skillNameToken = Tokens.SNIPER_PRIMARY_DASH_NAME;
-            slide.stockToConsume = 1;
-            slide.stockToReload = 1;
-            slide.skillName = "Slide";
-            skills.Add( slide );
+            //var slide = SniperReloadableFireSkillDef.Create<SlideSnipe,SlideReload>("Weapon", "Body");
+            //slide.actualMaxStock = 1;
+            //slide.icon = null; // TODO: Slide snipe icon
+            //slide.interruptPriority = InterruptPriority.Skill;
+            //slide.isBullets = false;
+            //slide.rechargeStock = 0;
+            //slide.reloadIcon = null; // TODO: Slide Snipe Reload icon
+            //slide.reloadInterruptPriority = InterruptPriority.Skill;
+            //slide.reloadParams = new ReloadParams
+            //{
+            //    attackSpeedCap = 1.25f,
+            //    attackSpeedDecayCoef = 10f,
+            //    badMult = 0.4f,
+            //    baseDuration = 1.5f,
+            //    goodMult = 1f,
+            //    perfectMult = 2f,
+            //    reloadDelay = 0.5f,
+            //    reloadEndDelay = 0.75f,
+            //    perfectStart = 0.25f,
+            //    perfectEnd = 0.4f,
+            //    goodStart = 0.4f,
+            //    goodEnd = 0.6f,
+            //};
+            //slide.requiredStock = 1;
+            //slide.shootDelay = 0.15f;
+            //slide.skillDescriptionToken = Tokens.SNIPER_PRIMARY_DASH_DESC;
+            //slide.skillNameToken = Tokens.SNIPER_PRIMARY_DASH_NAME;
+            //slide.stockToConsume = 1;
+            //slide.stockToReload = 1;
+            //slide.skillName = "Slide";
+            //skills.Add( slide );
+
+            skills.Add( wip );
+            skills.Add( wip );
 
             SkillFamiliesModule.primarySkills = skills;
         }
 
         internal static void CreateSecondarySkills()
         {
-            var skills = new List<SkillDef>();
+            var skills = new List<(SkillDef,String)>();
 
-            var charge = SniperScopeSkillDef.Create<DefaultScope>( UIModule.GetChargeScope(), new ZoomParams(shoulderStart: 1f, shoulderEnd: 5f,
+            var charge = SniperScopeSkillDef.Create<DefaultScope>( new ZoomParams(shoulderStart: 1f, shoulderEnd: 5f,
                                                                                                              scopeStart: 3f, scopeEnd: 8f,
-                                                                                                             shoulderFrac: 1f, defaultZoom: 0f,
-                                                                                                             inputScale: 0.01f, baseFoV: 60f) ); // TODO: Verify and adjust zoom params
+                                                                                                             shoulderFrac: 0.25f, defaultZoom: 0f,
+                                                                                                             inputScale: 0.03f, baseFoV: 60f) ); // TODO: Verify and adjust zoom params
             charge.baseMaxStock = 1;
-            charge.baseRechargeInterval = 0f;
+            charge.baseRechargeInterval = 10f;
             charge.icon = UIModule.GetSteadyAimIcon();
             charge.isBullets = false;
             charge.rechargeStock = 1;
-            charge.requiredStock = 0;
+            charge.requiredStock = 1;
             charge.skillDescriptionToken = Tokens.SNIPER_SECONDARY_STEADY_DESC;
             charge.skillName = "Steady Aim";
             charge.skillNameToken = Tokens.SNIPER_SECONDARY_STEADY_NAME;
-            charge.stockToConsumeOnFire = 0;
-            charge.stockRequiredToKeepZoom = 0;
-            charge.stockRequiredToModifyFire = 0;
-            charge.beginSkillCooldownOnSkillEnd = false;
-            charge.initialCarryoverLoss = 0.1f;
+            charge.stockToConsumeOnFire = 1;
+            charge.stockRequiredToKeepZoom = 1;
+            charge.stockRequiredToModifyFire = 1;
+            charge.beginSkillCooldownOnSkillEnd = true;
+            charge.initialCarryoverLoss = 0.0f;
             charge.decayType = SniperScopeSkillDef.DecayType.Exponential;
-            charge.decayValue = 0.1f;
+            charge.decayValue = 0.05f;
             charge.chargeCanCarryOver = true;
-            skills.Add( charge );
+            skills.Add( (charge,"") );
 
-            var quick = SniperScopeSkillDef.Create<QuickScope>( UIModule.GetQuickScope(), new ZoomParams(shoulderStart: 1f, shoulderEnd: 5f,
+            var quick = SniperScopeSkillDef.Create<QuickScope>( new ZoomParams(shoulderStart: 1f, shoulderEnd: 5f,
                                                                                                              scopeStart: 3f, scopeEnd: 8f,
-                                                                                                             shoulderFrac: 1f, defaultZoom: 0f,
-                                                                                                             inputScale: 0.01f, baseFoV: 60f) ); // TODO: Verify and adjust Zoom params
+                                                                                                             shoulderFrac: 0.25f, defaultZoom: 0f,
+                                                                                                             inputScale: 0.03f, baseFoV: 60f) ); // TODO: Verify and adjust Zoom params
             quick.baseMaxStock = 4;
             quick.baseRechargeInterval = 4f;
             quick.icon = UIModule.GetQuickScopeIcon();
             quick.isBullets = false;
             quick.rechargeStock = 1;
-            quick.requiredStock = 0;
+            quick.requiredStock = 1;
             quick.skillDescriptionToken = Tokens.SNIPER_SECONDARY_QUICK_DESC;
-            quick.skillName = "Quickscope" +
-                "";
+            quick.skillName = "Quickscope";
             quick.skillNameToken = Tokens.SNIPER_SECONDARY_QUICK_NAME;
             quick.stockToConsumeOnFire = 1;
             quick.stockRequiredToKeepZoom = 1;
             quick.stockRequiredToModifyFire = 1;
-            quick.beginSkillCooldownOnSkillEnd = true;
-            skills.Add( quick );
+            quick.beginSkillCooldownOnSkillEnd = false;
+            skills.Add( (quick,"") );
 
 
 
@@ -463,7 +479,7 @@
 
         internal static void CreateUtilitySkills()
         {
-            var skills = new List<SkillDef>();
+            var skills = new List<(SkillDef,String)>();
 
             var backflip = SniperSkillDef.Create<Backflip>("Body");
             backflip.baseMaxStock = 1;
@@ -484,14 +500,14 @@
             backflip.skillName = "Military Training";
             backflip.skillNameToken = Tokens.SNIPER_UTILITY_BACKFLIP_NAME;
             backflip.stockToConsume = 1;
-            skills.Add( backflip );
+            skills.Add( (backflip,"") );
 
             SkillFamiliesModule.utilitySkills = skills;
         }
 
         internal static void CreateSpecialSkills()
         {
-            var skills = new List<SkillDef>();
+            var skills = new List<(SkillDef,String)>();
 
             var decoy = DecoySkillDef.Create<DecoyActivation,DecoyReactivation>( "Weapon", "Weapon" );
             decoy.baseMaxStock = 1;
@@ -515,34 +531,36 @@
             decoy.skillNameToken = Tokens.SNIPER_SPECIAL_DECOY_NAME;
             decoy.startCooldownAfterReactivation = true;
             decoy.stockToConsume = 1;
-            skills.Add( decoy );
+            skills.Add( (decoy,"") );
 
-            var knife = KnifeSkillDef.Create<KnifeActivation,KnifeReactivation>( "Weapon", "Body" );
-            knife.baseMaxStock = 1;
-            knife.baseRechargeInterval = 18f;
-            knife.beginSkillCooldownOnSkillEnd = true;
-            knife.fullRestockOnAssign = true;
-            knife.icon = UIModule.GetKnifeIcon();
-            knife.interruptPriority = InterruptPriority.PrioritySkill;
-            knife.isCombatSkill = true;
-            knife.maxReactivationTimer = 8f;
-            knife.minReactivationTimer = 0.2f;
-            knife.noSprint = true;
-            knife.reactivationIcon = UIModule.GetKnifeReactivationIcon();
-            knife.reactivationInterruptPriority = InterruptPriority.PrioritySkill;
-            knife.reactivationRequiredStock = 0;
-            knife.reactivationStockToConsume = 0;
-            knife.rechargeStock = 1;
-            knife.requiredStock = 1;
-            knife.skillDescriptionToken = Tokens.SNIPER_SPECIAL_KNIFE_DESC;
-            knife.skillName = "Blink Knife";
-            knife.skillNameToken = Tokens.SNIPER_SPECIAL_KNIFE_NAME;
-            knife.startCooldownAfterReactivation = true;
-            knife.stockToConsume = 1;
-            skills.Add( knife );
-            KnifeSkillData.interruptPriority = InterruptPriority.PrioritySkill;
-            KnifeSkillData.targetMachineName = "Weapon";
-            KnifeSkillData.slashState = SkillsCore.StateType<KnifePickupSlash>();
+            //var knife = KnifeSkillDef.Create<KnifeActivation,KnifeReactivation>( "Weapon", "Body" );
+            //knife.baseMaxStock = 1;
+            //knife.baseRechargeInterval = 18f;
+            //knife.beginSkillCooldownOnSkillEnd = true;
+            //knife.fullRestockOnAssign = true;
+            //knife.icon = UIModule.GetKnifeIcon();
+            //knife.interruptPriority = InterruptPriority.PrioritySkill;
+            //knife.isCombatSkill = true;
+            //knife.maxReactivationTimer = 8f;
+            //knife.minReactivationTimer = 0.2f;
+            //knife.noSprint = true;
+            //knife.reactivationIcon = UIModule.GetKnifeReactivationIcon();
+            //knife.reactivationInterruptPriority = InterruptPriority.PrioritySkill;
+            //knife.reactivationRequiredStock = 0;
+            //knife.reactivationStockToConsume = 0;
+            //knife.rechargeStock = 1;
+            //knife.requiredStock = 1;
+            //knife.skillDescriptionToken = Tokens.SNIPER_SPECIAL_KNIFE_DESC;
+            //knife.skillName = "Blink Knife";
+            //knife.skillNameToken = Tokens.SNIPER_SPECIAL_KNIFE_NAME;
+            //knife.startCooldownAfterReactivation = true;
+            //knife.stockToConsume = 1;
+            //skills.Add( knife );
+            //KnifeSkillData.interruptPriority = InterruptPriority.PrioritySkill;
+            //KnifeSkillData.targetMachineName = "Weapon";
+            //KnifeSkillData.slashState = SkillsCore.StateType<KnifePickupSlash>();
+
+            skills.Add( wip );
 
             SkillFamiliesModule.specialSkills = skills;
         }

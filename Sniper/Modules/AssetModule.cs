@@ -13,9 +13,7 @@
 
             return _sniperAssetBundle;
         }
-#pragma warning disable IDE1006 // Naming Styles
         private static AssetBundle _sniperAssetBundle;
-#pragma warning restore IDE1006 // Naming Styles
 
 
     }

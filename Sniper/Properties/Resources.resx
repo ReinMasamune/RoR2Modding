@@ -117,11 +117,32 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ach__WIP__desctoken" xml:space="preserve">
+    <value>SNIPER_UNLOCKABLES_WIP_DESC</value>
+  </data>
+  <data name="ach__WIP__iconpath" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ach__WIP__identifier" xml:space="preserve">
+    <value>WIP</value>
+  </data>
+  <data name="ach__WIP__nametoken" xml:space="preserve">
+    <value>SNIPER_UNLOCKABLES_WIP_NAME</value>
+  </data>
+  <data name="ach__WIP__prereq" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ach__WIP__unlockidentifier" xml:space="preserve">
+    <value>Skills.WIP</value>
+  </data>
   <data name="icon__BackflipIcon" xml:space="preserve">
     <value>Assets/__EXPORT/Icons/Utility/Backflip.png</value>
   </data>
   <data name="icon__CritPassiveIcon" xml:space="preserve">
     <value>Assets/__EXPORT/Icons/passive 2/Precise Aim.png</value>
+  </data>
+  <data name="icon__CrosshairCenter" xml:space="preserve">
+    <value>Assets/__EXPORT/Icons/UI/CrosshairCenter.png</value>
   </data>
   <data name="icon__DecoyIcon" xml:space="preserve">
     <value>Assets/__EXPORT/Icons/Special 1/Decoy.png</value>
@@ -181,7 +202,7 @@
     <value>Passive</value>
   </data>
   <data name="lang__SNIPER_AMMO_EXPLOSIVE_DESC" xml:space="preserve">
-    <value>Deals 50% primary damage. Explodes on hit for an additional 50% primary damage to the target and nearby enemies.</value>
+    <value>Deals &lt;style=cIsDamage&gt;0.45x&lt;/style&gt; damage. &lt;style=cIsDamage&gt;Explodes&lt;/style&gt; on hit for &lt;style=cIsDamage&gt;0.45x&lt;/style&gt; damage to nearby enemies. &lt;style=cIsUtility&gt;Boosts increase the size of the explosion&lt;/style&gt;.</value>
   </data>
   <data name="lang__SNIPER_AMMO_EXPLOSIVE_NAME" xml:space="preserve">
     <value>Explosive</value>
@@ -205,19 +226,21 @@
     <value>Shock</value>
   </data>
   <data name="lang__SNIPER_AMMO_STANDARD_DESC" xml:space="preserve">
-    <value>Deals 100% primary damage, pierces enemies, and has a chance to ricochet.</value>
+    <value>Deals &lt;style=cIsDamage&gt;1.0x&lt;/style&gt; damage, &lt;style=cIsUtility&gt;pierces enemies&lt;/style&gt;, and has a &lt;style=cIsUtility&gt;chance to ricochet&lt;/style&gt;.</value>
   </data>
   <data name="lang__SNIPER_AMMO_STANDARD_NAME" xml:space="preserve">
     <value>Full Metal Jacket</value>
   </data>
   <data name="lang__SNIPER_DESC" xml:space="preserve">
-    <value>TODO  \n</value>
+    <value>Sniper is a long ranged, single-target dps that incorperates elements of an assassin to stay alive.\n
+
+They excel at taking down bosses and high priority targets but struggle against larger groups of weak enemies.\n</value>
   </data>
   <data name="lang__SNIPER_NAME" xml:space="preserve">
     <value>Sniper</value>
   </data>
   <data name="lang__SNIPER_PASSIVE_CRITICAL_DESC" xml:space="preserve">
-    <value>Critical Strikes deal 20% more damage</value>
+    <value>&lt;style=cIsUtility&gt;Critical Strikes&lt;/style&gt; deal &lt;style=cIsDamage&gt;1.2x&lt;/style&gt; damage</value>
   </data>
   <data name="lang__SNIPER_PASSIVE_CRITICAL_NAME" xml:space="preserve">
     <value>Precise Aim</value>
@@ -241,25 +264,25 @@
     <value>Sliding Reload</value>
   </data>
   <data name="lang__SNIPER_PRIMARY_SNIPE_DESC" xml:space="preserve">
-    <value>Shoot enemies for 320% damage. Must be reloaded after firing. Reloading at the right time grants up to double damage.</value>
+    <value>Shoot enemies for &lt;style=cIsDamage&gt;360% to 900%&lt;/style&gt; damage. Must be &lt;style=cIsUtility&gt;reloaded&lt;/style&gt; after each shot. Reloading at the right time &lt;style=cIsDamage&gt;increases damage&lt;/style&gt;.</value>
   </data>
   <data name="lang__SNIPER_PRIMARY_SNIPE_NAME" xml:space="preserve">
     <value>Snipe</value>
   </data>
   <data name="lang__SNIPER_PRIMARY_SNIPE_RELOAD_DESC" xml:space="preserve">
-    <value>Reload</value>
+    <value>Why are you reading this??? Shouldn't you be playing the game?</value>
   </data>
   <data name="lang__SNIPER_PRIMARY_SNIPE_RELOAD_NAME" xml:space="preserve">
     <value>Reload</value>
   </data>
   <data name="lang__SNIPER_SECONDARY_QUICK_DESC" xml:space="preserve">
-    <value>Fire off a quick to aim, powerful shot dealing 200% primary damage while maintaining mobility</value>
+    <value>&lt;style=cIsUtility&gt;Boost&lt;/style&gt; your shots by &lt;style=cIsDamage&gt;2.0x&lt;/style&gt;. &lt;style=cIsUtility&gt;Recharges quickly&lt;/style&gt; and can hold &lt;style=cIsUtility&gt;multiple stock&lt;/style&gt;.</value>
   </data>
   <data name="lang__SNIPER_SECONDARY_QUICK_NAME" xml:space="preserve">
     <value>Quickscope</value>
   </data>
   <data name="lang__SNIPER_SECONDARY_STEADY_DESC" xml:space="preserve">
-    <value>Charge up a powerful shot for up to 1000% primary damage</value>
+    <value>&lt;style=cIsUtility&gt;Boost&lt;/style&gt; your shots by &lt;style=cIsDamage&gt;up to 6.5x&lt;/style&gt;. &lt;style=cIsUtility&gt;Charges faster&lt;/style&gt; while stationary. &lt;style=cIsHealth&gt;You are slowed while charging&lt;/style&gt;.</value>
   </data>
   <data name="lang__SNIPER_SECONDARY_STEADY_NAME" xml:space="preserve">
     <value>Steady Aim</value>
@@ -268,13 +291,13 @@
     <value>Classic</value>
   </data>
   <data name="lang__SNIPER_SKIN_ALT2_NAME" xml:space="preserve">
-    <value>Unnamed</value>
+    <value>PlaceholderName3</value>
   </data>
   <data name="lang__SNIPER_SKIN_ALT3_NAME" xml:space="preserve">
-    <value>Unnamed2</value>
+    <value>PlaceholderName2</value>
   </data>
   <data name="lang__SNIPER_SKIN_ALT4_NAME" xml:space="preserve">
-    <value>Unnamed3</value>
+    <value>PlaceholderName1</value>
   </data>
   <data name="lang__SNIPER_SKIN_ALT5_NAME" xml:space="preserve">
     <value>Jungle</value>
@@ -286,7 +309,7 @@
     <value>Default</value>
   </data>
   <data name="lang__SNIPER_SPECIAL_DECOY_DESC" xml:space="preserve">
-    <value>Go invisible and drop a decoy that distracts enemies. On death, the decoy explodes for 500% damage, stunning and weakening nearby enemies.</value>
+    <value>&lt;style=cIsUtility&gt;Stealth&lt;/style&gt; for 2 seconds and leave behind a &lt;style=cIsUtility&gt;Decoy&lt;/style&gt; that distracts enemies. You can &lt;style=cIsUtility&gt;Reactivate&lt;/style&gt; to detonate the decoy, dealing &lt;style=cIsDamage&gt;500%&lt;/style&gt; damage, &lt;style=cIsUtility&gt;stunning, and weakening&lt;/style&gt; nearby enemies.</value>
   </data>
   <data name="lang__SNIPER_SPECIAL_DECOY_NAME" xml:space="preserve">
     <value>Decoy</value>
@@ -301,10 +324,13 @@
     <value>[Insert cool thing here]</value>
   </data>
   <data name="lang__SNIPER_UTILITY_BACKFLIP_DESC" xml:space="preserve">
-    <value>Perform a backflip</value>
+    <value>Perform a flip away from the direction you are aiming.</value>
   </data>
   <data name="lang__SNIPER_UTILITY_BACKFLIP_NAME" xml:space="preserve">
     <value>Backflip</value>
+  </data>
+  <data name="prefab__Crosshair" xml:space="preserve">
+    <value>Assets/__EXPORT/UI Prefabs/SniperCrosshair.prefab</value>
   </data>
   <data name="prefab__KnifeGhostPrefab" xml:space="preserve">
     <value>Assets/__EXPORT/KnifeProjectileGhost.prefab</value>

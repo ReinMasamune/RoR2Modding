@@ -1,9 +1,9 @@
 ﻿namespace VectorRendering.InternalHelpers
 
 open System
-open System.Numerics
 open VectorRendering.General
 open VectorRendering.Constructs
+open VectorRendering.Vectors
 
 module internal Geometry =
     let internal CalculateRelationship (line:Vector4) (point:Vector2) : PointLineRelationship =

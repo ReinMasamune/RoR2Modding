@@ -14,6 +14,7 @@
     using Sniper.Modules;
     using Sniper.SkillDefTypes.Bases;
     using Sniper.States.Bases;
+    using Sniper.UI.Components;
 
     using UnityEngine;
 
@@ -30,7 +31,7 @@
             def.beginSkillCooldownOnSkillEnd = true;
             def.canceledFromSprinting = false;
             def.isCombatSkill = true;
-            def.fullRestockOnAssign = true;
+            def.fullRestockOnAssign = false;
             def.mustKeyPress = true;
             def.noSprint = true;
             def.reloadActivationState = SkillsCore.StateType<TReload>();
@@ -116,7 +117,6 @@
             }
             if( state is ISniperReloadState reloadState )
             {
-
                 reloadState.reloadTier = data.ReadReload();
             }
             return state;
@@ -139,19 +139,6 @@
 
             if( machine.SetInterruptState( state, data.isReloading ? this.reloadInterruptPriority : base.interruptPriority ) )
             {
-                if( data.isReloading )
-                {
-                    data.StopReload();
-                    skillSlot.stock += this.stockToReload;
-                } else
-                {
-                    skillSlot.stock -= base.stockToConsume;
-                    data.delayTimer = 0f;
-                    if( skillSlot.stock <= 0 )
-                    {
-                        data.StartReload();
-                    }
-                }
                 CharacterBody body = skillSlot.characterBody;
                 if( body )
                 {
@@ -160,6 +147,18 @@
                         body.isSprinting = false;
                     }
                     body.OnSkillActivated( skillSlot );
+                }
+                if( data.isReloading )
+                {
+                    data.StopReload();
+                } else
+                {
+                    skillSlot.stock -= base.stockToConsume;
+                    data.delayTimer = 0f;
+                    if( skillSlot.stock <= 0 )
+                    {
+                        data.StartReload();
+                    }
                 }
             }
         }
@@ -185,9 +184,11 @@
                 this.reloadParams = reloadParams;
                 _ = ReloadUIController.GetReloadTexture( this.reloadParams );
                 this.secondarySlot = this.reloadStatemachine.commonComponents.characterBody.skillLocator.secondary;
-                this.isReloading = false;
+                this.isReloading = true;
                 this.currentReloadTier = ReloadTier.Perfect;
                 this.skillSlot = skillSlot;
+                this.skillSlot.stock = this.def.stockToReload;
+                this.body = this.skillSlot.characterBody as SniperCharacterBody;
             }
 
             internal void ForceReload( ReloadTier tier )
@@ -195,40 +196,62 @@
                 this.currentReloadTier = tier;
                 SoundModule.PlayLoad( this.secondarySlot.gameObject, tier );
                 this.isReloading = false;
-                this.skillSlot.stock = Mathf.Max( this.skillSlot.stock, Mathf.Min( this.skillSlot.stock + 1, this.def.actualMaxStock ) );
-                this.reloadController?.ForceStopReload();
+                this.skillSlot.stock = Mathf.Max( this.skillSlot.stock, Mathf.Min( this.skillSlot.stock + this.def.stockToReload, this.def.actualMaxStock ) );
+                this.body.ForceStopReload();
+                this.UpdateCrosshair();
             }
 
             internal void StartReload()
             {
-                if( this.reloadController == null )
-                {
-                    this.reloadController = ReloadUIController.FindController( this.reloadStatemachine.commonComponents.characterBody );
-                }
                 this.isReloading = true;
-                this.reloadController.StartReload( this.reloadParams );
-
+                this.body.StartReload( this.reloadParams );
+                this.UpdateCrosshair();
             }
-            internal void StopReload() => this.reloadController.StopReload( this );
+            internal void StopReload()
+            {
+                this.body.StopReload( this );
+                this.skillSlot.stock += this.def.stockToReload;
+                this.UpdateCrosshair();
+            }
 
             internal ReloadTier ReadReload()
             {
-                this.currentReloadTier = this.reloadController.ReadReload();
+                this.currentReloadTier = this.body.ReadReload();
+                this.UpdateCrosshair();
                 return this.currentReloadTier;
             }
 
-            internal Boolean CanReload() => !this.reloadController ? false : this.reloadController.CanReload();
+
+            internal SniperCrosshairController crosshair
+            {
+                private get => this._crosshair;
+                set
+                {
+                    this._crosshair = value;
+                    this.UpdateCrosshair();
+                }
+            }
+            private SniperCrosshairController _crosshair;
+            private void UpdateCrosshair()
+            {
+                if( !this.crosshair || this.crosshair is null ) return;
+                this.crosshair.reloadMax = this.def.actualMaxStock;
+                this.crosshair.reloadCurrent = this.skillSlot.stock;
+                this.crosshair.reloadTier = this.currentReloadTier;
+            }
+
+            internal Boolean CanReload() => this.body.CanReload();
 
             internal Boolean CanShoot() => this.delayTimer >= this.def.shootDelay;
 
             internal SniperReloadableFireSkillDef def;
             internal EntityStateMachine reloadStatemachine;
-            internal ReloadUIController reloadController;
             internal GenericSkill skillSlot;
             internal GenericSkill secondarySlot;
+            internal SniperCharacterBody body;
             internal ReloadParams reloadParams;
             internal ReloadTier currentReloadTier;
-            internal Boolean isReloading = false;
+            internal Boolean isReloading = true;
             internal Single delayTimer;
         }
     }

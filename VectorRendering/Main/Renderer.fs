@@ -7,6 +7,7 @@ open VectorRendering.General
 open VectorRendering.InternalHelpers
 open System.Numerics
 open VectorRendering.Drawables
+open VectorRendering.Vectors
 
 
 module Renderer = 

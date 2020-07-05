@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyVersion>1.0.0.726</AssemblyVersion>
-    <FileVersion>1.0.0.726</FileVersion>
+    <AssemblyVersion>1.0.0.818</AssemblyVersion>
+    <FileVersion>1.0.0.818</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -423,8 +423,4 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-
-  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="CD $(SolutionDir)" />
-  </Target>
 </Project>

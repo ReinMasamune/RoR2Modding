@@ -3,7 +3,7 @@
 open System
 open VectorRendering.Constructs
 open VectorRendering.General
-open System.Numerics
+open VectorRendering.Vectors
 
 type public Circle =
     struct

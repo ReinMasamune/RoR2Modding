@@ -36,7 +36,7 @@
 #pragma warning restore IDE1006 // Naming Styles
         private static CharacterCameraParams CreateSniperCharCameraParams()
         {
-            var param = SniperCameraParams.Create( new Vector3( 1f, 0.8f, -3f ) );
+            var param = SniperCameraParams.Create( new Vector3( 1f, 0.8f, -3f ), 0.5f, 0.2f, 1.0f, 0.2f );
             param.name = "ccpSniper";
             param.minPitch = -70f;
             param.maxPitch = 70f;

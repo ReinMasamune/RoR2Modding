@@ -11,7 +11,7 @@
 
     internal static class SkillFamiliesModule
     {
-        internal static List<SkillDef> ammoSkills;
+        internal static List<(SkillDef,String)> ammoSkills;
         internal static SkillFamily GetAmmoSkillFamily()
         {
             if( ammoSkills == null )
@@ -22,7 +22,7 @@
             return FromList( ammoSkills, "SniperAmmoSkillFamily" );
         }
 
-        internal static List<SkillDef> passiveSkills;
+        internal static List<(SkillDef,String)> passiveSkills;
         internal static SkillFamily GetPassiveSkillFamily()
         {
             if( passiveSkills == null )
@@ -33,7 +33,7 @@
             return FromList( passiveSkills, "SniperPassiveSkillFamily" );
         }
 
-        internal static List<SkillDef> primarySkills;
+        internal static List<(SkillDef,String)> primarySkills;
         internal static SkillFamily GetPrimarySkillFamily()
         {
             if( primarySkills == null )
@@ -44,7 +44,7 @@
             return FromList( primarySkills, "SniperPrimarySkillFamily" );
         }
 
-        internal static List<SkillDef> secondarySkills;
+        internal static List<(SkillDef,String)> secondarySkills;
         internal static SkillFamily GetSecondarySkillFamily()
         {
             if( secondarySkills == null )
@@ -55,7 +55,7 @@
             return FromList( secondarySkills, "SniperSecondarySkillFamily" );
         }
 
-        internal static List<SkillDef> utilitySkills;
+        internal static List<(SkillDef,String)> utilitySkills;
         internal static SkillFamily GetUtilitySkillFamily()
         {
             if( utilitySkills == null )
@@ -66,7 +66,7 @@
             return FromList( utilitySkills, "SniperUtilitySkillFamily" );
         }
 
-        internal static List<SkillDef> specialSkills;
+        internal static List<(SkillDef,String)> specialSkills;
         internal static SkillFamily GetSpecialSkillFamily()
         {
             if( specialSkills == null )
@@ -77,15 +77,13 @@
             return FromList( specialSkills, "SniperSpecialSkillFamily" );
         }
 
-        private static SkillFamily FromList( List<SkillDef> defs, String name )
+        private static SkillFamily FromList( List<(SkillDef def, String unlockable)> defs, String name )
         {
-            foreach( var def in defs )
+            foreach( var (def,unlock) in defs )
             {
                 ( def as ScriptableObject ).name = def.skillName;
             }
-            SkillDef defaultSkill = defs[0];
-            (SkillDef def, String)[] variants = defs.GetRange(1, defs.Count - 1).Select( (def) => (def,"") ).ToArray(); // TODO: Unlockable
-            var fam = SkillsCore.CreateSkillFamily( defaultSkill, variants );
+            var fam = SkillsCore.CreateSkillFamily( defs[0].def, defs.Skip(1).ToArray() );
             ( fam as ScriptableObject ).name = name;
             return fam;
         }

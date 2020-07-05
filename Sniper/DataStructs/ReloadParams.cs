@@ -2,13 +2,15 @@
 {
     using System;
 
+    using JetBrains.Annotations;
+
     using Sniper.Enums;
     using Sniper.Expansions;
 
     using UnityEngine;
 
     [Serializable]
-    internal struct ReloadParams
+    internal struct ReloadParams : IEquatable<ReloadParams>
     {
         [SerializeField]
         internal Single baseDuration;
@@ -56,12 +58,35 @@
             return hash;
         }
 
+        public override Boolean Equals( System.Object obj )
+        {
+            if( obj is ReloadParams other )
+            {
+                return this.goodEnd == other.goodEnd && this.perfectStart == other.perfectStart && this.perfectEnd == other.perfectEnd && this.goodStart == other.goodStart;
+            } else return false;
+        }
+
+        public Boolean Equals( ReloadParams other )
+        {
+            return this.goodEnd == other.goodEnd && this.perfectStart == other.perfectStart && this.perfectEnd == other.perfectEnd && this.goodStart == other.goodStart;
+        }
+
+        public static Boolean operator ==( ReloadParams p1, ReloadParams p2 )
+        {
+            return p1.Equals( p2 );
+        }
+        public static Boolean operator !=( ReloadParams p1, ReloadParams p2 )
+        {
+            return !p1.Equals( p2 );
+        }
+
+
         internal Single Update( Single delta, Single attackSpeed, Single timer )
         {
             delta = this.AdjustAttackSpeed( attackSpeed ) * delta;
-            timer += delta;
-            timer %= this.baseDuration;
-            return timer;
+            var temp = timer + delta;
+            temp %= this.baseDuration;
+            return temp;
         }
 
         internal ReloadTier GetReloadTier( Single timer )

@@ -7,7 +7,7 @@
 
     internal class DefaultSnipe : SnipeBaseState
     {
-        private const Single damageRatio = 3.2f;
+        private const Single damageRatio = 4.5f;
         private const Single force = 10f;
 
 

@@ -77,7 +77,10 @@ namespace Sniper
         }
 
 
-        
+
+
+
+
 
         #region static vars
         // TODO: Refactor these into their modules

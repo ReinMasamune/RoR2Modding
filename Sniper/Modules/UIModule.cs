@@ -46,35 +46,18 @@
 
         internal static Color reloadHandleColor { get; } = new Color( 1f, 1f, 1f, 1f );
 
-        internal static GameObject GetDefaultDrosshair()
+        private static GameObject crosshair;
+        internal static GameObject GetCrosshair()
         {
-            // TODO: Create default crosshair
-            return Resources.Load<GameObject>( "Prefabs/CharacterBodies/CrocoBody" ).GetComponent<CharacterBody>().crosshairPrefab;
+            if( crosshair == null )
+            {
+                crosshair = AssetModule.GetSniperAssetBundle().LoadAsset<GameObject>( Properties.Resources.prefab__Crosshair );
+            }
+            return crosshair;
         }
 
-        private static GameObject scopeCrosshair;
-        internal static GameObject GetScopeCrosshair()
-        {
-            if( scopeCrosshair == null )
-            {
-                scopeCrosshair = UICreationModule.CreateScopeCrosshair();
-            }
-            return scopeCrosshair;
-        }
 
         internal static Texture GetPortraitIcon() => AssetModule.GetSniperAssetBundle().LoadAsset<Texture2D>( Properties.Resources.icon__PortraitIcon );//return null;
-
-        internal static GameObject GetQuickScope()
-        {
-            // TODO: Quick scope UI
-            return GetScopeCrosshair();
-        }
-
-        internal static GameObject GetChargeScope()
-        {
-            // TODO: Charge scope UI
-            return GetScopeCrosshair();
-        }
 
         private static GameObject reloadBarPrefab;
         internal static void CreateReloadBarPrefab()

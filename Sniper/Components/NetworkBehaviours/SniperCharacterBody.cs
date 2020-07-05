@@ -1,30 +1,188 @@
 ﻿namespace Sniper.Components
 {
     using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Reflection;
+
+    using Mono.Cecil.Cil;
+
+    using MonoMod.Utils;
 
     using ReinCore;
 
     using RoR2;
 
+    using Sniper.Data;
+    using Sniper.Enums;
     using Sniper.Modules;
     using Sniper.SkillDefs;
+    using Sniper.UI.Components;
+
 
     using UnityEngine;
     using UnityEngine.Events;
-    using UnityEngine.Networking;
 
-#pragma warning disable CA1812 // Avoid uninstantiated internal classes
     internal class SniperCharacterBody : CharacterBody
-#pragma warning restore CA1812 // Avoid uninstantiated internal classes
     {
         private static readonly GameObject decoyMaster;
-#pragma warning disable CA1810 // Initialize reference type static fields inline
         static SniperCharacterBody()
-#pragma warning restore CA1810 // Initialize reference type static fields inline
         {
             decoyMaster = DecoyModule.GetDecoyMaster();
+
+            var flags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
+
+            var dmd1 = new DynamicMethodDefinition( "base_Start<<<SniperCharacterBody", null, new[] { typeof(CharacterBody) } );
+            var proc1 = dmd1.GetILProcessor();
+            proc1.Emit( OpCodes.Jmp, typeof( CharacterBody ).GetMethod( "Start", flags ) );
+            base_Start = (Action<CharacterBody>)dmd1.Generate().CreateDelegate<Action<CharacterBody>>();
+        }
+        private static Action<CharacterBody> base_Start;
+        private static Action<CharacterBody> base_Awake;
+        private static Action<CharacterBody> base_Update;
+
+
+        private Coroutine startReloadRoutine;
+        internal void StartReload( ReloadParams reloadParams )
+        {
+            this.curReloadParams = reloadParams;
+            this.reloadTimer = 0f;
+            this.startReloadRoutine = base.StartCoroutine( this.ReloadStartDelay( this.curReloadParams.reloadDelay / base.attackSpeed ) );
         }
 
+        internal ReloadTier ReadReload() => this.curReloadParams.GetReloadTier( this.reloadTimer );
+
+        private Coroutine stopReloadRoutine;
+        internal void StopReload( SkillDefs.SniperReloadableFireSkillDef.SniperPrimaryInstanceData data )
+        {
+            this.isReloading = false;
+            this.stopReloadRoutine = base.StartCoroutine( this.ReloadStopDelay( this.curReloadParams.reloadEndDelay / base.attackSpeed, data ) );
+        }
+
+        internal void ForceStopReload()
+        {
+            this.isReloading = false;
+            if( this.stopReloadRoutine != null ) this.StopCoroutine( this.stopReloadRoutine );
+            if( this.startReloadRoutine != null ) this.StopCoroutine( this.startReloadRoutine );
+        }
+
+        internal Boolean CanReload() => this.isReloading;
+
+
+        private IEnumerator ReloadStartDelay( Single delayTime )
+        {
+            yield return new WaitForSeconds( delayTime );
+            this.showBar = true;
+            this.isReloading = true;
+            SoundModule.PlayOpenReload( base.gameObject );
+        }
+        private IEnumerator ReloadStopDelay( Single delayTime, SkillDefs.SniperReloadableFireSkillDef.SniperPrimaryInstanceData data )
+        {
+            yield return new WaitForSeconds( delayTime );
+            this.showBar = false;
+            data.isReloading = false;
+        }
+
+        protected void Start()
+        {
+            base_Start(this);
+            ( this.skillLocator.primary.skillInstanceData as SniperReloadableFireSkillDef.SniperPrimaryInstanceData )?.StartReload();
+        }
+
+        protected new void Update()
+        {
+            base.Update();
+            if( !this.isReloading ) return;
+            this.reloadTimer = this.curReloadParams.Update( Time.deltaTime, base.attackSpeed, this.reloadTimer );
+        }
+
+
+        private Boolean isReloading = false;
+        private Single _reloadTimer = 0.0f;
+        private Single reloadTimer
+        {
+            get => this._reloadTimer;
+            set
+            {
+                this._reloadTimer = value;
+                if( this.reloadUI is null ) return;
+                this.reloadUI.barPosition = value / this.curReloadParams.baseDuration;
+            }
+        }
+
+        private Boolean _showBar;
+        private Boolean showBar
+        {
+            get => this._showBar;
+            set
+            {
+                if( value == this.showBar ) return;
+                this._showBar = value;
+                if( this.reloadUI is null ) return;
+                this.reloadUI.showBar = value;
+            }
+        }
+
+        private Single _barPos;
+        private Single barPos
+        {
+            get => this._barPos;
+            set
+            {
+                this._barPos = value;
+                if( this.reloadUI is null ) return;
+                this.reloadUI.barPosition = value;
+            }
+        }
+
+        private ReloadParams _curReloadParams;
+        private ReloadParams curReloadParams
+        {
+            get => this._curReloadParams;
+            set
+            {
+                this._curReloadParams = value;
+                if( this.reloadUI is null ) return;
+                this.reloadUI.currentParams = value;
+            }
+        }
+
+        private ReloadUIController _reloadUI;
+        internal ReloadUIController reloadUI
+        {
+            private get => this._reloadUI;
+            set
+            {
+                this._reloadUI = value;
+                value.barPosition = this.barPos;
+                value.showBar = this.showBar;
+                value.currentParams = this.curReloadParams;
+            }
+        }
+
+        private SniperCrosshairController _sniperCrosshairController;
+        internal SniperCrosshairController sniperCrosshair 
+        {
+            get => this._sniperCrosshairController;
+            set
+            {
+                //Log.WarningT( "Crosshair checked in" );
+
+                this._sniperCrosshairController = value;
+
+                if( value is null ) return;
+
+                var primary = base.skillLocator.primary;
+                var primaryData = primary.skillInstanceData as SniperReloadableFireSkillDef.SniperPrimaryInstanceData;
+                primaryData.crosshair = this.sniperCrosshair;
+
+                var secondary = base.skillLocator.secondary;
+                var secondaryData = secondary.skillInstanceData as SniperScopeSkillDef.ScopeInstanceData;
+                secondaryData.crosshair = this.sniperCrosshair;
+
+                //Log.WarningT( "Checkin end" );
+            }
+        }
 
 
         internal SniperAmmoSkillDef ammo
@@ -39,11 +197,9 @@
                 return this._ammo;
             }
         }
-#pragma warning disable IDE1006 // Naming Styles
         private SniperAmmoSkillDef _ammo;
-#pragma warning restore IDE1006 // Naming Styles
 
-        private GenericSkill ammoSlot
+        internal GenericSkill ammoSlot
         {
             get
             {
@@ -55,9 +211,7 @@
                 return this._ammoSlot;
             }
         }
-#pragma warning disable IDE1006 // Naming Styles
         private GenericSkill _ammoSlot;
-#pragma warning restore IDE1006 // Naming Styles
 
 
         internal SniperPassiveSkillDef passive
@@ -72,11 +226,9 @@
                 return this._passive;
             }
         }
-#pragma warning disable IDE1006 // Naming Styles
         private SniperPassiveSkillDef _passive;
-#pragma warning restore IDE1006 // Naming Styles
 
-        private GenericSkill passiveSlot
+        internal GenericSkill passiveSlot
         {
             get
             {
@@ -88,9 +240,7 @@
                 return this._passiveSlot;
             }
         }
-#pragma warning disable IDE1006 // Naming Styles
         private GenericSkill _passiveSlot;
-#pragma warning restore IDE1006 // Naming Styles
 
         internal SniperScopeSkillDef.ScopeInstanceData scopeInstanceData
         {

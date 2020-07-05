@@ -109,18 +109,9 @@ namespace Rein.RogueWispPlugin
             {
                 this.b = Main.RW_curseBurn;
 
-                //foreach( IgnitionOrb i in this.children )
-                //{
-                //    if( i.isActive )
-                //    {
-                //        i.parent = this;
-                //    }
-                //}
-
                 this.hitDetection = TriggerCallbackController.CreateSphere( this.blazeRadius, base.origin, true, LayerIndex.projectile );
                 this.hitDetection.onTriggerEnter += this.ColliderEnter;
                 this.hitDetection.onTriggerExit += this.ColliderExit;
-                //this.hitDetection.onTriggerStay += this.ColliderStay;
 
                 this.duration = this.blazeTime;
 
@@ -204,37 +195,6 @@ namespace Rein.RogueWispPlugin
                 if( this.isOwnerInside && this.stacks >= this.blazeOrbStackBundleSize && this.bundleSendTimer >= this.bundleSendInt ) this.SendStackBundle();
                 if( this.isOwnerInside && !this.attackerBody.HasBuff( BuffIndex.EnrageAncientWisp ) ) this.attackerBody.AddBuff( BuffIndex.EnrageAncientWisp );
                 if( !this.isOwnerInside && this.attackerBody.HasBuff( BuffIndex.EnrageAncientWisp ) ) this.attackerBody.RemoveBuff( BuffIndex.EnrageAncientWisp );
-
-
-                //if( this.isOwnerInside ) this.bundleSendTimer += Time.fixedDeltaTime;
-                //if( this.isOwnerInside && this.stacks >= this.blazeOrbStackBundleSize && this.bundleSendTimer >= this.bundleSendInt ) this.SendStackBundle();
-                //if( this.isOwnerInside && !this.attackerBody.HasBuff( BuffIndex.EnrageAncientWisp ) ) this.attackerBody.AddBuff( BuffIndex.EnrageAncientWisp );
-                //if( !this.isOwnerInside && this.attackerBody.HasBuff( BuffIndex.EnrageAncientWisp ) ) this.attackerBody.RemoveBuff( BuffIndex.EnrageAncientWisp );
-
-                //Collider[] cols = Physics.OverlapSphere(this.origin, this.blazeRadius, LayerIndex.entityPrecise.mask, QueryTriggerInteraction.UseGlobal);
-
-                //HurtBox box;
-
-                //this.curTime = Time.fixedTime;
-                //foreach( Collider col in cols )
-                //{
-                //    if( !col ) continue;
-                //    box = col.GetComponent<HurtBox>();
-                //    if( !box ) continue;
-                //    HealthComponent hcomp = box.healthComponent;
-                //    if( !hcomp || !hcomp.alive || TeamComponent.GetObjectTeam( hcomp.gameObject ) == this.team ) continue;
-
-                //    if( this.mask.ContainsKey( hcomp ) )
-                //    {
-                //        if( this.mask[hcomp] > this.curTime ) continue;
-                //        this.mask[hcomp] = this.curTime + this.blazeResetInt;
-                //        this.TickDamage( box );
-                //    } else
-                //    {
-                //        this.mask.Add( hcomp, this.curTime + this.blazeResetInt );
-                //        this.TickDamage( box );
-                //    }
-                //}
             }
 
             public override void OnArrival()
