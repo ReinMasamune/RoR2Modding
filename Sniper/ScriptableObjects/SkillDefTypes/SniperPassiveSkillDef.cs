@@ -6,6 +6,8 @@
 
     using ReinCore;
 
+    using RoR2;
+
     using Sniper.Expansions;
     using Sniper.SkillDefTypes.Bases;
 
@@ -14,7 +16,7 @@
     internal class SniperPassiveSkillDef : SniperSkillDef
     {
 
-        internal static SniperPassiveSkillDef Create( Data.BulletModifier modifier, Boolean headshots, Single critMultiplier )
+        internal static SniperPassiveSkillDef Create( Data.BulletModifier modifier, Boolean headshots, Single critMultiplier, Single critPerLevel )
         {
             SniperPassiveSkillDef def = ScriptableObject.CreateInstance<SniperPassiveSkillDef>();
 
@@ -39,6 +41,7 @@
             def.requiredStock = 0;
             def.shootDelay = 0f;
             def.stockToConsume = 0;
+            def.critPerLevel = critPerLevel;
 
             return def;
         }
@@ -50,6 +53,15 @@
         private Boolean canHeadshot;
         [SerializeField]
         private Single onCritDamageMultiplier;
+        [SerializeField]
+        private Single critPerLevel;
+
+        public override BaseSkillInstanceData OnAssigned( GenericSkill skillSlot )
+        {
+            var res = base.OnAssigned( skillSlot );
+            skillSlot.characterBody.levelCrit += this.critPerLevel;
+            return res;
+        }
 
 
         internal void ModifyBullet( ExpandableBulletAttack bulletAttack )

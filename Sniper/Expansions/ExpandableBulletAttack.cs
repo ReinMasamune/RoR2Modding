@@ -74,6 +74,7 @@
             };
 
             res.onHit = this.onHit;
+            res.onStop = this.onStop;
 
             return res;
         }

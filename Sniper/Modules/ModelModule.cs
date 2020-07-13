@@ -294,32 +294,32 @@
 
 
             Texture2D alt1Tex = alt1IconJob.OutputTextureAndDispose();
-            alt1.CreateAndAddSkin( charModel, Properties.Tokens.SNIPER_SKIN_ALT1_NAME, "",
+            alt1.CreateAndAddSkin( charModel, Properties.Tokens.SNIPER_SKIN_ALT1_NAME, "_TESTINGID",
                 Sprite.Create( alt1Tex, new Rect( 0f, 0f, alt1Tex.width, alt1Tex.height ), new Vector2( 0.5f, 0.5f ) ) );
 
 
             Texture2D alt2Tex = alt2IconJob.OutputTextureAndDispose();
-            alt2.CreateAndAddSkin( charModel, Properties.Tokens.SNIPER_SKIN_ALT2_NAME, "",
+            alt2.CreateAndAddSkin( charModel, Properties.Tokens.SNIPER_SKIN_ALT2_NAME, "_TESTINGID",
                 Sprite.Create( alt2Tex, new Rect( 0f, 0f, alt2Tex.width, alt2Tex.height ), new Vector2( 0.5f, 0.5f ) ) );
 
 
             Texture2D alt3Tex = alt3IconJob.OutputTextureAndDispose();
-            alt3.CreateAndAddSkin( charModel, Properties.Tokens.SNIPER_SKIN_ALT3_NAME, "",
+            alt3.CreateAndAddSkin( charModel, Properties.Tokens.SNIPER_SKIN_ALT3_NAME, "_TESTINGID",
                 Sprite.Create( alt3Tex, new Rect( 0f, 0f, alt3Tex.width, alt3Tex.height ), new Vector2( 0.5f, 0.5f ) ) );
 
 
             Texture2D alt4Tex = alt4IconJob.OutputTextureAndDispose();
-            alt4.CreateAndAddSkin( charModel, Properties.Tokens.SNIPER_SKIN_ALT4_NAME, "",
+            alt4.CreateAndAddSkin( charModel, Properties.Tokens.SNIPER_SKIN_ALT4_NAME, "_TESTINGID",
                 Sprite.Create( alt4Tex, new Rect( 0f, 0f, alt4Tex.width, alt4Tex.height ), new Vector2( 0.5f, 0.5f ) ) );
 
 
             Texture2D alt5Tex = alt5IconJob.OutputTextureAndDispose();
-            alt5.CreateAndAddSkin( charModel, Properties.Tokens.SNIPER_SKIN_ALT5_NAME, "",
+            alt5.CreateAndAddSkin( charModel, Properties.Tokens.SNIPER_SKIN_ALT5_NAME, "_TESTINGID",
                 Sprite.Create( alt5Tex, new Rect( 0f, 0f, alt5Tex.width, alt5Tex.height ), new Vector2( 0.5f, 0.5f ) ) );
 
 
             Texture2D alt6Tex = alt6IconJob.OutputTextureAndDispose();
-            alt6.CreateAndAddSkin( charModel, Properties.Tokens.SNIPER_SKIN_ALT6_NAME, "",
+            alt6.CreateAndAddSkin( charModel, Properties.Tokens.SNIPER_SKIN_ALT6_NAME, "_TESTINGID",
                 Sprite.Create( alt6Tex, new Rect( 0f, 0f, alt6Tex.width, alt6Tex.height ), new Vector2( 0.5f, 0.5f ) ) );
 
 

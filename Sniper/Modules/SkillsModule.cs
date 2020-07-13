@@ -36,6 +36,9 @@
             var skills = new List<(SkillDef,String)>();
 
             #region Standard Ammo
+            var ricochetPrefab = VFXModule.GetRicochetEffectPrefab();
+            RicochetController.ricochetEffectPrefab = ricochetPrefab;
+
             var standardStop = new OnBulletDelegate( (bullet, hit) =>
             {
                 if( hit.collider )
@@ -332,7 +335,7 @@
         {
             var skills = new List<(SkillDef,String)>();
 
-            var critPassive = SniperPassiveSkillDef.Create( default, false, 1.2f );
+            var critPassive = SniperPassiveSkillDef.Create( default, false, 1.2f, 1f );
             critPassive.icon = UIModule.GetCritPassiveIcon();
             critPassive.skillName = "Precise Aim";
             critPassive.skillNameToken = Tokens.SNIPER_PASSIVE_CRITICAL_NAME;
@@ -387,6 +390,38 @@
             snipe.stockToReload = 1;
             snipe.skillName = "Snipe";
             skills.Add( (snipe,"") );
+
+            //var mag = SniperReloadableFireSkillDef.Create<MagSnipe,MagReload>("Weapon", "Weapon");
+            //mag.actualMaxStock = 4;
+            //mag.icon = UIModule.GetSnipeMagIcon();
+            //mag.interruptPriority = InterruptPriority.Skill;
+            //mag.isBullets = false;
+            //mag.rechargeStock = 0;
+            //mag.reloadIcon = UIModule.GetSnipeMagReloadIcon();
+            //mag.reloadInterruptPriority = InterruptPriority.Skill;
+            //mag.reloadParams = new ReloadParams
+            //{
+            //    attackSpeedCap = 1.5f,
+            //    attackSpeedDecayCoef = 10f,
+            //    badMult = 1.0f,
+            //    baseDuration = 1.5f,
+            //    goodMult = 1.5f,
+            //    perfectMult = 2f,
+            //    reloadDelay = 1f,
+            //    reloadEndDelay = 1f,
+            //    perfectStart = 0.25f,
+            //    perfectEnd = 0.4f,
+            //    goodStart = 0.4f,
+            //    goodEnd = 0.6f,
+            //};
+            //mag.requiredStock = 1;
+            //mag.shootDelay = 0.15f;
+            //mag.skillDescriptionToken = Tokens.SNIPER_PRIMARY_SNIPE_DESC;
+            //mag.skillNameToken = Tokens.SNIPER_PRIMARY_SNIPE_NAME;
+            //mag.stockToConsume = 1;
+            //mag.stockToReload = 4;
+            //mag.skillName = "Snipe";
+            //skills.Add( (mag, "") );
 
             //var slide = SniperReloadableFireSkillDef.Create<SlideSnipe,SlideReload>("Weapon", "Body");
             //slide.actualMaxStock = 1;
@@ -458,7 +493,7 @@
                                                                                                              shoulderFrac: 0.25f, defaultZoom: 0f,
                                                                                                              inputScale: 0.03f, baseFoV: 60f) ); // TODO: Verify and adjust Zoom params
             quick.baseMaxStock = 4;
-            quick.baseRechargeInterval = 4f;
+            quick.baseRechargeInterval = 5f;
             quick.icon = UIModule.GetQuickScopeIcon();
             quick.isBullets = false;
             quick.rechargeStock = 1;
@@ -511,7 +546,7 @@
 
             var decoy = DecoySkillDef.Create<DecoyActivation,DecoyReactivation>( "Weapon", "Weapon" );
             decoy.baseMaxStock = 1;
-            decoy.baseRechargeInterval = 18f;
+            decoy.baseRechargeInterval = 12f;
             decoy.beginSkillCooldownOnSkillEnd = true;
             decoy.fullRestockOnAssign = true;
             decoy.icon = UIModule.GetDecoyIcon();

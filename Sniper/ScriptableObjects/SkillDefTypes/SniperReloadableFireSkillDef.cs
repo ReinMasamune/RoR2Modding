@@ -172,6 +172,9 @@
 
         internal class SniperPrimaryInstanceData : BaseSkillInstanceData
         {
+            internal static event Action<ReloadTier> onReload;
+
+
             internal SniperPrimaryInstanceData( 
                 SniperReloadableFireSkillDef def,
                 EntityStateMachine reloadTargetStatemachine, 
@@ -193,6 +196,7 @@
 
             internal void ForceReload( ReloadTier tier )
             {
+
                 this.currentReloadTier = tier;
                 SoundModule.PlayLoad( this.secondarySlot.gameObject, tier );
                 this.isReloading = false;
@@ -203,19 +207,24 @@
 
             internal void StartReload()
             {
+
                 this.isReloading = true;
                 this.body.StartReload( this.reloadParams );
                 this.UpdateCrosshair();
             }
             internal void StopReload()
             {
+
                 this.body.StopReload( this );
                 this.skillSlot.stock += this.def.stockToReload;
                 this.UpdateCrosshair();
+
+                onReload?.Invoke( this.body.ReadReload() );
             }
 
             internal ReloadTier ReadReload()
             {
+
                 this.currentReloadTier = this.body.ReadReload();
                 this.UpdateCrosshair();
                 return this.currentReloadTier;

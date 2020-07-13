@@ -15,11 +15,11 @@
     internal class DefaultScope : ScopeBaseState
     {
         private const Single maxCharge = 1f;
-        private const Single baseStartDelay = 0.35f;
+        private const Single baseStartDelay = 0.5f;
         private const Single chargePerSecond = 0.2f;
-        private const Single minModifier = 1.5f;
-        private const Single maxModifier = 6.5f;
-        private const Single speedScalar = 0.15f;
+        private const Single minModifier = 1.25f;
+        private const Single maxModifier = 6f;
+        private const Single speedScalar = 0.2f;
 
         private static readonly AnimationCurve damageCurve = new AnimationCurve( new[]
         {
@@ -29,8 +29,8 @@
 
         private Single startDelay;
         internal override Single currentCharge { get => (this.GetDamageMultiplier()-minModifier) / (maxModifier-minModifier); }
-        internal override Boolean isReady { get => base.fixedAge >= this.startDelay; }
-        internal override Single readyFrac { get => Mathf.Clamp01( base.fixedAge / this.startDelay ); }
+        internal override Boolean isReady { get => this.delayTimer >= this.startDelay; }
+        internal override Single readyFrac { get => Mathf.Clamp01( this.delayTimer / this.startDelay ); }
 
         internal Single charge = 0f;
 
@@ -40,7 +40,7 @@
         internal override Boolean OnFired()
         {
             //this.charge = 0f;
-            //this.delayTimer = 0f;
+            this.delayTimer = 0f;
             return base.fixedAge >= this.startDelay;
         }
         internal override BulletModifier ReadModifier()

@@ -15,6 +15,8 @@ namespace Sniper
     using MonoMod.RuntimeDetour;
     using ReinCore;
     using Sniper.Modules;
+    using Sniper.Unlockables;
+
     using UnityEngine;
 
     [BepInDependency( Properties.AssemblyLoad.guid )]
@@ -59,6 +61,8 @@ namespace Sniper
                 CatalogModule.RegisterDoTType();
                 CatalogModule.RegisterDamageTypes();
                 CatalogModule.RegisterBuffTypes();
+
+                //UnlocksCore.AddUnlockable<ExampleUnlockable>( false );
             };
 
             base.start += () =>

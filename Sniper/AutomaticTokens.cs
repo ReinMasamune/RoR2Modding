@@ -6,6 +6,8 @@ namespace Sniper.Properties
 	{
 		#pragma warning disable IDE1006 // Naming Styles
 		#pragma warning disable CA1707 // Identifiers should not contain underscores
+		public const String ACHDESCTOKENTEST = "ACHDESCTOKENTEST";
+		public const String ACHNAMETOKENTEST = "ACHNAMETOKENTEST";
 		public const String LOADOUT_SNIPER_AMMO = "LOADOUT_SNIPER_AMMO";
 		public const String LOADOUT_SNIPER_PASSIVE = "LOADOUT_SNIPER_PASSIVE";
 		public const String SNIPER_AMMO_EXPLOSIVE_DESC = "SNIPER_AMMO_EXPLOSIVE_DESC";
@@ -28,6 +30,9 @@ namespace Sniper.Properties
 		public const String SNIPER_PRIMARY_DASH_NAME = "SNIPER_PRIMARY_DASH_NAME";
 		public const String SNIPER_PRIMARY_DASH_RELOAD_DESC = "SNIPER_PRIMARY_DASH_RELOAD_DESC";
 		public const String SNIPER_PRIMARY_DASH_RELOAD_NAME = "SNIPER_PRIMARY_DASH_RELOAD_NAME";
+		public const String SNIPER_PRIMARY_MAG_DESC = "SNIPER_PRIMARY_MAG_DESC";
+		public const String SNIPER_PRIMARY_MAG_NAME = "SNIPER_PRIMARY_MAG_NAME";
+		public const String SNIPER_PRIMARY_MAG_RELOAD_DESC = "SNIPER_PRIMARY_MAG_RELOAD_DESC";
 		public const String SNIPER_PRIMARY_SNIPE_DESC = "SNIPER_PRIMARY_SNIPE_DESC";
 		public const String SNIPER_PRIMARY_SNIPE_NAME = "SNIPER_PRIMARY_SNIPE_NAME";
 		public const String SNIPER_PRIMARY_SNIPE_RELOAD_DESC = "SNIPER_PRIMARY_SNIPE_RELOAD_DESC";
@@ -50,6 +55,7 @@ namespace Sniper.Properties
 		public const String SNIPER_SUBTITLE = "SNIPER_SUBTITLE";
 		public const String SNIPER_UTILITY_BACKFLIP_DESC = "SNIPER_UTILITY_BACKFLIP_DESC";
 		public const String SNIPER_UTILITY_BACKFLIP_NAME = "SNIPER_UTILITY_BACKFLIP_NAME";
+		public const String UNLOCKABLENAMETOKENTEST = "UNLOCKABLENAMETOKENTEST";
 		#pragma warning restore IDE1006 // Naming Styles
 		#pragma warning restore CA1707 // Identifiers should not contain underscores
 	}

@@ -135,6 +135,9 @@
   <data name="ach__WIP__unlockidentifier" xml:space="preserve">
     <value>Skills.WIP</value>
   </data>
+  <data name="cshader__ScopeOverlay" xml:space="preserve">
+    <value>Assets/__EXPORT/Shaders/ComputeRefractBlur.compute</value>
+  </data>
   <data name="icon__BackflipIcon" xml:space="preserve">
     <value>Assets/__EXPORT/Icons/Utility/Backflip.png</value>
   </data>
@@ -189,11 +192,26 @@
   <data name="icon__SnipeIcon" xml:space="preserve">
     <value>Assets/__EXPORT/Icons/M1/Snipe.png</value>
   </data>
+  <data name="icon__SnipeMag" xml:space="preserve">
+    <value />
+  </data>
+  <data name="icon__SnipeMagReload" xml:space="preserve">
+    <value>Assets/__EXPORT/Icons/M1/Reload.png</value>
+  </data>
   <data name="icon__StandardAmmoIcon" xml:space="preserve">
     <value>Assets/__EXPORT/Icons/Passive 1/Standard Ammo.png</value>
   </data>
   <data name="icon__SteadyAimIcon" xml:space="preserve">
     <value>Assets/__EXPORT/Icons/M2/Steady Aim.png</value>
+  </data>
+  <data name="lang_SNIPER_PRIMARY_MAG_RELOAD_NAME" xml:space="preserve">
+    <value />
+  </data>
+  <data name="lang__ACHDESCTOKENTEST" xml:space="preserve">
+    <value>Text Ach Desc</value>
+  </data>
+  <data name="lang__ACHNAMETOKENTEST" xml:space="preserve">
+    <value>Test Ach Name</value>
   </data>
   <data name="lang__LOADOUT_SNIPER_AMMO" xml:space="preserve">
     <value>Ammo</value>
@@ -202,7 +220,7 @@
     <value>Passive</value>
   </data>
   <data name="lang__SNIPER_AMMO_EXPLOSIVE_DESC" xml:space="preserve">
-    <value>Deals &lt;style=cIsDamage&gt;0.45x&lt;/style&gt; damage. &lt;style=cIsDamage&gt;Explodes&lt;/style&gt; on hit for &lt;style=cIsDamage&gt;0.45x&lt;/style&gt; damage to nearby enemies. &lt;style=cIsUtility&gt;Boosts increase the size of the explosion&lt;/style&gt;.</value>
+    <value>Deals &lt;style=cIsDamage&gt;0.45x primary&lt;/style&gt; damage. &lt;style=cIsDamage&gt;Explodes&lt;/style&gt; on hit for &lt;style=cIsDamage&gt;0.45x primary&lt;/style&gt; damage to nearby enemies. &lt;style=cIsUtility&gt;Boosts increase the size of the explosion&lt;/style&gt;.</value>
   </data>
   <data name="lang__SNIPER_AMMO_EXPLOSIVE_NAME" xml:space="preserve">
     <value>Explosive</value>
@@ -226,7 +244,7 @@
     <value>Shock</value>
   </data>
   <data name="lang__SNIPER_AMMO_STANDARD_DESC" xml:space="preserve">
-    <value>Deals &lt;style=cIsDamage&gt;1.0x&lt;/style&gt; damage, &lt;style=cIsUtility&gt;pierces enemies&lt;/style&gt;, and has a &lt;style=cIsUtility&gt;chance to ricochet&lt;/style&gt;.</value>
+    <value>Deals &lt;style=cIsDamage&gt;1.0x primary&lt;/style&gt; damage, &lt;style=cIsUtility&gt;pierces enemies&lt;/style&gt;, and has a &lt;style=cIsUtility&gt;chance to ricochet&lt;/style&gt;.</value>
   </data>
   <data name="lang__SNIPER_AMMO_STANDARD_NAME" xml:space="preserve">
     <value>Full Metal Jacket</value>
@@ -240,7 +258,7 @@ They excel at taking down bosses and high priority targets but struggle against 
     <value>Sniper</value>
   </data>
   <data name="lang__SNIPER_PASSIVE_CRITICAL_DESC" xml:space="preserve">
-    <value>&lt;style=cIsUtility&gt;Critical Strikes&lt;/style&gt; deal &lt;style=cIsDamage&gt;1.2x&lt;/style&gt; damage</value>
+    <value>&lt;style=cIsUtility&gt;Critical Strikes&lt;/style&gt; deal &lt;style=cIsDamage&gt;1.2x&lt;/style&gt; damage. Gain &lt;style=cIsDamage&gt;+1%&lt;/style&gt; critical strike chance per level.</value>
   </data>
   <data name="lang__SNIPER_PASSIVE_CRITICAL_NAME" xml:space="preserve">
     <value>Precise Aim</value>
@@ -263,6 +281,15 @@ They excel at taking down bosses and high priority targets but struggle against 
   <data name="lang__SNIPER_PRIMARY_DASH_RELOAD_NAME" xml:space="preserve">
     <value>Sliding Reload</value>
   </data>
+  <data name="lang__SNIPER_PRIMARY_MAG_DESC" xml:space="preserve">
+    <value />
+  </data>
+  <data name="lang__SNIPER_PRIMARY_MAG_NAME" xml:space="preserve">
+    <value />
+  </data>
+  <data name="lang__SNIPER_PRIMARY_MAG_RELOAD_DESC" xml:space="preserve">
+    <value />
+  </data>
   <data name="lang__SNIPER_PRIMARY_SNIPE_DESC" xml:space="preserve">
     <value>Shoot enemies for &lt;style=cIsDamage&gt;360% to 900%&lt;/style&gt; damage. Must be &lt;style=cIsUtility&gt;reloaded&lt;/style&gt; after each shot. Reloading at the right time &lt;style=cIsDamage&gt;increases damage&lt;/style&gt;.</value>
   </data>
@@ -276,13 +303,13 @@ They excel at taking down bosses and high priority targets but struggle against 
     <value>Reload</value>
   </data>
   <data name="lang__SNIPER_SECONDARY_QUICK_DESC" xml:space="preserve">
-    <value>&lt;style=cIsUtility&gt;Boost&lt;/style&gt; your shots by &lt;style=cIsDamage&gt;2.0x&lt;/style&gt;. &lt;style=cIsUtility&gt;Recharges quickly&lt;/style&gt; and can hold &lt;style=cIsUtility&gt;multiple stock&lt;/style&gt;.</value>
+    <value>&lt;style=cIsUtility&gt;Boost&lt;/style&gt; your shots by &lt;style=cIsDamage&gt;2.0x primary&lt;/style&gt;. &lt;style=cIsUtility&gt;Recharges quickly&lt;/style&gt; and can hold &lt;style=cIsUtility&gt;4 shots&lt;/style&gt;.</value>
   </data>
   <data name="lang__SNIPER_SECONDARY_QUICK_NAME" xml:space="preserve">
     <value>Quickscope</value>
   </data>
   <data name="lang__SNIPER_SECONDARY_STEADY_DESC" xml:space="preserve">
-    <value>&lt;style=cIsUtility&gt;Boost&lt;/style&gt; your shots by &lt;style=cIsDamage&gt;up to 6.5x&lt;/style&gt;. &lt;style=cIsUtility&gt;Charges faster&lt;/style&gt; while stationary. &lt;style=cIsHealth&gt;You are slowed while charging&lt;/style&gt;.</value>
+    <value>&lt;style=cIsUtility&gt;Boost&lt;/style&gt; your shots by &lt;style=cIsDamage&gt;up to 6x primary&lt;/style&gt;. &lt;style=cIsUtility&gt;Charges faster&lt;/style&gt; while stationary. &lt;style=cIsHealth&gt;You are slowed while charging&lt;/style&gt;.</value>
   </data>
   <data name="lang__SNIPER_SECONDARY_STEADY_NAME" xml:space="preserve">
     <value>Steady Aim</value>
@@ -291,16 +318,16 @@ They excel at taking down bosses and high priority targets but struggle against 
     <value>Classic</value>
   </data>
   <data name="lang__SNIPER_SKIN_ALT2_NAME" xml:space="preserve">
-    <value>PlaceholderName3</value>
+    <value>Abyss</value>
   </data>
   <data name="lang__SNIPER_SKIN_ALT3_NAME" xml:space="preserve">
-    <value>PlaceholderName2</value>
+    <value>Jungle</value>
   </data>
   <data name="lang__SNIPER_SKIN_ALT4_NAME" xml:space="preserve">
     <value>PlaceholderName1</value>
   </data>
   <data name="lang__SNIPER_SKIN_ALT5_NAME" xml:space="preserve">
-    <value>Jungle</value>
+    <value>Desert</value>
   </data>
   <data name="lang__SNIPER_SKIN_ALT6_NAME" xml:space="preserve">
     <value>Snow</value>
@@ -309,7 +336,7 @@ They excel at taking down bosses and high priority targets but struggle against 
     <value>Default</value>
   </data>
   <data name="lang__SNIPER_SPECIAL_DECOY_DESC" xml:space="preserve">
-    <value>&lt;style=cIsUtility&gt;Stealth&lt;/style&gt; for 2 seconds and leave behind a &lt;style=cIsUtility&gt;Decoy&lt;/style&gt; that distracts enemies. You can &lt;style=cIsUtility&gt;Reactivate&lt;/style&gt; to detonate the decoy, dealing &lt;style=cIsDamage&gt;500%&lt;/style&gt; damage, &lt;style=cIsUtility&gt;stunning, and weakening&lt;/style&gt; nearby enemies.</value>
+    <value>&lt;style=cIsUtility&gt;Stealth&lt;/style&gt; for 2.5 seconds and leave behind a &lt;style=cIsUtility&gt;Decoy&lt;/style&gt; that distracts enemies. &lt;style=cIsUtility&gt;Reactivate&lt;/style&gt; to detonate the decoy, dealing &lt;style=cIsDamage&gt;500%&lt;/style&gt; damage, &lt;style=cIsUtility&gt;stunning, and weakening&lt;/style&gt; nearby enemies.</value>
   </data>
   <data name="lang__SNIPER_SPECIAL_DECOY_NAME" xml:space="preserve">
     <value>Decoy</value>
@@ -328,6 +355,9 @@ They excel at taking down bosses and high priority targets but struggle against 
   </data>
   <data name="lang__SNIPER_UTILITY_BACKFLIP_NAME" xml:space="preserve">
     <value>Backflip</value>
+  </data>
+  <data name="lang__UNLOCKABLENAMETOKENTEST" xml:space="preserve">
+    <value>Test Unlockable Name</value>
   </data>
   <data name="prefab__Crosshair" xml:space="preserve">
     <value>Assets/__EXPORT/UI Prefabs/SniperCrosshair.prefab</value>
@@ -536,5 +566,8 @@ They excel at taking down bosses and high priority targets but struggle against 
   </data>
   <data name="sniper" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\sniper;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="texture__ScopeOverlayMask" xml:space="preserve">
+    <value>Assets/__EXPORT/Icons/UI/image 25.png</value>
   </data>
 </root>

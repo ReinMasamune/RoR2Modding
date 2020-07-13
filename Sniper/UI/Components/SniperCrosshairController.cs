@@ -161,11 +161,21 @@
             this.partialScope.gameObject.SetActive( true );
             this.fullScope.gameObject.SetActive( true );
             this.body = this.hudElem.targetCharacterBody as SniperCharacterBody;
-            if( this.body is null )
+            if( !this.body || this.body is null || !this.body.master.hasEffectiveAuthority )
             {
-                Log.ErrorT( "Null body" );
-                return;
+                this.body = null;
+                base.StartCoroutine( this.Hookup() );
+            } else
+            {
+                this.body.sniperCrosshair = this;
             }
+        }
+
+        private IEnumerator Hookup()
+        {
+            while( ( this.body = this.hudElem.targetCharacterBody as SniperCharacterBody ) is null || !( this.body?.master?.hasEffectiveAuthority ?? false ) )
+                yield return new WaitForEndOfFrame();
+
             this.body.sniperCrosshair = this;
         }
 

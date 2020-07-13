@@ -1,12 +1,28 @@
 ﻿namespace ReinCore
 {
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-    public static class GenericUnityExtensions
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
-    {
+    using System;
+    using System.Collections;
 
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+    using UnityEngine;
+
+    public static class GenericUnityExtensions
+    {
         public static TObject Instantiate<TObject>( this TObject obj ) where TObject : UnityEngine.Object => UnityEngine.Object.Instantiate( obj );
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+
+        public static void Destroy( this UnityEngine.Object self )
+        {
+            UnityEngine.Object.Destroy( self );
+        }
+
+        public static void DestroyImmediate( this UnityEngine.Object self )
+        {
+            UnityEngine.Object.DestroyImmediate( self );
+        }
+
+        public static IEnumerator DestroyOnTimer( this MonoBehaviour self, Single timer )
+        {
+            yield return new WaitForSeconds( timer );
+            self.Destroy();
+        }
     }
 }

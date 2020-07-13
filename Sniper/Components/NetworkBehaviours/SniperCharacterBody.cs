@@ -50,28 +50,39 @@
             this.startReloadRoutine = base.StartCoroutine( this.ReloadStartDelay( this.curReloadParams.reloadDelay / base.attackSpeed ) );
         }
 
-        internal ReloadTier ReadReload() => this.curReloadParams.GetReloadTier( this.reloadTimer );
+        internal ReloadTier ReadReload()
+        {
+            return this.curReloadParams.GetReloadTier( this.reloadTimer );
+        }
 
         private Coroutine stopReloadRoutine;
         internal void StopReload( SkillDefs.SniperReloadableFireSkillDef.SniperPrimaryInstanceData data )
         {
+
             this.isReloading = false;
             this.stopReloadRoutine = base.StartCoroutine( this.ReloadStopDelay( this.curReloadParams.reloadEndDelay / base.attackSpeed, data ) );
         }
 
         internal void ForceStopReload()
         {
+
             this.isReloading = false;
             if( this.stopReloadRoutine != null ) this.StopCoroutine( this.stopReloadRoutine );
             if( this.startReloadRoutine != null ) this.StopCoroutine( this.startReloadRoutine );
         }
 
-        internal Boolean CanReload() => this.isReloading;
+        internal Boolean CanReload()
+        {
+            //Log.WarningT( "Body" );
+
+            return this.isReloading;
+        }
 
 
         private IEnumerator ReloadStartDelay( Single delayTime )
         {
             yield return new WaitForSeconds( delayTime );
+
             this.showBar = true;
             this.isReloading = true;
             SoundModule.PlayOpenReload( base.gameObject );
@@ -79,6 +90,7 @@
         private IEnumerator ReloadStopDelay( Single delayTime, SkillDefs.SniperReloadableFireSkillDef.SniperPrimaryInstanceData data )
         {
             yield return new WaitForSeconds( delayTime );
+
             this.showBar = false;
             data.isReloading = false;
         }
@@ -92,8 +104,18 @@
         protected new void Update()
         {
             base.Update();
+            if( !Util.HasEffectiveAuthority( base.gameObject ) ) return;
             if( !this.isReloading ) return;
-            this.reloadTimer = this.curReloadParams.Update( Time.deltaTime, base.attackSpeed, this.reloadTimer );
+            this.reloadTimer = this.curReloadParams.Update( Time.deltaTime, base.attackSpeed, this.reloadTimer, ref attackSpeedSmoother, ref attackSpeedSpeed, 0.5f );
+        }
+        private Single attackSpeedSpeed;
+        private Single attackSpeedSmoother;
+
+        protected new void OnDestroy()
+        {
+            base.OnDestroy();
+            if( !this.reloadUI || this.reloadUI is null ) return;
+            this.reloadUI.showBar = false;
         }
 
 

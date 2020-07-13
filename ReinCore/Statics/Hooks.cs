@@ -1,10 +1,13 @@
 ﻿namespace ReinCore
 {
     using System;
+    using System.Collections.Generic;
     using System.Reflection;
 
     using MonoMod.Cil;
     using MonoMod.RuntimeDetour.HookGen;
+
+    using RoR2;
 
     using UnityEngine;
     using UnityEngine.Networking;
@@ -347,6 +350,27 @@ public static event Hook On
 
         public struct RoR2
         {
+            public static class AchievementManager
+            {
+                public struct CollectAchievementDefs
+                {
+                    private static readonly MethodBase method = HookHelpers.GetBase( typeof(CollectAchievementDefs) );
+                    public delegate void Orig( Dictionary<String,AchievementDef> map );
+                    public delegate void Hook( Orig orig, Dictionary<String, AchievementDef> map );
+                    public static event ILContext.Manipulator Il
+                    {
+                        add => HookEndpointManager.Modify<Hook>( method, value );
+                        remove => HookEndpointManager.Unmodify<Hook>( method, value );
+                    }
+                    public static event Hook On
+                    {
+                        add => HookEndpointManager.Add<Hook>( method, value );
+                        remove => HookEndpointManager.Remove<Hook>( method, value );
+                    }
+                }
+            }
+
+
             public static class BuffCatalog
             {
                 public struct Init

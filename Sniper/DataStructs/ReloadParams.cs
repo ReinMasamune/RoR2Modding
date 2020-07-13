@@ -81,9 +81,14 @@
         }
 
 
-        internal Single Update( Single delta, Single attackSpeed, Single timer )
+        internal Single Update( Single delta, Single attackSpeed, Single timer, ref Single attackSpeedDelayed, ref Single attackSpeedSpeed, Single attackSpeedTime  )
         {
-            delta = this.AdjustAttackSpeed( attackSpeed ) * delta;
+            if( attackSpeedDelayed != attackSpeed )
+            {
+                attackSpeed = Mathf.SmoothDamp( attackSpeedDelayed, attackSpeed, ref attackSpeedSpeed, attackSpeedTime );
+            }
+            attackSpeedDelayed = attackSpeed;
+            delta *= this.AdjustAttackSpeed( attackSpeed );
             var temp = timer + delta;
             temp %= this.baseDuration;
             return temp;

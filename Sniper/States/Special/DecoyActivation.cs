@@ -12,7 +12,7 @@
 
     internal class DecoyActivation : ActivationBaseState<DecoySkillData>
     {
-        private const Single cloakDuration = 2f;
+        private const Single cloakDuration = 2.5f;
 
         internal override DecoySkillData CreateSkillData()
         {

@@ -35,6 +35,11 @@
                 throw new ArgumentException( "Type must derive from EntityState" );
             }
 
+            if( type.IsAbstract )
+            {
+                throw new ArgumentException( "Cannot register an abstract type" );
+            }
+
             if( type.Assembly == ror2Assembly )
             {
                 return;
@@ -55,6 +60,12 @@
             stateIndexToTypeName.Set( idToName );
 
             _ = addedSkillTypes.Add( type );
+        }
+
+        public static void AddSkill<TState>()
+            where TState : EntityState, new()
+        {
+
         }
 
         public static void AddSkillDef( SkillDef skillDef )
@@ -160,7 +171,7 @@
         static SkillsCore()
         {
             ror2Assembly = typeof( EntityState ).Assembly;
-            Type stateTableType = ror2Assembly.GetType("EntityStates.StateIndexTable");
+            Type stateTableType = typeof(StateIndexTable);
             stateIndexToType = new StaticAccessor<Type[]>( stateTableType, "stateIndexToType" );
             stateIndexToTypeName = new StaticAccessor<String[]>( stateTableType, "stateIndexToTypeName" );
             stateTypeToIndex = new StaticAccessor<Dictionary<Type, Int16>>( stateTableType, "stateTypeToIndex" );

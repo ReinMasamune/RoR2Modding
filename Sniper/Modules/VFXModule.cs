@@ -101,6 +101,26 @@
 
             return explosiveAmmoExplosionEffectIndex;
         }
+
+        private static GameObject ricochetEffectPrefab;
+        private static EffectIndex ricochetEffectIndex = EffectIndex.Invalid;
+        internal static GameObject GetRicochetEffectPrefab()
+        {
+            if( ricochetEffectPrefab is null )
+            {
+                ricochetEffectPrefab = Effects.EffectCreator.CreateRicochetEffect();
+            }
+
+            return ricochetEffectPrefab;
+        }
+        internal static EffectIndex GetRicochetEffectIndex()
+        {
+            if( ricochetEffectIndex == EffectIndex.Invalid )
+            {
+                ricochetEffectIndex = EffectCatalog.FindEffectIndexFromPrefab( GetRicochetEffectPrefab() );
+            }
+            return ricochetEffectIndex;
+        }
     }
 
 }

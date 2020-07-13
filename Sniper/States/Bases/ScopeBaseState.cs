@@ -73,7 +73,7 @@
             base.Update();
             var dist = 10000f;
             if( base.inputBank.GetAimRaycast( dist, out var hit ) ) dist = hit.distance;
-            this.instanceData?.Update( Input.mouseScrollDelta.y, this.isReady ? this.currentCharge : this.readyFrac, this.isReady, dist );
+            this.instanceData?.Update( Input.mouseScrollDelta.y, this.currentCharge, this.readyFrac, this.isReady, dist );
         }
 
         public override void OnExit()

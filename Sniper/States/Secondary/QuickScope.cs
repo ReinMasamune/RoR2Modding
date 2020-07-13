@@ -23,6 +23,7 @@
             base.OnEnter();
 
             this.startDelay = baseStartDelay / base.attackSpeedStat;
+            base.StartAimMode( 2f );
         }
 
         internal override Boolean OnFired() => base.fixedAge >= this.startDelay;
@@ -31,11 +32,17 @@
             var mod = new BulletModifier
             {
                 damageMultiplier = damageMultiplier,
-                charge = 0.25f,
+                charge = 0.35f,
 
             };
 
             return base.fixedAge >= this.startDelay ? mod : default;
+        }
+
+        public override void FixedUpdate()
+        {
+            base.FixedUpdate();
+            base.characterBody.SetAimTimer( 2f );
         }
     }
 }

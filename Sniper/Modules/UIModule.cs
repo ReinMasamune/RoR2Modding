@@ -11,7 +11,7 @@
 
     internal static class UIModule
     {
-        private static Sprite GetUnfinishedIcon()
+        internal static Sprite GetUnfinishedIcon()
         {
             ITextureJob texJob = TexturesCore.GenerateCrossTextureBatch( 512, 512, 64, 16, 2, Color.black, Color.red, Color.white, Color.white, Color.white, Color.white );
 
@@ -23,6 +23,8 @@
         internal static Sprite GetExplosiveAmmoIcon() => AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>( Properties.Resources.icon__ExplosiveAmmoIcon );
         internal static Sprite GetSnipeIcon() => AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>( Properties.Resources.icon__SnipeIcon );
         internal static Sprite GetSnipeReloadIcon() => AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>( Properties.Resources.icon__ReloadIcon );
+        internal static Sprite GetSnipeMagIcon() => null;
+        internal static Sprite GetSnipeMagReloadIcon() => AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>( Properties.Resources.icon__SnipeMagReload );
         internal static Sprite GetSteadyAimIcon() => AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>( Properties.Resources.icon__SteadyAimIcon );
         internal static Sprite GetCritPassiveIcon() => AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>( Properties.Resources.icon__CritPassiveIcon );
         internal static Sprite GetHeadshotPassiveIcon() => AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>( Properties.Resources.icon__HeadshotIcon );
@@ -62,16 +64,17 @@
         private static GameObject reloadBarPrefab;
         internal static void CreateReloadBarPrefab()
         {
-            ITextureJob texBatch = TexturesCore.GenerateBarTextureBatch( 128, 640, true, 64, 16, Color.black, reloadHandleColor, 4 );
+            ITextureJob texBatch = TexturesCore.GenerateBarTextureBatch( 128, 640, true, 64, 16, new Color( 0f, 0f, 0f, 1f ), reloadHandleColor, 4 );
             JobHandle.ScheduleBatchedJobs();
 
             GameObject obj = PrefabsCore.CreateUIPrefab("ReloadBar", false );
             var objTrans = obj.transform as RectTransform;
-            objTrans.sizeDelta = new Vector2( 640f, 80f );
+            objTrans.sizeDelta = new Vector2( 512f, 64f );
             objTrans.anchorMin = new Vector2( 0.5f, 0.5f );
             objTrans.anchorMax = new Vector2( 0.5f, 0.5f );
             objTrans.pivot = new Vector2( 0.5f, 0.5f );
-            objTrans.localPosition = Vector3.zero;
+            objTrans.localPosition = new Vector3( 0.0f, 0f, 0f );
+            //objTrans.localEulerAngles = new Vector3( 0f, 0f, 0f );
 
             GameObject holder = PrefabsCore.CreateUIPrefab( "BarHolder", false );
             var holderTrans = holder.transform as RectTransform;
@@ -80,7 +83,7 @@
             holderTrans.anchorMax = Vector2.one;
             holderTrans.anchorMin = Vector2.zero;
             holderTrans.pivot = new Vector2( 0.5f, 0.5f );
-            holderTrans.localPosition = Vector3.zero;
+            holderTrans.localPosition = new Vector3( 0f, 330f, 0f );
 
             GameObject background = PrefabsCore.CreateUIPrefab( "Background", false );
             var bgTrans = background.transform as RectTransform;

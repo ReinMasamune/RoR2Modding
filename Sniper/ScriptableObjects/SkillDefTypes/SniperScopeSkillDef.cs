@@ -120,10 +120,13 @@
                 if( this.scopeSkill.chargeCanCarryOver && this.skillSlot.stock > 0 )
                 {
                     this.valCharge = charge * ( 1f - this.scopeSkill.initialCarryoverLoss );
+                } else
+                {
+                    this.valCharge = 0.0f;
                 }
             }
 
-            internal void Update( Single zoomInput, Single frac, Boolean ready, Single range )
+            internal void Update( Single zoomInput, Single chargeFrac, Single readyFrac, Boolean ready, Single range )
             {
                 this.zoom = this.zoomParams.UpdateZoom( zoomInput, this.zoom );
                 var fov = this.zoomParams.GetFoV( this.zoom );
@@ -132,17 +135,9 @@
                 this.currentStock = (Int32)this.skillSlot.stock;
                 this.maxStock = this.skillSlot.maxStock;
                 this.range = range;
-
-                if( ready )
-                {
-                    this.readyFrac = 1.0f;
-                    this.ready = true;
-                    this.currentCharge = frac;
-                } else
-                {
-                    this.readyFrac = frac;
-                    this.ready = false;
-                }
+                this.currentCharge = chargeFrac;
+                this.readyFrac = readyFrac;
+                this.ready = ready;
             }
 
             internal void StateCreated( ScopeBaseState stateInstance )

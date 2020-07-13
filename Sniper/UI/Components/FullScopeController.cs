@@ -5,6 +5,8 @@ namespace Sniper.UI.Components
     using System.Collections;
     using System.Collections.Generic;
 
+    using Sniper.Components;
+
     using UnityEngine;
     using UnityEngine.UI;
 
@@ -25,12 +27,9 @@ namespace Sniper.UI.Components
         {
             set
             {
-                if( value != this._active )
-                {
-                    this._active = value;
-                    this.overlayImg.gameObject.SetActive( value );
-                    this.panel.gameObject.SetActive( value );
-                }
+                this._active = value;
+                ScopeOverlayShaderController.active = value;
+                this.panel.gameObject.SetActive( value );
             }
         }
         private Boolean _active = true;

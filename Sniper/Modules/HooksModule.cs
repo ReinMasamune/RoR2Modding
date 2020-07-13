@@ -13,7 +13,8 @@
 
 	using RoR2;
 
-	using Sniper.ScriptableObjects;
+    using Sniper.Components;
+    using Sniper.ScriptableObjects;
 
 	using UnityEngine;
 
@@ -176,6 +177,8 @@
 		private static void Start_On( HooksCore.RoR2.CameraRigController.Start.Orig orig, CameraRigController self )
 		{
 			orig( self );
+
+            _ = self.sceneCam.gameObject.AddComponent<ScopeOverlayShaderController>();
 
 			if( self.hud == null )
 			{

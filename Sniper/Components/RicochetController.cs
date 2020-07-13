@@ -2,16 +2,32 @@
 {
     using System;
     using System.Collections;
+    using System.Runtime.CompilerServices;
+
+    using RoR2;
 
     using Sniper.Expansions;
     using Sniper.Modules;
 
     using UnityEngine;
 
-#pragma warning disable CA1812 // Avoid uninstantiated internal classes
     internal class RicochetController : MonoBehaviour
-#pragma warning restore CA1812 // Avoid uninstantiated internal classes
     {
+        internal static GameObject ricochetEffectPrefab;
+
+        private static EffectIndex ricochetIndex
+        {
+            get
+            {
+                if( _ricochetIndex == EffectIndex.Invalid )
+                {
+                    _ricochetIndex = EffectCatalog.FindEffectIndexFromPrefab( ricochetEffectPrefab );
+                }
+                return _ricochetIndex;
+            }
+        }
+        private static EffectIndex _ricochetIndex = EffectIndex.Invalid;
+
         internal static void QueueRicochet( ExpandableBulletAttack bullet, UInt32 delay ) => instance?.StartCoroutine( instance.Ricochet( bullet, delay ) );
 
         private static RicochetController instance
@@ -25,9 +41,7 @@
                 return _instance;
             }
         }
-#pragma warning disable IDE1006 // Naming Styles
         private static RicochetController _instance;
-#pragma warning restore IDE1006 // Naming Styles
 
         private IEnumerator Ricochet( ExpandableBulletAttack bullet, UInt32 frameDelay )
         {
@@ -35,7 +49,12 @@
             {
                 yield return new WaitForFixedUpdate();
             }
-            SoundModule.PlayRicochet( bullet.weapon );
+            var data = new EffectData
+            {
+                origin = bullet.weapon.transform.position,
+                start = bullet.weapon.transform.position,
+            };
+            EffectManager.SpawnEffect( ricochetIndex, data, true );
             bullet.Fire();
             Destroy( bullet.weapon );
         }

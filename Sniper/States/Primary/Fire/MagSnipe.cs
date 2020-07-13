@@ -7,7 +7,7 @@
 
     internal class MagSnipe : SnipeBaseState
     {
-        private const Single damageRatio = 1f;
+        private const Single damageRatio = 2f;
         private const Single force = 100f;
 
 
