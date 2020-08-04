@@ -220,7 +220,7 @@
     <value>Passive</value>
   </data>
   <data name="lang__SNIPER_AMMO_EXPLOSIVE_DESC" xml:space="preserve">
-    <value>Deals &lt;style=cIsDamage&gt;0.45x primary&lt;/style&gt; damage. &lt;style=cIsDamage&gt;Explodes&lt;/style&gt; on hit for &lt;style=cIsDamage&gt;0.45x primary&lt;/style&gt; damage to nearby enemies. &lt;style=cIsUtility&gt;Boosts increase the size of the explosion&lt;/style&gt;.</value>
+    <value>Deals &lt;style=cIsDamage&gt;0.8x primary&lt;/style&gt; damage. &lt;style=cIsDamage&gt;Explodes&lt;/style&gt; on hit for &lt;style=cIsDamage&gt;0.4x primary&lt;/style&gt; damage to nearby enemies. &lt;style=cIsUtility&gt;Boosts increase the size of the explosion&lt;/style&gt;.</value>
   </data>
   <data name="lang__SNIPER_AMMO_EXPLOSIVE_NAME" xml:space="preserve">
     <value>Explosive</value>

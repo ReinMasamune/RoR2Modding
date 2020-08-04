@@ -51,7 +51,7 @@ namespace Sniper.UI.Components
                 }
             }
         }
-        private MetricPrefix _metricPrefix;
+        private MetricPrefix _metricPrefix = MetricPrefix.None;
 
 #if TESTING
         public UnitType testUnitType;
@@ -85,7 +85,7 @@ namespace Sniper.UI.Components
         [SerializeField]
         private TextMeshProUGUI unitText;
 
-        // TODO: In awake read current unit from config
+        // FUTURE: In awake read current unit from config
 
 
 

@@ -21,8 +21,8 @@ namespace Rein.RogueWispPlugin
 {
     internal partial class Main
     {
-        private readonly Accessor<CharacterBody,Single> armor = new Accessor<CharacterBody, Single>( "armor" );
-        private readonly Accessor<CharacterBody,Single> barrierDecayRate = new Accessor<CharacterBody,Single>( "<barrierDecayRate>k__BackingField" );
+        //private readonly Accessor<CharacterBody,Single> armor = new Accessor<CharacterBody, Single>( "armor" );
+        //private readonly Accessor<CharacterBody,Single> barrierDecayRate = new Accessor<CharacterBody,Single>( "<barrierDecayRate>k__BackingField" );
         private const Single barrierDecayMult = 0.5f;
         private const Single shieldRegenFrac = 0.02f;
         private const Single rootNumber = 6f;
@@ -84,7 +84,7 @@ namespace Rein.RogueWispPlugin
             HooksCore.RoR2.CharacterModel.UpdateRendererMaterials.Il -= this.UpdateRendererMaterials_Il;
         }
 
-        private static StaticAccessor<Dictionary<String,Dictionary<String,String>>> languageDictionaries = new StaticAccessor<Dictionary<string, Dictionary<string, string>>>( typeof(Language), "languageDictionaries" );
+        //private static StaticAccessor<Dictionary<String,Dictionary<String,String>>> languageDictionaries = new StaticAccessor<Dictionary<string, Dictionary<string, string>>>( typeof(Language), "languageDictionaries" );
 
 
         private void RW_AddHooks()
@@ -269,11 +269,11 @@ private void OnHitEnemy_Il( ILContext il )
             {
                 if( self.HasBuff( RW_armorBuff ) )
                 {
-                    this.armor.Set( self, this.armor.Get( self ) + 75f );
+                    self.armor += 75f;//this.armor.Set( self, this.armor.Get( self ) + 75f );
                 }
                 if( self.HasBuff( RW_flameChargeBuff ) )
                 {
-                    this.barrierDecayRate.Set( self, self.barrierDecayRate * barrierDecayMult );
+                    self.barrierDecayRate *= barrierDecayMult;// this.barrierDecayRate.Set( self, self.barrierDecayRate * barrierDecayMult );
                 }
             }
         }

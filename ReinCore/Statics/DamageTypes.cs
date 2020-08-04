@@ -22,11 +22,9 @@
         }
         public delegate void DamageTypeDelegate();
 
-
-        // TODO: Add a hook to actually do damage type stuff
-
         static DamageTypesCore()
         {
+            Log.Warning( "DamageTypesCore loaded" );
             var underType = Enum.GetUnderlyingType( typeof(DamageType) );
             if( underType != typeof( UInt32 ) )
             {
@@ -40,6 +38,7 @@
                 var curValue = values[i];
                 if( curValue > currentMaxIndex ) currentMaxIndex = curValue;
             }
+            Log.Warning( "DamageTypesCore loaded" );
             loaded = true;
         }
 

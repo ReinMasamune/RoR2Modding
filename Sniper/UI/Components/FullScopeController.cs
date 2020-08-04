@@ -34,7 +34,7 @@ namespace Sniper.UI.Components
         }
         private Boolean _active = true;
 
-        // TODO: Implement rest of info panel
+        // FUTURE: Implement rest of info panel
 
         private void OnValidate()
         {

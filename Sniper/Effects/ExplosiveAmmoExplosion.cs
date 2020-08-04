@@ -6,7 +6,7 @@
     {
         internal static GameObject CreateExplosiveAmmoExplosion()
         {
-            // TODO: Create explosive ammo explosion
+            // FUTURE: Create explosive ammo explosion
             return Resources.Load<GameObject>( "Prefabs/Effects/OmniEffect/OmniExplosionVFXToolbotQuick" );
         }
     }

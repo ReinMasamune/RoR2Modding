@@ -244,7 +244,7 @@
         }
         private Material GetKnifeMaterial()
         {
-            // TODO: Knife base material
+            // FUTURE: Knife base material
             StandardMaterial mat = MaterialModule.CreateSniperBase().Clone();
             this.knifeTextures.Apply( mat );
             foreach( MaterialModifier mod in this.materialModifiers[SniperMaterial.Knife] )

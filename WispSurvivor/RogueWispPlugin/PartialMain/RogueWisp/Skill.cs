@@ -178,7 +178,7 @@ namespace Rein.RogueWispPlugin
 
 
 
-            EntityStateMachine[] netStates = this.stateMachines.Get( net );
+            EntityStateMachine[] netStates = net.stateMachines;// this.stateMachines.Get( net );
 
             Array.Resize<EntityStateMachine>( ref netStates, 3 );
 
@@ -220,7 +220,8 @@ namespace Rein.RogueWispPlugin
                 }
             }
 
-            this.stateMachines.Set( net, netStates );
+            net.stateMachines = netStates;
+            //this.stateMachines.Set( net, netStates );
         }
         private void RW_SetupSkillFamilies()
         {
@@ -273,7 +274,8 @@ namespace Rein.RogueWispPlugin
         {
             //if( !s.skillFamily )
             //{
-            skillFamily.Set( s, ScriptableObject.CreateInstance<SkillFamily>() );
+            s._skillFamily = ScriptableObject.CreateInstance<SkillFamily>();
+            //skillFamily.Set( s, ScriptableObject.CreateInstance<SkillFamily>() );
             //}
             s.skillFamily.variants = Array.Empty<SkillFamily.Variant>();
 

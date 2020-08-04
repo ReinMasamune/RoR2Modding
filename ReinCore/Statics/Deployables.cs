@@ -9,21 +9,10 @@
 
     using RoR2;
 
-    /// <summary>
-    /// 
-    /// </summary>
     public static class DeployablesCore
     {
-        /// <summary>
-        /// 
-        /// </summary>
         public static Boolean loaded { get; internal set; } = false;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="def"></param>
-        /// <returns></returns>
         public static DeployableSlot AddDeployableSlot( DeployableSlotDef def )
         {
             if( !loaded )
@@ -44,10 +33,12 @@
 
         static DeployablesCore()
         {
+            Log.Warning( "DeployablesCore loaded" );
             startingIndex = EnumExtensions.GetMax<DeployableSlot>();
 
             HooksCore.RoR2.CharacterMaster.GetDeployableSameSlotLimit.Il += GetDeployableSameSlotLimit_Il;
 
+            Log.Warning( "DeployablesCore loaded" );
             loaded = true;
         }
 

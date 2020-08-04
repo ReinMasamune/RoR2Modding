@@ -5,9 +5,7 @@
     using System.Linq.Expressions;
     using System.Reflection;
 
-    /// <summary>
-    /// 
-    /// </summary>
+    [Obsolete( "unneeded", true )]
     public class Accessor<TValue>
     {
         /// <summary>

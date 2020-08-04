@@ -2,8 +2,6 @@
 {
     using System;
 
-    using JetBrains.Annotations;
-
     using Sniper.Enums;
     using Sniper.Expansions;
 
@@ -100,6 +98,12 @@
             return timer >= this.perfectStart && timer <= this.perfectEnd
                 ? ReloadTier.Perfect
                 : timer >= this.goodStart && timer <= this.goodEnd ? ReloadTier.Good : ReloadTier.Bad;
+        }
+
+        internal Single GetFlatDelay( Single timer, Single attackSpeed )
+        {
+            timer /= this.baseDuration;
+            return timer < this.perfectStart ? ( this.goodStart - timer ) * this.baseDuration / this.AdjustAttackSpeed( attackSpeed ) : 0.0f;
         }
 
         internal void ModifyBullet( ExpandableBulletAttack bullet, ReloadTier tier )

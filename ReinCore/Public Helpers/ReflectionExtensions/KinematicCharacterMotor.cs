@@ -4,53 +4,26 @@
 
     using KinematicCharacterController;
 
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-#pragma warning disable IDE1006 // Naming Styles
     public static class _KinematicCharacterMotor
-#pragma warning restore IDE1006 // Naming Styles
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     {
-#pragma warning disable IDE1006 // Naming Styles
-        private static readonly Accessor<KinematicCharacterMotor,Single> _capsuleRadius = new Accessor<KinematicCharacterMotor, Single>( "CapsuleRadius" );
-#pragma warning restore IDE1006 // Naming Styles
-#pragma warning disable IDE1006 // Naming Styles
-        private static readonly Accessor<KinematicCharacterMotor,Single> _capsuleHeight = new Accessor<KinematicCharacterMotor, Single>( "CapsuleHeight" );
-#pragma warning restore IDE1006 // Naming Styles
-#pragma warning disable IDE1006 // Naming Styles
-        private static readonly Accessor<KinematicCharacterMotor,Single> _capsuleYOffset = new Accessor<KinematicCharacterMotor, Single>( "CapsuleYOffset" );
-#pragma warning restore IDE1006 // Naming Styles
+        //private static readonly Accessor<KinematicCharacterMotor,Single> _capsuleRadius = new Accessor<KinematicCharacterMotor, Single>( "CapsuleRadius" );
 
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-#pragma warning disable IDE1006 // Naming Styles
-        public static Single _GetCapsuleRadius( this KinematicCharacterMotor inst ) => _capsuleRadius.Get( inst );
-#pragma warning restore IDE1006 // Naming Styles
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-#pragma warning disable IDE1006 // Naming Styles
-        public static void _SetCapsuleRadius( this KinematicCharacterMotor inst, Single value ) => _capsuleRadius.Set( inst, value );
-#pragma warning restore IDE1006 // Naming Styles
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+        //private static readonly Accessor<KinematicCharacterMotor,Single> _capsuleHeight = new Accessor<KinematicCharacterMotor, Single>( "CapsuleHeight" );
 
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-#pragma warning disable IDE1006 // Naming Styles
-        public static Single _GetCapsuleHeight( this KinematicCharacterMotor inst ) => _capsuleHeight.Get( inst );
-#pragma warning restore IDE1006 // Naming Styles
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-#pragma warning disable IDE1006 // Naming Styles
-        public static void _SetCapsuleHeight( this KinematicCharacterMotor inst, Single value ) => _capsuleHeight.Set( inst, value );
-#pragma warning restore IDE1006 // Naming Styles
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+        //private static readonly Accessor<KinematicCharacterMotor,Single> _capsuleYOffset = new Accessor<KinematicCharacterMotor, Single>( "CapsuleYOffset" );
 
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-#pragma warning disable IDE1006 // Naming Styles
-        public static Single _GetCapsuleYOffset( this KinematicCharacterMotor inst ) => _capsuleYOffset.Get( inst );
-#pragma warning restore IDE1006 // Naming Styles
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-#pragma warning disable IDE1006 // Naming Styles
-        public static void _SetCapsuleYOffset( this KinematicCharacterMotor inst, Single value ) => _capsuleYOffset.Set( inst, value );
-#pragma warning restore IDE1006 // Naming Styles
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+        [Obsolete( "unneeded", true )]
+        public static Single _GetCapsuleRadius( this KinematicCharacterMotor inst ) => inst.CapsuleRadius;// _capsuleRadius.Get( inst );
+        [Obsolete( "unneeded", true )]
+        public static void _SetCapsuleRadius( this KinematicCharacterMotor inst, Single value ) => inst.CapsuleRadius = value;// => _capsuleRadius.Set( inst, value );
+        [Obsolete( "unneeded", true )]
+        public static Single _GetCapsuleHeight( this KinematicCharacterMotor inst ) => inst.CapsuleHeight;// _capsuleHeight.Get( inst );
+        [Obsolete( "unneeded", true )]
+        public static void _SetCapsuleHeight( this KinematicCharacterMotor inst, Single value ) => inst.CapsuleHeight = value;// => _capsuleHeight.Set( inst, value );
+        [Obsolete( "unneeded", true )]
+        public static Single _GetCapsuleYOffset( this KinematicCharacterMotor inst ) => inst.CapsuleYOffset;// _capsuleYOffset.Get( inst );
+        [Obsolete( "unneeded", true )]
+        public static void _SetCapsuleYOffset( this KinematicCharacterMotor inst, Single value ) => inst.CapsuleYOffset = value;// => _capsuleYOffset.Set( inst, value );
+
     }
 }

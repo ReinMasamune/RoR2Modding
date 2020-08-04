@@ -5,17 +5,10 @@
 
     using UnityEngine;
 
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public static class KeyboardCore
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
-    {
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+    { 
         public static Boolean loaded { get; internal set; } = false;
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
-
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public static Boolean SetKey( GlobalKeys key, Color color )
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
         {
             if( key == GlobalKeys.AllKeys )
             {
@@ -45,12 +38,14 @@
 
         static KeyboardCore()
         {
+            Log.Warning( "KeyboardCore loaded" );
             rgbOptions[KeyboardType.Wooting] = new Wooting.WootingRGB( KeyboardType.Wooting );
 
 
 
 
             UpdateConnectedKeyboard();
+            Log.Warning( "KeyboardCore loaded" );
             loaded = true;
         }
 

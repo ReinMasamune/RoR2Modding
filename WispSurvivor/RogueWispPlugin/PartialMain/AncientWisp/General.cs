@@ -15,7 +15,7 @@ namespace Rein.RogueWispPlugin
 {
     internal partial class Main
     {
-        private Accessor<NetworkStateMachine,EntityStateMachine[]> stateMachines = new Accessor<NetworkStateMachine, EntityStateMachine[]>( "stateMachines" );
+        //private Accessor<NetworkStateMachine,EntityStateMachine[]> stateMachines = new Accessor<NetworkStateMachine, EntityStateMachine[]>( "stateMachines" );
         partial void AW_General()
         {
             this.Load += this.AW_GetBody;
@@ -116,7 +116,7 @@ namespace Rein.RogueWispPlugin
             death.idleStateMachine = new EntityStateMachine[1];
             death.deathState = new EntityStates.SerializableEntityStateType( typeof( EntityStates.Commando.DeathState ) );
 
-            EntityStateMachine[] netStates = this.stateMachines.Get( net );
+            EntityStateMachine[] netStates = net.stateMachines;
             Array.Resize<EntityStateMachine>( ref netStates, 2 );
 
 
@@ -155,7 +155,7 @@ namespace Rein.RogueWispPlugin
                 }
             }
 
-            this.stateMachines.Set( net, netStates );
+            net.stateMachines = netStates;
         }
     }
 }

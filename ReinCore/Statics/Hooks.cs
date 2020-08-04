@@ -12,9 +12,6 @@
     using UnityEngine;
     using UnityEngine.Networking;
 
-    // TODO: Docs for HooksCore
-    // TODO: Fix formatting in HooksCore
-    // TODO: Add more hooks to HooksCore
 
 
     /*
@@ -36,9 +33,6 @@ public static event Hook On
 
 
 
-    /// <summary>
-    /// 
-    /// </summary>
     public static class HooksCore
     {
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -77,6 +71,29 @@ public static event Hook On
                         private static readonly MethodBase method = HookHelpers.GetBase( typeof(FixedUpdate) );
                         public delegate void Orig( global::EntityStates.GoldGat.BaseGoldGatState self );
                         public delegate void Hook( Orig orig, global::EntityStates.GoldGat.BaseGoldGatState self );
+                        public static event ILContext.Manipulator Il
+                        {
+                            add => HookEndpointManager.Modify<Hook>( method, value );
+                            remove => HookEndpointManager.Unmodify<Hook>( method, value );
+                        }
+                        public static event Hook On
+                        {
+                            add => HookEndpointManager.Add<Hook>( method, value );
+                            remove => HookEndpointManager.Remove<Hook>( method, value );
+                        }
+                    }
+                }
+            }
+
+            public struct HermitCrab
+            {
+                public static class FireMortar
+                {
+                    public struct FixedUpdate
+                    {
+                        private static readonly MethodBase method = HookHelpers.GetBase( typeof(FixedUpdate) );
+                        public delegate void Orig( global::EntityStates.HermitCrab.FireMortar self );
+                        public delegate void Hook( Orig orig, global::EntityStates.HermitCrab.FireMortar self );
                         public static event ILContext.Manipulator Il
                         {
                             add => HookEndpointManager.Modify<Hook>( method, value );
@@ -1007,6 +1024,26 @@ public static event Hook On
                     private static readonly MethodBase method = HookHelpers.GetBase( typeof(UpdateEquipment) );
                     public delegate void Orig( global::RoR2.Inventory self );
                     public delegate void Hook( Orig orig, global::RoR2.Inventory self );
+                    public static event ILContext.Manipulator Il
+                    {
+                        add => HookEndpointManager.Modify<Hook>( method, value );
+                        remove => HookEndpointManager.Unmodify<Hook>( method, value );
+                    }
+                    public static event Hook On
+                    {
+                        add => HookEndpointManager.Add<Hook>( method, value );
+                        remove => HookEndpointManager.Remove<Hook>( method, value );
+                    }
+                }
+            }
+
+            public static class PlayerCharacterMasterController
+            {
+                public struct FixedUpdate
+                {
+                    private static readonly MethodBase method = HookHelpers.GetBase( typeof(FixedUpdate) );
+                    public delegate void Orig( global::RoR2.PlayerCharacterMasterController self );
+                    public delegate void Hook( Orig orig, global::RoR2.PlayerCharacterMasterController self );
                     public static event ILContext.Manipulator Il
                     {
                         add => HookEndpointManager.Modify<Hook>( method, value );

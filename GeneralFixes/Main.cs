@@ -38,6 +38,7 @@
         partial void BalanceBlight();
         partial void BalanceEngiTurrets();
         partial void BalanceGame();
+        partial void BalanceCrabs();
 
 
         partial void FixBandolier();

@@ -58,6 +58,7 @@
 
         static AssetsCore()
         {
+            Log.Warning( "AssetsCore loaded" );
             AssetsCore.canLoadAsset = typeof( AssetsCore ).GetMethod( "CanLoadAsset", BindingFlags.Static | BindingFlags.Public );
             AssetLibrary<GameObject>.SetIndexType( typeof( PrefabIndex ) );
             AssetLibrary<Mesh>.SetIndexType( typeof( MeshIndex ) );
@@ -97,6 +98,8 @@
             {
                 Log.Error( String.Format( "{0} failed to load", "TextureInitializer" ) );
             }
+
+            Log.Warning( "AssetsCore loaded" );
         }
 
 

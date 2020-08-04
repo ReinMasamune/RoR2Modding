@@ -20,7 +20,7 @@
         private static GameObject _podPrefab;
 #pragma warning restore IDE1006 // Naming Styles
         private static GameObject CreatePodPrefab() =>
-            // TODO: Create sniper survivor pod prefab
+            // FUTURE: Create sniper survivor pod prefab
             null;
 
         internal static CharacterCameraParams GetCharCameraParams()

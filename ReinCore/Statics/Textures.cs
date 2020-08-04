@@ -81,12 +81,12 @@
 
         static TexturesCore()
         {
+            Log.Warning( "TexturesCore loaded" );
 
 
 
 
-
-
+            Log.Warning( "TexturesCore loaded" );
             loaded = true;
         }
 

@@ -32,24 +32,24 @@
             _ = c.RemoveRange( 2 );
             _ = c.GotoNext( MoveType.Before, x => x.MatchMul() );
             _ = c.RemoveRange( 2 );
-            _ = c.EmitDelegate<Func<Single, HealthComponent, Single, Single>>( ( num, healthComp, osp ) =>
+            _ = c.EmitDelegate<Func<Single, HealthComponent, Single, Single>>( ( incomingDamage, healthComp, ospThreshold ) =>
               {
-                  Single temp = num;
-                  temp -= healthComp.shield;
-                  temp -= healthComp.barrier;
+                  Single damageToTake = incomingDamage;
+                  damageToTake -= healthComp.shield;
+                  damageToTake -= healthComp.barrier;
 
-                  Single protection = healthComp.fullHealth * osp;
-                  if( temp <= protection )
+                  Single protection = healthComp.fullHealth * ospThreshold;
+                  if( damageToTake <= protection )
                   {
-                      return num;
+                      return incomingDamage;
                   }
-                  temp -= healthComp.fullHealth * ( 1f + ( 1f / osp ) );
-                  temp = Mathf.Max( 0f, temp );
-                  temp += protection;
-                  temp += healthComp.shield;
-                  temp += healthComp.barrier;
+                  damageToTake -= healthComp.fullHealth * ( 1f + ( 1f / ospThreshold ) );
+                  damageToTake = Mathf.Max( 0f, damageToTake );
+                  damageToTake += protection;
+                  damageToTake += healthComp.shield;
+                  damageToTake += healthComp.barrier;
 
-                  return temp;
+                  return damageToTake;
               } );
         }
     }

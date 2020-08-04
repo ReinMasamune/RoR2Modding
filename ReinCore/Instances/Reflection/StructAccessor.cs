@@ -4,9 +4,7 @@
     using System.Linq.Expressions;
     using System.Reflection;
 
-    /// <summary>
-    /// 
-    /// </summary>
+    [Obsolete( "unneeded", true )]
     public class StructAccessor<TInstance, TValue> where TInstance : struct
     {
         /// <summary>

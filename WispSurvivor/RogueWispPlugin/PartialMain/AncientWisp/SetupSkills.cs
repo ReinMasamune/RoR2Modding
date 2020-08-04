@@ -13,18 +13,18 @@ namespace Rein.RogueWispPlugin
     // TODO: Skills
     internal partial class Main
     {
-        private static Accessor<GenericSkill, SkillFamily> skillFamily
-        {
-            get
-            {
-                if( _skillFamily == null )
-                {
-                    _skillFamily = new Accessor<GenericSkill, SkillFamily>( "_skillFamily" );
-                }
-                return _skillFamily;
-            }
-        }
-        private static Accessor<GenericSkill,SkillFamily> _skillFamily;
+        //private static Accessor<GenericSkill, SkillFamily> skillFamily
+        //{
+        //    get
+        //    {
+        //        if( _skillFamily == null )
+        //        {
+        //            _skillFamily = new Accessor<GenericSkill, SkillFamily>( "_skillFamily" );
+        //        }
+        //        return _skillFamily;
+        //    }
+        //}
+        //private static Accessor<GenericSkill,SkillFamily> _skillFamily;
         partial void AW_SetupSkills()
         {
             this.Load += this.AW_SetupPrimary;
@@ -81,7 +81,8 @@ namespace Rein.RogueWispPlugin
                     viewableNode = new ViewablesCatalog.Node( "aaaaaa", false )
                 }
             };
-            skillFamily.Set( skillLoc.utility, utilityFam );
+            skillLoc.utility._skillFamily = utilityFam;
+            //skillFamily.Set( skillLoc.utility, utilityFam );
         }
         private void AW_SetupSecondary()
         {
@@ -122,7 +123,7 @@ namespace Rein.RogueWispPlugin
                     viewableNode = new ViewablesCatalog.Node( "aaaa", false )
                 }
             };
-            skillFamily.Set( skillLoc.secondary, secondaryFam );
+            skillLoc.secondary._skillFamily = secondaryFam;// skillFamily.Set( skillLoc.secondary, secondaryFam );
         }
         private void AW_SetupPrimary()
         {
@@ -166,7 +167,7 @@ namespace Rein.RogueWispPlugin
                 }
             };
 
-            skillFamily.Set( skillLoc.primary, primaryFam );
+            skillLoc.primary._skillFamily = primaryFam;// skillFamily.Set( skillLoc.primary, primaryFam );
         }
     }
 }

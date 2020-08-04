@@ -1,0 +1,452 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".cs" #>
+//Generated
+<#
+const Int32 maxArgs = 8;
+IEnumerator<String> GetArgs( Int32 argCount )
+{
+	for( Int32 i = 1; i <= argCount; ++i ) yield return $"T{i}";
+}
+IEnumerator<String> GetArgNames( Int32 argCount )
+{
+	for( Int32 i = 1; i <= argCount; ++i ) yield return $"arg{i}";
+}
+IEnumerable<T> ToEnumerable<T>( IEnumerator<T> iterator )
+{
+	var v = Enumerable.Empty<T>();
+	while( iterator.MoveNext() )
+	{
+		v = v.Append( iterator.Current );
+	}
+	return v;
+}
+String CombineTypeAndName( String type, String name ) => $"{type} {name}";
+String CombineEmitTypeAndName( String type, String name ) => $"ILArg<{type}> {name}";
+String AddToStack( String current, String next ) => $"IL<{next}, {current}>";
+
+
+
+void WriteActionType( Int32 argCount )
+{
+	var args = ToEnumerable(GetArgs(argCount));
+	var argNames = ToEnumerable(GetArgNames(argCount));
+	var argsWithNames = args.Zip(argNames,CombineTypeAndName);
+	String genArgs = argCount > 0 ? $"<{String.Join(", ", args)}>" : "";
+	
+	Write( $"\tpublic delegate void XAct{genArgs}({String.Join(", ", argsWithNames)});\r\n");
+}
+void WriteFunctionType( Int32 argCount )
+{
+	var args = ToEnumerable(GetArgs(argCount));
+	var argNames = ToEnumerable(GetArgNames(argCount));
+	var argsWithNames = args.Zip(argNames,CombineTypeAndName);
+	var argsWithReturn = args.Append("TReturn").ToArray();
+	String genArgs = $"<{String.Join(", ", argsWithReturn)}>";
+
+	Write( $"\tpublic delegate TReturn XFunc{genArgs}({String.Join(", ", argsWithNames)});\r\n");
+
+}
+
+
+
+
+
+
+
+
+
+
+void WriteFuncCallExtension( Int32 argCount )
+{
+	var args = ToEnumerable(GetArgs(argCount));
+
+	var delGenArgs = args.Append("TReturn");
+	var genArgs = delGenArgs.Append("TStack").Append("TSig");
+
+	String genArgsStr = $"<{String.Join(", ", genArgs)}>";
+	String delGenArgsStr = $"<{String.Join(", ", delGenArgs)}>";
+
+	String reqStackStr = args.Aggregate("TStack", AddToStack );
+
+	String popsStr = String.Join("", Enumerable.Repeat("._Pop()", argCount) );
+
+
+	Write($"\t\tpublic static DMDCursor<IL<TReturn,TStack>, TSig> Call{genArgsStr}( ref this DMDCursor<{reqStackStr},TSig> stack, XFunc{delGenArgsStr} func, Boolean doTailCall = false )\r\n");
+	Write($"\t\t\twhere TStack : IStack\r\n");
+	Write($"\t\t\twhere TSig : Delegate\r\n");
+	Write("\t\t{\r\n");
+
+	Write($"\t\t\treturn stack{popsStr}._Push<TReturn>(stack.cursor.Call(func.Method, doTailCall));\r\n");
+
+	Write("\t\t}\r\n");
+}
+void WriteActionCallExtension( Int32 argCount )
+{
+	var args = ToEnumerable(GetArgs(argCount));
+
+	var delGenArgs = args;
+	var genArgs = delGenArgs.Append("TStack").Append("TSig");
+
+	String genArgsStr = $"<{String.Join(", ", genArgs)}>";
+	String delGenArgsStr = $"<{String.Join(", ", delGenArgs)}>";
+
+	String reqStackStr = args.Aggregate("TStack", AddToStack );
+
+	String popsStr = String.Join("", Enumerable.Repeat("._Pop()",  argCount == 0 ? 0 : argCount - 1) );
+
+	Write($"\t\tpublic static DMDCursor<TStack, TSig> Call{(genArgsStr == "<>" ? "" : genArgsStr)}( ref this DMDCursor<{reqStackStr},TSig> stack, XAct{(delGenArgsStr == "<>" ? "" : delGenArgsStr)} func, Boolean doTailCall = false )\r\n");
+	Write($"\t\t\twhere TStack : IStack\r\n");
+	Write($"\t\t\twhere TSig : Delegate\r\n");
+	Write("\t\t{\r\n");
+
+	Write($"\t\t\treturn stack{popsStr}{(argCount==0?"._Emit":"._Pop")}(stack.cursor.Call(func.Method, doTailCall));\r\n");
+
+	Write("\t\t}\r\n");
+}
+
+
+
+
+
+
+
+
+
+
+
+void WriteFuncVirtCallExtension( Int32 argCount )
+{
+	var args = ToEnumerable(GetArgs(argCount));
+
+	var delGenArgs = args.Append("TReturn");
+	var genArgs = delGenArgs.Append("TStack").Append("TSig");
+
+	String genArgsStr = $"<{String.Join(", ", genArgs)}>";
+	String delGenArgsStr = $"<{String.Join(", ", delGenArgs)}>";
+
+	String reqStackStr = args.Aggregate("TStack", AddToStack );
+
+	String popsStr = String.Join("", Enumerable.Repeat("._Pop()", argCount) );
+
+
+	Write($"\t\tpublic static DMDCursor<IL<TReturn,TStack>, TSig> CallVirtual{genArgsStr}( ref this DMDCursor<{reqStackStr},TSig> stack, XFunc{delGenArgsStr} func, Type constrainedType = null, Boolean doTailCall = false )\r\n");
+	Write($"\t\t\twhere TStack : IStack\r\n");
+	Write($"\t\t\twhere TSig : Delegate\r\n");
+	Write("\t\t{\r\n");
+
+	Write($"\t\t\treturn stack{popsStr}._Push<TReturn>(stack.cursor.CallVirtual(func.Method, constrainedType, doTailCall));\r\n");
+
+	Write("\t\t}\r\n");
+}
+void WriteActionVirtCallExtension( Int32 argCount )
+{
+	var args = ToEnumerable(GetArgs(argCount));
+
+	var delGenArgs = args;
+	var genArgs = delGenArgs.Append("TStack").Append("TSig");
+
+	String genArgsStr = $"<{String.Join(", ", genArgs)}>";
+	String delGenArgsStr = $"<{String.Join(", ", delGenArgs)}>";
+
+	String reqStackStr = args.Aggregate("TStack", AddToStack );
+
+	String popsStr = String.Join("", Enumerable.Repeat("._Pop()",  argCount == 0 ? 0 : argCount - 1) );
+
+	Write($"\t\tpublic static DMDCursor<TStack, TSig> Call{(genArgsStr == "<>" ? "" : genArgsStr)}( ref this DMDCursor<{reqStackStr},TSig> stack, XAct{(delGenArgsStr == "<>" ? "" : delGenArgsStr)} func, Type constrainedType = null, Boolean doTailCall = false )\r\n");
+	Write($"\t\t\twhere TStack : IStack\r\n");
+	Write($"\t\t\twhere TSig : Delegate\r\n");
+	Write("\t\t{\r\n");
+
+	Write($"\t\t\treturn stack{popsStr}{(argCount==0?"._Emit":"._Pop")}(stack.cursor.CallVirtual(func.Method, constrainedType, doTailCall));\r\n");
+
+	Write("\t\t}\r\n");
+}
+
+
+
+
+
+
+
+
+
+
+
+
+void WriteFuncIndCallExtension( Int32 argCount )
+{
+	var args = ToEnumerable(GetArgs(argCount));
+
+	var delGenArgs = args.Append("TReturn");
+	var genArgs = delGenArgs.Append("TStack").Append("TSig");
+
+	String genArgsStr = $"<{String.Join(", ", genArgs)}>";
+	String delGenArgsStr = $"<{String.Join(", ", delGenArgs)}>";
+	delGenArgsStr = delGenArgsStr == "<>" ? "" : delGenArgsStr;
+
+	String reqStackStr = args.Aggregate($"IL<ILFunctionPointer<XFunc{delGenArgsStr}>, TStack>", AddToStack );
+
+	String popsStr = String.Join("", Enumerable.Repeat("._Pop()", argCount) );
+
+
+	Write($"\t\tpublic static DMDCursor<IL<TReturn,TStack>, TSig> CallIndirect{genArgsStr}( ref this DMDCursor<{reqStackStr},TSig> stack, Boolean doTailCall = false )\r\n");
+	Write($"\t\t\twhere TStack : IStack\r\n");
+	Write($"\t\t\twhere TSig : Delegate\r\n");
+	Write("\t\t{\r\n");
+
+	Write($"\t\t\treturn stack{popsStr}._Pop()._Push<TReturn>(stack.cursor.CallIndirect(CallInfo<XFunc{delGenArgsStr}>.site, doTailCall));\r\n");
+
+	Write("\t\t}\r\n");
+}
+void WriteActionIndCallExtension( Int32 argCount )
+{
+	var args = ToEnumerable(GetArgs(argCount));
+
+	var delGenArgs = args;
+	var genArgs = delGenArgs.Append("TStack").Append("TSig");
+
+	String genArgsStr = $"<{String.Join(", ", genArgs)}>";
+	String delGenArgsStr = $"<{String.Join(", ", delGenArgs)}>";
+	delGenArgsStr = delGenArgsStr == "<>" ? "" : delGenArgsStr;
+
+	String reqStackStr = args.Aggregate($"IL<ILFunctionPointer<XAct{delGenArgsStr}>, TStack>", AddToStack );
+
+	String popsStr = String.Join("", Enumerable.Repeat("._Pop()", argCount ));
+
+	Write($"\t\tpublic static DMDCursor<TStack, TSig> CallIndirect{(genArgsStr == "<>" ? "" : genArgsStr)}( ref this DMDCursor<{reqStackStr},TSig> stack, Boolean doTailCall = false )\r\n");
+	Write($"\t\t\twhere TStack : IStack\r\n");
+	Write($"\t\t\twhere TSig : Delegate\r\n");
+	Write("\t\t{\r\n");
+
+	Write($"\t\t\treturn stack{popsStr}._Pop(stack.cursor.CallIndirect(CallInfo<XAct{delGenArgsStr}>.site, doTailCall));\r\n");
+
+	Write("\t\t}\r\n");
+}
+
+
+
+
+
+
+
+
+
+
+
+void WriteInlineFuncCallExtension( Int32 argCount )
+{
+	var args = ToEnumerable(GetArgs(argCount));
+
+	//Write($"\t\tpublic");
+}
+void WriteInlineActionCallExtension( Int32 argCount )
+{
+	var args = ToEnumerable(GetArgs(argCount));
+
+	//Write($"\t\tpublic");
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+void WriteDMDFunc( Int32 argCount )
+{
+	var args = ToEnumerable( GetArgs( argCount )).ToArray();
+	var argNames = ToEnumerable( GetArgNames( argCount ) );
+
+	String ArgTypeofSelector( String arg ) => $"typeof({arg})";
+	var argTypes = args.Select( ArgTypeofSelector );
+
+	var argsWithNames = args.Zip( argNames, CombineTypeAndName );
+
+	var argsWithReturn = args.Append("TReturn").ToArray();
+	String genArgs = $"<{String.Join(", ", argsWithReturn)}>";
+
+	var emitArgsWithNames = Enumerable.Empty<String>()
+		.Append( $"DMDCursor<Empty, XFunc{genArgs}> stack" )
+		.Concat( args.Zip( argNames, CombineEmitTypeAndName ) );
+
+
+
+	Write($"\tpublic sealed class DMDFunc{genArgs} : DirectDMD<DMDFunc{genArgs}.EmitDelegate, XFunc{genArgs}>\r\n" );
+	Write("\t{\r\n");
+
+	Write($"\t\tpublic delegate DMDReturn<TReturn> EmitDelegate({String.Join( ", ", emitArgsWithNames)});\r\n");
+	Write($"\t\tpublic DMDFunc( String name, EmitDelegate emitter ) : base( name, emitter ) {{}}\r\n" );
+	Write($"\t\tprotected sealed override Type returnType {{ get => typeof(TReturn); }}\r\n");
+	Write($"\t\tprotected sealed override Type[] argTypes {{ get => new Type[] {{ {String.Join(", ", argTypes)} }}; }}\r\n");
+	Write($"\t\tprotected sealed override void InvokeEmitter( ILContext context, EmitDelegate emitter )\r\n");
+	Write("\t\t{\r\n");
+
+	Write($"\t\t\tvar st = new Empty();\r\n");
+	Write($"\t\t\tvar stack = new DMDCursor<Empty, XFunc{genArgs}>( st, context );\r\n" );
+	for( Int32 i = 1; i <= argCount; ++i )
+	{
+		Write( $"\t\t\tvar arg{i} = new ILArg<{args[i-1]}>({i});\r\n");
+	}
+	var callEmitterArgs = Enumerable.Empty<String>()
+		.Append( $"stack" )
+		.Concat( argNames );
+
+	Write($"\t\t\temitter({String.Join( ", ", callEmitterArgs )});\r\n");
+
+	Write( "\t\t}\r\n");
+
+	Write("\t}\r\n\r\n");
+}
+void WriteDMDAction( Int32 argCount )
+{
+	var args = ToEnumerable( GetArgs( argCount )).ToArray();
+	var argNames = ToEnumerable( GetArgNames( argCount ) );
+
+	String ArgTypeofSelector( String arg ) => $"typeof({arg})";
+	var argTypes = args.Select( ArgTypeofSelector );
+
+	var argsWithNames = args.Zip( argNames, CombineTypeAndName );
+
+	String genArgs = $"<{String.Join(", ", args )}>";
+	genArgs = genArgs == "<>" ? "" : genArgs;
+
+	var emitArgsWithNames = Enumerable.Empty<String>()
+		.Append( $"DMDCursor<Empty, XAct{genArgs}> stack" )
+		.Concat( args.Zip( argNames, CombineEmitTypeAndName ) );
+
+
+
+	Write($"\tpublic sealed class DMDAction{genArgs} : DirectDMD<DMDAction{genArgs}.EmitDelegate, XAct{genArgs}>\r\n" );
+	Write("\t{\r\n");
+
+	Write($"\t\tpublic delegate DMDReturn EmitDelegate({String.Join( ", ", emitArgsWithNames)});\r\n");
+	Write($"\t\tpublic DMDAction( String name, EmitDelegate emitter ) : base( name, emitter ) {{}}\r\n" );
+	Write($"\t\tprotected sealed override Type returnType {{ get => null; }}\r\n");
+	Write($"\t\tprotected sealed override Type[] argTypes {{ get => new Type[] {{ {String.Join(", ", argTypes)} }}; }}\r\n");
+	Write($"\t\tprotected sealed override void InvokeEmitter( ILContext context, EmitDelegate emitter )\r\n");
+	Write("\t\t{\r\n");
+
+	Write($"\t\t\tvar st = new Empty();\r\n");
+	Write($"\t\t\tvar stack = new DMDCursor<Empty, XAct{genArgs}>( st, context );\r\n" );
+	for( Int32 i = 1; i <= argCount; ++i )
+	{
+		Write( $"\t\t\tvar arg{i} = new ILArg<{args[i-1]}>({i});\r\n");
+	}
+	var callEmitterArgs = Enumerable.Empty<String>()
+		.Append( $"stack" )
+		.Concat( argNames );
+
+	Write($"\t\t\temitter({String.Join( ", ", callEmitterArgs )});\r\n");
+
+	Write( "\t\t}\r\n");
+
+
+	Write("\t}\r\n\r\n");
+
+}
+
+#>
+namespace ILHelper
+{
+	using System;
+
+	using MonoMod.Cil;
+	public static partial class StackedCursorExtensions
+	{
+		#region CallExtensions
+<#
+for( Int32 i = 0; i <= maxArgs; ++i )
+{
+	WriteActionCallExtension(i);
+}
+#>
+<#
+for( Int32 i = 0; i <= maxArgs; ++i )
+{
+	WriteFuncCallExtension(i);
+}
+#>
+		#endregion
+		#region VirtCallExtensions
+<#
+for( Int32 i = 0; i <= maxArgs; ++i )
+{
+	WriteActionVirtCallExtension(i);
+}
+#>
+<#
+for( Int32 i = 0; i <= maxArgs; ++i )
+{
+	WriteFuncVirtCallExtension(i);
+}
+#>
+		#endregion
+		#region IndirectCallExtensions
+<#
+for( Int32 i = 0; i <= maxArgs; ++i )
+{
+	WriteActionIndCallExtension(i);
+}
+#>
+<#
+for( Int32 i = 0; i <= maxArgs; ++i )
+{
+	WriteFuncIndCallExtension(i);
+}
+#>
+		#endregion
+		#region InlineCallExtensions
+<#
+for( Int32 i = 0; i <= maxArgs; ++i )
+{
+	WriteInlineActionCallExtension(i);
+}
+#>
+<#
+for( Int32 i = 0; i <= maxArgs; ++i )
+{
+	WriteInlineFuncCallExtension(i);
+}
+#>
+		#endregion
+	}
+	#region Delegate Types
+<#
+for( Int32 i = 0; i <= maxArgs; ++i )
+{
+	WriteActionType(i);
+}
+#>
+<#
+for( Int32 i = 0; i <= maxArgs; ++i )
+{
+	WriteFunctionType(i);
+}
+#>
+	#endregion
+	#region DMDTypes
+<#
+for( Int32 i = 0; i <= maxArgs; ++i )
+{
+	WriteDMDAction(i);
+}
+#>
+<#
+for( Int32 i = 0; i <= maxArgs; ++i )
+{
+	WriteDMDFunc(i);
+}
+#>
+	#endregion
+}

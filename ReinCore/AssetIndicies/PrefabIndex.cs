@@ -48,4 +48,3 @@
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     }
 }
-// TODO: Switch to UInt32 for indexing to avoid hash collisions in dictionary.

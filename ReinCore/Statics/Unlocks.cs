@@ -61,6 +61,7 @@
 
         static UnlocksCore()
         {
+            Log.Warning( "UnlocksCore loaded" );
             //var dmd = new DynamicMethodDefinition("UnlockCore<>UnlockableCatalog<>RegisterUnlockable<>", null, new[] { typeof( String ), typeof( UnlockableDef ) } );
             //var proc = dmd.GetILProcessor();
             //var method = typeof( UnlockableCatalog ).GetMethod( "RegisterUnlockable", BF.Public | BF.Static | BF.NonPublic );
@@ -77,20 +78,21 @@
 
             //loaded = true;
             //ableToAdd = true;
+            Log.Warning( "UnlocksCore loaded" );
 		}
 
         private static readonly HashSet<String> usedRewardIds = new HashSet<String>();
-        private static readonly Action<String, UnlockableDef> registerUnlockable;
+        //private static readonly Action<String, UnlockableDef> registerUnlockable;
 
         private static void Init_Il( ILContext il )
         {
-            void EmittedDelegate()
+            static void EmittedDelegate()
             {
                 ableToAdd = false;
                 for( Int32 i = 0; i < moddedUnlocks.Count; ++i )
                 {
                     var (ach, unl) = moddedUnlocks[i];
-                    registerUnlockable( ach.unlockableRewardIdentifier, unl );
+                    UnlockableCatalog.RegisterUnlockable(ach.unlockableRewardIdentifier, unl );
                 }
             }
 

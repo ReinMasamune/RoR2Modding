@@ -72,7 +72,7 @@
         private CharacterMaster master;
         private SniperCharacterBody body;
 
-        protected void Awake()
+        protected void OnEnable()
         {
             this.barHolder = base.transform.Find( "BarHolder" ).gameObject;
             this.reloadSlider = this.barHolder.GetComponent<Slider>();
@@ -80,10 +80,8 @@
             this.showBar = false;
 
             this.hud = base.GetComponent<HUD>() ?? base.GetComponentInChildren<HUD>() ?? base.GetComponentInParent<HUD>();
-        }
-        protected void Start()
-        {
             _ = base.StartCoroutine( this.Hookup() );
+
         }
 
         private IEnumerator Hookup()

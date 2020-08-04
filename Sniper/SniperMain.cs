@@ -1,6 +1,4 @@
-﻿#region Metadata
-#endregion
-namespace Sniper
+﻿namespace Sniper
 {
     using System;
     using System.Collections.Generic;
@@ -87,7 +85,7 @@ namespace Sniper
 
 
         #region static vars
-        // TODO: Refactor these into their modules
+        // CLEANUP: Refactor these into their modules
         internal static GameObject sniperBodyPrefab;
         internal static GameObject sniperDisplayPrefab;
         #endregion

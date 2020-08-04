@@ -23,9 +23,9 @@
             get => this._state;
             private set
             {
-                if( value != this._state )
+                if (value != this._state)
                 {
-                    this.onStateChanged?.Invoke( value );
+                    this.onStateChanged?.Invoke(value);
                 }
                 this._state = value;
             }
@@ -48,7 +48,7 @@
 
         private protected virtual void Awake()
         {
-            if( this.state == State.Failed )
+            if (this.state == State.Failed)
             {
                 return;
             }
@@ -59,7 +59,7 @@
 
         private protected virtual void OnEnable()
         {
-            if( this.state == State.Failed )
+            if (this.state == State.Failed)
             {
                 return;
             }
@@ -70,7 +70,7 @@
 
         private protected virtual void OnDisable()
         {
-            if( this.state == State.Failed )
+            if (this.state == State.Failed)
             {
                 return;
             }
@@ -81,7 +81,7 @@
 
         private protected virtual void Start()
         {
-            if( this.state == State.Failed )
+            if (this.state == State.Failed)
             {
                 return;
             }
@@ -92,7 +92,7 @@
 
         private protected virtual void FixedUpdate()
         {
-            if( this.state == State.Failed )
+            if (this.state == State.Failed)
             {
                 return;
             }
@@ -103,7 +103,7 @@
         private protected virtual void Update()
         {
             RoR2.RoR2Application.isModded = true;
-            if( this.state == State.Failed )
+            if (this.state == State.Failed)
             {
                 return;
             }
@@ -114,7 +114,7 @@
 
         private protected virtual void LateUpdate()
         {
-            if( this.state == State.Failed )
+            if (this.state == State.Failed)
             {
                 return;
             }
@@ -124,7 +124,7 @@
 
         private protected virtual void OnDestroy()
         {
-            if( this.state == State.Failed )
+            if (this.state == State.Failed)
             {
                 return;
             }
@@ -135,7 +135,7 @@
 
         private protected virtual void OnGUI()
         {
-            if( this.state == State.Failed )
+            if (this.state == State.Failed)
             {
                 return;
             }

@@ -21,7 +21,7 @@
 
             if( NetworkServer.active )
             {
-                List<DeployableInfo> list = base.characterBody?.master?._GetDeployablesList();
+                List<DeployableInfo> list = base.characterBody?.master?.deployablesList;
                 foreach( DeployableInfo v in list )
                 {
                     if( v.slot == DecoyModule.deployableSlot )

@@ -143,15 +143,15 @@
                 base.PlayAnimation( "Gesture, Override", animStr, "rateReloadDash", this.duration );
 
 
-                // TODO: Slide sounds
-                // TODO: Slide VFX
+                // FUTURE: Slide sounds
+                // FUTURE: Slide VFX
             } else
             {
                 this.isSliding = false;
                 base.PlayAnimation( "Gesture, Additive", "Reload", "rateReload", this.duration );
                 this.gunTransform = base.FindModelChild( "RailgunBone" );
                 this.gunTransform.SetParent( base.FindModelChild( "LeftWeapon" ), true );
-                // TODO: No Slide VFX
+                // FUTURE: No Slide VFX
             }
 
             base.StartAimMode( this.duration * 2f, false );

@@ -4,23 +4,25 @@
 
     using RoR2;
 
-    internal delegate void OnBulletDelegate( ExpandableBulletAttack bullet, BulletAttack.BulletHit hitInfo );
-    internal class ExpandableBulletAttack : BulletAttack, ICloneable
+    internal delegate void OnBulletDelegate<TData>( ExpandableBulletAttack<TData> bullet, BulletAttack.BulletHit hitInfo ) where TData : struct;
+
+    internal abstract class ExpandableBulletAttack : BulletAttack
     {
-        internal OnBulletDelegate onHit;
-        internal OnBulletDelegate onStop;
         internal CharacterBody attackerBody;
-
-
         internal Single chargeLevel = 0f;
-
-        internal ExpandableBulletData data = null;
 
         internal TeamIndex team
         {
             get => this.attackerBody.teamComponent.teamIndex;
         }
-
+    }
+    internal class ExpandableBulletAttack<TData> : ExpandableBulletAttack
+        where TData : struct
+    {
+        internal OnBulletDelegate<TData> onHit;
+        internal OnBulletDelegate<TData> onStop;
+        internal TData data;
+        
         internal ExpandableBulletAttack() : base()
         {
             base.hitCallback = this.ExpandableHitCallback;
@@ -37,9 +39,9 @@
             return result;
         }
 
-        public System.Object Clone()
+        public ExpandableBulletAttack<TData> Clone()
         {
-            var res = new ExpandableBulletAttack
+            var res = new ExpandableBulletAttack<TData>
             {
                 aimVector = this.aimVector,
                 attackerBody = this.attackerBody,
@@ -71,6 +73,7 @@
                 stopperMask = this.stopperMask,
                 tracerEffectPrefab = this.tracerEffectPrefab,
                 weapon = this.weapon,
+                data = this.data,
             };
 
             res.onHit = this.onHit;
@@ -78,7 +81,5 @@
 
             return res;
         }
-
-        internal abstract class ExpandableBulletData { }
     }
 }

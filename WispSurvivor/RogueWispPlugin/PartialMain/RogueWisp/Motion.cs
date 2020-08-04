@@ -12,9 +12,9 @@ namespace Rein.RogueWispPlugin
 {
     internal partial class Main
     {
-        private Accessor<KinematicCharacterController.KinematicCharacterMotor, Single> capsuleRadius = new Accessor<KinematicCharacterController.KinematicCharacterMotor, Single>( "CapsuleRadius" );
-        private Accessor<KinematicCharacterController.KinematicCharacterMotor, Single> capsuleHeight = new Accessor<KinematicCharacterController.KinematicCharacterMotor, Single>( "CapsuleHeight" );
-        private Accessor<KinematicCharacterController.KinematicCharacterMotor, Single> capsuleYOffset = new Accessor<KinematicCharacterController.KinematicCharacterMotor, Single>( "CapsuleYOffset" );
+        //private Accessor<KinematicCharacterController.KinematicCharacterMotor, Single> capsuleRadius = new Accessor<KinematicCharacterController.KinematicCharacterMotor, Single>( "CapsuleRadius" );
+        //private Accessor<KinematicCharacterController.KinematicCharacterMotor, Single> capsuleHeight = new Accessor<KinematicCharacterController.KinematicCharacterMotor, Single>( "CapsuleHeight" );
+        //private Accessor<KinematicCharacterController.KinematicCharacterMotor, Single> capsuleYOffset = new Accessor<KinematicCharacterController.KinematicCharacterMotor, Single>( "CapsuleYOffset" );
         partial void RW_Motion()
         {
             this.Load += this.RW_RigidBodySetup;
@@ -43,9 +43,12 @@ namespace Rein.RogueWispPlugin
             kinMot.LedgeHandling = true;
             kinMot.InteractiveRigidbodyHandling = true;
             kinMot.SafeMovement = false;
-            this.capsuleRadius.Set( kinMot, 0.7f );
-            this.capsuleHeight.Set( kinMot, 1.5f );
-            this.capsuleYOffset.Set( kinMot, 0f );
+            kinMot.CapsuleRadius = 0.7f;
+            kinMot.CapsuleHeight = 1.5f;
+            kinMot.CapsuleYOffset = 0.0f;
+            //this.capsuleRadius.Set( kinMot, 0.7f );
+            //this.capsuleHeight.Set( kinMot, 1.5f );
+            //this.capsuleYOffset.Set( kinMot, 0f );
         }
         private void RW_BodyMotorSetup()
         {

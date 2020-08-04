@@ -60,7 +60,6 @@
 
 
             NetworkIdentity netId = obj.AddOrGetComponent<NetworkIdentity>();
-            // TODO: Should decoy body have localplayerauthority?
 
 
             Transform modelBase = new GameObject( "ModelBase" ).transform;
@@ -85,7 +84,7 @@
             body.rootMotionInMainState = false;
             body.mainRootSpeed = 0f;
 
-            // TODO: Abstract out base stats for decoy and sniper
+            // CLEANUP: Abstract out base stats for decoy and sniper
             body.baseMaxHealth = 200f;
             body.levelMaxHealth = 60f;
 
@@ -125,7 +124,7 @@
             body.spreadBloomCurve = new AnimationCurve();
             body.crosshairPrefab = null;
             body.hideCrosshair = false;
-            body.aimOriginTransform = null; // TODO: Does decoy need aim origin?
+            body.aimOriginTransform = null;
             body.hullClassification = HullClassification.Human;
             body.portraitIcon = UIModule.GetPortraitIcon();
             body.isChampion = false;
@@ -184,7 +183,7 @@
             cameraTargetParams.dontRaycastToPivot = false;
 
 
-            // TODO: Verify modellocator setup on decoy body
+
             ModelLocator modelLocator = obj.AddOrGetComponent<ModelLocator>();
             modelLocator.modelTransform = mdlSniper.transform;
             modelLocator.modelBaseTransform = modelBase;
@@ -198,7 +197,7 @@
 
             EntityStateMachine esm = obj.AddOrGetComponent<EntityStateMachine>();
             esm.customName = "Body";
-            esm.initialStateType = SkillsCore.StateType<GenericCharacterMain>(); // TODO: Decoy spawn state
+            esm.initialStateType = SkillsCore.StateType<GenericCharacterMain>();
             esm.mainStateType = SkillsCore.StateType<GenericCharacterMain>();
 
 
@@ -224,7 +223,8 @@
 
 
             NetworkStateMachine netStates = obj.AddOrGetComponent<NetworkStateMachine>();
-            netStates._SetStateMachines( esm );
+            //netStates._SetStateMachines( esm );
+            netStates.stateMachines = new[] { esm };
 
 
             Interactor interactor = obj.AddOrGetComponent<Interactor>();
@@ -255,7 +255,7 @@
 
 
             SfxLocator sfx = obj.AddOrGetComponent<SfxLocator>();
-            // TODO: Death sounds for decoy
+            // FUTURE: Death sounds for decoy
 
 
             Rigidbody rb = obj.AddOrGetComponent<Rigidbody>();
@@ -294,9 +294,9 @@
             kinCharMot.CharacterController = charMot;
             kinCharMot.Capsule = cap;
             kinCharMot.Rigidbody = rb;
-            kinCharMot._SetCapsuleRadius( 0.5f );
-            kinCharMot._SetCapsuleHeight( 1.8f );
-            kinCharMot._SetCapsuleYOffset( 0f );
+            kinCharMot.CapsuleRadius = 0.5f;
+            kinCharMot.CapsuleHeight = 1.8f;
+            kinCharMot.CapsuleYOffset = 0f;
             kinCharMot.DetectDiscreteCollisions = false;
             kinCharMot.GroundDetectionExtraDistance = 0f;
             kinCharMot.MaxStepHeight = 0.5f;
@@ -338,7 +338,6 @@
             GameObject master = PrefabsCore.CreatePrefab("SniperDecoyMaster",true);
 
             NetworkIdentity netId = master.AddOrGetComponent<NetworkIdentity>();
-            // TODO: Should decoy master have localplayerauthority?
 
             CharacterMaster charMaster = master.AddOrGetComponent<CharacterMaster>();
             charMaster.masterIndex = new MasterCatalog.MasterIndex( -1 );

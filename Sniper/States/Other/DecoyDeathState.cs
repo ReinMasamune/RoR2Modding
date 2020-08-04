@@ -64,11 +64,11 @@
             }
             this._SetRestStopwatch( 100f );
             this._SetFallingStopwatch( 100f );
-            // TODO: Play Sound
+            // FUTURE: Play Sound
             sync.BodyKilled();
         }
 
-        protected override void OnPreDestroyBodyServer()
+        public override void OnPreDestroyBodyServer()
         {
             base.OnPreDestroyBodyServer();
             base.DestroyModel();

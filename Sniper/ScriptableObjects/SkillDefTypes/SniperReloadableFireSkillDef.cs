@@ -103,7 +103,7 @@
             return data.isReloading ? data.CanReload() : data.CanShoot();
         }
 
-        protected sealed override EntityState InstantiateNextState( GenericSkill skillSlot )
+        public sealed override EntityState InstantiateNextState( GenericSkill skillSlot )
         {
             var data = skillSlot.skillInstanceData as SniperPrimaryInstanceData;
             var state = EntityState.Instantiate(data.isReloading ? this.reloadActivationState : base.activationState);

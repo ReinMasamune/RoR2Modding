@@ -44,6 +44,8 @@
 
         static DoTsCore()
         {
+            Log.Warning( "DotsCore loaded" );
+
             BindingFlags allFlags = BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Static;
             Type controllerType = typeof(DotController);
             Type dotDefType = controllerType.GetNestedType( "DotDef", allFlags );
@@ -119,6 +121,8 @@
             HooksCore.RoR2.DotController.EvaluateDotStacksForType.Il += EvaluateDotStacksForType_Il;
             HooksCore.RoR2.DotController.Awake.Il += Awake_Il;
 
+
+            Log.Warning( "DotsCore loaded" );
             loaded = true;
         }
 

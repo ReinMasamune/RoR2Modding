@@ -19,11 +19,11 @@
 
     internal static class PrefabModule
     {
-        private static readonly Accessor<NetworkStateMachine,EntityStateMachine[]> stateMachines = new Accessor<NetworkStateMachine, EntityStateMachine[]>( "stateMachines" );
-        private static readonly Accessor<KinematicCharacterMotor,Single> capsuleRadius = new Accessor<KinematicCharacterMotor, Single>( "CapsuleRadius" );
-        private static readonly Accessor<KinematicCharacterMotor,Single> capsuleHeight = new Accessor<KinematicCharacterMotor, Single>( "CapsuleHeight" );
-        private static readonly Accessor<KinematicCharacterMotor,Single> capsuleYOffset = new Accessor<KinematicCharacterMotor, Single>( "CapsuleYOffset" );
-        private static readonly Accessor<KinematicCharacterMotor,PhysicMaterial> capsulePhysicsMaterial = new Accessor<KinematicCharacterMotor, PhysicMaterial>("CapsulePhysicsMaterial");
+        //private static readonly Accessor<NetworkStateMachine,EntityStateMachine[]> stateMachines = new Accessor<NetworkStateMachine, EntityStateMachine[]>( "stateMachines" );
+        //private static readonly Accessor<KinematicCharacterMotor,Single> capsuleRadius = new Accessor<KinematicCharacterMotor, Single>( "CapsuleRadius" );
+        //private static readonly Accessor<KinematicCharacterMotor,Single> capsuleHeight = new Accessor<KinematicCharacterMotor, Single>( "CapsuleHeight" );
+        //private static readonly Accessor<KinematicCharacterMotor,Single> capsuleYOffset = new Accessor<KinematicCharacterMotor, Single>( "CapsuleYOffset" );
+        //private static readonly Accessor<KinematicCharacterMotor,PhysicMaterial> capsulePhysicsMaterial = new Accessor<KinematicCharacterMotor, PhysicMaterial>("CapsulePhysicsMaterial");
 
         internal static void CreatePrefab()
         {
@@ -70,7 +70,7 @@
             direction.rootMotionAccumulator = null;
             direction.modelAnimator = null;
             direction.driveFromRootRotation = false;
-            direction.turnSpeed = 720f; // TODO: Decide on sniper turn speed
+            direction.turnSpeed = 720f;
 
 
             SniperCharacterBody body = obj.AddOrGetComponent<SniperCharacterBody>();
@@ -153,7 +153,7 @@
             ctp.cameraPivotTransform = null;
             ctp.aimMode = CameraTargetParams.AimType.Standard;
             ctp.recoil = Vector2.zero;
-            ctp.idealLocalCameraPos = Vector3.zero; // TODO: Decide on Sniper ideal local camera pos
+            ctp.idealLocalCameraPos = Vector3.zero;
             ctp.dontRaycastToPivot = false;
 
 
@@ -197,29 +197,29 @@
 
 
             GenericSkill ammoSkill = obj.AddOrGetComponent<GenericSkill>();
-            ammoSkill.SetSkillFamily( SkillFamiliesModule.GetAmmoSkillFamily() );
+            ammoSkill._skillFamily = SkillFamiliesModule.GetAmmoSkillFamily();
             HooksModule.AddReturnoverride( ammoSkill );
 
 
             GenericSkill passiveSkill = obj.AddComponent<GenericSkill>();
-            passiveSkill.SetSkillFamily( SkillFamiliesModule.GetPassiveSkillFamily() );
+            passiveSkill._skillFamily = SkillFamiliesModule.GetPassiveSkillFamily();
             HooksModule.AddReturnoverride( passiveSkill );
 
 
             GenericSkill primarySkill = obj.AddComponent<GenericSkill>();
-            primarySkill.SetSkillFamily( SkillFamiliesModule.GetPrimarySkillFamily() );
+            primarySkill._skillFamily = SkillFamiliesModule.GetPrimarySkillFamily();
 
 
             GenericSkill secondarySkill = obj.AddComponent<GenericSkill>();
-            secondarySkill.SetSkillFamily( SkillFamiliesModule.GetSecondarySkillFamily() );
+            secondarySkill._skillFamily = SkillFamiliesModule.GetSecondarySkillFamily();
 
 
             GenericSkill utilitySkill = obj.AddComponent<GenericSkill>();
-            utilitySkill.SetSkillFamily( SkillFamiliesModule.GetUtilitySkillFamily() );
+            utilitySkill._skillFamily = SkillFamiliesModule.GetUtilitySkillFamily();
 
 
             GenericSkill specialSkill = obj.AddComponent<GenericSkill>();
-            specialSkill.SetSkillFamily( SkillFamiliesModule.GetSpecialSkillFamily() );
+            specialSkill._skillFamily = SkillFamiliesModule.GetSpecialSkillFamily();
 
 
             SkillLocator skillLocator = obj.AddOrGetComponent<SkillLocator>();
@@ -261,7 +261,7 @@
 
             CharacterDeathBehavior death = obj.AddOrGetComponent<CharacterDeathBehavior>();
             death.deathStateMachine = bodyMachine;
-            death.deathState = SkillsCore.StateType<EntityStates.Commando.DeathState>(); // TODO: Setup sniper death state if needed
+            death.deathState = SkillsCore.StateType<EntityStates.Commando.DeathState>();
             death.idleStateMachine = nonBodyStateMachines;
 
 
@@ -274,11 +274,12 @@
 
 
             NetworkStateMachine netStates = obj.AddOrGetComponent<NetworkStateMachine>();
-            stateMachines.Set( netStates, allStateMachines );
+            netStates.stateMachines = allStateMachines;
+            //stateMachines.Set( netStates, allStateMachines );
 
 
             CharacterEmoteDefinitions emotes = obj.AddOrGetComponent<CharacterEmoteDefinitions>();
-            emotes.emoteDefinitions = null; // TODO: Setup Sniper emotes
+            emotes.emoteDefinitions = null;
 
 
             EquipmentSlot equip = obj.AddOrGetComponent<EquipmentSlot>();
@@ -318,10 +319,11 @@
             kinCharMot.CharacterController = motor;
             kinCharMot.Capsule = col;
             kinCharMot.Rigidbody = rb;
-            capsuleRadius.Set( kinCharMot, 0.5f );
-            capsuleHeight.Set( kinCharMot, 1.82f );
-            capsuleYOffset.Set( kinCharMot, 0f );
-            capsulePhysicsMaterial.Set( kinCharMot, null );
+            
+            kinCharMot.CapsuleRadius = 0.5f;
+            kinCharMot.CapsuleHeight = 1.82f;
+            kinCharMot.CapsuleYOffset = 0f;
+            kinCharMot.CapsulePhysicsMaterial = null;
             kinCharMot.DetectDiscreteCollisions = false;
             kinCharMot.GroundDetectionExtraDistance = 0f;
             kinCharMot.MaxStepHeight = 0.2f;
@@ -343,8 +345,8 @@
             SetStateOnHurt hurt = obj.AddOrGetComponent<SetStateOnHurt>();
             hurt.hitThreshold = 5f;
             hurt.targetStateMachine = bodyMachine;
-            hurt.idleStateMachine = nonBodyStateMachines; // TODO: ???SkillsStuff
-            hurt.hurtState = SkillsCore.StateType<Idle>(); // TODO: ???SkillsStuff
+            hurt.idleStateMachine = nonBodyStateMachines; 
+            hurt.hurtState = SkillsCore.StateType<Idle>(); 
             hurt.canBeHitStunned = false;
             hurt.canBeStunned = false;
             hurt.canBeFrozen = true;
@@ -383,12 +385,11 @@
 
 
             RagdollController ragdoll = model.AddOrGetComponent<RagdollController>();
-            ragdoll.bones = null; // TODO: Setup sniper ragdoll controller
+            ragdoll.bones = null; // FUTURE: Setup sniper ragdoll controller
             ragdoll.componentsToDisableOnRagdoll = null;
 
 
             AimAnimator aimAnimator = model.AddOrGetComponent<AimAnimator>();
-            // TODO: Verify sniper AimAnimator values
             aimAnimator.inputBank = input;
             aimAnimator.directionComponent = direction;
             aimAnimator.pitchRangeMax = 55f;

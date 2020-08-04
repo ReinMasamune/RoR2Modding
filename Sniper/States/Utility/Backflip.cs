@@ -47,9 +47,8 @@
             }
 
             base.PlayAnimation( "Gesture, Override", "Backflip", "rateBackflip", this.duration );
-            // TODO: Play Sound
-            // TODO: VFX
-            // TODO: Damage?
+            // FUTURE: Play Sound
+            // FUTURE: VFX
 
             base.characterMotor.Motor.ForceUnground();
             Single speed = this.currentSpeed;

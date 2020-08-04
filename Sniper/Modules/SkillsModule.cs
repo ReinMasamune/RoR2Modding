@@ -26,7 +26,7 @@
         {
             get
             {
-                var def = SkillDef.CreateInstance<SkillDef>();
+                var def = ScriptableObject.CreateInstance<SkillDef>();
                 return (def, "???");
             }
         }
@@ -39,7 +39,7 @@
             var ricochetPrefab = VFXModule.GetRicochetEffectPrefab();
             RicochetController.ricochetEffectPrefab = ricochetPrefab;
 
-            var standardStop = new OnBulletDelegate( (bullet, hit) =>
+            var standardStop = new OnBulletDelegate<RicochetData>( (bullet, hit) =>
             {
                 if( hit.collider )
                 {
@@ -50,10 +50,12 @@
                     if( Util.CheckRoll( 100f - chance, bullet.attackerBody.master ) )
                     {
                         Vector3 newDir = (-2f * dot * v2) + v1;
-                        var newBul = bullet.Clone() as ExpandableBulletAttack;
+                        var newBul = bullet.Clone() as ExpandableBulletAttack<RicochetData>;
                         newBul.origin = hit.point;
                         newBul.aimVector = newDir;
                         newBul.weapon = new GameObject("temp", typeof(NetworkIdentity) );
+                        if( newBul.data.counter++ == 0 ) newBul.radius *= 10f;
+                        
                         if( hit.damageModifier == HurtBox.DamageModifier.SniperTarget )
                         {
                             newBul.damage *= 1.5f;
@@ -66,7 +68,7 @@
             GameObject standardTracer = VFXModule.GetStandardAmmoTracer();
             var standardCreate = new BulletCreationDelegate( (body, reload, aim, muzzle) =>
             {
-                var bullet = new ExpandableBulletAttack
+                var bullet = new ExpandableBulletAttack<RicochetData>
                 {
                     aimVector = aim.direction,
                     attackerBody = body,
@@ -78,7 +80,7 @@
                     falloffModel = BulletAttack.FalloffModel.None,
                     force = 100f,
                     HitEffectNormal = true,
-                    hitEffectPrefab = null, // TODO: Standard Ammo Hit Effect
+                    hitEffectPrefab = null, // FUTURE: Standard Ammo Hit Effect
                     hitMask = LayerIndex.entityPrecise.mask | LayerIndex.world.mask,
                     isCrit = body.RollCrit(),
                     maxDistance = 1000f,
@@ -92,7 +94,7 @@
                     procChainMask = default,
                     procCoefficient = 1f,
                     queryTriggerInteraction = QueryTriggerInteraction.UseGlobal,
-                    radius = 0.1f,
+                    radius = 0.2f,
                     smartCollision = true,
                     sniper = false,
                     spreadPitchScale = 1f,
@@ -100,6 +102,7 @@
                     stopperMask = LayerIndex.world.mask,
                     tracerEffectPrefab = standardTracer,
                     weapon = null,
+                    data = default,
                 };
                 return bullet;
             });
@@ -119,10 +122,10 @@
 
 
             #region Explosive Ammo
-            var explosiveHit = new OnBulletDelegate((bullet, hit) =>
+            var explosiveHit = new OnBulletDelegate<NoData>((bullet, hit) =>
             {
                 Single rad = 6f * ( 1f + (3f * bullet.chargeLevel) );
-                EffectManager.SpawnEffect(VFXModule.GetExplosiveAmmoExplosionPrefab(), new EffectData
+                EffectManager.SpawnEffect(VFXModule.GetExplosiveAmmoExplosionIndex(), new EffectData
                 {
                     origin = hit.point,
                     scale = rad,
@@ -139,7 +142,7 @@
                     damageColorIndex = DamageColorIndex.Item,
                     damageType = bullet.damageType,
                     falloffModel = BlastAttack.FalloffModel.Linear,
-                    impactEffect = EffectIndex.Invalid, // TODO: Explosive Ammo Impact Effect
+                    impactEffect = EffectIndex.Invalid, // FUTURE: Explosive Ammo Impact Effect
                     inflictor = null,
                     losType = BlastAttack.LoSType.None,
                     position = hit.point,
@@ -148,25 +151,24 @@
                     radius = rad,
                     teamIndex = TeamComponent.GetObjectTeam(bullet.owner),
                 };
-
                 _ = blast.Fire();
             });
             GameObject explosiveTracer = VFXModule.GetExplosiveAmmoTracer();
             var explosiveCreate = new BulletCreationDelegate( (body, reload, aim, muzzle) =>
             {
-                var bullet = new ExpandableBulletAttack
+                var bullet = new ExpandableBulletAttack<NoData>
                 {
                     aimVector = aim.direction,
                     attackerBody = body,
                     bulletCount = 1,
                     chargeLevel = 0f,
-                    damage = body.damage * 0.45f,
+                    damage = body.damage * 0.4f,
                     damageColorIndex = DamageColorIndex.Default,
                     damageType = DamageType.Generic,
                     falloffModel = BulletAttack.FalloffModel.None,
                     force = 100f,
                     HitEffectNormal = true,
-                    hitEffectPrefab = null, // TODO: Explosive Ammo Hit Effect
+                    hitEffectPrefab = null, // FUTURE: Explosive Ammo Hit Effect
                     hitMask = LayerIndex.entityPrecise.mask | LayerIndex.world.mask,
                     isCrit = body.RollCrit(),
                     maxDistance = 1000f,
@@ -180,7 +182,7 @@
                     procChainMask = default,
                     procCoefficient = 0.6f,
                     queryTriggerInteraction = QueryTriggerInteraction.UseGlobal,
-                    radius = 0.1f,
+                    radius = 0.5f,
                     smartCollision = true,
                     sniper = false,
                     spreadPitchScale = 1f,
@@ -371,10 +373,10 @@
             {
                 attackSpeedCap = 1.25f,
                 attackSpeedDecayCoef = 10f,
-                badMult = 0.8f,
+                badMult = 1.0f,
                 baseDuration = 1.5f,
-                goodMult = 1.4f,
-                perfectMult = 2f,
+                goodMult = 1.2f,
+                perfectMult = 1.5f,
                 reloadDelay = 0.4f,
                 reloadEndDelay = 0.6f,
                 perfectStart = 0.25f,
@@ -468,7 +470,7 @@
             var charge = SniperScopeSkillDef.Create<DefaultScope>( new ZoomParams(shoulderStart: 1f, shoulderEnd: 5f,
                                                                                                              scopeStart: 3f, scopeEnd: 8f,
                                                                                                              shoulderFrac: 0.25f, defaultZoom: 0f,
-                                                                                                             inputScale: 0.03f, baseFoV: 60f) ); // TODO: Verify and adjust zoom params
+                                                                                                             inputScale: 0.03f, baseFoV: 60f) );
             charge.baseMaxStock = 1;
             charge.baseRechargeInterval = 10f;
             charge.icon = UIModule.GetSteadyAimIcon();
@@ -491,7 +493,7 @@
             var quick = SniperScopeSkillDef.Create<QuickScope>( new ZoomParams(shoulderStart: 1f, shoulderEnd: 5f,
                                                                                                              scopeStart: 3f, scopeEnd: 8f,
                                                                                                              shoulderFrac: 0.25f, defaultZoom: 0f,
-                                                                                                             inputScale: 0.03f, baseFoV: 60f) ); // TODO: Verify and adjust Zoom params
+                                                                                                             inputScale: 0.03f, baseFoV: 60f) );
             quick.baseMaxStock = 4;
             quick.baseRechargeInterval = 5f;
             quick.icon = UIModule.GetQuickScopeIcon();

@@ -8,10 +8,6 @@
     {
         internal override String targetStateMachineName { get; } = null;
 
-        // TODO: Implement DecoySkillData
-
-
-
         internal override Boolean IsDataInitialized()
         {
             return true;

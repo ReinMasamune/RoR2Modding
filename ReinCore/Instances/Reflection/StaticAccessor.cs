@@ -4,16 +4,9 @@
     using System.Linq.Expressions;
     using System.Reflection;
 
-    /// <summary>
-    /// 
-    /// </summary>
+    [Obsolete( "unneeded", true )]
     public class StaticAccessor<TValue>
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="type"></param>
-        /// <param name="name"></param>
         public StaticAccessor( Type type, String name )
         {
             ParameterExpression valueParam = Expression.Parameter( typeof(TValue), "value" );

@@ -30,16 +30,16 @@
         {
             decoyMaster = DecoyModule.GetDecoyMaster();
 
-            var flags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
+            //var flags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
 
-            var dmd1 = new DynamicMethodDefinition( "base_Start<<<SniperCharacterBody", null, new[] { typeof(CharacterBody) } );
-            var proc1 = dmd1.GetILProcessor();
-            proc1.Emit( OpCodes.Jmp, typeof( CharacterBody ).GetMethod( "Start", flags ) );
-            base_Start = (Action<CharacterBody>)dmd1.Generate().CreateDelegate<Action<CharacterBody>>();
+            //var dmd1 = new DynamicMethodDefinition( "base_Start<<<SniperCharacterBody", null, new[] { typeof(CharacterBody) } );
+            //var proc1 = dmd1.GetILProcessor();
+            //proc1.Emit( OpCodes.Jmp, typeof( CharacterBody ).GetMethod( "Start", flags ) );
+            //base_Start = (Action<CharacterBody>)dmd1.Generate().CreateDelegate<Action<CharacterBody>>();
         }
-        private static Action<CharacterBody> base_Start;
-        private static Action<CharacterBody> base_Awake;
-        private static Action<CharacterBody> base_Update;
+        //private static Action<CharacterBody> base_Start;
+        //private static Action<CharacterBody> base_Awake;
+        //private static Action<CharacterBody> base_Update;
 
 
         private Coroutine startReloadRoutine;
@@ -58,9 +58,8 @@
         private Coroutine stopReloadRoutine;
         internal void StopReload( SkillDefs.SniperReloadableFireSkillDef.SniperPrimaryInstanceData data )
         {
-
             this.isReloading = false;
-            this.stopReloadRoutine = base.StartCoroutine( this.ReloadStopDelay( this.curReloadParams.reloadEndDelay / base.attackSpeed, data ) );
+            this.stopReloadRoutine = base.StartCoroutine( this.ReloadStopDelay( (this.curReloadParams.reloadEndDelay / base.attackSpeed) + this.curReloadParams.GetFlatDelay(this.reloadTimer, base.attackSpeed), data ) );
         }
 
         internal void ForceStopReload()
@@ -73,8 +72,6 @@
 
         internal Boolean CanReload()
         {
-            //Log.WarningT( "Body" );
-
             return this.isReloading;
         }
 
@@ -95,9 +92,9 @@
             data.isReloading = false;
         }
 
-        protected void Start()
+        protected new void Start()
         {
-            base_Start(this);
+            base.Start();
             ( this.skillLocator.primary.skillInstanceData as SniperReloadableFireSkillDef.SniperPrimaryInstanceData )?.StartReload();
         }
 
@@ -330,7 +327,7 @@
 
         private static void DecoySummonPreSetup( CharacterMaster master )
         {
-            // TODO: Implement, most likely needs to adjust and apply loadout? May need to specifically capture a loadout instance for this.
+            // I suppose this is not needed? interesting
         }
     }
 }

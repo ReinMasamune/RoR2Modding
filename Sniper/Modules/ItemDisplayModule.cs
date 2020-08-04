@@ -19,7 +19,7 @@
 
 
         private static ItemDisplayRuleSet CreateSniperItemDisplay() =>
-            // TODO: Create Sniper item display ruleset
+            // FUTURE: Create Sniper item display ruleset
             null;
     }
 }

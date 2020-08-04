@@ -2,8 +2,9 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyVersion>1.0.1.74</AssemblyVersion>
-    <FileVersion>1.0.1.74</FileVersion>
+    <AssemblyVersion>1.1.3.18</AssemblyVersion>
+    <FileVersion>1.1.3.18</FileVersion>
+	<LangVersion>Preview</LangVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -22,6 +23,12 @@
     <RootNamespace>Rein</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+	<_Parameter1>ClassLibrary1.Tests</_Parameter1>
+	</AssemblyAttribute>
+  </ItemGroup>
+	
   <ItemGroup>
     <None Remove="ReinCore.xml" />
   </ItemGroup>
@@ -149,10 +156,6 @@
     </Reference>
     <Reference Include="Unity.RenderPipelines.Core.ShaderLibrary">
       <HintPath>..\libs\Unity\Unity.RenderPipelines.Core.ShaderLibrary.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-    <Reference Include="Unity.TextMeshPro">
-      <HintPath>..\libs\Unity\Unity.TextMeshPro.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="UnityEngine">

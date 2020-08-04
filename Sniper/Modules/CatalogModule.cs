@@ -117,7 +117,7 @@
 
         private static void BuffsCore_getAdditionalEntries( System.Collections.Generic.List<BuffDef> buffList )
         {
-            // TODO: Add custom debuff for plasma dot
+            // FUTURE: Add custom debuff for plasma dot
             buffList.Add( new BuffDef
             {
                 buffColor = new Color( 0.5f, 1f, 0.6f, 1f ),

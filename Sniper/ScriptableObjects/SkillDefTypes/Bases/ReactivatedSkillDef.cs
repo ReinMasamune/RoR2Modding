@@ -65,7 +65,7 @@
             var data = skillSlot.skillInstanceData as ReactivationInstanceData;
             return data.waitingOnReactivation ? data.IsReady() : base.IsReady( skillSlot );
         }
-        protected sealed override EntityState InstantiateNextState( GenericSkill skillSlot )
+        public sealed override EntityState InstantiateNextState( GenericSkill skillSlot )
         {
 
             var data = skillSlot.skillInstanceData as ReactivationInstanceData;

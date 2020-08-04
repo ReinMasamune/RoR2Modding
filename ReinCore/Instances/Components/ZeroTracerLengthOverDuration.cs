@@ -20,6 +20,6 @@
         private Single startLength;
         private void Awake() => this.startLength = this.tracer.length;
 
-        private void Update() => this.tracer.length = Mathf.Lerp( this.startLength, 0f, this.tracer._GetDistanceTraveled() / this.tracer._GetTotalDistance() );
+        private void Update() => this.tracer.length = Mathf.Lerp( this.startLength, 0f, this.tracer.distanceTraveled/ this.tracer.totalDistance );
     }
 }

@@ -15,11 +15,11 @@
 
     public static class SkillsCore
     {
-
         public static Boolean loaded { get; internal set; } = false;
 
         public static void AddSkill( Type type )
         {
+            Log.Counter();
             if( !loaded )
             {
                 throw new CoreNotLoadedException( nameof( SkillsCore ) );
@@ -45,9 +45,9 @@
                 return;
             }
 
-            Type[] idToState = stateIndexToType.Get();
-            String[] idToName = stateIndexToTypeName.Get();
-            Dictionary<Type, Int16> stateToId = stateTypeToIndex.Get();
+            Type[] idToState = StateIndexTable.stateIndexToType;//.Get();
+            String[] idToName = StateIndexTable.stateIndexToTypeName;//.Get();
+            Dictionary<Type, Int16> stateToId = StateIndexTable.stateTypeToIndex;//.Get();
 
             Int32 ind = idToState.Length;
             Array.Resize<Type>( ref idToState, ind + 1 );
@@ -56,20 +56,23 @@
             idToName[ind] = type.AssemblyQualifiedName;
             stateToId[type] = (Int16)ind;
 
-            stateIndexToType.Set( idToState );
-            stateIndexToTypeName.Set( idToName );
+            StateIndexTable.stateIndexToType = idToState;
+            StateIndexTable.stateIndexToTypeName = idToName;
 
             _ = addedSkillTypes.Add( type );
+            Log.Counter();
         }
 
         public static void AddSkill<TState>()
             where TState : EntityState, new()
         {
-
+            Log.Counter();
+            Log.Counter();
         }
 
         public static void AddSkillDef( SkillDef skillDef )
         {
+            Log.Counter();
             if( !loaded )
             {
                 throw new CoreNotLoadedException( nameof( SkillsCore ) );
@@ -87,10 +90,12 @@
 
             SkillCatalog.getAdditionalSkillDefs += ( list ) => list.Add( skillDef );
             _ = addedSkillDefs.Add( skillDef );
+            Log.Counter();
         }
 
         public static void AddSkillFamily( SkillFamily skillFamily )
         {
+            Log.Counter();
             if( !loaded )
             {
                 throw new CoreNotLoadedException( nameof( SkillsCore ) );
@@ -108,20 +113,27 @@
 
             SkillCatalog.getAdditionalSkillFamilies += ( list ) => list.Add( skillFamily );
             _ = addedSkillFamilies.Add( skillFamily );
+            Log.Counter();
         }
 
         public static SerializableEntityStateType StateType<TState>( Boolean register = true ) where TState : EntityState
         {
+            Log.Counter();
             if( register )
             {
                 AddSkill( typeof( TState ) );
             }
-
-            return new SerializableEntityStateType( typeof( TState ) );
+            //var res = new SerializableEntityStateType();
+            //res._typeName = 
+            var res = new SerializableEntityStateType( typeof( TState ) );
+            Log.Counter();
+            return res;
         }
 
         public static SkillFamily CreateSkillFamily( SkillDef defaultSkill, params (SkillDef skill, String unlockable)[] variants )
         {
+            Log.Counter();
+
             SkillFamily family = ScriptableObject.CreateInstance<SkillFamily>();
             family.variants = new SkillFamily.Variant[variants.Length + 1];
             family.variants[0] = new SkillFamily.Variant
@@ -146,62 +158,84 @@
             }
 
             AddSkillFamily( family );
+            Log.Counter();
+
             return family;
         }
 
-        /// <summary>
-        /// Accessor for GenericSkill.SkillFamily
-        /// </summary>
-        public static Accessor<GenericSkill, SkillFamily> skillFamily { get; } = new Accessor<GenericSkill, SkillFamily>( "_skillFamily" );
+        [Obsolete( "unneeded", true )]
+        public static SkillFamily GetSkillFamily( this GenericSkill skill ) => skill._skillFamily;
 
-
-        public static SkillFamily GetSkillFamily( this GenericSkill skill )
-        {
-            if( skill == null )
-            {
-                throw new ArgumentNullException( nameof( skill ) );
-            }
-
-            return skillFamily.Get( skill );
-        }
-
-        public static void SetSkillFamily( this GenericSkill skill, SkillFamily family ) => skillFamily.Set( skill, family );
+        [Obsolete( "unneeded", true )]
+        public static void SetSkillFamily( this GenericSkill skill, SkillFamily family ) => skill._skillFamily = family;// => skillFamily.Set( skill, family );
 
 
         static SkillsCore()
         {
-            ror2Assembly = typeof( EntityState ).Assembly;
-            Type stateTableType = typeof(StateIndexTable);
-            stateIndexToType = new StaticAccessor<Type[]>( stateTableType, "stateIndexToType" );
-            stateIndexToTypeName = new StaticAccessor<String[]>( stateTableType, "stateIndexToTypeName" );
-            stateTypeToIndex = new StaticAccessor<Dictionary<Type, Int16>>( stateTableType, "stateTypeToIndex" );
+            Log.Warning( "SkillsCore loaded" );
+            //ror2Assembly = typeof( EntityState ).Assembly;
+            //Type stateTableType = typeof(StateIndexTable);
+            //stateIndexToType = new StaticAccessor<Type[]>( stateTableType, "stateIndexToType" );
+            //stateIndexToTypeName = new StaticAccessor<String[]>( stateTableType, "stateIndexToTypeName" );
+            //stateTypeToIndex = new StaticAccessor<Dictionary<Type, Int16>>( stateTableType, "stateTypeToIndex" );
 
             Type type = typeof(SerializableEntityStateType);
             HookConfig cfg = default;
             cfg.Priority = Int32.MinValue;
-            set_stateTypeHook = new Hook( type.GetMethod( "set_stateType", allFlags ), set_stateType, cfg );
-            set_typeNameHook = new Hook( type.GetMethod( "set_typeName", allFlags ), set_typeName, cfg );
+            set_stateTypeHook = new Hook( type.GetMethod( "set_stateType", allFlags ), new set_stateTypeDelegate(SetStateTypeHook), cfg );
+            set_typeNameHook = new Hook( type.GetMethod( "set_typeName", allFlags ), new set_typeNameDelegate(SetTypeName), cfg );
+            Log.Warning( "SkillsCore loaded" );
             loaded = true;
         }
         private static readonly Assembly ror2Assembly;
         private static readonly HashSet<Type> addedSkillTypes = new HashSet<Type>();
         private static readonly HashSet<SkillDef> addedSkillDefs = new HashSet<SkillDef>();
         private static readonly HashSet<SkillFamily> addedSkillFamilies = new HashSet<SkillFamily>();
-        private static readonly StructAccessor<SerializableEntityStateType,String> typeName = new StructAccessor<SerializableEntityStateType, String>( "_typeName" );
-        private static readonly StaticAccessor<Type[]> stateIndexToType;
-        private static readonly StaticAccessor<String[]> stateIndexToTypeName;
-        private static readonly StaticAccessor<Dictionary<Type,Int16>> stateTypeToIndex;
+        //private static readonly StructAccessor<SerializableEntityStateType,String> typeName = new StructAccessor<SerializableEntityStateType, String>( "_typeName" );
+        //private static readonly StaticAccessor<Type[]> stateIndexToType;
+        //private static readonly StaticAccessor<String[]> stateIndexToTypeName;
+        //private static readonly StaticAccessor<Dictionary<Type,Int16>> stateTypeToIndex;
         private static readonly BindingFlags allFlags = BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic;
         private static readonly Dictionary<String,Int16> nameToIndexCache = new Dictionary<String, Int16>();
         private static readonly Hook set_stateTypeHook;
         private static readonly Hook set_typeNameHook;
-#pragma warning disable IDE1006 // Naming Styles
         private delegate void set_stateTypeDelegate( ref SerializableEntityStateType self, Type value );
-#pragma warning restore IDE1006 // Naming Styles
-#pragma warning disable IDE1006 // Naming Styles
         private delegate void set_typeNameDelegate( ref SerializableEntityStateType self, String value );
-#pragma warning restore IDE1006 // Naming Styles
 
+
+        private static void SetStateTypeHook( ref this SerializableEntityStateType self, Type value )
+        {
+            Log.Counter();
+            if( value == null )
+            {
+                Log.Error( "Tried to set SerializableEntityStateType with a null type" );
+                Log.Counter();
+                return;
+            }
+            Dictionary<Type, Int16> typeToId = StateIndexTable.stateTypeToIndex;//.Get();
+            if( !typeToId.ContainsKey( value ) )
+            {
+                String name = value.AssemblyQualifiedName;
+                if( value.IsSubclassOf( typeof( EntityState ) ) )
+                {
+                    Log.Warning( String.Format( "Unregistered type:\n{0}\nfound in SerializableEntityStateType, performing registration now.", name ) );
+                    AddSkill( value );
+                    if( !typeToId.ContainsKey( value ) )
+                    {
+                        Log.Error( String.Format( "Unable to register type:\n{0}", name ) );
+                        Log.Counter();
+                        return;
+                    }
+                } else
+                {
+                    Log.Error( String.Format( "Tried to create SerializableEntityStateType for invalid type:\n{0}", name ) );
+                    Log.Counter();
+                    return;
+                }
+            }
+            self._typeName = StateIndexTable.stateIndexToTypeName[typeToId[value]];
+            Log.Counter();
+        }
 
         private static readonly set_stateTypeDelegate set_stateType = new set_stateTypeDelegate( (ref SerializableEntityStateType self, Type value ) =>
         {
@@ -210,7 +244,7 @@
                 Log.Error( "Tried to set SerializableEntityStateType with a null type" );
                 return;
             }
-            Dictionary<Type, Int16> typeToId = stateTypeToIndex.Get();
+            Dictionary<Type, Int16> typeToId = StateIndexTable.stateTypeToIndex;//.Get();
             if( !typeToId.ContainsKey( value ) )
             {
                 String name = value.AssemblyQualifiedName;
@@ -229,20 +263,30 @@
                     return;
                 }
             }
-            typeName.Set( ref self, stateIndexToTypeName.Get()[typeToId[value]] );
+            self.typeName = StateIndexTable.stateIndexToTypeName[typeToId[value]];
         });
+
+        private static void SetTypeName( ref this SerializableEntityStateType self, String value )
+        {
+            Type t = GetTypeFromName( value );
+            if( t != null )
+            {
+                self.SetStateTypeHook( t );
+            }
+        }
+
         private static readonly set_typeNameDelegate set_typeName = new set_typeNameDelegate( (ref SerializableEntityStateType self, String value ) =>
         {
             Type t = GetTypeFromName( value );
             if( t != null )
             {
-                set_stateType( ref self, t );
+                self.SetStateTypeHook( t );
             }
         });
 
         private static Type GetTypeFromName( String name )
         {
-            Type[] types = stateIndexToType.Get();
+            Type[] types = StateIndexTable.stateIndexToType;
             if( nameToIndexCache.ContainsKey( name ) )
             {
                 return types[nameToIndexCache[name]];
@@ -263,7 +307,7 @@
 
         private static void RebuildNameToIndexCache()
         {
-            String[] names = stateIndexToTypeName.Get();
+            String[] names = StateIndexTable.stateIndexToTypeName;
             for( Int16 i = 0; i < names.Length; ++i )
             {
                 nameToIndexCache[names[i]] = i;

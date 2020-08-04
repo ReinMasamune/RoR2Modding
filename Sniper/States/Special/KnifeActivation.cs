@@ -58,7 +58,7 @@
             {
                 base.data.knifeRenderer = this.knifeRenderer;
             }
-            // TODO: Knife throw sound
+            // FUTURE: Knife throw sound
         }
 
         public override void FixedUpdate()

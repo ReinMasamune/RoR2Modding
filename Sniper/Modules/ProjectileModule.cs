@@ -40,11 +40,11 @@
             ProjectileController projControl = obj.AddOrGetComponent<ProjectileController>();
             projControl.allowPrediction = false;
             projControl.catalogIndex = -1;
-            projControl.ghostPrefab = null; // TODO: Knife projectile ghost
+            projControl.ghostPrefab = null; // FUTURE: Knife projectile ghost
             projControl.ghostTransformAnchor = null;
             projControl.owner = null;
             projControl.procCoefficient = 1f;
-            projControl.startSound = null; // TODO: Knife start sound
+            projControl.startSound = null; // FUTURE: Knife start sound
 
 
             Rigidbody rb = obj.AddOrGetComponent<Rigidbody>();
@@ -73,9 +73,9 @@
             ProjectileSingleTargetImpact projImpact = obj.AddOrGetComponent<ProjectileSingleTargetImpact>();
             projImpact.destroyOnWorld = false;
             projImpact.destroyWhenNotAlive = false;
-            projImpact.enemyHitSoundString = null; // TODO: Knife hit sound
-            projImpact.hitSoundString = null; // TODO: Knife world hit sound
-            projImpact.impactEffect = null; // TODO: Knife impact effect
+            projImpact.enemyHitSoundString = null; // FUTURE: Knife hit sound
+            projImpact.hitSoundString = null; // FUTURE: Knife world hit sound
+            projImpact.impactEffect = null; // FUTURE: Knife impact effect
 
 
             ProjectileSimple projSimple = obj.AddOrGetComponent<ProjectileSimple>();

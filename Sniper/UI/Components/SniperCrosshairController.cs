@@ -143,9 +143,9 @@
 
 
 
-        protected void Awake()
+        protected new void Awake()
         {
-            base_Awake( this );
+            base.Awake();
             this.hudElem = base_hudElement( this );
             if( this.hudElem == null )
             {
@@ -157,7 +157,7 @@
 
         protected void Start()
         {
-            // TODO: In prefab set these to enabled
+            // CLEANUP: In prefab set these to enabled
             this.partialScope.gameObject.SetActive( true );
             this.fullScope.gameObject.SetActive( true );
             this.body = this.hudElem.targetCharacterBody as SniperCharacterBody;

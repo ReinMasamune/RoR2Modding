@@ -10,28 +10,11 @@
     using UnityEngine;
     using UnityEngine.Networking;
 
-    // TODO: Docs for PrefabsCore
 
-    /// <summary>
-    /// 
-    /// </summary>
     public static class PrefabsCore
     {
-        /// <summary>
-        /// 
-        /// </summary>
         public static Boolean loaded { get; internal set; } = false;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="orginal"></param>
-        /// <param name="name"></param>
-        /// <param name="registerNetwork"></param>
-        /// <param name="file"></param>
-        /// <param name="member"></param>
-        /// <param name="line"></param>
-        /// <returns></returns>
         public static GameObject ClonePrefab( this GameObject orginal, String name, Boolean registerNetwork, [CallerFilePath] String file = "", [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 )
         {
             if( parent == null || loaded == false )
@@ -54,15 +37,6 @@
             return obj;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="name"></param>
-        /// <param name="registerNetwork"></param>
-        /// <param name="file"></param>
-        /// <param name="member"></param>
-        /// <param name="line"></param>
-        /// <returns></returns>
         public static GameObject CreatePrefab( String name, Boolean registerNetwork, [CallerFilePath] String file = "", [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 )
         {
             if( parent == null || loaded == false )
@@ -82,15 +56,6 @@
             return obj;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="name"></param>
-        /// <param name="registerNetwork"></param>
-        /// <param name="file"></param>
-        /// <param name="member"></param>
-        /// <param name="line"></param>
-        /// <returns></returns>
         public static GameObject CreateUIPrefab( String name, Boolean registerNetwork, [CallerFilePath] String file = "", [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 )
         {
             if( parent == null || loaded == false )
@@ -110,13 +75,6 @@
             return obj;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="prefab"></param>
-        /// <param name="file"></param>
-        /// <param name="member"></param>
-        /// <param name="line"></param>
         public static void RegisterNetwork( this GameObject prefab, [CallerFilePath] String file = "", [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 )
         {
             if( parent == null || loaded == false )
@@ -134,6 +92,7 @@
 
         static PrefabsCore()
         {
+            Log.Warning( "PrefabsCore loaded" );
             parent = new GameObject( "ModdedPrefabs" );
             parent.SetActive( false );
             UnityEngine.Object.DontDestroyOnLoad( parent );
@@ -147,7 +106,7 @@
 
             RoR2.Networking.GameNetworkManager.onStartGlobal += GameNetworkManager_onStartGlobal;
             HooksCore.RoR2.Util.IsPrefab.On += IsPrefab_On;
-
+            Log.Warning( "PrefabsCore loaded" );
             loaded = true;
         }
 

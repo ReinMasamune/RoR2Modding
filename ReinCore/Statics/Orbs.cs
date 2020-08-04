@@ -5,31 +5,29 @@
 
     using RoR2.Orbs;
 
-    /// <summary>
-    /// 
-    /// </summary>
+
     public static class OrbsCore
     {
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+
         public static Boolean loaded { get; internal set; } = false;
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+
         public static event Action<List<Type>> getAdditionalOrbs;
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+
 
 
 
         static OrbsCore()
         {
+            Log.Warning( "OrbsCore loaded" );
             HooksCore.RoR2.Orbs.OrbCatalog.GenerateCatalog.On += GenerateCatalog_On;
-
+            Log.Warning( "OrbsCore loaded" );
             loaded = true;
         }
 
 
 
-        private static readonly StaticAccessor<Type[]> indexToType = new StaticAccessor<Type[]>( typeof(OrbCatalog), "indexToType" );
-        private static readonly StaticAccessor<Dictionary<Type,Int32>> typeToIndex = new StaticAccessor<Dictionary<Type, Int32>>( typeof(OrbCatalog), "typeToIndex" );
+        //private static readonly StaticAccessor<Type[]> indexToType = new StaticAccessor<Type[]>( typeof(OrbCatalog), "indexToType" );
+        //private static readonly StaticAccessor<Dictionary<Type,Int32>> typeToIndex = new StaticAccessor<Dictionary<Type, Int32>>( typeof(OrbCatalog), "typeToIndex" );
 
         private static void GenerateCatalog_On( HooksCore.RoR2.Orbs.OrbCatalog.GenerateCatalog.Orig orig )
         {
@@ -48,8 +46,8 @@
                 return;
             }
 
-            Type[] orbs = indexToType.Get();
-            Dictionary<Type, Int32> lookup = typeToIndex.Get();
+            Type[] orbs = OrbCatalog.indexToType;
+            Dictionary<Type, Int32> lookup = OrbCatalog.typeToIndex;//.Get();
             Int32 start = orbs.Length;
             Int32 newTotal = start + extra;
             Array.Resize<Type>( ref orbs, newTotal );
@@ -58,7 +56,7 @@
                 orbs[i] = list[i - start];
                 lookup[list[i - start]] = i;
             }
-            indexToType.Set( orbs );
+            OrbCatalog.indexToType = orbs;
         }
     }
 }

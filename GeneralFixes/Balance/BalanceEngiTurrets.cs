@@ -41,8 +41,8 @@
             this.walkerFamily = this.walkerPrimary.skillFamily;
             this.defaultFamily = this.defaultPrimary.skillFamily;
 
-            this.walkerPrimary.SetSkillFamily( this.defaultFamily );
-            this.defaultPrimary.SetSkillFamily( this.walkerFamily );
+            this.walkerPrimary._skillFamily = this.defaultFamily;
+            this.defaultPrimary._skillFamily = this.walkerFamily;
 
         }
     }

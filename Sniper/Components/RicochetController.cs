@@ -28,7 +28,10 @@
         }
         private static EffectIndex _ricochetIndex = EffectIndex.Invalid;
 
-        internal static void QueueRicochet( ExpandableBulletAttack bullet, UInt32 delay ) => instance?.StartCoroutine( instance.Ricochet( bullet, delay ) );
+        internal static void QueueRicochet( ExpandableBulletAttack<RicochetData> bullet, UInt32 delay )
+        {
+            instance?.StartCoroutine( instance.Ricochet( bullet, delay ) );
+        }
 
         private static RicochetController instance
         {
@@ -43,7 +46,7 @@
         }
         private static RicochetController _instance;
 
-        private IEnumerator Ricochet( ExpandableBulletAttack bullet, UInt32 frameDelay )
+        private IEnumerator Ricochet( ExpandableBulletAttack<RicochetData> bullet, UInt32 frameDelay )
         {
             for( UInt32 i = 0u; i < frameDelay; ++i )
             {

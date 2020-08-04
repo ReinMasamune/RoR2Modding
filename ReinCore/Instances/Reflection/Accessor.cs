@@ -10,6 +10,7 @@
     /// </summary>
     /// <typeparam name="TInstance">The type of the instance you are accessing a field of</typeparam>
     /// <typeparam name="TValue">The type of the member you are accessing</typeparam>
+    [Obsolete("unneeded",true)]
     public class Accessor<TInstance, TValue> where TInstance : class
     {
         /// <summary>

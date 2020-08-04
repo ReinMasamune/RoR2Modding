@@ -60,7 +60,7 @@
 
         public sealed override BaseSkillInstanceData OnAssigned( GenericSkill skillSlot ) => new ScopeInstanceData( this, skillSlot );
 
-        protected sealed override EntityState InstantiateNextState( GenericSkill skillSlot )
+        public sealed override EntityState InstantiateNextState( GenericSkill skillSlot )
         {
             var data = skillSlot.skillInstanceData as ScopeInstanceData;
             var state = base.InstantiateNextState( skillSlot ) as ScopeBaseState;
@@ -142,7 +142,6 @@
 
             internal void StateCreated( ScopeBaseState stateInstance )
             {
-                // TODO: Config for zoom resetting on scope start
                 this.zoom = this.zoomParams.defaultZoom;
                 stateInstance.instanceData = this;
             }

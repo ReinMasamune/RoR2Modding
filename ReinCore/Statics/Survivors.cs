@@ -9,23 +9,24 @@
 
         static SurvivorsCore()
         {
+            Log.Warning( "SurvivorsCore loaded" );
             HooksCore.RoR2.SurvivorCatalog.Init.On += Init_On;
             vanillaSurvivorsCount = SurvivorCatalog.idealSurvivorOrder.Length;
             vanillaSurvivorsCount2 = SurvivorCatalog.survivorMaxCount;
-
+            Log.Warning( "SurvivorsCore loaded" );
             loaded = true;
         }
 
         private static readonly Int32 vanillaSurvivorsCount;
         private static readonly Int32 vanillaSurvivorsCount2;
-        private static readonly StaticAccessor<SurvivorDef[]> survivorDefs = new StaticAccessor<SurvivorDef[]>( typeof(SurvivorCatalog), "survivorDefs" );
+        //private static readonly StaticAccessor<SurvivorDef[]> survivorDefs = new StaticAccessor<SurvivorDef[]>( typeof(SurvivorCatalog), "survivorDefs" );
 
         private static void Init_On( HooksCore.RoR2.SurvivorCatalog.Init.Orig orig )
         {
             orig();
             if( !loaded ) return;
 
-            SurvivorDef[] defs = survivorDefs.Get();
+            SurvivorDef[] defs = SurvivorCatalog.survivorDefs;
 
             if( vanillaSurvivorsCount <= defs.Length )
             {

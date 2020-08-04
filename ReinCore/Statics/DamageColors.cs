@@ -17,7 +17,7 @@
                 throw new CoreNotLoadedException( nameof( DamageColorsCore ) );
             }
 
-            Color[] colors = damageColors.Get();
+            Color[] colors = DamageColor.colors;//damageColors.Get();
             Int32 ind = colors.Length;
             if( colors.Length >= 255 )
             {
@@ -26,19 +26,22 @@
 
             Array.Resize<Color>( ref colors, ind + 1 );
             colors[ind] = color;
-            damageColors.Set( colors );
+            DamageColor.colors = colors;
+            //damageColors.Set( colors );
             curMax++;
             return (DamageColorIndex)ind;
         }
 
         static DamageColorsCore()
         {
+            Log.Warning( "DamageColorsCore loaded" );
             fieldRef = typeof( DamageColorsCore ).GetField( nameof( curMax ), BindingFlags.NonPublic | BindingFlags.Static );
             HooksCore.RoR2.DamageColor.FindColor.Il += FindColor_Il;
+            Log.Warning( "DamageColorsCore loaded" );
             loaded = true;
         }
 
-        private static readonly StaticAccessor<Color[]> damageColors = new StaticAccessor<Color[]>( typeof(DamageColor), "colors" );
+        //private static readonly StaticAccessor<Color[]> damageColors = new StaticAccessor<Color[]>( typeof(DamageColor), "colors" );
         private static Int32 curMax = 8;
         private static readonly FieldInfo fieldRef;
 

@@ -6,6 +6,6 @@ namespace Sniper.Properties
 		/// <summary>
 		/// The version of the library
 		/// </summary>
-		public const String ver = "1.0.2.44";
+		public const String ver = "1.0.4.0";
 	}
 }

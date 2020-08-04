@@ -72,11 +72,13 @@
 
             ProjectileController projController = proj.GetComponent<ProjectileController>();
             projController.ghostPrefab = ghost;
+            projController.procCoefficient = 0.2f;
 
             ProjectileSimple projSimple = proj.GetComponent<ProjectileSimple>();
             projSimple.enabled = true;
             projSimple.enableVelocityOverLifetime = false;
             projSimple.velocity = 60f;
+            
 
             ProjectileDirectionalTargetFinder projTargetFind = proj.GetComponent<ProjectileDirectionalTargetFinder>();
             projTargetFind.enabled = false;
@@ -119,6 +121,7 @@
             projStimp.destroyOnWorld = false;
             projStimp.hitSoundString = "Play_item_proc_dagger_impact";
             projStimp.enemyHitSoundString = "Play_item_proc_dagger_impact";
+            
 
             proj.AddComponent<Components.SoundOnAwake>().sound = "Play_item_proc_dagger_spawn";
 

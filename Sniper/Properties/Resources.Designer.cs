@@ -358,7 +358,7 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Deals &lt;style=cIsDamage&gt;0.45x primary&lt;/style&gt; damage. &lt;style=cIsDamage&gt;Explodes&lt;/style&gt; on hit for &lt;style=cIsDamage&gt;0.45x primary&lt;/style&gt; damage to nearby enemies. &lt;style=cIsUtility&gt;Boosts increase the size of the explosion&lt;/style&gt;..
+        ///   Looks up a localized string similar to Deals &lt;style=cIsDamage&gt;0.8x primary&lt;/style&gt; damage. &lt;style=cIsDamage&gt;Explodes&lt;/style&gt; on hit for &lt;style=cIsDamage&gt;0.4x primary&lt;/style&gt; damage to nearby enemies. &lt;style=cIsUtility&gt;Boosts increase the size of the explosion&lt;/style&gt;..
         /// </summary>
         internal static string lang__SNIPER_AMMO_EXPLOSIVE_DESC {
             get {

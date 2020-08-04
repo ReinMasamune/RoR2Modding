@@ -10,12 +10,15 @@
     using Sniper.Components;
     using Sniper.Enums;
     using Sniper.Expansions;
+    using Sniper.Modules;
     using Sniper.SkillDefTypes.Bases;
 
     using UnityEngine;
 
     internal delegate ExpandableBulletAttack BulletCreationDelegate( SniperCharacterBody body, ReloadTier reload, Ray aim, String muzzleName );
     internal delegate void ChargeBulletModifierDelegate( ExpandableBulletAttack bullet );
+
+
     internal class SniperAmmoSkillDef : SniperSkillDef
     {
         internal static SniperAmmoSkillDef Create( BulletCreationDelegate createBullet, ChargeBulletModifierDelegate chargeMod = null )
@@ -53,13 +56,12 @@
             return def;
         }
 
-        [SerializeField]
-        internal Modules.SoundModule.FireType fireSoundType;
+
 
 
         private BulletCreationDelegate createBullet;
         private ChargeBulletModifierDelegate chargeModifier;
-
+        internal SoundModule.FireType fireSoundType;
 
         [MethodImpl( MethodImplOptions.AggressiveInlining )]
         internal ExpandableBulletAttack CreateBullet( SniperCharacterBody body, ReloadTier tier, Ray aim, String muzzleName )

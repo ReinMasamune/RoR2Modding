@@ -48,7 +48,7 @@
             {
                 if( duration < 0f )
                 {
-                    body._SetBuffCount( buff, stacks );
+                    body.SetBuffCount( buff, stacks );
                 } else
                 {
                     if( stacks < 0 )

@@ -97,9 +97,7 @@
 
                 c2
                     .MoveBeforeLabels()
-                    .EmitLoadArgument( 0 );
-
-                _ = c2
+                    .LdArg_(0)
                     .Emit( OpCodes.Ldfld, camParamsField )
                     .Emit( OpCodes.Isinst, typeof( SniperCameraParams ) )
                     .Emit( OpCodes.Brfalse_S, defLab )
@@ -126,17 +124,15 @@
 
                 c3
                     .MoveBeforeLabels()
-                    .EmitLoadArgument( 0 );
-                _ = c3
+                    .LdArg_( 0 )
                     .Emit( OpCodes.Ldfld, camParamsField )
                     .Emit( OpCodes.Isinst, typeof( SniperCameraParams ) )
                     .Emit( OpCodes.Brfalse_S, defLab )
                     .Emit( OpCodes.Ldarg_0 )
                     .Emit( OpCodes.Ldfld, camParamsField )
                     .Emit( OpCodes.Ldfld, camVertDamp )
-                    .Emit( OpCodes.Br_S, skipLab );
-
-                c3.Index++;
+                    .Emit( OpCodes.Br_S, skipLab )
+                    .Move( 1 );
             }
 
 
@@ -173,7 +169,7 @@
 			_ = c.Emit( OpCodes.Br_S, end );
 		}
 
-		// TODO: Refactor into Core for Hud edits
+		// FUTURE: Refactor into Core for Hud edits
 		private static void Start_On( HooksCore.RoR2.CameraRigController.Start.Orig orig, CameraRigController self )
 		{
 			orig( self );

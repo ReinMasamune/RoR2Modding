@@ -13,7 +13,6 @@
         {
             SkillFamily family = Resources.Load<GameObject>("Prefabs/CharacterBodies/CommandoBody").GetComponent<SkillLocator>().secondary.skillFamily;
             family.variants[0].skillDef.baseRechargeInterval = 2f;
-            //family.variants[1].skillDef.baseRechargeInterval = 3f;
 
         }
     }

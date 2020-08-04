@@ -7,19 +7,11 @@
 
     using UnityEngine;
 
-    // TODO: Docs for EffectsCore
-    /// <summary>
-    /// 
-    /// </summary>
     public static class EffectsCore
     {
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public static Boolean loaded { get; internal set; } = false;
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public static void AddEffect( GameObject effect )
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
         {
             if( !loaded )
             {
@@ -53,9 +45,7 @@
             } );
         }
 
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public static void AddEffect( EffectDef effect )
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
         {
             if( !loaded )
             {
@@ -79,8 +69,10 @@
 
         static EffectsCore()
         {
+            Log.Warning( "EffectsCore loaded" );
             HooksCore.RoR2.EffectCatalog.GetDefaultEffectDefs.On += GetDefaultEffectDefs_On;
 
+            Log.Warning( "EffectsCore loaded" );
             loaded = true;
         }
 

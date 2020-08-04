@@ -16,7 +16,7 @@
             set => this.rangefinder.distance = value;
         }
 
-        // TODO: Other stuff for the info panel
+        // FUTURE: Other stuff for the info panel
 
         private void OnValidate()
         {
