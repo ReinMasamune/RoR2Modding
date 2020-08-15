@@ -20,10 +20,10 @@
 
         static BuffsCore()
         {
-            Log.Warning( "BuffsCore loaded" );
+            //Log.Warning( "BuffsCore loaded" );
             HooksCore.RoR2.BuffCatalog.Init.Il += Init_Il;
             //RegisterBuff = (RegisterBuffDelegate)Delegate.CreateDelegate( typeof( RegisterBuffDelegate ), typeof( BuffCatalog ), "RegisterBuff" );
-            Log.Warning( "BuffsCore loaded" );
+            //Log.Warning( "BuffsCore loaded" );
             loaded = true;
         }
 

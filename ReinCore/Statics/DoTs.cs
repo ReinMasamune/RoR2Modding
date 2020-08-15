@@ -44,7 +44,7 @@
 
         static DoTsCore()
         {
-            Log.Warning( "DotsCore loaded" );
+            //Log.Warning( "DotsCore loaded" );
 
             BindingFlags allFlags = BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Static;
             Type controllerType = typeof(DotController);
@@ -122,7 +122,7 @@
             HooksCore.RoR2.DotController.Awake.Il += Awake_Il;
 
 
-            Log.Warning( "DotsCore loaded" );
+            //Log.Warning( "DotsCore loaded" );
             loaded = true;
         }
 

@@ -93,7 +93,7 @@
             body.baseMoveSpeed = 7f;
             body.levelMoveSpeed = 0f;
 
-            body.baseAcceleration = 80f;
+            body.baseAcceleration = 50f;
 
             body.baseJumpPower = 15f;
             body.levelJumpPower = 0f;
@@ -356,7 +356,7 @@
 
             CharacterModel charModel = model.AddOrGetComponent<CharacterModel>();
             charModel.body = body;
-            _ = model.AddOrGetComponent<ChildLocator>();
+            charModel.itemDisplayRuleSet = ItemDisplayModule.GetSniperItemDisplay(model.AddOrGetComponent<ChildLocator>());
 
 
             HurtBoxGroup hurtBoxGroup = model.AddOrGetComponent<HurtBoxGroup>();

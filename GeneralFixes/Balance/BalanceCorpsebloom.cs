@@ -37,27 +37,15 @@
             _ = c.EmitDelegate<Func<HealthComponent, Single>>( CorpseMaxHPCalc );
         }
 
-        private void Heal_Il( ILContext il )
-        {
-            var c = new ILCursor( il );
-            _ = c.GotoNext( MoveType.After,
-                x => x.MatchLdfld<HealthComponent>( "repeatHealComponent" ),
-                x => x.MatchLdcR4( 0.1f )
-            );
-            c.Index--;
-            _ = c.Remove();
-            _ = c.Emit( OpCodes.Ldc_R4, 0.15f );
-            _ = c.GotoNext( MoveType.Before, x => x.MatchCallOrCallvirt<HealthComponent>( "get_fullHealth" ) );
-            _ = c.Remove();
-            _ = c.EmitDelegate<Func<HealthComponent, Single>>( CorpseMaxHPCalc );
-            _ = c.Emit( OpCodes.Ldarg_0 );
-            _ = c.Emit<HealthComponent>( OpCodes.Ldfld, "repeatHealCount" );
-            _ = c.Emit( OpCodes.Conv_R4 );
-            _ = c.Emit( OpCodes.Ldc_R4, 2f );
-            _ = c.Emit( OpCodes.Mul );
-            _ = c.Emit( OpCodes.Mul );
-        }
+        private void Heal_Il(ILContext il) => new ILCursor(il)
+            .GotoNext(MoveType.After, x => x.MatchLdfld<HealthComponent>("repeatHealComponent"))
+            .GotoNext(MoveType.AfterLabel, x => x.MatchLdcR4(0.1f))
+            .Remove()
+            .LdC_(0.15f)
+            .GotoNext(MoveType.AfterLabel, x => x.MatchCallOrCallvirt<HealthComponent>("get_fullHealth"))
+            .Remove()
+            .CallDel_<Func<HealthComponent, Single>>(CorpseMaxHPCalc);
 
-        private static Single CorpseMaxHPCalc( HealthComponent hc ) => hc.fullHealth + ( hc.fullShield * 0.25f );
+        private static Single CorpseMaxHPCalc(HealthComponent hc) => hc.itemCounts.repeatHeal * 2f * (hc.fullHealth + ( hc.fullShield * 0.25f ));
     }
 }

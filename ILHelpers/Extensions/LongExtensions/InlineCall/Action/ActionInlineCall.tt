@@ -1,0 +1,40 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".cs" #>
+<#@ include file="$(t4inc)\options.ttinc" #>
+<#@ include file="$(t4inc)\general.ttinc" #>
+<#@ include file="$(t4inc)\specific.ttinc" #>
+<#
+const Byte start = 0;
+const Byte end = 4;
+
+WriteLine($"namespace {namespaceName}");
+WriteLine("{");
+IncIndent();
+WriteLine($"public static unsafe partial class {callInlineExtensionClassName}");
+WriteLine("{");
+IncIndent();
+for(Byte i = start; i <= end; i = (Byte)checked((Byte)i+(Byte)1u))
+{
+	var goal = TwoPower(i);
+	var range = ToEnumerable(RangeTo(false, i));
+	var baseGenArgs = range.Select(SelectBaseGenArg).ToArray();
+	var zipped = baseGenArgs.Zip(range, TupleZip );
+	for(UInt64 opt = 0ul; opt < goal; opt = checked(opt+1ul))
+	{
+		curOptions = opt;
+		var stackGenArgs = zipped.Select(SelectStackGenArg).ToArray();
+		var ptrGenArgs = zipped.Select(SelectPtrGenArg).ToArray();
+		String stackString = CreateStackType(stackGenArgs, "TStack");
+		String[] delArgs = zipped.Select(SelectDelArg).ToArray();
+		String[] emitArgs = zipped.Select(SelectEmitArg).Prepend("ICursor<Empty> cursor").ToArray();
+		String[] typeObjArgs = zipped.Select(SelectTypeObjArg).ToArray();
+
+		WriteInlineActionCall(baseGenArgs, stackGenArgs, ptrGenArgs, stackString);
+	}
+}
+FinishScope();
+#>

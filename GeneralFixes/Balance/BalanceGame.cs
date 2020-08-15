@@ -14,16 +14,16 @@
 
     internal partial class Main
     {
-        private static Single Difficulty( Int32 stages )
+        private static Single ScaleStageExpBase( int stage )
         {
-            const Single exponentialBase = 1.16f;
-            const Single scaleFactor = 0.003f;
-            const Single startingFrac = 0.975f;
+            const float expBase = 1.16f;
+            const float expScale = 0.0025f;
+            const float expStartMult = 0.975f;
 
-            const Single effectiveStartingFrac = exponentialBase * startingFrac;
-            const Single effectiveScaleFactor = exponentialBase * scaleFactor;
+            const float effStart = expBase * expStartMult;
+            const float effScale = expBase * expScale;
 
-            return  effectiveStartingFrac + (effectiveScaleFactor * stages);
+            return  effStart + (effScale * stage);
         }
 
         partial void BalanceGame()
@@ -42,7 +42,7 @@
             while( c.TryGotoNext( MoveType.AfterLabel, x => x.MatchLdcR4( 1.15f ) ) )
             {
                 c.Remove();
-                c.EmitDelegate<Func<Single>>( () => Run.instance.selectedDifficulty >= DifficultyIndex.Hard ? Difficulty(Run.instance.stageClearCount) : 1.15f );
+                c.EmitDelegate<Func<Single>>( () => Run.instance.selectedDifficulty >= DifficultyIndex.Hard ? ScaleStageExpBase(Run.instance.stageClearCount) : 1.15f );
             }
         }
     }

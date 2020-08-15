@@ -1,4 +1,4 @@
-﻿namespace ILHelper
+﻿namespace ILHelpers
 {
     using System;
     using System.Reflection;

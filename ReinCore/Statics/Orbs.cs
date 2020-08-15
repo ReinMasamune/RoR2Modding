@@ -18,9 +18,9 @@
 
         static OrbsCore()
         {
-            Log.Warning( "OrbsCore loaded" );
+            //Log.Warning( "OrbsCore loaded" );
             HooksCore.RoR2.Orbs.OrbCatalog.GenerateCatalog.On += GenerateCatalog_On;
-            Log.Warning( "OrbsCore loaded" );
+            //Log.Warning( "OrbsCore loaded" );
             loaded = true;
         }
 

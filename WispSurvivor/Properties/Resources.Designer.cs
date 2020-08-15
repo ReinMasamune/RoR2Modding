@@ -97,6 +97,15 @@ namespace Rein.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to And so it left, with dreams and tempered flames..
+        /// </summary>
+        internal static string lang__WISP_SURVIVOR_FLAVOR {
+            get {
+                return ResourceManager.GetString("lang__WISP_SURVIVOR_FLAVOR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;style=cIsUtility&gt;Flame Charge&lt;/style&gt; &lt;style=cIsDamage&gt;Empowers&lt;/style&gt; your abilities but decays over time.\nGain &lt;style=cIsDamage&gt;Barrier&lt;/style&gt; whenever you regain &lt;style=cIsUtility&gt;Flame Charge.&lt;/style&gt;.
         /// </summary>
         internal static string lang__WISP_SURVIVOR_PASSIVE_DESC {

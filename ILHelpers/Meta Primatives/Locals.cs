@@ -1,4 +1,4 @@
-﻿namespace ILHelper
+﻿namespace ILHelpers
 {
     using System;
     using System.Reflection;
@@ -12,10 +12,12 @@
     using Object = System.Object;
 
 
-    public readonly struct ILLocal<T> 
+    public class Local<T> 
     {
-        internal readonly UInt16 index;
-
-        internal ILLocal( UInt16 ind ) => this.index = ind;
+        internal readonly VariableDefinition variable;
+        internal Local(VariableDefinition variable)
+        {
+            this.variable = variable;
+        }
     }
 }

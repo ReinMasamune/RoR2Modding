@@ -1,31 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using BepInEx;
 using BepInEx.Logging;
+
+using ReinCore;
+
 using RoR2;
 using UnityEngine;
 
 namespace Rein.RogueWispPlugin
 {
+    
 #pragma warning disable CA2243 // Attribute string literals should parse correctly
-#if NETWORKING
-
-    //[BepInDependency( NetLib.NetLib.guid, BepInDependency.DependencyFlags.SoftDependency )]
-#endif
-    [BepInDependency( Rein.AssemblyLoad.guid, BepInDependency.DependencyFlags.HardDependency )]
+    [BepInDependency( Rein.Properties.AssemblyLoad.guid, BepInDependency.DependencyFlags.HardDependency )]
     [BepInPlugin( pluginGUID, pluginName, pluginVersion )]
 #pragma warning restore CA2243 // Attribute string literals should parse correctly
     internal partial class Main : BaseUnityPlugin
     {
         #region random vars
-        private const String pluginGUID = "com.Rein.RogueWisp";
+        const Int32 networkVersion = -1;
+        const Boolean useBuild = true;
+        const Boolean useRev = false;
+        private const String pluginGUID = "Rein.RogueWisp";
         private const String pluginName = "Rogue Wisp";
         private const String pluginVersion = Properties.Info.ver;
-        public String thing1;
-        public String thing2;
-        public String thing3;
         private readonly Boolean working;
         #endregion
         #region execution tracking stuff
@@ -149,15 +150,6 @@ namespace Rein.RogueWispPlugin
             instance = this;
             logSource = base.Logger;
             HashSet<String> submodules = new HashSet<String>();
-            //ReflectionOnlyAssemblyResolve
-            for( Int32 i = 0; i < this.plugins.Count; ++i )
-            {
-                var p = this.plugins[i];
-                if( p.Metadata.GUID == "com.bepis.r2api" )
-                {
-                }
-
-            }
 
             this.CreateAccessors();
             this.CreateCustomAccessors();
@@ -180,6 +172,7 @@ namespace Rein.RogueWispPlugin
                 this.FirstFrame += this.StartTimeStart;
 #endif
                 this.Tick += () => RoR2Application.isModded = true;
+                ReinCore.ReinCore.AddModHash(pluginGUID, Properties.Info.ver, useBuild, useRev, networkVersion);
 
 #if CROSSMODFUNCTIONALITY
                 this.CrossModFunctionality();

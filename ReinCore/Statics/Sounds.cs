@@ -74,13 +74,13 @@
 
         static SoundsCore()
         {
-            Log.Warning( "SoundsCore loaded" );
+            //Log.Warning( "SoundsCore loaded" );
             RoR2Application_onLoad += () => banksLoaded = true;
 
 
 
 
-            Log.Warning( "SoundsCore loaded" );
+            //Log.Warning( "SoundsCore loaded" );
             loaded = true;
         }
 

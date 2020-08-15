@@ -20,7 +20,7 @@
 
     internal class SniperReloadableFireSkillDef : SniperSkillDef
     {
-        internal static SniperReloadableFireSkillDef Create<TFire, TReload>( String fireStateMachineName, String reloadStateMachineName )
+        internal static SniperReloadableFireSkillDef Create<TFire, TReload>(String fireStateMachineName, String reloadStateMachineName)
             where TFire : SnipeBaseState
             where TReload : EntityState, ISniperReloadState
         {
@@ -55,15 +55,15 @@
         [SerializeField]
         internal ReloadParams reloadParams;
 
-        public sealed override BaseSkillInstanceData OnAssigned( GenericSkill skillSlot )
+        public sealed override BaseSkillInstanceData OnAssigned(GenericSkill skillSlot)
         {
             EntityStateMachine reloadTargetStatemachine = null;
 
             EntityStateMachine[] stateMachines = skillSlot.GetComponents<EntityStateMachine>();
-            for( Int32 i = 0; i < stateMachines.Length; ++i )
+            for(Int32 i = 0; i < stateMachines.Length; ++i)
             {
                 EntityStateMachine mach = stateMachines[i];
-                if( mach.customName == this.reloadStateMachineName )
+                if(mach.customName == this.reloadStateMachineName)
                 {
                     reloadTargetStatemachine = mach;
                 }
@@ -78,55 +78,55 @@
 
             skillSlot.stock = this.actualMaxStock;
 
-            return new SniperPrimaryInstanceData( this, reloadTargetStatemachine, this.reloadParams, skillSlot );
+            return new SniperPrimaryInstanceData(this, reloadTargetStatemachine, this.reloadParams, skillSlot);
         }
 
-        public sealed override Sprite GetCurrentIcon( GenericSkill skillSlot )
+        public sealed override Sprite GetCurrentIcon(GenericSkill skillSlot)
         {
             var data = skillSlot.skillInstanceData as SniperPrimaryInstanceData;
             return data.isReloading ? this.reloadIcon : base.icon;
         }
 
-        public sealed override Boolean CanExecute( GenericSkill skillSlot )
+        public sealed override Boolean CanExecute(GenericSkill skillSlot)
         {
             var data = skillSlot.skillInstanceData as SniperPrimaryInstanceData;
             EntityStateMachine mach = data.isReloading ? data.reloadStatemachine : skillSlot.stateMachine;
-            return this.IsReady( skillSlot ) &&
+            return this.IsReady(skillSlot) &&
                 mach &&
                 !mach.HasPendingState() &&
-                mach.CanInterruptState( data.isReloading ? this.reloadInterruptPriority : base.interruptPriority );
+                mach.CanInterruptState(data.isReloading ? this.reloadInterruptPriority : base.interruptPriority);
         }
 
-        public sealed override Boolean IsReady( GenericSkill skillSlot )
+        public sealed override Boolean IsReady(GenericSkill skillSlot)
         {
             var data = skillSlot.skillInstanceData as SniperPrimaryInstanceData;
             return data.isReloading ? data.CanReload() : data.CanShoot();
         }
 
-        public sealed override EntityState InstantiateNextState( GenericSkill skillSlot )
+        public sealed override EntityState InstantiateNextState(GenericSkill skillSlot)
         {
             var data = skillSlot.skillInstanceData as SniperPrimaryInstanceData;
             var state = EntityState.Instantiate(data.isReloading ? this.reloadActivationState : base.activationState);
-            if( state is BaseSkillState skillState )
+            if(state is BaseSkillState skillState)
             {
                 skillState.activatorSkillSlot = skillSlot;
             }
-            if( state is SnipeBaseState snipeState )
+            if(state is SnipeBaseState snipeState)
             {
                 snipeState.reloadParams = this.reloadParams;
             }
-            if( state is ISniperReloadState reloadState )
+            if(state is ISniperReloadState reloadState)
             {
                 reloadState.reloadTier = data.ReadReload();
             }
             return state;
         }
 
-        public sealed override void OnExecute( GenericSkill skillSlot )
+        public sealed override void OnExecute(GenericSkill skillSlot)
         {
             var data = skillSlot.skillInstanceData as SniperPrimaryInstanceData;
             EntityState state = this.InstantiateNextState(skillSlot);
-            if( data.isReloading )
+            if(data.isReloading)
             {
                 //var reloadState = state as ISniperReloadState;
             } else
@@ -137,25 +137,25 @@
 
             EntityStateMachine machine = data.isReloading ? data.reloadStatemachine : skillSlot.stateMachine;
 
-            if( machine.SetInterruptState( state, data.isReloading ? this.reloadInterruptPriority : base.interruptPriority ) )
+            if(machine.SetInterruptState(state, data.isReloading ? this.reloadInterruptPriority : base.interruptPriority))
             {
                 CharacterBody body = skillSlot.characterBody;
-                if( body )
+                if(body)
                 {
-                    if( base.noSprint )
+                    if(base.noSprint)
                     {
                         body.isSprinting = false;
                     }
-                    body.OnSkillActivated( skillSlot );
+                    body.OnSkillActivated(skillSlot);
                 }
-                if( data.isReloading )
+                if(data.isReloading)
                 {
                     data.StopReload();
                 } else
                 {
                     skillSlot.stock -= base.stockToConsume;
                     data.delayTimer = 0f;
-                    if( skillSlot.stock <= 0 )
+                    if(skillSlot.stock <= 0)
                     {
                         data.StartReload();
                     }
@@ -163,7 +163,7 @@
             }
         }
 
-        public sealed override void OnFixedUpdate( GenericSkill skillSlot )
+        public sealed override void OnFixedUpdate(GenericSkill skillSlot)
         {
             var data = skillSlot.skillInstanceData as SniperPrimaryInstanceData;
             data.delayTimer += Time.fixedDeltaTime * skillSlot.characterBody.attackSpeed;
@@ -175,9 +175,9 @@
             internal static event Action<ReloadTier> onReload;
 
 
-            internal SniperPrimaryInstanceData( 
+            internal SniperPrimaryInstanceData(
                 SniperReloadableFireSkillDef def,
-                EntityStateMachine reloadTargetStatemachine, 
+                EntityStateMachine reloadTargetStatemachine,
                 ReloadParams reloadParams,
                 GenericSkill skillSlot
             )
@@ -185,22 +185,22 @@
                 this.def = def;
                 this.reloadStatemachine = reloadTargetStatemachine;
                 this.reloadParams = reloadParams;
-                _ = ReloadUIController.GetReloadTexture( this.reloadParams );
+                _ = ReloadUIController.GetReloadTexture(this.reloadParams);
                 this.secondarySlot = this.reloadStatemachine.commonComponents.characterBody.skillLocator.secondary;
                 this.isReloading = true;
                 this.currentReloadTier = ReloadTier.Perfect;
                 this.skillSlot = skillSlot;
                 this.skillSlot.stock = this.def.stockToReload;
                 this.body = this.skillSlot.characterBody as SniperCharacterBody;
+                this.body.CheckIn(this);
             }
 
-            internal void ForceReload( ReloadTier tier )
+            internal void ForceReload(ReloadTier tier)
             {
-
                 this.currentReloadTier = tier;
-                SoundModule.PlayLoad( this.secondarySlot.gameObject, tier );
+                SoundModule.PlayLoad(this.secondarySlot.gameObject, tier);
                 this.isReloading = false;
-                this.skillSlot.stock = Mathf.Max( this.skillSlot.stock, Mathf.Min( this.skillSlot.stock + this.def.stockToReload, this.def.actualMaxStock ) );
+                this.skillSlot.stock = Mathf.Max(this.skillSlot.stock, Mathf.Min(this.skillSlot.stock + this.def.stockToReload, this.def.actualMaxStock));
                 this.body.ForceStopReload();
                 this.UpdateCrosshair();
             }
@@ -209,17 +209,17 @@
             {
 
                 this.isReloading = true;
-                this.body.StartReload( this.reloadParams );
+                this.body.StartReload(this.reloadParams);
                 this.UpdateCrosshair();
             }
             internal void StopReload()
             {
 
-                this.body.StopReload( this );
+                this.body.StopReload(this);
                 this.skillSlot.stock += this.def.stockToReload;
                 this.UpdateCrosshair();
 
-                onReload?.Invoke( this.body.ReadReload() );
+                onReload?.Invoke(this.body.ReadReload());
             }
 
             internal ReloadTier ReadReload()
@@ -243,7 +243,7 @@
             private SniperCrosshairController _crosshair;
             private void UpdateCrosshair()
             {
-                if( !this.crosshair || this.crosshair is null ) return;
+                if(!this.crosshair || this.crosshair is null) return;
                 this.crosshair.reloadMax = this.def.actualMaxStock;
                 this.crosshair.reloadCurrent = this.skillSlot.stock;
                 this.crosshair.reloadTier = this.currentReloadTier;

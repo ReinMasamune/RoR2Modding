@@ -14,60 +14,20 @@
 
     using Resources = Properties.Resources;
 
-    //internal class ExampleUnlockable : ModdedUnlockable<IAchievementSpriteProvider>
-    //{
-    //    public override String achievementIdentifier { get; } = "???";
-    //    public override String unlockableIdentifier { get; } = "???";
-    //    public override String prerequisiteUnlockableIdentifier { get; } = "???";
-    //    public override String achievementNameToken { get; } = "MYNAME_MYEXAMPLEMOD_EXAMPLEUNLOCKABLE_ACHIEVEMENT_NAME";
-    //    public override String achievementDescToken { get; } = "MYNAME_MYEXAMPLEMOD_EXAMPLEUNLOCKABLE_ACHIEVEMENT_DESC";
-    //    public override String unlockableNameToken { get; } = "MYNAME_MYEXAMPLEMOD_EXAMPLEUNLOCKABLE_UNLOCKABLE_NAME";
-    //    protected override IAchievementSpriteProvider spriteProvider { get; } = new VanillaSpriteProvider( "VANILLA PATH" );
+    internal class WIPUnlockable : ModdedUnlockable<VanillaSpriteProvider>
+    {
+        public override String achievementIdentifier => "REIN_SNIPER_WIP";
 
+        public override String unlockableIdentifier => "REIN_SNIPER_WIP";
 
-    //    public override void OnInstall()
-    //    {
-    //        base.OnInstall();
+        public override String prerequisiteUnlockableIdentifier => null;
 
-    //        //SniperReloadableFireSkillDef.SniperPrimaryInstanceData.onReload += this.YouDidIt;
-    //    }
+        public override String achievementNameToken => "TOOLTIP_WIP_CONTENT_NAME";
 
-    //    public override void OnUninstall()
-    //    {
-    //        base.OnUninstall();
+        public override String achievementDescToken => "TOOLTIP_WIP_CONTENT_DESCRIPTION";
 
-    //        //SniperReloadableFireSkillDef.SniperPrimaryInstanceData.onReload -= this.YouDidIt;
-    //    }
+        public override String unlockableNameToken => "TOOLTIP_WIP_CONTENT_NAME";
 
-    //    public void YouDidIt( ReloadTier tier )
-    //    {
-    //        if( base.localUser != null && base.localUser.cachedBody && tier == ReloadTier.Perfect )
-    //        {
-    //            base.Grant();
-    //        }
-    //    }
-    //}
+        protected override VanillaSpriteProvider spriteProvider => new VanillaSpriteProvider("Textures/MiscIcons/texWIPIcon");
+    }
 }
-/*
- *         public override void OnInstall()
-        {
-            base.OnInstall();
-
-            SniperReloadableFireSkillDef.SniperPrimaryInstanceData.onReload += this.YouDidIt;
-        }
-
-        public override void OnUninstall()
-        {
-            base.OnUninstall();
-
-            SniperReloadableFireSkillDef.SniperPrimaryInstanceData.onReload -= this.YouDidIt;
-        }
-
-        public void YouDidIt( ReloadTier tier )
-        {
-            if( base.localUser != null && base.localUser.cachedBody && tier == ReloadTier.Perfect )
-            {
-                base.Grant();
-            }
-        }
-*/

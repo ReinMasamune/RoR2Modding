@@ -28,7 +28,10 @@
                 name = "Sniper",
                 primaryColor = new Color( 0f, 0.3f, 0.1f, 1f ),
                 unlockableName = "",
+                outroFlavorToken = Properties.Tokens.SNIPER_OUTRO_FLAVOR,
+                displayNameToken = Properties.Tokens.SNIPER_DISPLAY_NAME,
             };
+            SurvivorsCore.AddEclipseUnlocks("Rein_Sniper",survivorDef);
 
             SurvivorCatalog.getAdditionalSurvivorDefs += ( list ) => list.Add( survivorDef );
         }

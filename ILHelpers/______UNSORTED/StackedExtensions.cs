@@ -1,4 +1,4 @@
-﻿namespace ILHelper
+﻿namespace ILHelpers
 {
     using System;
     using System.Collections.Generic;
@@ -18,13 +18,13 @@
 
         #endregion
         #region Emit
-        public static DMDCursor<IL<TRes,TStack>,TSig> Add<TVal1, TVal2, TRes, TStack, TSig>( ref this DMDCursor<IL<TVal2, IL<TVal1, TStack>>,TSig> stack, ILAdd<TVal1, TVal2, TRes> settings )
+        public static DMDCursor<IL<TRes,TStack>,TSig> Add<TVal1, TVal2, TRes, TStack, TSig>( this DMDCursor<IL<TVal2, IL<TVal1, TStack>>,TSig> stack, ILAdd<TVal1, TVal2, TRes> settings )
             where TStack : IStack
             where TSig : Delegate
         {
             return stack._Pop()._Pop()._Push<TRes>( stack.cursor.Add( settings.overflow, settings.unsigned ) );
         }
-        public static DMDCursor<IL<TRes, TStack>, TSig> And<TVal1, TVal2, TRes, TStack, TSig>( ref this DMDCursor<IL<TVal2, IL<TVal1, TStack>>, TSig> stack, ILAnd<TVal1, TVal2, TRes> settings )
+        public static DMDCursor<IL<TRes, TStack>, TSig> And<TVal1, TVal2, TRes, TStack, TSig>( this DMDCursor<IL<TVal2, IL<TVal1, TStack>>, TSig> stack, ILAnd<TVal1, TVal2, TRes> settings )
             where TStack : IStack
             where TSig : Delegate
         {
@@ -49,22 +49,22 @@
         //    cursor._Emit( branchType.opcode, to );
         //    return cursor;
         //}
-        public static DMDCursor<IL<Boxed<TBoxed>,TStack>,TSig> Box<TBoxed, TStack, TSig>( ref this DMDCursor<IL<TBoxed,TStack>, TSig> stack )
+        public static DMDCursor<IL<Boxed<TBoxed>,TStack>,TSig> Box<TBoxed, TStack, TSig>( this DMDCursor<IL<TBoxed,TStack>, TSig> stack )
             where TBoxed : struct
             where TStack : IStack
             where TSig : Delegate
         {
             Type t;
-            if( new TBoxed() is IStackRep rep ) t = rep.representedType; else t = typeof( TBoxed );
-            return stack._Pop()._Push<Boxed<TBoxed>>(stack.cursor.Box(t));
+            //if( new TBoxed() is IStackRep rep ) t = rep.representedType; else t = typeof( TBoxed );
+            return default;// stack._Pop()._Push<Boxed<TBoxed>>(stack.cursor.Box(t));
         }
-        public static DMDCursor<TStack, TSig> TripBreakpoint<TStack, TSig>( ref this DMDCursor<TStack, TSig> stack )
+        public static DMDCursor<TStack, TSig> TripBreakpoint<TStack, TSig>( this DMDCursor<TStack, TSig> stack )
             where TStack : IStack
             where TSig : Delegate
         {
             return stack._Emit( stack.cursor.TripBreakpoint() );
         }
-        public static DMDCursor<IL<TTo, TStack>, TSig> Cast<TTo, TFrom, TStack, TSig>( ref this DMDCursor<IL<TFrom, TStack>, TSig> stack, TRef<TTo> type )
+        public static DMDCursor<IL<TTo, TStack>, TSig> Cast<TTo, TFrom, TStack, TSig>( this DMDCursor<IL<TFrom, TStack>, TSig> stack, TRef<TTo> type )
             where TStack : IStack
             where TSig : Delegate
             where TFrom : class
@@ -98,13 +98,13 @@
         //    cursor._Emit( OpCodes.Cpobj, type );
         //    return cursor;
         //}
-        public static DMDCursor<IL<TRes, TStack>, TSig> Divide<TVal1, TVal2, TRes, TStack, TSig>( ref this DMDCursor<IL<TVal2, IL<TVal1, TStack>>, TSig> stack, ILDivide<TVal1, TVal2, TRes> settings )
+        public static DMDCursor<IL<TRes, TStack>, TSig> Divide<TVal1, TVal2, TRes, TStack, TSig>( this DMDCursor<IL<TVal2, IL<TVal1, TStack>>, TSig> stack, ILDivide<TVal1, TVal2, TRes> settings )
             where TStack : IStack
             where TSig : Delegate
         {
             return stack._Pop()._Pop()._Push<TRes>( stack.cursor.Divide(settings.unsigned) );
         }
-        public static DMDCursor<IL<TValue, IL<TValue, TStack>>, TSig> Dupe<TValue, TStack, TSig>( ref this DMDCursor<IL<TValue,TStack>, TSig> stack )
+        public static DMDCursor<IL<TValue, IL<TValue, TStack>>, TSig> Dupe<TValue, TStack, TSig>( this DMDCursor<IL<TValue,TStack>, TSig> stack )
             where TStack : IStack
             where TSig : Delegate
         {
@@ -134,13 +134,13 @@
         //    cursor._Emit( OpCodes.Initobj, type );
         //    return cursor;
         //}
-        public static DMDCursor<IL<TTo, TStack>, TSig> As<TTo, TFrom, TStack, TSig>( ref this DMDCursor<IL<TFrom, TStack>, TSig> stack, TRef<TTo> type )
+        public static DMDCursor<IL<TTo, TStack>, TSig> As<TTo, TFrom, TStack, TSig>( this DMDCursor<IL<TFrom, TStack>, TSig> stack, TRef<TTo> type )
             where TStack : IStack
             where TSig : Delegate
         {
             return stack._Pop()._Push<TTo>(stack.cursor.As(type.t));
         }
-        public static TReturn Jump<TReturn, TStack, TSig>( ref this DMDCursor<TStack, TSig> stack, ILJump<TReturn, TSig> jump )
+        public static TReturn Jump<TReturn, TStack, TSig>( this DMDCursor<TStack, TSig> stack, ILJump<TReturn, TSig> jump )
             where TStack : IStack
             where TSig : Delegate
             where TReturn : IDMDReturn
@@ -148,17 +148,17 @@
             _ = stack.cursor.Jump( jump.target ).Return();
             return jump.ret;
         }
-        public static DMDCursor<IL<TArg,TStack>,TSig> LoadArg<TArg, TStack, TSig>( ref this DMDCursor<TStack, TSig> stack, ILArg<TArg> arg )
+        public static DMDCursor<IL<TArg,TStack>,TSig> LoadArg<TArg, TStack, TSig>( this DMDCursor<TStack, TSig> stack, Arg<TArg> arg )
             where TStack : IStack
             where TSig : Delegate
         {
-            return stack._Push<TArg>( stack.cursor.LoadArg( arg.index ) );
+            return default;// stack._Push<TArg>( stack.cursor.LoadArg( arg.index ) );
         }
-        public static DMDCursor<IL<ByRef<TArg>, TStack>, TSig> LoadByrefArg<TArg, TStack, TSig>( ref this DMDCursor<TStack, TSig> stack, ILArg<TArg> arg)
+        public static DMDCursor<IL<ByRef<TArg>, TStack>, TSig> LoadByrefArg<TArg, TStack, TSig>( this DMDCursor<TStack, TSig> stack, Arg<TArg> arg)
             where TStack : IStack
             where TSig : Delegate
         {
-            return stack._Push<ByRef<TArg>>(stack.cursor.LoadByrefArg(arg.index));
+            return default;// stack._Push<ByRef<TArg>>(stack.cursor.LoadByrefArg(arg.index));
         }
         // TODO: public static TCursor LoadConst<TCursor>( this TCursor cursor, Int32 value )
         //    where TCursor : ICursorWrite, ICursor
@@ -282,11 +282,11 @@
         //    cursor._Emit( OpCodes.Ldlen );
         //    return cursor;
         //}
-        public static DMDCursor<IL<TLocal,TStack>,TSig> LoadLocal<TLocal, TSig, TStack>( ref this DMDCursor<TStack,TSig> stack, ILLocal<TLocal> local )
+        public static DMDCursor<IL<TLocal,TStack>,TSig> LoadLocal<TLocal, TSig, TStack>( this DMDCursor<TStack,TSig> stack, Local<TLocal> local )
             where TSig : Delegate
             where TStack : IStack
         {
-            return stack._Push<TLocal>( stack.cursor.LoadLocal( local.index ) );
+            return default;// stack._Push<TLocal>( stack.cursor.LoadLocal( local.index ) );
         }
         // TODO: public static TCursor LoadLocalByref<TCursor>( this TCursor cursor, UInt16 index )
         //    where TCursor : ICursorWrite, ICursor
@@ -308,19 +308,19 @@
         //    cursor._Emit( OpCodes.Ldobj, type );
         //    return cursor;
         //}
-        public static DMDCursor<IL<RuntimeTypeHandle, TStack>, TSig> TypeOf<TStack, TSig>( ref this DMDCursor<TStack, TSig> stack, Type type )
+        public static DMDCursor<IL<RuntimeTypeHandle, TStack>, TSig> TypeOf<TStack, TSig>( this DMDCursor<TStack, TSig> stack, Type type )
             where TStack : IStack
             where TSig : Delegate
         {
             return stack._Push<RuntimeTypeHandle>(stack.cursor.TypeOf(type));
         }
-        public static DMDCursor<IL<RuntimeFieldHandle, TStack>, TSig> FieldOf<TStack, TSig>(ref this DMDCursor<TStack, TSig> stack, FieldInfo field)
+        public static DMDCursor<IL<RuntimeFieldHandle, TStack>, TSig> FieldOf<TStack, TSig>(this DMDCursor<TStack, TSig> stack, FieldInfo field)
             where TStack : IStack
             where TSig : Delegate
         {
             return stack._Push<RuntimeFieldHandle>(stack.cursor.FieldOf(field));
         }
-        public static DMDCursor<IL<RuntimeMethodHandle, TStack>, TSig> MethodOf<TStack, TSig>(ref this DMDCursor<TStack, TSig> stack, MethodInfo method)
+        public static DMDCursor<IL<RuntimeMethodHandle, TStack>, TSig> MethodOf<TStack, TSig>(this DMDCursor<TStack, TSig> stack, MethodInfo method)
             where TStack : IStack
             where TSig : Delegate
         {
@@ -344,13 +344,13 @@
         //    cursor._Emit( OpCodes.Mkrefany, type );
         //    return cursor;
         //}
-        public static DMDCursor<IL<TRes, TStack>, TSig> Multiply<TVal1, TVal2, TRes, TStack, TSig>( ref this DMDCursor<IL<TVal2, IL<TVal1, TStack>>, TSig> stack, ILMultiply<TVal1, TVal2, TRes> settings )
+        public static DMDCursor<IL<TRes, TStack>, TSig> Multiply<TVal1, TVal2, TRes, TStack, TSig>( this DMDCursor<IL<TVal2, IL<TVal1, TStack>>, TSig> stack, ILMultiply<TVal1, TVal2, TRes> settings )
             where TStack : IStack
             where TSig : Delegate
         {
             return stack._Pop()._Pop()._Push<TRes>( stack.cursor.Multiply( settings.overflow, settings.unsigned ) );
         }
-        public static DMDCursor<IL<TRes, TStack>, TSig> Negate<TVal1, TRes, TStack, TSig>( ref this DMDCursor<IL<TVal1, TStack>, TSig> stack, ILNegate<TVal1, TRes> settings )
+        public static DMDCursor<IL<TRes, TStack>, TSig> Negate<TVal1, TRes, TStack, TSig>( this DMDCursor<IL<TVal1, TStack>, TSig> stack, ILNegate<TVal1, TRes> settings )
             where TStack : IStack
             where TSig : Delegate
         {
@@ -368,25 +368,25 @@
         //    cursor._Emit( OpCodes.Newobj, constructor );
         //    return cursor;
         //}
-        public static DMDCursor<TStack,TSig> NoOp<TStack, TSig>( ref this DMDCursor<TStack, TSig> stack )
+        public static DMDCursor<TStack,TSig> NoOp<TStack, TSig>( this DMDCursor<TStack, TSig> stack )
             where TSig : Delegate
             where TStack : IStack
         {
             return stack._Emit( stack.cursor.NoOp() );
         }
-        public static DMDCursor<IL<TRes, TStack>, TSig> Not<TVal1, TRes, TStack, TSig>( ref this DMDCursor<IL<TVal1, TStack>, TSig> stack, ILNot<TVal1, TRes> settings )
+        public static DMDCursor<IL<TRes, TStack>, TSig> Not<TVal1, TRes, TStack, TSig>( this DMDCursor<IL<TVal1, TStack>, TSig> stack, ILNot<TVal1, TRes> settings )
             where TStack : IStack
             where TSig : Delegate
         {
             return stack._Pop()._Push<TRes>( stack.cursor.Not() );
         }
-        public static DMDCursor<IL<TRes, TStack>, TSig> Or<TVal1, TVal2, TRes, TStack, TSig>( ref this DMDCursor<IL<TVal2,IL<TVal1, TStack>>, TSig> stack, ILOr<TVal1, TVal2, TRes> settings )
+        public static DMDCursor<IL<TRes, TStack>, TSig> Or<TVal1, TVal2, TRes, TStack, TSig>( this DMDCursor<IL<TVal2,IL<TVal1, TStack>>, TSig> stack, ILOr<TVal1, TVal2, TRes> settings )
             where TStack : IStack
             where TSig : Delegate
         {
             return stack._Pop()._Pop()._Push<TRes>( stack.cursor.Or() );
         }
-        public static DMDCursor<TStack,TSig> Pop<TValue, TStack, TSig>(ref this DMDCursor<IL<TValue,TStack>, TSig> stack )
+        public static DMDCursor<TStack,TSig> Pop<TValue, TStack, TSig>(this DMDCursor<IL<TValue,TStack>, TSig> stack )
             where TSig : Delegate
             where TStack : IStack
         {
@@ -404,19 +404,19 @@
         //    cursor._Emit( OpCodes.Refanyval, type );
         //    return cursor;
         //}
-        public static DMDCursor<IL<TRes, TStack>, TSig> Modulus<TVal1, TVal2, TRes, TStack, TSig>( ref this DMDCursor<IL<TVal2, IL<TVal1, TStack>>, TSig> stack, ILModulus<TVal1, TVal2, TRes> settings )
+        public static DMDCursor<IL<TRes, TStack>, TSig> Modulus<TVal1, TVal2, TRes, TStack, TSig>( this DMDCursor<IL<TVal2, IL<TVal1, TStack>>, TSig> stack, ILModulus<TVal1, TVal2, TRes> settings )
             where TStack : IStack
             where TSig : Delegate
         {
             return stack._Pop()._Pop()._Push<TRes>( stack.cursor.Modulus( settings.unsigned ) );
         }
-        public static DMDReturn Return<TSig>( ref this DMDCursor<Empty, TSig> stack )
+        public static DMDReturn Return<TSig>( this DMDCursor<Empty, TSig> stack )
             where TSig : Delegate
         {
             // TODO: Return creation
             return default;
         }
-        public static DMDReturn<TReturn> Return<TReturn, TSig>( ref this DMDCursor<IL<TReturn, Empty>, TSig> stack )
+        public static DMDReturn<TReturn> Return<TReturn, TSig>( this DMDCursor<IL<TReturn, Empty>, TSig> stack )
             where TSig : Delegate
         {
             // TODO: Return creation
@@ -428,29 +428,29 @@
         //    cursor._Emit( OpCodes.Rethrow );
         //    return cursor;
         //}
-        public static DMDCursor<IL<TRes, TStack>, TSig> ShiftL<TVal1, TVal2, TRes, TStack, TSig>( ref this DMDCursor<IL<TVal2, IL<TVal1, TStack>>, TSig> stack, ILShiftL<TVal1, TVal2, TRes> settings )
+        public static DMDCursor<IL<TRes, TStack>, TSig> ShiftL<TVal1, TVal2, TRes, TStack, TSig>( this DMDCursor<IL<TVal2, IL<TVal1, TStack>>, TSig> stack, ILShiftL<TVal1, TVal2, TRes> settings )
             where TStack : IStack
             where TSig : Delegate
         {
             return stack._Pop()._Pop()._Push<TRes>( stack.cursor.ShiftL() );
         }
-        public static DMDCursor<IL<TRes, TStack>, TSig> ShiftR<TVal1, TVal2, TRes, TStack, TSig>( ref this DMDCursor<IL<TVal2, IL<TVal1, TStack>>, TSig> stack, ILShiftR<TVal1, TVal2, TRes> settings )
+        public static DMDCursor<IL<TRes, TStack>, TSig> ShiftR<TVal1, TVal2, TRes, TStack, TSig>( this DMDCursor<IL<TVal2, IL<TVal1, TStack>>, TSig> stack, ILShiftR<TVal1, TVal2, TRes> settings )
             where TStack : IStack
             where TSig : Delegate
         {
             return stack._Pop()._Pop()._Push<TRes>( stack.cursor.ShiftR( settings.unsigned ) );
         }
-        public static DMDCursor<IL<Int32,TStack>,TSig> SizeOf<TStack, TSig>( ref this DMDCursor<TStack,TSig> stack, Type type )
+        public static DMDCursor<IL<Int32,TStack>,TSig> SizeOf<TStack, TSig>( this DMDCursor<TStack,TSig> stack, Type type )
             where TStack : IStack
             where TSig : Delegate
         {
             return stack._Push<Int32>( stack.cursor.SizeOf( type ) );
         }
-        public static DMDCursor<TStack, TSig> StoreArg<TArg, TStack, TSig>( ref this DMDCursor<IL<TArg,TStack>, TSig> stack, ILArg<TArg> arg )
+        public static DMDCursor<TStack, TSig> StoreArg<TArg, TStack, TSig>( this DMDCursor<IL<TArg,TStack>, TSig> stack, Arg<TArg> arg )
             where TStack : IStack
             where TSig : Delegate
         {
-            return stack._Pop( stack.cursor.StoreArg( arg.index ) );
+            return default;// stack._Pop( stack.cursor.StoreArg( arg.index ) );
         }
         // TODO: public static TCursor StoreElement<TCursor>( this TCursor cursor, Type elementType )
         //    where TCursor : ICursorWrite, ICursor
@@ -502,13 +502,13 @@
         //    cursor._Emit( OpCodes.Stobj, type );
         //    return cursor;
         //}
-        public static DMDCursor<TStack,TSig> StoreLocal<TLocal, TStack, TSig>( ref this DMDCursor<IL<TLocal,TStack>, TSig> stack, ILLocal<TLocal> local )
+        public static DMDCursor<TStack,TSig> StoreLocal<TLocal, TStack, TSig>( this DMDCursor<IL<TLocal,TStack>, TSig> stack, Local<TLocal> local )
             where TSig : Delegate
             where TStack : IStack
         {
-            return stack._Pop( stack.cursor.StoreLocal( local.index ) );
+            return default;// stack._Pop( stack.cursor.StoreLocal( local.index ) );
         }
-        public static DMDCursor<IL<TRes, TStack>, TSig> Subtract<TVal1, TVal2, TRes, TStack, TSig>( ref this DMDCursor<IL<TVal2, IL<TVal1, TStack>>, TSig> stack, ILSubtract<TVal1, TVal2, TRes> settings )
+        public static DMDCursor<IL<TRes, TStack>, TSig> Subtract<TVal1, TVal2, TRes, TStack, TSig>( this DMDCursor<IL<TVal2, IL<TVal1, TStack>>, TSig> stack, ILSubtract<TVal1, TVal2, TRes> settings )
             where TStack : IStack
             where TSig : Delegate
         {
@@ -526,21 +526,21 @@
         //    cursor._Emit( OpCodes.Throw );
         //    return cursor;
         //}
-        public static DMDCursor<IL<ByRef<TBoxed>, TStack>, TSig> Unbox<TBoxed, TStack, TSig>( ref this DMDCursor<IL<Boxed<TBoxed>,TStack>,TSig> stack )
+        public static DMDCursor<IL<ByRef<TBoxed>, TStack>, TSig> Unbox<TBoxed, TStack, TSig>( this DMDCursor<IL<Boxed<TBoxed>,TStack>,TSig> stack )
             where TBoxed : struct
             where TStack : IStack
             where TSig : Delegate
         {
             return stack._Pop()._Push<ByRef<TBoxed>>(stack.cursor.Unbox(typeof(TBoxed)));
         }
-        public static DMDCursor<IL<TBoxed, TStack>, TSig> UnboxAny<TBoxed, TStack, TSig>( ref this DMDCursor<IL<Boxed<TBoxed>, TStack>, TSig> stack )
+        public static DMDCursor<IL<TBoxed, TStack>, TSig> UnboxAny<TBoxed, TStack, TSig>( this DMDCursor<IL<Boxed<TBoxed>, TStack>, TSig> stack )
             where TBoxed : struct
             where TStack : IStack
             where TSig : Delegate
         {
             return stack._Pop()._Push<TBoxed>(stack.cursor.UnboxAny(typeof(TBoxed)));
         }
-        public static DMDCursor<IL<TBoxed, TStack>, TSig> UnboxAny<TBoxed, TFrom, TStack, TSig>( ref this DMDCursor<IL<TFrom,TStack>, TSig> stack, TRef<TBoxed> type )
+        public static DMDCursor<IL<TBoxed, TStack>, TSig> UnboxAny<TBoxed, TFrom, TStack, TSig>( this DMDCursor<IL<TFrom,TStack>, TSig> stack, TRef<TBoxed> type )
             where TStack : IStack
             where TSig : Delegate
         {
@@ -548,7 +548,7 @@
         }
         //// TODO: Unaligned
         //// TODO: Volatile
-        public static DMDCursor<IL<TRes, TStack>, TSig> XOr<TVal1, TVal2, TRes, TStack, TSig>( ref this DMDCursor<IL<TVal2, IL<TVal1, TStack>>, TSig> stack, ILXOr<TVal1, TVal2, TRes> settings )
+        public static DMDCursor<IL<TRes, TStack>, TSig> XOr<TVal1, TVal2, TRes, TStack, TSig>( this DMDCursor<IL<TVal2, IL<TVal1, TStack>>, TSig> stack, ILXOr<TVal1, TVal2, TRes> settings )
             where TStack : IStack
             where TSig : Delegate
         {

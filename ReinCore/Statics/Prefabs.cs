@@ -92,7 +92,7 @@
 
         static PrefabsCore()
         {
-            Log.Warning( "PrefabsCore loaded" );
+            //Log.Warning( "PrefabsCore loaded" );
             parent = new GameObject( "ModdedPrefabs" );
             parent.SetActive( false );
             UnityEngine.Object.DontDestroyOnLoad( parent );
@@ -106,7 +106,7 @@
 
             RoR2.Networking.GameNetworkManager.onStartGlobal += GameNetworkManager_onStartGlobal;
             HooksCore.RoR2.Util.IsPrefab.On += IsPrefab_On;
-            Log.Warning( "PrefabsCore loaded" );
+            //Log.Warning( "PrefabsCore loaded" );
             loaded = true;
         }
 

@@ -138,6 +138,7 @@
 
             CharacterModel model = mdlSniper.AddOrGetComponent<CharacterModel>();
             model.body = body;
+            model.itemDisplayRuleSet = ItemDisplayModule.GetSniperItemDisplay(model.AddOrGetComponent<ChildLocator>());
 
 
 

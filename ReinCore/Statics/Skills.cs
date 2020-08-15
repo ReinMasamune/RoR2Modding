@@ -19,7 +19,7 @@
 
         public static void AddSkill( Type type )
         {
-            Log.Counter();
+            //Log.Counter();
             if( !loaded )
             {
                 throw new CoreNotLoadedException( nameof( SkillsCore ) );
@@ -60,19 +60,19 @@
             StateIndexTable.stateIndexToTypeName = idToName;
 
             _ = addedSkillTypes.Add( type );
-            Log.Counter();
+            //Log.Counter();
         }
 
         public static void AddSkill<TState>()
             where TState : EntityState, new()
         {
-            Log.Counter();
-            Log.Counter();
+            //Log.Counter();
+            //Log.Counter();
         }
 
         public static void AddSkillDef( SkillDef skillDef )
         {
-            Log.Counter();
+            //Log.Counter();
             if( !loaded )
             {
                 throw new CoreNotLoadedException( nameof( SkillsCore ) );
@@ -90,12 +90,12 @@
 
             SkillCatalog.getAdditionalSkillDefs += ( list ) => list.Add( skillDef );
             _ = addedSkillDefs.Add( skillDef );
-            Log.Counter();
+            //Log.Counter();
         }
 
         public static void AddSkillFamily( SkillFamily skillFamily )
         {
-            Log.Counter();
+            //Log.Counter();
             if( !loaded )
             {
                 throw new CoreNotLoadedException( nameof( SkillsCore ) );
@@ -113,12 +113,12 @@
 
             SkillCatalog.getAdditionalSkillFamilies += ( list ) => list.Add( skillFamily );
             _ = addedSkillFamilies.Add( skillFamily );
-            Log.Counter();
+            //Log.Counter();
         }
 
         public static SerializableEntityStateType StateType<TState>( Boolean register = true ) where TState : EntityState
         {
-            Log.Counter();
+            //Log.Counter();
             if( register )
             {
                 AddSkill( typeof( TState ) );
@@ -126,13 +126,13 @@
             //var res = new SerializableEntityStateType();
             //res._typeName = 
             var res = new SerializableEntityStateType( typeof( TState ) );
-            Log.Counter();
+            //Log.Counter();
             return res;
         }
 
         public static SkillFamily CreateSkillFamily( SkillDef defaultSkill, params (SkillDef skill, String unlockable)[] variants )
         {
-            Log.Counter();
+            //Log.Counter();
 
             SkillFamily family = ScriptableObject.CreateInstance<SkillFamily>();
             family.variants = new SkillFamily.Variant[variants.Length + 1];
@@ -158,7 +158,7 @@
             }
 
             AddSkillFamily( family );
-            Log.Counter();
+            //Log.Counter();
 
             return family;
         }
@@ -172,7 +172,7 @@
 
         static SkillsCore()
         {
-            Log.Warning( "SkillsCore loaded" );
+            //Log.Warning( "SkillsCore loaded" );
             //ror2Assembly = typeof( EntityState ).Assembly;
             //Type stateTableType = typeof(StateIndexTable);
             //stateIndexToType = new StaticAccessor<Type[]>( stateTableType, "stateIndexToType" );
@@ -184,7 +184,7 @@
             cfg.Priority = Int32.MinValue;
             set_stateTypeHook = new Hook( type.GetMethod( "set_stateType", allFlags ), new set_stateTypeDelegate(SetStateTypeHook), cfg );
             set_typeNameHook = new Hook( type.GetMethod( "set_typeName", allFlags ), new set_typeNameDelegate(SetTypeName), cfg );
-            Log.Warning( "SkillsCore loaded" );
+            //Log.Warning( "SkillsCore loaded" );
             loaded = true;
         }
         private static readonly Assembly ror2Assembly;
@@ -205,11 +205,11 @@
 
         private static void SetStateTypeHook( ref this SerializableEntityStateType self, Type value )
         {
-            Log.Counter();
+            //Log.Counter();
             if( value == null )
             {
                 Log.Error( "Tried to set SerializableEntityStateType with a null type" );
-                Log.Counter();
+                //Log.Counter();
                 return;
             }
             Dictionary<Type, Int16> typeToId = StateIndexTable.stateTypeToIndex;//.Get();
@@ -223,18 +223,18 @@
                     if( !typeToId.ContainsKey( value ) )
                     {
                         Log.Error( String.Format( "Unable to register type:\n{0}", name ) );
-                        Log.Counter();
+                        //Log.Counter();
                         return;
                     }
                 } else
                 {
                     Log.Error( String.Format( "Tried to create SerializableEntityStateType for invalid type:\n{0}", name ) );
-                    Log.Counter();
+                    //Log.Counter();
                     return;
                 }
             }
             self._typeName = StateIndexTable.stateIndexToTypeName[typeToId[value]];
-            Log.Counter();
+            //Log.Counter();
         }
 
         private static readonly set_stateTypeDelegate set_stateType = new set_stateTypeDelegate( (ref SerializableEntityStateType self, Type value ) =>

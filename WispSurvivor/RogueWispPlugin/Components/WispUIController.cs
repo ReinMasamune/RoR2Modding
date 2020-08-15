@@ -76,8 +76,9 @@ namespace Rein.RogueWispPlugin
             {
                 this.scaleVar = RoR2.Console.instance.FindConVar( "hud_scale" );
                 this.RecalcBarRect();
-                RoR2.RoR2Application.onPauseStartGlobal += () => this.paused = true;
-                RoR2.RoR2Application.onPauseEndGlobal += () => this.paused = false;
+                // NEXT: Hook pause screen
+                //RoR2.RoR2Application.onPauseStartGlobal += () => this.paused = true;
+                //RoR2.RoR2Application.onPauseEndGlobal += () => this.paused = false;
             }
 
             public void Update()

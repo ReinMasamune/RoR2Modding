@@ -1,0 +1,204 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="System.Numerics" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Numerics" #>
+<#@ output extension=".cs" #>
+// Yes... This is a very very long file.
+// Yes... It would be great to be able to refactor this
+// No... It isn't possible within the limitations on generics in C#
+// Obviously this code is generated
+// Don't try to do more than 10 args here. The C# compiler is really not designed for this, I will likely create seperate .dlls for arg counts above 8
+<#
+const Byte maxArgs = 9;
+UInt64 curOptions;
+Byte[] range;
+String[] baseGenArgs;
+String[] stackGenArgs;
+String[] ptrGenArgs;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+void StartWriteExtensionClass()
+{
+	Write("\tpublic static unsafe partial class Extensions\r\n");
+	Write("\t{\r\n");
+}
+void EndWriteExtensionClass()
+{
+	Write("\t}\r\n");
+}
+void StartWriteDMDClass()
+{
+	Write("\tpublic static unsafe partial class DMD\r\n");
+	Write("\t{\r\n");
+}
+void EndWriteDMDClass()
+{
+	Write("\t}\r\n");
+}
+void WriteConstraints(Int32 tabs)
+{
+	String tab = String.Join("",Enumerable.Repeat("\t", tabs));
+	Write($"{tab}where TStack : IStack\r\n");
+	Write($"{tab}where TSig : Delegate\r\n");
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+void WriteCombination( Byte count, UInt64 options, Byte[] range, String[] baseGenericArgs )
+{
+	//var zipped = baseGenArgs.Zip(range, DefaultZip );
+	//stackGenArgs = zipped.Select(SelectStackGenArg).ToArray();
+	//ptrGenArgs = zipped.Select(SelectPtrGenArg).ToArray();
+	//String stackString = CreateStackType(stackGenArgs, "TStack");
+	//String[] delArgs = zipped.Select(SelectDelArg).ToArray();
+	//String[] emitArgs = zipped.Select(SelectEmitArg).Prepend("ICursor<Empty> cursor").ToArray();
+	//String[] typeObjArgs = zipped.Select(SelectTypeObjArg).ToArray();
+
+
+	//Write($"\t//{Convert.ToString((Int32)options,2).PadLeft(count,'0')}\r\n");
+	
+	//WriteLoadActFtn(baseGenericArgs, stackGenArgs, ptrGenArgs);
+	//WriteLoadFuncFtn(baseGenericArgs, stackGenArgs, ptrGenArgs, false);
+	//WriteLoadFuncFtn(baseGenericArgs, stackGenArgs, ptrGenArgs, true);
+	//WriteActionCall(baseGenericArgs, stackGenArgs, ptrGenArgs, stackString);
+	//WriteFuncCall(baseGenericArgs, stackGenArgs, ptrGenArgs, stackString, false);
+	//WriteFuncCall(baseGenericArgs, stackGenArgs, ptrGenArgs, stackString, true);
+	//WriteInlineActionCall(baseGenericArgs, stackGenArgs, ptrGenArgs, stackString);
+	//WriteInlineFuncCall(baseGenericArgs, stackGenArgs, ptrGenArgs, stackString, false);
+	//WriteInlineFuncCall(baseGenericArgs, stackGenArgs, ptrGenArgs, stackString, true);
+	//WriteIndirActionCall(baseGenericArgs, stackGenArgs, ptrGenArgs);
+	//WriteIndirFuncCall(baseGenericArgs, stackGenArgs, ptrGenArgs, false);
+	//WriteIndirFuncCall(baseGenericArgs, stackGenArgs, ptrGenArgs, true);
+	
+	//WriteDmdActType(options, baseGenericArgs, delArgs, emitArgs, ptrGenArgs, typeObjArgs);
+	//WriteDmdFuncType(options, false, baseGenericArgs, delArgs, emitArgs, ptrGenArgs, typeObjArgs);
+	//WriteDmdFuncType(options, true, baseGenericArgs, delArgs, emitArgs, ptrGenArgs, typeObjArgs);
+	//StartWriteDMDClass();
+
+	//WriteMakeAction(options, baseGenericArgs, ptrGenArgs);
+	//WriteMakeFunc(options, false, baseGenericArgs, ptrGenArgs);
+	//WriteMakeFunc(options, true, baseGenericArgs, ptrGenArgs);
+}
+
+
+
+
+
+
+
+
+
+//void IterAllCombinations( Byte num )
+//{
+//	UInt64 goal = TwoPower(num);
+
+//	range = ToEnumerable(RangeTo(false,num)).ToArray();
+//	baseGenArgs = range.Select(SelectBaseGenArg).ToArray();
+
+//	WriteFuncPointerType(baseGenArgs);
+//	WriteActPointerType(baseGenArgs);
+//	for( UInt64 i = 0ul; i < goal; i = checked(i+1ul) )
+//	{
+//		curOptions = i;
+//		WriteCombination(num, i, range, baseGenArgs);
+//	}
+//}
+#>
+namespace ILHelpers
+{
+	using System;
+
+	using Mono.Cecil;
+
+	using MonoMod.Utils;
+
+	using ILHelpers.Cursor;
+
+
+<#
+
+//for(Byte i = (Byte)1u; i <= maxArgs; i = (Byte)checked(i+(Byte)1u) )
+//{
+//	IterAllCombinations(i);
+//}
+#>
+}

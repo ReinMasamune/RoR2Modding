@@ -17,14 +17,11 @@
         {
             RoR2.Language.onCurrentLanguageChanged += () =>
             {
-                String cur = RoR2.Language.currentLanguage;
-                if( cur == language || String.IsNullOrEmpty( language ) )
+                var cur = Language.currentLanguage;
+                if(cur is null) return;
+                if( cur.name == language || String.IsNullOrEmpty( language ) )
                 {
-                    Dictionary<String, Dictionary<String, String>> langDict = Language.languageDictionaries;
-                    if( langDict.TryGetValue( cur, out Dictionary<String, String> dict ) )
-                    {
-                        dict[key] = value;
-                    }
+                    cur.stringsByToken[key] = value;
                 }
             };
         }
@@ -32,9 +29,9 @@
 
         static LanguageCore()
         {
-            Log.Warning( "LanguageCore loaded" );
+            //Log.Warning( "LanguageCore loaded" );
 
-            Log.Warning( "LanguageCore loaded" );
+            //Log.Warning( "LanguageCore loaded" );
             loaded = true;
         }
 

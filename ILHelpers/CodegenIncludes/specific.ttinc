@@ -1,0 +1,245 @@
+﻿<#+
+public UInt64 curOptions;
+
+
+String SelectBaseGenArg( Byte index )
+{
+	return $"T{index}";
+}
+String SelectPtrGenArg( (String baseArg, Byte index) a )
+{
+	return GetBit(curOptions, (Byte)(a.index-(Byte)1u)) ? $"ref {a.baseArg}" : a.baseArg;
+}
+String SelectStackGenArg( (String baseArg, Byte index) a )
+{
+	return GetBit(curOptions, (Byte)(a.index-(Byte)1u)) ? $"ByRef<{a.baseArg}>" : a.baseArg;
+}
+String SelectTypeObjArg((String baseArg, Byte index) a)
+{
+	return $"typeof({a.baseArg}){(GetBit(curOptions, (Byte)(a.index-(Byte)1u)) ? ".MakeByRefType()" : "")}";
+}
+String SelectDelArg((String baseArg, Byte index) a) => $"{(GetBit(curOptions, (Byte)(a.index-(Byte)1u))?"ref":"")} {a.baseArg} arg{a.index}";
+String SelectEmitArg((String baseArg, Byte index) a) => $"Arg<{(GetBit(curOptions, (Byte)(a.index-(Byte)1u))?$"ByRef<{a.baseArg}>":a.baseArg)}>";
+String StackTypeAggregate(String start, String next) => $"IL<{next}, {start}>";
+String CreateStackType<T>(T enumerable, String start) where T : IEnumerable<String> => enumerable.Aggregate(start, StackTypeAggregate);
+
+public void WriteActionCall(String[] genArgs, String[] stackArgs, String[] ptrArgs, String stackStr)
+{
+	WriteLine($"public static ICursor<TStack> Call<{Combine(genArgs, "TStack")}>(this ICursor<{stackStr}> stack, delegate*<{Combine(ptrArgs, "void")}> action)");
+	IncIndent();
+	WriteLine("where TStack : IStack");
+	PopIndent();
+	WriteLine("{");
+	IncIndent();
+	WriteLine("return default;");
+	PopIndent();
+	WriteLine("}");
+}
+public void WriteFuncCall(String[] genArgs, String[] stackArgs, String[] ptrArgs, String stackStr, Boolean refReturn)
+{
+	WriteLine($"public static ICursor<IL<{(refReturn?"ByRef<TReturn>":"TReturn")},TStack>> Call<{Combine(genArgs, "TReturn", "TStack")}>(this ICursor<{stackStr}> stack, delegate*<{Combine(ptrArgs, refReturn?"ref TReturn":"TReturn")}> func)");
+	IncIndent();
+	WriteLine("where TStack : IStack");
+	PopIndent();
+	WriteLine("{");
+	IncIndent();
+	WriteLine("return default;");
+	PopIndent();
+	WriteLine("}");
+}
+void WriteInlineActionCall(String[] genArgs, String[] stackArgs, String[] ptrArgs, String stackStr)
+{
+	WriteLine($"public static ICursor<TStack> CallInline<{Combine(genArgs, "TStack")}>(this ICursor<{stackStr}> stack, delegate*<{Combine(ptrArgs, "void")}> action)");
+	IncIndent();
+	WriteLine("where TStack : IStack");
+	PopIndent();
+	WriteLine("{");
+	IncIndent();
+	WriteLine("return default;");
+	PopIndent();
+	WriteLine("}");
+}
+void WriteInlineFuncCall(String[] genArgs, String[] stackArgs, String[] ptrArgs, String stackStr, Boolean refReturn)
+{
+	WriteLine($"public static ICursor<IL<{(refReturn?"ByRef<TReturn>":"TReturn")},TStack>> Call<{Combine(genArgs, "TReturn", "TStack")}>(this ICursor<{stackStr}> stack, delegate*<{Combine(ptrArgs, refReturn?"ref TReturn":"TReturn")}> func)");
+	IncIndent();
+	WriteLine("where TStack : IStack");
+	PopIndent();
+	WriteLine("{");
+	IncIndent();
+	WriteLine("return default;");
+	PopIndent();
+	WriteLine("}");
+}
+
+
+void WriteFuncPointerType(String[] genArgs)
+{
+	WriteLine("[_PATCH.MakeSealedInterfaceType]");
+	WriteLine($"public sealed class FuncPointer<{Combine(genArgs, "TReturn")}>");
+	WriteLine("{");
+	IncIndent();
+	WriteLine("private FuncPointer() {}");
+	PopIndent();
+	WriteLine("}");
+}
+
+void WriteActPointerType(String[] genArgs)
+{
+	WriteLine("[_PATCH.MakeSealedInterfaceType]");
+	WriteLine($"public sealed class ActionPointer{(genArgs.Length>0?$"<{Combine(genArgs)}>":"")}");
+	WriteLine("{");
+	IncIndent();
+	WriteLine("private ActionPointer() {}");
+	PopIndent();
+	WriteLine("}");
+}
+void WriteIndirActionCall(String[] genArgs, String[] stackArgs, String[] ptrArgs, String stackStr)
+{
+	WriteLine($"public static ICursor<TStack> CallIndirect<{Combine(genArgs, "TStack")}>(this ICursor<{stackStr}> stack)");
+	IncIndent();
+	WriteLine("where TStack : IStack");
+	PopIndent();
+	WriteLine("{");
+	IncIndent();
+	WriteLine("return default;");
+	PopIndent();
+	WriteLine("}");
+}
+void WriteIndirFuncCall(String[] genArgs, String[] stackArgs, String[] ptrArgs, String stackStr, Boolean refReturn)
+{
+	WriteLine($"public static ICursor<IL<{(refReturn?"ByRef<TReturn>":"TReturn")},TStack>> CallIndirect<{Combine(genArgs, "TReturn", "TStack")}>(this ICursor<{stackStr}> stack)");
+	IncIndent();
+	WriteLine("where TStack : IStack");
+	PopIndent();
+	WriteLine("{");
+	IncIndent();
+	WriteLine("return default;");
+	PopIndent();
+	WriteLine("}");
+}
+void WriteLoadActFtn(String[] genArgs, String[] stackArgs, String[] ptrArgs)
+{
+	WriteLine($"public static ICursor<IL<ActionPointer{(genArgs.Length>0?$"<{Combine(stackArgs)}>":"")}, TStack>> LoadFuncPointer<{Combine(genArgs, "TStack")}>(this ICursor<TStack> stack, delegate*<{Combine(ptrArgs, "void")}> action)");
+	IncIndent();
+	WriteLine("where TStack : IStack");
+	PopIndent();
+	WriteLine("{");
+	IncIndent();
+	WriteLine("return default;");
+	PopIndent();
+	WriteLine("}");
+}
+void WriteLoadFuncFtn(String[] genArgs, String[] stackArgs, String[] ptrArgs, Boolean refReturn)
+{
+	WriteLine($"public static ICursor<IL<FuncPointer<{Combine(stackArgs, refReturn?"ByRef<TReturn>":"TReturn")}>, TStack>> LoadFuncPointer<{Combine(genArgs, "TReturn", "TStack")}>(this ICursor<TStack> stack, delegate*<{Combine(ptrArgs, refReturn?"ref TReturn":"TReturn")}> func)");
+	IncIndent();
+	WriteLine("where TStack : IStack");
+	PopIndent();
+	WriteLine("{");
+	IncIndent();
+	WriteLine("return default;");
+	PopIndent();
+	WriteLine("}");
+}
+void WriteCursorSubtype()
+{
+	WriteLine("internal class Cursor<TStack> : ICursor<TStack>");
+	IncIndent();
+	WriteLine("where TStack : IStack");
+	PopIndent();
+	WriteLine("{");
+	IncIndent();
+	WriteLine("internal Cursor(MethodDefinition methodDef)");
+	WriteLine("{");
+	IncIndent();
+	PopIndent();
+	WriteLine("}");
+	PopIndent();
+	WriteLine("}");
+}
+
+void WriteDmdActType(Byte n, UInt64 id, String[] genArgs, String[] delArgs, String[] stackArgs, String[] ptrArgs, String[] typeObjArgs)
+{
+	WriteLine($"internal unsafe struct DMDAction_0x{id.ToString("x").PadLeft(n.ToString("x").Length,'0')}{(genArgs.Length>0?$"<{Combine(genArgs)}>":"")}");
+	WriteLine("{");
+	IncIndent();
+	WriteLine($"internal DMDAction_0x{id.ToString("x").PadLeft(n.ToString("x").Length,'0')}(String name, delegate*<{Combine(stackArgs.Prepend("ICursor<Empty>"), "DMDReturn")}> body)");
+	WriteLine("{");
+	IncIndent();
+
+	WriteLine($"var dmd = new DynamicMethodDefinition(name, null, {(typeObjArgs.Length>0?$"new[] {{ {Combine(typeObjArgs)} }}":"Type.EmptyTypes")});");
+	WriteLine("var cursor = new Cursor<Empty>(dmd.Definition);");
+	WriteLine("//body()");
+	WriteLine($"this.result = (delegate*<{Combine(ptrArgs, "void")}>)(void*)dmd.Generate().MethodHandle.GetFunctionPointer();");
+	PopIndent();
+	WriteLine("}");
+
+	WriteLine($"private delegate*<{Combine(ptrArgs, "void")}> result;");
+
+	WriteCursorSubtype();
+
+	PopIndent();
+	WriteLine("}");
+	
+
+	//Write($"\t\t\tvar dmd = new DynamicMethodDefinition(name, null, new[] {{ {Combine(typeObjArgs)} }});\r\n");
+	//Write("\t\t\tvar methodDef = dmd.Definition;\r\n");
+	//Write("\t\t\tvar cursor = new Cursor<Empty>(methodDef);\r\n");
+
+}
+void WriteDmdFuncType(UInt64 id, Boolean refReturn, String[] genArgs, String[] delArgs, String[] emitArgs, String[] ptrArgs, String[] typeObjArgs)
+{
+	//Write($"\tinternal unsafe class DMDFunc_0x{id.ToString("x")}{(refReturn?"_r":"")}<{Combine(genArgs.Append("TReturn"))}>\r\n");
+	//Write("\t{\r\n");
+	//Write($"\t\tinternal delegate {(refReturn?"ref TReturn":"TReturn")} Signature({Combine(delArgs)});\r\n");
+	//Write($"\t\tinternal delegate DMDReturn<{(refReturn?"ByRef<TReturn>":"TReturn")}> Emit({Combine(emitArgs)});\r\n");
+	//Write($"\t\tinternal Emit body {{ private get; set; }}\r\n");
+	//Write("\t\tinternal void Compile() {}\r\n");
+	//Write("\t\tinternal Signature compiledDelegate { get; private set; }\r\n");
+	//Write($"\t\tpublic delegate*<{Combine(ptrArgs.Append(refReturn?"ref TReturn":"TReturn"))}> compiled {{ get; private set; }}\r\n");
+
+	//Write("\t}\r\n");
+}
+void WriteMakeAction(UInt64 id, String[] genArgs, String[] ptrArgs)
+{
+	//var t = $"DMDAction_0x{id.ToString("x")}<{Combine(genArgs)}>";
+	//Write($"\t\tpublic static {t} Create<{Combine(genArgs)}>(delegate*<{Combine(ptrArgs.Append("void"))}> signature) => new {t}();\r\n");
+}
+void WriteMakeFunc(UInt64 id, Boolean refReturn, String[] genArgs, String[] ptrArgs)
+{
+	//var t = $"DMDFunc_0x{id.ToString("x")}{(refReturn?"_r":"")}<{Combine(genArgs.Append("TReturn"))}>";
+	//Write($"\t\tpublic static {t} Create<{Combine(genArgs.Append("TReturn"))}>(delegate*<{Combine(ptrArgs.Append(refReturn?"ref TReturn":"TReturn"))}> signature) => new {t}();\r\n");
+}
+
+void WriteCompileAction(String[] genArgs, String[] ptrArgs, String[] typeObjArgs, String[] emitArgs)
+{
+	WriteLine($"public static unsafe delegate*<{Combine(ptrArgs, "void")}> Compile{(genArgs.Length>0?$"<{Combine(genArgs)}>":"")}(delegate*<{Combine(emitArgs, "DMDReturn")}> body, String name = null)");
+	WriteLine("{");
+	IncIndent();
+	
+	WriteLine($"using(var dmd = new DynamicMethodDefinition(DMD.CheckName(name), null, {(genArgs.Length>0?$"new[] {{ {Combine(typeObjArgs)} }}":"Type.EmptyTypes")}))");
+	WriteLine("{");
+	IncIndent();
+	WriteLine("var manager = MethodManager.Create(dmd.Definition);");
+	WriteLine("var cursor = manager.InitCursor();");
+	for(Int32 i = 0; i < emitArgs.Length; i = checked(i+1))
+	{
+		var t = emitArgs[i];
+		WriteLine($"var arg{i+1} = new Arg<{emitArgs[i]}>(dmd.Definition.Parameters[{i}]);");
+	}
+
+	WriteLine($"return (delegate*<{Combine(ptrArgs, "void")}>)(void*)dmd.Generate().MethodHandle.GetFunctionPointer();");
+	PopIndent();
+	WriteLine("}");
+
+	
+
+	PopIndent();
+	WriteLine("}");
+}
+void WriteCompileFunc(String[] genArgs, String[] delArgs, String[] stackArgs, String[] ptrArgs, String[] typeObjArgs, String[] emitArgs, Boolean refReturn)
+{
+
+}
+#>

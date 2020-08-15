@@ -1,14 +1,34 @@
-﻿namespace ReinGeneralFixes
+﻿//namespace R2API.Utils
+//{
+//    using System;
+//    using System.ComponentModel;
+//    using System.Diagnostics;
+//    [EditorBrowsable(EditorBrowsableState.Never)]
+//    public class ManualNetworkRegistrationAttribute : Attribute { }
+//}
+
+namespace ReinGeneralFixes
 {
     using System;
     using System.Runtime.CompilerServices;
 
     using BepInEx;
 
-    [BepInDependency( Rein.AssemblyLoad.guid, BepInDependency.DependencyFlags.HardDependency )]
-    [BepInPlugin( "com.Rein.GeneralBalance", "General Balance + Fixes", Rein.Properties.Info.ver )]
+    using ReinCore;
+
+
+    [BepInDependency(Rein.AssemblyLoad.guid, BepInDependency.DependencyFlags.HardDependency)]
+    [BepInPlugin(_guid, "General Balance + Fixes", Rein.Properties.Info.ver)]
     internal partial class Main : BaseUnityPlugin
     {
+        private const Int32 networkVersion = -1;
+        private const Boolean useBuild = false;
+        private const Boolean useRev = false;
+        private const String _guid = "Rein.GeneralBalanceFixes";
+        internal static String guid => _guid;
+        internal static String version => Rein.Properties.Info.ver;
+
+
         internal const Single gestureBreakChance = 0.025f;
 
         internal static Main instance;
@@ -31,14 +51,14 @@
         partial void BalanceCorpsebloom();
         partial void BalanceOSP();
         partial void BalanceGesture();
-        partial void BalancePreGameShake();
         partial void BalanceConvergence();
-        partial void BalanceDeathMark();
         partial void BalanceWillOWisp();
-        partial void BalanceBlight();
         partial void BalanceEngiTurrets();
         partial void BalanceGame();
-        partial void BalanceCrabs();
+        partial void BalanceElites();
+        partial void BalanceHealing();
+        partial void BalanceOnKills();
+
 
 
         partial void FixBandolier();
@@ -47,14 +67,10 @@
         partial void FixHuntressFlurry();
 
 
-        partial void QoLCommandoRoll();
         partial void QoLVisionsCrosshair();
-        partial void QoLOvergrownPrinters();
         partial void QoLEngiTurretInheritance();
-        partial void QoLCloakedChestSacrifice();
         partial void QoLHuntressTracking();
-
-        //partial void PerformanceKinCharController();
+        partial void QoLEclipse();
 
 
 #if PROFILER
@@ -67,36 +83,31 @@
         private Main()
         {
             instance = this;
+            ReinCore.AddModHash(guid, version, useBuild, useRev, networkVersion);
 #if PROFILER
             this.Profiler();
 #endif
-
 
 
             this.BalanceCommandoCDs();
             this.BalanceCorpsebloom();
             this.BalanceOSP();
             this.BalanceGesture();
-            //this.BalancePreGameShake();
             this.BalanceConvergence();
-            this.BalanceDeathMark();
             this.BalanceWillOWisp();
-            this.BalanceBlight();
             //this.BalanceEngiTurrets();
-            //this.BalanceGame();
+            this.BalanceGame();
+            this.BalanceElites();
 
             this.FixBandolier();
             this.FixSelfDamage();
             this.FixDoTs();
             this.FixHuntressFlurry();
 
-            this.QoLCommandoRoll();
             this.QoLVisionsCrosshair();
-            //this.QoLOvergrownPrinters();
-            //this.QoLCloakedChestSacrifice();
             this.QoLEngiTurretInheritance();
             this.QoLHuntressTracking();
-
+            this.QoLEclipse();
 
             RoR2.RoR2Application.isModded = true;
             this.Tick += () => RoR2.RoR2Application.isModded = true;
@@ -152,50 +163,3 @@
         internal static void LogC( [CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0 ) => Main.Log( BepInEx.Logging.LogLevel.Info, member + ": " + line + ":: " + logCounter++, member, line );
     }
 }
-/*
-Changelist:
-Commando Phase round 2s cooldown, phase blast 3s cooldown
-Commando dodge roll now counts as sprinting
-
-OSP now is applied after shields and barrier.
-OSP can now no longer block more than 180% of your max health in damage from any single hit.
-
-Gesture now has chance of breaking equipment on use.
-Gesture now reduces cooldown by 50% per stack.
-
-Visions now gives huntress and mercenary commandos crosshair to make aiming possible.
-
-
-
-
-
-
-
-ITEMS:
-Gesture             chance to overload equipment on use. While overloaded equip has low cd and fires automatically. Equip breaks on overload end.
-
-
-Fireworks
-Gasoline
-Medkit
-Monster Tooth
-Stun Grenade
-Warbanner           (Regen while in zone)
-
-Berzerkers          (Gives base damage instead of attack speed)
-Chronobauble
-Razor Wire
-Will o Wisp
-
-Ceremonial Dagger
-Happiest Mask
-Resonance Disk
-Tesla Coil
-
-Queens Gland
-
-Blast Shower        (make it reflect projectiles, instead of destroying)
-Royal Capacitor
-
-Effigy
-*/

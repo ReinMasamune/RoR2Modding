@@ -34,10 +34,10 @@
 
         static DamageColorsCore()
         {
-            Log.Warning( "DamageColorsCore loaded" );
+            //Log.Warning( "DamageColorsCore loaded" );
             fieldRef = typeof( DamageColorsCore ).GetField( nameof( curMax ), BindingFlags.NonPublic | BindingFlags.Static );
             HooksCore.RoR2.DamageColor.FindColor.Il += FindColor_Il;
-            Log.Warning( "DamageColorsCore loaded" );
+            //Log.Warning( "DamageColorsCore loaded" );
             loaded = true;
         }
 

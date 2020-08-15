@@ -2,12 +2,22 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
     using System.Runtime.CompilerServices;
 
     using BepInEx;
 
+    using EntityStates.GrandParentBoss;
+
+    using Mono.Cecil;
+
+    using MonoMod.Cil;
+
     using Rein.Properties;
     using RoR2;
+    using RoR2.Networking;
+
     using UnityEngine;
 
     /// <summary>
@@ -15,42 +25,42 @@
     /// </summary>
     public static partial class ReinCore
     {
-        /// <summary>
-        /// 
-        /// </summary>
         public static Boolean loaded { get; internal set; } = false;
 
-        /// <summary>
-        /// 
-        /// </summary>
         public static IEnumerable<PluginInfo> plugins
         {
             get => pluginsByName.Values;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="guid"></param>
-        /// <returns></returns>
         public static Boolean IsPluginLoaded( String guid ) => pluginsByName.ContainsKey( guid );
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="doNetChecks"></param>
-        /// <param name="debugLogs"></param>
-        /// <param name="infoLogs"></param>
-        /// <param name="messageLogs"></param>
-        /// <param name="warningLogs"></param>
-        /// <param name="errorLogs"></param>
-        /// <param name="fatalLogs"></param>
+
+        private static void AddModHash(String guid, Int32 major = -1, Int32 minor = -1, Int32 build = -1, Int32 rev = -1, Int32 net = -1) => NetworkModCompatibilityHelper.networkModList = NetworkModCompatibilityHelper.networkModList.Append($"{guid}.{(major >= 0 ? major : "x")}.{(minor >= 0 ? minor : "x")}.{(build >= 0 ? build : "x")}.{(rev >= 0 ? rev : "x")}{(net >= 0 ? $".{net}" : "" )}");
+        private static void AddModHash(String guid, (Int32 major, Int32 minor, Int32 build, Int32 rev, Int32 net) ver) => AddModHash(guid, ver.major, ver.minor, ver.build, ver.rev, ver.net);
+        public static void AddModHash(String guid, String ver, Boolean useBuild = false, Boolean useRevision = false, Int32 networkVer = -1) => AddModHash(guid, ParseVersion(ver, useBuild, useRevision, networkVer));
+
+        private static (Int32 major, Int32 minor, Int32 build, Int32 rev, Int32 network) ParseVersion(String text, Boolean useBuild, Boolean useRev, Int32 networkVer)
+        {
+            var split = text.Split('.').SelectWhere<String,Int32>(Int32.TryParse).GetEnumerator();
+            Int32 a = split.MoveNext() ? split.Current : -1;
+            Int32 b = split.MoveNext() ? split.Current : -1;
+            Int32 c = split.MoveNext() && useBuild ? split.Current : -1;
+            Int32 d = split.MoveNext() && useRev ? split.Current : -1;
+
+            return (a, b, c, d, networkVer);
+        }
+
         public static void Init( Boolean doNetChecks, Boolean debugLogs, Boolean infoLogs, Boolean messageLogs, Boolean warningLogs, Boolean errorLogs, Boolean fatalLogs )
         {
-            if( !loaded )
+            if(!loaded)
             {
-                throw new CoreNotLoadedException( nameof( ReinCore ) );
+                throw new CoreNotLoadedException(nameof(ReinCore));
             }
+
+            
+
+            
+
 
             ReinCore.execLevel = 0;
             execLevel |= debugLogs ? ExecutionLevel.Debug : 0;
@@ -75,6 +85,18 @@
         }
 
 
+
+        private static void NetworkModCompatibilityHelper_onUpdated()
+        {
+            foreach(var s in NetworkModCompatibilityHelper.networkModList)
+            {
+                Log.Message($"Mod: {s}");
+            }
+            Log.Message($"Hash: {NetworkModCompatibilityHelper.networkModHash}");
+        }
+
+
+
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public static void SupplySubmoduleData( HashSet<String> submoduleNames )
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
@@ -92,8 +114,11 @@
         {
             RoR2Application.isModded = true;
             RoR2Application.onFixedUpdate += () => RoR2Application.isModded = true;
-            HooksCore.RoR2.RoR2Application.UnitySystemConsoleRedirector.Redirect.On += Redirect_On;
+            HooksCore.RoR2.UnitySystemConsoleRedirector.Redirect.On += Redirect_On;
             HooksCore.RoR2.UI.QuickPlayButtonController.Start.On += Start_On;
+            HooksCore.RoR2.DisableIfGameModded.OnEnable.On += OnEnable_On;
+            HooksCore.RoR2.Networking.ServerAuthManager.HandleSetClientAuth.Il += ServerAuthManager_HandleSetClientAuth;
+            NetworkModCompatibilityHelper.onUpdated += NetworkModCompatibilityHelper_onUpdated;
             _ = Tools.LoadAssembly( Rein.Properties.Resources.RoR2ScriptForwarding );
             if( !Log.loaded )
             {
@@ -108,6 +133,31 @@
             MonoBehaviour.DontDestroyOnLoad( managerObject );
             _ = managerObject.AddComponent<CoreManager>();
         }
+
+
+        private static void ServerAuthManager_HandleSetClientAuth(ILContext il)
+        {
+            var cur = new ILCursor(il);
+            if(cur.TryGotoNext(MoveType.AfterLabel,
+                x => x.MatchNewobj(typeof(GameNetworkManager.ModMismatchKickReason).GetConstructor(new[] { typeof(IEnumerable<String>) })),
+                x => x.MatchStloc(out _)))
+            {
+                static GameNetworkManager.SimpleLocalizedKickReason SwapToStandardMessage(GameNetworkManager.ModMismatchKickReason reason)
+                {
+                    reason.GetDisplayTokenAndFormatParams(out var token, out var format);
+                    return new GameNetworkManager.SimpleLocalizedKickReason(token, (String[])format);
+                }
+                cur.Index++;
+                _ = cur.EmitDelegate<Func<GameNetworkManager.ModMismatchKickReason, GameNetworkManager.SimpleLocalizedKickReason>>(SwapToStandardMessage);
+            }
+        }
+
+
+        private static void OnEnable_On(HooksCore.RoR2.DisableIfGameModded.OnEnable.Orig orig, DisableIfGameModded self)
+        {
+            if(!self.name.Contains("Eclipse")) orig(self);
+        }
+
 
         private static void Start_On( HooksCore.RoR2.UI.QuickPlayButtonController.Start.Orig orig, RoR2.UI.QuickPlayButtonController self )
         {
@@ -135,7 +185,7 @@
         private static readonly GameObject managerObject;
         private static readonly Dictionary<String,PluginInfo> pluginsByName = new Dictionary<String, PluginInfo>();
 
-        private static void Redirect_On( HooksCore.RoR2.RoR2Application.UnitySystemConsoleRedirector.Redirect.Orig orig )
+        private static void Redirect_On(HooksCore.RoR2.UnitySystemConsoleRedirector.Redirect.Orig orig)
         {
             // Do Nothing
         }

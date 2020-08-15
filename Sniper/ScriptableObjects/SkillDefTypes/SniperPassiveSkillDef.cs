@@ -4,6 +4,8 @@
 
     using EntityStates;
 
+    using JetBrains.Annotations;
+
     using ReinCore;
 
     using RoR2;
@@ -73,6 +75,11 @@
 
             bulletAttack.sniper = this.canHeadshot;
             this.bulletModifier.Apply( bulletAttack );
+        }
+
+        public sealed override void OnFixedUpdate([NotNull] GenericSkill skillSlot)
+        {
+
         }
     }
 }

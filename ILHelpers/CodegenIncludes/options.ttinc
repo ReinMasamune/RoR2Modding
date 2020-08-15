@@ -1,0 +1,7 @@
+﻿<#+
+//const Byte maxArgs = (Byte)8u;
+const String namespaceName = "ILHelpers";
+const String callExtensionClassName = "CallExtensions";
+const String callInlineExtensionClassName = "CallInlineExtensions";
+const String callIndirectExtensionClassName = "CallIndirectExtensions";
+#>

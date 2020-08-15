@@ -70,7 +70,7 @@
 
         static NetworkCore()
         {
-            Log.Warning( "NetworkCore loaded" );
+            //Log.Warning( "NetworkCore loaded" );
             _ = RegisterMessageType<DamageMessage>();
             _ = RegisterMessageType<BuffMessage>();
             _ = RegisterMessageType<DoTMessage>();
@@ -79,7 +79,7 @@
             GameNetworkManager.onStartServerGlobal += RegisterServerMessages;
             GameNetworkManager.onStartClientGlobal += RegisterClientMessages;
 
-            Log.Warning( "NetworkCore loaded" );
+            //Log.Warning( "NetworkCore loaded" );
 
             loaded = true;
         }

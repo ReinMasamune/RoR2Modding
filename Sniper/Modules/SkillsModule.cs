@@ -27,7 +27,7 @@
             get
             {
                 var def = ScriptableObject.CreateInstance<SkillDef>();
-                return (def, "???");
+                return (def, "REIN_SNIPER_WIP");
             }
         }
 
@@ -520,7 +520,7 @@
 
             var backflip = SniperSkillDef.Create<Backflip>("Body");
             backflip.baseMaxStock = 1;
-            backflip.baseRechargeInterval = 8f;
+            backflip.baseRechargeInterval = 5f;
             backflip.beginSkillCooldownOnSkillEnd = true;
             backflip.canceledFromSprinting = false;
             backflip.fullRestockOnAssign = true;
@@ -555,19 +555,21 @@
             decoy.interruptPriority = InterruptPriority.PrioritySkill;
             decoy.isCombatSkill = false;
             decoy.maxReactivationTimer = -1f;
-            decoy.minReactivationTimer = 2f;
+            decoy.minReactivationTimer = 0.75f;
             decoy.noSprint = false;
             decoy.reactivationIcon = UIModule.GetDecoyReactivationIcon();
             decoy.reactivationInterruptPriority = InterruptPriority.PrioritySkill;
-            decoy.reactivationRequiredStock = 0;
-            decoy.reactivationStockToConsume = 0;
+            decoy.reactivationRequiredStock = 1;
+            decoy.reactivationStockToConsume = 1;
+            decoy.consumeOnInvalidate = true;
+            decoy.cdRefundOnInvalidate = 0.0f;
             decoy.rechargeStock = 1;
             decoy.requiredStock = 1;
             decoy.skillDescriptionToken = Tokens.SNIPER_SPECIAL_DECOY_DESC;
             decoy.skillName = "Decoy";
             decoy.skillNameToken = Tokens.SNIPER_SPECIAL_DECOY_NAME;
             decoy.startCooldownAfterReactivation = true;
-            decoy.stockToConsume = 1;
+            decoy.stockToConsume = 0;
             skills.Add( (decoy,"") );
 
             //var knife = KnifeSkillDef.Create<KnifeActivation,KnifeReactivation>( "Weapon", "Body" );
@@ -583,15 +585,15 @@
             //knife.noSprint = true;
             //knife.reactivationIcon = UIModule.GetKnifeReactivationIcon();
             //knife.reactivationInterruptPriority = InterruptPriority.PrioritySkill;
-            //knife.reactivationRequiredStock = 0;
-            //knife.reactivationStockToConsume = 0;
+            //knife.reactivationRequiredStock = 1;
+            //knife.reactivationStockToConsume = 1;
             //knife.rechargeStock = 1;
             //knife.requiredStock = 1;
             //knife.skillDescriptionToken = Tokens.SNIPER_SPECIAL_KNIFE_DESC;
             //knife.skillName = "Blink Knife";
             //knife.skillNameToken = Tokens.SNIPER_SPECIAL_KNIFE_NAME;
             //knife.startCooldownAfterReactivation = true;
-            //knife.stockToConsume = 1;
+            //knife.stockToConsume = 0;
             //skills.Add( knife );
             //KnifeSkillData.interruptPriority = InterruptPriority.PrioritySkill;
             //KnifeSkillData.targetMachineName = "Weapon";

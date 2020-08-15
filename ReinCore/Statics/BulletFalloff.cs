@@ -35,8 +35,8 @@
 
         static BulletFalloffCore()
         {
-            Log.Warning( "BulletFalloffCore loaded" );
-            Log.Warning( "BulletFalloffCore loaded" );
+            //Log.Warning( "BulletFalloffCore loaded" );
+            //Log.Warning( "BulletFalloffCore loaded" );
             loaded = true;
         }
 

@@ -5,7 +5,11 @@
 
     using EntityStates;
 
+    using JetBrains.Annotations;
+
     using ReinCore;
+
+    using RoR2;
 
     using Sniper.Components;
     using Sniper.Enums;
@@ -76,6 +80,9 @@
             this.chargeModifier?.Invoke( bullet );
         }
 
+        public sealed override void OnFixedUpdate([NotNull] GenericSkill skillSlot)
+        {
 
+        }
     }
 }

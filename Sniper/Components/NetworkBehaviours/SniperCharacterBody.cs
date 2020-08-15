@@ -40,34 +40,46 @@
         //private static Action<CharacterBody> base_Start;
         //private static Action<CharacterBody> base_Awake;
         //private static Action<CharacterBody> base_Update;
+        internal void CheckIn(SniperReloadableFireSkillDef.SniperPrimaryInstanceData primaryData)
+        {
+            this.primaryData = primaryData;
+        }
+        internal SniperReloadableFireSkillDef.SniperPrimaryInstanceData primaryData { get; private set; }
+
+
+
+        internal void SendBonusReload(ReloadTier tier)
+        {
+            this.primaryData?.ForceReload(tier);
+        }
 
 
         private Coroutine startReloadRoutine;
-        internal void StartReload( ReloadParams reloadParams )
+        internal void StartReload(ReloadParams reloadParams)
         {
             this.curReloadParams = reloadParams;
             this.reloadTimer = 0f;
-            this.startReloadRoutine = base.StartCoroutine( this.ReloadStartDelay( this.curReloadParams.reloadDelay / base.attackSpeed ) );
+            this.startReloadRoutine = base.StartCoroutine(this.ReloadStartDelay(this.curReloadParams.reloadDelay / base.attackSpeed));
         }
 
         internal ReloadTier ReadReload()
         {
-            return this.curReloadParams.GetReloadTier( this.reloadTimer );
+            return this.curReloadParams.GetReloadTier(this.reloadTimer);
         }
 
         private Coroutine stopReloadRoutine;
-        internal void StopReload( SkillDefs.SniperReloadableFireSkillDef.SniperPrimaryInstanceData data )
+        internal void StopReload(SkillDefs.SniperReloadableFireSkillDef.SniperPrimaryInstanceData data)
         {
             this.isReloading = false;
-            this.stopReloadRoutine = base.StartCoroutine( this.ReloadStopDelay( (this.curReloadParams.reloadEndDelay / base.attackSpeed) + this.curReloadParams.GetFlatDelay(this.reloadTimer, base.attackSpeed), data ) );
+            this.stopReloadRoutine = base.StartCoroutine(this.ReloadStopDelay((this.curReloadParams.reloadEndDelay / base.attackSpeed) + this.curReloadParams.GetFlatDelay(this.reloadTimer, base.attackSpeed), data));
         }
 
         internal void ForceStopReload()
         {
 
             this.isReloading = false;
-            if( this.stopReloadRoutine != null ) this.StopCoroutine( this.stopReloadRoutine );
-            if( this.startReloadRoutine != null ) this.StopCoroutine( this.startReloadRoutine );
+            if(this.stopReloadRoutine != null) this.StopCoroutine(this.stopReloadRoutine);
+            if(this.startReloadRoutine != null) this.StopCoroutine(this.startReloadRoutine);
         }
 
         internal Boolean CanReload()
@@ -76,17 +88,17 @@
         }
 
 
-        private IEnumerator ReloadStartDelay( Single delayTime )
+        private IEnumerator ReloadStartDelay(Single delayTime)
         {
-            yield return new WaitForSeconds( delayTime );
+            yield return new WaitForSeconds(delayTime);
 
             this.showBar = true;
             this.isReloading = true;
-            SoundModule.PlayOpenReload( base.gameObject );
+            SoundModule.PlayOpenReload(base.gameObject);
         }
-        private IEnumerator ReloadStopDelay( Single delayTime, SkillDefs.SniperReloadableFireSkillDef.SniperPrimaryInstanceData data )
+        private IEnumerator ReloadStopDelay(Single delayTime, SkillDefs.SniperReloadableFireSkillDef.SniperPrimaryInstanceData data)
         {
-            yield return new WaitForSeconds( delayTime );
+            yield return new WaitForSeconds(delayTime);
 
             this.showBar = false;
             data.isReloading = false;
@@ -95,15 +107,15 @@
         protected new void Start()
         {
             base.Start();
-            ( this.skillLocator.primary.skillInstanceData as SniperReloadableFireSkillDef.SniperPrimaryInstanceData )?.StartReload();
+            (this.skillLocator.primary.skillInstanceData as SniperReloadableFireSkillDef.SniperPrimaryInstanceData)?.StartReload();
         }
 
         protected new void Update()
         {
             base.Update();
-            if( !Util.HasEffectiveAuthority( base.gameObject ) ) return;
-            if( !this.isReloading ) return;
-            this.reloadTimer = this.curReloadParams.Update( Time.deltaTime, base.attackSpeed, this.reloadTimer, ref attackSpeedSmoother, ref attackSpeedSpeed, 0.5f );
+            if(!Util.HasEffectiveAuthority(base.gameObject)) return;
+            if(!this.isReloading) return;
+            this.reloadTimer = this.curReloadParams.Update(Time.deltaTime, base.attackSpeed, this.reloadTimer, ref attackSpeedSmoother, ref attackSpeedSpeed, 0.5f);
         }
         private Single attackSpeedSpeed;
         private Single attackSpeedSmoother;
@@ -111,7 +123,7 @@
         protected new void OnDestroy()
         {
             base.OnDestroy();
-            if( !this.reloadUI || this.reloadUI is null ) return;
+            if(!this.reloadUI || this.reloadUI is null) return;
             this.reloadUI.showBar = false;
         }
 
@@ -124,7 +136,7 @@
             set
             {
                 this._reloadTimer = value;
-                if( this.reloadUI is null ) return;
+                if(this.reloadUI is null) return;
                 this.reloadUI.barPosition = value / this.curReloadParams.baseDuration;
             }
         }
@@ -135,9 +147,9 @@
             get => this._showBar;
             set
             {
-                if( value == this.showBar ) return;
+                if(value == this.showBar) return;
                 this._showBar = value;
-                if( this.reloadUI is null ) return;
+                if(this.reloadUI is null) return;
                 this.reloadUI.showBar = value;
             }
         }
@@ -149,7 +161,7 @@
             set
             {
                 this._barPos = value;
-                if( this.reloadUI is null ) return;
+                if(this.reloadUI is null) return;
                 this.reloadUI.barPosition = value;
             }
         }
@@ -161,7 +173,7 @@
             set
             {
                 this._curReloadParams = value;
-                if( this.reloadUI is null ) return;
+                if(this.reloadUI is null) return;
                 this.reloadUI.currentParams = value;
             }
         }
@@ -180,7 +192,7 @@
         }
 
         private SniperCrosshairController _sniperCrosshairController;
-        internal SniperCrosshairController sniperCrosshair 
+        internal SniperCrosshairController sniperCrosshair
         {
             get => this._sniperCrosshairController;
             set
@@ -189,7 +201,7 @@
 
                 this._sniperCrosshairController = value;
 
-                if( value is null ) return;
+                if(value is null) return;
 
                 var primary = base.skillLocator.primary;
                 var primaryData = primary.skillInstanceData as SniperReloadableFireSkillDef.SniperPrimaryInstanceData;
@@ -208,7 +220,7 @@
         {
             get
             {
-                if( this._ammo == null )
+                if(this._ammo == null)
                 {
                     GenericSkill slot = this.ammoSlot;
                     this._ammo = slot.skillDef as SniperAmmoSkillDef;
@@ -222,10 +234,10 @@
         {
             get
             {
-                if( this._ammoSlot == null )
+                if(this._ammoSlot == null)
                 {
-                    this._ammoSlot = base.skillLocator.GetSkillAtIndex( 0 );
-                    this._ammoSlot.onSkillChanged += ( slot ) => this._ammo = slot.skillDef as SniperAmmoSkillDef;
+                    this._ammoSlot = base.skillLocator.GetSkillAtIndex(0);
+                    this._ammoSlot.onSkillChanged += (slot) => this._ammo = slot.skillDef as SniperAmmoSkillDef;
                 }
                 return this._ammoSlot;
             }
@@ -237,7 +249,7 @@
         {
             get
             {
-                if( this._passive == null )
+                if(this._passive == null)
                 {
                     GenericSkill slot = this.passiveSlot;
                     this._passive = slot.skillDef as SniperPassiveSkillDef;
@@ -251,10 +263,10 @@
         {
             get
             {
-                if( this._passiveSlot == null )
+                if(this._passiveSlot == null)
                 {
-                    this._passiveSlot = base.skillLocator.GetSkillAtIndex( 1 );
-                    this._passiveSlot.onSkillChanged += ( slot ) => this._passive = slot.skillDef as SniperPassiveSkillDef;
+                    this._passiveSlot = base.skillLocator.GetSkillAtIndex(1);
+                    this._passiveSlot.onSkillChanged += (slot) => this._passive = slot.skillDef as SniperPassiveSkillDef;
                 }
                 return this._passiveSlot;
             }
@@ -271,7 +283,7 @@
 
 
 
-        internal unsafe void SummonDecoy( Vector3 position, Quaternion rotation )
+        internal unsafe void SummonDecoy(Vector3 position, Quaternion rotation)
         {
             ItemIndex* indicies = stackalloc ItemIndex[ItemCatalog.itemCount];
 
@@ -284,7 +296,7 @@
 #endif
 
             CharacterMaster summoningMaster = base.master;
-            if( summoningMaster == null )
+            if(summoningMaster == null)
             {
                 return;
             }
@@ -302,30 +314,30 @@
             Inventory masterInv = summoningMaster.inventory;
             Inventory decoyInv = summonedMaster.inventory;
 
-            decoyInv.CopyEquipmentFrom( masterInv );
-            decoyInv.CopyItemsFrom( masterInv );
+            decoyInv.CopyEquipmentFrom(masterInv);
+            decoyInv.CopyItemsFrom(masterInv);
 
             UInt32 counter = 0u;
-            foreach( ItemIndex index in decoyInv.itemAcquisitionOrder )
+            foreach(ItemIndex index in decoyInv.itemAcquisitionOrder)
             {
-                if( !DecoyModule.whitelist.Contains( index ) )
+                if(!DecoyModule.whitelist.Contains(index))
                 {
                     indicies[counter++] = index;
                 }
             }
 
-            for( Int32 i = 0; i < counter; ++i )
+            for(Int32 i = 0; i < counter; ++i)
             {
-                decoyInv.ResetItem( indicies[i] );
+                decoyInv.ResetItem(indicies[i]);
             }
 
             Deployable deployable = summonedMaster.AddComponent<Deployable>();
             deployable.onUndeploy = new UnityEvent();
-            deployable.onUndeploy.AddListener( new UnityAction( summonedMaster.TrueKill ) );
-            summoningMaster.AddDeployable( deployable, DecoyModule.deployableSlot );
+            deployable.onUndeploy.AddListener(new UnityAction(summonedMaster.TrueKill));
+            summoningMaster.AddDeployable(deployable, DecoyModule.deployableSlot);
         }
 
-        private static void DecoySummonPreSetup( CharacterMaster master )
+        private static void DecoySummonPreSetup(CharacterMaster master)
         {
             // I suppose this is not needed? interesting
         }

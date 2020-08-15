@@ -17,9 +17,9 @@
 
         static SpawnsCore()
         {
-            Log.Warning( "SpawnsCore loaded" );
+            //Log.Warning( "SpawnsCore loaded" );
             HooksCore.RoR2.ClassicStageInfo.Awake.On += Awake_On;
-            Log.Warning( "SpawnsCore loaded" );
+            //Log.Warning( "SpawnsCore loaded" );
             loaded = true;
         }
 

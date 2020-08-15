@@ -13,6 +13,12 @@ namespace Sniper.UI.Components
     {
         const String formatString = "g8";
 
+        protected void Awake()
+        {
+            this.unitType = UnitType.Meter;
+            this.metricPrefix = MetricPrefix.None;
+        }
+
 #if TESTING
         [Range(0f,10000000f)]
         public Single testDistance;
@@ -108,18 +114,24 @@ namespace Sniper.UI.Components
             private readonly Double conversionFromMeters;
             public readonly String name;
 
-            public UnitInfo( MetricPrefix prefix, UnitType baseUnit )
+            public UnitInfo(MetricPrefix prefix, UnitType baseUnit)
             {
-                var mult = Math.Pow(10.0, -(Double)(Int32)prefix);
-                this.conversionFromMeters = unitConversionLookup[baseUnit] * mult;
-                this.name = String.Format( "{0}{1}", prefixLookup[prefix], unitNameLookup[baseUnit] );
+                Double mult = Math.Pow(10.0, -(Double)(Int32)prefix);
+                if(!prefixLookup.TryGetValue(prefix, out var unitPref)) unitPref = "?";
+
+                if(!unitNameLookup.TryGetValue(baseUnit, out var unitName)) unitName = "?";
+                if(!unitConversionLookup.TryGetValue(baseUnit, out var conversion)) conversion = 1.0f;
+                this.conversionFromMeters = conversion * mult;
+                this.name = String.Format("{0}{1}", prefixLookup[prefix], unitName);
             }
 
-            public Double ConvertUnit( Double input ) => input * this.conversionFromMeters;
+            public Double ConvertUnit(Double input) => input * this.conversionFromMeters;
         }
 
         public enum MetricPrefix : Int32
         {
+            [HideInInspector]
+            Invalid = Int32.MinValue,
             yocto = -24,
             zepto = -21,
             atto = -18,
@@ -170,6 +182,8 @@ namespace Sniper.UI.Components
 
         public enum UnitType
         {
+            [HideInInspector]
+            Invalid,
             Meter,
 
             //Thou,

@@ -94,14 +94,17 @@ namespace Rein.RogueWispPlugin
         {
             HooksCore.RoR2.Projectile.ProjectileController.Start.On -= this.Start_On3;
             HooksCore.RoR2.EffectManager.SpawnEffect___void_EffectIndex_EffectData_Boolean.Il -= this.SpawnEffect___void_EffectIndex_EffectData_Boolean_Il;
-            HooksCore.RoR2.Projectile.ProjectileImpactExplosion.FixedUpdate.Il -= this.FixedUpdate_Il;
+            //HooksCore.RoR2.Projectile.ProjectileImpactExplosion.FixedUpdate.Il -= this.FixedUpdate_Il;
+            HooksCore.RoR2.Projectile.ProjectileImpactExplosion.Detonate.Il -= this.Detonate_Il;
+
         }
         private void Main_Enable()
         {
             HooksCore.RoR2.Projectile.ProjectileController.Start.On += this.Start_On3;
             //HooksCore.RoR2.EffectManager.SpawnEffect___void_EffectIndex_EffectData_Boolean.On += this.SpawnEffect___void_EffectIndex_EffectData_Boolean_On;
             HooksCore.RoR2.EffectManager.SpawnEffect___void_EffectIndex_EffectData_Boolean.Il += this.SpawnEffect___void_EffectIndex_EffectData_Boolean_Il;
-            HooksCore.RoR2.Projectile.ProjectileImpactExplosion.FixedUpdate.Il += this.FixedUpdate_Il;
+            //HooksCore.RoR2.Projectile.ProjectileImpactExplosion.FixedUpdate.Il += this.FixedUpdate_Il;
+            HooksCore.RoR2.Projectile.ProjectileImpactExplosion.Detonate.Il += this.Detonate_Il;
 
             var instanceParam = Expression.Parameter( typeof( ProjectileImpactExplosion ), "instance" );
             var field = Expression.Field( instanceParam, "projectileController" );
@@ -109,27 +112,22 @@ namespace Rein.RogueWispPlugin
         }
 
 
-
-        private void FixedUpdate_Il( ILContext il )
+        private static void CheckAndApplySkin(EffectData data, ProjectileImpactExplosion explosion)
         {
-            ILCursor c = new ILCursor( il );
-            c.GotoNext( MoveType.Before,
-                x => x.MatchLdcI4( 1 ),
-                x => x.MatchCall( typeof( RoR2.EffectManager ), nameof( EffectManager.SpawnEffect ) )
-            );
-            c.Emit( OpCodes.Dup );
-            c.Emit( OpCodes.Ldarg_0 );
-            c.EmitDelegate<Action<EffectData, ProjectileImpactExplosion>>( ( data, self ) =>
+            if(explosion.explosionSoundString == Main.skinnedProjExplosionString)
             {
-                //Main.LogI( "Check1" );
-                if( self.explosionSoundString == Main.skinnedProjExplosionString )
-                {
-                    //Main.LogI( "sound matched" );
-                    var ownerBody = getController(self)?.owner?.GetComponent<CharacterBody>();
-                    if( ownerBody != null ) data.genericUInt = ownerBody.skinIndex;
-                }
-            } );
+                var ownerBody = getController(explosion)?.owner?.GetComponent<CharacterBody>();
+                if(ownerBody != null) data.genericUInt = ownerBody.skinIndex;
+            }
         }
+        private void Detonate_Il(ILContext il) => new ILCursor(il)
+            .GotoNext(MoveType.Before,
+                x => x.MatchLdcI4(1),
+                x => x.MatchCall(typeof(RoR2.EffectManager), nameof(EffectManager.SpawnEffect))
+            ).Dup_()
+            .LdArg_(0)
+            .CallDel_<Action<EffectData, ProjectileImpactExplosion>>(CheckAndApplySkin);
+
         private void SpawnEffect___void_EffectIndex_EffectData_Boolean_Il( ILContext il )
         {
             ILCursor c = new ILCursor( il );

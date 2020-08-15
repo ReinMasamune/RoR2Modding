@@ -16,12 +16,11 @@
             }
             return _podPrefab;
         }
-#pragma warning disable IDE1006 // Naming Styles
         private static GameObject _podPrefab;
-#pragma warning restore IDE1006 // Naming Styles
         private static GameObject CreatePodPrefab() =>
+            Resources.Load<GameObject>("Prefabs/CharacterBodies/CommandoBody").GetComponent<CharacterBody>().preferredPodPrefab;
             // FUTURE: Create sniper survivor pod prefab
-            null;
+            //null;
 
         internal static CharacterCameraParams GetCharCameraParams()
         {
@@ -31,9 +30,7 @@
             }
             return _sniperCharCameraParams;
         }
-#pragma warning disable IDE1006 // Naming Styles
         private static CharacterCameraParams _sniperCharCameraParams;
-#pragma warning restore IDE1006 // Naming Styles
         private static CharacterCameraParams CreateSniperCharCameraParams()
         {
             var param = SniperCameraParams.Create( new Vector3( 1f, 0.8f, -3f ), 0.5f, 0.2f, 1.0f, 0.2f );

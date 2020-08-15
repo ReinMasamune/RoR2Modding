@@ -1,9 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+	<LangVersion>Preview</LangVersion>
     <AssemblyName>RogueWisp</AssemblyName>
-    <AssemblyVersion>2.1.5.2</AssemblyVersion>
-    <FileVersion>2.1.5.2</FileVersion>
+    <AssemblyVersion>2.1.9.9</AssemblyVersion>
+    <FileVersion>2.1.9.9</FileVersion>
     <RootNamespace>Rein</RootNamespace>
     <UserSecretsId>392ba4cc-368a-4518-b19f-f550dca1e784</UserSecretsId>
     <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
@@ -43,7 +44,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="..\__Standalone\AssemblyLoader.cs" Link="AssemblyLoader.cs" />
     <Compile Include="..\__Standalone\ResourceTools.cs" Link="ResourceTools.cs" />
   </ItemGroup>
   
@@ -51,6 +51,11 @@
     <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="AssemblyLoader.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AssemblyLoader.tt</DependentUpon>
+    </Compile>
     <Compile Update="AutomaticTokens.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -68,6 +73,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Update="AssemblyLoader.tt">
+      <LastGenOutput>AssemblyLoader.cs</LastGenOutput>
+      <Generator>TextTemplatingFileGenerator</Generator>
+    </None>
     <None Update="AutomaticTokens.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>AutomaticTokens.cs</LastGenOutput>
@@ -164,6 +173,7 @@
     <Reference Include="ReinCore">
       <HintPath>..\libs\Rein\ReinCore.dll</HintPath>
       <Private>false</Private>
+      <SpecificVersion>false</SpecificVersion>
     </Reference>
     <Reference Include="Rewired_Core">
       <HintPath>..\libs\Unity\Rewired_Core.dll</HintPath>

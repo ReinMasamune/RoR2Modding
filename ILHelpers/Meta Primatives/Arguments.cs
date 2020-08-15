@@ -1,4 +1,4 @@
-﻿namespace ILHelper
+﻿namespace ILHelpers
 {
     using System;
     using System.Reflection;
@@ -11,11 +11,18 @@
 
     using Object = System.Object;
 
-    public interface IArg { }
 
-    public readonly struct ILArg<T> : IArg 
+    public class Arg<T>
     {
-        internal readonly UInt16 index;
-        internal ILArg( UInt16 ind ) => this.index = ind;
+        internal readonly ParameterDefinition parameter;
+        internal Arg( ParameterDefinition parameter )
+        {
+            this.parameter = parameter;
+        }
+    }
+
+    internal static class Argument
+    {
+        internal static Arg<T> Create<T>()
     }
 }

@@ -106,7 +106,7 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Skills.WIP.
+        ///   Looks up a localized string similar to REIN_SNIPER_WIP.
         /// </summary>
         internal static string ach__WIP__unlockidentifier {
             get {
@@ -223,7 +223,7 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Assets/__EXPORT/Icons/M2/Quickscope.png.
         /// </summary>
         internal static string icon__QuickscopeIcon {
             get {
@@ -461,9 +461,27 @@ namespace Sniper.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Sniper.
         /// </summary>
+        internal static string lang__SNIPER_DISPLAY_NAME {
+            get {
+                return ResourceManager.GetString("lang__SNIPER_DISPLAY_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sniper.
+        /// </summary>
         internal static string lang__SNIPER_NAME {
             get {
                 return ResourceManager.GetString("lang__SNIPER_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to And so they left, sound still ringing in deaf ears..
+        /// </summary>
+        internal static string lang__SNIPER_OUTRO_FLAVOR {
+            get {
+                return ResourceManager.GetString("lang__SNIPER_OUTRO_FLAVOR", resourceCulture);
             }
         }
         
@@ -648,7 +666,7 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Abyss.
+        ///   Looks up a localized string similar to Scorched.
         /// </summary>
         internal static string lang__SNIPER_SKIN_ALT2_NAME {
             get {
@@ -666,7 +684,7 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to PlaceholderName1.
+        ///   Looks up a localized string similar to Abyss.
         /// </summary>
         internal static string lang__SNIPER_SKIN_ALT4_NAME {
             get {
@@ -684,7 +702,7 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Snow.
+        ///   Looks up a localized string similar to Frozen.
         /// </summary>
         internal static string lang__SNIPER_SKIN_ALT6_NAME {
             get {
@@ -747,7 +765,7 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Perform a flip away from the direction you are aiming..
+        ///   Looks up a localized string similar to Perform a flip away from the direction you are aiming. Stuns enemies and automatically gives you a perfect reload..
         /// </summary>
         internal static string lang__SNIPER_UTILITY_BACKFLIP_DESC {
             get {

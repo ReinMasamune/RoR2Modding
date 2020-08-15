@@ -1,4 +1,4 @@
-﻿namespace ILHelper
+﻿namespace ILHelpers
 {
     using System;
     using System.Reflection;
@@ -11,15 +11,15 @@
 
     using Object = System.Object;
 
-    public interface IDMDCursor<TEmitReciever>
+    public interface IIDMDCursor<TEmitReciever>
         where TEmitReciever : ICursorWrite, ICursor
     {
-        ILLocal<T> AddLocal<T>();
+        Local<T> AddLocal<T>();
         internal TEmitReciever reciever { get; }
     }
 
 
-    public readonly struct DMDCursor<TStack, TSignature> : IDMDCursor<XILCursor>
+    public readonly struct DMDCursor<TStack, TSignature> : IIDMDCursor<XILCursor>
         where TStack : IStack
         where TSignature : Delegate
     {
@@ -36,14 +36,14 @@
         internal readonly XILCursor cursor;
         internal readonly TStack stack;
 
-        public ILLocal<T> AddLocal<T>() => default;
+        public Local<T> AddLocal<T>() => default;
 
 
         internal DMDCursor<IL<TValue, TStack>, TSignature> _Push<TValue>( XILCursor cursor ) => new DMDCursor<IL<TValue, TStack>, TSignature>( this.stack.Push<TValue, TStack>(), cursor );
         internal DMDCursor<IL<TValue, TStack>, TSignature> _Push<TValue>() => new DMDCursor<IL<TValue, TStack>, TSignature>( this.stack.Push<TValue, TStack>(), this.cursor );
         internal DMDCursor<TStack, TSignature> _Emit( XILCursor cursor ) => new DMDCursor<TStack, TSignature>( this.stack, cursor );
 
-        XILCursor IDMDCursor<XILCursor>.reciever => this.cursor;
+        XILCursor IIDMDCursor<XILCursor>.reciever => this.cursor;
     }
 
     internal static class DMDCursorExtensions

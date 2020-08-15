@@ -29,6 +29,10 @@
         }
 
         [SerializeField]
+        internal Boolean consumeOnInvalidate;
+        [SerializeField]
+        internal Single cdRefundOnInvalidate;
+        [SerializeField]
         internal SerializableEntityStateType reactivationState;
         [SerializeField]
         internal String reactivationStateMachineName;
@@ -84,9 +88,9 @@
             EntityStateMachine mach = data.waitingOnReactivation? data.reactivationStateMachine : skillSlot.stateMachine ;
             if( mach.SetInterruptState( state, data.waitingOnReactivation ? this.reactivationInterruptPriority : this.interruptPriority ) )
             {
-                skillSlot.stock -= data.waitingOnReactivation ? this.reactivationStockToConsume : this.stockToConsume;
                 if( !data.waitingOnReactivation )
                 {
+                    skillSlot.stock -= this.stockToConsume;
                     data.OnExecution();
                 } else
                 {
@@ -213,6 +217,8 @@
                 if( this.waitingOnReactivation )
                 {
                     this.waitingOnReactivation = false;
+                    this.skillSlot.stock -= this.def.reactivationStockToConsume;
+                    //NEXT: Implement CD refund
                     if( this.data != null ) this.data.OnInvalidate();
                     this.data = null;
                 } else
@@ -221,7 +227,6 @@
                     if( this.data != null ) this.data.OnInvalidate();
                     this.data = null;
                 }
-
             }
 
             internal Boolean waitingOnReactivation;
@@ -232,6 +237,5 @@
             private readonly ReactivatedSkillDef<TSkillData> def;
             private readonly GenericSkill skillSlot;
         }
-
     }
 }

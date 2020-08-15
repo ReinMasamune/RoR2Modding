@@ -12,7 +12,7 @@
 
     internal class DecoyActivation : ActivationBaseState<DecoySkillData>
     {
-        private const Single cloakDuration = 2.5f;
+        private const Single cloakDuration = 3f;
 
         internal override DecoySkillData CreateSkillData()
         {
@@ -38,6 +38,7 @@
             if( NetworkServer.active )
             {
                 base.characterBody.AddTimedBuff( BuffIndex.Cloak, cloakDuration );
+                base.characterBody.AddTimedBuff( BuffIndex.CloakSpeed, cloakDuration );
                 base.characterBody.SummonDecoy( this.position, this.rotation );
             }
         }

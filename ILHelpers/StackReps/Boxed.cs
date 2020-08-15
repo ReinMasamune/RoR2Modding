@@ -1,20 +1,22 @@
-﻿namespace ILHelper
+﻿namespace ILHelpers
 {
-    using System;
-    using System.Reflection;
-
-    using Mono.Cecil;
-    using Mono.Cecil.Cil;
-    using Mono.Collections.Generic;
-
-    using MonoMod.Cil;
-
-    using Object = System.Object;
-
-    public class Boxed<T> : IStackRep
+    public sealed class Boxed<T>
         where T : struct
     {
-        public T unbox => (T)(Object)this;
-        Type IStackRep.representedType => typeof(Object);
+        private readonly T stored;
+        private Boxed(T item)
+        {
+            this.stored = item;
+        }
+
+        public static explicit operator T(Boxed<T> boxed)
+        {
+            return boxed.stored;
+        }
+
+        public static explicit operator Boxed<T>(T item)
+        {
+            return new Boxed<T>(item);
+        }
     }
 }

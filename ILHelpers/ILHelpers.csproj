@@ -8,28 +8,52 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
+	
+  <PropertyGroup>
+	  <t4inc>$(MSBuildProjectDirectory)\Codegenincludes</t4inc>
+  </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Extensions\LongExtensions\Generated\StackedCallExtensions.cs" />
+      <T4ParameterValues Include="t4inc">
+		  <Value>$(t4inc)</Value>
+	  </T4ParameterValues>
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Internal\" />
-    <Folder Include="Cursor\" />
+    <Compile Remove="Extensions\LongExtensions\Call\Action\CallExtensions - Copy.cs" />
+    <Compile Remove="______UNSORTED\Generated\StackedCallExtensions.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Extensions\ShortExtensions\" />
     <Folder Include="Generated\" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Extensions\LongExtensions\Generated\ftnCallExtensions.cs">
+    <None Include="DMD\DMD\DMD.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>ftnCallExtensions.tt</DependentUpon>
+      <DependentUpon>DMD.tt</DependentUpon>
     </None>
-    <None Include="Extensions\LongExtensions\Generated\StackedCallExtensions.cs">
+    <None Include="______UNSORTED\Generated\ftnCallExtensions.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ftnCallExtensions.ttt</DependentUpon>
+    </None>
+    <None Include="______UNSORTED\Generated\StackedCallExtensions.cs">
       <DependentUpon>StackedCallExtensions.tt</DependentUpon>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
+    </None>
+    <None Include="Extensions\LongExtensions\LoadFuncPointer\LoadFuncPointer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>LoadFuncPointer.tt</DependentUpon>
+    </None>
+    <None Include="StackReps\FunctionPointer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>FunctionPointer.tt</DependentUpon>
     </None>
   </ItemGroup>
 
@@ -46,13 +70,54 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Extensions\LongExtensions\Generated\StackedCallExtensions.tt">
+    <None Update="DMD\DMD\DMD.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>DMD.cs</LastGenOutput>
+    </None>
+    <None Update="Extensions\LongExtensions\CallIndirect\Action\IndirectActionCall.tt">
+      <LastGenOutput>IndirectActionCall.cs</LastGenOutput>
+      <Generator>TextTemplatingFileGenerator</Generator>
+    </None>
+    <None Update="Extensions\LongExtensions\CallIndirect\Func\IndirectFuncCall.tt">
+      <LastGenOutput>IndirectFuncCall.cs</LastGenOutput>
+      <Generator>TextTemplatingFileGenerator</Generator>
+    </None>
+    <None Update="Extensions\LongExtensions\Call\Action\ActionCall.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ActionCall.cs</LastGenOutput>
+    </None>
+    <None Update="Extensions\LongExtensions\CallInlineExtensions.tt">
+      <LastGenOutput>CallInlineExtensions.txt</LastGenOutput>
+      <Generator>TextTemplatingFileGenerator</Generator>
+    </None>
+    <None Update="Extensions\LongExtensions\CallInlineExtensions.txt">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CallInlineExtensions.tt</DependentUpon>
+    </None>
+    <None Update="Extensions\LongExtensions\Call\Func\FuncCall.tt">
+      <LastGenOutput>FuncCall.cs</LastGenOutput>
+      <Generator>TextTemplatingFileGenerator</Generator>
+    </None>
+    <None Update="______UNSORTED\Generated\StackedCallExtensions.tt">
       <LastGenOutput>StackedCallExtensions.cs</LastGenOutput>
       <Generator>TextTemplatingFileGenerator</Generator>
     </None>
-    <None Update="Extensions\LongExtensions\Generated\ftnCallExtensions.tt">
+    <None Update="Extensions\LongExtensions\InlineCall\Action\ActionInlineCall.tt">
+      <LastGenOutput>ActionInlineCall.cs</LastGenOutput>
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>ftnCallExtensions.cs</LastGenOutput>
+    </None>
+    <None Update="Extensions\LongExtensions\InlineCall\Func\FuncInlineCall.tt">
+      <LastGenOutput>FuncInlineCall.cs</LastGenOutput>
+      <Generator>TextTemplatingFileGenerator</Generator>
+    </None>
+    <None Update="Extensions\LongExtensions\LoadFuncPointer\LoadFuncPointer.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>LoadFuncPointer.cs</LastGenOutput>
+    </None>
+    <None Update="StackReps\FunctionPointer.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>FunctionPointer.cs</LastGenOutput>
     </None>
   </ItemGroup>
 
@@ -61,10 +126,50 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Extensions\LongExtensions\Generated\ftnCallExtensions.cs">
+    <Compile Update="DMD\DMD\DMD.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>ftnCallExtensions.tt</DependentUpon>
+      <DependentUpon>DMD.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Extensions\LongExtensions\CallIndirect\Action\IndirectActionCall.cs">
+      <DependentUpon>IndirectActionCall.tt</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="Extensions\LongExtensions\CallIndirect\Func\IndirectFuncCall.cs">
+      <DependentUpon>IndirectFuncCall.tt</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="Extensions\LongExtensions\Call\Action\ActionCall.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ActionCall.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Extensions\LongExtensions\Call\Func\FuncCall.cs">
+      <DependentUpon>FuncCall.tt</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="Extensions\LongExtensions\InlineCall\Action\ActionInlineCall.cs">
+      <DependentUpon>ActionInlineCall.tt</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="Extensions\LongExtensions\InlineCall\Func\FuncInlineCall.cs">
+      <DependentUpon>FuncInlineCall.tt</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="Extensions\LongExtensions\LoadFuncPointer\LoadFuncPointer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>LoadFuncPointer.tt</DependentUpon>
+    </Compile>
+    <Compile Update="StackReps\FunctionPointer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>FunctionPointer.tt</DependentUpon>
     </Compile>
   </ItemGroup>
 

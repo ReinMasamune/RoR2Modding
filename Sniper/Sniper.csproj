@@ -2,13 +2,14 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+	<LangVersion>Preview</LangVersion>
   </PropertyGroup>
 
   <PropertyGroup>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
-    <AssemblyVersion>1.0.4.6</AssemblyVersion>
-    <FileVersion>1.0.4.6</FileVersion>
+    <AssemblyVersion>1.0.6.16</AssemblyVersion>
+    <FileVersion>1.0.6.16</FileVersion>
     <RootNamespace>Sniper</RootNamespace>
   </PropertyGroup>
 

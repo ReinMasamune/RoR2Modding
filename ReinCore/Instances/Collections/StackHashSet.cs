@@ -4,9 +4,9 @@
 
     public ref struct StackSet<TObject>
     {
-        public unsafe StackSet( Byte* ptr, Int32 maxLength )
+        public unsafe StackSet(Byte* ptr, Int32 maxLength)
         {
-            for( Int32 i = 0; i < maxLength; ++i )
+            for(Int32 i = 0; i < maxLength; ++i)
             {
                 ptr[i] = 0;
             }
@@ -19,9 +19,9 @@
 
         public Int32 count { get; private set; }
 
-        public Boolean Contains( TObject item )
+        public Boolean Contains(TObject item)
         {
-            if( this.count == 0 ) return false;
+            if(this.count == 0) return false;
 
             Int32 code = item.GetHashCode();
             Int32 ind = code % this.maxLength;
@@ -31,12 +31,12 @@
             unsafe
             {
                 Byte cVal = this.ptr[index];
-                if( ( cVal & mask ) != 0 ) return true;
+                if((cVal & mask) != 0) return true;
             }
             return false;
         }
 
-        public Boolean Add( TObject item )
+        public Boolean Add(TObject item)
         {
             Int32 code = item.GetHashCode();
             Int32 ind = code % this.maxLength;
@@ -46,7 +46,7 @@
             unsafe
             {
                 Byte cVal = this.ptr[index];
-                if( ( cVal & mask ) != 0 ) return false;
+                if((cVal & mask) != 0) return false;
 
                 cVal |= mask;
                 this.ptr[index] = cVal;
@@ -58,8 +58,8 @@
 
         public void Clear()
         {
-            if( this.count == 0 ) return;
-            for( Int32 i = 0; i < this.maxLength; i += 8 )
+            if(this.count == 0) return;
+            for(Int32 i = 0; i < this.maxLength; i += 8)
             {
                 unsafe
                 {
@@ -68,9 +68,9 @@
             }
         }
 
-        public Boolean Remove( TObject item )
+        public Boolean Remove(TObject item)
         {
-            if( this.count == 0 ) return false;
+            if(this.count == 0) return false;
             Int32 code = item.GetHashCode();
             Int32 ind = code % this.maxLength;
             Int32 index = ind / 8;
@@ -79,7 +79,7 @@
             unsafe
             {
                 Byte cVal = this.ptr[index];
-                if( ( cVal & mask ) == 0 ) return false;
+                if((cVal & mask) == 0) return false;
 
                 cVal &= (Byte)~mask;
                 this.ptr[index] = cVal;

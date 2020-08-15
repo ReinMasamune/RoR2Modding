@@ -33,12 +33,12 @@
 
         static DeployablesCore()
         {
-            Log.Warning( "DeployablesCore loaded" );
+            //Log.Warning( "DeployablesCore loaded" );
             startingIndex = EnumExtensions.GetMax<DeployableSlot>();
 
             HooksCore.RoR2.CharacterMaster.GetDeployableSameSlotLimit.Il += GetDeployableSameSlotLimit_Il;
 
-            Log.Warning( "DeployablesCore loaded" );
+            //Log.Warning( "DeployablesCore loaded" );
             loaded = true;
         }
 

@@ -69,10 +69,10 @@
 
         static EffectsCore()
         {
-            Log.Warning( "EffectsCore loaded" );
+            //Log.Warning( "EffectsCore loaded" );
             HooksCore.RoR2.EffectCatalog.GetDefaultEffectDefs.On += GetDefaultEffectDefs_On;
 
-            Log.Warning( "EffectsCore loaded" );
+            //Log.Warning( "EffectsCore loaded" );
             loaded = true;
         }
 

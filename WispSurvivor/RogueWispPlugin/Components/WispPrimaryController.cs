@@ -76,8 +76,9 @@ namespace Rein.RogueWispPlugin
             {
                 this.scaleVar = RoR2.Console.instance.FindConVar( "hud_scale" );
                 this.RecalcBarRect();
-                RoR2.RoR2Application.onPauseStartGlobal += () => this.paused = true;
-                RoR2.RoR2Application.onPauseEndGlobal += () => this.paused = false;
+                // NEXT: Hook to pause screen to detect pause
+                //RoR2.RoR2Application.ononPauseStartGlobal += () => this.paused = true;
+                //RoR2.RoR2Application.onPauseEndGlobal += () => this.paused = false;
             }
 
             public void Update()
@@ -98,7 +99,7 @@ namespace Rein.RogueWispPlugin
 
             public void OnGUI()
             {
-                if( !base.hasAuthority || this.paused ) return;
+                if( !base.hasAuthority ) return;
                 for( Int32 i = 0; i < 10; i++ )
                 {
                     UnityEngine.GUI.Box( this.boxes[i], this.colors[this.colorStates[9 - i]], this.style );

@@ -129,6 +129,9 @@
   <data name="lang__WISP_SURVIVOR_BODY_NAME" xml:space="preserve">
     <value>Rogue Wisp</value>
   </data>
+  <data name="lang__WISP_SURVIVOR_FLAVOR" xml:space="preserve">
+    <value>And so it left, with dreams and tempered flames.</value>
+  </data>
   <data name="lang__WISP_SURVIVOR_PASSIVE_DESC" xml:space="preserve">
     <value>&lt;style=cIsUtility&gt;Flame Charge&lt;/style&gt; &lt;style=cIsDamage&gt;Empowers&lt;/style&gt; your abilities but decays over time.\nGain &lt;style=cIsDamage&gt;Barrier&lt;/style&gt; whenever you regain &lt;style=cIsUtility&gt;Flame Charge.&lt;/style&gt;</value>
   </data>
@@ -164,7 +167,7 @@
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="ReinCore" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ReinCore.dll;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\resources\reincore.dll;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="wispscene" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>wispscene;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>

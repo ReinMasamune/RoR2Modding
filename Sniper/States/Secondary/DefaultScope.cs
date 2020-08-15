@@ -1,6 +1,7 @@
 ﻿namespace Sniper.States.Secondary
 {
     using System;
+    using System.Runtime.CompilerServices;
 
     using EntityStates.BeetleQueenMonster;
 
@@ -28,9 +29,9 @@
         });
 
         private Single startDelay;
-        internal override Single currentCharge { get => (this.GetDamageMultiplier()-minModifier) / (maxModifier-minModifier); }
+        internal override Single currentCharge { get => (this.GetDamageMultiplier() - minModifier) / (maxModifier - minModifier); }
         internal override Boolean isReady { get => this.delayTimer >= this.startDelay; }
-        internal override Single readyFrac { get => Mathf.Clamp01( this.delayTimer / this.startDelay ); }
+        internal override Single readyFrac { get => Mathf.Clamp01(this.delayTimer / this.startDelay); }
 
         internal Single charge = 0f;
 
@@ -47,7 +48,7 @@
         {
 #pragma warning disable IDE0046 // Convert to conditional expression
 #pragma warning disable IDE0011 // Add braces
-            if( base.fixedAge >= this.startDelay )
+            if(base.fixedAge >= this.startDelay)
             {
                 return new BulletModifier
                 {
@@ -64,10 +65,10 @@
         {
             base.OnEnter();
             this.startDelay = baseStartDelay / base.attackSpeedStat;
-            base.StartAimMode( 2f );
-            if( NetworkServer.active )
+            base.StartAimMode(2f);
+            if(NetworkServer.active)
             {
-                this.characterBody.AddBuff( BuffIndex.Slow50 );
+                this.characterBody.AddBuff(BuffIndex.Slow50);
             }
             this.charge = base.startingCharge;
 
@@ -76,32 +77,43 @@
         public override void FixedUpdate()
         {
             base.FixedUpdate();
-            base.characterBody.SetAimTimer( 2f );
-            if( this.delayTimer >= this.startDelay )
+            base.characterBody.SetAimTimer(2f);
+            //if(!base.isAuthority) return; // TODO: Uncomment after testing in multiplayer
+            var dt = Time.fixedDeltaTime;
+            if(this.delayTimer >= this.startDelay)
             {
-                if( this.charge < maxCharge )
+                switch(this.charge)
                 {
-                    this.charge += SniperMain.dt * chargePerSecond * this.characterBody.attackSpeed / ( 1f +  Vector3.Scale( base.characterMotor.velocity, new Vector3(speedScalar,0f,speedScalar)).sqrMagnitude  );
-                } else
-                {
-                    this.charge = maxCharge;
+                    case Single s when s == maxCharge:
+                        break;
+                    case Single s when s < maxCharge:
+                        var vel = base.characterMotor.velocity;
+                        vel.y = 0f;
+                        vel.x *= vel.x * speedScalar;
+                        vel.z *= vel.z * speedScalar;
+                        this.charge += dt * chargePerSecond * base.characterBody.attackSpeed / (1f + vel.x + vel.z);
+                        break;
+                    default:
+                        this.charge = maxCharge;
+                        break;
                 }
             } else
             {
-                this.delayTimer += SniperMain.dt;
+                this.delayTimer += dt;
             }
         }
 
         public override void OnExit()
         {
-            if( NetworkServer.active )
+            if(NetworkServer.active)
             {
-                base.characterBody.RemoveBuff( BuffIndex.Slow50 );
+                base.characterBody.RemoveBuff(BuffIndex.Slow50);
             }
             base.OnExit();
         }
 
 
-        private Single GetDamageMultiplier() => damageCurve.Evaluate( this.charge / maxCharge );
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private Single GetDamageMultiplier() => damageCurve.Evaluate(this.charge / maxCharge);
     }
 }

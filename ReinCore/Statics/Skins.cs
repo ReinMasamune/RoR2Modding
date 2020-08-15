@@ -30,7 +30,7 @@
         // NEXT: Use normal hooks here
         static SkinsCore()
         {
-            Log.Warning( "SkinsCore loaded" );
+            //Log.Warning( "SkinsCore loaded" );
             BindingFlags allFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static;
             Type parentType = typeof(Loadout.BodyLoadoutManager);
             Type bodyLoadoutType = parentType.GetNestedType( "BodyLoadout", allFlags );
@@ -58,7 +58,7 @@
                 enforceUnlockablesHook = new Hook( enforceUnlockablesMethod, localEnforceUnlockablesMethod );
                 EnforceUnlockablesOrig = enforceUnlockablesHook.GenerateTrampoline<OrigEnforceUnlockables>();
             }
-            Log.Warning( "SkinsCore loaded" );
+            //Log.Warning( "SkinsCore loaded" );
             loaded = true;
         }
 

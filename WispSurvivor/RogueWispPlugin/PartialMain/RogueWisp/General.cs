@@ -52,7 +52,6 @@ namespace Rein.RogueWispPlugin
             this.RW_body.AddComponent<EntityStateMachine>().customName = "Gaze";
 
             this.RW_body.AddComponent<CollisionFixer>();
-
         }
 
         private void RW_Misc()
@@ -80,14 +79,18 @@ namespace Rein.RogueWispPlugin
             //BodyCatalog.getAdditionalEntries += ( list ) => list.Add( dummyBody );
             this.RW_survivorDef = new SurvivorDef
             {
+                name = "RogueWisp",
                 bodyPrefab = this.RW_body,
                 descriptionToken = "WISP_SURVIVOR_BODY_DESC",
                 displayPrefab = display,
                 primaryColor = new Color( 0.7f, 0.2f, 0.9f ),
+                unlockableName = "",
+                outroFlavorToken = Rein.Properties.Tokens.WISP_SURVIVOR_FLAVOR,
             };
 
             if( SurvivorsCore.loaded )
             {
+                SurvivorsCore.AddEclipseUnlocks("Rein_RogueWisp", this.RW_survivorDef);
                 SurvivorCatalog.getAdditionalSurvivorDefs += ( list ) => list.Add( this.RW_survivorDef );
             } else
             {

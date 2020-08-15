@@ -41,12 +41,16 @@
 
     [Remove]
     [AttributeUsage(AT.Method)]
-    public class ILBodyAttribute : Attribute 
+    public class ILBodyAttribute : Attribute
     {
         public String[] opcodes;
-        public ILBodyAttribute( params String[] opcodes )
+        public ILBodyAttribute(params String[] opcodes)
         {
             this.opcodes = opcodes;
         }
     }
+
+    [Remove]
+    [AttributeUsage(AT.Class | AT.Delegate | AT.Interface | AT.Enum | AT.Struct)]
+    public class MakeSealedInterfaceTypeAttribute : Attribute { }
 }

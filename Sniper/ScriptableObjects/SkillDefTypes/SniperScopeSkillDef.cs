@@ -11,6 +11,7 @@
 
     using Sniper.Components;
     using Sniper.Data;
+    using Sniper.Modules;
     using Sniper.SkillDefTypes.Bases;
     using Sniper.States.Bases;
     using Sniper.UI.Components;
@@ -128,7 +129,7 @@
 
             internal void Update( Single zoomInput, Single chargeFrac, Single readyFrac, Boolean ready, Single range )
             {
-                this.zoom = this.zoomParams.UpdateZoom( zoomInput, this.zoom );
+                this.zoom = this.zoomParams.UpdateZoom( zoomInput * ConfigModule.zoomSpeed, this.zoom );
                 var fov = this.zoomParams.GetFoV( this.zoom );
                 this.stateInstance.cameraTarget.fovOverride = fov;
                 this.scoped = this.zoomParams.IsInScope( this.zoom );

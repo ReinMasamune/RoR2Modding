@@ -21,8 +21,6 @@ namespace Rein.RogueWispPlugin
 {
     internal partial class Main
     {
-        //private readonly Accessor<CharacterBody,Single> armor = new Accessor<CharacterBody, Single>( "armor" );
-        //private readonly Accessor<CharacterBody,Single> barrierDecayRate = new Accessor<CharacterBody,Single>( "<barrierDecayRate>k__BackingField" );
         private const Single barrierDecayMult = 0.5f;
         private const Single shieldRegenFrac = 0.02f;
         private const Single rootNumber = 6f;
@@ -32,46 +30,15 @@ namespace Rein.RogueWispPlugin
         {
             this.Enable += this.RW_AddHooks;
             this.Disable += this.RW_RemoveHooks;
-            this.Load += this.Main_Load1;
-            this.chargeBarEnabled = base.Config.Bind<Boolean>( "Visual (Client)", "SkillBarChargeIndicator", true, "Should a charge bar be displayed above the skill bar in addition to around the crosshair?" );
+            this.chargeBarEnabled = base.Config.Bind<Boolean>("Visual (Client)", "SkillBarChargeIndicator", true, "Should a charge bar be displayed above the skill bar in addition to around the crosshair?");
             //this.deathMarkStuff = base.Config.Bind<Boolean>( "Gameplay (Server)", "DeathMarkDebuffChange", true, "Should Death Mark use a new system that favors non-stacking debuffs over stacking Dots?" );
         }
 
 
 
-        private void Main_Load1()
-        {
-            if( this.r2apiPlugin != null )
-            {
-                Type r2apiType = r2apiPlugin.Instance.GetType();
-                Type loadoutAPIType = r2apiType.Assembly.GetType("LoadoutAPI");
-                bodyloadouttoxmlbase = MethodBase.GetMethodFromHandle( loadoutAPIType.GetMethod( "BodyLoadout_ToXml", BindingFlags.Static | BindingFlags.NonPublic ).MethodHandle );
-            }
-        }
-
-        private static MethodBase bodyloadouttoxmlbase;
-        internal static event ILContext.Manipulator ilhook_R2API_LoadoutAPI_BodyLoadout_ToXml
-        {
-            add
-            {
-                HookEndpointManager.Modify(bodyloadouttoxmlbase,value);
-            }
-            remove
-            {
-                HookEndpointManager.Unmodify(bodyloadouttoxmlbase, value );
-            }
-        }
 
         private void RW_RemoveHooks()
         {
-
-
-
-            if( this.r2apiPlugin != null && this.r2apiPlugin.Metadata.Version < System.Version.Parse( "2.4.1" ) )
-            {
-                ilhook_R2API_LoadoutAPI_BodyLoadout_ToXml -= this.Main_ilhook_R2API_LoadoutAPI_BodyLoadout_ToXml;
-            }
-
             HooksCore.RoR2.CameraRigController.Start.On -= this.Start_On1;
             HooksCore.RoR2.CharacterBody.Start.On -= this.Start_On2;
             HooksCore.RoR2.CharacterBody.FixedUpdate.On -= this.FixedUpdate_On;
@@ -80,7 +47,6 @@ namespace Rein.RogueWispPlugin
             HooksCore.RoR2.UI.CrosshairManager.UpdateCrosshair.Il -= this.UpdateCrosshair_Il;
             HooksCore.RoR2.CameraRigController.Update.Il -= this.Update_Il;
             HooksCore.RoR2.SetStateOnHurt.OnTakeDamageServer.Il -= this.OnTakeDamageServer_Il;
-            HooksCore.RoR2.GlobalEventManager.OnHitEnemy.Il -= this.OnHitEnemy_Il;
             HooksCore.RoR2.CharacterModel.UpdateRendererMaterials.Il -= this.UpdateRendererMaterials_Il;
         }
 
@@ -91,11 +57,6 @@ namespace Rein.RogueWispPlugin
         {
             HooksCore.RoR2.UI.QuickPlayButtonController.Start.On += this.Start_On4;
 
-            if( this.r2apiPlugin != null && this.r2apiPlugin.Metadata.Version < System.Version.Parse( "2.4.1" ) )
-            {
-                ilhook_R2API_LoadoutAPI_BodyLoadout_ToXml += this.Main_ilhook_R2API_LoadoutAPI_BodyLoadout_ToXml;
-            }
-
             HooksCore.RoR2.CameraRigController.Start.On += this.Start_On1;
             HooksCore.RoR2.CharacterBody.Start.On += this.Start_On2;
             HooksCore.RoR2.CharacterBody.FixedUpdate.On += this.FixedUpdate_On;
@@ -104,193 +65,172 @@ namespace Rein.RogueWispPlugin
             HooksCore.RoR2.UI.CrosshairManager.UpdateCrosshair.Il += this.UpdateCrosshair_Il;
             HooksCore.RoR2.CameraRigController.Update.Il += this.Update_Il;
             HooksCore.RoR2.SetStateOnHurt.OnTakeDamageServer.Il += this.OnTakeDamageServer_Il;
-            HooksCore.RoR2.GlobalEventManager.OnHitEnemy.Il += this.OnHitEnemy_Il;
             HooksCore.RoR2.CharacterModel.UpdateRendererMaterials.Il += this.UpdateRendererMaterials_Il;
         }
 
-        private void FromMaster_Il( ILContext il )
+        private void FromMaster_Il(ILContext il)
         {
             var c = new ILCursor( il );
-            _ = c.GotoNext( MoveType.After, x => x.MatchCallOrCallvirt<RoR2.Loadout>( nameof( Loadout.Copy ) ) );
+            _ = c.GotoNext(MoveType.After, x => x.MatchCallOrCallvirt<RoR2.Loadout>(nameof(Loadout.Copy)));
 
-            _ = c.Emit( OpCodes.Ldloc_1 );
-            _ = c.Emit( OpCodes.Ldfld, typeof( RoR2.CharacterSpawnCard ).GetField( "runtimeLoadout", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance ) );
-            _ = c.Emit( OpCodes.Ldarg_0 );
-            _ = c.EmitDelegate<Action<RoR2.Loadout, RoR2.CharacterMaster>>( ( dest, source ) =>
-              {
-                  if( dest == null || source == null || !source ) return;
-                  var sourceLoadout = source.loadout;
-                  if( sourceLoadout == null ) return;
+            _ = c.Emit(OpCodes.Ldloc_1);
+            _ = c.Emit(OpCodes.Ldfld, typeof(RoR2.CharacterSpawnCard).GetField("runtimeLoadout", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance));
+            _ = c.Emit(OpCodes.Ldarg_0);
+            _ = c.EmitDelegate<Action<RoR2.Loadout, RoR2.CharacterMaster>>((dest, source) =>
+             {
+                 if(dest == null || source == null || !source) return;
+                 var sourceLoadout = source.loadout;
+                 if(sourceLoadout == null) return;
 
-                  var sourceSkin = sourceLoadout.bodyLoadoutManager.GetSkinIndex(Main.rogueWispBodyIndex);
-                  var invertedSkin = (~Helpers.WispBitSkin.GetWispSkin(sourceSkin)).EncodeToSkinIndex();
-                  dest.bodyLoadoutManager.SetSkinIndex( Main.rogueWispBodyIndex, invertedSkin );
-              } );
+                 var sourceSkin = sourceLoadout.bodyLoadoutManager.GetSkinIndex(Main.rogueWispBodyIndex);
+                 var invertedSkin = (~Helpers.WispBitSkin.GetWispSkin(sourceSkin)).EncodeToSkinIndex();
+                 dest.bodyLoadoutManager.SetSkinIndex(Main.rogueWispBodyIndex, invertedSkin);
+             });
 
         }
 
-        private void CreateDoppelganger_Il( ILContext il )
+        private void CreateDoppelganger_Il(ILContext il)
         {
             ILCursor c = new ILCursor( il );
-            _ = c.GotoNext( MoveType.After, x => x.MatchCallOrCallvirt<RoR2.DirectorCore>( nameof( DirectorCore.TrySpawnObject ) ), x => x.MatchPop() );
+            _ = c.GotoNext(MoveType.After, x => x.MatchCallOrCallvirt<RoR2.DirectorCore>(nameof(DirectorCore.TrySpawnObject)), x => x.MatchPop());
             c.Index--;
             _ = c.Remove();
-            _ = c.EmitDelegate<Action<GameObject>>( ( obj ) =>
-              {
-                  if( obj != null && obj )
-                  {
-                      var master = obj.GetComponent<CharacterMaster>();
-                      if( master != null && master )
-                      {
-                          var loadout = master.loadout;
-                          if( loadout != null )
-                          {
-                              var bodyInd = BodyCatalog.FindBodyIndex(master.bodyPrefab);
-                              if( bodyInd >= 0 && bodyInd == Main.rogueWispBodyIndex )
-                              {
-                                  var bodyLoadoutManager = loadout.bodyLoadoutManager;
-                                  var skinInd = bodyLoadoutManager.GetSkinIndex( bodyInd );
-                                  UInt32 newSkinInd;
-                                  try
-                                  {
-                                      var skin = ~Helpers.WispBitSkin.GetWispSkin( skinInd );
-                                      newSkinInd = skin.EncodeToSkinIndex();
-                                  } catch
-                                  {
-                                      Main.LogE( "Error inverting skin for wisp clone, please copy the line of 1s and 0s below and send them to me." );
-                                      Main.LogE( Convert.ToString( skinInd, 2 ).PadLeft( 32, '0' ) );
-                                      newSkinInd = 0b0000_0000_0000_0000_0000_0000_0000_1000u;
-                                  }
+            _ = c.EmitDelegate<Action<GameObject>>((obj) =>
+             {
+                 if(obj != null && obj)
+                 {
+                     var master = obj.GetComponent<CharacterMaster>();
+                     if(master != null && master)
+                     {
+                         var loadout = master.loadout;
+                         if(loadout != null)
+                         {
+                             var bodyInd = BodyCatalog.FindBodyIndex(master.bodyPrefab);
+                             if(bodyInd >= 0 && bodyInd == Main.rogueWispBodyIndex)
+                             {
+                                 var bodyLoadoutManager = loadout.bodyLoadoutManager;
+                                 var skinInd = bodyLoadoutManager.GetSkinIndex( bodyInd );
+                                 UInt32 newSkinInd;
+                                 try
+                                 {
+                                     var skin = ~Helpers.WispBitSkin.GetWispSkin( skinInd );
+                                     newSkinInd = skin.EncodeToSkinIndex();
+                                 } catch
+                                 {
+                                     Main.LogE("Error inverting skin for wisp clone, please copy the line of 1s and 0s below and send them to me.");
+                                     Main.LogE(Convert.ToString(skinInd, 2).PadLeft(32, '0'));
+                                     newSkinInd = 0b0000_0000_0000_0000_0000_0000_0000_1000u;
+                                 }
 
-                                  bodyLoadoutManager.SetSkinIndex( bodyInd, newSkinInd );
+                                 bodyLoadoutManager.SetSkinIndex(bodyInd, newSkinInd);
 
-                                  if( master.hasBody )
-                                  {
-                                      var body = master.GetBody();
-                                      body.skinIndex = newSkinInd;
-                                      if( body != null && body )
-                                      {
-                                          var ml = body.modelLocator;
-                                          if( ml != null && ml )
-                                          {
-                                              var model = ml.modelTransform;
-                                              if( model != null && model )
-                                              {
-                                                  var skinController = model.GetComponent<Helpers.WispModelBitSkinController>();
-                                                  skinController?.Apply( Helpers.WispBitSkin.GetWispSkin( newSkinInd ) );
-                                              }
-                                          }
-                                      }
-                                  }
-                              }
-                          }
-                      }
-                  }
-              } );
+                                 if(master.hasBody)
+                                 {
+                                     var body = master.GetBody();
+                                     body.skinIndex = newSkinInd;
+                                     if(body != null && body)
+                                     {
+                                         var ml = body.modelLocator;
+                                         if(ml != null && ml)
+                                         {
+                                             var model = ml.modelTransform;
+                                             if(model != null && model)
+                                             {
+                                                 var skinController = model.GetComponent<Helpers.WispModelBitSkinController>();
+                                                 skinController?.Apply(Helpers.WispBitSkin.GetWispSkin(newSkinInd));
+                                             }
+                                         }
+                                     }
+                                 }
+                             }
+                         }
+                     }
+                 }
+            });
 
 
         }
 
-        private void UpdateRendererMaterials_Il( ILContext il )
+        private void UpdateRendererMaterials_Il(ILContext il)
         {
             var c = new ILCursor( il );
-            _ = c.GotoNext( MoveType.After, x => x.MatchCallOrCallvirt<RoR2.CharacterModel>( "get_isDoppelganger" ) );
-            _ = c.Emit( OpCodes.Ldarg_0 );
-            _ = c.EmitDelegate<Func<CharacterModel, Boolean>>( ( model ) => model.body != null && model.body.baseNameToken != Rein.Properties.Tokens.WISP_SURVIVOR_BODY_NAME );
-            _ = c.Emit( OpCodes.And );
+            _ = c.GotoNext(MoveType.After, x => x.MatchCallOrCallvirt<RoR2.CharacterModel>("get_isDoppelganger"));
+            _ = c.Emit(OpCodes.Ldarg_0);
+            _ = c.EmitDelegate<Func<CharacterModel, Boolean>>((model) => model.body != null && model.body.baseNameToken != Rein.Properties.Tokens.WISP_SURVIVOR_BODY_NAME);
+            _ = c.Emit(OpCodes.And);
         }
 
-        private void Start_On4( HooksCore.RoR2.UI.QuickPlayButtonController.Start.Orig orig, RoR2.UI.QuickPlayButtonController self )
+        private void Start_On4(HooksCore.RoR2.UI.QuickPlayButtonController.Start.Orig orig, RoR2.UI.QuickPlayButtonController self)
         {
-            self.gameObject.SetActive( false );
-            orig( self );
-            self.gameObject.SetActive( false );
+            self.gameObject.SetActive(false);
+            orig(self);
+            self.gameObject.SetActive(false);
         }
 
-        private void OnHitEnemy_On( HooksCore.RoR2.GlobalEventManager.OnHitEnemy.Orig orig, GlobalEventManager self, DamageInfo damageInfo, GameObject victim )
+        private void OnHitEnemy_On(HooksCore.RoR2.GlobalEventManager.OnHitEnemy.Orig orig, GlobalEventManager self, DamageInfo damageInfo, GameObject victim)
         {
-            orig( self, damageInfo, victim );
-            if( damageInfo.procCoefficient <= 0f || damageInfo.rejected || !NetworkServer.active || !damageInfo.attacker ) return;
+            orig(self, damageInfo, victim);
+            if(damageInfo.procCoefficient <= 0f || damageInfo.rejected || !NetworkServer.active || !damageInfo.attacker) return;
             CharacterBody body = damageInfo.attacker.GetComponent<CharacterBody>();
-            if( !body ) return;
+            if(!body) return;
             Inventory inventory = body.inventory;
-            if( !inventory ) return;
+            if(!inventory) return;
             Int32 stunCount = inventory.GetItemCount(ItemIndex.StunChanceOnHit);
-            if( stunCount <= 0 ) return;
+            if(stunCount <= 0) return;
             Single sqCoef = Mathf.Sqrt(damageInfo.procCoefficient);
-            if( !RoR2.Util.CheckRoll( RoR2.Util.ConvertAmplificationPercentageIntoReductionPercentage( sqCoef * 5f * stunCount ), body.master ) ) return;
+            if(!RoR2.Util.CheckRoll(RoR2.Util.ConvertAmplificationPercentageIntoReductionPercentage(sqCoef * 5f * stunCount), body.master)) return;
             SetStateOnHurt stateOnHurt = victim.GetComponent<SetStateOnHurt>();
-            if( !stateOnHurt ) return;
-            stateOnHurt.SetStun( sqCoef * 2f );
+            if(!stateOnHurt) return;
+            stateOnHurt.SetStun(sqCoef * 2f);
         }
-private void OnHitEnemy_Il( ILContext il )
-{
-    ILCursor c = new ILCursor( il );
-    if( c.TryGotoNext( MoveType.After, x => x.MatchAdd(), x => x.MatchStloc( 64 ), x => x.MatchLdloc( 64 ), x => x.MatchLdcI4( 53 ) ) )
-    {
-        c.Index--;
-        _ = c.Remove();
-        _ = c.EmitDelegate<Func<Int32>>( () => BuffCatalog.buffCount );
-    } else
-    {
-        Log.Warning( "Modded buff death mark fix either was already applied by another mod, or failed to match" );
-    }
-}
-        private void OnTakeDamageServer_Il( ILContext il )
+        private void OnTakeDamageServer_Il(ILContext il)
         {
             var c = new ILCursor( il );
-            _ = c.GotoNext( MoveType.Before, x => x.MatchCallOrCallvirt<SetStateOnHurt>( "SetStun" ) );
-            _ = c.Emit( OpCodes.Ldloc_0 );
-            _ = c.EmitDelegate<Func<DamageInfo, Single>>( ( info ) => info.procCoefficient );
-            _ = c.Emit( OpCodes.Mul );
+            _ = c.GotoNext(MoveType.Before, x => x.MatchCallOrCallvirt<SetStateOnHurt>("SetStun"));
+            _ = c.Emit(OpCodes.Ldloc_0);
+            _ = c.EmitDelegate<Func<DamageInfo, Single>>((info) => info.procCoefficient);
+            _ = c.Emit(OpCodes.Mul);
         }
-        private void Update_Il( ILContext il )
+        private void Update_Il(ILContext il)
         {
             var c = new ILCursor( il );
 
-            _ = c.GotoNext( MoveType.After, x => x.MatchCallOrCallvirt<RoR2.CharacterBody>( "get_isSprinting" ) );
-            _ = c.Emit( OpCodes.Ldarg_0 );
-            _ = c.Emit<RoR2.CameraRigController>( OpCodes.Ldfld, "targetBody" );
-            _ = c.EmitDelegate<Func<CharacterBody, Boolean>>( ( body ) => !this.RW_BlockSprintCrosshair.Contains( body ) );
-            _ = c.Emit( OpCodes.And );
+            _ = c.GotoNext(MoveType.After, x => x.MatchCallOrCallvirt<RoR2.CharacterBody>("get_isSprinting"));
+            _ = c.Emit(OpCodes.Ldarg_0);
+            _ = c.Emit<RoR2.CameraRigController>(OpCodes.Ldfld, "targetBody");
+            _ = c.EmitDelegate<Func<CharacterBody, Boolean>>((body) => !this.RW_BlockSprintCrosshair.Contains(body));
+            _ = c.Emit(OpCodes.And);
         }
-        private void UpdateCrosshair_Il( ILContext il )
+        private void UpdateCrosshair_Il(ILContext il)
         {
             var c = new ILCursor( il );
-            _ = c.GotoNext( MoveType.After, x => x.MatchCallOrCallvirt<RoR2.CharacterBody>( "get_isSprinting" ) );
-            _ = c.Emit( OpCodes.Ldarg_1 );
-            _ = c.EmitDelegate<Func<CharacterBody, Boolean>>( ( body ) => !this.RW_BlockSprintCrosshair.Contains( body ) );
-            _ = c.Emit( OpCodes.And );
+            _ = c.GotoNext(MoveType.After, x => x.MatchCallOrCallvirt<RoR2.CharacterBody>("get_isSprinting"));
+            _ = c.Emit(OpCodes.Ldarg_1);
+            _ = c.EmitDelegate<Func<CharacterBody, Boolean>>((body) => !this.RW_BlockSprintCrosshair.Contains(body));
+            _ = c.Emit(OpCodes.And);
         }
-        private void RecalculateStats_On( HooksCore.RoR2.CharacterBody.RecalculateStats.Orig orig, CharacterBody self )
+        private void RecalculateStats_On(HooksCore.RoR2.CharacterBody.RecalculateStats.Orig orig, CharacterBody self)
         {
-            orig( self );
-            if( self && self.inventory )
+            orig(self);
+            if(self && self.inventory)
             {
-                if( self.HasBuff( RW_armorBuff ) )
+                if(self.HasBuff(RW_armorBuff))
                 {
                     self.armor += 75f;//this.armor.Set( self, this.armor.Get( self ) + 75f );
                 }
-                if( self.HasBuff( RW_flameChargeBuff ) )
+                if(self.HasBuff(RW_flameChargeBuff))
                 {
                     self.barrierDecayRate *= barrierDecayMult;// this.barrierDecayRate.Set( self, self.barrierDecayRate * barrierDecayMult );
                 }
             }
         }
-        private void RecalculateStats_Il( ILContext il )
-        {
-            ILCursor c = new ILCursor(il);
-            _ = c.GotoNext( MoveType.After,
-                x => x.MatchLdarg( 0 ),
-                x => x.MatchLdcI4( 6 ),
-                x => x.MatchCallOrCallvirt<RoR2.CharacterBody>( "HasBuff" ),
-                x => x.MatchBrfalse( out _ ),
-                x => x.MatchLdloc( 51 )
-                );
-
-            _ = c.Remove();
-            _ = c.Emit( Mono.Cecil.Cil.OpCodes.Ldc_R4, 0.25f );
-        }
+        private void RecalculateStats_Il(ILContext il) => new ILCursor(il)
+            .GotoNext(
+                x => x.MatchLdarg(0),
+                x => x.MatchLdcI4((Int32)BuffIndex.EnrageAncientWisp)
+            ).GotoNext(MoveType.Before, x => x.MatchLdcR4(out _))
+            .Remove()
+            .LdC_(0.25f);
         private void FixedUpdate_On( HooksCore.RoR2.CharacterBody.FixedUpdate.Orig orig, CharacterBody self )
         {
             orig( self );
@@ -307,29 +247,14 @@ private void OnHitEnemy_Il( ILContext il )
         {
             orig( self );
             self.gameObject.AddComponent<WispBurnManager>();
-
-            //if( self.baseNameToken == Properties.Tokens.WISP_SURVIVOR_BODY_NAME )
-            //{
-            //    var inv = self.inventory;
-            //    if( inv && inv.GetItemCount(ItemIndex.InvadingDoppelganger) > 0 )
-            //    {
-            //        var newSkin = ~Helpers.WispBitSkin.GetWispSkin( self.skinIndex );
-            //        self.skinIndex = newSkin.EncodeToSkinIndex();
-            //        self.modelLocator.modelTransform.GetComponent<Helpers.WispModelBitSkinController>().Apply( newSkin );
-            //    }
-            //}
         }
         private void Start_On1( HooksCore.RoR2.CameraRigController.Start.Orig orig, CameraRigController self )
         {
             orig( self );
 
-
-
             if( self.hud != null )
             {
-
                 var par = self.hud.transform.Find( "MainContainer/MainUIArea/BottomRightCluster/Scaler" );
-
                 if( this.chargeBarEnabled.Value )
                 {
 

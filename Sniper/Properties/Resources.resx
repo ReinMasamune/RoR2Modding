@@ -133,7 +133,7 @@
     <value />
   </data>
   <data name="ach__WIP__unlockidentifier" xml:space="preserve">
-    <value>Skills.WIP</value>
+    <value>REIN_SNIPER_WIP</value>
   </data>
   <data name="cshader__ScopeOverlay" xml:space="preserve">
     <value>Assets/__EXPORT/Shaders/ComputeRefractBlur.compute</value>
@@ -172,7 +172,7 @@
     <value>Assets/__EXPORT/Icons/Other/portraitIcon.png</value>
   </data>
   <data name="icon__QuickscopeIcon" xml:space="preserve">
-    <value />
+    <value>Assets/__EXPORT/Icons/M2/Quickscope.png</value>
   </data>
   <data name="icon__ReloadIcon" xml:space="preserve">
     <value>Assets/__EXPORT/Icons/M1/Reload.png</value>
@@ -254,8 +254,14 @@
 
 They excel at taking down bosses and high priority targets but struggle against larger groups of weak enemies.\n</value>
   </data>
+  <data name="lang__SNIPER_DISPLAY_NAME" xml:space="preserve">
+    <value>Sniper</value>
+  </data>
   <data name="lang__SNIPER_NAME" xml:space="preserve">
     <value>Sniper</value>
+  </data>
+  <data name="lang__SNIPER_OUTRO_FLAVOR" xml:space="preserve">
+    <value>And so they left, sound still ringing in deaf ears.</value>
   </data>
   <data name="lang__SNIPER_PASSIVE_CRITICAL_DESC" xml:space="preserve">
     <value>&lt;style=cIsUtility&gt;Critical Strikes&lt;/style&gt; deal &lt;style=cIsDamage&gt;1.2x&lt;/style&gt; damage. Gain &lt;style=cIsDamage&gt;+1%&lt;/style&gt; critical strike chance per level.</value>
@@ -318,19 +324,19 @@ They excel at taking down bosses and high priority targets but struggle against 
     <value>Classic</value>
   </data>
   <data name="lang__SNIPER_SKIN_ALT2_NAME" xml:space="preserve">
-    <value>Abyss</value>
+    <value>Scorched</value>
   </data>
   <data name="lang__SNIPER_SKIN_ALT3_NAME" xml:space="preserve">
     <value>Jungle</value>
   </data>
   <data name="lang__SNIPER_SKIN_ALT4_NAME" xml:space="preserve">
-    <value>PlaceholderName1</value>
+    <value>Abyss</value>
   </data>
   <data name="lang__SNIPER_SKIN_ALT5_NAME" xml:space="preserve">
     <value>Desert</value>
   </data>
   <data name="lang__SNIPER_SKIN_ALT6_NAME" xml:space="preserve">
-    <value>Snow</value>
+    <value>Frozen</value>
   </data>
   <data name="lang__SNIPER_SKIN_DEFAULT_NAME" xml:space="preserve">
     <value>Default</value>
@@ -351,7 +357,7 @@ They excel at taking down bosses and high priority targets but struggle against 
     <value>[Insert cool thing here]</value>
   </data>
   <data name="lang__SNIPER_UTILITY_BACKFLIP_DESC" xml:space="preserve">
-    <value>Perform a flip away from the direction you are aiming.</value>
+    <value>Perform a flip away from the direction you are aiming. Stuns enemies and automatically gives you a perfect reload.</value>
   </data>
   <data name="lang__SNIPER_UTILITY_BACKFLIP_NAME" xml:space="preserve">
     <value>Backflip</value>

@@ -17,7 +17,6 @@
         String unlockableNameToken { get; }
         String spritePath { get; }
     }
-
     public interface IAchievementSpriteProvider
     {
         String pathString { get; }

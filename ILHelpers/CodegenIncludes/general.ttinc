@@ -1,0 +1,45 @@
+﻿<#+
+public Boolean GetBit(UInt64 val, Byte bitIndex)
+{
+	var mask = (1ul << bitIndex);
+	return (val & mask) > 0;
+}
+public UInt64 TwoPower(Byte num)
+{
+	return (UInt64)Math.Pow(2u, num);
+}
+public IEnumerator<Byte> RangeTo(Boolean incZero, Byte inclusiveMax)
+{
+	for(Byte i = (Byte)(incZero?0ul:1ul); i <= inclusiveMax; i = (Byte)checked(i+(Byte)1ul))
+	{
+		yield return i;
+	}
+}
+public IEnumerable<T> ToEnumerable<T>( IEnumerator<T> iterator )
+{
+	var v = Enumerable.Empty<T>();
+	while( iterator.MoveNext() )
+	{
+		v = v.Append( iterator.Current );
+	}
+	return v;
+}
+public String Combine<T>(T enumerable, params String[] extras)	
+	where T : IEnumerable<String>
+{
+	return String.Join(", ", enumerable.Concat(extras));
+}
+public (T1, T2) TupleZip<T1, T2>(T1 a, T2 b) => (a,b);
+public void FinishScope()
+{
+	while(CurrentIndent.Length > 0)
+	{
+		PopIndent();
+		WriteLine("}");
+	}
+}
+public void IncIndent()
+{
+	PushIndent("    ");
+}
+#>

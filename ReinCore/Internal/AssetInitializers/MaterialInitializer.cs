@@ -9,6 +9,14 @@
         private static readonly Boolean completedProperly = false;
         internal static Boolean Initialize() => completedProperly;
 
+        private static Transform LogTransforms(this Transform t)
+        {
+            foreach(Transform t2 in t)
+            {
+                Log.Warning(t2.name);
+            }
+            return t;
+        }
 
         static MaterialInitializer()
         {
@@ -173,7 +181,8 @@
             #region Fire Tornado Ghost
             new AssetAccessor<Material>( MaterialIndex.refMatGenericFlash, () =>
             {
-                Transform trans = AssetLibrary<GameObject>.GetAsset(PrefabIndex.refFireTornadoGhost).transform.Find( "Flash, Red" );
+                // NEXT: After asset rip, check that this is correct
+                Transform trans = AssetLibrary<GameObject>.GetAsset(PrefabIndex.refFireTornadoGhost).transform.Find( "Embers" );
                 ParticleSystemRenderer rend = trans.GetComponent<ParticleSystemRenderer>();
                 return rend.sharedMaterials[0];
             }, PrefabIndex.refFireTornadoGhost ).RegisterAccessor();
