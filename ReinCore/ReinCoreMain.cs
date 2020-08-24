@@ -20,9 +20,12 @@
 
     using UnityEngine;
 
-    /// <summary>
-    /// 
-    /// </summary>
+    using UnityObject = UnityEngine.Object;
+    using Object = System.Object;
+    using MonoMod.RuntimeDetour;
+    using System.Reflection;
+    using UnityEngine.Experimental.UIElements;
+
     public static partial class ReinCore
     {
         public static Boolean loaded { get; internal set; } = false;
@@ -32,10 +35,16 @@
             get => pluginsByName.Values;
         }
 
-        public static Boolean IsPluginLoaded( String guid ) => pluginsByName.ContainsKey( guid );
+        public static Boolean IsPluginLoaded(String guid) => pluginsByName.ContainsKey(guid);
 
 
-        private static void AddModHash(String guid, Int32 major = -1, Int32 minor = -1, Int32 build = -1, Int32 rev = -1, Int32 net = -1) => NetworkModCompatibilityHelper.networkModList = NetworkModCompatibilityHelper.networkModList.Append($"{guid}.{(major >= 0 ? major : "x")}.{(minor >= 0 ? minor : "x")}.{(build >= 0 ? build : "x")}.{(rev >= 0 ? rev : "x")}{(net >= 0 ? $".{net}" : "" )}");
+        private static readonly List<String> addedGuids = new List<String>();
+
+        private static void AddModHash(String guid, Int32 major = -1, Int32 minor = -1, Int32 build = -1, Int32 rev = -1, Int32 net = -1)
+        {
+            var text = $"{guid};{(major >= 0 ? major : "x")}.{(minor >= 0 ? minor : "x")}.{(build >= 0 ? build : "x")}.{(rev >= 0 ? rev : "x")}{(net >= 0 ? $".{net}" : "")}";
+            NetworkModCompatibilityHelper.networkModList = NetworkModCompatibilityHelper.networkModList.Append(text);
+        }
         private static void AddModHash(String guid, (Int32 major, Int32 minor, Int32 build, Int32 rev, Int32 net) ver) => AddModHash(guid, ver.major, ver.minor, ver.build, ver.rev, ver.net);
         public static void AddModHash(String guid, String ver, Boolean useBuild = false, Boolean useRevision = false, Int32 networkVer = -1) => AddModHash(guid, ParseVersion(ver, useBuild, useRevision, networkVer));
 
@@ -50,16 +59,16 @@
             return (a, b, c, d, networkVer);
         }
 
-        public static void Init( Boolean doNetChecks, Boolean debugLogs, Boolean infoLogs, Boolean messageLogs, Boolean warningLogs, Boolean errorLogs, Boolean fatalLogs )
+        public static void Init(Boolean doNetChecks, Boolean debugLogs, Boolean infoLogs, Boolean messageLogs, Boolean warningLogs, Boolean errorLogs, Boolean fatalLogs)
         {
             if(!loaded)
             {
                 throw new CoreNotLoadedException(nameof(ReinCore));
             }
 
-            
 
-            
+
+
 
 
             ReinCore.execLevel = 0;
@@ -70,70 +79,106 @@
             execLevel |= errorLogs ? ExecutionLevel.Error : 0;
             execLevel |= fatalLogs ? ExecutionLevel.Fatal : 0;
 
-            if( doNetChecks )
+            if(doNetChecks)
             {
-                if( NetworkCore.loaded )
+                if(NetworkCore.loaded)
                 {
-                    Log.Message( String.Format( "{0} successfully loaded", nameof( NetworkCore ) ) );
+                    Log.Message(String.Format("{0} successfully loaded", nameof(NetworkCore)));
                 } else
                 {
-                    Log.Error( String.Format( "{0} failed to load, multiplayer may not work as intended.", nameof( NetworkCore ) ) );
+                    Log.Error(String.Format("{0} failed to load, multiplayer may not work as intended.", nameof(NetworkCore)));
                 }
             }
 
-            Log.Message( String.Format( "{0} successfully loaded", nameof( ReinCore ) ) );
+            Log.Message(String.Format("{0} successfully loaded", nameof(ReinCore)));
         }
 
 
 
         private static void NetworkModCompatibilityHelper_onUpdated()
         {
-            foreach(var s in NetworkModCompatibilityHelper.networkModList)
+            foreach(var g in addedGuids)
             {
-                Log.Message($"Mod: {s}");
+                if(!NetworkModCompatibilityHelper.networkModList.Contains(g))
+                {
+                    Log.Error($"Unexpected removal of mod: {g} from networked mod list.");
+                    NetworkModCompatibilityHelper.networkModList = NetworkModCompatibilityHelper.networkModList.Append(g);
+                }
             }
-            Log.Message($"Hash: {NetworkModCompatibilityHelper.networkModHash}");
+            
         }
 
 
-
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-        public static void SupplySubmoduleData( HashSet<String> submoduleNames )
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
-        {
-            if( submoduleNames == null )
-            {
-                return;
-            }
-
-            ParseSubmodules( submoduleNames );
-            onSubmoduleDataSupplied?.Invoke( activeSubmodules );
-        }
-
+        //private static readonly DetourModManager detourManager = new DetourModManager();
         static ReinCore()
         {
             RoR2Application.isModded = true;
             RoR2Application.onFixedUpdate += () => RoR2Application.isModded = true;
             HooksCore.RoR2.UnitySystemConsoleRedirector.Redirect.On += Redirect_On;
-            HooksCore.RoR2.UI.QuickPlayButtonController.Start.On += Start_On;
+            ILHook.OnDetour = DelegateHelper.Combine(CheckSillyILHooks, ILHook.OnDetour);
+            Detour.OnDetour = DelegateHelper.Combine(CheckSillyDetours, Detour.OnDetour);
+            Hook.OnDetour = DelegateHelper.Combine(CheckSillyHooks, Hook.OnDetour);
+
+
+            //HooksCore.RoR2.UI.QuickPlayButtonController.Start.On += Start_On;
             HooksCore.RoR2.DisableIfGameModded.OnEnable.On += OnEnable_On;
             HooksCore.RoR2.Networking.ServerAuthManager.HandleSetClientAuth.Il += ServerAuthManager_HandleSetClientAuth;
             NetworkModCompatibilityHelper.onUpdated += NetworkModCompatibilityHelper_onUpdated;
-            _ = Tools.LoadAssembly( Rein.Properties.Resources.RoR2ScriptForwarding );
-            if( !Log.loaded )
+            HooksCore.RoR2.Networking.GameNetworkManager.SimpleLocalizedKickReason.GetDisplayTokenAndFormatParams.On += GetDisplayTokenAndFormatParams_On;
+            RoR2Application.onNextUpdate += RoR2Application_onNextUpdate;
+            _ = Tools.LoadAssembly(Rein.Properties.Resources.RoR2ScriptForwarding);
+            if(!Log.loaded)
             {
-                throw new CoreNotLoadedException( nameof( Log ) );
+                throw new CoreNotLoadedException(nameof(Log));
             }
 
             CheckPlugins();
-            r2apiExists = pluginsByName.ContainsKey( "com.bepis.r2api" );
+            r2apiExists = pluginsByName.ContainsKey("com.bepis.r2api");
 
             loaded = true;
-            managerObject = new GameObject( "coremanager" );
-            MonoBehaviour.DontDestroyOnLoad( managerObject );
+            managerObject = new GameObject("coremanager");
+            MonoBehaviour.DontDestroyOnLoad(managerObject);
             _ = managerObject.AddComponent<CoreManager>();
         }
 
+        private static Boolean CheckSillyILHooks(ILHook hook, MethodBase method, ILContext.Manipulator manip)
+        {
+            return method.DeclaringType != typeof(NetworkModCompatibilityHelper);
+        }
+        private static Boolean CheckSillyDetours(Detour hook, MethodBase method, MethodBase to)
+        {
+            return method.DeclaringType != typeof(NetworkModCompatibilityHelper);
+        }
+        private static Boolean CheckSillyHooks(Hook hook, MethodBase method, MethodBase to, Object _)
+        {
+            return method.DeclaringType != typeof(NetworkModCompatibilityHelper);
+        }
+
+        private static void RoR2Application_onNextUpdate()
+        {
+            Log.Message($"Modlist:{Environment.NewLine}{String.Join(Environment.NewLine, NetworkModCompatibilityHelper.networkModList)}");
+            Log.Message($"ModHash:{NetworkModCompatibilityHelper.networkModHash}");
+        }
+
+        private static void GetDisplayTokenAndFormatParams_On(HooksCore.RoR2.Networking.GameNetworkManager.SimpleLocalizedKickReason.GetDisplayTokenAndFormatParams.Orig orig, GameNetworkManager.SimpleLocalizedKickReason self, out String token, out System.Object[] formatArgs)
+        {
+            var tok = self.baseToken;
+            var args = self.formatArgs;
+            token = tok;
+            if(tok != "KICK_REASON_MOD_MISMATCH")
+            {
+                token = tok;
+                formatArgs = args;
+                return;
+            }
+            var mods = args[1].Split('\n');
+            var myMods = NetworkModCompatibilityHelper.networkModList;
+
+            var extraMods = String.Join("\n", myMods.Except(mods));
+            var missingMods = String.Join("\n", mods.Except(myMods));
+
+            formatArgs = new Object[] { extraMods, missingMods };
+        }
 
         private static void ServerAuthManager_HandleSetClientAuth(ILContext il)
         {
@@ -144,8 +189,8 @@
             {
                 static GameNetworkManager.SimpleLocalizedKickReason SwapToStandardMessage(GameNetworkManager.ModMismatchKickReason reason)
                 {
-                    reason.GetDisplayTokenAndFormatParams(out var token, out var format);
-                    return new GameNetworkManager.SimpleLocalizedKickReason(token, (String[])format);
+                    reason.GetDisplayTokenAndFormatParams(out var token, out var _);
+                    return new GameNetworkManager.SimpleLocalizedKickReason(token, new[] { "Coming Soon!", String.Join("\n", NetworkModCompatibilityHelper.networkModList) });
                 }
                 cur.Index++;
                 _ = cur.EmitDelegate<Func<GameNetworkManager.ModMismatchKickReason, GameNetworkManager.SimpleLocalizedKickReason>>(SwapToStandardMessage);
@@ -159,18 +204,19 @@
         }
 
 
-        private static void Start_On( HooksCore.RoR2.UI.QuickPlayButtonController.Start.Orig orig, RoR2.UI.QuickPlayButtonController self )
+        private static void Start_On(HooksCore.RoR2.UI.QuickPlayButtonController.Start.Orig orig, RoR2.UI.QuickPlayButtonController self)
         {
-            self.gameObject.SetActive( false );
-            orig( self );
-            self.gameObject.SetActive( false );
+            Log.Warning("QPButton");
+            self.gameObject.SetActive(false);
+            orig(self);
+            self.gameObject.SetActive(false);
         }
 
         internal static ExecutionLevel execLevel;
         internal static Boolean r2apiExists;
         internal static R2APISubmodule activeSubmodules = R2APISubmodule.None;
         internal static event OnSubmoduleDataSuppliedDelegate onSubmoduleDataSupplied;
-        internal delegate void OnSubmoduleDataSuppliedDelegate( R2APISubmodule activeSubmodules );
+        internal delegate void OnSubmoduleDataSuppliedDelegate(R2APISubmodule activeSubmodules);
 
         internal static event Action awake;
         internal static event Action start;
@@ -190,86 +236,86 @@
             // Do Nothing
         }
 
-        [MethodImpl( MethodImplOptions.ForwardRef )]
-        private static extern Int32 Square( Int32 number );
+        [MethodImpl(MethodImplOptions.ForwardRef)]
+        private static extern Int32 Square(Int32 number);
 
-        private static void ParseSubmodules( HashSet<String> loadedSubmodules )
+        private static void ParseSubmodules(HashSet<String> loadedSubmodules)
         {
-            foreach( String sub in loadedSubmodules )
+            foreach(String sub in loadedSubmodules)
             {
-                switch( sub )
+                switch(sub)
                 {
                     default:
-                    Log.Warning( String.Format( "Unknown submodule: {0}", sub ) );
-                    break;
+                        Log.Warning(String.Format("Unknown submodule: {0}", sub));
+                        break;
                     case "AssetAPI":
-                    activeSubmodules |= R2APISubmodule.AssetAPI;
-                    break;
+                        activeSubmodules |= R2APISubmodule.AssetAPI;
+                        break;
                     case "DifficultyAPI":
-                    activeSubmodules |= R2APISubmodule.DifficultyAPI;
-                    break;
+                        activeSubmodules |= R2APISubmodule.DifficultyAPI;
+                        break;
                     case "DirectorAPI":
-                    activeSubmodules |= R2APISubmodule.DirectorAPI;
-                    break;
+                        activeSubmodules |= R2APISubmodule.DirectorAPI;
+                        break;
                     case "EffectAPI":
-                    activeSubmodules |= R2APISubmodule.EffectAPI;
-                    break;
+                        activeSubmodules |= R2APISubmodule.EffectAPI;
+                        break;
                     case "EntityAPI":
-                    activeSubmodules |= R2APISubmodule.EntityAPI;
-                    break;
+                        activeSubmodules |= R2APISubmodule.EntityAPI;
+                        break;
                     case "InventoryAPI":
-                    activeSubmodules |= R2APISubmodule.InventoryAPI;
-                    break;
+                        activeSubmodules |= R2APISubmodule.InventoryAPI;
+                        break;
                     case "ItemAPI":
-                    activeSubmodules |= R2APISubmodule.ItemAPI;
-                    break;
+                        activeSubmodules |= R2APISubmodule.ItemAPI;
+                        break;
                     case "ItemDropAPI":
-                    activeSubmodules |= R2APISubmodule.ItemDropAPI;
-                    break;
+                        activeSubmodules |= R2APISubmodule.ItemDropAPI;
+                        break;
                     case "LoadoutAPI":
-                    activeSubmodules |= R2APISubmodule.LoadoutAPI;
-                    break;
+                        activeSubmodules |= R2APISubmodule.LoadoutAPI;
+                        break;
                     case "LobbyConfigAPI":
-                    activeSubmodules |= R2APISubmodule.LobbyConfigAPI;
-                    break;
+                        activeSubmodules |= R2APISubmodule.LobbyConfigAPI;
+                        break;
                     case "ModListAPI":
-                    activeSubmodules |= R2APISubmodule.ModListAPI;
-                    break;
+                        activeSubmodules |= R2APISubmodule.ModListAPI;
+                        break;
                     case "OrbAPI":
-                    activeSubmodules |= R2APISubmodule.OrbAPI;
-                    break;
+                        activeSubmodules |= R2APISubmodule.OrbAPI;
+                        break;
                     case "PlayerAPI":
-                    activeSubmodules |= R2APISubmodule.PlayerAPI;
-                    break;
+                        activeSubmodules |= R2APISubmodule.PlayerAPI;
+                        break;
                     case "PrefabAPI":
-                    activeSubmodules |= R2APISubmodule.PrefabAPI;
-                    break;
+                        activeSubmodules |= R2APISubmodule.PrefabAPI;
+                        break;
                     case "ResourcesAPI":
-                    activeSubmodules |= R2APISubmodule.ResourcesAPI;
-                    break;
+                        activeSubmodules |= R2APISubmodule.ResourcesAPI;
+                        break;
                     case "SkillAPI":
-                    activeSubmodules |= R2APISubmodule.SkillAPI;
-                    break;
+                        activeSubmodules |= R2APISubmodule.SkillAPI;
+                        break;
                     case "SkinAPI":
-                    activeSubmodules |= R2APISubmodule.SkinAPI;
-                    break;
+                        activeSubmodules |= R2APISubmodule.SkinAPI;
+                        break;
                     case "SurvivorAPI":
-                    activeSubmodules |= R2APISubmodule.SurvivorAPI;
-                    break;
+                        activeSubmodules |= R2APISubmodule.SurvivorAPI;
+                        break;
                     case "AssetPlus":
-                    activeSubmodules |= R2APISubmodule.AssetPlus;
-                    break;
+                        activeSubmodules |= R2APISubmodule.AssetPlus;
+                        break;
                 }
             }
         }
 
         private static void CheckPlugins()
         {
-            foreach( KeyValuePair<String, PluginInfo> kv in BepInEx.Bootstrap.Chainloader.PluginInfos )
+            foreach(KeyValuePair<String, PluginInfo> kv in BepInEx.Bootstrap.Chainloader.PluginInfos)
             {
                 String k = kv.Key;
                 PluginInfo v = kv.Value;
-                if( String.IsNullOrEmpty( k ) || v == null )
+                if(String.IsNullOrEmpty(k) || v == null)
                 {
                     continue;
                 }

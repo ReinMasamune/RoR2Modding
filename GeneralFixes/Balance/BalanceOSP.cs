@@ -37,7 +37,9 @@
             }
             if( hc.ospTimer > 0f)
             {
+                var init = hc.ospTimer;
                 hc.ospTimer -= damageAfterShields;
+                LogM($"OSP active, buffer before: {init}, buffer after: {hc.ospTimer}");
                 return hc.ospTimer <= 0f ? block - hc.ospTimer : block;
             }
             Single newCurrent = (totalThisUpdate - hc.magnetiCharge) + damageAfterShields;
@@ -45,11 +47,13 @@
             Single minimumToTrigger = hc.fullHealth * (1f - hc.body.oneShotProtectionFraction);
             if(newCurrent >= minimumToTrigger)
             {
+                
                 var overMinBy = newCurrent - minimumToTrigger;
                 var passthrough = damageAfterShields - overMinBy;
                 var toBuffer = overMinBy - passthrough;
-                hc.ospTimer = (minimumToTrigger * 3f) + 0.1f;
+                var init = hc.ospTimer = (minimumToTrigger * 3f) + 0.1f;       
                 hc.ospTimer -= toBuffer;
+                LogM($"OSP Activated with {init} initial buffer and now has {hc.ospTimer} remaining buffer");
                 if(hc.ospTimer < 0f) passthrough -= hc.ospTimer;
                 _ = hc.StartCoroutine(ResetThreshold(hc));
                 return block + passthrough;
@@ -61,7 +65,7 @@
         private static IEnumerator ResetThreshold(HealthComponent hc)
         {
             yield return new WaitForSeconds(0.1f);
-            LogW("Osp reset");
+            LogM($"OSP ended, {hc.ospTimer} buffer unused");
             hc.ospTimer = 0f;
         }
         private static Single PassThroughLog(Single val)
@@ -86,7 +90,6 @@
             .LdArg_(0)
             .LdFld_(typeof(HealthComponent).GetField(nameof(HealthComponent.serverDamageTakenThisUpdate), BF.Instance | BF.Public | BF.NonPublic))
             .CallDel_<Func<HealthComponent, Single, Single, Single>>(OSPCalc)
-            .CallDel_<Func<Single,Single>>(PassThroughLog)
             .StLoc_(5);
     }
 }

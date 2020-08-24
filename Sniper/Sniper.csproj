@@ -8,8 +8,8 @@
   <PropertyGroup>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
-    <AssemblyVersion>1.0.6.16</AssemblyVersion>
-    <FileVersion>1.0.6.16</FileVersion>
+    <AssemblyVersion>1.0.8.5</AssemblyVersion>
+    <FileVersion>1.0.8.5</FileVersion>
     <RootNamespace>Sniper</RootNamespace>
   </PropertyGroup>
 

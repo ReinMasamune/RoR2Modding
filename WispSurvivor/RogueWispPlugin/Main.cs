@@ -13,7 +13,6 @@ using UnityEngine;
 
 namespace Rein.RogueWispPlugin
 {
-    
 #pragma warning disable CA2243 // Attribute string literals should parse correctly
     [BepInDependency( Rein.Properties.AssemblyLoad.guid, BepInDependency.DependencyFlags.HardDependency )]
     [BepInPlugin( pluginGUID, pluginName, pluginVersion )]

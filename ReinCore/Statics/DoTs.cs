@@ -4,37 +4,40 @@
     using System.Collections.Generic;
     using System.Linq.Expressions;
     using System.Reflection;
+
     using Mono.Cecil;
     using Mono.Cecil.Cil;
+
     using MonoMod.Cil;
+
     using RoR2;
 
     public static class DoTsCore
     {
         public static Boolean loaded { get; internal set; } = false;
-        public delegate void CustomDoTDamageDelegate( HealthComponent victim, DamageInfo damage );
-        public static DotController.DotIndex AddDotType( DoTDef dot, Boolean blockMergeTicks = false, CustomDoTDamageDelegate customDamage = null )
+        public delegate void CustomDoTDamageDelegate(HealthComponent victim, DamageInfo damage);
+        public static DotController.DotIndex AddDotType(DoTDef dot, Boolean blockMergeTicks = false, CustomDoTDamageDelegate customDamage = null)
         {
-            if( !loaded )
+            if(!loaded)
             {
-                throw new CoreNotLoadedException( nameof( DoTsCore ) );
+                throw new CoreNotLoadedException(nameof(DoTsCore));
             }
 
-            if( dot == null )
+            if(dot == null)
             {
-                throw new ArgumentNullException( nameof( dot ) );
+                throw new ArgumentNullException(nameof(dot));
             }
 
             DotController.DotIndex ind = currentIndex++;
 
-            AddNewDotDef( dot );
-            if( customDamage != null )
+            AddNewDotDef(dot);
+            if(customDamage != null)
             {
                 customDoTDamages[ind] = customDamage;
             }
-            if( blockMergeTicks )
+            if(blockMergeTicks)
             {
-                _ = mergeBlocked.Add( ind );
+                _ = mergeBlocked.Add(ind);
             }
 
             return ind;
@@ -50,7 +53,7 @@
             Type controllerType = typeof(DotController);
             Type dotDefType = controllerType.GetNestedType( "DotDef", allFlags );
             Type dotDefArrayType = dotDefType.MakeArrayType();
-            arrayField = controllerType.GetField( "dotDefs", allFlags );
+            arrayField = controllerType.GetField("dotDefs", allFlags);
             FieldInfo intervalField = dotDefType.GetField( "interval", allFlags );
             FieldInfo damageCoefField = dotDefType.GetField( "damageCoefficient", allFlags );
             FieldInfo damageColorIndexField = dotDefType.GetField( "damageColorIndex", allFlags );
@@ -113,13 +116,13 @@
                 mainLoop
             );
             BinaryExpression finalAssignment = Expression.Assign( origArray, mainBlock );
-            AddNewDotDef = Expression.Lambda<AddNewDotDefDelegate>( finalAssignment, inputParameter ).Compile();
+            AddNewDotDef = Expression.Lambda<AddNewDotDefDelegate>(finalAssignment, inputParameter).Compile();
 
 
-            HooksCore.RoR2.DotController.AddDot.Il += AddDot_Il;
-            HooksCore.RoR2.DotController.FixedUpdate.Il += FixedUpdate_Il;
-            HooksCore.RoR2.DotController.EvaluateDotStacksForType.Il += EvaluateDotStacksForType_Il;
-            HooksCore.RoR2.DotController.Awake.Il += Awake_Il;
+            //HooksCore.RoR2.DotController.AddDot.Il += AddDot_Il;
+            //HooksCore.RoR2.DotController.FixedUpdate.Il += FixedUpdate_Il;
+            //HooksCore.RoR2.DotController.EvaluateDotStacksForType.Il += EvaluateDotStacksForType_Il;
+            //HooksCore.RoR2.DotController.Awake.Il += Awake_Il;
 
 
             //Log.Warning( "DotsCore loaded" );
@@ -135,7 +138,7 @@
         private static readonly Dictionary<DotController.DotIndex, CustomDoTDamageDelegate> customDoTDamages = new Dictionary<DotController.DotIndex, CustomDoTDamageDelegate>();
         private static readonly HashSet<DotController.DotIndex> mergeBlocked = new HashSet<DotController.DotIndex>();
 
-        private delegate void AddNewDotDefDelegate( DoTDef dot );
+        private delegate void AddNewDotDefDelegate(DoTDef dot);
 
 
 #pragma warning disable IDE1006 // Naming Styles
@@ -143,149 +146,150 @@
 #pragma warning restore IDE1006 // Naming Styles
 
 
-        private static void EvaluateDotStacksForType_Il( ILContext il )
+        //private static void EvaluateDotStacksForType_Il(ILContext il) => new ILCursor(il)
+
+        //{
+        //    var cursor = new ILCursor( il );
+
+        //    _ = cursor.GotoNext(MoveType.After, x => x.MatchStloc(1));
+        //    _ = cursor.Emit(OpCodes.Ldloc_1);
+        //    _ = cursor.Emit(OpCodes.Ldsfld, arrayField);
+        //    _ = cursor.Emit(OpCodes.Ldarg_1);
+        //    _ = cursor.EmitDelegate<Func<System.Object, System.Object, Int32, System.Object>>((val, r, index) =>
+        //    {
+        //        if(val != null)
+        //        {
+        //            return val;
+        //        }
+
+        //        var array = (Array)r;
+        //        return array.GetValue(index);
+        //    });
+        //    _ = cursor.Emit(OpCodes.Stloc_1);
+
+        //    _ = cursor.GotoNext(MoveType.AfterLabel, x => x.MatchCallOrCallvirt<DotController>("AddPendingDamageEntry"));
+        //    ILLabel passLabel = cursor.MarkLabel();
+        //    cursor.Index++;
+        //    ILLabel overLabel = cursor.MarkLabel();
+        //    cursor.Index--;
+        //    _ = cursor.MoveBeforeLabels();
+
+
+        //    _ = cursor.EmitReference<HashSet<DotController.DotIndex>>(mergeBlocked);
+        //    _ = cursor.Emit(OpCodes.Ldarg_1);
+        //    _ = cursor.Emit<HashSet<DotController.DotIndex>>(OpCodes.Call, "Contains");
+        //    _ = cursor.Emit(OpCodes.Brfalse, passLabel);
+
+        //    Type dotStackType = typeof(DotController).GetNestedType( "DotStack", BindingFlags.NonPublic );
+        //    FieldInfo attackerField = dotStackType.GetField( "attackerObject" );
+        //    FieldInfo damageField = dotStackType.GetField( "damage" );
+        //    FieldInfo damageTypeField = dotStackType.GetField( "damageType" );
+
+
+        //    Type pendingDamageType = typeof(DotController).GetNestedType("PendingDamage", BindingFlags.NonPublic );
+        //    FieldInfo pendingAttackerField = pendingDamageType.GetField( "attackerObject" );
+        //    FieldInfo pendingDamageField = pendingDamageType.GetField( "totalDamage" );
+        //    FieldInfo pendingDamageTypeField = pendingDamageType.GetField( "damageType" );
+
+
+        //    MethodInfo addMethod = typeof(List<>).MakeGenericType(pendingDamageType).GetMethod( "Add" );
+
+        //    _ = cursor.Emit(OpCodes.Pop);
+        //    _ = cursor.Emit(OpCodes.Pop);
+        //    _ = cursor.Emit(OpCodes.Pop);
+        //    _ = cursor.Emit(OpCodes.Newobj, pendingDamageType.GetConstructor(Array.Empty<Type>()));
+        //    _ = cursor.Emit(OpCodes.Dup);
+        //    _ = cursor.Emit(OpCodes.Ldloc_3);
+        //    _ = cursor.Emit(OpCodes.Ldfld, attackerField);
+        //    _ = cursor.Emit(OpCodes.Stfld, pendingAttackerField);
+        //    _ = cursor.Emit(OpCodes.Dup);
+        //    _ = cursor.Emit(OpCodes.Ldloc_3);
+        //    _ = cursor.Emit(OpCodes.Ldfld, damageField);
+        //    _ = cursor.Emit(OpCodes.Stfld, pendingDamageField);
+        //    _ = cursor.Emit(OpCodes.Dup);
+        //    _ = cursor.Emit(OpCodes.Ldloc_3);
+        //    _ = cursor.Emit(OpCodes.Ldfld, damageTypeField);
+        //    _ = cursor.Emit(OpCodes.Stfld, pendingDamageTypeField);
+        //    _ = cursor.Emit(OpCodes.Callvirt, addMethod);
+        //    _ = cursor.Emit(OpCodes.Br_S, overLabel);
+
+        //    MethodReference method = null;
+        //    Int32 damageLoc = 0;
+
+        //    _ = cursor.GotoNext(MoveType.AfterLabel,
+        //        x => x.MatchLdarg(0),
+        //        x => x.MatchCallOrCallvirt(out method),
+        //        x => x.MatchLdloc(out damageLoc),
+        //        x => x.MatchCallOrCallvirt<RoR2.HealthComponent>("TakeDamage")
+        //    );
+        //    ILLabel breakLabel = cursor.MarkLabel();
+        //    cursor.Index += 4;
+        //    ILLabel skipLabel = cursor.MarkLabel();
+        //    cursor.Index -= 4;
+        //    _ = cursor.MoveBeforeLabels();
+
+        //    Int32 ind = cursor.EmitReference<Dictionary<DotController.DotIndex, CustomDoTDamageDelegate>>( customDoTDamages );
+        //    _ = cursor.Emit(OpCodes.Ldarg_1);
+        //    _ = cursor.Emit(OpCodes.Call, typeof(Dictionary<DotController.DotIndex, CustomDoTDamageDelegate>).GetMethod("ContainsKey"));
+        //    _ = cursor.Emit(OpCodes.Brfalse_S, breakLabel);
+
+        //    cursor.EmitGetReference<Dictionary<DotController.DotIndex, CustomDoTDamageDelegate>>(ind);
+        //    _ = cursor.Emit(OpCodes.Ldarg_1);
+        //    _ = cursor.Emit<Dictionary<DotController.DotIndex, CustomDoTDamageDelegate>>(OpCodes.Call, "get_Item");
+        //    _ = cursor.Emit(OpCodes.Ldarg_0);
+        //    _ = cursor.Emit(OpCodes.Call, method);
+        //    _ = cursor.Emit(OpCodes.Ldloc, damageLoc);
+        //    _ = cursor.Emit<CustomDoTDamageDelegate>(OpCodes.Callvirt, "Invoke");
+        //    _ = cursor.Emit(OpCodes.Br_S, skipLabel);
+        //}
+
+
+        private static void FixedUpdate_Il(MonoMod.Cil.ILContext il)
         {
             var cursor = new ILCursor( il );
 
-            _ = cursor.GotoNext( MoveType.After, x => x.MatchStloc( 1 ) );
-            _ = cursor.Emit( OpCodes.Ldloc_1 );
-            _ = cursor.Emit( OpCodes.Ldsfld, arrayField );
-            _ = cursor.Emit( OpCodes.Ldarg_1 );
-            _ = cursor.EmitDelegate<Func<System.Object, System.Object, Int32, System.Object>>( ( val, r, index ) =>
+            _ = cursor.GotoNext(MoveType.AfterLabel, x => x.MatchStloc(2));
+            _ = cursor.Emit(OpCodes.Ldsfld, arrayField);
+            _ = cursor.Emit(OpCodes.Ldloc_1);
+            _ = cursor.EmitDelegate<Func<System.Object, System.Object, Int32, System.Object>>((val, r, ind) =>
             {
-                if( val != null )
+                if(val != null)
                 {
                     return val;
                 }
 
                 var array = (Array)r;
-                return array.GetValue( index );
-            } );
-            _ = cursor.Emit( OpCodes.Stloc_1 );
+                return array.GetValue(ind);
+            });
 
-            _ = cursor.GotoNext( MoveType.AfterLabel, x => x.MatchCallOrCallvirt<DotController>( "AddPendingDamageEntry" ) );
-            ILLabel passLabel = cursor.MarkLabel();
-            cursor.Index++;
-            ILLabel overLabel = cursor.MarkLabel();
-            cursor.Index--;
-            _ = cursor.MoveBeforeLabels();
-
-
-            _ = cursor.EmitReference<HashSet<DotController.DotIndex>>( mergeBlocked );
-            _ = cursor.Emit( OpCodes.Ldarg_1 );
-            _ = cursor.Emit<HashSet<DotController.DotIndex>>( OpCodes.Call, "Contains" );
-            _ = cursor.Emit( OpCodes.Brfalse, passLabel );
-
-            Type dotStackType = typeof(DotController).GetNestedType( "DotStack", BindingFlags.NonPublic );
-            FieldInfo attackerField = dotStackType.GetField( "attackerObject" );
-            FieldInfo damageField = dotStackType.GetField( "damage" );
-            FieldInfo damageTypeField = dotStackType.GetField( "damageType" );
-
-
-            Type pendingDamageType = typeof(DotController).GetNestedType("PendingDamage", BindingFlags.NonPublic );
-            FieldInfo pendingAttackerField = pendingDamageType.GetField( "attackerObject" );
-            FieldInfo pendingDamageField = pendingDamageType.GetField( "totalDamage" );
-            FieldInfo pendingDamageTypeField = pendingDamageType.GetField( "damageType" );
-
-
-            MethodInfo addMethod = typeof(List<>).MakeGenericType(pendingDamageType).GetMethod( "Add" );
-
-            _ = cursor.Emit( OpCodes.Pop );
-            _ = cursor.Emit( OpCodes.Pop );
-            _ = cursor.Emit( OpCodes.Pop );
-            _ = cursor.Emit( OpCodes.Newobj, pendingDamageType.GetConstructor( Array.Empty<Type>() ) );
-            _ = cursor.Emit( OpCodes.Dup );
-            _ = cursor.Emit( OpCodes.Ldloc_3 );
-            _ = cursor.Emit( OpCodes.Ldfld, attackerField );
-            _ = cursor.Emit( OpCodes.Stfld, pendingAttackerField );
-            _ = cursor.Emit( OpCodes.Dup );
-            _ = cursor.Emit( OpCodes.Ldloc_3 );
-            _ = cursor.Emit( OpCodes.Ldfld, damageField );
-            _ = cursor.Emit( OpCodes.Stfld, pendingDamageField );
-            _ = cursor.Emit( OpCodes.Dup );
-            _ = cursor.Emit( OpCodes.Ldloc_3 );
-            _ = cursor.Emit( OpCodes.Ldfld, damageTypeField );
-            _ = cursor.Emit( OpCodes.Stfld, pendingDamageTypeField );
-            _ = cursor.Emit( OpCodes.Callvirt, addMethod );
-            _ = cursor.Emit( OpCodes.Br_S, overLabel );
-
-            MethodReference method = null;
-            Int32 damageLoc = 0;
-
-            _ = cursor.GotoNext( MoveType.AfterLabel,
-                x => x.MatchLdarg( 0 ),
-                x => x.MatchCallOrCallvirt( out method ),
-                x => x.MatchLdloc( out damageLoc ),
-                x => x.MatchCallOrCallvirt<RoR2.HealthComponent>( "TakeDamage" )
-            );
-            ILLabel breakLabel = cursor.MarkLabel();
-            cursor.Index += 4;
-            ILLabel skipLabel = cursor.MarkLabel();
-            cursor.Index -= 4;
-            _ = cursor.MoveBeforeLabels();
-
-            Int32 ind = cursor.EmitReference<Dictionary<DotController.DotIndex, CustomDoTDamageDelegate>>( customDoTDamages );
-            _ = cursor.Emit( OpCodes.Ldarg_1 );
-            _ = cursor.Emit( OpCodes.Call, typeof( Dictionary<DotController.DotIndex, CustomDoTDamageDelegate> ).GetMethod( "ContainsKey" ) );
-            _ = cursor.Emit( OpCodes.Brfalse_S, breakLabel );
-
-            cursor.EmitGetReference<Dictionary<DotController.DotIndex, CustomDoTDamageDelegate>>( ind );
-            _ = cursor.Emit( OpCodes.Ldarg_1 );
-            _ = cursor.Emit<Dictionary<DotController.DotIndex, CustomDoTDamageDelegate>>( OpCodes.Call, "get_Item" );
-            _ = cursor.Emit( OpCodes.Ldarg_0 );
-            _ = cursor.Emit( OpCodes.Call, method );
-            _ = cursor.Emit( OpCodes.Ldloc, damageLoc );
-            _ = cursor.Emit<CustomDoTDamageDelegate>( OpCodes.Callvirt, "Invoke" );
-            _ = cursor.Emit( OpCodes.Br_S, skipLabel );
+            _ = cursor.GotoNext(MoveType.AfterLabel, x => x.MatchLdcI4((Int32)startingIndex));
+            _ = cursor.Remove();
+            _ = cursor.Emit(OpCodes.Ldsfld, arrayField);
+            _ = cursor.Emit(OpCodes.Ldlen);
+            _ = cursor.Emit(OpCodes.Conv_I4);
         }
 
 
-        private static void FixedUpdate_Il( MonoMod.Cil.ILContext il )
+        private static void AddDot_Il(MonoMod.Cil.ILContext il)
         {
             var cursor = new ILCursor( il );
 
-            _ = cursor.GotoNext( MoveType.AfterLabel, x => x.MatchStloc( 2 ) );
-            _ = cursor.Emit( OpCodes.Ldsfld, arrayField );
-            _ = cursor.Emit( OpCodes.Ldloc_1 );
-            _ = cursor.EmitDelegate<Func<System.Object, System.Object, Int32, System.Object>>( ( val, r, ind ) =>
-            {
-                if( val != null )
-                {
-                    return val;
-                }
-
-                var array = (Array)r;
-                return array.GetValue( ind );
-            } );
-
-            _ = cursor.GotoNext( MoveType.AfterLabel, x => x.MatchLdcI4( (Int32)startingIndex ) );
+            _ = cursor.GotoNext(MoveType.AfterLabel, x => x.MatchLdcI4((Int32)startingIndex));
             _ = cursor.Remove();
-            _ = cursor.Emit( OpCodes.Ldsfld, arrayField );
-            _ = cursor.Emit( OpCodes.Ldlen );
-            _ = cursor.Emit( OpCodes.Conv_I4 );
+            _ = cursor.Emit(OpCodes.Ldsfld, arrayField);
+            _ = cursor.Emit(OpCodes.Ldlen);
+            _ = cursor.Emit(OpCodes.Conv_I4);
         }
 
-
-        private static void AddDot_Il( MonoMod.Cil.ILContext il )
+        private static void Awake_Il(ILContext il)
         {
             var cursor = new ILCursor( il );
 
-            _ = cursor.GotoNext( MoveType.AfterLabel, x => x.MatchLdcI4( (Int32)startingIndex ) );
+            _ = cursor.GotoNext(MoveType.AfterLabel, x => x.MatchLdcI4((Int32)startingIndex));
             _ = cursor.Remove();
-            _ = cursor.Emit( OpCodes.Ldsfld, arrayField );
-            _ = cursor.Emit( OpCodes.Ldlen );
-            _ = cursor.Emit( OpCodes.Conv_I4 );
-        }
-
-        private static void Awake_Il( ILContext il )
-        {
-            var cursor = new ILCursor( il );
-
-            _ = cursor.GotoNext( MoveType.AfterLabel, x => x.MatchLdcI4( (Int32)startingIndex ) );
-            _ = cursor.Remove();
-            _ = cursor.Emit( OpCodes.Ldsfld, arrayField );
-            _ = cursor.Emit( OpCodes.Ldlen );
-            _ = cursor.Emit( OpCodes.Conv_I4 );
+            _ = cursor.Emit(OpCodes.Ldsfld, arrayField);
+            _ = cursor.Emit(OpCodes.Ldlen);
+            _ = cursor.Emit(OpCodes.Conv_I4);
         }
     }
 }

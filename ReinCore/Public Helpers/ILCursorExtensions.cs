@@ -10,6 +10,23 @@
 
     public static class ILCursorExtensions
     {
+        public static ILCursor Position(this ILCursor cursor, out Int32 position)
+        {
+            position = cursor.Index;
+            return cursor;
+        }
+
+        public static ILCursor Log(this ILCursor cursor)
+        {
+            global::ReinCore.Log.Warning(cursor);
+            return cursor;
+        }
+        public static ILCursor LogFull(this ILCursor cursor)
+        {
+            global::ReinCore.Log.Warning(cursor.Context);
+            return cursor;
+        }
+
         public static ILCursor DefLabel(this ILCursor cursor, out ILLabel label)
         {
             label = cursor.DefineLabel();
@@ -34,9 +51,6 @@
         public static ILCursor Pop_(this ILCursor cursor) => cursor.Emit(OpCodes.Pop);
         public static ILCursor Nop_(this ILCursor cursor) => cursor.Emit(OpCodes.Nop);
         public static ILCursor Call_(this ILCursor cursor, MethodInfo target) => cursor.Emit(OpCodes.Call, target);
-        public static ILCursor Calli_<TDelegate>(this ILCursor cursor, TDelegate target)
-            where TDelegate : Delegate
-            => cursor.EmitIndirectCall<TDelegate>(target);
         public static ILCursor CallDel_<TDelegate>(this ILCursor cursor, TDelegate target, out Int32 index)
             where TDelegate : Delegate
         {
@@ -53,8 +67,31 @@
         public static ILCursor LdC_(this ILCursor cursor, Single value) => cursor.Emit(OpCodes.Ldc_R4, value);
         public static ILCursor LdC_(this ILCursor cursor, Double value) => cursor.Emit(OpCodes.Ldc_R8, value);
         public static ILCursor StLoc_(this ILCursor cursor, Int32 index) => cursor.Emit(OpCodes.Stloc, index);
-        public static ILCursor LdLoc_(this ILCursor cursor, Int32 index) => cursor.Emit(OpCodes.Ldloc, index);
+        public static ILCursor LdLoc_(this ILCursor cursor, Int32 index) => index switch
+        {
+            0 => cursor.Emit(OpCodes.Ldloc_0),
+            1 => cursor.Emit(OpCodes.Ldloc_1),
+            2 => cursor.Emit(OpCodes.Ldloc_2),
+            3 => cursor.Emit(OpCodes.Ldloc_3),
+            Int32 i when i >= Byte.MinValue && i <= Byte.MaxValue => cursor.Emit(OpCodes.Ldloc_S, (Byte)index),
+            _ => cursor.Emit(OpCodes.Ldloc, index),
+        };
+        public static ILCursor LdLocA_(this ILCursor cursor, Int32 index) => index switch
+        {
+            Int32 i when i >= Byte.MinValue && i <= Byte.MaxValue => cursor.Emit(OpCodes.Ldloca_S, (Byte)index),
+            _ => cursor.Emit(OpCodes.Ldloca, index),
+        };
         public static ILCursor LdFld_(this ILCursor cursor, FieldInfo field) => cursor.Emit(OpCodes.Ldfld, field);
+        public static ILCursor LdElem_<T>(this ILCursor cursor)
+        {
+            switch(typeof(T))
+            {
+                case Type t when !t.IsValueType:
+                    return cursor.Emit(OpCodes.Ldelem_Ref);
+                default:
+                    throw new NotImplementedException();
+            }
+        }
         public static ILCursor StSFld_(this ILCursor cursor, FieldInfo field) => cursor.Emit(OpCodes.Stsfld, field);
         public static ILCursor Ret_(this ILCursor cursor) => cursor.Emit(OpCodes.Ret);
 

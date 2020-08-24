@@ -12,6 +12,9 @@
     using UnityEngine;
     using UnityEngine.Networking;
 
+    using UnityObject = UnityEngine.Object;
+    using Object = System.Object;
+
 
 
     /*
@@ -39,6 +42,204 @@ public static event Hook On
 #pragma warning disable IDE1006 // Naming Styles
         public struct EntityStates
         {
+            public static class ShockState
+            {
+                public struct FixedUpdate
+                {
+                    private static readonly MethodBase method = HookHelpers.GetBase( typeof(FixedUpdate) );
+                    public delegate void Orig(global::EntityStates.ShockState self);
+                    public delegate void Hook(Orig orig, global::EntityStates.ShockState self);
+                    public static event ILContext.Manipulator Il
+                    {
+                        add => HookEndpointManager.Modify<Hook>( method, value );
+                        remove => HookEndpointManager.Unmodify<Hook>( method, value );
+                    }
+                    public static event Hook On
+                    {
+                        add => HookEndpointManager.Add<Hook>( method, value );
+                        remove => HookEndpointManager.Remove<Hook>( method, value );
+                    }
+                }
+
+                public struct OnEnter
+                {
+                    private static readonly MethodBase method = HookHelpers.GetBase( typeof(OnEnter) );
+                    public delegate void Orig(global::EntityStates.ShockState self);
+                    public delegate void Hook(Orig orig, global::EntityStates.ShockState self);
+                    public static event ILContext.Manipulator Il
+                    {
+                        add => HookEndpointManager.Modify<Hook>( method, value );
+                        remove => HookEndpointManager.Unmodify<Hook>( method, value );
+                    }
+                    public static event Hook On
+                    {
+                        add => HookEndpointManager.Add<Hook>( method, value );
+                        remove => HookEndpointManager.Remove<Hook>( method, value );
+                    }
+                }
+
+                public struct OnExit
+                {
+                    private static readonly MethodBase method = HookHelpers.GetBase( typeof(OnExit) );
+                    public delegate void Orig(global::EntityStates.ShockState self);
+                    public delegate void Hook(Orig orig, global::EntityStates.ShockState self);
+                    public static event ILContext.Manipulator Il
+                    {
+                        add => HookEndpointManager.Modify<Hook>( method, value );
+                        remove => HookEndpointManager.Unmodify<Hook>( method, value );
+                    }
+                    public static event Hook On
+                    {
+                        add => HookEndpointManager.Add<Hook>( method, value );
+                        remove => HookEndpointManager.Remove<Hook>( method, value );
+                    }
+                }
+            }
+
+            public struct Captain
+            {
+                public struct Weapon
+                {
+                    public static class FireCaptainShotgun
+                    {
+                        public struct ModifyBullet
+                        {
+                            private static readonly MethodBase method = HookHelpers.GetBase( typeof(ModifyBullet) );
+                            public delegate void Orig(global::EntityStates.Captain.Weapon.FireCaptainShotgun self, global::RoR2.BulletAttack bullet);
+                            public delegate void Hook(Orig orig, global::EntityStates.Captain.Weapon.FireCaptainShotgun self, global::RoR2.BulletAttack bullet);
+                            public static event ILContext.Manipulator Il
+                            {
+                                add => HookEndpointManager.Modify<Hook>( method, value );
+                                remove => HookEndpointManager.Unmodify<Hook>( method, value );
+                            }
+                            public static event Hook On
+                            {
+                                add => HookEndpointManager.Add<Hook>( method, value );
+                                remove => HookEndpointManager.Remove<Hook>( method, value );
+                            }
+                        }
+
+                        public struct OnEnter
+                        {
+                            private static readonly MethodBase method = HookHelpers.GetBase( typeof(OnEnter) );
+                            public delegate void Orig(global::EntityStates.Captain.Weapon.FireCaptainShotgun self);
+                            public delegate void Hook(Orig orig, global::EntityStates.Captain.Weapon.FireCaptainShotgun self);
+                            public static event ILContext.Manipulator Il
+                            {
+                                add => HookEndpointManager.Modify<Hook>( method, value );
+                                remove => HookEndpointManager.Unmodify<Hook>( method, value );
+                            }
+                            public static event Hook On
+                            {
+                                add => HookEndpointManager.Add<Hook>( method, value );
+                                remove => HookEndpointManager.Remove<Hook>( method, value );
+                            }
+                        }
+                    }
+
+                    public static class ChargeCaptainShotgun
+                    {
+                        public struct OnEnter
+                        {
+                            private static readonly MethodBase method = HookHelpers.GetBase( typeof(OnEnter) );
+                            public delegate void Orig(global::EntityStates.Captain.Weapon.ChargeCaptainShotgun self);
+                            public delegate void Hook(Orig orig, global::EntityStates.Captain.Weapon.ChargeCaptainShotgun self);
+                            public static event ILContext.Manipulator Il
+                            {
+                                add => HookEndpointManager.Modify<Hook>( method, value );
+                                remove => HookEndpointManager.Unmodify<Hook>( method, value );
+                            }
+                            public static event Hook On
+                            {
+                                add => HookEndpointManager.Add<Hook>( method, value );
+                                remove => HookEndpointManager.Remove<Hook>( method, value );
+                            }
+                        }
+                    }
+
+                    public static class CallAirstrike1
+                    {
+                        public struct OnEnter
+                        {
+                            private static readonly MethodBase method = HookHelpers.GetBase( typeof(OnEnter) );
+                            public delegate void Orig(global::EntityStates.Captain.Weapon.CallAirstrike1 self);
+                            public delegate void Hook(Orig orig, global::EntityStates.Captain.Weapon.CallAirstrike1 self);
+                            public static event ILContext.Manipulator Il
+                            {
+                                add => HookEndpointManager.Modify<Hook>( method, value );
+                                remove => HookEndpointManager.Unmodify<Hook>( method, value );
+                            }
+                            public static event Hook On
+                            {
+                                add => HookEndpointManager.Add<Hook>( method, value );
+                                remove => HookEndpointManager.Remove<Hook>( method, value );
+                            }
+                        }
+                    }
+                    public static class CallAirstrike2
+                    {
+                        public struct OnEnter
+                        {
+                            private static readonly MethodBase method = HookHelpers.GetBase( typeof(OnEnter) );
+                            public delegate void Orig(global::EntityStates.Captain.Weapon.CallAirstrike2 self);
+                            public delegate void Hook(Orig orig, global::EntityStates.Captain.Weapon.CallAirstrike2 self);
+                            public static event ILContext.Manipulator Il
+                            {
+                                add => HookEndpointManager.Modify<Hook>( method, value );
+                                remove => HookEndpointManager.Unmodify<Hook>( method, value );
+                            }
+                            public static event Hook On
+                            {
+                                add => HookEndpointManager.Add<Hook>( method, value );
+                                remove => HookEndpointManager.Remove<Hook>( method, value );
+                            }
+                        }
+                    }
+                    public static class CallAirstrike3
+                    {
+                        public struct OnEnter
+                        {
+                            private static readonly MethodBase method = HookHelpers.GetBase( typeof(OnEnter) );
+                            public delegate void Orig(global::EntityStates.Captain.Weapon.CallAirstrike3 self);
+                            public delegate void Hook(Orig orig, global::EntityStates.Captain.Weapon.CallAirstrike3 self);
+                            public static event ILContext.Manipulator Il
+                            {
+                                add => HookEndpointManager.Modify<Hook>( method, value );
+                                remove => HookEndpointManager.Unmodify<Hook>( method, value );
+                            }
+                            public static event Hook On
+                            {
+                                add => HookEndpointManager.Add<Hook>( method, value );
+                                remove => HookEndpointManager.Remove<Hook>( method, value );
+                            }
+                        }
+                    }
+                }
+            }
+
+            public struct CaptainSupplyDrop
+            {
+                public static class ShockZoneMainState
+                {
+                    public struct Shock
+                    {
+                        private static readonly MethodBase method = HookHelpers.GetBase( typeof(Shock) );
+                        public delegate void Orig(global::EntityStates.CaptainSupplyDrop.ShockZoneMainState self);
+                        public delegate void Hook(Orig orig, global::EntityStates.CaptainSupplyDrop.ShockZoneMainState self);
+                        public static event ILContext.Manipulator Il
+                        {
+                            add => HookEndpointManager.Modify<Hook>( method, value );
+                            remove => HookEndpointManager.Unmodify<Hook>( method, value );
+                        }
+                        public static event Hook On
+                        {
+                            add => HookEndpointManager.Add<Hook>( method, value );
+                            remove => HookEndpointManager.Remove<Hook>( method, value );
+                        }
+                    }
+                }
+            }
+
             public struct Commando
             {
                 public static class DodgeState
@@ -472,6 +673,26 @@ public static event Hook On
                     private static readonly MethodBase method = HookHelpers.GetBase( typeof(Update) );
                     public delegate void Orig(global::RoR2.CameraTargetParams self);
                     public delegate void Hook(Orig orig, global::RoR2.CameraTargetParams self);
+                    public static event ILContext.Manipulator Il
+                    {
+                        add => HookEndpointManager.Modify<Hook>( method, value );
+                        remove => HookEndpointManager.Unmodify<Hook>( method, value );
+                    }
+                    public static event Hook On
+                    {
+                        add => HookEndpointManager.Add<Hook>( method, value );
+                        remove => HookEndpointManager.Remove<Hook>( method, value );
+                    }
+                }
+            }
+
+            public static class CaptainDefenseMatrixController
+            {
+                public struct Start
+                {
+                    private static readonly MethodBase method = HookHelpers.GetBase( typeof(Start) );
+                    public delegate void Orig(global::RoR2.CaptainDefenseMatrixController self);
+                    public delegate void Hook(Orig orig, global::RoR2.CaptainDefenseMatrixController self);
                     public static event ILContext.Manipulator Il
                     {
                         add => HookEndpointManager.Modify<Hook>( method, value );
@@ -1541,12 +1762,53 @@ public static event Hook On
                     }
                 }
 
-
+                public static class GameNetworkManager
+                {
+                    public static class SimpleLocalizedKickReason
+                    {
+                        public struct GetDisplayTokenAndFormatParams
+                        {
+                            private static readonly MethodBase method = HookHelpers.GetBase( typeof(GetDisplayTokenAndFormatParams) );
+                            public delegate void Orig(global::RoR2.Networking.GameNetworkManager.SimpleLocalizedKickReason self, out String token, out Object[] formatArgs);
+                            public delegate void Hook(Orig orig, global::RoR2.Networking.GameNetworkManager.SimpleLocalizedKickReason self, out String token, out Object[] formatArgs);
+                            public static event ILContext.Manipulator Il
+                            {
+                                add => HookEndpointManager.Modify<Hook>( method, value );
+                                remove => HookEndpointManager.Unmodify<Hook>( method, value );
+                            }
+                            public static event Hook On
+                            {
+                                add => HookEndpointManager.Add<Hook>( method, value );
+                                remove => HookEndpointManager.Remove<Hook>( method, value );
+                            }
+                        }
+                    }
+                }
             }
 
 
             public struct Orbs
             {
+                public static class LightningOrb
+                {
+                    public struct OnArrival
+                    {
+                        private static readonly MethodBase method = HookHelpers.GetBase( typeof(OnArrival) );
+                        public delegate void Orig(global::RoR2.Orbs.LightningOrb self);
+                        public delegate void Hook(Orig orig, global::RoR2.Orbs.LightningOrb self);
+                        public static event ILContext.Manipulator Il
+                        {
+                            add => HookEndpointManager.Modify<Hook>( method, value );
+                            remove => HookEndpointManager.Unmodify<Hook>( method, value );
+                        }
+                        public static event Hook On
+                        {
+                            add => HookEndpointManager.Add<Hook>( method, value );
+                            remove => HookEndpointManager.Remove<Hook>( method, value );
+                        }
+                    }
+                }
+
                 public static class OrbCatalog
                 {
                     public struct GenerateCatalog

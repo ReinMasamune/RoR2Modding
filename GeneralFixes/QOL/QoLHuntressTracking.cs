@@ -77,6 +77,7 @@
                     if( hb is null ) continue;
                     var hc = hb.healthComponent;
                     if( hc is null ) continue;
+                    if( hc == body.healthComponent ) continue;
                     if( !FriendlyFireManager.ShouldDirectHitProceed( hc, myTeam ) ) continue;
 
                     result = hb;

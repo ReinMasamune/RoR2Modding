@@ -148,7 +148,7 @@ namespace ReinCore
                 .LdLoc_(10)
                 .LdArg_(0)
                 .LdFld_(typeof(PlayerCharacterMasterController).GetField("bodyInputs", BF.Public | BF.NonPublic | BF.Instance))
-                .Calli_<Action<Boolean, Rewired.Player, InputBankTest>>(EmittedFunc);
+                .CallDel_<Action<Boolean, Rewired.Player, InputBankTest>>(EmittedFunc);
         }
     }
 }

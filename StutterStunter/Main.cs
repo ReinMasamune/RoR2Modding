@@ -1,254 +1,144 @@
 ﻿namespace ReinStutterStunter
 {
     using System;
+    using System.Reflection;
+    using BF = System.Reflection.BindingFlags;
 
     using BepInEx;
 
-    using ReinCore;
-
     using RoR2;
 
+    using UnityEngine;
     using UnityEngine.Scripting;
 
-    [BepInPlugin( "com.ReinThings.ReinStutterStunter", "ReinStutterStunter", "2.0.0" )]
-    [BepInDependency( Rein.AssemblyLoad.guid, BepInDependency.DependencyFlags.HardDependency )]
-    public class ReinStutterStunterMain : BaseUnityPlugin
+    using Object = System.Object;
+    using UnityObject = UnityEngine.Object;
+    using UnityEngine.SceneManagement;
+    using System.Collections;
+    using MonoMod.RuntimeDetour;
+    using BepInEx.Configuration;
+
+    [BepInPlugin("Rein.StutterStunter", "Stutter Stunter", "2.1.0")]
+    internal class ReinStutterStunterMain : BaseUnityPlugin
     {
-        private readonly Boolean lockGCOn = false;
-        private readonly Int64 memoryWarning = 1000;
-        private readonly Int64 memoryCap = 2000;
-        private const Int64 div = 1048576;
-        private readonly Single checkDelay = 30.0f;
+        private static ConfigEntry<UInt16> autoGCAt;
+        private static ConfigEntry<UInt16> warnGCAt;
+        private static ConfigEntry<Byte> secondsBetweenChecks;
 
-        private readonly String folderPath;
-        private readonly String logPath;
-        private readonly Boolean log = true;
+        private static TDelegate Combine<TDelegate>(params TDelegate[] delegates)
+            where TDelegate : Delegate => (TDelegate)Delegate.Combine(delegates);
 
-        //public static ConfigWrapper<Boolean> configWrappingPaper;
-        //public static ConfigWrapper<Int64> memWarning;
-        //public static ConfigWrapper<Int64> memCap;
-        //public static ConfigWrapper<Boolean> disableProcessing;
-        //public static ConfigWrapper<Single> memCheckDelay;
+        static ReinStutterStunterMain() { }
 
-        private static Boolean gcOn = true;
-
-        public void OnDisable()
+        private static ReinStutterStunterMain instance;
+        ReinStutterStunterMain()
         {
-
+            instance = this;
+            autoGCAt = base.Config.Bind<UInt16>("Settings", "Max memory usage (MB)", (UInt16)3000u, "The threshold at which GC will be automatically run, in MB.");
+            warnGCAt = base.Config.Bind<UInt16>("Settings", "Memory usage warning (MB)", (UInt16)2000u, "The threshold at you will get a warning about memory usage and be asked to pause the game, in MB.");
+            secondsBetweenChecks = base.Config.Bind<Byte>("Settings", "Scan interval (s)", (Byte)60u, "The number of seconds between memory usage checks. Memory usage checks aren't totally free, so this shouldn't usually be changed.");
+        }
+        protected void OnEnable()
+        {
+            GarbageCollector.GCModeChanged += GarbageCollector_GCModeChanged;
+            PauseManager.onPauseStartGlobal = Combine(PauseManager.onPauseStartGlobal, OnPauseStartGlobal);
+            PauseManager.onPauseEndGlobal = Combine(PauseManager.onPauseEndGlobal, OnPauseEndGlobal);
+            RoR2Application.onShutDown = Combine(RoR2Application.onShutDown, OnShutDown);
+            SceneManager.activeSceneChanged += this.SceneManager_activeSceneChanged;
+            _ = base.StartCoroutine(TrackMemory());
         }
 
-        public void OnEnable()
-        {
-            HooksCore.RoR2.Stage.OnEnable.On += this.OnEnable_On;
-            HooksCore.RoR2.Stage.OnDisable.On += this.OnDisable_On;
-            HooksCore.RoR2.UI.PauseScreenController.OnEnable.On += this.OnEnable_On1;
-            HooksCore.RoR2.UI.PauseScreenController.OnDisable.On += this.OnDisable_On1;
-        }
+        private static readonly MethodInfo target2 = typeof(UnitySystemConsoleRedirector).GetMethod("Redirect", BF.Public | BF.Static | BF.Instance | BF.NonPublic);
+        private delegate void Sig2();
+        private static readonly MethodInfo hook2 = new Sig2(No).Method;
+        private static readonly Hook onRedirect = new(target2, hook2);
+        private static void No() { }
 
-        private void OnDisable_On1( HooksCore.RoR2.UI.PauseScreenController.OnDisable.Orig orig, RoR2.UI.PauseScreenController self )
+        private static IEnumerator TrackMemory()
         {
-            orig( self );
-            DisableGC();
-        }
-
-        private void OnEnable_On1( HooksCore.RoR2.UI.PauseScreenController.OnEnable.Orig orig, RoR2.UI.PauseScreenController self )
-        {
-            EnableGC();
-            orig( self );
-        }
-
-        private void OnDisable_On( HooksCore.RoR2.Stage.OnDisable.Orig orig, Stage self )
-        {
-
-            EnableGC();
-            orig( self );
-        }
-
-        private void OnEnable_On( HooksCore.RoR2.Stage.OnEnable.Orig orig, Stage self )
-        {
-            orig( self );
-            DisableGC();
-        }
-
-        private static void DisableGC()
-        {
-            if( gcOn )
+            while(true)
             {
-                //Chat.AddMessage( String.Format( "Current memory: {0}", GC.GetTotalMemory( false ) ) );
-                GC.Collect();
-
-                GarbageCollector.GCMode = GarbageCollector.Mode.Disabled;
-                gcOn = false;
-                //if( GC.TryStartNoGCRegion(256*1024*1024 / 2) )
-                //{
-                //    gcOn = false;
-                //    Chat.AddMessage( "GC Disabled successfully" );
-                //} else
-                //{
-                //    Chat.AddMessage( "GC not disabled successfully" );
-                //}
+                yield return new WaitForSecondsRealtime(secondsBetweenChecks.Value);
+                var mem = GC.GetTotalMemory(false) / 1048576.0;
+                instance.Logger.LogMessage($"Memory used: {mem}");
+                switch(mem)
+                {
+                    case var _ when mem >= autoGCAt.Value:
+                        GC.Collect();
+                        Chat.AddMessage("Garbage collection forced");
+                        continue;
+                    case var _ when mem >= warnGCAt.Value:
+                        Chat.AddMessage("Memory usage is beyond warning threshold. Please find time to pause for a few seconds.");
+                        continue;
+                    default:
+                        continue;
+                }
             }
         }
 
-        private static void EnableGC()
+        private static Boolean IsMenuScene(Scene scene) => SceneCatalog.GetSceneDefFromScene(scene).sceneType switch
         {
-            //Chat.AddMessage( String.Format( "Current memory: {0}", GC.GetTotalMemory( false ) ) );
+            SceneType.Cutscene => true,
+            SceneType.Menu => true,
+            SceneType.Invalid => true,
+            SceneType.Stage => false,
+            SceneType.Intermission => false,
+            _ => true,
+        };
+
+        private void SceneManager_activeSceneChanged(Scene arg0, Scene arg1)
+        {
+            //instance.Logger.LogWarning("ActiveSceneChanged");
             GC.Collect();
+            gc = isInMenuScene = IsMenuScene(arg1);
+        }
+        private static void OnPauseStartGlobal()
+        {
+            //instance.Logger.LogWarning("PauseStart");
+            gc = true;
+            GC.Collect();
+        }
+        private static void OnPauseEndGlobal()
+        {
+            //instance.Logger.LogWarning("PauseEnd");
+            GC.Collect();
+            gc = isInMenuScene;
+        }
+        private static void OnShutDown()
+        {
+            //instance.Logger.LogWarning("ShutDown");
+            gcLocked = gc = true;
+        }
 
-            if( !gcOn )
+        private static void GarbageCollector_GCModeChanged(GarbageCollector.Mode obj)
+        {
+            switch(obj)
             {
-                //Chat.AddMessage( "GC Enabled" );
-                GarbageCollector.GCMode = GarbageCollector.Mode.Enabled;
-                gcOn = true;
+                case GarbageCollector.Mode.Disabled:
+                    instance.Logger.LogMessage("GC disabled");
+                    return;
+                case GarbageCollector.Mode.Enabled:
+                    instance.Logger.LogMessage("GC enabled");
+                    return;
+                default:
+                    instance.Logger.LogFatal("Out of range GC mode. What the hell are you even doing?");
+                    gc = true;
+                    gcLocked = true;
+                    return;
             }
         }
 
-
-
-        //public void Awake()
-        //{
-        //    configWrappingPaper = base.Config.Wrap<Boolean>("Settings", "Enable Logging", "Should a csv file of memory usage be saved?", false);
-        //    memCheckDelay = base.Config.Wrap<Single>("Settings", "Memory check delay", "How much time should there be between memory checks?", 30.0f);
-        //    memWarning = base.Config.Wrap<Int64>("Settings", "Memory Warning threshold", "Only change this if you know what you are doing.", 3000);
-        //    memCap = base.Config.Wrap<Int64>("Settings", "Memory use cap", "Only change this if you know what you are doing", 4000);
-
-        //    log = configWrappingPaper.Value;
-        //    memoryWarning = memWarning.Value;
-        //    memoryCap = memCap.Value;
-        //    checkDelay = memCheckDelay.Value;
-
-        //    if (log)
-        //    {
-        //        folderPath = Environment.CurrentDirectory + "\\MemoryLog";
-        //        if (!Directory.Exists(folderPath))
-        //        {
-        //            Directory.CreateDirectory(folderPath);
-        //        }
-
-        //        int i = 1;
-        //        do
-        //        {
-        //            logPath = $"\\MemLog{i++}.csv";
-        //        }
-        //        while (File.Exists(folderPath + logPath));
-        //        logPath = folderPath + logPath;
-        //    }
-        //}
-        //public void Start()
-        //{
-        //    ReinCore.HooksCore.RoR2.Stage.OnDisable.On += ( orig, self ) =>
-        //    {
-        //        orig( self );
-        //        this.EnableGC( false );
-        //    };
-        //    ReinCore.HooksCore.RoR2.Stage.OnEnable.On += ( orig, self ) =>
-        //    {
-        //        orig( self );
-        //        this.DisableGC();
-        //    };
-        //    ReinCore.HooksCore.RoR2.UI.PauseScreenController.OnEnable.On += ( orig, self ) =>
-        //    {
-        //        this.EnableGC( false );
-        //        orig( self );
-        //    };
-        //    ReinCore.HooksCore.RoR2.UI.PauseScreenController.OnDisable.On += ( orig, self ) =>
-        //    {
-        //        this.DisableGC();
-        //        orig( self );
-        //    };
-        //    ReinCore.HooksCore.RoR2.Run.Awake.On += ( orig, self ) =>
-        //    {
-        //        this.AddALine( Time.fixedUnscaledTime.ToString() + ",Run awake" );
-        //        orig( self );
-        //    };
-        //    base.StartCoroutine(this.MemoryMonitor());
-        //}
-
-        //public void OnDisable()
-        //{
-        //    base.StopAllCoroutines();
-        //}
-        //private void DisableGC()
-        //{
-        //    this.AddALine(Time.fixedUnscaledTime.ToString() + ",Disabling GC");
-        //    if( this.lockGCOn )
-        //    {
-        //        this.AddALine(Time.fixedUnscaledTime.ToString() + ",GC is locked to on. Restart the game to change");
-        //        Debug.Log("GC is locked on. Restart the game to change");
-        //    }
-        //    else
-        //    {
-        //        if( gcOn )
-        //        {
-        //            gcOn = !GC.TryStartNoGCRegion( this.memoryCap * div / 2 );
-        //        }
-        //        //GarbageCollector.GCMode = GarbageCollector.Mode.Disabled;
-        //    }
-        //}
-        //private void EnableGC(bool perma)
-        //{
-        //    AddALine(Time.fixedUnscaledTime.ToString() + ",Enabling GC");
-
-        //    if( !gcOn )
-        //    {
-        //        GC.EndNoGCRegion();
-        //        gcOn = true;
-        //    }
-        //    //GarbageCollector.GCMode = GarbageCollector.Mode.Enabled;
-        //    if( perma )
-        //    {
-        //        lockGCOn = true;
-        //    }
-        //}
-        //private IEnumerator MemoryMonitor()
-        //{
-        //    long peakMem = 0;
-        //    long curMem = 0;
-        //    string warning = "Memory used is past the warning threshold, please pause the game for a few seconds to clean up.";
-        //    string cleanupMessage = "Memory past cap, performing GC in 5 seconds.";
-        //    string cleanupFinish = "GC is complete.";
-        //    string cleanupAbort = "GC aborted because memory is no longer past cap.";
-        //    while (true)
-        //    {
-        //        curMem = GC.GetTotalMemory(false);
-        //        peakMem = Math.Max(curMem, peakMem);
-        //        AddALine(Time.realtimeSinceStartup.ToString() + "," + curMem.ToString());
-
-        //        if ((curMem / div) > memoryWarning)
-        //        {
-        //            Chat.AddMessage(warning);
-        //        }
-        //        if( (curMem / div) > memoryCap )
-        //        {
-        //            StartCoroutine(MemoryForceGC(cleanupMessage, cleanupFinish, cleanupAbort));
-        //        }
-
-        //        yield return new WaitForSecondsRealtime(checkDelay);
-        //    }
-        //}
-        //private IEnumerator MemoryForceGC(string s, string s2, string s3)
-        //{
-        //    Chat.AddMessage(s);
-        //    yield return new WaitForSecondsRealtime(5f);
-        //    if ((GC.GetTotalMemory(true) / div) > memoryCap)
-        //    {
-        //        EnableGC(false);
-        //        GC.Collect();
-        //        yield return new WaitForSecondsRealtime(10f);
-        //        Chat.AddMessage(s2);
-        //        DisableGC();
-        //    }
-        //    else
-        //    {
-        //        Chat.AddMessage(s3);
-        //    }
-        //}
-        //private void AddALine( string s )
-        //{
-        //    if (log)
-        //    {
-        //        File.AppendAllText(logPath, s + Environment.NewLine);
-        //    }
-        //}
+        private static Boolean gcLocked = false;
+        private static Boolean isInMenuScene = true;
+        private static Boolean gc
+        {
+            get => GarbageCollector.GCMode == GarbageCollector.Mode.Enabled;
+            set
+            {
+                if(value == gc) return;
+                if(gcLocked) return;
+                GarbageCollector.GCMode = value ? GarbageCollector.Mode.Enabled : GarbageCollector.Mode.Disabled;
+            }
+        }
     }
 }

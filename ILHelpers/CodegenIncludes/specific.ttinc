@@ -212,6 +212,8 @@ void WriteMakeFunc(UInt64 id, Boolean refReturn, String[] genArgs, String[] ptrA
 	//Write($"\t\tpublic static {t} Create<{Combine(genArgs.Append("TReturn"))}>(delegate*<{Combine(ptrArgs.Append(refReturn?"ref TReturn":"TReturn"))}> signature) => new {t}();\r\n");
 }
 
+//void WriteCompiledActionType(String[] genArgs, String[] ptrArgs, String[] typeObjArgs, String[] emitArgs)
+
 void WriteCompileAction(String[] genArgs, String[] ptrArgs, String[] typeObjArgs, String[] emitArgs)
 {
 	WriteLine($"public static unsafe delegate*<{Combine(ptrArgs, "void")}> Compile{(genArgs.Length>0?$"<{Combine(genArgs)}>":"")}(delegate*<{Combine(emitArgs, "DMDReturn")}> body, String name = null)");

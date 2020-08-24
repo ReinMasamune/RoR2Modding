@@ -21,10 +21,14 @@
     using BepInEx.Logging;
     using System.ComponentModel;
     using RoR2.Projectile;
+    using EntityStates;
 
     internal partial class Main
     {
         private static Int32 crocoBodyIndex;
+        private static GameObject sawmerang = Resources.Load<GameObject>("Prefabs/Projectiles/Sawmerang");
+        private static GameObject acridBody = Resources.Load<GameObject>("Prefabs/CharacterBodies/CrocoBody");
+        
 
         partial void FixDoTs()
         {
@@ -43,7 +47,15 @@
             OnHitManager.AddOnHit(Burn_DamageType1);
             OnHitManager.AddOnHit(Burn_DamageType2);
             OnHitManager.AddOnHit(Burn_AffixRed);
+
+            sawmerang.GetComponent<ProjectileDamage>().damageType = DamageType.BleedOnHit;
+            acridBody.GetComponent<CharacterBody>().baseJumpPower = 20f;
+            //acridBody.AddOrGetComponent<CustomGravity>();
         }
+
+
+
+
 
         private static void Bleed_DamageType(DamageInfo damage, CharacterBody attacker, Inventory inv, CharacterBody victim)
         {
@@ -83,12 +95,12 @@
         {
             if(damage.damageType.HasFlag(DamageType.BlightOnHit))
             {
-                ApplyBlight(damage, attacker, victim, 2);
+                ApplyBlight(damage, attacker, victim, 1);
             }
         }
         private static void ApplyBlight(DamageInfo damage, CharacterBody attacker, CharacterBody victim, Int32 stacks = 1)
         {
-            var duration = damage.procCoefficient * 3f;
+            var duration = damage.procCoefficient * 4f;
             var controller = DotController.FindDotController(victim.gameObject);
             if(controller is not null)
             {
@@ -99,7 +111,7 @@
             }
             for(Int32 i = 0; i < stacks; ++i)
             {
-                DotController.InflictDot(victim.gameObject, attacker.gameObject, DotController.DotIndex.Blight, duration, 1f);
+                DotController.InflictDot(victim.gameObject, attacker.gameObject, DotController.DotIndex.Blight, duration, 0.5f);
             }
         }
 
@@ -128,7 +140,6 @@
 
     internal static class OnHitManager
     {
-
         internal delegate void OnHitDelegate(DamageInfo damage, CharacterBody attacker, Inventory inventory, CharacterBody victim);
         internal unsafe static void AddOnHit(OnHitDelegate onHit)
         {
@@ -148,19 +159,8 @@
         private static readonly FieldInfo damageType = typeof(DamageInfo).GetField("damageType", BF.Instance | BF.NonPublic | BF.Public );
         private unsafe static ILCursor EmitOnHits(this ILCursor cursor)
         {
-
             foreach(var fn in onHits)
             {
-                var callsite = new Mono.Cecil.CallSite(cursor.Method.Module.TypeSystem.Void)
-                {
-                    CallingConvention = Mono.Cecil.MethodCallingConvention.Default,
-                    ExplicitThis = false,
-                    HasThis = false,
-                };
-                callsite.Parameters.Add(new Mono.Cecil.ParameterDefinition(cursor.Method.Module.ImportReference(typeof(DamageInfo))));
-                callsite.Parameters.Add(new Mono.Cecil.ParameterDefinition(cursor.Method.Module.ImportReference(typeof(CharacterBody))));
-                callsite.Parameters.Add(new Mono.Cecil.ParameterDefinition(cursor.Method.Module.ImportReference(typeof(Inventory))));
-                callsite.Parameters.Add(new Mono.Cecil.ParameterDefinition(cursor.Method.Module.ImportReference(typeof(CharacterBody))));
                 _ = cursor
                     .LdArg_(1)
                     .LdLoc_(0)

@@ -59,15 +59,5 @@ namespace Rein.Properties {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] ReinCore {
-            get {
-                object obj = ResourceManager.GetObject("ReinCore", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
     }
 }

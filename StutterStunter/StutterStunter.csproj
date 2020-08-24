@@ -2,8 +2,9 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyVersion>1.0.0.23</AssemblyVersion>
-    <FileVersion>1.0.0.23</FileVersion>
+	<LangVersion>Preview</LangVersion>
+    <AssemblyVersion>2.1.0.23</AssemblyVersion>
+    <FileVersion>2.1.0.23</FileVersion>
     <RootNamespace>Rein</RootNamespace>
   </PropertyGroup>
 
@@ -23,11 +24,6 @@
     <Compile Include="..\StandaloneScripts\*.*">
       <Link>StandaloneScripts\</Link>
     </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Include="..\__Standalone\AssemblyLoader.cs" Link="AssemblyLoader.cs" />
-    <Compile Include="..\__Standalone\ResourceTools.cs" Link="ResourceTools.cs" />
   </ItemGroup>
   
   <ItemGroup>
@@ -97,10 +93,6 @@
     </Reference>
     <Reference Include="ProBuilderMeshOps">
       <HintPath>..\libs\Unity\ProBuilderMeshOps.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-    <Reference Include="ReinCore">
-      <HintPath>..\libs\Rein\ReinCore.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="Rewired_Core">
@@ -407,9 +399,5 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-
-  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="CD $(SolutionDir)__Standalone\&#xD;&#xA;CALL prebuild.bat $(SolutionDir) $(ProjectDir)" />
-  </Target>
 
 </Project>

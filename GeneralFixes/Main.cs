@@ -10,26 +10,24 @@
 namespace ReinGeneralFixes
 {
     using System;
+    using System.Linq;
     using System.Runtime.CompilerServices;
 
     using BepInEx;
 
     using ReinCore;
 
-
+    [BepInDependency("com.jarlyk.durability", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency(Rein.AssemblyLoad.guid, BepInDependency.DependencyFlags.HardDependency)]
     [BepInPlugin(_guid, "General Balance + Fixes", Rein.Properties.Info.ver)]
     internal partial class Main : BaseUnityPlugin
     {
         private const Int32 networkVersion = -1;
-        private const Boolean useBuild = false;
+        private const Boolean useBuild = true;
         private const Boolean useRev = false;
-        private const String _guid = "Rein.GeneralBalanceFixes";
+        private const String _guid = "Rein.GeneralFixes";
         internal static String guid => _guid;
         internal static String version => Rein.Properties.Info.ver;
-
-
-        internal const Single gestureBreakChance = 0.025f;
 
         internal static Main instance;
 
@@ -58,6 +56,8 @@ namespace ReinGeneralFixes
         partial void BalanceElites();
         partial void BalanceHealing();
         partial void BalanceOnKills();
+        partial void BalanceCaptain();
+        partial void BalanceRazorWire();
 
 
 
@@ -87,17 +87,31 @@ namespace ReinGeneralFixes
 #if PROFILER
             this.Profiler();
 #endif
+            var durabilityPresent = false;
+            try
+            {
+                durabilityPresent = BepInEx.Bootstrap.Chainloader.PluginInfos.Any((kv) => kv.Value.Metadata.GUID == "com.jarlyk.durability");
+            } catch { }
+
 
 
             this.BalanceCommandoCDs();
             this.BalanceCorpsebloom();
             this.BalanceOSP();
-            this.BalanceGesture();
+            if(durabilityPresent)
+            {
+                LogM("Equipment durability found, deferring to that for gesture changes");
+            } else
+            {
+                this.BalanceGesture();
+            }
             this.BalanceConvergence();
             this.BalanceWillOWisp();
             //this.BalanceEngiTurrets();
             this.BalanceGame();
             this.BalanceElites();
+            this.BalanceCaptain();
+            this.BalanceRazorWire();
 
             this.FixBandolier();
             this.FixSelfDamage();

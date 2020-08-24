@@ -3,8 +3,13 @@
     using System;
     using System.Collections.Generic;
     using System.Reflection;
+    using System.Runtime.InteropServices.ComTypes;
     using System.Text;
     using System.Text.RegularExpressions;
+
+    using MonoMod.Utils;
+
+    using RoR2.UI;
 
     internal static class HookHelpers
     {

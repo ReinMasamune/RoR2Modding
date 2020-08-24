@@ -585,7 +585,7 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Shoot enemies for &lt;style=cIsDamage&gt;360% to 900%&lt;/style&gt; damage. Must be &lt;style=cIsUtility&gt;reloaded&lt;/style&gt; after each shot. Reloading at the right time &lt;style=cIsDamage&gt;increases damage&lt;/style&gt;..
+        ///   Looks up a localized string similar to Shoot enemies for &lt;style=cIsDamage&gt;600% to 900%&lt;/style&gt; damage. Must be &lt;style=cIsUtility&gt;reloaded&lt;/style&gt; after each shot. Reloading at the right time &lt;style=cIsDamage&gt;increases damage&lt;/style&gt;..
         /// </summary>
         internal static string lang__SNIPER_PRIMARY_SNIPE_DESC {
             get {
@@ -621,7 +621,7 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;style=cIsUtility&gt;Boost&lt;/style&gt; your shots by &lt;style=cIsDamage&gt;2.0x primary&lt;/style&gt;. &lt;style=cIsUtility&gt;Recharges quickly&lt;/style&gt; and can hold &lt;style=cIsUtility&gt;4 shots&lt;/style&gt;..
+        ///   Looks up a localized string similar to &lt;style=cIsUtility&gt;Boost&lt;/style&gt; your shots by &lt;style=cIsDamage&gt;2.0x&lt;/style&gt;. &lt;style=cIsUtility&gt;Recharges quickly&lt;/style&gt; and can hold &lt;style=cIsUtility&gt;4 shots&lt;/style&gt;..
         /// </summary>
         internal static string lang__SNIPER_SECONDARY_QUICK_DESC {
             get {
@@ -639,7 +639,7 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;style=cIsUtility&gt;Boost&lt;/style&gt; your shots by &lt;style=cIsDamage&gt;up to 6x primary&lt;/style&gt;. &lt;style=cIsUtility&gt;Charges faster&lt;/style&gt; while stationary. &lt;style=cIsHealth&gt;You are slowed while charging&lt;/style&gt;..
+        ///   Looks up a localized string similar to &lt;style=cIsUtility&gt;Boost&lt;/style&gt; your shots by &lt;style=cIsDamage&gt;up to 6x&lt;/style&gt;. &lt;style=cIsUtility&gt;Charges faster&lt;/style&gt; while stationary. &lt;style=cIsHealth&gt;You are slowed while charging&lt;/style&gt;..
         /// </summary>
         internal static string lang__SNIPER_SECONDARY_STEADY_DESC {
             get {

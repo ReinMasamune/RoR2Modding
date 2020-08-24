@@ -84,6 +84,7 @@
                 }
             }
             EmitBranch(this.entryBranch);
+            // TODO: Emit Stuff god this is a pain
             //if(optimize) 
         }
 

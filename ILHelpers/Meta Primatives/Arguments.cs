@@ -23,6 +23,6 @@
 
     internal static class Argument
     {
-        internal static Arg<T> Create<T>()
+        internal static Arg<T> Create<T>(ParameterDefinition parameter) => new Arg<T>(parameter);
     }
 }

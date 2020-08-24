@@ -42,7 +42,7 @@
         #endregion
 
         #region Scope
-        internal static Single zoomSpeed { get; }
+        internal static Single zoomSpeed { get => _zoomSpeed.Value; }
 
         private static ConfigEntry<Single> _zoomSpeed;
 

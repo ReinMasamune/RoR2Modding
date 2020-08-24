@@ -5,9 +5,11 @@
     using ReinCore;
 
     using RoR2;
+
     using Sniper.Components;
     using Sniper.Enums;
     using Sniper.SkillDefs;
+
     using UnityEngine;
     using UnityEngine.Networking;
 
@@ -15,9 +17,9 @@
     {
         internal static void RegisterSurvivor()
         {
-            if( !SurvivorsCore.loaded )
+            if(!SurvivorsCore.loaded)
             {
-                Log.Fatal( "Cannot add survivor" );
+                Log.Fatal("Cannot add survivor");
                 return;
             }
             var survivorDef = new SurvivorDef
@@ -31,13 +33,13 @@
                 outroFlavorToken = Properties.Tokens.SNIPER_OUTRO_FLAVOR,
                 displayNameToken = Properties.Tokens.SNIPER_DISPLAY_NAME,
             };
-            SurvivorsCore.AddEclipseUnlocks("Rein_Sniper",survivorDef);
+            SurvivorsCore.AddEclipseUnlocks("Rein_Sniper", survivorDef);
 
-            SurvivorCatalog.getAdditionalSurvivorDefs += ( list ) => list.Add( survivorDef );
+            SurvivorCatalog.getAdditionalSurvivorDefs += (list) => list.Add(survivorDef);
         }
 
         internal static Lazy<Int32> sniperBodyIndex = new Lazy<Int32>( () => BodyCatalog.FindBodyIndex( SniperMain.sniperBodyPrefab.GetComponent<CharacterBody>() ) );
-        internal static void RegisterBody() => BodyCatalog.getAdditionalEntries += ( list ) => list.Add( SniperMain.sniperBodyPrefab );
+        internal static void RegisterBody() => BodyCatalog.getAdditionalEntries += (list) => list.Add(SniperMain.sniperBodyPrefab);
 
         internal static void RegisterMaster()
         {
@@ -48,40 +50,40 @@
         internal static DotController.DotIndex critPlasmaBurnIndex { get; private set; }
         internal static void RegisterDoTType()
         {
-            plasmaBurnIndex = DoTsCore.AddDotType( new DoTDef
+            plasmaBurnIndex = DoTsCore.AddDotType(new DoTDef
             {
                 associatedBuff = BuffIndex.Blight,
                 damageCoefficient = 1f,
                 interval = 0.35f,
                 damageColorIndex = plasmaDamageColor,
-            }, true, DoTDamage );
+            }, true, DoTDamage);
 
-            critPlasmaBurnIndex = DoTsCore.AddDotType( new DoTDef
+            critPlasmaBurnIndex = DoTsCore.AddDotType(new DoTDef
             {
                 associatedBuff = BuffIndex.Blight,
                 damageCoefficient = 1f,
                 interval = 0.35f,
                 damageColorIndex = plasmaDamageColor
-            }, true, CritDoTDamage );
+            }, true, CritDoTDamage);
         }
 
 
-        private static void DoTDamage( HealthComponent health, DamageInfo damage )
+        private static void DoTDamage(HealthComponent health, DamageInfo damage)
         {
             damage.procCoefficient = 0.5f;
-            GlobalEventManager.instance.OnHitEnemy( damage, health.gameObject );
-            GlobalEventManager.instance.OnHitAll( damage, health.gameObject );
-            health.TakeDamage( damage );
+            GlobalEventManager.instance.OnHitEnemy(damage, health.gameObject);
+            GlobalEventManager.instance.OnHitAll(damage, health.gameObject);
+            health.TakeDamage(damage);
         }
 
-        private static void CritDoTDamage( HealthComponent health, DamageInfo damage )
+        private static void CritDoTDamage(HealthComponent health, DamageInfo damage)
         {
             damage.procCoefficient = 0.5f;
             damage.crit = true;
 
-            GlobalEventManager.instance.OnHitEnemy( damage, health.gameObject );
-            GlobalEventManager.instance.OnHitAll( damage, health.gameObject );
-            health.TakeDamage( damage );
+            GlobalEventManager.instance.OnHitEnemy(damage, health.gameObject);
+            GlobalEventManager.instance.OnHitAll(damage, health.gameObject);
+            health.TakeDamage(damage);
         }
 
         private static readonly Lazy<DamageColorIndex> _plasmaDamageColor = new Lazy<DamageColorIndex>( () => DamageColorsCore.AddDamageColor( new Color( 0.9f, 0.5f, 0.9f ) ));
@@ -90,7 +92,7 @@
 
         internal static void RegisterDamageTypes()
         {
-            sniperResetDamageType = DamageTypesCore.RegisterNewDamageType( DoNothing );
+            sniperResetDamageType = DamageTypesCore.RegisterNewDamageType(DoNothing);
             GlobalEventManager.onServerDamageDealt += GlobalEventManager_onServerDamageDealt;
         }
 
@@ -100,14 +102,14 @@
 
         private static void DoNothing() { }
 
-        private static void GlobalEventManager_onServerDamageDealt( DamageReport obj )
+        private static void GlobalEventManager_onServerDamageDealt(DamageReport obj)
         {
-            if( obj.damageInfo.damageType.Flag( sniperResetDamageType ) )
+            if(obj.damageInfo.damageType.Flag(sniperResetDamageType))
             {
-                obj.victimBody.AddTimedBuff( sniperResetDebuff.Value, 4f );
+                obj.victimBody.AddTimedBuff(sniperResetDebuff.Value, 4f);
             }
         }
-        
+
 
 
         internal static void RegisterBuffTypes()
@@ -118,26 +120,26 @@
 
 
 
-        private static void BuffsCore_getAdditionalEntries( System.Collections.Generic.List<BuffDef> buffList )
+        private static void BuffsCore_getAdditionalEntries(System.Collections.Generic.List<BuffDef> buffList)
         {
             // FUTURE: Add custom debuff for plasma dot
-            buffList.Add( new BuffDef
+            buffList.Add(new BuffDef
             {
-                buffColor = new Color( 0.5f, 1f, 0.6f, 1f ),
+                buffColor = new Color(0.5f, 1f, 0.6f, 1f),
                 canStack = false,
                 eliteIndex = EliteIndex.None,
                 iconPath = "Textures/BuffIcons/texBuffFullCritIcon",
                 isDebuff = true,
                 name = "SniperResetOnKillDebuff"
-            } );
+            });
         }
         private static Lazy<BuffIndex> sniperResetDebuff = new Lazy<BuffIndex>( () => BuffCatalog.FindBuffIndex( "SniperResetOnKillDebuff" ));
 
-        private static void GlobalEventManager_onCharacterDeathGlobal( DamageReport obj )
+        private static void GlobalEventManager_onCharacterDeathGlobal(DamageReport obj)
         {
-            if( obj.victimBody.HasBuff( sniperResetDebuff.Value ) && obj.attackerBodyIndex == sniperBodyIndex.Value && obj.attackerBody != null && obj.attackerBody is SniperCharacterBody body )
+            if(obj.victimBody.HasBuff(sniperResetDebuff.Value) && obj.attackerBodyIndex == sniperBodyIndex.Value && obj.attackerBody != null && obj.attackerBody is SniperCharacterBody body)
             {
-                ResetSkills( body  );
+                ResetSkills(body);
 
                 //SkillLocator loc = obj?.attackerBody?.skillLocator;
                 //if( loc is null ) return;
@@ -174,50 +176,52 @@
             }
         }
 
-        internal static void ResetSkills( SniperCharacterBody body, Boolean canSend = true )
+        internal static void ResetSkills(SniperCharacterBody body, Boolean canSend = true)
         {
-            if( body is null || !body || body.networkIdentity is null || !body.networkIdentity )
+            if(body is null || !body || body.networkIdentity is null || !body.networkIdentity)
             {
                 return;
             }
 
-            if( Util.HasEffectiveAuthority( body.networkIdentity ) )
+            if(Util.HasEffectiveAuthority(body.networkIdentity))
             {
+                #region Impl
                 SkillLocator loc = body.skillLocator;
-                if( loc is null ) return;
+                if(loc is null) return;
 
 
                 GenericSkill pri = loc.primary;
-                if( pri.skillInstanceData is SniperReloadableFireSkillDef.SniperPrimaryInstanceData primaryData )
+                if(pri.skillInstanceData is SniperReloadableFireSkillDef.SniperPrimaryInstanceData primaryData)
                 {
-                    primaryData.ForceReload( ReloadTier.Perfect );
-                } else if( pri != null )
+                    primaryData.ForceReload(ReloadTier.Perfect);
+                } else if(pri != null)
                 {
-                    pri.stock = Mathf.Max( Mathf.Min( pri.maxStock, pri.stock + 1 ), pri.stock );
+                    pri.stock = Mathf.Max(Mathf.Min(pri.maxStock, pri.stock + 1), pri.stock);
                     pri.rechargeStopwatch = pri.stock >= pri.maxStock ? 0f : pri.rechargeStopwatch;
                 }
 
                 GenericSkill sec = loc.secondary;
-                if( sec != null )
+                if(sec != null)
                 {
-                    sec.stock = Mathf.Max( Mathf.Min( sec.maxStock, sec.stock + 1 ), sec.stock );
+                    sec.stock = Mathf.Max(Mathf.Min(sec.maxStock, sec.stock + 1), sec.stock);
                     sec.rechargeStopwatch = sec.stock >= sec.maxStock ? 0f : sec.rechargeStopwatch;
                 }
                 GenericSkill util = loc.utility;
-                if( util != null )
+                if(util != null)
                 {
-                    util.stock = Mathf.Max( Mathf.Min( util.maxStock, util.stock + 1 ), util.stock );
+                    util.stock = Mathf.Max(Mathf.Min(util.maxStock, util.stock + 1), util.stock);
                     util.rechargeStopwatch = util.stock >= util.maxStock ? 0f : util.rechargeStopwatch;
                 }
                 GenericSkill spec = loc.special;
-                if( spec != null )
+                if(spec != null)
                 {
-                    spec.stock = Mathf.Max( Mathf.Min( spec.maxStock, spec.stock + 1 ), spec.stock );
+                    spec.stock = Mathf.Max(Mathf.Min(spec.maxStock, spec.stock + 1), spec.stock);
                     spec.rechargeStopwatch = spec.stock >= spec.maxStock ? 0f : spec.rechargeStopwatch;
                 }
-            } else if( NetworkServer.active && canSend )
+                #endregion
+            } else if(NetworkServer.active && canSend)
             {
-                new NetworkModule.ResetSkillsMessage( body ).Send( NetworkDestination.Clients );
+                new NetworkModule.ResetSkillsMessage(body).Send(NetworkDestination.Clients);
             }
         }
     }

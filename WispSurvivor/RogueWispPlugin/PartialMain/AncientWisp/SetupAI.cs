@@ -14,9 +14,14 @@ namespace Rein.RogueWispPlugin
             this.Load += this.AW_SetupPrimaryDriver;
             this.Load += this.AW_SetupSecondaryDriver;
             this.Load += this.AW_SetupUtilityDriver;
-            this.Load += this.AW_SetupChaseDriver;
+            this.Load += this.AW_SetupRetreatDriver;
+            this.Load += this.AW_SetupAdvanceDriver;
             this.Load += this.AW_SetupStrafeDriver;
+            this.Load += this.AW_SetupChaseDriver;
         }
+
+        private void AW_SetupAdvanceDriver() => throw new NotImplementedException();
+        private void AW_SetupRetreatDriver() => throw new NotImplementedException();
 
         private void AW_SetupStrafeDriver()
         {
@@ -37,7 +42,7 @@ namespace Rein.RogueWispPlugin
             strafeDriver.movementType = AISkillDriver.MovementType.StrafeMovetarget;
             strafeDriver.moveInputScale = 1f;
             strafeDriver.aimType = AISkillDriver.AimType.AtMoveTarget;
-            strafeDriver.ignoreNodeGraph = false;
+            strafeDriver.ignoreNodeGraph = true;
             strafeDriver.driverUpdateTimerOverride = -1f;
             strafeDriver.resetCurrentEnemyOnNextDriverSelection = false;
             strafeDriver.noRepeat = false;

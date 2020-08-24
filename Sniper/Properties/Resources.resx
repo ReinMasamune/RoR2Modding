@@ -297,7 +297,7 @@ They excel at taking down bosses and high priority targets but struggle against 
     <value />
   </data>
   <data name="lang__SNIPER_PRIMARY_SNIPE_DESC" xml:space="preserve">
-    <value>Shoot enemies for &lt;style=cIsDamage&gt;360% to 900%&lt;/style&gt; damage. Must be &lt;style=cIsUtility&gt;reloaded&lt;/style&gt; after each shot. Reloading at the right time &lt;style=cIsDamage&gt;increases damage&lt;/style&gt;.</value>
+    <value>Shoot enemies for &lt;style=cIsDamage&gt;600% to 900%&lt;/style&gt; damage. Must be &lt;style=cIsUtility&gt;reloaded&lt;/style&gt; after each shot. Reloading at the right time &lt;style=cIsDamage&gt;increases damage&lt;/style&gt;.</value>
   </data>
   <data name="lang__SNIPER_PRIMARY_SNIPE_NAME" xml:space="preserve">
     <value>Snipe</value>
@@ -309,13 +309,13 @@ They excel at taking down bosses and high priority targets but struggle against 
     <value>Reload</value>
   </data>
   <data name="lang__SNIPER_SECONDARY_QUICK_DESC" xml:space="preserve">
-    <value>&lt;style=cIsUtility&gt;Boost&lt;/style&gt; your shots by &lt;style=cIsDamage&gt;2.0x primary&lt;/style&gt;. &lt;style=cIsUtility&gt;Recharges quickly&lt;/style&gt; and can hold &lt;style=cIsUtility&gt;4 shots&lt;/style&gt;.</value>
+    <value>&lt;style=cIsUtility&gt;Boost&lt;/style&gt; your shots by &lt;style=cIsDamage&gt;2.0x&lt;/style&gt;. &lt;style=cIsUtility&gt;Recharges quickly&lt;/style&gt; and can hold &lt;style=cIsUtility&gt;4 shots&lt;/style&gt;.</value>
   </data>
   <data name="lang__SNIPER_SECONDARY_QUICK_NAME" xml:space="preserve">
     <value>Quickscope</value>
   </data>
   <data name="lang__SNIPER_SECONDARY_STEADY_DESC" xml:space="preserve">
-    <value>&lt;style=cIsUtility&gt;Boost&lt;/style&gt; your shots by &lt;style=cIsDamage&gt;up to 6x primary&lt;/style&gt;. &lt;style=cIsUtility&gt;Charges faster&lt;/style&gt; while stationary. &lt;style=cIsHealth&gt;You are slowed while charging&lt;/style&gt;.</value>
+    <value>&lt;style=cIsUtility&gt;Boost&lt;/style&gt; your shots by &lt;style=cIsDamage&gt;up to 6x&lt;/style&gt;. &lt;style=cIsUtility&gt;Charges faster&lt;/style&gt; while stationary. &lt;style=cIsHealth&gt;You are slowed while charging&lt;/style&gt;.</value>
   </data>
   <data name="lang__SNIPER_SECONDARY_STEADY_NAME" xml:space="preserve">
     <value>Steady Aim</value>
