@@ -19,6 +19,8 @@
 
     using ReinCore;
 
+    using RoR2;
+
     using Sniper.Modules;
     using Sniper.Unlockables;
 
@@ -79,6 +81,10 @@
 
             base.start += () =>
             {
+                try
+                {
+                    RoR2.Console.instance.SubmitCmd(null, "spp_disable_survivor Sniper");
+                } catch { }
                 _ = TextureModule.GetExplosiveAmmoRamp();
                 _ = TextureModule.GetPlasmaAmmoRamp();
                 _ = TextureModule.GetStandardAmmoRamp();

@@ -8,9 +8,10 @@
   <PropertyGroup>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
-    <AssemblyVersion>1.0.8.5</AssemblyVersion>
-    <FileVersion>1.0.8.5</FileVersion>
+    <AssemblyVersion>1.0.13.3</AssemblyVersion>
+    <FileVersion>1.0.13.3</FileVersion>
     <RootNamespace>Sniper</RootNamespace>
+    <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

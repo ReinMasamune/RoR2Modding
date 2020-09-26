@@ -17,19 +17,19 @@
 
     internal static class Cursor
     {
-        internal static ICursor<TStack> Create<TStack>(IEmitter emitter, IMethodManager manager)
+        internal static ICursor<TStack> __Create<TStack>(IEmitter emitter, IMethodManager manager)
             where TStack : IStack
         {
             return new CecilCursor<TStack>(emitter, manager);
         }
 
-        internal static ICursor<IL<TPushed,TStack>> Push<TPushed, TStack>( this ICursor<TStack> cursor )
+        internal static ICursor<IL<TPushed,TStack>> __Push<TPushed, TStack>( this ICursor<TStack> cursor )
             where TStack : IStack
         {
             return cursor.CreateNew<IL<TPushed, TStack>>();
         }
 
-        internal static ICursor<TStack> Pop<TPopped, TStack>( this ICursor<IL<TPopped, TStack>> cursor )
+        internal static ICursor<TStack> __Pop<TPopped, TStack>( this ICursor<IL<TPopped, TStack>> cursor )
             where TStack : IStack
         {
             return cursor.CreateNew<TStack>();

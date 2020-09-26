@@ -11,6 +11,7 @@
 	
   <PropertyGroup>
 	  <t4inc>$(MSBuildProjectDirectory)\Codegenincludes</t4inc>
+	  <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
   </PropertyGroup>
 
   <ItemGroup>

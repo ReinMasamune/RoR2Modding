@@ -7,26 +7,37 @@
     public static class Ex
     {
 
-
-
-        public unsafe static void CreateMyDmD()
+        private static int IdkRandomShit(int a, int b, int c, float d)
         {
-            //delegate*<Int32, ref Boolean, Single> sig = default;
-            //var dmd = DMD.Create(sig);
-            //dmd.body = (stack, arg0, arg1) =>
-            //{
-            //    static Single SomeCode(Int32 i, ref Boolean b)
-            //    {
-            //        if(i < 0) b = false;
-            //        return i;
-            //    }
-            //    delegate*<Int32, ref Boolean, Single> del = &SomeCode;
-            //    return stack
-            //        .LoadArg(arg0)
-            //        .LoadArg(arg1)
-            //        .CallInline(del)
-            //        .Return();
-            //};
+            return (int)(a + b + c * d);
+        }
+
+        private static void LogToString(object obj)
+        {
+            Console.WriteLine(obj);
+        }
+
+        public unsafe static void Example()
+        {
+            ICursor<Empty> cursor = default;
+            Arg<int> arg1 = default;
+            Arg<float> arg2 = default;
+            Arg<object> arg3 = default;
+            Local<int> loc0 = default;
+            Local<object> loc1 = default;
+            return cursor
+                .LoadArg(arg1)
+                .Dupe()
+                .Dupe()
+                .LoadArg(arg2)
+                .Inline((delegate*<int, int, int, float, int>)&IdkRandomShit)
+                .StoreLocal(loc0)
+                .LoadArg(arg3)
+                .Inline((delegate*<object,void>)&LogToString)
+                .LoadLocal(loc0)
+                .Dupe()
+                .
+                
         }
     }
 }

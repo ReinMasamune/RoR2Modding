@@ -322,43 +322,7 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Text Ach Desc.
-        /// </summary>
-        internal static string lang__ACHDESCTOKENTEST {
-            get {
-                return ResourceManager.GetString("lang__ACHDESCTOKENTEST", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Test Ach Name.
-        /// </summary>
-        internal static string lang__ACHNAMETOKENTEST {
-            get {
-                return ResourceManager.GetString("lang__ACHNAMETOKENTEST", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Ammo.
-        /// </summary>
-        internal static string lang__LOADOUT_SNIPER_AMMO {
-            get {
-                return ResourceManager.GetString("lang__LOADOUT_SNIPER_AMMO", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Passive.
-        /// </summary>
-        internal static string lang__LOADOUT_SNIPER_PASSIVE {
-            get {
-                return ResourceManager.GetString("lang__LOADOUT_SNIPER_PASSIVE", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Deals &lt;style=cIsDamage&gt;0.8x primary&lt;/style&gt; damage. &lt;style=cIsDamage&gt;Explodes&lt;/style&gt; on hit for &lt;style=cIsDamage&gt;0.4x primary&lt;/style&gt; damage to nearby enemies. &lt;style=cIsUtility&gt;Boosts increase the size of the explosion&lt;/style&gt;..
+        ///   Looks up a localized string similar to &lt;style=cIsDamage&gt;Explosive.&lt;/style&gt; Deals &lt;style=cIsDamage&gt;0.4x primary damage.&lt;/style&gt;\n&lt;&gt; &lt;style=cIsDamage&gt;Damage &lt;indent=40%&gt;+0.32x&lt;/style&gt; per &lt;style=cIsUtility&gt;Boost&lt;/style&gt;&lt;/indent&gt;\n&lt;&gt; &lt;style=cIsDamage&gt;Explosion radius &lt;indent=40%&gt;+7.5m&lt;/style&gt; per &lt;style=cIsUtility&gt;Boost&lt;/style&gt;&lt;/indent&gt;.
         /// </summary>
         internal static string lang__SNIPER_AMMO_EXPLOSIVE_DESC {
             get {
@@ -394,24 +358,6 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Deals up to 175% primary damage, fires a spread of pellets, damage falls off with range..
-        /// </summary>
-        internal static string lang__SNIPER_AMMO_SCATTER_DESC {
-            get {
-                return ResourceManager.GetString("lang__SNIPER_AMMO_SCATTER_DESC", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Scatter.
-        /// </summary>
-        internal static string lang__SNIPER_AMMO_SCATTER_NAME {
-            get {
-                return ResourceManager.GetString("lang__SNIPER_AMMO_SCATTER_NAME", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Chains to enemies near your target.
         /// </summary>
         internal static string lang__SNIPER_AMMO_SHOCK_DESC {
@@ -430,7 +376,7 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Deals &lt;style=cIsDamage&gt;1.0x primary&lt;/style&gt; damage, &lt;style=cIsUtility&gt;pierces enemies&lt;/style&gt;, and has a &lt;style=cIsUtility&gt;chance to ricochet&lt;/style&gt;..
+        ///   Looks up a localized string similar to &lt;style=cIsUtility&gt;Piercing. Ricochet.&lt;/style&gt; Deals &lt;style=cIsDamage&gt;1.0x primary damage.&lt;/style&gt;\n&lt;&gt; &lt;style=cIsDamage&gt;Damage &lt;indent=40%&gt;+1.0x&lt;/style&gt; per &lt;style=cIsUtility&gt;Boost&lt;/style&gt;&lt;/indent&gt;\n&lt;&gt; &lt;style=cIsDamage&gt;Critical Multiplier &lt;indent=40%&gt;+0.1x&lt;/style&gt; per &lt;style=cIsUtility&gt;Boost&lt;/style&gt;&lt;/indent&gt;.
         /// </summary>
         internal static string lang__SNIPER_AMMO_STANDARD_DESC {
             get {
@@ -468,6 +414,87 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;style=cKeywordName&gt;Boost&lt;/style&gt;&lt;style=cSub&gt;Amplifies the effects of ammo.&lt;/style&gt;.
+        /// </summary>
+        internal static string lang__SNIPER_KEYWORD_BOOST {
+            get {
+                return ResourceManager.GetString("lang__SNIPER_KEYWORD_BOOST", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;style=cKeywordName&gt;Explosive&lt;/style&gt;&lt;style=cSub&gt;Explodes on hit, dealing additional damage to the target and nearby enemies.&lt;/style&gt;.
+        /// </summary>
+        internal static string lang__SNIPER_KEYWORD_EXPLOSIVE {
+            get {
+                return ResourceManager.GetString("lang__SNIPER_KEYWORD_EXPLOSIVE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;style=cKeywordName&gt;Stealth&lt;/style&gt;&lt;style=cSub&gt;Become invisible and move more quickly.&lt;/style&gt;.
+        /// </summary>
+        internal static string lang__SNIPER_KEYWORD_PHASED {
+            get {
+                return ResourceManager.GetString("lang__SNIPER_KEYWORD_PHASED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;style=cKeywordName&gt;Piercing&lt;/style&gt;&lt;style=cSub&gt;Can hit multiple enemies in a line.&lt;/style&gt;.
+        /// </summary>
+        internal static string lang__SNIPER_KEYWORD_PIERCING {
+            get {
+                return ResourceManager.GetString("lang__SNIPER_KEYWORD_PIERCING", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;style=cKeywordName&gt;Primary Damage&lt;/style&gt;&lt;style=cSub&gt;Primary damage is a multiplier layered on top of the base multiplier of your primary attack.&lt;/style&gt;.
+        /// </summary>
+        internal static string lang__SNIPER_KEYWORD_PRIMARYDMG {
+            get {
+                return ResourceManager.GetString("lang__SNIPER_KEYWORD_PRIMARYDMG", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;style=cKeywordName&gt;Reactivate&lt;/style&gt;&lt;style=cSub&gt;Can be activated a second time for a different effect.&lt;/style&gt;.
+        /// </summary>
+        internal static string lang__SNIPER_KEYWORD_REACTIVATION {
+            get {
+                return ResourceManager.GetString("lang__SNIPER_KEYWORD_REACTIVATION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;style=cKeywordName&gt;Reloading&lt;/style&gt;&lt;style=cSub&gt;Automatically reloads your primary with a perfect reload.&lt;/style&gt;.
+        /// </summary>
+        internal static string lang__SNIPER_KEYWORD_RELOADS {
+            get {
+                return ResourceManager.GetString("lang__SNIPER_KEYWORD_RELOADS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;style=cKeywordName&gt;Ricochet&lt;/style&gt;&lt;style=cSub&gt;Has a chance to ricochet on hitting terrain. Steeper angles have a lower chance.&lt;/style&gt;.
+        /// </summary>
+        internal static string lang__SNIPER_KEYWORD_RICOCHET {
+            get {
+                return ResourceManager.GetString("lang__SNIPER_KEYWORD_RICOCHET", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;style=cKeywordName&gt;Scope&lt;/style&gt;&lt;style=cSub&gt;Enter scope while in use. While zoomed you can use the scroll wheel to control zoom.&lt;/style&gt;.
+        /// </summary>
+        internal static string lang__SNIPER_KEYWORD_SCOPED {
+            get {
+                return ResourceManager.GetString("lang__SNIPER_KEYWORD_SCOPED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sniper.
         /// </summary>
         internal static string lang__SNIPER_NAME {
@@ -486,43 +513,7 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;style=cIsUtility&gt;Critical Strikes&lt;/style&gt; deal &lt;style=cIsDamage&gt;1.2x&lt;/style&gt; damage. Gain &lt;style=cIsDamage&gt;+1%&lt;/style&gt; critical strike chance per level..
-        /// </summary>
-        internal static string lang__SNIPER_PASSIVE_CRITICAL_DESC {
-            get {
-                return ResourceManager.GetString("lang__SNIPER_PASSIVE_CRITICAL_DESC", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Precise Aim.
-        /// </summary>
-        internal static string lang__SNIPER_PASSIVE_CRITICAL_NAME {
-            get {
-                return ResourceManager.GetString("lang__SNIPER_PASSIVE_CRITICAL_NAME", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Shooting enemies in the head deals 50% more damage (Unfinished for most enemies).
-        /// </summary>
-        internal static string lang__SNIPER_PASSIVE_HEADSHOT_DESC {
-            get {
-                return ResourceManager.GetString("lang__SNIPER_PASSIVE_HEADSHOT_DESC", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Headshot.
-        /// </summary>
-        internal static string lang__SNIPER_PASSIVE_HEADSHOT_NAME {
-            get {
-                return ResourceManager.GetString("lang__SNIPER_PASSIVE_HEADSHOT_NAME", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Fire for 280% damage. Reloading at the right time grants up to double damage..
+        ///   Looks up a localized string similar to .
         /// </summary>
         internal static string lang__SNIPER_PRIMARY_DASH_DESC {
             get {
@@ -531,7 +522,7 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Reposition.
+        ///   Looks up a localized string similar to .
         /// </summary>
         internal static string lang__SNIPER_PRIMARY_DASH_NAME {
             get {
@@ -540,7 +531,7 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Reload and dash.
+        ///   Looks up a localized string similar to .
         /// </summary>
         internal static string lang__SNIPER_PRIMARY_DASH_RELOAD_DESC {
             get {
@@ -549,7 +540,7 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sliding Reload.
+        ///   Looks up a localized string similar to .
         /// </summary>
         internal static string lang__SNIPER_PRIMARY_DASH_RELOAD_NAME {
             get {
@@ -581,6 +572,15 @@ namespace Sniper.Properties {
         internal static string lang__SNIPER_PRIMARY_MAG_RELOAD_DESC {
             get {
                 return ResourceManager.GetString("lang__SNIPER_PRIMARY_MAG_RELOAD_DESC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string lang__SNIPER_PRIMARY_MAG_RELOAD_NAME {
+            get {
+                return ResourceManager.GetString("lang__SNIPER_PRIMARY_MAG_RELOAD_NAME", resourceCulture);
             }
         }
         
@@ -621,7 +621,7 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;style=cIsUtility&gt;Boost&lt;/style&gt; your shots by &lt;style=cIsDamage&gt;2.0x&lt;/style&gt;. &lt;style=cIsUtility&gt;Recharges quickly&lt;/style&gt; and can hold &lt;style=cIsUtility&gt;4 shots&lt;/style&gt;..
+        ///   Looks up a localized string similar to &lt;style=cIsUtility&gt;Boost&lt;/style&gt; your shots by &lt;style=cIsDamage&gt;0.75x&lt;/style&gt;. &lt;style=cIsUtility&gt;Recharges quickly&lt;/style&gt; and can hold &lt;style=cIsUtility&gt;4 shots&lt;/style&gt;..
         /// </summary>
         internal static string lang__SNIPER_SECONDARY_QUICK_DESC {
             get {
@@ -639,7 +639,7 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;style=cIsUtility&gt;Boost&lt;/style&gt; your shots by &lt;style=cIsDamage&gt;up to 6x&lt;/style&gt;. &lt;style=cIsUtility&gt;Charges faster&lt;/style&gt; while stationary. &lt;style=cIsHealth&gt;You are slowed while charging&lt;/style&gt;..
+        ///   Looks up a localized string similar to &lt;style=cIsUtility&gt;Boost&lt;/style&gt; your shots by &lt;style=cIsDamage&gt;up to 3x&lt;/style&gt;. &lt;style=cIsUtility&gt;Charges faster&lt;/style&gt; while stationary. &lt;style=cIsHealth&gt;You are slowed while charging&lt;/style&gt;..
         /// </summary>
         internal static string lang__SNIPER_SECONDARY_STEADY_DESC {
             get {
@@ -720,7 +720,7 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;style=cIsUtility&gt;Stealth&lt;/style&gt; for 2.5 seconds and leave behind a &lt;style=cIsUtility&gt;Decoy&lt;/style&gt; that distracts enemies. &lt;style=cIsUtility&gt;Reactivate&lt;/style&gt; to detonate the decoy, dealing &lt;style=cIsDamage&gt;500%&lt;/style&gt; damage, &lt;style=cIsUtility&gt;stunning, and weakening&lt;/style&gt; nearby enemies..
+        ///   Looks up a localized string similar to &lt;style=cIsUtility&gt;Stealth&lt;/style&gt; for 2.5 seconds and leave behind a &lt;style=cIsUtility&gt;Decoy&lt;/style&gt; that distracts enemies.\n&lt;style=cIsDamage&gt;&lt;/style&gt;&lt;style=cIsUtility&gt;Reactivate&lt;/style&gt; to detonate the decoy to deal &lt;style=cIsDamage&gt;500%&lt;/style&gt; damage,  &lt;style=cIsUtility&gt;Stuns&lt;/style&gt; and &lt;style=cIsUtility&gt;Weakens&lt;/style&gt; nearby enemies.
         /// </summary>
         internal static string lang__SNIPER_SPECIAL_DECOY_DESC {
             get {
@@ -765,7 +765,7 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Perform a flip away from the direction you are aiming. Stuns enemies and automatically gives you a perfect reload..
+        ///   Looks up a localized string similar to &lt;style=cIsUtility&gt;Stunning. Reloading.&lt;/style&gt; Flip backwards and deal &lt;style=cIsDamage&gt;100%&lt;/style&gt; damage to nearby enemies..
         /// </summary>
         internal static string lang__SNIPER_UTILITY_BACKFLIP_DESC {
             get {
@@ -779,24 +779,6 @@ namespace Sniper.Properties {
         internal static string lang__SNIPER_UTILITY_BACKFLIP_NAME {
             get {
                 return ResourceManager.GetString("lang__SNIPER_UTILITY_BACKFLIP_NAME", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Test Unlockable Name.
-        /// </summary>
-        internal static string lang__UNLOCKABLENAMETOKENTEST {
-            get {
-                return ResourceManager.GetString("lang__UNLOCKABLENAMETOKENTEST", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string lang_SNIPER_PRIMARY_MAG_RELOAD_NAME {
-            get {
-                return ResourceManager.GetString("lang_SNIPER_PRIMARY_MAG_RELOAD_NAME", resourceCulture);
             }
         }
         

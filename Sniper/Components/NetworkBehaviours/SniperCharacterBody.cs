@@ -76,7 +76,7 @@
 
         internal void ForceStopReload()
         {
-
+            this.showBar = false;
             this.isReloading = false;
             if(this.stopReloadRoutine != null) this.StopCoroutine(this.stopReloadRoutine);
             if(this.startReloadRoutine != null) this.StopCoroutine(this.startReloadRoutine);
@@ -107,16 +107,19 @@
         protected new void Start()
         {
             base.Start();
-            (this.skillLocator.primary.skillInstanceData as SniperReloadableFireSkillDef.SniperPrimaryInstanceData)?.StartReload();
+            (this.skillLocator.primary.skillInstanceData as SniperReloadableFireSkillDef.SniperPrimaryInstanceData)?.StartReload(true);
+
         }
 
         protected new void Update()
         {
             base.Update();
+            this.smoothedAttackSpeed = Mathf.SmoothDamp( this.smoothedAttackSpeed, attackSpeed, ref this.attackSpeedSpeed, 2f);
             if(!Util.HasEffectiveAuthority(base.gameObject)) return;
             if(!this.isReloading) return;
-            this.reloadTimer = this.curReloadParams.Update(Time.deltaTime, base.attackSpeed, this.reloadTimer, ref attackSpeedSmoother, ref attackSpeedSpeed, 0.5f);
+            this.reloadTimer = this.curReloadParams.Update(Time.deltaTime, this.smoothedAttackSpeed, this.reloadTimer);
         }
+        private Single smoothedAttackSpeed;
         private Single attackSpeedSpeed;
         private Single attackSpeedSmoother;
 
@@ -245,33 +248,33 @@
         private GenericSkill _ammoSlot;
 
 
-        internal SniperPassiveSkillDef passive
-        {
-            get
-            {
-                if(this._passive == null)
-                {
-                    GenericSkill slot = this.passiveSlot;
-                    this._passive = slot.skillDef as SniperPassiveSkillDef;
-                }
-                return this._passive;
-            }
-        }
-        private SniperPassiveSkillDef _passive;
+        //internal SniperPassiveSkillDef passive
+        //{
+        //    get
+        //    {
+        //        if(this._passive == null)
+        //        {
+        //            GenericSkill slot = this.passiveSlot;
+        //            this._passive = slot.skillDef as SniperPassiveSkillDef;
+        //        }
+        //        return this._passive;
+        //    }
+        //}
+        //private SniperPassiveSkillDef _passive;
 
-        internal GenericSkill passiveSlot
-        {
-            get
-            {
-                if(this._passiveSlot == null)
-                {
-                    this._passiveSlot = base.skillLocator.GetSkillAtIndex(1);
-                    this._passiveSlot.onSkillChanged += (slot) => this._passive = slot.skillDef as SniperPassiveSkillDef;
-                }
-                return this._passiveSlot;
-            }
-        }
-        private GenericSkill _passiveSlot;
+        //internal GenericSkill passiveSlot
+        //{
+        //    get
+        //    {
+        //        if(this._passiveSlot == null)
+        //        {
+        //            this._passiveSlot = base.skillLocator.GetSkillAtIndex(1);
+        //            this._passiveSlot.onSkillChanged += (slot) => this._passive = slot.skillDef as SniperPassiveSkillDef;
+        //        }
+        //        return this._passiveSlot;
+        //    }
+        //}
+        //private GenericSkill _passiveSlot;
 
         internal SniperScopeSkillDef.ScopeInstanceData scopeInstanceData
         {

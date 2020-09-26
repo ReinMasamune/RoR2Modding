@@ -66,6 +66,7 @@
         public static void AddSkill<TState>()
             where TState : EntityState, new()
         {
+            AddSkill(typeof(TState));
             //Log.Counter();
             //Log.Counter();
         }

@@ -49,7 +49,7 @@ public void WriteFuncCall(String[] genArgs, String[] stackArgs, String[] ptrArgs
 }
 void WriteInlineActionCall(String[] genArgs, String[] stackArgs, String[] ptrArgs, String stackStr)
 {
-	WriteLine($"public static ICursor<TStack> CallInline<{Combine(genArgs, "TStack")}>(this ICursor<{stackStr}> stack, delegate*<{Combine(ptrArgs, "void")}> action)");
+	WriteLine($"public static ICursor<TStack> Inline<{Combine(genArgs, "TStack")}>(this ICursor<{stackStr}> stack, delegate*<{Combine(ptrArgs, "void")}> action)");
 	IncIndent();
 	WriteLine("where TStack : IStack");
 	PopIndent();
@@ -61,7 +61,7 @@ void WriteInlineActionCall(String[] genArgs, String[] stackArgs, String[] ptrArg
 }
 void WriteInlineFuncCall(String[] genArgs, String[] stackArgs, String[] ptrArgs, String stackStr, Boolean refReturn)
 {
-	WriteLine($"public static ICursor<IL<{(refReturn?"ByRef<TReturn>":"TReturn")},TStack>> Call<{Combine(genArgs, "TReturn", "TStack")}>(this ICursor<{stackStr}> stack, delegate*<{Combine(ptrArgs, refReturn?"ref TReturn":"TReturn")}> func)");
+	WriteLine($"public static ICursor<IL<{(refReturn?"ByRef<TReturn>":"TReturn")},TStack>> Inline<{Combine(genArgs, "TReturn", "TStack")}>(this ICursor<{stackStr}> stack, delegate*<{Combine(ptrArgs, refReturn?"ref TReturn":"TReturn")}> func)");
 	IncIndent();
 	WriteLine("where TStack : IStack");
 	PopIndent();

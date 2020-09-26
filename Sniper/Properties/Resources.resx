@@ -204,47 +204,30 @@
   <data name="icon__SteadyAimIcon" xml:space="preserve">
     <value>Assets/__EXPORT/Icons/M2/Steady Aim.png</value>
   </data>
-  <data name="lang_SNIPER_PRIMARY_MAG_RELOAD_NAME" xml:space="preserve">
-    <value />
-  </data>
-  <data name="lang__ACHDESCTOKENTEST" xml:space="preserve">
-    <value>Text Ach Desc</value>
-  </data>
-  <data name="lang__ACHNAMETOKENTEST" xml:space="preserve">
-    <value>Test Ach Name</value>
-  </data>
-  <data name="lang__LOADOUT_SNIPER_AMMO" xml:space="preserve">
-    <value>Ammo</value>
-  </data>
-  <data name="lang__LOADOUT_SNIPER_PASSIVE" xml:space="preserve">
-    <value>Passive</value>
-  </data>
   <data name="lang__SNIPER_AMMO_EXPLOSIVE_DESC" xml:space="preserve">
-    <value>Deals &lt;style=cIsDamage&gt;0.8x primary&lt;/style&gt; damage. &lt;style=cIsDamage&gt;Explodes&lt;/style&gt; on hit for &lt;style=cIsDamage&gt;0.4x primary&lt;/style&gt; damage to nearby enemies. &lt;style=cIsUtility&gt;Boosts increase the size of the explosion&lt;/style&gt;.</value>
+    <value>&lt;style=cIsDamage&gt;Explosive.&lt;/style&gt; Deals &lt;style=cIsDamage&gt;0.4x primary damage.&lt;/style&gt;\n&lt;&gt; &lt;style=cIsDamage&gt;Damage &lt;indent=40%&gt;+0.32x&lt;/style&gt; per &lt;style=cIsUtility&gt;Boost&lt;/style&gt;&lt;/indent&gt;\n&lt;&gt; &lt;style=cIsDamage&gt;Explosion radius &lt;indent=40%&gt;+7.5m&lt;/style&gt; per &lt;style=cIsUtility&gt;Boost&lt;/style&gt;&lt;/indent&gt;</value>
   </data>
   <data name="lang__SNIPER_AMMO_EXPLOSIVE_NAME" xml:space="preserve">
     <value>Explosive</value>
   </data>
   <data name="lang__SNIPER_AMMO_PLASMA_DESC" xml:space="preserve">
     <value>Deals 0% primary damage, applies a stacking burn that deals 215% primary damage over 10 seconds.</value>
+    <comment>Unfinished</comment>
   </data>
   <data name="lang__SNIPER_AMMO_PLASMA_NAME" xml:space="preserve">
     <value>Plasma</value>
-  </data>
-  <data name="lang__SNIPER_AMMO_SCATTER_DESC" xml:space="preserve">
-    <value>Deals up to 175% primary damage, fires a spread of pellets, damage falls off with range.</value>
-  </data>
-  <data name="lang__SNIPER_AMMO_SCATTER_NAME" xml:space="preserve">
-    <value>Scatter</value>
+    <comment>Unfinished</comment>
   </data>
   <data name="lang__SNIPER_AMMO_SHOCK_DESC" xml:space="preserve">
     <value>Chains to enemies near your target</value>
+    <comment>Unfinished</comment>
   </data>
   <data name="lang__SNIPER_AMMO_SHOCK_NAME" xml:space="preserve">
     <value>Shock</value>
+    <comment>Unfinished</comment>
   </data>
   <data name="lang__SNIPER_AMMO_STANDARD_DESC" xml:space="preserve">
-    <value>Deals &lt;style=cIsDamage&gt;1.0x primary&lt;/style&gt; damage, &lt;style=cIsUtility&gt;pierces enemies&lt;/style&gt;, and has a &lt;style=cIsUtility&gt;chance to ricochet&lt;/style&gt;.</value>
+    <value>&lt;style=cIsUtility&gt;Piercing. Ricochet.&lt;/style&gt; Deals &lt;style=cIsDamage&gt;1.0x primary damage.&lt;/style&gt;\n&lt;&gt; &lt;style=cIsDamage&gt;Damage &lt;indent=40%&gt;+1.0x&lt;/style&gt; per &lt;style=cIsUtility&gt;Boost&lt;/style&gt;&lt;/indent&gt;\n&lt;&gt; &lt;style=cIsDamage&gt;Critical Multiplier &lt;indent=40%&gt;+0.1x&lt;/style&gt; per &lt;style=cIsUtility&gt;Boost&lt;/style&gt;&lt;/indent&gt;</value>
   </data>
   <data name="lang__SNIPER_AMMO_STANDARD_NAME" xml:space="preserve">
     <value>Full Metal Jacket</value>
@@ -253,9 +236,37 @@
     <value>Sniper is a long ranged, single-target dps that incorperates elements of an assassin to stay alive.\n
 
 They excel at taking down bosses and high priority targets but struggle against larger groups of weak enemies.\n</value>
+    <comment>Elaborate</comment>
   </data>
   <data name="lang__SNIPER_DISPLAY_NAME" xml:space="preserve">
     <value>Sniper</value>
+  </data>
+  <data name="lang__SNIPER_KEYWORD_BOOST" xml:space="preserve">
+    <value>&lt;style=cKeywordName&gt;Boost&lt;/style&gt;&lt;style=cSub&gt;Amplifies the effects of ammo.&lt;/style&gt;</value>
+  </data>
+  <data name="lang__SNIPER_KEYWORD_EXPLOSIVE" xml:space="preserve">
+    <value>&lt;style=cKeywordName&gt;Explosive&lt;/style&gt;&lt;style=cSub&gt;Explodes on hit, dealing additional damage to the target and nearby enemies.&lt;/style&gt;</value>
+  </data>
+  <data name="lang__SNIPER_KEYWORD_PHASED" xml:space="preserve">
+    <value>&lt;style=cKeywordName&gt;Stealth&lt;/style&gt;&lt;style=cSub&gt;Become invisible and move more quickly.&lt;/style&gt;</value>
+  </data>
+  <data name="lang__SNIPER_KEYWORD_PIERCING" xml:space="preserve">
+    <value>&lt;style=cKeywordName&gt;Piercing&lt;/style&gt;&lt;style=cSub&gt;Can hit multiple enemies in a line.&lt;/style&gt;</value>
+  </data>
+  <data name="lang__SNIPER_KEYWORD_PRIMARYDMG" xml:space="preserve">
+    <value>&lt;style=cKeywordName&gt;Primary Damage&lt;/style&gt;&lt;style=cSub&gt;Primary damage is a multiplier layered on top of the base multiplier of your primary attack.&lt;/style&gt;</value>
+  </data>
+  <data name="lang__SNIPER_KEYWORD_REACTIVATION" xml:space="preserve">
+    <value>&lt;style=cKeywordName&gt;Reactivate&lt;/style&gt;&lt;style=cSub&gt;Can be activated a second time for a different effect.&lt;/style&gt;</value>
+  </data>
+  <data name="lang__SNIPER_KEYWORD_RELOADS" xml:space="preserve">
+    <value>&lt;style=cKeywordName&gt;Reloading&lt;/style&gt;&lt;style=cSub&gt;Automatically reloads your primary with a perfect reload.&lt;/style&gt;</value>
+  </data>
+  <data name="lang__SNIPER_KEYWORD_RICOCHET" xml:space="preserve">
+    <value>&lt;style=cKeywordName&gt;Ricochet&lt;/style&gt;&lt;style=cSub&gt;Has a chance to ricochet on hitting terrain. Steeper angles have a lower chance.&lt;/style&gt;</value>
+  </data>
+  <data name="lang__SNIPER_KEYWORD_SCOPED" xml:space="preserve">
+    <value>&lt;style=cKeywordName&gt;Scope&lt;/style&gt;&lt;style=cSub&gt;Enter scope while in use. While zoomed you can use the scroll wheel to control zoom.&lt;/style&gt;</value>
   </data>
   <data name="lang__SNIPER_NAME" xml:space="preserve">
     <value>Sniper</value>
@@ -263,38 +274,37 @@ They excel at taking down bosses and high priority targets but struggle against 
   <data name="lang__SNIPER_OUTRO_FLAVOR" xml:space="preserve">
     <value>And so they left, sound still ringing in deaf ears.</value>
   </data>
-  <data name="lang__SNIPER_PASSIVE_CRITICAL_DESC" xml:space="preserve">
-    <value>&lt;style=cIsUtility&gt;Critical Strikes&lt;/style&gt; deal &lt;style=cIsDamage&gt;1.2x&lt;/style&gt; damage. Gain &lt;style=cIsDamage&gt;+1%&lt;/style&gt; critical strike chance per level.</value>
-  </data>
-  <data name="lang__SNIPER_PASSIVE_CRITICAL_NAME" xml:space="preserve">
-    <value>Precise Aim</value>
-  </data>
-  <data name="lang__SNIPER_PASSIVE_HEADSHOT_DESC" xml:space="preserve">
-    <value>Shooting enemies in the head deals 50% more damage (Unfinished for most enemies)</value>
-  </data>
-  <data name="lang__SNIPER_PASSIVE_HEADSHOT_NAME" xml:space="preserve">
-    <value>Headshot</value>
-  </data>
   <data name="lang__SNIPER_PRIMARY_DASH_DESC" xml:space="preserve">
-    <value>Fire for 280% damage. Reloading at the right time grants up to double damage.</value>
+    <value />
+    <comment>Unfinished</comment>
   </data>
   <data name="lang__SNIPER_PRIMARY_DASH_NAME" xml:space="preserve">
-    <value>Reposition</value>
+    <value />
+    <comment>Unfinished</comment>
   </data>
   <data name="lang__SNIPER_PRIMARY_DASH_RELOAD_DESC" xml:space="preserve">
-    <value>Reload and dash</value>
+    <value />
+    <comment>Unfinished</comment>
   </data>
   <data name="lang__SNIPER_PRIMARY_DASH_RELOAD_NAME" xml:space="preserve">
-    <value>Sliding Reload</value>
+    <value />
+    <comment>Unfinished</comment>
   </data>
   <data name="lang__SNIPER_PRIMARY_MAG_DESC" xml:space="preserve">
     <value />
+    <comment>Unfinished</comment>
   </data>
   <data name="lang__SNIPER_PRIMARY_MAG_NAME" xml:space="preserve">
     <value />
+    <comment>Unfinished</comment>
   </data>
   <data name="lang__SNIPER_PRIMARY_MAG_RELOAD_DESC" xml:space="preserve">
     <value />
+    <comment>Unfinished</comment>
+  </data>
+  <data name="lang__SNIPER_PRIMARY_MAG_RELOAD_NAME" xml:space="preserve">
+    <value />
+    <comment>Unfinished</comment>
   </data>
   <data name="lang__SNIPER_PRIMARY_SNIPE_DESC" xml:space="preserve">
     <value>Shoot enemies for &lt;style=cIsDamage&gt;600% to 900%&lt;/style&gt; damage. Must be &lt;style=cIsUtility&gt;reloaded&lt;/style&gt; after each shot. Reloading at the right time &lt;style=cIsDamage&gt;increases damage&lt;/style&gt;.</value>
@@ -304,18 +314,19 @@ They excel at taking down bosses and high priority targets but struggle against 
   </data>
   <data name="lang__SNIPER_PRIMARY_SNIPE_RELOAD_DESC" xml:space="preserve">
     <value>Why are you reading this??? Shouldn't you be playing the game?</value>
+    <comment>Elaborate</comment>
   </data>
   <data name="lang__SNIPER_PRIMARY_SNIPE_RELOAD_NAME" xml:space="preserve">
     <value>Reload</value>
   </data>
   <data name="lang__SNIPER_SECONDARY_QUICK_DESC" xml:space="preserve">
-    <value>&lt;style=cIsUtility&gt;Boost&lt;/style&gt; your shots by &lt;style=cIsDamage&gt;2.0x&lt;/style&gt;. &lt;style=cIsUtility&gt;Recharges quickly&lt;/style&gt; and can hold &lt;style=cIsUtility&gt;4 shots&lt;/style&gt;.</value>
+    <value>&lt;style=cIsUtility&gt;Boost&lt;/style&gt; your shots by &lt;style=cIsDamage&gt;0.75x&lt;/style&gt;. &lt;style=cIsUtility&gt;Recharges quickly&lt;/style&gt; and can hold &lt;style=cIsUtility&gt;4 shots&lt;/style&gt;.</value>
   </data>
   <data name="lang__SNIPER_SECONDARY_QUICK_NAME" xml:space="preserve">
     <value>Quickscope</value>
   </data>
   <data name="lang__SNIPER_SECONDARY_STEADY_DESC" xml:space="preserve">
-    <value>&lt;style=cIsUtility&gt;Boost&lt;/style&gt; your shots by &lt;style=cIsDamage&gt;up to 6x&lt;/style&gt;. &lt;style=cIsUtility&gt;Charges faster&lt;/style&gt; while stationary. &lt;style=cIsHealth&gt;You are slowed while charging&lt;/style&gt;.</value>
+    <value>&lt;style=cIsUtility&gt;Boost&lt;/style&gt; your shots by &lt;style=cIsDamage&gt;up to 3x&lt;/style&gt;. &lt;style=cIsUtility&gt;Charges faster&lt;/style&gt; while stationary. &lt;style=cIsHealth&gt;You are slowed while charging&lt;/style&gt;.</value>
   </data>
   <data name="lang__SNIPER_SECONDARY_STEADY_NAME" xml:space="preserve">
     <value>Steady Aim</value>
@@ -342,28 +353,28 @@ They excel at taking down bosses and high priority targets but struggle against 
     <value>Default</value>
   </data>
   <data name="lang__SNIPER_SPECIAL_DECOY_DESC" xml:space="preserve">
-    <value>&lt;style=cIsUtility&gt;Stealth&lt;/style&gt; for 2.5 seconds and leave behind a &lt;style=cIsUtility&gt;Decoy&lt;/style&gt; that distracts enemies. &lt;style=cIsUtility&gt;Reactivate&lt;/style&gt; to detonate the decoy, dealing &lt;style=cIsDamage&gt;500%&lt;/style&gt; damage, &lt;style=cIsUtility&gt;stunning, and weakening&lt;/style&gt; nearby enemies.</value>
+    <value>&lt;style=cIsUtility&gt;Stealth&lt;/style&gt; for 2.5 seconds and leave behind a &lt;style=cIsUtility&gt;Decoy&lt;/style&gt; that distracts enemies.\n&lt;style=cIsDamage&gt;&lt;/style&gt;&lt;style=cIsUtility&gt;Reactivate&lt;/style&gt; to detonate the decoy to deal &lt;style=cIsDamage&gt;500%&lt;/style&gt; damage,  &lt;style=cIsUtility&gt;Stuns&lt;/style&gt; and &lt;style=cIsUtility&gt;Weakens&lt;/style&gt; nearby enemies</value>
   </data>
   <data name="lang__SNIPER_SPECIAL_DECOY_NAME" xml:space="preserve">
     <value>Decoy</value>
   </data>
   <data name="lang__SNIPER_SPECIAL_KNIFE_DESC" xml:space="preserve">
     <value>Throw a knife that deals 100% damage and sticks on hit. Reactivate to teleport to the knife, dealing 200% damage and marking nearby enemies. Killing a marked enemy resets all your cooldowns.</value>
+    <comment>Unfinished</comment>
   </data>
   <data name="lang__SNIPER_SPECIAL_KNIFE_NAME" xml:space="preserve">
     <value>Blink Knife</value>
+    <comment>Unfinished</comment>
   </data>
   <data name="lang__SNIPER_SUBTITLE" xml:space="preserve">
     <value>[Insert cool thing here]</value>
+    <comment>Unfinished</comment>
   </data>
   <data name="lang__SNIPER_UTILITY_BACKFLIP_DESC" xml:space="preserve">
-    <value>Perform a flip away from the direction you are aiming. Stuns enemies and automatically gives you a perfect reload.</value>
+    <value>&lt;style=cIsUtility&gt;Stunning. Reloading.&lt;/style&gt; Flip backwards and deal &lt;style=cIsDamage&gt;100%&lt;/style&gt; damage to nearby enemies.</value>
   </data>
   <data name="lang__SNIPER_UTILITY_BACKFLIP_NAME" xml:space="preserve">
     <value>Backflip</value>
-  </data>
-  <data name="lang__UNLOCKABLENAMETOKENTEST" xml:space="preserve">
-    <value>Test Unlockable Name</value>
   </data>
   <data name="prefab__Crosshair" xml:space="preserve">
     <value>Assets/__EXPORT/UI Prefabs/SniperCrosshair.prefab</value>

@@ -79,13 +79,8 @@
         }
 
 
-        internal Single Update( Single delta, Single attackSpeed, Single timer, ref Single attackSpeedDelayed, ref Single attackSpeedSpeed, Single attackSpeedTime  )
+        internal Single Update( Single delta, Single attackSpeed, Single timer)
         {
-            if( attackSpeedDelayed != attackSpeed )
-            {
-                attackSpeed = Mathf.SmoothDamp( attackSpeedDelayed, attackSpeed, ref attackSpeedSpeed, attackSpeedTime );
-            }
-            attackSpeedDelayed = attackSpeed;
             delta *= this.AdjustAttackSpeed( attackSpeed );
             var temp = timer + delta;
             temp %= this.baseDuration;
@@ -127,5 +122,13 @@
                 break;
             }
         }
+
+        internal Single GetBoost(ReloadTier tier) => tier switch
+        {
+            ReloadTier.Bad => this.badMult,
+            ReloadTier.Good => this.goodMult,
+            ReloadTier.Perfect => this.perfectMult,
+            _ => this.badMult,
+        };
     }
 }

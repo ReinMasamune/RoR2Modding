@@ -10,6 +10,8 @@
     {
         internal CharacterBody attackerBody;
         internal Single chargeLevel = 0f;
+        internal Single reloadBoost;
+        internal Single chargeBoost;
 
         internal TeamIndex team
         {

@@ -20,12 +20,12 @@
 
     internal class SniperReloadableFireSkillDef : SniperSkillDef
     {
-        internal static SniperReloadableFireSkillDef Create<TFire, TReload>(String fireStateMachineName, String reloadStateMachineName)
-            where TFire : SnipeBaseState
+        internal static SniperReloadableFireSkillDef Create<TPrimaryData, TReload>(String fireStateMachineName, String reloadStateMachineName)
+            where TPrimaryData : struct, ISniperPrimaryDataProvider
             where TReload : EntityState, ISniperReloadState
         {
             SniperReloadableFireSkillDef def = ScriptableObject.CreateInstance<SniperReloadableFireSkillDef>();
-            def.activationState = SkillsCore.StateType<TFire>();
+            def.activationState = SkillsCore.StateType<SnipeState<TPrimaryData>>();
             def.activationStateMachineName = fireStateMachineName;
             def.baseRechargeInterval = 1f;
             def.beginSkillCooldownOnSkillEnd = true;
@@ -100,7 +100,7 @@
         public sealed override Boolean IsReady(GenericSkill skillSlot)
         {
             var data = skillSlot.skillInstanceData as SniperPrimaryInstanceData;
-            return data.isReloading ? data.CanReload() : data.CanShoot();
+            return !data.NeedsReload() && (data.isReloading ? data.CanReload() : data.CanShoot());
         }
 
         public sealed override EntityState InstantiateNextState(GenericSkill skillSlot)
@@ -110,10 +110,6 @@
             if(state is BaseSkillState skillState)
             {
                 skillState.activatorSkillSlot = skillSlot;
-            }
-            if(state is SnipeBaseState snipeState)
-            {
-                snipeState.reloadParams = this.reloadParams;
             }
             if(state is ISniperReloadState reloadState)
             {
@@ -131,8 +127,8 @@
                 //var reloadState = state as ISniperReloadState;
             } else
             {
-                var fireState = state as SnipeBaseState;
-                fireState.reloadTier = data.currentReloadTier;
+                var fireState = state as ISnipeState;
+                fireState.reloadBoost = this.reloadParams.GetBoost(data.currentReloadTier);
             }
 
             EntityStateMachine machine = data.isReloading ? data.reloadStatemachine : skillSlot.stateMachine;
@@ -157,7 +153,7 @@
                     data.delayTimer = 0f;
                     if(skillSlot.stock <= 0)
                     {
-                        data.StartReload();
+                        data.SetNeedsReload();
                     }
                 }
             }
@@ -166,6 +162,19 @@
         public sealed override void OnFixedUpdate(GenericSkill skillSlot)
         {
             var data = skillSlot.skillInstanceData as SniperPrimaryInstanceData;
+            if(data._autoReloadPerfect)
+            {
+                if(data.ReadReload() == ReloadTier.Perfect) data.ForceReload(ReloadTier.Perfect);
+            }
+            if(data.NeedsReload())
+            {
+                var curState = skillSlot?.stateMachine?.state?.GetType();
+                if(curState is null || curState != this.activationState.stateType)
+                {
+                    data.StartReload();
+                }
+                
+            }
             data.delayTimer += Time.fixedDeltaTime * skillSlot.characterBody.attackSpeed;
         }
 
@@ -197,6 +206,8 @@
 
             internal void ForceReload(ReloadTier tier)
             {
+                this._needsToStartReload = false;
+                this._autoReloadPerfect = false;
                 this.currentReloadTier = tier;
                 SoundModule.PlayLoad(this.secondarySlot.gameObject, tier);
                 this.isReloading = false;
@@ -205,9 +216,22 @@
                 this.UpdateCrosshair();
             }
 
-            internal void StartReload()
+            internal void SetNeedsReload()
             {
+                this._needsToStartReload = true;
+            }
 
+            private Boolean _needsToStartReload;
+            internal Boolean NeedsReload()
+            {
+                return this._needsToStartReload;
+            }
+
+            internal Boolean _autoReloadPerfect = false;
+            internal void StartReload(Boolean autoOnPerfect = false)
+            {
+                this._autoReloadPerfect = autoOnPerfect;
+                this._needsToStartReload = false;
                 this.isReloading = true;
                 this.body.StartReload(this.reloadParams);
                 this.UpdateCrosshair();

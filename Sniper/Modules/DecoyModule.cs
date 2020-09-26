@@ -13,6 +13,7 @@
 
     using Sniper.Components;
     using Sniper.States.Other;
+    using Sniper.States.Special;
 
     using UnityEngine;
     using UnityEngine.Networking;
@@ -27,7 +28,33 @@
 
 
 
-        internal static HashSet<ItemIndex> whitelist = new HashSet<ItemIndex>();
+        internal static HashSet<ItemIndex> whitelist = new HashSet<ItemIndex>
+        {
+            ItemIndex.ArmorPlate,
+            ItemIndex.BarrierOnOverHeal,
+            ItemIndex.Bear,
+            ItemIndex.ExtraLife,
+            ItemIndex.FallBoots,
+            ItemIndex.HealWhileSafe,
+            ItemIndex.IncreaseHealing,
+            ItemIndex.InvadingDoppelganger,
+            ItemIndex.Infusion,
+            ItemIndex.Knurl,
+            ItemIndex.Medkit,
+            ItemIndex.Mushroom,
+            //ItemIndex.NovaOnHeal,
+            ItemIndex.Pearl,
+            ItemIndex.PersonalShield,
+            ItemIndex.RepeatHeal,
+            ItemIndex.ShieldOnly,
+            ItemIndex.ShinyPearl,
+            ItemIndex.SiphonOnLowHealth,
+            ItemIndex.SlowOnHit,
+            ItemIndex.SprintArmor,
+            ItemIndex.TonicAffliction,
+            ItemIndex.WardOnLevel
+        };
+
 
         private static GameObject decoyPrefab;
         internal static GameObject GetDecoyPrefab()
@@ -85,8 +112,8 @@
             body.mainRootSpeed = 0f;
 
             // CLEANUP: Abstract out base stats for decoy and sniper
-            body.baseMaxHealth = 200f;
-            body.levelMaxHealth = 60f;
+            body.baseMaxHealth = 100f;
+            body.levelMaxHealth = 30f;
 
             body.baseRegen = 0.6f;
             body.levelRegen = 0.12f;
@@ -102,8 +129,8 @@
             body.baseJumpPower = 0f;
             body.levelJumpPower = 0f;
 
-            body.baseDamage = 0f;
-            body.levelDamage = 0f;
+            body.baseDamage = 12f;
+            body.levelDamage = 2.4f;
 
             body.baseAttackSpeed = 1f;
             body.levelAttackSpeed = 0f;
@@ -111,14 +138,14 @@
             body.baseCrit = 0f;
             body.levelCrit = 0f;
 
-            body.baseArmor = 50f;
-            body.levelArmor = 20f;
+            body.baseArmor = 0f;
+            body.levelArmor = 0f;
 
             body.baseJumpCount = 1;
 
-            body.sprintingSpeedMultiplier = 1f;
+            body.sprintingSpeedMultiplier = 0f;
 
-            body.killCount = 0;
+            //body.killCount = 0;
             body.wasLucky = false;
             body.spreadBloomDecayTime = 0.45f;
             body.spreadBloomCurve = new AnimationCurve();
@@ -198,8 +225,8 @@
 
             EntityStateMachine esm = obj.AddOrGetComponent<EntityStateMachine>();
             esm.customName = "Body";
-            esm.initialStateType = SkillsCore.StateType<GenericCharacterMain>();
-            esm.mainStateType = SkillsCore.StateType<GenericCharacterMain>();
+            esm.initialStateType = SkillsCore.StateType<BeingADecoy>();
+            esm.mainStateType = SkillsCore.StateType<BeingADecoy>();
 
 
             SkillLocator skillLocator = obj.AddOrGetComponent<SkillLocator>();

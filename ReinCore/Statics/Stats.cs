@@ -104,7 +104,7 @@
             }
         }
 
-        public unsafe UInt32 this[ItemIndex item]
+        public unsafe UInt32 this[BuffIndex item]
         {
             get
             {
@@ -167,22 +167,26 @@
         {
             internal HasItemConst(ItemIndex item) => this.item = item;
             private readonly ItemIndex item;
+
+            public ILCursor Emit(ILCursor cursor, Int32 itemsLoc, Int32 buffsLoc, ILLabel skip) => throw new NotImplementedException();
         }
         public static IConditionEmitter HasItem(Func<ItemIndex> itemIndexGetter) => new HasItemDynamic(itemIndexGetter);
         private class HasItemDynamic : IConditionEmitter
         {
             internal HasItemDynamic(Func<ItemIndex> getter) => this.getter = getter;
             private readonly Func<ItemIndex> getter;
+
+            public ILCursor Emit(ILCursor cursor, Int32 itemsLoc, Int32 buffsLoc, ILLabel skip) => throw new NotImplementedException();
         }
         
-        public static IConditionEmitter HasBuff(BuffIndex buff)
-        {
+        //public static IConditionEmitter HasBuff(BuffIndex buff)
+        //{
 
-        }
-        public static IConditionEmitter HasBuff(Func<BuffIndex> buffIndexGetter)
-        {
+        //}
+        //public static IConditionEmitter HasBuff(Func<BuffIndex> buffIndexGetter)
+        //{
 
-        }
+        //}
 
     }
 

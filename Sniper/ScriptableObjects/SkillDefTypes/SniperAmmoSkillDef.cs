@@ -1,6 +1,7 @@
 ﻿namespace Sniper.SkillDefs
 {
     using System;
+    using System.Collections.Generic;
     using System.Runtime.CompilerServices;
 
     using EntityStates;
@@ -16,28 +17,41 @@
     using Sniper.Expansions;
     using Sniper.Modules;
     using Sniper.SkillDefTypes.Bases;
+    using Sniper.States.Bases;
 
     using UnityEngine;
+    using UnityEngine.Networking;
 
-    internal delegate ExpandableBulletAttack BulletCreationDelegate( SniperCharacterBody body, ReloadTier reload, Ray aim, String muzzleName );
-    internal delegate void ChargeBulletModifierDelegate( ExpandableBulletAttack bullet );
+    internal delegate ExpandableBulletAttack BulletCreationDelegate(SniperCharacterBody body, ReloadTier reload, Ray aim, String muzzleName);
+    internal delegate void ChargeBulletModifierDelegate(ExpandableBulletAttack bullet);
+    internal delegate IAmmoStateContext CreateContextDelegate();
 
+
+
+    internal interface IAmmoStateContext
+    {
+        GameObject tracerEffectPrefab { get; }
+        void OnEnter<T>(SnipeState<T> state) where T : struct, ISniperPrimaryDataProvider;
+        void FixedUpdate<T>(SnipeState<T> state) where T : struct, ISniperPrimaryDataProvider;
+        void OnSerialize<T>(SnipeState<T> state, NetworkWriter writer) where T : struct, ISniperPrimaryDataProvider;
+        void OnDeserialize<T>(SnipeState<T> state, NetworkReader reader) where T : struct, ISniperPrimaryDataProvider;
+        void OnExit<T>(SnipeState<T> state) where T : struct, ISniperPrimaryDataProvider;
+    }
 
     internal class SniperAmmoSkillDef : SniperSkillDef
     {
-        internal static SniperAmmoSkillDef Create( BulletCreationDelegate createBullet, ChargeBulletModifierDelegate chargeMod = null )
-        {
-#if ASSERT
-            if( createBullet == null )
-            {
-                Log.ErrorL( "Null Create delegate" );
-            }
-#endif
+        private static readonly List<SniperAmmoSkillDef> instances = new();
+        internal static SniperAmmoSkillDef FromID(Int32 id) => instances[id];
 
+        internal static SniperAmmoSkillDef Create<TContext>()
+            where TContext : IAmmoStateContext, new()
+        {
             SniperAmmoSkillDef def = ScriptableObject.CreateInstance<SniperAmmoSkillDef>();
 
-            def.createBullet = createBullet;
-            def.chargeModifier = chargeMod;
+            var tracer = new TContext().tracerEffectPrefab;
+            //if(tracer is not null) Log.Message("TracerInit");
+            static IAmmoStateContext CreateContext() => new TContext();
+            def.createContext = CreateContext;
 
 
             def.activationState = SkillsCore.StateType<Idle>();
@@ -60,24 +74,26 @@
             return def;
         }
 
-
-
-
-        private BulletCreationDelegate createBullet;
-        private ChargeBulletModifierDelegate chargeModifier;
-        internal SoundModule.FireType fireSoundType;
-
-        [MethodImpl( MethodImplOptions.AggressiveInlining )]
-        internal ExpandableBulletAttack CreateBullet( SniperCharacterBody body, ReloadTier tier, Ray aim, String muzzleName )
+        protected void Awake()
         {
-            ExpandableBulletAttack bullet = this.createBullet(body, tier, aim, muzzleName );
-            return bullet;
+            this.id = instances.Count;
+            instances.Add(this);
         }
 
-        [MethodImpl( MethodImplOptions.AggressiveInlining )]
-        internal void ApplyChargeModifiers( ExpandableBulletAttack bullet )
+
+
+
+        //private BulletCreationDelegate createBullet;
+        //private ChargeBulletModifierDelegate chargeModifier;
+        private CreateContextDelegate createContext;
+        internal SoundModule.FireType fireSoundType;
+
+        internal Int32 id { get; private set; }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        internal IAmmoStateContext GetContext()
         {
-            this.chargeModifier?.Invoke( bullet );
+            return this.createContext();
         }
 
         public sealed override void OnFixedUpdate([NotNull] GenericSkill skillSlot)

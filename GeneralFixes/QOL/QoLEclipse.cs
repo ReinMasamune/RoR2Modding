@@ -21,10 +21,6 @@
     {
         private const Single eclipse1MonsterHealthBoost = 0.2f;
         private static String eclipse1Text => $"Monster Maximum Health: <style=cIsHealth>+{eclipse1MonsterHealthBoost * 100f}%</style>";
-
-
-
-
         private const String eclipse3Text = "Every 10 minutes <style=cIsHealth>Your doppelganger invades</style>";
         private const String eclipse8Text = "Enemies become <style=cIsHealth>Exponentially Stronger</style> over time";
 
@@ -89,7 +85,7 @@
 
         private static Single GetRunExponentialBase()
         {
-            if(Run.instance is not EclipseRun run || EclipseRun.cvEclipseLevel.value < 8) return 1.15f;
+            if(Run.instance.selectedDifficulty == DifficultyIndex.Eclipse8)/* is not EclipseRun run || EclipseRun.cvEclipseLevel.value < 8)*/ return 1.15f;
             const Single expBase = 1.16f;
             const Single expScale = 0.003f;
             const Single expStartMult = 0.975f;
@@ -97,7 +93,7 @@
             const Single effStart = expBase * expStartMult;
             const Single effScale = expBase * expScale;
 
-            return effStart + (effScale * run.stageClearCount);
+            return effStart + (effScale * Run.instance.stageClearCount);
         }
         private static void RecalculateDifficultyCoefficentInternal_Il(ILContext il)
         {
@@ -120,15 +116,6 @@
             //HooksCore.RoR2.EclipseRun.OverrideRuleChoices.On += OverrideRuleChoices_On;
         }
 
-        private static void OverrideRuleChoices_On(HooksCore.RoR2.EclipseRun.OverrideRuleChoices.Orig orig, EclipseRun self, RuleChoiceMask mustInclude, RuleChoiceMask mustExclude, UInt64 seed)
-        {
-            orig(self, mustInclude, mustExclude, seed);
-
-            if(EclipseRun.cvEclipseLevel.value >= 3)
-            {
-                self.ForceChoice(mustInclude, mustExclude, RuleCatalog.FindRuleDef($"Artifacts.{RoR2Content.Artifacts.shadowCloneArtifactDef}").FindChoice("On"));
-            }
-        }
         private static void OnCharacterHitGround_Il(ILContext il) => new ILCursor(il)
             .DefLabel(out var label)
             .GotoNext(MoveType.AfterLabel,
@@ -158,13 +145,13 @@
 
         private static Single IncreaseHealthIfMonster(Single currentHealth, CharacterBody body)
         {
-            return body.teamComponent.teamIndex == TeamIndex.Monster && Run.instance is EclipseRun
+            return body.teamComponent.teamIndex == TeamIndex.Monster && Run.instance.selectedDifficulty >= DifficultyIndex.Eclipse1
                 ? currentHealth * (1f + eclipse1MonsterHealthBoost)
                 : currentHealth;
         }
         private static Int32 dopLoc = 0;
-        private static Single CalcDoppelHealthMult(Single input) => Run.instance is EclipseRun && EclipseRun.cvEclipseLevel.value >= 3 ? input * 0.5f : input;
-        private static Single CalcDoppelDmgMult(Single input) => Run.instance is EclipseRun && EclipseRun.cvEclipseLevel.value >= 3 ? input / 0.5f : input;
+        private static Single CalcDoppelHealthMult(Single input) => Run.instance.selectedDifficulty >= DifficultyIndex.Eclipse3/* is EclipseRun && EclipseRun.cvEclipseLevel.value >= 3*/ ? input * 0.5f : input;
+        private static Single CalcDoppelDmgMult(Single input) => Run.instance.selectedDifficulty >= DifficultyIndex.Eclipse3/* is EclipseRun && EclipseRun.cvEclipseLevel.value >= 3*/ ? input / 0.5f : input;
         private static void RecalculateStats_Il(MonoMod.Cil.ILContext il) => new ILCursor(il)
             .GotoNext(MoveType.After,
                 x => x.MatchLdarg(0),
@@ -194,12 +181,17 @@
 
     internal class EclipseDoppelgangerInvasionManager : DoppelgangerInvasionManager
     {
+        private static MasterCatalog.MasterIndex defaultMasterIndex;
+
         private Boolean isEnabled { get; set; }
+        
 
         private new void Start()
         {
+            defaultMasterIndex = MasterCatalog.FindAiMasterIndexForBody(BodyCatalog.FindBodyIndex("CommandoBody"));
+
             base.Start();
-            this.isEnabled = base.run is EclipseRun && EclipseRun.cvEclipseLevel.value >= 3;
+            this.isEnabled = base.run.selectedDifficulty >= DifficultyIndex.Eclipse3/* is EclipseRun && EclipseRun.cvEclipseLevel.value >= 3*/;
         }
         private new void OnEnable()
         {
@@ -217,7 +209,7 @@
                 if(this.previousInvasionCycle < currentInvasionCycle)
                 {
                     this.previousInvasionCycle = currentInvasionCycle;
-                    DoppelgangerInvasionManager.PerformInvasion(new Xoroshiro128Plus(this.seed + (UInt64)currentInvasionCycle));
+                    EclipseDoppelgangerInvasionManager.PerformEclipseInvasion(new Xoroshiro128Plus(this.seed + (UInt64)currentInvasionCycle));
 
 
                     this.run.targetMonsterLevel = 42f;
@@ -230,5 +222,69 @@
             if(this.isEnabled) base.OnCharacterDeathGlobal(report);
         }
 
+
+
+        private static void PerformEclipseInvasion(Xoroshiro128Plus rng)
+        {
+            for(int i = CharacterMaster.readOnlyInstancesList.Count - 1; i >= 0; i--)
+            {
+                CharacterMaster characterMaster = CharacterMaster.readOnlyInstancesList[i];
+                if(characterMaster.teamIndex == TeamIndex.Player && characterMaster.playerCharacterMasterController)
+                {
+                    EclipseDoppelgangerInvasionManager.CreateDoppelganger(characterMaster, rng);
+                }
+            }
+        }
+
+        private static void CreateEclipseDoppelganger(CharacterMaster master, Xoroshiro128Plus rng)
+        {
+            var card = DoppelgangerSpawnCard.FromMaster(master);
+            if(card is null) return;
+            if(card.prefab is null)
+            {
+                card.prefab = MasterCatalog.GetMasterPrefab(defaultMasterIndex);
+            }
+
+            Transform spawnOnTarget;
+            DirectorCore.MonsterSpawnDistance input;
+            if(TeleporterInteraction.instance)
+            { 
+                spawnOnTarget = TeleporterInteraction.instance.transform;
+                input = DirectorCore.MonsterSpawnDistance.Close;
+            } else
+            {
+                spawnOnTarget = master.GetBody().coreTransform;
+                input = DirectorCore.MonsterSpawnDistance.Far;
+            }
+            DirectorPlacementRule directorPlacementRule = new DirectorPlacementRule
+            {
+                spawnOnTarget = spawnOnTarget,
+                placementMode = DirectorPlacementRule.PlacementMode.NearestNode
+            };
+            DirectorCore.GetMonsterSpawnDistance(input, out directorPlacementRule.minDistance, out directorPlacementRule.maxDistance);
+            DirectorSpawnRequest directorSpawnRequest = new DirectorSpawnRequest(card, directorPlacementRule, rng);
+            directorSpawnRequest.teamIndexOverride = new TeamIndex?(TeamIndex.Monster);
+            directorSpawnRequest.ignoreTeamMemberLimit = true;
+
+            CombatSquad squad = null;
+
+            DirectorSpawnRequest directorSpawnRequest2 = directorSpawnRequest;
+            directorSpawnRequest2.onSpawnedServer = DelegateHelper.Combine(directorSpawnRequest2.onSpawnedServer, (res) =>
+            {
+                if(squad is null)
+                {
+                    squad = UnityEngine.Object.Instantiate<GameObject>(Resources.Load<GameObject>("Prefabs/NetworkedObjects/Encounters/ShadowCloneEncounter")).GetComponent<CombatSquad>();
+                }
+                squad.AddMember(res.spawnedInstance.GetComponent<CharacterMaster>());
+            });
+
+            DirectorCore.instance.TrySpawnObject(directorSpawnRequest);
+
+            if(squad is not null)
+            {
+                NetworkServer.Spawn(squad.gameObject);
+            }
+            UnityEngine.Object.Destroy(card);
+        }
     }
 }

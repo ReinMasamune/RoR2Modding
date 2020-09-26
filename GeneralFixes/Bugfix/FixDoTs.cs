@@ -61,13 +61,18 @@
         {
             if(damage.damageType.HasFlag(DamageType.BleedOnHit))
             {
+                //LogW("Bleed damagetype");
                 DotController.InflictDot(victim.gameObject, attacker.gameObject, DotController.DotIndex.Bleed, 3f * damage.procCoefficient, 1f);
             }
         }
         private static void Bleed_TriTip(DamageInfo damage, CharacterBody attacker, Inventory inv, CharacterBody victim)
         {
-            if(inv && Util.CheckRoll(7f * inv.GetItemCount(ItemIndex.BleedOnHit) * Mathf.Sqrt(damage.procCoefficient), attacker.master))
+            if(inv is null) return;
+            var count = inv.GetItemCount(ItemIndex.BleedOnHit);
+            if(count <= 0) return;
+            if(Util.CheckRoll(7f * count * Mathf.Sqrt(damage.procCoefficient), attacker.master))
             {
+                //LogW("Bleed tritip");
                 DotController.InflictDot(victim.gameObject, attacker.gameObject, DotController.DotIndex.Bleed, 3f * Mathf.Sqrt(damage.procCoefficient), 1f);
             }
         }
@@ -75,6 +80,7 @@
         {
             if(damage.crit && inv && inv.GetItemCount(ItemIndex.BleedOnHitAndExplode) > 0)
             {
+                //LogW("Bleed impitem");
                 DotController.InflictDot(victim.gameObject, attacker.gameObject, DotController.DotIndex.Bleed, 3f * damage.procCoefficient, 1f);
             }
         }
@@ -140,6 +146,8 @@
 
     internal static class OnHitManager
     {
+        internal static Boolean Skip(Instruction _) => true;
+
         internal delegate void OnHitDelegate(DamageInfo damage, CharacterBody attacker, Inventory inventory, CharacterBody victim);
         internal unsafe static void AddOnHit(OnHitDelegate onHit)
         {
@@ -181,70 +189,50 @@
             Main.LogE(cursor.Context);
             return cursor;
         }
+
+        private static Int32 prevLoc = 0;
         private static void OnHitEnemy_Il(ILContext il) => new ILCursor(il)
-            //.LogIL("1")
             .DefLabel(out var skip)
-            //.GotoNext(MoveType.AfterLabel,
-            //    x => x.MatchLdarg(1),
-            //    x => x.MatchLdflda(procChainMask),
-            //    x => x.MatchLdcI4((Int32)ProcType.HealOnHit),
-            //    x => x.MatchCallOrCallvirt(hasProc),
-            //    x => x.MatchBrtrue(out skip)
-            //).Br_(skip)
             .GotoNext(MoveType.AfterLabel,
                 x => x.MatchLdarg(1),
                 x => x.MatchLdflda(procChainMask),
                 x => x.MatchLdcI4((Int32)ProcType.BleedOnHit),
                 x => x.MatchCallOrCallvirt(out _),
                 x => x.MatchBrtrue(out skip)
-            ).Br_(skip)
-            //.LogIL("2")
-            //.GotoNext(MoveType.AfterLabel,
-            //    x => x.MatchLdarg(1),
-            //    x => x.MatchLdfld(damageType),
-            //    x => x.MatchLdcI4((Int32)DamageType.PoisonOnHit),
-            //    _ => true,
-            //    _ => true,
-            //    _ => true,
-            //    _ => true,
-            //    _ => true,
-            //    x => x.MatchBrfalse(out skip)
-            //).Br_(skip)
+            ).Br_(skip).GotoLabel(skip)
             .GotoNext(MoveType.AfterLabel,
                 x => x.MatchLdarg(1),
                 x => x.MatchLdfld(damageType),
                 x => x.MatchLdcI4((Int32)DamageType.BlightOnHit),
-                _ => true,
-                _ => true,
-                _ => true,
-                _ => true,
-                _ => true,
+                Skip,
+                Skip,
+                Skip,
+                Skip,
+                Skip,
                 x => x.MatchBrfalse(out skip)
-            ).Br_(skip)
-            //.LogIL("3")
+            ).Br_(skip).GotoLabel(skip)
             .GotoNext(MoveType.AfterLabel,
                 x => x.MatchLdarg(1),
                 x => x.MatchLdfld(damageType),
                 x => x.MatchLdcI4((Int32)DamageType.IgniteOnHit),
-                _ => true,
-                _ => true,
-                _ => true,
-                _ => true,
-                _ => true,
-                _ => true,
-                _ => true,
-                _ => true,
-                _ => true,
-                _ => true,
-                _ => true,
-                _ => true,
-                _ => true,
-                _ => true,
-                _ => true,
-                _ => true,
+                Skip,
+                Skip,
+                Skip,
+                Skip,
+                Skip,
+                Skip,
+                Skip,
+                Skip,
+                Skip,
+                Skip,
+                Skip,
+                Skip,
+                Skip,
+                Skip,
+                Skip,
+                Skip,
                 x => x.MatchBrfalse(out skip)
-            ).Br_(skip)
-            //.LogIL("4")
+            ).Br_(skip).GotoLabel(skip)
             .GotoNext(MoveType.AfterLabel,
                 x => x.MatchLdarg(1),
                 x => x.MatchBrfalse(out skip),
@@ -256,17 +244,14 @@
                 x => x.MatchLdarg(1),
                 x => x.MatchLdfld(typeof(DamageInfo).GetField("inflictor", BF.Instance | BF.NonPublic | BF.Public)),
                 x => x.MatchCallOrCallvirt(typeof(GameObject).GetMethods(BF.Instance | BF.Public).First((m) => m.ContainsGenericParameters).MakeGenericMethod(typeof(BoomerangProjectile)))
-            ).Br_(skip)
-            //.LogIL("5")
+            ).Br_(skip).GotoLabel(skip)
             .GotoNext(MoveType.AfterLabel,
                 x => x.MatchLdarg(1),
                 x => x.MatchLdflda(procChainMask),
                 x => x.MatchLdcI4((Int32)ProcType.BleedOnHit),
                 x => x.MatchCallOrCallvirt(hasProc),
                 x => x.MatchBrtrue(out skip)
-            ).Br_(skip)
-            //.LogIL("6")
-            .GotoLabel(skip, MoveType.AfterLabel)
+            ).Br_(skip).GotoLabel(skip)
             .EmitOnHits();
     }
 }

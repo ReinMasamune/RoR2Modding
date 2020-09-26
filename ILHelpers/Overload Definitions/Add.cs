@@ -17,4 +17,9 @@
         internal readonly Boolean unsigned;
         internal readonly Boolean overflow;
     }
+
+    public static class Add
+    {
+        public static ILAdd<int, int, int> int_signed { get => new ILAdd<int, int, int>(); }
+    }
 }

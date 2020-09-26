@@ -13,7 +13,7 @@
     internal class DefaultReload : SniperSkillBaseState, ISniperReloadState
     {
         private const Single baseDuration = 0.75f;
-
+        private const Single upBoostForce = 600f;
 
         private Single duration;
 
@@ -26,11 +26,16 @@
             base.OnEnter();
             this.duration = baseDuration / this.attackSpeedStat;
 
-            base.PlayAnimation( "Gesture, Additive", "Reload", "rateReload", this.duration );
-            SoundModule.PlayLoad( base.gameObject, this.reloadTier );
+            base.PlayAnimation("Gesture, Additive", "Reload", "rateReload", this.duration);
+            SoundModule.PlayLoad(base.gameObject, this.reloadTier);
 
-            this.gunTransform = base.FindModelChild( "RailgunBone" );
-            this.gunTransform.SetParent( base.FindModelChild( "LeftWeapon" ), true );
+            this.gunTransform = base.FindModelChild("RailgunBone");
+            this.gunTransform.SetParent(base.FindModelChild("LeftWeapon"), true);
+            if(!this.characterMotor.isGrounded)
+            {
+                this.characterMotor.ApplyForce(Vector3.up * upBoostForce);
+            }
+
         }
 
         public override void FixedUpdate()

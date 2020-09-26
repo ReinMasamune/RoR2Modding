@@ -14,8 +14,8 @@ namespace Rein.RogueWispPlugin
             this.Load += this.AW_SetupPrimaryDriver;
             this.Load += this.AW_SetupSecondaryDriver;
             this.Load += this.AW_SetupUtilityDriver;
-            this.Load += this.AW_SetupRetreatDriver;
-            this.Load += this.AW_SetupAdvanceDriver;
+            //this.Load += this.AW_SetupRetreatDriver;
+            //this.Load += this.AW_SetupAdvanceDriver;
             this.Load += this.AW_SetupStrafeDriver;
             this.Load += this.AW_SetupChaseDriver;
         }

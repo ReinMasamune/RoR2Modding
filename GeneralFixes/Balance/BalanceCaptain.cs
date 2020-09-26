@@ -61,7 +61,7 @@
 
         private void Main_Enable()
         {
-            captainBody.GetComponent<SkillLocator>().utility.skillFamily.variants[0].skillDef.baseRechargeInterval = 14f;
+            captainBody.GetComponent<SkillLocator>().utility.skillFamily.variants[0].skillDef.baseRechargeInterval = 18f;
             HooksCore.RoR2.CharacterBody.FixedUpdate.On += this.FixedUpdate_On;
             BuffsCore.getAdditionalEntries += this.BuffsCore_getAdditionalEntries;
             HooksCore.EntityStates.ShockState.OnEnter.Il += this.OnEnter_Il;
@@ -73,7 +73,7 @@
             //HooksCore.EntityStates.Captain.Weapon.CallAirstrike1.OnEnter.On += this.OnEnter_On1;
             //HooksCore.EntityStates.Captain.Weapon.CallAirstrike2.OnEnter.On += this.OnEnter_On2;
             //HooksCore.EntityStates.Captain.Weapon.CallAirstrike3.OnEnter.On += this.OnEnter_On3;
-            HooksCore.RoR2.CaptainDefenseMatrixController.Start.Il += this.Start_Il;
+            //HooksCore.RoR2.CaptainDefenseMatrixController.Start.Il += this.Start_Il;
         }
 
 

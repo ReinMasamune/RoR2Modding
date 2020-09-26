@@ -1,5 +1,5 @@
-﻿#define RazorWireBleedDurationProcCoef
-//#define RazorWireBleedDamageProcCoef
+﻿//#define RazorWireBleedDurationProcCoef
+#define RazorWireBleedDamageProcCoef
 namespace ReinGeneralFixes
 {
     using System;

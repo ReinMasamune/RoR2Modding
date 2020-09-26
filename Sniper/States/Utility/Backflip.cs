@@ -20,7 +20,8 @@
             new Keyframe( 0.05f, 0f ),
             new Keyframe( 0.15f, 1f ),
             new Keyframe( 0.3f, 0.9f ),
-            new Keyframe( 1f, 0.4f )
+            new Keyframe( 0.9f, 0.3f ),
+            new Keyframe( 1f, 0.1f)
         );
         private const Single baseDuration = 0.5f;
         private const Single speedMultiplier = 8f;
@@ -41,7 +42,7 @@
         public override void OnEnter()
         {
             base.OnEnter();
-            this.duration = baseDuration / (base.moveSpeedStat/7f);
+            this.duration = baseDuration / (base.moveSpeedStat / 7f);
             base.characterBody.isSprinting = true;
 
 

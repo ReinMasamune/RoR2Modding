@@ -13,8 +13,12 @@
         public static Boolean loaded { get; internal set; } = false;
 
 
+
+
         public static void AddLanguageToken( String key, String value, String language = "" )
         {
+
+
             RoR2.Language.onCurrentLanguageChanged += () =>
             {
                 var cur = Language.currentLanguage;

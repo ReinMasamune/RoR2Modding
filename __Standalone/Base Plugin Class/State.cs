@@ -1,5 +1,6 @@
 ﻿namespace ReinCore
 {
+
     public enum State
     {
         Failed = -1,

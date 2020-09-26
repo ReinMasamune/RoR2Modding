@@ -116,6 +116,8 @@ namespace Rein.RogueWispPlugin
                     if( this.timer >= this.maxTime ) this.transition = false;
                 }
 
+                
+
                 if( this.cannonMode )
                 {
                     Vector3 vec;
@@ -129,31 +131,45 @@ namespace Rein.RogueWispPlugin
                     {
                         vec = r.GetPoint( Incineration.baseMaxRange );
                     }
-
-                    Quaternion rotation = Quaternion.Slerp( Util.QuaternionSafeLookRotation(Vector3.Normalize(vec - this.headTransform.position), this.modelTransform.up), Util.QuaternionSafeLookRotation(Vector3.Normalize(this.input.aimDirection) , this.modelTransform.up ), 0.25f );
-                    //Quaternion headRot = Quaternion.LookRotation(input.aimDirection, modelTransform.forward);
-
-                    if( this.transition )
+                    var dirNorm = (vec - this.headTransform.position).normalized;              
+                    var aimDirNorm = this.input.aimDirection.normalized;
+                    var up = this.modelTransform.up;
+                    if(dirNorm != Vector3.zero && up != Vector3.zero && aimDirNorm != Vector3.zero)
                     {
-                        this.cannonTransform.rotation = Quaternion.RotateTowards( this.cannonTransform.rotation, rotation, 90f * ( Time.deltaTime / this.maxTime ) );
-                        //headTransform.rotation = Quaternion.RotateTowards(headTransform.rotation, headRot, 90f * (Time.deltaTime / maxTime));
+                        Quaternion rotation = Quaternion.Slerp( Util.QuaternionSafeLookRotation(dirNorm, up), Util.QuaternionSafeLookRotation(aimDirNorm , up), 0.25f );
+                        //Quaternion headRot = Quaternion.LookRotation(input.aimDirection, modelTransform.forward);
+
+                        if(this.transition)
+                        {
+                            this.cannonTransform.rotation = Quaternion.RotateTowards(this.cannonTransform.rotation, rotation, 90f * (Time.deltaTime / this.maxTime));
+                            //headTransform.rotation = Quaternion.RotateTowards(headTransform.rotation, headRot, 90f * (Time.deltaTime / maxTime));
+                        } else
+                        {
+
+                            this.cannonTransform.rotation = Quaternion.RotateTowards(this.cannonTransform.rotation, rotation, this.cannonAimSpeed * Time.deltaTime);
+                            //headTransform.rotation = headRot;
+                        }
                     } else
                     {
 
-                        this.cannonTransform.rotation = Quaternion.RotateTowards( this.cannonTransform.rotation, rotation, this.cannonAimSpeed * Time.deltaTime );
-                        //headTransform.rotation = headRot;
                     }
+
+                   
                 } else
                 {
-                    if( this.transition )
+                    var headUp = this.refHeadTransform.up;
+                    if(aimDirection != Vector3.zero && headUp != Vector3.zero)
                     {
-                        this.cannonTransform.localRotation = Quaternion.RotateTowards( this.cannonTransform.localRotation, this.baseCannonRot, 90f * ( Time.deltaTime / this.maxTime ) );
-                    } else
-                    {
-                        this.cannonTransform.localRotation = this.baseCannonRot;
+                        if(this.transition)
+                        {
+                            this.cannonTransform.localRotation = Quaternion.RotateTowards(this.cannonTransform.localRotation, this.baseCannonRot, 90f * (Time.deltaTime / this.maxTime));
+                        } else
+                        {
+                            this.cannonTransform.localRotation = this.baseCannonRot;
+                        }
+                        this.cannonTransform.localPosition = this.baseCannonPos;
+                        this.headTransform.rotation = Util.QuaternionSafeLookRotation(aimDirection, this.refHeadTransform.up);
                     }
-                    this.cannonTransform.localPosition = this.baseCannonPos;
-                    this.headTransform.rotation = Util.QuaternionSafeLookRotation( aimDirection, this.refHeadTransform.up );
                 }
             }
 

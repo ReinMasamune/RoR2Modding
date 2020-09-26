@@ -54,12 +54,35 @@
         #endregion
 
 
+        #region Sound
+        internal static Single sfxVolume { get => _sfxVolume.Value; }
+
+
+        private static ConfigEntry<Single> _sfxVolume;
+
+        private static void SetupSoundConfig(SniperMain plugin)
+        {
+            const String section = "Sounds";
+            _sfxVolume = plugin.Config.Bind<Single>(section, "Sound effects volume", 100f, "The volume of the sounds from this mod.");
+        }
+        #endregion
+
+
+        #region Unlocks
+        private static ConfigEntry<Int32> _eclipseLevel;
+
+
+
+        #endregion
+
+
         private static Boolean loaded = false;
         internal static void CreateAndLoadConfig(SniperMain plugin)
         {
             if(loaded) return;
             SetupCrosshairConfig(plugin);
             SetupScopeConfig(plugin);
+            SetupSoundConfig(plugin);
 
 
             loaded = true;

@@ -9,7 +9,7 @@
 <#@ include file="$(t4inc)\specific.ttinc" #>
 <#
 const Byte start = 0;
-const Byte end = 12;
+const Byte end = 4;
 
 WriteLine($"namespace {namespaceName}");
 WriteLine("{");

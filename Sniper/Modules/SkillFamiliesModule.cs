@@ -22,16 +22,16 @@
             return FromList( ammoSkills, "SniperAmmoSkillFamily" );
         }
 
-        internal static List<(SkillDef,String)> passiveSkills;
-        internal static SkillFamily GetPassiveSkillFamily()
-        {
-            if( passiveSkills == null )
-            {
-                SkillsModule.CreatePassiveSkills();
-            }
+        //internal static List<(SkillDef,String)> passiveSkills;
+        //internal static SkillFamily GetPassiveSkillFamily()
+        //{
+        //    if( passiveSkills == null )
+        //    {
+        //        SkillsModule.CreatePassiveSkills();
+        //    }
 
-            return FromList( passiveSkills, "SniperPassiveSkillFamily" );
-        }
+        //    return FromList( passiveSkills, "SniperPassiveSkillFamily" );
+        //}
 
         internal static List<(SkillDef,String)> primarySkills;
         internal static SkillFamily GetPrimarySkillFamily()

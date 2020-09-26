@@ -10,7 +10,7 @@
     internal class QuickScope : ScopeBaseState
     {
         private const Single baseStartDelay = 0.35f;
-        private const Single damageMultiplier = 2f;
+        private const Single damageMultiplier = 0.75f;
 
         internal override Single currentCharge { get; }
         internal override Boolean isReady { get => base.fixedAge >= this.startDelay; }

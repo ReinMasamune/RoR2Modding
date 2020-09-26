@@ -17,10 +17,10 @@
     {
         private const Single maxCharge = 1f;
         private const Single baseStartDelay = 0.5f;
-        private const Single chargePerSecond = 0.2f;
-        private const Single minModifier = 1.25f;
-        private const Single maxModifier = 6f;
-        private const Single speedScalar = 0.2f;
+        private const Single chargePerSecond = 0.4f;
+        private const Single minModifier = 0f;
+        private const Single maxModifier = 3f;
+        private const Single speedScalar = 0.25f;
 
         private static readonly AnimationCurve damageCurve = new AnimationCurve( new[]
         {
@@ -88,10 +88,10 @@
                         break;
                     case Single s when s < maxCharge:
                         var vel = base.characterMotor.velocity;
-                        vel.y = 0f;
+                        vel.y = vel.y * speedScalar;
                         vel.x *= vel.x * speedScalar;
                         vel.z *= vel.z * speedScalar;
-                        this.charge += dt * chargePerSecond * base.characterBody.attackSpeed / (1f + vel.x + vel.z);
+                        this.charge += dt * chargePerSecond * base.characterBody.attackSpeed / (1f + vel.magnitude);
                         break;
                     default:
                         this.charge = maxCharge;

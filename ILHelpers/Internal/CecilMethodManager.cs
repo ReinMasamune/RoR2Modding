@@ -48,7 +48,7 @@
             if(this.entryBranch is not null) throw new InvalidOperationException("Main cursor already created");
             var entryBranch = new Branch(this, this.method, true);
             this.entryBranch = entryBranch;
-            return Cursor.Create<Empty>(entryBranch, this);
+            return Cursor.__Create<Empty>(entryBranch, this);
         }
 
         (ICursor<TStack> cursor, IBranchRef<TStack> branchRef) IMethodManager.GetNewBranchCursor<TStack>(ICursor<TStack> from)
@@ -57,7 +57,7 @@
             var fromInstr = fromBranch.instrSeq.Last();
             var toBranch = new Branch(this, this.method);
             fromBranch.next.Add(toBranch);
-            var cursor = Cursor.Create<TStack>(toBranch, this);
+            var cursor = Cursor.__Create<TStack>(toBranch, this);
             var branchRef = new CecilBranchRef<TStack>(cursor, fromInstr);
             toBranch.from = branchRef;
             return (cursor, branchRef);

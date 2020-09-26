@@ -1498,6 +1498,26 @@ public static event Hook On
                 }
             }
 
+            public static class SceneInfo
+            {
+                public struct Awake
+                {
+                    private static readonly MethodBase method = HookHelpers.GetBase( typeof(Awake) );
+                    public delegate void Orig(global::RoR2.SceneInfo self);
+                    public delegate void Hook(Orig orig, global::RoR2.SceneInfo self);
+                    public static event ILContext.Manipulator Il
+                    {
+                        add => HookEndpointManager.Modify<Hook>( method, value );
+                        remove => HookEndpointManager.Unmodify<Hook>( method, value );
+                    }
+                    public static event Hook On
+                    {
+                        add => HookEndpointManager.Add<Hook>( method, value );
+                        remove => HookEndpointManager.Remove<Hook>( method, value );
+                    }
+                }
+            }
+
             public static class SetStateOnHurt
             {
                 public struct OnTakeDamageServer
@@ -1870,9 +1890,9 @@ public static event Hook On
                             remove => HookEndpointManager.Remove<Hook>( method, value );
                         }
                     }
-                    public struct Detonate
+                    public struct DetonateServer
                     {
-                        private static readonly MethodBase method = HookHelpers.GetBase( typeof(Detonate) );
+                        private static readonly MethodBase method = HookHelpers.GetBase( typeof(DetonateServer) );
                         public delegate void Orig(global::RoR2.Projectile.ProjectileImpactExplosion self);
                         public delegate void Hook(Orig orig, global::RoR2.Projectile.ProjectileImpactExplosion self);
                         public static event ILContext.Manipulator Il

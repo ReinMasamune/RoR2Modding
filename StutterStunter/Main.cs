@@ -89,6 +89,7 @@
         private void SceneManager_activeSceneChanged(Scene arg0, Scene arg1)
         {
             //instance.Logger.LogWarning("ActiveSceneChanged");
+            gc = true;
             GC.Collect();
             gc = isInMenuScene = IsMenuScene(arg1);
         }

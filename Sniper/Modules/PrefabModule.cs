@@ -201,9 +201,9 @@
             HooksModule.AddReturnoverride( ammoSkill );
 
 
-            GenericSkill passiveSkill = obj.AddComponent<GenericSkill>();
-            passiveSkill._skillFamily = SkillFamiliesModule.GetPassiveSkillFamily();
-            HooksModule.AddReturnoverride( passiveSkill );
+            //GenericSkill passiveSkill = obj.AddComponent<GenericSkill>();
+            //passiveSkill._skillFamily = SkillFamiliesModule.GetPassiveSkillFamily();
+            //HooksModule.AddReturnoverride( passiveSkill );
 
 
             GenericSkill primarySkill = obj.AddComponent<GenericSkill>();
@@ -394,8 +394,8 @@
             aimAnimator.directionComponent = direction;
             aimAnimator.pitchRangeMax = 55f;
             aimAnimator.pitchRangeMin = -50f;
-            aimAnimator.yawRangeMin = -44f;
-            aimAnimator.yawRangeMax = 44f;
+            aimAnimator.yawRangeMin = -40f;
+            aimAnimator.yawRangeMax = 45f;
 
             aimAnimator.pitchGiveupRange = 30f;
             aimAnimator.yawGiveupRange = 10f;

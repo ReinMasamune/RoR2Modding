@@ -24,15 +24,15 @@
     {
         internal static void Remove()
         {
-            HooksCore.RoR2.UI.LoadoutPanelController.Row.FromSkillSlot.Il -= FromSkillSlot_Il;
-            HooksCore.RoR2.SkillLocator.FindSkillSlot.Il -= FindSkillSlot_Il;
+            //HooksCore.RoR2.UI.LoadoutPanelController.Row.FromSkillSlot.Il -= FromSkillSlot_Il;
+            //HooksCore.RoR2.SkillLocator.FindSkillSlot.Il -= FindSkillSlot_Il;
             HooksCore.RoR2.CameraRigController.Start.On -= Start_On;
             HooksCore.RoR2.CameraTargetParams.Update.Il -= Update_Il;
         }
         internal static void Add()
         {
-            HooksCore.RoR2.UI.LoadoutPanelController.Row.FromSkillSlot.Il += FromSkillSlot_Il;
-            HooksCore.RoR2.SkillLocator.FindSkillSlot.Il += FindSkillSlot_Il;
+            //HooksCore.RoR2.UI.LoadoutPanelController.Row.FromSkillSlot.Il += FromSkillSlot_Il;
+            //HooksCore.RoR2.SkillLocator.FindSkillSlot.Il += FindSkillSlot_Il;
             HooksCore.RoR2.CameraRigController.Start.On += Start_On;
             HooksCore.RoR2.CameraTargetParams.Update.Il += Update_Il;
         }
@@ -158,36 +158,36 @@
             .CallDel_<Func<GenericSkill, SkillSlot>>((skill) => slotReturnOverrides[skill])
             .Ret_();
 
-        private static void FromSkillSlot_Il(ILContext il)
-        {
-            ILLabel endSwitchLabel = null, newLabel1 = null, newLabel2 = null;
-            ILLabel[] switchLabels = null;
-            ILCursor c,c2;
-            _ = (c = (c2 = new ILCursor(il)).Clone())
-                .GotoNext(x => x.MatchStloc(3), x => x.MatchBr(out endSwitchLabel))
-                .GotoPrev(MoveType.Before, x => x.MatchSwitch(out switchLabels));
+        //private static void FromSkillSlot_Il(ILContext il)
+        //{
+        //    ILLabel endSwitchLabel = null, newLabel1 = null, newLabel2 = null;
+        //    ILLabel[] switchLabels = null;
+        //    ILCursor c,c2;
+        //    _ = (c = (c2 = new ILCursor(il)).Clone())
+        //        .GotoNext(x => x.MatchStloc(3), x => x.MatchBr(out endSwitchLabel))
+        //        .GotoPrev(MoveType.Before, x => x.MatchSwitch(out switchLabels));
 
 
-            _ = c2.GotoNext(MoveType.Before, x => x.MatchLdstr("LOADOUT_SKILL_MISC"))
-                .Mark(out newLabel1)
-                .LdC_(Properties.Tokens.LOADOUT_SNIPER_AMMO)
-                .StLoc_(2)
-                .LdC_(0)
-                .StLoc_(3)
-                .Emit(OpCodes.Br_S, endSwitchLabel)
-                .Mark(out newLabel2)
-                .LdC_(Properties.Tokens.LOADOUT_SNIPER_PASSIVE)
-                .StLoc_(2)
-                .LdC_(0)
-                .StLoc_(3)
-                .Emit(OpCodes.Br_S, endSwitchLabel);
+        //    _ = c2.GotoNext(MoveType.Before, x => x.MatchLdstr("LOADOUT_SKILL_MISC"))
+        //        .Mark(out newLabel1)
+        //        .LdC_(Properties.Tokens.LOADOUT_SNIPER_AMMO)
+        //        .StLoc_(2)
+        //        .LdC_(0)
+        //        .StLoc_(3)
+        //        .Emit(OpCodes.Br_S, endSwitchLabel)
+        //        .Mark(out newLabel2)
+        //        .LdC_(Properties.Tokens.LOADOUT_SNIPER_PASSIVE)
+        //        .StLoc_(2)
+        //        .LdC_(0)
+        //        .StLoc_(3)
+        //        .Emit(OpCodes.Br_S, endSwitchLabel);
 
-            Array.Resize(ref switchLabels, switchLabels.Length + 2);
-            switchLabels[switchLabels.Length - 2] = newLabel1;
-            switchLabels[switchLabels.Length - 1] = newLabel2;
+        //    Array.Resize(ref switchLabels, switchLabels.Length + 2);
+        //    switchLabels[switchLabels.Length - 2] = newLabel1;
+        //    switchLabels[switchLabels.Length - 1] = newLabel2;
 
-            _ = c.Remove()
-                .Emit(OpCodes.Switch, switchLabels);
-        }
+        //    _ = c.Remove()
+        //        .Emit(OpCodes.Switch, switchLabels);
+        //}
     }
 }
