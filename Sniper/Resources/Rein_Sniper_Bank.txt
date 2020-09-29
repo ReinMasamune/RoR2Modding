@@ -1,12 +1,12 @@
 Event	ID	Name			Wwise Object Path	Notes
 	339887885	Bolt_New_Bullet_Trash			\Default Work Unit\Big Bolt Events\Bolt_New_Bullet_Trash	
 	763788813	Bolt_Normal_Shot			\Default Work Unit\Big Bolt Events\Bolt_Normal_Shot	
-	800730984	Bolt_Quickscope			\Default Work Unit\Big Bolt Events\Bolt_Quickscope	
 	921163432	Scoping_in			\Default Work Unit\Scope\Scoping_in	
 	1183426810	Knife_Projectile_Organic_hit			\Default Work Unit\Knife\Knife_Projectile_Organic_hit	
 	1210118448	Scope_active			\Default Work Unit\Scope\Scope_active	
 	1314071446	Bolt_Scatter_shot			\Default Work Unit\Big Bolt Events\Bolt_Scatter_shot	
 	1389001356	Bolt_Open_Chamber			\Default Work Unit\Big Bolt Events\Bolt_Open_Chamber	
+	1845798651	Bolt_Burst			\Default Work Unit\Big Bolt Events\Bolt_Burst	
 	1939097407	Bolt_New_Bullet_Best			\Default Work Unit\Big Bolt Events\Bolt_New_Bullet_Best	
 	2491373792	Bolt_Plasma_Shot			\Default Work Unit\Big Bolt Events\Bolt_Plasma_Shot	
 	2811185582	Bolt_New_Bullet_Good			\Default Work Unit\Big Bolt Events\Bolt_New_Bullet_Good	
@@ -16,9 +16,12 @@ Event	ID	Name			Wwise Object Path	Notes
 
 Game Parameter	ID	Name			Wwise Object Path	Notes
 	135031646	Sniper_Charge_Amount			\Default Work Unit\Sniper_Charge_Amount	
+	1515868461	Sniper_Volume_ALL			\Default Work Unit\Sniper_Volume_ALL	
+	1697395839	Sniper_Volume_SHOTS			\Default Work Unit\Sniper_Volume_SHOTS	
 	3673881719	Volume_SFX			\Default Work Unit\Volume_SFX	
 
 Modulator Envelope	ID	Name			Wwise Object Path	Notes
+	229913131	Modulator Envelope (Custom)				
 	724445230	Modulator Envelope (Custom)				
 
 Effect plug-ins	ID	Name	Type				Notes

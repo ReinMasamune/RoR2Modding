@@ -7,8 +7,6 @@
 <#@ import namespace="System.Text.RegularExpressions" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@ output extension=".cs" #>
-
-
 <#
 	var matchRegex = new Regex( @"\t(\d+)\t(\S+)\s*\\", RegexOptions.Compiled );
 	String filePath = this.Host.ResolvePath( "Resources\\Rein_Sniper_Bank.txt" );
@@ -25,7 +23,6 @@
 		}
 	}
 #>
-
 namespace Sniper.Properties
 {
 	using System;

@@ -5,6 +5,7 @@
     using RoR2;
 
     using Sniper.Components;
+    using Sniper.Properties;
 
     using Unity.Jobs;
 
@@ -21,28 +22,28 @@
         }
 
 
-        internal static Sprite GetStandardAmmoIcon() => AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>(Properties.Resources.icon__StandardAmmoIcon);
-        internal static Sprite GetBurstAmmoIcon() => GetUnfinishedIcon();//AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>(Properties.Resources.icon__StandardAmmoIcon);
-        internal static Sprite GetExplosiveAmmoIcon() => AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>(Properties.Resources.icon__ExplosiveAmmoIcon);
-        internal static Sprite GetSnipeIcon() => AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>(Properties.Resources.icon__SnipeIcon);
-        internal static Sprite GetSnipeReloadIcon() => AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>(Properties.Resources.icon__ReloadIcon);
-        internal static Sprite GetSnipeMagIcon() => GetUnfinishedIcon();
-        internal static Sprite GetSnipeMagReloadIcon() => AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>(Properties.Resources.icon__SnipeMagReload);
-        internal static Sprite GetSteadyAimIcon() => AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>(Properties.Resources.icon__SteadyAimIcon);
-        internal static Sprite GetCritPassiveIcon() => AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>(Properties.Resources.icon__CritPassiveIcon);
-        internal static Sprite GetHeadshotPassiveIcon() => AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>(Properties.Resources.icon__HeadshotIcon);
-        internal static Sprite GetBackflipIcon() => AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>(Properties.Resources.icon__BackflipIcon);
-        internal static Sprite GetQuickScopeIcon() => AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>(Properties.Resources.icon__QuickscopeIcon);
-        internal static Sprite GetKnifeIcon() => GetUnfinishedIcon();//AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>( Properties.Resources.KnifeIcon );
-        internal static Sprite GetKnifeReactivationIcon() => GetUnfinishedIcon();//AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>( Properties.Resources.KnifeReactivationIcon );
-        internal static Sprite GetDecoyIcon() => AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>(Properties.Resources.icon__DecoyIcon);
-        internal static Sprite GetDecoyReactivationIcon() => AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>(Properties.Resources.icon__DecoyReactivateIcon);
-        internal static Sprite GetPlasmaAmmoIcon() => GetUnfinishedIcon();//AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>( Properties.Resources.PlasmaAmmoIcon );
-        internal static Sprite GetScatterAmmoIcon() => GetUnfinishedIcon();// AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>( Properties.Resources.ScatterAmmoIcon );
-        internal static Sprite GetShockAmmoIcon() => GetUnfinishedIcon(); //AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>(Properties.Resources.ShockAmmoIcon );
+        //internal static Sprite GetStandardAmmoIcon() => AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>(Properties.Resources.icon__StandardAmmoIcon);
+        //internal static Sprite GetBurstAmmoIcon() => GetUnfinishedIcon();//AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>(Properties.Resources.icon__StandardAmmoIcon);
+        //internal static Sprite GetExplosiveAmmoIcon() => AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>(Properties.Resources.icon__ExplosiveAmmoIcon);
+        //internal static Sprite GetSnipeIcon() => AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>(Properties.Resources.icon__SnipeIcon);
+        //internal static Sprite GetSnipeReloadIcon() => AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>(Properties.Resources.icon__ReloadIcon);
+        //internal static Sprite GetSnipeMagIcon() => GetUnfinishedIcon();
+        //internal static Sprite GetSnipeMagReloadIcon() => AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>(Properties.Resources.icon__SnipeMagReload);
+        //internal static Sprite GetSteadyAimIcon() => AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>(Properties.Resources.icon__SteadyAimIcon);
+        //internal static Sprite GetCritPassiveIcon() => AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>(Properties.Resources.icon__CritPassiveIcon);
+        //internal static Sprite GetHeadshotPassiveIcon() => AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>(Properties.Resources.icon__HeadshotIcon);
+        //internal static Sprite GetBackflipIcon() => AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>(Properties.Resources.icon__BackflipIcon);
+        //internal static Sprite GetQuickScopeIcon() => AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>(Properties.Resources.icon__QuickscopeIcon);
+        //internal static Sprite GetKnifeIcon() => GetUnfinishedIcon();//AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>( Properties.Resources.KnifeIcon );
+        //internal static Sprite GetKnifeReactivationIcon() => GetUnfinishedIcon();//AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>( Properties.Resources.KnifeReactivationIcon );
+        //internal static Sprite GetDecoyIcon() => AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>(Properties.Resources.icon__DecoyIcon);
+        //internal static Sprite GetDecoyReactivationIcon() => AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>(Properties.Resources.icon__DecoyReactivateIcon);
+        //internal static Sprite GetPlasmaAmmoIcon() => GetUnfinishedIcon();//AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>( Properties.Resources.PlasmaAmmoIcon );
+        //internal static Sprite GetScatterAmmoIcon() => GetUnfinishedIcon();// AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>( Properties.Resources.ScatterAmmoIcon );
+        //internal static Sprite GetShockAmmoIcon() => GetUnfinishedIcon(); //AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>(Properties.Resources.ShockAmmoIcon );
 
 
-
+        static Sprite mySprite = Icons.SomeRandomIcon;
 
 
 

@@ -1,0 +1,209 @@
+﻿<#@ template debug="false" hostspecific="true" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="System.Xml" #>
+<#@ import namespace="System.Xml" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Text.RegularExpressions" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Linq" #>
+<#@ output extension=".cs" #>
+<#
+void IncIndent()
+{
+	PushIndent("    ");
+}
+
+
+var namespaceRegex = new Regex( @"namespace ([a-zA-Z_\.0-9]*)", RegexOptions.Compiled );
+var tokenRegex = new Regex( @"static string lang__([a-zA-Z_0-9]*)", RegexOptions.Compiled );
+var achievementRegex = new Regex( @"static string ach__([a-zA-Z_0-9]*)", RegexOptions.Compiled );
+var computeShaderRegex = new Regex( @"static string cshader__([a-zA-Z_0-9]*)", RegexOptions.Compiled );
+var prefabRegex = new Regex( @"static string prefab__([a-zA-Z_0-9]*)", RegexOptions.Compiled );
+var iconRegex = new Regex( @"static string icon__([a-zA-Z_0-9]*)", RegexOptions.Compiled );
+var textureRegex = new Regex( @"static string texture__([a-zA-Z_0-9]*)", RegexOptions.Compiled );
+
+var tokenList = new List<(String,String)>();
+var achievementList = new List<(String,String)>();
+var computeShaderList = new List<(String,String)>();
+var prefabList = new List<(String,String)>();
+var iconList = new List<(String,String)>();
+var textureList = new List<(String,String)>();
+
+var text = this.Host.ResolvePath("Properties\\Resources.Designer.cs");
+var lines = File.ReadAllLines( text );
+foreach( var line in lines )
+{
+	var match = namespaceRegex.Match(line);
+	if( match.Success )
+	{
+		WriteLine( String.Format( "namespace {0}", match.Groups[1].Value ) );
+		continue;
+	}
+	match = tokenRegex.Match(line);
+	if(match.Success)
+	{
+		tokenList.Add((line, match.Groups[1].Value));
+		continue;
+	}
+	match = achievementRegex.Match(line);
+	if(match.Success)
+	{
+		achievementList.Add((line, match.Groups[1].Value));
+		continue;
+	}
+	match = computeShaderRegex.Match(line);
+	if(match.Success)
+	{
+		computeShaderList.Add((line, match.Groups[1].Value));
+		continue;
+	}
+	match = prefabRegex.Match(line);
+	if(match.Success)
+	{
+		prefabList.Add((line, match.Groups[1].Value));
+		continue;
+	}
+	match = iconRegex.Match(line);
+	if(match.Success)
+	{
+		iconList.Add((line, match.Groups[1].Value));
+		continue;
+	}
+	match = textureRegex.Match(line);
+	if(match.Success)
+	{
+		textureList.Add((line, match.Groups[1].Value));
+		continue;
+	}
+}
+#>
+{
+	using System;
+
+	using ReinCore;
+
+	using Sniper.Modules;
+
+	using UnityEngine;
+
+	using Object = System.Object;
+	//using Resources = Sniper.Properties.Resources;
+	using Random = System.Random;
+
+	using UnityResources = UnityEngine.Resources;
+	using UnityObject = UnityEngine.Object;
+	using UnityRandom = UnityEngine.Random;
+
+	internal static class Tokens
+	{
+		#pragma warning disable IDE1006 // Naming Styles
+		#pragma warning disable CA1707 // Identifiers should not contain underscores
+<#
+IncIndent();
+IncIndent();
+foreach(var (_,cap) in tokenList)
+{
+	WriteLine($"internal const String {cap} = \"{cap}\";");
+}
+PopIndent();
+PopIndent();
+#>
+		#pragma warning restore IDE1006 // Naming Styles
+		#pragma warning restore CA1707 // Identifiers should not contain underscores
+	}
+
+	internal static class ComputeShaders
+	{
+<#
+IncIndent();
+IncIndent();
+foreach(var (_,cap) in computeShaderList)
+{
+	WriteLine($"private static ComputeShader _{cap};");
+	WriteLine($"internal static ComputeShader {cap} => _{cap} ??= AssetModule.LoadAsset<ComputeShader>(Resources.cshader__{cap});");
+}
+PopIndent();
+PopIndent();
+#>
+	}
+
+	internal static class Prefabs
+	{
+<#
+IncIndent();
+IncIndent();
+foreach(var (_,cap) in prefabList)
+{
+	WriteLine($"private static GameObject _{cap};");
+	WriteLine($"internal static GameObject {cap} => _{cap} ??= AssetModule.LoadAsset<GameObject>(Resources.prefab__{cap});");
+}
+PopIndent();
+PopIndent();
+#>
+	}
+
+	internal static class Icons
+	{
+<#
+IncIndent();
+IncIndent();
+foreach(var (_,cap) in iconList)
+{
+	WriteLine($"private static Sprite _{cap};");
+	WriteLine($"internal static Sprite {cap} => _{cap} ??= AssetModule.LoadAsset<Sprite>(Resources.icon__{cap});");
+}
+PopIndent();
+PopIndent();
+#>
+	}
+
+	internal static class Textures
+	{
+<#
+IncIndent();
+IncIndent();
+foreach(var (_,cap) in textureList)
+{
+	WriteLine($"private static GameObject _{cap};");
+	WriteLine($"internal static GameObject {cap} => _{cap} ??= AssetModule.LoadAsset<GameObject>(Resources.texture__{cap});");
+}
+PopIndent();
+PopIndent();
+#>
+	}
+
+	namespace Achievements
+	{
+<#
+IncIndent();
+IncIndent();
+(String, String) Selector( (String, String) input)
+{
+	var str = input.Item2;
+	var ind = str.IndexOf("__");
+	if(ind == -1) return ("Error", $"//{input.Item2}");
+	var s1 = str.Substring(0, ind);
+	var s2 = str.Substring(ind+2);
+	return (s1, s2);
+}
+
+foreach(var ach in achievementList.Select(Selector).GroupBy( a => a.Item1 ))
+{
+	WriteLine($"internal partial class {ach.Key}Achievement : ModdedUnlockable<VanillaSpriteProvider>");
+	WriteLine("{");
+	IncIndent();
+
+	foreach(var v in ach)
+	{
+		WriteLine($"public override String {v.Item2} {{ get; }} = Resources.ach__{ach.Key}__{v.Item2};");
+	}
+
+	PopIndent();
+	WriteLine("}");
+}
+PopIndent();
+PopIndent();
+#>
+	}
+}

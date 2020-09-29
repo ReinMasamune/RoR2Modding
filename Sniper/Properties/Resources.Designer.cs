@@ -61,60 +61,6 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SNIPER_UNLOCKABLES_WIP_DESC.
-        /// </summary>
-        internal static string ach__WIP__desctoken {
-            get {
-                return ResourceManager.GetString("ach__WIP__desctoken", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string ach__WIP__iconpath {
-            get {
-                return ResourceManager.GetString("ach__WIP__iconpath", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to WIP.
-        /// </summary>
-        internal static string ach__WIP__identifier {
-            get {
-                return ResourceManager.GetString("ach__WIP__identifier", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to SNIPER_UNLOCKABLES_WIP_NAME.
-        /// </summary>
-        internal static string ach__WIP__nametoken {
-            get {
-                return ResourceManager.GetString("ach__WIP__nametoken", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string ach__WIP__prereq {
-            get {
-                return ResourceManager.GetString("ach__WIP__prereq", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to REIN_SNIPER_WIP.
-        /// </summary>
-        internal static string ach__WIP__unlockidentifier {
-            get {
-                return ResourceManager.GetString("ach__WIP__unlockidentifier", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Assets/__EXPORT/Shaders/ComputeRefractBlur.compute.
         /// </summary>
         internal static string cshader__ScopeOverlay {
@@ -129,6 +75,15 @@ namespace Sniper.Properties {
         internal static string icon__BackflipIcon {
             get {
                 return ResourceManager.GetString("icon__BackflipIcon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Assets/__EXPORT/Icons/Passive 1/Burst Ammo.png.
+        /// </summary>
+        internal static string icon__BurstAmmoIcon {
+            get {
+                return ResourceManager.GetString("icon__BurstAmmoIcon", resourceCulture);
             }
         }
         
@@ -187,7 +142,7 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Assets/__EXPORT/Icons/Special 2/Knife.png.
         /// </summary>
         internal static string icon__KnifeIcon {
             get {
@@ -205,7 +160,7 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Assets/__EXPORT/Icons/Passive 1/Primary Plasma.png.
         /// </summary>
         internal static string icon__PlasmaAmmoIcon {
             get {
@@ -241,16 +196,7 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string icon__ScatterAmmoIcon {
-            get {
-                return ResourceManager.GetString("icon__ScatterAmmoIcon", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Assets/__EXPORT/Icons/Passive 1/Shock Ammo.png.
         /// </summary>
         internal static string icon__ShockAmmoIcon {
             get {
@@ -286,7 +232,7 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Assets/__EXPORT/Icons/M1/Mag Snipe.png.
         /// </summary>
         internal static string icon__SnipeMag {
             get {
@@ -318,6 +264,24 @@ namespace Sniper.Properties {
         internal static string icon__SteadyAimIcon {
             get {
                 return ResourceManager.GetString("icon__SteadyAimIcon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes indeed.
+        /// </summary>
+        internal static string lang__SNIPER_AMMO_BURST_DESC {
+            get {
+                return ResourceManager.GetString("lang__SNIPER_AMMO_BURST_DESC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Burst Ammo.
+        /// </summary>
+        internal static string lang__SNIPER_AMMO_BURST_NAME {
+            get {
+                return ResourceManager.GetString("lang__SNIPER_AMMO_BURST_NAME", resourceCulture);
             }
         }
         

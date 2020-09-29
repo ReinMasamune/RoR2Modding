@@ -117,15 +117,6 @@
             );
             BinaryExpression finalAssignment = Expression.Assign( origArray, mainBlock );
             AddNewDotDef = Expression.Lambda<AddNewDotDefDelegate>(finalAssignment, inputParameter).Compile();
-
-
-            //HooksCore.RoR2.DotController.AddDot.Il += AddDot_Il;
-            //HooksCore.RoR2.DotController.FixedUpdate.Il += FixedUpdate_Il;
-            //HooksCore.RoR2.DotController.EvaluateDotStacksForType.Il += EvaluateDotStacksForType_Il;
-            //HooksCore.RoR2.DotController.Awake.Il += Awake_Il;
-
-
-            //Log.Warning( "DotsCore loaded" );
             loaded = true;
         }
 

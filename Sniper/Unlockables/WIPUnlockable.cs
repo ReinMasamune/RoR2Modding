@@ -16,9 +16,9 @@
 
     internal class WIPUnlockable : ModdedUnlockable<VanillaSpriteProvider>
     {
-        internal static String achievement_Identifier => Resources.ach__WIP__identifier;
-        internal static String unlockable_Identifier => Resources.ach__WIP__unlockidentifier;
-        internal static String prereq_Identifier => Resources.ach__WIP__prereq;
+        internal static String achievement_Identifier => "Sniper.Wip";
+        internal static String unlockable_Identifier => "Sniper.Wip";
+        internal static String prereq_Identifier => "";
         internal static String achievement_Name_Token => "TOOLTIP_WIP_CONTENT_NAME";
         internal static String achievement_Desc_Token => "TOOLTIP_WIP_CONTENT_DESCRIPTION";
         internal static String unlockable_Name_Token => "TOOLTIP_WIP_CONTENT_NAME";

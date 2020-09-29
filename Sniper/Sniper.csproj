@@ -8,8 +8,8 @@
   <PropertyGroup>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
-    <AssemblyVersion>1.0.13.3</AssemblyVersion>
-    <FileVersion>1.0.13.3</FileVersion>
+    <AssemblyVersion>1.1.0.793</AssemblyVersion>
+    <FileVersion>1.1.0.793</FileVersion>
     <RootNamespace>Sniper</RootNamespace>
     <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
   </PropertyGroup>
@@ -407,10 +407,6 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>AssemblyLoader.cs</LastGenOutput>
     </None>
-    <None Update="AutomaticTokens.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>AutomaticTokens.cs</LastGenOutput>
-    </None>
     <None Update="ResourceTools.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>ResourceTools.cs</LastGenOutput>
@@ -418,6 +414,10 @@
     <None Update="SoundIDs.tt">
       <LastGenOutput>SoundIDs.cs</LastGenOutput>
       <Generator>TextTemplatingFileGenerator</Generator>
+    </None>
+    <None Update="ResourceParser.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ResourceParser.cs</LastGenOutput>
     </None>
     <None Update="Versioning.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -435,15 +435,15 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>AssemblyLoader.tt</DependentUpon>
     </Compile>
-    <Compile Update="AutomaticTokens.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>AutomaticTokens.tt</DependentUpon>
-    </Compile>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="ResourceParser.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ResourceParser.tt</DependentUpon>
     </Compile>
     <Compile Update="ResourceTools.cs">
       <DesignTime>True</DesignTime>
@@ -454,6 +454,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>SoundIDs.tt</DependentUpon>
+    </Compile>
+    <Compile Update="TextTemplate1.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>TextTemplate1.tt</DependentUpon>
     </Compile>
     <Compile Update="Versioning.cs">
       <DesignTime>True</DesignTime>
@@ -471,6 +476,14 @@
 
   <ItemGroup>
     <Folder Include="Extensions\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="ResourceParser.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ResourceParser.tt</DependentUpon>
+    </None>
   </ItemGroup>
 
   <ItemGroup>

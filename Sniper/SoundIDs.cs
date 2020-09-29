@@ -1,7 +1,4 @@
-﻿
-
-
-namespace Sniper.Properties
+﻿namespace Sniper.Properties
 {
 	using System;
 	using System.Runtime.CompilerServices;
@@ -11,12 +8,12 @@ namespace Sniper.Properties
 		#pragma warning disable IDE1006 // Naming Styles
 		internal const UInt32 Bolt_New_Bullet_Trash = 339887885u;
 		internal const UInt32 Bolt_Normal_Shot = 763788813u;
-		internal const UInt32 Bolt_Quickscope = 800730984u;
 		internal const UInt32 Scoping_in = 921163432u;
 		internal const UInt32 Knife_Projectile_Organic_hit = 1183426810u;
 		internal const UInt32 Scope_active = 1210118448u;
 		internal const UInt32 Bolt_Scatter_shot = 1314071446u;
 		internal const UInt32 Bolt_Open_Chamber = 1389001356u;
+		internal const UInt32 Bolt_Burst = 1845798651u;
 		internal const UInt32 Bolt_New_Bullet_Best = 1939097407u;
 		internal const UInt32 Bolt_Plasma_Shot = 2491373792u;
 		internal const UInt32 Bolt_New_Bullet_Good = 2811185582u;
@@ -24,6 +21,8 @@ namespace Sniper.Properties
 		internal const UInt32 Bolt_Ricochet = 3672228492u;
 		internal const UInt32 Bolt_Explosive_Ammo_Explosion = 4264853177u;
 		internal const UInt32 Sniper_Charge_Amount = 135031646u;
+		internal const UInt32 Sniper_Volume_ALL = 1515868461u;
+		internal const UInt32 Sniper_Volume_SHOTS = 1697395839u;
 		internal const UInt32 Volume_SFX = 3673881719u;
 		#pragma warning restore IDE1006 // Naming Styles
 	}
@@ -32,12 +31,12 @@ namespace Sniper.Properties
 	{
 		Bolt_New_Bullet_Trash = 339887885u,
 		Bolt_Normal_Shot = 763788813u,
-		Bolt_Quickscope = 800730984u,
 		Scoping_in = 921163432u,
 		Knife_Projectile_Organic_hit = 1183426810u,
 		Scope_active = 1210118448u,
 		Bolt_Scatter_shot = 1314071446u,
 		Bolt_Open_Chamber = 1389001356u,
+		Bolt_Burst = 1845798651u,
 		Bolt_New_Bullet_Best = 1939097407u,
 		Bolt_Plasma_Shot = 2491373792u,
 		Bolt_New_Bullet_Good = 2811185582u,
@@ -45,6 +44,8 @@ namespace Sniper.Properties
 		Bolt_Ricochet = 3672228492u,
 		Bolt_Explosive_Ammo_Explosion = 4264853177u,
 		Sniper_Charge_Amount = 135031646u,
+		Sniper_Volume_ALL = 1515868461u,
+		Sniper_Volume_SHOTS = 1697395839u,
 		Volume_SFX = 3673881719u,
 	}
 

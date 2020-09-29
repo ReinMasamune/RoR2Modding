@@ -117,29 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ach__WIP__desctoken" xml:space="preserve">
-    <value>SNIPER_UNLOCKABLES_WIP_DESC</value>
-  </data>
-  <data name="ach__WIP__iconpath" xml:space="preserve">
-    <value />
-  </data>
-  <data name="ach__WIP__identifier" xml:space="preserve">
-    <value>WIP</value>
-  </data>
-  <data name="ach__WIP__nametoken" xml:space="preserve">
-    <value>SNIPER_UNLOCKABLES_WIP_NAME</value>
-  </data>
-  <data name="ach__WIP__prereq" xml:space="preserve">
-    <value />
-  </data>
-  <data name="ach__WIP__unlockidentifier" xml:space="preserve">
-    <value>REIN_SNIPER_WIP</value>
-  </data>
   <data name="cshader__ScopeOverlay" xml:space="preserve">
     <value>Assets/__EXPORT/Shaders/ComputeRefractBlur.compute</value>
   </data>
   <data name="icon__BackflipIcon" xml:space="preserve">
     <value>Assets/__EXPORT/Icons/Utility/Backflip.png</value>
+  </data>
+  <data name="icon__BurstAmmoIcon" xml:space="preserve">
+    <value>Assets/__EXPORT/Icons/Passive 1/Burst Ammo.png</value>
   </data>
   <data name="icon__CritPassiveIcon" xml:space="preserve">
     <value>Assets/__EXPORT/Icons/passive 2/Precise Aim.png</value>
@@ -160,13 +145,13 @@
     <value>Assets/__EXPORT/Icons/passive 2/Headshot.png</value>
   </data>
   <data name="icon__KnifeIcon" xml:space="preserve">
-    <value />
+    <value>Assets/__EXPORT/Icons/Special 2/Knife.png</value>
   </data>
   <data name="icon__KnifeReactivateIcon" xml:space="preserve">
     <value />
   </data>
   <data name="icon__PlasmaAmmoIcon" xml:space="preserve">
-    <value />
+    <value>Assets/__EXPORT/Icons/Passive 1/Primary Plasma.png</value>
   </data>
   <data name="icon__PortraitIcon" xml:space="preserve">
     <value>Assets/__EXPORT/Icons/Other/portraitIcon.png</value>
@@ -177,11 +162,8 @@
   <data name="icon__ReloadIcon" xml:space="preserve">
     <value>Assets/__EXPORT/Icons/M1/Reload.png</value>
   </data>
-  <data name="icon__ScatterAmmoIcon" xml:space="preserve">
-    <value />
-  </data>
   <data name="icon__ShockAmmoIcon" xml:space="preserve">
-    <value />
+    <value>Assets/__EXPORT/Icons/Passive 1/Shock Ammo.png</value>
   </data>
   <data name="icon__SlideIcon" xml:space="preserve">
     <value />
@@ -193,7 +175,7 @@
     <value>Assets/__EXPORT/Icons/M1/Snipe.png</value>
   </data>
   <data name="icon__SnipeMag" xml:space="preserve">
-    <value />
+    <value>Assets/__EXPORT/Icons/M1/Mag Snipe.png</value>
   </data>
   <data name="icon__SnipeMagReload" xml:space="preserve">
     <value>Assets/__EXPORT/Icons/M1/Reload.png</value>
@@ -203,6 +185,12 @@
   </data>
   <data name="icon__SteadyAimIcon" xml:space="preserve">
     <value>Assets/__EXPORT/Icons/M2/Steady Aim.png</value>
+  </data>
+  <data name="lang__SNIPER_AMMO_BURST_DESC" xml:space="preserve">
+    <value>Yes indeed</value>
+  </data>
+  <data name="lang__SNIPER_AMMO_BURST_NAME" xml:space="preserve">
+    <value>Burst Ammo</value>
   </data>
   <data name="lang__SNIPER_AMMO_EXPLOSIVE_DESC" xml:space="preserve">
     <value>&lt;style=cIsDamage&gt;Explosive.&lt;/style&gt; Deals &lt;style=cIsDamage&gt;0.4x primary damage.&lt;/style&gt;\n&lt;&gt; &lt;style=cIsDamage&gt;Damage &lt;indent=40%&gt;+0.32x&lt;/style&gt; per &lt;style=cIsUtility&gt;Boost&lt;/style&gt;&lt;/indent&gt;\n&lt;&gt; &lt;style=cIsDamage&gt;Explosion radius &lt;indent=40%&gt;+7.5m&lt;/style&gt; per &lt;style=cIsUtility&gt;Boost&lt;/style&gt;&lt;/indent&gt;</value>

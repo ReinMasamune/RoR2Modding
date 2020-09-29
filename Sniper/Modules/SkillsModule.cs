@@ -278,7 +278,7 @@
                 _tracer = VFXModule.GetScatterAmmoTracer();
             }
             public override GameObject tracerEffectPrefab => _tracer;
-            protected override Single durationMultiplier => base.durationMultiplier * 3f;
+            protected override Single durationMultiplier => base.durationMultiplier * 2f;
             protected override Single baseDamageMultiplier => 0.35f;
             protected override Single procCoefficient => 1f;
             protected override Single bulletRadius => 0.5f;
@@ -290,11 +290,11 @@
 
             private Int32 shotsToFire;
             private Single fireInterval;
-            private Single _recoilMultiplier = 0.75f;
+            private Single _recoilMultiplier = 0.5f;
             private Single _animPlayRate;
             private Single timer = 0f;
 
-            const Single firingFrac = 0.65f;
+            const Single firingFrac = 0.75f;
             
 
             public override void OnEnter<T>(SnipeState<T> state)
@@ -312,7 +312,7 @@
             {
                 while(this.bulletsFired < this.shotsToFire && (state.fixedAge / this.fireInterval) >= this.bulletsFired)
                 {
-                    this._recoilMultiplier *= 0.4f;
+                    this._recoilMultiplier *= this._recoilMultiplier * this._recoilMultiplier;
                     this.FireBullet(state);
                 }
 
@@ -330,9 +330,9 @@
         {
             var skills = new List<(SkillDef,String)>();
 
-            #region Standard Ammo
+
             var standardAmmo = SniperAmmoSkillDef.Create<FMJContext>();
-            standardAmmo.icon = UIModule.GetStandardAmmoIcon();
+            standardAmmo.icon = Properties.Icons.StandardAmmoIcon;
             standardAmmo.skillName = "Standard Ammo";
             standardAmmo.skillNameToken = Tokens.SNIPER_AMMO_STANDARD_NAME;
             standardAmmo.skillDescriptionToken = Tokens.SNIPER_AMMO_STANDARD_DESC;
@@ -345,12 +345,12 @@
                 Tokens.SNIPER_KEYWORD_BOOST,
             };
             skills.Add((standardAmmo, ""));
-            #endregion
 
-            #region Explosive Ammo
+
+
             var explosive = SniperAmmoSkillDef.Create<ExplosiveContext>();
             
-            explosive.icon = UIModule.GetExplosiveAmmoIcon();
+            explosive.icon = Properties.Icons.ExplosiveAmmoIcon;
             explosive.skillName = "Explosive Ammo";
             explosive.skillNameToken = Tokens.SNIPER_AMMO_EXPLOSIVE_NAME;
             explosive.skillDescriptionToken = Tokens.SNIPER_AMMO_EXPLOSIVE_DESC;
@@ -362,22 +362,38 @@
                 Tokens.SNIPER_KEYWORD_BOOST,
             };
             skills.Add((explosive, ""));
-            #endregion
+ 
 
-            #region Burst
+
             var burstAmmo = SniperAmmoSkillDef.Create<BurstContext>();
-            burstAmmo.icon = UIModule.GetBurstAmmoIcon();
+            burstAmmo.icon = Properties.Icons.BurstAmmoIcon;
             burstAmmo.skillName = "Burst Ammo";
-            burstAmmo.skillNameToken = Tokens.SNIPER_AMMO_STANDARD_NAME;
-            burstAmmo.skillDescriptionToken = Tokens.SNIPER_AMMO_STANDARD_DESC;
+            burstAmmo.skillNameToken = Tokens.SNIPER_AMMO_BURST_NAME;
+            burstAmmo.skillDescriptionToken = Tokens.SNIPER_AMMO_BURST_DESC;
             burstAmmo.fireSoundType = SoundModule.FireType.Burst;
             skills.Add((burstAmmo, ""));
             //skills.Add(wip);
-            #endregion
 
 
-            skills.Add(wip);
-            skills.Add(wip);
+            var plasmaAmmo = SniperAmmoSkillDef.Create<BurstContext>();
+            plasmaAmmo.icon = Properties.Icons.PlasmaAmmoIcon;
+            plasmaAmmo.skillName = "Burst Ammo";
+            plasmaAmmo.skillNameToken = Tokens.SNIPER_AMMO_PLASMA_NAME;
+            plasmaAmmo.skillDescriptionToken = Tokens.SNIPER_AMMO_PLASMA_DESC;
+            plasmaAmmo.fireSoundType = SoundModule.FireType.Burst;
+            skills.Add((plasmaAmmo, ""));
+
+            var shockAmmo = SniperAmmoSkillDef.Create<BurstContext>();
+            shockAmmo.icon = Properties.Icons.ShockAmmoIcon;
+            shockAmmo.skillName = "Burst Ammo";
+            shockAmmo.skillNameToken = Tokens.SNIPER_AMMO_SHOCK_NAME;
+            shockAmmo.skillDescriptionToken = Tokens.SNIPER_AMMO_SHOCK_DESC;
+            shockAmmo.fireSoundType = SoundModule.FireType.Burst;
+            skills.Add((shockAmmo, ""));
+
+
+            //skills.Add(wip);
+            //skills.Add(wip);
             skills.Add(wip);
 
             SkillFamiliesModule.ammoSkills = skills;
@@ -575,11 +591,11 @@
 
             var snipe = SniperReloadableFireSkillDef.Create<DefaultSnipe,DefaultReload>("Weapon", "Weapon");
             snipe.actualMaxStock = 1;
-            snipe.icon = UIModule.GetSnipeIcon();
+            snipe.icon = Properties.Icons.SnipeIcon;
             snipe.interruptPriority = InterruptPriority.Skill;
             snipe.isBullets = false;
             snipe.rechargeStock = 0;
-            snipe.reloadIcon = UIModule.GetSnipeReloadIcon();
+            snipe.reloadIcon = Properties.Icons.ReloadIcon;
             snipe.reloadInterruptPriority = InterruptPriority.Skill;
             snipe.reloadParams = new ReloadParams
             {
@@ -607,11 +623,11 @@
 
             var mag = SniperReloadableFireSkillDef.Create<MagSnipe,MagReload>("Weapon", "Weapon");
             mag.actualMaxStock = 4;
-            mag.icon = UIModule.GetSnipeMagIcon();
+            mag.icon = Properties.Icons.SnipeMag;
             mag.interruptPriority = InterruptPriority.Skill;
             mag.isBullets = false;
             mag.rechargeStock = 0;
-            mag.reloadIcon = UIModule.GetSnipeMagReloadIcon();
+            mag.reloadIcon = Properties.Icons.SnipeMagReload;
             mag.reloadInterruptPriority = InterruptPriority.Skill;
             mag.reloadParams = new ReloadParams
             {
@@ -685,7 +701,7 @@
                                                                                                              inputScale: 0.03f, baseFoV: 60f) );
             charge.baseMaxStock = 1;
             charge.baseRechargeInterval = 10f;
-            charge.icon = UIModule.GetSteadyAimIcon();
+            charge.icon = Properties.Icons.SteadyAimIcon;
             charge.isBullets = false;
             charge.rechargeStock = 1;
             charge.requiredStock = 1;
@@ -713,7 +729,7 @@
                                                                                                              inputScale: 0.03f, baseFoV: 60f) );
             quick.baseMaxStock = 4;
             quick.baseRechargeInterval = 6f;
-            quick.icon = UIModule.GetQuickScopeIcon();
+            quick.icon = Properties.Icons.QuickscopeIcon;
             quick.isBullets = false;
             quick.rechargeStock = 1;
             quick.requiredStock = 1;
@@ -746,7 +762,7 @@
             backflip.beginSkillCooldownOnSkillEnd = true;
             backflip.canceledFromSprinting = false;
             backflip.fullRestockOnAssign = true;
-            backflip.icon = UIModule.GetBackflipIcon();
+            backflip.icon = Properties.Icons.BackflipIcon;
             backflip.interruptPriority = InterruptPriority.PrioritySkill;
             backflip.isBullets = false;
             backflip.isCombatSkill = false;
@@ -778,13 +794,13 @@
             decoy.baseRechargeInterval = 12f;
             decoy.beginSkillCooldownOnSkillEnd = true;
             decoy.fullRestockOnAssign = true;
-            decoy.icon = UIModule.GetDecoyIcon();
+            decoy.icon = Properties.Icons.DecoyIcon;
             decoy.interruptPriority = InterruptPriority.PrioritySkill;
             decoy.isCombatSkill = false;
             decoy.maxReactivationTimer = -1f;
             decoy.minReactivationTimer = 0.75f;
             decoy.noSprint = false;
-            decoy.reactivationIcon = UIModule.GetDecoyReactivationIcon();
+            decoy.reactivationIcon = Properties.Icons.DecoyReactivateIcon;
             decoy.reactivationInterruptPriority = InterruptPriority.PrioritySkill;
             decoy.reactivationRequiredStock = 1;
             decoy.reactivationStockToConsume = 1;
@@ -811,13 +827,13 @@
             knife.baseRechargeInterval = 18f;
             knife.beginSkillCooldownOnSkillEnd = true;
             knife.fullRestockOnAssign = true;
-            knife.icon = UIModule.GetKnifeIcon();
+            knife.icon = Properties.Icons.KnifeIcon;
             knife.interruptPriority = InterruptPriority.PrioritySkill;
             knife.isCombatSkill = true;
             knife.maxReactivationTimer = 8f;
             knife.minReactivationTimer = 0.2f;
             knife.noSprint = true;
-            knife.reactivationIcon = UIModule.GetKnifeReactivationIcon();
+            knife.reactivationIcon = Properties.Icons.KnifeReactivateIcon;
             knife.reactivationInterruptPriority = InterruptPriority.PrioritySkill;
             knife.reactivationRequiredStock = 1;
             knife.reactivationStockToConsume = 1;

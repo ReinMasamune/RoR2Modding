@@ -63,8 +63,8 @@
                 Properties.Tools.RegisterLanguageTokens();
                 SoundModule.LoadBank();
                 NetworkModule.SetupNetworking();
-                
 
+                Default<Sprite>.value = UIModule.GetUnfinishedIcon();
                 UIModule.EditHudPrefab();
 
                 PrefabModule.CreatePrefab();

@@ -21,27 +21,28 @@
         {
             UInt32 id = AkSoundEngine.PostEvent( fireType.GetSound(), source );
             _ = AkSoundEngine.SetRTPCValueByPlayingID(Sounds.Sniper_Charge_Amount.ID(), chargeLevel * 100f, id);
-            _ = AkSoundEngine.SetRTPCValueByPlayingID(Sounds.Volume_SFX.ID(), ConfigModule.sfxVolume, id);
+            _ = AkSoundEngine.SetRTPCValueByPlayingID(Sounds.Sniper_Volume_ALL.ID(), ConfigModule.sfxVolume, id);
+            _ = AkSoundEngine.SetRTPCValueByPlayingID(Sounds.Sniper_Volume_SHOTS.ID(), ConfigModule.sfxVolume, id);
         }
         internal static void PlayOpenReload(GameObject source)
         {
             var id = AkSoundEngine.PostEvent(Sounds.Bolt_Open_Chamber.ID(), source);
-            _ = AkSoundEngine.SetRTPCValueByPlayingID(Sounds.Volume_SFX.ID(), ConfigModule.sfxVolume, id);
+            _ = AkSoundEngine.SetRTPCValueByPlayingID(Sounds.Sniper_Volume_ALL.ID(), ConfigModule.sfxVolume, id);
         }
         internal static void PlayRicochet(GameObject source)
         {
             var id = AkSoundEngine.PostEvent(Sounds.Bolt_Ricochet.ID(), source);
-            _ = AkSoundEngine.SetRTPCValueByPlayingID(Sounds.Volume_SFX.ID(), ConfigModule.sfxVolume, id);
+            _ = AkSoundEngine.SetRTPCValueByPlayingID(Sounds.Sniper_Volume_ALL.ID(), ConfigModule.sfxVolume, id);
         }
         internal static void PlayLoad(GameObject source, ReloadTier reloadTier)
         {
             var id = AkSoundEngine.PostEvent(reloadTier.GetSound(), source);
-            _ = AkSoundEngine.SetRTPCValueByPlayingID(Sounds.Volume_SFX.ID(), ConfigModule.sfxVolume, id);
+            _ = AkSoundEngine.SetRTPCValueByPlayingID(Sounds.Sniper_Volume_ALL.ID(), ConfigModule.sfxVolume, id);
         }
         internal static void PlayKnifeHit(GameObject source, KnifeHitMaterial mat)
         {
             var id = AkSoundEngine.PostEvent(mat.GetSound(), source);
-            _ = AkSoundEngine.SetRTPCValueByPlayingID(Sounds.Volume_SFX.ID(), ConfigModule.sfxVolume, id);
+            _ = AkSoundEngine.SetRTPCValueByPlayingID(Sounds.Sniper_Volume_ALL.ID(), ConfigModule.sfxVolume, id);
         }
 
         private static UInt32 GetSound(this FireType fireType) => fireType switch
@@ -49,7 +50,7 @@
             FireType.Normal => Sounds.Bolt_Normal_Shot.ID(),
             FireType.Plasma => Sounds.Bolt_Plasma_Shot.ID(),
             FireType.Scatter => Sounds.Bolt_Scatter_shot.ID(),
-            FireType.Burst => Sounds.Bolt_Quickscope.ID(),
+            FireType.Burst => Sounds.Bolt_Burst.ID(),
             _ => Sounds.Bolt_Normal_Shot.ID(),
         };
         private static UInt32 GetSound(this ReloadTier tier) => tier switch

@@ -13,9 +13,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeneralFixes", "GeneralFixe
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StutterStunter", "StutterStunter\StutterStunter.csproj", "{B9018494-8A2C-4DD7-A898-A7B258CB187A}"
-	ProjectSection(ProjectDependencies) = postProject
-		{FFE533FA-760E-4409-B103-67F7F5EC59ED} = {FFE533FA-760E-4409-B103-67F7F5EC59ED}
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReinLunarWickedRing", "ReinLunarWickedRing\ReinLunarWickedRing.csproj", "{52721255-5AFA-4B1A-97A8-6464887A5D7D}"
 EndProject
@@ -91,7 +88,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InitializationWeaver", "Ini
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BakeTest", "BakeTest\BakeTest.csproj", "{4C827B7A-F79C-49BD-B8C4-60C22E1A0AAB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProceduralBake.EditorInterface", "ProceduralBake.EditorInterface\ProceduralBake.EditorInterface.csproj", "{12BA9482-A30E-4801-A2F9-8AED6DDBF18F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProceduralBake.EditorInterface", "ProceduralBake.EditorInterface\ProceduralBake.EditorInterface.csproj", "{12BA9482-A30E-4801-A2F9-8AED6DDBF18F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HookGeneratorTest", "HookGeneratorTest\HookGeneratorTest.csproj", "{76E19687-40E4-430F-B0FB-BC7AB2732AF3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -377,6 +376,18 @@ Global
 		{12BA9482-A30E-4801-A2F9-8AED6DDBF18F}.Release|x64.Build.0 = Release|Any CPU
 		{12BA9482-A30E-4801-A2F9-8AED6DDBF18F}.Release|x86.ActiveCfg = Release|Any CPU
 		{12BA9482-A30E-4801-A2F9-8AED6DDBF18F}.Release|x86.Build.0 = Release|Any CPU
+		{76E19687-40E4-430F-B0FB-BC7AB2732AF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76E19687-40E4-430F-B0FB-BC7AB2732AF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76E19687-40E4-430F-B0FB-BC7AB2732AF3}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{76E19687-40E4-430F-B0FB-BC7AB2732AF3}.Debug|x64.Build.0 = Debug|Any CPU
+		{76E19687-40E4-430F-B0FB-BC7AB2732AF3}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{76E19687-40E4-430F-B0FB-BC7AB2732AF3}.Debug|x86.Build.0 = Debug|Any CPU
+		{76E19687-40E4-430F-B0FB-BC7AB2732AF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76E19687-40E4-430F-B0FB-BC7AB2732AF3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76E19687-40E4-430F-B0FB-BC7AB2732AF3}.Release|x64.ActiveCfg = Release|Any CPU
+		{76E19687-40E4-430F-B0FB-BC7AB2732AF3}.Release|x64.Build.0 = Release|Any CPU
+		{76E19687-40E4-430F-B0FB-BC7AB2732AF3}.Release|x86.ActiveCfg = Release|Any CPU
+		{76E19687-40E4-430F-B0FB-BC7AB2732AF3}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

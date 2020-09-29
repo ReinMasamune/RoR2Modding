@@ -60,7 +60,7 @@
             {
                 yield return new WaitForSecondsRealtime(secondsBetweenChecks.Value);
                 var mem = GC.GetTotalMemory(false) / 1048576.0;
-                instance.Logger.LogMessage($"Memory used: {mem}");
+                instance.Logger.LogMessage($"Memory used: {mem}, Timestamp: {Time.realtimeSinceStartup}");
                 switch(mem)
                 {
                     case var _ when mem >= autoGCAt.Value:
