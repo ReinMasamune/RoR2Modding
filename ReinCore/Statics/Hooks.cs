@@ -936,24 +936,22 @@ public static event Hook On
 
             public static class DotController
             {
-
-
-                public struct AddDot
-                {
-                    private static readonly MethodBase method = HookHelpers.GetBase( typeof(AddDot) );
-                    public delegate void Orig(global::RoR2.DotController self, global::UnityEngine.GameObject attacker, global::System.Single duration, global::RoR2.DotController.DotIndex dotIndex, global::System.Single damageMultiplier);
-                    public delegate void Hook(Orig orig, global::RoR2.DotController self, global::UnityEngine.GameObject attacker, global::System.Single duration, global::RoR2.DotController.DotIndex dotIndex, global::System.Single damageMultiplier);
-                    public static event ILContext.Manipulator Il
-                    {
-                        add => HookEndpointManager.Modify<Hook>( method, value );
-                        remove => HookEndpointManager.Unmodify<Hook>( method, value );
-                    }
-                    public static event Hook On
-                    {
-                        add => HookEndpointManager.Add<Hook>( method, value );
-                        remove => HookEndpointManager.Remove<Hook>( method, value );
-                    }
-                }
+                //public struct AddDot
+                //{
+                //    private static readonly MethodBase method = HookHelpers.GetBase( typeof(AddDot) );
+                //    public delegate void Orig(global::RoR2.DotController self, global::UnityEngine.GameObject attacker, global::System.Single duration, global::RoR2.DotController.DotIndex dotIndex, global::System.Single damageMultiplier);
+                //    public delegate void Hook(Orig orig, global::RoR2.DotController self, global::UnityEngine.GameObject attacker, global::System.Single duration, global::RoR2.DotController.DotIndex dotIndex, global::System.Single damageMultiplier);
+                //    public static event ILContext.Manipulator Il
+                //    {
+                //        add => HookEndpointManager.Modify<Hook>( method, value );
+                //        remove => HookEndpointManager.Unmodify<Hook>( method, value );
+                //    }
+                //    public static event Hook On
+                //    {
+                //        add => HookEndpointManager.Add<Hook>( method, value );
+                //        remove => HookEndpointManager.Remove<Hook>( method, value );
+                //    }
+                //}
 
                 public struct Awake
                 {

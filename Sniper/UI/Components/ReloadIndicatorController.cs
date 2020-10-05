@@ -5,6 +5,8 @@ namespace Sniper.UI.Components
     using System;
     using System.Collections.Generic;
 
+    using ReinCore;
+
     using Sniper.Enums;
 
     using UnityEngine;
@@ -41,7 +43,18 @@ namespace Sniper.UI.Components
         [SerializeField]
         private Color perfectColor;
 
-        private List<Image> indicators = new List<Image>();
+        private List<Image> indicators;
+
+        private void Awake()
+        {
+            this.indicators = ListPool<Image>.item;
+        }
+
+        private void OnDestroy()
+        {
+            ListPool<Image>.item = this.indicators;
+            this.indicators = null;
+        }
 
 #if TESTING
         public Byte testMaxStock;
@@ -57,6 +70,8 @@ namespace Sniper.UI.Components
                     this.indicators.Add( created );
                     created.color = this.indicators.Count <= this._currentStock ? this.currentColor : this.emptyColor;
                 }
+
+                
 
                 while( value < this.indicators.Count )
                 {

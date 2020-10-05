@@ -268,7 +268,7 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Yes indeed.
+        ///   Looks up a localized string similar to Fires a burst of 3 shots. Deals &lt;style=cIsDamage&gt;0.4x primary damage.&lt;/style&gt;\n&lt;&gt; &lt;style=cIsDamage&gt;Shots &lt;indent=40%&gt;+3&lt;/style&gt; per &lt;style=cIsUtility&gt;Boost&lt;/style&gt;&lt;/indent&gt;.
         /// </summary>
         internal static string lang__SNIPER_AMMO_BURST_DESC {
             get {
@@ -277,7 +277,7 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Burst Ammo.
+        ///   Looks up a localized string similar to Burst.
         /// </summary>
         internal static string lang__SNIPER_AMMO_BURST_NAME {
             get {
@@ -585,7 +585,7 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;style=cIsUtility&gt;Boost&lt;/style&gt; your shots by &lt;style=cIsDamage&gt;0.75x&lt;/style&gt;. &lt;style=cIsUtility&gt;Recharges quickly&lt;/style&gt; and can hold &lt;style=cIsUtility&gt;4 shots&lt;/style&gt;..
+        ///   Looks up a localized string similar to &lt;style=cIsUtility&gt;Boost&lt;/style&gt; your shots by &lt;style=cIsDamage&gt;0.75&lt;/style&gt;. &lt;style=cIsUtility&gt;Recharges quickly&lt;/style&gt; and can hold &lt;style=cIsUtility&gt;4 shots&lt;/style&gt;..
         /// </summary>
         internal static string lang__SNIPER_SECONDARY_QUICK_DESC {
             get {
@@ -603,7 +603,7 @@ namespace Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;style=cIsUtility&gt;Boost&lt;/style&gt; your shots by &lt;style=cIsDamage&gt;up to 3x&lt;/style&gt;. &lt;style=cIsUtility&gt;Charges faster&lt;/style&gt; while stationary. &lt;style=cIsHealth&gt;You are slowed while charging&lt;/style&gt;..
+        ///   Looks up a localized string similar to &lt;style=cIsUtility&gt;Boost&lt;/style&gt; your shots by &lt;style=cIsDamage&gt;up to 3&lt;/style&gt;. &lt;style=cIsUtility&gt;Charges faster&lt;/style&gt; while stationary. &lt;style=cIsHealth&gt;You are slowed while charging&lt;/style&gt;..
         /// </summary>
         internal static string lang__SNIPER_SECONDARY_STEADY_DESC {
             get {

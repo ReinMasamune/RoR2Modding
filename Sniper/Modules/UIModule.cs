@@ -43,8 +43,6 @@
         //internal static Sprite GetShockAmmoIcon() => GetUnfinishedIcon(); //AssetModule.GetSniperAssetBundle().LoadAsset<Sprite>(Properties.Resources.ShockAmmoIcon );
 
 
-        static Sprite mySprite = Icons.SomeRandomIcon;
-
 
 
 

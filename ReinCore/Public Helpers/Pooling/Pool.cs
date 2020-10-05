@@ -10,6 +10,7 @@
     using BepInEx;
     using BepInEx.Bootstrap;
 
+    using Rewired.Utils;
 
     public static class Pool<T, TInitItem, TCleanItem>
         where TInitItem : struct, IInitItem<T>
@@ -18,7 +19,11 @@
         public static T item
         {
             get => elems.TryDequeue(out var res) ? res : InitNewItem();
-            set => elems.Enqueue(PipeCleaner(value));
+            set
+            {
+                if(value is null) return;
+                elems.Enqueue(PipeCleaner(value));
+            }
         }
 
         private static T InitNewItem() => new TInitItem().InitItem();
@@ -55,6 +60,12 @@
         public void CleanItem(T item) => onClean?.Invoke(item);
     }
 
+    public struct ListCleanItem<TList, TItem> : ICleanItem<TList>
+        where TList : IList<TItem>
+    {
+        public void CleanItem(TList item) => item.Clear();
+    }
+
     public static class SimplePool<T>
         where T : new()
     {
@@ -85,4 +96,13 @@
             set => Pool<T, SimpleInitItem<T>, TClean>.item = value;
         }
     }
+
+    public static class ListPool<T>
+    {
+        public static List<T> item
+        {
+            get => Pool<List<T>, SimpleInitItem<List<T>>, ListCleanItem<List<T>, T>>.item;
+            set => Pool<List<T>, SimpleInitItem<List<T>>, ListCleanItem<List<T>, T>>.item = value;
+        }
+    }    
 }

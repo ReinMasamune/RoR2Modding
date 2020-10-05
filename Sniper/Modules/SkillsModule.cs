@@ -65,6 +65,7 @@
             protected virtual Single recoilMultiplier { get => 1f; }
             protected virtual Single animPlayRate { get => 1f; }
             protected virtual Single aimModeLinger { get => 5f; }
+            protected virtual Boolean chargeIncreasesRecoil { get => true; }
 
 
             protected Int32 bulletsFired = 0;
@@ -84,7 +85,7 @@
                     var bullet = this.CreateBullet();
                     this.ModifyBullet(bullet, state, aim);
                     bullet.Fire();
-                    var recoil = state.recoilStrength * this.recoilMultiplier * (1f + 0.5f * state.chargeBoost);
+                    var recoil = state.recoilStrength * this.recoilMultiplier * (1f + (this.chargeIncreasesRecoil ? 0.5f * state.chargeBoost : 0f));
                     state.AddRecoil(-1f * recoil, -3f * recoil, -0.2f * recoil, 0.2f * recoil);
                 }
                 state.PlayAnimation("Gesture, Additive", "Shoot", "rateShoot", this.duration * animPlayRate);
@@ -228,7 +229,7 @@
             }
             public override GameObject tracerEffectPrefab => _tracer;
             protected override Single baseDamageMultiplier => 0.4f;
-            protected override Single procCoefficient => 0.6f;
+            protected override Single procCoefficient => 1f;
             protected override Single bulletRadius => 0.5f;
             protected override OnBulletDelegate<NoData> onHit => (bullet, hit) =>
             {
@@ -275,22 +276,23 @@
             private static readonly GameObject _tracer;
             static BurstContext()
             {
-                _tracer = VFXModule.GetScatterAmmoTracer();
+                _tracer = VFXModule.GetBurstAmmoTracer();
             }
             public override GameObject tracerEffectPrefab => _tracer;
             protected override Single durationMultiplier => base.durationMultiplier * 2f;
-            protected override Single baseDamageMultiplier => 0.35f;
+            protected override Single baseDamageMultiplier => 0.4f;
             protected override Single procCoefficient => 1f;
             protected override Single bulletRadius => 0.5f;
-            protected override Single recoilMultiplier => base.recoilMultiplier * this._recoilMultiplier;
+            protected override Single recoilMultiplier => base.recoilMultiplier * 0.9f * this._recoilMultiplier;
             protected override Single animPlayRate => this._animPlayRate;
             protected override SoundModule.FireType fireSoundType => SoundModule.FireType.Burst;
+            protected override Boolean chargeIncreasesRecoil => false;
 
 
 
             private Int32 shotsToFire;
             private Single fireInterval;
-            private Single _recoilMultiplier = 0.5f;
+            private Single _recoilMultiplier = 0.65f;
             private Single _animPlayRate;
             private Single timer = 0f;
 
@@ -371,6 +373,11 @@
             burstAmmo.skillNameToken = Tokens.SNIPER_AMMO_BURST_NAME;
             burstAmmo.skillDescriptionToken = Tokens.SNIPER_AMMO_BURST_DESC;
             burstAmmo.fireSoundType = SoundModule.FireType.Burst;
+            burstAmmo.keywordTokens = new[]
+            {
+                Tokens.SNIPER_KEYWORD_PRIMARYDMG,
+                Tokens.SNIPER_KEYWORD_BOOST,
+            };
             skills.Add((burstAmmo, ""));
             //skills.Add(wip);
 
@@ -381,7 +388,7 @@
             plasmaAmmo.skillNameToken = Tokens.SNIPER_AMMO_PLASMA_NAME;
             plasmaAmmo.skillDescriptionToken = Tokens.SNIPER_AMMO_PLASMA_DESC;
             plasmaAmmo.fireSoundType = SoundModule.FireType.Burst;
-            skills.Add((plasmaAmmo, ""));
+            skills.Add((plasmaAmmo, Unlockables.WIPUnlockable.unlockable_Identifier));
 
             var shockAmmo = SniperAmmoSkillDef.Create<BurstContext>();
             shockAmmo.icon = Properties.Icons.ShockAmmoIcon;
@@ -389,7 +396,7 @@
             shockAmmo.skillNameToken = Tokens.SNIPER_AMMO_SHOCK_NAME;
             shockAmmo.skillDescriptionToken = Tokens.SNIPER_AMMO_SHOCK_DESC;
             shockAmmo.fireSoundType = SoundModule.FireType.Burst;
-            skills.Add((shockAmmo, ""));
+            skills.Add((shockAmmo, Unlockables.WIPUnlockable.unlockable_Identifier));
 
 
             //skills.Add(wip);
@@ -651,7 +658,7 @@
             mag.stockToConsume = 1;
             mag.stockToReload = 4;
             mag.skillName = "MagSnipe";
-            skills.Add((mag, ""));
+            skills.Add((mag, Unlockables.WIPUnlockable.unlockable_Identifier));
             //skills.Add(wip);
 
             //var slide = SniperReloadableFireSkillDef.Create<SlideSnipe,SlideReload>("Weapon", "Body");
@@ -847,7 +854,7 @@
             KnifeSkillData.interruptPriority = InterruptPriority.PrioritySkill;
             KnifeSkillData.targetMachineName = "Weapon";
             KnifeSkillData.slashState = SkillsCore.StateType<KnifePickupSlash>();
-            skills.Add((knife, ""));
+            skills.Add((knife, Unlockables.WIPUnlockable.unlockable_Identifier));
             //skills.Add(wip);
 
             SkillFamiliesModule.specialSkills = skills;

@@ -135,8 +135,6 @@
         internal static Sprite SnipeMag => _SnipeMag ??= AssetModule.LoadAsset<Sprite>(Resources.icon__SnipeMag);
         private static Sprite _SnipeMagReload;
         internal static Sprite SnipeMagReload => _SnipeMagReload ??= AssetModule.LoadAsset<Sprite>(Resources.icon__SnipeMagReload);
-        private static Sprite _SomeRandomIcon;
-        internal static Sprite SomeRandomIcon => _SomeRandomIcon ??= AssetModule.LoadAsset<Sprite>(Resources.icon__SomeRandomIcon);
         private static Sprite _StandardAmmoIcon;
         internal static Sprite StandardAmmoIcon => _StandardAmmoIcon ??= AssetModule.LoadAsset<Sprite>(Resources.icon__StandardAmmoIcon);
         private static Sprite _SteadyAimIcon;

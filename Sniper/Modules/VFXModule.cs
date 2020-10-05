@@ -44,7 +44,7 @@
         }
 
         private static GameObject scatterAmmoTracerPrefab;
-        internal static GameObject GetScatterAmmoTracer()
+        internal static GameObject GetBurstAmmoTracer()
         {
             if( scatterAmmoTracerPrefab == null )
             {

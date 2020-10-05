@@ -56,14 +56,17 @@
 
         #region Sound
         internal static Single sfxVolume { get => _sfxVolume.Value; }
+        internal static Single shotsVolume { get => _shotsVolume.Value; }
 
 
         private static ConfigEntry<Single> _sfxVolume;
+        private static ConfigEntry<Single> _shotsVolume;
 
         private static void SetupSoundConfig(SniperMain plugin)
         {
             const String section = "Sounds";
             _sfxVolume = plugin.Config.Bind<Single>(section, "Sound effects volume", 100f, "The volume of the sounds from this mod.");
+            _shotsVolume = plugin.Config.Bind<Single>(section, "Fire sound effects volume", 100f, "The volume of the fire sounds from this mod.");
         }
         #endregion
 

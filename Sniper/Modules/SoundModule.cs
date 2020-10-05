@@ -22,7 +22,7 @@
             UInt32 id = AkSoundEngine.PostEvent( fireType.GetSound(), source );
             _ = AkSoundEngine.SetRTPCValueByPlayingID(Sounds.Sniper_Charge_Amount.ID(), chargeLevel * 100f, id);
             _ = AkSoundEngine.SetRTPCValueByPlayingID(Sounds.Sniper_Volume_ALL.ID(), ConfigModule.sfxVolume, id);
-            _ = AkSoundEngine.SetRTPCValueByPlayingID(Sounds.Sniper_Volume_SHOTS.ID(), ConfigModule.sfxVolume, id);
+            _ = AkSoundEngine.SetRTPCValueByPlayingID(Sounds.Sniper_Volume_SHOTS.ID(), ConfigModule.shotsVolume, id);
         }
         internal static void PlayOpenReload(GameObject source)
         {

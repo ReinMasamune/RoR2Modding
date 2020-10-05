@@ -50,21 +50,21 @@
         internal static DotController.DotIndex critPlasmaBurnIndex { get; private set; }
         internal static void RegisterDoTType()
         {
-            plasmaBurnIndex = DoTsCore.AddDotType(new DoTDef
-            {
-                associatedBuff = BuffIndex.Blight,
-                damageCoefficient = 1f,
-                interval = 0.35f,
-                damageColorIndex = plasmaDamageColor,
-            }, true, DoTDamage);
+            //plasmaBurnIndex = DoTsCore.AddDotType(new DoTDef
+            //{
+            //    associatedBuff = BuffIndex.Blight,
+            //    damageCoefficient = 1f,
+            //    interval = 0.35f,
+            //    damageColorIndex = plasmaDamageColor,
+            //}, true, DoTDamage);
 
-            critPlasmaBurnIndex = DoTsCore.AddDotType(new DoTDef
-            {
-                associatedBuff = BuffIndex.Blight,
-                damageCoefficient = 1f,
-                interval = 0.35f,
-                damageColorIndex = plasmaDamageColor
-            }, true, CritDoTDamage);
+            //critPlasmaBurnIndex = DoTsCore.AddDotType(new DoTDef
+            //{
+            //    associatedBuff = BuffIndex.Blight,
+            //    damageCoefficient = 1f,
+            //    interval = 0.35f,
+            //    damageColorIndex = plasmaDamageColor
+            //}, true, CritDoTDamage);
         }
 
 
