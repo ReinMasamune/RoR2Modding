@@ -1,4 +1,4 @@
-﻿namespace Sniper.States.Bases
+﻿namespace Rein.Sniper.States.Bases
 {
     using System;
 
@@ -6,8 +6,8 @@
 
     using RoR2;
 
-    using Sniper.Data;
-    using Sniper.SkillDefs;
+    using Rein.Sniper.Data;
+    using Rein.Sniper.SkillDefs;
 
     using UnityEngine;
 

@@ -1,11 +1,11 @@
-﻿namespace Sniper.Modules
+﻿namespace Rein.Sniper.Modules
 {
     using System;
     using ReinCore;
     using RoR2;
     using RoR2.UI;
 
-    using Sniper.Components;
+    using Rein.Sniper.Components;
 
     using UnityEngine;
     using UnityEngine.UI;

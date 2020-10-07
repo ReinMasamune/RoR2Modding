@@ -1,4 +1,4 @@
-﻿namespace Sniper.Properties
+﻿namespace Rein.Sniper.Properties
 {
 	using System;
 

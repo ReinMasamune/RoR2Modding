@@ -1,4 +1,4 @@
-﻿namespace Sniper.Components
+﻿namespace Rein.Sniper.Components
 {
     using System;
     using System.Collections;
@@ -6,8 +6,8 @@
 
     using RoR2;
 
-    using Sniper.Expansions;
-    using Sniper.Modules;
+    using Rein.Sniper.Expansions;
+    using Rein.Sniper.Modules;
 
     using UnityEngine;
 

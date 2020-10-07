@@ -1,7 +1,7 @@
-﻿namespace Sniper.Components
+﻿namespace Rein.Sniper.Components
 {
     using RoR2;
-    using Sniper.SkillDefs;
+    using Rein.Sniper.SkillDefs;
     using UnityEngine;
     using UnityEngine.Networking;
     internal class DecoyDeployableSync : NetworkBehaviour, IRuntimePrefabComponent

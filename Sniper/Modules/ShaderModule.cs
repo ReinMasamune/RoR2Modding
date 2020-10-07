@@ -1,10 +1,10 @@
-﻿namespace Sniper.Modules
+﻿namespace Rein.Sniper.Modules
 {
     using System;
 
     using ReinCore;
-    using Sniper.Properties;
-    using Sniper.Enums;
+    using Rein.Sniper.Properties;
+    using Rein.Sniper.Enums;
 
     using UnityEngine;
 

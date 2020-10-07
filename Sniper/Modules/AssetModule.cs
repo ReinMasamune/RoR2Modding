@@ -1,4 +1,4 @@
-﻿namespace Sniper.Modules
+﻿namespace Rein.Sniper.Modules
 {
     using System;
 

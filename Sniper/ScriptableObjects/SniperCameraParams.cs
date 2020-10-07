@@ -1,4 +1,4 @@
-﻿namespace Sniper.ScriptableObjects
+﻿namespace Rein.Sniper.ScriptableObjects
 {
     using System;
 

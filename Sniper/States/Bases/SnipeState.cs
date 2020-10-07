@@ -1,15 +1,15 @@
-﻿namespace Sniper.States.Bases
+﻿namespace Rein.Sniper.States.Bases
 {
     using System;
     using System.Diagnostics;
 
     using EntityStates;
 
-    using Sniper.Data;
-    using Sniper.Enums;
-    using Sniper.Expansions;
-    using Sniper.Modules;
-    using Sniper.SkillDefs;
+    using Rein.Sniper.Data;
+    using Rein.Sniper.Enums;
+    using Rein.Sniper.Expansions;
+    using Rein.Sniper.Modules;
+    using Rein.Sniper.SkillDefs;
 
     using UnityEngine;
     using UnityEngine.Networking;

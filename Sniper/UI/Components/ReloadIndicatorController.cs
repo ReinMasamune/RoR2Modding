@@ -1,13 +1,13 @@
 ﻿//#define TESTING
 //#define EDITOR
-namespace Sniper.UI.Components
+namespace Rein.Sniper.UI.Components
 {
     using System;
     using System.Collections.Generic;
 
     using ReinCore;
 
-    using Sniper.Enums;
+    using Rein.Sniper.Enums;
 
     using UnityEngine;
     using UnityEngine.UI;

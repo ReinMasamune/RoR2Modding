@@ -1,4 +1,4 @@
-﻿namespace Sniper.Modules
+﻿namespace Rein.Sniper.Modules
 {
     using System;
     using System.Collections.Generic;
@@ -13,8 +13,8 @@
 
     using RoR2;
 
-    using Sniper.Components;
-    using Sniper.ScriptableObjects;
+    using Rein.Sniper.Components;
+    using Rein.Sniper.ScriptableObjects;
 
     using UnityEngine;
 

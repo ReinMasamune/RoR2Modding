@@ -1,9 +1,9 @@
-﻿namespace Sniper.Data
+﻿namespace Rein.Sniper.Data
 {
     using System;
 
-    using Sniper.Enums;
-    using Sniper.Expansions;
+    using Rein.Sniper.Enums;
+    using Rein.Sniper.Expansions;
 
     using UnityEngine;
 

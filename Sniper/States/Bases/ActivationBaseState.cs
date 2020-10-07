@@ -1,6 +1,6 @@
-﻿namespace Sniper.States.Bases
+﻿namespace Rein.Sniper.States.Bases
 {
-    using Sniper.SkillDefTypes.Bases;
+    using Rein.Sniper.SkillDefTypes.Bases;
 
     internal abstract class ActivationBaseState<TSkillData> : SniperSkillBaseState where TSkillData : SkillData, new()
     {

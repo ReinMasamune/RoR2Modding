@@ -1,4 +1,4 @@
-﻿namespace Sniper.Effects
+﻿namespace Rein.Sniper.Effects
 {
     using ReinCore;
 

@@ -1,4 +1,4 @@
-﻿namespace Sniper.Expansions
+﻿namespace Rein.Sniper.Expansions
 {
     using System;
 
@@ -33,7 +33,6 @@
         private Boolean ExpandableHitCallback( ref BulletHit hitInfo )
         {
             Boolean result = base.DefaultHitCallback( ref hitInfo );
-            hitInfo.collider
             this.onHit?.Invoke( this, hitInfo );
             if( !result )
             {

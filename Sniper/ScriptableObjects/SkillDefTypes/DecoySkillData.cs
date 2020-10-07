@@ -1,8 +1,8 @@
-﻿namespace Sniper.SkillDefs
+﻿namespace Rein.Sniper.SkillDefs
 {
     using System;
 
-    using Sniper.SkillDefTypes.Bases;
+    using Rein.Sniper.SkillDefTypes.Bases;
 
     internal class DecoySkillData : SkillData
     {

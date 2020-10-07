@@ -1,4 +1,4 @@
-﻿namespace Sniper.Modules
+﻿namespace Rein.Sniper.Modules
 {
     using System;
 
@@ -6,9 +6,9 @@
 
     using RoR2;
 
-    using Sniper.Components;
-    using Sniper.Enums;
-    using Sniper.SkillDefs;
+    using Rein.Sniper.Components;
+    using Rein.Sniper.Enums;
+    using Rein.Sniper.SkillDefs;
 
     using UnityEngine;
     using UnityEngine.Networking;

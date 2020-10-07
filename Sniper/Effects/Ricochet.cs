@@ -1,10 +1,10 @@
-﻿namespace Sniper.Effects
+﻿namespace Rein.Sniper.Effects
 {
     using ReinCore;
 
     using RoR2;
 
-    using Sniper.Components;
+    using Rein.Sniper.Components;
 
     using UnityEngine;
 

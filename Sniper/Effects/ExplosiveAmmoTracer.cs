@@ -1,6 +1,6 @@
-﻿namespace Sniper.Effects
+﻿namespace Rein.Sniper.Effects
 {
-    using Sniper.Modules;
+    using Rein.Sniper.Modules;
 
     using UnityEngine;
 

@@ -1,4 +1,4 @@
-﻿namespace Sniper
+﻿namespace Rein.Sniper
 {
     using System;
     using System.Collections.Generic;

@@ -1,10 +1,8 @@
-﻿namespace Sniper.Modules
+﻿namespace Rein.Sniper.Modules
 {
     using System;
 
     using ReinCore;
-
-    //using ReinCore;
 
     using RoR2;
 

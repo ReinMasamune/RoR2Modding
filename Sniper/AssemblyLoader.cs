@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 using BepInEx;
-namespace Sniper.Properties
+namespace Rein.Sniper.Properties
 {
 	[BepInPlugin( AssemblyLoad.guid, "Rein Assembly-PreLoad", AssemblyLoad.version )]
     internal class AssemblyLoad : BaseUnityPlugin

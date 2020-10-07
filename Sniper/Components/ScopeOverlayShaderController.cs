@@ -1,8 +1,8 @@
-﻿namespace Sniper.Components
+﻿namespace Rein.Sniper.Components
 {
     using System;
 
-    using Sniper.Modules;
+    using Rein.Sniper.Modules;
 
     using UnityEngine;
 

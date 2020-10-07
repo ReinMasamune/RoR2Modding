@@ -1,10 +1,10 @@
-﻿namespace Sniper.Data
+﻿namespace Rein.Sniper.Data
 {
     using System;
 
     using RoR2;
 
-    using Sniper.Expansions;
+    using Rein.Sniper.Expansions;
 
     using UnityEngine;
 

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Sniper.Expansions
+namespace Rein.Sniper.Expansions
 {
     internal struct NoData { }
 }

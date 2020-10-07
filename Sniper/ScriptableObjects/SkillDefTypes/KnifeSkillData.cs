@@ -1,10 +1,10 @@
-﻿namespace Sniper.SkillDefs
+﻿namespace Rein.Sniper.SkillDefs
 {
     using System;
     using EntityStates;
-    using Sniper.Components;
-    using Sniper.SkillDefTypes.Bases;
-    using Sniper.States.Special;
+    using Rein.Sniper.Components;
+    using Rein.Sniper.SkillDefTypes.Bases;
+    using Rein.Sniper.States.Special;
     using UnityEngine;
 
     internal class KnifeSkillData : SkillData

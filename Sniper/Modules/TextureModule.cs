@@ -1,4 +1,4 @@
-﻿namespace Sniper.Modules
+﻿namespace Rein.Sniper.Modules
 {
 	using System;
 	using System.IO;
@@ -6,8 +6,8 @@
 
 	using ReinCore;
 
-	using Sniper.Data;
-	using Sniper.ScriptableObjects.Custom;
+	using Rein.Sniper.Data;
+	using Rein.Sniper.ScriptableObjects.Custom;
 
 	using Unity.Jobs;
 

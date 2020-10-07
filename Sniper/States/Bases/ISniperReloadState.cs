@@ -1,6 +1,6 @@
-﻿namespace Sniper.States.Bases
+﻿namespace Rein.Sniper.States.Bases
 {
-    using Sniper.Enums;
+    using Rein.Sniper.Enums;
 
     internal interface ISniperReloadState
     {

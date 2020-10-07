@@ -1,4 +1,4 @@
-﻿namespace Sniper.Components
+﻿namespace Rein.Sniper.Components
 {
     internal interface IRuntimePrefabComponent
     {

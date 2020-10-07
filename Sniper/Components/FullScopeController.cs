@@ -1,4 +1,4 @@
-﻿namespace Sniper.Components
+﻿namespace Rein.Sniper.Components
 {
     using System;
     using RoR2.UI;

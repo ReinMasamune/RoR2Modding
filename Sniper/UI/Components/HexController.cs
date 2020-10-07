@@ -1,5 +1,5 @@
 ﻿//#define TESTING
-namespace Sniper.UI.Components
+namespace Rein.Sniper.UI.Components
 {
     using System;
     using System.Collections;
@@ -9,7 +9,7 @@ namespace Sniper.UI.Components
 
     using ReinCore;
 
-    using Sniper.UI.Components.Util;
+    using Rein.Sniper.UI.Components.Util;
 
     using UnityEngine;
     using UnityEngine.UI;

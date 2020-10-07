@@ -1,4 +1,4 @@
-﻿namespace Sniper.Unlockables
+﻿namespace Rein.Sniper.Unlockables
 {
     using System;
 
@@ -6,9 +6,9 @@
 
     using ReinCore;
 
-    using Sniper.Enums;
-    using Sniper.Modules;
-    using Sniper.SkillDefs;
+    using Rein.Sniper.Enums;
+    using Rein.Sniper.Modules;
+    using Rein.Sniper.SkillDefs;
 
     using UnityEngine;
 

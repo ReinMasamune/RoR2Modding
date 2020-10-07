@@ -1,4 +1,4 @@
-﻿namespace Sniper.Modules
+﻿namespace Rein.Sniper.Modules
 {
     using System;
     using System.Collections.Generic;
@@ -12,17 +12,17 @@
     using RoR2;
     using RoR2.Skills;
 
-    using Sniper.Components;
-    using Sniper.Data;
-    using Sniper.Expansions;
-    using Sniper.Properties;
-    using Sniper.SkillDefs;
-    using Sniper.SkillDefTypes.Bases;
-    using Sniper.States.Bases;
-    using Sniper.States.Primary.Reload;
-    using Sniper.States.Secondary;
-    using Sniper.States.Special;
-    using Sniper.States.Utility;
+    using Rein.Sniper.Components;
+    using Rein.Sniper.Data;
+    using Rein.Sniper.Expansions;
+    using Rein.Sniper.Properties;
+    using Rein.Sniper.SkillDefs;
+    using Rein.Sniper.SkillDefTypes.Bases;
+    using Rein.Sniper.States.Bases;
+    using Rein.Sniper.States.Primary.Reload;
+    using Rein.Sniper.States.Secondary;
+    using Rein.Sniper.States.Special;
+    using Rein.Sniper.States.Utility;
 
     using UnityEngine;
     using UnityEngine.Networking;

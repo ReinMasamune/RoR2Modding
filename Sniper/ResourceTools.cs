@@ -3,7 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using UnityEngine;
-namespace Sniper.Properties
+namespace Rein.Sniper.Properties
 {
     /// <summary>
     /// A helper class for loading embedded resources into the game.

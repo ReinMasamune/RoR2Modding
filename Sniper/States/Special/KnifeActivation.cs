@@ -1,12 +1,12 @@
-﻿namespace Sniper.States.Special
+﻿namespace Rein.Sniper.States.Special
 {
     using System;
     using Object = System.Object;
     using Int32 = System.Int32;
     using Single = System.Single;
-    using Sniper.Modules;
-    using Sniper.SkillDefs;
-    using Sniper.States.Bases;
+    using Rein.Sniper.Modules;
+    using Rein.Sniper.SkillDefs;
+    using Rein.Sniper.States.Bases;
     using UnityEngine;
     using RoR2;
     using RoR2.Projectile;

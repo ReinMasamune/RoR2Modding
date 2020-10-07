@@ -1,4 +1,4 @@
-﻿namespace Sniper.States.Primary.Reload
+﻿namespace Rein.Sniper.States.Primary.Reload
 {
     using System;
 
@@ -8,9 +8,9 @@
 
     using RoR2;
 
-    using Sniper.Enums;
-    using Sniper.Modules;
-    using Sniper.States.Bases;
+    using Rein.Sniper.Enums;
+    using Rein.Sniper.Modules;
+    using Rein.Sniper.States.Bases;
 
     using UnityEngine;
     using UnityEngine.Networking;

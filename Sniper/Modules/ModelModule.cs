@@ -1,4 +1,4 @@
-﻿namespace Sniper.Modules
+﻿namespace Rein.Sniper.Modules
 {
     using System;
 
@@ -6,7 +6,7 @@
 
     using RoR2;
 
-    using Sniper.Data;
+    using Rein.Sniper.Data;
 
     using Unity.Jobs;
 

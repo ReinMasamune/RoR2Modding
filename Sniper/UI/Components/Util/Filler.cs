@@ -1,4 +1,4 @@
-﻿namespace Sniper.UI.Components.Util
+﻿namespace Rein.Sniper.UI.Components.Util
 {
     using System;
     using UnityEngine;

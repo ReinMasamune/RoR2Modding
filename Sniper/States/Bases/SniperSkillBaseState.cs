@@ -1,8 +1,8 @@
-﻿namespace Sniper.States.Bases
+﻿namespace Rein.Sniper.States.Bases
 {
     using EntityStates;
 
-    using Sniper.Components;
+    using Rein.Sniper.Components;
 
     internal abstract class SniperSkillBaseState : BaseSkillState
     {

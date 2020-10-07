@@ -1,4 +1,4 @@
-﻿namespace Sniper.Data
+﻿namespace Rein.Sniper.Data
 {
     using System;
 

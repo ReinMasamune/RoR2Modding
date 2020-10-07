@@ -1,4 +1,4 @@
-﻿namespace Sniper.SkillDefs
+﻿namespace Rein.Sniper.SkillDefs
 {
     using System;
 
@@ -8,13 +8,13 @@
 
     using RoR2;
 
-    using Sniper.Components;
-    using Sniper.Data;
-    using Sniper.Enums;
-    using Sniper.Modules;
-    using Sniper.SkillDefTypes.Bases;
-    using Sniper.States.Bases;
-    using Sniper.UI.Components;
+    using Rein.Sniper.Components;
+    using Rein.Sniper.Data;
+    using Rein.Sniper.Enums;
+    using Rein.Sniper.Modules;
+    using Rein.Sniper.SkillDefTypes.Bases;
+    using Rein.Sniper.States.Bases;
+    using Rein.Sniper.UI.Components;
 
     using UnityEngine;
 

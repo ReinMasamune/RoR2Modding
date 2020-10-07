@@ -1,4 +1,4 @@
-﻿namespace Sniper.SkillDefTypes.Bases
+﻿namespace Rein.Sniper.SkillDefTypes.Bases
 {
     using System;
     using RoR2;

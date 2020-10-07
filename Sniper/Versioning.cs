@@ -1,5 +1,5 @@
 ﻿using System;
-namespace Sniper.Properties
+namespace Rein.Sniper.Properties
 {
 	public static class Info
 	{

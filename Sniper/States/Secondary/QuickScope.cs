@@ -1,9 +1,9 @@
-﻿namespace Sniper.States.Secondary
+﻿namespace Rein.Sniper.States.Secondary
 {
     using System;
 
-    using Sniper.Data;
-    using Sniper.States.Bases;
+    using Rein.Sniper.Data;
+    using Rein.Sniper.States.Bases;
 
     using UnityEngine;
 

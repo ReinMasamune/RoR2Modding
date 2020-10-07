@@ -1,6 +1,6 @@
 ﻿//#define TESTING
 //#define EDITOR
-namespace Sniper.UI.Components
+namespace Rein.Sniper.UI.Components
 {
     using System;
     using System.Collections.Generic;

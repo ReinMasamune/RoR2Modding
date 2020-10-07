@@ -1,11 +1,11 @@
-﻿namespace Sniper.Components
+﻿namespace Rein.Sniper.Components
 {
     using System;
     using ReinCore;
     using RoR2;
     using RoR2.Projectile;
-    using Sniper.SkillDefs;
-    using Sniper.SkillDefTypes.Bases;
+    using Rein.Sniper.SkillDefs;
+    using Rein.Sniper.SkillDefTypes.Bases;
     using UnityEngine;
     using UnityEngine.Networking;
 

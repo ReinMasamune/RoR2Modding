@@ -1,4 +1,4 @@
-﻿namespace Sniper.States.Utility
+﻿namespace Rein.Sniper.States.Utility
 {
     using System;
 
@@ -8,7 +8,7 @@
 
     using RoR2;
 
-    using Sniper.Components;
+    using Rein.Sniper.Components;
 
     using UnityEngine;
     using UnityEngine.Networking;

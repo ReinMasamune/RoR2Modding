@@ -1,4 +1,4 @@
-﻿namespace Sniper.Data
+﻿namespace Rein.Sniper.Data
 {
     using System;
     using System.Collections.Generic;
@@ -7,7 +7,7 @@
 
     using RoR2;
 
-    using Sniper.Modules;
+    using Rein.Sniper.Modules;
 
     using UnityEngine;
 

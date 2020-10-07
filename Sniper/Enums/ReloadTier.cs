@@ -1,4 +1,4 @@
-﻿namespace Sniper.Enums
+﻿namespace Rein.Sniper.Enums
 {
     public enum ReloadTier
     {

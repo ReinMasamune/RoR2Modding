@@ -10,7 +10,7 @@
     <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
     <AssemblyVersion>1.1.0.793</AssemblyVersion>
     <FileVersion>1.1.0.793</FileVersion>
-    <RootNamespace>Sniper</RootNamespace>
+    <RootNamespace>Rein.Sniper</RootNamespace>
     <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
   </PropertyGroup>
 
@@ -472,10 +472,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Extensions\" />
   </ItemGroup>
 
   <ItemGroup>

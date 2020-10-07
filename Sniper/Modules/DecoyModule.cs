@@ -1,4 +1,4 @@
-﻿namespace Sniper.Modules
+﻿namespace Rein.Sniper.Modules
 {
     using System;
     using System.Collections.Generic;
@@ -11,9 +11,9 @@
     using RoR2.CharacterAI;
     using RoR2.Networking;
 
-    using Sniper.Components;
-    using Sniper.States.Other;
-    using Sniper.States.Special;
+    using Rein.Sniper.Components;
+    using Rein.Sniper.States.Other;
+    using Rein.Sniper.States.Special;
 
     using UnityEngine;
     using UnityEngine.Networking;

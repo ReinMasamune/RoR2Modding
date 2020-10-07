@@ -1,4 +1,4 @@
-﻿namespace Sniper.States.Special
+﻿namespace Rein.Sniper.States.Special
 {
     using System.Collections.Generic;
 
@@ -6,9 +6,9 @@
 
     using RoR2;
 
-    using Sniper.Modules;
-    using Sniper.SkillDefs;
-    using Sniper.States.Bases;
+    using Rein.Sniper.Modules;
+    using Rein.Sniper.SkillDefs;
+    using Rein.Sniper.States.Bases;
 
     using UnityEngine;
     using UnityEngine.Networking;
