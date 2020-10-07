@@ -8,6 +8,32 @@
 
     using Rewired.Data.Mapping;
 
+    public static class LinkListPool<T>
+    {
+        public static LinkList<T> item
+        {
+            get => Pool<LinkList<T>, Init, Clean>.item;
+            set => Pool<LinkList<T>, Init, Clean>.item = value;
+        }
+
+
+        internal struct Init : IInitItem<LinkList<T>>
+        {
+            public LinkList<T> InitItem()
+            {
+                return new();
+            }
+        }
+        internal struct Clean : ICleanItem<LinkList<T>>
+        {
+            public void CleanItem(LinkList<T> item)
+            {
+                item.Clear();
+            }
+        }
+    }
+
+
     public static class LinkListXtn
     {
         //Contact point
