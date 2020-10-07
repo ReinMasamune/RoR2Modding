@@ -27,6 +27,23 @@
      * Bool on dot type to require client sync, if true server sends message to all clients to add (eventually...)
      */
 
+    internal static class CleanseReciever
+    {
+        static CleanseReciever()
+        {
+            HooksCore.RoR2.DotController.RemoveAllDots.On += RemoveAllDots_On;
+        }
+
+        private static void RemoveAllDots_On(HooksCore.RoR2.DotController.RemoveAllDots.Orig orig, CharacterBody target)
+        {
+            orig(target);
+            onCleanseRecieved?.Invoke(target);
+        }
+
+        internal static event Action<CharacterBody> onCleanseRecieved;
+    }
+
+
     internal static class DotController<TDot, TStackData, TUpdateContext, TPersistContext>
         where TDot : struct, IDot<TDot, TStackData, TUpdateContext, TPersistContext>
         where TStackData : struct, IDotStackData<TDot, TStackData, TUpdateContext, TPersistContext>
@@ -58,11 +75,27 @@
         {
             updateRegistered = true;
             RoR2Application.onFixedUpdate += FixedUpdate;
+            CleanseReciever.onCleanseRecieved += HandleCleanse;
         }
         private static void UnregisterUpdate()
         {
             updateRegistered = false;
             RoR2Application.onFixedUpdate -= FixedUpdate;
+            CleanseReciever.onCleanseRecieved -= HandleCleanse;
+        }
+
+        private static void HandleCleanse(CharacterBody target)
+        {
+            if(bodySpecific.TryGetValue(target.netId, out var val))
+            {
+                var (persist, list) = val;
+                var node = list.first;
+                while(node is not null)
+                {
+                    node.item.OnCleanseRecieved();
+                    node = node.next;
+                }
+            }
         }
 
 
@@ -168,6 +201,7 @@
         void OnExpired(ref TPersistContext ctx);
 
         void Process(Single deltaTime, ref TUpdateContext updateContext);
+        void OnCleanseRecieved();
     }
     public interface IDotUpdateContext
     {
@@ -209,8 +243,6 @@
         internal static Boolean sendToClients => new TDot().sendToClients;
     }
 
-
-
     //Test implementation
     public struct Plasma : IDot<Plasma, Plasma.StackData, Plasma.UpdateContext, Plasma.PersistContext>
     {
@@ -231,7 +263,6 @@
         {
             public Boolean shouldRemove { get; private set; }
 
-
             internal StackData(CharacterBody attackerBody, HurtBox partHit, Single duration, Single multiplier)
             {
                 this.attackerBody = attackerBody;
@@ -239,7 +270,6 @@
                 this.damageMultiplier = multiplier;
                 this.remainingTicks = (Int32)(duration * ticksPerSecond);
                 this.shouldRemove = false;
-
                 this.tickTimer = 0f;
             }
 
@@ -257,9 +287,12 @@
                 {
                     this.tickTimer -= tickInterval;
                     this.remainingTicks--;
-
                     //Do damage here
                 }
+            }
+            public void OnCleanseRecieved()
+            {
+                this.remainingTicks = 0;
             }
 
             //Unneeded in this context
@@ -271,13 +304,8 @@
 
         public struct UpdateContext : IDotUpdateContext<Plasma, StackData, UpdateContext, PersistContext>
         {
-            internal UpdateContext(PersistContext persistCtx)
-            {
-                this.persistContext = persistCtx;
-            }
-
+            internal UpdateContext(PersistContext persistCtx) => this.persistContext = persistCtx;
             private PersistContext persistContext;
-
             internal CharacterBody targetBody => this.persistContext.targetBody;
         }
 
@@ -285,23 +313,13 @@
         {
             public CharacterBody targetBody { get; set; }
             public Boolean shouldRemove { get; private set; }
-
             public UpdateContext InitUpdateContext() => new(this);
+            public void AllExpired() => this.shouldRemove = true;
+            public void OnFirstStackApplied() { } // Apply debuff
+            public void OnLastStackRemoved() { } // Remove debuff
 
             //Unneeded in this context
             public void HandleUpdateContext(in UpdateContext context) { }
-
-            public void AllExpired() => this.shouldRemove = true;
-
-            public void OnFirstStackApplied()
-            {
-                // Apply debuff to target
-            }
-
-            public void OnLastStackRemoved()
-            {
-                // Remove debuff from target
-            }
         }
     }
 }
