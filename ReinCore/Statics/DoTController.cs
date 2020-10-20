@@ -34,23 +34,25 @@
             HooksCore.RoR2.DotController.RemoveAllDots.On += RemoveAllDots_On;
         }
 
-        private static void RemoveAllDots_On(HooksCore.RoR2.DotController.RemoveAllDots.Orig orig, CharacterBody target)
+        private static void RemoveAllDots_On(HooksCore.RoR2.DotController.RemoveAllDots.Orig orig, GameObject target)
         {
             orig(target);
-            onCleanseRecieved?.Invoke(target);
+            var body = target?.GetComponent<CharacterBody>();
+            if(body is null) return;
+            onCleanseRecieved?.Invoke(body);
         }
 
         internal static event Action<CharacterBody> onCleanseRecieved;
     }
 
 
-    internal static class DotController<TDot, TStackData, TUpdateContext, TPersistContext>
+    public static class DotController<TDot, TStackData, TUpdateContext, TPersistContext>
         where TDot : struct, IDot<TDot, TStackData, TUpdateContext, TPersistContext>
         where TStackData : struct, IDotStackData<TDot, TStackData, TUpdateContext, TPersistContext>
         where TUpdateContext : struct, IDotUpdateContext<TDot, TStackData, TUpdateContext, TPersistContext>
         where TPersistContext : struct, IDotPersistContext<TDot, TStackData, TUpdateContext, TPersistContext>
     {
-        internal static void ServerInflictDot(CharacterBody target, TStackData stackInfo, CharacterBody attacker)
+        public static void ServerInflictDot(CharacterBody target, TStackData stackInfo)
         {
             var id = target.netId;
             if(id == NetworkInstanceId.Invalid) throw new ArgumentException("Invalid target");
@@ -98,8 +100,6 @@
             }
         }
 
-
-        // ZERO ALLOCATIONS, HA
         private unsafe static void FixedUpdate()
         {
             var delta = Time.fixedDeltaTime;
@@ -190,6 +190,7 @@
     public interface IDotStackData
     {
         Boolean shouldRemove { get; }
+        void OnCleanseRecieved();
     }
     public interface IDotStackData<TDot, TStackData, TUpdateContext, TPersistContext> : IDotStackData, ISerializableObject
         where TDot : struct, IDot<TDot, TStackData, TUpdateContext, TPersistContext>
@@ -200,8 +201,7 @@
         void OnApplied(ref TPersistContext ctx);
         void OnExpired(ref TPersistContext ctx);
 
-        void Process(Single deltaTime, ref TUpdateContext updateContext);
-        void OnCleanseRecieved();
+        void Process(Single deltaTime, ref TUpdateContext updateContext);      
     }
     public interface IDotUpdateContext
     {
@@ -216,9 +216,8 @@
     }
     public interface IDotPersistContext
     {
-        CharacterBody targetBody { get; set; }
+        UnityRef<CharacterBody> targetBody { get; set; }
         Boolean shouldRemove { get; }
-
         void OnFirstStackApplied();
         void OnLastStackRemoved();
         void AllExpired();
@@ -229,19 +228,7 @@
         where TUpdateContext : struct, IDotUpdateContext<TDot, TStackData, TUpdateContext, TPersistContext>
         where TPersistContext : struct, IDotPersistContext<TDot, TStackData, TUpdateContext, TPersistContext>
     {
-
-
         TUpdateContext InitUpdateContext();
         void HandleUpdateContext(in TUpdateContext context);
     }
-
-
-
-    internal static class DotInfo<TDot>
-        where TDot : struct, IDot
-    {
-        internal static Boolean sendToClients => new TDot().sendToClients;
-    }
-
-    
 }
