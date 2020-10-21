@@ -111,12 +111,16 @@
         internal static Sprite ExplosiveAmmoIcon => _ExplosiveAmmoIcon ??= AssetModule.LoadAsset<Sprite>(Resources.icon__ExplosiveAmmoIcon);
         private static Sprite _HeadshotIcon;
         internal static Sprite HeadshotIcon => _HeadshotIcon ??= AssetModule.LoadAsset<Sprite>(Resources.icon__HeadshotIcon);
+        private static Sprite _KnifeDebuffIcon;
+        internal static Sprite KnifeDebuffIcon => _KnifeDebuffIcon ??= AssetModule.LoadAsset<Sprite>(Resources.icon__KnifeDebuffIcon);
         private static Sprite _KnifeIcon;
         internal static Sprite KnifeIcon => _KnifeIcon ??= AssetModule.LoadAsset<Sprite>(Resources.icon__KnifeIcon);
         private static Sprite _KnifeReactivateIcon;
         internal static Sprite KnifeReactivateIcon => _KnifeReactivateIcon ??= AssetModule.LoadAsset<Sprite>(Resources.icon__KnifeReactivateIcon);
         private static Sprite _PlasmaAmmoIcon;
         internal static Sprite PlasmaAmmoIcon => _PlasmaAmmoIcon ??= AssetModule.LoadAsset<Sprite>(Resources.icon__PlasmaAmmoIcon);
+        private static Sprite _PlasmaDebuffIcon;
+        internal static Sprite PlasmaDebuffIcon => _PlasmaDebuffIcon ??= AssetModule.LoadAsset<Sprite>(Resources.icon__PlasmaDebuffIcon);
         private static Sprite _PortraitIcon;
         internal static Sprite PortraitIcon => _PortraitIcon ??= AssetModule.LoadAsset<Sprite>(Resources.icon__PortraitIcon);
         private static Sprite _QuickscopeIcon;

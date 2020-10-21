@@ -150,6 +150,7 @@
                 } else
                 {
                     skillSlot.stock -= base.stockToConsume;
+                    data.OnStockChanged();
                     data.delayTimer = 0f;
                     if(skillSlot.stock <= 0)
                     {
@@ -252,6 +253,11 @@
                 this.currentReloadTier = this.body.ReadReload();
                 this.UpdateCrosshair();
                 return this.currentReloadTier;
+            }
+
+            internal void OnStockChanged()
+            {
+                this.UpdateCrosshair();
             }
 
 

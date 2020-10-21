@@ -144,6 +144,9 @@
   <data name="icon__HeadshotIcon" xml:space="preserve">
     <value>Assets/__EXPORT/Icons/passive 2/Headshot.png</value>
   </data>
+  <data name="icon__KnifeDebuffIcon" xml:space="preserve">
+    <value>Assets/__EXPORT/Icons/Other/Knife Debuff.png</value>
+  </data>
   <data name="icon__KnifeIcon" xml:space="preserve">
     <value>Assets/__EXPORT/Icons/Special 2/Knife.png</value>
   </data>
@@ -151,7 +154,10 @@
     <value />
   </data>
   <data name="icon__PlasmaAmmoIcon" xml:space="preserve">
-    <value>Assets/__EXPORT/Icons/Passive 1/Primary Plasma.png</value>
+    <value>Assets/__EXPORT/Icons/Passive 1/Plasma Ammo.png</value>
+  </data>
+  <data name="icon__PlasmaDebuffIcon" xml:space="preserve">
+    <value>Assets/__EXPORT/Icons/Other/Plasma Debuff.png</value>
   </data>
   <data name="icon__PortraitIcon" xml:space="preserve">
     <value>Assets/__EXPORT/Icons/Other/portraitIcon.png</value>

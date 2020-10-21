@@ -609,6 +609,8 @@ public static event Hook On
                 }
             }
 
+
+
             public static class BulletAttack
             {
                 public struct DefaultHitCallback
@@ -1025,8 +1027,8 @@ public static event Hook On
                 public struct RemoveAllDots
                 {
                     private static readonly MethodBase method = HookHelpers.GetBase( typeof(RemoveAllDots) );
-                    public delegate void Orig(global::RoR2.CharacterBody target);
-                    public delegate void Hook(Orig orig, global::RoR2.CharacterBody target);
+                    public delegate void Orig(global::UnityEngine.GameObject target);
+                    public delegate void Hook(Orig orig, global::UnityEngine.GameObject target);
                     public static event ILContext.Manipulator Il
                     {
                         add => HookEndpointManager.Modify<Hook>( method, value );
@@ -1966,6 +1968,26 @@ public static event Hook On
 
             public struct UI
             {
+                public static class BuffIcon
+                {
+                    public struct UpdateIcon
+                    {
+                        private static readonly MethodBase method = HookHelpers.GetBase( typeof(UpdateIcon) );
+                        public delegate void Orig(global::RoR2.UI.BuffIcon self);
+                        public delegate void Hook(Orig orig, global::RoR2.UI.BuffIcon self);
+                        public static event ILContext.Manipulator Il
+                        {
+                            add => HookEndpointManager.Modify<Hook>( method, value );
+                            remove => HookEndpointManager.Unmodify<Hook>( method, value );
+                        }
+                        public static event Hook On
+                        {
+                            add => HookEndpointManager.Add<Hook>( method, value );
+                            remove => HookEndpointManager.Remove<Hook>( method, value );
+                        }
+                    }
+                }
+
                 public static class CharacterSelectController
                 {
                     public struct Awake

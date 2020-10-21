@@ -12,6 +12,8 @@
 
     using Rewired.Utils;
 
+    using UnityEngine;
+
     public static class Pool<T, TInitItem, TCleanItem>
         where TInitItem : struct, IInitItem<T>
         where TCleanItem : struct, ICleanItem<T>
@@ -60,10 +62,22 @@
         public void CleanItem(T item) => onClean?.Invoke(item);
     }
 
-    public struct ListCleanItem<TList, TItem> : ICleanItem<TList>
-        where TList : IList<TItem>
+    public struct CollectionCleanItem<TCollection, TItem> : ICleanItem<TCollection>
+        where TCollection : ICollection<TItem>
     {
-        public void CleanItem(TList item) => item.Clear();
+        public void CleanItem(TCollection item) => item.Clear();
+    }
+
+    public struct QueueCleanItem<TQueue, TItem> : ICleanItem<TQueue>
+        where TQueue : Queue<TItem>
+    {
+        public void CleanItem(TQueue item) => item.Clear();
+    }
+
+    public struct StackCleanItem<TStack, TItem> : ICleanItem<TStack>
+        where TStack : Stack<TItem>
+    {
+        public void CleanItem(TStack item) => item.Clear();
     }
 
     public static class SimplePool<T>
@@ -97,12 +111,56 @@
         }
     }
 
+    public static class CollectionPool<TItem, TCollection>
+        where TCollection : ICollection<TItem>, new()
+    {
+        public static TCollection item
+        {
+            get => CustomCleanPool<TCollection, CollectionCleanItem<TCollection, TItem>>.item;
+            set => CustomCleanPool<TCollection, CollectionCleanItem<TCollection, TItem>>.item = value;
+        }
+    }
+
     public static class ListPool<T>
     {
         public static List<T> item
         {
-            get => Pool<List<T>, SimpleInitItem<List<T>>, ListCleanItem<List<T>, T>>.item;
-            set => Pool<List<T>, SimpleInitItem<List<T>>, ListCleanItem<List<T>, T>>.item = value;
+            get => CollectionPool<T, List<T>>.item;
+            set => CollectionPool<T, List<T>>.item = value;
         }
-    }    
+    }
+    public static class QueuePool<T>
+    {
+        public static Queue<T> item
+        {
+            get => CustomCleanPool<Queue<T>, QueueCleanItem<Queue<T>, T>>.item;
+            set => CustomCleanPool<Queue<T>, QueueCleanItem<Queue<T>, T>>.item = value;
+        }
+    }
+    public static class StackPool<T>
+    {
+        public static Stack<T> item
+        {
+            get => CustomCleanPool<Stack<T>, StackCleanItem<Stack<T>, T>>.item;
+            set => CustomCleanPool<Stack<T>, StackCleanItem<Stack<T>, T>>.item = value;
+        }
+    }
+
+    public static class HashSetPool<T>
+    {
+        public static HashSet<T> item
+        {
+            get => CollectionPool<T, HashSet<T>>.item;
+            set => CollectionPool<T, HashSet<T>>.item = value;
+        }
+    }
+
+    public static class DictionaryPool<TKey, TValue>
+    {
+        public static Dictionary<TKey, TValue> item
+        {
+            get => CollectionPool<KeyValuePair<TKey, TValue>, Dictionary<TKey, TValue>>.item;
+            set => CollectionPool<KeyValuePair<TKey, TValue>, Dictionary<TKey, TValue>>.item = value;
+        }
+    }
 }

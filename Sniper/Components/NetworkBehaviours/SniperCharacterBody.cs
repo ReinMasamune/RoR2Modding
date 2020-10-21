@@ -219,7 +219,7 @@
         }
 
 
-        internal SniperAmmoSkillDef ammo
+        internal SniperAmmoSkillDef? ammo
         {
             get
             {
@@ -276,9 +276,9 @@
         //}
         //private GenericSkill _passiveSlot;
 
-        internal SniperScopeSkillDef.ScopeInstanceData scopeInstanceData
+        internal SniperScopeSkillDef.ScopeInstanceData? scopeInstanceData
         {
-            get => base.skillLocator.secondary.skillInstanceData as SniperScopeSkillDef.ScopeInstanceData;
+            get => base.skillLocator?.secondary?.skillInstanceData as SniperScopeSkillDef.ScopeInstanceData;
         }
 
         [field: SerializeField]

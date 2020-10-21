@@ -26,6 +26,7 @@
 
     using UnityEngine;
     using UnityEngine.Networking;
+    using Rein.Sniper.DotTypes;
 
     internal static class SkillsModule
     {
@@ -43,7 +44,7 @@
             public abstract GameObject tracerEffectPrefab { get; }
             protected virtual Single durationMultiplier { get => 1f; }
             protected virtual SoundModule.FireType fireSoundType { get => SoundModule.FireType.Normal; }
-            protected virtual GameObject hitEffectPrefab { get => null; }
+            protected virtual GameObject? hitEffectPrefab { get => null; }
             protected virtual Boolean hitEffectNormal { get => true; }
             protected virtual UInt32 bulletCount { get => 1; }
             protected virtual Single maxDistance { get => 1000f; }
@@ -191,10 +192,11 @@
                     if(Util.CheckRoll(100f - chance, bullet.attackerBody.master))
                     {
                         Vector3 newDir = (-2f * dot * v2) + v1;
-                        var newBul = bullet.Clone() as ExpandableBulletAttack<RicochetData>;
+                        var newBul = bullet.Clone();// as ExpandableBulletAttack<RicochetData>;
                         newBul.origin = hit.point;
                         newBul.aimVector = newDir;
-                        newBul.weapon = new GameObject("temp", typeof(NetworkIdentity));
+                        var wepObj = newBul.weapon = new GameObject("temp", typeof(NetworkIdentity));
+                        
                         if(newBul.data.counter++ == 0) newBul.radius *= 10f;
 
                         if(hit.damageModifier == HurtBox.DamageModifier.SniperTarget)
@@ -222,11 +224,7 @@
 
         private class ExplosiveContext : OnHitContextBase<NoData>
         {
-            private static readonly GameObject _tracer;
-            static ExplosiveContext()
-            {
-                _tracer = VFXModule.GetExplosiveAmmoTracer();
-            }
+            private static readonly GameObject _tracer = VFXModule.GetExplosiveAmmoTracer();
             public override GameObject tracerEffectPrefab => _tracer;
             protected override Single baseDamageMultiplier => 0.4f;
             protected override Single procCoefficient => 1f;
@@ -273,11 +271,8 @@
 
         private class BurstContext : StandardContextBase
         {
-            private static readonly GameObject _tracer;
-            static BurstContext()
-            {
-                _tracer = VFXModule.GetBurstAmmoTracer();
-            }
+            private static readonly GameObject _tracer = VFXModule.GetBurstAmmoTracer();
+
             public override GameObject tracerEffectPrefab => _tracer;
             protected override Single durationMultiplier => base.durationMultiplier * 2f;
             protected override Single baseDamageMultiplier => 0.4f;
@@ -327,6 +322,47 @@
                 bullet.damage *= state.reloadBoost;
             }
         }
+
+
+        internal const Single plasmaTotalMult = 2f;
+        internal const Single plasmaProcPerTick = 0.5f;
+        internal const Single plasmaTotalDuration = 5f;
+        internal const Single plasmaTickFreq = 2.5f;
+
+
+        internal const Single plasmaTotalTicks = plasmaTotalDuration * plasmaTickFreq + 1f;
+        internal const Single plasmaDamagePerTick = plasmaTotalMult / plasmaTotalTicks;
+        private class PlasmaContext : OnHitContextBase<NoData>
+        {
+            private static readonly GameObject _tracer = VFXModule.GetPlasmaAmmoTracer();
+            private const Single baseDotDuration = 10f;
+
+            public override GameObject tracerEffectPrefab => _tracer;
+            protected override Single baseDamageMultiplier => plasmaDamagePerTick;
+            protected override Single procCoefficient => plasmaProcPerTick;
+            protected override Single bulletRadius => 0.5f;
+            protected override DamageColorIndex damageColor => CatalogModule.plasmaDamageColor;
+            protected override OnBulletDelegate<NoData> onHit => (bullet, hit) =>
+            {
+                var box = hit.hitHurtBox;
+                if(!box) return;
+                var target = box.healthComponent?.body;
+                if(!target) return;
+                if(!FriendlyFireManager.ShouldDirectHitProceed(box.healthComponent, bullet.team)) return;
+
+                PlasmaDot.Apply(target, bullet.attackerBody, bullet.damage / bullet.attackerBody.damage, plasmaTotalDuration * Mathf.Sqrt(bullet.chargeBoost + 1f), bullet.procCoefficient, bullet.isCrit, box);
+            };
+
+            public override void InitBullet<T>(ExpandableBulletAttack<NoData> bullet, SnipeState<T> state)
+            {
+                base.InitBullet(bullet, state);
+                bullet.damage *= state.reloadBoost;
+                bullet.damage *= Mathf.Sqrt(1f + state.chargeBoost);
+            }
+        }
+
+
+
 
         internal static void CreateAmmoSkills()
         {
@@ -382,17 +418,17 @@
             //skills.Add(wip);
 
 
-            var plasmaAmmo = SniperAmmoSkillDef.Create<BurstContext>();
+            var plasmaAmmo = SniperAmmoSkillDef.Create<PlasmaContext>();
             plasmaAmmo.icon = Properties.Icons.PlasmaAmmoIcon;
-            plasmaAmmo.skillName = "Burst Ammo";
+            plasmaAmmo.skillName = "Plasma Ammo";
             plasmaAmmo.skillNameToken = Tokens.SNIPER_AMMO_PLASMA_NAME;
             plasmaAmmo.skillDescriptionToken = Tokens.SNIPER_AMMO_PLASMA_DESC;
-            plasmaAmmo.fireSoundType = SoundModule.FireType.Burst;
-            skills.Add((plasmaAmmo, Unlockables.WIPUnlockable.unlockable_Identifier));
+            plasmaAmmo.fireSoundType = SoundModule.FireType.Plasma;
+            skills.Add((plasmaAmmo, ""));
 
             var shockAmmo = SniperAmmoSkillDef.Create<BurstContext>();
             shockAmmo.icon = Properties.Icons.ShockAmmoIcon;
-            shockAmmo.skillName = "Burst Ammo";
+            shockAmmo.skillName = "Shock Ammo";
             shockAmmo.skillNameToken = Tokens.SNIPER_AMMO_SHOCK_NAME;
             shockAmmo.skillDescriptionToken = Tokens.SNIPER_AMMO_SHOCK_DESC;
             shockAmmo.fireSoundType = SoundModule.FireType.Burst;
@@ -567,7 +603,7 @@
         {
             public Single baseDuration => 0.15f;
 
-            public Single recoilStrength => 5f;
+            public Single recoilStrength => 6f;
 
             public Single damageMultiplier => 6f;
 
@@ -581,9 +617,9 @@
         {
             public Single baseDuration => 0.15f;
 
-            public Single recoilStrength => 5f;
+            public Single recoilStrength => 4f;
 
-            public Single damageMultiplier => 2f;
+            public Single damageMultiplier => 2.25f;
 
             public Single forceMultiplier => 100f;
 
@@ -652,13 +688,13 @@
                 goodEnd = 0.6f,
             };
             mag.requiredStock = 1;
-            mag.shootDelay = 0.15f;
+            mag.shootDelay = 0.4f;
             mag.skillDescriptionToken = Tokens.SNIPER_PRIMARY_SNIPE_DESC;
             mag.skillNameToken = Tokens.SNIPER_PRIMARY_SNIPE_NAME;
             mag.stockToConsume = 1;
             mag.stockToReload = 4;
             mag.skillName = "MagSnipe";
-            skills.Add((mag, Unlockables.WIPUnlockable.unlockable_Identifier));
+            skills.Add((mag, ""));
             //skills.Add(wip);
 
             //var slide = SniperReloadableFireSkillDef.Create<SlideSnipe,SlideReload>("Weapon", "Body");
@@ -716,7 +752,7 @@
             charge.skillName = "Steady Aim";
             charge.skillNameToken = Tokens.SNIPER_SECONDARY_STEADY_NAME;
             charge.stockToConsumeOnFire = 1;
-            charge.stockRequiredToKeepZoom = 1;
+            charge.stockRequiredToKeepZoom = 0;
             charge.stockRequiredToModifyFire = 1;
             charge.beginSkillCooldownOnSkillEnd = true;
             charge.initialCarryoverLoss = 0.0f;
@@ -744,7 +780,7 @@
             quick.skillName = "Quickscope";
             quick.skillNameToken = Tokens.SNIPER_SECONDARY_QUICK_NAME;
             quick.stockToConsumeOnFire = 1;
-            quick.stockRequiredToKeepZoom = 1;
+            quick.stockRequiredToKeepZoom = 0;
             quick.stockRequiredToModifyFire = 1;
             quick.beginSkillCooldownOnSkillEnd = false;
             quick.keywordTokens = new[]
@@ -854,7 +890,7 @@
             KnifeSkillData.interruptPriority = InterruptPriority.PrioritySkill;
             KnifeSkillData.targetMachineName = "Weapon";
             KnifeSkillData.slashState = SkillsCore.StateType<KnifePickupSlash>();
-            skills.Add((knife, Unlockables.WIPUnlockable.unlockable_Identifier));
+            skills.Add((knife, ""));
             //skills.Add(wip);
 
             SkillFamiliesModule.specialSkills = skills;

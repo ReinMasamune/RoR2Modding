@@ -47,7 +47,6 @@
             {
                 base.outer.SetNextStateToMain();
             }
-
         }
 
         public override void OnEnter()
@@ -65,7 +64,6 @@
             {
                 base.outer.SetNextStateToMain();
             }
-
         }
 
         public override void Update()

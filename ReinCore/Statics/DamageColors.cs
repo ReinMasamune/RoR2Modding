@@ -17,40 +17,31 @@
                 throw new CoreNotLoadedException( nameof( DamageColorsCore ) );
             }
 
-            Color[] colors = DamageColor.colors;//damageColors.Get();
-            Int32 ind = colors.Length;
-            if( colors.Length >= 255 )
+            Int32 ind = DamageColor.colors.Length;
+            if( ind >= 255 )
             {
-                throw new ArgumentOutOfRangeException( "Many rainbows" );
+                throw new ArgumentOutOfRangeException( "Too many rainbows" );
             }
 
-            Array.Resize<Color>( ref colors, ind + 1 );
-            colors[ind] = color;
-            DamageColor.colors = colors;
-            //damageColors.Set( colors );
+            Array.Resize<Color>( ref DamageColor.colors, ind + 1 );
+            DamageColor.colors[ind] = color;
             curMax++;
             return (DamageColorIndex)ind;
         }
 
         static DamageColorsCore()
         {
-            //Log.Warning( "DamageColorsCore loaded" );
             fieldRef = typeof( DamageColorsCore ).GetField( nameof( curMax ), BindingFlags.NonPublic | BindingFlags.Static );
             HooksCore.RoR2.DamageColor.FindColor.Il += FindColor_Il;
-            //Log.Warning( "DamageColorsCore loaded" );
             loaded = true;
         }
 
-        //private static readonly StaticAccessor<Color[]> damageColors = new StaticAccessor<Color[]>( typeof(DamageColor), "colors" );
         private static Int32 curMax = 8;
         private static readonly FieldInfo fieldRef;
 
-        private static void FindColor_Il( MonoMod.Cil.ILContext il )
-        {
-            var cursor = new ILCursor( il );
-            _ = cursor.GotoNext( MoveType.AfterLabel, x => x.MatchLdcI4( 8 ) );
-            _ = cursor.Remove();
-            _ = cursor.Emit( OpCodes.Ldsfld, fieldRef );
-        }
+        private static void FindColor_Il(MonoMod.Cil.ILContext il) => new ILCursor(il)
+            .GotoNext(MoveType.AfterLabel, x => x.MatchLdcI4((Int32)DamageColorIndex.Count))
+            .Remove()
+            .LdSFld_(fieldRef);
     }
 }

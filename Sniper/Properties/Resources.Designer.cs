@@ -142,6 +142,15 @@ namespace Rein.Sniper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Assets/__EXPORT/Icons/Other/Knife Debuff.png.
+        /// </summary>
+        internal static string icon__KnifeDebuffIcon {
+            get {
+                return ResourceManager.GetString("icon__KnifeDebuffIcon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Assets/__EXPORT/Icons/Special 2/Knife.png.
         /// </summary>
         internal static string icon__KnifeIcon {
@@ -160,11 +169,20 @@ namespace Rein.Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Assets/__EXPORT/Icons/Passive 1/Primary Plasma.png.
+        ///   Looks up a localized string similar to Assets/__EXPORT/Icons/Passive 1/Plasma Ammo.png.
         /// </summary>
         internal static string icon__PlasmaAmmoIcon {
             get {
                 return ResourceManager.GetString("icon__PlasmaAmmoIcon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Assets/__EXPORT/Icons/Other/Plasma Debuff.png.
+        /// </summary>
+        internal static string icon__PlasmaDebuffIcon {
+            get {
+                return ResourceManager.GetString("icon__PlasmaDebuffIcon", resourceCulture);
             }
         }
         

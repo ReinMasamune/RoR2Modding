@@ -12,7 +12,6 @@ using UnityEngine.Networking;
 
 namespace Rein.RogueWispPlugin
 {
-
     internal partial class Main
     {
         internal class AWSecondary : BaseState
@@ -77,15 +76,11 @@ namespace Rein.RogueWispPlugin
             private UInt32 skin;
 
 
-            private ReadOnlyCollection<TeamComponent> targets1;
-            private ReadOnlyCollection<TeamComponent> targets2;
-            private ReadOnlyCollection<TeamComponent> targets3;
-            private ReadOnlyCollection<TeamComponent> targets4;
-
             //private Queue<Vector3> sequencePillars = new Queue<Vector3>();
 
-            private Queue<PillarInfo> pillars = new Queue<PillarInfo>();
+            private Queue<PillarInfo> pillars = QueuePool<PillarInfo>.item;
             private static Collider[] colliderBuffer = new Collider[1000];
+            private static HashSet<HealthComponent> hitMask = new();
 
             private class PillarInfo
             {
@@ -183,15 +178,12 @@ namespace Rein.RogueWispPlugin
 
                 private void Detonate( Single damage, Vector3 force, Single procCoef, DamageType damageType )
                 {
-                    StackSet<HealthComponent> mask;
-                    unsafe
-                    {
-                        var maskBacking = stackalloc Byte[256];
-                        mask = new StackSet<HealthComponent>( maskBacking, 256 );
-                    }
+                    HashSet<HealthComponent> mask = HashSetPool<HealthComponent>.item;
                     //mask.Clear();
 
                     var count = Physics.OverlapCapsuleNonAlloc( this.position - new Vector3( 0f, 10f, 0f ), this.position + new Vector3( 0f, 1000f, 0f ), this.radius * 2f, colliderBuffer, LayerIndex.entityPrecise.mask );
+
+                    Log.Warning($"Detonate, count = {count}");
 
                     for( Int32 i = 0; i < count; ++i )
                     {
@@ -214,7 +206,7 @@ namespace Rein.RogueWispPlugin
                             continue;
                         }
 
-                        if( mask.Add( hc ) )
+                        if( !mask.Add( hc ) )
                         {
                             //Main.LogW( "Already hit" );
                             continue;
@@ -229,7 +221,7 @@ namespace Rein.RogueWispPlugin
                         {
                             attacker = this.owner,
                             crit = this.crit,
-                            damage = damage * 0f,
+                            damage = damage,
                             damageColorIndex = DamageColorIndex.Default,
                             damageType = damageType,
                             dotIndex = DotController.DotIndex.None,
@@ -242,10 +234,13 @@ namespace Rein.RogueWispPlugin
                         hc.TakeDamage( info );
                         GlobalEventManager.instance.OnHitEnemy( info, hc.gameObject );
                         GlobalEventManager.instance.OnHitAll( info, hc.gameObject );
+                        colliderBuffer[i] = null;
                     }
 
+                    HashSetPool<HealthComponent>.item = mask;
+                    mask = null;
 
-                   
+
                     //foreach( var targetSet in validTargets )
                     //{
                     //    if( targetSet == null ) continue;
@@ -503,6 +498,8 @@ namespace Rein.RogueWispPlugin
                 //this.DetonatePillars();
                 //base.PlayCrossfade( "Body", "EndRain", "EndRain.playbackRate", 0.5f, 0.2f );
                 base.OnExit();
+                QueuePool<PillarInfo>.item = this.pillars;
+                this.pillars = null;
             }
 
             public override InterruptPriority GetMinimumInterruptPriority()

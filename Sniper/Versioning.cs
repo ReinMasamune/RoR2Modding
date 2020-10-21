@@ -6,6 +6,6 @@ namespace Rein.Sniper.Properties
 		/// <summary>
 		/// The version of the library
 		/// </summary>
-		public const String ver = "1.1.0.793";
+		public const String ver = "1.2.0.793";
 	}
 }

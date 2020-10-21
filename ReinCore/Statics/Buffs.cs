@@ -8,8 +8,7 @@
 
     using RoR2;
 
-    
-
+    using UnityEngine;
 
     public static class BuffsCore
     {
@@ -22,10 +21,21 @@
         {
             //Log.Warning( "BuffsCore loaded" );
             HooksCore.RoR2.BuffCatalog.Init.Il += Init_Il;
+            HooksCore.RoR2.UI.BuffIcon.UpdateIcon.Il += UpdateIcon_Il;
             //RegisterBuff = (RegisterBuffDelegate)Delegate.CreateDelegate( typeof( RegisterBuffDelegate ), typeof( BuffCatalog ), "RegisterBuff" );
             //Log.Warning( "BuffsCore loaded" );
             loaded = true;
         }
+
+
+        private static Sprite EmittedDelegate1(Sprite cur, BuffDef inDef) => inDef is CustomSpriteBuffDef def ? def.sprite : cur;
+
+        private static readonly MethodInfo image_set_sprite = typeof(UnityEngine.UI.Image)?.GetProperty(nameof(UnityEngine.UI.Image.sprite), BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)?.GetSetMethod(true) ?? throw new MissingMemberException("No method set_sprite on image for bufficon");
+        //private static readonly FieldInfo custombuff_sprite = typeof(CustomSpriteBuffDef)?.GetField(nameof(CustomSpriteBuffDef.sprite), BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance) ?? throw new MissingMemberException("No field sprite on custombuffdef");
+        private static void UpdateIcon_Il(ILContext il) => new ILCursor(il)
+            .GotoNext(MoveType.AfterLabel, x => x.MatchCallOrCallvirt(image_set_sprite))
+            .LdLoc_(0)
+            .CallDel_<Func<Sprite, BuffDef, Sprite>>(EmittedDelegate1);
 
         //private delegate void RegisterBuffDelegate( BuffIndex buffIndex, BuffDef buff );
         //private static readonly RegisterBuffDelegate RegisterBuff;
@@ -60,6 +70,14 @@
                   }
               } );
         }
+
+
+    }
+
+    public class CustomSpriteBuffDef : BuffDef
+    {
+        public CustomSpriteBuffDef(Sprite sprite) => this.sprite = sprite;
+        public readonly Sprite sprite;
     }
 }
 

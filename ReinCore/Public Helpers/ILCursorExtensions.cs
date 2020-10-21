@@ -45,6 +45,7 @@
         public static ILCursor BrFalse_(this ILCursor cursor, ILLabel target) => cursor.Emit(OpCodes.Brfalse, target);
         public static ILCursor Br_(this ILCursor cursor, ILLabel target) => cursor.Emit(OpCodes.Br, target);
         public static ILCursor Is_(this ILCursor cursor, Type t) => cursor.Emit(OpCodes.Isinst, t);
+        public static ILCursor Is_<T>(this ILCursor cursor) => cursor.Is_(typeof(T));
         public static ILCursor Switch_(this ILCursor cursor, params ILLabel[] targets) => cursor.Emit(OpCodes.Switch, targets);
         public static ILCursor New_(this ILCursor cursor, ConstructorInfo constructor) => cursor.EmitNewObj(constructor);
         public static ILCursor Dup_(this ILCursor cursor) => cursor.Emit(OpCodes.Dup);
@@ -82,6 +83,8 @@
             _ => cursor.Emit(OpCodes.Ldloca, index),
         };
         public static ILCursor LdFld_(this ILCursor cursor, FieldInfo field) => cursor.Emit(OpCodes.Ldfld, field);
+        public static ILCursor LdSFld_(this ILCursor cursor, FieldInfo field) => cursor.Emit(OpCodes.Ldsfld, field);
+        public static ILCursor LdSFldA_(this ILCursor cursor, FieldInfo field) => cursor.Emit(OpCodes.Ldsflda, field);
         public static ILCursor LdElem_<T>(this ILCursor cursor)
         {
             switch(typeof(T))

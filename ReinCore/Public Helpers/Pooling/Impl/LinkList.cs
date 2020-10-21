@@ -176,6 +176,7 @@
         internal Node CreateNode(T item)
         {
             var node = GetNewNode();
+            node.list = this;
             node.item = item;
             return node;
         }

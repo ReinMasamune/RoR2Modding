@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 
+using ReinCore;
+
 using RoR2;
 
 using UnityEngine;
@@ -48,7 +50,7 @@ namespace Rein.RogueWispPlugin
 
             private Vector3 lastPos;
 
-            private Vector3[] worldHits;
+            //private Vector3[] worldHits;
 
             private Vector3 dVec;
             private Vector3 velVec;
@@ -56,10 +58,8 @@ namespace Rein.RogueWispPlugin
 
             private Single totalDist;
 
-            public HashSet<HealthComponent> mask = new HashSet<HealthComponent>();
-
-            private Dictionary<HealthComponent,SortedDictionary<Single,HurtBox>> hitResults = new Dictionary<HealthComponent, SortedDictionary<Single, HurtBox>>();
-            private Dictionary<HealthComponent,Hit> bestHits = new Dictionary<HealthComponent, Hit>();
+            public HashSet<HealthComponent> mask = HashSetPool<HealthComponent>.item;
+            private Dictionary<HealthComponent,Hit> bestHits = DictionaryPool<HealthComponent, Hit>.item;
             private Transform hitDetector;
             private TriggerCallbackController trigger;
             private Rigidbody hitRb;
@@ -78,6 +78,14 @@ namespace Rein.RogueWispPlugin
 
             public override void Begin()
             {
+                PickupDef pickup = default;
+                var (nameToken, colorIndex) = pickup switch
+                {
+                    PickupDef _ when EquipmentCatalog.GetEquipmentDef(pickup.equipmentIndex) is EquipmentDef def => (def.nameToken, def.colorIndex),
+                    PickupDef _ when ItemCatalog.GetItemDef(pickup.itemIndex) is ItemDef def => (def.nameToken, def.colorIndex),
+                    _ => (default, default),
+                };
+
                 if( !this.useTargetPos )
                 {
                     var r = new Ray( this.origin, this.direction );
@@ -238,9 +246,12 @@ namespace Rein.RogueWispPlugin
                     };
 
                     ReinCore.NetworkingHelpers.DealDamage( dmg, null, false, false, true );
-
                 }
                 this.trigger.Cleanup();
+                HashSetPool<HealthComponent>.item = this.mask;
+                this.mask = null;
+                DictionaryPool<HealthComponent, Hit>.item = this.bestHits;
+                this.bestHits = null;
             }
 
             private IEnumerator DelayedBuff( Single delay, CharacterBody body, BuffIndex buff, Single duration, Int32 stacks )

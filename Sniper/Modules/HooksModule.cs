@@ -67,12 +67,12 @@
                 _ = c2
                     .MoveBeforeLabels()
                     .LdArg_(0).LdFld_(camParamsField)
-                    .Emit(OpCodes.Isinst, typeof(SniperCameraParams))
+                    .Is_<SniperCameraParams>()
                     .BrFalse_(defLab)
                     .LdArg_(0)
                     .LdFld_(camParamsField)
                     .LdFld_(SelectField(baseValue))
-                    .Emit(OpCodes.Br_S, skipLab)
+                    .Br_(skipLab)
                     .Move(1);
             }
             var camVertDamp = typeof(SniperCameraParams).GetField( nameof(SniperCameraParams.vertDamp), BF.Public | BF.NonPublic | BF.Instance );
@@ -88,12 +88,12 @@
                 _ = c3
                     .MoveBeforeLabels()
                     .LdArg_(0).LdFld_(camParamsField)
-                    .Emit(OpCodes.Isinst, typeof(SniperCameraParams))
+                    .Is_<SniperCameraParams>()
                     .BrFalse_(defLab)
                     .LdArg_(0)
                     .LdFld_(camParamsField)
                     .LdFld_(camVertDamp)
-                    .Emit(OpCodes.Br_S, skipLab)
+                    .Br_(skipLab)
                     .Move(1);
             }
             _ = c.GotoNext(MoveType.After,
@@ -113,11 +113,11 @@
                     x => x.MatchLdarg(0),
                     x => x.MatchLdfld<CameraTargetParams>(nameof(CameraTargetParams.cameraParams))
                 ).Dup_()
-                .Emit(OpCodes.Isinst, typeof(SniperCameraParams))
+                .Is_<SniperCameraParams>()
                 .BrFalse_(standard)
                 .LdFld_(typeof(SniperCameraParams).GetField(nameof(SniperCameraParams.throwLocalCameraPos), BF.Instance | BF.NonPublic))
                 .StLoc_(vecLocation)
-                .Emit(OpCodes.Br_S, end);
+                .Br_(end);
         }
 
         // FUTURE: Refactor into Core for Hud edits
