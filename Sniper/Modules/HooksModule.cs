@@ -116,7 +116,7 @@
                 .Is_<SniperCameraParams>()
                 .BrFalse_(standard)
                 .LdFld_(typeof(SniperCameraParams).GetField(nameof(SniperCameraParams.throwLocalCameraPos), BF.Instance | BF.NonPublic))
-                .StLoc_(vecLocation)
+                .StLoc_((UInt16)vecLocation)
                 .Br_(end);
         }
 

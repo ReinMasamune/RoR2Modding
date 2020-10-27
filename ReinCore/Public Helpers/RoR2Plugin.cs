@@ -91,7 +91,7 @@
 //            public static void Error(System.Object data) => InternalLog(LogLevel.Error, data);
 //            public static void Fatal(System.Object data) => InternalLog(LogLevel.Fatal, data);
 
-            
+
 //            public static void Counter([CallerMemberName] String member = "", [CallerLineNumber] Int32 line = 0)
 //            {
 //                if(!counters.ContainsKey(member))
@@ -201,7 +201,7 @@
 
 //}
 
-//public class TestPlugin : RoR2Plugin<TestPlugin>
-//{
+////public class TestPlugin : RoR2Plugin<TestPlugin>
+////{
 
-//}
+////}

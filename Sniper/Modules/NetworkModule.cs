@@ -16,6 +16,12 @@
                 Log.Error( "Failed to register network message for skill resets" );
 #endif
             }
+            if(!NetworkCore.RegisterMessageType<PlasmaApplyMessage>())
+            {
+#if ASSERT
+                Log.Error( "Failed to register network message for plasma apply" );
+#endif
+            }
         }
 
 
