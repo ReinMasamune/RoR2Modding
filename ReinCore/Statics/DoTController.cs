@@ -45,6 +45,11 @@
         internal static event Action<CharacterBody> onCleanseRecieved;
     }
 
+    public abstract class DotDef
+    {
+
+    }
+
 
     public static class DotController<TDot, TStackData, TUpdateContext, TPersistContext>
         where TDot : struct, IDot<TDot, TStackData, TUpdateContext, TPersistContext>
