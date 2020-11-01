@@ -11,7 +11,6 @@ namespace cpptest
 	public ref class Class1 : BaseUnityPlugin
 	{
 		public:
-		Util::Array<Int32, 6> data;
 		void Awake();
 	};
 }

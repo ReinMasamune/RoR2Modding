@@ -7,53 +7,61 @@
     using System.Linq;
     using System.Runtime.CompilerServices;
 
+    using ReinCore;
+
     using RoR2;
 
-
-
-    public abstract class CustomCatalog<TSelf, TDef, TIndex>
-        where TSelf : CustomCatalog<TSelf, TDef, TIndex>, new()
-        where TDef : Def<TIndex>
-        where TIndex : unmanaged, Enum, IComparable<UInt64>, IEquatable<UInt64>, IComparable, IFormattable, IConvertible
+    public abstract class CustomCatalog<TSelf, TDef>
+        where TSelf : CustomCatalog<TSelf, TDef>, new()
+        where TDef : CustomCatalog<TSelf, TDef>.ICatalogDef
+        //where TDef : class, CustomCatalog<TSelf, TDef>.IDef
     {
-        public static ICatalogHandle handle { get; } = new CatalogHandle<TSelf, TDef, TIndex>();
-        //Various functions for looking up by index and name
-        public static TDef? GetDef(TIndex index)
+        #region SubTypes
+        public interface ICatalogDef
         {
-            EnsureInitialized();
-            index.ToValue(out UInt64 ind);
-            return definitions![ind];
+            String guid { get; }
+            Entry? entry { get; set; }
         }
-        public static TDef GetDef(String guid)
+        public class Entry
         {
-            EnsureInitialized();
-            return guidToDef[guid];
-        }
-
-        public static Boolean TryGetDef(TIndex index, out TDef? def)
-        {
-            def = null;
-            if(!initialized) return false;
-            index.ToValue(out UInt64 ind);
-            if(ind >= count) return false;
-            def = definitions![ind];
-            return true;
-        }
-
-        public static Boolean TryGetDef(String guid, out TDef? def)
-        {
-            def = null;
-            if(!initialized) return false;
-            return guidToDef.TryGetValue(guid, out def);
-        }
-
-
-        public sealed class Token
-        {
+            public Index? index { get; internal set; }
             public TDef def { get; }
+            public Boolean active => this.index is not null;
+
+            internal Entry(TDef def)
+            {
+                this.def = def;
+            }
+        }
+
+        private struct Handle : ICatalogHandle
+        {
+            public void InitializeIfNeeded() => CustomCatalog<TSelf, TDef>.InitializeIfNeeded();
+            public void EnsureInitialized() => CustomCatalog<TSelf, TDef>.EnsureInitialized();
+
+            public event Action onCatalogReset
+            {
+                add => CustomCatalog<TSelf, TDef>.onCatalogReset += value;
+                remove => CustomCatalog<TSelf, TDef>.onCatalogReset -= value;
+            }
+            public event Action onPreInit
+            {
+                add => CustomCatalog<TSelf, TDef>.onPreInit += value;
+                remove => CustomCatalog<TSelf, TDef>.onPreInit -= value;
+            }
+            public event Action onPostInit
+            {
+                add => CustomCatalog<TSelf, TDef>.onPostInit += value;
+                remove => CustomCatalog<TSelf, TDef>.onPostInit -= value;
+            }
+        }
+        public sealed class RegistrationToken
+        {
+            public TDef def => this.entry.def;
+            public Entry entry { get; }
             public Boolean registered { get; private set; }
             public Boolean added => this.index is not null;
-            public TIndex? index => this.def.index;
+            public Index? index => this.entry.index;
             public void Register()
             {
                 if(this.registered) return;
@@ -66,68 +74,89 @@
                 moddedEntries -= this.RegistrationFunc;
                 this.registered = false;
             }
-            internal Token(TDef def) => this.def = def;
+            internal RegistrationToken(TDef def) => this.entry = def.entry;
             private TDef RegistrationFunc() => this.def;
+        }
+
+        public enum Index : UInt64
+        {
+            Invalid = 0ul,
+        }
+        #endregion
+
+        #region Customizable functionality
+        protected virtual IEnumerable<ICatalogHandle> dependencies { get => Enumerable.Empty<ICatalogHandle>(); }
+        protected virtual void OnDefRegistered(TDef def) { }
+        protected virtual void ProcessAllDefinitions(TDef[] definitions) { }
+        protected virtual IEnumerable<TDef> GetBaseEntries() => Enumerable.Empty<TDef>();
+        protected virtual void FirstInitSetup() { }
+        #endregion
+
+
+        #region Inherited static interface
+        public static ICatalogHandle handle { get; } = new Handle();
+        public static TDef? GetDef(Index index)
+        {
+            EnsureInitialized();
+            return definitions![(UInt64)index];
+        }
+        public static TDef? GetDef(String guid)
+        {
+            EnsureInitialized();
+            return guidToDef[guid];
+        }
+        public static Boolean TryGetDef(Index index, out TDef? def)
+        {
+            def = default;
+            if(!initialized) return false;
+            var ind = (UInt64)index;
+            if(ind >= count) return false;
+            def = definitions![ind - 1];
+            return true;
+        }
+        public static Boolean TryGetDef(String guid, out TDef? def)
+        {
+            def = default;
+            if(!initialized) return false;
+            return guidToDef.TryGetValue(guid, out def);
         }
 
         public static UInt64 count => (UInt64)(definitions?.LongLength ?? 0L);
 
-        public static Token Add(TDef item)
+        public static RegistrationToken Add(TDef item)
         {
-            var tok = new Token(item);
+            var tok = new RegistrationToken(item);
             tok.Register();
             outstandingTokens.Add(tok);
             return tok;
         }
-
-        private static readonly List<Token> outstandingTokens = new();
-
-
         public static event Action onPreInit;
         public static event Action onPostInit;
         public static event Action onCatalogReset;
+        #endregion
 
+        #region Protected inherited static interface
+        protected static readonly TSelf instance = new();
+        #endregion
+
+
+        #region Internal static interface
+        private static readonly List<RegistrationToken> outstandingTokens = new();
+        //Convert this to hashset? delegate does not really make sense anymore with this setup as it is abstracted behind Add and defs should not be recreated on reset.
         private static event Func<TDef> moddedEntries;
-
         private static TDef[]? definitions;
         private static readonly Dictionary<String, TDef> guidToDef = new();
-
         private static Boolean initialized = false;
-
-
-        protected static readonly TSelf instance = new();
-
         private static UInt64 _curIndex = 0ul;
-        private static Boolean hooksApplied = false;
-        private static TIndex currentIndex
+        private static Boolean firstInitComplete = false;
+        private static Index currentIndex
         {
             get
             {
-                _curIndex.ToEnum(out TIndex index);
-                return index;
+                return (Index)_curIndex;
             }
-            set => _curIndex = value.ToUInt64(null);
+            set => _curIndex = (UInt64)value;
         }
-        protected CustomCatalog()
-        {
-            if(instance is not null) throw new InvalidOperationException("Instance already created");
-        }
-
-        public static void OnDepReset()
-        {
-            if(initialized)
-            {
-                initialized = false;
-                foreach(var def in definitions!)
-                {
-                    def.index = null;
-                    def.active = false;
-                }
-                definitions = null;
-                guidToDef.Clear();
-            }
-        }
-
         internal static void EnsureInitialized()
         {
             if(!initialized) throw new InvalidOperationException("Catalog is not initialized");
@@ -144,13 +173,18 @@
             foreach(var dep in deps)
             {
                 dep.InitializeIfNeeded();
-                if(!hooksApplied)
+                if(!firstInitComplete)
                 {
                     dep.onCatalogReset += OnDepReset;
                     dep.onPostInit += InitializeIfNeeded;
                 }
             }
-            hooksApplied = true;
+            if(!firstInitComplete)
+            {
+                instance.FirstInitSetup();
+                firstInitComplete = true;
+            }
+            
 
 
             var preSubbed = onPreInit?.Subscribed();
@@ -168,17 +202,18 @@
                 }
             }
 
-
-            foreach(var def in definitions)
+            if(definitions is not null)
             {
-                def.active = false;
-                def.index = null;
+                foreach(var def in definitions)
+                {
+                    def.entry.index = null;
+                }
             }
-            definitions = null; // Return to pool instead;
+            definitions = null;
             guidToDef.Clear();
 
             InitEntries();
-            instance.ProcessAllDefinitions(definitions!);
+            instance.ProcessAllDefinitions(definitions);
             initialized = true;
 
             var postSubbed = onPostInit?.Subscribed();
@@ -194,7 +229,7 @@
                         //Log error
                     }
                 }
-            } 
+            }
         }
 
         private static void InitEntries()
@@ -216,12 +251,12 @@
             definitions = new TDef[_curIndex];
             foreach(var def in guidToDef.Values)
             {
-                if(def.index is not TIndex index)
+                if(def?.entry?.index is not Index index)
                 {
                     // Log potentially fatal error, this code should be entirely unreachable.
                     continue;
                 }
-                definitions[index.ToUInt64(null)] = def;
+                definitions[(UInt64)index] = def;
             }
         }
 
@@ -241,36 +276,52 @@
 
         private static void Register(TDef def)
         {
-            if(guidToDef.TryGetValue(def.guid, out var existing) && existing.index is TIndex index)
+            var entry = def.entry ??= new(def);
+            if(guidToDef.TryGetValue(def.guid, out var existing) && existing?.entry?.index is Index index)
             {
-                existing.active = false;
-                existing.index = null;
-                def.index = index;
+                existing.entry.index = null;
+                entry.index = index;
                 //Log existing overwritten info
             } else
             {
-                def.index = currentIndex;
+                entry.index = currentIndex;
                 _curIndex++;
             }
 
-            def.active = true;
             guidToDef[def.guid] = def;
 
-            instance.RegisterDef(def);
+            instance.OnDefRegistered(def);
+        }
+        #endregion
+
+        #region Constructors
+        protected CustomCatalog()
+        {
+            if(instance is not null) throw new InvalidOperationException("Instance already created");
         }
 
-        protected abstract IEnumerable<TDef> GetBaseEntries();
-        protected abstract IEnumerable<ICatalogHandle> dependencies { get; }
-        protected abstract void RegisterDef(TDef def);
-        protected abstract void ProcessAllDefinitions(TDef[] definitions);
-    }
 
-    public abstract class Def<TIndex>
-        where TIndex : unmanaged, Enum, IComparable<UInt64>, IEquatable<UInt64>, IComparable, IFormattable, IConvertible
-    {
-        public TIndex? index { get; internal set; }
-        public String guid { get; }
-        public Boolean active { get; internal set; }
+        #endregion
+
+
+        public static void OnDepReset()
+        {
+            if(initialized)
+            {
+                initialized = false;
+                foreach(var def in definitions!)
+                {
+                    def.entry.index = null;
+                }
+                definitions = null;
+                guidToDef.Clear();
+            }
+        }
+
+        
+
+
+
     }
 
     internal static class MiscXtn
@@ -301,28 +352,5 @@
         void InitializeIfNeeded();
         void EnsureInitialized();
     }
-    internal struct CatalogHandle<TCatalog, TDef, TIndex> : ICatalogHandle
-        where TCatalog : CustomCatalog<TCatalog, TDef, TIndex>, new()
-        where TDef : Def<TIndex>
-        where TIndex : unmanaged, Enum, IComparable<UInt64>, IEquatable<UInt64>, IComparable, IFormattable, IConvertible
-    {
-        public void InitializeIfNeeded() => CustomCatalog<TCatalog, TDef, TIndex>.InitializeIfNeeded();
-        public void EnsureInitialized() => CustomCatalog<TCatalog, TDef, TIndex>.EnsureInitialized();
 
-        public event Action onCatalogReset
-        {
-            add => CustomCatalog<TCatalog, TDef, TIndex>.onCatalogReset += value;
-            remove => CustomCatalog<TCatalog, TDef, TIndex>.onCatalogReset -= value;
-        }
-        public event Action onPreInit
-        {
-            add => CustomCatalog<TCatalog, TDef, TIndex>.onPreInit += value;
-            remove => CustomCatalog<TCatalog, TDef, TIndex>.onPreInit -= value;
-        }
-        public event Action onPostInit
-        {
-            add => CustomCatalog<TCatalog, TDef, TIndex>.onPostInit += value;
-            remove => CustomCatalog<TCatalog, TDef, TIndex>.onPostInit -= value;
-        }
-    }
 }
