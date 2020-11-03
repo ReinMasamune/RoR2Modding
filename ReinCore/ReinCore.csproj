@@ -88,6 +88,7 @@
 
   <ItemGroup>
     <Folder Include="EffectHelper\" />
+    <Folder Include="Statics\EnhancedCatalogs\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -171,9 +171,6 @@
         }
     }
 
-
-
-
     public interface IDot
     {
         // TODO: Implement
@@ -187,12 +184,12 @@
     {
     }
 
-    public interface IDotStackData
+    public interface IDotStackData : ISerializableObject
     {
         Boolean shouldRemove { get; }
         void OnCleanseRecieved();
     }
-    public interface IDotStackData<TDot, TStackData, TUpdateContext, TPersistContext> : IDotStackData, ISerializableObject
+    public interface IDotStackData<TDot, TStackData, TUpdateContext, TPersistContext> : IDotStackData
         where TDot : struct, IDot<TDot, TStackData, TUpdateContext, TPersistContext>
         where TStackData : struct, IDotStackData<TDot, TStackData, TUpdateContext, TPersistContext>
         where TUpdateContext : struct, IDotUpdateContext<TDot, TStackData, TUpdateContext, TPersistContext>

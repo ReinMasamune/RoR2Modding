@@ -7,6 +7,7 @@
     using UnityEngine;
     using UnityEngine.Networking;
 
+
     internal struct DoTMessage : INetMessage
     {
         public void Serialize( NetworkWriter writer )

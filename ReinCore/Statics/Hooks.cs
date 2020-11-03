@@ -1669,6 +1669,26 @@ public static event Hook On
                 }
             }
 
+            public static class SystemInitializer
+            {
+                public struct Execute
+                {
+                    private static readonly MethodBase method = HookHelpers.GetBase( typeof(Execute) );
+                    public delegate void Orig();
+                    public delegate void Hook(Orig orig);
+                    public static event ILContext.Manipulator Il
+                    {
+                        add => HookEndpointManager.Modify<Hook>( method, value );
+                        remove => HookEndpointManager.Unmodify<Hook>( method, value );
+                    }
+                    public static event Hook On
+                    {
+                        add => HookEndpointManager.Add<Hook>( method, value );
+                        remove => HookEndpointManager.Remove<Hook>( method, value );
+                    }
+                }
+            }
+
 
             public static class UnlockableCatalog
             {

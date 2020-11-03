@@ -54,6 +54,7 @@
             Log.Message("Sniper initializing");
             instance = this;
 
+
             base.awake += () =>
             {
                 SetModdedModule.SetModded();
@@ -161,6 +162,7 @@
 #pragma warning restore IDE1006 // Naming Styles
         #endregion
     }
+
 
     #region Logging
     internal static class Log

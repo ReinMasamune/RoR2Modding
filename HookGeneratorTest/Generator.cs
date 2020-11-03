@@ -22,7 +22,7 @@
 
         static void Log(GeneratorExecutionContext ctx, String message)
         {
-            ctx.ReportDiagnostic(Diagnostic.Create(iHateYou, null, message));
+            ctx.ReportDiagnostic(Diagnostic.Create(iHateYou, null, message,));
             throw new Exception(message);
         }
 
@@ -69,48 +69,42 @@
         internal List<HookCandidateData> candidates { get; } = new();
         public void OnVisitSyntaxNode(SyntaxNode syntaxNode)
         {
-            if(syntaxNode is ExpressionStatementSyntax expression)
+            if(syntaxNode is ExpressionStatementSyntax expression && expression.Expression is AssignmentExpressionSyntax assignExpression)
             {
-                if(expression.Expression is AssignmentExpressionSyntax assignExpression)
+                if(assignExpression.IsKind(Microsoft.CodeAnalysis.CSharp.SyntaxKind.AddAssignmentExpression) || assignExpression.IsKind(Microsoft.CodeAnalysis.CSharp.SyntaxKind.SubtractAssignmentExpression))
                 {
-                    if(assignExpression.IsKind(Microsoft.CodeAnalysis.CSharp.SyntaxKind.AddAssignmentExpression) || assignExpression.IsKind(Microsoft.CodeAnalysis.CSharp.SyntaxKind.SubtractAssignmentExpression))
+                    if(assignExpression.Left is MemberAccessExpressionSyntax memberAccess && memberAccess.GetDiagnostics() is IEnumerable<Diagnostic> diags && memberAccess.Name is SimpleNameSyntax name)
                     {
-                        if(assignExpression.Left is MemberAccessExpressionSyntax memberAccess && memberAccess.GetDiagnostics() is IEnumerable<Diagnostic> diags)
+                        HookType hookType;
+                        switch(name.Identifier.Text)
                         {
-                            if(memberAccess.Name is SimpleNameSyntax name)
-                            {
-                                HookType hookType;
-                                switch(name.Identifier.Text)
-                                {
-                                    case "On":
-                                        hookType = HookType.On;
-                                        break;
-                                    case "IL":
-                                        hookType = HookType.IL;
-                                        break;
-                                    default:
-                                        return;
-                                }
-
-                                static String GetFullName(MemberAccessExpressionSyntax member)
-                                {
-                                    return $"{member.GetText()}";
-                                }
-
-                                this.candidates.Add(new HookCandidateData
-                                {
-                                    accessExpressionSyntax = memberAccess,
-                                    type = hookType,
-                                    text = GetFullName(memberAccess),
-                                });
-
-                                //this.candidates.Add(new HookCandidateData
-                                //{
-                                //    type = hookType,
-                                //    nameSyntax = name,
-                                //});
-                            }
+                            case "On":
+                                hookType = HookType.On;
+                                break;
+                            case "IL":
+                                hookType = HookType.IL;
+                                break;
+                            default:
+                                return;
                         }
+
+                        static String GetFullName(MemberAccessExpressionSyntax member)
+                        {
+                            return $"{member.GetText()}";
+                        }
+
+                        this.candidates.Add(new HookCandidateData
+                        {
+                            accessExpressionSyntax = memberAccess,
+                            type = hookType,
+                            text = GetFullName(memberAccess),
+                        });
+
+                        //this.candidates.Add(new HookCandidateData
+                        //{
+                        //    type = hookType,
+                        //    nameSyntax = name,
+                        //});
                     }
                 }
             }
