@@ -5,10 +5,13 @@
     using System.Collections.ObjectModel;
     using System.Collections.Specialized;
     using System.Reflection;
+    using System.Runtime.CompilerServices;
+    using System.Security.Cryptography;
     using System.Threading;
 
     using Mono.Cecil;
     using Mono.Cecil.Cil;
+    using Mono.Security.Authenticode;
 
     using MonoMod.Cil;
 
@@ -38,6 +41,18 @@
         {
             orig(target);
             var body = target?.GetComponent<CharacterBody>();
+            Invoke(body);
+        }
+
+
+        internal static void Invoke(CharacterBody body)
+        {
+            InvokeRecieved(body);
+            new CleanseMessage(body).Send(NetworkDestination.Clients | NetworkDestination.Server);
+        }
+
+        internal static void InvokeRecieved(CharacterBody body)
+        {
             if(body is null) return;
             onCleanseRecieved?.Invoke(body);
         }
@@ -45,15 +60,144 @@
         internal static event Action<CharacterBody> onCleanseRecieved;
     }
 
+    internal struct CleanseMessage : INetMessage
+    {
+        private CharacterBody target;
+
+        internal CleanseMessage(CharacterBody target)
+        {
+            this.target = target;
+        }
+
+        public void Deserialize(NetworkReader reader)
+        {
+            this.target = reader.ReadNetworkIdentity().GetComponent<CharacterBody>();
+        }
+
+        public void OnRecieved()
+        {
+            CleanseReciever.InvokeRecieved(this.target);
+        }
+
+        public void Serialize(NetworkWriter writer)
+        {
+            writer.Write(this.target.networkIdentity);
+        }
+    }
+
+
+    internal unsafe struct DotMessage : INetMessage
+    {
+        internal DotMessage(CharacterBody target, DotCatalog.Index dotIndex, Byte[] bytes)
+        {
+            this.target = target;
+            this.dotIndex = dotIndex;
+            this.bytes = bytes;
+        }
+        private CharacterBody target;
+        private DotCatalog.Index dotIndex;
+
+        internal Byte[] bytes;
+
+        public void Serialize(NetworkWriter writer)
+        {
+            writer.Write(this.target.networkIdentity);
+            writer.Write((UInt64)this.dotIndex);
+            writer.WriteBytesFull(this.bytes);
+        }
+
+        public void Deserialize(NetworkReader reader)
+        {
+            this.target = reader.ReadNetworkIdentity().GetComponent<CharacterBody>();
+            this.dotIndex = (DotCatalog.Index)reader.ReadUInt64();
+            this.bytes = DotCatalog.GetDef(this.dotIndex)?.tempStackSizedArray;
+            if(this.bytes is null)
+            {
+                Log.Fatal("Unregistered dot type recieved in message. This is going to cause desync and you should maybe just close the game now?");
+                return;
+            }
+        }
+
+        public void OnRecieved()
+        {
+            var def = DotCatalog.GetDef(this.dotIndex);
+            if(def is null)
+            {
+                Log.Fatal("Unregistered dot type recieved in message. This is going to cause desync and you should maybe just close the game now?");
+                return;
+            }
+            def.Apply(this.target, this.bytes);
+        }
+
+
+    }
+
 
     public static class DotController<TDot, TStackData, TUpdateContext, TPersistContext>
         where TDot : struct, IDot<TDot, TStackData, TUpdateContext, TPersistContext>
-        where TStackData : struct, IDotStackData<TDot, TStackData, TUpdateContext, TPersistContext>
+        where TStackData : struct, IDotStackData<TDot, TStackData, TUpdateContext, TPersistContext>, IByteSerializableObject
         where TUpdateContext : struct, IDotUpdateContext<TDot, TStackData, TUpdateContext, TPersistContext>
         where TPersistContext : struct, IDotPersistContext<TDot, TStackData, TUpdateContext, TPersistContext>
     {
-        public static void ServerInflictDot(CharacterBody target, TStackData stackInfo)
+        private static readonly String dotGuid = typeof(TDot).AssemblyQualifiedName;
+        private static readonly Boolean processOnClients = new TDot().processOnClients;
+        private static readonly UInt32 stackSize = new TStackData().size;
+        private static DotCatalog.Entry? catalogEntry;
+        private static DotCatalog.RegistrationToken? token;
+
+        public struct ArraySizeDef : IArraySizeDef
         {
+            public UInt32 size => stackSize;
+        }
+
+        private static Byte[] stackSizedByteArray
+        {
+            get => ArrayPool<Byte, ArraySizeDef>.item;
+            set => ArrayPool<Byte, ArraySizeDef>.item = value;
+        }
+
+
+
+        public static void Register()
+        {
+            if(token is not null) return;
+            token = DotCatalog.Add(new Def());
+        }
+
+        internal struct Def : IDotDef
+        {
+            public String guid => dotGuid;
+            public DotCatalog.Entry? entry { get => catalogEntry; set => catalogEntry = value; }
+
+            public Byte[] tempStackSizedArray
+            {
+                get => stackSizedByteArray;
+                set => stackSizedByteArray = value;
+            }
+
+            public void Apply(CharacterBody target, Byte[] bytes)
+            {
+                TStackData stack = new();
+                RecieveInflictDot(target, stack.Deserialize(bytes));
+            }
+        }
+
+        public static unsafe void InflictDot(CharacterBody target, TStackData stackInfo)
+        {
+            //RecieveInflictDot(target, stackInfo);
+            var ind = catalogEntry?.index ?? throw new ArgumentException("Unregistered dot type");
+            var data = stackSizedByteArray;
+            stackInfo.Serialize(data);
+            var msg = new DotMessage(target, ind, data);
+            msg.Send(NetworkDestination.Clients | NetworkDestination.Server);
+            msg.bytes = null;
+            stackSizedByteArray = data;
+        }
+
+        internal static void RecieveInflictDot(CharacterBody target, TStackData stackInfo)
+        {
+            if(!NetworkServer.active && !processOnClients) return;
+
             var id = target.netId;
             if(id == NetworkInstanceId.Invalid) throw new ArgumentException("Invalid target");
             if(!bodySpecific.TryGetValue(id, out var ctx))
@@ -173,12 +317,11 @@
 
     public interface IDot
     {
-        // TODO: Implement
-        Boolean sendToClients { get; }
+        Boolean processOnClients { get; }
     }
     public interface IDot<TDot, TStackData, TUpdateContext, TPersistContext> : IDot
         where TDot : struct, IDot<TDot, TStackData, TUpdateContext, TPersistContext>
-        where TStackData : struct, IDotStackData<TDot, TStackData, TUpdateContext, TPersistContext>
+        where TStackData : struct, IDotStackData<TDot, TStackData, TUpdateContext, TPersistContext>, IByteSerializableObject
         where TUpdateContext : struct, IDotUpdateContext<TDot, TStackData, TUpdateContext, TPersistContext>
         where TPersistContext : struct, IDotPersistContext<TDot, TStackData, TUpdateContext, TPersistContext>
     {
@@ -189,9 +332,9 @@
         Boolean shouldRemove { get; }
         void OnCleanseRecieved();
     }
-    public interface IDotStackData<TDot, TStackData, TUpdateContext, TPersistContext> : IDotStackData
+    public interface IDotStackData<TDot, TStackData, TUpdateContext, TPersistContext> : IDotStackData, IByteSerializableObject
         where TDot : struct, IDot<TDot, TStackData, TUpdateContext, TPersistContext>
-        where TStackData : struct, IDotStackData<TDot, TStackData, TUpdateContext, TPersistContext>
+        where TStackData : struct, IDotStackData<TDot, TStackData, TUpdateContext, TPersistContext>, IByteSerializableObject
         where TUpdateContext : struct, IDotUpdateContext<TDot, TStackData, TUpdateContext, TPersistContext>
         where TPersistContext : struct, IDotPersistContext<TDot, TStackData, TUpdateContext, TPersistContext>
     {
@@ -206,7 +349,7 @@
     }
     public interface IDotUpdateContext<TDot, TStackData, TUpdateContext, TPersistContext> : IDotUpdateContext
         where TDot : struct, IDot<TDot, TStackData, TUpdateContext, TPersistContext>
-        where TStackData : struct, IDotStackData<TDot, TStackData, TUpdateContext, TPersistContext>
+        where TStackData : struct, IDotStackData<TDot, TStackData, TUpdateContext, TPersistContext>, IByteSerializableObject
         where TUpdateContext : struct, IDotUpdateContext<TDot, TStackData, TUpdateContext, TPersistContext>
         where TPersistContext : struct, IDotPersistContext<TDot, TStackData, TUpdateContext, TPersistContext>
     {
@@ -221,7 +364,7 @@
     }
     public interface IDotPersistContext<TDot, TStackData, TUpdateContext, TPersistContext> : IDotPersistContext
         where TDot : struct, IDot<TDot, TStackData, TUpdateContext, TPersistContext>
-        where TStackData : struct, IDotStackData<TDot, TStackData, TUpdateContext, TPersistContext>
+        where TStackData : struct, IDotStackData<TDot, TStackData, TUpdateContext, TPersistContext>, IByteSerializableObject
         where TUpdateContext : struct, IDotUpdateContext<TDot, TStackData, TUpdateContext, TPersistContext>
         where TPersistContext : struct, IDotPersistContext<TDot, TStackData, TUpdateContext, TPersistContext>
     {

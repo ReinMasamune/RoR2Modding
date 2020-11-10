@@ -122,9 +122,9 @@
 
             //HooksCore.RoR2.UI.QuickPlayButtonController.Start.On += Start_On;
             HooksCore.RoR2.DisableIfGameModded.OnEnable.On += OnEnable_On;
-            HooksCore.RoR2.Networking.ServerAuthManager.HandleSetClientAuth.Il += ServerAuthManager_HandleSetClientAuth;
+            //HooksCore.RoR2.Networking.ServerAuthManager.HandleSetClientAuth.Il += ServerAuthManager_HandleSetClientAuth;
             NetworkModCompatibilityHelper.onUpdated += NetworkModCompatibilityHelper_onUpdated;
-            HooksCore.RoR2.Networking.GameNetworkManager.SimpleLocalizedKickReason.GetDisplayTokenAndFormatParams.On += GetDisplayTokenAndFormatParams_On;
+            //HooksCore.RoR2.Networking.GameNetworkManager.SimpleLocalizedKickReason.GetDisplayTokenAndFormatParams.On += GetDisplayTokenAndFormatParams_On;
             RoR2Application.onNextUpdate += RoR2Application_onNextUpdate;
             _ = Tools.LoadAssembly(Rein.Properties.Resources.RoR2ScriptForwarding);
             if(!Log.loaded)
@@ -139,6 +139,16 @@
             managerObject = new GameObject("coremanager");
             MonoBehaviour.DontDestroyOnLoad(managerObject);
             _ = managerObject.AddComponent<CoreManager>();
+
+            HooksCore.RoR2.SystemInitializerAttribute.Execute.On += Execute_On;
+
+
+        }
+        internal static void Execute_On(HooksCore.RoR2.SystemInitializerAttribute.Execute.Orig orig)
+        {
+            orig();
+            //Log.Message("Starting catalog init");
+            MetaCatalog.InitAllCatalogs();
         }
 
         private static Boolean CheckSillyILHooks(ILHook hook, MethodBase method, ILContext.Manipulator manip)
@@ -206,7 +216,7 @@
 
         private static void Start_On(HooksCore.RoR2.UI.QuickPlayButtonController.Start.Orig orig, RoR2.UI.QuickPlayButtonController self)
         {
-            Log.Warning("QPButton");
+            //Log.Warning("QPButton");
             self.gameObject.SetActive(false);
             orig(self);
             self.gameObject.SetActive(false);
@@ -239,76 +249,7 @@
         [MethodImpl(MethodImplOptions.ForwardRef)]
         private static extern Int32 Square(Int32 number);
 
-        private static void ParseSubmodules(HashSet<String> loadedSubmodules)
-        {
-            foreach(String sub in loadedSubmodules)
-            {
-                switch(sub)
-                {
-                    default:
-                        Log.Warning(String.Format("Unknown submodule: {0}", sub));
-                        break;
-                    case "AssetAPI":
-                        activeSubmodules |= R2APISubmodule.AssetAPI;
-                        break;
-                    case "DifficultyAPI":
-                        activeSubmodules |= R2APISubmodule.DifficultyAPI;
-                        break;
-                    case "DirectorAPI":
-                        activeSubmodules |= R2APISubmodule.DirectorAPI;
-                        break;
-                    case "EffectAPI":
-                        activeSubmodules |= R2APISubmodule.EffectAPI;
-                        break;
-                    case "EntityAPI":
-                        activeSubmodules |= R2APISubmodule.EntityAPI;
-                        break;
-                    case "InventoryAPI":
-                        activeSubmodules |= R2APISubmodule.InventoryAPI;
-                        break;
-                    case "ItemAPI":
-                        activeSubmodules |= R2APISubmodule.ItemAPI;
-                        break;
-                    case "ItemDropAPI":
-                        activeSubmodules |= R2APISubmodule.ItemDropAPI;
-                        break;
-                    case "LoadoutAPI":
-                        activeSubmodules |= R2APISubmodule.LoadoutAPI;
-                        break;
-                    case "LobbyConfigAPI":
-                        activeSubmodules |= R2APISubmodule.LobbyConfigAPI;
-                        break;
-                    case "ModListAPI":
-                        activeSubmodules |= R2APISubmodule.ModListAPI;
-                        break;
-                    case "OrbAPI":
-                        activeSubmodules |= R2APISubmodule.OrbAPI;
-                        break;
-                    case "PlayerAPI":
-                        activeSubmodules |= R2APISubmodule.PlayerAPI;
-                        break;
-                    case "PrefabAPI":
-                        activeSubmodules |= R2APISubmodule.PrefabAPI;
-                        break;
-                    case "ResourcesAPI":
-                        activeSubmodules |= R2APISubmodule.ResourcesAPI;
-                        break;
-                    case "SkillAPI":
-                        activeSubmodules |= R2APISubmodule.SkillAPI;
-                        break;
-                    case "SkinAPI":
-                        activeSubmodules |= R2APISubmodule.SkinAPI;
-                        break;
-                    case "SurvivorAPI":
-                        activeSubmodules |= R2APISubmodule.SurvivorAPI;
-                        break;
-                    case "AssetPlus":
-                        activeSubmodules |= R2APISubmodule.AssetPlus;
-                        break;
-                }
-            }
-        }
-
+        
         private static void CheckPlugins()
         {
             foreach(KeyValuePair<String, PluginInfo> kv in BepInEx.Bootstrap.Chainloader.PluginInfos)

@@ -23,8 +23,6 @@ namespace Rein.RogueWispPlugin
                 "Should the new boss spawn in game? Left as an option in case of major bugs or issues with early version of boss." );
 #endif
         }
-        // TODO: Director
-        //private R2API.DirectorAPI.DirectorCardHolder AW_dirCardHolder;
         private DirectorCard AW_dirCard;
         private void AW_SetupSpawns()
         {
@@ -89,6 +87,7 @@ namespace Rein.RogueWispPlugin
 
         private void SpawnsCore_familyEdits( ClassicStageInfo stageInfo, Run runInstance, ClassicStageInfo.MonsterFamily[] possibleFamilies )
         {
+            if(runInstance.selectedDifficulty < DifficultyIndex.Hard && runInstance is not EclipseRun) return;
             for( Int32 i = 0; i < possibleFamilies.Length; ++i )
             {
                 var family = possibleFamilies[i];
@@ -112,7 +111,7 @@ namespace Rein.RogueWispPlugin
 
         private void SpawnsCore_monsterEdits( ClassicStageInfo stageInfo, Run runInstance, DirectorCardCategorySelection monsterSelection )
         {
-            //Main.LogI( "Monster" );
+            if(runInstance.selectedDifficulty < DifficultyIndex.Hard && runInstance is not EclipseRun) return;
             for( Int32 i = 0; i < monsterSelection.categories.Length; ++i )
             {
                 var category = monsterSelection.categories[i];

@@ -7,22 +7,18 @@
 
     public sealed class MetaCatalog : Catalog<MetaCatalog, Catalog>
     {
-        public sealed override String guid => "Rein.MetaCatalog";
+        const String _guid = "Rein.MetaCatalog";
+        public sealed override String guid => _guid;
         protected internal sealed override Int32 order => 0;
 
-        
-        protected sealed override void FirstInitSetup()
-        {
-            base.FirstInitSetup();
-            foreach(var atr in typeof(CatalogAttribute).Assembly.GetCustomAttributes<CatalogAttribute>()) RuntimeHelpers.RunClassConstructor(atr.type.TypeHandle);
-        }
 
         protected sealed override void ProcessAllDefinitions(Catalog[] definitions)
         {
             base.ProcessAllDefinitions(definitions);
-            foreach(var cat in definitions.OrderBy((def) => def.order))
+            foreach(var cat in definitions.Where((def) => def is not null).OrderBy((def) => def.order).ToArray())
             {
                 cat.InitializeIfNeeded();
+                //Log.Message($"Catalog {cat.guid} init");
             }
         }
 
@@ -32,15 +28,12 @@
             InitializeIfNeeded();
         }
 
-        static MetaCatalog()
-        {
-            HooksCore.RoR2.SystemInitializer.Execute.On += Execute_On;
-        }
 
-        private static void Execute_On(HooksCore.RoR2.SystemInitializer.Execute.Orig orig)
+
+        protected override void OnDefRegistered(Catalog def)
         {
-            orig();
-            InitAllCatalogs();
+            base.OnDefRegistered(def);
+            //Log.Message($"Catalog {def.guid} registered");
         }
     }
 }

@@ -322,7 +322,7 @@ namespace Rein.Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Deals 0% primary damage, applies a stacking burn that deals 215% primary damage over 10 seconds..
+        ///   Looks up a localized string similar to Burns for &lt;style=cIsDamage&gt;2.0x primary damage&lt;/style&gt; over 10 seconds\n&lt;&gt; &lt;style=cIsDamage&gt;Total Damage &lt;indent=40%&gt;+2.0x&lt;/style&gt; per &lt;style=cIsUtility&gt;Boost&lt;/style&gt;&lt;/indent&gt;\n&lt;&gt; &lt;style=cIsDamage&gt;Duration &lt;indent=40%&gt;+10s&lt;/style&gt; per &lt;style=cIsUtility&gt;sqrt(Boost)&lt;/style&gt;&lt;/indent&gt;.
         /// </summary>
         internal static string lang__SNIPER_AMMO_PLASMA_DESC {
             get {
@@ -376,7 +376,7 @@ namespace Rein.Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sniper is a long ranged, single-target dps that incorperates elements of an assassin to stay alive.\n
+        ///   Looks up a localized string similar to Sniper is a long ranged, single-target dps.\n
         ///
         ///They excel at taking down bosses and high priority targets but struggle against larger groups of weak enemies.\n.
         /// </summary>
@@ -531,7 +531,7 @@ namespace Rein.Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Shoot enemies for &lt;style=cIsDamage&gt;250% to 375%&lt;/style&gt; damage. Must be &lt;style=cIsUtility&gt;reloaded&lt;/style&gt; every 4 shots. Reloading at the right time &lt;style=cIsDamage&gt;increases damage&lt;/style&gt;..
         /// </summary>
         internal static string lang__SNIPER_PRIMARY_MAG_DESC {
             get {
@@ -540,7 +540,7 @@ namespace Rein.Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Mag.
         /// </summary>
         internal static string lang__SNIPER_PRIMARY_MAG_NAME {
             get {

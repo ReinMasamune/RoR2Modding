@@ -43,13 +43,16 @@
 
         #region Scope
         internal static Single zoomSpeed { get => _zoomSpeed.Value; }
+        internal static Boolean zoomNoPersist => _zoomNoPersist.Value;
 
         private static ConfigEntry<Single> _zoomSpeed;
+        private static ConfigEntry<Boolean> _zoomNoPersist;
 
         private static void SetupScopeConfig(SniperMain plugin)
         {
             const String section = "Scope";
             _zoomSpeed = plugin.Config.Bind<Single>(section, "Zoom speed", 1f, "The speed that zoom changes");
+            _zoomNoPersist = plugin.Config.Bind<Boolean>(section, "Reset zoom on scope", true, "Should scope reset to default zoom on each use?");
         }
         #endregion
 

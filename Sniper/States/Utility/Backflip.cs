@@ -29,9 +29,15 @@
         private const Single damageMultiplier = 1.0f;
         private const Single force = 50f;
 
+        private const Single maxVSpeed = 20f;
+
+        private Single prevVSpeed = Single.NaN;
+
         private Single duration;
 
         private Vector3 direction;
+
+        private Boolean launch = false;
 
         private Single currentSpeed
         {
@@ -44,6 +50,7 @@
             base.OnEnter();
             this.duration = baseDuration / (base.moveSpeedStat / 7f);
             base.characterBody.isSprinting = true;
+            Log.Error("StartFlip");
 
 
             if(base.isAuthority)
@@ -94,6 +101,7 @@
             base.StartAimMode(2f);
         }
 
+
         public override void OnSerialize(NetworkWriter writer)
         {
             base.OnSerialize(writer);
@@ -111,16 +119,32 @@
             base.FixedUpdate();
             Single speed = this.currentSpeed;
             Single y = base.characterMotor.velocity.y;
-            Vector3 boost = speed * this.direction;
-            boost.y = y;
-            base.characterMotor.velocity = boost;
 
+            if(!Single.IsNaN(this.prevVSpeed))
+            {
+                var delta = y - this.prevVSpeed;
+                if(delta > maxVSpeed)
+                {
+                    this.launch = true;
+                    if(base.isAuthority) base.outer.SetNextStateToMain();
+                }
+            }
+            this.prevVSpeed = y;
+
+            if(this.launch)
+            {
+                base.characterMotor.velocity = Vector3.zero;
+            } else
+            {
+                Vector3 boost = speed * this.direction;
+                boost.y = y;
+                base.characterMotor.velocity = boost;
+            }
             if(base.isAuthority && base.fixedAge > this.duration)
             {
                 base.outer.SetNextStateToMain();
             }
         }
-
         public override InterruptPriority GetMinimumInterruptPriority() => InterruptPriority.PrioritySkill;
     }
 }

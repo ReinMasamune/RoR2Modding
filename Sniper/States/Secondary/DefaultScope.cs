@@ -29,7 +29,7 @@
         });
 
         private Single startDelay;
-        internal override Single currentCharge { get => (this.GetDamageMultiplier() - minModifier) / (maxModifier - minModifier); }
+        internal override Single currentCharge { get => base.shouldRunDelay ? (this.GetDamageMultiplier() - minModifier) / (maxModifier - minModifier) : 0f; }
         internal override Boolean isReady { get => this.delayTimer >= this.startDelay; }
         internal override Single readyFrac { get => Mathf.Clamp01(this.delayTimer / this.startDelay); }
 
@@ -40,10 +40,14 @@
 
         internal override Boolean OnFired()
         {
-            //this.charge = 0f;
-            this.delayTimer = 0f;
-            return base.fixedAge >= this.startDelay;
+            if(this.isReady)
+            {
+                this.delayTimer = 0f;
+                return true;
+            }
+            return false;
         }
+
         internal override BulletModifier ReadModifier()
         {
 #pragma warning disable IDE0046 // Convert to conditional expression
@@ -78,28 +82,34 @@
         {
             base.FixedUpdate();
             base.characterBody.SetAimTimer(2f);
-            //if(!base.isAuthority) return; // TODO: Uncomment after testing in multiplayer
-            var dt = Time.fixedDeltaTime;
-            if(this.delayTimer >= this.startDelay)
+            if(!base.isAuthority) return;
+            if(base.shouldRunDelay)
             {
-                switch(this.charge)
+                var dt = Time.fixedDeltaTime;
+                if(this.delayTimer >= this.startDelay)
                 {
-                    case Single s when s == maxCharge:
-                        break;
-                    case Single s when s < maxCharge:
-                        var vel = base.characterMotor.velocity;
-                        vel.y = vel.y * speedScalar;
-                        vel.x *= vel.x * speedScalar;
-                        vel.z *= vel.z * speedScalar;
-                        this.charge += dt * chargePerSecond * base.characterBody.attackSpeed / (1f + vel.magnitude);
-                        break;
-                    default:
-                        this.charge = maxCharge;
-                        break;
+                    switch(this.charge)
+                    {
+                        case Single s when s == maxCharge:
+                            break;
+                        case Single s when s < maxCharge:
+                            var vel = base.characterMotor.velocity;
+                            vel.y = vel.y * speedScalar;
+                            vel.x *= vel.x * speedScalar;
+                            vel.z *= vel.z * speedScalar;
+                            this.charge += dt * chargePerSecond * base.characterBody.attackSpeed / (1f + vel.magnitude);
+                            break;
+                        default:
+                            this.charge = maxCharge;
+                            break;
+                    }
+                } else
+                {
+                    this.delayTimer += dt;
                 }
             } else
             {
-                this.delayTimer += dt;
+                this.delayTimer = 0f;
             }
         }
 
@@ -115,5 +125,10 @@
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private Single GetDamageMultiplier() => damageCurve.Evaluate(this.charge / maxCharge);
+
+        internal override void ResetCharge()
+        {
+            this.charge = 0f;
+        }
     }
 }

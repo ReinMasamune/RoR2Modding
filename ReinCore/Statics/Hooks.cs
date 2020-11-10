@@ -1669,7 +1669,7 @@ public static event Hook On
                 }
             }
 
-            public static class SystemInitializer
+            public static class SystemInitializerAttribute
             {
                 public struct Execute
                 {

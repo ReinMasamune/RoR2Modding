@@ -135,10 +135,6 @@ namespace Rein.RogueWispPlugin
                 if( box == null ) return;
                 var hc = box.healthComponent;
                 if( hc == null || this.mask.Contains( hc ) ) return;
-                var body = hc.body;
-                if( body == null ) return;
-                var tc = body.teamComponent;
-                if( tc == null ) return;
                 if( !FriendlyFireManager.ShouldDirectHitProceed( hc, this.team ) ) return;
                 if( hc == this.attackerBody.healthComponent ) return;
 

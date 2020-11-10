@@ -41,13 +41,6 @@ namespace Rein.RogueWispPlugin
             orbController.endSound = "Stop_wisp_active_loop";
             orbController.explosionSound = "Play_item_use_fireballDash_explode";
 
-            //var trail = EffectHelper.AddTrail( obj, skin, MaterialType.Tracer, false );
-
-            //var distortion = EffectHelper.AddDistortion( obj, skin, MaterialType.DistortionLight, 2f, 0.25f, 1f );
-            //var distortionEmit = distortion.emission;
-            //distortionEmit.enabled = true;
-            //distortionEmit.rateOverDistance = 30f;
-
             var arcCircle = EffectHelper.AddArcaneCircle( obj, skin, MaterialType.ArcaneCircle, 2f, 0.65f );
             var arcCircleMain = arcCircle.main;
             arcCircleMain.duration = 10f;

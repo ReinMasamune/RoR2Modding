@@ -73,7 +73,7 @@
 
                 CatalogModule.RegisterBody();
                 CatalogModule.RegisterSurvivor();
-                //CatalogModule.RegisterDoTType();
+                CatalogModule.RegisterDoTType();
                 CatalogModule.RegisterDamageTypes();
                 CatalogModule.RegisterBuffTypes();
 

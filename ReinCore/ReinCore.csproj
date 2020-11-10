@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyVersion>2.0.0.25</AssemblyVersion>
-    <FileVersion>2.0.0.25</FileVersion>
+    <AssemblyVersion>2.0.0.27</AssemblyVersion>
+    <FileVersion>2.0.0.27</FileVersion>
 	<LangVersion>Preview</LangVersion>
 	<Nullable>enable</Nullable>
   </PropertyGroup>
@@ -103,6 +103,12 @@
     <Reference Include="Facepunch.Steamworks">
       <HintPath>..\libs\Unity\Facepunch.Steamworks.dll</HintPath>
       <Private>false</Private>
+    </Reference>
+    <Reference Include="HGCSharpUtils">
+      <HintPath>..\libs\RoR2\HGCSharpUtils.dll</HintPath>
+    </Reference>
+    <Reference Include="HGUnityUtils">
+      <HintPath>..\libs\RoR2\HGUnityUtils.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Cecil">
       <HintPath>..\libs\BepInEx\Mono.Cecil.dll</HintPath>

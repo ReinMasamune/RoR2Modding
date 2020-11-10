@@ -59,6 +59,8 @@ namespace ReinGeneralFixes
         partial void BalanceCaptain();
         partial void BalanceRazorWire();
 
+        partial void HappyThings();
+
 
 
         partial void FixBandolier();
@@ -112,6 +114,8 @@ namespace ReinGeneralFixes
             this.BalanceElites();
             this.BalanceCaptain();
             this.BalanceRazorWire();
+
+            this.HappyThings();
 
             this.FixBandolier();
             this.FixSelfDamage();

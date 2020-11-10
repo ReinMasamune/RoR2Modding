@@ -78,6 +78,16 @@
             return knifeSlashPrefab;
         }
 
+        private static GameObject plasmaBurnPrefab;
+        internal static GameObject GetPlasmaBurnPrefab()
+        {
+            if(plasmaBurnPrefab == null)
+            {
+                plasmaBurnPrefab = Effects.EffectCreator.CreatePlasmaBurnPrefab();
+            }
+            return plasmaBurnPrefab;
+        }
+
 
 
 

@@ -2,6 +2,6 @@
 {
     public interface ICatalogBackend<TDef>
     {
-		TDef[] definitions { get; set; }
+		ref TDef[] definitions { get; }
     }
 }

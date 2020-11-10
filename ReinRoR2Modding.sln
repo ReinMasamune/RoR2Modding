@@ -84,8 +84,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BetterModMismatchInfo", "Be
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Patchers", "Patchers", "{C1695B84-23BB-4BDC-88F5-79D8F933F63D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InitializationWeaver", "InitializationWeaver\InitializationWeaver.csproj", "{04EC9D81-4E7A-44E3-AD94-2C849615038F}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BakeTest", "BakeTest\BakeTest.csproj", "{4C827B7A-F79C-49BD-B8C4-60C22E1A0AAB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProceduralBake.EditorInterface", "ProceduralBake.EditorInterface\ProceduralBake.EditorInterface.csproj", "{12BA9482-A30E-4801-A2F9-8AED6DDBF18F}"
@@ -342,18 +340,6 @@ Global
 		{ED201409-2CCF-4791-B6AE-C0730734D2EE}.Release|x64.Build.0 = Release|Any CPU
 		{ED201409-2CCF-4791-B6AE-C0730734D2EE}.Release|x86.ActiveCfg = Release|Any CPU
 		{ED201409-2CCF-4791-B6AE-C0730734D2EE}.Release|x86.Build.0 = Release|Any CPU
-		{04EC9D81-4E7A-44E3-AD94-2C849615038F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{04EC9D81-4E7A-44E3-AD94-2C849615038F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{04EC9D81-4E7A-44E3-AD94-2C849615038F}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{04EC9D81-4E7A-44E3-AD94-2C849615038F}.Debug|x64.Build.0 = Debug|Any CPU
-		{04EC9D81-4E7A-44E3-AD94-2C849615038F}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{04EC9D81-4E7A-44E3-AD94-2C849615038F}.Debug|x86.Build.0 = Debug|Any CPU
-		{04EC9D81-4E7A-44E3-AD94-2C849615038F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{04EC9D81-4E7A-44E3-AD94-2C849615038F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{04EC9D81-4E7A-44E3-AD94-2C849615038F}.Release|x64.ActiveCfg = Release|Any CPU
-		{04EC9D81-4E7A-44E3-AD94-2C849615038F}.Release|x64.Build.0 = Release|Any CPU
-		{04EC9D81-4E7A-44E3-AD94-2C849615038F}.Release|x86.ActiveCfg = Release|Any CPU
-		{04EC9D81-4E7A-44E3-AD94-2C849615038F}.Release|x86.Build.0 = Release|Any CPU
 		{4C827B7A-F79C-49BD-B8C4-60C22E1A0AAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4C827B7A-F79C-49BD-B8C4-60C22E1A0AAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4C827B7A-F79C-49BD-B8C4-60C22E1A0AAB}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -429,9 +415,16 @@ Global
 		{85AC1318-E416-48F3-8F6C-6DEEE13A721B} = {8113551A-8949-44B5-A187-66504FEC24E0}
 		{0033561A-2F63-4A76-96A5-7FEAF7B63544} = {06B21E88-7A70-49BC-ACED-CDF911F6A3E6}
 		{9D25A595-219E-4A46-80B2-15B963C686FE} = {06B21E88-7A70-49BC-ACED-CDF911F6A3E6}
-		{04EC9D81-4E7A-44E3-AD94-2C849615038F} = {C1695B84-23BB-4BDC-88F5-79D8F933F63D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BA09AC25-19C5-4B7B-8BC3-469DAE1F6A5D}
+	EndGlobalSection
+	GlobalSection(AutomaticVersions) = postSolution
+		UpdateAssemblyVersion = False
+		UpdateAssemblyFileVersion = False
+		UpdateAssemblyInfoVersion = False
+		UpdatePackageVersion = False
+		AssemblyInfoVersionType = SettingsVersion
+		InheritWinAppVersionFrom = None
 	EndGlobalSection
 EndGlobal

@@ -17,14 +17,9 @@
 
         static SpawnsCore()
         {
-            //Log.Warning( "SpawnsCore loaded" );
             HooksCore.RoR2.ClassicStageInfo.Awake.On += Awake_On;
-            //Log.Warning( "SpawnsCore loaded" );
             loaded = true;
         }
-
-        //private static readonly Accessor<ClassicStageInfo,DirectorCardCategorySelection> monsterCategories = new Accessor<ClassicStageInfo, DirectorCardCategorySelection>( "monsterCategories" );
-        //private static readonly Accessor<ClassicStageInfo,DirectorCardCategorySelection> interactableCategories = new Accessor<ClassicStageInfo, DirectorCardCategorySelection>( "interactableCategories" );
 
         private static void Awake_On( HooksCore.RoR2.ClassicStageInfo.Awake.Orig orig, ClassicStageInfo self )
         {

@@ -29,8 +29,8 @@
             var deps = instance.dependencies;
             foreach(var dep in deps)
             {
-                dep.InitializeIfNeeded();
-                if(!firstInitComplete)
+                dep?.InitializeIfNeeded();
+                if(!firstInitComplete && dep is not null)
                 {
                     dep.onCatalogReset += OnDepReset;
                     dep.onPostInit += InitializeIfNeeded;
@@ -61,7 +61,7 @@
 
             if(definitions is not null)
             {
-                foreach(var def in definitions)
+                foreach(var def in definitions.Where(def => def is not null && def.entry is not null).ToArray())
                 {
                     def.entry.index = null;
                 }

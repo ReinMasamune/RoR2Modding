@@ -8,6 +8,10 @@
     using Mono.Cecil.Cil;
     using System.Reflection;
 
+    public static class Match
+    {
+
+    }
 
     public readonly struct ConvType
     {

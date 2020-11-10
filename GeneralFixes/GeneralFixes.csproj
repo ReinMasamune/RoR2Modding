@@ -3,8 +3,8 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
 	<LangVersion>Preview</LangVersion>
-    <AssemblyVersion>2.4.4.15</AssemblyVersion>
-    <FileVersion>2.4.4.15</FileVersion>
+    <AssemblyVersion>2.4.5.15</AssemblyVersion>
+    <FileVersion>2.4.5.15</FileVersion>
     <RootNamespace>Rein</RootNamespace>
   </PropertyGroup>
 
@@ -62,6 +62,12 @@
     <Reference Include="Facepunch.Steamworks">
       <HintPath>..\libs\Unity\Facepunch.Steamworks.dll</HintPath>
       <Private>false</Private>
+    </Reference>
+    <Reference Include="HGCSharpUtils">
+      <HintPath>..\libs\RoR2\HGCSharpUtils.dll</HintPath>
+    </Reference>
+    <Reference Include="HGUnityUtils">
+      <HintPath>..\libs\RoR2\HGUnityUtils.dll</HintPath>
     </Reference>
     <Reference Include="KdTreeLib">
       <HintPath>..\libs\Unity\KdTreeLib.dll</HintPath>

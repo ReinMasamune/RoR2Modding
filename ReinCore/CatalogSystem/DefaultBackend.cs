@@ -5,6 +5,6 @@
 		where TDef : Catalog<TSelf, TDef, DefaultBackend<TSelf, TDef>>.ICatalogDef
     {
 		private static TDef[] _definitions;
-		public TDef[] definitions { get => _definitions; set => _definitions = value; }
+        public ref TDef[] definitions => ref _definitions;
     }
 }

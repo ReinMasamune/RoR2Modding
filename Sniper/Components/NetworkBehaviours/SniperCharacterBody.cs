@@ -108,6 +108,7 @@
         {
             base.Start();
             (this.skillLocator.primary.skillInstanceData as SniperReloadableFireSkillDef.SniperPrimaryInstanceData)?.StartReload(true);
+            base.GetComponent<Rigidbody>().maxDepenetrationVelocity = 0f;
 
         }
 

@@ -3,8 +3,8 @@
     <TargetFramework>netstandard2.0</TargetFramework>
 	<LangVersion>Preview</LangVersion>
     <AssemblyName>RogueWisp</AssemblyName>
-    <AssemblyVersion>2.1.13.1</AssemblyVersion>
-    <FileVersion>2.1.13.1</FileVersion>
+    <AssemblyVersion>2.1.14.1</AssemblyVersion>
+    <FileVersion>2.1.14.1</FileVersion>
     <RootNamespace>Rein</RootNamespace>
     <UserSecretsId>392ba4cc-368a-4518-b19f-f550dca1e784</UserSecretsId>
     <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
@@ -15,7 +15,7 @@
     <DebugSymbols>false</DebugSymbols>
     <OutputPath>C:\Users\reinm\source\repos\ReinRoR2Modding\__BUILDS\RogueWisp\</OutputPath>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <DefineConstants>ANCIENTWISP COMPATCHECKS BOSSHPBAR NETWORKING ROGUEWISP</DefineConstants>
+    <DefineConstants>ANCIENTWISP COMPATCHECKS BOSSHPBAR NETWORKING ROGUEWISP ARCHAICWISP</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DefineConstants>DEBUG</DefineConstants>

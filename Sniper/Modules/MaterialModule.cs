@@ -13,6 +13,59 @@
 
     internal static class MaterialModule
     {
+        internal static CloudMaterial GetPlasmaBurnMaterial()
+        {
+            if(_plasmaBurnMaterial == null)
+            {
+                _plasmaBurnMaterial = CreatePlasmaBurnMaterial();
+            }
+            return _plasmaBurnMaterial;
+        }
+        private static CloudMaterial _plasmaBurnMaterial;
+        private static CloudMaterial CreatePlasmaBurnMaterial()
+        {
+            var mat = new CloudMaterial( "PlasmaAmmoBurn" )
+            {
+                alphaBias = 0f,
+                alphaBoost = 1f,
+                boost = 15f,
+                calcTexAlpha = false,
+                cloudDistortionOn = false,
+                cloudRemappingOn = true,
+                cull = MaterialBase.CullMode.Off,
+                destinationBlend = UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha,
+                fadeClose = false,
+                externalAlpha = 1f,
+                disableRemapping = false,
+                distortionStrength = 0f,
+                emissionOn = false,
+                fadeCloseDistance = 0.5f,
+                fresnelFade = false,
+                fresnelPower = 0f,
+                internalSimpleBlendMode = 0f,
+                invFade = 0f,
+                sourceBlend = UnityEngine.Rendering.BlendMode.SrcAlpha,
+                useUV1 = false,
+                vertexOffsetAmount = 0f,
+                vertexAlphaOn = true,
+                vertexColorOn = false,
+                vertexOffset = false,
+                color = Color.white,
+                cutoffScrollSpeed = new Vector4( 15f, 15f, 13f, 13f ),
+                emissionColor = Color.white,
+                tintColor = Color.white
+            };
+            mat.mainTexture.texture = AssetsCore.LoadAsset<Texture2D>(Texture2DIndex.refTexParticleDust2Mask);
+            mat.remapTexture.texture = TextureModule.GetPlasmaAmmoRamp();
+            mat.cloudTexture1.texture = AssetsCore.LoadAsset<Texture2D>(Texture2DIndex.refTexCloudDifferenceBW2);
+            mat.cloudTexture1.tiling = new Vector2(1f, 1f);
+            mat.cloudTexture2.texture = AssetsCore.LoadAsset<Texture2D>(Texture2DIndex.refTexCloudIce);
+            mat.cloudTexture2.tiling = new Vector2(1f, 1f);
+
+            return mat;
+        }
+
+
         internal static CloudMaterial GetStandardTracerMaterial()
         {
             if( _standardTracerMaterial == null )

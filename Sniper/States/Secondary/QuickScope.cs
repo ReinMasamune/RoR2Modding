@@ -12,17 +12,19 @@
         private const Single baseStartDelay = 0.35f;
         private const Single damageMultiplier = 0.75f;
 
-        internal override Single currentCharge { get; }
-        internal override Boolean isReady { get => base.fixedAge >= this.startDelay; }
-        internal override Single readyFrac { get => Mathf.Clamp01( base.fixedAge / this.startDelay ); }
+        internal override Single currentCharge => 0f;
+        internal override Boolean isReady { get => base.shouldRunDelay && this.delayTimer >= this.startDelay; }
+        internal override Single readyFrac { get => Mathf.Clamp01( this.delayTimer / this.startDelay ); }
 
         private Single startDelay;
+        private Single delayTimer;
 
         public override void OnEnter()
         {
             base.OnEnter();
 
             this.startDelay = baseStartDelay / base.attackSpeedStat;
+            this.delayTimer = 0f;
             base.StartAimMode( 2f );
         }
 
@@ -42,7 +44,22 @@
         public override void FixedUpdate()
         {
             base.FixedUpdate();
+            if(base.shouldRunDelay)
+            {
+                if(this.delayTimer < this.startDelay)
+                {
+                    this.delayTimer += Time.fixedDeltaTime;
+                } else
+                {
+                    this.delayTimer = this.startDelay;
+                }
+            } else
+            {
+                this.delayTimer = 0f;
+            }
             base.characterBody.SetAimTimer( 2f );
         }
+
+        internal override void ResetCharge() { }
     }
 }

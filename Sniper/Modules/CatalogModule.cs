@@ -12,6 +12,7 @@
 
     using UnityEngine;
     using UnityEngine.Networking;
+    using Rein.Sniper.DotTypes;
 
     internal static class CatalogModule
     {
@@ -70,7 +71,7 @@
             GlobalEventManager.onCharacterDeathGlobal += GlobalEventManager_onCharacterDeathGlobal;
         }
 
-
+        internal static void RegisterDoTType() => PlasmaDot.Register();
 
         private static void BuffsCore_getAdditionalEntries(System.Collections.Generic.List<BuffDef> buffList)
         {

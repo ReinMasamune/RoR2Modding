@@ -5,6 +5,6 @@
 		/// <summary>
 		/// The version of the library
 		/// </summary>
-		public const string ver = "2.1.13.1";
+		public const string ver = "2.1.14.1";
 	}
 }

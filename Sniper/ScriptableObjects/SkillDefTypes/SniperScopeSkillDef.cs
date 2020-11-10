@@ -20,6 +20,7 @@
 
     internal class SniperScopeSkillDef : SniperSkillDef
     {
+
         internal static SniperScopeSkillDef Create<TSecondary>( ZoomParams zoomParams ) where TSecondary : ScopeBaseState
         {
             SniperScopeSkillDef def = ScriptableObject.CreateInstance<SniperScopeSkillDef>();
@@ -55,6 +56,9 @@
         [SerializeField]
         internal Single initialCarryoverLoss;
 
+        [SerializeField]
+        internal Boolean consumeChargeOnFire;
+
 
         internal enum DecayType { Linear, Exponential }
 
@@ -84,6 +88,7 @@
             {
                 this.scopeSkill = scopeSkill;
                 this.zoomParams = scopeSkill.zoomParams;
+                this.zoom = this.zoomParams.defaultZoom;
                 this.skillSlot = skillSlot;
             }
 
@@ -105,6 +110,10 @@
                     if( this.skillSlot.stock < this.scopeSkill.stockRequiredToKeepZoom )
                     {
                         this.stateInstance.ForceScopeEnd();
+                    }
+                    if(this.scopeSkill.consumeChargeOnFire)
+                    {
+                        this.stateInstance.ResetCharge();
                     }
                 }
                 return mod;
@@ -132,8 +141,9 @@
                 this.zoom = this.zoomParams.UpdateZoom( zoomInput * ConfigModule.zoomSpeed, this.zoom );
                 var fov = this.zoomParams.GetFoV( this.zoom );
                 this.stateInstance.cameraTarget.fovOverride = fov;
+                this.stateInstance.shouldRunDelay = this.skillSlot.stock >= this.scopeSkill.stockRequiredToModifyFire;
                 this.scoped = this.zoomParams.IsInScope( this.zoom );
-                this.currentStock = (Int32)this.skillSlot.stock;
+                this.currentStock = this.skillSlot.stock;
                 this.maxStock = this.skillSlot.maxStock;
                 this.range = range;
                 this.currentCharge = chargeFrac;
@@ -143,7 +153,7 @@
 
             internal void StateCreated( ScopeBaseState stateInstance )
             {
-                this.zoom = this.zoomParams.defaultZoom;
+                if(ConfigModule.zoomNoPersist) this.zoom = this.zoomParams.defaultZoom;
                 stateInstance.instanceData = this;
             }
 

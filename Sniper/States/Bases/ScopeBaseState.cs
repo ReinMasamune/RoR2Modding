@@ -27,6 +27,10 @@
 
         internal CameraTargetParams cameraTarget { get => base.cameraTargetParams; }
 
+        internal Boolean shouldRunDelay { get; set; }
+
+        internal abstract void ResetCharge();
+
         internal Boolean SendFired( out BulletModifier mod )
         {
             BulletModifier temp = this.ReadModifier();

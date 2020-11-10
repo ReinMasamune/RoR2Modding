@@ -46,6 +46,7 @@
 
         public static RegistrationToken Add(TDef item)
         {
+            item.entry = new Entry(item);
             var tok = new RegistrationToken(item);
             tok.Register();
             outstandingTokens.Add(tok);

@@ -6,6 +6,8 @@
     using System.ComponentModel;
     using System.Linq;
 
+    using Mono.Security.Authenticode;
+
     using RoR2;
 
 
@@ -14,14 +16,30 @@
         where TDef : Catalog<TSelf, TDef, TBackend>.ICatalogDef
 		where TBackend : unmanaged, ICatalogBackend<TDef>
     {
-        protected static readonly TSelf instance = (TSelf)MetaCatalog.Add(new TSelf()).def;
+        static Catalog()
+        {
+            _outstandingTokens = new();
+            _guidToDef = new();
+            definitions = new TDef[0];
+            instance = new TSelf();
+            if(instance is not MetaCatalog)
+            {
+                MetaCatalog.Add(instance);
+            }
+        }
 
-        private static TBackend backend = new();
-        private static readonly List<RegistrationToken> outstandingTokens = new();
+
+
+
+        private static TSelf instance;
+        private static TBackend backend => default;
+        private static List<RegistrationToken> _outstandingTokens;
+        private static List<RegistrationToken> outstandingTokens => _outstandingTokens;
         //Convert this to hashset? delegate does not really make sense anymore with this setup as it is abstracted behind Add and defs should not be recreated on reset.
         private static event Func<TDef> moddedEntries;
-        private static TDef[]? definitions { get => backend.definitions; set => backend.definitions = value; }
-        private static readonly Dictionary<String, TDef> guidToDef = new();
+        private static ref TDef[] definitions => ref backend.definitions;
+        private static Dictionary<String, TDef> _guidToDef;
+        private static Dictionary<String, TDef> guidToDef => _guidToDef;
         private static Boolean initialized = false;
         private static UInt64 _curIndex = 0ul;
         private static Boolean firstInitComplete = false;

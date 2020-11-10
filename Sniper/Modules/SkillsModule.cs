@@ -326,7 +326,7 @@
 
         internal const Single plasmaTotalMult = 2f;
         internal const Single plasmaProcPerTick = 0.5f;
-        internal const Single plasmaTotalDuration = 5f;
+        internal const Single plasmaTotalDuration = 10f;
         internal const Single plasmaTickFreq = 2.5f;
 
 
@@ -342,6 +342,7 @@
             protected override Single procCoefficient => plasmaProcPerTick;
             protected override Single bulletRadius => 0.5f;
             protected override DamageColorIndex damageColor => CatalogModule.plasmaDamageColor;
+            protected override SoundModule.FireType fireSoundType => SoundModule.FireType.Plasma;
             protected override OnBulletDelegate<NoData> onHit => (bullet, hit) =>
             {
                 var box = hit.hitHurtBox;
@@ -350,7 +351,7 @@
                 if(!target) return;
                 if(!FriendlyFireManager.ShouldDirectHitProceed(box.healthComponent, bullet.team)) return;
 
-                PlasmaDot.Apply(target, bullet.attackerBody, bullet.damage / bullet.attackerBody.damage, plasmaTotalDuration * Mathf.Sqrt(bullet.chargeBoost + 1f), bullet.procCoefficient, bullet.isCrit, box);
+                PlasmaDot.Apply(target, bullet.attackerBody, bullet.damage / bullet.attackerBody.damage, plasmaTotalDuration * Mathf.Sqrt(bullet.chargeBoost + 1f), bullet.procCoefficient, bullet.isCrit, box.transform.InverseTransformPoint(hit.point), bullet.aimVector * -1f, box);
             };
 
             public override void InitBullet<T>(ExpandableBulletAttack<NoData> bullet, SnipeState<T> state)
@@ -371,7 +372,7 @@
 
             var standardAmmo = SniperAmmoSkillDef.Create<FMJContext>();
             standardAmmo.icon = Properties.Icons.StandardAmmoIcon;
-            standardAmmo.skillName = "Standard Ammo";
+            standardAmmo.skillName = "StandardAmmo";
             standardAmmo.skillNameToken = Tokens.SNIPER_AMMO_STANDARD_NAME;
             standardAmmo.skillDescriptionToken = Tokens.SNIPER_AMMO_STANDARD_DESC;
             standardAmmo.fireSoundType = SoundModule.FireType.Normal;
@@ -389,7 +390,7 @@
             var explosive = SniperAmmoSkillDef.Create<ExplosiveContext>();
             
             explosive.icon = Properties.Icons.ExplosiveAmmoIcon;
-            explosive.skillName = "Explosive Ammo";
+            explosive.skillName = "ExplosiveAmmo";
             explosive.skillNameToken = Tokens.SNIPER_AMMO_EXPLOSIVE_NAME;
             explosive.skillDescriptionToken = Tokens.SNIPER_AMMO_EXPLOSIVE_DESC;
             explosive.fireSoundType = SoundModule.FireType.Normal;
@@ -420,7 +421,7 @@
 
             var plasmaAmmo = SniperAmmoSkillDef.Create<PlasmaContext>();
             plasmaAmmo.icon = Properties.Icons.PlasmaAmmoIcon;
-            plasmaAmmo.skillName = "Plasma Ammo";
+            plasmaAmmo.skillName = "PlasmaAmmo";
             plasmaAmmo.skillNameToken = Tokens.SNIPER_AMMO_PLASMA_NAME;
             plasmaAmmo.skillDescriptionToken = Tokens.SNIPER_AMMO_PLASMA_DESC;
             plasmaAmmo.fireSoundType = SoundModule.FireType.Plasma;
@@ -428,7 +429,7 @@
 
             var shockAmmo = SniperAmmoSkillDef.Create<BurstContext>();
             shockAmmo.icon = Properties.Icons.ShockAmmoIcon;
-            shockAmmo.skillName = "Shock Ammo";
+            shockAmmo.skillName = "ShockAmmo";
             shockAmmo.skillNameToken = Tokens.SNIPER_AMMO_SHOCK_NAME;
             shockAmmo.skillDescriptionToken = Tokens.SNIPER_AMMO_SHOCK_DESC;
             shockAmmo.fireSoundType = SoundModule.FireType.Burst;
@@ -619,7 +620,7 @@
 
             public Single recoilStrength => 4f;
 
-            public Single damageMultiplier => 2.25f;
+            public Single damageMultiplier => 2.5f;
 
             public Single forceMultiplier => 100f;
 
@@ -689,8 +690,8 @@
             };
             mag.requiredStock = 1;
             mag.shootDelay = 0.4f;
-            mag.skillDescriptionToken = Tokens.SNIPER_PRIMARY_SNIPE_DESC;
-            mag.skillNameToken = Tokens.SNIPER_PRIMARY_SNIPE_NAME;
+            mag.skillDescriptionToken = Tokens.SNIPER_PRIMARY_MAG_DESC;
+            mag.skillNameToken = Tokens.SNIPER_PRIMARY_MAG_NAME;
             mag.stockToConsume = 1;
             mag.stockToReload = 4;
             mag.skillName = "MagSnipe";
@@ -747,23 +748,24 @@
             charge.icon = Properties.Icons.SteadyAimIcon;
             charge.isBullets = false;
             charge.rechargeStock = 1;
-            charge.requiredStock = 1;
+            charge.requiredStock = 0;
             charge.skillDescriptionToken = Tokens.SNIPER_SECONDARY_STEADY_DESC;
-            charge.skillName = "Steady Aim";
+            charge.skillName = "SteadyAim";
             charge.skillNameToken = Tokens.SNIPER_SECONDARY_STEADY_NAME;
             charge.stockToConsumeOnFire = 1;
             charge.stockRequiredToKeepZoom = 0;
             charge.stockRequiredToModifyFire = 1;
-            charge.beginSkillCooldownOnSkillEnd = true;
+            charge.beginSkillCooldownOnSkillEnd = false;
             charge.initialCarryoverLoss = 0.0f;
             charge.decayType = SniperScopeSkillDef.DecayType.Exponential;
             charge.decayValue = 0.1f;
-            charge.chargeCanCarryOver = true;
+            charge.chargeCanCarryOver = false;
             charge.keywordTokens = new[]
             {
                 Tokens.SNIPER_KEYWORD_SCOPED,
                 Tokens.SNIPER_KEYWORD_BOOST,
             };
+            charge.consumeChargeOnFire = true;
             skills.Add((charge, ""));
 
             var quick = SniperScopeSkillDef.Create<QuickScope>( new ZoomParams(shoulderStart: 1f, shoulderEnd: 5f,
@@ -775,7 +777,7 @@
             quick.icon = Properties.Icons.QuickscopeIcon;
             quick.isBullets = false;
             quick.rechargeStock = 1;
-            quick.requiredStock = 1;
+            quick.requiredStock = 0;
             quick.skillDescriptionToken = Tokens.SNIPER_SECONDARY_QUICK_DESC;
             quick.skillName = "Quickscope";
             quick.skillNameToken = Tokens.SNIPER_SECONDARY_QUICK_NAME;
@@ -788,6 +790,7 @@
                 Tokens.SNIPER_KEYWORD_SCOPED,
                 Tokens.SNIPER_KEYWORD_BOOST,
             };
+            quick.consumeChargeOnFire = true;
             skills.Add((quick, ""));
 
 
@@ -883,14 +886,14 @@
             knife.rechargeStock = 1;
             knife.requiredStock = 1;
             knife.skillDescriptionToken = Tokens.SNIPER_SPECIAL_KNIFE_DESC;
-            knife.skillName = "Blink Knife";
+            knife.skillName = "BlinkKnife";
             knife.skillNameToken = Tokens.SNIPER_SPECIAL_KNIFE_NAME;
             knife.startCooldownAfterReactivation = true;
             knife.stockToConsume = 0;      
             KnifeSkillData.interruptPriority = InterruptPriority.PrioritySkill;
             KnifeSkillData.targetMachineName = "Weapon";
             KnifeSkillData.slashState = SkillsCore.StateType<KnifePickupSlash>();
-            skills.Add((knife, ""));
+            skills.Add((knife, Unlockables.WIPUnlockable.unlockable_Identifier));
             //skills.Add(wip);
 
             SkillFamiliesModule.specialSkills = skills;
