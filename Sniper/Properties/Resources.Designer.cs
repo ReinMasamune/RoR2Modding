@@ -304,7 +304,7 @@ namespace Rein.Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;style=cIsDamage&gt;Explosive.&lt;/style&gt; Deals &lt;style=cIsDamage&gt;0.4x primary damage.&lt;/style&gt;\n&lt;&gt; &lt;style=cIsDamage&gt;Damage &lt;indent=40%&gt;+0.32x&lt;/style&gt; per &lt;style=cIsUtility&gt;Boost&lt;/style&gt;&lt;/indent&gt;\n&lt;&gt; &lt;style=cIsDamage&gt;Explosion radius &lt;indent=40%&gt;+7.5m&lt;/style&gt; per &lt;style=cIsUtility&gt;Boost&lt;/style&gt;&lt;/indent&gt;.
+        ///   Looks up a localized string similar to Deals &lt;style=cIsDamage&gt;0.2x primary damage.&lt;/style&gt; &lt;style=cIsDamage&gt;Explodes (8m)&lt;/style&gt; for an additional &lt;style=cIsDamage&gt;0.7x primary damage.&lt;/style&gt;\n&lt;&gt; &lt;style=cIsDamage&gt;Damage &lt;indent=40%&gt;+0.16x&lt;/style&gt; per &lt;style=cIsUtility&gt;Boost&lt;/style&gt;&lt;/indent&gt;\n&lt;&gt; &lt;style=cIsDamage&gt;Explosion Damage&lt;indent=40%&gt;+0.56x&lt;/style&gt; per &lt;style=cIsUtility&gt;Boost&lt;/style&gt;&lt;/indent&gt;\n&lt;&gt; &lt;style=cIsDamage&gt;Explosion radius &lt;indent=40%&gt;+8m&lt;/style&gt; per &lt;style=cIsUtility&gt;Boost&lt;/style&gt;&lt;/indent&gt;.
         /// </summary>
         internal static string lang__SNIPER_AMMO_EXPLOSIVE_DESC {
             get {
@@ -621,7 +621,7 @@ namespace Rein.Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;style=cIsUtility&gt;Boost&lt;/style&gt; your shots by &lt;style=cIsDamage&gt;up to 3&lt;/style&gt;. &lt;style=cIsUtility&gt;Charges faster&lt;/style&gt; while stationary. &lt;style=cIsHealth&gt;You are slowed while charging&lt;/style&gt;..
+        ///   Looks up a localized string similar to Charge up a high powered shot. &lt;style=cIsUtility&gt;Boosts&lt;/style&gt; by &lt;style=cIsDamage&gt;up to 3.0&lt;/style&gt;. .
         /// </summary>
         internal static string lang__SNIPER_SECONDARY_STEADY_DESC {
             get {
@@ -630,7 +630,7 @@ namespace Rein.Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Steady Aim.
+        ///   Looks up a localized string similar to Charged Shot.
         /// </summary>
         internal static string lang__SNIPER_SECONDARY_STEADY_NAME {
             get {
@@ -684,7 +684,7 @@ namespace Rein.Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Frozen.
+        ///   Looks up a localized string similar to Arctic.
         /// </summary>
         internal static string lang__SNIPER_SKIN_ALT6_NAME {
             get {

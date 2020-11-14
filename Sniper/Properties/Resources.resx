@@ -199,7 +199,7 @@
     <value>Burst</value>
   </data>
   <data name="lang__SNIPER_AMMO_EXPLOSIVE_DESC" xml:space="preserve">
-    <value>&lt;style=cIsDamage&gt;Explosive.&lt;/style&gt; Deals &lt;style=cIsDamage&gt;0.4x primary damage.&lt;/style&gt;\n&lt;&gt; &lt;style=cIsDamage&gt;Damage &lt;indent=40%&gt;+0.32x&lt;/style&gt; per &lt;style=cIsUtility&gt;Boost&lt;/style&gt;&lt;/indent&gt;\n&lt;&gt; &lt;style=cIsDamage&gt;Explosion radius &lt;indent=40%&gt;+7.5m&lt;/style&gt; per &lt;style=cIsUtility&gt;Boost&lt;/style&gt;&lt;/indent&gt;</value>
+    <value>Deals &lt;style=cIsDamage&gt;0.2x primary damage.&lt;/style&gt; &lt;style=cIsDamage&gt;Explodes (8m)&lt;/style&gt; for an additional &lt;style=cIsDamage&gt;0.7x primary damage.&lt;/style&gt;\n&lt;&gt; &lt;style=cIsDamage&gt;Damage &lt;indent=40%&gt;+0.16x&lt;/style&gt; per &lt;style=cIsUtility&gt;Boost&lt;/style&gt;&lt;/indent&gt;\n&lt;&gt; &lt;style=cIsDamage&gt;Explosion Damage&lt;indent=40%&gt;+0.56x&lt;/style&gt; per &lt;style=cIsUtility&gt;Boost&lt;/style&gt;&lt;/indent&gt;\n&lt;&gt; &lt;style=cIsDamage&gt;Explosion radius &lt;indent=40%&gt;+8m&lt;/style&gt; per &lt;style=cIsUtility&gt;Boost&lt;/style&gt;&lt;/indent&gt;</value>
   </data>
   <data name="lang__SNIPER_AMMO_EXPLOSIVE_NAME" xml:space="preserve">
     <value>Explosive</value>
@@ -316,10 +316,10 @@ They excel at taking down bosses and high priority targets but struggle against 
     <value>Quickscope</value>
   </data>
   <data name="lang__SNIPER_SECONDARY_STEADY_DESC" xml:space="preserve">
-    <value>&lt;style=cIsUtility&gt;Boost&lt;/style&gt; your shots by &lt;style=cIsDamage&gt;up to 3&lt;/style&gt;. &lt;style=cIsUtility&gt;Charges faster&lt;/style&gt; while stationary. &lt;style=cIsHealth&gt;You are slowed while charging&lt;/style&gt;.</value>
+    <value>Charge up a high powered shot. &lt;style=cIsUtility&gt;Boosts&lt;/style&gt; by &lt;style=cIsDamage&gt;up to 3.0&lt;/style&gt;. </value>
   </data>
   <data name="lang__SNIPER_SECONDARY_STEADY_NAME" xml:space="preserve">
-    <value>Steady Aim</value>
+    <value>Charged Shot</value>
   </data>
   <data name="lang__SNIPER_SKIN_ALT1_NAME" xml:space="preserve">
     <value>Classic</value>
@@ -337,7 +337,7 @@ They excel at taking down bosses and high priority targets but struggle against 
     <value>Desert</value>
   </data>
   <data name="lang__SNIPER_SKIN_ALT6_NAME" xml:space="preserve">
-    <value>Frozen</value>
+    <value>Arctic</value>
   </data>
   <data name="lang__SNIPER_SKIN_DEFAULT_NAME" xml:space="preserve">
     <value>Default</value>

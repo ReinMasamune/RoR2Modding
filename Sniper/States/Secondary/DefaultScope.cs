@@ -17,7 +17,7 @@
     {
         private const Single maxCharge = 1f;
         private const Single baseStartDelay = 0.5f;
-        private const Single chargePerSecond = 0.4f;
+        private const Single chargePerSecond = 0.3f;
         private const Single minModifier = 0f;
         private const Single maxModifier = 3f;
         private const Single speedScalar = 0.25f;
@@ -72,7 +72,7 @@
             base.StartAimMode(2f);
             if(NetworkServer.active)
             {
-                this.characterBody.AddBuff(BuffIndex.Slow50);
+                //this.characterBody.AddBuff(BuffIndex.Slow50);
             }
             this.charge = base.startingCharge;
 
@@ -93,11 +93,7 @@
                         case Single s when s == maxCharge:
                             break;
                         case Single s when s < maxCharge:
-                            var vel = base.characterMotor.velocity;
-                            vel.y = vel.y * speedScalar;
-                            vel.x *= vel.x * speedScalar;
-                            vel.z *= vel.z * speedScalar;
-                            this.charge += dt * chargePerSecond * base.characterBody.attackSpeed / (1f + vel.magnitude);
+                            this.charge += dt * chargePerSecond * base.characterBody.attackSpeed;
                             break;
                         default:
                             this.charge = maxCharge;
@@ -117,7 +113,7 @@
         {
             if(NetworkServer.active)
             {
-                base.characterBody.RemoveBuff(BuffIndex.Slow50);
+                //base.characterBody.RemoveBuff(BuffIndex.Slow50);
             }
             base.OnExit();
         }

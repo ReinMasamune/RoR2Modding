@@ -29,7 +29,7 @@
         private const Single damageMultiplier = 1.0f;
         private const Single force = 50f;
 
-        private const Single maxVSpeed = 20f;
+        private const Single maxVSpeed = 10f;
 
         private Single prevVSpeed = Single.NaN;
 
@@ -50,7 +50,6 @@
             base.OnEnter();
             this.duration = baseDuration / (base.moveSpeedStat / 7f);
             base.characterBody.isSprinting = true;
-            Log.Error("StartFlip");
 
 
             if(base.isAuthority)

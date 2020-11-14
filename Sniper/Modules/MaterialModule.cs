@@ -28,7 +28,7 @@
             {
                 alphaBias = 0f,
                 alphaBoost = 1f,
-                boost = 15f,
+                boost = 3f,
                 calcTexAlpha = false,
                 cloudDistortionOn = false,
                 cloudRemappingOn = true,

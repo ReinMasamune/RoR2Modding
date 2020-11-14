@@ -1,19 +1,11 @@
-﻿//namespace R2API.Utils
-//{
-//    using System;
-//    using System.ComponentModel;
-//    using System.Diagnostics;
-//    [EditorBrowsable(EditorBrowsableState.Never)]
-//    public class ManualNetworkRegistrationAttribute : Attribute { }
-//}
-
-namespace ReinGeneralFixes
+﻿namespace ReinGeneralFixes
 {
     using System;
     using System.Linq;
     using System.Runtime.CompilerServices;
 
     using BepInEx;
+
 
     using ReinCore;
 
@@ -30,6 +22,8 @@ namespace ReinGeneralFixes
         internal static String version => Rein.Properties.Info.ver;
 
         internal static Main instance;
+
+
 
 
 
@@ -129,6 +123,8 @@ namespace ReinGeneralFixes
 
             RoR2.RoR2Application.isModded = true;
             this.Tick += () => RoR2.RoR2Application.isModded = true;
+
+            //new StatsAPI().Init();
 
 #if DPSMETER
             this.SetupDPSMeter();

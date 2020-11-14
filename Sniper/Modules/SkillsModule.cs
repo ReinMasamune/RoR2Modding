@@ -226,12 +226,12 @@
         {
             private static readonly GameObject _tracer = VFXModule.GetExplosiveAmmoTracer();
             public override GameObject tracerEffectPrefab => _tracer;
-            protected override Single baseDamageMultiplier => 0.4f;
+            protected override Single baseDamageMultiplier => 0.2f;
             protected override Single procCoefficient => 1f;
             protected override Single bulletRadius => 0.5f;
             protected override OnBulletDelegate<NoData> onHit => (bullet, hit) =>
             {
-                Single rad = 7.5f * (1f + bullet.chargeBoost);
+                Single rad = 8f * (1f + bullet.chargeBoost);
                 EffectManager.SpawnEffect(VFXModule.GetExplosiveAmmoExplosionIndex(), new EffectData
                 {
                     origin = hit.point,
@@ -242,13 +242,13 @@
                 {
                     attacker = bullet.owner,
                     attackerFiltering = AttackerFiltering.Default,
-                    baseDamage = bullet.damage * 1f,
+                    baseDamage = bullet.damage * 3.5f,
                     baseForce = 1f,
                     bonusForce = Vector3.zero,
                     crit = bullet.isCrit,
-                    damageColorIndex = DamageColorIndex.Item,
+                    damageColorIndex = DamageColorIndex.Default,
                     damageType = bullet.damageType,
-                    falloffModel = BlastAttack.FalloffModel.Linear,
+                    falloffModel = BlastAttack.FalloffModel.None,
                     impactEffect = EffectIndex.Invalid, // FUTURE: Explosive Ammo Impact Effect
                     inflictor = null,
                     losType = BlastAttack.LoSType.None,
@@ -274,11 +274,11 @@
             private static readonly GameObject _tracer = VFXModule.GetBurstAmmoTracer();
 
             public override GameObject tracerEffectPrefab => _tracer;
-            protected override Single durationMultiplier => base.durationMultiplier * 2f;
+            protected override Single durationMultiplier => base.durationMultiplier * 4f;
             protected override Single baseDamageMultiplier => 0.4f;
             protected override Single procCoefficient => 1f;
             protected override Single bulletRadius => 0.5f;
-            protected override Single recoilMultiplier => base.recoilMultiplier * 0.9f * this._recoilMultiplier;
+            protected override Single recoilMultiplier => base.recoilMultiplier * 0.5f * this._recoilMultiplier;
             protected override Single animPlayRate => this._animPlayRate;
             protected override SoundModule.FireType fireSoundType => SoundModule.FireType.Burst;
             protected override Boolean chargeIncreasesRecoil => false;
@@ -287,7 +287,7 @@
 
             private Int32 shotsToFire;
             private Single fireInterval;
-            private Single _recoilMultiplier = 0.65f;
+            private Single _recoilMultiplier = 0.75f;
             private Single _animPlayRate;
             private Single timer = 0f;
 
@@ -438,7 +438,7 @@
 
             //skills.Add(wip);
             //skills.Add(wip);
-            skills.Add(wip);
+            //skills.Add(wip);
 
             SkillFamiliesModule.ammoSkills = skills;
         }
@@ -506,66 +506,7 @@
 
 
 
-            #endregion
-            #region Plasma
-            //var plasmaHit = new OnBulletDelegate( (bullet, hit) =>
-            //{
-            //    HealthComponent obj = hit.hitHurtBox?.healthComponent;
-            //    if( obj != null && obj && FriendlyFireManager.ShouldDirectHitProceed( obj, bullet.team ) )
-            //    {
-            //        Single dmg = bullet.damage / bullet.attackerBody.damage;
-            //        obj.ApplyDoT( bullet.attackerBody.gameObject, bullet.isCrit ? CatalogModule.critPlasmaBurnIndex : CatalogModule.plasmaBurnIndex, 10f, dmg );
-            //    }
-            //});
-            //GameObject plasmaTracer = VFXModule.GetPlasmaAmmoTracer();
-            //var plasmaCreate = new BulletCreationDelegate( (body, reload, aim, muzzle) =>
-            //{
-            //    var bullet = new ExpandableBulletAttack
-            //    {
-            //        aimVector = aim.direction,
-            //        attackerBody = body,
-            //        bulletCount = 1,
-            //        chargeLevel = 0f,
-            //        damage = body.damage * 0.075f,
-            //        damageColorIndex = CatalogModule.plasmaDamageColor,
-            //        damageType = DamageType.Generic | DamageType.Silent,
-            //        falloffModel = BulletAttack.FalloffModel.None,
-            //        force = 0f,
-            //        HitEffectNormal = true,
-            //        hitEffectPrefab = null, // TODO: Plasma Ammo Hit Effect
-            //        hitMask = LayerIndex.entityPrecise.mask | LayerIndex.world.mask,
-            //        isCrit = body.RollCrit(),
-            //        maxDistance = 1000f,
-            //        maxSpread = 0f,
-            //        minSpread = 0f,
-            //        muzzleName = muzzle,
-            //        onHit = plasmaHit,
-            //        onStop = null,
-            //        origin = aim.origin,
-            //        owner = body.gameObject,
-            //        procChainMask = default,
-            //        procCoefficient = 0.5f,
-            //        queryTriggerInteraction = QueryTriggerInteraction.UseGlobal,
-            //        radius = 0.15f,
-            //        smartCollision = true,
-            //        sniper = false,
-            //        spreadPitchScale = 1f,
-            //        spreadYawScale = 1f,
-            //        stopperMask = LayerIndex.world.mask | LayerIndex.entityPrecise.mask,
-            //        tracerEffectPrefab = plasmaTracer,
-            //        weapon = null,
-            //    };
-            //    return bullet;
-            //});
-            //var plasma = SniperAmmoSkillDef.Create( plasmaCreate );
-            //plasma.icon = UIModule.GetScatterAmmoIcon();
-            //plasma.skillName = "Plasma Ammo";
-            //plasma.skillNameToken = Tokens.SNIPER_AMMO_PLASMA_NAME;
-            //plasma.skillDescriptionToken = Tokens.SNIPER_AMMO_PLASMA_DESC;
-            //plasma.fireSoundType = SoundModule.FireType.Plasma;
-            //skills.Add( plasma );
-
-            #endregion
+            
 
 
             #region Shock
@@ -663,6 +604,8 @@
             snipe.stockToConsume = 1;
             snipe.stockToReload = 1;
             snipe.skillName = "Snipe";
+            snipe.noSprint = true;
+            snipe.noSprintReload = false;
             skills.Add((snipe, ""));
 
             var mag = SniperReloadableFireSkillDef.Create<MagSnipe,MagReload>("Weapon", "Weapon");
@@ -695,6 +638,8 @@
             mag.stockToConsume = 1;
             mag.stockToReload = 4;
             mag.skillName = "MagSnipe";
+            mag.noSprint = true;
+            mag.noSprintReload = false;
             skills.Add((mag, ""));
             //skills.Add(wip);
 
@@ -792,6 +737,9 @@
             };
             quick.consumeChargeOnFire = true;
             skills.Add((quick, ""));
+
+
+            skills.Add(wip);
 
 
 

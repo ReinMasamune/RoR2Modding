@@ -54,6 +54,8 @@
         internal Sprite reloadIcon;
         [SerializeField]
         internal ReloadParams reloadParams;
+        [SerializeField]
+        internal Boolean noSprintReload;
 
         public sealed override BaseSkillInstanceData OnAssigned(GenericSkill skillSlot)
         {
@@ -136,19 +138,28 @@
             if(machine.SetInterruptState(state, data.isReloading ? this.reloadInterruptPriority : base.interruptPriority))
             {
                 CharacterBody body = skillSlot.characterBody;
-                if(body)
-                {
-                    if(base.noSprint)
-                    {
-                        body.isSprinting = false;
-                    }
-                    body.OnSkillActivated(skillSlot);
-                }
+
                 if(data.isReloading)
                 {
+                    if(body)
+                    {
+                        if(this.noSprintReload)
+                        {
+                            body.isSprinting = false;
+                        }
+                        body.OnSkillActivated(skillSlot);
+                    }
                     data.StopReload();
                 } else
                 {
+                    if(body)
+                    {
+                        if(base.noSprint)
+                        {
+                            body.isSprinting = false;
+                        }
+                        body.OnSkillActivated(skillSlot);
+                    }
                     skillSlot.stock -= base.stockToConsume;
                     data.OnStockChanged();
                     data.delayTimer = 0f;

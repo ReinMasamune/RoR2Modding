@@ -246,9 +246,6 @@
             // Do Nothing
         }
 
-        [MethodImpl(MethodImplOptions.ForwardRef)]
-        private static extern Int32 Square(Int32 number);
-
         
         private static void CheckPlugins()
         {

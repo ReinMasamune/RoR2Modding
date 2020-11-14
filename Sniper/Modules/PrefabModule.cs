@@ -19,12 +19,6 @@
 
     internal static class PrefabModule
     {
-        //private static readonly Accessor<NetworkStateMachine,EntityStateMachine[]> stateMachines = new Accessor<NetworkStateMachine, EntityStateMachine[]>( "stateMachines" );
-        //private static readonly Accessor<KinematicCharacterMotor,Single> capsuleRadius = new Accessor<KinematicCharacterMotor, Single>( "CapsuleRadius" );
-        //private static readonly Accessor<KinematicCharacterMotor,Single> capsuleHeight = new Accessor<KinematicCharacterMotor, Single>( "CapsuleHeight" );
-        //private static readonly Accessor<KinematicCharacterMotor,Single> capsuleYOffset = new Accessor<KinematicCharacterMotor, Single>( "CapsuleYOffset" );
-        //private static readonly Accessor<KinematicCharacterMotor,PhysicMaterial> capsulePhysicsMaterial = new Accessor<KinematicCharacterMotor, PhysicMaterial>("CapsulePhysicsMaterial");
-
         internal static void CreatePrefab()
         {
             SniperMain.sniperBodyPrefab = PrefabsCore.CreatePrefab( "Sniper", true );
@@ -81,11 +75,11 @@
             body.rootMotionInMainState = false;
             body.mainRootSpeed = 0f;
 
-            body.baseMaxHealth = 100f;
-            body.levelMaxHealth = 30f;
+            body.baseMaxHealth = 130f;
+            body.levelMaxHealth = 39f;
 
-            body.baseRegen = 1f;
-            body.levelRegen = 0.2f;
+            body.baseRegen = 2f;
+            body.levelRegen = 0.4f;
 
             body.baseMaxShield = 0f;
             body.levelMaxShield = 0f;
@@ -93,7 +87,7 @@
             body.baseMoveSpeed = 7f;
             body.levelMoveSpeed = 0f;
 
-            body.baseAcceleration = 50f;
+            body.baseAcceleration = 60f;
 
             body.baseJumpPower = 15f;
             body.levelJumpPower = 0f;

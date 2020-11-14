@@ -84,9 +84,9 @@
             m.startLifetime = 0.2f;
             m.startSpeed = 20f;
             m.startSize3D = true;
-            m.startSizeX = 2f;
+            m.startSizeX = 1f;
             m.startSizeY = 0.5f;
-            m.startSizeZ = 2f;
+            m.startSizeZ = 1f;
             m.startRotation3D = true;
             m.startRotationX = new ParticleSystem.MinMaxCurve(0f, Mathf.PI * 2f);
             m.startRotationY = Mathf.PI / 2f;
