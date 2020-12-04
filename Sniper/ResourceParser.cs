@@ -66,6 +66,7 @@
         internal const String SNIPER_SKIN_ALT5_NAME = "SNIPER_SKIN_ALT5_NAME";
         internal const String SNIPER_SKIN_ALT6_NAME = "SNIPER_SKIN_ALT6_NAME";
         internal const String SNIPER_SKIN_DEFAULT_NAME = "SNIPER_SKIN_DEFAULT_NAME";
+        internal const String SNIPER_SKIN_TRASH_NAME = "SNIPER_SKIN_TRASH_NAME";
         internal const String SNIPER_SPECIAL_DECOY_DESC = "SNIPER_SPECIAL_DECOY_DESC";
         internal const String SNIPER_SPECIAL_DECOY_NAME = "SNIPER_SPECIAL_DECOY_NAME";
         internal const String SNIPER_SPECIAL_KNIFE_DESC = "SNIPER_SPECIAL_KNIFE_DESC";
@@ -87,8 +88,12 @@
 	{
         private static GameObject _Crosshair;
         internal static GameObject Crosshair => _Crosshair ??= AssetModule.LoadAsset<GameObject>(Resources.prefab__Crosshair);
+        private static GameObject _DecoyIndicator;
+        internal static GameObject DecoyIndicator => _DecoyIndicator ??= AssetModule.LoadAsset<GameObject>(Resources.prefab__DecoyIndicator);
         private static GameObject _KnifeGhostPrefab;
         internal static GameObject KnifeGhostPrefab => _KnifeGhostPrefab ??= AssetModule.LoadAsset<GameObject>(Resources.prefab__KnifeGhostPrefab);
+        private static GameObject _KnifeIndicator;
+        internal static GameObject KnifeIndicator => _KnifeIndicator ??= AssetModule.LoadAsset<GameObject>(Resources.prefab__KnifeIndicator);
         private static GameObject _SniperPrefab;
         internal static GameObject SniperPrefab => _SniperPrefab ??= AssetModule.LoadAsset<GameObject>(Resources.prefab__SniperPrefab);
 	}
@@ -147,8 +152,16 @@
 
 	internal static class Textures
 	{
-        private static GameObject _ScopeOverlayMask;
-        internal static GameObject ScopeOverlayMask => _ScopeOverlayMask ??= AssetModule.LoadAsset<GameObject>(Resources.texture__ScopeOverlayMask);
+        private static Texture _ScopeOverlayMask;
+        internal static Texture ScopeOverlayMask => _ScopeOverlayMask ??= AssetModule.LoadAsset<Texture>(Resources.texture__ScopeOverlayMask);
+	}
+
+	internal static class Meshes
+	{
+        private static Mesh _ClassicRifleMesh;
+        internal static Mesh ClassicRifleMesh => _ClassicRifleMesh ??= AssetModule.LoadAsset<Mesh>(Resources.mesh__ClassicRifleMesh);
+        private static Mesh _ClassicSniperMesh;
+        internal static Mesh ClassicSniperMesh => _ClassicSniperMesh ??= AssetModule.LoadAsset<Mesh>(Resources.mesh__ClassicSniperMesh);
 	}
 
 	namespace Achievements

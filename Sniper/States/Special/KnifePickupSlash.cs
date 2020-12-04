@@ -19,7 +19,7 @@
 
         internal GameObject knifeObject;
 
-        private static readonly GameObject slashEffectPrefab = VFXModule.GetKnifeSlashPrefab();
+        //private static readonly GameObject slashEffectPrefab = VFXModule.GetKnifeSlashPrefab();
 
 
         public override void OnEnter()
@@ -53,7 +53,7 @@
                     impactEffect = EffectIndex.Invalid,
                     inflictor = null,
                     losType = BlastAttack.LoSType.None,
-                    position = base.transform.position,
+                    position = base.transform.position + new Vector3(0f, 1f, 0f),
                     procChainMask = default,
                     procCoefficient = 1f,
                     radius = slashRadius,
@@ -62,11 +62,11 @@
 
                 var data = new EffectData
                 {
-                    origin = base.transform.position,
+                    origin = base.transform.position + new Vector3(0f, 1f, 0f),
                     scale = slashRadius,
+                    rotation = Util.QuaternionSafeLookRotation(Vector3.up, base.transform.forward),
                 };
-                EffectManager.SpawnEffect( slashEffectPrefab, data, true );
-
+                EffectManager.SpawnEffect(VFXModule.GetKnifePickupSlash(base.characterBody.skinIndex), data, true);
             }
 
             Util.PlaySound( "Play_merc_m1_hard_swing", base.gameObject );

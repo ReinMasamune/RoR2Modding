@@ -10,7 +10,7 @@
 
     internal class MagReload : SniperSkillBaseState, ISniperReloadState
     {
-        private const Single baseDuration = 1f;
+        private const Single baseDuration = 0.4f;
 
 
         private Single duration;

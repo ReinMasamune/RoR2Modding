@@ -1133,7 +1133,21 @@
         /// <param name="name">The name of the material</param>
         public StandardMaterial( String name ) : base( name, ShaderIndex.HGStandard )
         {
-
+            //this._mainTexture = new(base.material, "_MainTex");
+            //this._normalMap = new(base.material, "_NormalTex");
+            //this._emissionTexture = new(base.material, "_EmTex");
+            //this._fresnelRamp = new(base.material, "_FresnelRamp");
+            //this._fresnelMask = new(base.material, "_FresnelMask");
+            //this._printAlphaTexture = new(base.material, "_SliceAlphaTex");
+            //this._printRampTexture = new(base.material, "_PrintRamp");
+            //this._splatmapTexture = new(base.material, "_SplatmapTex");
+            //this._greenChannelTexture = new(base.material, "_GreenChannelTex");
+            //this._greenChannelNormalmap = new(base.material, "_GreenChannelNormalTex");
+            //this._blueChannelTexture = new(base.material, "_BlueChannelTex");
+            //this._blueChannelNormalmap = new(base.material, "_BlueChannelNormalTex");
+            //this._flowmapTexture = new(base.material, "_FlowTex");
+            //this._flowmapHeightmap = new(base.material, "_FlowHeightmap");
+            //this._flowmapHeightRamp = new(base.material, "_FlowHeightRamp")
         }
 
 

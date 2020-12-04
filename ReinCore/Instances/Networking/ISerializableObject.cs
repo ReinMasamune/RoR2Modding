@@ -47,7 +47,14 @@
             if(to.Length != obj.size) throw new ArgumentException("Bad array size");
             fixed(Byte* ptr = to)
             {
+                //Log.Message(ptr[0]);
                 obj.Serialize(ptr);
+
+                //Log.Message("Sending bytes");
+                //foreach(var b in to)
+                //{
+                //    Log.Message(b);
+                //}
             }
         }
         public static unsafe T Deserialize<T>(this T obj, Byte[] from)
@@ -56,7 +63,14 @@
             if(from.Length != obj.size) throw new ArgumentException("Bad array size");
             fixed(Byte* ptr = from)
             {
+                //Log.Message(ptr[0]);
                 obj.Deserialize(ptr);
+
+                //Log.Message("Sending bytes");
+                //foreach(var b in from)
+                //{
+                //    Log.Message(b);
+                //}
             }
             return obj;
         }
@@ -124,7 +138,7 @@
         }
         private static TObj FindLocalObj<TObj>(this NetworkInstanceId id)
             where TObj : NetworkBehaviour
-            => (NetworkServer.active ? NetworkServer.FindLocalObject(id) : ClientScene.FindLocalObject(id)).GetComponent<TObj>();
+            => (NetworkServer.active ? NetworkServer.FindLocalObject(id) : ClientScene.FindLocalObject(id))?.GetComponent<TObj>();
     }
 
     

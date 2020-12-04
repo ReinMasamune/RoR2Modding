@@ -11,7 +11,7 @@
         [SerializeField]
         public List<SniperTexture> sniperTextures = new List<SniperTexture>();
 
-        public Texture2D this[String key] => this.lookup[key].texture;
+        public Texture2D this[String key] => this.lookup.TryGetValue(key, out var v) ? v.texture : throw new KeyNotFoundException(key);
 
         public void Merge( SniperTextureSet source )
         {

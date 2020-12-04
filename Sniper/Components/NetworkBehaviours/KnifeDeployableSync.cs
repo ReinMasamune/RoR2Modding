@@ -33,11 +33,12 @@
 
         private void Start()
         {
-            if( (this.owner = this.projectileController?.owner)?.GetComponent<SkillLocator>()?.special?.skillInstanceData is ReactivatedSkillDef<KnifeSkillData>.ReactivationInstanceData data )
+            if( (this.owner = this.projectileController?.owner)?.GetComponent<SniperCharacterBody>() is SniperCharacterBody body && body.skillLocator?.special?.skillInstanceData is ReactivatedSkillDef<KnifeSkillData>.ReactivationInstanceData data )
             {
                 this.knifeData = data;
                 this.knifeDataInstance = this.knifeData.data;
                 this.knifeDataInstance?.Initialize( this );
+                body.knifeTransform = base.transform;
             }
 
             this.projGhost = this.projectileController.ghost.transform;

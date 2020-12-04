@@ -6,7 +6,6 @@
     using System.ComponentModel;
     using System.Text;
 
-    using Rewired.Data.Mapping;
 
     public static class LinkListPool<T>
     {

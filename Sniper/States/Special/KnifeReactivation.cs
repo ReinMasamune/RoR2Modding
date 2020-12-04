@@ -13,17 +13,19 @@
 
     internal class KnifeReactivation : ReactivationBaseState<KnifeSkillData>
 	{
-		private const Single baseMovespeedMult = 30f;
+        private const Single baseDuration = 0.275f * 7f;
+		private const Single baseMovespeedMult = 2f;
 		private const Single maxDurationMult = 5f;
-		private const Single cancelDistance = 3f;
+		private const Single slashMaxDistance = 10f;
 		private const Single endSpeedCarryover = 10f;
         private const Single distanceJumpCancelThreshold = 2f;
         private static GameObject blinkStartEffect = VFXModule.GetKnifeBlinkPrefab();
 		internal static GameObject blinkEndEffect;
 
 
-		private Single maxDuration;
+        private Single duration;
 
+        private Vector3 startPos;
 		private Vector3 lastDirection = Vector3.zero;
         private Single lastDistance;
 
@@ -37,16 +39,26 @@
 			base.OnEnter();
 
 			this.target = base.skillData?.knifeInstance?.transform;
-            if( this.target != null && base.isAuthority )
+            this.startPos = base.transform.position;
+            if(base.isAuthority)
             {
-                var dir = this.target.position - base.transform.position;
-                var dist = dir.magnitude;
-                dir = dir.normalized;
-                this.maxDuration = dist / ( base.moveSpeedStat * baseMovespeedMult / maxDurationMult );
-
-                if( base.isAuthority )
+                if(this.target != null)
                 {
-                    this.PlayStartEffects( new Ray( base.transform.position, dir ) );
+                    var baseMovespeed = Math.Max(base.moveSpeedStat / (base.characterBody.isSprinting ? base.characterBody.sprintingSpeedMultiplier : 1.0f), 3f);
+                    var effectiveMovespeed = baseMovespeed * baseMovespeedMult;
+                    var dir = this.target.position - base.transform.position;
+                    var dist = dir.magnitude;
+                    dir = dir.normalized;
+
+                    this.duration = Math.Min(baseDuration, dist / baseMovespeedMult) / baseMovespeed;
+
+                    if(base.isAuthority)
+                    {
+                        this.PlayStartEffects(new Ray(base.transform.position, dir));
+                    }
+                } else
+                {
+                    this.duration = 0f;
                 }
             }
 
@@ -67,40 +79,47 @@
 				this.hbGroup.hurtBoxesDeactivatorCounter++;
 			}
             this.lastDistance = Single.MaxValue;
-		}
+            Util.PlaySound("Play_huntress_shift_start", base.gameObject);
+        }
 
         public override void FixedUpdate()
 		{
 			base.FixedUpdate();
-			var dist = Single.PositiveInfinity;
-
+			var dist = Single.MaxValue;
+            
 			if( this.target != null && base.isAuthority )
 			{
-				var diff =  this.target.position - base.transform.position ;
+                var cDest = this.duration == 0f ? this.target.position : Vector3.Lerp(this.startPos, this.target.position, base.fixedAge / this.duration);
+                var cDir = cDest - base.transform.position;
+                dist = Vector3.Distance(base.transform.position, this.target.position);
 
-				dist = diff.magnitude;
-				var dir = diff.normalized;
+
+
 
 				if( dist > 5f )
 				{
-					this.lastDirection = dir;
+					this.lastDirection = cDir.normalized;
 				}
 
 				if( this.charMotor != null )
 				{
-					this.charMotor.rootMotion += dir * ( base.moveSpeedStat * baseMovespeedMult * Time.fixedDeltaTime );
+					this.charMotor.rootMotion += cDir;
 				}
 			}
 
 			if( base.isAuthority )
 			{
-                if( dist <= cancelDistance )
-                {
-                    _ = base.skillData.targetStateMachine.SetInterruptState( base.skillData.InstantiateNextState( base.skillData.knifeInstance ), InterruptPriority.Death );
-                    base.outer.SetNextStateToMain();
-                } else if( base.fixedAge >= this.maxDuration || this.target == null || dist > distanceJumpCancelThreshold * this.lastDistance )
+                if(base.fixedAge >= this.duration || this.target == null || dist > distanceJumpCancelThreshold * this.lastDistance)
                 {
                     base.outer.SetNextStateToMain();
+                    if(dist <= slashMaxDistance)
+                    {
+                        //Log.MessageT("Slash");
+                        _ = base.skillData.targetStateMachine.SetInterruptState(base.skillData.InstantiateNextState(base.skillData.knifeInstance), InterruptPriority.Death);
+                    } else
+                    {
+                        Log.MessageT($"NoSlash, dist: {dist}");
+                    }
                 }
 			}
             this.lastDistance = dist;
@@ -108,8 +127,9 @@
 
 		public override void OnExit()
 		{
+            Util.PlaySound("Play_huntress_shift_end", base.gameObject);
 
-			this.PlayEndEffects();
+            this.PlayEndEffects();
 			if( this.model != null )
 			{
 				this.model.invisibilityCount--;

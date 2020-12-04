@@ -94,6 +94,10 @@
                 return obj.sharedMesh;
             }, PrefabIndex.refPickupTriTip ).RegisterAccessor();
 
+            new AssetAccessor<Mesh>(MeshIndex.Donut2, 
+                () => AssetLibrary<GameObject>.GetAsset(PrefabIndex.refMercSwordSlashWhirlwind).transform.Find("SwingTrail").GetComponent<ParticleSystemRenderer>().mesh,
+                PrefabIndex.refMercSwordSlashWhirlwind).RegisterAccessor();
+
             #endregion
 
             completedProperly = true;

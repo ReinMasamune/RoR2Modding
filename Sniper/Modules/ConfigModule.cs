@@ -11,6 +11,8 @@
 
     using UnityEngine;
 
+    using ReinCore;
+
     internal static class ConfigModule
     {
         #region Crosshair
@@ -75,10 +77,13 @@
 
 
         #region Unlocks
-        private static ConfigEntry<Int32> _eclipseLevel;
-
-
-
+        internal static ConfigEntry<EclipseLevel> _eclipseLevel { get; private set; }
+        
+        private static void SetupUnlocksConfig(SniperMain plugin)
+        {
+            const String section = "Unlocks";
+            _eclipseLevel = plugin.Config.Bind<EclipseLevel>(section, "Current Eclipse level", EclipseLevel.One, "The current eclipse level. If your eclipse level is lower than this setting on game launch, you will automatically unlock up to the level of this setting. As you unlock more eclipse levels in game, this setting will update automatically as a sort of save file.");
+        }
         #endregion
 
 
@@ -89,9 +94,12 @@
             SetupCrosshairConfig(plugin);
             SetupScopeConfig(plugin);
             SetupSoundConfig(plugin);
+            SetupUnlocksConfig(plugin);
 
 
             loaded = true;
         }
     }
+
+
 }

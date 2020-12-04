@@ -1,4 +1,6 @@
-﻿using System;
+﻿
+
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -61,9 +63,7 @@ namespace Rein.RogueWispPlugin
             Execution = 6
         }
         #endregion
-#if TIMER
-        private readonly Stopwatch watch;
-#endif
+
         internal static BepInEx.Logging.ManualLogSource logSource;
 
         private List<PluginInfo> _plugins;
@@ -146,6 +146,8 @@ namespace Rein.RogueWispPlugin
         }
         public Main()
         {
+            this.timer = new Stopwatch();
+            this.ctorTimeStart();
             instance = this;
             logSource = base.Logger;
             HashSet<String> submodules = new HashSet<String>();
@@ -165,7 +167,7 @@ namespace Rein.RogueWispPlugin
             if( this.working )
             {
 #if TIMER
-                this.watch = new Stopwatch();
+                //this.watch = new Stopwatch();
                 this.Load += this.AwakeTimeStart;
                 this.Enable += this.EnableTimeStart;
                 this.FirstFrame += this.StartTimeStart;
@@ -235,6 +237,67 @@ namespace Rein.RogueWispPlugin
 
             this.Enable += IncState;
             this.FirstFrame += IncState;
+            this.ctorTimeStop();
+        }
+
+
+        private Stopwatch timer;
+        private UInt64 ticks = 0ul;
+        private Double ms = 0.0;
+
+        private void ctorTimeStart()
+        {
+            //this.timer.Start();
+        }
+
+        private void ctorTimeStop()
+        {
+            //this.timer.Stop();
+            //Log.Message($"ctor took {this.timer.ElapsedTicks} ticks ({this.timer.ElapsedMilliseconds} ms)");
+            //this.ticks += (UInt64)this.timer.ElapsedTicks;
+            //this.ms += this.timer.ElapsedMilliseconds;
+            //this.timer.Reset();
+        }
+
+        private void AwakeTimeStart()
+        {
+            //this.timer.Start();
+        }
+        private void AwakeTimeStop()
+        {
+            //this.timer.Stop();
+            //Log.Message($"Awake took {this.timer.ElapsedTicks} ticks ({this.timer.ElapsedMilliseconds} ms)");
+            //this.ticks += (UInt64)this.timer.ElapsedTicks;
+            //this.ms += this.timer.ElapsedMilliseconds;
+            //this.timer.Reset();
+        }
+        private void EnableTimeStart()
+        {
+            //this.timer.Start();
+        }
+        private void EnableTimeStop()
+        {
+            //this.timer.Stop();
+            //Log.Message($"OnEnable took {this.timer.ElapsedTicks} ticks ({this.timer.ElapsedMilliseconds} ms)");
+            //this.ticks += (UInt64)this.timer.ElapsedTicks;
+            //this.ms += this.timer.ElapsedMilliseconds;
+            //this.timer.Reset();
+        }
+
+        private void StartTimeStart()
+        {
+            //this.timer.Start();
+        }
+
+        private void StartTimeStop()
+        {
+            //this.timer.Stop();
+            //Log.Message($"Start took {this.timer.ElapsedTicks} ticks ({this.timer.ElapsedMilliseconds} ms)");
+            //this.ticks += (UInt64)this.timer.ElapsedTicks;
+            //this.ms += this.timer.ElapsedMilliseconds;
+            //this.timer.Reset();
+
+            //Log.Message($"Total time used in load: {this.ticks} ticks ({this.ms} ms)");
         }
 
         private void Main_FirstFrame2()
@@ -382,6 +445,21 @@ namespace Rein.RogueWispPlugin
             private UInt64 lastTicks;
             private UInt64 counter;
             private UInt64 ticks;
+        }
+
+        public static void InvokeProf(this Action action)
+        {
+            var list = action.GetInvocationList();
+            var timer = new Stopwatch();
+            foreach(var v in list)
+            {
+                var act = v as Action;
+                timer.Start();
+                act();
+                timer.Stop();
+                Log.Message($"Action: {act.Method.Name} took {timer.ElapsedTicks} ticks ({timer.ElapsedMilliseconds} ms)");
+                timer.Reset();
+            }
         }
 
         [MethodImpl( MethodImplOptions.AggressiveInlining )]
@@ -586,7 +664,6 @@ namespace Rein.RogueWispPlugin
     }
     #endregion
 
-    //DOTHEFUCKINGSOUNDFORZONE
 }
 // Thought organization:::
 

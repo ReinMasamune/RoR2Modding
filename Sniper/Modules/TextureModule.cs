@@ -365,11 +365,28 @@
 
 		private static TextureSet _sniperAlt6Textures;
 
+        internal static TextureSet GetSniperTrashTextures()
+        {
+            if(_sniperTrashTextures == null)
+            {
+                SniperTextureSet set = GetMasterSet();
+                Texture2D tex1 = set[Properties.Resources.skin__SniperTrash_Diffuse];
+                Texture2D tex2 = set[Properties.Resources.skin__SniperTrash_Normal];
+                Texture2D tex3 = set[Properties.Resources.skin__SniperTrash_Emissive];
+
+                _sniperTrashTextures = new TextureSet(tex1, tex2, tex3);
+            }
+
+            return _sniperTrashTextures;
+        }
+
+        private static TextureSet _sniperTrashTextures;
 
 
 
 
-		internal static TextureSet GetRailTextures()
+
+        internal static TextureSet GetRailTextures()
 		{
 			if( _railTextures == null )
 			{
@@ -494,11 +511,28 @@
 
 		private static TextureSet _railAlt6Textures;
 
+        internal static TextureSet GetRailTrashTextures()
+        {
+            if(_railTrashTextures == null)
+            {
+                SniperTextureSet set = GetMasterSet();
+                Texture2D tex1 = set[Properties.Resources.skin__RailgunTrash_Diffuse];
+                Texture2D tex2 = set[Properties.Resources.skin__RailgunTrash_Normal];
+                Texture2D tex3 = set[Properties.Resources.skin__RailgunTrash_Emissive];
+
+                _railTrashTextures = new TextureSet(tex1, tex2, tex3);
+            }
+
+            return _railTrashTextures;
+        }
+
+        private static TextureSet _railTrashTextures;
 
 
 
 
-		internal static TextureSet GetThrowKnifeTextures()
+
+        internal static TextureSet GetThrowKnifeTextures()
 		{
 			if( _throwKnifeTextures == null )
 			{
@@ -615,6 +649,23 @@
 		}
 		private static TextureSet _throwKnifeAlt6Textures;
 
-	}
+
+        internal static TextureSet GetThrowKnifeTrashTextures()
+        {
+            if(_throwKnifeTrashTextures == null)
+            {
+                SniperTextureSet set = GetMasterSet();
+                Texture2D tex1 = set[Properties.Resources.skin__ThrowKnifeTrash_Diffuse];
+                Texture2D tex2 = set[Properties.Resources.skin__ThrowKnifeTrash_Normal];
+                Texture2D tex3 = set[Properties.Resources.skin__ThrowKnifeTrash_Emissive];
+
+                _throwKnifeTrashTextures = new TextureSet(tex1, tex2, tex3);
+            }
+
+            return _throwKnifeTrashTextures;
+        }
+        private static TextureSet _throwKnifeTrashTextures;
+
+    }
 
 }

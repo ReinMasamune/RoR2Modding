@@ -40,6 +40,11 @@
         private static SniperMain instance;
 
         internal List<StandardMaterial> sniperMaterials = new List<StandardMaterial>();
+
+
+
+
+
         internal static void AddMaterial(StandardMaterial mat, String name)
         {
             mat.name = name;
@@ -76,6 +81,8 @@
                 CatalogModule.RegisterDoTType();
                 CatalogModule.RegisterDamageTypes();
                 CatalogModule.RegisterBuffTypes();
+
+                VFXModule.Init();
 
                 UnlocksCore.AddUnlockable<WIPUnlockable>(false);
             };

@@ -49,7 +49,7 @@
 
             Rigidbody rb = obj.AddOrGetComponent<Rigidbody>();
             rb.mass = 1f;
-            rb.drag = 0.3f;
+            rb.drag = 0.4f;
             rb.angularDrag = 0.05f;
             rb.useGravity = true;
             rb.isKinematic = false;
@@ -82,7 +82,7 @@
             projSimple.enableVelocityOverLifetime = false;
             projSimple.lifetime = 18f;
             projSimple.updateAfterFiring = false;
-            projSimple.velocity = 100f;
+            projSimple.velocity = 175f;
             projSimple.velocityOverLifetime = null;
 
 
@@ -98,7 +98,7 @@
             damage.crit = false;
             damage.damage = 0f;
             damage.damageColorIndex = DamageColorIndex.Default;
-            damage.damageType = DamageType.Generic;
+            damage.damageType = CatalogModule.sniperResetDamageType;
             damage.force = 0f;
 
             _ = obj.AddOrGetComponent<Deployable>();

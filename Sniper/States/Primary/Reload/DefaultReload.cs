@@ -12,7 +12,7 @@
 
     internal class DefaultReload : SniperSkillBaseState, ISniperReloadState
     {
-        private const Single baseDuration = 0.75f;
+        private const Single baseDuration = 0.25f;
         private const Single upBoostForce = 600f;
 
         private Single duration;

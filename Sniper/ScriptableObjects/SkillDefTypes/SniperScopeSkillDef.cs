@@ -159,26 +159,29 @@
 
             internal void UpdateData( Single deltaTime )
             {
-                if( this.valCharge > 0f )
+                if(this.stateInstance is null || !this.stateInstance.isReady)
                 {
-                    var value = this.scopeSkill.decayValue * deltaTime;
-                    switch( this.scopeSkill.decayType )
+                    if(this.valCharge > 0f)
                     {
-                        case DecayType.Linear:
-                        this.valCharge -= value;
-                        break;
-                        case DecayType.Exponential:
-                        this.valCharge *= Mathf.Exp( -value );
-                        break;
-                        default:
+                        var value = this.scopeSkill.decayValue * deltaTime;
+                        switch(this.scopeSkill.decayType)
+                        {
+                            case DecayType.Linear:
+                                this.valCharge -= value;
+                                break;
+                            case DecayType.Exponential:
+                                this.valCharge *= Mathf.Exp(-value);
+                                break;
+                            default:
 #if ASSERT
                         Log.Warning( "Unknown decay type" );
 #endif
-                        break;
+                                break;
+                        }
+                    } else
+                    {
+                        this.valCharge = 0f;
                     }
-                } else
-                {
-                    this.valCharge = 0f;
                 }
             }
 

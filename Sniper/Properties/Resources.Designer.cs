@@ -70,6 +70,15 @@ namespace Rein.Sniper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to AndThisIsMyText.
+        /// </summary>
+        internal static string IAmAString {
+            get {
+                return ResourceManager.GetString("IAmAString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Assets/__EXPORT/Icons/Utility/Backflip.png.
         /// </summary>
         internal static string icon__BackflipIcon {
@@ -160,7 +169,7 @@ namespace Rein.Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Assets/__EXPORT/Icons/Special 2/Knife_Reactivation.png.
         /// </summary>
         internal static string icon__KnifeReactivateIcon {
             get {
@@ -639,7 +648,7 @@ namespace Rein.Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Classic.
+        ///   Looks up a localized string similar to Sprite.
         /// </summary>
         internal static string lang__SNIPER_SKIN_ALT1_NAME {
             get {
@@ -657,7 +666,7 @@ namespace Rein.Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Jungle.
+        ///   Looks up a localized string similar to Wetland.
         /// </summary>
         internal static string lang__SNIPER_SKIN_ALT3_NAME {
             get {
@@ -702,6 +711,15 @@ namespace Rein.Sniper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Classic.
+        /// </summary>
+        internal static string lang__SNIPER_SKIN_TRASH_NAME {
+            get {
+                return ResourceManager.GetString("lang__SNIPER_SKIN_TRASH_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;style=cIsUtility&gt;Stealth&lt;/style&gt; for 2.5 seconds and leave behind a &lt;style=cIsUtility&gt;Decoy&lt;/style&gt; that distracts enemies.\n&lt;style=cIsDamage&gt;&lt;/style&gt;&lt;style=cIsUtility&gt;Reactivate&lt;/style&gt; to detonate the decoy to deal &lt;style=cIsDamage&gt;500%&lt;/style&gt; damage,  &lt;style=cIsUtility&gt;Stuns&lt;/style&gt; and &lt;style=cIsUtility&gt;Weakens&lt;/style&gt; nearby enemies.
         /// </summary>
         internal static string lang__SNIPER_SPECIAL_DECOY_DESC {
@@ -720,7 +738,7 @@ namespace Rein.Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Throw a knife that deals 100% damage and sticks on hit. Reactivate to teleport to the knife, dealing 200% damage and marking nearby enemies. Killing a marked enemy resets all your cooldowns..
+        ///   Looks up a localized string similar to Throw a knife for &lt;style=cIsDamage&gt;100%&lt;/style&gt; damage. &lt;style=cIsUtility&gt;Reactivate&lt;/style&gt; to teleport to the knife, dealing &lt;style=cIsDamage&gt;200%&lt;/style&gt; damage and &lt;style=cIsUtility&gt;marking&lt;/style&gt; nearby enemies. Killing a &lt;style=cIsUtility&gt;marked&lt;/style&gt; enemy &lt;style=cIsUtility&gt;reloads and resets cooldowns.&lt;/style&gt;.
         /// </summary>
         internal static string lang__SNIPER_SPECIAL_KNIFE_DESC {
             get {
@@ -765,6 +783,24 @@ namespace Rein.Sniper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Assets/__EXPORT/SniperClassicRifle_v1.mesh.
+        /// </summary>
+        internal static string mesh__ClassicRifleMesh {
+            get {
+                return ResourceManager.GetString("mesh__ClassicRifleMesh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Assets/__EXPORT/SniperClassic_v1.mesh.
+        /// </summary>
+        internal static string mesh__ClassicSniperMesh {
+            get {
+                return ResourceManager.GetString("mesh__ClassicSniperMesh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Assets/__EXPORT/UI Prefabs/SniperCrosshair.prefab.
         /// </summary>
         internal static string prefab__Crosshair {
@@ -774,11 +810,29 @@ namespace Rein.Sniper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Assets/__EXPORT/UI Prefabs/DecoyIndicator.prefab.
+        /// </summary>
+        internal static string prefab__DecoyIndicator {
+            get {
+                return ResourceManager.GetString("prefab__DecoyIndicator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Assets/__EXPORT/KnifeProjectileGhost.prefab.
         /// </summary>
         internal static string prefab__KnifeGhostPrefab {
             get {
                 return ResourceManager.GetString("prefab__KnifeGhostPrefab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Assets/__EXPORT/UI Prefabs/KnifeIndicator.prefab.
+        /// </summary>
+        internal static string prefab__KnifeIndicator {
+            get {
+                return ResourceManager.GetString("prefab__KnifeIndicator", resourceCulture);
             }
         }
         
@@ -1001,6 +1055,33 @@ namespace Rein.Sniper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Rifle_TCL_MainTex.
+        /// </summary>
+        internal static string skin__RailgunTrash_Diffuse {
+            get {
+                return ResourceManager.GetString("skin__RailgunTrash_Diffuse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rifle_TCL_Emission.
+        /// </summary>
+        internal static string skin__RailgunTrash_Emissive {
+            get {
+                return ResourceManager.GetString("skin__RailgunTrash_Emissive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rifle_TCL_Normal.
+        /// </summary>
+        internal static string skin__RailgunTrash_Normal {
+            get {
+                return ResourceManager.GetString("skin__RailgunTrash_Normal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sniper_UrbanCamo_MainTex.
         /// </summary>
         internal static string skin__Sniper_Diffuse {
@@ -1190,6 +1271,33 @@ namespace Rein.Sniper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sniper_TCL_MainTex.
+        /// </summary>
+        internal static string skin__SniperTrash_Diffuse {
+            get {
+                return ResourceManager.GetString("skin__SniperTrash_Diffuse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sniper_TCL_Emission.
+        /// </summary>
+        internal static string skin__SniperTrash_Emissive {
+            get {
+                return ResourceManager.GetString("skin__SniperTrash_Emissive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sniper_TCL_Normal.
+        /// </summary>
+        internal static string skin__SniperTrash_Normal {
+            get {
+                return ResourceManager.GetString("skin__SniperTrash_Normal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ThrowKnife_MainTex.
         /// </summary>
         internal static string skin__ThrowKnife_Diffuse {
@@ -1375,6 +1483,33 @@ namespace Rein.Sniper.Properties {
         internal static string skin__ThrowKnifeAlt6_Normal {
             get {
                 return ResourceManager.GetString("skin__ThrowKnifeAlt6_Normal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ThrowKnife_MainTex.
+        /// </summary>
+        internal static string skin__ThrowKnifeTrash_Diffuse {
+            get {
+                return ResourceManager.GetString("skin__ThrowKnifeTrash_Diffuse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ThrowKnife_Emission.
+        /// </summary>
+        internal static string skin__ThrowKnifeTrash_Emissive {
+            get {
+                return ResourceManager.GetString("skin__ThrowKnifeTrash_Emissive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ThrowKnife_GreenBlack_Normal.
+        /// </summary>
+        internal static string skin__ThrowKnifeTrash_Normal {
+            get {
+                return ResourceManager.GetString("skin__ThrowKnifeTrash_Normal", resourceCulture);
             }
         }
         

@@ -8,13 +8,8 @@
     using ReinCore;
 
     using Rewired;
-
-    using RoR2;
     using RoR2.Skills;
-
-    using Rein.Sniper.Components;
     using Rein.Sniper.Data;
-    using Rein.Sniper.Expansions;
     using Rein.Sniper.Properties;
     using Rein.Sniper.SkillDefs;
     using Rein.Sniper.SkillDefTypes.Bases;
@@ -25,10 +20,9 @@
     using Rein.Sniper.States.Utility;
 
     using UnityEngine;
-    using UnityEngine.Networking;
-    using Rein.Sniper.DotTypes;
+    using Rein.Sniper.Ammo;
 
-    internal static class SkillsModule
+    internal static partial class SkillsModule
     {
         private static (SkillDef, String) wip
         {
@@ -39,328 +33,8 @@
             }
         }
 
-        private abstract class StandardContextBase : IAmmoStateContext
-        {
-            public abstract GameObject tracerEffectPrefab { get; }
-            protected virtual Single durationMultiplier { get => 1f; }
-            protected virtual SoundModule.FireType fireSoundType { get => SoundModule.FireType.Normal; }
-            protected virtual GameObject? hitEffectPrefab { get => null; }
-            protected virtual Boolean hitEffectNormal { get => true; }
-            protected virtual UInt32 bulletCount { get => 1; }
-            protected virtual Single maxDistance { get => 1000f; }
-            protected virtual Single minSpread { get => 0f; }
-            protected virtual Single maxSpread { get => 0f; }
-            protected virtual Single procCoefficient { get => 1f; }
-            protected virtual Single bulletRadius { get => 0.2f; }
-            protected virtual LayerMask hitMask { get => LayerIndex.entityPrecise.mask | LayerIndex.world.mask; }
-            protected virtual LayerMask stopperMask { get => LayerIndex.entityPrecise.mask | LayerIndex.world.mask; }
-            protected virtual Boolean smartCollision { get => true; }
-            protected virtual Boolean headshotCapable { get => false; }
-            protected virtual Single spreadPitchScale { get => 1f; }
-            protected virtual Single spreadYawScale { get => 1f; }
-            protected virtual DamageColorIndex damageColor { get => DamageColorIndex.Default; }
-            protected virtual DamageType damageType { get => DamageType.Generic; }
-            protected virtual BulletAttack.FalloffModel bulletFalloff { get => BulletAttack.FalloffModel.None; }
-            protected virtual Single baseDamageMultiplier { get => 1f; }
-            protected virtual Single baseForceMultiplier { get => 1f; }
-            protected virtual Single recoilMultiplier { get => 1f; }
-            protected virtual Single animPlayRate { get => 1f; }
-            protected virtual Single aimModeLinger { get => 5f; }
-            protected virtual Boolean chargeIncreasesRecoil { get => true; }
 
 
-            protected Int32 bulletsFired = 0;
-            protected Single duration;
-            public virtual void OnEnter<T>(SnipeState<T> state) where T : struct, ISniperPrimaryDataProvider
-            {
-                this.duration = this.durationMultiplier * state.baseDuration / state.characterBody.attackSpeed;
-                this.FireBullet(state);           
-            }
-            protected void FireBullet<T>(SnipeState<T> state) where T : struct, ISniperPrimaryDataProvider
-            {
-                this.bulletsFired++;
-                var aim = state.GetAimRay();
-                state.StartAimMode(aim, this.duration + this.aimModeLinger, true);
-                if(state.isAuthority)
-                {
-                    var bullet = this.CreateBullet();
-                    this.ModifyBullet(bullet, state, aim);
-                    bullet.Fire();
-                    var recoil = state.recoilStrength * this.recoilMultiplier * (1f + (this.chargeIncreasesRecoil ? 0.5f * state.chargeBoost : 0f));
-                    state.AddRecoil(-1f * recoil, -3f * recoil, -0.2f * recoil, 0.2f * recoil);
-                }
-                state.PlayAnimation("Gesture, Additive", "Shoot", "rateShoot", this.duration * animPlayRate);
-                SoundModule.PlayFire(state.gameObject, state.soundFrac, this.fireSoundType);
-            }
-            public virtual ExpandableBulletAttack CreateBullet() => new ExpandableBulletAttack<NoData>();
-            public virtual void ModifyBullet<T>(ExpandableBulletAttack bullet, SnipeState<T> state, Ray aimRay)
-                 where T : struct, ISniperPrimaryDataProvider
-            {
-                var body = state.characterBody;
-
-                bullet.aimVector = aimRay.direction;
-                bullet.origin = aimRay.origin;
-                bullet.attackerBody = body;
-                bullet.isCrit = body.RollCrit();
-                bullet.procChainMask = default;
-                bullet.owner = body.gameObject;
-                bullet.chargeBoost = state.chargeBoost;
-                bullet.reloadBoost = state.reloadBoost;
-                bullet.muzzleName = state.muzzleName;
-                bullet.queryTriggerInteraction = QueryTriggerInteraction.UseGlobal;
-                bullet.weapon = null;
-
-                bullet.hitEffectPrefab = this.hitEffectPrefab;
-                bullet.tracerEffectPrefab = this.tracerEffectPrefab;
-                bullet.bulletCount = this.bulletCount;
-                bullet.HitEffectNormal = this.hitEffectNormal;
-                bullet.maxDistance = this.maxDistance;
-                bullet.maxSpread = this.maxSpread;
-                bullet.minSpread = this.minSpread;
-                bullet.procCoefficient = this.procCoefficient;
-                bullet.radius = this.bulletRadius;
-                bullet.hitMask = this.hitMask;
-                bullet.stopperMask = this.stopperMask;
-                bullet.sniper = this.headshotCapable;
-                bullet.smartCollision = this.smartCollision;
-                bullet.spreadPitchScale = this.spreadPitchScale;
-                bullet.spreadYawScale = this.spreadYawScale;
-                bullet.damageColorIndex = this.damageColor;
-                bullet.damageType = this.damageType;
-                bullet.falloffModel = this.bulletFalloff;
-
-                bullet.damage = body.damage * state.damageMultiplier * this.baseDamageMultiplier;
-                bullet.force = state.forceMultiplier * this.baseForceMultiplier;
-            }
-            public virtual void FixedUpdate<T>(SnipeState<T> state) where T : struct, ISniperPrimaryDataProvider
-            {
-                if(state.isAuthority && state.fixedAge >= this.duration)
-                {
-                    state.outer.SetNextStateToMain();
-                }
-            }
-
-            public virtual void OnExit<T>(SnipeState<T> state) where T : struct, ISniperPrimaryDataProvider
-            {
-            }
-
-            public virtual void OnDeserialize<T>(SnipeState<T> state, NetworkReader reader) where T : struct, ISniperPrimaryDataProvider { }
-            public virtual void OnSerialize<T>(SnipeState<T> state, NetworkWriter writer) where T : struct, ISniperPrimaryDataProvider { }
-        }
-
-        private abstract class OnHitContextBase<TData> : StandardContextBase
-            where TData : struct
-        {
-            public virtual TData InitData() => default;
-            protected virtual OnBulletDelegate<TData> onHit { get => null; }
-            protected virtual OnBulletDelegate<TData> onStop { get => null; }
-            public sealed override ExpandableBulletAttack CreateBullet() => new ExpandableBulletAttack<TData>();
-            public sealed override void ModifyBullet<T>(ExpandableBulletAttack bullet, SnipeState<T> state, Ray aim)
-            {
-                base.ModifyBullet(bullet, state, aim);
-                var bul = bullet as ExpandableBulletAttack<TData>;
-                bul.onHit = this.onHit;
-                bul.onStop = this.onStop;
-                bul.data = this.InitData();
-                this.InitBullet(bul, state);
-            }
-            public virtual void InitBullet<T>(ExpandableBulletAttack<TData> bullet, SnipeState<T> state)
-                where T : struct, ISniperPrimaryDataProvider
-            {
-
-            }
-        }
-
-        private class FMJContext : OnHitContextBase<RicochetData>
-        {
-            private static readonly GameObject _tracer;
-            static FMJContext()
-            {
-                _tracer = VFXModule.GetStandardAmmoTracer();
-                RicochetController.ricochetEffectPrefab = VFXModule.GetRicochetEffectPrefab();
-            }
-            public override GameObject tracerEffectPrefab => _tracer;
-            protected override LayerMask stopperMask => base.stopperMask & ~LayerIndex.entityPrecise.mask;
-            protected override OnBulletDelegate<RicochetData> onStop => (bullet, hit) =>
-            {
-                if(hit.collider)
-                {
-                    Vector3 v1 = hit.direction;
-                    Vector3 v2 = hit.surfaceNormal;
-                    Single dot = (v1.x * v2.x) + (v1.y * v2.y) + (v1.z * v2.z);
-                    Single chance = Mathf.Clamp( Mathf.Acos( dot ) / 0.02f / Mathf.PI, 0f, 100f);
-                    if(Util.CheckRoll(100f - chance, bullet.attackerBody.master))
-                    {
-                        Vector3 newDir = (-2f * dot * v2) + v1;
-                        var newBul = bullet.Clone();// as ExpandableBulletAttack<RicochetData>;
-                        newBul.origin = hit.point;
-                        newBul.aimVector = newDir;
-                        var wepObj = newBul.weapon = new GameObject("temp", typeof(NetworkIdentity));
-                        
-                        if(newBul.data.counter++ == 0) newBul.radius *= 10f;
-
-                        if(hit.damageModifier == HurtBox.DamageModifier.SniperTarget)
-                        {
-                            newBul.damage *= 1.5f;
-                        }
-
-                        RicochetController.QueueRicochet(newBul, (UInt32)(hit.distance / 6f) + 1u);
-                    }
-                }
-            };
-
-            public override void InitBullet<T>(ExpandableBulletAttack<RicochetData> bullet, SnipeState<T> state)
-            {
-                base.InitBullet(bullet, state);
-                bullet.damage *= state.reloadBoost;
-                bullet.damage *= (1f + state.chargeBoost);
-                if(bullet.isCrit)
-                {
-                    bullet.damage *= 1f + (state.chargeBoost / 20f);
-                }
-            }
-
-        }
-
-        private class ExplosiveContext : OnHitContextBase<NoData>
-        {
-            private static readonly GameObject _tracer = VFXModule.GetExplosiveAmmoTracer();
-            public override GameObject tracerEffectPrefab => _tracer;
-            protected override Single baseDamageMultiplier => 0.2f;
-            protected override Single procCoefficient => 1f;
-            protected override Single bulletRadius => 0.5f;
-            protected override OnBulletDelegate<NoData> onHit => (bullet, hit) =>
-            {
-                Single rad = 8f * (1f + bullet.chargeBoost);
-                EffectManager.SpawnEffect(VFXModule.GetExplosiveAmmoExplosionIndex(), new EffectData
-                {
-                    origin = hit.point,
-                    scale = rad,
-                    rotation = Util.QuaternionSafeLookRotation(hit.direction)
-                }, true);
-                var blast = new BlastAttack
-                {
-                    attacker = bullet.owner,
-                    attackerFiltering = AttackerFiltering.Default,
-                    baseDamage = bullet.damage * 3.5f,
-                    baseForce = 1f,
-                    bonusForce = Vector3.zero,
-                    crit = bullet.isCrit,
-                    damageColorIndex = DamageColorIndex.Default,
-                    damageType = bullet.damageType,
-                    falloffModel = BlastAttack.FalloffModel.None,
-                    impactEffect = EffectIndex.Invalid, // FUTURE: Explosive Ammo Impact Effect
-                    inflictor = null,
-                    losType = BlastAttack.LoSType.None,
-                    position = hit.point,
-                    procChainMask = bullet.procChainMask,
-                    procCoefficient = bullet.procCoefficient * 0.5f,
-                    radius = rad,
-                    teamIndex = TeamComponent.GetObjectTeam(bullet.owner),
-                };
-                _ = blast.Fire();
-            };
-
-            public override void InitBullet<T>(ExpandableBulletAttack<NoData> bullet, SnipeState<T> state)
-            {
-                base.InitBullet(bullet, state);
-                bullet.damage *= state.reloadBoost;
-                bullet.damage *= (1f + state.chargeBoost * 0.8f);
-            }
-        }
-
-        private class BurstContext : StandardContextBase
-        {
-            private static readonly GameObject _tracer = VFXModule.GetBurstAmmoTracer();
-
-            public override GameObject tracerEffectPrefab => _tracer;
-            protected override Single durationMultiplier => base.durationMultiplier * 4f;
-            protected override Single baseDamageMultiplier => 0.4f;
-            protected override Single procCoefficient => 1f;
-            protected override Single bulletRadius => 0.5f;
-            protected override Single recoilMultiplier => base.recoilMultiplier * 0.5f * this._recoilMultiplier;
-            protected override Single animPlayRate => this._animPlayRate;
-            protected override SoundModule.FireType fireSoundType => SoundModule.FireType.Burst;
-            protected override Boolean chargeIncreasesRecoil => false;
-
-
-
-            private Int32 shotsToFire;
-            private Single fireInterval;
-            private Single _recoilMultiplier = 0.75f;
-            private Single _animPlayRate;
-            private Single timer = 0f;
-
-            const Single firingFrac = 0.75f;
-            
-
-            public override void OnEnter<T>(SnipeState<T> state)
-            {
-                this.shotsToFire = (Int32)(3 * (1 + state.chargeBoost));
-                this._animPlayRate = this.shotsToFire;
-                //this._recoilMultiplier = base.recoilMultiplier * 0.;
-
-                base.OnEnter(state);
-
-                this.fireInterval = (this.duration * firingFrac) / (this.shotsToFire + 1);
-            }
-
-            public override void FixedUpdate<T>(SnipeState<T> state)
-            {
-                while(this.bulletsFired < this.shotsToFire && (state.fixedAge / this.fireInterval) >= this.bulletsFired)
-                {
-                    this._recoilMultiplier *= this._recoilMultiplier * this._recoilMultiplier;
-                    this.FireBullet(state);
-                }
-
-                base.FixedUpdate(state);
-            }
-
-            public override void ModifyBullet<T>(ExpandableBulletAttack bullet, SnipeState<T> state, Ray aimRay)
-            {
-                base.ModifyBullet(bullet, state, aimRay);
-                bullet.damage *= state.reloadBoost;
-            }
-        }
-
-
-        internal const Single plasmaTotalMult = 2f;
-        internal const Single plasmaProcPerTick = 0.5f;
-        internal const Single plasmaTotalDuration = 10f;
-        internal const Single plasmaTickFreq = 2.5f;
-
-
-        internal const Single plasmaTotalTicks = plasmaTotalDuration * plasmaTickFreq + 1f;
-        internal const Single plasmaDamagePerTick = plasmaTotalMult / plasmaTotalTicks;
-        private class PlasmaContext : OnHitContextBase<NoData>
-        {
-            private static readonly GameObject _tracer = VFXModule.GetPlasmaAmmoTracer();
-            private const Single baseDotDuration = 10f;
-
-            public override GameObject tracerEffectPrefab => _tracer;
-            protected override Single baseDamageMultiplier => plasmaDamagePerTick;
-            protected override Single procCoefficient => plasmaProcPerTick;
-            protected override Single bulletRadius => 0.5f;
-            protected override DamageColorIndex damageColor => CatalogModule.plasmaDamageColor;
-            protected override SoundModule.FireType fireSoundType => SoundModule.FireType.Plasma;
-            protected override OnBulletDelegate<NoData> onHit => (bullet, hit) =>
-            {
-                var box = hit.hitHurtBox;
-                if(!box) return;
-                var target = box.healthComponent?.body;
-                if(!target) return;
-                if(!FriendlyFireManager.ShouldDirectHitProceed(box.healthComponent, bullet.team)) return;
-
-                PlasmaDot.Apply(target, bullet.attackerBody, bullet.damage / bullet.attackerBody.damage, plasmaTotalDuration * Mathf.Sqrt(bullet.chargeBoost + 1f), bullet.procCoefficient, bullet.isCrit, box.transform.InverseTransformPoint(hit.point), bullet.aimVector * -1f, box);
-            };
-
-            public override void InitBullet<T>(ExpandableBulletAttack<NoData> bullet, SnipeState<T> state)
-            {
-                base.InitBullet(bullet, state);
-                bullet.damage *= state.reloadBoost;
-                bullet.damage *= Mathf.Sqrt(1f + state.chargeBoost);
-            }
-        }
 
 
 
@@ -591,7 +265,7 @@
                 goodMult = 1.2f,
                 perfectMult = 1.5f,
                 reloadDelay = 0.4f,
-                reloadEndDelay = 0.6f,
+                reloadEndDelay = 0.05f,
                 perfectStart = 0.25f,
                 perfectEnd = 0.4f,
                 goodStart = 0.4f,
@@ -624,8 +298,8 @@
                 baseDuration = 1.5f,
                 goodMult = 1.2f,
                 perfectMult = 1.5f,
-                reloadDelay = 1f,
-                reloadEndDelay = 1f,
+                reloadDelay = 0.4f,
+                reloadEndDelay = 0.05f,
                 perfectStart = 0.25f,
                 perfectEnd = 0.4f,
                 goodStart = 0.4f,
@@ -704,7 +378,7 @@
             charge.initialCarryoverLoss = 0.0f;
             charge.decayType = SniperScopeSkillDef.DecayType.Exponential;
             charge.decayValue = 0.1f;
-            charge.chargeCanCarryOver = false;
+            charge.chargeCanCarryOver = true;
             charge.keywordTokens = new[]
             {
                 Tokens.SNIPER_KEYWORD_SCOPED,
@@ -776,6 +450,8 @@
             };
             skills.Add((backflip, ""));
 
+            skills.Add(wip);
+
             SkillFamiliesModule.utilitySkills = skills;
         }
 
@@ -837,11 +513,17 @@
             knife.skillName = "BlinkKnife";
             knife.skillNameToken = Tokens.SNIPER_SPECIAL_KNIFE_NAME;
             knife.startCooldownAfterReactivation = true;
-            knife.stockToConsume = 0;      
+            knife.stockToConsume = 0;
+            knife.keywordTokens = new[]
+            {
+                Tokens.SNIPER_KEYWORD_REACTIVATION,
+                Tokens.SNIPER_KEYWORD_RELOADS,
+            };
             KnifeSkillData.interruptPriority = InterruptPriority.PrioritySkill;
             KnifeSkillData.targetMachineName = "Weapon";
             KnifeSkillData.slashState = SkillsCore.StateType<KnifePickupSlash>();
-            skills.Add((knife, Unlockables.WIPUnlockable.unlockable_Identifier));
+           
+            skills.Add((knife, ""));
             //skills.Add(wip);
 
             SkillFamiliesModule.specialSkills = skills;

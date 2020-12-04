@@ -21,9 +21,9 @@ namespace ReinCore
 
         protected override void FirstInitSetup()
         {
-            base.FirstInitSetup();
             NetworkCore.RegisterMessageType<DotMessage>();
             NetworkCore.RegisterMessageType<CleanseMessage>();
+            base.FirstInitSetup();
         }
     }
 

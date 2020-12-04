@@ -34,9 +34,14 @@
                 outroFlavorToken = Properties.Tokens.SNIPER_OUTRO_FLAVOR,
                 displayNameToken = Properties.Tokens.SNIPER_DISPLAY_NAME,
             };
-            SurvivorsCore.AddEclipseUnlocks("Rein_Sniper", survivorDef);
+            SurvivorsCore.ManageEclipseUnlocks(survivorDef, ConfigModule._eclipseLevel);
 
             SurvivorCatalog.getAdditionalSurvivorDefs += (list) => list.Add(survivorDef);
+        }
+
+        internal static void RegisterDamageColor()
+        {
+            plasmaDamageColor = DamageColorsCore.AddDamageColor(new(0.9f, 0.5f, 0.9f));
         }
 
         internal static Lazy<Int32> sniperBodyIndex = new Lazy<Int32>( () => BodyCatalog.FindBodyIndex( SniperMain.sniperBodyPrefab.GetComponent<CharacterBody>() ) );
@@ -109,8 +114,7 @@
         internal static BuffIndex resetDebuff => _resetDebuff ??= GetBuffIndex("Rein.Sniper.KnifeReset") ?? throw new InvalidOperationException("Cannot get buffindex yet");
         internal static BuffIndex plasmaBurnDebuff => _plasmaBurnDebuff ??= GetBuffIndex("Rein.Sniper.PlasmaBurn") ?? throw new InvalidOperationException("Cannot get buffindex yet");
 
-        private static DamageColorIndex? _plasmaDamageColor = null;
-        internal static DamageColorIndex plasmaDamageColor => _plasmaDamageColor ??= DamageColorsCore.AddDamageColor(new(0.9f, 0.5f, 0.9f));
+        internal static DamageColorIndex plasmaDamageColor { get; private set; }
 
         private static void GlobalEventManager_onCharacterDeathGlobal(DamageReport obj)
         {

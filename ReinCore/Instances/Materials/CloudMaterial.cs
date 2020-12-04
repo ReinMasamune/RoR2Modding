@@ -10,38 +10,10 @@
     [Serializable]
     public class CloudMaterial : MaterialBase
     {
-        // TODO: _BumpScale
-        // TODO: _DetailNormalMapScale
-        // TODO: _Fade
-        // TODO: _GlossMapScale
-        // TODO: _GlossyReflections
-        // TODO: _Metallic
-        // TODO: _Mode
-        // TODO: _OcclusionStrength
-        // TODO: _OffsetAlpha
-        // TODO: _SkyboxOnly
-        // TODO: _SmoothnessTextureChannel
-        // TODO: _SpecularHighlights
-        // TODO: _UVSec
-        // TODO: _ZWrite
-
-        // TODO: _CloudNormalMap
-        // TODO: _ExtrusionStrength
-        // TODO: _MarkForRevision
-        // TODO: _NormalStrength
-        // TODO: _OffsetAmount
-        // TODO: _RampInfo
-        // TODO: _SpecularExponent
-        // TODO: _SpecularStrength
-
-
-        // TODO: _UVSwapOn
-        // TODO: _UseColor
-
         /// <summary>
         /// Unknown
         /// </summary>
-        [Menu( sectionName = "Uncategorized" )]
+       //[Menu( sectionName = "Uncategorized" )]
         public Single alphaBias
         {
             get => base.GetSingle( "_AlphaBias" );
@@ -52,7 +24,7 @@
         /// <summary>
         /// Unknown
         /// </summary>
-        [Menu( sectionName = "Uncategorized" )]
+       //[Menu( sectionName = "Uncategorized" )]
         public Single alphaBoost
         {
             get => base.GetSingle( "_AlphaBoost" );
@@ -63,7 +35,7 @@
         /// <summary>
         /// Unknown
         /// </summary>
-        [Menu( sectionName = "Uncategorized" )]
+       //[Menu( sectionName = "Uncategorized" )]
         [Obsolete]
         public Single brightnessBoost
         {
@@ -75,7 +47,7 @@
         /// <summary>
         /// Brightness Boost
         /// </summary>
-        [Menu( sectionName = "Uncategorized" )]
+       //[Menu( sectionName = "Uncategorized" )]
         public Single boost
         {
             get => base.GetSingle( "_Boost" );
@@ -86,7 +58,7 @@
         /// <summary>
         /// Unknown
         /// </summary>
-        [Menu( sectionName = "Uncategorized" )]
+       //[Menu( sectionName = "Uncategorized" )]
         public CullMode cull
         {
             get => (CullMode)base.GetSingle( "_Cull" );
@@ -98,7 +70,7 @@
         /// <summary>
         /// Unknown
         /// </summary>
-        [Menu( sectionName = "Uncategorized" )]
+       //[Menu( sectionName = "Uncategorized" )]
         public Single distortionStrength
         {
             get => base.GetSingle( "_DistortionStrength" );
@@ -109,7 +81,7 @@
         /// <summary>
         /// Unknown
         /// </summary>
-        [Menu( sectionName = "Uncategorized" )]
+       //[Menu( sectionName = "Uncategorized" )]
         public UnityEngine.Rendering.BlendMode destinationBlend
         {
             get => (UnityEngine.Rendering.BlendMode)base.GetSingle( "_DstBlend" );
@@ -120,7 +92,7 @@
         /// <summary>
         /// Unknown
         /// </summary>
-        [Menu( sectionName = "Uncategorized" )]
+       //[Menu( sectionName = "Uncategorized" )]
         public Single externalAlpha
         {
             get => base.GetSingle( "_ExternalAlpha" );
@@ -131,7 +103,7 @@
         /// <summary>
         /// Unknown
         /// </summary>
-        [Menu( sectionName = "Uncategorized" )]
+       //[Menu( sectionName = "Uncategorized" )]
         public Single fadeCloseDistance
         {
             get => base.GetSingle( "_FadeCloseDistance" );
@@ -142,7 +114,7 @@
         /// <summary>
         /// Unknown
         /// </summary>
-        [Menu( sectionName = "Uncategorized" )]
+       //[Menu( sectionName = "Uncategorized" )]
         public Single fresnelPower
         {
             get => base.GetSingle( "_FresnelPower" );
@@ -153,7 +125,7 @@
         /// <summary>
         /// Unknown
         /// </summary>
-        [Menu( sectionName = "Uncategorized" )]
+       //[Menu( sectionName = "Uncategorized" )]
         public Single internalSimpleBlendMode
         {
             get => base.GetSingle( "_InternalSimpleBlendMode" );
@@ -164,7 +136,7 @@
         /// <summary>
         /// Unknown
         /// </summary>
-        [Menu( sectionName = "Uncategorized" )]
+       //[Menu( sectionName = "Uncategorized" )]
         [Obsolete]
         public Single softFactor
         {
@@ -176,7 +148,7 @@
         /// <summary>
         /// softFactor
         /// </summary>
-        [Menu( sectionName = "Uncategorized" )]
+       //[Menu( sectionName = "Uncategorized" )]
         public Single invFade
         {
             get => base.GetSingle( "_InvFade" );
@@ -187,7 +159,7 @@
         /// <summary>
         /// Unknown
         /// </summary>
-        [Menu( sectionName = "Uncategorized" )]
+       //[Menu( sectionName = "Uncategorized" )]
         public Single vertexOffsetAmount
         {
             get => base.GetSingle( "_OffsetAmount" );
@@ -198,7 +170,7 @@
         /// <summary>
         /// Unknown
         /// </summary>
-        [Menu( sectionName = "Uncategorized" )]
+       //[Menu( sectionName = "Uncategorized" )]
         public UnityEngine.Rendering.BlendMode sourceBlend
         {
             get => (UnityEngine.Rendering.BlendMode)base.GetSingle( "_SrcBlend" );
@@ -217,7 +189,7 @@
         /// <summary>
         /// Unknown
         /// </summary>
-        [Menu( sectionName = "Uncategorized" )]
+       //[Menu( sectionName = "Uncategorized" )]
         public Color color
         {
             get => base.GetColor( "_Color" );
@@ -227,7 +199,7 @@
         /// <summary>
         /// Unknown
         /// </summary>
-        [Menu( sectionName = "Uncategorized" )]
+       //[Menu( sectionName = "Uncategorized" )]
         public Vector4 cutoffScrollSpeed
         {
             get => base.GetVector4( "_CutoffScroll" );
@@ -238,7 +210,7 @@
         /// <summary>
         /// Unknown
         /// </summary>
-        [Menu( sectionName = "Uncategorized" )]
+       //[Menu( sectionName = "Uncategorized" )]
         public Color emissionColor
         {
             get => base.GetColor( "_EmissionColor" );
@@ -249,7 +221,7 @@
         /// <summary>
         /// Unknown
         /// </summary>
-        [Menu( sectionName = "Uncategorized" )]
+       //[Menu( sectionName = "Uncategorized" )]
         public Color tintColor
         {
             get => base.GetColor( "_TintColor" );
@@ -268,7 +240,7 @@
         /// <summary>
         /// Unknown
         /// </summary>
-        [Menu( sectionName = "Uncategorized" )]
+       //[Menu( sectionName = "Uncategorized" )]
         public ScaleOffsetTextureData cloudTexture1
         {
             get
@@ -288,7 +260,7 @@
         /// <summary>
         /// Unknown
         /// </summary>
-        [Menu( sectionName = "Uncategorized" )]
+       //[Menu( sectionName = "Uncategorized" )]
         public ScaleOffsetTextureData cloudTexture2
         {
             get
@@ -308,7 +280,7 @@
         /// <summary>
         /// Unknown
         /// </summary>
-        [Menu( sectionName = "Uncategorized" )]
+       //[Menu( sectionName = "Uncategorized" )]
         public ScaleOffsetTextureData mainTexture
         {
             get
@@ -320,15 +292,9 @@
                 return this._mainTexture;
             }
         }
-#pragma warning disable IDE1006 // Naming Styles
         private ScaleOffsetTextureData _mainTexture;
-#pragma warning restore IDE1006 // Naming Styles
 
 
-        /// <summary>
-        /// Unknown
-        /// </summary>
-        [Menu( sectionName = "Uncategorized", isRampTexture = true )]
         public ScaleOffsetTextureData remapTexture
         {
             get
@@ -340,23 +306,8 @@
                 return this._remapTexture;
             }
         }
-#pragma warning disable IDE1006 // Naming Styles
         private ScaleOffsetTextureData _remapTexture;
-#pragma warning restore IDE1006 // Naming Styles
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        /// <summary>
-        /// Unknown
-        /// </summary>
-        [Menu( sectionName = "Uncategorized" )]
+
         [Obsolete]
         public Boolean luminanceForTextureAlpha
         {
@@ -366,7 +317,6 @@
         /// <summary>
         /// Luminance for Texture Alpha
         /// </summary>
-        [Menu( sectionName = "Uncategorized" )]
         public Boolean calcTexAlpha
         {
             get => base.GetKeyword( "CALCTEXTUREALPHA" );
@@ -374,10 +324,6 @@
         }
 
 
-        /// <summary>
-        /// Unknown
-        /// </summary>
-        [Menu( sectionName = "Uncategorized" )]
         public Boolean cloudDistortionOn
         {
             get => base.GetKeyword( "CLOUDOFFSET" );
@@ -385,21 +331,12 @@
         }
 
 
-        /// <summary>
-        /// Unknown
-        /// </summary>
-        [Menu( sectionName = "Uncategorized" )]
         public Boolean cloudRemappingOn
         {
             get => base.GetKeyword( "USE_CLOUDS" );
             set => base.SetKeyword( "USE_CLOUDS", value, "_CloudsOn" );
         }
 
-
-        /// <summary>
-        /// Unknown
-        /// </summary>
-        [Menu( sectionName = "Uncategorized" )]
         public Boolean disableRemapping
         {
             get => base.GetKeyword( "DISABLEREMAP" );
@@ -407,20 +344,13 @@
         }
 
 
-        [Menu( sectionName = "Uncategorized" )]
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public Boolean emissionOn
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
         {
             get => base.GetKeyword( "_EMISSION" );
             set => base.SetKeyword( "_EMISSION", value );
         }
 
-
-        /// <summary>
-        /// Unknown
-        /// </summary>
-        [Menu( sectionName = "Uncategorized" )]
+       //[Menu( sectionName = "Uncategorized" )]
         public Boolean fadeClose
         {
             get => base.GetKeyword( "FADECLOSE" );
@@ -428,10 +358,7 @@
         }
 
 
-        /// <summary>
-        /// Unknown
-        /// </summary>
-        [Menu( sectionName = "Uncategorized" )]
+       //[Menu( sectionName = "Uncategorized" )]
         public Boolean fresnelFade
         {
             get => base.GetKeyword( "FRESNEL" );
@@ -439,10 +366,7 @@
         }
 
 
-        /// <summary>
-        /// Unknown
-        /// </summary>
-        [Menu( sectionName = "Uncategorized" )]
+       //[Menu( sectionName = "Uncategorized" )]
         public Boolean useUV1
         {
             get => base.GetKeyword( "USE_UV1" );
@@ -450,10 +374,7 @@
         }
 
 
-        /// <summary>
-        /// Unknown
-        /// </summary>
-        [Menu( sectionName = "Uncategorized" )]
+       //[Menu( sectionName = "Uncategorized" )]
         public Boolean vertexAlphaOn
         {
             get => base.GetKeyword( "VERTEXALPHA" );
@@ -461,10 +382,7 @@
         }
 
 
-        /// <summary>
-        /// 
-        /// </summary>
-        [Menu( sectionName = "Uncategorized" )]
+       //[Menu( sectionName = "Uncategorized" )]
         public Boolean vertexColorOn
         {
             get => base.GetKeyword( "VERTEXCOLOR" );
@@ -472,25 +390,12 @@
         }
 
 
-        /// <summary>
-        /// Unknown
-        /// </summary>
-        [Menu( sectionName = "Uncategorized" )]
+       //[Menu( sectionName = "Uncategorized" )]
         public Boolean vertexOffset
         {
             get => base.GetKeyword( "VERTEXOFFSET" );
             set => base.SetKeyword( "VERTEXOFFSET", value );
         }
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
         /// Creates a cloud remap material.
         /// </summary>
@@ -500,16 +405,12 @@
 
         }
 
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public CloudMaterial( Material mat ) : base( mat )
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
         {
 
         }
 
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public CloudMaterial() : base() { }
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
     }
 

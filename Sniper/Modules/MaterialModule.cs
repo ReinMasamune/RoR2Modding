@@ -13,6 +13,8 @@
 
     internal static class MaterialModule
     {
+
+
         internal static CloudMaterial GetPlasmaBurnMaterial()
         {
             if(_plasmaBurnMaterial == null)
@@ -129,6 +131,9 @@
 
             return _standardTracerTrailMaterial;
         }
+
+
+
         private static CloudMaterial _standardTracerTrailMaterial;
         private static CloudMaterial CreateStandardTracerTrailMaterial()
         {
@@ -491,18 +496,74 @@
             return mat;
         }
 
+        internal static CloudMaterial GetSlashMaterial(Texture2D ramp)
+        {
+            if(_baseSlashMaterial == null)
+            {
+                _baseSlashMaterial = CreateBaseSlashMaterial();
+            }
+            CloudMaterial mat = _baseSlashMaterial.Clone();
+            mat.remapTexture.texture = ramp;
+            return mat;
+        }
+
+
+        private static CloudMaterial _baseSlashMaterial;
+
+
+        private static CloudMaterial CreateBaseSlashMaterial()
+        {
+            var mat = new CloudMaterial( "PlasmaAmmoTracerTrail" )
+            {
+                alphaBias = 0f,
+                alphaBoost = 2f,
+                boost = 5f,
+                calcTexAlpha = false,
+                cloudDistortionOn = false,
+                cloudRemappingOn = true,
+                cull = MaterialBase.CullMode.Off,
+                destinationBlend = UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha,
+                fadeClose = false,
+                externalAlpha = 1f,
+                disableRemapping = false,
+                distortionStrength = 0f,
+                emissionOn = false,
+                fadeCloseDistance = 0.5f,
+                fresnelFade = false,
+                fresnelPower = 0f,
+                internalSimpleBlendMode = 0f,
+                invFade = 0f,
+                sourceBlend = UnityEngine.Rendering.BlendMode.SrcAlpha,
+                useUV1 = false,
+                vertexOffsetAmount = 0f,
+                vertexAlphaOn = true,
+                vertexColorOn = false,
+                vertexOffset = false,
+                color = Color.white,
+                cutoffScrollSpeed = new Vector4( 15f, 15f, 13f, 13f ),
+                emissionColor = Color.white,
+                tintColor = Color.white
+            };
+            mat.mainTexture.texture = AssetsCore.LoadAsset<Texture2D>(Texture2DIndex.refTexRingSetRuneMask);
+            mat.remapTexture.texture = null;
+            mat.cloudTexture1.texture = AssetsCore.LoadAsset<Texture2D>(Texture2DIndex.refTexCloudIce);
+            mat.cloudTexture1.tiling = new Vector2(0.13f, 1f);
+            mat.cloudTexture2.texture = AssetsCore.LoadAsset<Texture2D>(Texture2DIndex.refTexCloudWaterRipples);
+            mat.cloudTexture2.tiling = new Vector2(0.17f, 1f);
+
+            return mat;
+        }
 
 
 
-
-        internal static CloudMaterial GetKnifeTrailMaterial( ITextureJob ramp )
+        internal static CloudMaterial GetKnifeTrailMaterial( Texture2D ramp )
         {
             if( _baseKnifeTrailMaterial == null )
             {
                 _baseKnifeTrailMaterial = CreateBaseKnifeTrailMaterial();
             }
             CloudMaterial mat = _baseKnifeTrailMaterial.Clone();
-            mat.remapTexture.texture = ramp.OutputTextureAndDispose();
+            mat.remapTexture.texture = ramp;
             return mat;
         }
 

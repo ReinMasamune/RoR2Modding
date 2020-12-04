@@ -31,13 +31,12 @@
 
         static DamageColorsCore()
         {
-            fieldRef = typeof( DamageColorsCore ).GetField( nameof( curMax ), BindingFlags.NonPublic | BindingFlags.Static );
             HooksCore.RoR2.DamageColor.FindColor.Il += FindColor_Il;
             loaded = true;
         }
 
         private static Int32 curMax = 8;
-        private static readonly FieldInfo fieldRef;
+        private static readonly FieldInfo fieldRef = typeof(DamageColorsCore ).GetField(nameof(curMax), BindingFlags.NonPublic | BindingFlags.Static );
 
         private static void FindColor_Il(MonoMod.Cil.ILContext il) => new ILCursor(il)
             .GotoNext(MoveType.AfterLabel, x => x.MatchLdcI4((Int32)DamageColorIndex.Count))

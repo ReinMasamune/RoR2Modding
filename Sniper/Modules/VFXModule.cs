@@ -1,5 +1,10 @@
 ﻿namespace Rein.Sniper.Modules
 {
+    using System;
+    using System.Collections.Generic;
+
+    using Rein.Sniper.Effects;
+
     using ReinCore;
 
     using RoR2;
@@ -8,6 +13,37 @@
 
     internal static class VFXModule
     {
+        internal static void Init()
+        {
+        }
+
+
+        private static List<GameObject> knifeSlashPrefabs = new(16);
+        internal static GameObject GetKnifePickupSlash(UInt32 skinIndex)
+        {
+            var i = (Int32) skinIndex;
+            if(i < 0 || i >= knifeSlashPrefabs.Count)
+            {
+                throw new InvalidOperationException($"Improperly created skin with index: {skinIndex}");
+            }
+            return knifeSlashPrefabs[(Int32)skinIndex];
+        }
+        internal static void AddKnifePickupSlash(UInt32 index, CloudMaterial slashMaterial)
+        {
+            var prefab = EffectCreator.CreateKnifePickupSlash(slashMaterial);
+            if(prefab is null)
+            {
+                Log.Error($"Null prefab added at index {index}");
+            } else
+            {
+                //Log.MessageT($"Slash added for index {index}");
+            }
+            EffectsCore.AddEffect(prefab);
+            while(knifeSlashPrefabs.Count < index) knifeSlashPrefabs.Add(null);
+            knifeSlashPrefabs.Add(prefab);
+        }
+
+
         private static GameObject standardAmmoTracerPrefab;
         internal static GameObject GetStandardAmmoTracer()
         {
@@ -65,17 +101,6 @@
             }
 
             return knifeBlinkPrefab;
-        }
-
-        private static GameObject knifeSlashPrefab;
-        internal static GameObject GetKnifeSlashPrefab()
-        {
-            if( knifeSlashPrefab == null )
-            {
-                knifeSlashPrefab = Resources.Load<GameObject>( "Prefabs/Effects/MageLightningBombExplosion" );
-            }
-
-            return knifeSlashPrefab;
         }
 
         private static GameObject plasmaBurnPrefab;

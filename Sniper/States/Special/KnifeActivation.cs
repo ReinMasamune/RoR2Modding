@@ -58,7 +58,7 @@
             {
                 base.data.knifeRenderer = this.knifeRenderer;
             }
-            // FUTURE: Knife throw sound
+            //Util.PlaySound("Play_item_proc_dagger_spawn", base.gameObject);
         }
 
         public override void FixedUpdate()
@@ -100,6 +100,7 @@
         {
             this.knifeRenderer.enabled = false;
             this.knifeBone.SetParent( this.knifeDefault, false );
+            Util.PlaySound("Play_item_proc_dagger_spawn", base.gameObject);
 
             if( base.isAuthority )
             {

@@ -1689,6 +1689,43 @@ public static event Hook On
                 }
             }
 
+            public static class TeamManager
+            {
+                public struct InitialCalcExperience
+                {
+                    private static readonly MethodBase method = HookHelpers.GetBase( typeof(InitialCalcExperience) );
+                    public delegate Double Orig(Double level, Double experienceForFirstLevelUp, Double growthRate);
+                    public delegate Double Hook(Orig orig, Double level, Double experienceForFirstLevelUp, Double growthRate);
+                    public static event ILContext.Manipulator Il
+                    {
+                        add => HookEndpointManager.Modify<Hook>( method, value );
+                        remove => HookEndpointManager.Unmodify<Hook>( method, value );
+                    }
+                    public static event Hook On
+                    {
+                        add => HookEndpointManager.Add<Hook>( method, value );
+                        remove => HookEndpointManager.Remove<Hook>( method, value );
+                    }
+                }
+
+                public struct GiveTeamExperience
+                {
+                    private static readonly MethodBase method = HookHelpers.GetBase( typeof(GiveTeamExperience) );
+                    public delegate void Orig(global::RoR2.TeamManager self, global::RoR2.TeamIndex teamIndex, UInt64 experience);
+                    public delegate void Hook(Orig orig, global::RoR2.TeamManager self, global::RoR2.TeamIndex teamIndex, UInt64 experience);
+                    public static event ILContext.Manipulator Il
+                    {
+                        add => HookEndpointManager.Modify<Hook>( method, value );
+                        remove => HookEndpointManager.Unmodify<Hook>( method, value );
+                    }
+                    public static event Hook On
+                    {
+                        add => HookEndpointManager.Add<Hook>( method, value );
+                        remove => HookEndpointManager.Remove<Hook>( method, value );
+                    }
+                }
+            }
+
 
             public static class UnlockableCatalog
             {
@@ -1732,6 +1769,28 @@ public static event Hook On
                 }
             }
 
+            
+
+            public static class UserProfile
+            {
+                public struct LoadUserProfileFromDisk
+                {
+                    private static readonly MethodBase method = HookHelpers.GetBase(typeof(LoadUserProfileFromDisk));
+                    public delegate global::RoR2.UserProfile.LoadUserProfileOperationResult Orig(global::Zio.IFileSystem fileSystem, global::Zio.UPath path);
+                    public delegate global::RoR2.UserProfile.LoadUserProfileOperationResult Hook(Orig orig, global::Zio.IFileSystem fileSystem, global::Zio.UPath path);
+                    public static event ILContext.Manipulator Il
+                    {
+                        add => HookEndpointManager.Modify<Hook>(method, value);
+                        remove => HookEndpointManager.Unmodify<Hook>(method, value);
+                    }
+                    public static event Hook On
+                    {
+                        add => HookEndpointManager.Add<Hook>(method, value);
+                        remove => HookEndpointManager.Remove<Hook>(method, value);
+                    }
+                }
+            }
+
 
 
             public static class Util
@@ -1753,6 +1812,8 @@ public static event Hook On
                     }
                 }
             }
+
+
 
             public struct Artifacts
             {

@@ -42,7 +42,7 @@
             ItemIndex.Knurl,
             ItemIndex.Medkit,
             ItemIndex.Mushroom,
-            //ItemIndex.NovaOnHeal,
+            ItemIndex.NovaOnHeal,
             ItemIndex.Pearl,
             ItemIndex.PersonalShield,
             ItemIndex.RepeatHeal,
@@ -112,11 +112,11 @@
             body.mainRootSpeed = 0f;
 
             // CLEANUP: Abstract out base stats for decoy and sniper
-            body.baseMaxHealth = 100f;
-            body.levelMaxHealth = 30f;
+            body.baseMaxHealth = 130f;
+            body.levelMaxHealth = 39f;
 
-            body.baseRegen = 0.6f;
-            body.levelRegen = 0.12f;
+            body.baseRegen = 1f;
+            body.levelRegen = 0.2f;
 
             body.baseMaxShield = 0f;
             body.levelMaxShield = 0f;
@@ -138,8 +138,8 @@
             body.baseCrit = 0f;
             body.levelCrit = 0f;
 
-            body.baseArmor = 0f;
-            body.levelArmor = 0f;
+            body.baseArmor = 50f;
+            body.levelArmor = 10f;
 
             body.baseJumpCount = 1;
 

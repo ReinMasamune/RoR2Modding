@@ -127,6 +127,7 @@
             new AssetAccessor<GameObject>( PrefabIndex.refPickupTriTip, () => Resources.Load<GameObject>( "Prefabs/PickupModels/PickupTriTip" ) ).RegisterAccessor();
 
 
+            new AssetAccessor<GameObject>(PrefabIndex.refMercSwordSlashWhirlwind, () => Resources.Load<GameObject>("Prefabs/Effects/MercSwordSlashWhirlwind")).RegisterAccessor();
 
             #endregion
 

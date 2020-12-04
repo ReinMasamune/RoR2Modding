@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyVersion>2.0.0.27</AssemblyVersion>
-    <FileVersion>2.0.0.27</FileVersion>
+    <AssemblyVersion>2.0.0.31</AssemblyVersion>
+    <FileVersion>2.0.0.31</FileVersion>
 	<LangVersion>Preview</LangVersion>
 	<Nullable>enable</Nullable>
   </PropertyGroup>
@@ -153,14 +153,17 @@
     <Reference Include="Rewired_Core">
       <HintPath>..\libs\Unity\Rewired_Core.dll</HintPath>
       <Private>false</Private>
+      <Aliases>Rewired</Aliases>
     </Reference>
     <Reference Include="Rewired_CSharp">
       <HintPath>..\libs\Unity\Rewired_CSharp.dll</HintPath>
       <Private>false</Private>
+      <Aliases>Rewired</Aliases>
     </Reference>
     <Reference Include="Rewired_Windows_Lib">
       <HintPath>..\libs\Unity\Rewired_Windows_Lib.dll</HintPath>
       <Private>false</Private>
+      <Aliases>Rewired</Aliases>
     </Reference>
     <Reference Include="Unity.Postprocessing.Runtime">
       <HintPath>..\libs\Unity\Unity.Postprocessing.Runtime.dll</HintPath>
@@ -433,6 +436,9 @@
     <Reference Include="Wwise">
       <HintPath>..\libs\Unity\Wwise.dll</HintPath>
       <Private>false</Private>
+    </Reference>
+    <Reference Include="Zio">
+      <HintPath>..\libs\Unity\Zio.dll</HintPath>
     </Reference>
   </ItemGroup>
 

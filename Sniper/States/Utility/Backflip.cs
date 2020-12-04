@@ -12,6 +12,7 @@
 
     using UnityEngine;
     using UnityEngine.Networking;
+    using Rein.Sniper.Modules;
 
     internal class Backflip : GenericCharacterMain
     {
@@ -30,6 +31,8 @@
         private const Single force = 50f;
 
         private const Single maxVSpeed = 10f;
+
+        private const Single radius = 5f;
 
         private Single prevVSpeed = Single.NaN;
 
@@ -74,10 +77,10 @@
                     impactEffect = EffectIndex.Invalid,
                     inflictor = null,
                     losType = BlastAttack.LoSType.None,
-                    position = base.transform.position,
+                    position = base.transform.position + new Vector3(0f, 1f, 0f),
                     procChainMask = default,
                     procCoefficient = 1.0f,
-                    radius = 4.0f,
+                    radius = radius,
                     teamIndex = base.teamComponent.teamIndex,
                 }.Fire();
 
@@ -85,11 +88,23 @@
                 {
                     body.SendBonusReload(Enums.ReloadTier.Perfect);
                 }
+
+                var rot = new Quaternion(0f, 0.7071f, 0f, 0.7071f);
+
+                var data = new EffectData()
+                {
+                    origin = base.transform.position + new Vector3(0f, 1f, 0f),
+                    rotation = Util.QuaternionSafeLookRotation(this.direction, Vector3.up) * rot,
+                    scale = radius,
+                };
+
+                EffectManager.SpawnEffect(VFXModule.GetKnifePickupSlash(base.characterBody.skinIndex), data, true);
+
+                //EffectManager.SimpleMuzzleFlash(VFXModule.GetBackflipSlash(), base.gameObject, "Base", true);
             }
 
             base.PlayAnimation("Gesture, Override", "Backflip", "rateBackflip", this.duration);
-            // FUTURE: Play Sound
-            // FUTURE: VFX
+            Util.PlaySound("Play_merc_m1_hard_swing", base.gameObject);
 
             base.characterMotor.Motor.ForceUnground();
             Single speed = this.currentSpeed;

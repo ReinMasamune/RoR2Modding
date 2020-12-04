@@ -22,6 +22,7 @@ var computeShaderRegex = new Regex( @"static string cshader__([a-zA-Z_0-9]*)", R
 var prefabRegex = new Regex( @"static string prefab__([a-zA-Z_0-9]*)", RegexOptions.Compiled );
 var iconRegex = new Regex( @"static string icon__([a-zA-Z_0-9]*)", RegexOptions.Compiled );
 var textureRegex = new Regex( @"static string texture__([a-zA-Z_0-9]*)", RegexOptions.Compiled );
+var meshRegex = new Regex( @"static string mesh__([a-zA-Z_0-9]*)", RegexOptions.Compiled );
 
 var tokenList = new List<(String,String)>();
 var achievementList = new List<(String,String)>();
@@ -29,6 +30,7 @@ var computeShaderList = new List<(String,String)>();
 var prefabList = new List<(String,String)>();
 var iconList = new List<(String,String)>();
 var textureList = new List<(String,String)>();
+var meshList = new List<(String,String)>();
 
 var text = this.Host.ResolvePath("Properties\\Resources.Designer.cs");
 var lines = File.ReadAllLines( text );
@@ -74,6 +76,12 @@ foreach( var line in lines )
 	if(match.Success)
 	{
 		textureList.Add((line, match.Groups[1].Value));
+		continue;
+	}
+	match = meshRegex.Match(line);
+	if(match.Success)
+	{
+		meshList.Add((line, match.Groups[1].Value));
 		continue;
 	}
 }
@@ -165,8 +173,23 @@ IncIndent();
 IncIndent();
 foreach(var (_,cap) in textureList)
 {
-	WriteLine($"private static GameObject _{cap};");
-	WriteLine($"internal static GameObject {cap} => _{cap} ??= AssetModule.LoadAsset<GameObject>(Resources.texture__{cap});");
+	WriteLine($"private static Texture _{cap};");
+	WriteLine($"internal static Texture {cap} => _{cap} ??= AssetModule.LoadAsset<Texture>(Resources.texture__{cap});");
+}
+PopIndent();
+PopIndent();
+#>
+	}
+
+	internal static class Meshes
+	{
+<#
+IncIndent();
+IncIndent();
+foreach(var (_,cap) in meshList)
+{
+	WriteLine($"private static Mesh _{cap};");
+	WriteLine($"internal static Mesh {cap} => _{cap} ??= AssetModule.LoadAsset<Mesh>(Resources.mesh__{cap});");
 }
 PopIndent();
 PopIndent();

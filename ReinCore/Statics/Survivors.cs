@@ -18,11 +18,33 @@
     using ParameterAttributes = Mono.Cecil.ParameterAttributes;
     using RoR2.UI;
     using MonoMod.Cil;
+    using BepInEx.Configuration;
+
+
+    using Bf = System.Reflection.BindingFlags;
+    using System.Xml;
+
+    public enum EclipseLevel
+    {
+        Reset = -1,
+        Ignore = 0,
+        One = 1,
+        Two = 2,
+        Three = 3,
+        Four = 4,
+        Five = 5,
+        Six = 6,
+        Seven = 7,
+        Eight = 8,
+    }
+
 
     public static class SurvivorsCore
     {
         public static Boolean loaded { get; internal set; } = false;
 
+
+        [Obsolete("Not needed", true)]
         public static void AddEclipseUnlocks(String prefix, SurvivorDef def)
         {
             if(!UnlocksCore.loaded) throw new CoreNotLoadedException(nameof(UnlocksCore));
@@ -31,13 +53,29 @@
             emitEclipseFor.Add((prefix, def));
         }
 
+
+
+        public static void ManageEclipseUnlocks(SurvivorDef def, ConfigEntry<EclipseLevel> config)
+        {
+            if(def is null || config is null)
+            {
+                throw new ArgumentNullException();
+            }
+            managedLevels.Add((def, config));
+        }
+
+
+
         static SurvivorsCore()
         {
             //Log.Warning("SurvivorsCore loaded");
             HooksCore.RoR2.SurvivorCatalog.Init.On += Init_On;
-            HooksCore.RoR2.UnlockableCatalog.Init.On += Init_On1;
-            HooksCore.RoR2.EclipseRun.GetEclipseBaseUnlockableString.On += GetEclipseBaseUnlockableString_On;
-            HooksCore.RoR2.UI.EclipseRunScreenController.SelectSurvivor.Il += SelectSurvivor_Il;
+            HooksCore.RoR2.EclipseRun.OnClientGameOver.Il += OnClientGameOver_Il;
+            HooksCore.RoR2.UserProfile.LoadUserProfileFromDisk.On += LoadUserProfileFromDisk_On;
+            //HooksCore.RoR2.UnlockableCatalog.Init.On += Init_On1;
+            HooksCore.RoR2.EclipseRun.GetEclipseBaseUnlockableString.Il += GetEclipseBaseUnlockableString_Il;
+            HooksCore.RoR2.UI.EclipseRunScreenController.SelectSurvivor.Il += SelectSurvivor_Il1;
+            //HooksCore.RoR2.UI.EclipseRunScreenController.SelectSurvivor.Il += SelectSurvivor_Il;
             //HooksCore.RoR2.EclipseRun.OnClientGameOver.Il += OnClientGameOver_Il;
 
             vanillaSurvivorsCount = SurvivorCatalog.idealSurvivorOrder.Length;
@@ -46,10 +84,117 @@
             loaded = true;
         }
 
+        private static String EmittedDelegate2(SurvivorIndex ind) => SurvivorCatalog.GetSurvivorDef(ind)?.name ?? "ERROR";
+
+        private static Int32 locId = 4;
+        private static void SelectSurvivor_Il1(ILContext il) => new ILCursor(il)
+            .GotoNext(MoveType.AfterLabel,
+                x => x.MatchLdloca(out locId),
+                x => x.MatchConstrained(typeof(SurvivorIndex)),
+                x => x.MatchCallOrCallvirt(out _))
+            .RemoveRange(3)
+            .LdLoc_((UInt16)locId)
+            .CallDel_<Func<SurvivorIndex,String>>(EmittedDelegate2);
+
+        private static void GetEclipseBaseUnlockableString_Il(ILContext il) => new ILCursor(il)
+            .GotoNext(MoveType.AfterLabel,
+                x => x.MatchCallOrCallvirt(typeof(SurvivorDef).GetProperty("survivorIndex", Bf.Instance | Bf.NonPublic | Bf.Public).GetGetMethod(true)))
+            .RemoveRange(5)
+            .LdFld_(typeof(SurvivorDef).GetField("name", Bf.Public | Bf.NonPublic | Bf.Instance));
+
+        private static UserProfile.LoadUserProfileOperationResult LoadUserProfileFromDisk_On(HooksCore.RoR2.UserProfile.LoadUserProfileFromDisk.Orig orig, Zio.IFileSystem fileSystem, Zio.UPath path)
+        {
+            var res = orig(fileSystem, path);
+
+            if(res.exception is not null) return res;
+            if(res.userProfile is not UserProfile prof) return res;
+
+            foreach(var (def, cfg) in managedLevels)
+            {
+                var cfgVal = cfg.Value;
+                if(cfgVal == EclipseLevel.Ignore) continue;
+                if(cfgVal == EclipseLevel.Reset)
+                {
+                    for(Int32 i = 2; i <= 8; ++i)
+                    {
+                        var str = $"Eclipse.{def.name}.{i}";
+
+                        var unlockable = UnlockableCatalog.GetUnlockableDef(str);
+                        if(unlockable is null)
+                        {
+                            Log.Error($"No unlockable found for '{str}'");
+                            continue;
+                        }
+
+                        if(prof.HasUnlockable(unlockable)) prof.RevokeUnlockable(unlockable);
+                    }
+                }
+
+                for(Int32 i = 2; i <= (Int32)cfgVal; ++i)
+                {
+                    var str = $"Eclipse.{def.name}.{i}";
+
+                    var unlockable = UnlockableCatalog.GetUnlockableDef(str);
+                    if(unlockable is null)
+                    {
+                        Log.Error($"No unlockable found for '{str}'");
+                        continue;
+                    }
+                    if(!prof.HasUnlockable(unlockable)) prof.GrantUnlockable(unlockable);
+                }
+            }
+            return res;
+        }
+        private static void OnClientGameOver_Il(ILContext il) => new ILCursor(il)
+            .GotoNext(MoveType.After,
+                x => x.MatchCallOrCallvirt(typeof(EclipseRun).GetMethod(nameof(EclipseRun.GetNextEclipseUnlockableString), BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static)))
+            .Dup_()
+            .CallDel_<Action<String>>(EmittedDelegate);
+
         //private static void OnClientGameOver_Il(ILContext il) => new ILCursor(il)
         //    .GotoNext(MoveType.After, x => x.MatchStloc(1), x => x.MatchLdloc(1))
         //    .Dup_()
         //    .CallDel_<Action<UnlockableDef>>(LogDef);
+
+        private static readonly List<(SurvivorDef, ConfigEntry<EclipseLevel>)> managedLevels = new();
+        private static void EmittedDelegate(String str)
+        {
+            var i = str.IndexOf('.');
+            if(i < 0)
+            {
+                Log.Error("No seperators in eclipse string?");
+                return;
+            }
+            var subStr = str.Substring(i);
+            var i2 = str.LastIndexOf('.');
+            if(i2 < 0)
+            {
+                Log.Error("No second seperator in eclipse string?");
+                return;
+            }
+            var survName = subStr.Substring(0, i2);
+            if(!Int32.TryParse(subStr.Substring(i2), out var level))
+            {
+                Log.Error("Non-Number eclipse level.");
+                return;
+            }
+            
+            foreach(var (def, cfg) in managedLevels)
+            {
+                if(def.name == survName)
+                {
+                    var curLev = cfg.Value;
+                    if(curLev == EclipseLevel.Ignore) continue;
+
+                    var curInt = (Int32)curLev;
+
+                    var l = Math.Max(curInt, level);
+                    cfg.Value = (EclipseLevel)l;
+                }
+            }
+        }
+
+
         private static String GetEclipseText(String current, SurvivorIndex index) => identities.TryGetValue(index, out var id) ? $"Eclipse.{id}" : current;
         private static Int32 tempLocal = 0;
         private static void SelectSurvivor_Il(ILContext il) => new ILCursor(il)
@@ -76,7 +221,7 @@
                     goto End;
                 }
             }
-        End:
+            End:
             //Log.Warning($"Output {res}");
             return res;
         }

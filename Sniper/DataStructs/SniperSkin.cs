@@ -30,7 +30,7 @@
         internal delegate void MaterialModifier( StandardMaterial material );
 
 
-        internal SniperSkin( String name, TextureSet sniper, TextureSet rail, TextureSet throwKnife, TextureSet knife, ITextureJob knifeTrail )
+        internal SniperSkin( String name, TextureSet sniper, TextureSet rail, TextureSet throwKnife, TextureSet knife, ITextureJob knifeTrail, Boolean isTrash = false )
         {
             this.name = name;
             this.sniperTextures = sniper;
@@ -50,6 +50,7 @@
                 [SniperMaterial.Rail] = new List<MaterialModifier>(),
                 [SniperMaterial.ThrowKnife] = new List<MaterialModifier>()
             };
+            this.isTrash = isTrash;
         }
 
         internal void AddMaterialModifier( SniperMaterial materialMask, MaterialModifier modifier )
@@ -71,8 +72,22 @@
 
         internal void CreateAndAddSkin( CharacterModel model, String nameToken, String unlockableName, Sprite icon )
         {
+            var rampTex = this.knifeTrail.OutputTextureAndDispose();
             using( var skin = Skin.Create( model ) )
             {
+                var snipermeshInd = -1;
+                var throwkinfeInd = -1;
+                var knifeInd = -1;
+                var railgunInd = -1;
+                var gaussgunInd = -1;
+                var ammomeshInd = -1;
+                var armormeshInd = -1;
+                var bodymeshInd = -1;
+                var cloakmeshInd = -1;
+                var emismeshInd = -1;
+                var classicRifleInd = -1;
+                var classicMeshInd = -1;
+
                 CharacterModel.RendererInfo[] rendInfos = skin.rendererInfos;
                 for( Int32 i = 0; i < rendInfos.Length; ++i )
                 {
@@ -84,67 +99,194 @@
 #if ASSERT
                         Log.Warning( String.Format( "{0} is not a handled renderer name", smr.name ) );
 #endif
-                        info.defaultMaterial = null;
-                        break;
+                            info.defaultMaterial = null;
+                            break;
 
                         case "SniperMesh":
-                        info.defaultMaterial = null;
-                        break;
+                            info.defaultMaterial = null;
+                            snipermeshInd = i;
+                            break;
 
                         case "ThrowKnife":
-                        info.defaultMaterial = this.GetThrowKnifeMaterial();
-                        break;
+                            info.defaultMaterial = this.throwknifeMat;
+                            throwkinfeInd = i;
+                            break;
 
                         case "Knife":
-                        info.defaultMaterial = this.GetKnifeMaterial();
-                        break;
+                            info.defaultMaterial = this.isTrash ? null : this.knifeMat;
+                            knifeInd = i;
+                            break;
 
                         case "RailGun":
-                        info.defaultMaterial = this.GetRailMaterial();
-                        break;
+                            info.defaultMaterial = this.isTrash ? null : this.railMat;
+                            railgunInd = i;
+                            break;
 
                         case "GaussGun":
-                        info.defaultMaterial = null;
-                        break;
+                            info.defaultMaterial = null;
+                            gaussgunInd = i;
+                            break;
 
                         case "AmmoMesh":
-                        info.defaultMaterial = this.GetAmmoMaterial();
-                        break;
+                            info.defaultMaterial = this.isTrash ? null : this.ammoMat;
+                            ammomeshInd = i;
+                            break;
 
                         case "ArmorMesh":
-                        info.defaultMaterial = this.GetArmorMaterial();
-                        break;
+                            info.defaultMaterial = this.isTrash ? null : this.armorMat;
+                            armormeshInd = i;
+                            break;
 
                         case "BodyMesh":
-                        info.defaultMaterial = this.GetBodyMaterial();
-                        break;
+                            info.defaultMaterial = this.isTrash ? null : this.bodyMat;
+                            bodymeshInd = i;
+                            break;
 
                         case "CloakMesh":
-                        info.defaultMaterial = this.GetCloakMaterial();
-                        break;
+                            info.defaultMaterial = this.isTrash ? null : this.cloakMat;
+                            cloakmeshInd = i;
+                            break;
 
                         case "EmissionMesh":
-                        info.defaultMaterial = this.GetEmissiveMaterial();
-                        break;
+                            info.defaultMaterial = this.isTrash ? null : this.emisMat;
+                            emismeshInd = i;
+                            break;
+                        case "ClassicRifle":
+                            info.defaultMaterial = !this.isTrash ? null : this.railMat;
+                            classicRifleInd = i;
+                            break;
+                        case "ClassicMesh":
+                            info.defaultMaterial = !this.isTrash ? null : this.armorMat;
+                            classicMeshInd = i;
+                            break;
                     }
                     rendInfos[i] = info;
                 }
                 skin.rendererInfos = rendInfos;
+
+
 
                 skin.projectileGhostReplacements = new[]
                 {
                     new SkinDef.ProjectileGhostReplacement
                     {
                         projectilePrefab = ProjectileModule.GetKnifeProjectile(),
-                        projectileGhostReplacementPrefab = ProjectileGhostModule.GetKnifeGhost( this.GetThrowKnifeMaterial(), this.knifeTrail ),
+                        projectileGhostReplacementPrefab = ProjectileGhostModule.GetKnifeGhost( this.throwknifeMat, MaterialModule.GetKnifeTrailMaterial( rampTex ).material ),
                     },
                 };
 
+                if(this.isTrash)
+                {
+                    skin.gameObjectActivations = new[]
+                    {
+                        new SkinDef.GameObjectActivation
+                        {
+                            shouldActivate = false,
+                            gameObject = rendInfos[armormeshInd].renderer.gameObject,
+                        },
+                        new SkinDef.GameObjectActivation
+                        {
+                            shouldActivate = false,
+                            gameObject = rendInfos[ammomeshInd].renderer.gameObject,
+                        },
+                        new SkinDef.GameObjectActivation
+                        {
+                            shouldActivate = false,
+                            gameObject = rendInfos[bodymeshInd].renderer.gameObject,
+                        },
+                        new SkinDef.GameObjectActivation
+                        {
+                            shouldActivate = false,
+                            gameObject = rendInfos[cloakmeshInd].renderer.gameObject,
+                        },
+                        new SkinDef.GameObjectActivation
+                        {
+                            shouldActivate = false,
+                            gameObject = rendInfos[emismeshInd].renderer.gameObject,
+                        },
+                        new SkinDef.GameObjectActivation
+                        {
+                            shouldActivate = false,
+                            gameObject = rendInfos[railgunInd].renderer.gameObject,
+                        },
+                        new SkinDef.GameObjectActivation
+                        {
+                            shouldActivate = false,
+                            gameObject = rendInfos[knifeInd].renderer.gameObject,
+                        },
+                        new SkinDef.GameObjectActivation
+                        {
+                            shouldActivate = true,
+                            gameObject = rendInfos[classicMeshInd].renderer.gameObject,
+                        },
+                        new SkinDef.GameObjectActivation
+                        {
+                            shouldActivate = true,
+                            gameObject = rendInfos[classicRifleInd].renderer.gameObject,
+                        }
+                    };
+                } else
+                {
+                    skin.gameObjectActivations = new[]
+                    {
+                        new SkinDef.GameObjectActivation
+                        {
+                            shouldActivate = true,
+                            gameObject = rendInfos[armormeshInd].renderer.gameObject,
+                        },
+                        new SkinDef.GameObjectActivation
+                        {
+                            shouldActivate = true,
+                            gameObject = rendInfos[ammomeshInd].renderer.gameObject,
+                        },
+                        new SkinDef.GameObjectActivation
+                        {
+                            shouldActivate = true,
+                            gameObject = rendInfos[bodymeshInd].renderer.gameObject,
+                        },
+                        new SkinDef.GameObjectActivation
+                        {
+                            shouldActivate = true,
+                            gameObject = rendInfos[cloakmeshInd].renderer.gameObject,
+                        },
+                        new SkinDef.GameObjectActivation
+                        {
+                            shouldActivate = true,
+                            gameObject = rendInfos[emismeshInd].renderer.gameObject,
+                        },
+                        new SkinDef.GameObjectActivation
+                        {
+                            shouldActivate = true,
+                            gameObject = rendInfos[railgunInd].renderer.gameObject,
+                        },
+                        new SkinDef.GameObjectActivation
+                        {
+                            shouldActivate = true,
+                            gameObject = rendInfos[knifeInd].renderer.gameObject,
+                        },
+                        new SkinDef.GameObjectActivation
+                        {
+                            shouldActivate = false,
+                            gameObject = rendInfos[classicMeshInd].renderer.gameObject,
+                        },
+                        new SkinDef.GameObjectActivation
+                        {
+                            shouldActivate = false,
+                            gameObject = rendInfos[classicRifleInd].renderer.gameObject,
+                        }
+                    };
+                }
 
                 skin.icon = icon;
                 skin.nameToken = nameToken;
                 skin.unlockableName = unlockableName;
             }
+
+            var index = model.GetComponent<ModelSkinController>().skins.Length - 1;
+            var material = MaterialModule.GetSlashMaterial(rampTex);
+
+            VFXModule.AddKnifePickupSlash((UInt32)index, material);
+
         }
 
         private readonly String name;
@@ -156,8 +298,10 @@
         private readonly TextureSet throwKnifeTextures;
         private readonly TextureSet railTextures;
         private readonly ITextureJob knifeTrail;
+        private readonly Boolean isTrash;
 
-
+        private Material _bodyMat;
+        private Material bodyMat => this._bodyMat ??= GetBodyMaterial();
         private Material GetBodyMaterial()
         {
             StandardMaterial mat = MaterialModule.CreateSniperBase().Clone();
@@ -170,6 +314,10 @@
             SniperMain.AddMaterial( mat, String.Format( "{0} {1}", this.name, "Body" ) );
             return mat.material;
         }
+
+
+        private Material _armorMat;
+        private Material armorMat => this._armorMat ??= GetArmorMaterial();
         private Material GetArmorMaterial()
         {
             StandardMaterial mat = MaterialModule.CreateSniperBase().Clone();
@@ -182,6 +330,9 @@
             SniperMain.AddMaterial( mat, String.Format( "{0} {1}", this.name, "Armor" ) );
             return mat.material;
         }
+
+        private Material _cloakMat;
+        private Material cloakMat => this._cloakMat ??= GetCloakMaterial();
         private Material GetCloakMaterial()
         {
             StandardMaterial mat = MaterialModule.CreateSniperBase().Clone();
@@ -194,6 +345,9 @@
             SniperMain.AddMaterial( mat, String.Format( "{0} {1}", this.name, "Cloak" ) );
             return mat.material;
         }
+
+        private Material _ammoMat;
+        private Material ammoMat => this._ammoMat ??= GetAmmoMaterial();
         private Material GetAmmoMaterial()
         {
             StandardMaterial mat = MaterialModule.CreateSniperBase().Clone();
@@ -206,6 +360,9 @@
             SniperMain.AddMaterial( mat, String.Format( "{0} {1}", this.name, "Ammo" ) );
             return mat.material;
         }
+
+        private Material _emisMat;
+        private Material emisMat => this._emisMat ??= GetEmissiveMaterial();
         private Material GetEmissiveMaterial()
         {
             StandardMaterial mat = MaterialModule.CreateSniperBase().Clone();
@@ -218,6 +375,9 @@
             SniperMain.AddMaterial( mat, String.Format( "{0} {1}", this.name, "Emissive" ) );
             return mat.material;
         }
+
+        private Material _railMat;
+        private Material railMat => this._railMat ??= GetRailMaterial();
         private Material GetRailMaterial()
         {
             StandardMaterial mat = MaterialModule.GetRailBase().Clone();
@@ -230,6 +390,10 @@
             SniperMain.AddMaterial( mat, String.Format( "{0} {1}", this.name, "Railgun" ) );
             return mat.material;
         }
+
+
+        private Material _throwknifeMat;
+        private Material throwknifeMat => this._throwknifeMat ??= GetThrowKnifeMaterial();
         private Material GetThrowKnifeMaterial()
         {
             StandardMaterial mat = MaterialModule.GetThrowKnifeBase().Clone();
@@ -242,6 +406,10 @@
             SniperMain.AddMaterial( mat, String.Format( "{0} {1}", this.name, "ThrowKnife" ) );
             return mat.material;
         }
+
+
+        private Material _knifeMat;
+        private Material knifeMat => this._knifeMat ??= GetKnifeMaterial();
         private Material GetKnifeMaterial()
         {
             // FUTURE: Knife base material

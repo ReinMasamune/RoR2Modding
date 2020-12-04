@@ -146,9 +146,7 @@
         }
         internal static void Execute_On(HooksCore.RoR2.SystemInitializerAttribute.Execute.Orig orig)
         {
-            orig();
-            //Log.Message("Starting catalog init");
-            MetaCatalog.InitAllCatalogs();
+            try { orig(); } finally { MetaCatalog.InitAllCatalogs(); }
         }
 
         private static Boolean CheckSillyILHooks(ILHook hook, MethodBase method, ILContext.Manipulator manip)

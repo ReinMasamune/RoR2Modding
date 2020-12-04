@@ -32,9 +32,11 @@
 
     internal static class CleanseReciever
     {
+        internal static Boolean loaded { get; private set; }
         static CleanseReciever()
         {
             HooksCore.RoR2.DotController.RemoveAllDots.On += RemoveAllDots_On;
+            loaded = true;
         }
 
         private static void RemoveAllDots_On(HooksCore.RoR2.DotController.RemoveAllDots.Orig orig, GameObject target)
@@ -108,13 +110,37 @@
 
         public void Deserialize(NetworkReader reader)
         {
-            this.target = reader.ReadNetworkIdentity().GetComponent<CharacterBody>();
+            var id = reader.ReadNetworkIdentity();
             this.dotIndex = (DotCatalog.Index)reader.ReadUInt64();
-            this.bytes = DotCatalog.GetDef(this.dotIndex)?.tempStackSizedArray;
+            if(!DotCatalog.TryGetDef(this.dotIndex, out var def))
+            {
+                Log.Fatal($"Unable to find dot with index {this.dotIndex}, this indicates that you are experiencing serious desync and need to stop playing. Crashes are likely");
+                return;
+            }
+            this.bytes = def.tempStackSizedArray;
+            var l = reader.ReadUInt16();
+
+            if(!id || id.GetComponent<CharacterBody>() is not CharacterBody body)
+            {
+                Log.Fatal("No matching networkidentity found. This indicates some kind of desync is going on and you should maybe end your run now.");
+                return;
+            }
+            this.target = body;
+    
+            if(l != this.bytes.Length)
+            {
+                Log.Fatal("Mismatched buffer sizes for sent dot info. Ensure everyone is on the same version. This is a fatal error, meaning that there is zero way to recover internally, you should close your game.");
+                return;
+            }
+
             if(this.bytes is null)
             {
                 Log.Fatal("Unregistered dot type recieved in message. This is going to cause desync and you should maybe just close the game now?");
                 return;
+            }
+            for(Int32 i = 0; i < this.bytes.Length; ++i)
+            {
+                this.bytes[i] = reader.ReadByte();
             }
         }
 
@@ -160,8 +186,17 @@
 
         public static void Register()
         {
-            if(token is not null) return;
+            if(token is not null)
+            {
+                Log.Error($"Attempted to register Dot {typeof(TDot).FullName} when it was already registered.");
+                return;
+            }
             token = DotCatalog.Add(new Def());
+
+            if(!CleanseReciever.loaded)
+            {
+                Log.Error($"{nameof(CleanseReciever)} is not loaded.");
+            }
         }
 
         internal struct Def : IDotDef

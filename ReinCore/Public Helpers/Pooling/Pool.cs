@@ -10,7 +10,6 @@
     using BepInEx;
     using BepInEx.Bootstrap;
 
-    using Rewired.Utils;
 
     using UnityEngine;
 

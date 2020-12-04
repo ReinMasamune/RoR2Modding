@@ -120,6 +120,9 @@
   <data name="cshader__ScopeOverlay" xml:space="preserve">
     <value>Assets/__EXPORT/Shaders/ComputeRefractBlur.compute</value>
   </data>
+  <data name="IAmAString" xml:space="preserve">
+    <value>AndThisIsMyText</value>
+  </data>
   <data name="icon__BackflipIcon" xml:space="preserve">
     <value>Assets/__EXPORT/Icons/Utility/Backflip.png</value>
   </data>
@@ -151,7 +154,7 @@
     <value>Assets/__EXPORT/Icons/Special 2/Knife.png</value>
   </data>
   <data name="icon__KnifeReactivateIcon" xml:space="preserve">
-    <value />
+    <value>Assets/__EXPORT/Icons/Special 2/Knife_Reactivation.png</value>
   </data>
   <data name="icon__PlasmaAmmoIcon" xml:space="preserve">
     <value>Assets/__EXPORT/Icons/Passive 1/Plasma Ammo.png</value>
@@ -322,13 +325,13 @@ They excel at taking down bosses and high priority targets but struggle against 
     <value>Charged Shot</value>
   </data>
   <data name="lang__SNIPER_SKIN_ALT1_NAME" xml:space="preserve">
-    <value>Classic</value>
+    <value>Sprite</value>
   </data>
   <data name="lang__SNIPER_SKIN_ALT2_NAME" xml:space="preserve">
     <value>Scorched</value>
   </data>
   <data name="lang__SNIPER_SKIN_ALT3_NAME" xml:space="preserve">
-    <value>Jungle</value>
+    <value>Wetland</value>
   </data>
   <data name="lang__SNIPER_SKIN_ALT4_NAME" xml:space="preserve">
     <value>Abyss</value>
@@ -342,6 +345,9 @@ They excel at taking down bosses and high priority targets but struggle against 
   <data name="lang__SNIPER_SKIN_DEFAULT_NAME" xml:space="preserve">
     <value>Default</value>
   </data>
+  <data name="lang__SNIPER_SKIN_TRASH_NAME" xml:space="preserve">
+    <value>Classic</value>
+  </data>
   <data name="lang__SNIPER_SPECIAL_DECOY_DESC" xml:space="preserve">
     <value>&lt;style=cIsUtility&gt;Stealth&lt;/style&gt; for 2.5 seconds and leave behind a &lt;style=cIsUtility&gt;Decoy&lt;/style&gt; that distracts enemies.\n&lt;style=cIsDamage&gt;&lt;/style&gt;&lt;style=cIsUtility&gt;Reactivate&lt;/style&gt; to detonate the decoy to deal &lt;style=cIsDamage&gt;500%&lt;/style&gt; damage,  &lt;style=cIsUtility&gt;Stuns&lt;/style&gt; and &lt;style=cIsUtility&gt;Weakens&lt;/style&gt; nearby enemies</value>
   </data>
@@ -349,12 +355,10 @@ They excel at taking down bosses and high priority targets but struggle against 
     <value>Decoy</value>
   </data>
   <data name="lang__SNIPER_SPECIAL_KNIFE_DESC" xml:space="preserve">
-    <value>Throw a knife that deals 100% damage and sticks on hit. Reactivate to teleport to the knife, dealing 200% damage and marking nearby enemies. Killing a marked enemy resets all your cooldowns.</value>
-    <comment>Unfinished</comment>
+    <value>Throw a knife for &lt;style=cIsDamage&gt;100%&lt;/style&gt; damage. &lt;style=cIsUtility&gt;Reactivate&lt;/style&gt; to teleport to the knife, dealing &lt;style=cIsDamage&gt;200%&lt;/style&gt; damage and &lt;style=cIsUtility&gt;marking&lt;/style&gt; nearby enemies. Killing a &lt;style=cIsUtility&gt;marked&lt;/style&gt; enemy &lt;style=cIsUtility&gt;reloads and resets cooldowns.&lt;/style&gt;</value>
   </data>
   <data name="lang__SNIPER_SPECIAL_KNIFE_NAME" xml:space="preserve">
     <value>Blink Knife</value>
-    <comment>Unfinished</comment>
   </data>
   <data name="lang__SNIPER_SUBTITLE" xml:space="preserve">
     <value>[Insert cool thing here]</value>
@@ -366,11 +370,23 @@ They excel at taking down bosses and high priority targets but struggle against 
   <data name="lang__SNIPER_UTILITY_BACKFLIP_NAME" xml:space="preserve">
     <value>Backflip</value>
   </data>
+  <data name="mesh__ClassicRifleMesh" xml:space="preserve">
+    <value>Assets/__EXPORT/SniperClassicRifle_v1.mesh</value>
+  </data>
+  <data name="mesh__ClassicSniperMesh" xml:space="preserve">
+    <value>Assets/__EXPORT/SniperClassic_v1.mesh</value>
+  </data>
   <data name="prefab__Crosshair" xml:space="preserve">
     <value>Assets/__EXPORT/UI Prefabs/SniperCrosshair.prefab</value>
   </data>
+  <data name="prefab__DecoyIndicator" xml:space="preserve">
+    <value>Assets/__EXPORT/UI Prefabs/DecoyIndicator.prefab</value>
+  </data>
   <data name="prefab__KnifeGhostPrefab" xml:space="preserve">
     <value>Assets/__EXPORT/KnifeProjectileGhost.prefab</value>
+  </data>
+  <data name="prefab__KnifeIndicator" xml:space="preserve">
+    <value>Assets/__EXPORT/UI Prefabs/KnifeIndicator.prefab</value>
   </data>
   <data name="prefab__SniperPrefab" xml:space="preserve">
     <value>Assets/__EXPORT/mdlSniper.prefab</value>
@@ -436,6 +452,15 @@ They excel at taking down bosses and high priority targets but struggle against 
   <data name="skin__RailgunAlt6_Normal" xml:space="preserve">
     <value>Railgun_GreenGoldUrban_Normal</value>
   </data>
+  <data name="skin__RailgunTrash_Diffuse" xml:space="preserve">
+    <value>Rifle_TCL_MainTex</value>
+  </data>
+  <data name="skin__RailgunTrash_Emissive" xml:space="preserve">
+    <value>Rifle_TCL_Emission</value>
+  </data>
+  <data name="skin__RailgunTrash_Normal" xml:space="preserve">
+    <value>Rifle_TCL_Normal</value>
+  </data>
   <data name="skin__Railgun_Diffuse" xml:space="preserve">
     <value>Railgun_Stealth_MainTex</value>
   </data>
@@ -499,6 +524,15 @@ They excel at taking down bosses and high priority targets but struggle against 
   <data name="skin__SniperAlt6_Normal" xml:space="preserve">
     <value>Sniper_Snow_Normal</value>
   </data>
+  <data name="skin__SniperTrash_Diffuse" xml:space="preserve">
+    <value>Sniper_TCL_MainTex</value>
+  </data>
+  <data name="skin__SniperTrash_Emissive" xml:space="preserve">
+    <value>Sniper_TCL_Emission</value>
+  </data>
+  <data name="skin__SniperTrash_Normal" xml:space="preserve">
+    <value>Sniper_TCL_Normal</value>
+  </data>
   <data name="skin__Sniper_Diffuse" xml:space="preserve">
     <value>Sniper_UrbanCamo_MainTex</value>
   </data>
@@ -560,6 +594,15 @@ They excel at taking down bosses and high priority targets but struggle against 
     <value>ThrowKnife_Emission</value>
   </data>
   <data name="skin__ThrowKnifeAlt6_Normal" xml:space="preserve">
+    <value>ThrowKnife_GreenBlack_Normal</value>
+  </data>
+  <data name="skin__ThrowKnifeTrash_Diffuse" xml:space="preserve">
+    <value>ThrowKnife_MainTex</value>
+  </data>
+  <data name="skin__ThrowKnifeTrash_Emissive" xml:space="preserve">
+    <value>ThrowKnife_Emission</value>
+  </data>
+  <data name="skin__ThrowKnifeTrash_Normal" xml:space="preserve">
     <value>ThrowKnife_GreenBlack_Normal</value>
   </data>
   <data name="skin__ThrowKnife_Diffuse" xml:space="preserve">

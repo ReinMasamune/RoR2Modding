@@ -22,24 +22,36 @@
 
     using UnityEngine;
     using UnityEngine.Events;
+    using System.Runtime.CompilerServices;
 
     internal class SniperCharacterBody : CharacterBody
     {
-        private static readonly GameObject decoyMaster;
-        static SniperCharacterBody()
+        private Transform _knifeTransform;
+        private Transform _decoyTransform;
+
+        private Indicator _knifeIndicator;
+        private Indicator _decoyIndicator;
+
+        private Indicator knifeIndicator => this._knifeIndicator ??= new Indicator(base.gameObject, Properties.Prefabs.KnifeIndicator);
+        private Indicator decoyIndicator => this._decoyIndicator ??= new Indicator(base.gameObject, Properties.Prefabs.DecoyIndicator);
+
+        internal Transform knifeTransform
         {
-            decoyMaster = DecoyModule.GetDecoyMaster();
-
-            //var flags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
-
-            //var dmd1 = new DynamicMethodDefinition( "base_Start<<<SniperCharacterBody", null, new[] { typeof(CharacterBody) } );
-            //var proc1 = dmd1.GetILProcessor();
-            //proc1.Emit( OpCodes.Jmp, typeof( CharacterBody ).GetMethod( "Start", flags ) );
-            //base_Start = (Action<CharacterBody>)dmd1.Generate().CreateDelegate<Action<CharacterBody>>();
+            private get => this._knifeTransform;
+            set => /*this.knifeIndicator.active = this.knifeIndicator.targetTransform =*/ this._knifeTransform = value;
         }
-        //private static Action<CharacterBody> base_Start;
-        //private static Action<CharacterBody> base_Awake;
-        //private static Action<CharacterBody> base_Update;
+        internal Transform decoyTransform
+        {
+            private get => this._decoyTransform;
+            set => /*this.decoyIndicator.active = this.decoyIndicator.targetTransform =*/ this._decoyTransform = value;
+        }
+
+
+
+
+        private static readonly GameObject decoyMaster = DecoyModule.GetDecoyMaster();
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal void CheckIn(SniperReloadableFireSkillDef.SniperPrimaryInstanceData primaryData)
         {
             this.primaryData = primaryData;
@@ -47,7 +59,7 @@
         internal SniperReloadableFireSkillDef.SniperPrimaryInstanceData primaryData { get; private set; }
 
 
-
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal void SendBonusReload(ReloadTier tier)
         {
             this.primaryData?.ForceReload(tier);
@@ -82,6 +94,7 @@
             if(this.startReloadRoutine != null) this.StopCoroutine(this.startReloadRoutine);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal Boolean CanReload()
         {
             return this.isReloading;
@@ -115,11 +128,30 @@
         protected new void Update()
         {
             base.Update();
-            this.smoothedAttackSpeed = Mathf.SmoothDamp( this.smoothedAttackSpeed, attackSpeed, ref this.attackSpeedSpeed, 2f);
-            if(!Util.HasEffectiveAuthority(base.gameObject)) return;
+
+            this.HandleAttackSpeed();
+
+            //this.UpdateIndicators();
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private void HandleAttackSpeed()
+        {
+            this.smoothedAttackSpeed = Mathf.SmoothDamp(this.smoothedAttackSpeed, attackSpeed, ref this.attackSpeedSpeed, 2f);
+            if(!this.hasEffectiveAuthority) return;
             if(!this.isReloading) return;
             this.reloadTimer = this.curReloadParams.Update(Time.deltaTime, this.smoothedAttackSpeed, this.reloadTimer);
         }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private void UpdateIndicators()
+        {
+            if(!this.hasEffectiveAuthority) return;
+            this.knifeIndicator.active = this.knifeTransform;
+            this.decoyIndicator.active = this.decoyTransform;
+        }
+
+
         private Single smoothedAttackSpeed;
         private Single attackSpeedSpeed;
         private Single attackSpeedSmoother;

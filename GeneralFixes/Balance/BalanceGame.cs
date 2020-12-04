@@ -1,6 +1,9 @@
 ﻿namespace ReinGeneralFixes
 {
     using System;
+    using System.Runtime.CompilerServices;
+
+    using BF = System.Reflection.BindingFlags;
 
     using Mono.Cecil.Cil;
 
@@ -14,36 +17,55 @@
 
     internal partial class Main
     {
-        private static Single ScaleStageExpBase( int stage )
-        {
-            const float expBase = 1.16f;
-            const float expScale = 0.0025f;
-            const float expStartMult = 0.975f;
+        const Double oldGrowth = 1.55;
+        const Double newGrowth = 1.005;
 
-            const float effStart = expBase * expStartMult;
-            const float effScale = expBase * expScale;
+        const Double oldMult = 20.0;
+        const Double newMult = 20.0;
 
-            return  effStart + (effScale * stage);
-        }
+
+        //Calc
+        
+
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static Double OldXpFn(Double lv) => Math.Max(oldMult * ((1.0 - Math.Pow(oldGrowth, lv - 1.0)) / (1.0 - oldGrowth)), 0.0);
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static Double NewXpFn(Double lv) => Math.Max(newMult * ((1.0 - Math.Pow(newGrowth, lv - 1.0)) / (1.0 - newGrowth)), 0.0);
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static Double Ratio(Double lv) => NewXpFn(lv) / OldXpFn(lv);
 
         partial void BalanceGame()
         {
-            this.Enable += this.Main_Enable9;
-            this.Disable += this.Main_Disable9;
+            this.Enable += this.Main_Enable5;
+            this.Disable += this.Main_Disable3;
         }
 
-        private void Main_Disable9() => HooksCore.RoR2.Run.OnFixedUpdate.Il -= this.OnFixedUpdate_Il;
-        private void Main_Enable9() => HooksCore.RoR2.Run.OnFixedUpdate.Il += this.OnFixedUpdate_Il;
-
-        private void OnFixedUpdate_Il( ILContext il )
+        private void Main_Enable5()
         {
-            var c = new ILCursor( il );
+            HooksCore.RoR2.TeamManager.InitialCalcExperience.On += this.InitialCalcExperience_On;
+            HooksCore.RoR2.TeamManager.GiveTeamExperience.On += this.GiveTeamExperience_On;
 
-            while( c.TryGotoNext( MoveType.AfterLabel, x => x.MatchLdcR4( 1.15f ) ) )
-            {
-                c.Remove();
-                c.EmitDelegate<Func<Single>>( () => Run.instance.selectedDifficulty >= DifficultyIndex.Hard ? ScaleStageExpBase(Run.instance.stageClearCount) : 1.15f );
-            }
+            typeof(TeamManager).TypeInitializer.Invoke(null, null);
+        }
+        private void Main_Disable3()
+        {
+            HooksCore.RoR2.TeamManager.InitialCalcExperience.On -= this.InitialCalcExperience_On;
+            HooksCore.RoR2.TeamManager.GiveTeamExperience.On -= this.GiveTeamExperience_On;
+        }
+
+
+        private void GiveTeamExperience_On(HooksCore.RoR2.TeamManager.GiveTeamExperience.Orig orig, TeamManager self, TeamIndex teamIndex, UInt64 experience)
+        {
+            var ratio = Ratio((Double)self.GetTeamLevel(teamIndex)+1);
+            //Main.LogM(ratio);
+            experience = (UInt64)Math.Round((Double)experience * ratio);
+            orig(self, teamIndex, experience);
+        }
+        private Double InitialCalcExperience_On(HooksCore.RoR2.TeamManager.InitialCalcExperience.Orig orig, Double level, Double experienceForFirstLevelUp, Double growthRate)
+        {
+            //Main.LogM(level);
+            return NewXpFn(level);
         }
     }
 }

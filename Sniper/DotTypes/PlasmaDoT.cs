@@ -10,11 +10,12 @@
     using Rein.Sniper.Modules;
     using UnityEngine;
     using Mono.Security.X509.Extensions;
+    using Rein.Sniper.Ammo;
 
     internal struct PlasmaDot : IDot<PlasmaDot, PlasmaDot.PlasmaStack, PlasmaDot.PlasmaUpdate, PlasmaDot.PlasmaPersist>
     {
 
-        private const Single tickFreq = SkillsModule.plasmaTickFreq;
+        private const Single tickFreq = PlasmaContext.plasmaTickFreq;
         private const Single tickInterval = 1f / tickFreq;
 
 
