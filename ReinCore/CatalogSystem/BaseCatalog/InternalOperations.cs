@@ -113,7 +113,7 @@
                     // Log potentially fatal error, this code should be entirely unreachable.
                     continue;
                 }
-                definitions[(UInt64)index] = def;
+                definitions[(UInt64)index-1] = def;
             }
         }
 
@@ -141,8 +141,7 @@
                 //Log existing overwritten info
             } else
             {
-                entry.index = currentIndex;
-                _curIndex++;
+                entry.index = ++currentIndex;
             }
 
             guidToDef[def.guid] = def;
@@ -162,6 +161,11 @@
                 definitions = null;
                 guidToDef.Clear();
             }
+        }
+
+        internal override void LogCatalog()
+        {
+            LogCatalogState();
         }
     }
 }

@@ -13,6 +13,7 @@
     using UnityEngine;
     using UnityEngine.Networking;
     using Rein.Sniper.DotTypes;
+    using Rein.Sniper.Orbs;
 
     internal static class CatalogModule
     {
@@ -62,7 +63,7 @@
 
         private static void GlobalEventManager_onServerDamageDealt(DamageReport obj)
         {
-            if(obj.damageInfo.damageType.Flag(sniperResetDamageType))
+            if(obj?.damageInfo?.damageType is DamageType dt && dt.HasFlag(sniperResetDamageType) && obj.victimBody)
             {
                 obj.victimBody.AddTimedBuff(resetDebuff, 4f);
             }
@@ -76,11 +77,41 @@
             GlobalEventManager.onCharacterDeathGlobal += GlobalEventManager_onCharacterDeathGlobal;
         }
 
+
+        internal static void RegisterOrbs()
+        {
+            OrbSerializerCatalog.RequestLoad();
+            OrbsCore.getAdditionalOrbs += (l) =>
+            {
+                l.Add(typeof(ShockOrb));
+                l.Add(typeof(SporeOrb));
+            };
+        }
+
+        internal static void RegisterOverlays()
+        {
+            TempOverlaysCatalog.Add(new ShockOverlay());
+        }
+
+        private sealed class ShockOverlay : TempOverlayDef
+        {
+            private static Material overlayMat = MaterialModule.GetShockOverlayMaterial().material;
+            public override String guid => "Rein.Sniper.ShockOverlay";
+
+            public override void CreateOverlay(TemporaryOverlay overlay, CharacterBody body)
+            {
+                overlay.duration = -1f;
+                overlay.destroyComponentOnEnd = false;
+                overlay.destroyObjectOnEnd = false;
+                overlay.originalMaterial = overlayMat;
+            }
+            public override Boolean ShouldHaveOverlay(CharacterBody body) => body.GetBuffCount(shockAmmoDebuff) > 0;
+        }
+
         internal static void RegisterDoTType() => PlasmaDot.Register();
 
         private static void BuffsCore_getAdditionalEntries(System.Collections.Generic.List<BuffDef> buffList)
         {
-            // FUTURE: Add custom debuff for plasma dot
             buffList.Add(new CustomSpriteBuffDef(Properties.Icons.PlasmaDebuffIcon)
             {
                 buffColor = new Color(1f, 1f, 1f, 1f),
@@ -99,6 +130,33 @@
                 isDebuff = true,
                 name = "Rein.Sniper.KnifeReset"
             });
+            buffList.Add(new CustomSpriteBuffDef(Properties.Icons.ShockDebuffIcon)
+            {
+                buffColor = new Color(0.5f, 0.8f, 1f, 1f),
+                canStack = true,
+                eliteIndex = EliteIndex.None,
+                iconPath = "",
+                isDebuff = true,
+                name = "Rein.Sniper.Shock",
+            });
+            //buffList.Add(new BuffDef()
+            //{
+            //    buffColor = new Color(0.5f, 0.8f, 0.2f, 1f),
+            //    canStack = true,
+            //    eliteIndex = EliteIndex.None,
+            //    iconPath = "textures/bufficons/texBuffRegenBoostIcon",
+            //    isDebuff = false,
+            //    name = "Rein.Sniper.SporeHeal",
+            //});
+            //buffList.Add(new BuffDef()
+            //{
+            //    buffColor = new Color(0.5f, 1f, 0.4f, 1f),
+            //    canStack = true,
+            //    eliteIndex = EliteIndex.None,
+            //    iconPath = "textures/bufficons/texBuffRegenBoostIcon",
+            //    isDebuff = false,
+            //    name = "Rein.Sniper.SporeHealCrit",
+            //});
         }
 
         private static BuffIndex? GetBuffIndex(String name)
@@ -111,14 +169,20 @@
 
         private static BuffIndex? _resetDebuff = null;
         private static BuffIndex? _plasmaBurnDebuff = null;
+        private static BuffIndex? _shockAmmoDebuff = null;
+        private static BuffIndex? _sporeHealBuff = null;
+        private static BuffIndex? _critSporeHealBuff = null;
         internal static BuffIndex resetDebuff => _resetDebuff ??= GetBuffIndex("Rein.Sniper.KnifeReset") ?? throw new InvalidOperationException("Cannot get buffindex yet");
         internal static BuffIndex plasmaBurnDebuff => _plasmaBurnDebuff ??= GetBuffIndex("Rein.Sniper.PlasmaBurn") ?? throw new InvalidOperationException("Cannot get buffindex yet");
+        internal static BuffIndex shockAmmoDebuff => _shockAmmoDebuff ??= GetBuffIndex("Rein.Sniper.Shock") ?? throw new InvalidOperationException("Cannot get buffindex yet");
+        internal static BuffIndex sporeHealBuff => _sporeHealBuff ??= GetBuffIndex("Rein.Sniper.SporeHeal") ?? throw new InvalidOperationException("Cannot get buffindex yet");
+        internal static BuffIndex critSporeHealBuff => _critSporeHealBuff ??= GetBuffIndex("Rein.Sniper.SporeHealCrit") ?? throw new InvalidOperationException("Cannot get buffindex yet");
 
         internal static DamageColorIndex plasmaDamageColor { get; private set; }
 
         private static void GlobalEventManager_onCharacterDeathGlobal(DamageReport obj)
         {
-            if(obj.victimBody.HasBuff(resetDebuff) && obj.attackerBodyIndex == sniperBodyIndex.Value && obj.attackerBody != null && obj.attackerBody is SniperCharacterBody body)
+            if((obj.victimBody.HasBuff(resetDebuff) || obj.damageInfo.damageType.HasFlag(sniperResetDamageType)) && obj.attackerBodyIndex == sniperBodyIndex.Value && obj.attackerBody != null && obj.attackerBody is SniperCharacterBody body)
             {
                 ResetSkills(body);
             }

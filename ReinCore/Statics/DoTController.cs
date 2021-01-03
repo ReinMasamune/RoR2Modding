@@ -103,24 +103,25 @@
 
         public void Serialize(NetworkWriter writer)
         {
-            writer.Write(this.target.networkIdentity);
             writer.Write((UInt64)this.dotIndex);
+            writer.Write(this.target.networkIdentity);
+            
             writer.WriteBytesFull(this.bytes);
         }
 
         public void Deserialize(NetworkReader reader)
         {
-            var id = reader.ReadNetworkIdentity();
             this.dotIndex = (DotCatalog.Index)reader.ReadUInt64();
             if(!DotCatalog.TryGetDef(this.dotIndex, out var def))
             {
                 Log.Fatal($"Unable to find dot with index {this.dotIndex}, this indicates that you are experiencing serious desync and need to stop playing. Crashes are likely");
                 return;
             }
+            var id = reader.ReadNetworkIdentity();           
             this.bytes = def.tempStackSizedArray;
             var l = reader.ReadUInt16();
 
-            if(!id || id.GetComponent<CharacterBody>() is not CharacterBody body)
+            if(!id || id.GetComponent<CharacterBody>() is not CharacterBody body || !body)
             {
                 Log.Fatal("No matching networkidentity found. This indicates some kind of desync is going on and you should maybe end your run now.");
                 return;
@@ -146,8 +147,7 @@
 
         public void OnRecieved()
         {
-            var def = DotCatalog.GetDef(this.dotIndex);
-            if(def is null)
+            if(!DotCatalog.TryGetDef(this.dotIndex, out var def))
             {
                 Log.Fatal("Unregistered dot type recieved in message. This is going to cause desync and you should maybe just close the game now?");
                 return;
@@ -220,11 +220,19 @@
         public static unsafe void InflictDot(CharacterBody target, TStackData stackInfo)
         {
             //RecieveInflictDot(target, stackInfo);
-            var ind = catalogEntry?.index ?? throw new ArgumentException("Unregistered dot type");
+            var indd = catalogEntry?.index;
+            if(indd is null)
+            {
+                Log.Fatal($"Unregistered dot type");
+                return;
+            }
             var data = stackSizedByteArray;
+            var ind = (DotCatalog.Index)indd;
             stackInfo.Serialize(data);
             var msg = new DotMessage(target, ind, data);
-            msg.Send(NetworkDestination.Clients | NetworkDestination.Server);
+            var dest = NetworkDestination.Server;
+            if(processOnClients) dest |= NetworkDestination.Clients;
+            msg.Send(dest);
             msg.bytes = null;
             stackSizedByteArray = data;
         }
@@ -232,9 +240,12 @@
         internal static void RecieveInflictDot(CharacterBody target, TStackData stackInfo)
         {
             if(!NetworkServer.active && !processOnClients) return;
-
+            if(!target || target.netId == NetworkInstanceId.Invalid)
+            {
+                Log.Fatal("Invalid target");
+                return;
+            }
             var id = target.netId;
-            if(id == NetworkInstanceId.Invalid) throw new ArgumentException("Invalid target");
             if(!bodySpecific.TryGetValue(id, out var ctx))
             {
                 var persistCtx = new TPersistContext();

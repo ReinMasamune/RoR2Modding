@@ -67,7 +67,7 @@
         internal static void CreateReloadBarPrefab()
         {
             ITextureJob texBatch = TexturesCore.GenerateBarTextureBatch( 128, 640, true, 64, 16, new Color( 0f, 0f, 0f, 1f ), reloadHandleColor, 4 );
-            JobHandle.ScheduleBatchedJobs();
+            //JobHandle.ScheduleBatchedJobs();
 
             GameObject obj = PrefabsCore.CreateUIPrefab("ReloadBar", false );
             var objTrans = obj.transform as RectTransform;

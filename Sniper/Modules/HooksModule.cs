@@ -19,15 +19,19 @@
     using UnityEngine;
 
     using BF = System.Reflection.BindingFlags;
+    using Rein.Sniper.Ammo;
 
     internal static class HooksModule
     {
+        
+
         internal static void Remove()
         {
             //HooksCore.RoR2.UI.LoadoutPanelController.Row.FromSkillSlot.Il -= FromSkillSlot_Il;
             //HooksCore.RoR2.SkillLocator.FindSkillSlot.Il -= FindSkillSlot_Il;
             HooksCore.RoR2.CameraRigController.Start.On -= Start_On;
             HooksCore.RoR2.CameraTargetParams.Update.Il -= Update_Il;
+            //HooksCore.RoR2.CharacterBody.FixedUpdate.On -= FixedUpdate_On;
         }
         internal static void Add()
         {
@@ -35,6 +39,30 @@
             //HooksCore.RoR2.SkillLocator.FindSkillSlot.Il += FindSkillSlot_Il;
             HooksCore.RoR2.CameraRigController.Start.On += Start_On;
             HooksCore.RoR2.CameraTargetParams.Update.Il += Update_Il;
+            //HooksCore.RoR2.CharacterBody.FixedUpdate.On += FixedUpdate_On;
+        }
+
+        private static void FixedUpdate_On(HooksCore.RoR2.CharacterBody.FixedUpdate.Orig orig, CharacterBody self)
+        {
+            var dt = Time.fixedDeltaTime;
+            try { orig(self); } catch { }
+            if(self.hasEffectiveAuthority)
+            {
+                var maxHp = self.maxHealth;
+                var bcount = self.GetBuffCount(CatalogModule.sporeHealBuff);
+                if(bcount > 0)
+                {
+                    self.healthComponent.Heal(bcount * maxHp * dt * SporeContext.healPercentBase, default);
+                }
+                var cbcount = self.GetBuffCount(CatalogModule.critSporeHealBuff);
+                if(cbcount > 0)
+                {
+                    var ogch = self.critHeal;
+                    self.critHeal = 100f;
+                    self.healthComponent.Heal(cbcount * maxHp * dt * SporeContext.healPercentBase, default);
+                    self.critHeal = ogch;
+                }
+            }
         }
 
         private static void Update_Il(ILContext il)

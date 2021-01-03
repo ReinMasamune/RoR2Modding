@@ -43,7 +43,7 @@
                             continue;
                         }
 
-                        using( Writer netWriter = NetworkCore.GetWriter( NetworkCore.messageIndex, conn, QosType.Reliable ) )
+                        using( Writer netWriter = NetworkCore.GetWriter( NetworkCore.messageIndex, conn, NetworkCore.qos) )
                         {
                             NetworkWriter writer = netWriter;
                             writer.Write( header );
@@ -52,7 +52,7 @@
                     }
                 } else if( NetworkClient.active )
                 {
-                    using( Writer netWriter = NetworkCore.GetWriter( NetworkCore.messageIndex, ClientScene.readyConnection, QosType.Reliable ) )
+                    using( Writer netWriter = NetworkCore.GetWriter( NetworkCore.messageIndex, ClientScene.readyConnection, NetworkCore.qos) )
                     {
                         NetworkWriter writer = netWriter;
                         writer.Write( header );
@@ -72,7 +72,7 @@
 
             if(destination.ShouldSend())
             {
-                Header header = destination.GetHeader( NetworkCore.GetNetworkCoreHash(message.GetType()));
+                Header header = destination.GetHeader( NetworkCore.GetNetworkCoreHash(typeof(T)));
 
                 if(NetworkServer.active)
                 {
@@ -94,7 +94,7 @@
                             continue;
                         }
 
-                        using(Writer netWriter = NetworkCore.GetWriter(NetworkCore.messageIndex, conn, QosType.Reliable))
+                        using(Writer netWriter = NetworkCore.GetWriter(NetworkCore.messageIndex, conn, NetworkCore.qos))
                         {
                             NetworkWriter writer = netWriter;
                             writer.Write(header);
@@ -103,7 +103,7 @@
                     }
                 } else if(NetworkClient.active)
                 {
-                    using(Writer netWriter = NetworkCore.GetWriter(NetworkCore.messageIndex, ClientScene.readyConnection, QosType.Reliable))
+                    using(Writer netWriter = NetworkCore.GetWriter(NetworkCore.messageIndex, ClientScene.readyConnection, NetworkCore.qos))
                     {
                         NetworkWriter writer = netWriter;
                         writer.Write(header);

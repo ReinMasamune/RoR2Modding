@@ -9,6 +9,8 @@
 
     public static partial class NetworkCore
     {
+        internal const QosType qos = QosType.Unreliable;
+
         public static Boolean loaded { get; internal set; } = false;
         public static Int16 messageIndex { get => 27182; }
         public static Int16 commandIndex { get => 8182; }
@@ -74,7 +76,7 @@
             _ = RegisterMessageType<DamageMessage>();
             _ = RegisterMessageType<BuffMessage>();
             _ = RegisterMessageType<DoTMessage>();
-            _ = RegisterMessageType<OrbMessage>();
+            //_ = RegisterMessageType<OrbMessage>();
 
             GameNetworkManager.onStartServerGlobal += RegisterServerMessages;
             GameNetworkManager.onStartClientGlobal += RegisterClientMessages;
@@ -141,7 +143,7 @@
                         continue;
                     }
 
-                    using( Writer netWriter = GetWriter( commandIndex, conn, QosType.Reliable ) )
+                    using( Writer netWriter = GetWriter( commandIndex, conn, qos ) )
                     {
                         NetworkWriter writer = netWriter;
                         writer.Write( header );
@@ -187,7 +189,13 @@
                         continue;
                     }
 
-                    using( Writer netWriter = GetWriter( messageIndex, conn, QosType.Reliable ) )
+
+                    if(NetworkServer.localClientActive && NetworkServer.localConnections.Contains(conn))
+                    {
+                        continue;
+                    }
+
+                    using( Writer netWriter = GetWriter( messageIndex, conn, qos ) )
                     {
                         NetworkWriter writer = netWriter;
                         writer.Write( header );
@@ -213,7 +221,9 @@
                     var reply = requestPerformer.PerformRequest( reader );
                     var replyHeader = new Header(header.typeCode, NetworkDestination.Clients );
 
-                    using( Writer netWriter = GetWriter( replyIndex, msg.conn, QosType.Reliable ) )
+
+
+                    using( Writer netWriter = GetWriter( replyIndex, msg.conn, qos ) )
                     {
                         NetworkWriter writer = netWriter;
                         writer.Write( replyHeader );
@@ -242,7 +252,13 @@
                         continue;
                     }
 
-                    using( Writer netWriter = GetWriter( requestIndex, conn, QosType.Reliable ) )
+
+                    if(NetworkServer.localClientActive && NetworkServer.localConnections.Contains(conn))
+                    {
+                        continue;
+                    }
+
+                    using( Writer netWriter = GetWriter( requestIndex, conn, qos ) )
                     {
                         NetworkWriter writer = netWriter;
                         writer.Write( header );
@@ -288,7 +304,13 @@
                         continue;
                     }
 
-                    using( Writer netWriter = GetWriter( messageIndex, conn, QosType.Reliable ) )
+
+                    if(NetworkServer.localClientActive && NetworkServer.localConnections.Contains(conn))
+                    {
+                        continue;
+                    }
+
+                    using( Writer netWriter = GetWriter( messageIndex, conn, qos ) )
                     {
                         NetworkWriter writer = netWriter;
                         writer.Write( header );

@@ -777,6 +777,22 @@ public static event Hook On
                         remove => HookEndpointManager.Remove<Hook>( method, value );
                     }
                 }
+                public struct UpdatePowerWardSummon
+                {
+                    private static readonly MethodBase method = HookHelpers.GetBase( typeof(UpdatePowerWardSummon) );
+                    public delegate void Orig(global::RoR2.CharacterBody self);
+                    public delegate void Hook(Orig orig, global::RoR2.CharacterBody self);
+                    public static event ILContext.Manipulator Il
+                    {
+                        add => HookEndpointManager.Modify<Hook>( method, value );
+                        remove => HookEndpointManager.Unmodify<Hook>( method, value );
+                    }
+                    public static event Hook On
+                    {
+                        add => HookEndpointManager.Add<Hook>( method, value );
+                        remove => HookEndpointManager.Remove<Hook>( method, value );
+                    }
+                }
             }
 
             public static class CharacterMaster

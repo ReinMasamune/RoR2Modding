@@ -3,6 +3,7 @@
     using System;
 
     using RoR2;
+    using RoR2.Orbs;
 
     using UnityEngine;
     using UnityEngine.Networking;
@@ -48,7 +49,7 @@
             {
                 if( duration < 0f )
                 {
-                    body.SetBuffCount( buff, stacks );
+                    body.SetBuffCount( buff, body.GetBuffCount(buff) + stacks );
                 } else
                 {
                     if( stacks < 0 )
@@ -79,6 +80,19 @@
             }
         }
 
-        public static void CreateOrb() => throw new NotImplementedException();
+        public static void Create<TOrb>(this TOrb orb)
+            where TOrb : Orb
+        {
+            if(NetworkServer.active)
+            {
+                OrbManager.instance.AddOrb(orb);
+            } else
+            {
+                var index = OrbIndex<TOrb>.index;
+                if(index == OrbSerializerCatalog.Index.Invalid) throw new InvalidOperationException("Orb not registered in catalog");
+                if(!OrbSerializerCatalog.TryGetDef(index, out var def) || def is NoSerializer) throw new InvalidOperationException("No valid serializer registered for orb");
+                new OrbMessage(orb, def).Send(NetworkDestination.Server);
+            }
+        }
     }
 }

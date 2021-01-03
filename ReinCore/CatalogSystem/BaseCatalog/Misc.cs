@@ -45,10 +45,7 @@
         private static Boolean firstInitComplete = false;
         private static Index currentIndex
         {
-            get
-            {
-                return (Index)_curIndex;
-            }
+            get => (Index)_curIndex;
             set => _curIndex = (UInt64)value;
         }
     }

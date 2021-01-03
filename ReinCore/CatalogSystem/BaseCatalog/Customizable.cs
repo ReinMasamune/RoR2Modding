@@ -17,7 +17,8 @@
         protected virtual IEnumerable<ICatalogHandle> dependencies { get => Enumerable.Empty<ICatalogHandle>(); }
         protected virtual void OnDefRegistered(TDef def) { }
         protected virtual void ProcessAllDefinitions(TDef[] definitions) { }
-        protected virtual IEnumerable<TDef> GetBaseEntries() => Enumerable.Empty<TDef>();
+        protected virtual IEnumerable<TDef?> GetBaseEntries() => Enumerable.Empty<TDef>();
         protected virtual void FirstInitSetup() { }
+        protected virtual void OnDefLogged(TDef def) { }
     }
 }

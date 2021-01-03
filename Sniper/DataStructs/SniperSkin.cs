@@ -64,12 +64,6 @@
             }
         }
 
-
-
-
-
-
-
         internal void CreateAndAddSkin( CharacterModel model, String nameToken, String unlockableName, Sprite icon )
         {
             var rampTex = this.knifeTrail.OutputTextureAndDispose();

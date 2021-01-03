@@ -4,7 +4,7 @@
 
     using RoR2;
 
-    internal delegate void OnBulletDelegate<TData>( ExpandableBulletAttack<TData> bullet, BulletAttack.BulletHit hitInfo ) where TData : struct;
+    internal delegate void OnBulletDelegate<TData>(ExpandableBulletAttack<TData> bullet, BulletAttack.BulletHit hitInfo) where TData : struct;
 
     internal abstract class ExpandableBulletAttack : BulletAttack
     {
@@ -12,6 +12,8 @@
         internal Single chargeLevel = 0f;
         internal Single reloadBoost;
         internal Single chargeBoost;
+        internal Single baseStateMult;
+        internal Single baseAmmoMult;
 
         internal TeamIndex team
         {

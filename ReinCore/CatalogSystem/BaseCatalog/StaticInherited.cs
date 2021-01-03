@@ -5,6 +5,7 @@
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Linq;
+    using System.Runtime.CompilerServices;
 
     using RoR2;
 
@@ -19,7 +20,7 @@
         public static TDef? GetDef(Index index)
         {
             EnsureInitialized();
-            return definitions![(UInt64)index];
+            return definitions![(UInt64)index - 1];
         }
         public static TDef? GetDef(String guid)
         {
@@ -30,8 +31,9 @@
         {
             def = default;
             if(!initialized) return false;
+            if(index == Index.Invalid) return false;
             var ind = (UInt64)index;
-            if(ind >= count) return false;
+            if(ind > count) return false;
             def = definitions![ind - 1];
             return true;
         }
@@ -40,6 +42,31 @@
             def = default;
             if(!initialized) return false;
             return guidToDef.TryGetValue(guid, out def);
+        }
+
+        public static IEnumerable<TDef> EnumerateEntries()
+        {
+            if(!initialized) return Enumerable.Empty<TDef>();
+            return definitions!;
+        }
+
+        public static void LogCatalogState()
+        {
+            Log.Message($"State for catalog: {instance.guid}");
+            Log.Message($"Count: {count}");
+            Log.Message($"CurIndex: {currentIndex}");
+            Log.Message($"Initialized? {initialized}");
+            foreach(var entry in EnumerateEntries())
+            {
+                Log.Message($"Def Info\nguid: {entry.guid}\nindex {entry.entry?.index}\nguidIndex: {GetDef(entry.guid)?.entry?.index}");
+                instance.OnDefLogged(entry);
+            }
+        }
+
+        [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
+        public static void RequestLoad()
+        {
+
         }
 
         public static UInt64 count => (UInt64)(definitions?.LongLength ?? 0L);

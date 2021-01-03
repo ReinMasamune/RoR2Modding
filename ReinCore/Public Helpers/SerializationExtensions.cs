@@ -32,6 +32,14 @@
             target = temp;
         }
 
+        public unsafe static T ReadBits<T>(this NetworkReader reader)
+            where T : unmanaged
+        {
+            var temp = new T();
+            reader.ReadBits(ref temp);
+            return temp;
+        }
+
         public unsafe static void WriteBytesFromPtr(this NetworkWriter writer, Byte* ptr, Int32 count)
         {
             while(count --> 0) writer.Write(ptr[count]);

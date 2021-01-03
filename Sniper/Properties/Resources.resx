@@ -174,6 +174,9 @@
   <data name="icon__ShockAmmoIcon" xml:space="preserve">
     <value>Assets/__EXPORT/Icons/Passive 1/Shock Ammo.png</value>
   </data>
+  <data name="icon__ShockDebuffIcon" xml:space="preserve">
+    <value>Assets/__EXPORT/Icons/Other/Shock Debuff.png</value>
+  </data>
   <data name="icon__SlideIcon" xml:space="preserve">
     <value />
   </data>
@@ -188,6 +191,9 @@
   </data>
   <data name="icon__SnipeMagReload" xml:space="preserve">
     <value>Assets/__EXPORT/Icons/M1/Reload.png</value>
+  </data>
+  <data name="icon__SporeAmmoIcon" xml:space="preserve">
+    <value>Assets/__EXPORT/Icons/Passive 1/Spore Ammo.png</value>
   </data>
   <data name="icon__StandardAmmoIcon" xml:space="preserve">
     <value>Assets/__EXPORT/Icons/Passive 1/Standard Ammo.png</value>
@@ -214,12 +220,16 @@
     <value>Plasma</value>
   </data>
   <data name="lang__SNIPER_AMMO_SHOCK_DESC" xml:space="preserve">
-    <value>Chains to enemies near your target</value>
-    <comment>Unfinished</comment>
+    <value>Deals &lt;style=cIsDamage&gt;0.2x primary damage&lt;/style&gt;. &lt;style=cIsUtility&gt;Charges&lt;/style&gt; and consumes &lt;style=cIsUtility&gt;Charge&lt;/style&gt; on hit.\n&lt;&gt; &lt;style=cIsDamage&gt;Damage &lt;indent=40%&gt;+0.2x&lt;/style&gt; per &lt;style=cIsUtility&gt;Boost&lt;/style&gt;&lt;/indent&gt;\n&lt;&gt; &lt;style=cIsDamage&gt;Stacks Applied&lt;indent=40%&gt;+3&lt;/style&gt; per &lt;style=cIsUtility&gt;Boost&lt;/style&gt;&lt;/indent&gt;\n&lt;&gt; &lt;style=cIsDamage&gt;Stacks Consumed&lt;indent=40%&gt;+3&lt;/style&gt; per &lt;style=cIsUtility&gt;Boost&lt;/style&gt;&lt;/indent&gt;</value>
   </data>
   <data name="lang__SNIPER_AMMO_SHOCK_NAME" xml:space="preserve">
     <value>Shock</value>
-    <comment>Unfinished</comment>
+  </data>
+  <data name="lang__SNIPER_AMMO_SPORE_DESC" xml:space="preserve">
+    <value>Explodes into a spore cloud on hit. The spore cloud expands over time. Enemies inside the cloud take damage, allies inside the cloud are healed.</value>
+  </data>
+  <data name="lang__SNIPER_AMMO_SPORE_NAME" xml:space="preserve">
+    <value>Spore</value>
   </data>
   <data name="lang__SNIPER_AMMO_STANDARD_DESC" xml:space="preserve">
     <value>&lt;style=cIsUtility&gt;Piercing. Ricochet.&lt;/style&gt; Deals &lt;style=cIsDamage&gt;1.0x primary damage.&lt;/style&gt;\n&lt;&gt; &lt;style=cIsDamage&gt;Damage &lt;indent=40%&gt;+1.0x&lt;/style&gt; per &lt;style=cIsUtility&gt;Boost&lt;/style&gt;&lt;/indent&gt;\n&lt;&gt; &lt;style=cIsDamage&gt;Critical Multiplier &lt;indent=40%&gt;+0.1x&lt;/style&gt; per &lt;style=cIsUtility&gt;Boost&lt;/style&gt;&lt;/indent&gt;</value>
@@ -238,6 +248,9 @@ They excel at taking down bosses and high priority targets but struggle against 
   </data>
   <data name="lang__SNIPER_KEYWORD_BOOST" xml:space="preserve">
     <value>&lt;style=cKeywordName&gt;Boost&lt;/style&gt;&lt;style=cSub&gt;Amplifies the effects of ammo.&lt;/style&gt;</value>
+  </data>
+  <data name="lang__SNIPER_KEYWORD_CHARGED" xml:space="preserve">
+    <value>&lt;style=cKeywordName&gt;Charged&lt;/style&gt;&lt;style=cSub&gt;When consumed, deals additional damage and shocks up to 1 enemy per stack consumed. Bounces can inflict and consume Charged&lt;/style&gt;</value>
   </data>
   <data name="lang__SNIPER_KEYWORD_EXPLOSIVE" xml:space="preserve">
     <value>&lt;style=cKeywordName&gt;Explosive&lt;/style&gt;&lt;style=cSub&gt;Explodes on hit, dealing additional damage to the target and nearby enemies.&lt;/style&gt;</value>
@@ -267,23 +280,7 @@ They excel at taking down bosses and high priority targets but struggle against 
     <value>Sniper</value>
   </data>
   <data name="lang__SNIPER_OUTRO_FLAVOR" xml:space="preserve">
-    <value>And so they left, sound still ringing in deaf ears.</value>
-  </data>
-  <data name="lang__SNIPER_PRIMARY_DASH_DESC" xml:space="preserve">
-    <value />
-    <comment>Unfinished</comment>
-  </data>
-  <data name="lang__SNIPER_PRIMARY_DASH_NAME" xml:space="preserve">
-    <value />
-    <comment>Unfinished</comment>
-  </data>
-  <data name="lang__SNIPER_PRIMARY_DASH_RELOAD_DESC" xml:space="preserve">
-    <value />
-    <comment>Unfinished</comment>
-  </data>
-  <data name="lang__SNIPER_PRIMARY_DASH_RELOAD_NAME" xml:space="preserve">
-    <value />
-    <comment>Unfinished</comment>
+    <value>...And so they left, sound still ringing in deaf ears.</value>
   </data>
   <data name="lang__SNIPER_PRIMARY_MAG_DESC" xml:space="preserve">
     <value>Shoot enemies for &lt;style=cIsDamage&gt;250% to 375%&lt;/style&gt; damage. Must be &lt;style=cIsUtility&gt;reloaded&lt;/style&gt; every 4 shots. Reloading at the right time &lt;style=cIsDamage&gt;increases damage&lt;/style&gt;.</value>
@@ -292,11 +289,11 @@ They excel at taking down bosses and high priority targets but struggle against 
     <value>Mag</value>
   </data>
   <data name="lang__SNIPER_PRIMARY_MAG_RELOAD_DESC" xml:space="preserve">
-    <value />
+    <value>Why are you reading this??? Shouldn't you be playing the game?</value>
     <comment>Unfinished</comment>
   </data>
   <data name="lang__SNIPER_PRIMARY_MAG_RELOAD_NAME" xml:space="preserve">
-    <value />
+    <value>Reload</value>
     <comment>Unfinished</comment>
   </data>
   <data name="lang__SNIPER_PRIMARY_SNIPE_DESC" xml:space="preserve">

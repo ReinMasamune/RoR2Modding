@@ -16,11 +16,22 @@
 
     public static class ISerializableObjectExtensions
     {
-        public static void Write<TObject>( this NetworkWriter writer, TObject target ) where TObject : ISerializableObject => target.Serialize( writer );
-
-        public static TObject Read<TObject>( this NetworkReader reader, TObject destination ) where TObject : ISerializableObject
+        public static NetworkWriter Write<TObject>(this NetworkWriter writer, TObject target) where TObject : ISerializableObject
         {
-            destination.Deserialize( reader );
+            target.Serialize(writer);
+            return writer;
+        }
+
+        public static NetworkReader Read<TObject>(this NetworkReader reader, ref TObject destination)
+            where TObject : ISerializableObject
+        {
+            destination.Deserialize(reader);
+            return reader;
+        }
+
+        public static TObject Read<TObject>(this NetworkReader reader, TObject destination) where TObject : ISerializableObject
+        {
+            destination.Deserialize(reader);
             return destination;
         }
 

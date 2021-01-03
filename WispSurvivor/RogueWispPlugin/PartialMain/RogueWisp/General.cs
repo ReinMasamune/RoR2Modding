@@ -90,7 +90,7 @@ namespace Rein.RogueWispPlugin
 
             if( SurvivorsCore.loaded )
             {
-                SurvivorsCore.AddEclipseUnlocks("Rein_RogueWisp", this.RW_survivorDef);
+                //SurvivorsCore.AddEclipseUnlocks("Rein_RogueWisp", this.RW_survivorDef);
                 SurvivorCatalog.getAdditionalSurvivorDefs += ( list ) => list.Add( this.RW_survivorDef );
             } else
             {

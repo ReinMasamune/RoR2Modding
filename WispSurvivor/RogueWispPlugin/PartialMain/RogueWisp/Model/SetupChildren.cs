@@ -947,6 +947,8 @@ namespace Rein.RogueWispPlugin
             obj.transform.localRotation = Quaternion.identity;
             obj.layer = LayerIndex.entityPrecise.intVal;
 
+            obj.AddComponent<NanKiller>();
+
             var col = info.Apply( obj );
             col.isTrigger = false;
 
@@ -964,6 +966,44 @@ namespace Rein.RogueWispPlugin
             hurtBox.indexInGroup = ind;
 
             if( isBullseye ) ++this.RW_boxGroup.bullseyeCount;
+        }
+
+        private sealed class NanKiller : MonoBehaviour
+        {
+            private Vector3 previousPosition;
+            private Vector3 previousScale;
+            private Quaternion prevRotation;
+
+            public void Update()
+            {
+                var tr = base.transform;
+                var cpos = tr.position;
+                if(Single.IsNaN(cpos.x) || Single.IsNaN(cpos.y) || Single.IsNaN(cpos.z))
+                {
+                    base.transform.position = this.previousPosition;
+                } else
+                {
+                    this.previousPosition = cpos;
+                }
+
+                var cscale = tr.position;
+                if(Single.IsNaN(cscale.x) || Single.IsNaN(cscale.y) || Single.IsNaN(cscale.z))
+                {
+                    base.transform.position = this.previousScale;
+                } else
+                {
+                    this.previousScale = cscale;
+                }
+
+                var rot = tr.rotation;
+                if(Single.IsNaN(rot.w) || Single.IsNaN(rot.x) || Single.IsNaN(rot.y) || Single.IsNaN(rot.z))
+                {
+                    base.transform.rotation = this.prevRotation;
+                } else
+                {
+                    this.prevRotation = rot;
+                }
+            }
         }
 
         private void AddRagdollCollider( Transform parent, ICollider info )

@@ -25,6 +25,7 @@
     using MonoMod.RuntimeDetour;
     using System.Reflection;
     using UnityEngine.Experimental.UIElements;
+    using RoR2.Navigation;
 
     public static partial class ReinCore
     {
@@ -141,12 +142,28 @@
             _ = managerObject.AddComponent<CoreManager>();
 
             HooksCore.RoR2.SystemInitializerAttribute.Execute.On += Execute_On;
+            HooksCore.RoR2.CharacterBody.UpdatePowerWardSummon.Il += UpdatePowerWardSummon_Il;
 
 
         }
+
+        private static void UpdatePowerWardSummon_Il(ILContext il) => new ILCursor(il)
+            .DefLabel(out var label)
+            .GotoNext(MoveType.After,
+                x => x.MatchCallOrCallvirt(typeof(RoR2.Navigation.NodeGraph).GetMethod(nameof(RoR2.Navigation.NodeGraph.FindNodesInRange), BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance))
+            )
+            .Dup_()
+            .CallDelegate_<Func<List<NodeGraph.NodeIndex>, Int32>>((l) => l.Count)
+            .BrTrue_(label)
+            .Pop_()
+            .Pop_()
+            .Ret_()
+            .Mark(label);
+
+
         internal static void Execute_On(HooksCore.RoR2.SystemInitializerAttribute.Execute.Orig orig)
         {
-            try { orig(); } finally { MetaCatalog.InitAllCatalogs(); }
+            try { orig(); } finally { try { MetaCatalog.InitAllCatalogs(); } catch { } }
         }
 
         private static Boolean CheckSillyILHooks(ILHook hook, MethodBase method, ILContext.Manipulator manip)

@@ -24,11 +24,6 @@
             loaded = true;
         }
 
-
-
-        //private static readonly StaticAccessor<Type[]> indexToType = new StaticAccessor<Type[]>( typeof(OrbCatalog), "indexToType" );
-        //private static readonly StaticAccessor<Dictionary<Type,Int32>> typeToIndex = new StaticAccessor<Dictionary<Type, Int32>>( typeof(OrbCatalog), "typeToIndex" );
-
         private static void GenerateCatalog_On( HooksCore.RoR2.Orbs.OrbCatalog.GenerateCatalog.Orig orig )
         {
             orig();
@@ -46,17 +41,19 @@
                 return;
             }
 
-            Type[] orbs = OrbCatalog.indexToType;
-            Dictionary<Type, Int32> lookup = OrbCatalog.typeToIndex;//.Get();
-            Int32 start = orbs.Length;
+            Int32 start = OrbCatalog.indexToType.Length;
             Int32 newTotal = start + extra;
-            Array.Resize<Type>( ref orbs, newTotal );
+            Array.Resize<Type>( ref OrbCatalog.indexToType, newTotal );
             for( Int32 i = start; i < newTotal; ++i )
             {
-                orbs[i] = list[i - start];
-                lookup[list[i - start]] = i;
+                OrbCatalog.indexToType[i] = list[i - start];
+                OrbCatalog.typeToIndex[list[i - start]] = i;
             }
-            OrbCatalog.indexToType = orbs;
+
+            foreach(var v in OrbCatalog.indexToType)
+            {
+                Log.Message($"{v.FullName}");
+            }
         }
     }
 }

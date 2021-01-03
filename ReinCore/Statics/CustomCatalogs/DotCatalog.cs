@@ -33,8 +33,4 @@ namespace ReinCore
 
         Byte[] tempStackSizedArray { get; set; }
     }
-
-
-
-
 }

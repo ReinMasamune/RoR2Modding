@@ -92,6 +92,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HookGeneratorTest", "HookGe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HookGeneratorUsage", "HookGeneratorUsage\HookGeneratorUsage.csproj", "{7119AED9-B088-488A-84E7-BD853985CBD7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaterialTesting", "MaterialTesting\MaterialTesting.csproj", "{98741F2F-8484-4052-BE2C-CDE61C24E755}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -388,6 +390,18 @@ Global
 		{7119AED9-B088-488A-84E7-BD853985CBD7}.Release|x64.Build.0 = Release|Any CPU
 		{7119AED9-B088-488A-84E7-BD853985CBD7}.Release|x86.ActiveCfg = Release|Any CPU
 		{7119AED9-B088-488A-84E7-BD853985CBD7}.Release|x86.Build.0 = Release|Any CPU
+		{98741F2F-8484-4052-BE2C-CDE61C24E755}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98741F2F-8484-4052-BE2C-CDE61C24E755}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98741F2F-8484-4052-BE2C-CDE61C24E755}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{98741F2F-8484-4052-BE2C-CDE61C24E755}.Debug|x64.Build.0 = Debug|Any CPU
+		{98741F2F-8484-4052-BE2C-CDE61C24E755}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{98741F2F-8484-4052-BE2C-CDE61C24E755}.Debug|x86.Build.0 = Debug|Any CPU
+		{98741F2F-8484-4052-BE2C-CDE61C24E755}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98741F2F-8484-4052-BE2C-CDE61C24E755}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98741F2F-8484-4052-BE2C-CDE61C24E755}.Release|x64.ActiveCfg = Release|Any CPU
+		{98741F2F-8484-4052-BE2C-CDE61C24E755}.Release|x64.Build.0 = Release|Any CPU
+		{98741F2F-8484-4052-BE2C-CDE61C24E755}.Release|x86.ActiveCfg = Release|Any CPU
+		{98741F2F-8484-4052-BE2C-CDE61C24E755}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -415,16 +429,9 @@ Global
 		{85AC1318-E416-48F3-8F6C-6DEEE13A721B} = {8113551A-8949-44B5-A187-66504FEC24E0}
 		{0033561A-2F63-4A76-96A5-7FEAF7B63544} = {06B21E88-7A70-49BC-ACED-CDF911F6A3E6}
 		{9D25A595-219E-4A46-80B2-15B963C686FE} = {06B21E88-7A70-49BC-ACED-CDF911F6A3E6}
+		{98741F2F-8484-4052-BE2C-CDE61C24E755} = {26884AA3-135C-483E-8B62-A93AD6F13E89}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BA09AC25-19C5-4B7B-8BC3-469DAE1F6A5D}
-	EndGlobalSection
-	GlobalSection(AutomaticVersions) = postSolution
-		UpdateAssemblyVersion = False
-		UpdateAssemblyFileVersion = False
-		UpdateAssemblyInfoVersion = False
-		UpdatePackageVersion = False
-		AssemblyInfoVersionType = SettingsVersion
-		InheritWinAppVersionFrom = None
 	EndGlobalSection
 EndGlobal

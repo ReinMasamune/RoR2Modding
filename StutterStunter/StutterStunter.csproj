@@ -3,8 +3,8 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
 	<LangVersion>Preview</LangVersion>
-    <AssemblyVersion>2.1.1.23</AssemblyVersion>
-    <FileVersion>2.1.1.23</FileVersion>
+    <AssemblyVersion>2.1.1.24</AssemblyVersion>
+    <FileVersion>2.1.1.24</FileVersion>
     <RootNamespace>Rein</RootNamespace>
   </PropertyGroup>
 

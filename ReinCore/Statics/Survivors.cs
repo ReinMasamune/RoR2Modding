@@ -159,38 +159,44 @@
         private static readonly List<(SurvivorDef, ConfigEntry<EclipseLevel>)> managedLevels = new();
         private static void EmittedDelegate(String str)
         {
-            var i = str.IndexOf('.');
-            if(i < 0)
+            try
             {
-                Log.Error("No seperators in eclipse string?");
-                return;
-            }
-            var subStr = str.Substring(i);
-            var i2 = str.LastIndexOf('.');
-            if(i2 < 0)
-            {
-                Log.Error("No second seperator in eclipse string?");
-                return;
-            }
-            var survName = subStr.Substring(0, i2);
-            if(!Int32.TryParse(subStr.Substring(i2), out var level))
-            {
-                Log.Error("Non-Number eclipse level.");
-                return;
-            }
-            
-            foreach(var (def, cfg) in managedLevels)
-            {
-                if(def.name == survName)
+                var i = str.IndexOf('.');
+                if(i < 0)
                 {
-                    var curLev = cfg.Value;
-                    if(curLev == EclipseLevel.Ignore) continue;
-
-                    var curInt = (Int32)curLev;
-
-                    var l = Math.Max(curInt, level);
-                    cfg.Value = (EclipseLevel)l;
+                    Log.Error("No seperators in eclipse string?");
+                    return;
                 }
+                var subStr = str.Substring(i);
+                var i2 = str.LastIndexOf('.');
+                if(i2 < 0)
+                {
+                    Log.Error("No second seperator in eclipse string?");
+                    return;
+                }
+                var survName = subStr.Substring(0, i2);
+                if(!Int32.TryParse(subStr.Substring(i2), out var level))
+                {
+                    Log.Error("Non-Number eclipse level.");
+                    return;
+                }
+
+                foreach(var (def, cfg) in managedLevels)
+                {
+                    if(def.name == survName)
+                    {
+                        var curLev = cfg.Value;
+                        if(curLev == EclipseLevel.Ignore) continue;
+
+                        var curInt = (Int32)curLev;
+
+                        var l = Math.Max(curInt, level);
+                        cfg.Value = (EclipseLevel)l;
+                    }
+                }
+            } catch(Exception e)
+            {
+                Log.Error($"Exception thrown while checking for eclipse persistent unlockables in string {str}. Error: {e}");
             }
         }
 

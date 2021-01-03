@@ -66,6 +66,16 @@
             direction.driveFromRootRotation = false;
             direction.turnSpeed = 720f;
 
+            //CharacterBody borkBorkBody = null;
+            //if(borkBorkBody is null) return;
+
+
+            //borkBorkBody.baseMaxHealth = 150f;
+            //borkBorkBody.baseMoveSpeed = 9f;
+            //borkBorkBody.baseJumpPower = 20f;
+            //borkBorkBody.baseDamage = 12f;
+
+
 
             SniperCharacterBody body = obj.AddOrGetComponent<SniperCharacterBody>();
             body.bodyIndex = -1;
@@ -93,7 +103,14 @@
             body.levelJumpPower = 0f;
 
             body.baseDamage = 12f;
-            body.levelDamage = 2.4f;
+            body.levelDamage = 3.0f;
+            /*  2.4 = 0% change per level from other characters
+             *  +1 lv = 4.2% increase
+             *  +2 lv = 7.1%
+             *  approaches 25%
+             *  +20 lv = 20% increase
+             *  Maybe enough to offset curve for reload with attack speed?
+             */
 
             body.baseAttackSpeed = 1f;
             body.levelAttackSpeed = 0f;

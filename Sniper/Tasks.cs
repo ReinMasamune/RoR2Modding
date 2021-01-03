@@ -4,8 +4,6 @@
 // NEXT: Create KeybindsCore
 // NEXT: Dedicated reload keybind
 // NEXT: Dedicated scope zoom keybinds
-// NEXT: Finish UnlockableCore implementation
-// NEXT: Add mag snipe to test unlockablecore (Find 4 backup mags in one run)
 
 
 

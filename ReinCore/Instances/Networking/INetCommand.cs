@@ -42,7 +42,7 @@
                             continue;
                         }
 
-                        using( Writer netWriter = NetworkCore.GetWriter( NetworkCore.commandIndex, conn, QosType.Reliable ) )
+                        using( Writer netWriter = NetworkCore.GetWriter( NetworkCore.commandIndex, conn, NetworkCore.qos) )
                         {
                             NetworkWriter writer = netWriter;
                             writer.Write( header );
@@ -50,7 +50,7 @@
                     }
                 } else if( NetworkClient.active )
                 {
-                    using( Writer netWriter = NetworkCore.GetWriter( NetworkCore.commandIndex, ClientScene.readyConnection, QosType.Reliable ) )
+                    using( Writer netWriter = NetworkCore.GetWriter( NetworkCore.commandIndex, ClientScene.readyConnection, NetworkCore.qos) )
                     {
                         NetworkWriter writer = netWriter;
                         writer.Write( header );
@@ -90,7 +90,7 @@
                             continue;
                         }
 
-                        using(Writer netWriter = NetworkCore.GetWriter(NetworkCore.commandIndex, conn, QosType.Reliable))
+                        using(Writer netWriter = NetworkCore.GetWriter(NetworkCore.commandIndex, conn, NetworkCore.qos))
                         {
                             NetworkWriter writer = netWriter;
                             writer.Write(header);
@@ -98,7 +98,7 @@
                     }
                 } else if(NetworkClient.active)
                 {
-                    using(Writer netWriter = NetworkCore.GetWriter(NetworkCore.commandIndex, ClientScene.readyConnection, QosType.Reliable))
+                    using(Writer netWriter = NetworkCore.GetWriter(NetworkCore.commandIndex, ClientScene.readyConnection, NetworkCore.qos))
                     {
                         NetworkWriter writer = netWriter;
                         writer.Write(header);

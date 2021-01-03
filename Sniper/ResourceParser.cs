@@ -28,11 +28,14 @@
         internal const String SNIPER_AMMO_PLASMA_NAME = "SNIPER_AMMO_PLASMA_NAME";
         internal const String SNIPER_AMMO_SHOCK_DESC = "SNIPER_AMMO_SHOCK_DESC";
         internal const String SNIPER_AMMO_SHOCK_NAME = "SNIPER_AMMO_SHOCK_NAME";
+        internal const String SNIPER_AMMO_SPORE_DESC = "SNIPER_AMMO_SPORE_DESC";
+        internal const String SNIPER_AMMO_SPORE_NAME = "SNIPER_AMMO_SPORE_NAME";
         internal const String SNIPER_AMMO_STANDARD_DESC = "SNIPER_AMMO_STANDARD_DESC";
         internal const String SNIPER_AMMO_STANDARD_NAME = "SNIPER_AMMO_STANDARD_NAME";
         internal const String SNIPER_DESC = "SNIPER_DESC";
         internal const String SNIPER_DISPLAY_NAME = "SNIPER_DISPLAY_NAME";
         internal const String SNIPER_KEYWORD_BOOST = "SNIPER_KEYWORD_BOOST";
+        internal const String SNIPER_KEYWORD_CHARGED = "SNIPER_KEYWORD_CHARGED";
         internal const String SNIPER_KEYWORD_EXPLOSIVE = "SNIPER_KEYWORD_EXPLOSIVE";
         internal const String SNIPER_KEYWORD_PHASED = "SNIPER_KEYWORD_PHASED";
         internal const String SNIPER_KEYWORD_PIERCING = "SNIPER_KEYWORD_PIERCING";
@@ -43,10 +46,6 @@
         internal const String SNIPER_KEYWORD_SCOPED = "SNIPER_KEYWORD_SCOPED";
         internal const String SNIPER_NAME = "SNIPER_NAME";
         internal const String SNIPER_OUTRO_FLAVOR = "SNIPER_OUTRO_FLAVOR";
-        internal const String SNIPER_PRIMARY_DASH_DESC = "SNIPER_PRIMARY_DASH_DESC";
-        internal const String SNIPER_PRIMARY_DASH_NAME = "SNIPER_PRIMARY_DASH_NAME";
-        internal const String SNIPER_PRIMARY_DASH_RELOAD_DESC = "SNIPER_PRIMARY_DASH_RELOAD_DESC";
-        internal const String SNIPER_PRIMARY_DASH_RELOAD_NAME = "SNIPER_PRIMARY_DASH_RELOAD_NAME";
         internal const String SNIPER_PRIMARY_MAG_DESC = "SNIPER_PRIMARY_MAG_DESC";
         internal const String SNIPER_PRIMARY_MAG_NAME = "SNIPER_PRIMARY_MAG_NAME";
         internal const String SNIPER_PRIMARY_MAG_RELOAD_DESC = "SNIPER_PRIMARY_MAG_RELOAD_DESC";
@@ -134,6 +133,8 @@
         internal static Sprite ReloadIcon => _ReloadIcon ??= AssetModule.LoadAsset<Sprite>(Resources.icon__ReloadIcon);
         private static Sprite _ShockAmmoIcon;
         internal static Sprite ShockAmmoIcon => _ShockAmmoIcon ??= AssetModule.LoadAsset<Sprite>(Resources.icon__ShockAmmoIcon);
+        private static Sprite _ShockDebuffIcon;
+        internal static Sprite ShockDebuffIcon => _ShockDebuffIcon ??= AssetModule.LoadAsset<Sprite>(Resources.icon__ShockDebuffIcon);
         private static Sprite _SlideIcon;
         internal static Sprite SlideIcon => _SlideIcon ??= AssetModule.LoadAsset<Sprite>(Resources.icon__SlideIcon);
         private static Sprite _SlideReloadIcon;
@@ -144,6 +145,8 @@
         internal static Sprite SnipeMag => _SnipeMag ??= AssetModule.LoadAsset<Sprite>(Resources.icon__SnipeMag);
         private static Sprite _SnipeMagReload;
         internal static Sprite SnipeMagReload => _SnipeMagReload ??= AssetModule.LoadAsset<Sprite>(Resources.icon__SnipeMagReload);
+        private static Sprite _SporeAmmoIcon;
+        internal static Sprite SporeAmmoIcon => _SporeAmmoIcon ??= AssetModule.LoadAsset<Sprite>(Resources.icon__SporeAmmoIcon);
         private static Sprite _StandardAmmoIcon;
         internal static Sprite StandardAmmoIcon => _StandardAmmoIcon ??= AssetModule.LoadAsset<Sprite>(Resources.icon__StandardAmmoIcon);
         private static Sprite _SteadyAimIcon;

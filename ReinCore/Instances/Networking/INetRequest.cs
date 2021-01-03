@@ -48,7 +48,7 @@
                             continue;
                         }
 
-                        using( Writer netWriter = NetworkCore.GetWriter( NetworkCore.messageIndex, conn, QosType.Reliable ) )
+                        using( Writer netWriter = NetworkCore.GetWriter( NetworkCore.messageIndex, conn, NetworkCore.qos) )
                         {
                             NetworkWriter writer = netWriter;
                             writer.Write( header );
@@ -59,7 +59,7 @@
 
                 if( NetworkClient.active )
                 {
-                    using( Writer netWriter = NetworkCore.GetWriter( NetworkCore.messageIndex, ClientScene.readyConnection, QosType.Reliable ) )
+                    using( Writer netWriter = NetworkCore.GetWriter( NetworkCore.messageIndex, ClientScene.readyConnection, NetworkCore.qos) )
                     {
                         NetworkWriter writer = netWriter;
                         writer.Write( header );

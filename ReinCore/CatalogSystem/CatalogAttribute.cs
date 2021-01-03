@@ -2,7 +2,7 @@
 {
     using System;
 
-    [AttributeUsage(AttributeTargets.Assembly)]
+    [AttributeUsage(AttributeTargets.Assembly, AllowMultiple = true)]
     public sealed class CatalogAttribute : Attribute
     {
         public CatalogAttribute(Type catalogType)

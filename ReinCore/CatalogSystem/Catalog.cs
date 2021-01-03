@@ -9,6 +9,8 @@
 
         internal void InitializeIfNeeded() => this.catHandle.InitializeIfNeeded();
 
+        internal virtual void LogCatalog() { }
+
         private protected abstract ICatalogHandle catHandle { get; }
         protected internal abstract Int32 order { get; }
         public abstract String guid { get; }

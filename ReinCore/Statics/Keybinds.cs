@@ -1,5 +1,4 @@
-﻿
-namespace ReinCore
+﻿namespace ReinCore
 {
     extern alias Rewired;
 
@@ -50,6 +49,7 @@ namespace ReinCore
                 ManualApply = true
             };
             awakeHook = new ILHook(method, Awake_IL, ref cfg);
+            
 
 
             //Log.Warning("KeybindsCore loaded");
@@ -123,7 +123,7 @@ namespace ReinCore
         private static void FixedUpdate_Il(MonoMod.Cil.ILContext il)
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            static void EmittedFunc(Boolean canSendInputs, Rewired::Rewired.Player player, InputBankTest inputs_Uncast)
+            static void EmittedFunc(Boolean canSendInputs, Player player, InputBankTest inputs_Uncast)
             {
                 if(player is null || !(inputs_Uncast is XInputBank inputs && inputs)) return;
                 foreach(var (name, id, buttonId) in inputInfos)
@@ -151,7 +151,7 @@ namespace ReinCore
                 .LdLoc_(10)
                 .LdArg_(0)
                 .LdFld_(typeof(PlayerCharacterMasterController).GetField("bodyInputs", BF.Public | BF.NonPublic | BF.Instance))
-                .CallDel_<Action<Boolean, Rewired::Rewired.Player, InputBankTest>>(EmittedFunc);
+                .CallDel_<Action<Boolean, Player, InputBankTest>>(EmittedFunc);
         }
     }
 }

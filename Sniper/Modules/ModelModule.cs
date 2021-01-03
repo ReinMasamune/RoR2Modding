@@ -220,7 +220,7 @@
                 new GradientColorKey( Color.white, 1f ),
             } );
 
-            JobHandle.ScheduleBatchedJobs();
+            //JobHandle.ScheduleBatchedJobs();
 
             GameObject model = AssetModule.GetSniperAssetBundle().LoadAsset<GameObject>( Properties.Resources.prefab__SniperPrefab );
             CharacterModel charModel = model.GetComponent<CharacterModel>();

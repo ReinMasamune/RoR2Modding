@@ -27,6 +27,7 @@
             {
                 throw new ArgumentNullException( nameof( character ) );
             }
+            controller.skins ??= Array.Empty<SkinDef>();
 
             HooksCore.RoR2.SkinDef.Awake.On += DoNothing;
             SkinDef def = ScriptableObject.CreateInstance<SkinDef>();
@@ -146,9 +147,6 @@
             this.controller = controller;
             this.model = model;
         }
-
         #endregion
-
-
     }
 }

@@ -24,51 +24,39 @@
             loaded = true;
         }
 
-
         private static Sprite EmittedDelegate1(Sprite cur, BuffDef inDef) => inDef is CustomSpriteBuffDef def ? def.sprite : cur;
 
-        private static readonly MethodInfo image_set_sprite = typeof(UnityEngine.UI.Image)?.GetProperty(nameof(UnityEngine.UI.Image.sprite), BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)?.GetSetMethod(true) ?? throw new MissingMemberException("No method set_sprite on image for bufficon");
-        //private static readonly FieldInfo custombuff_sprite = typeof(CustomSpriteBuffDef)?.GetField(nameof(CustomSpriteBuffDef.sprite), BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance) ?? throw new MissingMemberException("No field sprite on custombuffdef");
+        private static readonly MethodInfo image_set_sprite = typeof(UnityEngine.UI.Image)?.GetProperty(nameof(UnityEngine.UI.Image.sprite), BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)?.GetSetMethod(true) ?? throw new MissingMemberException("No method set_sprite on image for bufficon");        
         private static void UpdateIcon_Il(ILContext il) => new ILCursor(il)
             .GotoNext(MoveType.AfterLabel, x => x.MatchCallOrCallvirt(image_set_sprite))
-            .LdLoc_(0)
+            .LdLoc_(0)Q
             .CallDel_<Func<Sprite, BuffDef, Sprite>>(EmittedDelegate1);
 
-        //private delegate void RegisterBuffDelegate( BuffIndex buffIndex, BuffDef buff );
-        //private static readonly RegisterBuffDelegate RegisterBuff;
-        //private static readonly StaticAccessor<BuffDef[]> buffDefs = new StaticAccessor<BuffDef[]>( typeof(BuffCatalog), "buffDefs" );
-
-        private static void Init_Il( ILContext il )
+        private static void EmittedAction()
         {
-            var c = new ILCursor( il );
-
-            _ = c.GotoNext( MoveType.After,
-                x => x.MatchLdsfld( typeof( BuffCatalog ), nameof( BuffCatalog.modHelper ) ),
-                x => x.MatchLdsflda( typeof( BuffCatalog ), "buffDefs" )
-            );
-            ++c.Index;
-            _ = c.EmitDelegate<Action>( () =>
-              {
-                  var l = new List<BuffDef>();
-                  getAdditionalEntries?.Invoke( l );
-                  Int32 extras = l.Count;
-                  if( extras <= 0 )
-                  {
-                      return;
-                  }
-
-                  BuffDef[] buffs = BuffCatalog.buffDefs;// buffDefs.Get();
-                  Int32 startPoint = buffs.Length;
-                  Array.Resize<BuffDef>( ref buffs, startPoint + extras );
-                  BuffCatalog.buffDefs = buffs;//buffDefs.Set( buffs );
-                  for( Int32 i = 0; i < extras; ++i )
-                  {
-                      BuffCatalog.RegisterBuff( (BuffIndex)( i + startPoint ), l[i] );
-                  }
-              } );
+            var l = new List<BuffDef>();
+            getAdditionalEntries?.Invoke(l);
+            Int32 extras = l.Count;
+            if(extras <= 0)
+            {
+                return;
+            }
+            BuffDef[] buffs = BuffCatalog.buffDefs;// buffDefs.Get();
+            Int32 startPoint = buffs.Length;
+            Array.Resize<BuffDef>(ref buffs, startPoint + extras);
+            BuffCatalog.buffDefs = buffs;//buffDefs.Set( buffs );
+            for(Int32 i = 0; i < extras; ++i)
+            {
+                BuffCatalog.RegisterBuff((BuffIndex)(i + startPoint), l[i]);
+            }
         }
 
-
+        private static void Init_Il(ILContext il) => new ILCursor(il)
+            .GotoNext(MoveType.After,
+                x => x.MatchLdsfld(typeof(BuffCatalog), nameof(BuffCatalog.modHelper)),
+                x => x.MatchLdsflda(typeof(BuffCatalog), nameof(BuffCatalog.buffDefs))
+            ).Move(1)
+            .CallDel_<Action>(EmittedAction);
     }
 
     public class CustomSpriteBuffDef : BuffDef
@@ -77,4 +65,3 @@
         public readonly Sprite sprite;
     }
 }
-

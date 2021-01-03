@@ -99,15 +99,36 @@
             plasmaAmmo.skillNameToken = Tokens.SNIPER_AMMO_PLASMA_NAME;
             plasmaAmmo.skillDescriptionToken = Tokens.SNIPER_AMMO_PLASMA_DESC;
             plasmaAmmo.fireSoundType = SoundModule.FireType.Plasma;
+            plasmaAmmo.keywordTokens = new[]
+            {
+                Tokens.SNIPER_KEYWORD_PRIMARYDMG,
+            };
             skills.Add((plasmaAmmo, ""));
 
-            var shockAmmo = SniperAmmoSkillDef.Create<BurstContext>();
+            var shockAmmo = SniperAmmoSkillDef.Create<ShockContext>();
             shockAmmo.icon = Properties.Icons.ShockAmmoIcon;
             shockAmmo.skillName = "ShockAmmo";
             shockAmmo.skillNameToken = Tokens.SNIPER_AMMO_SHOCK_NAME;
             shockAmmo.skillDescriptionToken = Tokens.SNIPER_AMMO_SHOCK_DESC;
-            shockAmmo.fireSoundType = SoundModule.FireType.Burst;
-            skills.Add((shockAmmo, Unlockables.WIPUnlockable.unlockable_Identifier));
+            shockAmmo.fireSoundType = SoundModule.FireType.Plasma;
+            shockAmmo.keywordTokens = new[]
+            {
+                Tokens.SNIPER_KEYWORD_PRIMARYDMG,
+                Tokens.SNIPER_KEYWORD_CHARGED,
+            };
+            skills.Add((shockAmmo, ""));
+
+            var sporeAmmo = SniperAmmoSkillDef.Create<SporeContext>();
+            sporeAmmo.icon = Properties.Icons.SporeAmmoIcon;
+            sporeAmmo.skillName = "SporeAmmo";
+            sporeAmmo.skillNameToken = Tokens.SNIPER_AMMO_SPORE_NAME;
+            sporeAmmo.skillDescriptionToken = Tokens.SNIPER_AMMO_SPORE_DESC;
+            sporeAmmo.fireSoundType = SoundModule.FireType.Normal;
+            sporeAmmo.keywordTokens = new[]
+            {
+                Tokens.SNIPER_KEYWORD_PRIMARYDMG,
+            };
+            skills.Add((sporeAmmo, ""));
 
 
             //skills.Add(wip);
@@ -116,104 +137,6 @@
 
             SkillFamiliesModule.ammoSkills = skills;
         }
-        /* 
-
-
-
-
-            //#endregion
-
-
-            #region Scatter
-            //GameObject scatterTracer = VFXModule.GetScatterAmmoTracer();
-            //BulletAttack.FalloffModel scatterFalloff = BulletFalloffCore.AddFalloffModel( (dist) => Mathf.Pow(Mathf.InverseLerp( 200f, 10f, dist ),2f) );
-            //var scatterCreate = new BulletCreationDelegate( (body, reload, aim, muzzle) =>
-            //{
-            //    var bullet = new ExpandableBulletAttack
-            //    {
-            //        aimVector = aim.direction,
-            //        attackerBody = body,
-            //        bulletCount = (UInt32)( 3 + ( 2 * (Int32)reload ) ),
-            //        chargeLevel = 0f,
-            //        damage = body.damage * 0.25f,
-            //        damageColorIndex = DamageColorIndex.Default,
-            //        damageType = DamageType.Generic,
-            //        falloffModel = scatterFalloff,
-            //        force = 25f,
-            //        HitEffectNormal = true,
-            //        hitEffectPrefab = null, // TODO: Explosive Ammo Hit Effect
-            //        hitMask = LayerIndex.entityPrecise.mask | LayerIndex.world.mask,
-            //        isCrit = body.RollCrit(),
-            //        maxDistance = 200f,
-            //        maxSpread = 2.6f,
-            //        minSpread = 1f,
-            //        muzzleName = muzzle,
-            //        onHit = null,
-            //        onStop = null,
-            //        origin = aim.origin,
-            //        owner = body.gameObject,
-            //        procChainMask = default,
-            //        procCoefficient = 0.6f,
-            //        queryTriggerInteraction = QueryTriggerInteraction.UseGlobal,
-            //        radius = 0.15f,
-            //        smartCollision = true,
-            //        sniper = false,
-            //        spreadPitchScale = 1f,
-            //        spreadYawScale = 1f,
-            //        stopperMask = LayerIndex.world.mask | LayerIndex.entityPrecise.mask,
-            //        tracerEffectPrefab = scatterTracer,
-            //        weapon = null,
-            //    };
-            //    return bullet;
-            //});
-            //var scatterCharge = new ChargeBulletModifierDelegate( (bullet) =>
-            //{
-            //    bullet.bulletCount += (UInt32)(4f * bullet.chargeLevel);
-            //});
-            //var scatter = SniperAmmoSkillDef.Create( scatterCreate );
-            //scatter.icon = UIModule.GetScatterAmmoIcon();
-            //scatter.skillName = "Scatter Ammo";
-            //scatter.skillNameToken = Tokens.SNIPER_AMMO_SCATTER_NAME;
-            //scatter.skillDescriptionToken = Tokens.SNIPER_AMMO_SCATTER_DESC;
-            //scatter.fireSoundType = SoundModule.FireType.Scatter;
-            //skills.Add( scatter );
-
-
-
-            
-
-
-            #region Shock
-
-
-            #endregion
-
-         * 
-         * 
-         */
-
-        //internal static void CreatePassiveSkills()
-        //{
-        //    var skills = new List<(SkillDef,String)>();
-
-        //    var critPassive = SniperPassiveSkillDef.Create( default, false, 1.2f, 1f );
-        //    critPassive.icon = UIModule.GetCritPassiveIcon();
-        //    critPassive.skillName = "Precise Aim";
-        //    critPassive.skillNameToken = Tokens.SNIPER_PASSIVE_CRITICAL_NAME;
-        //    critPassive.skillDescriptionToken = Tokens.SNIPER_PASSIVE_CRITICAL_DESC;
-        //    skills.Add( (critPassive,"") );
-
-        //    //var headshot = SniperPassiveSkillDef.Create( default, true, 1.0f );
-        //    //headshot.icon = UIModule.GetHeadshotPassiveIcon();
-        //    //headshot.skillName = "Headshot";
-        //    //headshot.skillNameToken = Tokens.SNIPER_PASSIVE_HEADSHOT_NAME;
-        //    //headshot.skillDescriptionToken = Tokens.SNIPER_PASSIVE_HEADSHOT_DESC;
-        //    //skills.Add( headshot );
-
-        //    skills.Add( wip );
-
-        //    SkillFamiliesModule.passiveSkills = skills;
-        //}
 
         private struct DefaultSnipe : ISniperPrimaryDataProvider
         {
@@ -524,7 +447,6 @@
             KnifeSkillData.slashState = SkillsCore.StateType<KnifePickupSlash>();
            
             skills.Add((knife, ""));
-            //skills.Add(wip);
 
             SkillFamiliesModule.specialSkills = skills;
         }

@@ -45,11 +45,14 @@
 
 
 
+
+
         internal static void AddMaterial(StandardMaterial mat, String name)
         {
             mat.name = name;
             SniperMain.instance.sniperMaterials.Add(mat);
         }
+
 
         internal static Single dt { get; private set; }
 
@@ -81,6 +84,8 @@
                 CatalogModule.RegisterDoTType();
                 CatalogModule.RegisterDamageTypes();
                 CatalogModule.RegisterBuffTypes();
+                CatalogModule.RegisterOrbs();
+                CatalogModule.RegisterOverlays();
 
                 VFXModule.Init();
 
@@ -89,6 +94,8 @@
 
             base.start += () =>
             {
+                //MetaCatalog.LogCatalogState();
+
                 try
                 {
                     RoR2.Console.instance.SubmitCmd(null, "spp_disable_survivor Sniper");

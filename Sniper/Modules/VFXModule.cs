@@ -15,8 +15,42 @@
     {
         internal static void Init()
         {
+            _ = GetShockOrbPrefab();
+            _ = GetSporeOrbPrefab();
         }
 
+
+        private static GameObject shockOrbPrefab;
+        internal static GameObject GetShockOrbPrefab()
+        {
+            if(shockOrbPrefab == null)
+            {
+                shockOrbPrefab = EffectCreator.CreateShockOrbEffect();
+                EffectsCore.AddEffect(shockOrbPrefab);
+            }
+            return shockOrbPrefab;
+        }
+        private static GameObject sporeOrbPrefab;
+        internal static GameObject GetSporeOrbPrefab()
+        {
+            if(sporeOrbPrefab == null)
+            {
+                sporeOrbPrefab = EffectCreator.CreateSporeOrbEffect();
+                EffectsCore.AddEffect(sporeOrbPrefab);
+            }
+            return sporeOrbPrefab;
+        }
+
+        private static GameObject shockImpactPrefab;
+        internal static GameObject GetShockImpactPrefab()
+        {
+            if(shockImpactPrefab == null)
+            {
+                shockImpactPrefab = EffectCreator.CreateShockImpactPrefab();
+                EffectsCore.AddEffect(shockImpactPrefab);
+            }
+            return shockImpactPrefab;
+        }
 
         private static List<GameObject> knifeSlashPrefabs = new(16);
         internal static GameObject GetKnifePickupSlash(UInt32 skinIndex)
@@ -54,6 +88,29 @@
             }
 
             return standardAmmoTracerPrefab;
+        }
+        private static GameObject sporeAmmoTracerPrefab;
+        internal static GameObject GetSporeAmmoTracer()
+        {
+            if(sporeAmmoTracerPrefab == null)
+            {
+                sporeAmmoTracerPrefab = Effects.EffectCreator.CreateSporeAmmoTracer();
+                EffectsCore.AddEffect(sporeAmmoTracerPrefab);
+            }
+
+            return sporeAmmoTracerPrefab;
+        }
+
+        private static GameObject shockAmmoTracerPrefab;
+        internal static GameObject GetShockAmmoTracer()
+        {
+            if(shockAmmoTracerPrefab == null)
+            {
+                shockAmmoTracerPrefab = Effects.EffectCreator.CreateShockAmmoTracer();
+                EffectsCore.AddEffect(shockAmmoTracerPrefab);
+            }
+
+            return shockAmmoTracerPrefab;
         }
 
         private static GameObject explosiveAmmoTracerPrefab;

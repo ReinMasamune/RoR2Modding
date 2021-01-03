@@ -216,11 +216,11 @@ namespace Rein.RogueWispPlugin
             {
                 if(self.HasBuff(RW_armorBuff))
                 {
-                    self.armor += 75f;//this.armor.Set( self, this.armor.Get( self ) + 75f );
+                    self.armor += 75f;
                 }
                 if(self.HasBuff(RW_flameChargeBuff))
                 {
-                    self.barrierDecayRate *= barrierDecayMult;// this.barrierDecayRate.Set( self, self.barrierDecayRate * barrierDecayMult );
+                    self.barrierDecayRate *= barrierDecayMult;
                 }
             }
         }

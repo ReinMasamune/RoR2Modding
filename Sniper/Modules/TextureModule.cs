@@ -21,13 +21,14 @@
 				aKeys: new[]
 				{
 					new GradientAlphaKey(0f, 0f),
+					new GradientAlphaKey(0f, 0.2f),
 					new GradientAlphaKey(1f, 1f),
 				},
 				cKeys: new[]
 				{
 					new GradientColorKey(Color.black,0f),
-					new GradientColorKey(new Color( 0.3f, 0.5f, 0.3f), 0.4f ),
-					new GradientColorKey(new Color( 0.6f, 0.8f, 0.6f ), 0.95f ),
+					new GradientColorKey(new Color( 0.4f, 0.4f, 0.4f), 0.4f ),
+					new GradientColorKey(new Color( 0.8f, 0.8f, 0.8f ), 0.95f ),
 					new GradientColorKey(Color.white,1f),
 				}
 			);
@@ -84,29 +85,69 @@
 			);
 
 
-			shockRamp = TexturesCore.GenerateRampTextureBatch
-			(
-				aKeys: new[]
-				{
-					new GradientAlphaKey(0f, 0f),
-					new GradientAlphaKey(1f, 1f),
-				},
-				cKeys: new[]
-				{
-					new GradientColorKey(Color.black,0f),
-					new GradientColorKey(new Color( 0.2f, 0.2f, 0.5f), 0.4f ),
-					new GradientColorKey(new Color( 0.5f, 0.5f, 0.8f ), 0.95f ),
-					new GradientColorKey(Color.white,1f),
-				}
-			);
+            shockRamp = TexturesCore.GenerateRampTextureBatch
+            (
+                aKeys: new[]
+                {
+                    new GradientAlphaKey(0f, 0f),
+                    new GradientAlphaKey(1f, 1f),
+                },
+                cKeys: new[]
+                {
+                    new GradientColorKey(Color.black,0f),
+                    new GradientColorKey(new Color( 0.2f, 0.2f, 0.65f), 0.4f ),
+                    new GradientColorKey(new Color( 0.3f, 0.5f, 1f ), 0.95f ),
+                    new GradientColorKey(new(0.7f, 0.8f, 1f),1f),
+                }
+            );
 
-			JobHandle.ScheduleBatchedJobs();
+            shockOverlayRampJob = TexturesCore.GenerateRampTextureBatch
+            (
+                aKeys: new[]
+                {
+                    new GradientAlphaKey(0f, 0f),
+                    new GradientAlphaKey(0f, 0.19f),
+                    new GradientAlphaKey(1f, 0.5f),
+                    new GradientAlphaKey(1f, 1f),
+                },
+                cKeys: new[]
+                {
+                    new GradientColorKey(Color.black,0f),
+                    new GradientColorKey(new(0f, 0f, 0.3f), 0.4f ),
+                    new GradientColorKey(new(0.4f, 0.6f, 1f), 0.6f),
+                    new GradientColorKey(new(0f, 0f, 0.3f), 0.95f),
+                    new GradientColorKey(Color.black, 1f),
+                }
+            );
+
+            sporeRamp = TexturesCore.GenerateRampTextureBatch
+            (
+                aKeys: new[]
+                {
+                    new GradientAlphaKey(0f, 0f),
+                    new GradientAlphaKey(0f, 0.2f),
+                    new GradientAlphaKey(1f, 1f),
+                },
+                cKeys: new[]
+                {
+                    new GradientColorKey(Color.black,0f),
+                    new GradientColorKey(new Color( 0.4f, 0.5f, 0.3f), 0.4f ),
+                    new GradientColorKey(new Color( 0.8f, 1f, 0.6f ), 0.95f ),
+                    new GradientColorKey(Color.white,1f),
+                }
+            );
+
+            
+
+            //JobHandle.ScheduleBatchedJobs();
 		}
 		private static ITextureJob standardRamp;
 		private static ITextureJob explosiveRamp;
 		private static ITextureJob scatterRamp;
 		private static ITextureJob plasmaRamp;
 		private static ITextureJob shockRamp;
+        private static ITextureJob shockOverlayRampJob;
+        private static ITextureJob sporeRamp;
 
 		internal static Texture2D GetStandardAmmoRamp()
 		{
@@ -167,6 +208,29 @@
 			return shockAmmoRamp;
 		}
 		private static Texture2D shockAmmoRamp;
+
+        internal static Texture2D GetSporeAmmoRamp()
+        {
+            if(sporeAmmoRamp == null)
+            {
+                sporeAmmoRamp = sporeRamp.OutputTextureAndDispose();
+                sporeRamp = null;
+            }
+
+            return sporeAmmoRamp;
+        }
+        private static Texture2D sporeAmmoRamp;
+
+        private static Texture2D shockOverlayRamp;
+        internal static Texture2D GetShockOverlayRamp()
+        {
+            if(shockOverlayRamp == null)
+            {
+                shockOverlayRamp = shockOverlayRampJob.OutputTextureAndDispose();
+                shockOverlayRampJob = null;
+            }
+            return shockOverlayRamp;
+        }
 
 		internal static Texture2D GetCrosshairTexture()
 		{

@@ -9,8 +9,8 @@
   <PropertyGroup>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
-    <AssemblyVersion>1.3.0.186</AssemblyVersion>
-    <FileVersion>1.3.0.186</FileVersion>
+    <AssemblyVersion>1.5.0.16</AssemblyVersion>
+    <FileVersion>1.5.0.16</FileVersion>
     <RootNamespace>Rein.Sniper</RootNamespace>
     <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
   </PropertyGroup>
@@ -488,6 +488,10 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="DFields\" />
   </ItemGroup>
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">

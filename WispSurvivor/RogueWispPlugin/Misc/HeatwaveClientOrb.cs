@@ -134,9 +134,9 @@ namespace Rein.RogueWispPlugin
                 var box = col.GetComponent<HurtBox>();
                 if( box == null ) return;
                 var hc = box.healthComponent;
-                if( hc == null || this.mask.Contains( hc ) ) return;
+                if( hc == null || (this.mask?.Contains( hc ) ?? true) ) return;
                 if( !FriendlyFireManager.ShouldDirectHitProceed( hc, this.team ) ) return;
-                if( hc == this.attackerBody.healthComponent ) return;
+                if( this.attackerBody && this.attackerBody.healthComponent && hc == this.attackerBody.healthComponent ) return;
 
                 var dist = (col.ClosestPoint(this.startPos) - this.startPos).magnitude;
                 if( !this.bestHits.ContainsKey( hc ) || dist < this.bestHits[hc].distance )

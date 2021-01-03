@@ -101,7 +101,8 @@
                 bullet.damageType = this.damageType;
                 bullet.falloffModel = this.bulletFalloff;
 
-                bullet.damage = body.damage * state.damageMultiplier * this.baseDamageMultiplier;
+                
+                bullet.damage = body.damage * (bullet.baseStateMult = state.damageMultiplier) * (bullet.baseAmmoMult = this.baseDamageMultiplier);
                 bullet.force = state.forceMultiplier * this.baseForceMultiplier;
             }
             public virtual void FixedUpdate<T>(SnipeState<T> state) where T : struct, ISniperPrimaryDataProvider

@@ -11,6 +11,7 @@ namespace Rein.Sniper.UI.Components
 
     using UnityEngine;
     using UnityEngine.UI;
+    using Rein.Sniper.Modules;
 
     public class ReloadIndicatorController : MonoBehaviour
     {
@@ -47,6 +48,22 @@ namespace Rein.Sniper.UI.Components
 
         private void Awake()
         {
+            this.emptyColor.a = ConfigModule.emptyAlpha;
+            this.badColor.a = ConfigModule.badAlpha;
+            this.goodColor.a = ConfigModule.goodAlpha;
+            this.perfectColor.a = ConfigModule.perfectAlpha;
+
+            var rTrans = this.transform as RectTransform;
+            var scale = rTrans.localScale;
+            scale.x = scale.y = ConfigModule.reloadIndScale;
+            rTrans.localScale = scale;
+
+            var pos = rTrans.localPosition;
+            pos.x = ConfigModule.reloadIndXOffset;
+            pos.y = ConfigModule.reloadIndYOffset;
+            rTrans.localPosition = pos;
+
+
             this.indicators = ListPool<Image>.item;
         }
 

@@ -232,6 +232,15 @@ namespace Rein.Sniper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Assets/__EXPORT/Icons/Other/Shock Debuff.png.
+        /// </summary>
+        internal static string icon__ShockDebuffIcon {
+            get {
+                return ResourceManager.GetString("icon__ShockDebuffIcon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
         internal static string icon__SlideIcon {
@@ -273,6 +282,15 @@ namespace Rein.Sniper.Properties {
         internal static string icon__SnipeMagReload {
             get {
                 return ResourceManager.GetString("icon__SnipeMagReload", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Assets/__EXPORT/Icons/Passive 1/Spore Ammo.png.
+        /// </summary>
+        internal static string icon__SporeAmmoIcon {
+            get {
+                return ResourceManager.GetString("icon__SporeAmmoIcon", resourceCulture);
             }
         }
         
@@ -349,7 +367,7 @@ namespace Rein.Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Chains to enemies near your target.
+        ///   Looks up a localized string similar to Deals &lt;style=cIsDamage&gt;0.2x primary damage&lt;/style&gt;. &lt;style=cIsUtility&gt;Charges&lt;/style&gt; and consumes &lt;style=cIsUtility&gt;Charge&lt;/style&gt; on hit.\n&lt;&gt; &lt;style=cIsDamage&gt;Damage &lt;indent=40%&gt;+0.2x&lt;/style&gt; per &lt;style=cIsUtility&gt;Boost&lt;/style&gt;&lt;/indent&gt;\n&lt;&gt; &lt;style=cIsDamage&gt;Stacks Applied&lt;indent=40%&gt;+3&lt;/style&gt; per &lt;style=cIsUtility&gt;Boost&lt;/style&gt;&lt;/indent&gt;\n&lt;&gt; &lt;style=cIsDamage&gt;Stacks Consumed&lt;indent=40%&gt;+3&lt;/style&gt; per &lt;style=cIsUtility&gt;Boost&lt;/style&gt;&lt;/indent&gt;.
         /// </summary>
         internal static string lang__SNIPER_AMMO_SHOCK_DESC {
             get {
@@ -363,6 +381,24 @@ namespace Rein.Sniper.Properties {
         internal static string lang__SNIPER_AMMO_SHOCK_NAME {
             get {
                 return ResourceManager.GetString("lang__SNIPER_AMMO_SHOCK_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Explodes into a spore cloud on hit. The spore cloud expands over time. Enemies inside the cloud take damage, allies inside the cloud are healed..
+        /// </summary>
+        internal static string lang__SNIPER_AMMO_SPORE_DESC {
+            get {
+                return ResourceManager.GetString("lang__SNIPER_AMMO_SPORE_DESC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Spore.
+        /// </summary>
+        internal static string lang__SNIPER_AMMO_SPORE_NAME {
+            get {
+                return ResourceManager.GetString("lang__SNIPER_AMMO_SPORE_NAME", resourceCulture);
             }
         }
         
@@ -410,6 +446,15 @@ namespace Rein.Sniper.Properties {
         internal static string lang__SNIPER_KEYWORD_BOOST {
             get {
                 return ResourceManager.GetString("lang__SNIPER_KEYWORD_BOOST", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;style=cKeywordName&gt;Charged&lt;/style&gt;&lt;style=cSub&gt;When consumed, deals additional damage and shocks up to 1 enemy per stack consumed. Bounces can inflict and consume Charged&lt;/style&gt;.
+        /// </summary>
+        internal static string lang__SNIPER_KEYWORD_CHARGED {
+            get {
+                return ResourceManager.GetString("lang__SNIPER_KEYWORD_CHARGED", resourceCulture);
             }
         }
         
@@ -495,47 +540,11 @@ namespace Rein.Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to And so they left, sound still ringing in deaf ears..
+        ///   Looks up a localized string similar to ...And so they left, sound still ringing in deaf ears..
         /// </summary>
         internal static string lang__SNIPER_OUTRO_FLAVOR {
             get {
                 return ResourceManager.GetString("lang__SNIPER_OUTRO_FLAVOR", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string lang__SNIPER_PRIMARY_DASH_DESC {
-            get {
-                return ResourceManager.GetString("lang__SNIPER_PRIMARY_DASH_DESC", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string lang__SNIPER_PRIMARY_DASH_NAME {
-            get {
-                return ResourceManager.GetString("lang__SNIPER_PRIMARY_DASH_NAME", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string lang__SNIPER_PRIMARY_DASH_RELOAD_DESC {
-            get {
-                return ResourceManager.GetString("lang__SNIPER_PRIMARY_DASH_RELOAD_DESC", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string lang__SNIPER_PRIMARY_DASH_RELOAD_NAME {
-            get {
-                return ResourceManager.GetString("lang__SNIPER_PRIMARY_DASH_RELOAD_NAME", resourceCulture);
             }
         }
         
@@ -558,7 +567,7 @@ namespace Rein.Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Why are you reading this??? Shouldn&apos;t you be playing the game?.
         /// </summary>
         internal static string lang__SNIPER_PRIMARY_MAG_RELOAD_DESC {
             get {
@@ -567,7 +576,7 @@ namespace Rein.Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Reload.
         /// </summary>
         internal static string lang__SNIPER_PRIMARY_MAG_RELOAD_NAME {
             get {
