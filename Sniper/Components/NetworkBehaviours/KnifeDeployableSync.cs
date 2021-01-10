@@ -8,6 +8,7 @@
     using Rein.Sniper.SkillDefTypes.Bases;
     using UnityEngine;
     using UnityEngine.Networking;
+    using Rein.Sniper.Modules;
 
     internal class KnifeDeployableSync : NetworkBehaviour, IRuntimePrefabComponent
     {
@@ -23,6 +24,8 @@
         private void Awake()
         {
             this.projectileStick.stickEvent.AddListener( this.OnStick );
+            this.buffApplier.buffIndex = CatalogModule.resetDebuff;
+            this.projDamage.damageType = CatalogModule.sniperResetDamageType;
         }
 
         private void OnStick()
@@ -137,6 +140,10 @@
         private ProjectileStickOnImpact projectileStick;
         [SerializeField]
         private Collider hitCollider;
+        [SerializeField]
+        private ProjectileInflictTimedBuff buffApplier;
+        [SerializeField]
+        private ProjectileDamage projDamage;
         //[SerializeField]
         //private GameObject ownerDetection;
         [SerializeField]
@@ -164,6 +171,18 @@
             if( this.rb is null )
             {
                 throw new MissingComponentException( nameof( this.rb ) );
+            }
+
+            this.buffApplier = base.GetComponent<ProjectileInflictTimedBuff>();
+            if(this.buffApplier is null)
+            {
+                throw new MissingComponentException(nameof(this.buffApplier));
+            }
+
+            this.projDamage = base.GetComponent<ProjectileDamage>();
+            if(this.projDamage is null)
+            {
+                throw new MissingComponentException(nameof(this.projDamage));
             }
 
             //var obj = new GameObject( "OwnerDetection" ).transform;

@@ -29,14 +29,14 @@
                 {
                     attacker = bullet.owner,
                     attackerFiltering = AttackerFiltering.Default,
-                    baseDamage = bullet.damage * 3.5f,
+                    baseDamage = bullet.damage * 3f,
                     baseForce = 1f,
                     bonusForce = Vector3.zero,
                     crit = bullet.isCrit,
                     damageColorIndex = DamageColorIndex.Default,
                     damageType = bullet.damageType,
-                    falloffModel = BlastAttack.FalloffModel.None,
-                    impactEffect = EffectIndex.Invalid, // FUTURE: Explosive Ammo Impact Effect
+                    falloffModel = BlastAttack.FalloffModel.SweetSpot,
+                    impactEffect = EffectIndex.Invalid,
                     inflictor = null,
                     losType = BlastAttack.LoSType.None,
                     position = hit.point,

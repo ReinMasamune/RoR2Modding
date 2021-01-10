@@ -18,6 +18,8 @@
 
     internal partial class Main
     {
+        private const Single gestureBaseCD = 0.95f;
+        private const Single gestureStackCD = 0.95f;
         //private static ConfigEntry<Boolean> gestureBreakEnabled;
 
         private static readonly HashSet<EquipmentIndex> gestureBlacklist = new HashSet<EquipmentIndex>();
@@ -28,7 +30,6 @@
         {
             //gestureBreakEnabled = base.Config.Bind<Boolean>( "Temporary:", "Gesture break enabled", true, "This is a temporary option until I have time to set up a more consistent change for gesture. This option will not be staying once that is done" );
             _ = gestureBlacklist.Add(EquipmentIndex.GoldGat);
-            _ = gestureBlacklist.Add(EquipmentIndex.CrippleWard);
             _ = gestureBlacklist.Add(EquipmentIndex.QuestVolatileBattery);
             //_ = gestureBlacklist.Add( EquipmentIndex.Enigma );
 
@@ -102,11 +103,11 @@
 
         private void CalculateEquipmentCooldownScale_Il(ILContext il) => new ILCursor(il)
             .GotoNext(MoveType.AfterLabel,
-                x => x.MatchLdarg(0),
-                x => x.MatchLdcI4((Int32)ItemIndex.AutoCastEquipment),
-                x => x.MatchCallOrCallvirt(out _)
-            ).RemoveRange(3)
-            .LdC_(0);
+                x => x.MatchLdcR4(out _),
+                x => x.MatchLdcR4(out _)
+            ).RemoveRange(2)
+            .LdC_(gestureBaseCD)
+            .LdC_(gestureStackCD);
 
         private static Int32 ModGestureCount(Int32 count, EquipmentIndex currentEquipment) => gestureBlacklist.Contains(currentEquipment) ? 0 : count;
     }

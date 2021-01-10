@@ -1247,6 +1247,23 @@ public static event Hook On
                         remove => HookEndpointManager.Remove<Hook>( method, value );
                     }
                 }
+
+                public struct OnTeamLevelUp
+                {
+                    private static readonly MethodBase method = HookHelpers.GetBase( typeof(OnTeamLevelUp) );
+                    public delegate void Orig(global::RoR2.TeamIndex team);
+                    public delegate void Hook(Orig orig, global::RoR2.TeamIndex team);
+                    public static event ILContext.Manipulator Il
+                    {
+                        add => HookEndpointManager.Modify<Hook>( method, value );
+                        remove => HookEndpointManager.Unmodify<Hook>( method, value );
+                    }
+                    public static event Hook On
+                    {
+                        add => HookEndpointManager.Add<Hook>( method, value );
+                        remove => HookEndpointManager.Remove<Hook>( method, value );
+                    }
+                }
             }
 
             public static class HealthComponent
@@ -1723,7 +1740,6 @@ public static event Hook On
                         remove => HookEndpointManager.Remove<Hook>( method, value );
                     }
                 }
-
                 public struct GiveTeamExperience
                 {
                     private static readonly MethodBase method = HookHelpers.GetBase( typeof(GiveTeamExperience) );

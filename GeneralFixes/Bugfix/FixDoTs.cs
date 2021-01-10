@@ -95,7 +95,6 @@
             {
                 ApplyBlight(damage, attacker, victim);
             }
-
         }
         private static void Blight_DamageType(DamageInfo damage, CharacterBody attacker, Inventory inv, CharacterBody victim)
         {
@@ -106,7 +105,7 @@
         }
         private static void ApplyBlight(DamageInfo damage, CharacterBody attacker, CharacterBody victim, Int32 stacks = 1)
         {
-            var duration = damage.procCoefficient * 4f;
+            var duration = damage.procCoefficient * 2f;
             var controller = DotController.FindDotController(victim.gameObject);
             if(controller is not null)
             {
@@ -117,7 +116,7 @@
             }
             for(Int32 i = 0; i < stacks; ++i)
             {
-                DotController.InflictDot(victim.gameObject, attacker.gameObject, DotController.DotIndex.Blight, duration, 0.5f);
+                DotController.InflictDot(victim.gameObject, attacker.gameObject, DotController.DotIndex.Blight, duration, 0.33f);
             }
         }
 

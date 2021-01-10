@@ -102,6 +102,7 @@
             plasmaAmmo.keywordTokens = new[]
             {
                 Tokens.SNIPER_KEYWORD_PRIMARYDMG,
+                Tokens.SNIPER_KEYWORD_BOOST,
             };
             skills.Add((plasmaAmmo, ""));
 
@@ -115,6 +116,7 @@
             {
                 Tokens.SNIPER_KEYWORD_PRIMARYDMG,
                 Tokens.SNIPER_KEYWORD_CHARGED,
+                Tokens.SNIPER_KEYWORD_BOOST,
             };
             skills.Add((shockAmmo, ""));
 
@@ -127,14 +129,10 @@
             sporeAmmo.keywordTokens = new[]
             {
                 Tokens.SNIPER_KEYWORD_PRIMARYDMG,
+                Tokens.SNIPER_KEYWORD_BOOST,
+                Tokens.SNIPER_KEYWORD_SPORECLOUD,
             };
             skills.Add((sporeAmmo, ""));
-
-
-            //skills.Add(wip);
-            //skills.Add(wip);
-            //skills.Add(wip);
-
             SkillFamiliesModule.ammoSkills = skills;
         }
 
@@ -281,10 +279,17 @@
         {
             var skills = new List<(SkillDef,String)>();
 
-            var charge = SniperScopeSkillDef.Create<DefaultScope>( new ZoomParams(shoulderStart: 1f, shoulderEnd: 5f,
-                                                                                                             scopeStart: 3f, scopeEnd: 8f,
-                                                                                                             shoulderFrac: 0.25f, defaultZoom: 0f,
-                                                                                                             inputScale: 0.03f, baseFoV: 60f) );
+            var charge = SniperScopeSkillDef.Create<DefaultScope>(
+            new(
+                shoulderStart: 1f, 
+                shoulderEnd: 5f,
+                scopeStart: 3f, 
+                scopeEnd: 8f,
+                shoulderFrac: 0.25f,
+                defaultZoom: 0f,
+                inputScale: 0.03f,
+                baseFoV: 60f
+            ));
             charge.baseMaxStock = 1;
             charge.baseRechargeInterval = 10f;
             charge.icon = Properties.Icons.SteadyAimIcon;
@@ -424,7 +429,7 @@
             knife.interruptPriority = InterruptPriority.PrioritySkill;
             knife.isCombatSkill = true;
             knife.maxReactivationTimer = 8f;
-            knife.minReactivationTimer = 0.2f;
+            knife.minReactivationTimer = 0.3f;
             knife.noSprint = true;
             knife.reactivationIcon = Properties.Icons.KnifeReactivateIcon;
             knife.reactivationInterruptPriority = InterruptPriority.PrioritySkill;

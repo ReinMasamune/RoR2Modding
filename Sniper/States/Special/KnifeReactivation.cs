@@ -16,7 +16,7 @@
         private const Single baseDuration = 0.275f * 7f;
 		private const Single baseMovespeedMult = 2f;
 		private const Single maxDurationMult = 5f;
-		private const Single slashMaxDistance = 10f;
+		private const Single slashMaxDistance = 20f;
 		private const Single endSpeedCarryover = 10f;
         private const Single distanceJumpCancelThreshold = 2f;
         private static GameObject blinkStartEffect = VFXModule.GetKnifeBlinkPrefab();

@@ -151,7 +151,7 @@
             body.spreadBloomCurve = new AnimationCurve();
             body.crosshairPrefab = null;
             body.hideCrosshair = false;
-            body.aimOriginTransform = null;
+            body.aimOriginTransform = body.transform;
             body.hullClassification = HullClassification.Human;
             body.portraitIcon = UIModule.GetPortraitIcon();
             body.isChampion = false;

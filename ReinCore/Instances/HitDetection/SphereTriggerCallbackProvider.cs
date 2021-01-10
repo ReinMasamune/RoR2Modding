@@ -18,10 +18,21 @@
     public class SphereTriggerCallbackProvider<TCb>
         where TCb : struct, ITriggerCallbacks<TCb>
     {
-        private static unsafe readonly Int32 headerInNints = 16 / sizeof(nint);
+        private static readonly Int32 maxHits = new TCb().maxHits;
+        private struct SizeDef : IArraySizeDef
+        {
+            public UInt32 size => (UInt32)maxHits;
+        }
+
+
+        //private static unsafe readonly Int32 headerInNints = 16 / sizeof(nint);
         public TCb cb;
 
-        private Collider[] cols;
+        private Collider[] cols
+        {
+            get => ArrayPool<Collider, SizeDef>.item;
+            set => ArrayPool<Collider, SizeDef>.item = value;
+        }
         
 
         public void Start()
@@ -29,12 +40,14 @@
             RoR2Application.onFixedUpdate += this.RoR2Application_onFixedUpdate;
             RoR2.Stage.onServerStageComplete += this.StageEnd;
             this.intervalTimer = 0f;
-            this.cols = new Collider[this.cb.maxHits];
+            //this.cols = new Collider[this.cb.maxHits];
         }
         public void Stop()
         {
             RoR2Application.onFixedUpdate -= this.RoR2Application_onFixedUpdate;
             RoR2.Stage.onServerStageComplete -= this.StageEnd;
+
+            this.cb.OnFinish();
         }
         public void StageEnd(Stage _)
         {
@@ -74,11 +87,13 @@
             //    ptr[1] = (nint)ctr;
             //    cols = Unsafe.Read<Collider[]>(ptr);
             //}
-            var c = Physics.OverlapSphereNonAlloc(this.cb.position, this.cb.radius, cols, this.cb.layerMask, this.cb.queryTriggerInteraction);
+            var colBuf = cols;
+            var c = Physics.OverlapSphereNonAlloc(this.cb.position, this.cb.radius, colBuf, this.cb.layerMask, this.cb.queryTriggerInteraction);
             for(Int32 i = 0; i < c; ++i)
             {
-                this.cb.OnColliderInSphere(cols[i]);
+                this.cb.OnColliderInSphere(colBuf[i]);
             }
+            cols = colBuf;
         }
 
 
@@ -100,5 +115,6 @@
         void OnColliderInSphere(Collider col);
         void PreSphereCheck();
         void PassTime(Single delta);
+        void OnFinish();
     }
 }

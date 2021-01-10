@@ -331,7 +331,7 @@ namespace Rein.Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Deals &lt;style=cIsDamage&gt;0.2x primary damage.&lt;/style&gt; &lt;style=cIsDamage&gt;Explodes (8m)&lt;/style&gt; for an additional &lt;style=cIsDamage&gt;0.7x primary damage.&lt;/style&gt;\n&lt;&gt; &lt;style=cIsDamage&gt;Damage &lt;indent=40%&gt;+0.16x&lt;/style&gt; per &lt;style=cIsUtility&gt;Boost&lt;/style&gt;&lt;/indent&gt;\n&lt;&gt; &lt;style=cIsDamage&gt;Explosion Damage&lt;indent=40%&gt;+0.56x&lt;/style&gt; per &lt;style=cIsUtility&gt;Boost&lt;/style&gt;&lt;/indent&gt;\n&lt;&gt; &lt;style=cIsDamage&gt;Explosion radius &lt;indent=40%&gt;+8m&lt;/style&gt; per &lt;style=cIsUtility&gt;Boost&lt;/style&gt;&lt;/indent&gt;.
+        ///   Looks up a localized string similar to Deals &lt;style=cIsDamage&gt;0.2x primary damage.&lt;/style&gt; &lt;style=cIsDamage&gt;Explodes (8m)&lt;/style&gt; for an additional &lt;style=cIsDamage&gt;0.6x primary damage.&lt;/style&gt;\n&lt;&gt; &lt;style=cIsDamage&gt;Damage &lt;indent=40%&gt;+0.16x&lt;/style&gt; per &lt;style=cIsUtility&gt;Boost&lt;/style&gt;&lt;/indent&gt;\n&lt;&gt; &lt;style=cIsDamage&gt;Explosion Damage&lt;indent=40%&gt;+0.48x&lt;/style&gt; per &lt;style=cIsUtility&gt;Boost&lt;/style&gt;&lt;/indent&gt;\n&lt;&gt; &lt;style=cIsDamage&gt;Explosion radius &lt;indent=40%&gt;+8m&lt;/style&gt; per &lt;style=cIsUtility&gt;Boost&lt;/style&gt;&lt;/indent&gt;.
         /// </summary>
         internal static string lang__SNIPER_AMMO_EXPLOSIVE_DESC {
             get {
@@ -385,7 +385,7 @@ namespace Rein.Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Explodes into a spore cloud on hit. The spore cloud expands over time. Enemies inside the cloud take damage, allies inside the cloud are healed..
+        ///   Looks up a localized string similar to Deals &lt;style=cIsDamage&gt;0.2x primary damage.&lt;/style&gt; Creates a &lt;style=cIsHealing&gt;Spore Cloud(3m)&lt;/style&gt; for 10s. Expands to 10m over 6s.\n&lt;&gt; &lt;style=cIsDamage&gt;Damage &lt;indent=40%&gt;+0.35x&lt;/style&gt; per &lt;style=cIsUtility&gt;sqrt(Boost)&lt;/style&gt;&lt;/indent&gt;\n&lt;&gt; &lt;style=cIsUtility&gt;Cloud duration&lt;indent=40%&gt;+10s&lt;/style&gt; per &lt;style=cIsUtility&gt;sqrt(Boost)&lt;/style&gt;&lt;/indent&gt;\n&lt;&gt; &lt;style=cIsUtility&gt;Cloud radius&lt;indent=40%&gt;+10m&lt;/style&gt; per &lt;style=cIsUtility&gt;sqrt(Boost)&lt;/style&gt;&lt;/indent&gt;.
         /// </summary>
         internal static string lang__SNIPER_AMMO_SPORE_DESC {
             get {
@@ -527,6 +527,15 @@ namespace Rein.Sniper.Properties {
         internal static string lang__SNIPER_KEYWORD_SCOPED {
             get {
                 return ResourceManager.GetString("lang__SNIPER_KEYWORD_SCOPED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;style=cKeywordName&gt;Spore Cloud&lt;/style&gt;&lt;style=cSub&gt;Damages and &lt;style=cIsUtility&gt;Slows&lt;/style&gt; enemies for &lt;style=cIsDamage&gt;0.5x hit damage&lt;/style&gt; per second. \n&lt;style=cIsUtility&gt;Heals allies&lt;/style&gt; for &lt;style=cIsHealing&gt;0.15% max health (multiplied by primary and reload)&lt;/style&gt; per second&lt;/style&gt;.
+        /// </summary>
+        internal static string lang__SNIPER_KEYWORD_SPORECLOUD {
+            get {
+                return ResourceManager.GetString("lang__SNIPER_KEYWORD_SPORECLOUD", resourceCulture);
             }
         }
         
@@ -747,7 +756,7 @@ namespace Rein.Sniper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Throw a knife for &lt;style=cIsDamage&gt;100%&lt;/style&gt; damage. &lt;style=cIsUtility&gt;Reactivate&lt;/style&gt; to teleport to the knife, dealing &lt;style=cIsDamage&gt;200%&lt;/style&gt; damage and &lt;style=cIsUtility&gt;marking&lt;/style&gt; nearby enemies. Killing a &lt;style=cIsUtility&gt;marked&lt;/style&gt; enemy &lt;style=cIsUtility&gt;reloads and resets cooldowns.&lt;/style&gt;.
+        ///   Looks up a localized string similar to Throw a knife for &lt;style=cIsDamage&gt;100%&lt;/style&gt; damage. &lt;style=cIsUtility&gt;Reactivate&lt;/style&gt; to teleport to the knife, dealing &lt;style=cIsDamage&gt;100%&lt;/style&gt; damage and &lt;style=cIsUtility&gt;marking&lt;/style&gt; nearby enemies. Killing a &lt;style=cIsUtility&gt;marked&lt;/style&gt; enemy &lt;style=cIsUtility&gt;reloads and resets cooldowns.&lt;/style&gt;.
         /// </summary>
         internal static string lang__SNIPER_SPECIAL_KNIFE_DESC {
             get {

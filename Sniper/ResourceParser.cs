@@ -44,6 +44,7 @@
         internal const String SNIPER_KEYWORD_RELOADS = "SNIPER_KEYWORD_RELOADS";
         internal const String SNIPER_KEYWORD_RICOCHET = "SNIPER_KEYWORD_RICOCHET";
         internal const String SNIPER_KEYWORD_SCOPED = "SNIPER_KEYWORD_SCOPED";
+        internal const String SNIPER_KEYWORD_SPORECLOUD = "SNIPER_KEYWORD_SPORECLOUD";
         internal const String SNIPER_NAME = "SNIPER_NAME";
         internal const String SNIPER_OUTRO_FLAVOR = "SNIPER_OUTRO_FLAVOR";
         internal const String SNIPER_PRIMARY_MAG_DESC = "SNIPER_PRIMARY_MAG_DESC";

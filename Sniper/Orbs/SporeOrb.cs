@@ -45,8 +45,8 @@
 
         private Single damageMult;
         // TODO: Pool these--
-        private HashSet<HealthComponent> currentlyInside = new();
-        private Dictionary<HealthComponent, Single> timers = new(); 
+        private HashSet<HealthComponent> currentlyInside;
+        private Dictionary<HealthComponent, Single> timers; 
         
 
         public void Deserialize(NetworkReader reader)
@@ -75,6 +75,9 @@
 
         public unsafe override void Begin()
         {
+            this.currentlyInside = HashSetPool<HealthComponent>.item;
+            this.timers = DictionaryPool<HealthComponent, Single>.item;
+
             Single* ptr = stackalloc Single[1];
             var trigger = new SphereTriggerCallbackProvider<Callbacks>();
             var data = new EffectData();
@@ -94,6 +97,15 @@
             }
             EffectManager.SpawnEffect(orbEffect, data, true);
             base.Begin();
+        }
+
+        private void ReleasePooled()
+        {
+            HashSetPool<HealthComponent>.item = this.currentlyInside;
+            DictionaryPool<HealthComponent, Single>.item = this.timers;
+
+            this.currentlyInside = null;
+            this.timers = null;
         }
 
         private struct Callbacks : ITriggerCallbacks<Callbacks>
@@ -138,11 +150,11 @@
                             {
                                 var ogch = v.body.critHeal;
                                 v.body.critHeal = 100f;
-                                v.body.healthComponent.Heal(tickInterval * v.body.healthComponent.fullCombinedHealth * SporeContext.healPercentBase * this.orb.damageMult, default);
+                                v.body.healthComponent.Heal(tickInterval * v.body.healthComponent.fullCombinedHealth * SporeContext.healPercentBase * this.orb.damageMult / 100f, default);
                                 v.body.critHeal = ogch;
                             } else
                             {
-                                v.body.healthComponent.Heal(tickInterval * v.body.healthComponent.fullCombinedHealth * SporeContext.healPercentBase * this.orb.damageMult, default);
+                                v.body.healthComponent.Heal(tickInterval * v.body.healthComponent.fullCombinedHealth * SporeContext.healPercentBase * this.orb.damageMult / 100f, default);
                             }
                         } else
                         {
@@ -182,6 +194,11 @@
                 if(hb.healthComponent is not HealthComponent hc || !hc) return;
                 if(hc.body.teamComponent.teamIndex != this.orb.attackerTeam && !FriendlyFireManager.ShouldSplashHitProceed(hc, this.orb.attackerTeam)) return;
                 this.orb.currentlyInside.Add(hc);
+            }
+
+            public void OnFinish()
+            {
+                this.orb.ReleasePooled();
             }
         }
 

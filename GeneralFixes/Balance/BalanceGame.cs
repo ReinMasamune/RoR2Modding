@@ -45,13 +45,19 @@
         {
             HooksCore.RoR2.TeamManager.InitialCalcExperience.On += this.InitialCalcExperience_On;
             HooksCore.RoR2.TeamManager.GiveTeamExperience.On += this.GiveTeamExperience_On;
+            HooksCore.RoR2.GlobalEventManager.OnTeamLevelUp.On += this.OnTeamLevelUp_On;
 
             typeof(TeamManager).TypeInitializer.Invoke(null, null);
         }
+
+
+
         private void Main_Disable3()
         {
             HooksCore.RoR2.TeamManager.InitialCalcExperience.On -= this.InitialCalcExperience_On;
             HooksCore.RoR2.TeamManager.GiveTeamExperience.On -= this.GiveTeamExperience_On;
+
+            HooksCore.RoR2.GlobalEventManager.OnTeamLevelUp.On += this.OnTeamLevelUp_On;
         }
 
 
@@ -66,6 +72,12 @@
         {
             //Main.LogM(level);
             return NewXpFn(level);
+        }
+
+        private void OnTeamLevelUp_On(HooksCore.RoR2.GlobalEventManager.OnTeamLevelUp.Orig orig, TeamIndex team)
+        {
+            try { orig(team); } catch(Exception ex) { Main.LogE($"Caught exception in GlobalEventManager.OnTeamLevelUp, Exception: {ex}"); }
+            Main.LogM($"Team {team} level is now {TeamManager.instance.GetTeamLevel(team)}");
         }
     }
 }

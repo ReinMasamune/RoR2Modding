@@ -208,7 +208,7 @@
     <value>Burst</value>
   </data>
   <data name="lang__SNIPER_AMMO_EXPLOSIVE_DESC" xml:space="preserve">
-    <value>Deals &lt;style=cIsDamage&gt;0.2x primary damage.&lt;/style&gt; &lt;style=cIsDamage&gt;Explodes (8m)&lt;/style&gt; for an additional &lt;style=cIsDamage&gt;0.7x primary damage.&lt;/style&gt;\n&lt;&gt; &lt;style=cIsDamage&gt;Damage &lt;indent=40%&gt;+0.16x&lt;/style&gt; per &lt;style=cIsUtility&gt;Boost&lt;/style&gt;&lt;/indent&gt;\n&lt;&gt; &lt;style=cIsDamage&gt;Explosion Damage&lt;indent=40%&gt;+0.56x&lt;/style&gt; per &lt;style=cIsUtility&gt;Boost&lt;/style&gt;&lt;/indent&gt;\n&lt;&gt; &lt;style=cIsDamage&gt;Explosion radius &lt;indent=40%&gt;+8m&lt;/style&gt; per &lt;style=cIsUtility&gt;Boost&lt;/style&gt;&lt;/indent&gt;</value>
+    <value>Deals &lt;style=cIsDamage&gt;0.2x primary damage.&lt;/style&gt; &lt;style=cIsDamage&gt;Explodes (8m)&lt;/style&gt; for an additional &lt;style=cIsDamage&gt;0.6x primary damage.&lt;/style&gt;\n&lt;&gt; &lt;style=cIsDamage&gt;Damage &lt;indent=40%&gt;+0.16x&lt;/style&gt; per &lt;style=cIsUtility&gt;Boost&lt;/style&gt;&lt;/indent&gt;\n&lt;&gt; &lt;style=cIsDamage&gt;Explosion Damage&lt;indent=40%&gt;+0.48x&lt;/style&gt; per &lt;style=cIsUtility&gt;Boost&lt;/style&gt;&lt;/indent&gt;\n&lt;&gt; &lt;style=cIsDamage&gt;Explosion radius &lt;indent=40%&gt;+8m&lt;/style&gt; per &lt;style=cIsUtility&gt;Boost&lt;/style&gt;&lt;/indent&gt;</value>
   </data>
   <data name="lang__SNIPER_AMMO_EXPLOSIVE_NAME" xml:space="preserve">
     <value>Explosive</value>
@@ -226,7 +226,7 @@
     <value>Shock</value>
   </data>
   <data name="lang__SNIPER_AMMO_SPORE_DESC" xml:space="preserve">
-    <value>Explodes into a spore cloud on hit. The spore cloud expands over time. Enemies inside the cloud take damage, allies inside the cloud are healed.</value>
+    <value>Deals &lt;style=cIsDamage&gt;0.2x primary damage.&lt;/style&gt; Creates a &lt;style=cIsHealing&gt;Spore Cloud(3m)&lt;/style&gt; for 10s. Expands to 10m over 6s.\n&lt;&gt; &lt;style=cIsDamage&gt;Damage &lt;indent=40%&gt;+0.35x&lt;/style&gt; per &lt;style=cIsUtility&gt;sqrt(Boost)&lt;/style&gt;&lt;/indent&gt;\n&lt;&gt; &lt;style=cIsUtility&gt;Cloud duration&lt;indent=40%&gt;+10s&lt;/style&gt; per &lt;style=cIsUtility&gt;sqrt(Boost)&lt;/style&gt;&lt;/indent&gt;\n&lt;&gt; &lt;style=cIsUtility&gt;Cloud radius&lt;indent=40%&gt;+10m&lt;/style&gt; per &lt;style=cIsUtility&gt;sqrt(Boost)&lt;/style&gt;&lt;/indent&gt;</value>
   </data>
   <data name="lang__SNIPER_AMMO_SPORE_NAME" xml:space="preserve">
     <value>Spore</value>
@@ -275,6 +275,9 @@ They excel at taking down bosses and high priority targets but struggle against 
   </data>
   <data name="lang__SNIPER_KEYWORD_SCOPED" xml:space="preserve">
     <value>&lt;style=cKeywordName&gt;Scope&lt;/style&gt;&lt;style=cSub&gt;Enter scope while in use. While zoomed you can use the scroll wheel to control zoom.&lt;/style&gt;</value>
+  </data>
+  <data name="lang__SNIPER_KEYWORD_SPORECLOUD" xml:space="preserve">
+    <value>&lt;style=cKeywordName&gt;Spore Cloud&lt;/style&gt;&lt;style=cSub&gt;Damages and &lt;style=cIsUtility&gt;Slows&lt;/style&gt; enemies for &lt;style=cIsDamage&gt;0.5x hit damage&lt;/style&gt; per second. \n&lt;style=cIsUtility&gt;Heals allies&lt;/style&gt; for &lt;style=cIsHealing&gt;0.15% max health (multiplied by primary and reload)&lt;/style&gt; per second&lt;/style&gt;</value>
   </data>
   <data name="lang__SNIPER_NAME" xml:space="preserve">
     <value>Sniper</value>
@@ -352,7 +355,7 @@ They excel at taking down bosses and high priority targets but struggle against 
     <value>Decoy</value>
   </data>
   <data name="lang__SNIPER_SPECIAL_KNIFE_DESC" xml:space="preserve">
-    <value>Throw a knife for &lt;style=cIsDamage&gt;100%&lt;/style&gt; damage. &lt;style=cIsUtility&gt;Reactivate&lt;/style&gt; to teleport to the knife, dealing &lt;style=cIsDamage&gt;200%&lt;/style&gt; damage and &lt;style=cIsUtility&gt;marking&lt;/style&gt; nearby enemies. Killing a &lt;style=cIsUtility&gt;marked&lt;/style&gt; enemy &lt;style=cIsUtility&gt;reloads and resets cooldowns.&lt;/style&gt;</value>
+    <value>Throw a knife for &lt;style=cIsDamage&gt;100%&lt;/style&gt; damage. &lt;style=cIsUtility&gt;Reactivate&lt;/style&gt; to teleport to the knife, dealing &lt;style=cIsDamage&gt;100%&lt;/style&gt; damage and &lt;style=cIsUtility&gt;marking&lt;/style&gt; nearby enemies. Killing a &lt;style=cIsUtility&gt;marked&lt;/style&gt; enemy &lt;style=cIsUtility&gt;reloads and resets cooldowns.&lt;/style&gt;</value>
   </data>
   <data name="lang__SNIPER_SPECIAL_KNIFE_NAME" xml:space="preserve">
     <value>Blink Knife</value>

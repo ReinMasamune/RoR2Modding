@@ -52,6 +52,7 @@
         partial void BalanceOnKills();
         partial void BalanceCaptain();
         partial void BalanceRazorWire();
+        partial void BalanceShatterspleen();
 
         partial void HappyThings();
 
@@ -91,35 +92,35 @@
 
 
 
-            this.BalanceCommandoCDs();
-            this.BalanceCorpsebloom();
-            this.BalanceOSP();
+            this.BalanceCommandoCDs();//
+            this.BalanceCorpsebloom();//
+            this.BalanceOSP();//
             if(durabilityPresent)
             {
                 LogM("Equipment durability found, deferring to that for gesture changes");
             } else
             {
-                this.BalanceGesture();
+                this.BalanceGesture();//
             }
-            this.BalanceConvergence();
-            this.BalanceWillOWisp();
+            this.BalanceConvergence();//
+            this.BalanceWillOWisp();//
             //this.BalanceEngiTurrets();
-            this.BalanceGame();
-            this.BalanceElites();
-            this.BalanceCaptain();
-            this.BalanceRazorWire();
+            this.BalanceGame();//
+            this.BalanceElites();//
+            this.BalanceCaptain();//
+            this.BalanceRazorWire();//
 
-            this.HappyThings();
+            this.HappyThings(); //
 
-            this.FixBandolier();
-            this.FixSelfDamage();
-            this.FixDoTs();
-            this.FixHuntressFlurry();
+            this.FixBandolier();//
+            this.FixSelfDamage();//
+            this.FixDoTs();//
+            this.FixHuntressFlurry();//
 
-            this.QoLVisionsCrosshair();
-            this.QoLEngiTurretInheritance();
-            this.QoLHuntressTracking();
-            this.QoLEclipse();
+            this.QoLVisionsCrosshair();//
+            this.QoLEngiTurretInheritance();//
+            this.QoLHuntressTracking();//
+            this.QoLEclipse();//
 
             RoR2.RoR2Application.isModded = true;
             this.Tick += () => RoR2.RoR2Application.isModded = true;

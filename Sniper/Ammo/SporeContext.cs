@@ -13,7 +13,7 @@
 
     internal class SporeContext : OnHitContextBase<NoData>
     {
-        internal const Single healPercentBase = 0.0015f;
+        internal const Single healPercentBase = 0.15f;
         internal const Single zoneProcCoef = 0.2f;
         internal const Single zoneDamageMult = 0.1f;
 
@@ -23,7 +23,7 @@
 
         private static readonly GameObject _tracer = VFXModule.GetSporeAmmoTracer();
         public override GameObject tracerEffectPrefab => _tracer;
-        protected override Single baseDamageMultiplier => 0.5f;
+        protected override Single baseDamageMultiplier => 0.2f;
         protected override Single procCoefficient => 1f;
         protected override Single bulletRadius => 0.5f;
         protected override OnBulletDelegate<NoData> onHit => (bullet, hit) =>

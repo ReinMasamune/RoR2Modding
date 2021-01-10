@@ -29,7 +29,7 @@
         private static readonly MethodInfo image_set_sprite = typeof(UnityEngine.UI.Image)?.GetProperty(nameof(UnityEngine.UI.Image.sprite), BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)?.GetSetMethod(true) ?? throw new MissingMemberException("No method set_sprite on image for bufficon");        
         private static void UpdateIcon_Il(ILContext il) => new ILCursor(il)
             .GotoNext(MoveType.AfterLabel, x => x.MatchCallOrCallvirt(image_set_sprite))
-            .LdLoc_(0)Q
+            .LdLoc_(0)
             .CallDel_<Func<Sprite, BuffDef, Sprite>>(EmittedDelegate1);
 
         private static void EmittedAction()

@@ -12,7 +12,7 @@
     internal class KnifePickupSlash : SniperSkillBaseState
     {
         private const Single baseDuration = 0.25f;
-        private const Single damageMult = 2f;
+        private const Single damageMult = 1f;
         private const Single slashRadius = 15f;
 
         private Single duration;

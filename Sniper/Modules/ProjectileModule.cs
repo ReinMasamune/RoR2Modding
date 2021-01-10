@@ -49,7 +49,7 @@
 
             Rigidbody rb = obj.AddOrGetComponent<Rigidbody>();
             rb.mass = 1f;
-            rb.drag = 0.4f;
+            rb.drag = 0.6f;
             rb.angularDrag = 0.05f;
             rb.useGravity = true;
             rb.isKinematic = false;
@@ -98,8 +98,10 @@
             damage.crit = false;
             damage.damage = 0f;
             damage.damageColorIndex = DamageColorIndex.Default;
-            damage.damageType = CatalogModule.sniperResetDamageType;
             damage.force = 0f;
+
+            var debuff = obj.AddOrGetComponent<ProjectileInflictTimedBuff>();
+            debuff.duration = CatalogModule.resetDuration * 2f;
 
             _ = obj.AddOrGetComponent<Deployable>();
 

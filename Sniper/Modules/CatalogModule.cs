@@ -17,6 +17,8 @@
 
     internal static class CatalogModule
     {
+        internal const Single resetDuration = 3f;
+
         internal static void RegisterSurvivor()
         {
             if(!SurvivorsCore.loaded)
@@ -65,7 +67,7 @@
         {
             if(obj?.damageInfo?.damageType is DamageType dt && dt.HasFlag(sniperResetDamageType) && obj.victimBody)
             {
-                obj.victimBody.AddTimedBuff(resetDebuff, 4f);
+                obj.victimBody.AddTimedBuff(resetDebuff, resetDuration);
             }
         }
 
