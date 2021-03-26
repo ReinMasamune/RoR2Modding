@@ -91,9 +91,9 @@
 
         private static Boolean IsSkinValid( Loadout.BodyLoadoutManager.BodyLoadout self )
         {
-            Int32 bInd = self.bodyIndex;// bodyIndex.Get( self );
+            Int32 bInd = (Int32)self.bodyIndex;// bodyIndex.Get( self );
             UInt32 skinPref = self.skinPreference;
-            GameObject body = BodyCatalog.GetBodyPrefab(bInd);
+            GameObject body = BodyCatalog.GetBodyPrefab((BodyIndex)bInd);
             return validSkinOverrides.TryGetValue( body, out ValidSkinOverrideDelegate Override )
                 ? Override( skinPref )
                 : IsSkinValidOrig( self );
@@ -101,9 +101,9 @@
 
         private static Boolean IsSkinLocked( Loadout.BodyLoadoutManager.BodyLoadout self, UserProfile userProfile )
         {
-            Int32 bInd = self.bodyIndex;
+            Int32 bInd = (Int32)self.bodyIndex;
             UInt32 skinPref = self.skinPreference;//.Get( self );
-            GameObject body = BodyCatalog.GetBodyPrefab(bInd);
+            GameObject body = BodyCatalog.GetBodyPrefab((BodyIndex)bInd);
             return lockedSkinOverrides.TryGetValue( body, out LockedSkinOverrideDelegate Override )
                 ? Override( skinPref )
                 : IsSkinLockedOrig( self, userProfile );

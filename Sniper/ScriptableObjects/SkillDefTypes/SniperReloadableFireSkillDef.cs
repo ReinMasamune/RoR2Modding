@@ -108,7 +108,7 @@
         public sealed override EntityState InstantiateNextState(GenericSkill skillSlot)
         {
             var data = skillSlot.skillInstanceData as SniperPrimaryInstanceData;
-            var state = EntityState.Instantiate(data.isReloading ? this.reloadActivationState : base.activationState);
+            var state = EntityStateCatalog.InstantiateState(data.isReloading ? this.reloadActivationState : base.activationState);
             if(state is BaseSkillState skillState)
             {
                 skillState.activatorSkillSlot = skillSlot;
@@ -154,7 +154,7 @@
                 {
                     if(body)
                     {
-                        if(base.noSprint)
+                        if(base.cancelSprintingOnActivation)
                         {
                             body.isSprinting = false;
                         }

@@ -356,10 +356,10 @@
             UInt32 counter = 0u;
             foreach(ItemIndex index in decoyInv.itemAcquisitionOrder)
             {
-                if(!DecoyModule.whitelist.Contains(index))
-                {
-                    indicies[counter++] = index;
-                }
+                //if(!DecoyModule.whitelist.Contains(index))
+                //{
+                //    indicies[counter++] = index;
+                //}
             }
 
             for(Int32 i = 0; i < counter; ++i)

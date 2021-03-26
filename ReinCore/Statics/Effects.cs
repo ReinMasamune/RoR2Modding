@@ -3,6 +3,8 @@
     using System;
     using System.Collections.Generic;
 
+    using MonoMod.Cil;
+
     using RoR2;
 
     using UnityEngine;
@@ -70,29 +72,38 @@
         static EffectsCore()
         {
             //Log.Warning( "EffectsCore loaded" );
-            HooksCore.RoR2.EffectCatalog.GetDefaultEffectDefs.On += GetDefaultEffectDefs_On;
+            //HooksCore.RoR2.EffectCatalog.GetDefaultEffectDefs.On += GetDefaultEffectDefs_On;
+            HooksCore.RoR2.EffectCatalog.Init.Il += Init_Il;
+            HooksCore.RoR2.EffectCatalog.SetEntries.Il += SetEntries_Il;
 
             //Log.Warning( "EffectsCore loaded" );
             loaded = true;
         }
 
-        private static EffectDef[] GetDefaultEffectDefs_On( HooksCore.RoR2.EffectCatalog.GetDefaultEffectDefs.Orig orig )
+        private static void SetEntries_Il(ILContext il)
         {
-            EffectDef[] effects = orig();
-
-            Int32 ind = effects.Length;
-            Int32 newCount = addedEffects.Count;
-            if( newCount > 0 )
+            var c = new ILCursor(il);
+            if(c.TryGotoNext(MoveType.After, x => x.MatchCallOrCallvirt<Array>("Sort")))
             {
-                newCount += ind;
-                Array.Resize<EffectDef>( ref effects, newCount );
-                for( Int32 i = ind; i < newCount; ++i )
-                {
-                    effects[i] = addedEffects[i - ind];
-                }
+                c
+                    .Mark(out var lab)
+                    .Move(-11)
+                    .MoveAfterLabels()
+                    .Br_(lab);
+
+            } else
+            {
+                Log.Warning("No sort call in EffectCatalog.SetEntries");
             }
-            return effects;
+
+            //c.LogFull();
         }
+
+
+
+        private static void Init_Il(ILContext il) => new ILCursor(il)
+            .GotoNext(MoveType.AfterLabel, x => x.MatchCallOrCallvirt(typeof(EffectCatalog), nameof(EffectCatalog.SetEntries)))
+            .CallDel_(ArrayHelper.AppendDel(addedEffects));
 
         private static readonly HashSet<EffectDef> addedEffectSet = new HashSet<EffectDef>();
         private static readonly List<EffectDef> addedEffects = new List<EffectDef>();

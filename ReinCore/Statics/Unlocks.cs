@@ -2,12 +2,11 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Reflection;
     using System.Runtime.CompilerServices;
 
     using BepInEx;
-
-    using EntityLogic;
 
     using Mono.Cecil.Cil;
 
@@ -16,6 +15,8 @@
 
     using RoR2;
     using RoR2.Achievements;
+
+    using UnityEngine;
 
     using BF = System.Reflection.BindingFlags;
 
@@ -61,6 +62,7 @@
             };
 
             moddedUnlocks.Add((ach, unl, instance.unlockableIdentifier));
+            added.Add(unl);
         }
 
         internal static void InternalAddUnlockable(Type unlockableType, Boolean serverTracked, Boolean achievement = true)
@@ -96,14 +98,15 @@
                 };
             }
 
-            var unl = new UnlockableDef
-            {
-                nameToken = instance.unlockableNameToken,
-                getHowToUnlockString = instance.GetHowToUnlock,
-                getUnlockedString = instance.GetUnlocked,
-            };
+            var unl = ScriptableObject.CreateInstance<UnlockableDef>();
+
+            unl.nameToken = instance.unlockableNameToken;
+            unl.getHowToUnlockString = instance.GetHowToUnlock;
+            unl.getUnlockedString = instance.GetUnlocked;
+            unl.cachedName = instance.unlockableIdentifier;
 
             moddedUnlocks.Add((ach, unl, instance.unlockableIdentifier));
+            added.Add(unl);
         }
 
         internal static void AddUnlockableOnly(String name, UnlockableDef def)
@@ -111,8 +114,12 @@
             if(!loaded) throw new CoreNotLoadedException(nameof(UnlocksCore));
             if(!ableToAdd) throw new InvalidOperationException("Too late to add unlocks. Must be done during awake.");
             if(def is null) throw new ArgumentNullException(nameof(def));
+            //Log.Message($"Adding unlockable only {name} {def.cachedName}");
             moddedUnlocks.Add((null, def, name));
+            added.Add(def);
         }
+
+        private static readonly List<UnlockableDef> added = new();
 
         static UnlocksCore()
         {
@@ -139,31 +146,19 @@
         private static readonly HashSet<String> usedRewardIds = new HashSet<String>();
         //private static readonly Action<String, UnlockableDef> registerUnlockable;
 
-        private static void Init_Il(ILContext il)
+        private static void Init_Il(ILContext il) => new ILCursor(il)
+            .GotoNext(MoveType.AfterLabel, x => x.MatchCallOrCallvirt(typeof(UnlockableCatalog), nameof(UnlockableCatalog.SetUnlockableDefs)))
+            .CallDel_(ArrayHelper.AppendDel(added));
+            //.CallDel_<Action>(LOGME);
+
+        private static void LOGME() => Log.Message("HELLO");
+
+        private static UnlockableDef GetDef((AchievementDef, UnlockableDef, String) asd)
         {
-            static void EmittedDelegate()
-            {
-                ableToAdd = false;
-                for(Int32 i = 0; i < moddedUnlocks.Count; ++i)
-                {
-                    var (ach, unl, unstr) = moddedUnlocks[i];
-                    //Log.Warning($"Registering custom unlockable: {unstr}");
-                    UnlockableCatalog.RegisterUnlockable(unstr, unl);
-                }
-            }
+            var (ach, def, str) = asd;
 
-            var c = new ILCursor( il );
-
-            String text = "";
-            while(c.TryGotoNext(MoveType.After,
-                x => x.MatchLdstr(out text),
-                x => x.MatchStfld(out _)))
-            {
-                _ = usedRewardIds.Add(text);
-            }
-
-            _ = c.GotoNext(MoveType.Before, x => x.MatchLdsfld(typeof(RoR2.UnlockableCatalog).GetField("nameToDefTable", BF.Public | BF.NonPublic | BF.Static)));
-            _ = c.EmitDelegate<Action>(EmittedDelegate);
+            Log.Message($"New unlockable {def.cachedName} added");
+            return def;
         }
 
         private static void CollectAchievementDefs_Il(MonoMod.Cil.ILContext il)
@@ -197,6 +192,6 @@
             _ = cursor.Emit(OpCodes.Ldloc_1);
         }
 
-        private static List<(AchievementDef achDef, UnlockableDef unlockableDef, String unlockableName)> moddedUnlocks = new List<(AchievementDef achDef, UnlockableDef unlockableDef, String unlockableName)>();
+        private static readonly List<(AchievementDef achDef, UnlockableDef unlockableDef, String unlockableName)> moddedUnlocks = new();
     }
 }

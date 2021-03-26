@@ -76,7 +76,7 @@
         public override void OnInstall() => base.OnInstall();
         public override void OnUninstall() => base.OnUninstall();
         public override Single ProgressForAchievement() => base.ProgressForAchievement();
-        public override Int32 LookUpRequiredBodyIndex() => base.LookUpRequiredBodyIndex();
+        public override BodyIndex LookUpRequiredBodyIndex() => base.LookUpRequiredBodyIndex();
         public override void OnBodyRequirementBroken() => base.OnBodyRequirementBroken();
         public override void OnBodyRequirementMet() => base.OnBodyRequirementMet();
         public override Boolean wantsBodyCallbacks { get => base.wantsBodyCallbacks; }

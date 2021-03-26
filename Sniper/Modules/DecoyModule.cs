@@ -27,33 +27,33 @@
         }
 
 
-
-        internal static HashSet<ItemIndex> whitelist = new HashSet<ItemIndex>
-        {
-            ItemIndex.ArmorPlate,
-            ItemIndex.BarrierOnOverHeal,
-            ItemIndex.Bear,
-            ItemIndex.ExtraLife,
-            ItemIndex.FallBoots,
-            ItemIndex.HealWhileSafe,
-            ItemIndex.IncreaseHealing,
-            ItemIndex.InvadingDoppelganger,
-            ItemIndex.Infusion,
-            ItemIndex.Knurl,
-            ItemIndex.Medkit,
-            ItemIndex.Mushroom,
-            ItemIndex.NovaOnHeal,
-            ItemIndex.Pearl,
-            ItemIndex.PersonalShield,
-            ItemIndex.RepeatHeal,
-            ItemIndex.ShieldOnly,
-            ItemIndex.ShinyPearl,
-            ItemIndex.SiphonOnLowHealth,
-            ItemIndex.SlowOnHit,
-            ItemIndex.SprintArmor,
-            ItemIndex.TonicAffliction,
-            ItemIndex.WardOnLevel
-        };
+        //TODO: ugh
+        //internal static HashSet<ItemIndex> whitelist = new HashSet<ItemIndex>
+        //{
+        //    ItemIndex.ArmorPlate,
+        //    ItemIndex.BarrierOnOverHeal,
+        //    ItemIndex.Bear,
+        //    ItemIndex.ExtraLife,
+        //    ItemIndex.FallBoots,
+        //    ItemIndex.HealWhileSafe,
+        //    ItemIndex.IncreaseHealing,
+        //    ItemIndex.InvadingDoppelganger,
+        //    ItemIndex.Infusion,
+        //    ItemIndex.Knurl,
+        //    ItemIndex.Medkit,
+        //    ItemIndex.Mushroom,
+        //    ItemIndex.NovaOnHeal,
+        //    ItemIndex.Pearl,
+        //    ItemIndex.PersonalShield,
+        //    ItemIndex.RepeatHeal,
+        //    ItemIndex.ShieldOnly,
+        //    ItemIndex.ShinyPearl,
+        //    ItemIndex.SiphonOnLowHealth,
+        //    ItemIndex.SlowOnHit,
+        //    ItemIndex.SprintArmor,
+        //    ItemIndex.TonicAffliction,
+        //    ItemIndex.WardOnLevel
+        //};
 
 
         private static GameObject decoyPrefab;
@@ -104,7 +104,7 @@
 
 
             CharacterBody body = obj.AddOrGetComponent<CharacterBody>();
-            body.bodyIndex = -1;
+            body.bodyIndex = (BodyIndex)(-1);
             body.baseNameToken = Properties.Tokens.SNIPER_NAME;
             body.subtitleNameToken = Properties.Tokens.SNIPER_SUBTITLE;
             body.bodyFlags = CharacterBody.BodyFlags.ResistantToAOE | CharacterBody.BodyFlags.ImmuneToExecutes;
@@ -355,7 +355,7 @@
             }
 
 
-            BodyCatalog.getAdditionalEntries += ( list ) => list.Add( obj );
+            BodiesCore.Add( obj );
 
             return obj;
         }
@@ -383,17 +383,17 @@
             BaseAI ai = master.AddOrGetComponent<BaseAI>();
             ai.fullVision = true;
             ai.neverRetaliateFriendlies = true;
-            ai.minDistanceFromEnemy = 0;
+            //ai.minDistanceFromEnemy = 0;
             ai.enemyAttentionDuration = 0;
-            ai.navigationType = BaseAI.NavigationType.Nodegraph;
+            //ai.navigationType = BaseAI.NavigationType.Nodegraph;
             ai.desiredSpawnNodeGraphType = RoR2.Navigation.MapNodeGroup.GraphType.Ground;
             EntityStateMachine esm = ai.stateMachine = master.AddOrGetComponent<EntityStateMachine>();
             ai.isHealer = false;
             ai.enemyAttention = 0f;
             ai.aimVectorDampTime = 0f;
             ai.aimVectorMaxSpeed = 0f;
-            ai.desiredAimDirection = Vector3.up;
-            ai.drawAIPath = false;
+            //ai.desiredAimDirection = Vector3.up;
+            //ai.drawAIPath = false;
             ai.selectedSkilldriverName = null;
             ai.debugEnemyHurtBox = null;
             ai.currentEnemy = null;
@@ -401,8 +401,8 @@
             ai.customTarget = null;
 
             esm.customName = "AI";
-            esm.initialStateType = SkillsCore.StateType<EntityStates.AI.BaseAIState>();
-            esm.mainStateType = SkillsCore.StateType<EntityStates.AI.BaseAIState>();
+            esm.initialStateType = SkillsCore.StateType<BlankAI>();
+            esm.mainStateType = SkillsCore.StateType<BlankAI>();
 
             AISkillDriver driver = master.AddOrGetComponent<AISkillDriver>();
             driver.customName = "Sit there and look pretty";
@@ -445,7 +445,7 @@
             }
 
 
-            MasterCatalog.getAdditionalEntries += ( list ) => list.Add( master );
+            MastersCore.Add( master );
 
             return master;
         }

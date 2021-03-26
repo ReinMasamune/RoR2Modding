@@ -6,6 +6,6 @@ namespace Rein.Properties
 		/// <summary>
 		/// The version of the library
 		/// </summary>
-		public const String ver = "2.5.0.16";
+		public const String ver = "2.5.1.1";
 	}
 }

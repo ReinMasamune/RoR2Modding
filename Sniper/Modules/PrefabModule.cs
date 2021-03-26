@@ -78,7 +78,7 @@
 
 
             SniperCharacterBody body = obj.AddOrGetComponent<SniperCharacterBody>();
-            body.bodyIndex = -1;
+            body.bodyIndex = (BodyIndex)(-1);
             body.baseNameToken = Tokens.SNIPER_NAME;
             body.subtitleNameToken = Tokens.SNIPER_SUBTITLE;
             body.bodyFlags = CharacterBody.BodyFlags.ImmuneToExecutes;

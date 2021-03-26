@@ -20,6 +20,7 @@
 
     using BF = System.Reflection.BindingFlags;
     using Rein.Sniper.Ammo;
+    using System.Linq;
 
     internal static class HooksModule
     {
@@ -162,11 +163,25 @@
 
             GameObject reloadBar = UIModule.GetRelodBar();
 
-            Transform par = self.hud.transform.Find( "MainContainer/MainUIArea/BottomCenterCluster" );
+
+            //LogTransform(self.hud.transform, 0);
+
+            Transform par = self.hud.transform.Find( "MainContainer/MainUIArea/SpringCanvas/BottomCenterCluster" );
             var barTrans = reloadBar.transform as RectTransform;
             barTrans.SetParent(par, false);
             barTrans.localPosition = new Vector3(0f, 256f, 0f);
             barTrans.localScale = new Vector3(0.5f, 0.5f, 1f);
+
+            //LogTransform(self.hud.transform, 0);
+        }
+
+        private static void LogTransform(Transform par, Int32 tabs)
+        {
+            Log.Message($"{String.Join("", Enumerable.Repeat(" | ", tabs))}{par.name}");
+            foreach(Transform t in par)
+            {
+                LogTransform(t, tabs + 1);
+            }
         }
 
         internal static void AddReturnoverride(GenericSkill skill) => slotReturnOverrides[skill] = (SkillSlot)counter++;

@@ -24,7 +24,7 @@
         private void Awake()
         {
             this.projectileStick.stickEvent.AddListener( this.OnStick );
-            this.buffApplier.buffIndex = CatalogModule.resetDebuff;
+            this.buffApplier.buffDef = BuffCatalog.GetBuffDef(CatalogModule.resetDebuff);
             this.projDamage.damageType = CatalogModule.sniperResetDamageType;
         }
 

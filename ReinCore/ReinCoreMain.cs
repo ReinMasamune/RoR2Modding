@@ -142,7 +142,7 @@
             _ = managerObject.AddComponent<CoreManager>();
 
             HooksCore.RoR2.SystemInitializerAttribute.Execute.On += Execute_On;
-            HooksCore.RoR2.CharacterBody.UpdatePowerWardSummon.Il += UpdatePowerWardSummon_Il;
+            //HooksCore.RoR2.CharacterBody.UpdatePowerWardSummon.Il += UpdatePowerWardSummon_Il;
 
 
         }

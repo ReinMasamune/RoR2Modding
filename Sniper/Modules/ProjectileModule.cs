@@ -20,7 +20,7 @@
             if( _knifeProjectile == null )
             {
                 _knifeProjectile = CreateKnifeProjectile();
-                ProjectileCatalog.getAdditionalEntries += ( list ) => list.Add( _knifeProjectile );
+                ProjectilesCore.Add( _knifeProjectile );
             }
 
             return _knifeProjectile;

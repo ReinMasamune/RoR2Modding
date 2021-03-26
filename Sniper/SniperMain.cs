@@ -89,7 +89,7 @@
 
                 VFXModule.Init();
 
-                UnlocksCore.AddUnlockable<WIPUnlockable>(false);
+                //UnlocksCore.AddUnlockable<WIPUnlockable>(false);
             };
 
             base.start += () =>

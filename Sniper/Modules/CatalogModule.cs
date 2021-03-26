@@ -31,15 +31,18 @@
                 bodyPrefab = SniperMain.sniperBodyPrefab,
                 descriptionToken = Properties.Tokens.SNIPER_DESC,
                 displayPrefab = SniperMain.sniperDisplayPrefab,
-                name = "Sniper",
+                cachedName = "Sniper",
                 primaryColor = new Color( 0f, 0.3f, 0.1f, 1f ),
                 unlockableName = "",
                 outroFlavorToken = Properties.Tokens.SNIPER_OUTRO_FLAVOR,
                 displayNameToken = Properties.Tokens.SNIPER_DISPLAY_NAME,
+                desiredSortPosition = 11,
+                unlockableDef = null,
+                hidden = false,
             };
+            SurvivorsCore.AddSurvivor(survivorDef);
             SurvivorsCore.ManageEclipseUnlocks(survivorDef, ConfigModule._eclipseLevel);
-
-            SurvivorCatalog.getAdditionalSurvivorDefs += (list) => list.Add(survivorDef);
+            //SurvivorCatalog.getAdditionalSurvivorDefs += (list) => list.Add(survivorDef);
         }
 
         internal static void RegisterDamageColor()
@@ -47,8 +50,8 @@
             plasmaDamageColor = DamageColorsCore.AddDamageColor(new(0.9f, 0.5f, 0.9f));
         }
 
-        internal static Lazy<Int32> sniperBodyIndex = new Lazy<Int32>( () => BodyCatalog.FindBodyIndex( SniperMain.sniperBodyPrefab.GetComponent<CharacterBody>() ) );
-        internal static void RegisterBody() => BodyCatalog.getAdditionalEntries += (list) => list.Add(SniperMain.sniperBodyPrefab);
+        internal static Lazy<Int32> sniperBodyIndex = new Lazy<Int32>( () => (Int32)BodyCatalog.FindBodyIndex( SniperMain.sniperBodyPrefab.GetComponent<CharacterBody>() ) );
+        internal static void RegisterBody() => BodiesCore.Add(SniperMain.sniperBodyPrefab);
 
 
         internal static void RegisterDamageTypes()
@@ -118,7 +121,8 @@
             {
                 buffColor = new Color(1f, 1f, 1f, 1f),
                 canStack = true,
-                eliteIndex = EliteIndex.None,
+                //eliteIndex = EliteIndex.None,
+                eliteDef = null,
                 iconPath = "",
                 isDebuff = true,
                 name = "Rein.Sniper.PlasmaBurn"
@@ -127,7 +131,8 @@
             {
                 buffColor = new Color(0.5f, 1f, 0.6f, 1f),
                 canStack = false,
-                eliteIndex = EliteIndex.None,
+                //eliteIndex = EliteIndex.None,
+                eliteDef = null,
                 iconPath = "",
                 isDebuff = true,
                 name = "Rein.Sniper.KnifeReset"
@@ -136,7 +141,8 @@
             {
                 buffColor = new Color(0.5f, 0.8f, 1f, 1f),
                 canStack = true,
-                eliteIndex = EliteIndex.None,
+                //eliteIndex = EliteIndex.None,
+                eliteDef = null,
                 iconPath = "",
                 isDebuff = true,
                 name = "Rein.Sniper.Shock",
@@ -184,7 +190,7 @@
 
         private static void GlobalEventManager_onCharacterDeathGlobal(DamageReport obj)
         {
-            if((obj.victimBody.HasBuff(resetDebuff) || obj.damageInfo.damageType.HasFlag(sniperResetDamageType)) && obj.attackerBodyIndex == sniperBodyIndex.Value && obj.attackerBody != null && obj.attackerBody is SniperCharacterBody body)
+            if((obj.victimBody.HasBuff(resetDebuff) || obj.damageInfo.damageType.HasFlag(sniperResetDamageType)) && obj.attackerBodyIndex == (BodyIndex)(sniperBodyIndex.Value) && obj.attackerBody != null && obj.attackerBody is SniperCharacterBody body)
             {
                 ResetSkills(body);
             }

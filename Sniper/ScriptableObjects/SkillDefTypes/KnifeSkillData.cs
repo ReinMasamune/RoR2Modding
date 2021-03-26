@@ -5,6 +5,9 @@
     using Rein.Sniper.Components;
     using Rein.Sniper.SkillDefTypes.Bases;
     using Rein.Sniper.States.Special;
+
+    using RoR2;
+
     using UnityEngine;
 
     internal class KnifeSkillData : SkillData
@@ -17,7 +20,7 @@
 
         internal EntityState InstantiateNextState( KnifeDeployableSync knife )
         {
-            var state = EntityState.Instantiate( slashState );
+            var state = EntityStateCatalog.InstantiateState(slashState);
             ( state as KnifePickupSlash ).knifeObject = knife.gameObject;
             return state;
         }

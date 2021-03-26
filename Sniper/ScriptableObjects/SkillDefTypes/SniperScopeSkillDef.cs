@@ -28,12 +28,12 @@
             def.activationState = SkillsCore.StateType<TSecondary>();
             def.activationStateMachineName = "Scope";
             def.canceledFromSprinting = true;
-            def.noSprint = true;
+            def.cancelSprintingOnActivation = true;
             def.fullRestockOnAssign = true;
             def.interruptPriority = InterruptPriority.Skill;
             def.isCombatSkill = false;
             def.mustKeyPress = false;
-            def.shootDelay = 0f;
+            //def.shootDelay = 0f;
             def.stockToConsume = 0;
 
             return def;
@@ -189,7 +189,7 @@
             {
                 this.stateInstance = state;
                 this.stateInstance.startingCharge = this.valCharge;
-                this.stateInstance.cameraTarget.aimMode = CameraTargetParams.AimType.AimThrow;
+                this.stateInstance.cameraTarget.aimMode = CameraTargetParams.AimType.OverTheShoulder;
                 this.partialActive = true;
                 this.ready = false;
                 this.readyFrac = 0.0f;
@@ -227,7 +227,7 @@
                     if( this._scoped == value ) return;
                     if( this.stateInstance is null ) return;
                     this._scoped = value;
-                    this.stateInstance.cameraTarget.aimMode = value ? CameraTargetParams.AimType.FirstPerson : CameraTargetParams.AimType.AimThrow;
+                    this.stateInstance.cameraTarget.aimMode = value ? CameraTargetParams.AimType.FirstPerson : CameraTargetParams.AimType.OverTheShoulder;
                     if( !this.crosshair || this.crosshair is null ) return;
                     this.crosshair.fullScopeActive = value;
 

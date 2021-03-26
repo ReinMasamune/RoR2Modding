@@ -174,10 +174,14 @@
         }
         private static ItemRule Rule(String parent, String prefab, Vector3 localPos = default, Vector3 localAngles = default, Vector3 localScale = default )
         {
+            if(!item.TryGetValue(prefab, out var obj))
+            {
+                Log.Warning($"Missing item prefab {prefab}");
+            }
             return new ItemRule
             {
                 childName = parent,
-                followerPrefab = item[prefab],
+                followerPrefab = obj,
                 localPos = localPos,
                 localScale = localScale,
                 localAngles = localAngles,

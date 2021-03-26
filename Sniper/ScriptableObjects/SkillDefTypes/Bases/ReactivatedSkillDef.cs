@@ -161,7 +161,7 @@
 
             internal EntityState InstantiateNextState()
             {
-                var state = EntityState.Instantiate( this.def.reactivationState ) as ReactivationBaseState<TSkillData>;
+                var state = EntityStateCatalog.InstantiateState( this.def.reactivationState ) as ReactivationBaseState<TSkillData>;
                 state.skillData = this.data;
                 state.activatorSkillSlot = this.skillSlot;
 

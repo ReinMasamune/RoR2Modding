@@ -37,8 +37,8 @@
 
             if( NetworkServer.active )
             {
-                base.characterBody.AddTimedBuff( BuffIndex.Cloak, cloakDuration );
-                base.characterBody.AddTimedBuff( BuffIndex.CloakSpeed, cloakDuration );
+                base.characterBody.AddTimedBuff( RoR2Content.Buffs.Cloak, cloakDuration );
+                base.characterBody.AddTimedBuff( RoR2Content.Buffs.CloakSpeed, cloakDuration );
                 base.characterBody.SummonDecoy( this.position, this.rotation );
             }
         }

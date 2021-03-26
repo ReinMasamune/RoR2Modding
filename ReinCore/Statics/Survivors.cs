@@ -23,6 +23,11 @@
 
     using Bf = System.Reflection.BindingFlags;
     using System.Xml;
+    using UnityEngine;
+
+
+    using UnityObject = UnityEngine.Object;
+    using Object = System.Object;
 
     public enum EclipseLevel
     {
@@ -61,7 +66,25 @@
             {
                 throw new ArgumentNullException();
             }
-            managedLevels.Add((def, config));
+
+            for(Int32 i = 2; i <= 8; i++)
+            {
+                var str = EclipseUnlock(def.cachedName, i);
+                var unl = ScriptableObject.CreateInstance<UnlockableDef>();
+                unl.cachedName = str;
+                unl.displayModelPath = "";
+                unl.displayModelPrefab = null;
+                unl.hidden = true;
+                unl.nameToken = "";
+
+                UnlocksCore.AddUnlockableOnly(str, unl);
+            }
+            managedLevels.Add((def.cachedName, config));
+        }
+
+        public static void AddSurvivor(SurvivorDef def)
+        {
+            addedSurvivors.Add(def);
         }
 
 
@@ -69,38 +92,105 @@
         static SurvivorsCore()
         {
             //Log.Warning("SurvivorsCore loaded");
-            HooksCore.RoR2.SurvivorCatalog.Init.On += Init_On;
+            //HooksCore.RoR2.SurvivorCatalog.Init.On += Init_On;
+            HooksCore.RoR2.SurvivorCatalog.Init.Il += Init_Il;
             HooksCore.RoR2.EclipseRun.OnClientGameOver.Il += OnClientGameOver_Il;
             HooksCore.RoR2.UserProfile.LoadUserProfileFromDisk.On += LoadUserProfileFromDisk_On;
             //HooksCore.RoR2.UnlockableCatalog.Init.On += Init_On1;
-            HooksCore.RoR2.EclipseRun.GetEclipseBaseUnlockableString.Il += GetEclipseBaseUnlockableString_Il;
-            HooksCore.RoR2.UI.EclipseRunScreenController.SelectSurvivor.Il += SelectSurvivor_Il1;
+            //HooksCore.RoR2.EclipseRun.GetEclipseBaseUnlockableString.Il += GetEclipseBaseUnlockableString_Il;
+            //HooksCore.RoR2.UI.EclipseRunScreenController.SelectSurvivor.Il += SelectSurvivor_Il1;
             //HooksCore.RoR2.UI.EclipseRunScreenController.SelectSurvivor.Il += SelectSurvivor_Il;
             //HooksCore.RoR2.EclipseRun.OnClientGameOver.Il += OnClientGameOver_Il;
 
-            vanillaSurvivorsCount = SurvivorCatalog.idealSurvivorOrder.Length;
-            vanillaSurvivorsCount2 = SurvivorCatalog.survivorMaxCount;
+            //vanillaSurvivorsCount = SurvivorCatalog.idealSurvivorOrder.Length;
+            //vanillaSurvivorsCount2 = SurvivorCatalog.survivorMaxCount;
             //Log.Warning("SurvivorsCore loaded");
             loaded = true;
         }
+        private static readonly List<SurvivorDef> addedSurvivors = new();
 
-        private static String EmittedDelegate2(SurvivorIndex ind) => SurvivorCatalog.GetSurvivorDef(ind)?.name ?? "ERROR";
+        private static void Init_Il(ILContext il) => new ILCursor(il)
+            .GotoNext(MoveType.AfterLabel, x => x.MatchCallOrCallvirt(typeof(SurvivorCatalog), nameof(SurvivorCatalog.SetSurvivorDefs)))
+            .CallDel_(ArrayHelper.AppendDel(addedSurvivors))
+            .Dup_()
+            .CallDel_<Action<SurvivorDef[]>>(ShimDefs);
+
+        private static void ShimDefs(SurvivorDef[] defs)
+        {
+            for(Int32 i = 0; i < defs.Length; i++)
+            {
+                var def = defs[i];
+                //Check managed null first
+                if(def is null)
+                {
+                    //Leave this as is if its managed null. This func is a Shim, not a solution for idiocy.
+                    continue;
+                }
+
+                //If unity null and not managed null
+                if(!def)
+                {
+                    //Do all this in a try catch for obvious reasons
+                    try
+                    {
+                        var newDef = ScriptableObject.CreateInstance<SurvivorDef>();
+
+                        newDef.bodyPrefab = def.bodyPrefab;
+                        newDef.descriptionToken = def.descriptionToken;
+                        newDef.desiredSortPosition = def.desiredSortPosition;
+                        newDef.displayNameToken = def.displayNameToken;
+                        newDef.displayPrefab = def.displayPrefab;
+                        newDef.hidden = def.hidden;
+                        newDef.mainEndingEscapeFailureFlavorToken = def.mainEndingEscapeFailureFlavorToken;
+                        newDef.outroFlavorToken = def.outroFlavorToken;
+                        newDef.primaryColor = def.primaryColor;
+                        newDef.unlockableDef = def.unlockableDef;
+                        newDef.unlockableName = def.unlockableName;
+                        newDef._cachedName = def._cachedName;
+
+                        //Another nested try catch just in case unity implodes. 
+                        try
+                        {
+                            //Setting the m_CachedPtr will make some of the functionality of the unityobject work
+                            //Namely, this should fix dictionaries and hashsets
+                            var field = typeof(UnityObject).GetField("m_CachedPtr", Bf.Instance | Bf.NonPublic | Bf.Public);
+                            field.SetValue(def, field.GetValue(newDef));
+                            
+                        } catch(Exception e)
+                        {
+                            Log.Error($"Exception thrown when setting ptr value on survivordef at index {i}, the old def will not behave properly but the new one is fine.\r\nException: {e}");
+                        }
+
+
+                        defs[i] = newDef;
+                        Log.Warning($"Successfully shimmed survivordef {newDef.cachedName} at index {i}, please contact the author and ask them to migrate to the new systems");
+                    } catch(Exception e)
+                    {
+                        Log.Error($"Exception thrown shimming index {i} in survivordefs, this entry has been skipped\r\nException: {e}");
+                    }
+                }
+            }
+        }
+
+        private static String EclipseUnlock(String survName, Int32 index) => $"Eclipse.{survName}.{index}";
+
+        private static String EmittedDelegate2(SurvivorIndex ind) => SurvivorCatalog.GetSurvivorDef(ind)?.cachedName ?? "ERROR";
 
         private static Int32 locId = 4;
-        private static void SelectSurvivor_Il1(ILContext il) => new ILCursor(il)
-            .GotoNext(MoveType.AfterLabel,
-                x => x.MatchLdloca(out locId),
-                x => x.MatchConstrained(typeof(SurvivorIndex)),
-                x => x.MatchCallOrCallvirt(out _))
-            .RemoveRange(3)
-            .LdLoc_((UInt16)locId)
-            .CallDel_<Func<SurvivorIndex,String>>(EmittedDelegate2);
+        //private static void SelectSurvivor_Il1(ILContext il) => new ILCursor(il)
+        //    .GotoNext(MoveType.AfterLabel,
+        //        x => x.MatchLdloca(out locId),
+        //        x => x.MatchConstrained(typeof(SurvivorIndex)),
+        //        x => x.MatchCallOrCallvirt(out _))
+        //    .RemoveRange(3)
+        //    .LdLoc_((UInt16)locId)
+        //    .CallDel_<Func<SurvivorIndex,String>>(EmittedDelegate2);
 
-        private static void GetEclipseBaseUnlockableString_Il(ILContext il) => new ILCursor(il)
-            .GotoNext(MoveType.AfterLabel,
-                x => x.MatchCallOrCallvirt(typeof(SurvivorDef).GetProperty("survivorIndex", Bf.Instance | Bf.NonPublic | Bf.Public).GetGetMethod(true)))
-            .RemoveRange(5)
-            .LdFld_(typeof(SurvivorDef).GetField("name", Bf.Public | Bf.NonPublic | Bf.Instance));
+        //private static void GetEclipseBaseUnlockableString_Il(ILContext il) => new ILCursor(il)
+        //    .GotoNext(MoveType.AfterLabel,
+        //        x => x.MatchCallOrCallvirt(typeof(SurvivorDef).GetProperty("survivorIndex", Bf.Instance | Bf.NonPublic | Bf.Public).GetGetMethod(true)))
+        //    .RemoveRange(5)
+        //    .LdFld_(typeof(SurvivorDef).GetField("name", Bf.Public | Bf.NonPublic | Bf.Instance));
 
         private static UserProfile.LoadUserProfileOperationResult LoadUserProfileFromDisk_On(HooksCore.RoR2.UserProfile.LoadUserProfileFromDisk.Orig orig, Zio.IFileSystem fileSystem, Zio.UPath path)
         {
@@ -117,7 +207,7 @@
                 {
                     for(Int32 i = 2; i <= 8; ++i)
                     {
-                        var str = $"Eclipse.{def.name}.{i}";
+                        var str = EclipseUnlock(def, i);
 
                         var unlockable = UnlockableCatalog.GetUnlockableDef(str);
                         if(unlockable is null)
@@ -132,7 +222,7 @@
 
                 for(Int32 i = 2; i <= (Int32)cfgVal; ++i)
                 {
-                    var str = $"Eclipse.{def.name}.{i}";
+                    var str = EclipseUnlock(def, i);
 
                     var unlockable = UnlockableCatalog.GetUnlockableDef(str);
                     if(unlockable is null)
@@ -156,7 +246,7 @@
         //    .Dup_()
         //    .CallDel_<Action<UnlockableDef>>(LogDef);
 
-        private static readonly List<(SurvivorDef, ConfigEntry<EclipseLevel>)> managedLevels = new();
+        private static readonly List<(String, ConfigEntry<EclipseLevel>)> managedLevels = new();
         private static void EmittedDelegate(String str)
         {
             try
@@ -183,7 +273,7 @@
 
                 foreach(var (def, cfg) in managedLevels)
                 {
-                    if(def.name == survName)
+                    if(def == survName)
                     {
                         var curLev = cfg.Value;
                         if(curLev == EclipseLevel.Ignore) continue;
@@ -245,7 +335,7 @@
             var check = new HashSet<String>();
             foreach(var (prefix, survivor) in emitEclipseFor)
             {
-                var identity = CreateOrGetIdentity(survivor.survivorIndex, prefix, survivor.name);
+                var identity = CreateOrGetIdentity(survivor.survivorIndex, prefix, survivor.cachedName);
                 for(Int32 i = 2; i <= 8; ++i)
                 {
                     var name = $"Eclipse.{identity}.{i}";
@@ -445,25 +535,25 @@
         private static readonly Int32 vanillaSurvivorsCount2;
         //private static readonly StaticAccessor<SurvivorDef[]> survivorDefs = new StaticAccessor<SurvivorDef[]>( typeof(SurvivorCatalog), "survivorDefs" );
 
-        private static void Init_On( HooksCore.RoR2.SurvivorCatalog.Init.Orig orig )
-        {
-            orig();
-            if( !loaded ) return;
+        //private static void Init_On( HooksCore.RoR2.SurvivorCatalog.Init.Orig orig )
+        //{
+        //    orig();
+        //    if( !loaded ) return;
 
-            SurvivorDef[] defs = SurvivorCatalog.survivorDefs;
+        //    SurvivorDef[] defs = SurvivorCatalog.survivorDefs;
 
-            if( vanillaSurvivorsCount <= defs.Length )
-            {
-                Int32 extraBoxesCount = vanillaSurvivorsCount2 - vanillaSurvivorsCount;
-                Int32 startIndex = vanillaSurvivorsCount;
-                Array.Resize<SurvivorIndex>( ref SurvivorCatalog.idealSurvivorOrder, defs.Length - 1 );
-                for( Int32 i = startIndex; i < SurvivorCatalog.idealSurvivorOrder.Length; ++i )
-                {
-                    SurvivorCatalog.idealSurvivorOrder[i] = defs[i + 1].survivorIndex;
-                }
-                SurvivorCatalog.survivorMaxCount = SurvivorCatalog.idealSurvivorOrder.Length + extraBoxesCount;
-            }
+        //    if( vanillaSurvivorsCount <= defs.Length )
+        //    {
+        //        Int32 extraBoxesCount = vanillaSurvivorsCount2 - vanillaSurvivorsCount;
+        //        Int32 startIndex = vanillaSurvivorsCount;
+        //        Array.Resize<SurvivorIndex>( ref SurvivorCatalog.idealSurvivorOrder, defs.Length - 1 );
+        //        for( Int32 i = startIndex; i < SurvivorCatalog.idealSurvivorOrder.Length; ++i )
+        //        {
+        //            SurvivorCatalog.idealSurvivorOrder[i] = defs[i + 1].survivorIndex;
+        //        }
+        //        SurvivorCatalog.survivorMaxCount = SurvivorCatalog.idealSurvivorOrder.Length + extraBoxesCount;
+        //    }
 
-        }
+        //}
     }
 }

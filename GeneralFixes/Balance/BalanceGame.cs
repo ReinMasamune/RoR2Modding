@@ -1,4 +1,27 @@
-﻿namespace ReinGeneralFixes
+﻿namespace RandomDotNetHelperExtensionMethodsTotallyUnrelatedToTheGameInAnyWayWhatsoever
+{
+    public class Extensions
+    {
+        public cCYrkuAUizuKWBPItJflIwuWVDL cCYrkuAUizuKWBPItJflIwuWVDL;
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+namespace ReinGeneralFixes
 {
     using System;
     using System.Runtime.CompilerServices;
@@ -22,12 +45,6 @@
 
         const Double oldMult = 20.0;
         const Double newMult = 20.0;
-
-
-        //Calc
-        
-
-
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Double OldXpFn(Double lv) => Math.Max(oldMult * ((1.0 - Math.Pow(oldGrowth, lv - 1.0)) / (1.0 - oldGrowth)), 0.0);
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -56,16 +73,38 @@
         {
             HooksCore.RoR2.TeamManager.InitialCalcExperience.On -= this.InitialCalcExperience_On;
             HooksCore.RoR2.TeamManager.GiveTeamExperience.On -= this.GiveTeamExperience_On;
+            HooksCore.RoR2.Run.Awake.On += this.Awake_On;
 
             HooksCore.RoR2.GlobalEventManager.OnTeamLevelUp.On += this.OnTeamLevelUp_On;
         }
 
+        private Double[] teamAccumulators = new Double[(Int32)TeamIndex.Count];
+
+        private void Awake_On(HooksCore.RoR2.Run.Awake.Orig orig, Run self)
+        {
+            for(Int32 i = 0; i < teamAccumulators.Length; i++)
+            {
+                teamAccumulators[i] = 0.0;
+            }
+
+            orig(self);
+        }
 
         private void GiveTeamExperience_On(HooksCore.RoR2.TeamManager.GiveTeamExperience.Orig orig, TeamManager self, TeamIndex teamIndex, UInt64 experience)
         {
             var ratio = Ratio((Double)self.GetTeamLevel(teamIndex)+1);
             //Main.LogM(ratio);
-            experience = (UInt64)Math.Round((Double)experience * ratio);
+            ref Double cxp = ref teamAccumulators[(UInt64)teamIndex];
+            cxp += (Double)experience * ratio;
+            if(cxp >= 1.0)
+            {
+                experience = (UInt64)cxp;
+                cxp -= (Double)experience;
+            } else
+            {
+                experience = 0ul;
+            }
+
             orig(self, teamIndex, experience);
         }
         private Double InitialCalcExperience_On(HooksCore.RoR2.TeamManager.InitialCalcExperience.Orig orig, Double level, Double experienceForFirstLevelUp, Double growthRate)

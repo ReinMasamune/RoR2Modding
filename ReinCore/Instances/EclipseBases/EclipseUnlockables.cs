@@ -210,7 +210,7 @@
         public sealed override void OnInstall() => base.OnInstall();
         public sealed override void OnUninstall() => base.OnUninstall();
         public sealed override Single ProgressForAchievement() => base.ProgressForAchievement();
-        public sealed override Int32 LookUpRequiredBodyIndex() => base.LookUpRequiredBodyIndex();
+        public sealed override BodyIndex LookUpRequiredBodyIndex() => base.LookUpRequiredBodyIndex();
         public sealed override void OnBodyRequirementBroken() => base.OnBodyRequirementBroken();
         public sealed override void OnBodyRequirementMet() => base.OnBodyRequirementMet();
         public sealed override Boolean wantsBodyCallbacks { get => base.wantsBodyCallbacks; }

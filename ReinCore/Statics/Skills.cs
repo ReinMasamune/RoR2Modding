@@ -6,6 +6,9 @@
 
     using EntityStates;
 
+    using ILHelpers;
+
+    using MonoMod.Cil;
     using MonoMod.RuntimeDetour;
 
     using RoR2;
@@ -16,6 +19,9 @@
     public static class SkillsCore
     {
         public static Boolean loaded { get; internal set; } = false;
+        public static Boolean canAdd => _canAdd;
+
+        private static Boolean _canAdd = true;
 
         public static void AddSkill( Type type )
         {
@@ -27,6 +33,12 @@
 
             if( addedSkillTypes.Contains( type ) )
             {
+                return;
+            }
+
+            if(!canAdd)
+            {
+                Log.Error("Catalog has already been built, more states cannot be added");
                 return;
             }
 
@@ -45,21 +57,22 @@
                 return;
             }
 
-            Type[] idToState = StateIndexTable.stateIndexToType;//.Get();
-            String[] idToName = StateIndexTable.stateIndexToTypeName;//.Get();
-            Dictionary<Type, Int16> stateToId = StateIndexTable.stateTypeToIndex;//.Get();
+            //Type[] idToState = StateIndexTable.stateIndexToType;//.Get();
+            //String[] idToName = StateIndexTable.stateIndexToTypeName;//.Get();
+            //Dictionary<Type, Int16> stateToId = StateIndexTable.stateTypeToIndex;//.Get();
 
-            Int32 ind = idToState.Length;
-            Array.Resize<Type>( ref idToState, ind + 1 );
-            Array.Resize<String>( ref idToName, ind + 1 );
-            idToState[ind] = type;
-            idToName[ind] = type.AssemblyQualifiedName;
-            stateToId[type] = (Int16)ind;
+            //Int32 ind = idToState.Length;
+            //Array.Resize<Type>( ref idToState, ind + 1 );
+            //Array.Resize<String>( ref idToName, ind + 1 );
+            //idToState[ind] = type;
+            //idToName[ind] = type.AssemblyQualifiedName;
+            //stateToId[type] = (Int16)ind;
 
-            StateIndexTable.stateIndexToType = idToState;
-            StateIndexTable.stateIndexToTypeName = idToName;
+            //StateIndexTable.stateIndexToType = idToState;
+            //StateIndexTable.stateIndexToTypeName = idToName;
 
             _ = addedSkillTypes.Add( type );
+            addedTypes.Add(type);
             //Log.Counter();
         }
 
@@ -89,8 +102,9 @@
                 throw new ArgumentNullException( "skillDef" );
             }
 
-            SkillCatalog.getAdditionalSkillDefs += ( list ) => list.Add( skillDef );
+            //SkillCatalog.getAdditionalSkillDefs += ( list ) => list.Add( skillDef );
             _ = addedSkillDefs.Add( skillDef );
+            addedSkills.Add(skillDef);
             //Log.Counter();
         }
 
@@ -112,8 +126,9 @@
                 throw new ArgumentNullException( "skillFamily" );
             }
 
-            SkillCatalog.getAdditionalSkillFamilies += ( list ) => list.Add( skillFamily );
+            //SkillCatalog.getAdditionalSkillFamilies += ( list ) => list.Add( skillFamily );
             _ = addedSkillFamilies.Add( skillFamily );
+            addedFamilies.Add(skillFamily);
             //Log.Counter();
         }
 
@@ -185,10 +200,51 @@
             cfg.Priority = Int32.MinValue;
             set_stateTypeHook = new Hook( type.GetMethod( "set_stateType", allFlags ), new set_stateTypeDelegate(SetStateTypeHook), cfg );
             set_typeNameHook = new Hook( type.GetMethod( "set_typeName", allFlags ), new set_typeNameDelegate(SetTypeName), cfg );
+
+            HooksCore.RoR2.EntityStateCatalog.Init.Il += Init_Il;
+            HooksCore.RoR2.EntityStateCatalog.SetElements.Il += SetElements_Il;
+            HooksCore.RoR2.Skills.SkillCatalog.Init.Il += Init_Il1;
             //Log.Warning( "SkillsCore loaded" );
             loaded = true;
         }
-        private static readonly Assembly ror2Assembly;
+
+        
+
+        private static void Init_Il1(ILContext il) => new ILCursor(il)
+            .GotoNext(MoveType.AfterLabel, x => x.MatchCallOrCallvirt(typeof(SkillCatalog), nameof(SkillCatalog.SetSkillDefs)))
+            .CallDel_(ArrayHelper.AppendDel(addedSkills))
+            .GotoNext(MoveType.AfterLabel, x => x.MatchCallOrCallvirt(typeof(SkillCatalog), nameof(SkillCatalog.SetSkillFamilies)))
+            .CallDel_(ArrayHelper.AppendDel(addedFamilies));
+
+        private static void SetElements_Il(ILContext il)
+        {
+            var c = new ILCursor(il);
+            if(c.TryGotoNext(MoveType.After, x => x.MatchCallOrCallvirt<Array>("Sort")))
+            {
+                c
+                    .Mark(out var lab)
+                    .Move(-4)
+                    .MoveAfterLabels()
+                    .Br_(lab);
+                
+            } else
+            {
+                Log.Warning("No sort call in EntityStateCatalog.SetElements");
+            }
+        }
+        private static void Init_Il(MonoMod.Cil.ILContext il) => new ILCursor(il)
+            .GotoNext(MoveType.AfterLabel,
+                x => x.MatchCallOrCallvirt(typeof(EntityStateCatalog).GetMethod(nameof(EntityStateCatalog.SetElements), BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.Public)))
+            .AddLocal<EntityStateConfiguration>(out var i)
+            .StLoc_(i)
+            .CallDel_(ArrayHelper.AppendDel(addedTypes))
+            .LdLoc_(i)
+            .Move(1)
+            .LdC_(0)
+            .StSFld_(typeof(SkillsCore).GetField(nameof(_canAdd), BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.Public));
+
+
+        private static readonly Assembly ror2Assembly = typeof(RoR2Application).Assembly;
         private static readonly HashSet<Type> addedSkillTypes = new HashSet<Type>();
         private static readonly HashSet<SkillDef> addedSkillDefs = new HashSet<SkillDef>();
         private static readonly HashSet<SkillFamily> addedSkillFamilies = new HashSet<SkillFamily>();
@@ -200,6 +256,10 @@
         private static readonly Dictionary<String,Int16> nameToIndexCache = new Dictionary<String, Int16>();
         private static readonly Hook set_stateTypeHook;
         private static readonly Hook set_typeNameHook;
+        private static readonly List<Type> addedTypes = new();
+        private static readonly List<SkillDef> addedSkills = new();
+        private static readonly List<SkillFamily> addedFamilies = new();
+
         private delegate void set_stateTypeDelegate( ref SerializableEntityStateType self, Type value );
         private delegate void set_typeNameDelegate( ref SerializableEntityStateType self, String value );
 
@@ -207,65 +267,42 @@
         private static void SetStateTypeHook( ref this SerializableEntityStateType self, Type value )
         {
             //Log.Counter();
-            if( value == null )
-            {
-                Log.Error( "Tried to set SerializableEntityStateType with a null type" );
-                //Log.Counter();
-                return;
-            }
-            Dictionary<Type, Int16> typeToId = StateIndexTable.stateTypeToIndex;//.Get();
-            if( !typeToId.ContainsKey( value ) )
-            {
-                String name = value.AssemblyQualifiedName;
-                if( value.IsSubclassOf( typeof( EntityState ) ) )
-                {
-                    Log.Warning( String.Format( "Unregistered type:\n{0}\nfound in SerializableEntityStateType, performing registration now.", name ) );
-                    AddSkill( value );
-                    if( !typeToId.ContainsKey( value ) )
-                    {
-                        Log.Error( String.Format( "Unable to register type:\n{0}", name ) );
-                        //Log.Counter();
-                        return;
-                    }
-                } else
-                {
-                    Log.Error( String.Format( "Tried to create SerializableEntityStateType for invalid type:\n{0}", name ) );
-                    //Log.Counter();
-                    return;
-                }
-            }
-            self._typeName = StateIndexTable.stateIndexToTypeName[typeToId[value]];
+            //if( value == null )
+            //{
+            //    Log.Error( "Tried to set SerializableEntityStateType with a null type" );
+            //    //Log.Counter();
+            //    return;
+            //}
+            //if(canAdd)
+            //{
+                
+            //}
+            //Dictionary<Type, EntityStateIndex> typeToId = EntityStateCatalog.stateTypeToIndex;//.Get();
+            //if(!typeToId.ContainsKey(value))
+            //{
+            //    String name = value.AssemblyQualifiedName;
+            //    if( value.IsSubclassOf( typeof( EntityState ) ) )
+            //    {
+            //        Log.Warning( String.Format( "Unregistered type:\n{0}\nfound in SerializableEntityStateType, performing registration now.", name ) );
+            //        AddSkill( value );
+            //        if( !typeToId.ContainsKey( value ) )
+            //        {
+            //            Log.Error( String.Format( "Unable to register type:\n{0}", name ) );
+            //            //Log.Counter();
+            //            return;
+            //        }
+            //    } else
+            //    {
+            //        Log.Error( String.Format( "Tried to create SerializableEntityStateType for invalid type:\n{0}", name ) );
+            //        //Log.Counter();
+            //        return;
+            //    }
+            //}
+            self._typeName = value.AssemblyQualifiedName;// EntityStateCatalog.stateIndexToTypeName[(Int32)typeToId[value]];
             //Log.Counter();
         }
 
-        private static readonly set_stateTypeDelegate set_stateType = new set_stateTypeDelegate( (ref SerializableEntityStateType self, Type value ) =>
-        {
-            if( value == null )
-            {
-                Log.Error( "Tried to set SerializableEntityStateType with a null type" );
-                return;
-            }
-            Dictionary<Type, Int16> typeToId = StateIndexTable.stateTypeToIndex;//.Get();
-            if( !typeToId.ContainsKey( value ) )
-            {
-                String name = value.AssemblyQualifiedName;
-                if( value.IsSubclassOf( typeof(EntityState) ) )
-                {
-                    Log.Warning( String.Format("Unregistered type:\n{0}\nfound in SerializableEntityStateType, performing registration now.", name ) );
-                    AddSkill( value );
-                    if( !typeToId.ContainsKey( value ) )
-                    {
-                        Log.Error( String.Format( "Unable to register type:\n{0}", name ) );
-                        return;
-                    }
-                } else
-                {
-                    Log.Error( String.Format("Tried to create SerializableEntityStateType for invalid type:\n{0}", name ));
-                    return;
-                }
-            }
-            self.typeName = StateIndexTable.stateIndexToTypeName[typeToId[value]];
-        });
+        
 
         private static void SetTypeName( ref this SerializableEntityStateType self, String value )
         {
@@ -276,39 +313,31 @@
             }
         }
 
-        private static readonly set_typeNameDelegate set_typeName = new set_typeNameDelegate( (ref SerializableEntityStateType self, String value ) =>
-        {
-            Type t = GetTypeFromName( value );
-            if( t != null )
-            {
-                self.SetStateTypeHook( t );
-            }
-        });
-
         private static Type GetTypeFromName( String name )
         {
-            Type[] types = StateIndexTable.stateIndexToType;
-            if( nameToIndexCache.ContainsKey( name ) )
-            {
-                return types[nameToIndexCache[name]];
-            } else
-            {
-                RebuildNameToIndexCache();
+            Type[] types = EntityStateCatalog.stateIndexToType;
+            return Type.GetType(name);
+            //if( nameToIndexCache.ContainsKey( name ) )
+            //{
+            //    return types[nameToIndexCache[name]];
+            //} else
+            //{
+            //    RebuildNameToIndexCache();
 
-                if( nameToIndexCache.ContainsKey( name ) )
-                {
-                    return types[nameToIndexCache[name]];
-                } else
-                {
-                    Log.Error( String.Format( "Could not find type for name:\n{0}", name ) );
-                    return null;
-                }
-            }
+            //    if( nameToIndexCache.ContainsKey( name ) )
+            //    {
+            //        return types[nameToIndexCache[name]];
+            //    } else
+            //    {
+            //        Log.Error( String.Format( "Could not find type for name:\n{0}", name ) );
+            //        return null;
+            //    }
+            //}
         }
 
         private static void RebuildNameToIndexCache()
         {
-            String[] names = StateIndexTable.stateIndexToTypeName;
+            String[] names = EntityStateCatalog.stateIndexToTypeName;
             for( Int16 i = 0; i < names.Length; ++i )
             {
                 nameToIndexCache[names[i]] = i;

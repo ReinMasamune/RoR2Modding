@@ -7,8 +7,6 @@
 
     using BepInEx;
 
-    using EntityLogic;
-
     using Mono.Cecil.Cil;
 
     using MonoMod.Cil;

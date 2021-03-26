@@ -57,7 +57,7 @@
                 Tokens.SNIPER_KEYWORD_PRIMARYDMG,
                 Tokens.SNIPER_KEYWORD_BOOST,
             };
-            skills.Add((standardAmmo, ""));
+            skills.Add((standardAmmo, null));
 
 
 
@@ -74,7 +74,7 @@
                 Tokens.SNIPER_KEYWORD_PRIMARYDMG,
                 Tokens.SNIPER_KEYWORD_BOOST,
             };
-            skills.Add((explosive, ""));
+            skills.Add((explosive, null));
  
 
 
@@ -89,7 +89,7 @@
                 Tokens.SNIPER_KEYWORD_PRIMARYDMG,
                 Tokens.SNIPER_KEYWORD_BOOST,
             };
-            skills.Add((burstAmmo, ""));
+            skills.Add((burstAmmo, null));
             //skills.Add(wip);
 
 
@@ -104,7 +104,7 @@
                 Tokens.SNIPER_KEYWORD_PRIMARYDMG,
                 Tokens.SNIPER_KEYWORD_BOOST,
             };
-            skills.Add((plasmaAmmo, ""));
+            skills.Add((plasmaAmmo, null));
 
             var shockAmmo = SniperAmmoSkillDef.Create<ShockContext>();
             shockAmmo.icon = Properties.Icons.ShockAmmoIcon;
@@ -118,7 +118,7 @@
                 Tokens.SNIPER_KEYWORD_CHARGED,
                 Tokens.SNIPER_KEYWORD_BOOST,
             };
-            skills.Add((shockAmmo, ""));
+            skills.Add((shockAmmo, null));
 
             var sporeAmmo = SniperAmmoSkillDef.Create<SporeContext>();
             sporeAmmo.icon = Properties.Icons.SporeAmmoIcon;
@@ -132,7 +132,7 @@
                 Tokens.SNIPER_KEYWORD_BOOST,
                 Tokens.SNIPER_KEYWORD_SPORECLOUD,
             };
-            skills.Add((sporeAmmo, ""));
+            skills.Add((sporeAmmo, null));
             SkillFamiliesModule.ammoSkills = skills;
         }
 
@@ -201,7 +201,7 @@
             snipe.skillName = "Snipe";
             snipe.noSprint = true;
             snipe.noSprintReload = false;
-            skills.Add((snipe, ""));
+            skills.Add((snipe, null));
 
             var mag = SniperReloadableFireSkillDef.Create<MagSnipe,MagReload>("Weapon", "Weapon");
             mag.actualMaxStock = 4;
@@ -235,7 +235,7 @@
             mag.skillName = "MagSnipe";
             mag.noSprint = true;
             mag.noSprintReload = false;
-            skills.Add((mag, ""));
+            skills.Add((mag, null));
             //skills.Add(wip);
 
             //var slide = SniperReloadableFireSkillDef.Create<SlideSnipe,SlideReload>("Weapon", "Body");
@@ -270,7 +270,7 @@
             //slide.skillName = "Slide";
             //skills.Add( slide );
 
-            skills.Add(wip);
+            //skills.Add(wip);
 
             SkillFamiliesModule.primarySkills = skills;
         }
@@ -313,7 +313,7 @@
                 Tokens.SNIPER_KEYWORD_BOOST,
             };
             charge.consumeChargeOnFire = true;
-            skills.Add((charge, ""));
+            skills.Add((charge, null));
 
             var quick = SniperScopeSkillDef.Create<QuickScope>( new ZoomParams(shoulderStart: 1f, shoulderEnd: 5f,
                                                                                                              scopeStart: 3f, scopeEnd: 8f,
@@ -338,10 +338,10 @@
                 Tokens.SNIPER_KEYWORD_BOOST,
             };
             quick.consumeChargeOnFire = true;
-            skills.Add((quick, ""));
+            skills.Add((quick, null));
 
 
-            skills.Add(wip);
+            //skills.Add(wip);
 
 
 
@@ -376,9 +376,9 @@
                 Tokens.SNIPER_KEYWORD_RELOADS,
                 "KEYWORD_STUNNING",
             };
-            skills.Add((backflip, ""));
+            skills.Add((backflip, null));
 
-            skills.Add(wip);
+            //skills.Add(wip);
 
             SkillFamiliesModule.utilitySkills = skills;
         }
@@ -418,7 +418,7 @@
                 "KEYWORD_WEAK",
                 "KEYWORD_STUNNING",
             };
-            skills.Add((decoy, ""));
+            skills.Add((decoy, null));
 
             var knife = KnifeSkillDef.Create<KnifeActivation,KnifeReactivation>( "Weapon", "Body" );
             knife.baseMaxStock = 1;
@@ -451,7 +451,7 @@
             KnifeSkillData.targetMachineName = "Weapon";
             KnifeSkillData.slashState = SkillsCore.StateType<KnifePickupSlash>();
            
-            skills.Add((knife, ""));
+            skills.Add((knife, null));
 
             SkillFamiliesModule.specialSkills = skills;
         }

@@ -7,7 +7,7 @@
     public class MaterialInfo : ScriptableObject
     {
         public Material material;
-        public Mesh target;
+        public GameObject target;
 
         public Single size;
         public Single distance;
